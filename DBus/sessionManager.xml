@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+  <interface name="com.deepin.SessionManager">\n 
+    <method name="CanHibernate">\n 
+      <arg type="b" direction="out"/>\n
+    </method>\n 
+    <method name="CanLogout">\n 
+      <arg type="b" direction="out"/>\n
+    </method>\n 
+    <method name="CanReboot">\n 
+      <arg type="b" direction="out"/>\n
+    </method>\n 
+    <method name="CanShutdown">\n 
+      <arg type="b" direction="out"/>\n
+    </method>\n 
+    <method name="CanSuspend">\n 
+      <arg type="b" direction="out"/>\n
+    </method>\n 
+    <method name="ForceLogout"/>\n 
+    <method name="ForceReboot"/>\n 
+    <method name="ForceShutdown"/>\n 
+    <method name="Logout"/>\n 
+    <method name="PowerOffChoose"/>\n 
+    <method name="Reboot"/>\n 
+    <method name="Register">\n 
+      <arg type="s" direction="in"/>\n 
+      <arg type="b" direction="out"/>\n
+    </method>\n 
+    <method name="RequestHibernate"/>\n 
+    <method name="RequestLock"/>\n 
+    <method name="RequestLogout"/>\n 
+    <method name="RequestReboot"/>\n 
+    <method name="RequestShutdown"/>\n 
+    <method name="RequestSuspend"/>\n 
+    <method name="ShowGuideOnce">\n 
+      <arg type="b" direction="out"/>\n
+    </method>\n 
+    <method name="Shutdown"/>\n 
+    <property name="CurrentUid" type="s" access="read"/>\n 
+    <property name="Stage" type="i" access="read"/>\n
+  </interface>\n 
+
