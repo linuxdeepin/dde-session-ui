@@ -51,8 +51,8 @@ HEADERS  += \
     controller/dbusmanagement.h
 
 RESOURCES += \
-    image.qrc \
-    qss.qrc
+    qss.qrc \
+    image.qrc
 
 target.path = $${PREFIX}/bin/
 INSTALLS += target

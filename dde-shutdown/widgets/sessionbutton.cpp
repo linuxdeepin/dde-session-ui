@@ -4,11 +4,10 @@
 SessionButton::SessionButton(QString text, QString buttonId, QWidget *parent)
     : QFrame(parent)
 {
-    setObjectName("SessionButton");
-    setFixedSize(QSize(140, 140));
+    setFixedSize(QSize(120, 120));
     m_contentButton = new QPushButton;
     m_contentButton->setCheckable(true);
-    m_contentButton->setFixedSize(QSize(100, 100));
+    m_contentButton->setFixedSize(QSize(75, 75));
     m_buttonId = buttonId;
     m_contentButton->setObjectName(buttonId);
     m_contentButton->setFocusPolicy(Qt::NoFocus);
@@ -29,12 +28,14 @@ SessionButton::SessionButton(QString text, QString buttonId, QWidget *parent)
 
     m_Layout = new QVBoxLayout;
     m_Layout->setMargin(0);
+    m_Layout->addSpacing(4);
     m_Layout->addLayout(m_ButtonLayout);
-    m_Layout->addSpacing(8);
+    m_Layout->setSpacing(2);
     m_Layout->addWidget(m_contentTextLabel);
     m_Layout->addStretch(0);
-
+    addNameShadow();
     setLayout(m_Layout);
+
     initConnect();
 }
 
@@ -74,9 +75,16 @@ void SessionButton::paintEvent(QPaintEvent *event){
          painter.setPen(QPen(QColor(255, 255, 255, 51), 2));
          painter.setBrush(QColor(0, 0 , 0, 76));
          painter.setRenderHint(QPainter::Antialiasing, true);
-         painter.drawRoundedRect(QRect(2, 2, 136, 136), 10, 10, Qt::RelativeSize);
+         painter.drawRoundedRect(QRect(2, 2, 116, 116), 10, 10, Qt::RelativeSize);
      }
      QFrame::paintEvent(event);
+}
+void SessionButton::addNameShadow() {
+    QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect;
+    nameShadow->setBlurRadius(16);
+    nameShadow->setColor(QColor(0, 0, 0, 85));
+    nameShadow->setOffset(0, 4);
+    m_contentTextLabel->setGraphicsEffect(nameShadow);
 }
 void SessionButton::initConnect() {
      connect(m_contentButton, SIGNAL(clicked()), this, SLOT(sendSignal()));

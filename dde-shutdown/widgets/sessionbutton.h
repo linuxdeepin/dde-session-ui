@@ -6,6 +6,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets>
 #include <QtGui/QFocusEvent>
+#include <QtWidgets/QGraphicsDropShadowEffect>
 
 #include "signalmanagement/signalmanager.h"
 
@@ -35,5 +36,6 @@ private:
     QVBoxLayout* m_Layout;
     QHBoxLayout* m_ButtonLayout;
     void initConnect();
+    void addNameShadow();
 };
 #endif // SESSIONBUTTON

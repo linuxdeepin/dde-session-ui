@@ -7,43 +7,39 @@
 SessionManagement::SessionManagement(QWidget *parent)
     : QFrame(parent)
 {
-     setObjectName("SessionManagerTool");
-     setWindowFlags(Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint);
+    setObjectName("SessionManagerTool");
+    setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
+    m_backgroundLabel = new BackgroundLabel(true, this);
 
-     m_backgroundLabel = new BackgroundLabel(true, this);
+    m_leftContent = new LeftFrame(m_mode);
+    m_content = new MainFrame(m_mode);
+    m_rightContent = new PowerMenuFrame(m_mode);
 
-     m_leftContent = new LeftFrame(m_mode);
-     m_content = new MainFrame(m_mode);
-     m_rightContent = new PowerMenuFrame(m_mode);
+    m_Layout = new QHBoxLayout;
+    m_Layout->setMargin(0);
+    m_Layout->setSpacing(0);
+    m_Layout->addWidget(m_leftContent);
+    m_Layout->addWidget(m_content);
+    m_Layout->addWidget(m_rightContent);
+    setLayout(m_Layout);
 
-     m_Layout = new QHBoxLayout;
-     m_Layout->setMargin(0);
-     m_Layout->setSpacing(0);
-     m_Layout->addWidget(m_leftContent);
-     m_Layout->addWidget(m_content);
-     m_Layout->addWidget(m_rightContent);
-     setLayout(m_Layout);
+    QFile qssFile(":/skin/main.qss");
+    QString qss;
+    qssFile.open(QFile::ReadOnly);
+    if(qssFile.isOpen())
+    {
+        qss = QLatin1String(qssFile.readAll());
+        this->setStyleSheet(qss);
+        qssFile.close();
+    }
 
+    resize(qApp->desktop()->screenGeometry().size());
+    showFullScreen();
+    activateWindow();
 
+    initConnect();
 
-
-     QFile qssFile(":/skin/main.qss");
-     QString qss;
-     qssFile.open(QFile::ReadOnly);
-     if(qssFile.isOpen())
-     {
-         qss = QLatin1String(qssFile.readAll());
-         this->setStyleSheet(qss);
-         qssFile.close();
-     }
-     resize(qApp->desktop()->screenGeometry().size());
-     showFullScreen();
-
-     activateWindow();
-
-     initConnect();
-
-     m_sessionInterface = new SessionManageInterfaceManagement(this);
+    m_sessionInterface = new SessionManageInterfaceManagement(this);
 }
 
 SessionManagement::~SessionManagement()
