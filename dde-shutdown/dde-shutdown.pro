@@ -3,6 +3,7 @@
 # Project created by QtCreator 2015-09-06T17:37:11
 #
 #-------------------------------------------------
+include(../common.pri)
 
 QT       += core
 QT       += gui dbus
@@ -52,3 +53,6 @@ HEADERS  += \
 RESOURCES += \
     image.qrc \
     qss.qrc
+
+target.path = $${PREFIX}/bin/
+INSTALLS += target
