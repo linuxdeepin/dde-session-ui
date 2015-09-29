@@ -64,7 +64,7 @@ QPushButton#ShutDownButton:hover {
     background-color: transparent ;
     background-repeat:no-repeat;
 }
-QPushButton#ShutDownButton:pressed {
+QPushButton#ShutDownButton:checked {
     background-image: url(:img/shutdown_press.svg);
     background-color: transparent;
     background-repeat:no-repeat;
@@ -79,7 +79,7 @@ QPushButton#RestartButton:hover {
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#RestartButton:pressed {
+QPushButton#RestartButton:checked {
     background-image: url(:img/restart_press.svg);
     background-color: transparent;
     background-repeat:no-repeat;
@@ -95,7 +95,7 @@ QPushButton#SuspendButton:hover {
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#SuspendButton:pressed {
+QPushButton#SuspendButton:checked {
     background-image: url(:img/suspend_press.svg);
     background-color: transparent;
     background-repeat:no-repeat;
@@ -110,7 +110,7 @@ QPushButton#LockButton:hover {
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#LockButton:pressed {
+QPushButton#LockButton:checked {
     background-image:url(:img/lock_press.svg);
     background-color: transparent;
     background-repeat:no-repeat;
@@ -125,7 +125,7 @@ QPushButton#UserSwitchButton:hover {
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#UserSwitchButton:pressed {
+QPushButton#UserSwitchButton:checked {
     background-image: url(:img/userswitch_press.svg);
     background-color: transparent;
     background-repeat:no-repeat;
@@ -140,7 +140,7 @@ QPushButton#LogoutButton:hover {
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#LogoutButton:pressed {
+QPushButton#LogoutButton:checked {
     background-image:url(:img/logout_press.svg);
     background-color: transparent;
     background-repeat:no-repeat;

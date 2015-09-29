@@ -22,6 +22,7 @@ public slots:
     void sendSignal();
     void setChecked(bool checked);
     void setButtonMutex(QString buttonName);
+    void setButtonChecked();
 protected:
     void paintEvent(QPaintEvent *event);
 signals:

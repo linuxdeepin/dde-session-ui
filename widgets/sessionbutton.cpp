@@ -6,9 +6,8 @@ SessionButton::SessionButton(QString text, QString buttonId, QWidget *parent)
 {
     setObjectName("SessionButton");
     setFixedSize(QSize(140, 140));
-//    this->setStyleSheet("background-color: red;");
     m_contentButton = new QPushButton;
-//    m_contentButton->setStyleSheet("background-color: green;");
+    m_contentButton->setCheckable(true);
     m_contentButton->setFixedSize(QSize(100, 100));
     m_buttonId = buttonId;
     m_contentButton->setObjectName(buttonId);
@@ -37,8 +36,6 @@ SessionButton::SessionButton(QString text, QString buttonId, QWidget *parent)
 
     setLayout(m_Layout);
     initConnect();
-
-
 }
 
 SessionButton::~SessionButton()
@@ -52,7 +49,7 @@ void SessionButton::sendSignal() {
 
 
 bool SessionButton::isChecked() const{
-    return m_checked;
+    return (m_checked | m_contentButton->isChecked());
 }
 QString SessionButton::buttonId() {
     return m_contentButton->objectName();
@@ -65,8 +62,8 @@ void SessionButton::setChecked(bool checked){
 }
 void SessionButton::setButtonMutex(QString buttonName) {
     if (buttonName != this->objectName()) {
-        qDebug() << buttonName << false;
         setChecked(false);
+        m_contentButton->setChecked(false);
     } else {
         setChecked(true);
     }
@@ -83,4 +80,8 @@ void SessionButton::paintEvent(QPaintEvent *event){
 }
 void SessionButton::initConnect() {
      connect(m_contentButton, SIGNAL(clicked()), this, SLOT(sendSignal()));
+     connect(m_contentButton, SIGNAL(clicked()), this, SLOT(setButtonChecked()));
+}
+void SessionButton::setButtonChecked() {
+    m_contentButton->setChecked(true);
 }

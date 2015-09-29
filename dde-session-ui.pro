@@ -19,11 +19,7 @@ CONFIG += c++11 link_pkgconfig
 include(./background/background.pri)
 
 SOURCES += main.cpp\
-    mainframe.cpp \
-    powermenuframe.cpp \
-    dbusmanagement.cpp \
     signalmanagement/signalmanager.cpp \
-    sessionmanagement.cpp \
     dbus/dbussessionmanager.cpp \
     user/imagebutton.cpp \
     user/userframe.cpp \
@@ -32,14 +28,14 @@ SOURCES += main.cpp\
     widgets/passwdedit.cpp \
     view/contentwidget.cpp \
     view/leftframe.cpp \
-    view/leftcornerwidget.cpp
+    view/leftcornerwidget.cpp \
+    view/powermenuframe.cpp \
+    view/mainframe.cpp \
+    app/sessionmanagement.cpp \
+    controller/dbusmanagement.cpp
 
 HEADERS  += \
-    powermenuframe.h \
-    mainframe.h \
-    dbusmanagement.h \
     signalmanagement/signalmanager.h \
-    sessionmanagement.h \
     dbus/dbussessionmanager.h \
     user/imagebutton.h \
     user/userframe.h \
@@ -48,7 +44,11 @@ HEADERS  += \
     widgets/passwdedit.h \
     view/contentwidget.h \
     view/leftcornerwidget.h \
-    view/leftframe.h
+    view/leftframe.h \
+    view/mainframe.h \
+    view/powermenuframe.h \
+    app/sessionmanagement.h \
+    controller/dbusmanagement.h
 
 DISTFILES +=
 

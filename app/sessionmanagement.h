@@ -4,10 +4,10 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 
-#include "leftframe.h"
-#include "mainframe.h"
-#include "powermenuframe.h"
-#include "dbusmanagement.h"
+#include "view/leftframe.h"
+#include "view/mainframe.h"
+#include "view/powermenuframe.h"
+#include "controller/dbusmanagement.h"
 #include "background/backgroundlabel.h"
 #include "signalmanagement/signalmanager.h"
 

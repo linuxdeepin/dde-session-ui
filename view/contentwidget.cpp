@@ -10,6 +10,7 @@ ShutDownFrame::ShutDownFrame(QWidget *parent)
 
     m_shutdownButton = new SessionButton("ShutDown", "ShutDownButton");
     m_shutdownButton->setObjectName("ShutDownButtonFrame");
+    m_shutdownButton->setButtonChecked();
     m_restartButton = new SessionButton("Restart", "RestartButton");
     m_restartButton->setObjectName("RestartButtonFrame");
     m_suspendButton = new SessionButton("Suspend", "SuspendButton");
@@ -82,7 +83,7 @@ void ShutDownFrame::initConnect() {
     connect(signalManager, SIGNAL(setButtonCheck(QString)), this, SLOT(setButtonGroupMutex(QString)));
 }
 void ShutDownFrame::setButtonGroupMutex(QString buttonId) {
-    qDebug() << "Button Mutex" << buttonId;
+    Q_UNUSED(buttonId);
 }
 
 void ShutDownFrame::ShutDownAction( ) {
@@ -90,7 +91,6 @@ void ShutDownFrame::ShutDownAction( ) {
     QList<SessionButton*> m_children = this->findChildren<SessionButton *>();
     for (int i = 0; i < m_children.length(); i++) {
         if (m_children[i]->isChecked()) {
-            qDebug() << "ENTer:" << m_children[i]->objectName();
             emit m_children[i]->buttonAction(m_children[i]->buttonId());
         }
     }

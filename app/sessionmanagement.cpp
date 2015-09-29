@@ -7,7 +7,6 @@
 SessionManagement::SessionManagement(QWidget *parent)
     : QFrame(parent)
 {
-//     setFocusPolicy(Qt::StrongFocus);
      setObjectName("SessionManagerTool");
      setWindowFlags(Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint);
 
@@ -63,6 +62,7 @@ void SessionManagement::powerAction(QString action) {
     } else if (action == "LogoutButton") {
         m_sessionInterface->ForceLogout();
     }
+    qApp->quit();
 }
 void SessionManagement::setMode(int mode) {
     m_mode = mode;
@@ -134,5 +134,4 @@ void SessionManagement::initConnect() {
     connect(m_content->m_shutdownFrame, SIGNAL(ShutDownFrameActions(QString)), this, SLOT(powerAction(QString)));
 }
 void SessionManagement::testing() {
-    qDebug() << "testing tesing";
 }

@@ -5,8 +5,8 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QPushButton>
 
-#include "sessionbutton.h"
-#include "passwdedit.h"
+#include "widgets/sessionbutton.h"
+#include "widgets/passwdedit.h"
 #include "user/userframe.h"
 #include "signalmanagement/signalmanager.h"
 

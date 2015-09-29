@@ -75,10 +75,8 @@ void MainFrame::DirectRight() {
         emit m_quickShutDownFrame->keyRight();
     }
 }
-void MainFrame::EnterAction() {
-    qDebug() << "ENterAction";
-    if (m_mode == 2) {
-        qDebug() << "EnterAction" << m_mode;
+void MainFrame::EnterAction() { 
+    if (m_mode == 2) {  
         emit m_shutdownFrame->pressEnterAction();
     }
 }

@@ -32,9 +32,6 @@ UserWidget::UserWidget(QWidget *parent)
 //    addUser(QString(":img/mingren.png"), "linda");
     setLayout(m_Layout);
     setStyleSheet("background-color: #66CDAA");
-    qDebug() << "desktopRect:" << desktopRect;
-    qDebug() << "this widget size:" << this->geometry()
-             << this->width() << this->height();
 
     QList<ImageButton*> m_children =
             this->findChildren<ImageButton *>();
@@ -63,7 +60,6 @@ void UserWidget::initConnect() {
     connect(m_hideAnimation, &QPropertyAnimation::finished,
             [=]{
         this->update();
-        qDebug() << "afterHide" << this->geometry();
     });
 }
 void UserWidget::addUser(QString url, QString name) {
@@ -78,7 +74,6 @@ void UserWidget::addUser(QString url, QString name) {
 }
 void UserWidget::loginInUser(QString nam) {
 
-     qDebug() << "login";
      hideWidget();
 
      QList<ImageButton*> m_children =
@@ -122,8 +117,6 @@ void UserWidget::showWidget() {
 void UserWidget::hideWidget() {
     QRect rectBegin = QRect(this->x(), m_finalY,
                             this->width(), USER_ICON_SIZE);
-    qDebug() << "before hide:" << this->width();
-    qDebug() << "rectBegin:" << rectBegin ;
     m_hideAnimation->setStartValue(rectBegin);
     QRect rectEnd = QRect(m_finalX, m_finalY, USER_ICON_SIZE, USER_ICON_SIZE);
     m_hideAnimation->setEndValue(rectEnd);
