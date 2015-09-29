@@ -90,7 +90,7 @@ void SessionManagement::keyPressEvent(QKeyEvent *e) {
     } else if (e->key()==Qt::Key_Right) {
         emit DirectKeyRight();
     }
-    /*switch (e->key()) {
+    switch (e->key()) {
     case Qt::Key_F6:
         m_mode = 0;
         m_leftContent->setMode(m_mode);
@@ -115,7 +115,7 @@ void SessionManagement::keyPressEvent(QKeyEvent *e) {
         m_content->setMode(m_mode);
         m_rightContent->setMode(m_mode);
         break;
-    }*/
+    }
 
 }
 void SessionManagement::mouseReleaseEvent(QMouseEvent *e) {
