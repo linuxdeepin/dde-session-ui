@@ -90,32 +90,32 @@ void SessionManagement::keyPressEvent(QKeyEvent *e) {
     } else if (e->key()==Qt::Key_Right) {
         emit DirectKeyRight();
     }
-    switch (e->key()) {
-    case Qt::Key_F6:
-        m_mode = 0;
-        m_leftContent->setMode(m_mode);
-        m_content->setMode(m_mode);
-        m_rightContent->setMode(m_mode);
-        break;
-    case Qt::Key_F2:
-        m_mode = 1;
-        m_leftContent->setMode(m_mode);
-        m_content->setMode(m_mode);
-        m_rightContent->setMode(m_mode);
-        break;
-    case Qt::Key_F3:
-        m_mode = 2;
-        m_leftContent->setMode(m_mode);
-        m_content->setMode(m_mode);
-        m_rightContent->setMode(m_mode);
-        break;
-    case Qt::Key_F5:
-        m_mode = 3;
-        m_leftContent->setMode(m_mode);
-        m_content->setMode(m_mode);
-        m_rightContent->setMode(m_mode);
-        break;
-    }
+//    switch (e->key()) {
+//    case Qt::Key_F6:
+//        m_mode = 0;
+//        m_leftContent->setMode(m_mode);
+//        m_content->setMode(m_mode);
+//        m_rightContent->setMode(m_mode);
+//        break;
+//    case Qt::Key_F2:
+//        m_mode = 1;
+//        m_leftContent->setMode(m_mode);
+//        m_content->setMode(m_mode);
+//        m_rightContent->setMode(m_mode);
+//        break;
+//    case Qt::Key_F3:
+//        m_mode = 2;
+//        m_leftContent->setMode(m_mode);
+//        m_content->setMode(m_mode);
+//        m_rightContent->setMode(m_mode);
+//        break;
+//    case Qt::Key_F5:
+//        m_mode = 3;
+//        m_leftContent->setMode(m_mode);
+//        m_content->setMode(m_mode);
+//        m_rightContent->setMode(m_mode);
+//        break;
+//    }
 
 }
 void SessionManagement::mouseReleaseEvent(QMouseEvent *e) {
