@@ -1,0 +1,141 @@
+ QFrame#shutdownButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QFrame#restartButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QFrame#suspendButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QFrame#lockButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+
+QFrame#logoutButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QFrame#userSwitchButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QPushButton#shutdownButtton {
+    background-image: url(:img/shutdown_normal.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#shutdownButtton:hover {
+    background-image: url(:img/shutdown_hover.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#shutdownButtton:pressed {
+    background-image: url(:img/shutdown_press.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#restartButtton {
+    background-image: url(:img/restart_normal.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#restartButtton:hover {
+    background-image: url(:img/restart_hover.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#restartButtton:pressed {
+    background-image: url(:img/restart_press.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#suspendButtton  {
+    background-image: url(:img/suspend_normal.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+
+QPushButton#suspendButtton:hover {
+    background-image: url(:img/suspend_hover.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#suspendButtton:pressed {
+    background-image: url(:img/suspend_press.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#lockButtton {
+    background-image:url(:img/lock_normal.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#lockButtton:hover {
+    background-image:url(:img/lock_hover.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#lockButtton:pressed {
+    background-image:url(:img/lock_press.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#userSwitchButtton {
+    background-image: url(:img/user_switch_normal.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#userSwitchButtton:hover {
+    background-image: url(:img/user_switch_hover.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#userSwitchButtton:pressed {
+    background-image: url(:img/user_switch_press.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#logoutButtton {
+    background-image: url(:img/logout_normal.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#logoutButtton:hover {
+    background-image:url(:img/logout_hover.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#logoutButtton:pressed {
+    background-image:url(:img/logout_press.png);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+

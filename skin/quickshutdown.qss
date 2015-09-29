@@ -1,0 +1,70 @@
+QFrame#QuickShutDownButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QFrame#QuickRestartButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QFrame#QuickSuspendButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QPushButton#QuickShutDownButton {
+    background-image: url(:img/shutdown_normal.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#QuickShutDownButton:hover {
+    background-image: url(:img/shutdown_hover.svg);
+    background-color: transparent ;
+    background-repeat:no-repeat;
+}
+QPushButton#QuickShutDownButton:pressed {
+    background-image: url(:img/shutdown_press.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#QuickRestartButton {
+    background-image: url(:img/restart_normal.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#QuickRestartButton:hover {
+    background-image: url(:img/restart_hover.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#QuickRestartButton:pressed {
+    background-image: url(:img/restart_press.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#QuickSuspendButton  {
+    background-image: url(:img/suspend_normal.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+
+QPushButton#QuickSuspendButton:hover {
+    background-image: url(:img/suspend_hover.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#QuickSuspendButton:pressed {
+    background-image: url(:img/suspend_press.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}

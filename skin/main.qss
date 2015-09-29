@@ -1,0 +1,44 @@
+QFrame#SessionManager {
+    background-image: url(:/img/outspace.jpg);
+    /*background-image:transparent;*/
+    /*background-image:pink;*/
+}
+QLabel#Logo {
+   /* background-image: url(images/welcome.png);*/
+   background-image:url(:img/logo.png);
+   background-repeat: none;
+   margin:0px 0px 0px 0px;
+}
+QLabel#LogoVersion {
+   color: white;
+   font-size: 11px;
+}
+QPushButton#PowerMenu  {
+   background-image: url(:img/powermenu.png);
+   background-repeat: none;
+   background-color: transparent;
+   margin:0px 0px 0px 0px;
+}
+QFrame#LeftFrame {
+    background-color: green;
+}
+/*QWidget#LogoWidget  {
+    background-color:blue;
+}
+QWidget#TimeWidget {
+    background-color: blue;
+}*/
+QLineEdit#passwdLineEdit {
+    border-radius: 3px;
+    border-color: red;
+    color: white;
+    background-color: transparent;
+}
+QFrame#passwdEnterFrame {
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    margin: 0px 0px 0px 0px;
+    background-color: rgba(245, 245, 245, 30);
+}

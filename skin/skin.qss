@@ -1,58 +1,4 @@
-QFrame#SessionManager {
-    background-image: url(:/img/outspace.jpg);
-    /*background-image:transparent;*/
-    /*background-image:pink;*/
-}
-QLabel#Logo {
-   /* background-image: url(images/welcome.png);*/
-   background-image:url(:img/logo.png);
-   background-repeat: none;
-   margin:0px 0px 0px 0px;
-}
-QLabel#LogoVersion {
-   color: white;
-}
-QPushButton#PowerMenu  {
-   background-image: url(:img/powermenu.png);
-   background-repeat: none;
-   background-color: transparent;
-   margin:0px 0px 0px 0px;
-}
-/*QPushButton#ShutDown:focus{
-   background-image: url(:img/shutdown_normal.png);
-   background-repeat: none;
-   background-color: transparent;
-   border-color: transparent;
-   margin:4px 4px 4px 4px;
-}
-QPushButton#ShutDown:pressed {
-   background-image: url(:img/shutdown_press.png);
-   background-repeat: none;
-   background-color: transparent;
-   border-color: transparent;
-   margin:0px 0px 0px 0px;
-}*/
-QFrame#LeftView {
-    /*background-image:white;*/
-}
-QWidget#LogoWidget {
-    background-image:transparent;
-}
-QLineEdit#passwdLineEdit {
-    border-radius: 3px;
-    border-color: red;
-    color: white;
-    background-color: transparent;
-}
-QFrame#passwdEnterFrame {
-    border-width: 1px;
-    border-style: solid;
-    border-color: white;
-    border-radius: 4px;
-    margin: 0px 0px 0px 0px;
-    background-color: rgba(245, 245, 245, 30);
-}
-QFrame#shutdownButtonFrame1:focus {
+ QFrame#ShutDownButtonFrame:focus {
     border-width: 1px;
     padding: 1px;
     border-style: solid;
@@ -60,7 +6,7 @@ QFrame#shutdownButtonFrame1:focus {
     border-radius: 4px;
     background-color:rgba(245, 245, 245, 30);
 }
-QFrame#restartButtonFrame1:focus {
+QFrame#RestartButtonFrame:focus {
     border-width: 1px;
     padding: 1px;
     border-style: solid;
@@ -68,7 +14,7 @@ QFrame#restartButtonFrame1:focus {
     border-radius: 4px;
     background-color:rgba(245, 245, 245, 30);
 }
-QFrame#suspendButtonFrame1:focus {
+QFrame#SuspendButtonFrame:focus {
     border-width: 1px;
     padding: 1px;
     border-style: solid;
@@ -76,7 +22,7 @@ QFrame#suspendButtonFrame1:focus {
     border-radius: 4px;
     background-color:rgba(245, 245, 245, 30);
 }
-QFrame#lockButtonFrame1:focus {
+QFrame#LockButtonFrame:focus {
     border-width: 1px;
     padding: 1px;
     border-style: solid;
@@ -85,7 +31,7 @@ QFrame#lockButtonFrame1:focus {
     background-color:rgba(245, 245, 245, 30);
 }
 
-QFrame#logoutButtonFrame1:focus {
+QFrame#LogoutButtonFrame:focus {
     border-width: 1px;
     padding: 1px;
     border-style: solid;
@@ -93,7 +39,7 @@ QFrame#logoutButtonFrame1:focus {
     border-radius: 4px;
     background-color:rgba(245, 245, 245, 30);
 }
-QFrame#userSwitchButtonFrame1:focus {
+QFrame#UserSwitchButtonFrame:focus {
     border-width: 1px;
     padding: 1px;
     border-style: solid;
@@ -101,165 +47,95 @@ QFrame#userSwitchButtonFrame1:focus {
     border-radius: 4px;
     background-color:rgba(245, 245, 245, 30);
 }
-QPushButton#shutdownButton1 {
+QPushButton#ShutdownButtton {
     background-image: url(:img/shutdown_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#shutdownButton1:hover {
+QPushButton#ShutdownButtton:hover {
     background-image: url(:img/shutdown_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#shutdownButton1:pressed {
+QPushButton#ShutdownButtton:pressed {
     background-image: url(:img/shutdown_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#restartButton1 {
+QPushButton#RestartButtton {
     background-image: url(:img/restart_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#restartButton1:hover {
+QPushButton#RestartButtton:hover {
     background-image: url(:img/restart_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#restartButton1:pressed {
+QPushButton#RestartButtton:pressed {
     background-image: url(:img/restart_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#suspendButton1  {
+QPushButton#SuspendButtton  {
     background-image: url(:img/suspend_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 
-QPushButton#suspendButton1:hover {
+QPushButton#SuspendButtton:hover {
     background-image: url(:img/suspend_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#suspendButton1:pressed {
+QPushButton#SuspendButtton:pressed {
     background-image: url(:img/suspend_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#lockButton1 {
+QPushButton#LockButtton {
     background-image:url(:img/lock_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#lockButton1:hover {
+QPushButton#LockButtton:hover {
     background-image:url(:img/lock_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#lockButton1:pressed {
+QPushButton#LockButtton:pressed {
     background-image:url(:img/lock_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#userSwitchButton1 {
+QPushButton#UserSwitchButtton {
     background-image: url(:img/user_switch_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#userSwitchButton1:hover {
+QPushButton#UserSwitchButtton:hover {
     background-image: url(:img/user_switch_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#userSwitchButton1:pressed {
+QPushButton#UserSwitchButtton:pressed {
     background-image: url(:img/user_switch_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#logoutButton1 {
+QPushButton#LogoutButtton {
     background-image: url(:img/logout_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#logoutButton1:hover {
+QPushButton#LogoutButtton:hover {
     background-image:url(:img/logout_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
-QPushButton#logoutButton1:pressed {
+QPushButton#LogoutButtton:pressed {
     background-image:url(:img/logout_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 
-QFrame#shutdownButtonFrame2:focus {
-    border-width: 1px;
-    padding: 1px;
-    border-style: solid;
-    border-color: white;
-    border-radius: 4px;
-    background-color:rgba(245, 245, 245, 30);
-}
-QFrame#restartButtonFrame2:focus {
-    border-width: 1px;
-    padding: 1px;
-    border-style: solid;
-    border-color: white;
-    border-radius: 4px;
-    background-color:rgba(245, 245, 245, 30);
-}
-QFrame#suspendButtonFrame2:focus {
-    border-width: 1px;
-    padding: 1px;
-    border-style: solid;
-    border-color: white;
-    border-radius: 4px;
-    background-color:rgba(245, 245, 245, 30);
-}
-QPushButton#shutdownButton2 {
-    background-image: url(:img/shutdown_normal.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QPushButton#shutdownButton2:hover {
-    background-image: url(:img/shutdown_hover.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QPushButton#shutdownButton2:pressed {
-    background-image: url(:img/shutdown_press.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QPushButton#restartButton2 {
-    background-image: url(:img/restart_normal.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QPushButton#restartButton2:hover {
-    background-image: url(:img/restart_hover.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QPushButton#restartButton2:pressed {
-    background-image: url(:img/restart_press.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QPushButton#suspendButton2  {
-    background-image: url(:img/suspend_normal.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-
-QPushButton#suspendButton2:hover {
-    background-image: url(:img/suspend_hover.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QPushButton#suspendButton2:pressed {
-    background-image: url(:img/suspend_press.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}

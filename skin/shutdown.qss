@@ -1,0 +1,148 @@
+QFrame {
+    background-color: transparent;
+}
+/*QPushButton {
+    background-color: transparent;
+}*/
+QFrame#ShutDownButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QFrame#RestartButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QFrame#SuspendButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QFrame#LockButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+
+QFrame#LogoutButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+QFrame#UserSwitchButtonFrame:focus {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px;
+    background-color:rgba(245, 245, 245, 30);
+}
+
+QPushButton#ShutDownButton {
+    background-image: url(:img/shutdown_normal.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#ShutDownButton:hover {
+    background-image: url(:img/shutdown_hover.svg);
+    background-color: transparent ;
+    background-repeat:no-repeat;
+}
+QPushButton#ShutDownButton:pressed {
+    background-image: url(:img/shutdown_press.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#RestartButton {
+    background-image: url(:img/restart_normal.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#RestartButton:hover {
+    background-image: url(:img/restart_hover.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#RestartButton:pressed {
+    background-image: url(:img/restart_press.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#SuspendButton  {
+    background-image: url(:img/suspend_normal.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+
+QPushButton#SuspendButton:hover {
+    background-image: url(:img/suspend_hover.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#SuspendButton:pressed {
+    background-image: url(:img/suspend_press.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#LockButton {
+    background-image:url(:img/lock_normal.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#LockButton:hover {
+    background-image:url(:img/lock_hover.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#LockButton:pressed {
+    background-image:url(:img/lock_press.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#UserSwitchButton {
+    background-image: url(:img/userswitch_normal.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#UserSwitchButton:hover {
+    background-image: url(:img/userswitch_hover.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#UserSwitchButton:pressed {
+    background-image: url(:img/userswitch_press.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#LogoutButton {
+    background-image: url(:img/logout_normal.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#LogoutButton:hover {
+    background-image:url(:img/logout_hover.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+QPushButton#LogoutButton:pressed {
+    background-image:url(:img/logout_press.svg);
+    background-color: transparent;
+    background-repeat:no-repeat;
+}
+

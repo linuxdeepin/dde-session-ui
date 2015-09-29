@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>logout_hover</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="7.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.7 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="logout_hover" sketch:type="MSArtboardGroup" filter="url(#filter-1)" fill="#FFFFFF">
+            <path d="M70.91,58.236 C69.902,57.779 68.718,58.227 68.263,59.232 C64.683,67.128 56.775,72.231 48.115,72.231 C35.921,72.231 26,62.31 26,50.115 C26,37.921 35.921,28 48.115,28 C56.775,28 64.683,33.103 68.263,40.999 C68.718,42.005 69.903,42.453 70.91,41.994 C71.916,41.538 72.361,40.354 71.905,39.347 C67.68,30.025 58.341,24 48.115,24 C33.715,24 22,35.715 22,50.115 C22,64.516 33.715,76.231 48.115,76.231 C58.341,76.231 67.68,70.206 71.905,60.884 C72.361,59.877 71.916,58.692 70.91,58.236 Z M75.955,48.506 L47.955,48.506 C46.851,48.506 45.955,49.401 45.955,50.506 C45.955,51.61 46.851,52.506 47.955,52.506 L75.955,52.506 C77.06,52.506 77.955,51.61 77.955,50.506 C77.955,49.401 77.06,48.506 75.955,48.506 Z" id="Fill-2" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>
