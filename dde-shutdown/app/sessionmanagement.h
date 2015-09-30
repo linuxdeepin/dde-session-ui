@@ -19,13 +19,10 @@ public:
 
 
 public slots:
-    void setBackgroundImage(QString imageUrl);
     void keyPressEvent(QKeyEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
-    void setMode(int mode);
     void powerAction(QString action);
     void initConnect();
-    void testing();
 signals:
     void DirectKeyLeft();
     void DirectKeyRight();
@@ -33,7 +30,7 @@ signals:
 private:
     int m_mode=2;
 
-    QHBoxLayout* m_Layout;  
+    QHBoxLayout* m_Layout;
     MainFrame* m_content;
     SessionManageInterfaceManagement* m_sessionInterface;
     BackgroundLabel* m_backgroundLabel;

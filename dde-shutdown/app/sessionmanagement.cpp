@@ -9,9 +9,10 @@ SessionManagement::SessionManagement(QWidget *parent)
 {
     setObjectName("SessionManagerTool");
     setFocusPolicy(Qt::StrongFocus);
-    setWindowFlags(Qt::SplashScreen|Qt::X11BypassWindowManagerHint);
-    m_backgroundLabel = new BackgroundLabel(true, this);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
+    resize(qApp->desktop()->screenGeometry().size());
 
+    m_backgroundLabel = new BackgroundLabel(true, this);
     m_content = new MainFrame(m_mode);
 
     m_Layout = new QHBoxLayout;
@@ -32,7 +33,6 @@ SessionManagement::SessionManagement(QWidget *parent)
         qssFile.close();
     }
 
-    resize(qApp->desktop()->screenGeometry().size());
     showFullScreen();
     activateWindow();
 
@@ -59,25 +59,12 @@ void SessionManagement::powerAction(QString action) {
     }
     qApp->quit();
 }
-void SessionManagement::setMode(int mode) {
-    m_mode = mode;
-}
-void SessionManagement::setBackgroundImage(QString imageUrl) {
-    QString backgroundstyle("QFrame#SessionManagerTool { background-color: transparent;"
-                            "background-image:url(%1);}");
-    backgroundstyle = backgroundstyle.arg(imageUrl);
-    setStyleSheet(backgroundstyle);
-}
 void SessionManagement::keyPressEvent(QKeyEvent *e) {
-
-    if (e->key()==Qt::Key_Enter) {
-        emit pressEnter();
-    }
 
     if (e->key()==Qt::Key_Escape) {
         qApp->quit();
     }
-    if (e->key() == Qt::Key_Return) {
+    if (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter) {
         emit pressEnter();
     }
     if (e->key()==Qt::Key_Left) {
@@ -85,32 +72,6 @@ void SessionManagement::keyPressEvent(QKeyEvent *e) {
     } else if (e->key()==Qt::Key_Right) {
         emit DirectKeyRight();
     }
-//    switch (e->key()) {
-//    case Qt::Key_F6:
-//        m_mode = 0;
-//        m_leftContent->setMode(m_mode);
-//        m_content->setMode(m_mode);
-//        m_rightContent->setMode(m_mode);
-//        break;
-//    case Qt::Key_F2:
-//        m_mode = 1;
-//        m_leftContent->setMode(m_mode);
-//        m_content->setMode(m_mode);
-//        m_rightContent->setMode(m_mode);
-//        break;
-//    case Qt::Key_F3:
-//        m_mode = 2;
-//        m_leftContent->setMode(m_mode);
-//        m_content->setMode(m_mode);
-//        m_rightContent->setMode(m_mode);
-//        break;
-//    case Qt::Key_F5:
-//        m_mode = 3;
-//        m_leftContent->setMode(m_mode);
-//        m_content->setMode(m_mode);
-//        m_rightContent->setMode(m_mode);
-//        break;
-//    }
 
 }
 void SessionManagement::mouseReleaseEvent(QMouseEvent *e) {
@@ -124,6 +85,4 @@ void SessionManagement::initConnect() {
     connect(this, SIGNAL(pressEnter()), m_content, SIGNAL(pressEnterAction()));
 
     connect(m_content->m_shutdownFrame, SIGNAL(ShutDownFrameActions(QString)), this, SLOT(powerAction(QString)));
-}
-void SessionManagement::testing() {
 }
