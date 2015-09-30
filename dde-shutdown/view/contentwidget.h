@@ -6,8 +6,6 @@
 #include <QtWidgets/QPushButton>
 
 #include "widgets/sessionbutton.h"
-#include "widgets/passwdedit.h"
-#include "user/userframe.h"
 #include "signalmanagement/signalmanager.h"
 
 class ShutDownFrame: public QFrame
@@ -43,41 +41,5 @@ private:
     int m_count = 0;
     bool m_previousChanged = false;
     bool m_nextChanged = false;
-};
-class LoginFrame: public QFrame
-{
-    Q_OBJECT
-public:
-    LoginFrame(QWidget *parent=0);
-    ~LoginFrame();
-    void setMode(int mode);
-signals:
-    void keyLeft();
-    void keyRight();
-private:
-    UserFrame* m_userFrame;
-    PassWdEdit* m_passwordEdit;
-    QHBoxLayout* m_passwdLineEditLayout;
-
-    QVBoxLayout* m_Layout;
-};
-class QuickShutDownFrame: public QFrame
-{
-    Q_OBJECT
-public:
-    QuickShutDownFrame(QWidget *parent=0);
-    ~QuickShutDownFrame();
-signals:
-    void keyLeft();
-    void keyRight();
-    void pressEnterAction();
-public slots:
-    void setPreviousChildFocus();
-    void setNextChildFocus();
-public:
-    SessionButton* m_quickShutDownButton;
-    SessionButton* m_quickRestartButton;
-    SessionButton* m_quickSuspendButton;
-    QHBoxLayout* m_Layout;
 };
 #endif // CONTENTVIEWWIDGET

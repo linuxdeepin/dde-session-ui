@@ -31,9 +31,6 @@ private:
     int m_mode;
 public:
     ShutDownFrame* m_shutdownFrame;
-    LoginFrame* m_loginFrame;
-    QuickShutDownFrame* m_quickShutDownFrame;
-    QStackedWidget* m_contentWidget;
     QHBoxLayout* m_Layout;
     QVBoxLayout* m_contentLayout;
     QVBoxLayout* m_contentRightLayout;

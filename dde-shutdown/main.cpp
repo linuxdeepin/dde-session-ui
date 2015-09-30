@@ -1,6 +1,6 @@
 #include <QApplication>
 #include "app/sessionmanagement.h"
-#include "view/leftcornerwidget.h"
+
 
 int main(int argc, char *argv[])
 {

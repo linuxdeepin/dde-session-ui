@@ -8,19 +8,18 @@ SessionManagement::SessionManagement(QWidget *parent)
     : QFrame(parent)
 {
     setObjectName("SessionManagerTool");
-    setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
+    setFocusPolicy(Qt::StrongFocus);
+    setWindowFlags(Qt::SplashScreen|Qt::X11BypassWindowManagerHint);
     m_backgroundLabel = new BackgroundLabel(true, this);
 
-    m_leftContent = new LeftFrame(m_mode);
     m_content = new MainFrame(m_mode);
-    m_rightContent = new PowerMenuFrame(m_mode);
 
     m_Layout = new QHBoxLayout;
     m_Layout->setMargin(0);
     m_Layout->setSpacing(0);
-    m_Layout->addWidget(m_leftContent);
+    m_Layout->addStretch();
     m_Layout->addWidget(m_content);
-    m_Layout->addWidget(m_rightContent);
+    m_Layout->addStretch();
     setLayout(m_Layout);
 
     QFile qssFile(":/skin/main.qss");

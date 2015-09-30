@@ -4,9 +4,7 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 
-#include "view/leftframe.h"
 #include "view/mainframe.h"
-#include "view/powermenuframe.h"
 #include "controller/dbusmanagement.h"
 #include "background/backgroundlabel.h"
 #include "signalmanagement/signalmanager.h"
@@ -35,10 +33,8 @@ signals:
 private:
     int m_mode=2;
 
-    QHBoxLayout* m_Layout;
-    LeftFrame* m_leftContent;
+    QHBoxLayout* m_Layout;  
     MainFrame* m_content;
-    PowerMenuFrame* m_rightContent;
     SessionManageInterfaceManagement* m_sessionInterface;
     BackgroundLabel* m_backgroundLabel;
 };

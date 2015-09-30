@@ -6,20 +6,18 @@
 ShutDownFrame::ShutDownFrame(QWidget *parent)
     : QFrame(parent)
 {
-
-
-    m_shutdownButton = new SessionButton("ShutDown", "ShutDownButton");
+    m_shutdownButton = new SessionButton(tr("ShutDown"), "ShutDownButton");
     m_shutdownButton->setObjectName("ShutDownButtonFrame");
     m_shutdownButton->setButtonChecked();
-    m_restartButton = new SessionButton("Restart", "RestartButton");
+    m_restartButton = new SessionButton(tr("Restart"), "RestartButton");
     m_restartButton->setObjectName("RestartButtonFrame");
-    m_suspendButton = new SessionButton("Suspend", "SuspendButton");
+    m_suspendButton = new SessionButton(tr("Suspend"), "SuspendButton");
     m_suspendButton->setObjectName("SuspendButtonFrame");
-    m_lockButton = new SessionButton("Lock", "LockButton");
+    m_lockButton = new SessionButton(tr("Lock"), "LockButton");
     m_lockButton->setObjectName("LockButtonFrame");
 //    m_userSwitchButton = new SessionButton("SwitchUser", "UserSwitchButton");
 //    m_userSwitchButton->setObjectName("UserSwitchButtonFrame");
-    m_logoutButton = new SessionButton("Logout", "LogoutButton");
+    m_logoutButton = new SessionButton(tr("Logout"), "LogoutButton");
     m_logoutButton->setObjectName("LogoutButtonFrame");
 
 //    setUserSwitchButton(false);
@@ -121,103 +119,4 @@ void ShutDownFrame::setNextChildFocus() {
     m_children[m_count]->setChecked(true);
     emit signalManager->setButtonCheck(m_children[m_count]->objectName());
 
-}
-LoginFrame::LoginFrame(QWidget *parent)
-    : QFrame(parent)
-{
-    m_passwordEdit = new PassWdEdit;
-    m_userFrame = new UserFrame;
-
-    QHBoxLayout* userLayout = new QHBoxLayout;
-    userLayout->setMargin(0);
-    userLayout->setSpacing(0);
-    userLayout->addStretch();
-    userLayout->addWidget(m_userFrame);
-    userLayout->addStretch();
-
-    QHBoxLayout* passwdLayout = new QHBoxLayout;
-    passwdLayout->setMargin(0);
-    passwdLayout->setSpacing(0);
-    passwdLayout->addStretch(0);
-    passwdLayout->addWidget(m_passwordEdit);
-    passwdLayout->addStretch(0);
-
-    m_passwdLineEditLayout = new QHBoxLayout;
-    m_passwdLineEditLayout->setMargin(0);
-    m_passwdLineEditLayout->setSpacing(0);
-    m_passwdLineEditLayout->addStretch(0);
-    m_passwdLineEditLayout->addLayout(passwdLayout);
-    m_passwdLineEditLayout->addStretch();
-
-    m_Layout = new QVBoxLayout;
-    m_Layout->setMargin(0);
-    m_Layout->setSpacing(10);
-    m_Layout->addStretch();
-    m_Layout->addLayout(userLayout);
-    m_Layout->addLayout(m_passwdLineEditLayout);
-    m_Layout->addStretch();
-    setLayout(m_Layout);
-
-}
-LoginFrame::~LoginFrame()
-{
-}
-void LoginFrame::setMode(int mode) {
-    if (mode == 0) {
-        m_passwordEdit->switchStatus(true);
-    } else  {
-        m_passwordEdit->switchStatus(false);
-    }
-}
-QuickShutDownFrame::QuickShutDownFrame(QWidget *parent)
-    : QFrame(parent)
-{
-    m_quickShutDownButton = new SessionButton("ShutDown", "QuickShutDownButton");
-    m_quickShutDownButton->setObjectName("QuickShutDownButtonFrame");
-    m_quickRestartButton = new SessionButton("Restart", "QuickRestartButton");
-    m_quickRestartButton->setObjectName("QuickRestartButtonFrame");
-    m_quickSuspendButton = new SessionButton("Suspend", "QuickSuspendButton");
-    m_quickSuspendButton->setObjectName("QuickSuspendButtonFrame");
-
-    m_Layout = new QHBoxLayout;
-    m_Layout->setMargin(0);
-    m_Layout->setSpacing(35);
-    m_Layout->addStretch();
-    m_Layout->addWidget(m_quickShutDownButton);
-    m_Layout->addWidget(m_quickRestartButton);
-    m_Layout->addWidget(m_quickSuspendButton);
-    m_Layout->addStretch();
-    setFocusPolicy(Qt::StrongFocus);
-    setLayout(m_Layout);
-
-    QFile qssFile(":/skin/quickshutdown.qss");
-    QString qss;
-    qssFile.open(QFile::ReadOnly);
-    if(qssFile.isOpen())
-    {
-        qss = QLatin1String(qssFile.readAll());
-        this->setStyleSheet(qss);
-        qssFile.close();
-    }
-
-
-    connect(this, SIGNAL(keyLeft()), SLOT(setPreviousChildFocus()));
-    connect(this, SIGNAL(keyRight()), SLOT(setNextChildFocus()));
-}
-void QuickShutDownFrame::setPreviousChildFocus() {
-    m_quickShutDownButton->setFocusPolicy(Qt::StrongFocus);
-    m_quickRestartButton->setFocusPolicy(Qt::StrongFocus);
-    m_quickSuspendButton->setFocusPolicy(Qt::StrongFocus);
-
-    this->focusPreviousChild();
-}
-void QuickShutDownFrame::setNextChildFocus() {
-    m_quickShutDownButton->setFocusPolicy(Qt::StrongFocus);
-    m_quickRestartButton->setFocusPolicy(Qt::StrongFocus);
-    m_quickSuspendButton->setFocusPolicy(Qt::StrongFocus);
-
-   this->focusNextChild();
-}
-QuickShutDownFrame::~QuickShutDownFrame()
-{
 }
