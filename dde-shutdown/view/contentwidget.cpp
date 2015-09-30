@@ -6,7 +6,7 @@
 ShutDownFrame::ShutDownFrame(QWidget *parent)
     : QFrame(parent)
 {
-    m_shutdownButton = new SessionButton(tr("ShutDown"), "ShutDownButton");
+    m_shutdownButton = new SessionButton(tr("Shut down"), "ShutDownButton");
     m_shutdownButton->setObjectName("ShutDownButtonFrame");
     m_shutdownButton->setButtonChecked();
     m_restartButton = new SessionButton(tr("Restart"), "RestartButton");
@@ -17,7 +17,7 @@ ShutDownFrame::ShutDownFrame(QWidget *parent)
     m_lockButton->setObjectName("LockButtonFrame");
 //    m_userSwitchButton = new SessionButton("SwitchUser", "UserSwitchButton");
 //    m_userSwitchButton->setObjectName("UserSwitchButtonFrame");
-    m_logoutButton = new SessionButton(tr("Logout"), "LogoutButton");
+    m_logoutButton = new SessionButton(tr("Log out"), "LogoutButton");
     m_logoutButton->setObjectName("LogoutButtonFrame");
 
 //    setUserSwitchButton(false);
