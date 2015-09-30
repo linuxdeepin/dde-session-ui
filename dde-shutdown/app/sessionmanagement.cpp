@@ -116,10 +116,7 @@ void SessionManagement::keyPressEvent(QKeyEvent *e) {
 }
 void SessionManagement::mouseReleaseEvent(QMouseEvent *e) {
     if (e->button() == Qt::LeftButton) {
-        if (m_mode==1) {
-            m_mode = 0;
-            m_content->setMode(m_mode);
-        }
+        qApp->quit();
     }
 }
 void SessionManagement::initConnect() {
