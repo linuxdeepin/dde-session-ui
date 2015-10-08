@@ -39,6 +39,7 @@ SessionManagement::SessionManagement(QWidget *parent)
     initConnect();
 
     m_sessionInterface = new SessionManageInterfaceManagement(this);
+
 }
 
 SessionManagement::~SessionManagement()
