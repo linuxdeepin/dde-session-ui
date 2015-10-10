@@ -55,93 +55,93 @@ QFrame#UserSwitchButtonFrame:focus {
 }
 
 QPushButton#ShutDownButton {
-    background-image: url(:img/shutdown_normal.png);
+    border-image: url(:img/shutdown_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#ShutDownButton:hover {
-    background-image: url(:img/shutdown_hover.png);
+    border-image: url(:img/shutdown_hover.png);
     background-color: transparent ;
     background-repeat:no-repeat;
 }
 QPushButton#ShutDownButton:checked {
-    background-image: url(:img/shutdown_press.png);
+    border-image: url(:img/shutdown_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#RestartButton {
-    background-image: url(:img/restart_normal.png);
+    border-image: url(:img/restart_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#RestartButton:hover {
-    background-image: url(:img/restart_hover.png);
+    border-image: url(:img/restart_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#RestartButton:checked {
-    background-image: url(:img/restart_press.png);
+    border-image: url(:img/restart_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#SuspendButton  {
-    background-image: url(:img/suspend_normal.png);
+    border-image: url(:img/suspend_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 
 QPushButton#SuspendButton:hover {
-    background-image: url(:img/suspend_hover.png);
+    border-image: url(:img/suspend_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#SuspendButton:checked {
-    background-image: url(:img/suspend_press.png);
+    border-image: url(:img/suspend_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#LockButton {
-    background-image:url(:img/lock_normal.png);
+    border-image:url(:img/lock_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#LockButton:hover {
-    background-image:url(:img/lock_hover.png);
+    border-image:url(:img/lock_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#LockButton:checked {
-    background-image:url(:img/lock_press.png);
+    border-image:url(:img/lock_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#UserSwitchButton {
-    background-image: url(:img/userswitch_normal.png);
+    border-image: url(:img/userswitch_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#UserSwitchButton:hover {
-    background-image: url(:img/userswitch_hover.png);
+    border-image: url(:img/userswitch_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#UserSwitchButton:checked {
-    background-image: url(:img/userswitch_press.png);
+    border-image: url(:img/userswitch_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#LogoutButton {
-    background-image: url(:img/logout_normal.png);
+    border-image: url(:img/logout_normal.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#LogoutButton:hover {
-    background-image:url(:img/logout_hover.png);
+    border-image:url(:img/logout_hover.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
 QPushButton#LogoutButton:checked {
-    background-image:url(:img/logout_press.png);
+    border-image:url(:img/logout_press.png);
     background-color: transparent;
     background-repeat:no-repeat;
 }
