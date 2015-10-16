@@ -15,11 +15,12 @@ class UserWidget : public QFrame
     Q_OBJECT
     Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry)
 public:
-    UserWidget(QWidget *parent = 0);
+    UserWidget(QWidget* parent = 0);
     ~UserWidget();
-
+signals:
+    void selectedUser(QString name);
+    void sizeUpdate();
 public slots:
-
     void addUser(QString url, QString name);
     void loginInUser(QString nam);
 
@@ -31,10 +32,11 @@ public slots:
     void setUserAvatarSamll();
     void testing(QString em);
 //    void keyPressEvent(QKeyEvent *e);
-signals:
-    void selectedUser(QString name);
-    void sizeUpdate();
+
 private:
+    void initUI();
+    void initConnect();
+
     bool isLargerAvatar = false;
     QString m_currentUser = "administrator";
     int m_finalX = 0;
@@ -46,9 +48,6 @@ private:
     QPropertyAnimation* m_hideAnimation;
     const int USER_ICON_WIDTH = 140;
     const int USER_ICON_HEIGHT = 150;
-    ///////////////////////////////////functions
-    void initUI();
-    void initConnect();
 };
 
 #endif // WIDGET_H

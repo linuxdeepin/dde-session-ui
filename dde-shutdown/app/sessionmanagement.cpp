@@ -4,7 +4,7 @@
 
 #include "sessionmanagement.h"
 
-SessionManagement::SessionManagement(QWidget *parent)
+SessionManagement::SessionManagement(QWidget* parent)
     : QFrame(parent)
 {
     setObjectName("SessionManagerTool");
@@ -12,6 +12,23 @@ SessionManagement::SessionManagement(QWidget *parent)
     setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
     resize(qApp->desktop()->screenGeometry().size());
 
+    initUI();
+
+    showFullScreen();
+    activateWindow();
+
+    initConnect();
+    initData();
+}
+
+void SessionManagement::initConnect() {
+    connect(this, SIGNAL(DirectKeyLeft()) , m_content, SIGNAL(OutKeyLeft()));
+    connect(this, SIGNAL(DirectKeyRight()), m_content, SIGNAL(OutKeyRight()));
+    connect(this, SIGNAL(pressEnter()), m_content, SIGNAL(pressEnterAction()));
+
+    connect(m_content->m_shutdownFrame, SIGNAL(ShutDownFrameActions(QString)), this, SLOT(powerAction(QString)));
+}
+void SessionManagement::initUI() {
     m_backgroundLabel = new BackgroundLabel(true, this);
     m_content = new MainFrame(m_mode);
 
@@ -32,20 +49,11 @@ SessionManagement::SessionManagement(QWidget *parent)
         this->setStyleSheet(qss);
         qssFile.close();
     }
+}
 
-    showFullScreen();
-    activateWindow();
-
-    initConnect();
-
+void SessionManagement::initData() {
     m_sessionInterface = new SessionManageInterfaceManagement(this);
-
 }
-
-SessionManagement::~SessionManagement()
-{
-}
-
 void SessionManagement::powerAction(QString action) {
     if (action == "ShutDownButton") {
         m_sessionInterface->ForceShutdown();
@@ -60,7 +68,7 @@ void SessionManagement::powerAction(QString action) {
     }
     qApp->quit();
 }
-void SessionManagement::keyPressEvent(QKeyEvent *e) {
+void SessionManagement::keyPressEvent(QKeyEvent* e) {
 
     if (e->key()==Qt::Key_Escape) {
         qApp->quit();
@@ -75,15 +83,12 @@ void SessionManagement::keyPressEvent(QKeyEvent *e) {
     }
 
 }
-void SessionManagement::mouseReleaseEvent(QMouseEvent *e) {
+void SessionManagement::mouseReleaseEvent(QMouseEvent* e) {
     if (e->button() == Qt::LeftButton) {
         qApp->quit();
     }
 }
-void SessionManagement::initConnect() {
-    connect(this, SIGNAL(DirectKeyLeft()) , m_content, SIGNAL(OutKeyLeft()));
-    connect(this, SIGNAL(DirectKeyRight()), m_content, SIGNAL(OutKeyRight()));
-    connect(this, SIGNAL(pressEnter()), m_content, SIGNAL(pressEnterAction()));
 
-    connect(m_content->m_shutdownFrame, SIGNAL(ShutDownFrameActions(QString)), this, SLOT(powerAction(QString)));
+SessionManagement::~SessionManagement()
+{
 }

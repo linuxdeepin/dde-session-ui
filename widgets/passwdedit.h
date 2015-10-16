@@ -1,25 +1,30 @@
 #ifndef PASSWDEDIT
 #define PASSWDEDIT
-#include <QtWidgets/QFrame>
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QHBoxLayout>
+
+#include <QFrame>
+#include <QLineEdit>
+#include <QLabel>
+#include <QHBoxLayout>
 #include <QPushButton>
+
 class PassWdEdit : public QFrame
 {
     Q_OBJECT
 public:
-    PassWdEdit(QString iconId, QWidget *parent=0);
+    PassWdEdit(QString iconId, QWidget* parent=0);
     ~PassWdEdit();
+signals:
+    void jumpTo();
 public slots:
     void setLineEditRightImage(QString imageUrl);
     QString getText();
     void setKeyBoardLayoutButtonStatus(bool show);
     void testing();
-signals:
-    void jumpTo();
 private:
+    void initUI();
+    void initConnect();
     QLineEdit* m_lineEdit;
+    QString m_iconId;
     QPushButton* m_keyboardButton;
     QPushButton* m_iconButton;
     QHBoxLayout* m_Layout;

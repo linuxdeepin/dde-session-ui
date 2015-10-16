@@ -4,25 +4,21 @@
 #include <QtGui>
 #include <QtCore>
 
-UserWidget::UserWidget(QWidget *parent)
+UserWidget::UserWidget(QWidget* parent)
     : QFrame(parent),
     m_showAnimation(new QPropertyAnimation),
     m_hideAnimation(new QPropertyAnimation)
 {
-
     initUI();
     initConnect();
+}
 
-}
-UserWidget::~UserWidget()
-{
-}
 void UserWidget::initConnect() {
     connect(this, SIGNAL(selectedUser(QString)),
             SLOT(loginInUser(QString)));
 
-    QList<UserButton*> m_children =
-            this->findChildren<UserButton *>();
+    QList<UserButton* > m_children =
+            this->findChildren<UserButton* >();
     for(int i = 0; i < m_children.length(); i++) {
         connect(m_children[i], SIGNAL(imageClicked(QString)), this, SLOT(loginInUser(QString)));
     }
@@ -140,10 +136,10 @@ void UserWidget::packUpWidget() {
                                     this->height())/2-85,
                                          USER_ICON_WIDTH, USER_ICON_HEIGHT));
 
-    QList<UserButton*> m_children =
-            this->findChildren<UserButton *>();
+    QList<UserButton* > m_children =
+            this->findChildren<UserButton* >();
     for(int i = 0; i < m_children.length(); i++) {
-        if (m_children[i]->objectName()!= m_currentUser) {          
+        if (m_children[i]->objectName()!= m_currentUser) {
             QTimer::singleShot(userList.length()*70-(i+1)*70, [=]{ m_children[i]->hide();});
         } else {
             m_children[i]->setImageSize(UserButton::AvatarLargerSize);
@@ -152,3 +148,5 @@ void UserWidget::packUpWidget() {
 
     m_hideAnimation->start();
 }
+UserWidget::~UserWidget()
+{}

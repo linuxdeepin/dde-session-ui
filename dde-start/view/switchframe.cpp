@@ -1,9 +1,19 @@
 #include <QDebug>
 #include "switchframe.h"
 
-SwitchFrame::SwitchFrame(QWidget *parent)
+SwitchFrame::SwitchFrame(QWidget* parent)
     : QFrame(parent)
 {
+    initUI();
+    initConnect();
+}
+
+void SwitchFrame::initConnect() {
+    connect(m_switchUserButton, SIGNAL(clicked()), this, SLOT(switchUser()));
+    connect(m_powerButton, SIGNAL(clicked()), this, SLOT(switchPowerMenu()));
+    connect(m_switchSystemButton, SIGNAL(clicked()), this, SLOT(switchDesktopEnvironment()));
+}
+void SwitchFrame::initUI() {
     this->setFixedSize(300, 200);
     m_switchSystemButton = new QPushButton;
     m_switchSystemButton->setFixedSize(60, 60);
@@ -24,22 +34,12 @@ SwitchFrame::SwitchFrame(QWidget *parent)
     m_Layout->addWidget(m_powerButton);
     m_Layout->addStretch();
     setLayout(m_Layout);
-
-    initConnect();
 }
-
 void SwitchFrame::testing(QString switchId) {
 
     qDebug() << "SwitchId:" << switchId;
 
 }
-
-void SwitchFrame::initConnect() {
-    connect(m_switchUserButton, SIGNAL(clicked()), this, SLOT(switchUser()));
-    connect(m_powerButton, SIGNAL(clicked()), this, SLOT(switchPowerMenu()));
-    connect(m_switchSystemButton, SIGNAL(clicked()), this, SLOT(switchDesktopEnvironment()));
-}
-
 void SwitchFrame::switchDesktopEnvironment() {
     emit switchItem(m_switchSystemButton->objectName());
 }
@@ -54,5 +54,4 @@ void SwitchFrame::switchUser() {
 
 SwitchFrame::~SwitchFrame()
 {
-
 }

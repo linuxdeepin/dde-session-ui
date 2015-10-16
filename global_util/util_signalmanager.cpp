@@ -2,11 +2,8 @@
 
 SignalManager* SignalManager::m_signalManager = NULL;
 
-SignalManager::SignalManager(QObject *parent)
+SignalManager::SignalManager(QObject* parent)
     :QObject(parent)
-{
-}
-SignalManager::~SignalManager()
 {
 }
 SignalManager* SignalManager::getInstance() {
@@ -14,4 +11,7 @@ SignalManager* SignalManager::getInstance() {
         m_signalManager = new SignalManager();
     }
     return m_signalManager;
+}
+SignalManager::~SignalManager()
+{
 }

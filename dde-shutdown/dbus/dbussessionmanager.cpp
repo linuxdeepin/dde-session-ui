@@ -15,7 +15,7 @@
  * Implementation of interface class DBusSessionManagerInterface
  */
 
-DBusSessionManagerInterface::DBusSessionManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+DBusSessionManagerInterface::DBusSessionManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject* parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 

@@ -6,13 +6,14 @@
 
 #include "sessionlogin.h"
 
-SessionLogin::SessionLogin(QWidget *parent)
+SessionLogin::SessionLogin(QWidget* parent)
     : QFrame(parent)
 {
     setObjectName("SessionLoginTool");
     setFocusPolicy(Qt::StrongFocus);
     setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
     initUI();
+    initConnect();
 }
 void SessionLogin::initUI() {
     resize(qApp->desktop()->screenGeometry().size());
@@ -49,11 +50,14 @@ void SessionLogin::initUI() {
     updateStyle(":/skin/login.qss", this);
     showFullScreen();
 
-    initConnection();
 }
-SessionLogin::~SessionLogin()
-{}
-void SessionLogin::keyPressEvent(QKeyEvent *e) {
+void SessionLogin::initConnect() {
+    connect(m_passWdEdit, SIGNAL(jumpTo()), this, SLOT(Loging()));
+    connect(m_switchFrame, SIGNAL(switchItem(QString)), this, SLOT(testing(QString)));
+    connect(m_userWidget, SIGNAL(sizeUpdate()), this, SLOT(moveUserWidget()));
+}
+
+void SessionLogin::keyPressEvent(QKeyEvent* e) {
     if (e->key() == Qt::Key_Escape) {
         qApp->exit();
     }
@@ -68,11 +72,9 @@ void SessionLogin::testing(QString id) {
     }
 }
 void SessionLogin::moveUserWidget() {
+}
+
+SessionLogin::~SessionLogin()
+{}
 
 
-}
-void SessionLogin::initConnection() {
-    connect(m_passWdEdit, SIGNAL(jumpTo()), this, SLOT(Loging()));
-    connect(m_switchFrame, SIGNAL(switchItem(QString)), this, SLOT(testing(QString)));
-    connect(m_userWidget, SIGNAL(sizeUpdate()), this, SLOT(moveUserWidget()));
-}

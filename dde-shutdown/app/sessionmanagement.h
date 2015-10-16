@@ -13,23 +13,24 @@ class BackgroundLabel;
 class SessionManagement : public QFrame
 {
     Q_OBJECT
-
 public:
-    SessionManagement(QWidget *parent = 0);
+    SessionManagement(QWidget* parent = 0);
     ~SessionManagement();
-
-public slots:
-    void keyPressEvent(QKeyEvent *e);
-    void mouseReleaseEvent(QMouseEvent *e);
-    void powerAction(QString action);
-    void initConnect();
 signals:
     void DirectKeyLeft();
     void DirectKeyRight();
     void pressEnter();
-private:
-    int m_mode=2;
+public slots:
+    void keyPressEvent(QKeyEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
+    void powerAction(QString action);
 
+private:
+    void initUI();
+    void initConnect();
+    void initData();
+
+    int m_mode=2;
     QHBoxLayout* m_Layout;
     MainFrame* m_content;
     SessionManageInterfaceManagement* m_sessionInterface;

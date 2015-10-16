@@ -9,9 +9,10 @@ class LogoWidget: public QFrame
 {
     Q_OBJECT
 public:
-    LogoWidget(QWidget *parent=0);
+    LogoWidget(QWidget* parent=0);
     ~LogoWidget();
 private:
+    void initUI();
     QLabel* m_logoLabel;
     QLabel* m_logoVersionLabel;
     QVBoxLayout* m_logoLeftSideLayout;

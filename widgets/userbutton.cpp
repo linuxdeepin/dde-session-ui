@@ -7,8 +7,17 @@ UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
 {
     m_iconUrl = iconUrl;
     m_buttonId = idName;
-    setFixedSize(120, 150);
+    initUI();
+    initConnect();
+}
 
+void UserButton::initConnect() {
+    connect(this, SIGNAL(clicked()), this, SLOT(sendClicked()));
+    connect(m_userAvatar, SIGNAL(userAvatarClicked()), this, SLOT(sendClicked()));
+}
+void UserButton::initUI() {
+
+    setFixedSize(120, 150);
     m_userAvatar = new UserAvatar;
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
     m_userAvatar->setFixedSize(120, 120);
@@ -39,12 +48,6 @@ UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
     setStyleSheet("border: none;");
     addTextShadow();
     setLayout(m_Layout);
-
-    connect(this, SIGNAL(clicked()), this, SLOT(sendClicked()));
-    connect(m_userAvatar, SIGNAL(userAvatarClicked()), this, SLOT(sendClicked()));
-}
-UserButton::~UserButton()
-{
 }
 void UserButton::testing(bool is) {
 }
@@ -83,3 +86,5 @@ void UserButton::addTextShadow() {
     nameShadow->setOffset(0, 4);
     m_textLabel->setGraphicsEffect(nameShadow);
 }
+UserButton::~UserButton()
+{}

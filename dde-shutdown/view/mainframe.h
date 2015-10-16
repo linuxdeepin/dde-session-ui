@@ -16,6 +16,14 @@ public:
     MainFrame(int mode, QWidget* parent=0);
     ~MainFrame();
 
+    ShutDownFrame* m_shutdownFrame;
+    QHBoxLayout* m_Layout;
+    QVBoxLayout* m_contentLayout;
+    QVBoxLayout* m_contentRightLayout;
+signals:
+    void OutKeyLeft();
+    void OutKeyRight();
+    void pressEnterAction();
 public slots:
     void setMode(int mode);//0 is the login mode; 1 is the locking screen mode;
                                //2 is the shut-down mode; 3 is the quick shut-down mode;
@@ -23,17 +31,11 @@ public slots:
     void DirectLeft();
     void DirectRight();
     void EnterAction();
-signals:
-    void OutKeyLeft();
-    void OutKeyRight();
-    void pressEnterAction();
+
 private:
+    void initUI();
+    void initConnect();
     int m_mode;
-public:
-    ShutDownFrame* m_shutdownFrame;
-    QHBoxLayout* m_Layout;
-    QVBoxLayout* m_contentLayout;
-    QVBoxLayout* m_contentRightLayout;
 
 };
 

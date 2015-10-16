@@ -3,11 +3,14 @@
 #include <QDebug>
 
 #include "logowidget.h"
-LogoWidget::LogoWidget(QWidget *parent)
+LogoWidget::LogoWidget(QWidget* parent)
     : QFrame(parent)
 {
-    setFixedSize(200, 60);
+    initUI();
+}
 
+void LogoWidget::initUI() {
+    setFixedSize(200, 60);
     m_logoLabel = new QLabel();
     m_logoLabel->setObjectName("Logo");
     m_logoLabel->setFixedSize(150, 38);

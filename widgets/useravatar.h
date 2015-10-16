@@ -7,7 +7,7 @@
 #include <QVBoxLayout>
 #include <QPainter>
 #include <QDebug>
-#include "QPushButton"
+
 #include <libdui/dimagebutton.h>
 
 DUI_USE_NAMESPACE

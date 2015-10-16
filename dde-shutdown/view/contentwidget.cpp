@@ -7,6 +7,38 @@
 ShutDownFrame::ShutDownFrame(QWidget *parent)
     : QFrame(parent)
 {
+    initUI();
+    initConnect();
+}
+void ShutDownFrame::initConnect() {
+    connect(this, SIGNAL(keyLeft()), SLOT(setPreviousChildFocus()));
+    connect(this, SIGNAL(keyRight()), SLOT(setNextChildFocus()));
+    connect(m_shutdownButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
+    connect(m_restartButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
+    connect(m_suspendButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
+    connect(m_lockButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
+//    connect(m_userSwitchButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
+    connect(m_logoutButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
+
+    connect(this, SIGNAL(pressEnterAction()), this, SLOT(ShutDownAction()));
+    connect(signalManager, SIGNAL(buttonStyleChanged()), this, SLOT(updateStyleSheet()));
+    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_shutdownButton, SLOT(setButtonMutex(QString)));
+    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_restartButton, SLOT(setButtonMutex(QString)));
+    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_suspendButton, SLOT(setButtonMutex(QString)));
+    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_lockButton, SLOT(setButtonMutex(QString)));
+//    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_userSwitchButton, SLOT(setButtonMutex(QString)));
+    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_logoutButton, SLOT(setButtonMutex(QString)));
+    connect(signalManager, SIGNAL(setButtonCheck(QString)), this, SLOT(setButtonGroupMutex(QString)));
+
+
+    connect(signalManager, SIGNAL(setButtonHover(QString)), m_shutdownButton, SLOT(setButtonHoverMutex(QString)));
+    connect(signalManager, SIGNAL(setButtonHover(QString)), m_restartButton, SLOT(setButtonHoverMutex(QString)));
+    connect(signalManager, SIGNAL(setButtonHover(QString)), m_suspendButton, SLOT(setButtonHoverMutex(QString)));
+    connect(signalManager, SIGNAL(setButtonHover(QString)), m_lockButton, SLOT(setButtonHoverMutex(QString)));
+    connect(signalManager, SIGNAL(setButtonHover(QString)), this, SLOT(test(QString)));
+}
+
+void ShutDownFrame::initUI() {
     m_shutdownButton = new SessionButton(tr("Shut down"), "ShutDownButton");
     m_shutdownButton->setObjectName("ShutDownButtonFrame");
     m_shutdownButton->setHover(true);
@@ -54,40 +86,8 @@ ShutDownFrame::ShutDownFrame(QWidget *parent)
         this->setStyleSheet(qss);
         qssFile.close();
     }
-
-    initConnect();
 }
 
-ShutDownFrame::~ShutDownFrame()
-{
-}
-void ShutDownFrame::initConnect() {
-    connect(this, SIGNAL(keyLeft()), SLOT(setPreviousChildFocus()));
-    connect(this, SIGNAL(keyRight()), SLOT(setNextChildFocus()));
-    connect(m_shutdownButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
-    connect(m_restartButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
-    connect(m_suspendButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
-    connect(m_lockButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
-//    connect(m_userSwitchButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
-    connect(m_logoutButton, SIGNAL(buttonAction(QString)), this, SIGNAL(ShutDownFrameActions(QString)));
-
-    connect(this, SIGNAL(pressEnterAction()), this, SLOT(ShutDownAction()));
-    connect(signalManager, SIGNAL(buttonStyleChanged()), this, SLOT(updateStyleSheet()));
-    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_shutdownButton, SLOT(setButtonMutex(QString)));
-    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_restartButton, SLOT(setButtonMutex(QString)));
-    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_suspendButton, SLOT(setButtonMutex(QString)));
-    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_lockButton, SLOT(setButtonMutex(QString)));
-//    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_userSwitchButton, SLOT(setButtonMutex(QString)));
-    connect(signalManager, SIGNAL(setButtonCheck(QString)), m_logoutButton, SLOT(setButtonMutex(QString)));
-    connect(signalManager, SIGNAL(setButtonCheck(QString)), this, SLOT(setButtonGroupMutex(QString)));
-
-
-    connect(signalManager, SIGNAL(setButtonHover(QString)), m_shutdownButton, SLOT(setButtonHoverMutex(QString)));
-    connect(signalManager, SIGNAL(setButtonHover(QString)), m_restartButton, SLOT(setButtonHoverMutex(QString)));
-    connect(signalManager, SIGNAL(setButtonHover(QString)), m_suspendButton, SLOT(setButtonHoverMutex(QString)));
-    connect(signalManager, SIGNAL(setButtonHover(QString)), m_lockButton, SLOT(setButtonHoverMutex(QString)));
-    connect(signalManager, SIGNAL(setButtonHover(QString)), this, SLOT(test(QString)));
-}
 void ShutDownFrame::setButtonGroupMutex(QString buttonId) {
     Q_UNUSED(buttonId);
 }
@@ -134,3 +134,6 @@ void ShutDownFrame::setNextChildFocus() {
     emit signalManager->setButtonCheck(m_children[m_count]->objectName());
 
 }
+
+ShutDownFrame::~ShutDownFrame()
+{}
