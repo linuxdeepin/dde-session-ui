@@ -23,7 +23,7 @@ signals:
 
 public slots:
     void updateBackgroud();
-    void handleBackgroundChanged(const QString &key);
+    void handleBackgroundChanged(const QString& key);
     void setBlur(bool isBlur);
     void setBackgroundSize(QSize size);
 

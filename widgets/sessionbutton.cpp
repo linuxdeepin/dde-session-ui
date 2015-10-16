@@ -2,15 +2,14 @@
 #include "sessionbutton.h"
 
 SessionButton::SessionButton(QString text, QString buttonId, QWidget *parent)
-    : QFrame(parent)
+    : QPushButton(parent)
 {
     setFixedSize(QSize(120, 120));
-    m_contentButton = new QPushButton;
-    m_contentButton->setCheckable(true);
-    m_contentButton->setFixedSize(QSize(75, 75));
+    m_iconLabel = new QLabel;
+    m_iconLabel->setFixedSize(QSize(75, 75));
     m_buttonId = buttonId;
-    m_contentButton->setObjectName(buttonId);
-    m_contentButton->setFocusPolicy(Qt::NoFocus);
+    m_iconLabel->setObjectName(buttonId);
+    m_iconLabel->setFocusPolicy(Qt::NoFocus);
     m_contentTextLabel = new QLabel;
 
     m_contentTextLabel->setStyleSheet("color: rgba(255, 255, 255, 255); "
@@ -23,7 +22,7 @@ SessionButton::SessionButton(QString text, QString buttonId, QWidget *parent)
     m_ButtonLayout->setMargin(0);
     m_ButtonLayout->setSpacing(0);
     m_ButtonLayout->addStretch();
-    m_ButtonLayout->addWidget(m_contentButton);
+    m_ButtonLayout->addWidget(m_iconLabel);
     m_ButtonLayout->addStretch();
 
     m_Layout = new QVBoxLayout;
@@ -33,7 +32,7 @@ SessionButton::SessionButton(QString text, QString buttonId, QWidget *parent)
     m_Layout->setSpacing(2);
     m_Layout->addWidget(m_contentTextLabel);
     m_Layout->addStretch(0);
-    addNameShadow();
+    addTextShadow();
     setLayout(m_Layout);
 
     initConnect();
@@ -42,18 +41,29 @@ SessionButton::SessionButton(QString text, QString buttonId, QWidget *parent)
 SessionButton::~SessionButton()
 {
 }
-void SessionButton::sendSignal() {
-    qDebug() << "button clicked" << m_buttonId;
+void SessionButton::enterEvent(QEvent *event) {
+    Q_UNUSED(event);
+    m_iconLabel->setProperty("Hover", true);
+    emit signalManager->setButtonHover(m_buttonId);
+}
+void SessionButton::leaveEvent(QEvent *event) {
+    Q_UNUSED(event);
+    m_iconLabel->setProperty("Hover", false);
+    emit signalManager->buttonStyleChanged();
+}
+void SessionButton::mousePressEvent(QMouseEvent *e) {
+    Q_UNUSED(e);
+    m_iconLabel->setProperty("Checked", true);
+    emit signalManager->buttonStyleChanged();
+}
+void SessionButton::mouseReleaseEvent(QMouseEvent *e) {
+    Q_UNUSED(e);
+    m_iconLabel->setProperty("Checked", false);
+    emit signalManager->buttonStyleChanged();
     emit  buttonAction(m_buttonId);
-    qDebug() << "emit !";
 }
-
-
 bool SessionButton::isChecked() const{
-    return (m_checked | m_contentButton->isChecked());
-}
-QString SessionButton::buttonId() {
-    return m_contentButton->objectName();
+    return (m_checked);
 }
 void SessionButton::setChecked(bool checked){
     if (m_checked != checked){
@@ -62,12 +72,25 @@ void SessionButton::setChecked(bool checked){
     }
 }
 void SessionButton::setButtonMutex(QString buttonName) {
+
+    m_iconLabel->setProperty("Hover", false);
+    emit signalManager->buttonStyleChanged();
     if (buttonName != this->objectName()) {
         setChecked(false);
-        m_contentButton->setChecked(false);
     } else {
         setChecked(true);
     }
+}
+void SessionButton::setButtonHoverMutex(QString buttonName) {
+
+    if (buttonName != m_iconLabel->objectName()) {
+        m_iconLabel->setProperty("Hover", false);
+        emit signalManager->buttonStyleChanged();
+    }
+}
+void SessionButton::setHover(bool isHover) {
+    m_iconLabel->setProperty("Hover", isHover);
+    emit signalManager->buttonStyleChanged();
 }
 void SessionButton::paintEvent(QPaintEvent *event){
      if (m_checked){
@@ -77,9 +100,9 @@ void SessionButton::paintEvent(QPaintEvent *event){
          painter.setRenderHint(QPainter::Antialiasing, true);
          painter.drawRoundedRect(QRect(2, 2, 116, 116), 10, 10, Qt::RelativeSize);
      }
-     QFrame::paintEvent(event);
+     QPushButton::paintEvent(event);
 }
-void SessionButton::addNameShadow() {
+void SessionButton::addTextShadow() {
     QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect;
     nameShadow->setBlurRadius(16);
     nameShadow->setColor(QColor(0, 0, 0, 85));
@@ -87,9 +110,4 @@ void SessionButton::addNameShadow() {
     m_contentTextLabel->setGraphicsEffect(nameShadow);
 }
 void SessionButton::initConnect() {
-     connect(m_contentButton, SIGNAL(clicked()), this, SLOT(sendSignal()));
-     connect(m_contentButton, SIGNAL(clicked()), this, SLOT(setButtonChecked()));
-}
-void SessionButton::setButtonChecked() {
-    m_contentButton->setChecked(true);
 }

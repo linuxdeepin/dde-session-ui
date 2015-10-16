@@ -1,5 +1,6 @@
 TEMPLATE = subdirs
-SUBDIRS += dde-shutdown
+SUBDIRS += dde-start \
+           dde-shutdown
 
 TRANSLATIONS += translations/dde-session-ui.ts translations/dde-session-ui_zh_CN.ts
 

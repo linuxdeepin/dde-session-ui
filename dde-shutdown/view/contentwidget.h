@@ -5,8 +5,9 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QPushButton>
 
-#include "widgets/sessionbutton.h"
-#include "signalmanagement/signalmanager.h"
+#include "sessionbutton.h"
+#include "util_signalmanager.h"
+#include "util_updateui.h"
 
 class ShutDownFrame: public QFrame
 {
@@ -27,7 +28,8 @@ public slots:
     void initConnect();
     void ShutDownAction();
     void setButtonGroupMutex(QString buttonId);
-
+    void updateStyleSheet();
+    void test(QString test);
 public:
     SessionButton* m_shutdownButton;
     SessionButton* m_restartButton;

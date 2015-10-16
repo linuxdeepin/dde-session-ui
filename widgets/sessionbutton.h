@@ -8,9 +8,9 @@
 #include <QtGui/QFocusEvent>
 #include <QtWidgets/QGraphicsDropShadowEffect>
 
-#include "signalmanagement/signalmanager.h"
+#include "util_signalmanager.h"
 
-class SessionButton: public QFrame
+class SessionButton: public QPushButton
 {
     Q_OBJECT
 public:
@@ -18,24 +18,34 @@ public:
     ~SessionButton();
 
     bool isChecked() const;
-    QString buttonId();
+    void setHover(bool isHover);
 public slots:
-    void sendSignal();
     void setChecked(bool checked);
+
     void setButtonMutex(QString buttonName);
-    void setButtonChecked();
+    void setButtonHoverMutex(QString buttonName);
+    inline QString buttonId() {
+        return m_iconLabel->objectName();
+    }
+
 protected:
     void paintEvent(QPaintEvent *event);
+    void enterEvent(QEvent *event);
+    void leaveEvent(QEvent *event);
+    void mousePressEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
 signals:
     void buttonAction(QString id);
+
+    void updateStyle();
 private:
     bool m_checked = false;
     QString m_buttonId;
-    QPushButton* m_contentButton;
+    QLabel* m_iconLabel;
     QLabel* m_contentTextLabel;
     QVBoxLayout* m_Layout;
     QHBoxLayout* m_ButtonLayout;
     void initConnect();
-    void addNameShadow();
+    void addTextShadow();
 };
 #endif // SESSIONBUTTON

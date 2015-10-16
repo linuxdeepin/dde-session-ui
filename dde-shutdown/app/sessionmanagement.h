@@ -6,9 +6,10 @@
 
 #include "view/mainframe.h"
 #include "controller/dbusmanagement.h"
-#include "background/backgroundlabel.h"
-#include "signalmanagement/signalmanager.h"
+#include "backgroundlabel.h"
+#include "util_signalmanager.h"
 
+class BackgroundLabel;
 class SessionManagement : public QFrame
 {
     Q_OBJECT
@@ -16,7 +17,6 @@ class SessionManagement : public QFrame
 public:
     SessionManagement(QWidget *parent = 0);
     ~SessionManagement();
-
 
 public slots:
     void keyPressEvent(QKeyEvent *e);
