@@ -9,8 +9,7 @@
 SessionLogin::SessionLogin(QWidget* parent)
     : QFrame(parent),
       m_greeter(new QLightDM::Greeter(this)),
-      m_sessionModel(new QLightDM::SessionsModel(this)),
-      m_userModel(new QLightDM::UsersModel(this))
+      m_sessionModel(new QLightDM::SessionsModel(this))
 {
     if (!m_greeter->connectSync())
         qWarning() << "greeter connect fail !!!";
@@ -18,8 +17,13 @@ SessionLogin::SessionLogin(QWidget* parent)
     setObjectName("SessionLoginTool");
     setFocusPolicy(Qt::StrongFocus);
     setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
+    setFixedSize(qApp->desktop()->size());
+
     initUI();
     initConnect();
+
+    m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
+    m_passWdEdit->setFocus();
 }
 
 SessionLogin::~SessionLogin()
@@ -28,19 +32,14 @@ SessionLogin::~SessionLogin()
 }
 
 void SessionLogin::initUI() {
-    resize(qApp->desktop()->screenGeometry().size());
     m_backgroundLabel = new BackgroundLabel(true, this);
-
-
     m_logoWidget = new LogoWidget(this);
+    m_logoWidget->move(0, height() - m_logoWidget->height() - 20);
     m_switchFrame = new SwitchFrame(this);
-    m_userWidget = new UserWidget(this);
-    m_logoWidget->move(0, height()-m_logoWidget->height()-20);
     m_switchFrame->move(width()-m_switchFrame->width(), height() - m_switchFrame->height());
-    m_userWidget->move((qApp->desktop()->screenGeometry().width() - m_userWidget->width())/2,
-                       (qApp->desktop()->screenGeometry().height() - m_userWidget->height())/2-85);
-
+    m_userWidget = new UserWidget(this);
     m_userWidget->setObjectName("UserWidget");
+    m_userWidget->move(qApp->desktop()->screenGeometry().center() - m_userWidget->rect().center() + QPoint(0, -95));
     m_passWdEdit = new PassWdEdit("LoginIcon", this);
 
     m_passWdEditLayout = new QHBoxLayout;
@@ -109,12 +108,13 @@ void SessionLogin::Login()
         m_greeter->cancelAuthentication();
 
     // TODO:
-    const QString &username = m_userModel->data(m_userModel->index(0), QLightDM::UsersModel::NameRole).toString();
+    const QString &username = m_userWidget->currentUser();
     qDebug() << username;
     m_greeter->authenticate(username);
 
     qDebug() << "auth user: " << m_greeter->authenticationUser();
 }
+
 void SessionLogin::testing(QString id) {
     qDebug() << "switch User!" << id;
     if (id == "SwitchUser") {

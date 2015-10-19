@@ -40,11 +40,13 @@ QPushButton#KeyBoardLayoutButton {
     border-image: url(":img/keyboard.png");
     background-color: transparent;
     border-none;
+    margin:0 0 0 3px;
 }
 QLineEdit#passwdLineEdit {
+    color:white;
+    font-size:36px;
     border: 1px solid  transparent;
     border-radius: 4px;
-    padding: 0 2px;
     background: transparent;
     selection-background-color: transparent;
 }

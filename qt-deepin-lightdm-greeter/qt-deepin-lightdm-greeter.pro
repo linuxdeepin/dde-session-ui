@@ -11,10 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = qt-deepin-lightdm-greeter
 TEMPLATE = app
 
-PKGCONFIG += gsettings-qt dui
+PKGCONFIG += gsettings-qt dui liblightdm-qt5-3
 CONFIG += c++11 link_pkgconfig
-LIBS    += -llightdm-qt5-3
-INCLUDEPATH += /usr/include/lightdm-qt5-3
 
 SOURCES += main.cpp\
     app/sessionlogin.cpp \

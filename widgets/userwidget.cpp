@@ -3,12 +3,17 @@
 #include <QtWidgets>
 #include <QtGui>
 #include <QtCore>
+#include <QSettings>
 
 UserWidget::UserWidget(QWidget* parent)
     : QFrame(parent),
+    m_userModel(new QLightDM::UsersModel(this)),
     m_showAnimation(new QPropertyAnimation),
     m_hideAnimation(new QPropertyAnimation)
 {
+    QSettings settings("/var/lib/lightdm/qt-lightdm-greeter/state", QSettings::IniFormat);
+    m_currentUser = settings.value("last-user").toString();
+
     initUI();
     initConnect();
 }
@@ -38,26 +43,27 @@ void UserWidget::initUI() {
     m_hideAnimation->setPropertyName("geometry");
     m_hideAnimation->setTargetObject(this);
 
-    addUser(QString(":img/user/kakaxi.png"), "administrator");
-    addUser(QString(":img/user/mingren.png"), "demo");
-    addUser(QString(":img/user/mingren.png"), "test");
-    addUser(QString(":img/user/mingren.png"), "tom");
-    addUser(QString(":img/user/mingren.png"), "linda");
+    const int userCount = m_userModel->rowCount(QModelIndex());
+    for (int i(0); i != userCount; ++i)
+    {
+        const QString &username = m_userModel->data(m_userModel->index(i), QLightDM::UsersModel::NameRole).toString();
+        const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
+
+        addUser(settings.value("User/Icon").toString(), username);
+    }
 
     setLayout(m_Layout);
-
-    this->move((qApp->desktop()->screenGeometry().width() - this->width())/2,
-                              (qApp->desktop()->screenGeometry().height() - this->height())/2-85);
-
     setCurrentUser();
 }
 void UserWidget::setCurrentUser() {
     QList<UserButton*> m_children =
             this->findChildren<UserButton *>();
 
+    const QString &user = currentUser();
+
     for(int i = 0; i < m_children.length(); i++) {
 
-        if (m_children[i]->objectName() != m_currentUser) {
+        if (m_children[i]->objectName() != user) {
             m_children[i]->hide();
         } else {
             m_children[i]->setImageSize(UserButton::AvatarLargerSize);
@@ -148,5 +154,21 @@ void UserWidget::packUpWidget() {
 
     m_hideAnimation->start();
 }
+
 UserWidget::~UserWidget()
 {}
+
+const QString UserWidget::currentUser() const
+{
+    qDebug() << m_currentUser;
+
+    if (!m_currentUser.isEmpty())
+        return m_currentUser;
+
+    // return first user
+    if (m_userModel->rowCount(QModelIndex()))
+        return m_userModel->data(m_userModel->index(0), QLightDM::UsersModel::NameRole).toString();
+
+    qWarning() << "no users !!!";
+    return QString();
+}

@@ -16,7 +16,6 @@
 
 #include <QLightDM/Greeter>
 #include <QLightDM/SessionsModel>
-#include <QLightDM/UsersModel>
 
 class BackgroundLabel;
 class SessionLogin: public QFrame {
@@ -52,7 +51,6 @@ private:
 
     QLightDM::Greeter *m_greeter;
     QLightDM::SessionsModel *m_sessionModel;
-    QLightDM::UsersModel *m_userModel;
 };
 #endif // SESSIONLOGIN
 

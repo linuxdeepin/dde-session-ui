@@ -22,7 +22,6 @@ void UserButton::initUI() {
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
     m_userAvatar->setFixedSize(120, 120);
     m_userAvatar->setIcon(m_iconUrl);
-    qDebug() << "m_iconUrl:" << m_iconUrl;
     m_userAvatar->setObjectName(m_buttonId);
 
     m_textLabel = new QLabel;

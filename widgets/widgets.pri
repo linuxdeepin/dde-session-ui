@@ -5,6 +5,7 @@
 #-------------------------------------------------
 INCLUDEPATH += $$PWD
 
+PKGCONFIG   += liblightdm-qt5-3
 
 HEADERS += \
     $$PWD/sessionbutton.h \

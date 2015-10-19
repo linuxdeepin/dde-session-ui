@@ -13,16 +13,22 @@ class PassWdEdit : public QFrame
 public:
     PassWdEdit(QString iconId, QWidget* parent=0);
     ~PassWdEdit();
+
 signals:
     void jumpTo();
+
 public slots:
     void setLineEditRightImage(QString imageUrl);
     QString getText();
     void setKeyBoardLayoutButtonStatus(bool show);
     void testing();
+
 private:
     void initUI();
     void initConnect();
+    void focusInEvent(QFocusEvent *);
+
+private:
     QLineEdit* m_lineEdit;
     QString m_iconId;
     QPushButton* m_keyboardButton;
