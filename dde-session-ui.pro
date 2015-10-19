@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS += dde-start \
+SUBDIRS += qt-deepin-lightdm-greeter \
            dde-shutdown
 
 TRANSLATIONS += translations/dde-session-ui.ts translations/dde-session-ui_zh_CN.ts
