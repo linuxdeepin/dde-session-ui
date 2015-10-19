@@ -41,13 +41,17 @@ void UserWidget::initUI() {
 
 void UserWidget::setCurrentUser(const QString &username) {
 
-    for (UserButton *user : *m_userBtns) {
-        if (user->objectName() == username)
-            user->setImageSize(user->AvatarLargerSize);
-        else
-            user->hide(200);
 
-        user->move(rect().center() - user->rect().center(), 200);
+    for (UserButton *user : *m_userBtns) {
+        if (user->objectName() == username) {
+            user->setImageSize(user->AvatarLargerSize);
+            user->showButton();
+        } else {
+//            user->hide(200);
+            user->hideButton();
+
+        }
+         user->move(rect().center() - user->rect().center(), 200);
     }
 
     m_currentUser = username;
@@ -67,14 +71,16 @@ void UserWidget::addUser(QString avatar, QString name) {
 
 void UserWidget::expandWidget() {
 
+
     const int count = m_userBtns->count();
     const int offset = (width() - USER_ICON_WIDTH * count) / 2;
 
     for (int i = 0; i != count; ++i)
     {
-        m_userBtns->at(i)->show();
+        m_userBtns->at(i)->showButton();
         m_userBtns->at(i)->setImageSize(UserButton::AvatarSmallSize);
         m_userBtns->at(i)->move(QPoint(offset + i * USER_ICON_WIDTH, 0), 200);
+
     }
 }
 

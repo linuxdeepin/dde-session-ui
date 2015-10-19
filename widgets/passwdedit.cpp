@@ -16,7 +16,6 @@ PassWdEdit::PassWdEdit(QString iconId, QWidget* parent)
 
 PassWdEdit::~PassWdEdit()
 {
-
 }
 
 void PassWdEdit::initUI() {

@@ -3,7 +3,9 @@
 #include "libdui/dthememanager.h"
 
 UserAvatar::UserAvatar(QWidget *parent, bool deleteable) :
-    QPushButton(parent), m_deleteable(deleteable)
+    QPushButton(parent), m_deleteable(deleteable), m_alpha(255),
+    m_showAnimation(new QPropertyAnimation(this, "alpha")),
+    m_hideAnimation(new QPropertyAnimation(this, "alpha"))
 {
     setCheckable(true);
 
@@ -12,7 +14,8 @@ UserAvatar::UserAvatar(QWidget *parent, bool deleteable) :
     mainLayout->setSpacing(0);
     mainLayout->setAlignment(Qt::AlignCenter);
 
-    m_iconLabel = new QLabel();
+    m_iconLabel = new QLabel;
+    m_iconLabel->setObjectName("UserAvatar");
     m_iconLabel->setAlignment(Qt::AlignCenter);
 
     mainLayout->addWidget(m_iconLabel);
@@ -25,6 +28,9 @@ UserAvatar::UserAvatar(QWidget *parent, bool deleteable) :
                                     border: none;");
 
     connect(this, SIGNAL(clicked()), SIGNAL(userAvatarClicked()));
+    connect(this, SIGNAL(alphaChanged()), this, SLOT(repaint()));
+    connect(m_showAnimation, SIGNAL(finished()), SIGNAL(showFinished()));
+    connect(m_hideAnimation, SIGNAL(finished()), SIGNAL(hideFinished()));
 }
 
 void UserAvatar::setIcon(const QString &iconPath, const QSize &size)
@@ -35,7 +41,6 @@ void UserAvatar::setIcon(const QString &iconPath, const QSize &size)
         m_iconLabel->setFixedSize(size);
 
     m_iconPath = iconPath;
-
     repaint();
 }
 
@@ -57,6 +62,7 @@ void UserAvatar::leaveEvent(QEvent *)
 
 void UserAvatar::paintEvent(QPaintEvent *)
 {
+    qDebug() << "repainting" << m_borderColor.alpha();
     int iconSize = NORMAL_ICON_SIZE;
     switch (m_avatarSize){
     case AvatarSmallSize:
@@ -79,6 +85,7 @@ void UserAvatar::paintEvent(QPaintEvent *)
     painter.setClipPath(path);
 
     QImage tmpImg(m_iconPath);
+    painter.setOpacity(m_alpha);
     painter.drawImage(ellipseRec, this->isEnabled() ? tmpImg : imageToGray(tmpImg));
 
     QColor penColor = m_selected ? m_borderSelectedColor : m_borderColor;
@@ -215,3 +222,46 @@ void UserAvatar::setBorderColor(const QColor &borderColor)
 //{
 
 //}
+//void UserAvatar::showUserAvatar() {
+//    qDebug() << "UserAvatar" << "showButton";
+//    showButton();
+//}
+//void UserAvatar::hideUserAvatar() {
+//    qDebug() << "UserAvatar" << "hideButton";
+//    hideButton();
+//}
+
+int UserAvatar::alpha() const {
+    return m_alpha;
+}
+
+void UserAvatar::setColor(QColor color) {
+    m_palette.setColor(QPalette::WindowText, color);
+    this->setPalette(m_palette);
+}
+void UserAvatar::setAlpha(int opa) {
+    if (m_alpha!=opa) {
+        m_alpha = opa;
+        emit alphaChanged();
+    }
+    QColor color =m_palette.color(QPalette::WindowText);
+    color = QColor(color.red(), color.green(), color.blue(), opa);
+    m_palette.setColor(QPalette::Foreground, color);
+    setPalette(m_palette);
+
+}
+
+void UserAvatar::hideButton() {
+    m_showAnimation->setStartValue(255);
+    m_showAnimation->setEndValue(0);
+    m_showAnimation->start();
+    m_showAnimation->setDuration(100);
+}
+
+void UserAvatar::showButton() {
+    m_hideAnimation->setStartValue(0);
+    m_hideAnimation->setEndValue(255);
+    m_hideAnimation->start();
+    m_hideAnimation->setDuration(800);
+}
+

@@ -27,7 +27,7 @@ void UserButton::initUI() {
     m_userAvatar->setIcon(m_iconUrl);
     m_userAvatar->setObjectName(m_buttonId);
 
-    m_textLabel = new QLabel;
+    m_textLabel = new UserBreathingLabel;
     m_textLabel->setStyleSheet("text-align:center;color: rgba(255, 255, 255, 255);\
                                           font-size:16px; ");
     m_textLabel->setText(m_buttonId);
@@ -54,16 +54,6 @@ void UserButton::initUI() {
 
 void UserButton::sendClicked() {
     emit imageClicked(m_buttonId);
-}
-
-void UserButton::hideIn(QString name) {
-    if (name!=this->objectName()) {
-        this->hide();
-    }
-}
-
-void UserButton::showOut() {
-    this->show();
 }
 
 void UserButton::setImageSize(const AvatarSize &avatarsize) {
@@ -100,6 +90,18 @@ void UserButton::addTextShadow() {
     nameShadow->setColor(QColor(0, 0, 0, 85));
     nameShadow->setOffset(0, 4);
     m_textLabel->setGraphicsEffect(nameShadow);
+}
+void UserButton::showButton() {
+    QTimer::singleShot(100, [=]{
+        show();
+    });
+    m_userAvatar->showButton();
+    update();
+    m_textLabel->showLabel();
+}
+void UserButton::hideButton() {
+    m_userAvatar->hideButton();
+    m_textLabel->hideLabel();
 }
 UserButton::~UserButton()
 {}

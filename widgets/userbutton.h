@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QPropertyAnimation>
 
+#include "userbreathinglabel.h"
 #include "useravatar.h"
 
 class UserButton:public QPushButton
@@ -27,12 +28,13 @@ signals:
     void imageClicked(QString nam);
 
 public slots:
-    void hideIn(QString name);
-    void showOut();
     void sendClicked();
     void setImageSize(const AvatarSize &avatarsize);
+
     void hide(const int duration = 0);
     void move(const QPoint &position, const int duration = 0);
+    void showButton();
+    void hideButton();
 
 private:
     void initUI();
@@ -42,11 +44,11 @@ private:
     bool m_checked = false;
     QString m_iconUrl;
     QString m_buttonId;
-    QLabel* m_iconLabel;
-    QLabel* m_textLabel;
+    UserAvatar* m_userAvatar;
+    UserBreathingLabel* m_textLabel;
     QHBoxLayout* m_buttonLayout;
     QVBoxLayout* m_Layout;
-    UserAvatar* m_userAvatar;
+
     AvatarSize m_avatarsize = AvatarLargerSize;
     QPropertyAnimation *m_moveAni;
     int m_borderWidth = 4;

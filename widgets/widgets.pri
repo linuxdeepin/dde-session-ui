@@ -12,7 +12,8 @@ HEADERS += \
     $$PWD/useravatar.h \
     $$PWD/userbutton.h \
     $$PWD/userwidget.h \
-    $$PWD/passwdedit.h
+    $$PWD/passwdedit.h \
+    $$PWD/userbreathinglabel.h
 
 
 SOURCES += \
@@ -20,4 +21,5 @@ SOURCES += \
     $$PWD/useravatar.cpp \
     $$PWD/userbutton.cpp \
     $$PWD/userwidget.cpp \
-    $$PWD/passwdedit.cpp
+    $$PWD/passwdedit.cpp \
+    $$PWD/userbreathinglabel.cpp

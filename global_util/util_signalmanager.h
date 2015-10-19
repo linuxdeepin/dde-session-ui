@@ -6,7 +6,7 @@ class SignalManager: public QObject
 {
     Q_OBJECT
 public:
-    explicit SignalManager(QObject* parent=0);
+    SignalManager(QObject* parent=0);
     ~SignalManager();
     static SignalManager* getInstance();
 signals:

@@ -10,6 +10,8 @@
 
 #include <libdui/dimagebutton.h>
 
+#include "userbreathinglabel.h"
+
 DUI_USE_NAMESPACE
 //class AvatarDeleteButton : public DImageButton
 //{
@@ -24,6 +26,8 @@ class UserAvatar : public QPushButton
     Q_PROPERTY(QColor borderSelectedColor READ borderSelectedColor WRITE setBorderSelectedColor)
     Q_PROPERTY(QColor borderColor READ borderColor WRITE setBorderColor)
     Q_PROPERTY(int borderWidth READ borderWidth WRITE setBorderWidth)
+    Q_PROPERTY(int alpha READ alpha WRITE setAlpha NOTIFY alphaChanged)
+
 public:
     enum AvatarSize {
         AvatarSmallSize,
@@ -53,10 +57,24 @@ public:
     bool deleteable() const;
     void setDeleteable(bool deleteable);
 
+//    void showUserAvatar();
+//    void hideUserAvatar();
+
+
+    void setAlpha(int opa);
+    int alpha() const;
+    void showButton();
+    void hideButton();
+    void setColor(QColor color);
 signals:
     void mousePress();
     void requestDelete();
     void userAvatarClicked();
+    void alphaChanged();
+
+signals:
+    void showFinished();
+    void hideFinished();
 protected:
     void enterEvent(QEvent *);
     void leaveEvent(QEvent *);
@@ -66,7 +84,6 @@ private:
     QImage imageToGray(const QImage &image);
     void initDeleteButton();
 
-private:
 //    AvatarDeleteButton *m_deleteButton = NULL;
     QLabel *m_iconLabel = NULL;
     QString m_iconPath = "";
@@ -80,6 +97,11 @@ private:
     const int SMALL_ICON_SIZE = 80;
     const int NORMAL_ICON_SIZE = 90;
     const int LARGE_ICON_SIZE = 100;
+
+    int m_alpha;
+    QPalette m_palette;
+    QPropertyAnimation* m_showAnimation;
+    QPropertyAnimation* m_hideAnimation;
 };
 
 
