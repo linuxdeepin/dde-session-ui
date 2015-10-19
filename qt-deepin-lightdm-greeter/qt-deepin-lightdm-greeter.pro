@@ -13,6 +13,8 @@ TEMPLATE = app
 
 PKGCONFIG += gsettings-qt dui
 CONFIG += c++11 link_pkgconfig
+LIBS    += -llightdm-qt5-3
+INCLUDEPATH += /usr/include/lightdm-qt5-3
 
 SOURCES += main.cpp\
     app/sessionlogin.cpp \

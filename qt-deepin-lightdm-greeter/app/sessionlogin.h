@@ -14,6 +14,10 @@
 #include "passwdedit.h"
 #include "userwidget.h"
 
+#include <QLightDM/Greeter>
+#include <QLightDM/SessionsModel>
+#include <QLightDM/UsersModel>
+
 class BackgroundLabel;
 class SessionLogin: public QFrame {
     Q_OBJECT
@@ -24,14 +28,20 @@ public:
 protected:
     void keyPressEvent(QKeyEvent* e);
 public slots:
-    void Loging();
+    void Login();
     void testing(QString id);
     void moveUserWidget();
+
 private:
     void initUI();
     void initConnect();
     void initData();
 
+private slots:
+    void prompt(QString text, QLightDM::Greeter::PromptType type);
+    void authenticationComplete();
+
+private:
     BackgroundLabel* m_backgroundLabel;
     LogoWidget* m_logoWidget;
     SwitchFrame* m_switchFrame;
@@ -40,6 +50,9 @@ private:
     QHBoxLayout* m_passWdEditLayout;
     QVBoxLayout* m_Layout;
 
+    QLightDM::Greeter *m_greeter;
+    QLightDM::SessionsModel *m_sessionModel;
+    QLightDM::UsersModel *m_userModel;
 };
 #endif // SESSIONLOGIN
 
