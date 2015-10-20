@@ -16,7 +16,6 @@
 class UserWidget : public QFrame
 {
     Q_OBJECT
-    Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry)
 public:
     UserWidget(QWidget* parent = 0);
     ~UserWidget();
@@ -24,36 +23,21 @@ public:
     const QString currentUser() const;
 
 signals:
-    void selectedUser(QString name);
-    void sizeUpdate();
+    void userChanged(const QString &username);
 
 public slots:
-    void addUser(QString url, QString name);
-    void loginInUser(QString nam);
-
-    void setGeometry(QRect rect);
+    void addUser(QString avatar, QString name);
+    void setCurrentUser(const QString &username);
     void expandWidget();
-    void packUpWidget();
-
-    void setCurrentUser();
-    void setUserAvatarSamll();
-    void testing(QString em);
-//    void keyPressEvent(QKeyEvent *e);
 
 private:
     void initUI();
-    void initConnect();
 
-    bool isLargerAvatar = false;
+private:
     QString m_currentUser = QString();
-    int m_finalX = 0;
-    int m_finalY = 0;
-    QHBoxLayout* m_Layout;
-    QStringList userList;
+    QList<UserButton *> *m_userBtns;
     QLightDM::UsersModel *m_userModel;
 
-    QPropertyAnimation* m_showAnimation;
-    QPropertyAnimation* m_hideAnimation;
     const int USER_ICON_WIDTH = 140;
     const int USER_ICON_HEIGHT = 150;
 };

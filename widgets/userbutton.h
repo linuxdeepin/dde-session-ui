@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QObject>
 #include <QLabel>
+#include <QPropertyAnimation>
 
 #include "useravatar.h"
 
@@ -21,14 +22,18 @@ public:
         AvatarSmallSize = 90,
         AvatarLargerSize = 110,
     };
+
 signals:
     void imageClicked(QString nam);
+
 public slots:
     void hideIn(QString name);
     void showOut();
     void sendClicked();
     void setImageSize(const AvatarSize &avatarsize);
-    void testing(bool is);
+    void hide(const int duration = 0);
+    void move(const QPoint &position, const int duration = 0);
+
 private:
     void initUI();
     void initConnect();
@@ -43,8 +48,8 @@ private:
     QVBoxLayout* m_Layout;
     UserAvatar* m_userAvatar;
     AvatarSize m_avatarsize = AvatarLargerSize;
+    QPropertyAnimation *m_moveAni;
     int m_borderWidth = 4;
-
 };
 #endif // UserButton
 

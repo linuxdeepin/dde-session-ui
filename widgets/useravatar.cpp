@@ -20,13 +20,6 @@ UserAvatar::UserAvatar(QWidget *parent, bool deleteable) :
 
     initDeleteButton();
     m_borderColor = QColor(255, 255, 255, 255);
-    //D_THEME_INIT_WIDGET(UserAvatar);
-//    setStyleSheet("qproperty-borderSelectedColor: #2CA7F8;\
-//                  qproperty-borderColor: white;\
-//                  qproperty-borderWidth: 5;\
-//                  background-color: transparent;\
-//                  color: #b4b4b4;\
-//                  border: none;");
     setStyleSheet("background-color: rgba(255, 255, 255, 0);\
                                     color: #b4b4b4;\
                                     border: none;");

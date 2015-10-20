@@ -1,12 +1,16 @@
 #include <QtGui/QPainter>
 #include <QDebug>
+#include <QTimer>
+
 #include "userbutton.h"
 
 UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
-    : QPushButton(parent)
+    : QPushButton(parent),
+      m_moveAni(new QPropertyAnimation(this, "pos"))
 {
     m_iconUrl = iconUrl;
     m_buttonId = idName;
+
     initUI();
     initConnect();
 }
@@ -16,7 +20,6 @@ void UserButton::initConnect() {
     connect(m_userAvatar, SIGNAL(userAvatarClicked()), this, SLOT(sendClicked()));
 }
 void UserButton::initUI() {
-
     setFixedSize(120, 150);
     m_userAvatar = new UserAvatar;
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
@@ -48,11 +51,11 @@ void UserButton::initUI() {
     addTextShadow();
     setLayout(m_Layout);
 }
-void UserButton::testing(bool is) {
-}
+
 void UserButton::sendClicked() {
     emit imageClicked(m_buttonId);
 }
+
 void UserButton::hideIn(QString name) {
     if (name!=this->objectName()) {
         this->hide();
@@ -62,20 +65,33 @@ void UserButton::hideIn(QString name) {
 void UserButton::showOut() {
     this->show();
 }
+
 void UserButton::setImageSize(const AvatarSize &avatarsize) {
-    int tmpAvatarSize = AvatarSmallSize;
-
     if (avatarsize==AvatarLargerSize) {
-
-        tmpAvatarSize = AvatarLargerSize;
         m_userAvatar->setAvatarSize(m_userAvatar->AvatarLargeSize);
     } else {
-        tmpAvatarSize = AvatarSmallSize;
         m_userAvatar->setAvatarSize(m_userAvatar->AvatarSmallSize);
     }
 
     m_avatarsize = avatarsize;
     update();
+}
+
+void UserButton::hide(const int duration)
+{
+    QTimer::singleShot(duration, this, &QPushButton::hide);
+}
+
+void UserButton::move(const QPoint &position, int duration)
+{
+    if (!duration)
+        return QPushButton::move(position);
+
+    m_moveAni->setDuration(duration);
+    m_moveAni->setStartValue(pos());
+    m_moveAni->setEndValue(position);
+
+    m_moveAni->start();
 }
 
 void UserButton::addTextShadow() {

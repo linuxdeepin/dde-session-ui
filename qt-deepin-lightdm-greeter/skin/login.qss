@@ -44,7 +44,7 @@ QPushButton#KeyBoardLayoutButton {
 }
 QLineEdit#passwdLineEdit {
     color:white;
-    font-size:36px;
+    font-size:24px;
     border: 1px solid  transparent;
     border-radius: 4px;
     background: transparent;

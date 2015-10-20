@@ -39,7 +39,7 @@ void SessionLogin::initUI() {
     m_switchFrame->move(width()-m_switchFrame->width(), height() - m_switchFrame->height());
     m_userWidget = new UserWidget(this);
     m_userWidget->setObjectName("UserWidget");
-    m_userWidget->move(qApp->desktop()->screenGeometry().center() - m_userWidget->rect().center() + QPoint(0, -95));
+//    m_userWidget->updateGeometry();
     m_passWdEdit = new PassWdEdit("LoginIcon", this);
 
     m_passWdEditLayout = new QHBoxLayout;
@@ -64,7 +64,6 @@ void SessionLogin::initUI() {
 void SessionLogin::initConnect() {
     connect(m_passWdEdit, SIGNAL(jumpTo()), this, SLOT(Login()));
     connect(m_switchFrame, SIGNAL(switchItem(QString)), this, SLOT(testing(QString)));
-    connect(m_userWidget, SIGNAL(sizeUpdate()), this, SLOT(moveUserWidget()));
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &SessionLogin::prompt);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &SessionLogin::authenticationComplete);
 }
@@ -94,13 +93,13 @@ void SessionLogin::authenticationComplete()
 }
 
 void SessionLogin::keyPressEvent(QKeyEvent* e) {
-//#ifndef QT_DEBUG
-//    Q_UNUSED(e)
-//#else
+#ifndef QT_DEBUG
+    Q_UNUSED(e)
+#else
     if (e->key() == Qt::Key_Escape) {
         qApp->exit();
     }
-//#endif
+#endif
 }
 void SessionLogin::Login()
 {
