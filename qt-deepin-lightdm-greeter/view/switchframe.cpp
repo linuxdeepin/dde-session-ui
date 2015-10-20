@@ -8,16 +8,22 @@ SwitchFrame::SwitchFrame(QWidget* parent)
     initConnect();
 }
 
-void SwitchFrame::initConnect() {
-    connect(m_switchUserButton, SIGNAL(clicked()), this, SLOT(switchUser()));
-    connect(m_powerButton, SIGNAL(clicked()), this, SLOT(switchPowerMenu()));
-    connect(m_switchSystemButton, SIGNAL(clicked()), this, SLOT(switchDesktopEnvironment()));
+SwitchFrame::~SwitchFrame()
+{
 }
+
+void SwitchFrame::initConnect() {
+    connect(m_switchUserButton, &QPushButton::clicked, this, &SwitchFrame::triggerSwitchUser);
+    connect(m_powerButton, &QPushButton::clicked, this, &SwitchFrame::triggerPower);
+    connect(m_switchSessionButton, &QPushButton::clicked, this, &SwitchFrame::triggerSwitchSession);
+}
+
 void SwitchFrame::initUI() {
-    this->setFixedSize(300, 200);
-    m_switchSystemButton = new QPushButton;
-    m_switchSystemButton->setFixedSize(60, 60);
-    m_switchSystemButton->setObjectName("SwitchDEnvironment");
+    setFixedSize(300, 200);
+
+    m_switchSessionButton = new QPushButton;
+    m_switchSessionButton->setFixedSize(60, 60);
+    m_switchSessionButton->setObjectName("SwitchDEnvironment");
     m_switchUserButton = new QPushButton;
     m_switchUserButton->setFixedSize(100, 100);
     m_switchUserButton->setObjectName("SwitchUser");
@@ -29,29 +35,9 @@ void SwitchFrame::initUI() {
     m_Layout->setMargin(0);
     m_Layout->setSpacing(0);
     m_Layout->addStretch();
-    m_Layout->addWidget(m_switchSystemButton);
+    m_Layout->addWidget(m_switchSessionButton);
     m_Layout->addWidget(m_switchUserButton);
     m_Layout->addWidget(m_powerButton);
     m_Layout->addStretch();
     setLayout(m_Layout);
-}
-void SwitchFrame::testing(QString switchId) {
-
-    qDebug() << "SwitchId:" << switchId;
-
-}
-void SwitchFrame::switchDesktopEnvironment() {
-    emit switchItem(m_switchSystemButton->objectName());
-}
-
-void SwitchFrame::switchPowerMenu() {
-    emit switchItem(m_powerButton->objectName());
-}
-
-void SwitchFrame::switchUser() {
-    emit switchItem(m_switchUserButton->objectName());
-}
-
-SwitchFrame::~SwitchFrame()
-{
 }

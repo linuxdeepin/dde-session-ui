@@ -69,7 +69,10 @@ void UserButton::setImageSize(const AvatarSize &avatarsize) {
 
 void UserButton::hide(const int duration)
 {
-    QTimer::singleShot(duration, this, &QPushButton::hide);
+    if (!duration)
+        return QPushButton::hide();
+    else
+        QTimer::singleShot(duration, this, &QPushButton::hide);
 }
 
 void UserButton::move(const QPoint &position, int duration)

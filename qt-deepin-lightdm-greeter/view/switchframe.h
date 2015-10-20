@@ -11,17 +11,17 @@ class SwitchFrame:public QFrame
 public:
     SwitchFrame(QWidget* parent=0);
     ~SwitchFrame();
+
 signals:
-    void switchItem(QString switchItem);
-public slots:
-    void testing(QString switchId);
-    void switchUser();
-    void switchDesktopEnvironment();
-    void switchPowerMenu();
+    void triggerSwitchSession();
+    void triggerSwitchUser();
+    void triggerPower();
+
 private:
     void initUI();
     void initConnect();
-    QPushButton* m_switchSystemButton;
+
+    QPushButton* m_switchSessionButton;
     QPushButton* m_switchUserButton;
     QPushButton* m_powerButton;
     QHBoxLayout* m_Layout;

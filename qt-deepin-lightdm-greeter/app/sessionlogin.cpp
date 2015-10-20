@@ -8,22 +8,13 @@
 
 SessionLogin::SessionLogin(QWidget* parent)
     : QFrame(parent),
-      m_greeter(new QLightDM::Greeter(this)),
-      m_sessionModel(new QLightDM::SessionsModel(this))
+      m_greeter(new QLightDM::Greeter(this))
 {
     if (!m_greeter->connectSync())
         qWarning() << "greeter connect fail !!!";
 
-    setObjectName("SessionLoginTool");
-    setFocusPolicy(Qt::StrongFocus);
-    setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
-    setFixedSize(qApp->desktop()->size());
-
     initUI();
     initConnect();
-
-    m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
-    m_passWdEdit->setFocus();
 }
 
 SessionLogin::~SessionLogin()
@@ -31,16 +22,27 @@ SessionLogin::~SessionLogin()
 
 }
 
-void SessionLogin::initUI() {
+void SessionLogin::initUI()
+{
+    setFixedSize(qApp->desktop()->size());
+    setObjectName("SessionLoginTool");
+    setFocusPolicy(Qt::StrongFocus);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
+    setFocusPolicy(Qt::NoFocus);
+
     m_backgroundLabel = new BackgroundLabel(true, this);
+    m_sessionWidget = new SessionWidget(this);
+    m_sessionWidget->hide();
+    m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2);
     m_logoWidget = new LogoWidget(this);
     m_logoWidget->move(0, height() - m_logoWidget->height() - 20);
     m_switchFrame = new SwitchFrame(this);
-    m_switchFrame->move(width()-m_switchFrame->width(), height() - m_switchFrame->height());
+    m_switchFrame->move(width() - m_switchFrame->width(), height() - m_switchFrame->height());
     m_userWidget = new UserWidget(this);
     m_userWidget->setObjectName("UserWidget");
-//    m_userWidget->updateGeometry();
     m_passWdEdit = new PassWdEdit("LoginIcon", this);
+    m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
+    m_passWdEdit->setFocus();
 
     m_passWdEditLayout = new QHBoxLayout;
     m_passWdEditLayout->setMargin(0);
@@ -59,11 +61,13 @@ void SessionLogin::initUI() {
     setLayout(m_Layout);
     updateStyle(":/skin/login.qss", this);
     showFullScreen();
-
 }
-void SessionLogin::initConnect() {
-    connect(m_passWdEdit, SIGNAL(jumpTo()), this, SLOT(Login()));
-    connect(m_switchFrame, SIGNAL(switchItem(QString)), this, SLOT(testing(QString)));
+
+void SessionLogin::initConnect()
+{
+    connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget);
+    connect(m_passWdEdit, &PassWdEdit::submit, this, &SessionLogin::login);
+    connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &SessionLogin::prompt);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &SessionLogin::authenticationComplete);
 }
@@ -88,8 +92,22 @@ void SessionLogin::authenticationComplete()
         return;
     }
 
-    // TODO:
-    qDebug() << "start session: " << m_greeter->startSessionSync(m_sessionModel->data(m_sessionModel->index(0), QLightDM::SessionsModel::KeyRole).toString());
+    qDebug() << "session = " << m_sessionWidget->currentSessionName();
+    qDebug() << "start session: " << m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+}
+
+void SessionLogin::chooseUserMode()
+{
+    m_sessionWidget->hide();
+    m_userWidget->show();
+    m_passWdEdit->show();
+}
+
+void SessionLogin::chooseSessionMode()
+{
+    m_sessionWidget->show();
+    m_userWidget->hide();
+    m_passWdEdit->hide();
 }
 
 void SessionLogin::keyPressEvent(QKeyEvent* e) {
@@ -101,26 +119,14 @@ void SessionLogin::keyPressEvent(QKeyEvent* e) {
     }
 #endif
 }
-void SessionLogin::Login()
+
+void SessionLogin::login()
 {
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
 
-    // TODO:
     const QString &username = m_userWidget->currentUser();
-    qDebug() << username;
     m_greeter->authenticate(username);
-
+    qDebug() << "choose user: " << username;
     qDebug() << "auth user: " << m_greeter->authenticationUser();
-}
-
-void SessionLogin::testing(QString id) {
-    qDebug() << "switch User!" << id;
-    if (id == "SwitchUser") {
-        m_userWidget->expandWidget();
-    }
-}
-
-void SessionLogin::moveUserWidget() {
-
 }

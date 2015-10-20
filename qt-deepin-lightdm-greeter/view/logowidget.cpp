@@ -41,6 +41,7 @@ void LogoWidget::initUI() {
     m_logoLayout->addLayout(m_logoRightSideLayout);
     setLayout(m_logoLayout);
 }
+
 LogoWidget::~LogoWidget()
 {
 }

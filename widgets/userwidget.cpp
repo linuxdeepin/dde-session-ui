@@ -41,16 +41,14 @@ void UserWidget::initUI() {
 
 void UserWidget::setCurrentUser(const QString &username) {
 
-
     for (UserButton *user : *m_userBtns) {
         if (user->objectName() == username) {
-            user->setImageSize(user->AvatarLargerSize);
+            user->show();
             user->showButton();
-        } else {
-//            user->hide(200);
-            user->hideButton();
+            user->setImageSize(user->AvatarLargerSize);
+        } else
+            user->hide(180);
 
-        }
          user->move(rect().center() - user->rect().center(), 200);
     }
 
@@ -61,8 +59,10 @@ void UserWidget::setCurrentUser(const QString &username) {
 
 void UserWidget::addUser(QString avatar, QString name) {
     UserButton *user = new UserButton(avatar, name);
+    user->hide();
     user->setObjectName(name);
     user->setParent(this);
+    user->move(rect().center() - user->rect().center());
 
     connect(user, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
 

@@ -13,6 +13,7 @@
 #include "util_updateui.h"
 #include "passwdedit.h"
 #include "userwidget.h"
+#include "sessionwidget.h"
 
 #include <QLightDM/Greeter>
 #include <QLightDM/SessionsModel>
@@ -26,19 +27,15 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent* e);
-public slots:
-    void Login();
-    void testing(QString id);
-    void moveUserWidget();
-
-private:
-    void initUI();
-    void initConnect();
-    void initData();
 
 private slots:
+    void initUI();
+    void initConnect();
+    void login();
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
+    void chooseUserMode();
+    void chooseSessionMode();
 
 private:
     BackgroundLabel* m_backgroundLabel;
@@ -46,11 +43,11 @@ private:
     SwitchFrame* m_switchFrame;
     UserWidget* m_userWidget;
     PassWdEdit* m_passWdEdit;
+    SessionWidget *m_sessionWidget;
     QHBoxLayout* m_passWdEditLayout;
     QVBoxLayout* m_Layout;
 
     QLightDM::Greeter *m_greeter;
-    QLightDM::SessionsModel *m_sessionModel;
 };
 #endif // SESSIONLOGIN
 

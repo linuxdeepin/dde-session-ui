@@ -15,7 +15,7 @@ public:
     ~PassWdEdit();
 
 signals:
-    void jumpTo();
+    void submit();
 
 public slots:
     void setLineEditRightImage(QString imageUrl);

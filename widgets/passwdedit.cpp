@@ -45,8 +45,8 @@ void PassWdEdit::initUI() {
     setLayout(m_Layout);
 }
 void PassWdEdit::initConnect() {
-    connect(m_iconButton, &QPushButton::clicked, this, &PassWdEdit::jumpTo);
-    connect(this, &PassWdEdit::jumpTo, this, &PassWdEdit::testing);
+    connect(m_iconButton, &QPushButton::clicked, this, &PassWdEdit::submit);
+    connect(this, &PassWdEdit::submit, this, &PassWdEdit::testing);
 }
 
 void PassWdEdit::focusInEvent(QFocusEvent *)
