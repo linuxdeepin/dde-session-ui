@@ -1,0 +1,14 @@
+QFrame {
+    background-color:transparent;
+}
+
+QPushButton#SessionFrame {
+    outline:none;
+    border: none;
+    background-color:rgba(0, 0, 0, 0);
+}
+
+QLabel#SessionButton {
+    border: none;
+    background-color:cyan;
+}

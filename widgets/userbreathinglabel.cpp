@@ -31,14 +31,24 @@ void UserBreathingLabel::setOpacity(double opa) {
 
 }
 
-void UserBreathingLabel::showLabel() {
+void UserBreathingLabel::showLabel()
+{
+    if (m_showAnimation->state() == QPropertyAnimation::Running ||
+        m_hideAnimation->state() == QPropertyAnimation::Running)
+        return;
+
     m_showAnimation->setStartValue(0);
     m_showAnimation->setEndValue(1.0);
     m_showAnimation->start();
     m_showAnimation->setDuration(500);
 }
 
-void UserBreathingLabel::hideLabel() {
+void UserBreathingLabel::hideLabel()
+{
+    if (m_showAnimation->state() == QPropertyAnimation::Running ||
+        m_hideAnimation->state() == QPropertyAnimation::Running)
+        return;
+
     m_hideAnimation->setStartValue(1.0);
     m_hideAnimation->setEndValue(0);
     m_hideAnimation->start();

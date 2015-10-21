@@ -34,7 +34,7 @@ void LoginManager::initUI()
     m_backgroundLabel = new BackgroundLabel(true, this);
     m_sessionWidget = new SessionWidget(this);
     m_sessionWidget->hide();
-    m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2);
+    m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2 - 100);
     m_logoWidget = new LogoWidget(this);
     m_logoWidget->move(0, height() - m_logoWidget->height() - 20);
     m_switchFrame = new SwitchFrame(this);
@@ -66,6 +66,8 @@ void LoginManager::initUI()
 
 void LoginManager::initConnect()
 {
+    connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, this, &LoginManager::chooseSessionMode);
+    connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, this, &LoginManager::chooseUserMode);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget);
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::updateKeybordLayoutStatus);

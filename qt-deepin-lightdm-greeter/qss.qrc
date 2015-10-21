@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>skin/login.qss</file>
+        <file>skin/sessions.qss</file>
     </qresource>
 </RCC>

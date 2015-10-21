@@ -43,7 +43,6 @@ void UserWidget::setCurrentUser(const QString &username) {
 
     for (UserButton *user : *m_userBtns) {
         if (user->objectName() == username) {
-            user->show();
             user->showButton();
             user->setImageSize(user->AvatarLargerSize);
         } else
