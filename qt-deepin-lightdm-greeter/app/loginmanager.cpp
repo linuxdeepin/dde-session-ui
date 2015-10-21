@@ -15,6 +15,8 @@ LoginManager::LoginManager(QWidget* parent)
 
     initUI();
     initConnect();
+
+    m_passWdEdit->updateKeybordLayoutStatus(m_userWidget->currentUser());
 }
 
 LoginManager::~LoginManager()
@@ -66,6 +68,7 @@ void LoginManager::initConnect()
 {
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget);
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
+    connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::updateKeybordLayoutStatus);
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);

@@ -1,6 +1,8 @@
+#include "passwdedit.h"
+
 #include <QtCore/QObject>
 #include <QDebug>
-#include "passwdedit.h"
+#include <QSettings>
 
 PassWdEdit::PassWdEdit(QString iconId, QWidget* parent)
     : QFrame(parent)
@@ -11,7 +13,6 @@ PassWdEdit::PassWdEdit(QString iconId, QWidget* parent)
 
     setObjectName("passwdEnterFrame");
     setFixedSize(QSize(270, 36));
-    setKeyBoardLayoutButtonStatus(false);
 }
 
 PassWdEdit::~PassWdEdit()
@@ -44,9 +45,9 @@ void PassWdEdit::initUI() {
 
     setLayout(m_Layout);
 }
+
 void PassWdEdit::initConnect() {
     connect(m_iconButton, &QPushButton::clicked, this, &PassWdEdit::submit);
-    connect(this, &PassWdEdit::submit, this, &PassWdEdit::testing);
 }
 
 void PassWdEdit::focusInEvent(QFocusEvent *)
@@ -54,12 +55,15 @@ void PassWdEdit::focusInEvent(QFocusEvent *)
     m_lineEdit->setFocus();
 }
 
-void PassWdEdit::testing() {
-    qDebug() << "testing:";
-}
+void PassWdEdit::updateKeybordLayoutStatus(const QString &username) {
+    QSettings settings("/var/lib/greeter/users.ini", QSettings::IniFormat);
+    // TODO: 这里配置文件是以 ';' 分隔的，但是Qt会把 ';' 之后的认为注释
+    m_keyboardList = settings.value(username + "/KeyboardLayoutList").toString().split("_");
 
-void PassWdEdit::setKeyBoardLayoutButtonStatus(bool show) {
-    if (show) {
+    qDebug() << settings.value(username + "/KeyboardLayoutList").toString();
+    qDebug() << username << m_keyboardList;
+
+    if (m_keyboardList.count() > 2) {
         m_keyboardButton->show();
         setFixedWidth(270);
     } else {
@@ -71,6 +75,7 @@ void PassWdEdit::setKeyBoardLayoutButtonStatus(bool show) {
 void PassWdEdit::setLineEditRightImage(QString imageUrl) {
     m_iconButton->setIcon(QIcon(QPixmap(imageUrl)));
 }
+
 QString PassWdEdit::getText() {
     return m_lineEdit->text();
 }

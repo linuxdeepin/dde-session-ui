@@ -20,8 +20,7 @@ signals:
 public slots:
     void setLineEditRightImage(QString imageUrl);
     QString getText();
-    void setKeyBoardLayoutButtonStatus(bool show);
-    void testing();
+    void updateKeybordLayoutStatus(const QString &username);
 
 private:
     void initUI();
@@ -34,5 +33,6 @@ private:
     QPushButton* m_keyboardButton;
     QPushButton* m_iconButton;
     QHBoxLayout* m_Layout;
+    QStringList m_keyboardList;
 };
 #endif // PASSWDEDIT

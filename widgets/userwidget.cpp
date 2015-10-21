@@ -82,7 +82,6 @@ void UserWidget::expandWidget() {
         m_userBtns->at(i)->showButton();
         m_userBtns->at(i)->setImageSize(UserButton::AvatarSmallSize);
         m_userBtns->at(i)->move(QPoint(offset + i * USER_ICON_WIDTH, 0), 200);
-
     }
 }
 
