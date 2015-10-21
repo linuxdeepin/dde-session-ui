@@ -1,5 +1,5 @@
-#ifndef SESSIONLOGIN
-#define SESSIONLOGIN
+#ifndef LoginManager_H
+#define LoginManager_H
 #include <QApplication>
 #include <QFrame>
 #include <QVBoxLayout>
@@ -18,12 +18,24 @@
 #include <QLightDM/Greeter>
 #include <QLightDM/SessionsModel>
 
+#include "view/logowidget.h"
+#include "view/switchframe.h"
+
+#include "backgroundlabel.h"
+#include "util_updateui.h"
+#include "passwdedit.h"
+#include "userwidget.h"
+#include "sessionwidget.h"
+
+#include <QLightDM/Greeter>
+#include <QLightDM/SessionsModel>
+
 class BackgroundLabel;
-class SessionLogin: public QFrame {
+class LoginManager: public QFrame {
     Q_OBJECT
 public:
-    SessionLogin(QWidget* parent=0);
-    ~SessionLogin();
+    LoginManager(QWidget* parent=0);
+    ~LoginManager();
 
 protected:
     void keyPressEvent(QKeyEvent* e);
@@ -49,5 +61,5 @@ private:
 
     QLightDM::Greeter *m_greeter;
 };
-#endif // SESSIONLOGIN
+#endif // LoginManager
 

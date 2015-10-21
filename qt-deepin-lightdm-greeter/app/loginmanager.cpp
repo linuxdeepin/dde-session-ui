@@ -4,9 +4,9 @@
 #include <QDesktopWidget>
 #include <QDebug>
 
-#include "sessionlogin.h"
+#include "loginmanager.h"
 
-SessionLogin::SessionLogin(QWidget* parent)
+LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent),
       m_greeter(new QLightDM::Greeter(this))
 {
@@ -17,15 +17,14 @@ SessionLogin::SessionLogin(QWidget* parent)
     initConnect();
 }
 
-SessionLogin::~SessionLogin()
+LoginManager::~LoginManager()
 {
-
 }
 
-void SessionLogin::initUI()
+void LoginManager::initUI()
 {
     setFixedSize(qApp->desktop()->size());
-    setObjectName("SessionLoginTool");
+    setObjectName("LoginManagerTool");
     setFocusPolicy(Qt::StrongFocus);
     setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
     setFocusPolicy(Qt::NoFocus);
@@ -63,16 +62,16 @@ void SessionLogin::initUI()
     showFullScreen();
 }
 
-void SessionLogin::initConnect()
+void LoginManager::initConnect()
 {
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget);
-    connect(m_passWdEdit, &PassWdEdit::submit, this, &SessionLogin::login);
+    connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
-    connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &SessionLogin::prompt);
-    connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &SessionLogin::authenticationComplete);
+    connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
+    connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
 }
 
-void SessionLogin::prompt(QString text, QLightDM::Greeter::PromptType type)
+void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
 {
     qDebug() << "prompt: " << text << type;
 
@@ -83,7 +82,7 @@ void SessionLogin::prompt(QString text, QLightDM::Greeter::PromptType type)
     }
 }
 
-void SessionLogin::authenticationComplete()
+void LoginManager::authenticationComplete()
 {
     qDebug() << "authenticationComplete";
 
@@ -96,21 +95,21 @@ void SessionLogin::authenticationComplete()
     qDebug() << "start session: " << m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
 }
 
-void SessionLogin::chooseUserMode()
+void LoginManager::chooseUserMode()
 {
     m_sessionWidget->hide();
     m_userWidget->show();
     m_passWdEdit->show();
 }
 
-void SessionLogin::chooseSessionMode()
+void LoginManager::chooseSessionMode()
 {
     m_sessionWidget->show();
     m_userWidget->hide();
     m_passWdEdit->hide();
 }
 
-void SessionLogin::keyPressEvent(QKeyEvent* e) {
+void LoginManager::keyPressEvent(QKeyEvent* e) {
 #ifndef QT_DEBUG
     Q_UNUSED(e)
 #else
@@ -120,7 +119,7 @@ void SessionLogin::keyPressEvent(QKeyEvent* e) {
 #endif
 }
 
-void SessionLogin::login()
+void LoginManager::login()
 {
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();

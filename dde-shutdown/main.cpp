@@ -1,6 +1,6 @@
 #include <QApplication>
 #include <QtCore/QTranslator>
-#include "app/sessionmanagement.h"
+#include "app/shutdownmanager.h"
 
 
 int main(int argc, char* argv[])
@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app.installTranslator(&translator);
-    SessionManagement w;
+    ShutdownManager w;
     w.show();
     return app.exec();
 }

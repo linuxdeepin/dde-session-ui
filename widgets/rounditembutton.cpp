@@ -1,7 +1,8 @@
 #include <QtCore/QObject>
-#include "sessionbutton.h"
 
-SessionButton::SessionButton(QString text, QString buttonId, QWidget* parent)
+#include "rounditembutton.h"
+
+RoundItemButton::RoundItemButton(QString text, QString buttonId, QWidget* parent)
     : QPushButton(parent)
 {
     m_buttonId = buttonId;
@@ -9,10 +10,10 @@ SessionButton::SessionButton(QString text, QString buttonId, QWidget* parent)
     initUI();
     initConnect();
 }
-void SessionButton::initConnect() {
+void RoundItemButton::initConnect() {
 }
 
-void SessionButton::initUI() {
+void RoundItemButton::initUI() {
     setFixedSize(QSize(120, 120));
     m_iconLabel = new QLabel;
     m_iconLabel->setFixedSize(QSize(75, 75));
@@ -45,16 +46,16 @@ void SessionButton::initUI() {
     setLayout(m_Layout);
 }
 
-bool SessionButton::isChecked() const{
+bool RoundItemButton::isChecked() const{
     return (m_checked);
 }
-void SessionButton::setChecked(bool checked){
+void RoundItemButton::setChecked(bool checked){
     if (m_checked != checked){
         m_checked = checked;
         update();
     }
 }
-void SessionButton::setButtonMutex(QString buttonName) {
+void RoundItemButton::setButtonMutex(QString buttonName) {
 
     m_iconLabel->setProperty("Hover", false);
     emit signalManager->buttonStyleChanged();
@@ -64,40 +65,40 @@ void SessionButton::setButtonMutex(QString buttonName) {
         setChecked(true);
     }
 }
-void SessionButton::setButtonHoverMutex(QString buttonName) {
+void RoundItemButton::setButtonHoverMutex(QString buttonName) {
 
     if (buttonName != m_iconLabel->objectName()) {
         m_iconLabel->setProperty("Hover", false);
         emit signalManager->buttonStyleChanged();
     }
 }
-void SessionButton::setHover(bool isHover) {
+void RoundItemButton::setHover(bool isHover) {
     m_iconLabel->setProperty("Hover", isHover);
     emit signalManager->buttonStyleChanged();
 }
 
-void SessionButton::enterEvent(QEvent* event) {
+void RoundItemButton::enterEvent(QEvent* event) {
     Q_UNUSED(event);
     m_iconLabel->setProperty("Hover", true);
     emit signalManager->setButtonHover(m_buttonId);
 }
-void SessionButton::leaveEvent(QEvent* event) {
+void RoundItemButton::leaveEvent(QEvent* event) {
     Q_UNUSED(event);
     m_iconLabel->setProperty("Hover", false);
     emit signalManager->buttonStyleChanged();
 }
-void SessionButton::mousePressEvent(QMouseEvent* e) {
+void RoundItemButton::mousePressEvent(QMouseEvent* e) {
     Q_UNUSED(e);
     m_iconLabel->setProperty("Checked", true);
     emit signalManager->buttonStyleChanged();
 }
-void SessionButton::mouseReleaseEvent(QMouseEvent* e) {
+void RoundItemButton::mouseReleaseEvent(QMouseEvent* e) {
     Q_UNUSED(e);
     m_iconLabel->setProperty("Checked", false);
     emit signalManager->buttonStyleChanged();
     emit  buttonAction(m_buttonId);
 }
-void SessionButton::paintEvent(QPaintEvent* event){
+void RoundItemButton::paintEvent(QPaintEvent* event){
      if (m_checked){
          QPainter painter(this);
          painter.setPen(QPen(QColor(255, 255, 255, 51), 2));
@@ -107,13 +108,13 @@ void SessionButton::paintEvent(QPaintEvent* event){
      }
      QPushButton::paintEvent(event);
 }
-void SessionButton::addTextShadow() {
+void RoundItemButton::addTextShadow() {
     QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect;
     nameShadow->setBlurRadius(16);
     nameShadow->setColor(QColor(0, 0, 0, 85));
     nameShadow->setOffset(0, 4);
     m_contentTextLabel->setGraphicsEffect(nameShadow);
 }
-SessionButton::~SessionButton()
+RoundItemButton::~RoundItemButton()
 {
 }

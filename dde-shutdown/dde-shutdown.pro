@@ -23,15 +23,15 @@ SOURCES += main.cpp\
     dbus/dbussessionmanager.cpp \
     view/contentwidget.cpp \
     view/mainframe.cpp \
-    app/sessionmanagement.cpp \
-    controller/dbusmanagement.cpp
+    controller/dbusmanagement.cpp \
+    app/shutdownmanager.cpp
 
 HEADERS  += \
     dbus/dbussessionmanager.h \
     view/contentwidget.h \
     view/mainframe.h \
-    app/sessionmanagement.h \
     controller/dbusmanagement.h \
+    app/shutdownmanager.h
 
 
 RESOURCES += \

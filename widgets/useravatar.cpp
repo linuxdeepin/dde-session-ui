@@ -62,7 +62,6 @@ void UserAvatar::leaveEvent(QEvent *)
 
 void UserAvatar::paintEvent(QPaintEvent *)
 {
-    qDebug() << "repainting" << m_borderColor.alpha();
     int iconSize = NORMAL_ICON_SIZE;
     switch (m_avatarSize){
     case AvatarSmallSize:

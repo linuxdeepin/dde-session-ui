@@ -50,6 +50,8 @@ void UserWidget::setCurrentUser(const QString &username) {
             user->hide(180);
 
          user->move(rect().center() - user->rect().center(), 200);
+//        user->setGeometry(QRect(rect().center()- user->rect().center(), 200, user->width(), user->height()));
+
     }
 
     m_currentUser = username;

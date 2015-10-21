@@ -1,5 +1,5 @@
-#ifndef SessionManagerTool_H
-#define SessionManagerTool_H
+#ifndef  SHUTDOWNMANAGER_H
+#define SHUTDOWNMANAGER_H
 #include <QApplication>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
@@ -10,12 +10,12 @@
 #include "util_signalmanager.h"
 
 class BackgroundLabel;
-class SessionManagement : public QFrame
+class ShutdownManager : public QFrame
 {
     Q_OBJECT
 public:
-    SessionManagement(QWidget* parent = 0);
-    ~SessionManagement();
+    ShutdownManager(QWidget* parent = 0);
+    ~ShutdownManager();
 signals:
     void DirectKeyLeft();
     void DirectKeyRight();

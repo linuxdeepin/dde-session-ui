@@ -15,14 +15,14 @@ PKGCONFIG += gsettings-qt dui liblightdm-qt5-3
 CONFIG += c++11 link_pkgconfig
 
 SOURCES += main.cpp\
-    app/sessionlogin.cpp \
     view/logowidget.cpp \
-    view/switchframe.cpp
+    view/switchframe.cpp \
+    app/loginmanager.cpp
 
 HEADERS  += \
-    app/sessionlogin.h \
     view/switchframe.h \
-    view/logowidget.h
+    view/logowidget.h \
+    app/loginmanager.h
 
 include(../background/background.pri)
 include(../widgets/widgets.pri)

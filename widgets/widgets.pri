@@ -8,20 +8,20 @@ INCLUDEPATH += $$PWD
 PKGCONFIG   += liblightdm-qt5-3
 
 HEADERS += \
-    $$PWD/sessionbutton.h \
     $$PWD/useravatar.h \
     $$PWD/userbutton.h \
     $$PWD/userwidget.h \
     $$PWD/passwdedit.h \
     $$PWD/userbreathinglabel.h \
-    $$PWD/sessionwidget.h
+    $$PWD/sessionwidget.h \
+    $$PWD/rounditembutton.h
 
 
 SOURCES += \
-    $$PWD/sessionbutton.cpp \
     $$PWD/useravatar.cpp \
     $$PWD/userbutton.cpp \
     $$PWD/userwidget.cpp \
     $$PWD/passwdedit.cpp \
     $$PWD/userbreathinglabel.cpp \
-    $$PWD/sessionwidget.cpp
+    $$PWD/sessionwidget.cpp \
+    $$PWD/rounditembutton.cpp

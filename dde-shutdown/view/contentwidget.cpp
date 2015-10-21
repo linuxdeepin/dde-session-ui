@@ -39,18 +39,18 @@ void ShutDownFrame::initConnect() {
 }
 
 void ShutDownFrame::initUI() {
-    m_shutdownButton = new SessionButton(tr("Shut down"), "ShutDownButton");
+    m_shutdownButton = new RoundItemButton(tr("Shut down"), "ShutDownButton");
     m_shutdownButton->setObjectName("ShutDownButtonFrame");
     m_shutdownButton->setHover(true);
-    m_restartButton = new SessionButton(tr("Restart"), "RestartButton");
+    m_restartButton = new RoundItemButton(tr("Restart"), "RestartButton");
     m_restartButton->setObjectName("RestartButtonFrame");
-    m_suspendButton = new SessionButton(tr("Suspend"), "SuspendButton");
+    m_suspendButton = new RoundItemButton(tr("Suspend"), "SuspendButton");
     m_suspendButton->setObjectName("SuspendButtonFrame");
-    m_lockButton = new SessionButton(tr("Lock"), "LockButton");
+    m_lockButton = new RoundItemButton(tr("Lock"), "LockButton");
     m_lockButton->setObjectName("LockButtonFrame");
-//    m_userSwitchButton = new SessionButton("SwitchUser", "UserSwitchButton");
+//    m_userSwitchButton = new RoundItemButton("SwitchUser", "UserSwitchButton");
 //    m_userSwitchButton->setObjectName("UserSwitchButtonFrame");
-    m_logoutButton = new SessionButton(tr("Log out"), "LogoutButton");
+    m_logoutButton = new RoundItemButton(tr("Log out"), "LogoutButton");
     m_logoutButton->setObjectName("LogoutButtonFrame");
 
 //    setUserSwitchButton(false);
@@ -96,7 +96,7 @@ void ShutDownFrame::test(QString test) {
 }
 void ShutDownFrame::ShutDownAction( ) {
 
-    QList<SessionButton*> m_children = this->findChildren<SessionButton *>();
+    QList<RoundItemButton*> m_children = this->findChildren<RoundItemButton *>();
     for (int i = 0; i < m_children.length(); i++) {
         if (m_children[i]->isChecked()) {
             emit m_children[i]->buttonAction(m_children[i]->buttonId());
@@ -116,7 +116,7 @@ void ShutDownFrame::updateStyleSheet(){
     }
 }*/
 void ShutDownFrame::setPreviousChildFocus() {
-    QList<SessionButton*> m_children = this->findChildren<SessionButton *>();
+    QList<RoundItemButton*> m_children = this->findChildren<RoundItemButton *>();
     m_count--;
     if (m_count <= -1) {
         m_count = m_children.length()-1;
@@ -125,7 +125,7 @@ void ShutDownFrame::setPreviousChildFocus() {
 }
 void ShutDownFrame::setNextChildFocus() {
 
-    QList<SessionButton*> m_children = this->findChildren<SessionButton *>();
+    QList<RoundItemButton*> m_children = this->findChildren<RoundItemButton *>();
     m_count++;
     if (m_count >= m_children.length()) {
         m_count = 0;

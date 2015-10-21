@@ -1,5 +1,6 @@
-#ifndef SESSIONBUTTON
-#define SESSIONBUTTON
+#ifndef ROUNDITEMBUTTON
+#define ROUNDITEMBUTTON
+
 #include <QObject>
 #include <QFrame>
 #include <QPushButton>
@@ -10,12 +11,14 @@
 
 #include "util_signalmanager.h"
 
-class SessionButton: public QPushButton
+/* The RoundItemButton is used by shutdownButton, restartButton, and so on... */
+
+class RoundItemButton: public QPushButton
 {
     Q_OBJECT
 public:
-    SessionButton(QString text, QString buttonId, QWidget* parent=0);
-    ~SessionButton();
+    RoundItemButton(QString text, QString buttonId, QWidget* parent=0);
+    ~RoundItemButton();
 protected:
     void paintEvent(QPaintEvent* event);
     void enterEvent(QEvent* event);
@@ -47,4 +50,4 @@ private:
     QVBoxLayout* m_Layout;
     QHBoxLayout* m_ButtonLayout;
 };
-#endif // SESSIONBUTTON
+#endif // ROUNDITEMBUTTON

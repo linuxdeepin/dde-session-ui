@@ -2,33 +2,31 @@
 #include <QApplication>
 #include <QtCore/QFile>
 
-#include "sessionmanagement.h"
+#include "shutdownmanager.h"
 
-SessionManagement::SessionManagement(QWidget* parent)
+ShutdownManager::ShutdownManager(QWidget* parent)
     : QFrame(parent)
 {
-    setObjectName("SessionManagerTool");
-    setFocusPolicy(Qt::StrongFocus);
-    setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
-    resize(qApp->desktop()->screenGeometry().size());
 
     initUI();
-
-    showFullScreen();
-    activateWindow();
-
     initConnect();
     initData();
 }
 
-void SessionManagement::initConnect() {
+void ShutdownManager::initConnect() {
     connect(this, SIGNAL(DirectKeyLeft()) , m_content, SIGNAL(OutKeyLeft()));
     connect(this, SIGNAL(DirectKeyRight()), m_content, SIGNAL(OutKeyRight()));
     connect(this, SIGNAL(pressEnter()), m_content, SIGNAL(pressEnterAction()));
 
     connect(m_content->m_shutdownFrame, SIGNAL(ShutDownFrameActions(QString)), this, SLOT(powerAction(QString)));
 }
-void SessionManagement::initUI() {
+void ShutdownManager::initUI() {
+
+    setObjectName("ShutdownManager");
+    setFocusPolicy(Qt::StrongFocus);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
+    resize(qApp->desktop()->screenGeometry().size());
+
     m_backgroundLabel = new BackgroundLabel(true, this);
     m_content = new MainFrame(m_mode);
 
@@ -49,12 +47,16 @@ void SessionManagement::initUI() {
         this->setStyleSheet(qss);
         qssFile.close();
     }
+
+    showFullScreen();
+    activateWindow();
+
 }
 
-void SessionManagement::initData() {
+void ShutdownManager::initData() {
     m_sessionInterface = new SessionManageInterfaceManagement(this);
 }
-void SessionManagement::powerAction(QString action) {
+void ShutdownManager::powerAction(QString action) {
     if (action == "ShutDownButton") {
         m_sessionInterface->ForceShutdown();
     } else if (action == "RestartButton") {
@@ -68,7 +70,7 @@ void SessionManagement::powerAction(QString action) {
     }
     qApp->quit();
 }
-void SessionManagement::keyPressEvent(QKeyEvent* e) {
+void ShutdownManager::keyPressEvent(QKeyEvent* e) {
 
     if (e->key()==Qt::Key_Escape) {
         qApp->quit();
@@ -83,12 +85,12 @@ void SessionManagement::keyPressEvent(QKeyEvent* e) {
     }
 
 }
-void SessionManagement::mouseReleaseEvent(QMouseEvent* e) {
+void ShutdownManager::mouseReleaseEvent(QMouseEvent* e) {
     if (e->button() == Qt::LeftButton) {
         qApp->quit();
     }
 }
 
-SessionManagement::~SessionManagement()
+ShutdownManager::~ShutdownManager()
 {
 }

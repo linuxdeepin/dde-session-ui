@@ -6,6 +6,7 @@ QFrame#LogoWidget {
 }
 QFrame#UserWidget {
     background-color: transparent;
+
     border: none;
 }
 
