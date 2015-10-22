@@ -3,51 +3,63 @@
 
 #include <QObject>
 #include <QFrame>
+#include <QAbstractButton>
 #include <QPushButton>
 #include <QLabel>
 #include <QtWidgets>
 #include <QFocusEvent>
+#include <QLabel>
 #include <QGraphicsDropShadowEffect>
 
 #include "util_signalmanager.h"
 
 /* The RoundItemButton is used by shutdownButton, restartButton, and so on... */
 
-class RoundItemButton: public QPushButton
+class RoundItemButton: public QAbstractButton
 {
     Q_OBJECT
+    Q_PROPERTY(QString normalIcon MEMBER m_normalIcon DESIGNABLE true NOTIFY iconChanged)
+    Q_PROPERTY(QString hoverIcon MEMBER m_hoverIcon DESIGNABLE true NOTIFY iconChanged)
+    Q_PROPERTY(QString checkedIcon MEMBER m_checkedIcon DESIGNABLE true NOTIFY iconChanged)
+
 public:
-    RoundItemButton(QString text, QString buttonId, QWidget* parent=0);
+    RoundItemButton(const QString &text, QWidget* parent=0);
     ~RoundItemButton();
-protected:
-    void paintEvent(QPaintEvent* event);
-    void enterEvent(QEvent* event);
-    void leaveEvent(QEvent* event);
-    void mousePressEvent(QMouseEvent* e);
-    void mouseReleaseEvent(QMouseEvent* e);
+
+    enum State {Normal, Hover, Checked};
+
+    inline bool isChecked() const {return m_state == Checked;}
+    inline void setState(const State state) {updateState(state);}
+    inline State state() const {return m_state;}
+    inline const QString text() const {return m_itemText->text();}
+    inline void setText(const QString &text) {m_itemText->setText(text);}
+
 signals:
-    void buttonAction(QString id);
-    void updateStyle();
-public slots:
-    bool isChecked() const;
-    void setHover(bool isHover);
-    void setChecked(bool checked);
-    void setButtonMutex(QString buttonName);
-    void setButtonHoverMutex(QString buttonName);
-    inline QString buttonId() {
-        return m_iconLabel->objectName();
-    }
+    void stateChanged(const State state);
+    void clicked();
+    void iconChanged();
+
 private:
     void initUI();
     void initConnect();
-    void addTextShadow();
+    void updateState(const State state);
+    void paintEvent(QPaintEvent* event);
+    void enterEvent(QEvent* event);
+    void leaveEvent(QEvent* event);
+    void mouseReleaseEvent(QMouseEvent* e);
+//    void setChecked(bool checked);
 
-    bool m_checked = false;
-    QString m_buttonId;
-    QString m_buttonText;
-    QLabel* m_iconLabel;
-    QLabel* m_contentTextLabel;
-    QVBoxLayout* m_Layout;
-    QHBoxLayout* m_ButtonLayout;
+private slots:
+    void updateIcon();
+
+private:
+    State m_state = Normal;
+
+    QLabel *m_itemIcon;
+    QLabel *m_itemText;
+
+    QString m_normalIcon;
+    QString m_hoverIcon;
+    QString m_checkedIcon;
 };
 #endif // ROUNDITEMBUTTON

@@ -60,7 +60,7 @@ void PassWdEdit::updateKeybordLayoutStatus(const QString &username) {
     // TODO: 这里配置文件是以 ';' 分隔的，但是Qt会把 ';' 之后的认为注释
     m_keyboardList = settings.value(username + "/KeyboardLayoutList").toString().split("_");
 
-    qDebug() << settings.value(username + "/KeyboardLayoutList").toString();
+//    qDebug() << "aaaaaaaaaaaaa" << settings.value(username + "/KeyboardLayoutList").toString();
     qDebug() << username << m_keyboardList;
 
     if (m_keyboardList.count() > 2) {

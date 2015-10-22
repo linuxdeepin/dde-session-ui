@@ -24,6 +24,7 @@ public:
 //    RoundItemButton* m_userSwitchButton;
     QHBoxLayout* m_buttonLayout;
     QVBoxLayout* m_Layout;
+
 signals:
     void keyLeft();
     void keyRight();
@@ -33,18 +34,18 @@ signals:
 public slots:
     void setPreviousChildFocus();
     void setNextChildFocus();
-//    void setUserSwitchButton(bool showing);
+    void setCurrentSelectedBtn(RoundItemButton *btn);
 
-    void ShutDownAction();
-    void setButtonGroupMutex(QString buttonId);
-    void updateStyleSheet();
-    void test(QString test);
+//    void ShutDownAction();
+//    void setButtonGroupMutex(QString buttonId);
+//    void updateStyleSheet();
+//    void test(QString test);
 private:
     void initUI();
     void initConnect();
+    void buttonClicked();
 
-    int m_count = 0;
-    bool m_previousChanged = false;
-    bool m_nextChanged = false;
+    RoundItemButton *m_currentSelectedBtn = nullptr;
+    QList<RoundItemButton *> *m_btnsList;
 };
 #endif // CONTENTVIEWWIDGET

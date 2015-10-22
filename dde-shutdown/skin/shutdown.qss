@@ -1,122 +1,33 @@
 QFrame {
     background-color: transparent;
 }
-/*QPushButton{
-    border:none;
-    background-color: rgba(255, 255, 255, 0);
-}*/
-QPushButton#ShutDownButtonFrame{
-    border: none;
-    background-color:rgba(255, 255, 255, 0);
-}
-QPushButton#RestartButtonFrame {
-    border: none;
-    background-color:rgba(255, 255, 255, 0);
-}
-QPushButton#SuspendButtonFrame {
-    border: none;
-    background-color:rgba(255, 255, 255, 0);
-}
-QPushButton#LockButtonFrame {
-    border: none;
-    background-color:rgba(255, 255, 255, 0);
+
+QWidget#ShutDownButtonFrame {
+    qproperty-normalIcon:":img/shutdown_normal.png";
+    qproperty-hoverIcon:":img/shutdown_hover.png";
+    qproperty-checkedIcon:":img/shutdown_press.png";
 }
 
-QPushButton#LogoutButtonFrame {
-    border: none;
-    background-color:rgba(255, 255, 255, 0);
+QWidget#RestartButtonFrame {
+    qproperty-normalIcon:":img/restart_normal.png";
+    qproperty-hoverIcon:":img/restart_hover.png";
+    qproperty-checkedIcon:":img/restart_press.png";
 }
-QPushButton#UserSwitchButtonFrame {
-    border: none;
-    background-color:rgba(255, 255, 255, 0);
+
+QWidget#SuspendButtonFrame {
+    qproperty-normalIcon:":img/suspend_normal.png";
+    qproperty-hoverIcon:":img/suspend_hover.png";
+    qproperty-checkedIcon:":img/suspend_press.png";
 }
-QLabel#ShutDownButton {
-    border-image: url(:img/shutdown_normal.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
+
+QWidget#LockButtonFrame {
+    qproperty-normalIcon:":img/lock_normal.png";
+    qproperty-hoverIcon:":img/lock_hover.png";
+    qproperty-checkedIcon:":img/lock_press.png";
 }
-QLabel#ShutDownButton[Hover="true"] {
-    border-image: url(:img/shutdown_hover.png);
-    background-color: transparent ;
-    background-repeat:no-repeat;
-}
-QLabel#ShutDownButton[Checked="true"] {
-    border-image: url(:img/shutdown_press.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#RestartButton {
-    border-image: url(:img/restart_normal.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#RestartButton[Hover="true"] {
-    border-image: url(:img/restart_hover.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#RestartButton[Checked="true"] {
-    border-image: url(:img/restart_press.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#SuspendButton  {
-    border-image: url(:img/suspend_normal.png);
-    background-color: transparent;
-    background-repeat: no-repeat;
-}
-QLabel#SuspendButton[Hover="true"] {
-    border-image: url(:img/suspend_hover.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#SuspendButton[Checked="true"] {
-    border-image: url(:img/suspend_press.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#LockButton {
-    border-image:url(:img/lock_normal.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#LockButton[Hover="true"] {
-    border-image:url(:img/lock_hover.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#LockButton[Checked="true"] {
-    border-image:url(:img/lock_press.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#UserSwitchButton {
-    border-image: url(:img/userswitch_normal.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#UserSwitchButton[Hover="true"] {
-    border-image: url(:img/userswitch_hover.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#UserSwitchButton[Checked="true"] {
-    border-image: url(:img/userswitch_press.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#LogoutButton {
-    border-image: url(:img/logout_normal.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#LogoutButton[Hover="true"] {
-    border-image:url(:img/logout_hover.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
-}
-QLabel#LogoutButton[Checked="true"] {
-    border-image:url(:img/logout_press.png);
-    background-color: transparent;
-    background-repeat:no-repeat;
+
+QWidget#LogoutButtonFrame {
+    qproperty-normalIcon:":img/logout_normal.png";
+    qproperty-hoverIcon:":img/logout_hover.png";
+    qproperty-checkedIcon:":img/logout_press.png";
 }

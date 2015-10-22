@@ -34,7 +34,7 @@ void LoginManager::initUI()
     m_backgroundLabel = new BackgroundLabel(true, this);
     m_sessionWidget = new SessionWidget(this);
     m_sessionWidget->hide();
-    m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2 - 100);
+    m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
     m_logoWidget = new LogoWidget(this);
     m_logoWidget->move(0, height() - m_logoWidget->height() - 20);
     m_switchFrame = new SwitchFrame(this);

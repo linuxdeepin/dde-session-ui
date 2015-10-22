@@ -17,12 +17,11 @@ SessionWidget::SessionWidget(QWidget *parent)
     {
         const QString &session = m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString();
 
-        RoundItemButton *sbtn = new RoundItemButton(session, "SessionButton", this);
+        RoundItemButton *sbtn = new RoundItemButton(session, this);
         sbtn->hide();
-        sbtn->setCheckable(true);
         sbtn->setObjectName("SessionFrame");
 
-        connect(sbtn, &RoundItemButton::buttonAction, this, &SessionWidget::switchSession);
+//        connect(sbtn, &RoundItemButton::clicked, this, &SessionWidget::switchSession);
 
         m_sessionBtns->append(sbtn);
     }
@@ -66,10 +65,5 @@ void SessionWidget::show()
     }
 //        m_sessionBtns->at(i)->show(QPoint(i * 500, 0));
     QWidget::show();
-}
-
-void SessionWidget::switchSession(const QString &sessionName)
-{
-    qDebug() << "switch to session: " << sessionName;
 }
 

@@ -2,119 +2,129 @@
 
 #include "rounditembutton.h"
 
-RoundItemButton::RoundItemButton(QString text, QString buttonId, QWidget* parent)
-    : QPushButton(parent)
+RoundItemButton::RoundItemButton(const QString &text, QWidget* parent)
+    : QAbstractButton(parent),
+      m_itemIcon(new QLabel(this)),
+      m_itemText(new QLabel(this))
 {
-    m_buttonId = buttonId;
-    m_buttonText = text;
+    m_itemText->setText(text);
+
     initUI();
     initConnect();
 }
-void RoundItemButton::initConnect() {
+
+RoundItemButton::~RoundItemButton()
+{
+}
+
+void RoundItemButton::initConnect()
+{
+    connect(this, &RoundItemButton::stateChanged, this, &RoundItemButton::setState, Qt::DirectConnection);
+    connect(this, &RoundItemButton::stateChanged, this, &RoundItemButton::updateIcon);
+    connect(this, &RoundItemButton::stateChanged, this, static_cast<void (RoundItemButton::*)()>(&RoundItemButton::update));
+    connect(this, &RoundItemButton::iconChanged, this, &RoundItemButton::updateIcon);
+//    connect(this, &RoundItemButton::toggled, this, &RoundItemButton::setChecked);
 }
 
 void RoundItemButton::initUI() {
+    m_itemIcon->setFixedSize(QSize(75, 75));
+    m_itemIcon->setFocusPolicy(Qt::NoFocus);
+
+    m_itemText->setStyleSheet("color: rgba(255, 255, 255, 255); "
+                              "font-size:16px; text-align:center;");
+    m_itemText->setFixedHeight(30);
+    m_itemText->setAlignment(Qt::AlignHCenter);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setMargin(0);
+    mainLayout->addSpacing(4);
+    mainLayout->addWidget(m_itemIcon);
+    mainLayout->setAlignment(m_itemIcon, Qt::AlignHCenter);
+    mainLayout->setSpacing(2);
+    mainLayout->addWidget(m_itemText);
+    mainLayout->addStretch(0);
+
+    setFocusPolicy(Qt::NoFocus);
+    setLayout(mainLayout);
     setFixedSize(QSize(120, 120));
-    m_iconLabel = new QLabel;
-    m_iconLabel->setFixedSize(QSize(75, 75));
 
-    m_iconLabel->setObjectName(m_buttonId);
-    m_iconLabel->setFocusPolicy(Qt::NoFocus);
-    m_contentTextLabel = new QLabel;
-
-    m_contentTextLabel->setStyleSheet("color: rgba(255, 255, 255, 255); "
-                                      "font-size:16px; text-align:center;");
-    m_contentTextLabel->setText(m_buttonText);
-    m_contentTextLabel->setFixedSize(this->width(), 30);
-    m_contentTextLabel->setAlignment(Qt::AlignHCenter);
-
-    m_ButtonLayout = new QHBoxLayout;
-    m_ButtonLayout->setMargin(0);
-    m_ButtonLayout->setSpacing(0);
-    m_ButtonLayout->addStretch();
-    m_ButtonLayout->addWidget(m_iconLabel);
-    m_ButtonLayout->addStretch();
-
-    m_Layout = new QVBoxLayout;
-    m_Layout->setMargin(0);
-    m_Layout->addSpacing(4);
-    m_Layout->addLayout(m_ButtonLayout);
-    m_Layout->setSpacing(2);
-    m_Layout->addWidget(m_contentTextLabel);
-    m_Layout->addStretch(0);
-    addTextShadow();
-    setLayout(m_Layout);
-}
-
-bool RoundItemButton::isChecked() const{
-    return (m_checked);
-}
-void RoundItemButton::setChecked(bool checked){
-    if (m_checked != checked){
-        m_checked = checked;
-        update();
-    }
-}
-void RoundItemButton::setButtonMutex(QString buttonName) {
-
-    m_iconLabel->setProperty("Hover", false);
-    emit signalManager->buttonStyleChanged();
-    if (buttonName != this->objectName()) {
-        setChecked(false);
-    } else {
-        setChecked(true);
-    }
-}
-void RoundItemButton::setButtonHoverMutex(QString buttonName) {
-
-    if (buttonName != m_iconLabel->objectName()) {
-        m_iconLabel->setProperty("Hover", false);
-        emit signalManager->buttonStyleChanged();
-    }
-}
-void RoundItemButton::setHover(bool isHover) {
-    m_iconLabel->setProperty("Hover", isHover);
-    emit signalManager->buttonStyleChanged();
-}
-
-void RoundItemButton::enterEvent(QEvent* event) {
-    Q_UNUSED(event);
-    m_iconLabel->setProperty("Hover", true);
-    emit signalManager->setButtonHover(m_buttonId);
-}
-void RoundItemButton::leaveEvent(QEvent* event) {
-    Q_UNUSED(event);
-    m_iconLabel->setProperty("Hover", false);
-    emit signalManager->buttonStyleChanged();
-}
-void RoundItemButton::mousePressEvent(QMouseEvent* e) {
-    Q_UNUSED(e);
-    m_iconLabel->setProperty("Checked", true);
-    emit signalManager->buttonStyleChanged();
-}
-void RoundItemButton::mouseReleaseEvent(QMouseEvent* e) {
-    Q_UNUSED(e);
-    m_iconLabel->setProperty("Checked", false);
-    emit signalManager->buttonStyleChanged();
-    emit  buttonAction(m_buttonId);
-}
-void RoundItemButton::paintEvent(QPaintEvent* event){
-     if (m_checked){
-         QPainter painter(this);
-         painter.setPen(QPen(QColor(255, 255, 255, 51), 2));
-         painter.setBrush(QColor(0, 0 , 0, 76));
-         painter.setRenderHint(QPainter::Antialiasing, true);
-         painter.drawRoundedRect(QRect(2, 2, 116, 116), 10, 10, Qt::RelativeSize);
-     }
-     QPushButton::paintEvent(event);
-}
-void RoundItemButton::addTextShadow() {
     QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect;
     nameShadow->setBlurRadius(16);
     nameShadow->setColor(QColor(0, 0, 0, 85));
     nameShadow->setOffset(0, 4);
-    m_contentTextLabel->setGraphicsEffect(nameShadow);
+    m_itemText->setGraphicsEffect(nameShadow);
 }
-RoundItemButton::~RoundItemButton()
+
+void RoundItemButton::enterEvent(QEvent* event)
 {
+    Q_UNUSED(event)
+
+    if (m_state == Normal)
+        updateState(Hover);
+}
+
+void RoundItemButton::leaveEvent(QEvent* event)
+{
+    Q_UNUSED(event)
+
+    if (m_state == Hover)
+        updateState(Normal);
+}
+
+void RoundItemButton::mouseReleaseEvent(QMouseEvent* e)
+{
+    Q_UNUSED(e);
+
+    if (m_state == Checked)
+        updateState(Hover);
+    else
+        updateState(Checked);
+
+    emit clicked();
+}
+
+//void RoundItemButton::setChecked(bool checked)
+//{
+//    if (checked)
+//        updateState(Checked);
+//    else
+//        updateState(Normal);
+//}
+
+void RoundItemButton::paintEvent(QPaintEvent* event)
+{
+    QWidget::paintEvent(event);
+
+    if (m_state != Checked)
+        return;
+
+    QPainter painter(this);
+    painter.setPen(QPen(QColor(255, 255, 255, 51), 2));
+    painter.setBrush(QColor(0, 0 , 0, 76));
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.drawRoundedRect(QRect(2, 2, 116, 116), 10, 10, Qt::RelativeSize);
+}
+
+void RoundItemButton::updateIcon()
+{
+    QPixmap pixmap;
+    switch (m_state)
+    {
+    case Normal:    pixmap.load(m_normalIcon);      break;
+    case Hover:     pixmap.load(m_hoverIcon);       break;
+    case Checked:   pixmap.load(m_checkedIcon);     break;
+    }
+
+    if (!pixmap.isNull())
+        m_itemIcon->setPixmap(pixmap);
+}
+
+void RoundItemButton::updateState(const RoundItemButton::State state)
+{
+    if (m_state != state) {
+        m_state = state;
+        emit stateChanged(state);
+    }
+
+    return updateIcon();
 }
