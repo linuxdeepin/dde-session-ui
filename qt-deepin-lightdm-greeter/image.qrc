@@ -13,4 +13,30 @@
         <file>img/deepin.png</file>
         <file>img/deepin2D.png</file>
     </qresource>
+    <qresource prefix="/session">
+        <file>img/sessions/xfce_press.png</file>
+        <file>img/sessions/xfce_normal.png</file>
+        <file>img/sessions/xfce_hover.png</file>
+        <file>img/sessions/unknow_press.png</file>
+        <file>img/sessions/unknow_normal.png</file>
+        <file>img/sessions/unknow_hover.png</file>
+        <file>img/sessions/ubuntu_press.png</file>
+        <file>img/sessions/ubuntu_hover.png</file>
+        <file>img/sessions/lxde_press.png</file>
+        <file>img/sessions/lxde_hover.png</file>
+        <file>img/sessions/kde_press.png</file>
+        <file>img/sessions/kde_normal.png</file>
+        <file>img/sessions/kde_hover.png</file>
+        <file>img/sessions/gnome_press.png</file>
+        <file>img/sessions/gnome_normal.png</file>
+        <file>img/sessions/gnome_hover.png</file>
+        <file>img/sessions/fluxbox_press.png</file>
+        <file>img/sessions/fluxbox_hover.png</file>
+        <file>img/sessions/enlightenment_press.png</file>
+        <file>img/sessions/enlightenment_normal.png</file>
+        <file>img/sessions/enlightenment_hover.png</file>
+        <file>img/sessions/Deepin_press.png</file>
+        <file>img/sessions/Deepin_normal.png</file>
+        <file>img/sessions/Deepin_hover.png</file>
+    </qresource>
 </RCC>

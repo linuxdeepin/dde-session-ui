@@ -21,7 +21,6 @@ public:
     RoundItemButton* m_suspendButton;
     RoundItemButton* m_lockButton;
     RoundItemButton* m_logoutButton;
-//    RoundItemButton* m_userSwitchButton;
     QHBoxLayout* m_buttonLayout;
     QVBoxLayout* m_Layout;
 
@@ -34,16 +33,11 @@ signals:
 public slots:
     void setPreviousChildFocus();
     void setNextChildFocus();
-    void setCurrentSelectedBtn(RoundItemButton *btn);
 
-//    void ShutDownAction();
-//    void setButtonGroupMutex(QString buttonId);
-//    void updateStyleSheet();
-//    void test(QString test);
 private:
     void initUI();
     void initConnect();
-    void buttonClicked();
+    void enterKeyPushed();
 
     RoundItemButton *m_currentSelectedBtn = nullptr;
     QList<RoundItemButton *> *m_btnsList;

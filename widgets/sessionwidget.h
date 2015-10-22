@@ -20,8 +20,11 @@ public:
 
     void show();
 
+signals:
+    void sessionChanged(const QString &sessionName);
+
 private slots:
-//    void switchSession(const QString &sessionName);
+    void switchSession(const QString &sessionName);
 
 private:
     QList<RoundItemButton *> *m_sessionBtns;

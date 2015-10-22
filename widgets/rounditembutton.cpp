@@ -17,17 +17,26 @@ RoundItemButton::~RoundItemButton()
 {
 }
 
+void RoundItemButton::setChecked(bool checked)
+{
+    qDebug() << "set checked: " << checked << autoExclusive();
+    if (checked)
+        updateState(Checked);
+    else
+        updateState(Normal);
+}
+
 void RoundItemButton::initConnect()
 {
     connect(this, &RoundItemButton::stateChanged, this, &RoundItemButton::setState, Qt::DirectConnection);
     connect(this, &RoundItemButton::stateChanged, this, &RoundItemButton::updateIcon);
     connect(this, &RoundItemButton::stateChanged, this, static_cast<void (RoundItemButton::*)()>(&RoundItemButton::update));
     connect(this, &RoundItemButton::iconChanged, this, &RoundItemButton::updateIcon);
-//    connect(this, &RoundItemButton::toggled, this, &RoundItemButton::setChecked);
+    connect(this, &RoundItemButton::toggled, this, &RoundItemButton::setChecked);
 }
 
 void RoundItemButton::initUI() {
-    m_itemIcon->setFixedSize(QSize(75, 75));
+//    m_itemIcon->setFixedSize(QSize(75, 75));
     m_itemIcon->setFocusPolicy(Qt::NoFocus);
 
     m_itemText->setStyleSheet("color: rgba(255, 255, 255, 255); "
@@ -47,6 +56,7 @@ void RoundItemButton::initUI() {
     setFocusPolicy(Qt::NoFocus);
     setLayout(mainLayout);
     setFixedSize(QSize(120, 120));
+    setCheckable(true);
 
     QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect;
     nameShadow->setBlurRadius(16);
@@ -83,14 +93,6 @@ void RoundItemButton::mouseReleaseEvent(QMouseEvent* e)
     emit clicked();
 }
 
-//void RoundItemButton::setChecked(bool checked)
-//{
-//    if (checked)
-//        updateState(Checked);
-//    else
-//        updateState(Normal);
-//}
-
 void RoundItemButton::paintEvent(QPaintEvent* event)
 {
     QWidget::paintEvent(event);
@@ -125,6 +127,8 @@ void RoundItemButton::updateState(const RoundItemButton::State state)
         m_state = state;
         emit stateChanged(state);
     }
+
+    QAbstractButton::setChecked(m_state == Checked);
 
     return updateIcon();
 }

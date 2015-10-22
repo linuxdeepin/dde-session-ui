@@ -28,6 +28,8 @@ public:
 
     enum State {Normal, Hover, Checked};
 
+
+    void setChecked(bool checked);
     inline bool isChecked() const {return m_state == Checked;}
     inline void setState(const State state) {updateState(state);}
     inline State state() const {return m_state;}
@@ -47,7 +49,6 @@ private:
     void enterEvent(QEvent* event);
     void leaveEvent(QEvent* event);
     void mouseReleaseEvent(QMouseEvent* e);
-//    void setChecked(bool checked);
 
 private slots:
     void updateIcon();
