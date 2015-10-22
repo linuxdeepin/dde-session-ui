@@ -1,5 +1,5 @@
-#ifndef LOGOFRAME
-#define LOGOFRAME
+#ifndef LOGOWIDGET
+#define LOGOWIDGET
 
 #include <QLabel>
 #include <QHBoxLayout>

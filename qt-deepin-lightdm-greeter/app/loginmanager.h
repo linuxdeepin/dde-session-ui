@@ -1,20 +1,21 @@
 #ifndef LoginManager_H
 #define LoginManager_H
 
-#include "backgroundlabel.h"
-#include "util_updateui.h"
-#include "passwdedit.h"
-#include "userwidget.h"
-#include "sessionwidget.h"
-
-#include "view/logowidget.h"
-#include "view/switchframe.h"
-
 #include <QApplication>
 #include <QFrame>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QKeyEvent>
+
+#include "backgroundlabel.h"
+#include "util_updateui.h"
+#include "userwidget.h"
+#include "passwdedit.h"
+#include "view/logowidget.h"
+#include "view/switchframe.h"
+#include "sessionwidget.h"
+#include "kblayoutwidget.h"
+
 
 #include <QLightDM/Greeter>
 #include <QLightDM/SessionsModel>
@@ -38,6 +39,8 @@ private slots:
     void chooseUserMode();
     void chooseSessionMode();
 
+    void keyboardLayoutUI();
+    void keybdLayoutWidget();
 private:
     BackgroundLabel* m_backgroundLabel;
     LogoWidget* m_logoWidget;
@@ -47,6 +50,7 @@ private:
     SessionWidget *m_sessionWidget;
     QHBoxLayout* m_passWdEditLayout;
     QVBoxLayout* m_Layout;
+    KbLayoutWidget* m_keybdLayoutWidget;
 
     QLightDM::Greeter *m_greeter;
 };

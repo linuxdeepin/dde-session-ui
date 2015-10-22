@@ -1,4 +1,5 @@
 #include <QApplication>
+
 #include "app/loginmanager.h"
 
 #include "logmanager.h"

@@ -14,7 +14,9 @@ HEADERS += \
     $$PWD/sessionwidget.h \
     $$PWD/userwidget.h \
     $$PWD/userbreathinglabel.h \
-    $$PWD/rounditembutton.h
+    $$PWD/rounditembutton.h \
+    $$PWD/kblayoutwidget.h
+
 
 
 SOURCES += \
@@ -24,4 +26,6 @@ SOURCES += \
     $$PWD/sessionwidget.cpp \
     $$PWD/userwidget.cpp \
     $$PWD/userbreathinglabel.cpp \
-    $$PWD/rounditembutton.cpp
+    $$PWD/rounditembutton.cpp \
+    $$PWD/kblayoutwidget.cpp
+

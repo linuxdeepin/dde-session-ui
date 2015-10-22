@@ -61,10 +61,12 @@ void LoginManager::initUI()
     m_Layout->addStretch();
     m_Layout->addLayout(m_passWdEditLayout);
     m_Layout->addStretch();
-
     setLayout(m_Layout);
     updateStyle(":/skin/login.qss", this);
     showFullScreen();
+
+    m_passWdEdit->updateKeyboardStatus();
+    keyboardLayoutUI();
 }
 
 void LoginManager::initConnect()
@@ -79,6 +81,8 @@ void LoginManager::initConnect()
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
+    connect(m_passWdEdit, &PassWdEdit::updateKeyboardStatus, this, &LoginManager::keyboardLayoutUI);
+    connect(m_passWdEdit, SIGNAL(keybdLayoutButtonClicked()), this, SLOT(keybdLayoutWidget()));
 }
 
 void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
@@ -138,4 +142,30 @@ void LoginManager::login()
     m_greeter->authenticate(username);
     qDebug() << "choose user: " << username;
     qDebug() << "auth user: " << m_greeter->authenticationUser();
+}
+
+void LoginManager::keyboardLayoutUI() {
+
+    QStringList keyboardList;
+    QMap<QString, QString>::iterator i ;
+
+    for(i = m_passWdEdit->keybdLayoutMainDescriptionMap.begin(); i != m_passWdEdit->keybdLayoutMainDescriptionMap.end(); i++) {
+        if (! m_passWdEdit->keybdLayoutMainDescriptionMap.value(i.key()).isEmpty()) {
+            keyboardList << m_passWdEdit->keybdLayoutMainDescriptionMap.value(i.key());
+        }
+    }
+
+    m_keybdLayoutWidget= new KbLayoutWidget(keyboardList, this);
+    m_keybdLayoutWidget->move(550, 500);
+    m_keybdLayoutWidget->hide();
+}
+
+void LoginManager::keybdLayoutWidget() {
+    if (m_keybdLayoutWidget->isHidden()) {
+        m_keybdLayoutWidget->show();
+    } else {
+        m_keybdLayoutWidget->hide();
+    }
+
+
 }

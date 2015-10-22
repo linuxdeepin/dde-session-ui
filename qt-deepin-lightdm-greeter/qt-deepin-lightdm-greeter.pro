@@ -14,15 +14,17 @@ TEMPLATE = app
 PKGCONFIG += gsettings-qt dui liblightdm-qt5-3
 CONFIG += c++11 link_pkgconfig
 
-SOURCES += main.cpp\
+HEADERS  += \
+    view/logowidget.h \
+    view/switchframe.h \
+    app/loginmanager.h
+
+
+SOURCES += main.cpp \
     view/logowidget.cpp \
     view/switchframe.cpp \
     app/loginmanager.cpp
 
-HEADERS  += \
-    view/switchframe.h \
-    view/logowidget.h \
-    app/loginmanager.h
 
 include(../background/background.pri)
 include(../widgets/widgets.pri)
