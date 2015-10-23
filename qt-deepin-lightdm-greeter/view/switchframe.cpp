@@ -36,8 +36,12 @@ void SwitchFrame::initUI() {
     m_Layout->setSpacing(0);
     m_Layout->addStretch();
     m_Layout->addWidget(m_switchSessionButton);
+    m_Layout->setAlignment(m_switchSessionButton, Qt::AlignBottom);
     m_Layout->addWidget(m_switchUserButton);
+    m_Layout->setAlignment(m_switchUserButton, Qt::AlignBottom);
     m_Layout->addWidget(m_powerButton);
-    m_Layout->addStretch();
+    m_Layout->setAlignment(m_powerButton, Qt::AlignBottom);
+//    m_Layout->addStretch();
     setLayout(m_Layout);
+//    setStyleSheet("background-color:red;");
 }

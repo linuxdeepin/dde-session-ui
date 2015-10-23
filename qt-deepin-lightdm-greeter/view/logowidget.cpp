@@ -10,14 +10,14 @@ LogoWidget::LogoWidget(QWidget* parent)
 }
 
 void LogoWidget::initUI() {
-    setFixedSize(200, 60);
+    setFixedSize(180, 40);
     m_logoLabel = new QLabel();
     m_logoLabel->setObjectName("Logo");
     m_logoLabel->setFixedSize(150, 38);
 
     m_logoVersionLabel = new QLabel("Alpha");
     m_logoVersionLabel->setObjectName("LogoVersion");
-    m_logoVersionLabel->setFixedWidth(30);
+//    m_logoVersionLabel->setFixedWidth(30);
 
     this->setObjectName("LogoWidget");
     m_logoLeftSideLayout = new QVBoxLayout;
@@ -36,8 +36,8 @@ void LogoWidget::initUI() {
     m_logoLayout = new QHBoxLayout;
     m_logoLayout->setMargin(0);
     m_logoLayout->setSpacing(0);
-    m_logoLayout->addStretch();
     m_logoLayout->addLayout(m_logoLeftSideLayout);
+    m_logoLayout->addStretch();
     m_logoLayout->addLayout(m_logoRightSideLayout);
     setLayout(m_logoLayout);
 }

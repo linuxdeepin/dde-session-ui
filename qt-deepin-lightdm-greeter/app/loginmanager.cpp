@@ -36,7 +36,8 @@ void LoginManager::initUI()
     m_sessionWidget->hide();
     m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
     m_logoWidget = new LogoWidget(this);
-    m_logoWidget->move(0, height() - m_logoWidget->height() - 20);
+    m_logoWidget->move(48, height() - m_logoWidget->height() - 36); // left 48px and bottom 36px
+//    m_logoWidget->setStyleSheet("background-color:red;");
     m_switchFrame = new SwitchFrame(this);
     m_switchFrame->move(width() - m_switchFrame->width(), height() - m_switchFrame->height());
     m_userWidget = new UserWidget(this);

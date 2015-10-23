@@ -19,7 +19,6 @@ RoundItemButton::~RoundItemButton()
 
 void RoundItemButton::setChecked(bool checked)
 {
-    qDebug() << "set checked: " << checked << autoExclusive();
     if (checked)
         updateState(Checked);
     else
