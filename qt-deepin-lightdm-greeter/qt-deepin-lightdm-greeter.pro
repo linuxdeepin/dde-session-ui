@@ -16,13 +16,18 @@ CONFIG += c++11 link_pkgconfig
 
 SOURCES += main.cpp\
     view/logowidget.cpp \
+    view/userwidget.cpp \
+    view/sessionwidget.cpp \
     view/switchframe.cpp \
     app/loginmanager.cpp
 
 HEADERS  += \
     view/switchframe.h \
+    view/userwidget.h \
+    view/sessionwidget.h \
     view/logowidget.h \
-    app/loginmanager.h
+    app/loginmanager.h \
+    constants.h
 
 include(../background/background.pri)
 include(../widgets/widgets.pri)

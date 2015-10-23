@@ -20,13 +20,18 @@ public:
 
     void show();
 
+public slots:
+    void switchToUser(const QString &userName);
+
 signals:
     void sessionChanged(const QString &sessionName);
 
 private slots:
     void switchSession(const QString &sessionName);
+    int getSessionIndex(const QString &sessionName);
 
 private:
+    int m_currentSessionIndex;
     QList<RoundItemButton *> *m_sessionBtns;
     QLightDM::SessionsModel *m_sessionModel;
 };

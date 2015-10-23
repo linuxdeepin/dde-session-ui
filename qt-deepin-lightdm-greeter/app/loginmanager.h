@@ -1,31 +1,20 @@
 #ifndef LoginManager_H
 #define LoginManager_H
+
+#include "backgroundlabel.h"
+#include "util_updateui.h"
+#include "passwdedit.h"
+
+#include "view/userwidget.h"
+#include "view/sessionwidget.h"
+#include "view/logowidget.h"
+#include "view/switchframe.h"
+
 #include <QApplication>
 #include <QFrame>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QKeyEvent>
-
-#include "view/logowidget.h"
-#include "view/switchframe.h"
-
-#include "backgroundlabel.h"
-#include "util_updateui.h"
-#include "passwdedit.h"
-#include "userwidget.h"
-#include "sessionwidget.h"
-
-#include <QLightDM/Greeter>
-#include <QLightDM/SessionsModel>
-
-#include "view/logowidget.h"
-#include "view/switchframe.h"
-
-#include "backgroundlabel.h"
-#include "util_updateui.h"
-#include "passwdedit.h"
-#include "userwidget.h"
-#include "sessionwidget.h"
 
 #include <QLightDM/Greeter>
 #include <QLightDM/SessionsModel>

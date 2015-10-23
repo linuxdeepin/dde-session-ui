@@ -1,10 +1,10 @@
+#include "loginmanager.h"
+
 #include <QtCore/QObject>
 #include <QApplication>
 #include <QtCore/QFile>
 #include <QDesktopWidget>
 #include <QDebug>
-
-#include "loginmanager.h"
 
 LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent),
@@ -17,6 +17,7 @@ LoginManager::LoginManager(QWidget* parent)
     initConnect();
 
     m_passWdEdit->updateKeybordLayoutStatus(m_userWidget->currentUser());
+    m_sessionWidget->switchToUser(m_userWidget->currentUser());
 }
 
 LoginManager::~LoginManager()
@@ -71,7 +72,8 @@ void LoginManager::initConnect()
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, this, &LoginManager::chooseUserMode);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget);
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
-//    connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::chooseUserMode);
+    connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::chooseUserMode);
+    connect(m_userWidget, &UserWidget::userChanged, m_sessionWidget, &SessionWidget::switchToUser);
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::updateKeybordLayoutStatus);
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
