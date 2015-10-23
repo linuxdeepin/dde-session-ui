@@ -1,18 +1,4 @@
 <RCC>
-    <qresource prefix="/">
-        <file>img/login_normal.png</file>
-        <file>img/login_press.png</file>
-        <file>img/logo_text.png</file>
-        <file>img/shutdown_hover.svg</file>
-        <file>img/shutdown_normal.svg</file>
-        <file>img/shutdown_press.svg</file>
-        <file>img/userswitch_hover.svg</file>
-        <file>img/userswitch_normal.svg</file>
-        <file>img/userswitch_press.svg</file>
-        <file>img/keyboard.png</file>
-        <file>img/deepin.png</file>
-        <file>img/deepin2D.png</file>
-    </qresource>
     <qresource prefix="/session">
         <file>img/sessions/xfce_press.png</file>
         <file>img/sessions/xfce_normal.png</file>

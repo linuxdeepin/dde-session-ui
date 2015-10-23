@@ -42,6 +42,7 @@ void LoginManager::initUI()
     m_switchFrame = new SwitchFrame(this);
     m_switchFrame->move(width() - m_switchFrame->width(), height() - m_switchFrame->height());
     m_userWidget = new UserWidget(this);
+    m_userWidget->move(0, (qApp->desktop()->height() - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
     m_userWidget->setObjectName("UserWidget");
     m_passWdEdit = new PassWdEdit("LoginIcon", this);
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);

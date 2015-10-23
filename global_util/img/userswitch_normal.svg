@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>userswitch_normal</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#EAF0F5" offset="0%"></stop>
+            <stop stop-color="#E3EAF1" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="12" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.21 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetInner1" result="shadowBlurInner1"></feGaussianBlur>
+            <feComposite in="shadowBlurInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.35 0" in="shadowInnerInner1" type="matrix" result="shadowMatrixInner1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+                <feMergeNode in="shadowMatrixInner1"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="userswitch_normal" sketch:type="MSArtboardGroup" filter="url(#filter-2)" fill="url(#linearGradient-1)">
+            <path d="M63.859,52.425 C67.936,49.938 70.703,45.182 70.703,39.727 C70.703,31.71 64.734,25.189 57.397,25.189 C50.061,25.189 44.091,31.71 44.091,39.727 C44.091,45.12 46.799,49.826 50.801,52.336 C41.001,55.04 33.999,63.872 33.999,74.646 C33.999,75.75 34.894,76.646 35.999,76.646 L78.339,76.646 C79.443,76.646 80.339,75.75 80.339,74.646 C80.339,63.99 73.49,55.232 63.859,52.425 L63.859,52.425 Z M57.397,29.189 C62.528,29.189 66.703,33.916 66.703,39.727 C66.703,45.538 62.528,50.265 57.397,50.265 C52.266,50.265 48.091,45.538 48.091,39.727 C48.091,33.916 52.266,29.189 57.397,29.189 L57.397,29.189 Z M38.098,72.646 C39.068,62.871 47.096,55.476 57.169,55.476 C67.242,55.476 75.269,62.871 76.24,72.646 L38.098,72.646 Z M37.6,51.845 C38.592,51.648 39.256,50.747 39.195,49.764 C39.603,48.797 39.201,47.67 38.248,47.199 C35.133,45.656 33.12,42.031 33.12,37.965 C33.12,32.47 36.807,28 41.338,28 C41.876,28 42.411,28.064 42.928,28.188 C44.004,28.448 45.082,27.787 45.341,26.711 C45.6,25.638 44.938,24.558 43.864,24.299 C43.042,24.101 42.191,24 41.338,24 C34.6,24 29.12,30.265 29.12,37.965 C29.12,42.258 30.837,46.224 33.664,48.833 C25.587,51.842 20,59.706 20,68.646 C20,69.75 20.896,70.646 22,70.646 L27.123,70.646 C28.228,70.646 29.123,69.75 29.123,68.646 C29.123,67.541 28.228,66.646 27.123,66.646 L24.121,66.646 C24.994,59.444 30.496,53.262 37.6,51.845 Z" id="Fill-8" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

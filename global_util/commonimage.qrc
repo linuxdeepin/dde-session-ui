@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/userswitch_press.svg</file>
+        <file>img/userswitch_normal.svg</file>
+        <file>img/userswitch_hover.svg</file>
+        <file>img/shutdown_press.svg</file>
+        <file>img/shutdown_normal.svg</file>
+        <file>img/shutdown_hover.svg</file>
+        <file>img/logo_text.png</file>
+        <file>img/login_press.png</file>
+        <file>img/login_normal.png</file>
+        <file>img/lock_hover.svg</file>
+        <file>img/keyboard.png</file>
+        <file>img/deepin2D.png</file>
+        <file>img/deepin.png</file>
+        <file>img/unlock_press.png</file>
+        <file>img/unlock_normal.png</file>
+    </qresource>
+</RCC>

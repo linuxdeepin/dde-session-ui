@@ -18,7 +18,7 @@ UserWidget::UserWidget(QWidget* parent)
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 //    setStyleSheet("background-color:red;");
     setFixedSize(qApp->desktop()->width(), USER_ICON_HEIGHT);
-    move(0, (qApp->desktop()->height() - rect().height()) / 2 - 95);
+//    move(0, (qApp->desktop()->height() - rect().height()) / 2 - 95);
 
     initUI();
 }

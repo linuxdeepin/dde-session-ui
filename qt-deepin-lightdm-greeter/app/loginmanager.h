@@ -4,9 +4,9 @@
 #include "backgroundlabel.h"
 #include "util_updateui.h"
 #include "passwdedit.h"
+#include "userwidget.h"
+#include "sessionwidget.h"
 
-#include "view/userwidget.h"
-#include "view/sessionwidget.h"
 #include "view/logowidget.h"
 #include "view/switchframe.h"
 
