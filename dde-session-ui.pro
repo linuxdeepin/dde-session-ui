@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS += qt-deepin-lightdm-greeter \
+SUBDIRS += lightdm-deepin-greeter \
            dde-shutdown \
            dde-lock
 

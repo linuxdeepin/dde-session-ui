@@ -22,6 +22,7 @@ LoginManager::LoginManager(QWidget* parent)
 
 LoginManager::~LoginManager()
 {
+
 }
 
 void LoginManager::initUI()
