@@ -5,8 +5,7 @@
 #-------------------------------------------------
 include(../common.pri)
 
-QT       += core
-QT       += gui dbus
+QT       += core gui dbus
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,25 +15,24 @@ TEMPLATE = app
 PKGCONFIG += gsettings-qt
 CONFIG += c++11 link_pkgconfig
 
-include(./background/background.pri)
+include(../background/background.pri)
+include(../widgets/widgets.pri)
+include(../global_util/global_util.pri)
 
 SOURCES += main.cpp\
-    signalmanagement/signalmanager.cpp \
     dbus/dbussessionmanager.cpp \
-    widgets/sessionbutton.cpp \
     view/contentwidget.cpp \
     view/mainframe.cpp \
-    app/sessionmanagement.cpp \
-    controller/dbusmanagement.cpp
+    controller/dbusmanagement.cpp \
+    app/shutdownmanager.cpp
 
 HEADERS  += \
-    signalmanagement/signalmanager.h \
     dbus/dbussessionmanager.h \
-    widgets/sessionbutton.h \
     view/contentwidget.h \
     view/mainframe.h \
-    app/sessionmanagement.h \
-    controller/dbusmanagement.h
+    controller/dbusmanagement.h \
+    app/shutdownmanager.h
+
 
 RESOURCES += \
     qss.qrc \

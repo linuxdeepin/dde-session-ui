@@ -5,15 +5,25 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QPushButton>
 
-#include "widgets/sessionbutton.h"
-#include "signalmanagement/signalmanager.h"
+#include "rounditembutton.h"
+#include "util_signalmanager.h"
+#include "util_updateui.h"
 
 class ShutDownFrame: public QFrame
 {
     Q_OBJECT
 public:
-    ShutDownFrame(QWidget *parent=0);
+    ShutDownFrame(QWidget* parent=0);
     ~ShutDownFrame();
+
+    RoundItemButton* m_shutdownButton;
+    RoundItemButton* m_restartButton;
+    RoundItemButton* m_suspendButton;
+    RoundItemButton* m_lockButton;
+    RoundItemButton* m_logoutButton;
+    QHBoxLayout* m_buttonLayout;
+    QVBoxLayout* m_Layout;
+
 signals:
     void keyLeft();
     void keyRight();
@@ -23,23 +33,13 @@ signals:
 public slots:
     void setPreviousChildFocus();
     void setNextChildFocus();
-//    void setUserSwitchButton(bool showing);
-    void initConnect();
-    void ShutDownAction();
-    void setButtonGroupMutex(QString buttonId);
 
-public:
-    SessionButton* m_shutdownButton;
-    SessionButton* m_restartButton;
-    SessionButton* m_suspendButton;
-    SessionButton* m_lockButton;
-    SessionButton* m_logoutButton;
-//    SessionButton* m_userSwitchButton;
-    QHBoxLayout* m_buttonLayout;
-    QVBoxLayout* m_Layout;
 private:
-    int m_count = 0;
-    bool m_previousChanged = false;
-    bool m_nextChanged = false;
+    void initUI();
+    void initConnect();
+    void enterKeyPushed();
+
+    RoundItemButton *m_currentSelectedBtn = nullptr;
+    QList<RoundItemButton *> *m_btnsList;
 };
 #endif // CONTENTVIEWWIDGET

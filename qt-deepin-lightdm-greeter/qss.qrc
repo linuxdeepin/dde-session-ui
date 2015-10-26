@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>skin/login.qss</file>
+    </qresource>
+</RCC>

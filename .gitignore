@@ -28,4 +28,4 @@ debug
 release
 build*
 
-*.pro.user
+*.pro.user*

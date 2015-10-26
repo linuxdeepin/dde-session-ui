@@ -1,0 +1,85 @@
+QFrame#LogoWidget {
+    background-color: rgba(255, 255, 255, 0);
+}
+QFrame#KeyboardLayoutFrame {
+    background-color: rgba(255, 255, 255, 30);
+}
+QFrame#UserWidget {
+    background-color: transparent;
+
+    border: none;
+}
+
+QLabel#Logo {
+    border-image:url(":img/logo_text.png");
+    border-none;
+}
+QLabel#LogoVersion {
+    color: rgba(255, 255, 255, 255);
+}
+QPushButton#SwitchDEnvironment {
+    background-color:transparent;
+    border-image: url(":img/deepin.png");
+    border: 2px solid red;
+}
+QPushButton#SwitchUser {
+    background-color:transparent;
+    background-image: url(":img/userswitch_normal.svg");
+    border-none;
+}
+QPushButton#PowerMenu{
+    border-image: url(":img/shutdown_normal.svg");
+    border-none;
+}
+QFrame#passwdEnterFrame {
+    border: 1px solid  rgba(255, 255, 255, 60);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 30);
+}
+QPushButton#KeyBoardLayoutButton {
+    border-image: url(":img/keyboard.png");
+    background-color: transparent;
+    border-none;
+    margin:0 0 0 3px;
+}
+QLineEdit#passwdLineEdit {
+    color:white;
+    font-size:24px;
+    border: 1px solid  transparent;
+    border-radius: 4px;
+    background: transparent;
+    selection-background-color: transparent;
+}
+
+QPushButton#passwdButtonIcon {
+    border:none;
+}
+QPushButton#LoginIcon {
+    border-image:url(":img/login_normal.png");
+    border:none;
+}
+QPushButton#LoginIcon:pressed {
+    border-image:url(":img/login_press.png");
+    border:none;
+}
+
+QFrame#KeyboardLayoutFrame {
+    background-color: rgba(255, 255, 255, 30);
+    border: 1px solid rgba(255, 255, 255, 70);
+    border-radius: 4px;
+}
+
+QFrame#LayoutBorderFrame {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+QPushButton#LayoutButton {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+QPushButton#LayoutButton:hover {
+    background-color: grey;
+    border: none;
+}

@@ -1,10 +1,21 @@
 #include "mainframe.h"
 #include <QtCore/QObject>
 
-MainFrame::MainFrame(int mode, QWidget *parent)
+MainFrame::MainFrame(int mode, QWidget* parent)
     : QFrame(parent)
 {
     m_mode = mode;
+    initUI();
+    initConnect();
+}
+
+void MainFrame::initConnect() {
+    connect(this, SIGNAL(OutKeyLeft()), this ,SLOT(DirectLeft()));
+    connect(this, SIGNAL(OutKeyRight()), this, SLOT(DirectRight()));
+    connect(this, SIGNAL(pressEnterAction()), this, SLOT(EnterAction()));
+}
+
+void MainFrame::initUI() {
     m_shutdownFrame = new ShutDownFrame;
     setMode(m_mode);
 
@@ -21,13 +32,8 @@ MainFrame::MainFrame(int mode, QWidget *parent)
     m_Layout->addLayout(m_contentLayout);
 
     setLayout(m_Layout);
-
-    connect(this, SIGNAL(OutKeyLeft()), this ,SLOT(DirectLeft()));
-    connect(this, SIGNAL(OutKeyRight()), this, SLOT(DirectRight()));
-    connect(this, SIGNAL(pressEnterAction()), this, SLOT(EnterAction()));
 }
-MainFrame::~MainFrame()
-{}
+
 void MainFrame::setMode(int mode) {
     Q_UNUSED(mode);
 }
@@ -43,3 +49,5 @@ void MainFrame::DirectRight() {
 void MainFrame::EnterAction() {
     emit m_shutdownFrame->pressEnterAction();
 }
+MainFrame::~MainFrame()
+{}

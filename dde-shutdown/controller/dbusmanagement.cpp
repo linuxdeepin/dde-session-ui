@@ -1,6 +1,6 @@
 #include "dbusmanagement.h"
 
-SessionManageInterfaceManagement::SessionManageInterfaceManagement(QObject *parent)
+SessionManageInterfaceManagement::SessionManageInterfaceManagement(QObject* parent)
     : QObject(parent)
 {
     m_sessionManagerInterface = new com::deepin::DBusSessionManager("com.deepin.SessionManager",
