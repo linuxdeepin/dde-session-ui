@@ -130,7 +130,17 @@ void LoginManager::keyPressEvent(QKeyEvent* e) {
     if (e->key() == Qt::Key_Escape) {
         qApp->exit();
     }
+
 #endif
+}
+
+void LoginManager::mousePressEvent(QMouseEvent *e) {
+    if (e->button() == Qt::LeftButton) {
+        if (!m_keybdLayoutWidget->isHidden()) {
+            m_keybdLayoutWidget->hide();
+        }
+    }
+
 }
 
 void LoginManager::login()
@@ -156,7 +166,7 @@ void LoginManager::keyboardLayoutUI() {
     }
 
     m_keybdLayoutWidget= new KbLayoutWidget(keyboardList, this);
-    m_keybdLayoutWidget->move(550, 500);
+    m_keybdLayoutWidget->move(m_passWdEdit->x(), 500);
     m_keybdLayoutWidget->hide();
 }
 
@@ -166,6 +176,5 @@ void LoginManager::keybdLayoutWidget() {
     } else {
         m_keybdLayoutWidget->hide();
     }
-
 
 }

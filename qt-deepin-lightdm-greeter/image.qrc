@@ -25,4 +25,7 @@
         <file>img/sessions/Deepin_normal.png</file>
         <file>img/sessions/Deepin_hover.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>img/tick_hover.png</file>
+    </qresource>
 </RCC>
