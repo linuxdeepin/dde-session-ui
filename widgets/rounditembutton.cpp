@@ -35,7 +35,6 @@ void RoundItemButton::initConnect()
 }
 
 void RoundItemButton::initUI() {
-//    m_itemIcon->setFixedSize(QSize(75, 75));
     m_itemIcon->setFocusPolicy(Qt::NoFocus);
 
     m_itemText->setStyleSheet("color: rgba(255, 255, 255, 255); "
@@ -53,6 +52,7 @@ void RoundItemButton::initUI() {
     mainLayout->addStretch(0);
 
     setFocusPolicy(Qt::NoFocus);
+    setFocusPolicy(Qt::StrongFocus);
     setLayout(mainLayout);
     setFixedSize(QSize(120, 120));
     setCheckable(true);
@@ -67,7 +67,6 @@ void RoundItemButton::initUI() {
 void RoundItemButton::enterEvent(QEvent* event)
 {
     Q_UNUSED(event)
-
     if (m_state == Normal)
         updateState(Hover);
 }
@@ -75,9 +74,13 @@ void RoundItemButton::enterEvent(QEvent* event)
 void RoundItemButton::leaveEvent(QEvent* event)
 {
     Q_UNUSED(event)
+    updateState(Normal);
+}
 
-    if (m_state == Hover)
-        updateState(Normal);
+void RoundItemButton::mousePressEvent(QMouseEvent* event) {
+    qDebug() << "RoundItemButton pressed";
+    Q_UNUSED(event);
+    updateState(Pressed);
 }
 
 void RoundItemButton::mouseReleaseEvent(QMouseEvent* e)
@@ -87,7 +90,7 @@ void RoundItemButton::mouseReleaseEvent(QMouseEvent* e)
     if (m_state == Checked)
         updateState(Hover);
     else
-        updateState(Checked);
+        updateState(Pressed);
 
     emit clicked();
 }
@@ -113,21 +116,22 @@ void RoundItemButton::updateIcon()
     {
     case Normal:    pixmap.load(m_normalIcon);      break;
     case Hover:     pixmap.load(m_hoverIcon);       break;
-    case Checked:   pixmap.load(m_checkedIcon);     break;
+    case Checked:   pixmap.load(m_normalIcon);      break;
+    case Pressed:   pixmap.load(m_pressedIcon);     break;
     }
 
-    if (!pixmap.isNull())
+    if (!pixmap.isNull()) {
         m_itemIcon->setPixmap(pixmap);
+    }
 }
 
-void RoundItemButton::updateState(const RoundItemButton::State state)
-{
+void RoundItemButton::updateState(const RoundItemButton::State state) {
+
     if (m_state != state) {
         m_state = state;
         emit stateChanged(state);
     }
 
     QAbstractButton::setChecked(m_state == Checked);
-
     return updateIcon();
 }

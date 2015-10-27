@@ -46,9 +46,10 @@ void ShutDownFrame::initUI() {
     m_btnsList = new QList<RoundItemButton *>;
     m_shutdownButton = new RoundItemButton(tr("Shut down"));
     m_shutdownButton->setAutoExclusive(true);
+    m_shutdownButton->updateState(RoundItemButton::Hover);
     m_shutdownButton->setObjectName("ShutDownButtonFrame");
     m_btnsList->append(m_shutdownButton);
-    m_shutdownButton->setChecked(true);
+
     m_currentSelectedBtn = m_shutdownButton;
     m_restartButton = new RoundItemButton(tr("Restart"));
     m_restartButton->setAutoExclusive(true);
@@ -97,6 +98,7 @@ void ShutDownFrame::setPreviousChildFocus()
 
     m_currentSelectedBtn = m_btnsList->at(nextPos - 1);
     m_currentSelectedBtn->setChecked(true);
+
 }
 
 void ShutDownFrame::setNextChildFocus()

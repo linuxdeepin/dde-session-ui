@@ -5,29 +5,29 @@ QFrame {
 QWidget#ShutDownButtonFrame {
     qproperty-normalIcon:":img/shutdown_normal.png";
     qproperty-hoverIcon:":img/shutdown_hover.png";
-    qproperty-checkedIcon:":img/shutdown_press.png";
+    qproperty-pressedIcon:":img/shutdown_press.png";
 }
 
 QWidget#RestartButtonFrame {
     qproperty-normalIcon:":img/restart_normal.png";
     qproperty-hoverIcon:":img/restart_hover.png";
-    qproperty-checkedIcon:":img/restart_press.png";
+    qproperty-pressedIcon:":img/restart_press.png";
 }
 
 QWidget#SuspendButtonFrame {
     qproperty-normalIcon:":img/suspend_normal.png";
     qproperty-hoverIcon:":img/suspend_hover.png";
-    qproperty-checkedIcon:":img/suspend_press.png";
+    qproperty-pressedIcon:":img/suspend_press.png";
 }
 
 QWidget#LockButtonFrame {
     qproperty-normalIcon:":img/lock_normal.png";
     qproperty-hoverIcon:":img/lock_hover.png";
-    qproperty-checkedIcon:":img/lock_press.png";
+    qproperty-pressedIcon:":img/lock_press.png";
 }
 
 QWidget#LogoutButtonFrame {
     qproperty-normalIcon:":img/logout_normal.png";
     qproperty-hoverIcon:":img/logout_hover.png";
-    qproperty-checkedIcon:":img/logout_press.png";
+    qproperty-pressedIcon:":img/logout_press.png";
 }
