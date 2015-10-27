@@ -42,7 +42,7 @@ signals:
 
 private slots:
     void updateIcon();
-
+    void setUnhovered(QString text);
 protected:
     void paintEvent(QPaintEvent* event);
     void enterEvent(QEvent* event);

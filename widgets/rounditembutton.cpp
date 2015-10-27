@@ -32,6 +32,7 @@ void RoundItemButton::initConnect()
     connect(this, &RoundItemButton::stateChanged, this, static_cast<void (RoundItemButton::*)()>(&RoundItemButton::update));
     connect(this, &RoundItemButton::iconChanged, this, &RoundItemButton::updateIcon);
     connect(this, &RoundItemButton::toggled, this, &RoundItemButton::setChecked);
+    connect(signalManager, &SignalManager::setButtonHover, this, &RoundItemButton::setUnhovered);
 }
 
 void RoundItemButton::initUI() {
@@ -69,6 +70,8 @@ void RoundItemButton::enterEvent(QEvent* event)
     Q_UNUSED(event)
     if (m_state == Normal)
         updateState(Hover);
+
+    emit signalManager->setButtonHover(m_itemText->text());
 }
 
 void RoundItemButton::leaveEvent(QEvent* event)
@@ -134,4 +137,10 @@ void RoundItemButton::updateState(const RoundItemButton::State state) {
 
     QAbstractButton::setChecked(m_state == Checked);
     return updateIcon();
+}
+
+void RoundItemButton::setUnhovered(QString text) {
+    if (m_itemText->text()!=text) {
+        updateState(Normal);
+    }
 }
