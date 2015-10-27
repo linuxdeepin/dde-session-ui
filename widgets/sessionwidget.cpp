@@ -93,7 +93,7 @@ void SessionWidget::switchToUser(const QString &userName)
 {
     qDebug() << "session switch to user: " << userName;
 
-    QSettings settings(DGREETER::CONFIG_FILE, QSettings::IniFormat);
+    QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
     const QString &sessionName = settings.value(userName + "/last-session").toString();
     switchSession(sessionName);
 

@@ -7,6 +7,10 @@
 #include <QHBoxLayout>
 #include <QKeyEvent>
 
+
+#include <QLightDM/Greeter>
+#include <QLightDM/SessionsModel>
+
 #include "backgroundlabel.h"
 #include "util_updateui.h"
 #include "userwidget.h"
@@ -15,10 +19,7 @@
 #include "view/switchframe.h"
 #include "sessionwidget.h"
 #include "kblayoutwidget.h"
-
-
-#include <QLightDM/Greeter>
-#include <QLightDM/SessionsModel>
+#include "util_settings.h"
 
 class BackgroundLabel;
 class LoginManager: public QFrame {

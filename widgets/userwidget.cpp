@@ -12,7 +12,7 @@ UserWidget::UserWidget(QWidget* parent)
     m_userBtns(new QList<UserButton *>),
     m_userModel(new QLightDM::UsersModel(this))
 {
-    QSettings settings(DGREETER::CONFIG_FILE, QSettings::IniFormat);
+    QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
     m_currentUser = settings.value("last-user").toString();
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);

@@ -10,6 +10,7 @@
 #include <libdui/dbuttonlist.h>
 
 #include "util_parsexml.h"
+#include "util_settings.h"
 
 class PassWdEdit : public QFrame
 {
@@ -19,7 +20,7 @@ public:
     ~PassWdEdit();
 
     QMap<QString, QString> keybdLayoutMap;
-    QMap<QString, QString> keybdLayoutMainDescriptionMap;
+    QStringList keybdLayoutMainDescriptionList;
     QMap<QString, QString> keybdLayoutShortDescriptionMap;
 signals:
     void submit();
@@ -29,12 +30,11 @@ public slots:
     void setLineEditRightImage(QString imageUrl);
     QString getText();
 
-    void getCurrentKeyboardLayout(QString username);
-
     void updateKeybordLayoutStatus(const QString &username);
 private:
     void initUI();
     void initConnect();
+    void initData();
     void focusInEvent(QFocusEvent *);
 
 private:
@@ -46,9 +46,11 @@ private:
     QStringList m_keyboardList;
 
     QStringList keyboardLayoutTextList;
+
+    UtilSettings* m_utilSettings = NULL;
 //    KeyboardLayoutFrame* m_keybdLayoutFrame;
 
     ParseXML* m_parseMainDescriptionXml;
-    ParseXML* m_parseShortDescriptionXml;
+//    ParseXML* m_parseShortDescriptionXml;
 };
 #endif // PASSWDEDIT

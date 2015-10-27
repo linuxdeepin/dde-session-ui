@@ -158,15 +158,17 @@ void LoginManager::login()
 void LoginManager::keyboardLayoutUI() {
 
     QStringList keyboardList;
-    QMap<QString, QString>::iterator i ;
+//    QMap<QString, QString>::iterator i ;
 
-    for(i = m_passWdEdit->keybdLayoutMainDescriptionMap.begin(); i != m_passWdEdit->keybdLayoutMainDescriptionMap.end(); i++) {
-        if (! m_passWdEdit->keybdLayoutMainDescriptionMap.value(i.key()).isEmpty()) {
-            keyboardList << m_passWdEdit->keybdLayoutMainDescriptionMap.value(i.key());
-        }
-    }
 
-    m_keybdLayoutWidget= new KbLayoutWidget(keyboardList, this);
+
+//    for(i = m_passWdEdit->keybdLayoutMainDescriptionMap.begin(); i != m_passWdEdit->keybdLayoutMainDescriptionMap.end(); i++) {
+//        if (! m_passWdEdit->keybdLayoutMainDescriptionMap.value(i.key()).isEmpty()) {
+//            keyboardList << m_passWdEdit->keybdLayoutMainDescriptionMap.value(i.key());
+//        }
+//    }
+
+    m_keybdLayoutWidget= new KbLayoutWidget(m_passWdEdit->keybdLayoutMainDescriptionList, this);
     m_keybdLayoutWidget->move(m_passWdEdit->x(), 500);
     m_keybdLayoutWidget->hide();
 }

@@ -92,7 +92,7 @@ void KbLayoutWidget::initUI() {
     for (int i = 0; i < m_buttons.length(); i++) {
         LayoutButton* itemButton = new LayoutButton(m_buttons[i]);
         m_layoutButtons.append(itemButton);
-        itemButton->setFixedSize(DGREETER::PASSWDLINEEIDT_WIDTH, 40);
+        itemButton->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, DDESESSIONCC::LAYOUTBUTTON_HEIGHT);
         qDebug() << "itemButton:" << itemButton->height() << this->height();
 
         QFrame* borderFrame = new QFrame;
@@ -102,16 +102,16 @@ void KbLayoutWidget::initUI() {
         borderLayout->setSpacing(0);
         borderLayout->addWidget(itemButton);
         borderFrame->setLayout(borderLayout);
-        borderFrame->setFixedSize(DGREETER::PASSWDLINEEIDT_WIDTH, 40);
+        borderFrame->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, DDESESSIONCC::LAYOUTBUTTON_HEIGHT);
 
         QListWidgetItem* item = new QListWidgetItem(this);
         item->sizeHint();
         this->addItem(item);
         setItemWidget(item,  borderFrame);
-        this->setGridSize(QSize(DGREETER::PASSWDLINEEIDT_WIDTH, 40));
-        this->setFixedWidth(DGREETER::PASSWDLINEEIDT_WIDTH);
+        this->setGridSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, DDESESSIONCC::LAYOUTBUTTON_HEIGHT));
+        this->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
     }
-    this->setFixedHeight(200);
+    this->setFixedHeight(DDESESSIONCC::LAYOUTBUTTON_HEIGHT*3);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
 }

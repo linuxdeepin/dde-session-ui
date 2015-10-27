@@ -3,6 +3,7 @@
 #include <QSettings>
 #include <QFile>
 
+#include "constants.h"
 #include "passwdedit.h"
 
 PassWdEdit::PassWdEdit(QString iconId, QWidget* parent)
@@ -11,9 +12,9 @@ PassWdEdit::PassWdEdit(QString iconId, QWidget* parent)
     m_iconId = iconId;
     initUI();
     initConnect();
-
+    initData();
     setObjectName("passwdEnterFrame");
-    setFixedSize(QSize(270, 36));
+    setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, 36));
 }
 
 PassWdEdit::~PassWdEdit()
@@ -23,7 +24,8 @@ PassWdEdit::~PassWdEdit()
 void PassWdEdit::initUI() {
     m_keyboardButton = new QPushButton;
     m_keyboardButton->setObjectName("KeyBoardLayoutButton");
-    m_keyboardButton->setFixedSize(QSize(24, 24));
+
+    m_keyboardButton->setFixedSize(QSize(21, 15));
     m_iconButton = new QPushButton;
     m_iconButton->setObjectName(m_iconId);
     m_iconButton->setCheckable(true);
@@ -44,12 +46,17 @@ void PassWdEdit::initUI() {
     m_Layout->addStretch();
     m_Layout->addWidget(m_iconButton);
     setLayout(m_Layout);
+
 }
 
 void PassWdEdit::initConnect() {
     connect(m_iconButton, &QPushButton::clicked, this, &PassWdEdit::submit);
     connect(m_keyboardButton, &QPushButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);
 
+}
+
+void PassWdEdit::initData() {
+    m_utilSettings = new UtilSettings(this);
 }
 
 void PassWdEdit::focusInEvent(QFocusEvent *)
@@ -59,48 +66,17 @@ void PassWdEdit::focusInEvent(QFocusEvent *)
 
 void PassWdEdit::updateKeybordLayoutStatus(const QString &username) {
 
-    QSettings settings("/var/lib/greeter/users.ini", QSettings::IniFormat);
-    // TODO: 这里配置文件是以 ';' 分隔的，但是Qt会把 ';' 之后的认为注释
-    m_keyboardList = settings.value(username + "/KeyboardLayoutList").toString().split("_");
-    getCurrentKeyboardLayout(username);
-    qDebug() << "m_keyboardList:" << m_keyboardList;
+    m_keyboardList = m_utilSettings->getKbdLayoutList(username);
+    keybdLayoutMainDescriptionList = m_utilSettings->getKbdLayoutMainDescriptionList();
 
     if (m_keyboardList.count() > 2) {
         m_keyboardButton->show();
-        setFixedWidth(270);
     } else {
         m_keyboardButton->hide();
-        setFixedWidth(240);
     }
     emit updateKeyboardStatus();
 }
 
-void PassWdEdit::getCurrentKeyboardLayout(QString username) {
-
-    QSettings settings("/var/lib/greeter/users.ini", QSettings::IniFormat);
-    m_keyboardList = settings.value(username + "/KeyboardLayoutList").toString().split(" ");
-//    qDebug() << username << m_keyboardList;
-
-    for (int i = 0; i < m_keyboardList.length(); i++) {
-        QStringList itemKeyboardList = m_keyboardList[i].split("|");
-//        qDebug() << "itemKeyboardList:" << itemKeyboardList;
-        keybdLayoutMap.insert(itemKeyboardList[0], itemKeyboardList[1]);
-    }
-//    qDebug() << "keybdLayoutMap:" << keybdLayoutMap;
-
-    m_parseMainDescriptionXml = new ParseXML("/usr/share/X11/xkb/rules/base.xml", "configItem", "name", "description", this);
-    QMap<QString, QString> tmpMainMap = m_parseMainDescriptionXml->getTagNodeInfo();
-//    qDebug() << "MainMap:" << tmpMainMap;
-    QMap<QString, QString>::iterator i ;
-
-    for(i = keybdLayoutMap.begin(); i != keybdLayoutMap.end(); i++) {
-        if (!tmpMainMap.value(i.key()).isEmpty()) {
-            keybdLayoutMainDescriptionMap.insert(i.key(), tmpMainMap.value(i.key()));
-        }
-    }
-    qDebug() << "MAMAMAMAMA keyboardLayout:" << keybdLayoutMainDescriptionMap;
-
-}
 void PassWdEdit::setLineEditRightImage(QString imageUrl) {
     m_iconButton->setIcon(QIcon(QPixmap(imageUrl)));
 }
