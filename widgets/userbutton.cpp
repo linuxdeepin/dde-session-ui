@@ -19,6 +19,7 @@ void UserButton::initConnect() {
     connect(this, SIGNAL(clicked()), this, SLOT(sendClicked()));
     connect(m_userAvatar, SIGNAL(userAvatarClicked()), this, SLOT(sendClicked()));
 }
+
 void UserButton::initUI() {
     setFixedSize(120, 150);
     m_userAvatar = new UserAvatar;
@@ -72,7 +73,7 @@ void UserButton::hide(const int duration)
     if (!duration)
         return QPushButton::hide();
     else
-        QTimer::singleShot(duration, this, &QPushButton::hide);
+        QTimer::singleShot(duration, this, SLOT(hide()));
 }
 
 void UserButton::move(const QPoint &position, int duration)
