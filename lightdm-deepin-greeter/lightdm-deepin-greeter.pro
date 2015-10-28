@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = qt-deepin-lightdm-greeter
+TARGET = lightdm-deepin-greeter
 TEMPLATE = app
 
 PKGCONFIG += gsettings-qt dui liblightdm-qt5-3
@@ -32,7 +32,10 @@ include(../global_util/global_util.pri)
 include(../cutelogger/cutelogger.pri)
 
 target.path = $${PREFIX}/bin/
-INSTALLS += target
+
+desktop_file.file = lightdm-deepin-greeter.desktop
+desktop_file.path = $${PREFIX}/share/xgreeters/
+INSTALLS += target desktop_file
 
 RESOURCES += \
     image.qrc \
