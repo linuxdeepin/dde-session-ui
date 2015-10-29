@@ -31,11 +31,15 @@ public slots:
     QString getText();
 
     void updateKeybordLayoutStatus(const QString &username);
+
+protected:
+    void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+    void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;
+
 private:
     void initUI();
     void initConnect();
     void initData();
-    void focusInEvent(QFocusEvent *);
 
 private:
     QLineEdit* m_lineEdit;

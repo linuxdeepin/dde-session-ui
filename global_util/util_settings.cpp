@@ -20,6 +20,10 @@ QStringList UtilSettings::getKbdLayoutList(QString username) {
 
     for (int i = 0; i < keyboardList.length(); i++) {
         QStringList itemKeyboardList = keyboardList[i].split("|");
+
+        if (itemKeyboardList.count() < 2)
+            continue;
+
         m_keyboardLayoutNameList << itemKeyboardList[0];
         m_keyboardLayoutShortDescriptionList << itemKeyboardList[1];
 //        m_keyboardLayoutMap.insert(itemKeyboardList[0], itemKeyboardList[1]);

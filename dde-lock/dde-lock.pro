@@ -14,14 +14,17 @@ include(../global_util/global_util.pri)
 
 SOURCES += main.cpp \
     lockframe.cpp \
-    timewidget.cpp
+    timewidget.cpp \
+    controlwidget.cpp
 
 HEADERS  += \ 
     lockframe.h \
-    timewidget.h
+    timewidget.h \
+    controlwidget.h
 
 target.path = $${PREFIX}/bin/
 INSTALLS += target
 
 RESOURCES += \
-    qss.qrc
+    qss.qrc \
+    resources.qrc

@@ -23,17 +23,26 @@ LockFrame::LockFrame()
     timeWidget->setFixedSize(400, 300);
 //    timeWidget->setStyleSheet("background-color:red;");
     timeWidget->move(48, qApp->desktop()->height() - timeWidget->height() - 36); // left 48px and bottom 36px
-    UserWidget *userWidget = new UserWidget(this);
-    userWidget->move(0, (qApp->desktop()->height() - userWidget->height()) / 2 - 95);
-    PassWdEdit *passwordEdit = new PassWdEdit("LockIcon", this);
-    passwordEdit->setFocusPolicy(Qt::StrongFocus);
-    passwordEdit->setFocus();
+    m_userWidget = new UserWidget(this);
+//    m_userWidget->hide();
+    m_userWidget->move(0, (qApp->desktop()->height() - m_userWidget->height()) / 2 - 95);
+    m_passwordEdit = new PassWdEdit("LockIcon", this);
+    m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
+    m_passwordEdit->setFocus();
+
+    m_sessionWidget = new SessionWidget(this);
+    m_sessionWidget->hide();
+    m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
+
+    m_controlWidget = new ControlWidget(this);
+    m_controlWidget->move(width() - m_controlWidget->width() - 50,
+                          height() - m_controlWidget->height() - 36); // margin right 50 margin bottom 36
 
     QHBoxLayout *passwdLayout = new QHBoxLayout;
     passwdLayout->setMargin(0);
     passwdLayout->setSpacing(0);
     passwdLayout->addStretch();
-    passwdLayout->addWidget(passwordEdit);
+    passwdLayout->addWidget(m_passwordEdit);
     passwdLayout->addStretch();
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -47,6 +56,14 @@ LockFrame::LockFrame()
     showFullScreen();
     activateWindow();
     updateStyle(":/theme/theme/lock.qss", this);
+
+    connect(m_passwordEdit, &PassWdEdit::submit, this, &LockFrame::unlock);
+    connect(m_controlWidget, &ControlWidget::switchSession, [this] {
+        m_userWidget->hide();
+        m_passwordEdit->hide();
+        m_sessionWidget->show();
+    });
+    connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LockFrame::chooseSession);
 }
 
 void LockFrame::keyPressEvent(QKeyEvent *e)
@@ -58,5 +75,19 @@ void LockFrame::keyPressEvent(QKeyEvent *e)
 #endif
     default:;
     }
+}
+
+void LockFrame::unlock()
+{
+    qDebug() << "unlock";
+}
+
+void LockFrame::chooseSession(const QString &sessionName)
+{
+    qDebug() << "seelct session: " << sessionName;
+
+    m_userWidget->show();
+    m_passwordEdit->show();
+    m_sessionWidget->hide();
 }
 

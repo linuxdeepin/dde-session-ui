@@ -1,6 +1,11 @@
 TEMPLATE = subdirs
-SUBDIRS += lightdm-deepin-greeter \
-           dde-shutdown \
+SUBDIRS += dde-shutdown \
+           lightdm-deepin-greeter
+
+CONFIG(debug, debug | release) {
+} else {
+    SUBDIRS += dde-lock
+}
 
 TRANSLATIONS += translations/dde-session-ui.ts translations/dde-session-ui_zh_CN.ts
 

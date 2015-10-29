@@ -29,3 +29,6 @@ SOURCES += \
     $$PWD/rounditembutton.cpp \
     $$PWD/kblayoutwidget.cpp
 
+RESOURCES += \
+    $$PWD/sessions.qrc
+

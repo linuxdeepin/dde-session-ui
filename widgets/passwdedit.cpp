@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QSettings>
 #include <QFile>
+#include <QKeyEvent>
 
 #include "constants.h"
 #include "passwdedit.h"
@@ -64,8 +65,8 @@ void PassWdEdit::focusInEvent(QFocusEvent *)
     m_lineEdit->setFocus();
 }
 
-void PassWdEdit::updateKeybordLayoutStatus(const QString &username) {
-
+void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
+{
     m_keyboardList = m_utilSettings->getKbdLayoutList(username);
     keybdLayoutMainDescriptionList = m_utilSettings->getKbdLayoutMainDescriptionList();
 
@@ -75,6 +76,15 @@ void PassWdEdit::updateKeybordLayoutStatus(const QString &username) {
         m_keyboardButton->hide();
     }
     emit updateKeyboardStatus();
+}
+
+void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
+{
+    switch (e->key())
+    {
+    case Qt::Key_Enter:         emit submit();              break;
+    default:;
+    }
 }
 
 void PassWdEdit::setLineEditRightImage(QString imageUrl) {

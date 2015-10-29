@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/volume_press.png</file>
+        <file>icons/volume_normal.png</file>
+        <file>icons/volume_hover.png</file>
+        <file>icons/suspend_press.png</file>
+        <file>icons/suspend_normal.png</file>
+        <file>icons/suspend_hover.png</file>
+        <file>icons/start_press.png</file>
+        <file>icons/start_normal.png</file>
+        <file>icons/start_hover.png</file>
+        <file>icons/shutdown_press.png</file>
+        <file>icons/shutdown_normal.png</file>
+        <file>icons/shutdown_hover.png</file>
+        <file>icons/reboot_press.png</file>
+        <file>icons/reboot_normal.png</file>
+        <file>icons/reboot_hover.png</file>
+        <file>icons/previous_press.png</file>
+        <file>icons/previous_normal.png</file>
+        <file>icons/previous_hover.png</file>
+        <file>icons/pause_press.png</file>
+        <file>icons/pause_normal.png</file>
+        <file>icons/pause_hover.png</file>
+        <file>icons/next_press.png</file>
+        <file>icons/next_normal.png</file>
+        <file>icons/next_hover.png</file>
+        <file>icons/mute_press.png</file>
+        <file>icons/mute_normal.png</file>
+        <file>icons/mute_hover.png</file>
+        <file>icons/session_normal.png</file>
+        <file>icons/session_hover.png</file>
+    </qresource>
+</RCC>
