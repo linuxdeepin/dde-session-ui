@@ -26,15 +26,16 @@ SOURCES += main.cpp \
     app/loginmanager.cpp
 
 
+include(../common.pri)
 include(../background/background.pri)
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 include(../cutelogger/cutelogger.pri)
 
 target.path = $${PREFIX}/bin/
-
-desktop_file.file = lightdm-deepin-greeter.desktop
+desktop_file.files = lightdm-deepin-greeter.desktop
 desktop_file.path = $${PREFIX}/share/xgreeters/
+
 INSTALLS += target desktop_file
 
 RESOURCES += \
