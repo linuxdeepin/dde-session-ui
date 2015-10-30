@@ -14,16 +14,12 @@ class ControlWidget : public QWidget
 public:
     explicit ControlWidget(QWidget *parent = 0);
 
-signals:
-    void switchSession() const;
-
 private:
     QLabel *m_songName;
     DImageButton *m_prevSong;
     DImageButton *m_pauseSong;
     DImageButton *m_nextSong;
     DImageButton *m_muteSong;
-    DImageButton *m_sessions;
     DImageButton *m_shutdown;
 
     QWidget *m_songControlWidget;

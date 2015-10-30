@@ -30,10 +30,6 @@ LockFrame::LockFrame()
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
     m_passwordEdit->setFocus();
 
-    m_sessionWidget = new SessionWidget(this);
-    m_sessionWidget->hide();
-    m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
-
     m_controlWidget = new ControlWidget(this);
     m_controlWidget->move(width() - m_controlWidget->width() - 50,
                           height() - m_controlWidget->height() - 36); // margin right 50 margin bottom 36
@@ -58,12 +54,6 @@ LockFrame::LockFrame()
     updateStyle(":/theme/theme/lock.qss", this);
 
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockFrame::unlock);
-    connect(m_controlWidget, &ControlWidget::switchSession, [this] {
-        m_userWidget->hide();
-        m_passwordEdit->hide();
-        m_sessionWidget->show();
-    });
-    connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LockFrame::chooseSession);
 }
 
 void LockFrame::keyPressEvent(QKeyEvent *e)
@@ -81,13 +71,3 @@ void LockFrame::unlock()
 {
     qDebug() << "unlock";
 }
-
-void LockFrame::chooseSession(const QString &sessionName)
-{
-    qDebug() << "seelct session: " << sessionName;
-
-    m_userWidget->show();
-    m_passwordEdit->show();
-    m_sessionWidget->hide();
-}
-

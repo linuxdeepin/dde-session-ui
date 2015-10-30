@@ -26,9 +26,6 @@ ControlWidget::ControlWidget(QWidget *parent)
     m_muteSong->setNormalPic(":/icons/icons/volume_normal.png");
     m_muteSong->setHoverPic(":/icons/icons/volume_hover.png");
     m_muteSong->setPressPic(":/icons/icons/volume_press.png");
-    m_sessions = new DImageButton;
-    m_sessions->setNormalPic(":/icons/icons/session_normal.png");
-    m_sessions->setHoverPic(":/icons/icons/session_hover.png");
     m_shutdown = new DImageButton;
     m_shutdown->setNormalPic(":/icons/icons/shutdown_normal.png");
     m_shutdown->setHoverPic(":/icons/icons/shutdown_hover.png");
@@ -60,15 +57,11 @@ ControlWidget::ControlWidget(QWidget *parent)
     mainLayout->addWidget(m_songControlWidget);
     mainLayout->setAlignment(m_songControlWidget, Qt::AlignBottom);
 //    mainLayout->addSpacing(50);
-    mainLayout->addWidget(m_sessions);
-    mainLayout->setAlignment(m_sessions, Qt::AlignBottom);
     mainLayout->addWidget(m_shutdown);
     mainLayout->setAlignment(m_shutdown, Qt::AlignBottom);
 
     setLayout(mainLayout);
     setFixedSize(500, 150);
 //    setStyleSheet("background-color:red;");
-
-    connect(m_sessions, &DImageButton::clicked, this, &ControlWidget::switchSession);
 }
 

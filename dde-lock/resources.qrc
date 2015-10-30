@@ -27,7 +27,5 @@
         <file>icons/mute_press.png</file>
         <file>icons/mute_normal.png</file>
         <file>icons/mute_hover.png</file>
-        <file>icons/session_normal.png</file>
-        <file>icons/session_hover.png</file>
     </qresource>
 </RCC>

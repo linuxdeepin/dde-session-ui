@@ -3,7 +3,6 @@
 
 #include <QFrame>
 
-#include "sessionwidget.h"
 #include "userwidget.h"
 #include "controlwidget.h"
 #include "passwdedit.h"
@@ -20,10 +19,8 @@ protected:
 
 private:
     void unlock();
-    void chooseSession(const QString &sessionName);
 
 private:
-    SessionWidget *m_sessionWidget;
     UserWidget *m_userWidget;
     ControlWidget *m_controlWidget;
     PassWdEdit *m_passwordEdit;
