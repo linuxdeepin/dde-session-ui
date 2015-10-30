@@ -26,7 +26,7 @@ void PassWdEdit::initUI() {
     m_keyboardButton = new QPushButton;
     m_keyboardButton->setObjectName("KeyBoardLayoutButton");
 
-    m_keyboardButton->setFixedSize(QSize(21, 15));
+    m_keyboardButton->setFixedSize(QSize(24, 24));
     m_iconButton = new QPushButton;
     m_iconButton->setObjectName(m_iconId);
     m_iconButton->setCheckable(true);
@@ -42,6 +42,7 @@ void PassWdEdit::initUI() {
     m_Layout = new QHBoxLayout;
     m_Layout->setMargin(0);
     m_Layout->setSpacing(0);
+    m_Layout->addSpacing(3);
     m_Layout->addWidget(m_keyboardButton);
     m_Layout->addWidget(m_lineEdit);
     m_Layout->addStretch();

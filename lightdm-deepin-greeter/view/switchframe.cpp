@@ -22,7 +22,7 @@ void SwitchFrame::initUI() {
     setFixedSize(300, 200);
 
     m_switchSessionButton = new QPushButton;
-    m_switchSessionButton->setFixedSize(60, 60);
+    m_switchSessionButton->setFixedSize(100, 100);
     m_switchSessionButton->setObjectName("SwitchDEnvironment");
     m_switchUserButton = new QPushButton;
     m_switchUserButton->setFixedSize(100, 100);
