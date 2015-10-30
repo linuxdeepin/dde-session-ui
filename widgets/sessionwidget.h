@@ -22,6 +22,7 @@ public:
 
 public slots:
     void switchToUser(const QString &userName);
+    void saveUserLastSession(const QString &userName);
 
 signals:
     void sessionChanged(const QString &sessionName);

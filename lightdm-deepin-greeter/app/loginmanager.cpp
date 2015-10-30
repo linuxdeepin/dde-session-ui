@@ -73,6 +73,7 @@ void LoginManager::initUI()
 void LoginManager::initConnect()
 {
     connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, this, &LoginManager::chooseSessionMode);
+//    connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, [this] {m_sessionWidget->switchToUser(m_userWidget->currentUser());});
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, this, &LoginManager::chooseUserMode);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget);
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
@@ -148,6 +149,9 @@ void LoginManager::login()
 {
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
+
+    // save user last choice
+    m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
 
     const QString &username = m_userWidget->currentUser();
     m_greeter->authenticate(username);

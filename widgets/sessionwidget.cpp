@@ -86,6 +86,9 @@ void SessionWidget::show()
         m_sessionBtns->at(i)->show();
     }
 
+    // checked default session button
+    m_sessionBtns->at(m_currentSessionIndex)->setChecked(true);
+
     QWidget::show();
 }
 
@@ -98,6 +101,14 @@ void SessionWidget::switchToUser(const QString &userName)
     switchSession(sessionName);
 
     qDebug() << userName << "default session is: " << sessionName << m_currentSessionIndex;
+}
+
+void SessionWidget::saveUserLastSession(const QString &userName)
+{
+    qDebug() << "save user session: " << userName << currentSessionName();
+
+    QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
+    settings.setValue(userName + "/last-session", currentSessionName());
 }
 
 void SessionWidget::switchSession(const QString &sessionName)

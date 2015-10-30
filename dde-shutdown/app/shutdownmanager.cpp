@@ -7,7 +7,6 @@
 ShutdownManager::ShutdownManager(QWidget* parent)
     : QFrame(parent)
 {
-
     initUI();
     initConnect();
     initData();
