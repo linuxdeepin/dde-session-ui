@@ -82,6 +82,7 @@ void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
 {
     switch (e->key())
     {
+    case Qt::Key_Return:        /* submit */
     case Qt::Key_Enter:         emit submit();              break;
     default:;
     }
