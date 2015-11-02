@@ -17,11 +17,6 @@ QLabel#Logo {
 QLabel#LogoVersion {
     color: rgba(255, 255, 255, 255);
 }
-QPushButton#SwitchDEnvironment {
-    background-color:transparent;
-    border-image: url(":img/deepin.png");
-    border: 2px solid red;
-}
 QPushButton#SwitchUser {
     background-color:transparent;
     background-image: url(":img/userswitch_normal.svg");

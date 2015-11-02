@@ -41,7 +41,7 @@ void LoginManager::initUI()
     m_logoWidget->move(48, height() - m_logoWidget->height() - 36); // left 48px and bottom 36px
 //    m_logoWidget->setStyleSheet("background-color:red;");
     m_switchFrame = new SwitchFrame(this);
-    m_switchFrame->move(width() - m_switchFrame->width(), height() - m_switchFrame->height());
+    m_switchFrame->move(width() - m_switchFrame->width() - 20, height() - m_switchFrame->height());
     m_userWidget = new UserWidget(this);
     m_userWidget->move(0, (qApp->desktop()->height() - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
     m_userWidget->setObjectName("UserWidget");
@@ -78,6 +78,7 @@ void LoginManager::initConnect()
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget);
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::chooseUserMode);
+    connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession);
     connect(m_userWidget, &UserWidget::userChanged, m_sessionWidget, &SessionWidget::switchToUser);
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::updateKeybordLayoutStatus);
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
