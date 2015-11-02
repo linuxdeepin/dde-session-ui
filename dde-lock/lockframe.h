@@ -6,6 +6,7 @@
 #include "userwidget.h"
 #include "controlwidget.h"
 #include "passwdedit.h"
+#include "dbus/dbuslockservice.h"
 
 class LockFrame : public QFrame
 {
@@ -24,6 +25,7 @@ private:
     UserWidget *m_userWidget;
     ControlWidget *m_controlWidget;
     PassWdEdit *m_passwordEdit;
+    DBusLockService *m_lockInter;
 };
 
 #endif // LOCKFRAME_H

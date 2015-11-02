@@ -12,7 +12,7 @@
 
 LockFrame::LockFrame()
 {
-    setFocusPolicy(Qt::StrongFocus);
+    setFocusPolicy(Qt::NoFocus);
     setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
     setFixedSize(qApp->desktop()->size());
 
@@ -33,6 +33,8 @@ LockFrame::LockFrame()
     m_controlWidget = new ControlWidget(this);
     m_controlWidget->move(width() - m_controlWidget->width() - 50,
                           height() - m_controlWidget->height() - 36); // margin right 50 margin bottom 36
+
+    m_lockInter = new DBusLockService("com.deepin.dde.lock", "/com/deepin/dde/lock", QDBusConnection::systemBus(), this);
 
     QHBoxLayout *passwdLayout = new QHBoxLayout;
     passwdLayout->setMargin(0);
@@ -69,5 +71,17 @@ void LockFrame::keyPressEvent(QKeyEvent *e)
 
 void LockFrame::unlock()
 {
-    qDebug() << "unlock";
+    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
+    const QString &username = m_userWidget->currentUser();
+    const QString &password = m_passwordEdit->getText().trimmed();
+
+    QDBusPendingReply<bool> result = m_lockInter->UnlockCheck(username, password);
+    result.waitForFinished();
+
+    qDebug() << result.error() << result.value();
+
+    if (result.error().type() == QDBusError::NoError && result.value())
+        qApp->quit();
+
+    // TODO: auth fail
 }

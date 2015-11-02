@@ -1,0 +1,40 @@
+<interface name="com.deepin.dde.lock">
+  <method name="UnlockCheck">
+    <arg type="s" name="username" direction="in">
+    </arg>
+    <arg type="s" name="password" direction="in">
+    </arg>
+    <arg type="b" name="succeed" direction="out">
+    </arg>
+  </method>
+  <method name="ExitLock">
+    <arg type="s" name="username" direction="in">
+    </arg>
+    <arg type="s" name="password" direction="in">
+    </arg>
+  </method>
+  <method name="NeedPwd">
+    <arg type="s" name="username" direction="in">
+    </arg>
+    <arg type="b" name="needed" direction="out">
+    </arg>
+  </method>
+  <method name="IsLiveCD">
+    <arg type="s" name="username" direction="in">
+    </arg>
+    <arg type="b" name="livecd" direction="out">
+    </arg>
+  </method>
+  <method name="AddNoPwdLogin">
+    <arg type="s" name="username" direction="in">
+    </arg>
+    <arg type="b" name="result" direction="out">
+    </arg>
+  </method>
+  <method name="RemoveNoPwdLogin">
+    <arg type="s" name="username" direction="in">
+    </arg>
+    <arg type="b" name="result" direction="out">
+    </arg>
+  </method>
+</interface>

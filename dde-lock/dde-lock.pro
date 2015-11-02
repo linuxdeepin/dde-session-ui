@@ -1,6 +1,6 @@
 include(../common.pri)
 
-QT       += core gui widgets
+QT       += core gui widgets dbus
 
 TARGET = dde-lock
 TEMPLATE = app
@@ -15,12 +15,14 @@ include(../global_util/global_util.pri)
 SOURCES += main.cpp \
     lockframe.cpp \
     timewidget.cpp \
-    controlwidget.cpp
+    controlwidget.cpp \
+    dbus/dbuslockservice.cpp
 
 HEADERS  += \ 
     lockframe.h \
     timewidget.h \
-    controlwidget.h
+    controlwidget.h \
+    dbus/dbuslockservice.h
 
 target.path = $${PREFIX}/bin/
 INSTALLS += target
