@@ -1,9 +1,9 @@
 TEMPLATE = subdirs
 SUBDIRS += dde-shutdown \
-#           dde-lock \
+           dde-lock \
            lightdm-deepin-greeter \
-           lockservice \
-           switchtogreeter
+           dde-lockservice \
+           dde-switchtogreeter
 
 
 TRANSLATIONS += translations/dde-session-ui.ts translations/dde-session-ui_zh_CN.ts

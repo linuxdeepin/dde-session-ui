@@ -1,4 +1,4 @@
-TARGET = switchtouser
+TARGET = dde-switchtogreeter
 TEMPLATE = app
 
 CONFIG += link_pkgconfig

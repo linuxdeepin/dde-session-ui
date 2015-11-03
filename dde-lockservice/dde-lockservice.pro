@@ -1,4 +1,4 @@
-TARGET = lockservice
+TARGET = dde-lockservice
 TEMPLATE = app
 
 CONFIG += link_pkgconfig
@@ -17,4 +17,4 @@ conf_file.path = /etc/dbus-1/system.d
 service_file.files += com.deepin.dde.lock.service
 service_file.path = /usr/share/dbus-1/system-services
 
-INSTALLS += target con_file service_file
+INSTALLS += target conf_file service_file
