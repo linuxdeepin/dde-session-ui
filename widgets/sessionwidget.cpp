@@ -22,6 +22,7 @@ SessionWidget::SessionWidget(QWidget *parent)
         const QString &session = m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString();
 
         RoundItemButton *sbtn = new RoundItemButton(session, this);
+        sbtn->setFixedSize(160, 160);
         sbtn->hide();
         sbtn->setAutoExclusive(true);
 
@@ -44,7 +45,7 @@ SessionWidget::SessionWidget(QWidget *parent)
         m_sessionBtns->append(sbtn);
     }
 
-    setFixedSize(qApp->desktop()->width(), 150);
+    setFixedSize(qApp->desktop()->width(), 200);
 //    setStyleSheet("background-color:red;");
 }
 

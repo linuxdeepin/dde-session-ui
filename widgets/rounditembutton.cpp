@@ -37,25 +37,25 @@ void RoundItemButton::initConnect()
 
 void RoundItemButton::initUI() {
     m_itemIcon->setFocusPolicy(Qt::NoFocus);
+    m_itemIcon->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
-    m_itemText->setStyleSheet("color: rgba(255, 255, 255, 255); "
-                              "font-size:16px; text-align:center;");
-    m_itemText->setFixedHeight(30);
-    m_itemText->setAlignment(Qt::AlignHCenter);
+    m_itemText->setWordWrap(true);
+    m_itemText->setStyleSheet("color: rgba(255, 255, 255, 255);"
+                              "font-size:16px; margin:0 5px;");
+    m_itemText->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    m_itemText->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
-    mainLayout->addSpacing(4);
+    mainLayout->addSpacing(10);
     mainLayout->addWidget(m_itemIcon);
     mainLayout->setAlignment(m_itemIcon, Qt::AlignHCenter);
-    mainLayout->setSpacing(2);
     mainLayout->addWidget(m_itemText);
-    mainLayout->addStretch(0);
 
     setFocusPolicy(Qt::NoFocus);
     setFocusPolicy(Qt::StrongFocus);
     setLayout(mainLayout);
-    setFixedSize(QSize(120, 120));
+    setFixedSize(QSize(140, 140));
     setCheckable(true);
 
     QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect;
@@ -109,7 +109,7 @@ void RoundItemButton::paintEvent(QPaintEvent* event)
     painter.setPen(QPen(QColor(255, 255, 255, 51), 2));
     painter.setBrush(QColor(0, 0 , 0, 76));
     painter.setRenderHint(QPainter::Antialiasing, true);
-    painter.drawRoundedRect(QRect(2, 2, 116, 116), 10, 10, Qt::RelativeSize);
+    painter.drawRoundedRect(QRect(2, 2, width() - 4, height() - 4), 10, 10, Qt::RelativeSize);
 }
 
 void RoundItemButton::updateIcon()

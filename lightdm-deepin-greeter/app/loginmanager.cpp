@@ -174,7 +174,7 @@ void LoginManager::keyboardLayoutUI() {
 //    }
 
     m_keybdLayoutWidget= new KbLayoutWidget(m_passWdEdit->keybdLayoutMainDescriptionList, this);
-    m_keybdLayoutWidget->move(m_passWdEdit->x(), 500);
+    m_keybdLayoutWidget->move(m_passWdEdit->x(), m_passWdEdit->y() + m_passWdEdit->height() + 10);
     m_keybdLayoutWidget->hide();
 }
 

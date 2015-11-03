@@ -83,12 +83,13 @@ void KbLayoutWidget::initConnect() {
     {
         connect(m_layoutButtons.at(i), SIGNAL(clicked(bool)), m_layoutButtons.at(i), SLOT(OnlyMeChecked(bool)));
         connect(m_layoutButtons.at(i), SIGNAL(onlyOneChecked(QString)), this, SLOT(setButtonsChecked(QString)));
-
     }
 }
 
 void KbLayoutWidget::initUI() {
     setObjectName("KeyboardLayoutFrame");
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setSelectionMode(QAbstractItemView::NoSelection);
     for (int i = 0; i < m_buttons.length(); i++) {
         LayoutButton* itemButton = new LayoutButton(m_buttons[i]);
         m_layoutButtons.append(itemButton);
