@@ -96,10 +96,12 @@ void UserButton::addTextShadow() {
     m_textLabel->setGraphicsEffect(nameShadow);
 }
 void UserButton::showButton() {
-    QTimer::singleShot(100, this, SLOT(show()));
-    m_userAvatar->showButton();
-    update();
     m_textLabel->showLabel();
+    if (!isVisible()) {
+        QTimer::singleShot(100, this, SLOT(show()));
+        m_userAvatar->showButton();
+    }
+    update();
 }
 void UserButton::hideButton() {
     m_userAvatar->hideButton();

@@ -20,18 +20,18 @@ void SwitchFrame::chooseToSession(const QString &session)
 {
     m_tipsLabel->setText(session);
 
-    const QString normalIcon = QString(":/sessions/sessions/%1_normal.png").arg(session);
-    const QString hoverIcon = QString(":/sessions/sessions/%1_hover.png").arg(session);
-    const QString checkedIcon = QString(":/sessions/sessions/%1_press.png").arg(session);
+    const QString normalIcon = QString(":/img/%1_indicator_normal.png").arg(session);
+    const QString hoverIcon = QString(":/img/%1_indicator_hover.png").arg(session);
+    const QString checkedIcon = QString(":/img/%1_indicator_press.png").arg(session);
 
     if (QFile(normalIcon).exists() && QFile(hoverIcon).exists() && QFile(checkedIcon).exists()) {
         m_switchSessionButton->setNormalPic(normalIcon);
         m_switchSessionButton->setHoverPic(hoverIcon);
         m_switchSessionButton->setPressPic(checkedIcon);
     } else {
-        m_switchSessionButton->setNormalPic(":/sessions/sessions/unknow_normal.png");
-        m_switchSessionButton->setHoverPic(":/sessions/sessions/unknow_hover.png");
-        m_switchSessionButton->setPressPic(":/sessions/sessions/unknow_press.png");
+        m_switchSessionButton->setNormalPic(":/img/unknow_indicator_normal.png");
+        m_switchSessionButton->setHoverPic(":/img/unknow_indicator_hover.png");
+        m_switchSessionButton->setPressPic(":/img/unknow_indicator_press.png");
     }
 }
 
@@ -62,8 +62,8 @@ bool SwitchFrame::eventFilter(QObject *o, QEvent *e)
 }
 
 void SwitchFrame::initConnect() {
-    connect(m_switchUserButton, &QPushButton::clicked, this, &SwitchFrame::triggerSwitchUser);
-    connect(m_powerButton, &QPushButton::clicked, this, &SwitchFrame::triggerPower);
+    connect(m_switchUserButton, &DImageButton::clicked, this, &SwitchFrame::triggerSwitchUser);
+    connect(m_powerButton, &DImageButton::clicked, this, &SwitchFrame::triggerPower);
     connect(m_switchSessionButton, &DImageButton::clicked, this, &SwitchFrame::triggerSwitchSession);
 }
 
@@ -71,14 +71,20 @@ void SwitchFrame::initUI() {
     setFixedSize(350, 100);
 
     m_switchSessionButton = new DImageButton;
-    m_switchSessionButton->setFixedSize(100, 100);
+    m_switchSessionButton->setFixedSize(50, 100);
     m_switchSessionButton->installEventFilter(this);
     m_switchSessionButton->setObjectName("SwitchDEnvironment");
-    m_switchUserButton = new QPushButton;
-    m_switchUserButton->setFixedSize(100, 100);
+    m_switchUserButton = new DImageButton;
+    m_switchUserButton->setNormalPic(":/img/userswitch_normal.png");
+    m_switchUserButton->setHoverPic(":/img/userswitch_hover.png");
+    m_switchUserButton->setPressPic(":/img/userswitch_press.png");
+    m_switchUserButton->setFixedSize(50, 100);
     m_switchUserButton->setObjectName("SwitchUser");
-    m_powerButton = new QPushButton;
-    m_powerButton->setFixedSize(100, 100);
+    m_powerButton = new DImageButton;
+    m_powerButton->setNormalPic(":/img/shutdown_normal.png");
+    m_powerButton->setHoverPic(":/img/shutdown_hover.png");
+    m_powerButton->setPressPic(":/img/shutdown_press.png");
+    m_powerButton->setFixedSize(50, 100);
     m_powerButton->setObjectName("PowerMenu");
     m_tipsWidget = new QWidget;
     m_tipsWidget->setFixedSize(80, 20);

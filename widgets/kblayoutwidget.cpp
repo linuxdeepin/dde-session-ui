@@ -93,7 +93,7 @@ void KbLayoutWidget::initUI() {
         LayoutButton* itemButton = new LayoutButton(m_buttons[i]);
         m_layoutButtons.append(itemButton);
         itemButton->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, DDESESSIONCC::LAYOUTBUTTON_HEIGHT);
-        qDebug() << "itemButton:" << itemButton->height() << this->height();
+//        qDebug() << "itemButton:" << itemButton->height() << this->height();
 
         QFrame* borderFrame = new QFrame;
         borderFrame->setObjectName("LayoutBorderFrame");

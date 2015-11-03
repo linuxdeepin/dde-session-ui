@@ -43,8 +43,8 @@ private:
     QLabel *m_tipsLabel;
     QWidget *m_tipsWidget;
     DImageButton* m_switchSessionButton;
-    QPushButton* m_switchUserButton;
-    QPushButton* m_powerButton;
+    DImageButton* m_switchUserButton;
+    DImageButton* m_powerButton;
     QHBoxLayout* m_Layout;
 
     QPropertyAnimation *m_tipsAni;

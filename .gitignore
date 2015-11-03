@@ -24,6 +24,7 @@ Makefile.*
 *.rc
 *.zip
 
+dde-shutdown/dde-shutdown
 debug
 release
 build*
