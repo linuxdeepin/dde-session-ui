@@ -40,14 +40,10 @@ void LoginManager::initUI()
     m_backgroundLabel = new BackgroundLabel(true, this);
     m_sessionWidget = new SessionWidget(this);
     m_sessionWidget->hide();
-    m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
     m_logoWidget = new LogoWidget(this);
-    m_logoWidget->move(48, height() - m_logoWidget->height() - 36); // left 48px and bottom 36px
 //    m_logoWidget->setStyleSheet("background-color:red;");
     m_switchFrame = new SwitchFrame(this);
-    m_switchFrame->move(width() - m_switchFrame->width() - 20, height() - m_switchFrame->height());
     m_userWidget = new UserWidget(this);
-    m_userWidget->move(0, (qApp->desktop()->height() - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
     m_userWidget->setObjectName("UserWidget");
     m_passWdEdit = new PassWdEdit("LoginIcon", this);
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
@@ -72,6 +68,7 @@ void LoginManager::initUI()
 
     m_passWdEdit->updateKeyboardStatus();
     keyboardLayoutUI();
+    leaveEvent(nullptr);
 }
 
 void LoginManager::initConnect()
@@ -130,7 +127,15 @@ void LoginManager::chooseSessionMode()
     m_passWdEdit->hide();
 }
 
-void LoginManager::keyPressEvent(QKeyEvent* e)
+void LoginManager::updateWidgetsPosition()
+{
+    m_logoWidget->move(48, height() - m_logoWidget->height() - 36); // left 48px and bottom 36px
+    m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
+    m_switchFrame->move(width() - m_switchFrame->width() - 20, height() - m_switchFrame->height());
+    m_userWidget->move(0, (qApp->desktop()->height() - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
+}
+
+void LoginManager::keyPressEvent(QKeyEvent* e) 
 {
 #ifndef QT_DEBUG
     Q_UNUSED(e)
@@ -146,6 +151,21 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
     if (e->button() == Qt::LeftButton) {
         if (!m_keybdLayoutWidget->isHidden()) {
             m_keybdLayoutWidget->hide();
+        }
+    }
+}
+
+void LoginManager::leaveEvent(QEvent *)
+{
+    QList<QScreen *> screenList = qApp->screens();
+    QPoint mousePoint = QCursor::pos();
+    for (const QScreen *screen : screenList)
+    {
+        if (screen->geometry().contains(mousePoint))
+        {
+            setGeometry(screen->geometry());
+            updateWidgetsPosition();
+            return;
         }
     }
 }

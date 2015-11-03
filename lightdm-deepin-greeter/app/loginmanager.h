@@ -29,8 +29,10 @@ public:
     ~LoginManager();
 
 protected:
-    void keyPressEvent(QKeyEvent* e);
-    void mousePressEvent(QMouseEvent* e);
+    void keyPressEvent(QKeyEvent* e) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
+
 private slots:
     void initUI();
     void initConnect();
@@ -39,6 +41,7 @@ private slots:
     void authenticationComplete();
     void chooseUserMode();
     void chooseSessionMode();
+    void updateWidgetsPosition();
 
     void keyboardLayoutUI();
     void keybdLayoutWidget();
