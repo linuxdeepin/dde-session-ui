@@ -7,3 +7,4 @@ HEADERS += \
 SOURCES += \
     $$PWD/backgroundlabel.cpp \
     $$PWD/systembackground.cpp
+

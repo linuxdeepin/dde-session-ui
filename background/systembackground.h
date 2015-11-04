@@ -18,12 +18,14 @@ public:
 
     QString joinPath(const QString& path, const QString& fileName);
     QString getBackgroundsPath();
+    QString getCacheUrl();
+    QRect getPreferScaleClipRect(int refWidth, int refHeight, int width, int height);
 signals:
     void backgroundChanged(const QPixmap& backgroundPixmap);
 
 public slots:
     void updateBackgroud();
-    void handleBackgroundChanged(const QString& key);
+    void handleBackgroundChanged(const QString &key);
     void setBlur(bool isBlur);
     void setBackgroundSize(QSize size);
 
@@ -32,6 +34,7 @@ private:
     bool m_isBlur;
     QGSettings* m_gsettings;
     QString m_backgroundUrl;
+    QString m_cacheUrl;
     QPixmap m_backgroundPixmap;
 };
 

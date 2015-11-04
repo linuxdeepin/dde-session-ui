@@ -7,12 +7,16 @@ class SystemBackground;
 class BackgroundLabel : public QLabel
 {
     Q_OBJECT
+
 public:
     BackgroundLabel(bool isBlur=false, QWidget *parent = 0);
     ~BackgroundLabel();
 
+    QString getCacheUrl();
+
 protected:
     void resizeEvent(QResizeEvent* event);
+
 protected:
     void setBlur(bool isBlur);
 
