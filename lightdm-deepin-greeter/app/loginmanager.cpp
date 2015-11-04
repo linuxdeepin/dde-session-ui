@@ -1,10 +1,11 @@
-#include "loginmanager.h"
-
 #include <QtCore/QObject>
 #include <QApplication>
 #include <QtCore/QFile>
 #include <QDesktopWidget>
 #include <QDebug>
+
+#include "xkbparser.h"
+#include "loginmanager.h"
 
 LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent),
@@ -163,17 +164,15 @@ void LoginManager::login()
 void LoginManager::keyboardLayoutUI() {
 
     QStringList keyboardList;
-//    QMap<QString, QString>::iterator i ;
+    keyboardList = m_passWdEdit->keyboardLayoutList;
+
+    XkbParser* xkbParse = new XkbParser(this);
+    QStringList keyboardListContent =  xkbParse->lookUpKeyboard(keyboardList);
 
 
+    m_keybdLayoutWidget = new KbLayoutWidget(keyboardListContent, this);
 
-//    for(i = m_passWdEdit->keybdLayoutMainDescriptionMap.begin(); i != m_passWdEdit->keybdLayoutMainDescriptionMap.end(); i++) {
-//        if (! m_passWdEdit->keybdLayoutMainDescriptionMap.value(i.key()).isEmpty()) {
-//            keyboardList << m_passWdEdit->keybdLayoutMainDescriptionMap.value(i.key());
-//        }
-//    }
 
-    m_keybdLayoutWidget= new KbLayoutWidget(m_passWdEdit->keybdLayoutMainDescriptionList, this);
     m_keybdLayoutWidget->move(m_passWdEdit->x(), m_passWdEdit->y() + m_passWdEdit->height() + 10);
     m_keybdLayoutWidget->hide();
 }

@@ -68,7 +68,10 @@ LayoutButton::~LayoutButton()
 KbLayoutWidget::KbLayoutWidget(QStringList buttons, QWidget *parent)
     : QListWidget(parent)
 {
-    m_buttons = buttons;
+    if (!buttons.isEmpty()) {
+        m_buttons.clear();
+        m_buttons = buttons;
+    }
     qDebug() << "m_buttons:" << m_buttons;
     initUI();
     initConnect();
@@ -90,6 +93,7 @@ void KbLayoutWidget::initUI() {
     setObjectName("KeyboardLayoutFrame");
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setSelectionMode(QAbstractItemView::NoSelection);
+
     for (int i = 0; i < m_buttons.length(); i++) {
         LayoutButton* itemButton = new LayoutButton(m_buttons[i]);
         m_layoutButtons.append(itemButton);

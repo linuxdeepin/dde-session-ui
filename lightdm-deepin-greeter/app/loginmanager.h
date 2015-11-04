@@ -19,7 +19,7 @@
 #include "view/switchframe.h"
 #include "sessionwidget.h"
 #include "kblayoutwidget.h"
-#include "util_settings.h"
+
 
 class BackgroundLabel;
 class LoginManager: public QFrame {

@@ -9,7 +9,6 @@
 
 #include <libdui/dbuttonlist.h>
 
-#include "util_parsexml.h"
 #include "util_settings.h"
 
 class PassWdEdit : public QFrame
@@ -22,6 +21,8 @@ public:
     QMap<QString, QString> keybdLayoutMap;
     QStringList keybdLayoutMainDescriptionList;
     QMap<QString, QString> keybdLayoutShortDescriptionMap;
+
+    QStringList keyboardLayoutList;
 signals:
     void submit();
     void keybdLayoutButtonClicked();
@@ -47,14 +48,9 @@ private:
     QPushButton* m_keyboardButton;
     QPushButton* m_iconButton;
     QHBoxLayout* m_Layout;
-    QStringList m_keyboardList;
 
-    QStringList keyboardLayoutTextList;
 
     UtilSettings* m_utilSettings = NULL;
-//    KeyboardLayoutFrame* m_keybdLayoutFrame;
 
-    ParseXML* m_parseMainDescriptionXml;
-//    ParseXML* m_parseShortDescriptionXml;
 };
 #endif // PASSWDEDIT
