@@ -58,7 +58,7 @@ void PassWdEdit::initConnect() {
 }
 
 void PassWdEdit::initData() {
-    m_utilSettings = new UtilSettings(this);
+    utilSettings = new UtilSettings(this);
 }
 
 void PassWdEdit::focusInEvent(QFocusEvent *)
@@ -68,7 +68,7 @@ void PassWdEdit::focusInEvent(QFocusEvent *)
 
 void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
 {
-    keyboardLayoutList = m_utilSettings->getKbdLayoutList(username);
+    keyboardLayoutList = utilSettings->getKbdLayoutList(username);
     if (keyboardLayoutList.isEmpty()) {
         keyboardLayoutList << "";
     }

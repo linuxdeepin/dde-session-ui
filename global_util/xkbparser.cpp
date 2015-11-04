@@ -11,12 +11,12 @@ XkbParser::XkbParser(QObject *parent)
     }
 }
 
-QStringList XkbParser::lookUpKeyboard(QStringList keyboard_key) {
+QStringList XkbParser::lookUpKeyboardList(QStringList keyboardList_key) {
     QStringList result;
 
-    for (int k = 0; k < keyboard_key.length(); k++) {
+    for (int k = 0; k < keyboardList_key.length(); k++) {
         QString tmpKey, head_key, tail_key;
-        tmpKey = keyboard_key[k];
+        tmpKey = keyboardList_key[k];
         QStringList tmpKeyList = tmpKey.split("|");
         if (tmpKeyList.length() == 2) {
             head_key = tmpKeyList[0];
@@ -49,7 +49,23 @@ QStringList XkbParser::lookUpKeyboard(QStringList keyboard_key) {
 
     return result;
 }
-
+QString XkbParser::lookUpKeyboardKey(QString keyboard_value) {
+    QString keyboard_key;
+    for (int i = 0; i < KeyboardLayoutList.length(); i++) {
+        if (KeyboardLayoutList[i].description == keyboard_value) {
+            keyboard_key = QString("%1|").arg(KeyboardLayoutList[i].name);
+            qDebug() << "!!!keyboard_key:" << keyboard_key;
+            return keyboard_key;
+        } else {
+            for (int j = 0; j < KeyboardLayoutList[i].variantItemList.length(); j++) {
+                if (KeyboardLayoutList[i].variantItemList[j].description == keyboard_value) {
+                    keyboard_key = QString("%1|%2").arg(KeyboardLayoutList[i].name).arg(KeyboardLayoutList[i].variantItemList[j].name);
+                    return keyboard_key;
+                }
+            }
+        }
+    }
+}
 bool XkbParser::parse() {
 
     QFile baseFile(kBaseFile);
@@ -102,11 +118,11 @@ bool XkbParser::parse() {
 
         QDomElement variantListElement = layoutNode.firstChildElement("variantList");
         if (variantListElement.isNull()) {
-            qDebug() << "has no variant list.";
+//            qDebug() << "has no variant list.";
             continue;
         }
         QDomNodeList variantNodes = variantListElement.elementsByTagName("variant");
-        qDebug() << "size of variant list: " << variantNodes.size();
+//        qDebug() << "size of variant list: " << variantNodes.size();
         QDomNode variantNode;
         for (int variantIndex = 0; variantIndex < variantNodes.size(); ++variantIndex) {
             variantNode = variantNodes.at(variantIndex);
@@ -125,7 +141,7 @@ bool XkbParser::parse() {
             tmpVariantItem.name = variantNameElement.text();
             QDomElement variantDescriptionElement = variantConfigElement.firstChildElement("description");
             tmpVariantItem.description = variantDescriptionElement.text();
-            qDebug() << "variant description: " << variantDescriptionElement.text();
+//            qDebug() << "variant description: " << variantDescriptionElement.text();
 
             tmpLayoutItem.variantItemList.append(tmpVariantItem);
         }

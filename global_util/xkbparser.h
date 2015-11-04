@@ -21,12 +21,14 @@ public:
         QString description;
         QList<VariantItem> variantItemList;
     };
-
     QList<LayoutItem> KeyboardLayoutList;
-    bool parse();
-    QStringList lookUpKeyboard(QStringList keyboard_key);
+public slots:
+    QStringList lookUpKeyboardList(QStringList keyboardList_key);
+    QString lookUpKeyboardKey(QString keyboard_value);
 private:
     const char* kBaseFile = "/usr/share/X11/xkb/rules/base.xml";
+
+    bool parse();
 
 };
 

@@ -23,6 +23,7 @@ public:
     QMap<QString, QString> keybdLayoutShortDescriptionMap;
 
     QStringList keyboardLayoutList;
+    UtilSettings* utilSettings = NULL;
 signals:
     void submit();
     void keybdLayoutButtonClicked();
@@ -50,7 +51,7 @@ private:
     QHBoxLayout* m_Layout;
 
 
-    UtilSettings* m_utilSettings = NULL;
+
 
 };
 #endif // PASSWDEDIT

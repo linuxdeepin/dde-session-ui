@@ -7,7 +7,6 @@
 #include <QHBoxLayout>
 #include <QKeyEvent>
 
-
 #include <QLightDM/Greeter>
 #include <QLightDM/SessionsModel>
 
@@ -19,7 +18,7 @@
 #include "view/switchframe.h"
 #include "sessionwidget.h"
 #include "kblayoutwidget.h"
-
+#include "xkbparser.h"
 
 class BackgroundLabel;
 class LoginManager: public QFrame {
@@ -42,6 +41,8 @@ private slots:
 
     void keyboardLayoutUI();
     void keybdLayoutWidget();
+    void setCurrentKeyboardLayout(QString keyboard_value);
+
 private:
     BackgroundLabel* m_backgroundLabel;
     LogoWidget* m_logoWidget;
@@ -51,7 +52,9 @@ private:
     SessionWidget *m_sessionWidget;
     QHBoxLayout* m_passWdEditLayout;
     QVBoxLayout* m_Layout;
+
     KbLayoutWidget* m_keybdLayoutWidget;
+    XkbParser* xkbParse;
 
     QLightDM::Greeter *m_greeter;
 };

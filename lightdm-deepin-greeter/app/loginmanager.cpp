@@ -4,7 +4,7 @@
 #include <QDesktopWidget>
 #include <QDebug>
 
-#include "xkbparser.h"
+
 #include "loginmanager.h"
 
 LoginManager::LoginManager(QWidget* parent)
@@ -86,7 +86,8 @@ void LoginManager::initConnect()
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
     connect(m_passWdEdit, &PassWdEdit::updateKeyboardStatus, this, &LoginManager::keyboardLayoutUI);
-    connect(m_passWdEdit, SIGNAL(keybdLayoutButtonClicked()), this, SLOT(keybdLayoutWidget()));
+    connect(m_passWdEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LoginManager::keybdLayoutWidget);
+
 }
 
 void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
@@ -166,15 +167,26 @@ void LoginManager::keyboardLayoutUI() {
     QStringList keyboardList;
     keyboardList = m_passWdEdit->keyboardLayoutList;
 
-    XkbParser* xkbParse = new XkbParser(this);
-    QStringList keyboardListContent =  xkbParse->lookUpKeyboard(keyboardList);
+    xkbParse = new XkbParser(this);
+    QStringList keyboardListContent =  xkbParse->lookUpKeyboardList(keyboardList);
 
 
     m_keybdLayoutWidget = new KbLayoutWidget(keyboardListContent, this);
 
-
     m_keybdLayoutWidget->move(m_passWdEdit->x(), m_passWdEdit->y() + m_passWdEdit->height() + 10);
     m_keybdLayoutWidget->hide();
+
+    connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &LoginManager::setCurrentKeyboardLayout);
+    connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, &KbLayoutWidget::hide);
+}
+
+void LoginManager::setCurrentKeyboardLayout(QString keyboard_value) {
+    qDebug() << "setCurrentKeyboardLayout";
+
+    QString keyboard_key = xkbParse->lookUpKeyboardKey(keyboard_value);
+    qDebug() << "parse:" << keyboard_value << keyboard_value;
+    m_passWdEdit->utilSettings->setCurrentKbdLayout(m_userWidget->currentUser(),keyboard_key);
+
 }
 
 void LoginManager::keybdLayoutWidget() {

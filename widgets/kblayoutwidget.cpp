@@ -29,13 +29,15 @@ LayoutButton::LayoutButton(QString text, QWidget *parent)
 }
 void LayoutButton::enterEvent(QEvent *event) {
     emit mouseEnter(m_text);
-    qDebug() << "enterEvent;";
+    Q_UNUSED(event);
+//    qDebug() << "enterEvent;";
     updateStyle();
 }
 
 void LayoutButton::leaveEvent(QEvent *event) {
     emit mouseLeave(m_text);
-    qDebug() << "leaveEvent;";
+    Q_UNUSED(event);
+//    qDebug() << "leaveEvent;";
      updateStyle();
 }
 
@@ -72,7 +74,7 @@ KbLayoutWidget::KbLayoutWidget(QStringList buttons, QWidget *parent)
         m_buttons.clear();
         m_buttons = buttons;
     }
-    qDebug() << "m_buttons:" << m_buttons;
+
     initUI();
     initConnect();
     initData(buttons);
@@ -81,12 +83,15 @@ KbLayoutWidget::KbLayoutWidget(QStringList buttons, QWidget *parent)
 }
 
 void KbLayoutWidget::initConnect() {
+
     const int count = m_layoutButtons.length();
     for (int i = 0; i != count; ++i)
     {
         connect(m_layoutButtons.at(i), SIGNAL(clicked(bool)), m_layoutButtons.at(i), SLOT(OnlyMeChecked(bool)));
         connect(m_layoutButtons.at(i), SIGNAL(onlyOneChecked(QString)), this, SLOT(setButtonsChecked(QString)));
+        connect(m_layoutButtons.at(i), SIGNAL(onlyOneChecked(QString)), this, SIGNAL(setButtonClicked(QString)));
     }
+
 }
 
 void KbLayoutWidget::initUI() {
@@ -121,13 +126,16 @@ void KbLayoutWidget::initUI() {
 
 }
 
+
 void KbLayoutWidget::setButtonsChecked(QString text) {
-    qDebug() << "setButtonsChecked:" << text;
+    qDebug() << "XsetButtonsChecked:" << text;
     for (int i = 0; i < m_layoutButtons.length(); i++) {
         if (m_layoutButtons.at(i)->m_text != text) {
             m_layoutButtons.at(i)->setButtonChecked(false);
         }
     }
+
+    emit setButtonClicked(text);
 }
 
 void KbLayoutWidget::initData(QStringList buttons) {

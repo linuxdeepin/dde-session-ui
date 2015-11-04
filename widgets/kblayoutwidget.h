@@ -46,6 +46,8 @@ public:
     void initUI();
     void initConnect();
     void updateUI();
+signals:
+    void setButtonClicked(QString text);
 public slots:
     void setButtonsChecked(QString text);
 private:

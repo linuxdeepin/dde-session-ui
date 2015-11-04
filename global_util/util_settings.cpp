@@ -20,3 +20,12 @@ QStringList UtilSettings::getKbdLayoutList(QString username) {
     qDebug() << "ORIGIN keyboardList" << keyboardList << keyboardList.length();
     return keyboardList;
 }
+
+void UtilSettings::setCurrentKbdLayout(QString username, QString keybdLayout) {
+    QSettings settings(USERS_PATH, QSettings::IniFormat);
+
+    qDebug() << "settings.value:" << settings.value(username + "/KeyboardLayout").toString();
+    settings.beginGroup(username);
+    settings.setValue("KeyboardLayout", keybdLayout);
+    settings.endGroup();
+}

@@ -15,6 +15,7 @@ public:
 
 public slots:
     QStringList getKbdLayoutList(QString username);
+    void setCurrentKbdLayout(QString username, QString keybdLayout);
 };
 
 
