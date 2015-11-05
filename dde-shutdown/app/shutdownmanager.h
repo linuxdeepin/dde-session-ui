@@ -29,6 +29,7 @@ private:
     void initUI();
     void initConnect();
     void initData();
+    void switchToGreeter();
 
     int m_mode=2;
     QHBoxLayout* m_Layout;

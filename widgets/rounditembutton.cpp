@@ -51,7 +51,11 @@ void RoundItemButton::initConnect()
     connect(this, &RoundItemButton::stateChanged, this, static_cast<void (RoundItemButton::*)()>(&RoundItemButton::update));
     connect(this, &RoundItemButton::iconChanged, this, &RoundItemButton::updateIcon);
     connect(this, &RoundItemButton::toggled, this, &RoundItemButton::setChecked);
-//    connect(signalManager, &SignalManager::setButtonHover, this, &RoundItemButton::setUnhovered);
+    connect(signalManager, &SignalManager::setButtonHover, [this] (const QString &text) {
+        if (m_itemText->text() != text && !isChecked() && !isDisabled()) {
+            updateState(Normal);
+        }
+    });
 }
 
 void RoundItemButton::initUI() {
@@ -126,7 +130,8 @@ void RoundItemButton::mouseReleaseEvent(QMouseEvent* e)
     else
         updateState(Pressed);
 
-    emit clicked();
+    if (m_state != Disabled)
+        emit clicked();
 }
 
 void RoundItemButton::paintEvent(QPaintEvent* event)
@@ -150,6 +155,7 @@ void RoundItemButton::updateIcon()
     {
     case Disabled:  /* show normal pic */
     case Normal:    pixmap.load(m_normalIcon);      break;
+    case Default:
     case Hover:     pixmap.load(m_hoverIcon);       break;
     case Checked:   pixmap.load(m_normalIcon);      break;
     case Pressed:   pixmap.load(m_pressedIcon);     break;

@@ -26,10 +26,14 @@ void ShutDownFrame::initConnect() {
     connect(m_suspendButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Suspend);});
     connect(m_lockButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Lock);});
     connect(m_logoutButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Logout);});
+    connect(m_switchUserBtn, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(SwitchUser);});
 }
 
 void ShutDownFrame::enterKeyPushed()
 {
+    if (m_currentSelectedBtn->isDisabled())
+        return;
+
     if (m_currentSelectedBtn == m_shutdownButton)
         emit ShutDownFrameActions(Shutdown);
     else if (m_currentSelectedBtn == m_restartButton)
@@ -40,43 +44,37 @@ void ShutDownFrame::enterKeyPushed()
         emit ShutDownFrameActions(Lock);
     else if (m_currentSelectedBtn == m_logoutButton)
         emit ShutDownFrameActions(Logout);
+    else if (m_currentSelectedBtn == m_switchUserBtn)
+        emit ShutDownFrameActions(SwitchUser);
 }
 
 void ShutDownFrame::initUI() {
     m_btnsList = new QList<RoundItemButton *>;
     m_shutdownButton = new RoundItemButton(tr("Shut down"));
     m_shutdownButton->setAutoExclusive(true);
-    m_shutdownButton->updateState(RoundItemButton::Checked);
     m_shutdownButton->setObjectName("ShutDownButtonFrame");
-    m_btnsList->append(m_shutdownButton);
-
-    m_currentSelectedBtn = m_shutdownButton;
     m_restartButton = new RoundItemButton(tr("Restart"));
     m_restartButton->setAutoExclusive(true);
     m_restartButton->setObjectName("RestartButtonFrame");
-    m_btnsList->append(m_restartButton);
     m_suspendButton = new RoundItemButton(tr("Suspend"));
     m_suspendButton->setAutoExclusive(true);
     m_suspendButton->setObjectName("SuspendButtonFrame");
-    m_btnsList->append(m_suspendButton);
     m_lockButton = new RoundItemButton(tr("Lock"));
     m_lockButton->setAutoExclusive(true);
     m_lockButton->setObjectName("LockButtonFrame");
-    m_btnsList->append(m_lockButton);
     m_logoutButton = new RoundItemButton(tr("Log out"));
     m_logoutButton->setAutoExclusive(true);
     m_logoutButton->setObjectName("LogoutButtonFrame");
-    m_btnsList->append(m_logoutButton);
     m_switchUserBtn = new RoundItemButton(tr("Switch user"));
     m_switchUserBtn->setAutoExclusive(true);
     m_switchUserBtn->setObjectName("SwitchUserBtn");
-    m_btnsList->append(m_switchUserBtn);
 
     QLabel *tipsIcon = new QLabel;
     tipsIcon->setPixmap(QPixmap(":/img/waring.png"));
     m_tipsLabel = new QLabel;
     m_tipsLabel->setAlignment(Qt::AlignCenter);
-    m_tipsLabel->setStyleSheet("color:white;");
+    m_tipsLabel->setStyleSheet("color:white;"
+                               "font-size:14px;");
     QHBoxLayout *tipsLayout = new QHBoxLayout;
     tipsLayout->addStretch();
     tipsLayout->addWidget(tipsIcon);
@@ -95,8 +93,8 @@ void ShutDownFrame::initUI() {
     buttonLayout->addWidget(m_restartButton);
     buttonLayout->addWidget(m_suspendButton);
     buttonLayout->addWidget(m_lockButton);
-    buttonLayout->addWidget(m_logoutButton);
     buttonLayout->addWidget(m_switchUserBtn);
+    buttonLayout->addWidget(m_logoutButton);
     buttonLayout->addStretch(0);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -111,19 +109,35 @@ void ShutDownFrame::initUI() {
 
     updateStyle(":/skin/shutdown.qss", this);
 
+
+    m_btnsList->append(m_shutdownButton);
+    m_btnsList->append(m_restartButton);
+    m_btnsList->append(m_suspendButton);
+    m_btnsList->append(m_lockButton);
+    m_btnsList->append(m_switchUserBtn);
+    m_btnsList->append(m_logoutButton);
+
+    m_currentSelectedBtn = m_shutdownButton;
+    m_currentSelectedBtn->updateState(RoundItemButton::Default);
+
     // TODO: remove
     showTips("不要关机 不要关机 不要关机 不要关机 不要关机 不要关机 ");
-    m_logoutButton->setDisabled(true);
+//    m_shutdownButton->setDisabled(true);
+//    m_restartButton->setDisabled(true);
 }
 
 void ShutDownFrame::setPreviousChildFocus()
 {
+    if (!m_currentSelectedBtn->isDisabled() &&
+        !m_currentSelectedBtn->isChecked())
+        m_currentSelectedBtn->updateState(RoundItemButton::Normal);
+
     const int lastPos = m_btnsList->indexOf(m_currentSelectedBtn);
     const int nextPos = lastPos ? lastPos : m_btnsList->count();
 
     m_currentSelectedBtn = m_btnsList->at(nextPos - 1);
 
-    if (m_currentSelectedBtn->isDisabled())
+    if (m_currentSelectedBtn->isDisabled() || !m_currentSelectedBtn->isVisible())
         setPreviousChildFocus();
     else
         m_currentSelectedBtn->setChecked(true);
@@ -131,10 +145,14 @@ void ShutDownFrame::setPreviousChildFocus()
 
 void ShutDownFrame::setNextChildFocus()
 {
+    if (!m_currentSelectedBtn->isDisabled() &&
+        !m_currentSelectedBtn->isChecked())
+        m_currentSelectedBtn->updateState(RoundItemButton::Normal);
+
     const int lastPos = m_btnsList->indexOf(m_currentSelectedBtn);
     m_currentSelectedBtn = m_btnsList->at((lastPos + 1) % m_btnsList->count());
 
-    if (m_currentSelectedBtn->isDisabled())
+    if (m_currentSelectedBtn->isDisabled() || !m_currentSelectedBtn->isVisible())
         setNextChildFocus();
     else
         m_currentSelectedBtn->setChecked(true);

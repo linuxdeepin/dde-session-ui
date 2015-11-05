@@ -28,7 +28,7 @@ public:
     RoundItemButton(const QString &text, QWidget* parent=0);
     ~RoundItemButton();
 
-    enum State {Normal, Hover, Checked, Pressed, Disabled};
+    enum State {Default, Normal, Hover, Checked, Pressed, Disabled};
 
     void setDisabled(bool disabled);
     inline bool isDisabled() const {return m_state == Disabled;}

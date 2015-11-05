@@ -56,8 +56,16 @@ void ShutdownManager::initData() {
     m_sessionInterface = new SessionManageInterfaceManagement(this);
 }
 
-void ShutdownManager::powerAction(const ShutDownFrame::Actions action) {
+void ShutdownManager::switchToGreeter()
+{
+    QProcess *process = new QProcess;
+    connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
+    process->start("dde-switchtogreeter");
+    qApp->quit();
+}
 
+void ShutdownManager::powerAction(const ShutDownFrame::Actions action)
+{
     switch (action)
     {
     case ShutDownFrame::Shutdown:       m_sessionInterface->ForceShutdown();        break;
@@ -65,11 +73,13 @@ void ShutdownManager::powerAction(const ShutDownFrame::Actions action) {
     case ShutDownFrame::Suspend:        m_sessionInterface->RequestSuspend();       break;
     case ShutDownFrame::Lock:           m_sessionInterface->RequestLock();          break;
     case ShutDownFrame::Logout:         m_sessionInterface->ForceLogout();          break;
+    case ShutDownFrame::SwitchUser:     switchToGreeter();                          break;
     default:                            qWarning() << "action: " << action << " not handled";
     }
 
     qApp->quit();
 }
+
 void ShutdownManager::keyPressEvent(QKeyEvent* e)
 {
     switch (e->key())
