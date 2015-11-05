@@ -19,6 +19,7 @@
 #include "sessionwidget.h"
 #include "kblayoutwidget.h"
 #include "xkbparser.h"
+#include "dbus/dbusdisplaymanager.h"
 
 class BackgroundLabel;
 class LoginManager: public QFrame {
@@ -57,6 +58,7 @@ private:
     XkbParser* xkbParse;
 
     QLightDM::Greeter *m_greeter;
+    DBusDisplayManager *m_displayInter;
 };
 #endif // LoginManager
 

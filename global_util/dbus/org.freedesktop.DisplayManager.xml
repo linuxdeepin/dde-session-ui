@@ -1,0 +1,4 @@
+<interface name="org.freedesktop.DisplayManager">
+  <property type="ao" name="Sessions" access="read">
+  </property>
+</interface>

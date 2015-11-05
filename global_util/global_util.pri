@@ -8,6 +8,7 @@ HEADERS += \
     $$PWD/constants.h \
     $$PWD/util_settings.h \
     $$PWD/xkbparser.h \
+    $$PWD/dbus/dbusdisplaymanager.h
 
 
 SOURCES += \
@@ -15,6 +16,7 @@ SOURCES += \
     $$PWD/util_signalmanager.cpp \
     $$PWD/util_settings.cpp \
     $$PWD/xkbparser.cpp \
+    $$PWD/dbus/dbusdisplaymanager.cpp
 
 
 RESOURCES += \

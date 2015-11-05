@@ -4,7 +4,6 @@
 #include <QDesktopWidget>
 #include <QDebug>
 
-
 #include "loginmanager.h"
 
 LoginManager::LoginManager(QWidget* parent)
@@ -19,6 +18,10 @@ LoginManager::LoginManager(QWidget* parent)
 
     m_passWdEdit->updateKeybordLayoutStatus(m_userWidget->currentUser());
     m_sessionWidget->switchToUser(m_userWidget->currentUser());
+
+    m_displayInter = new DBusDisplayManager("org.freedesktop.DisplayManager", "/org/freedesktop/DisplayManager", QDBusConnection::systemBus(), this);
+    if (m_displayInter->isValid() && m_displayInter->sessions().count() > 1)
+        chooseUserMode();
 }
 
 LoginManager::~LoginManager()
@@ -127,24 +130,24 @@ void LoginManager::chooseSessionMode()
     m_passWdEdit->hide();
 }
 
-void LoginManager::keyPressEvent(QKeyEvent* e) {
+void LoginManager::keyPressEvent(QKeyEvent* e)
+{
 #ifndef QT_DEBUG
     Q_UNUSED(e)
 #else
     if (e->key() == Qt::Key_Escape) {
         qApp->exit();
     }
-
 #endif
 }
 
-void LoginManager::mousePressEvent(QMouseEvent *e) {
+void LoginManager::mousePressEvent(QMouseEvent *e)
+{
     if (e->button() == Qt::LeftButton) {
         if (!m_keybdLayoutWidget->isHidden()) {
             m_keybdLayoutWidget->hide();
         }
     }
-
 }
 
 void LoginManager::login()
