@@ -30,5 +30,8 @@ SOURCES += \
     $$PWD/kblayoutwidget.cpp
 
 RESOURCES += \
-    $$PWD/sessions.qrc
+    $$PWD/sessions.qrc \
+    $$PWD/skin.qrc
+
+DISTFILES +=
 

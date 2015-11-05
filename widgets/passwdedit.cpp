@@ -14,8 +14,8 @@ PassWdEdit::PassWdEdit(QString iconId, QWidget* parent)
     initUI();
     initConnect();
     initData();
-    setObjectName("passwdEnterFrame");
-    setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, 36));
+
+    setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2, 34));
 }
 
 PassWdEdit::~PassWdEdit()
@@ -23,15 +23,17 @@ PassWdEdit::~PassWdEdit()
 }
 
 void PassWdEdit::initUI() {
+    setObjectName("PassWdEditFrame");
+
     m_keyboardButton = new QPushButton;
     m_keyboardButton->setObjectName("KeyBoardLayoutButton");
 
     m_keyboardButton->setFixedSize(QSize(24, 24));
-    m_iconButton = new QPushButton;
+    m_iconButton = new QPushButton(this);
     m_iconButton->setObjectName(m_iconId);
     m_iconButton->setCheckable(true);
-    m_iconButton->setFixedSize(QSize(34, 34)); // 34 = 36 - borderTop - borderBottom
-    m_iconButton->setIconSize(QSize(34, 34));
+    m_iconButton->setFixedSize(QSize(35, 35)); // 34 = 36 - borderTop - borderBottom
+    m_iconButton->setIconSize(QSize(35, 35));
 
     m_lineEdit = new QLineEdit;
     m_lineEdit->setObjectName("passwdLineEdit");
@@ -39,16 +41,33 @@ void PassWdEdit::initUI() {
     m_lineEdit->setFixedHeight(m_iconButton->height());
     m_lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_Layout = new QHBoxLayout;
+    initInsideFrame();
+
+    m_Layout = new QHBoxLayout(m_insideFrame);
+    m_Layout->setContentsMargins(0, 0, 0, 0);
     m_Layout->setMargin(0);
     m_Layout->setSpacing(0);
     m_Layout->addSpacing(3);
     m_Layout->addWidget(m_keyboardButton);
     m_Layout->addWidget(m_lineEdit);
     m_Layout->addStretch();
-    m_Layout->addWidget(m_iconButton);
+
     setLayout(m_Layout);
 
+    m_iconButton->move(this->x() + this->width()*2 + 14, this->y() - 1);
+    updateStyle(":/skin/passwordedit.qss", this);
+
+}
+
+void PassWdEdit::initInsideFrame() {
+    m_insideFrame = new QFrame(this);
+    m_insideFrame->raise();
+
+    m_insideFrame->setObjectName("PswdInsideFrame");
+    QHBoxLayout *insideLayout = new QHBoxLayout(this);
+    insideLayout->setContentsMargins(0, 0, 0, 0);
+    insideLayout->setSpacing(0);
+    insideLayout->addWidget(m_insideFrame);
 }
 
 void PassWdEdit::initConnect() {

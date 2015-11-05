@@ -1,0 +1,20 @@
+QFrame#KeyboardLayoutFrame {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 70);
+    border-radius: 4px;
+}
+
+QFrame#LayoutBorderFrame {
+    background-color: green;
+    border: none;
+}
+
+QPushButton#LayoutButton {
+    background-color: transparent;
+    border: none;
+}
+
+QPushButton#LayoutButton:hover {
+    background-color: rgba(0, 0, 0, .2);
+    border: none;
+}

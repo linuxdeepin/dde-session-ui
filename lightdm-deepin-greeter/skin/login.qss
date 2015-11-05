@@ -1,9 +1,6 @@
 QFrame#LogoWidget {
     background-color: rgba(255, 255, 255, 0);
 }
-QFrame#KeyboardLayoutFrame {
-    background-color: rgba(255, 255, 255, 30);
-}
 QFrame#UserWidget {
     background-color: transparent;
 
@@ -18,26 +15,6 @@ QLabel#LogoVersion {
     color: rgba(255, 255, 255, 255);
 }
 
-QFrame#passwdEnterFrame {
-    border: 1px solid  rgba(255, 255, 255, 60);
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 30);
-}
-QPushButton#KeyBoardLayoutButton {
-    border-image: url(":img/keyboard.png");
-    background-color: rgba(255, 255, 255, 0);
-    border-none;
-    margin:0 ;
-}
-QLineEdit#passwdLineEdit {
-    color:white;
-    font-size:20px;
-    border: 1px solid  transparent;
-    border-radius: 4px;
-    background: transparent;
-    selection-background-color: transparent;
-}
-
 QPushButton#passwdButtonIcon {
     border:none;
 }
@@ -48,25 +25,4 @@ QPushButton#LoginIcon {
 QPushButton#LoginIcon:pressed {
     border-image:url(":img/login_press.png");
     border:none;
-}
-
-QFrame#KeyboardLayoutFrame {
-    background-color: rgba(255, 255, 255, 30);
-    border: 1px solid rgba(255, 255, 255, 70);
-    border-radius: 4px;
-}
-
-QFrame#LayoutBorderFrame {
-    background-color: rgba(255, 255, 255, 0);
-    border: none;
-}
-
-QPushButton#LayoutButton {
-    background-color: rgba(255, 255, 255, 0);
-    border: none;
-}
-
-QPushButton#LayoutButton:hover {
-    background-color: rgba(0, 0, 0, .2);
-    border: none;
 }

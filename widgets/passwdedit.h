@@ -9,6 +9,7 @@
 
 #include <libdui/dbuttonlist.h>
 
+#include "util_updateui.h"
 #include "util_settings.h"
 
 class PassWdEdit : public QFrame
@@ -43,6 +44,8 @@ private:
     void initConnect();
     void initData();
 
+    void initInsideFrame();
+    QFrame* m_insideFrame;
 private:
     QLineEdit* m_lineEdit;
     QString m_iconId;

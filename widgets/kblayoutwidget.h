@@ -7,6 +7,7 @@
 #include <QHBoxLayout>
 
 #include "constants.h"
+#include "util_updateui.h"
 
 class LayoutButton: public QPushButton
 {
@@ -15,7 +16,7 @@ public:
     LayoutButton(QString text, QWidget* parent = 0);
     ~LayoutButton();
 
-    void updateStyle();
+    void updateStyleSelf();
     void setButtonChecked(bool checked);
     QString m_text;
 

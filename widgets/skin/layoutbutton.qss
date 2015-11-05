@@ -1,0 +1,9 @@
+QPushButton#LayoutButton {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+QPushButton#LayoutButton:hover { background-color: rgba(0, 0, 0, .4); border: none}
+
+QLabel#LayoutTextLabel[Checked = "true"]  { color: red;font-size: 15px;}
+
