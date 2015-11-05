@@ -68,10 +68,12 @@ void PassWdEdit::focusInEvent(QFocusEvent *)
 
 void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
 {
+
     keyboardLayoutList = utilSettings->getKbdLayoutList(username);
     if (keyboardLayoutList.isEmpty()) {
         keyboardLayoutList << "";
     }
+    qDebug() << "get UpdateKeybordLayoutStatus";
 
     if (keyboardLayoutList.count() > 2) {
         m_keyboardButton->show();
@@ -79,6 +81,13 @@ void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
         m_keyboardButton->hide();
     }
     emit updateKeyboardStatus();
+}
+void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList) {
+    if (keybdList.count() > 2) {
+        m_keyboardButton->show();
+    } else {
+        m_keyboardButton->hide();
+    }
 }
 
 void PassWdEdit::keyReleaseEvent(QKeyEvent *e)

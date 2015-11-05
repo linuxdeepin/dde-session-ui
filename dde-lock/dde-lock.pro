@@ -11,18 +11,23 @@ PKGCONFIG += gsettings-qt
 include(../background/background.pri)
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
+include(../cutelogger/cutelogger.pri)
 
 SOURCES += main.cpp \
     lockframe.cpp \
     timewidget.cpp \
     controlwidget.cpp \
-    dbus/dbuslockservice.cpp
+    dbus/dbuslockservice.cpp \
+    dbus/dbuskeyboard.cpp \
+    dbus/dbusinputdevices.cpp
 
-HEADERS  += \ 
+HEADERS  += \
     lockframe.h \
     timewidget.h \
     controlwidget.h \
-    dbus/dbuslockservice.h
+    dbus/dbuslockservice.h \
+    dbus/dbusinputdevices.h \
+    dbus/dbuskeyboard.h
 
 target.path = $${PREFIX}/bin/
 INSTALLS += target

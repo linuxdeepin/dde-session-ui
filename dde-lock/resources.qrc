@@ -28,4 +28,7 @@
         <file>icons/mute_normal.png</file>
         <file>icons/mute_hover.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>img/tick_hover.png</file>
+    </qresource>
 </RCC>

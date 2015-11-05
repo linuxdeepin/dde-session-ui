@@ -33,7 +33,7 @@ public slots:
     QString getText();
 
     void updateKeybordLayoutStatus(const QString &username);
-
+    void updateKeybdLayoutUI(QStringList keybdList);
 protected:
     void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;

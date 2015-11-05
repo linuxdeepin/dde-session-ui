@@ -4,11 +4,13 @@
 #include "userwidget.h"
 #include "passwdedit.h"
 #include "util_updateui.h"
+#include "dbus/dbusinputdevices.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QMap>
 
 LockFrame::LockFrame()
 {
@@ -16,6 +18,17 @@ LockFrame::LockFrame()
     setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
     setFixedSize(qApp->desktop()->size());
 
+    initUI();
+    initBackend();
+    updateUI();
+    initConnect();
+}
+void LockFrame::initConnect() {
+
+    connect(m_passwordEdit, &PassWdEdit::keybdLayoutButtonClicked, m_keybdLayoutWidget, &KbLayoutWidget::show);
+
+}
+void LockFrame::initUI() {
     // background image
     BackgroundLabel *background = new BackgroundLabel(true, this);
     background->move(0, 0);
@@ -34,7 +47,6 @@ LockFrame::LockFrame()
     m_controlWidget->move(width() - m_controlWidget->width() - 50,
                           height() - m_controlWidget->height() - 36); // margin right 50 margin bottom 36
 
-    m_lockInter = new DBusLockService("com.deepin.dde.lock", "/com/deepin/dde/lock", QDBusConnection::systemBus(), this);
 
     QHBoxLayout *passwdLayout = new QHBoxLayout;
     passwdLayout->setMargin(0);
@@ -57,6 +69,7 @@ LockFrame::LockFrame()
 
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockFrame::unlock);
 }
+
 
 void LockFrame::keyPressEvent(QKeyEvent *e)
 {
@@ -84,4 +97,49 @@ void LockFrame::unlock()
         qApp->quit();
 
     // TODO: auth fail
+}
+void LockFrame::initBackend() {
+    m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
+
+    DBusInputDevices * dbusInputDevices = new DBusInputDevices(this);
+    foreach (InputDevice device, dbusInputDevices->infos()) {
+        if (device.deviceType == "keyboard") {
+            m_keyboardLayoutInterface = new DBusKeyboard(this);
+            break;
+        }
+    }
+
+    m_keybdLayoutNameList = m_keyboardLayoutInterface->userLayoutList();
+
+    for (int i = 0; i < m_keybdLayoutNameList.length(); i++) {
+        QDBusPendingReply<QString> tmpValue =  m_keyboardLayoutInterface->GetLayoutDesc(m_keybdLayoutNameList[i]);
+        tmpValue.waitForFinished();
+
+        keybdLayoutDescList << tmpValue;
+        m_keybdInfoMap.insert(m_keybdLayoutNameList[i], tmpValue);
+    }
+    qDebug() << "QStringList" << m_keybdLayoutNameList;
+    m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
+}
+
+void LockFrame::updateUI() {
+    m_keybdLayoutWidget = new KbLayoutWidget(keybdLayoutDescList, this);
+    m_keybdLayoutWidget->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
+    m_keybdLayoutWidget->move(m_passwordEdit->x(), m_passwordEdit->y() + m_passwordEdit->height() + 10);
+    m_keybdLayoutWidget->hide();
+
+    connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &LockFrame::setCurrentKeyboardLayout);
+    connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, &KbLayoutWidget::hide);
+}
+
+void LockFrame::setCurrentKeyboardLayout(QString keyboard_value) {
+    QMap<QString, QString>::iterator lookupIt;
+
+    for (lookupIt = m_keybdInfoMap.begin(); lookupIt != m_keybdInfoMap.end(); ++lookupIt) {
+        if (lookupIt.value() == keyboard_value && m_keyboardLayoutInterface->currentLayout() != lookupIt.key()) {
+
+            m_keyboardLayoutInterface->setCurrentLayout(lookupIt.key());
+        }
+    }
+
 }
