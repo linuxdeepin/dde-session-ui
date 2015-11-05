@@ -8,6 +8,9 @@ RoundItemButton::RoundItemButton(const QString &text, QWidget* parent)
       m_itemText(new QLabel(this))
 {
     m_itemText->setText(text);
+    m_opacityEffect = new QGraphicsOpacityEffect(this);
+    m_opacityEffect->setOpacity(1.0);
+    setGraphicsEffect(m_opacityEffect);
 
     initUI();
     initConnect();
@@ -15,6 +18,22 @@ RoundItemButton::RoundItemButton(const QString &text, QWidget* parent)
 
 RoundItemButton::~RoundItemButton()
 {
+}
+
+void RoundItemButton::setDisabled(bool disabled)
+{
+    if (!disabled)
+        updateState(Normal);
+    else
+        updateState(Disabled);
+
+    QAbstractButton::setDisabled(disabled);
+
+    // update qss
+    setStyleSheet(styleSheet());
+
+    // update opacity
+    m_opacityEffect->setOpacity(disabled ? 0.5 : 1.0);
 }
 
 void RoundItemButton::setChecked(bool checked)
@@ -32,7 +51,7 @@ void RoundItemButton::initConnect()
     connect(this, &RoundItemButton::stateChanged, this, static_cast<void (RoundItemButton::*)()>(&RoundItemButton::update));
     connect(this, &RoundItemButton::iconChanged, this, &RoundItemButton::updateIcon);
     connect(this, &RoundItemButton::toggled, this, &RoundItemButton::setChecked);
-    connect(signalManager, &SignalManager::setButtonHover, this, &RoundItemButton::setUnhovered);
+//    connect(signalManager, &SignalManager::setButtonHover, this, &RoundItemButton::setUnhovered);
 }
 
 void RoundItemButton::initUI() {
@@ -58,16 +77,20 @@ void RoundItemButton::initUI() {
     setFixedSize(QSize(140, 140));
     setCheckable(true);
 
-    QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect;
+    QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect(m_itemText);
     nameShadow->setBlurRadius(16);
     nameShadow->setColor(QColor(0, 0, 0, 85));
     nameShadow->setOffset(0, 4);
-    m_itemText->setGraphicsEffect(nameShadow);
+//    m_itemText->setGraphicsEffect(nameShadow);
 }
 
 void RoundItemButton::enterEvent(QEvent* event)
 {
     Q_UNUSED(event)
+
+    if (m_state == Disabled)
+        return;
+
     if (m_state == Normal)
         updateState(Hover);
 
@@ -77,12 +100,20 @@ void RoundItemButton::enterEvent(QEvent* event)
 void RoundItemButton::leaveEvent(QEvent* event)
 {
     Q_UNUSED(event)
+
+    if (m_state == Disabled)
+        return;
+
+    if (m_state == Checked)
+        return;
+
     updateState(Normal);
 }
 
-void RoundItemButton::mousePressEvent(QMouseEvent* event) {
-    qDebug() << "RoundItemButton pressed";
+void RoundItemButton::mousePressEvent(QMouseEvent* event)
+{
     Q_UNUSED(event);
+
     updateState(Pressed);
 }
 
@@ -117,10 +148,12 @@ void RoundItemButton::updateIcon()
     QPixmap pixmap;
     switch (m_state)
     {
+    case Disabled:  /* show normal pic */
     case Normal:    pixmap.load(m_normalIcon);      break;
     case Hover:     pixmap.load(m_hoverIcon);       break;
     case Checked:   pixmap.load(m_normalIcon);      break;
     case Pressed:   pixmap.load(m_pressedIcon);     break;
+    default:;
     }
 
     if (!pixmap.isNull()) {
@@ -128,8 +161,8 @@ void RoundItemButton::updateIcon()
     }
 }
 
-void RoundItemButton::updateState(const RoundItemButton::State state) {
-
+void RoundItemButton::updateState(const RoundItemButton::State state)
+{
     if (m_state != state) {
         m_state = state;
         emit stateChanged(state);
@@ -137,10 +170,4 @@ void RoundItemButton::updateState(const RoundItemButton::State state) {
 
     QAbstractButton::setChecked(m_state == Checked);
     return updateIcon();
-}
-
-void RoundItemButton::setUnhovered(QString text) {
-    if (m_itemText->text()!=text) {
-        updateState(Normal);
-    }
 }

@@ -16,23 +16,25 @@ public:
     ShutDownFrame(QWidget* parent=0);
     ~ShutDownFrame();
 
-    RoundItemButton* m_shutdownButton;
-    RoundItemButton* m_restartButton;
-    RoundItemButton* m_suspendButton;
-    RoundItemButton* m_lockButton;
-    RoundItemButton* m_logoutButton;
-    QHBoxLayout* m_buttonLayout;
-    QVBoxLayout* m_Layout;
+    enum Actions {
+        Shutdown,
+        Restart,
+        Suspend,
+        Lock,
+        Logout,
+        SwitchUser,
+    };
 
 signals:
     void keyLeft();
     void keyRight();
     void pressEnterAction();
-    void ShutDownFrameActions(QString buttonId);
+    void ShutDownFrameActions(const Actions action);
 
 public slots:
     void setPreviousChildFocus();
     void setNextChildFocus();
+    void showTips(const QString &tips);
 
 private:
     void initUI();
@@ -40,6 +42,15 @@ private:
     void enterKeyPushed();
 
     RoundItemButton *m_currentSelectedBtn = nullptr;
+    RoundItemButton *m_shutdownButton;
+    RoundItemButton *m_restartButton;
+    RoundItemButton *m_suspendButton;
+    RoundItemButton *m_lockButton;
+    RoundItemButton *m_logoutButton;
+    RoundItemButton *m_switchUserBtn;
     QList<RoundItemButton *> *m_btnsList;
+
+    QWidget *m_tipsWidget;
+    QLabel *m_tipsLabel;
 };
 #endif // CONTENTVIEWWIDGET

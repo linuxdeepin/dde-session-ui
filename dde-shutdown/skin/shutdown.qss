@@ -31,3 +31,9 @@ QWidget#LogoutButtonFrame {
     qproperty-hoverIcon:":img/logout_hover.png";
     qproperty-pressedIcon:":img/logout_press.png";
 }
+
+QWidget #SwitchUserBtn {
+    qproperty-normalIcon:":img/userswitch_normal.png";
+    qproperty-hoverIcon:":img/userswitch_hover.png";
+    qproperty-pressedIcon:":img/userswitch_press.png";
+}

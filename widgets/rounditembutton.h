@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QMouseEvent>
 #include <QGraphicsDropShadowEffect>
+#include <QGraphicsOpacityEffect>
 
 #include "util_signalmanager.h"
 
@@ -21,16 +22,18 @@ class RoundItemButton: public QAbstractButton
     Q_PROPERTY(QString normalIcon MEMBER m_normalIcon DESIGNABLE true NOTIFY iconChanged)
     Q_PROPERTY(QString hoverIcon MEMBER m_hoverIcon DESIGNABLE true NOTIFY iconChanged)
     Q_PROPERTY(QString pressedIcon MEMBER m_pressedIcon DESIGNABLE true NOTIFY iconChanged)
+    Q_PROPERTY(bool disabled READ isDisabled WRITE setDisabled NOTIFY stateChanged)
 
 public:
     RoundItemButton(const QString &text, QWidget* parent=0);
     ~RoundItemButton();
 
-    enum State {Normal, Hover, Checked, Pressed};
+    enum State {Normal, Hover, Checked, Pressed, Disabled};
 
+    void setDisabled(bool disabled);
+    inline bool isDisabled() const {return m_state == Disabled;}
     void setChecked(bool checked);
     inline bool isChecked() const {return m_state == Checked;}
-    inline void setState(const State state) {updateState(state);}
     inline State state() const {return m_state;}
     inline const QString text() const {return m_itemText->text();}
     inline void setText(const QString &text) {m_itemText->setText(text);}
@@ -42,7 +45,7 @@ signals:
 
 private slots:
     void updateIcon();
-    void setUnhovered(QString text);
+    inline void setState(const State state) {updateState(state);}
 protected:
     void paintEvent(QPaintEvent* event);
     void enterEvent(QEvent* event);
@@ -58,6 +61,8 @@ private:
 
     QLabel *m_itemIcon;
     QLabel *m_itemText;
+
+    QGraphicsOpacityEffect *m_opacityEffect;
 
     QString m_normalIcon;
     QString m_hoverIcon;

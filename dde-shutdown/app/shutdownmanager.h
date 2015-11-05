@@ -23,7 +23,7 @@ signals:
 public slots:
     void keyPressEvent(QKeyEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
-    void powerAction(QString action);
+    void powerAction(const ShutDownFrame::Actions action);
 
 private:
     void initUI();

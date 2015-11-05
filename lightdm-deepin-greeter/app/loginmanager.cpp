@@ -74,7 +74,6 @@ void LoginManager::initUI()
 void LoginManager::initConnect()
 {
     connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, this, &LoginManager::chooseSessionMode);
-//    connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, [this] {m_sessionWidget->switchToUser(m_userWidget->currentUser());});
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, this, &LoginManager::chooseUserMode);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget);
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);

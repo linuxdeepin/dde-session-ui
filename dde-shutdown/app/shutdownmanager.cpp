@@ -17,7 +17,7 @@ void ShutdownManager::initConnect() {
     connect(this, SIGNAL(DirectKeyRight()), m_content, SIGNAL(OutKeyRight()));
     connect(this, SIGNAL(pressEnter()), m_content, SIGNAL(pressEnterAction()));
 
-    connect(m_content->m_shutdownFrame, SIGNAL(ShutDownFrameActions(QString)), this, SLOT(powerAction(QString)));
+    connect(m_content->m_shutdownFrame, &ShutDownFrame::ShutDownFrameActions, this, &ShutdownManager::powerAction);
 }
 void ShutdownManager::initUI() {
 
@@ -55,36 +55,35 @@ void ShutdownManager::initUI() {
 void ShutdownManager::initData() {
     m_sessionInterface = new SessionManageInterfaceManagement(this);
 }
-void ShutdownManager::powerAction(QString action) {
-    if (action == "ShutDownButton") {
-        m_sessionInterface->ForceShutdown();
-    } else if (action == "RestartButton") {
-        m_sessionInterface->ForceReboot();
-    } else if (action == "SuspendButton") {
-        m_sessionInterface->RequestSuspend();
-    } else if (action == "LockButton") {
-        m_sessionInterface->RequestLock();
-    } else if (action == "LogoutButton") {
-        m_sessionInterface->ForceLogout();
+
+void ShutdownManager::powerAction(const ShutDownFrame::Actions action) {
+
+    switch (action)
+    {
+    case ShutDownFrame::Shutdown:       m_sessionInterface->ForceShutdown();        break;
+    case ShutDownFrame::Restart:        m_sessionInterface->ForceReboot();          break;
+    case ShutDownFrame::Suspend:        m_sessionInterface->RequestSuspend();       break;
+    case ShutDownFrame::Lock:           m_sessionInterface->RequestLock();          break;
+    case ShutDownFrame::Logout:         m_sessionInterface->ForceLogout();          break;
+    default:                            qWarning() << "action: " << action << " not handled";
     }
+
     qApp->quit();
 }
-void ShutdownManager::keyPressEvent(QKeyEvent* e) {
-
-    if (e->key()==Qt::Key_Escape) {
-        qApp->quit();
+void ShutdownManager::keyPressEvent(QKeyEvent* e)
+{
+    switch (e->key())
+    {
+    case Qt::Key_Escape:        qApp->quit();                   break; // must break;
+    case Qt::Key_Return:        /* same as enter */
+    case Qt::Key_Enter:         emit pressEnter();              break;
+    case Qt::Key_Left:          emit DirectKeyLeft();           break;
+    case Qt::Key_Right:         emit DirectKeyRight();          break;
+    default:;
     }
-    if (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter) {
-        emit pressEnter();
-    }
-    if (e->key()==Qt::Key_Left) {
-        emit  DirectKeyLeft();
-    } else if (e->key()==Qt::Key_Right) {
-        emit DirectKeyRight();
-    }
-
 }
-void ShutdownManager::mouseReleaseEvent(QMouseEvent* e) {
+void ShutdownManager::mouseReleaseEvent(QMouseEvent* e)
+{
     if (e->button() == Qt::LeftButton) {
         qApp->quit();
     }
