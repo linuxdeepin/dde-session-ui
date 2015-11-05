@@ -7,9 +7,9 @@ ControlWidget::ControlWidget(QWidget *parent)
 {
     m_songName = new QLabel;
     m_songName->setStyleSheet("color:white;"
-                              "background-color:red;"
-                              "font-size:24px;"
-                              "margin:0 0 15px 25px;");
+//                              "background-color:red;"
+                              "font-size:15px;"
+                              "margin:0 0 10px 5px;");
     m_prevSong = new DImageButton;
     m_prevSong->setNormalPic(":/icons/icons/previous_normal.png");
     m_prevSong->setHoverPic(":/icons/icons/previous_hover.png");
@@ -56,7 +56,7 @@ ControlWidget::ControlWidget(QWidget *parent)
     mainLayout->addStretch();
     mainLayout->addWidget(m_songControlWidget);
     mainLayout->setAlignment(m_songControlWidget, Qt::AlignBottom);
-//    mainLayout->addSpacing(50);
+    mainLayout->addSpacing(10);
     mainLayout->addWidget(m_shutdown);
     mainLayout->setAlignment(m_shutdown, Qt::AlignBottom);
 
