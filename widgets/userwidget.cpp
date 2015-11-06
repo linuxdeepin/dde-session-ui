@@ -50,9 +50,7 @@ void UserWidget::setCurrentUser(const QString &username) {
         } else
             user->hide(180);
 
-         user->move(rect().center() - user->rect().center(), 200);
-//        user->setGeometry(QRect(rect().center()- user->rect().center(), 200, user->width(), user->height()));
-
+        user->move(rect().center() - user->rect().center(), 200);
     }
 
     m_currentUser = username;
@@ -84,6 +82,14 @@ void UserWidget::expandWidget() {
         m_userBtns->at(i)->setImageSize(UserButton::AvatarSmallSize);
         m_userBtns->at(i)->move(QPoint(offset + i * USER_ICON_WIDTH, 0), 200);
     }
+}
+
+void UserWidget::resizeEvent(QResizeEvent *e)
+{
+    QFrame::resizeEvent(e);
+
+    for (UserButton *user : *m_userBtns)
+        user->move(rect().center() - user->rect().center(), 1);
 }
 
 const QString UserWidget::currentUser() const

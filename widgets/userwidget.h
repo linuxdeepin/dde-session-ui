@@ -30,6 +30,9 @@ public slots:
     void setCurrentUser(const QString &username);
     void expandWidget();
 
+protected:
+    void resizeEvent(QResizeEvent *e);
+
 private:
     void initUI();
 

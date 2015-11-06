@@ -129,10 +129,15 @@ void LoginManager::chooseSessionMode()
 
 void LoginManager::updateWidgetsPosition()
 {
-    m_logoWidget->move(48, height() - m_logoWidget->height() - 36); // left 48px and bottom 36px
-    m_sessionWidget->move(0, (height() - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
-    m_switchFrame->move(width() - m_switchFrame->width() - 20, height() - m_switchFrame->height());
-    m_userWidget->move(0, (qApp->desktop()->height() - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
+    const int height = this->height();
+    const int width = this->width();
+
+    m_userWidget->setFixedWidth(width);
+    m_userWidget->move(0, (height - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
+    m_sessionWidget->setFixedWidth(width);
+    m_sessionWidget->move(0, (height - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
+    m_logoWidget->move(48, height - m_logoWidget->height() - 36); // left 48px and bottom 36px
+    m_switchFrame->move(width - m_switchFrame->width() - 20, height - m_switchFrame->height());
 }
 
 void LoginManager::keyPressEvent(QKeyEvent* e) 
@@ -163,7 +168,11 @@ void LoginManager::leaveEvent(QEvent *)
     {
         if (screen->geometry().contains(mousePoint))
         {
-            setGeometry(screen->geometry());
+            const QRect &geometry = screen->geometry();
+
+            setFixedSize(geometry.size());
+            move(QPoint(geometry.left(), geometry.top()));
+
             updateWidgetsPosition();
             return;
         }
