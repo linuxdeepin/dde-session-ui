@@ -121,7 +121,7 @@ void ShutDownFrame::initUI() {
     m_currentSelectedBtn->updateState(RoundItemButton::Default);
 
     // TODO: remove
-    showTips("不要关机 不要关机 不要关机 不要关机 不要关机 不要关机 ");
+//    showTips("不要关机 不要关机 不要关机 不要关机 不要关机 不要关机 ");
 //    m_shutdownButton->setDisabled(true);
 //    m_restartButton->setDisabled(true);
 }
