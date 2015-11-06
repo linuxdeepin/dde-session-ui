@@ -6,10 +6,11 @@
 #include "userwidget.h"
 #include "controlwidget.h"
 #include "passwdedit.h"
+#include "kblayoutwidget.h"
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbusinputdevices.h"
 #include "dbus/dbuskeyboard.h"
-#include "kblayoutwidget.h"
+#include "dbus/dbusmediaplayer2.h"
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/lock"
 #define LOCKSERVICE_NAME "com.deepin.dde.lock"
@@ -24,16 +25,19 @@ class LockFrame : public QFrame
 public:
     LockFrame();
 
-
     void initUI();
     void initConnect();
     void initData();
     void updateUI();
+
 public slots:
     void setCurrentKeyboardLayout(QString keyboard_value);
 
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+
+private:
+    void loadMPRIS();
 
 private:
     UserWidget *m_userWidget;
@@ -46,6 +50,8 @@ private:
     QStringList m_keybdLayoutNameList;
     QStringList keybdLayoutDescList;
     KbLayoutWidget* m_keybdLayoutWidget;
+
+    DBusMediaPlayer2 *m_mprisInter = nullptr;
 
     void initBackend();
     void unlock();
