@@ -107,5 +107,10 @@ void UserButton::hideButton() {
     m_userAvatar->hideButton();
     m_textLabel->hideLabel();
 }
+
+void UserButton::stopAnimation()
+{
+    m_moveAni->stop();
+}
 UserButton::~UserButton()
 {}

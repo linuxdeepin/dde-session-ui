@@ -70,14 +70,14 @@ void UserWidget::addUser(QString avatar, QString name) {
     m_userBtns->append(user);
 }
 
-void UserWidget::expandWidget() {
-
-
+void UserWidget::expandWidget()
+{
     const int count = m_userBtns->count();
     const int offset = (width() - USER_ICON_WIDTH * count) / 2;
 
     for (int i = 0; i != count; ++i)
     {
+        m_userBtns->at(i)->stopAnimation();
         m_userBtns->at(i)->showButton();
         m_userBtns->at(i)->setImageSize(UserButton::AvatarSmallSize);
         m_userBtns->at(i)->move(QPoint(offset + i * USER_ICON_WIDTH, 0), 200);

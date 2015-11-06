@@ -35,6 +35,7 @@ public slots:
     void move(const QPoint &position, const int duration = 0);
     void showButton();
     void hideButton();
+    void stopAnimation();
 
 private:
     void initUI();

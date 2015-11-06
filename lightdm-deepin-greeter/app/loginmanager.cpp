@@ -20,8 +20,8 @@ LoginManager::LoginManager(QWidget* parent)
     m_sessionWidget->switchToUser(m_userWidget->currentUser());
 
     m_displayInter = new DBusDisplayManager("org.freedesktop.DisplayManager", "/org/freedesktop/DisplayManager", QDBusConnection::systemBus(), this);
-    if (m_displayInter->isValid() && m_displayInter->sessions().count() > 1)
-        chooseUserMode();
+    if (m_displayInter->isValid() && m_displayInter->sessions().count())
+        QMetaObject::invokeMethod(m_switchFrame, "triggerSwitchUser", Qt::QueuedConnection);
 }
 
 LoginManager::~LoginManager()
@@ -76,7 +76,7 @@ void LoginManager::initConnect()
 {
     connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, this, &LoginManager::chooseSessionMode);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, this, &LoginManager::chooseUserMode);
-    connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget);
+    connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::chooseUserMode);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession);
