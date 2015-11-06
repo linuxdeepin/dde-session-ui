@@ -49,6 +49,7 @@ void LoginManager::initUI()
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
     m_passWdEdit->setFocus();
 
+
     m_passWdEditLayout = new QHBoxLayout;
     m_passWdEditLayout->setMargin(0);
     m_passWdEditLayout->setSpacing(0);

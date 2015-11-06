@@ -14,7 +14,7 @@ PassWdEdit::PassWdEdit(QString iconId, QWidget* parent)
     initUI();
     initConnect();
     initData();
-
+    setObjectName("PassWdEditFrame");
     setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2, 34));
 }
 
@@ -23,8 +23,6 @@ PassWdEdit::~PassWdEdit()
 }
 
 void PassWdEdit::initUI() {
-    setObjectName("PassWdEditFrame");
-
     m_keyboardButton = new QPushButton;
     m_keyboardButton->setObjectName("KeyBoardLayoutButton");
 
@@ -38,36 +36,22 @@ void PassWdEdit::initUI() {
     m_lineEdit = new QLineEdit;
     m_lineEdit->setObjectName("passwdLineEdit");
     m_lineEdit->setEchoMode(QLineEdit::Password);
-    m_lineEdit->setFixedHeight(m_iconButton->height());
+    m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
+                             - m_keyboardButton->width() - 2,m_iconButton->height());
     m_lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    initInsideFrame();
-
-    m_Layout = new QHBoxLayout(m_insideFrame);
-    m_Layout->setContentsMargins(0, 0, 0, 0);
+    m_Layout = new QHBoxLayout;
     m_Layout->setMargin(0);
     m_Layout->setSpacing(0);
     m_Layout->addSpacing(3);
     m_Layout->addWidget(m_keyboardButton);
+    m_Layout->addSpacing(2);
     m_Layout->addWidget(m_lineEdit);
     m_Layout->addStretch();
 
+    m_iconButton->move(this->x() + this->width()*2 + 14, this->y() - 1);
     setLayout(m_Layout);
 
-    m_iconButton->move(this->x() + this->width()*2 + 14, this->y() - 1);
-    updateStyle(":/skin/passwordedit.qss", this);
-
-}
-
-void PassWdEdit::initInsideFrame() {
-    m_insideFrame = new QFrame(this);
-    m_insideFrame->raise();
-
-    m_insideFrame->setObjectName("PswdInsideFrame");
-    QHBoxLayout *insideLayout = new QHBoxLayout(this);
-    insideLayout->setContentsMargins(0, 0, 0, 0);
-    insideLayout->setSpacing(0);
-    insideLayout->addWidget(m_insideFrame);
 }
 
 void PassWdEdit::initConnect() {
@@ -83,6 +67,17 @@ void PassWdEdit::initData() {
 void PassWdEdit::focusInEvent(QFocusEvent *)
 {
     m_lineEdit->setFocus();
+}
+
+void PassWdEdit::initInsideFrame() {
+    m_insideFrame = new QFrame(this);
+    m_insideFrame->raise();
+
+    m_insideFrame->setObjectName("PswdInsideFrame");
+    QHBoxLayout *insideLayout = new QHBoxLayout(this);
+    insideLayout->setContentsMargins(0, 0, 0, 0);
+    insideLayout->setSpacing(0);
+    insideLayout->addWidget(m_insideFrame);
 }
 
 void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
@@ -101,6 +96,7 @@ void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
     }
     emit updateKeyboardStatus();
 }
+
 void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList) {
     if (keybdList.count() > 2) {
         m_keyboardButton->show();

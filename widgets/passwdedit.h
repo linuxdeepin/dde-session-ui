@@ -9,7 +9,6 @@
 
 #include <libdui/dbuttonlist.h>
 
-#include "util_updateui.h"
 #include "util_settings.h"
 
 class PassWdEdit : public QFrame
@@ -46,15 +45,11 @@ private:
 
     void initInsideFrame();
     QFrame* m_insideFrame;
-private:
+
     QLineEdit* m_lineEdit;
     QString m_iconId;
     QPushButton* m_keyboardButton;
     QPushButton* m_iconButton;
     QHBoxLayout* m_Layout;
-
-
-
-
 };
 #endif // PASSWDEDIT

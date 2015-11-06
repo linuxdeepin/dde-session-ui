@@ -93,8 +93,11 @@ void LockFrame::unlock()
 
     qDebug() << result.error() << result.value();
 
-    if (result.error().type() == QDBusError::NoError && result.value())
+    if (result.error().type() == QDBusError::NoError && result.value()) {
+        qDebug() << "unLocked quit!";
         qApp->quit();
+    }
+
 
     // TODO: auth fail
 }

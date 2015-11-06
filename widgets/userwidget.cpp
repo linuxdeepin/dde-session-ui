@@ -94,7 +94,7 @@ void UserWidget::resizeEvent(QResizeEvent *e)
 
 const QString UserWidget::currentUser() const
 {
-    qDebug() << m_currentUser;
+    qDebug() << "currentUser:" << m_currentUser;
 
     if (!m_currentUser.isEmpty())
         return m_currentUser;
