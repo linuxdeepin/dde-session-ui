@@ -34,8 +34,8 @@ public slots:
 private:
     double m_opacity;
 
-    QPropertyAnimation* m_showAnimation;
-    QPropertyAnimation* m_hideAnimation;
+    QPropertyAnimation* m_showOpacityAnimation;
+    QPropertyAnimation* m_hideOpacityAnimation;
 };
 #endif // USERBREATHINGLABEL
 

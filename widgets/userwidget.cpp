@@ -41,8 +41,8 @@ void UserWidget::initUI() {
     setCurrentUser(currentUser());
 }
 
-void UserWidget::setCurrentUser(const QString &username) {
-
+void UserWidget::setCurrentUser(const QString &username)
+{
     for (UserButton *user : *m_userBtns) {
         if (user->objectName() == username) {
             user->showButton();

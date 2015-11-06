@@ -5,8 +5,8 @@
 UserBreathingLabel::UserBreathingLabel(QWidget *parent)
     : QLabel(parent), m_opacity(1.0)
 {
-    m_showAnimation = new QPropertyAnimation(this, "opacity");
-    m_hideAnimation = new QPropertyAnimation(this, "opacity");
+    m_showOpacityAnimation = new QPropertyAnimation(this, "opacity");
+    m_hideOpacityAnimation = new QPropertyAnimation(this, "opacity");
     label_effect = new QGraphicsOpacityEffect(this);
 
     connect(this, SIGNAL(opacityChanged()), this, SLOT(setEffect()));
@@ -14,8 +14,8 @@ UserBreathingLabel::UserBreathingLabel(QWidget *parent)
 }
 UserBreathingLabel::~UserBreathingLabel()
 {
-    delete m_showAnimation;
-    delete m_hideAnimation;
+    delete m_showOpacityAnimation;
+    delete m_hideOpacityAnimation;
 }
 
 //////////////////////////////////Test New Function
@@ -33,26 +33,27 @@ void UserBreathingLabel::setOpacity(double opa) {
 
 void UserBreathingLabel::showLabel()
 {
-    if (m_showAnimation->state() == QPropertyAnimation::Running ||
-        m_hideAnimation->state() == QPropertyAnimation::Running)
-        return;
+    if (m_showOpacityAnimation->state() == QPropertyAnimation::Running ||
+        m_hideOpacityAnimation->state() == QPropertyAnimation::Running ||
+        isVisible())
+        return update();
 
-    m_showAnimation->setStartValue(0);
-    m_showAnimation->setEndValue(1.0);
-    m_showAnimation->start();
-    m_showAnimation->setDuration(500);
+    m_showOpacityAnimation->setStartValue(0);
+    m_showOpacityAnimation->setEndValue(1.0);
+    m_showOpacityAnimation->start();
+    m_showOpacityAnimation->setDuration(500);
 }
 
 void UserBreathingLabel::hideLabel()
 {
-    if (m_showAnimation->state() == QPropertyAnimation::Running ||
-        m_hideAnimation->state() == QPropertyAnimation::Running)
+    if (m_showOpacityAnimation->state() == QPropertyAnimation::Running ||
+        m_hideOpacityAnimation->state() == QPropertyAnimation::Running)
         return;
 
-    m_hideAnimation->setStartValue(1.0);
-    m_hideAnimation->setEndValue(0);
-    m_hideAnimation->start();
-    m_hideAnimation->setDuration(300);
+    m_hideOpacityAnimation->setStartValue(1.0);
+    m_hideOpacityAnimation->setEndValue(0);
+    m_hideOpacityAnimation->start();
+    m_hideOpacityAnimation->setDuration(300);
 }
 
 void UserBreathingLabel::setEffect() {
