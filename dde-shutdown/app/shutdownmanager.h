@@ -5,7 +5,7 @@
 #include <QtWidgets/QHBoxLayout>
 
 #include "view/mainframe.h"
-#include "controller/dbusmanagement.h"
+#include "dbus/dbussessionmanager.h"
 #include "backgroundlabel.h"
 #include "util_signalmanager.h"
 
@@ -35,7 +35,8 @@ private:
 
     QHBoxLayout* m_Layout;
     MainFrame* m_content;
-    SessionManageInterfaceManagement* m_sessionInterface;
+
+    DBusSessionManagerInterface* m_sessionInterface;
     BackgroundLabel* m_backgroundLabel;
 };
 

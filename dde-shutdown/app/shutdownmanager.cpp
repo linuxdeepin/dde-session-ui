@@ -53,7 +53,8 @@ void ShutdownManager::initUI() {
 }
 
 void ShutdownManager::initData() {
-    m_sessionInterface = new SessionManageInterfaceManagement(this);
+    m_sessionInterface = new DBusSessionManagerInterface("com.deepin.SessionManager", "/com/deepin/SessionManager",
+                                                         QDBusConnection::sessionBus(), this);
 }
 
 void ShutdownManager::switchToGreeter()
@@ -68,11 +69,11 @@ void ShutdownManager::powerAction(const ShutDownFrame::Actions action)
 {
     switch (action)
     {
-    case ShutDownFrame::Shutdown:       m_sessionInterface->ForceShutdown();        break;
-    case ShutDownFrame::Restart:        m_sessionInterface->ForceReboot();          break;
+    case ShutDownFrame::Shutdown:       m_sessionInterface->RequestShutdown();        break;
+    case ShutDownFrame::Restart:        m_sessionInterface->RequestReboot();          break;
     case ShutDownFrame::Suspend:        m_sessionInterface->RequestSuspend();       break;
     case ShutDownFrame::Lock:           m_sessionInterface->RequestLock();          break;
-    case ShutDownFrame::Logout:         m_sessionInterface->ForceLogout();          break;
+    case ShutDownFrame::Logout:         m_sessionInterface->RequestLogout();          break;
     case ShutDownFrame::SwitchUser:     switchToGreeter();                          break;
     default:                            qWarning() << "action: " << action << " not handled";
     }
