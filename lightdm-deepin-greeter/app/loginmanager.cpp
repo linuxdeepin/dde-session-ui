@@ -187,6 +187,7 @@ void LoginManager::login()
 
     // save user last choice
     m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
+    m_userWidget->saveLastUser();
 
     const QString &username = m_userWidget->currentUser();
     m_greeter->authenticate(username);

@@ -84,6 +84,12 @@ void UserWidget::expandWidget()
     }
 }
 
+void UserWidget::saveLastUser()
+{
+    QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
+    settings.setValue("last-user", currentUser());
+}
+
 void UserWidget::resizeEvent(QResizeEvent *e)
 {
     QFrame::resizeEvent(e);

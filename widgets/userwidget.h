@@ -29,6 +29,7 @@ public slots:
     void addUser(QString avatar, QString name);
     void setCurrentUser(const QString &username);
     void expandWidget();
+    void saveLastUser();
 
 protected:
     void resizeEvent(QResizeEvent *e);
