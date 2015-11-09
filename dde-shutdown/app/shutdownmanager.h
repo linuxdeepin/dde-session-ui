@@ -24,6 +24,8 @@ public slots:
     void keyPressEvent(QKeyEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
     void powerAction(const ShutDownFrame::Actions action);
+    void hideBtns(const QStringList &btnsName);
+    void disableBtns(const QStringList &btnsName);
 
 private:
     void initUI();
@@ -31,7 +33,6 @@ private:
     void initData();
     void switchToGreeter();
 
-    int m_mode=2;
     QHBoxLayout* m_Layout;
     MainFrame* m_content;
     SessionManageInterfaceManagement* m_sessionInterface;

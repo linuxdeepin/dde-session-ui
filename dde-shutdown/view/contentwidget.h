@@ -35,11 +35,15 @@ public slots:
     void setPreviousChildFocus();
     void setNextChildFocus();
     void showTips(const QString &tips);
+    void hideBtns(const QStringList &btnsName);
+    void disableBtns(const QStringList &btnsName);
 
 private:
     void initUI();
     void initConnect();
     void enterKeyPushed();
+    void hideBtn(const QString &btnName);
+    void disableBtn(const QString &btnName);
 
     RoundItemButton *m_currentSelectedBtn = nullptr;
     RoundItemButton *m_shutdownButton;

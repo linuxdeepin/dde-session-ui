@@ -72,6 +72,8 @@ ControlWidget::ControlWidget(QWidget *parent)
     setLayout(mainLayout);
     setFixedSize(500, 150);
     //    setStyleSheet("background-color:red;");
+
+    connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::shutdown);
 }
 
 void ControlWidget::bindDBusService(DBusMediaPlayer2 *dbusInter)
@@ -167,5 +169,17 @@ void ControlWidget::changeVolumeBtnPic()
         m_volume->setHoverPic(":/icons/icons/mute_hover.png");
         m_volume->setPressPic(":/icons/icons/mute_press.png");
     }
+}
+
+void ControlWidget::shutdown()
+{
+    QStringList args;
+    // TODO: add arguments
+    QProcess *process = new QProcess;
+    process->setArguments(args);
+
+    connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
+
+    process->start("dde-shutdown");
 }
 

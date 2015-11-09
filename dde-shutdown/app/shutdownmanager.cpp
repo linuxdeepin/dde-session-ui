@@ -27,7 +27,7 @@ void ShutdownManager::initUI() {
     resize(qApp->desktop()->screenGeometry().size());
 
     m_backgroundLabel = new BackgroundLabel(true, this);
-    m_content = new MainFrame(m_mode);
+    m_content = new MainFrame(this);
 
     m_Layout = new QHBoxLayout;
     m_Layout->setMargin(0);
@@ -78,6 +78,16 @@ void ShutdownManager::powerAction(const ShutDownFrame::Actions action)
     }
 
     qApp->quit();
+}
+
+void ShutdownManager::hideBtns(const QStringList &btnsName)
+{
+    m_content->hideBtns(btnsName);
+}
+
+void ShutdownManager::disableBtns(const QStringList &btnsName)
+{
+    m_content->disableBtns(btnsName);
 }
 
 void ShutdownManager::keyPressEvent(QKeyEvent* e)

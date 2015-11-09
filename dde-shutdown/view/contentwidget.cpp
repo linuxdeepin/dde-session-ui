@@ -48,6 +48,42 @@ void ShutDownFrame::enterKeyPushed()
         emit ShutDownFrameActions(SwitchUser);
 }
 
+void ShutDownFrame::hideBtn(const QString &btnName)
+{
+    if (!btnName.compare("Shutdown", Qt::CaseInsensitive))
+        m_shutdownButton->hide();
+    else if (!btnName.compare("Restart", Qt::CaseInsensitive))
+        m_restartButton->hide();
+    else if (!btnName.compare("Suspend", Qt::CaseInsensitive))
+        m_suspendButton->hide();
+    else if (!btnName.compare("Lock", Qt::CaseInsensitive))
+        m_lockButton->hide();
+    else if (!btnName.compare("Logout", Qt::CaseInsensitive))
+        m_logoutButton->hide();
+    else if (!btnName.compare("SwitchUser", Qt::CaseInsensitive))
+        m_switchUserBtn->hide();
+    else
+        return;
+}
+
+void ShutDownFrame::disableBtn(const QString &btnName)
+{
+    if (!btnName.compare("Shutdown", Qt::CaseInsensitive))
+        m_shutdownButton->setDisabled(true);
+    else if (!btnName.compare("Restart", Qt::CaseInsensitive))
+        m_restartButton->setDisabled(true);
+    else if (!btnName.compare("Suspend", Qt::CaseInsensitive))
+        m_suspendButton->setDisabled(true);
+    else if (!btnName.compare("Lock", Qt::CaseInsensitive))
+        m_lockButton->setDisabled(true);
+    else if (!btnName.compare("Logout", Qt::CaseInsensitive))
+        m_logoutButton->setDisabled(true);
+    else if (!btnName.compare("SwitchUser", Qt::CaseInsensitive))
+        m_switchUserBtn->setDisabled(true);
+    else
+        return;
+}
+
 void ShutDownFrame::initUI() {
     m_btnsList = new QList<RoundItemButton *>;
     m_shutdownButton = new RoundItemButton(tr("Shut down"));
@@ -162,4 +198,16 @@ void ShutDownFrame::showTips(const QString &tips)
 {
     m_tipsLabel->setText(tips);
     m_tipsWidget->show();
+}
+
+void ShutDownFrame::hideBtns(const QStringList &btnsName)
+{
+    for (const QString &name : btnsName)
+        hideBtn(name);
+}
+
+void ShutDownFrame::disableBtns(const QStringList &btnsName)
+{
+    for (const QString &name : btnsName)
+        disableBtn(name);
 }

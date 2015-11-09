@@ -24,10 +24,11 @@ public:
 protected:
     bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;
 
-private:
+private slots:
     void volumeWheelControl(const QWheelEvent *e);
     void changePauseBtnPic();
     void changeVolumeBtnPic();
+    void shutdown();
 
 private:
     QLabel *m_songName;

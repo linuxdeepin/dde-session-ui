@@ -38,6 +38,8 @@ protected:
 
 private:
     void loadMPRIS();
+    void initBackend();
+    void unlock();
 
 private:
     UserWidget *m_userWidget;
@@ -52,9 +54,6 @@ private:
     KbLayoutWidget* m_keybdLayoutWidget;
 
     DBusMediaPlayer2 *m_mprisInter = nullptr;
-
-    void initBackend();
-    void unlock();
 };
 
 #endif // LOCKFRAME_H

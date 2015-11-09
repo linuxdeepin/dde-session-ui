@@ -13,7 +13,7 @@ class MainFrame : public QFrame
 {
     Q_OBJECT
 public:
-    MainFrame(int mode, QWidget* parent=0);
+    MainFrame(QWidget* parent=0);
     ~MainFrame();
 
     ShutDownFrame* m_shutdownFrame;
@@ -24,18 +24,18 @@ signals:
     void OutKeyLeft();
     void OutKeyRight();
     void pressEnterAction();
+
 public slots:
-    void setMode(int mode);//0 is the login mode; 1 is the locking screen mode;
-                               //2 is the shut-down mode; 3 is the quick shut-down mode;
     void changeView(bool a);
     void DirectLeft();
     void DirectRight();
     void EnterAction();
+    void hideBtns(const QStringList &btnsName);
+    void disableBtns(const QStringList &btnsName);
 
 private:
     void initUI();
     void initConnect();
-    int m_mode;
 
 };
 

@@ -1,10 +1,9 @@
 #include "mainframe.h"
 #include <QtCore/QObject>
 
-MainFrame::MainFrame(int mode, QWidget* parent)
+MainFrame::MainFrame(QWidget* parent)
     : QFrame(parent)
 {
-    m_mode = mode;
     initUI();
     initConnect();
 }
@@ -17,7 +16,6 @@ void MainFrame::initConnect() {
 
 void MainFrame::initUI() {
     m_shutdownFrame = new ShutDownFrame;
-    setMode(m_mode);
 
     m_contentLayout = new QVBoxLayout;
     m_contentLayout->setMargin(0);
@@ -34,9 +32,6 @@ void MainFrame::initUI() {
     setLayout(m_Layout);
 }
 
-void MainFrame::setMode(int mode) {
-    Q_UNUSED(mode);
-}
 void MainFrame::changeView(bool a) {
     qDebug() << "clicked" << a;
 }
@@ -48,6 +43,16 @@ void MainFrame::DirectRight() {
 }
 void MainFrame::EnterAction() {
     emit m_shutdownFrame->pressEnterAction();
+}
+
+void MainFrame::hideBtns(const QStringList &btnsName)
+{
+    m_shutdownFrame->hideBtns(btnsName);
+}
+
+void MainFrame::disableBtns(const QStringList &btnsName)
+{
+    m_shutdownFrame->disableBtns(btnsName);
 }
 MainFrame::~MainFrame()
 {}
