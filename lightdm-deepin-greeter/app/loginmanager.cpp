@@ -20,6 +20,8 @@ LoginManager::LoginManager(QWidget* parent)
     m_sessionWidget->switchToUser(m_userWidget->currentUser());
 
     m_displayInter = new DBusDisplayManager("org.freedesktop.DisplayManager", "/org/freedesktop/DisplayManager", QDBusConnection::systemBus(), this);
+
+    // delay to expand
     if (m_displayInter->isValid() && m_displayInter->sessions().count())
         QMetaObject::invokeMethod(m_switchFrame, "triggerSwitchUser", Qt::QueuedConnection);
 }

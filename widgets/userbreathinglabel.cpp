@@ -47,8 +47,9 @@ void UserBreathingLabel::showLabel()
 void UserBreathingLabel::hideLabel()
 {
     if (m_showOpacityAnimation->state() == QPropertyAnimation::Running ||
-        m_hideOpacityAnimation->state() == QPropertyAnimation::Running)
-        return;
+        m_hideOpacityAnimation->state() == QPropertyAnimation::Running ||
+        !isVisible())
+        return update();
 
     m_hideOpacityAnimation->setStartValue(1.0);
     m_hideOpacityAnimation->setEndValue(0);

@@ -68,11 +68,27 @@ void UserButton::setImageSize(const AvatarSize &avatarsize) {
     update();
 }
 
+void UserButton::show()
+{
+    m_textLabel->showLabel();
+
+    if (!m_userAvatar->isVisible()) {
+        QTimer::singleShot(100, this, SLOT(show()));
+        m_userAvatar->showButton();
+    }
+
+    QPushButton::show();
+    update();
+}
+
 void UserButton::hide(const int duration)
 {
-    if (!duration)
-        return QPushButton::hide();
-    else
+    if (!duration) {
+        m_userAvatar->hideButton();
+        m_textLabel->hideLabel();
+
+        QPushButton::hide();
+    } else
         QTimer::singleShot(duration, this, SLOT(hide()));
 }
 
@@ -81,6 +97,7 @@ void UserButton::move(const QPoint &position, int duration)
     if (!duration)
         return QPushButton::move(position);
 
+    m_moveAni->stop();
     m_moveAni->setDuration(duration);
     m_moveAni->setStartValue(pos());
     m_moveAni->setEndValue(position);
@@ -95,18 +112,18 @@ void UserButton::addTextShadow() {
     nameShadow->setOffset(0, 4);
     m_textLabel->setGraphicsEffect(nameShadow);
 }
-void UserButton::showButton() {
-    m_textLabel->showLabel();
-    if (!isVisible()) {
-        QTimer::singleShot(100, this, SLOT(show()));
-        m_userAvatar->showButton();
-    }
-    update();
-}
-void UserButton::hideButton() {
-    m_userAvatar->hideButton();
-    m_textLabel->hideLabel();
-}
+//void UserButton::showButton() {
+//    m_textLabel->showLabel();
+//    if (!isVisible()) {
+//        QTimer::singleShot(100, this, SLOT(show()));
+//        m_userAvatar->showButton();
+//    }
+//    update();
+//}
+//void UserButton::hideButton() {
+//    m_userAvatar->hideButton();
+//    m_textLabel->hideLabel();
+//}
 
 void UserButton::stopAnimation()
 {

@@ -31,10 +31,11 @@ public slots:
     void sendClicked();
     void setImageSize(const AvatarSize &avatarsize);
 
+    void show();
     void hide(const int duration = 0);
     void move(const QPoint &position, const int duration = 0);
-    void showButton();
-    void hideButton();
+//    void showButton();
+//    void hideButton();
     void stopAnimation();
 
 private:
