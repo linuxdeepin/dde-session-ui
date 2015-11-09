@@ -173,13 +173,16 @@ void ControlWidget::changeVolumeBtnPic()
 
 void ControlWidget::shutdown()
 {
-    QStringList args;
-    args << "-H" << "lock";
+//    QStringList args;
+//    args << "-H" << "lock";
+//    args << "-H" << "switchuser";
+//    args << "-H" << "logout";
+
     QProcess *process = new QProcess;
-    process->setArguments(args);
+//    process->setArguments(args);
 
     connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
 
-    process->start("dde-shutdown");
+    process->start("dde-shutdown -H lock -H switchuser -H logout");
 }
 
