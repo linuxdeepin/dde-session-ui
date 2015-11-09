@@ -6,6 +6,8 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QPropertyAnimation>
+#include <QGraphicsOpacityEffect>
 
 #include <libdui/dbuttonlist.h>
 
@@ -28,12 +30,17 @@ signals:
     void submit();
     void keybdLayoutButtonClicked();
     void updateKeyboardStatus();
+
 public slots:
     void setLineEditRightImage(QString imageUrl);
     QString getText();
 
     void updateKeybordLayoutStatus(const QString &username);
     void updateKeybdLayoutUI(QStringList keybdList);
+
+    void show();
+    void hide();
+
 protected:
     void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;
@@ -51,5 +58,9 @@ private:
     QPushButton* m_keyboardButton;
     QPushButton* m_iconButton;
     QHBoxLayout* m_Layout;
+
+    QGraphicsOpacityEffect *m_opacityEffect;
+    QPropertyAnimation *m_showAni;
+    QPropertyAnimation *m_hideAni;
 };
 #endif // PASSWDEDIT

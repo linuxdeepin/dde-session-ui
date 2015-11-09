@@ -50,8 +50,14 @@ void PassWdEdit::initUI() {
     m_Layout->addWidget(m_lineEdit);
     m_Layout->addStretch();
 
+    m_opacityEffect = new QGraphicsOpacityEffect;
+    m_opacityEffect->setOpacity(1.0);
+    m_showAni = new QPropertyAnimation(m_opacityEffect, "opacity");
+    m_hideAni = new QPropertyAnimation(m_opacityEffect, "opacity");
+
     m_iconButton->move(this->x() + this->width()*2 + 14, this->y() - 1);
     setLayout(m_Layout);
+    setGraphicsEffect(m_opacityEffect);
 
     QTimer::singleShot(1000, m_lineEdit, &QLineEdit::grabKeyboard);
 }
@@ -59,7 +65,7 @@ void PassWdEdit::initUI() {
 void PassWdEdit::initConnect() {
     connect(m_iconButton, &QPushButton::clicked, this, &PassWdEdit::submit);
     connect(m_keyboardButton, &QPushButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);
-
+    connect(m_hideAni, &QPropertyAnimation::finished, this, &QFrame::hide);
 }
 
 void PassWdEdit::initData() {
@@ -105,6 +111,32 @@ void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList) {
     } else {
         m_keyboardButton->hide();
     }
+}
+
+void PassWdEdit::show()
+{
+    if (isVisible())
+        return;
+
+    m_hideAni->stop();
+    m_showAni->stop();
+    m_showAni->setStartValue(0.0);
+    m_showAni->setEndValue(1.0);
+    m_showAni->start();
+
+    QFrame::show();
+}
+
+void PassWdEdit::hide()
+{
+    if (!isVisible())
+        return;
+
+    m_hideAni->stop();
+    m_showAni->stop();
+    m_hideAni->setStartValue(1.0);
+    m_hideAni->setEndValue(0.0);
+    m_hideAni->start();
 }
 
 void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
