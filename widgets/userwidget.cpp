@@ -7,6 +7,8 @@
 #include <QtCore>
 #include <QSettings>
 
+#include <unistd.h>
+
 UserWidget::UserWidget(QWidget* parent)
     : QFrame(parent),
     m_userBtns(new QList<UserButton *>),
@@ -104,6 +106,10 @@ const QString UserWidget::currentUser() const
 
     if (!m_currentUser.isEmpty())
         return m_currentUser;
+
+    const QString currentLogin = getlogin();
+    if (!currentLogin.isEmpty())
+        return currentLogin;
 
     // return first user
     if (m_userModel->rowCount(QModelIndex()))

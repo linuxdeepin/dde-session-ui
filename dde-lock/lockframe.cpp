@@ -73,7 +73,6 @@ void LockFrame::initUI() {
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockFrame::unlock);
 }
 
-
 void LockFrame::keyPressEvent(QKeyEvent *e)
 {
     switch (e->key())
