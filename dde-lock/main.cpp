@@ -10,5 +10,6 @@ int main(int argc, char* argv[])
     LockFrame lf;
     lf.show();
 
+    lf.grabKeyboard();
     return app.exec();
 }

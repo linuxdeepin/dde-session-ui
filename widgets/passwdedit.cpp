@@ -3,6 +3,7 @@
 #include <QSettings>
 #include <QFile>
 #include <QKeyEvent>
+#include <QTimer>
 
 #include "constants.h"
 #include "passwdedit.h"
@@ -52,6 +53,7 @@ void PassWdEdit::initUI() {
     m_iconButton->move(this->x() + this->width()*2 + 14, this->y() - 1);
     setLayout(m_Layout);
 
+    QTimer::singleShot(1000, m_lineEdit, &QLineEdit::grabKeyboard);
 }
 
 void PassWdEdit::initConnect() {

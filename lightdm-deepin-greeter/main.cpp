@@ -13,6 +13,6 @@ int main(int argc, char* argv[])
 
     LoginManager  w;
     w.show();
-
+    w.grabKeyboard();
     return a.exec();
 }

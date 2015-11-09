@@ -19,7 +19,7 @@ include(../background/background.pri)
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 
-SOURCES += main.cpp\
+SOURCES += main.cpp \
     dbus/dbussessionmanager.cpp \
     view/contentwidget.cpp \
     view/mainframe.cpp \
