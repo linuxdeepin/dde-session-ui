@@ -174,7 +174,7 @@ void ControlWidget::changeVolumeBtnPic()
 void ControlWidget::shutdown()
 {
     QStringList args;
-    // TODO: add arguments
+    args << "-H" << "lock";
     QProcess *process = new QProcess;
     process->setArguments(args);
 
