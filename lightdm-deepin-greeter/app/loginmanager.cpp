@@ -43,14 +43,12 @@ void LoginManager::initUI()
     m_sessionWidget = new SessionWidget(this);
     m_sessionWidget->hide();
     m_logoWidget = new LogoWidget(this);
-//    m_logoWidget->setStyleSheet("background-color:red;");
     m_switchFrame = new SwitchFrame(this);
     m_userWidget = new UserWidget(this);
     m_userWidget->setObjectName("UserWidget");
     m_passWdEdit = new PassWdEdit("LoginIcon", this);
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
     m_passWdEdit->setFocus();
-
 
     m_passWdEditLayout = new QHBoxLayout;
     m_passWdEditLayout->setMargin(0);
@@ -110,6 +108,7 @@ void LoginManager::authenticationComplete()
     qDebug() << "authenticationComplete";
 
     if (!m_greeter->isAuthenticated()) {
+        m_passWdEdit->setAlert(true);
         qWarning() << "auth fail !!!";
         return;
     }
@@ -188,6 +187,8 @@ void LoginManager::login()
 {
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
+
+//    m_passWdEdit->setAlert(true);
 
     // save user last choice
     m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());

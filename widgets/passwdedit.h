@@ -16,6 +16,8 @@
 class PassWdEdit : public QFrame
 {
     Q_OBJECT
+    Q_PROPERTY(bool alert READ alert NOTIFY alertChanged DESIGNABLE true)
+
 public:
     PassWdEdit(QString iconId, QWidget* parent=0);
     ~PassWdEdit();
@@ -30,6 +32,7 @@ signals:
     void submit();
     void keybdLayoutButtonClicked();
     void updateKeyboardStatus();
+    void alertChanged(const int alert);
 
 public slots:
     void setLineEditRightImage(QString imageUrl);
@@ -41,14 +44,19 @@ public slots:
     void show();
     void hide();
 
+    void setAlert(bool alert);
+    inline bool alert() const {return m_alert;}
 protected:
     void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;
 
 private:
     void initUI();
     void initConnect();
     void initData();
+
+    bool m_alert = false;
 
     void initInsideFrame();
     QFrame* m_insideFrame;

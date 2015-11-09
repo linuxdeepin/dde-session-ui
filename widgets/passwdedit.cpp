@@ -40,6 +40,7 @@ void PassWdEdit::initUI() {
     m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
                              - m_keyboardButton->width() - 2,m_iconButton->height());
     m_lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_lineEdit->installEventFilter(this);
 
     m_Layout = new QHBoxLayout;
     m_Layout->setMargin(0);
@@ -66,6 +67,9 @@ void PassWdEdit::initConnect() {
     connect(m_iconButton, &QPushButton::clicked, this, &PassWdEdit::submit);
     connect(m_keyboardButton, &QPushButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);
     connect(m_hideAni, &QPropertyAnimation::finished, this, &QFrame::hide);
+    connect(m_lineEdit, &QLineEdit::textChanged, [this] {
+        setAlert(false);
+    });
 }
 
 void PassWdEdit::initData() {
@@ -75,6 +79,14 @@ void PassWdEdit::initData() {
 void PassWdEdit::focusInEvent(QFocusEvent *)
 {
     m_lineEdit->setFocus();
+}
+
+bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
+{
+    if (o == m_lineEdit && e->type() == QEvent::FocusIn)
+        setAlert(false);
+
+    return false;
 }
 
 void PassWdEdit::initInsideFrame() {
@@ -137,6 +149,27 @@ void PassWdEdit::hide()
     m_hideAni->setStartValue(1.0);
     m_hideAni->setEndValue(0.0);
     m_hideAni->start();
+}
+
+void PassWdEdit::setAlert(bool alert)
+{
+    if (m_alert == alert)
+        return;
+    m_alert = alert;
+    emit alertChanged(alert);
+
+    if (m_alert) {
+        // block text changed signal
+        m_lineEdit->blockSignals(true);
+        m_lineEdit->setText(tr("Wrong Password"));
+        m_lineEdit->blockSignals(false);
+        m_lineEdit->setEchoMode(QLineEdit::Normal);
+    } else {
+        m_lineEdit->clear();
+        m_lineEdit->setEchoMode(QLineEdit::Password);
+    }
+
+    setStyleSheet(styleSheet());
 }
 
 void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
