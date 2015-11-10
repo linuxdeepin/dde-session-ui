@@ -122,6 +122,55 @@ void UserWidget::resizeEvent(QResizeEvent *e)
                        rect().center().y() - UserButton::AvatarLargerSize / 2 - 14);
 }
 
+void UserWidget::switchUserByKey(int i, int j) {
+    m_userBtns->at(i)->hide(10);
+    m_currentUser = m_userBtns->at(j)->objectName();
+    m_userBtns->at(j)->show();
+    m_userBtns->at(j)->showButton();
+    m_userBtns->at(j)->setImageSize(UserButton::AvatarLargerSize);
+}
+
+void UserWidget::leftKeySwitchUser() {
+
+
+    for (int i = 0; i < m_userBtns->length(); i++) {
+        qDebug() << "zz:" << i << m_userBtns->at(i)->objectName();
+        if (m_userBtns->at(i)->objectName() == m_currentUser) {
+
+            if (i == 0) {
+                switchUserByKey(0, m_userBtns->length() - 1);
+               break;
+            } else {
+                qDebug() << "$$$" << i;
+                switchUserByKey(i, i - 1);
+                break;
+            }
+        } else {
+            continue;
+        }
+
+    }
+}
+
+void UserWidget::rightKeySwitchUser() {
+    qDebug() << "RightKeyPressed";
+    for (int i = 0; i < m_userBtns->length(); i++) {
+        if (m_userBtns->at(i)->objectName() == m_currentUser) {
+
+            if (i == m_userBtns->length() - 1) {
+                switchUserByKey(m_userBtns->length() - 1, 0);
+               break;
+            } else {
+                qDebug() << "$$$" << i;
+                switchUserByKey(i, i + 1);
+                break;
+            }
+        } else {
+            continue;
+        }
+    }
+}
+
 const QString UserWidget::currentUser() const
 {
     qDebug() << "currentUser:" << m_currentUser;

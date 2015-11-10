@@ -90,6 +90,10 @@ void LoginManager::initConnect()
     connect(m_passWdEdit, &PassWdEdit::updateKeyboardStatus, this, &LoginManager::keyboardLayoutUI);
     connect(m_passWdEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LoginManager::keybdLayoutWidget);
 
+    connect(m_passWdEdit, &PassWdEdit::leftKeyPressed, this, &LoginManager::leftKeyPressed);
+    connect(m_passWdEdit, &PassWdEdit::rightKeyPressed, this, &LoginManager::rightKeyPressed);
+    connect(this, &LoginManager::leftKeyPressed, m_userWidget, &UserWidget::leftKeySwitchUser);
+    connect(this, &LoginManager::rightKeyPressed, m_userWidget, &UserWidget::rightKeySwitchUser);
 }
 
 void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
@@ -145,8 +149,7 @@ void LoginManager::updateWidgetsPosition()
     m_switchFrame->move(width - m_switchFrame->width() - 20, height - m_switchFrame->height());
 }
 
-void LoginManager::keyPressEvent(QKeyEvent* e) 
-{
+void LoginManager::keyPressEvent(QKeyEvent* e) {
 #ifndef QT_DEBUG
     Q_UNUSED(e)
 #else

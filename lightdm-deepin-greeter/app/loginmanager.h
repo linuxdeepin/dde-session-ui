@@ -32,7 +32,9 @@ protected:
     void keyPressEvent(QKeyEvent* e) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
     void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
-
+signals:
+    void leftKeyPressed();
+    void rightKeyPressed();
 private slots:
     void initUI();
     void initConnect();

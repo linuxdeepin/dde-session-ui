@@ -84,7 +84,6 @@ void UserButton::showButton()
     m_showAnimation->start();
 
     connect(m_showAnimation, &QPropertyAnimation::finished, [=](){
-        qDebug() << "xxxx";
 
         QTimer::singleShot(500, [=]{
             m_opacityEffect->setEnabled(false);

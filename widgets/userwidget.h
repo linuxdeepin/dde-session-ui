@@ -37,6 +37,9 @@ public slots:
     inline void showLoadingAni() {m_loadingAni->show();}
     inline void hideLoadingAni() {m_loadingAni->hide();}
 
+    void leftKeySwitchUser();
+    void rightKeySwitchUser();
+    void switchUserByKey(int i, int j);
 protected:
     void resizeEvent(QResizeEvent *e);
 

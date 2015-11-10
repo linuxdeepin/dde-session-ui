@@ -34,6 +34,9 @@ signals:
     void updateKeyboardStatus();
     void alertChanged(const int alert);
 
+    void leftKeyPressed();
+    void rightKeyPressed();
+
 public slots:
     void setLineEditRightImage(QString imageUrl);
     QString getText();

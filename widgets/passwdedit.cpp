@@ -174,10 +174,13 @@ void PassWdEdit::setAlert(bool alert)
 
 void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
 {
+    qDebug() << "e->key:" << e->key();
     switch (e->key())
     {
     case Qt::Key_Return:        /* submit */
     case Qt::Key_Enter:         emit submit();              break;
+    case Qt::Key_Left:          emit leftKeyPressed();      break;
+    case Qt::Key_Right:         emit rightKeyPressed();     break;
     default:;
     }
 }
