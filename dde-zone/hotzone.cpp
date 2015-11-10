@@ -20,6 +20,8 @@ HotZone::HotZone(QWidget *parent, bool isRight, bool isBottom): QWidget(parent)
 
 HotZone::~HotZone()
 {
+    // // set corner can be detected after app quits
+    m_pushButtonList->m_zoneInterface->EnableZoneDetected(true);
 }
 
 void HotZone::initSeveralVar(bool isRight, bool isBottom)
