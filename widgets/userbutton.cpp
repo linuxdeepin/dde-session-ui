@@ -6,7 +6,10 @@
 
 UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
     : QPushButton(parent),
-      m_moveAni(new QPropertyAnimation(this, "pos"))
+      m_moveAni(new QPropertyAnimation(this, "pos")),
+      m_showAnimation(new QPropertyAnimation(this, "opacity")),
+      m_hideAnimation(new QPropertyAnimation(this, "opacity")),
+      m_opacity(0)
 {
     m_iconUrl = iconUrl;
     m_buttonId = idName;
@@ -28,7 +31,7 @@ void UserButton::initUI() {
     m_userAvatar->setIcon(m_iconUrl);
     m_userAvatar->setObjectName(m_buttonId);
 
-    m_textLabel = new UserBreathingLabel;
+    m_textLabel = new QLabel;
     m_textLabel->setStyleSheet("text-align:center;color: rgba(255, 255, 255, 255);\
                                           font-size:16px; ");
     m_textLabel->setText(m_buttonId);
@@ -49,8 +52,12 @@ void UserButton::initUI() {
     m_Layout->addWidget(m_textLabel);
     m_Layout->addStretch();
     setStyleSheet("border: none;");
-    addTextShadow();
+
     setLayout(m_Layout);
+
+    m_opacityEffect = new QGraphicsOpacityEffect;
+
+    connect(this, &UserButton::opacityChanged, &UserButton::setCustomEffect);
 }
 
 void UserButton::sendClicked() {
@@ -68,28 +75,37 @@ void UserButton::setImageSize(const AvatarSize &avatarsize) {
     update();
 }
 
-void UserButton::show()
+void UserButton::showButton()
 {
-    m_textLabel->showLabel();
+    m_showAnimation->setStartValue(0);
+    m_showAnimation->setEndValue(1);
+    m_showAnimation->setDuration(800);
 
-    if (!m_userAvatar->isVisible()) {
-        QTimer::singleShot(100, this, SLOT(show()));
-        m_userAvatar->showButton();
-    }
+    m_showAnimation->start();
 
-    QPushButton::show();
-    update();
+    connect(m_showAnimation, &QPropertyAnimation::finished, [=](){
+        qDebug() << "xxxx";
+
+        QTimer::singleShot(500, [=]{
+            m_opacityEffect->setEnabled(false);
+            addTextShadow(true);
+        });
+    });
 }
 
 void UserButton::hide(const int duration)
 {
-    if (!duration) {
-        m_userAvatar->hideButton();
-        m_textLabel->hideLabel();
+    Q_UNUSED(duration);
+    m_hideAnimation->setStartValue(1);
+    m_hideAnimation->setEndValue(0);
+    m_hideAnimation->start();
 
-        QPushButton::hide();
-    } else
-        QTimer::singleShot(duration, this, SLOT(hide()));
+       addTextShadow(false);
+       m_opacityEffect->setEnabled(true);
+
+       connect(m_hideAnimation, &QPropertyAnimation::finished, [=](){
+           QPushButton::hide();
+       });
 }
 
 void UserButton::move(const QPoint &position, int duration)
@@ -105,29 +121,35 @@ void UserButton::move(const QPoint &position, int duration)
     m_moveAni->start();
 }
 
-void UserButton::addTextShadow() {
+void UserButton::addTextShadow(bool isEffective) {
     QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect;
     nameShadow->setBlurRadius(16);
     nameShadow->setColor(QColor(0, 0, 0, 85));
     nameShadow->setOffset(0, 4);
+    nameShadow->setEnabled(isEffective);
     m_textLabel->setGraphicsEffect(nameShadow);
 }
-//void UserButton::showButton() {
-//    m_textLabel->showLabel();
-//    if (!isVisible()) {
-//        QTimer::singleShot(100, this, SLOT(show()));
-//        m_userAvatar->showButton();
-//    }
-//    update();
-//}
-//void UserButton::hideButton() {
-//    m_userAvatar->hideButton();
-//    m_textLabel->hideLabel();
-//}
 
 void UserButton::stopAnimation()
 {
     m_moveAni->stop();
 }
+
+double UserButton::opacity() {
+    return m_opacity;
+}
+
+void UserButton::setOpacity(double opa) {
+    if (m_opacity != opa) {
+        m_opacity = opa;
+        emit opacityChanged();
+    }
+}
+
+void UserButton::setCustomEffect() {
+    m_opacityEffect->setOpacity(m_opacity);
+    setGraphicsEffect(m_opacityEffect);
+}
+
 UserButton::~UserButton()
 {}

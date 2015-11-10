@@ -26,7 +26,6 @@ class UserAvatar : public QPushButton
     Q_PROPERTY(QColor borderSelectedColor READ borderSelectedColor WRITE setBorderSelectedColor)
     Q_PROPERTY(QColor borderColor READ borderColor WRITE setBorderColor)
     Q_PROPERTY(int borderWidth READ borderWidth WRITE setBorderWidth)
-    Q_PROPERTY(int alpha READ alpha WRITE setAlpha NOTIFY alphaChanged)
 
 public:
     enum AvatarSize {
@@ -57,12 +56,6 @@ public:
     bool deleteable() const;
     void setDeleteable(bool deleteable);
 
-//    void showUserAvatar();
-//    void hideUserAvatar();
-
-
-    void setAlpha(int opa);
-    int alpha() const;
     void showButton();
     void hideButton();
     void setColor(QColor color);
@@ -98,7 +91,6 @@ private:
     const int NORMAL_ICON_SIZE = 90;
     const int LARGE_ICON_SIZE = 100;
 
-    int m_alpha;
     QPalette m_palette;
     QPropertyAnimation* m_showAnimation;
     QPropertyAnimation* m_hideAnimation;
