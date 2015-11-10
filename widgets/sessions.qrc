@@ -25,4 +25,7 @@
         <file>sessions/Deepin_normal.png</file>
         <file>sessions/Deepin_hover.png</file>
     </qresource>
+    <qresource prefix="/img">
+        <file>img/facelogin_animation.png</file>
+    </qresource>
 </RCC>

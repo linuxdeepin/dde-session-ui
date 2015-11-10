@@ -13,6 +13,10 @@
 
 #include "userbutton.h"
 
+#include <libdui/dloadingindicator.h>
+
+DUI_USE_NAMESPACE
+
 class UserWidget : public QFrame
 {
     Q_OBJECT
@@ -30,6 +34,8 @@ public slots:
     void setCurrentUser(const QString &username);
     void expandWidget();
     void saveLastUser();
+    inline void showLoadingAni() {m_loadingAni->show();}
+    inline void hideLoadingAni() {m_loadingAni->hide();}
 
 protected:
     void resizeEvent(QResizeEvent *e);
@@ -41,6 +47,7 @@ private:
     QString m_currentUser = QString();
     QList<UserButton *> *m_userBtns;
     QLightDM::UsersModel *m_userModel;
+    DLoadingIndicator *m_loadingAni;
 
     const int USER_ICON_WIDTH = 140;
     const int USER_ICON_HEIGHT = 150;

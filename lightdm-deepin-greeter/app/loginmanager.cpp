@@ -106,6 +106,7 @@ void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
 void LoginManager::authenticationComplete()
 {
     qDebug() << "authenticationComplete";
+    m_userWidget->hideLoadingAni();
 
     if (!m_greeter->isAuthenticated()) {
         m_passWdEdit->setAlert(true);
@@ -185,6 +186,8 @@ void LoginManager::leaveEvent(QEvent *)
 
 void LoginManager::login()
 {
+    m_userWidget->showLoadingAni();
+
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
 

@@ -7,9 +7,9 @@
 UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
     : QPushButton(parent),
       m_moveAni(new QPropertyAnimation(this, "pos")),
+      m_opacity(0),
       m_showAnimation(new QPropertyAnimation(this, "opacity")),
-      m_hideAnimation(new QPropertyAnimation(this, "opacity")),
-      m_opacity(0)
+      m_hideAnimation(new QPropertyAnimation(this, "opacity"))
 {
     m_iconUrl = iconUrl;
     m_buttonId = idName;
