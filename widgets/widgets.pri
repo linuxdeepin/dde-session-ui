@@ -15,7 +15,9 @@ HEADERS += \
     $$PWD/userwidget.h \
     $$PWD/userbreathinglabel.h \
     $$PWD/rounditembutton.h \
-    $$PWD/kblayoutwidget.h
+    $$PWD/kblayoutwidget.h \
+    $$PWD/dbus/dbusaccounts.h \
+    $$PWD/dbus/dbususer.h
 
 
 
@@ -27,7 +29,9 @@ SOURCES += \
     $$PWD/userwidget.cpp \
     $$PWD/userbreathinglabel.cpp \
     $$PWD/rounditembutton.cpp \
-    $$PWD/kblayoutwidget.cpp
+    $$PWD/kblayoutwidget.cpp \
+    $$PWD/dbus/dbusaccounts.cpp \
+    $$PWD/dbus/dbususer.cpp
 
 RESOURCES += \
     $$PWD/sessions.qrc \
