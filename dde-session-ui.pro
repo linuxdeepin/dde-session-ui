@@ -1,11 +1,12 @@
-
 TEMPLATE = subdirs
 SUBDIRS += dde-shutdown \
-           dde-zone \
            dde-lock \
            lightdm-deepin-greeter \
            dde-lockservice \
-           dde-switchtogreeter
+           dde-switchtogreeter \
+           dde-lowpower \
+           #dde-osd \
+           dde-zone
 
 
 TRANSLATIONS += translations/dde-session-ui.ts translations/dde-session-ui_zh_CN.ts

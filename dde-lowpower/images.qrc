@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/lowpower.png</file>
+    </qresource>
+</RCC>
