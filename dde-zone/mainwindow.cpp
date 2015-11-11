@@ -1,11 +1,12 @@
 #include "mainwindow.h"
+#include "pushbuttonlist.h"
 #include <hotzone.h>
 
 MainWindow::MainWindow(int width, int height, QWidget *parent) : QMainWindow(parent)
 {
     // let the app start without system animation
     setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
-    //let background be transparent
+    // let background be transparent
     setAttribute(Qt::WA_TranslucentBackground, true);
     // set the size of this app
     this->resize(width, height);
@@ -45,13 +46,15 @@ MainWindow::~MainWindow()
 void MainWindow::mousePressEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton || e->button() == Qt::MiddleButton) {
-        MainWindow::close();
+        this->deleteLater();
+        qApp->quit();
     }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_Escape) {
-        MainWindow::close();
+        this->deleteLater();
+        qApp->quit();
     }
 }

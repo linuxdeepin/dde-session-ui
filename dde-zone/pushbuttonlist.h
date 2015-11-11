@@ -28,6 +28,7 @@ public:
 
     void addButton(QString buttonName, QString actionStr);
 
+    ZoneInterface *m_zoneInterface;
     QStringList m_ActionList;
     int m_MaxTextWidth;
 private slots:
@@ -40,7 +41,6 @@ private:
 
     HoverWidget *m_ParentItem;
     QVBoxLayout *m_VLayout;
-    ZoneInterface *m_zoneInterface;
     QLabel *m_SelectedText;
 
     QList < QPushButton * > m_ButtonList;
