@@ -39,6 +39,10 @@ QFrame#PassWdEditFrame {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+QFrame#PassWdEditFrame[alert="true"] QLineEdit {
+    color:#ff8000;
+}
+
 QFrame#PassWdEditFrame QLineEdit {
     padding:0 0 3px 0;
 }

@@ -116,6 +116,8 @@ void LockFrame::loadMPRIS()
 
 void LockFrame::unlock()
 {
+    m_userWidget->showLoadingAni();
+
     qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
     const QString &username = m_userWidget->currentUser();
     const QString &password = m_passwordEdit->getText().trimmed();
@@ -131,7 +133,9 @@ void LockFrame::unlock()
     }
 
 
-    // TODO: auth fail
+    // Auth fail
+    m_userWidget->hideLoadingAni();
+    m_passwordEdit->setAlert(true);
 }
 void LockFrame::initBackend() {
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
