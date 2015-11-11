@@ -27,7 +27,8 @@ void PassWdEdit::initUI() {
     m_keyboardButton = new QPushButton;
     m_keyboardButton->setObjectName("KeyBoardLayoutButton");
 
-    m_keyboardButton->setFixedSize(QSize(24, 24));
+    m_keyboardButton->setFixedSize(QSize(20, 14));
+    m_keyboardButton->setIconSize(QSize(20, 14));
     m_iconButton = new QPushButton(this);
     m_iconButton->setObjectName(m_iconId);
     m_iconButton->setCheckable(true);

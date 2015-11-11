@@ -37,7 +37,7 @@ QFrame#PswdInsideFrame {
 QFrame#PassWdEditFrame {
     border:1px solid;
     border-color:rgba(0, 0, 0, .5);
-    border-bottom-color:rgba(255, 255, 255, 0.3);
+    border-bottom-color:rgba(255, 255, 255, 0.1);
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0.3);
 }
@@ -47,9 +47,22 @@ QFrame#PassWdEditFrame[alert="true"] QLineEdit {
 }
 
 QPushButton#KeyBoardLayoutButton {
-    border-image: url(":img/keyboard.png");
+    border-image: url(":img/keyboard_normal.png");
     background-color: rgba(255, 255, 255, 0);
-    border-none;
+    border: none;
+    margin:0 ;
+}
+
+QPushButton#KeyBoardLayoutButton:hover {
+    border-image: url(":img/keyboard_hover.png");
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    margin:0 ;
+}
+QPushButton#KeyBoardLayoutButton {
+    border-image: url(":img/keyboard_press.png");
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
     margin:0 ;
 }
 

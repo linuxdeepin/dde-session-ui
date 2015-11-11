@@ -3,12 +3,7 @@ QFrame#passwdEnterFrame {
     border-radius: 4px;
     background-color: rgba(255, 255, 255, 30);
 }
-QPushButton#KeyBoardLayoutButton {
-    border-image: url(":img/keyboard.png");
-    background-color: transparent;
-    border-none;
-    margin:0 0 0 3px;
-}
+
 QLineEdit#passwdLineEdit {
     color:white;
     font-size:24px;
@@ -39,7 +34,7 @@ QFrame#PswdInsideFrame {
 QFrame#PassWdEditFrame {
     border:1px solid;
     border-color:rgba(0, 0, 0, .5);
-    border-bottom-color:rgba(255, 255, 255, 0.3);
+    border-bottom-color:rgba(255, 255, 255, 0.1);
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0.3);
 }
@@ -48,10 +43,24 @@ QFrame#PassWdEditFrame QLineEdit {
     padding:0 0 3px 0;
 }
 
-QPushButton#KeyBoardLayoutButton {
-    border-image: url(":img/keyboard.png");
-    background-color: rgba(255, 255, 255, 0);
-    border-none;
+QPushButton#KeyBoardLayoutButton  {
+   background-image: url(":img/keyboard_normal.png");
+   background-color: transparent;
+   border:none;
+   margin:0 ;
+}
+
+QPushButton#KeyBoardLayoutButton:hover {
+    border-image: url(":img/keyboard_hover.png");
+    background-color: transparent;
+    border:none;
+    margin:0 ;
+}
+
+QPushButton#KeyBoardLayoutButton:pressed {
+    border-image: url(":img/keyboard_press.png");
+    background-color: transparent;
+    border: none;
     margin:0 ;
 }
 
