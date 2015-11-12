@@ -27,6 +27,7 @@ public slots:
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
 
+    void shutDownFramegrabKeyboard();
 private:
     void initUI();
     void initConnect();

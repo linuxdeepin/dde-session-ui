@@ -44,6 +44,7 @@ public slots:
     double opacity();
     void setOpacity(double opa);
     void setCustomEffect();
+    void addTextShadowAfter();
 private:
     void initUI();
     void initConnect();

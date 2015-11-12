@@ -49,6 +49,7 @@ public slots:
 
     void setAlert(bool alert);
     inline bool alert() const {return m_alert;}
+    void lineEditGrabKeyboard();
 protected:
     void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;

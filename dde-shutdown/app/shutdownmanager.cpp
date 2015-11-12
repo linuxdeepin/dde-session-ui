@@ -19,6 +19,9 @@ void ShutdownManager::initConnect() {
 
     connect(m_content->m_shutdownFrame, &ShutDownFrame::ShutDownFrameActions, this, &ShutdownManager::powerAction);
 }
+void ShutdownManager::shutDownFramegrabKeyboard() {
+    this->grabKeyboard();
+}
 void ShutdownManager::initUI() {
 
     setObjectName("ShutdownManager");

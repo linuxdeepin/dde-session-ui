@@ -83,15 +83,16 @@ void UserButton::showButton()
 
     m_showAnimation->start();
 
-    connect(m_showAnimation, &QPropertyAnimation::finished, [=](){
+    connect(m_showAnimation, &QPropertyAnimation::finished, [&]{
 
-        QTimer::singleShot(500, [=]{
-            m_opacityEffect->setEnabled(false);
-            addTextShadow(true);
-        });
+        QTimer::singleShot(500, this, SLOT(addTextShadowAfter()));
     });
 }
+void UserButton::addTextShadowAfter() {
 
+    m_opacityEffect->setEnabled(false);
+    addTextShadow(true);
+}
 void UserButton::hide(const int duration)
 {
     Q_UNUSED(duration);
@@ -102,7 +103,7 @@ void UserButton::hide(const int duration)
        addTextShadow(false);
        m_opacityEffect->setEnabled(true);
 
-       connect(m_hideAnimation, &QPropertyAnimation::finished, [=](){
+       connect(m_hideAnimation, &QPropertyAnimation::finished, [&]{
            QPushButton::hide();
        });
 }

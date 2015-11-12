@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
     w.disableBtns(parser.values(disable));
     w.show();
 
-    QTimer::singleShot(1000, &w, &ShutdownManager::grabKeyboard);
+    QTimer::singleShot(1000, &w, SLOT(shutDownFramegrabKeyboard()));
 
     return app.exec();
 }

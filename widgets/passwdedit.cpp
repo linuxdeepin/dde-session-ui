@@ -61,9 +61,12 @@ void PassWdEdit::initUI() {
     setLayout(m_Layout);
     setGraphicsEffect(m_opacityEffect);
 
-    QTimer::singleShot(1000, m_lineEdit, &QLineEdit::grabKeyboard);
+    QTimer::singleShot(1000, this, SLOT(lineEditGrabKeyboard()));
 }
 
+void PassWdEdit::lineEditGrabKeyboard() {
+    m_lineEdit->grabKeyboard();
+}
 void PassWdEdit::initConnect() {
     connect(m_iconButton, &QPushButton::clicked, this, &PassWdEdit::submit);
     connect(m_keyboardButton, &QPushButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);
