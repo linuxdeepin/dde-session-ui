@@ -88,22 +88,23 @@ void ShutDownFrame::initUI() {
     m_btnsList = new QList<RoundItemButton *>;
     m_shutdownButton = new RoundItemButton(tr("Shut down"));
     m_shutdownButton->setAutoExclusive(true);
-    m_shutdownButton->setObjectName("ShutDownButtonFrame");
+    m_shutdownButton->setObjectName("ShutDownButton");
     m_restartButton = new RoundItemButton(tr("Restart"));
     m_restartButton->setAutoExclusive(true);
-    m_restartButton->setObjectName("RestartButtonFrame");
+    m_restartButton->setObjectName("RestartButton");
     m_suspendButton = new RoundItemButton(tr("Suspend"));
     m_suspendButton->setAutoExclusive(true);
-    m_suspendButton->setObjectName("SuspendButtonFrame");
+    m_suspendButton->setObjectName("SuspendButton");
     m_lockButton = new RoundItemButton(tr("Lock"));
     m_lockButton->setAutoExclusive(true);
-    m_lockButton->setObjectName("LockButtonFrame");
+    m_lockButton->setObjectName("LockButton");
     m_logoutButton = new RoundItemButton(tr("Log out"));
     m_logoutButton->setAutoExclusive(true);
-    m_logoutButton->setObjectName("LogoutButtonFrame");
+    m_logoutButton->setObjectName("LogoutButton");
+
     m_switchUserBtn = new RoundItemButton(tr("Switch user"));
     m_switchUserBtn->setAutoExclusive(true);
-    m_switchUserBtn->setObjectName("SwitchUserBtn");
+    m_switchUserBtn->setObjectName("SwitchUserButton");
 
     QLabel *tipsIcon = new QLabel;
     tipsIcon->setPixmap(QPixmap(":/img/waring.png"));
