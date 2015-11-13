@@ -17,7 +17,8 @@ HEADERS += \
     $$PWD/rounditembutton.h \
     $$PWD/kblayoutwidget.h \
     $$PWD/dbus/dbusaccounts.h \
-    $$PWD/dbus/dbususer.h
+    $$PWD/dbus/dbususer.h \
+    $$PWD/shutdownwidget.h
 
 
 
@@ -31,7 +32,8 @@ SOURCES += \
     $$PWD/rounditembutton.cpp \
     $$PWD/kblayoutwidget.cpp \
     $$PWD/dbus/dbusaccounts.cpp \
-    $$PWD/dbus/dbususer.cpp
+    $$PWD/dbus/dbususer.cpp \
+    $$PWD/shutdownwidget.cpp
 
 RESOURCES += \
     $$PWD/sessions.qrc \

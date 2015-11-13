@@ -17,7 +17,6 @@
         <file>img/kde_indicator_hover.png</file>
         <file>img/kde_indicator_normal.png</file>
         <file>img/kde_indicator_press.png</file>
-        <file>img/lock_hover.svg</file>
         <file>img/login_normal.png</file>
         <file>img/login_press.png</file>
         <file>img/logo_text.png</file>
@@ -36,19 +35,9 @@
         <file>img/previous_hover.png</file>
         <file>img/previous_normal.png</file>
         <file>img/previous_press.png</file>
-        <file>img/reboot_hover.png</file>
-        <file>img/reboot_normal.png</file>
-        <file>img/reboot_press.png</file>
-        <file>img/shutdown_hover.png</file>
-        <file>img/shutdown_normal.png</file>
-        <file>img/shutdown_press.png</file>
-        <file>img/shutdown_press.svg</file>
         <file>img/start_hover.png</file>
         <file>img/start_normal.png</file>
         <file>img/start_press.png</file>
-        <file>img/suspend_hover.png</file>
-        <file>img/suspend_normal.png</file>
-        <file>img/suspend_press.png</file>
         <file>img/ubuntu_indicator_hover.png</file>
         <file>img/ubuntu_indicator_normal.png</file>
         <file>img/ubuntu_indicator_press.png</file>
@@ -61,8 +50,20 @@
         <file>img/xfce_indicator_hover.png</file>
         <file>img/xfce_indicator_normal.png</file>
         <file>img/xfce_indicator_press.png</file>
-        <file>img/userswitch_hover.png</file>
-        <file>img/userswitch_normal.png</file>
-        <file>img/userswitch_press.png</file>
+        <file>img/shutdown/restart_hover.png</file>
+        <file>img/shutdown/restart_normal.png</file>
+        <file>img/shutdown/restart_press.png</file>
+        <file>img/shutdown/shutdown_hover.png</file>
+        <file>img/shutdown/shutdown_normal.png</file>
+        <file>img/shutdown/shutdown_press.png</file>
+        <file>img/shutdown/suspend_hover.png</file>
+        <file>img/shutdown/suspend_normal.png</file>
+        <file>img/shutdown/suspend_press.png</file>
+        <file>img/switchframe/shutdown_hover.png</file>
+        <file>img/switchframe/shutdown_normal.png</file>
+        <file>img/switchframe/shutdown_press.png</file>
+        <file>img/switchframe/userswitch_hover.png</file>
+        <file>img/switchframe/userswitch_normal.png</file>
+        <file>img/switchframe/userswitch_press.png</file>
     </qresource>
 </RCC>

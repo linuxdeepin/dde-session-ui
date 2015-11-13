@@ -73,17 +73,17 @@ void SwitchFrame::initUI() {
     m_switchSessionButton = new DImageButton;
     m_switchSessionButton->setFixedSize(50, 100);
     m_switchSessionButton->installEventFilter(this);
-    m_switchSessionButton->setObjectName("SwitchDEnvironment");
+
     m_switchUserButton = new DImageButton;
-    m_switchUserButton->setNormalPic(":/img/userswitch_normal.png");
-    m_switchUserButton->setHoverPic(":/img/userswitch_hover.png");
-    m_switchUserButton->setPressPic(":/img/userswitch_press.png");
+    m_switchUserButton->setNormalPic(":/img/switchframe/userswitch_normal.png");
+    m_switchUserButton->setHoverPic(":/img/switchframe/userswitch_hover.png");
+    m_switchUserButton->setPressPic(":/img/switchframe/userswitch_press.png");
     m_switchUserButton->setFixedSize(50, 100);
     m_switchUserButton->setObjectName("SwitchUser");
     m_powerButton = new DImageButton;
-    m_powerButton->setNormalPic(":/img/shutdown_normal.png");
-    m_powerButton->setHoverPic(":/img/shutdown_hover.png");
-    m_powerButton->setPressPic(":/img/shutdown_press.png");
+    m_powerButton->setNormalPic(":/img/switchframe/shutdown_normal.png");
+    m_powerButton->setHoverPic(":/img/switchframe/shutdown_hover.png");
+    m_powerButton->setPressPic(":/img/switchframe/shutdown_press.png");
     m_powerButton->setFixedSize(50, 100);
     m_powerButton->setObjectName("PowerMenu");
     m_tipsWidget = new QWidget;

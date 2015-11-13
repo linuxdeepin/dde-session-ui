@@ -1,7 +1,3 @@
-QFrame {
-    background-color: transparent;
-}
-
 QWidget#ShutDownButton {
     qproperty-normalIcon:":img/shutdown_normal.png";
     qproperty-hoverIcon:":img/shutdown_hover.png";

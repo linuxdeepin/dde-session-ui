@@ -73,3 +73,21 @@ QLineEdit#passwdLineEdit {
     background: transparent;
     selection-background-color: transparent;
 }
+
+QWidget#RequireShutdownButton {
+    qproperty-normalIcon:":img/shutdown/shutdown_normal.png";
+    qproperty-hoverIcon:":img/shutdown/shutdown_hover.png";
+    qproperty-pressedIcon:":img/shutdown/shutdown_press.png";
+}
+
+QWidget#RequireRestartButton {
+    qproperty-normalIcon:":img/shutdown/restart_normal.png";
+    qproperty-hoverIcon:":img/shutdown/restart_hover.png";
+    qproperty-pressedIcon:":img/shutdown/restart_press.png";
+}
+
+QWidget#RequireSuspendButton {
+    qproperty-normalIcon:":img/shutdown/suspend_normal.png";
+    qproperty-hoverIcon:":img/shutdown/suspend_hover.png";
+    qproperty-pressedIcon:":img/shutdown/suspend_press.png";
+}

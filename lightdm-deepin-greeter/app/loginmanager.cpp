@@ -50,6 +50,8 @@ void LoginManager::initUI()
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
     m_passWdEdit->setFocus();
 
+    m_requireShutdownWidget = new ShutdownWidget(this);
+    m_requireShutdownWidget->hide();
     m_passWdEditLayout = new QHBoxLayout;
     m_passWdEditLayout->setMargin(0);
     m_passWdEditLayout->setSpacing(0);
@@ -74,8 +76,10 @@ void LoginManager::initUI()
 
 void LoginManager::initConnect()
 {
+    connect(m_switchFrame, &SwitchFrame::triggerPower, this, &LoginManager::showShutdownFrame);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, this, &LoginManager::chooseSessionMode);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, this, &LoginManager::chooseUserMode);
+
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_passWdEdit, &PassWdEdit::hide);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
@@ -127,6 +131,7 @@ void LoginManager::chooseUserMode()
     m_sessionWidget->hide();
     m_userWidget->show();
     m_passWdEdit->show();
+    m_requireShutdownWidget->hide();
 }
 
 void LoginManager::chooseSessionMode()
@@ -134,6 +139,7 @@ void LoginManager::chooseSessionMode()
     m_sessionWidget->show();
     m_userWidget->hide();
     m_passWdEdit->hide();
+    m_requireShutdownWidget->hide();
 }
 
 void LoginManager::updateWidgetsPosition()
@@ -147,7 +153,18 @@ void LoginManager::updateWidgetsPosition()
     m_sessionWidget->move(0, (height - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
     m_logoWidget->move(48, height - m_logoWidget->height() - 36); // left 48px and bottom 36px
     m_switchFrame->move(width - m_switchFrame->width() - 20, height - m_switchFrame->height());
+    m_requireShutdownWidget->setFixedWidth(width);
+    m_requireShutdownWidget->setFixedHeight(300);
+    m_requireShutdownWidget->move(0,  (height - m_requireShutdownWidget->height())/2 - 60);
 }
+
+void LoginManager::showShutdownFrame() {
+    qDebug() << "showShutdownFrame!";
+    m_userWidget->hide();
+    m_passWdEdit->hide();
+    m_requireShutdownWidget->show();
+}
+
 
 void LoginManager::keyPressEvent(QKeyEvent* e) {
 #ifndef QT_DEBUG

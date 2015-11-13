@@ -18,6 +18,7 @@
 #include "view/switchframe.h"
 #include "sessionwidget.h"
 #include "kblayoutwidget.h"
+#include "shutdownwidget.h"
 #include "xkbparser.h"
 #include "dbus/dbusdisplaymanager.h"
 
@@ -44,7 +45,7 @@ private slots:
     void chooseUserMode();
     void chooseSessionMode();
     void updateWidgetsPosition();
-
+    void showShutdownFrame();
     void keyboardLayoutUI();
     void keybdLayoutWidget();
     void setCurrentKeyboardLayout(QString keyboard_value);
@@ -59,6 +60,7 @@ private:
     QHBoxLayout* m_passWdEditLayout;
     QVBoxLayout* m_Layout;
 
+    ShutdownWidget* m_requireShutdownWidget;
     KbLayoutWidget* m_keybdLayoutWidget;
     XkbParser* xkbParse;
 
