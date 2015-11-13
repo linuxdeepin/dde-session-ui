@@ -16,7 +16,7 @@ void ShutdownWidget::initConnect() {
 }
 
 void ShutdownWidget::initUI() {
-    m_requireShutdownButton = new RoundItemButton(tr("Shut Cdown"), this);
+    m_requireShutdownButton = new RoundItemButton(tr("Shut down"), this);
     m_requireShutdownButton->setObjectName("RequireShutdownButton");
     m_requireShutdownButton->setAutoExclusive(true);
 

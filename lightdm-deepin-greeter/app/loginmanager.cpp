@@ -22,8 +22,17 @@ LoginManager::LoginManager(QWidget* parent)
     m_displayInter = new DBusDisplayManager("org.freedesktop.DisplayManager", "/org/freedesktop/DisplayManager", QDBusConnection::systemBus(), this);
 
     // delay to expand
-    if (m_displayInter->isValid() && m_displayInter->sessions().count())
+    if (m_displayInter->isValid() && m_displayInter->sessions().count()) {
         QMetaObject::invokeMethod(m_switchFrame, "triggerSwitchUser", Qt::QueuedConnection);
+        qDebug() << "m_displayInter:" << m_displayInter->isValid();
+    }
+
+
+    m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
+    if (!m_login1ManagerInterface->isValid()) {
+        qDebug() <<"m_login1ManagerInterface:" << m_login1ManagerInterface->lastError().type();
+    }
+
 }
 
 LoginManager::~LoginManager()
@@ -98,6 +107,7 @@ void LoginManager::initConnect()
     connect(m_passWdEdit, &PassWdEdit::rightKeyPressed, this, &LoginManager::rightKeyPressed);
     connect(this, &LoginManager::leftKeyPressed, m_userWidget, &UserWidget::leftKeySwitchUser);
     connect(this, &LoginManager::rightKeyPressed, m_userWidget, &UserWidget::rightKeySwitchUser);
+    connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
 }
 
 void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
@@ -257,4 +267,14 @@ void LoginManager::keybdLayoutWidget() {
         m_keybdLayoutWidget->hide();
     }
 
+}
+
+void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
+
+    switch (action) {
+        case ShutdownWidget::RequireShutdown: { m_login1ManagerInterface->PowerOff(true); break;}
+        case ShutdownWidget::RequireRestart: { m_login1ManagerInterface->Reboot(true); break;}
+        case ShutdownWidget::RequireSuspend: { m_login1ManagerInterface->Suspend(true); break;}
+        default:;
+    }
 }

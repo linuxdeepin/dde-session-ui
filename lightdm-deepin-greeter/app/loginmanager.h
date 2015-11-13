@@ -21,6 +21,8 @@
 #include "shutdownwidget.h"
 #include "xkbparser.h"
 #include "dbus/dbusdisplaymanager.h"
+#include "dbus/dbusvariant.h"
+#include "dbus/dbuslogin1manager.h"
 
 class BackgroundLabel;
 class LoginManager: public QFrame {
@@ -50,6 +52,7 @@ private slots:
     void keybdLayoutWidget();
     void setCurrentKeyboardLayout(QString keyboard_value);
 
+    void setShutdownAction(const ShutdownWidget::Actions action);
 private:
     BackgroundLabel* m_backgroundLabel;
     LogoWidget* m_logoWidget;
@@ -66,6 +69,7 @@ private:
 
     QLightDM::Greeter *m_greeter;
     DBusDisplayManager *m_displayInter;
+    DBusLogin1Manager* m_login1ManagerInterface;
 };
 #endif // LoginManager
 
