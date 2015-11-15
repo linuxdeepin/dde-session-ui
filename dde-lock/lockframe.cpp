@@ -182,3 +182,5 @@ void LockFrame::setCurrentKeyboardLayout(QString keyboard_value) {
     }
 
 }
+
+

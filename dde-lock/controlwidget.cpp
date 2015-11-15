@@ -28,6 +28,13 @@ ControlWidget::ControlWidget(QWidget *parent)
     m_nextSong->setPressPic(":/icons/icons/next_press.png");
     m_volume = new DImageButton;
     m_volume->installEventFilter(this);
+
+    m_userswitch = new DImageButton;
+    m_userswitch->setNormalPic(":/icons/icons/userswitch_normal.png");
+    m_userswitch->setHoverPic(":/icons/icons/userswitch_hover.png");
+    m_userswitch->setPressPic(":/icons/icons/userswitch_press.png");
+
+
     m_shutdown = new DImageButton;
     m_shutdown->setNormalPic(":/icons/icons/shutdown_normal.png");
     m_shutdown->setHoverPic(":/icons/icons/shutdown_hover.png");
@@ -65,7 +72,9 @@ ControlWidget::ControlWidget(QWidget *parent)
     mainLayout->addStretch();
     mainLayout->addWidget(m_songControlWidget);
     mainLayout->setAlignment(m_songControlWidget, Qt::AlignBottom);
-//    mainLayout->addSpacing(10);
+    mainLayout->addSpacing(10);
+    mainLayout->addWidget(m_userswitch);
+    mainLayout->setAlignment(m_userswitch, Qt::AlignBottom);
     mainLayout->addWidget(m_shutdown);
     mainLayout->setAlignment(m_shutdown, Qt::AlignBottom);
 
@@ -74,6 +83,7 @@ ControlWidget::ControlWidget(QWidget *parent)
     //    setStyleSheet("background-color:red;");
 
     connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::shutdown);
+    connect(m_userswitch, &DImageButton::clicked, this, &ControlWidget::switchToGreeter);
 }
 
 void ControlWidget::bindDBusService(DBusMediaPlayer2 *dbusInter)
@@ -186,3 +196,9 @@ void ControlWidget::shutdown()
     process->start("dde-shutdown -H lock -H switchuser -H logout");
 }
 
+void ControlWidget::switchToGreeter() {
+    QProcess *process = new QProcess;
+    connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
+    process->start("dde-switchtogreeter");
+    qApp->quit();
+}

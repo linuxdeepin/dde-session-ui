@@ -29,7 +29,7 @@ private slots:
     void changePauseBtnPic();
     void changeVolumeBtnPic();
     void shutdown();
-
+    void switchToGreeter();
 private:
     QLabel *m_songName;
     QLabel *m_volumeNums;
@@ -37,6 +37,7 @@ private:
     DImageButton *m_pauseSong;
     DImageButton *m_nextSong;
     DImageButton *m_volume;
+    DImageButton* m_userswitch;
     DImageButton *m_shutdown;
 
     QWidget *m_songControlWidget;
