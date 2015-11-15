@@ -11,6 +11,7 @@
 
 #include <libdui/dbuttonlist.h>
 
+#include "util_updateui.h"
 #include "util_settings.h"
 
 class PassWdEdit : public QFrame
@@ -38,7 +39,6 @@ signals:
     void rightKeyPressed();
 
 public slots:
-    void setLineEditRightImage(QString imageUrl);
     QString getText();
 
     void updateKeybordLayoutStatus(const QString &username);
@@ -61,9 +61,6 @@ private:
     void initData();
 
     bool m_alert = false;
-
-    void initInsideFrame();
-    QFrame* m_insideFrame;
 
     QLineEdit* m_lineEdit;
     QString m_iconId;

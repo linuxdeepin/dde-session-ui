@@ -1,0 +1,38 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/facelogin_animation.png</file>
+        <file>img/sessions_icon/Deepin_hover.png</file>
+        <file>img/sessions_icon/Deepin_normal.png</file>
+        <file>img/sessions_icon/Deepin_press.png</file>
+        <file>img/sessions_icon/enlightenment_hover.png</file>
+        <file>img/sessions_icon/enlightenment_normal.png</file>
+        <file>img/sessions_icon/enlightenment_press.png</file>
+        <file>img/sessions_icon/fluxbox_hover.png</file>
+        <file>img/sessions_icon/fluxbox_press.png</file>
+        <file>img/sessions_icon/gnome_hover.png</file>
+        <file>img/sessions_icon/gnome_normal.png</file>
+        <file>img/sessions_icon/ubuntu_hover.png</file>
+        <file>img/sessions_icon/lxde_press.png</file>
+        <file>img/sessions_icon/lxde_hover.png</file>
+        <file>img/sessions_icon/kde_press.png</file>
+        <file>img/sessions_icon/kde_normal.png</file>
+        <file>img/sessions_icon/kde_hover.png</file>
+        <file>img/sessions_icon/gnome_press.png</file>
+        <file>img/sessions_icon/ubuntu_press.png</file>
+        <file>img/sessions_icon/unknow_hover.png</file>
+        <file>img/sessions_icon/unknow_normal.png</file>
+        <file>img/sessions_icon/unknow_press.png</file>
+        <file>img/sessions_icon/xfce_hover.png</file>
+        <file>img/sessions_icon/xfce_normal.png</file>
+        <file>img/sessions_icon/xfce_press.png</file>
+        <file>img/requireshutdown_icon/restart_hover.png</file>
+        <file>img/requireshutdown_icon/restart_normal.png</file>
+        <file>img/requireshutdown_icon/restart_press.png</file>
+        <file>img/requireshutdown_icon/shutdown_hover.png</file>
+        <file>img/requireshutdown_icon/shutdown_normal.png</file>
+        <file>img/requireshutdown_icon/shutdown_press.png</file>
+        <file>img/requireshutdown_icon/suspend_hover.png</file>
+        <file>img/requireshutdown_icon/suspend_normal.png</file>
+        <file>img/requireshutdown_icon/suspend_press.png</file>
+    </qresource>
+</RCC>

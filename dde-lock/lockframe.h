@@ -3,6 +3,7 @@
 
 #include <QFrame>
 
+#include "shutdownwidget.h"
 #include "userwidget.h"
 #include "controlwidget.h"
 #include "passwdedit.h"
@@ -11,6 +12,7 @@
 #include "dbus/dbusinputdevices.h"
 #include "dbus/dbuskeyboard.h"
 #include "dbus/dbusmediaplayer2.h"
+#include "dbus/dbussessionmanager.h"
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/lock"
 #define LOCKSERVICE_NAME "com.deepin.dde.lock"
@@ -32,7 +34,8 @@ public:
 
 public slots:
     void setCurrentKeyboardLayout(QString keyboard_value);
-
+    void showShutdownFrame();
+    void requireShutdownAction(const ShutdownWidget::Actions action);
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
 
@@ -42,6 +45,7 @@ private:
     void unlock();
 
 private:
+    ShutdownWidget* m_requireShutdownWidget;
     UserWidget *m_userWidget;
     ControlWidget *m_controlWidget;
     PassWdEdit *m_passwordEdit;
@@ -52,6 +56,7 @@ private:
     QStringList m_keybdLayoutNameList;
     QStringList keybdLayoutDescList;
     KbLayoutWidget* m_keybdLayoutWidget;
+    DBusSessionManagerInterface* m_sessionManagerIter;
 
     DBusMediaPlayer2 *m_mprisInter = nullptr;
 };

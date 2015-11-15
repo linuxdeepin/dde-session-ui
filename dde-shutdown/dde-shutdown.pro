@@ -20,13 +20,11 @@ include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 
 SOURCES += main.cpp \
-    dbus/dbussessionmanager.cpp \
     view/contentwidget.cpp \
     view/mainframe.cpp \
     app/shutdownmanager.cpp
 
 HEADERS  += \
-    dbus/dbussessionmanager.h \
     view/contentwidget.h \
     view/mainframe.h \
     app/shutdownmanager.h

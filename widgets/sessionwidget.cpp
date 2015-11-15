@@ -26,18 +26,18 @@ SessionWidget::SessionWidget(QWidget *parent)
         sbtn->hide();
         sbtn->setAutoExclusive(true);
 
-        const QString normalIcon = QString(":/sessions/sessions/%1_normal.png").arg(session);
-        const QString hoverIcon = QString(":/sessions/sessions/%1_hover.png").arg(session);
-        const QString checkedIcon = QString(":/sessions/sessions/%1_press.png").arg(session);
+        const QString normalIcon = QString(":/img/sessions_icon/%1_normal.png").arg(session);
+        const QString hoverIcon = QString(":/img/sessions_icon/%1_hover.png").arg(session);
+        const QString checkedIcon = QString(":/img/sessions_icon/%1_press.png").arg(session);
 
         if (QFile(normalIcon).exists() && QFile(hoverIcon).exists() && QFile(checkedIcon).exists()) {
             sbtn->setProperty("normalIcon", normalIcon);
             sbtn->setProperty("hoverIcon", hoverIcon);
             sbtn->setProperty("checkedIcon", checkedIcon);
         } else {
-            sbtn->setProperty("normalIcon", ":/sessions/sessions/unknow_normal.png");
-            sbtn->setProperty("hoverIcon", ":/sessions/sessions/unknow_hover.png");
-            sbtn->setProperty("checkedIcon", ":/sessions/sessions/unknow_press.png");
+            sbtn->setProperty("normalIcon", ":/img/sessions_icon/unknow_normal.png");
+            sbtn->setProperty("hoverIcon", ":/img/sessions_icon/unknow_hover.png");
+            sbtn->setProperty("checkedIcon", ":/img/sessions_icon/unknow_press.png");
         }
 
         connect(sbtn, &RoundItemButton::clicked, [this, session] {switchSession(session);});

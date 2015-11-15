@@ -64,7 +64,7 @@ void UserWidget::initUI()
         addUser(settings.value("User/Icon").toString(), username);
     }
 
-    QPixmap loading(":/img/img/facelogin_animation.png");
+    QPixmap loading(":/img/facelogin_animation.png");
     QSize size(110, 110);
     m_loadingAni = new DLoadingIndicator(this);
     m_loadingAni->setLoading(true);

@@ -36,8 +36,8 @@ SOURCES += \
     $$PWD/shutdownwidget.cpp
 
 RESOURCES += \
-    $$PWD/sessions.qrc \
-    $$PWD/skin.qrc
+    $$PWD/widgetstheme.qrc \
+    $$PWD/widgetsimages.qrc
 
 DISTFILES +=
 

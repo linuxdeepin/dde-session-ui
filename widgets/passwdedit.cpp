@@ -62,6 +62,8 @@ void PassWdEdit::initUI() {
     setGraphicsEffect(m_opacityEffect);
 
     QTimer::singleShot(1000, this, SLOT(lineEditGrabKeyboard()));
+    updateStyle(":/skin/passwdedit.qss", this);
+
 }
 
 void PassWdEdit::lineEditGrabKeyboard() {
@@ -91,17 +93,6 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
         setAlert(false);
 
     return false;
-}
-
-void PassWdEdit::initInsideFrame() {
-    m_insideFrame = new QFrame(this);
-    m_insideFrame->raise();
-
-    m_insideFrame->setObjectName("PswdInsideFrame");
-    QHBoxLayout *insideLayout = new QHBoxLayout(this);
-    insideLayout->setContentsMargins(0, 0, 0, 0);
-    insideLayout->setSpacing(0);
-    insideLayout->addWidget(m_insideFrame);
 }
 
 void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
@@ -187,10 +178,6 @@ void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
     case Qt::Key_Right:         emit rightKeyPressed();     break;
     default:;
     }
-}
-
-void PassWdEdit::setLineEditRightImage(QString imageUrl) {
-    m_iconButton->setIcon(QIcon(QPixmap(imageUrl)));
 }
 
 QString PassWdEdit::getText() {

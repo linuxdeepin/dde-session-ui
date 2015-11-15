@@ -10,7 +10,8 @@ HEADERS += \
     $$PWD/xkbparser.h \
     $$PWD/dbus/dbusdisplaymanager.h \
     $$PWD/dbus/dbuslogin1manager.h \
-    $$PWD/dbus/dbusvariant.h
+    $$PWD/dbus/dbusvariant.h \
+    $$PWD/dbus/dbussessionmanager.h
 
 
 SOURCES += \
@@ -20,7 +21,8 @@ SOURCES += \
     $$PWD/xkbparser.cpp \
     $$PWD/dbus/dbusdisplaymanager.cpp \
     $$PWD/dbus/dbuslogin1manager.cpp \
-    $$PWD/dbus/dbusvariant.cpp
+    $$PWD/dbus/dbusvariant.cpp \
+    $$PWD/dbus/dbussessionmanager.cpp
 
 
 RESOURCES += \

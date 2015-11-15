@@ -43,6 +43,7 @@ void ShutdownWidget::initUI() {
     m_Layout->addStretch(0);
     setLayout(m_Layout);
 
+    updateStyle(":/skin/requireshutdown.qss", this);
 }
 
 ShutdownWidget::~ShutdownWidget() {

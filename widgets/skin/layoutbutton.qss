@@ -1,9 +1,20 @@
 QPushButton#LayoutButton {
-    background-color: rgba(0, 0, 0, 0);
+
+    background-color: rgba(255, 0, 0, 0);
     border: none;
 }
 
-QPushButton#LayoutButton:hover { background-color: rgba(0, 0, 0, .4); border: none}
+QPushButton#LayoutButton:hover {
+    background-color: rgba(0, 0, 0, .4);
+    border: none
+}
 
-QLabel#LayoutTextLabel[Checked = "true"]  { color: red;font-size: 15px;}
+QLabel#LayoutTextLabel[Checked = "true"]  {
+    color:  #01BDFF;
+    font-size: 12px;
+}
+QLabel#LayoutTextLabel {
+    color: white;
+    font-size: 12px;
+}
 

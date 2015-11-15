@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/icons">
+    <qresource prefix="/">
         <file>icons/volume_press.png</file>
         <file>icons/volume_normal.png</file>
         <file>icons/volume_hover.png</file>
@@ -30,8 +30,5 @@
         <file>icons/userswitch_hover.png</file>
         <file>icons/userswitch_normal.png</file>
         <file>icons/userswitch_press.png</file>
-    </qresource>
-    <qresource prefix="/">
-        <file>img/tick_hover.png</file>
     </qresource>
 </RCC>

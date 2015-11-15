@@ -56,6 +56,7 @@ void LoginManager::initUI()
     m_userWidget = new UserWidget(this);
     m_userWidget->setObjectName("UserWidget");
     m_passWdEdit = new PassWdEdit("LoginIcon", this);
+
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
     m_passWdEdit->setFocus();
 
@@ -75,12 +76,14 @@ void LoginManager::initUI()
     m_Layout->addLayout(m_passWdEditLayout);
     m_Layout->addStretch();
     setLayout(m_Layout);
-    updateStyle(":/skin/login.qss", this);
+
     showFullScreen();
 
     m_passWdEdit->updateKeyboardStatus();
     keyboardLayoutUI();
     leaveEvent(nullptr);
+
+    updateStyle(":/skin/login.qss", this);
 }
 
 void LoginManager::initConnect()

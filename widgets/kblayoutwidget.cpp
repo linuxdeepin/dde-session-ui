@@ -15,7 +15,6 @@ LayoutButton::LayoutButton(QString text, QWidget *parent)
     m_textLabel = new QLabel;
     m_textLabel->setObjectName("LayoutTextLabel");
     m_textLabel->setText(text);
-    m_textLabel->setStyleSheet("QLabel{ color: white;}");
     m_iconLabel->hide();
 
     QHBoxLayout* m_Layout = new QHBoxLayout;
@@ -28,8 +27,9 @@ LayoutButton::LayoutButton(QString text, QWidget *parent)
     setLayout(m_Layout);
 
     m_iconLabel->move(this->x() + 5, this->y() + 1);
-    this->setStyleSheet("QPushButton { background-color: transparent; border: none;} \
-                         QPushButton:hover { background-color: rgba(0, 0, 0, 0.4); border: none;}");
+
+
+    updateStyle(":/skin/layoutbutton.qss", this);
 }
 void LayoutButton::enterEvent(QEvent *event) {
     emit mouseEnter(m_text);
@@ -55,12 +55,12 @@ void LayoutButton::setButtonChecked(bool checked) {
     if (checked) {
         this->setChecked(true);
         m_textLabel->setProperty("Checked", true);
-        m_textLabel->setStyleSheet("QLabel[Checked = \"true\"] { color: #01BDFF;}");
         m_iconLabel->show();
+        updateStyle(":/skin/layoutbutton.qss", this);
     } else {
         this->setChecked(false);
         m_textLabel->setProperty("Checked", false);
-        m_textLabel->setStyleSheet("QLabel { color: white;}");
+        updateStyle(":/skin/layoutbutton.qss", this);
         m_iconLabel->hide();
     }
 

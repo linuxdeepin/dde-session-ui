@@ -50,15 +50,6 @@
         <file>img/xfce_indicator_hover.png</file>
         <file>img/xfce_indicator_normal.png</file>
         <file>img/xfce_indicator_press.png</file>
-        <file>img/shutdown/restart_hover.png</file>
-        <file>img/shutdown/restart_normal.png</file>
-        <file>img/shutdown/restart_press.png</file>
-        <file>img/shutdown/shutdown_hover.png</file>
-        <file>img/shutdown/shutdown_normal.png</file>
-        <file>img/shutdown/shutdown_press.png</file>
-        <file>img/shutdown/suspend_hover.png</file>
-        <file>img/shutdown/suspend_normal.png</file>
-        <file>img/shutdown/suspend_press.png</file>
         <file>img/switchframe/shutdown_hover.png</file>
         <file>img/switchframe/shutdown_normal.png</file>
         <file>img/switchframe/shutdown_press.png</file>

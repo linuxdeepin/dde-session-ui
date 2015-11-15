@@ -18,27 +18,37 @@ ControlWidget::ControlWidget(QWidget *parent)
 //                                "background-color:red;"
                                 "font-size:13px;");
     m_prevSong = new DImageButton;
-    m_prevSong->setNormalPic(":/icons/icons/previous_normal.png");
-    m_prevSong->setHoverPic(":/icons/icons/previous_hover.png");
-    m_prevSong->setPressPic(":/icons/icons/previous_press.png");
+    m_prevSong->setNormalPic(":/icons/previous_normal.png");
+    m_prevSong->setHoverPic(":/icons/previous_hover.png");
+    m_prevSong->setPressPic(":/icons/previous_press.png");
+
     m_pauseSong = new DImageButton;
+    m_pauseSong->setNormalPic(":/icons/pause_normal.png");
+    m_pauseSong->setHoverPic(":/icons/pause_hover.png");
+    m_pauseSong->setPressPic(":/icons/pause_press.png");
+
     m_nextSong = new DImageButton;
-    m_nextSong->setNormalPic(":/icons/icons/next_normal.png");
-    m_nextSong->setHoverPic(":/icons/icons/next_hover.png");
-    m_nextSong->setPressPic(":/icons/icons/next_press.png");
+    m_nextSong->setNormalPic(":/icons/next_normal.png");
+    m_nextSong->setHoverPic(":/icons/next_hover.png");
+    m_nextSong->setPressPic(":/icons/next_press.png");
     m_volume = new DImageButton;
+    m_volume->setNormalPic(":/icons/volume_normal.png");
+    m_volume->setHoverPic(":/icons/volume_hover.png");
+    m_volume->setPressPic(":/icons/volume_press.png");
     m_volume->installEventFilter(this);
 
+
     m_userswitch = new DImageButton;
-    m_userswitch->setNormalPic(":/icons/icons/userswitch_normal.png");
-    m_userswitch->setHoverPic(":/icons/icons/userswitch_hover.png");
-    m_userswitch->setPressPic(":/icons/icons/userswitch_press.png");
+    m_userswitch->setNormalPic(":/icons/userswitch_normal.png");
+    m_userswitch->setHoverPic(":/icons/userswitch_hover.png");
+    m_userswitch->setPressPic(":/icons/userswitch_press.png");
 
 
     m_shutdown = new DImageButton;
-    m_shutdown->setNormalPic(":/icons/icons/shutdown_normal.png");
-    m_shutdown->setHoverPic(":/icons/icons/shutdown_hover.png");
-    m_shutdown->setPressPic(":/icons/icons/shutdown_press.png");
+    m_shutdown->setNormalPic(":/icons/shutdown_normal.png");
+    m_shutdown->setHoverPic(":/icons/shutdown_hover.png");
+    m_shutdown->setPressPic(":/icons/shutdown_press.png");
+
 
     QHBoxLayout *volumeLayout = new QHBoxLayout;
     volumeLayout->addWidget(m_volumeNums);
@@ -82,7 +92,8 @@ ControlWidget::ControlWidget(QWidget *parent)
     setFixedSize(500, 150);
     //    setStyleSheet("background-color:red;");
 
-    connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::shutdown);
+//    connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::shutdown);
+    connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::controlShutdown);
     connect(m_userswitch, &DImageButton::clicked, this, &ControlWidget::switchToGreeter);
 }
 
@@ -158,43 +169,43 @@ void ControlWidget::volumeWheelControl(const QWheelEvent *e)
 void ControlWidget::changePauseBtnPic()
 {
     if (m_dbusInter->playbackStatus() == "Playing") {
-        m_pauseSong->setNormalPic(":/icons/icons/pause_normal.png");
-        m_pauseSong->setHoverPic(":/icons/icons/pause_hover.png");
-        m_pauseSong->setPressPic(":/icons/icons/pause_press.png");
+        m_pauseSong->setNormalPic(":/icons/pause_normal.png");
+        m_pauseSong->setHoverPic(":/icons/pause_hover.png");
+        m_pauseSong->setPressPic(":/icons/pause_press.png");
     } else {
-        m_pauseSong->setNormalPic(":/icons/icons/start_normal.png");
-        m_pauseSong->setHoverPic(":/icons/icons/start_hover.png");
-        m_pauseSong->setPressPic(":/icons/icons/start_press.png");
+        m_pauseSong->setNormalPic(":/icons/start_normal.png");
+        m_pauseSong->setHoverPic(":/icons/start_hover.png");
+        m_pauseSong->setPressPic(":/icons/start_press.png");
     }
 }
 
 void ControlWidget::changeVolumeBtnPic()
 {
     if (m_dbusInter->volume()) {
-        m_volume->setNormalPic(":/icons/icons/volume_normal.png");
-        m_volume->setHoverPic(":/icons/icons/volume_hover.png");
-        m_volume->setPressPic(":/icons/icons/volume_press.png");
+        m_volume->setNormalPic(":/icons/volume_normal.png");
+        m_volume->setHoverPic(":/icons/volume_hover.png");
+        m_volume->setPressPic(":/icons/volume_press.png");
     } else {
-        m_volume->setNormalPic(":/icons/icons/mute_normal.png");
-        m_volume->setHoverPic(":/icons/icons/mute_hover.png");
-        m_volume->setPressPic(":/icons/icons/mute_press.png");
+        m_volume->setNormalPic(":/icons/mute_normal.png");
+        m_volume->setHoverPic(":/icons/mute_hover.png");
+        m_volume->setPressPic(":/icons/mute_press.png");
     }
 }
 
-void ControlWidget::shutdown()
-{
-//    QStringList args;
-//    args << "-H" << "lock";
-//    args << "-H" << "switchuser";
-//    args << "-H" << "logout";
+//void ControlWidget::shutdown()
+//{
+////    QStringList args;
+////    args << "-H" << "lock";
+////    args << "-H" << "switchuser";
+////    args << "-H" << "logout";
 
-    QProcess *process = new QProcess;
-//    process->setArguments(args);
+//    QProcess *process = new QProcess;
+////    process->setArguments(args);
 
-    connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
+//    connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
 
-    process->start("dde-shutdown -H lock -H switchuser -H logout");
-}
+//    process->start("dde-shutdown -H lock -H switchuser -H logout");
+//}
 
 void ControlWidget::switchToGreeter() {
     QProcess *process = new QProcess;

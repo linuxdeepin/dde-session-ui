@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>skin/keybdlayoutwidget.qss</file>
-        <file>skin/layoutbutton.qss</file>
-    </qresource>
-</RCC>

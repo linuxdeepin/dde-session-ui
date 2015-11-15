@@ -35,5 +35,5 @@ target.path = $${PREFIX}/bin/
 INSTALLS += target
 
 RESOURCES += \
-    qss.qrc \
-    resources.qrc
+    images.qrc \
+    logintheme.qrc

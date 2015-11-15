@@ -3,6 +3,7 @@
 
 #include <QFrame>
 
+#include "util_updateui.h"
 #include "rounditembutton.h"
 
 class ShutdownWidget: public QFrame

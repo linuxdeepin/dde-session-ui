@@ -28,6 +28,8 @@ LockFrame::LockFrame()
 void LockFrame::initConnect() {
 
     connect(m_passwordEdit, &PassWdEdit::keybdLayoutButtonClicked, m_keybdLayoutWidget, &KbLayoutWidget::show);
+    connect(m_controlWidget, &ControlWidget::controlShutdown, this, &LockFrame::showShutdownFrame);
+    connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LockFrame::requireShutdownAction);
 
 }
 void LockFrame::initUI() {
@@ -44,6 +46,12 @@ void LockFrame::initUI() {
     m_passwordEdit = new PassWdEdit("LockIcon", this);
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
     m_passwordEdit->setFocus();
+
+    m_requireShutdownWidget = new ShutdownWidget(this);
+    m_requireShutdownWidget->hide();
+    m_requireShutdownWidget->setFixedWidth(width());
+    m_requireShutdownWidget->setFixedHeight(300);
+    m_requireShutdownWidget->move(0,  (height() - m_requireShutdownWidget->height())/2 - 50);
 
     m_controlWidget = new ControlWidget(this);
     m_controlWidget->hideMusicControlWidget();
@@ -69,6 +77,7 @@ void LockFrame::initUI() {
     showFullScreen();
     activateWindow();
     updateStyle(":/theme/theme/lock.qss", this);
+
 
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockFrame::unlock);
 }
@@ -159,6 +168,9 @@ void LockFrame::initBackend() {
     }
     qDebug() << "QStringList" << m_keybdLayoutNameList;
     m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
+
+    m_sessionManagerIter = new DBusSessionManagerInterface("com.deepin.SessionManager", "/com/deepin/SessionManager",
+                                                           QDBusConnection::sessionBus(), this);
 }
 
 void LockFrame::updateUI() {
@@ -183,4 +195,17 @@ void LockFrame::setCurrentKeyboardLayout(QString keyboard_value) {
 
 }
 
+void LockFrame::showShutdownFrame() {
+    m_userWidget->hide();
+    m_passwordEdit->hide();
+    m_requireShutdownWidget->show();
+}
 
+void LockFrame::requireShutdownAction(const ShutdownWidget::Actions action) {
+    switch (action) {
+        case ShutdownWidget::RequireShutdown: { m_sessionManagerIter->RequestShutdown(); break;}
+        case ShutdownWidget::RequireRestart: { m_sessionManagerIter->RequestReboot(); break;}
+        case ShutdownWidget::RequireSuspend: { m_sessionManagerIter->RequestSuspend(); break;}
+        default:;
+    }
+}
