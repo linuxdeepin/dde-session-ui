@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     dbus/dbuslockservice.cpp \
     dbus/dbuskeyboard.cpp \
     dbus/dbusinputdevices.cpp \
-    dbus/dbusmediaplayer2.cpp
+    dbus/dbusmediaplayer2.cpp \
+    ../widgets/dbus/dbuscontrolcenter.cpp
 
 HEADERS  += \
     lockframe.h \
@@ -29,7 +30,8 @@ HEADERS  += \
     dbus/dbuslockservice.h \
     dbus/dbusinputdevices.h \
     dbus/dbuskeyboard.h \
-    dbus/dbusmediaplayer2.h
+    dbus/dbusmediaplayer2.h \
+    ../widgets/dbus/dbuscontrolcenter.h
 
 target.path = $${PREFIX}/bin/
 INSTALLS += target

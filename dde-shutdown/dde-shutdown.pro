@@ -22,12 +22,14 @@ include(../global_util/global_util.pri)
 SOURCES += main.cpp \
     view/contentwidget.cpp \
     view/mainframe.cpp \
-    app/shutdownmanager.cpp
+    app/shutdownmanager.cpp \
+    ../widgets/dbus/dbuscontrolcenter.cpp
 
 HEADERS  += \
     view/contentwidget.h \
     view/mainframe.h \
-    app/shutdownmanager.h
+    app/shutdownmanager.h \
+    ../widgets/dbus/dbuscontrolcenter.h
 
 
 RESOURCES += \

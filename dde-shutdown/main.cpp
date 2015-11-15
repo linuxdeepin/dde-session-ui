@@ -5,10 +5,17 @@
 #include <QDebug>
 
 #include "app/shutdownmanager.h"
+#include "dbus/dbuscontrolcenter.h"
 
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
+
+    // hide dde-control-center
+    DBusControlCenter *DCCInter = new DBusControlCenter;
+    if (DCCInter->isValid())
+        DCCInter->HideImmediately();
+    DCCInter->deleteLater();
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
