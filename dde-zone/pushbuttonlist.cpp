@@ -67,8 +67,8 @@ void PushButtonList::alignTheButtonAccordingToTopOrBottom()
         int pushButtonWidth = metrics.boundingRect(tmpButton->text()).width() + BUTTON_PADDINGS;
         m_MaxTextWidth = (pushButtonWidth > m_MaxTextWidth ? pushButtonWidth : m_MaxTextWidth);
         tmpButton->setFixedSize(pushButtonWidth, BUTTON_HEIGHT);
-        tmpButton->setStyleSheet("QPushButton{color:rgba(255,255,255,0.5);background:transparent}"
-                                 "QPushButton:hover{background:rgba(0,0,0,0.5);border-radius:4px}");
+        tmpButton->setStyleSheet("QPushButton{color:rgba(255,255,255,0.5);background:transparent;border:none}"
+                                 "QPushButton:hover{background:rgba(0,0,0,0.5);border:none;border-radius:4px}");
         tmpButton->setFocusPolicy(Qt::NoFocus);
         tmpButton->setCursor(Qt::PointingHandCursor);
         m_IsRight ? m_VLayout->addWidget(tmpButton, 0, Qt::AlignRight) : m_VLayout->addWidget(tmpButton, 0, Qt::AlignLeft);
@@ -96,8 +96,8 @@ void PushButtonList::highlightTheButtonTextWhenAppInit()
     for (int i = 0, length = m_ActionList.length(); i < length; i++) {
         if (theAction == m_ActionList[i]) {
             m_SelectedText->setText(m_ButtonList[i]->text());
-            m_ButtonList[i]->setStyleSheet("QPushButton{color:rgba(1,189,255,1);background:transparent}"
-                                           "QPushButton:hover{background:rgba(0,0,0,0.5);border-radius:4px}");
+            m_ButtonList[i]->setStyleSheet("QPushButton{color:rgba(1,189,255,1);background:transparent;border:none}"
+                                           "QPushButton:hover{background:rgba(0,0,0,0.5);border:none;border-radius:4px}");
         }
     }
 }
@@ -133,11 +133,11 @@ void PushButtonList::onButtonClicked(QString theAction, int index)
 
     for (int j = 0, length = m_ButtonList.length(); j < length; j++) {
         if (m_ActionList[j] == theAction)
-            m_ButtonList[j]->setStyleSheet("QPushButton{color:rgba(1,189,255,1);background:transparent}"
-                                           "QPushButton:hover{background:rgba(0,0,0,0.5);border-radius:4px}");
+            m_ButtonList[j]->setStyleSheet("QPushButton{color:rgba(1,189,255,1);background:transparent;border:none}"
+                                           "QPushButton:hover{background:rgba(0,0,0,0.5);border:none;border-radius:4px}");
         else
-            m_ButtonList[j]->setStyleSheet("QPushButton{color:rgba(255,255,255,0.5);background:transparent}"
-                                           "QPushButton:hover{background:rgba(0,0,0,0.5);border-radius:4px}");
+            m_ButtonList[j]->setStyleSheet("QPushButton{color:rgba(255,255,255,0.5);background:transparent;border:none}"
+                                           "QPushButton:hover{background:rgba(0,0,0,0.5);border:none;border-radius:4px}");
     }
     m_ParentItem->setVisible(false);
 }
