@@ -17,5 +17,9 @@
         <file>img/keyboard_press.png</file>
         <file>img/keyboard_normal.png</file>
         <file>img/keyboard_hover.png</file>
+        <file>img/shutdownIcon_press.png</file>
+        <file>img/shutdownIcon_normal.png</file>
+        <file>img/restartIcon_normal.png</file>
+        <file>img/restartIcon_press.png</file>
     </qresource>
 </RCC>

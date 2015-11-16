@@ -8,10 +8,9 @@
 #include "constants.h"
 #include "passwdedit.h"
 
-PassWdEdit::PassWdEdit(QString iconId, QWidget* parent)
+PassWdEdit::PassWdEdit(QWidget* parent)
     : QFrame(parent)
 {
-    m_iconId = iconId;
     initUI();
     initConnect();
     initData();
@@ -29,11 +28,9 @@ void PassWdEdit::initUI() {
 
     m_keyboardButton->setFixedSize(QSize(20, 14));
     m_keyboardButton->setIconSize(QSize(20, 14));
-    m_iconButton = new QPushButton(this);
-    m_iconButton->setObjectName(m_iconId);
+    m_iconButton = new DImageButton(this);
     m_iconButton->setCheckable(true);
-    m_iconButton->setFixedSize(QSize(35, 35)); // 34 = 36 - borderTop - borderBottom
-    m_iconButton->setIconSize(QSize(35, 35));
+    m_iconButton->setFixedSize(QSize(35, 35));
 
     m_lineEdit = new QLineEdit;
     m_lineEdit->setObjectName("passwdLineEdit");
@@ -57,7 +54,7 @@ void PassWdEdit::initUI() {
     m_showAni = new QPropertyAnimation(m_opacityEffect, "opacity");
     m_hideAni = new QPropertyAnimation(m_opacityEffect, "opacity");
 
-    m_iconButton->move(this->x() + this->width()*2 + 14, this->y() - 1);
+    m_iconButton->move(this->x() + this->width()*2 + 13, this->y());
     setLayout(m_Layout);
     setGraphicsEffect(m_opacityEffect);
 
@@ -70,7 +67,7 @@ void PassWdEdit::lineEditGrabKeyboard() {
     m_lineEdit->grabKeyboard();
 }
 void PassWdEdit::initConnect() {
-    connect(m_iconButton, &QPushButton::clicked, this, &PassWdEdit::submit);
+    connect(m_iconButton, &DImageButton::clicked, this, &PassWdEdit::submit);
     connect(m_keyboardButton, &QPushButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);
     connect(m_hideAni, &QPropertyAnimation::finished, this, &QFrame::hide);
     connect(m_lineEdit, &QLineEdit::textChanged, [this] {
@@ -146,7 +143,7 @@ void PassWdEdit::hide()
     m_hideAni->start();
 }
 
-void PassWdEdit::setAlert(bool alert)
+void PassWdEdit::setAlert(bool alert, const QString &text)
 {
     if (m_alert == alert)
         return;
@@ -156,7 +153,7 @@ void PassWdEdit::setAlert(bool alert)
     if (m_alert) {
         // block text changed signal
         m_lineEdit->blockSignals(true);
-        m_lineEdit->setText(tr("Wrong Password"));
+        m_lineEdit->setText(text);
         m_lineEdit->blockSignals(false);
         m_lineEdit->setEchoMode(QLineEdit::Normal);
     } else {
@@ -182,4 +179,11 @@ void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
 
 QString PassWdEdit::getText() {
     return m_lineEdit->text();
+}
+
+void PassWdEdit::setEnterBtnStyle(const QString &normalPic, const QString &hoverPic, const QString &pressedPic)
+{
+    m_iconButton->setNormalPic(normalPic);
+    m_iconButton->setHoverPic(hoverPic);
+    m_iconButton->setPressPic(pressedPic);
 }

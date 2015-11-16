@@ -8,6 +8,7 @@
 #include "controlwidget.h"
 #include "passwdedit.h"
 #include "kblayoutwidget.h"
+
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbusinputdevices.h"
 #include "dbus/dbuskeyboard.h"
@@ -25,6 +26,9 @@ class LockFrame : public QFrame
     Q_OBJECT
 
 public:
+    enum Actions {Unlock, Restart, Suspend, Shutdown};
+
+public:
     LockFrame();
 
     void initUI();
@@ -34,10 +38,12 @@ public:
 
 public slots:
     void setCurrentKeyboardLayout(QString keyboard_value);
-    void showShutdownFrame();
-    void requireShutdownAction(const ShutdownWidget::Actions action);
+    void passwordMode();
+    void shutdownMode();
+
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QMouseEvent *);
 
 private:
     void loadMPRIS();
@@ -45,6 +51,8 @@ private:
     void unlock();
 
 private:
+    Actions m_action = Unlock;
+
     ShutdownWidget* m_requireShutdownWidget;
     UserWidget *m_userWidget;
     ControlWidget *m_controlWidget;

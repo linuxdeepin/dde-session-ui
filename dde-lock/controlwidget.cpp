@@ -90,10 +90,8 @@ ControlWidget::ControlWidget(QWidget *parent)
 
     setLayout(mainLayout);
     setFixedSize(500, 150);
-    //    setStyleSheet("background-color:red;");
 
-//    connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::shutdown);
-    connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::controlShutdown);
+    connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::shutdownClicked);
     connect(m_userswitch, &DImageButton::clicked, this, &ControlWidget::switchToGreeter);
 }
 
@@ -191,21 +189,6 @@ void ControlWidget::changeVolumeBtnPic()
         m_volume->setPressPic(":/icons/mute_press.png");
     }
 }
-
-//void ControlWidget::shutdown()
-//{
-////    QStringList args;
-////    args << "-H" << "lock";
-////    args << "-H" << "switchuser";
-////    args << "-H" << "logout";
-
-//    QProcess *process = new QProcess;
-////    process->setArguments(args);
-
-//    connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
-
-//    process->start("dde-shutdown -H lock -H switchuser -H logout");
-//}
 
 void ControlWidget::switchToGreeter() {
     QProcess *process = new QProcess;

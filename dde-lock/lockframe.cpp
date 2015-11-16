@@ -28,9 +28,16 @@ LockFrame::LockFrame()
 void LockFrame::initConnect() {
 
     connect(m_passwordEdit, &PassWdEdit::keybdLayoutButtonClicked, m_keybdLayoutWidget, &KbLayoutWidget::show);
-    connect(m_controlWidget, &ControlWidget::controlShutdown, this, &LockFrame::showShutdownFrame);
-    connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LockFrame::requireShutdownAction);
+    connect(m_controlWidget, &ControlWidget::shutdownClicked, this, &LockFrame::shutdownMode);
+    connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, [this] (const ShutdownWidget::Actions action) {
+        switch (action) {
+        case ShutdownWidget::RequireRestart:    m_action = Restart;         break;
+        case ShutdownWidget::RequireShutdown:   m_action = Shutdown;        break;
+        case ShutdownWidget::RequireSuspend:    m_action = Suspend;         break;
+        }
 
+        passwordMode();
+    });
 }
 void LockFrame::initUI() {
     // background image
@@ -38,12 +45,11 @@ void LockFrame::initUI() {
     background->move(0, 0);
     TimeWidget *timeWidget = new TimeWidget(this);
     timeWidget->setFixedSize(400, 300);
-//    timeWidget->setStyleSheet("background-color:red;");
     timeWidget->move(48, qApp->desktop()->height() - timeWidget->height() - 36); // left 48px and bottom 36px
     m_userWidget = new UserWidget(this);
-//    m_userWidget->hide();
     m_userWidget->move(0, (qApp->desktop()->height() - m_userWidget->height()) / 2 - 95);
-    m_passwordEdit = new PassWdEdit("LockIcon", this);
+    m_passwordEdit = new PassWdEdit(this);
+    m_passwordEdit->setEnterBtnStyle(":/img/unlock_normal.png", ":/img/unlock_normal.png", ":/img/unlock_press.png");
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
     m_passwordEdit->setFocus();
 
@@ -78,7 +84,6 @@ void LockFrame::initUI() {
     activateWindow();
     updateStyle(":/theme/theme/lock.qss", this);
 
-
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockFrame::unlock);
 }
 
@@ -91,6 +96,12 @@ void LockFrame::keyPressEvent(QKeyEvent *e)
 #endif
     default:;
     }
+}
+
+void LockFrame::mouseReleaseEvent(QMouseEvent *)
+{
+    m_action = Unlock;
+    passwordMode();
 }
 
 void LockFrame::loadMPRIS()
@@ -136,15 +147,23 @@ void LockFrame::unlock()
 
     qDebug() << result.error() << result.value();
 
-    if (result.error().type() == QDBusError::NoError && result.value()) {
-        qDebug() << "unLocked quit!";
-        qApp->quit();
+    if (result.error().type() != QDBusError::NoError || !result.value())
+    {
+        // Auth fail
+        m_userWidget->hideLoadingAni();
+        m_passwordEdit->setAlert(true, tr("Wrong Password"));
+
+        return;
     }
 
-
-    // Auth fail
-    m_userWidget->hideLoadingAni();
-    m_passwordEdit->setAlert(true);
+    // Auth success
+    switch (m_action)
+    {
+    case Unlock:        qApp->quit();                               break;
+    case Restart:       m_sessionManagerIter->RequestReboot();      break;
+    case Shutdown:      m_sessionManagerIter->RequestShutdown();    break;
+    case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
+    }
 }
 void LockFrame::initBackend() {
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
@@ -195,17 +214,33 @@ void LockFrame::setCurrentKeyboardLayout(QString keyboard_value) {
 
 }
 
-void LockFrame::showShutdownFrame() {
+void LockFrame::passwordMode()
+{
+    m_userWidget->show();
+    m_passwordEdit->show();
+    m_passwordEdit->setFocus();
+    m_requireShutdownWidget->hide();
+
+    if (m_action == Suspend)
+    {
+        m_sessionManagerIter->RequestSuspend().waitForFinished();
+        return;
+    }
+
+    if (m_action == Restart) {
+        m_passwordEdit->setAlert(true, tr("Enter your password to restart"));
+        m_passwordEdit->setEnterBtnStyle(":/img/restartIcon_normal.png", ":/img/restartIcon_normal.png", ":/img/restartIcon_press.png");
+    } else if (m_action == Shutdown) {
+        m_passwordEdit->setAlert(true, tr("Enter your passwrod to shutdown"));
+        m_passwordEdit->setEnterBtnStyle(":/img/shutdownIcon_normal.png", ":/img/shutdownIcon_normal.png", ":/img/shutdownIcon_press.png");
+    } else if (m_action == Unlock) {
+        m_passwordEdit->setEnterBtnStyle(":/img/unlock_normal.png", ":/img/unlock_normal.png", ":/img/unlock_press.png");
+    }
+}
+
+void LockFrame::shutdownMode()
+{
     m_userWidget->hide();
     m_passwordEdit->hide();
     m_requireShutdownWidget->show();
-}
-
-void LockFrame::requireShutdownAction(const ShutdownWidget::Actions action) {
-    switch (action) {
-        case ShutdownWidget::RequireShutdown: { m_sessionManagerIter->RequestShutdown(); break;}
-        case ShutdownWidget::RequireRestart: { m_sessionManagerIter->RequestReboot(); break;}
-        case ShutdownWidget::RequireSuspend: { m_sessionManagerIter->RequestSuspend(); break;}
-        default:;
-    }
 }

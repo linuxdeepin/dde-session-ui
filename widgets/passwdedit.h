@@ -10,9 +10,12 @@
 #include <QGraphicsOpacityEffect>
 
 #include <libdui/dbuttonlist.h>
+#include <libdui/dimagebutton.h>
 
 #include "util_updateui.h"
 #include "util_settings.h"
+
+DUI_USE_NAMESPACE
 
 class PassWdEdit : public QFrame
 {
@@ -20,7 +23,7 @@ class PassWdEdit : public QFrame
     Q_PROPERTY(bool alert READ alert NOTIFY alertChanged DESIGNABLE true)
 
 public:
-    PassWdEdit(QString iconId, QWidget* parent=0);
+    PassWdEdit(QWidget* parent=0);
     ~PassWdEdit();
 
     QMap<QString, QString> keybdLayoutMap;
@@ -40,6 +43,7 @@ signals:
 
 public slots:
     QString getText();
+    void setEnterBtnStyle(const QString &normalPic, const QString &hoverPic, const QString &pressedPic);
 
     void updateKeybordLayoutStatus(const QString &username);
     void updateKeybdLayoutUI(QStringList keybdList);
@@ -47,9 +51,10 @@ public slots:
     void show();
     void hide();
 
-    void setAlert(bool alert);
+    void setAlert(bool alert, const QString &text = QString());
     inline bool alert() const {return m_alert;}
     void lineEditGrabKeyboard();
+
 protected:
     void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;
@@ -63,9 +68,8 @@ private:
     bool m_alert = false;
 
     QLineEdit* m_lineEdit;
-    QString m_iconId;
     QPushButton* m_keyboardButton;
-    QPushButton* m_iconButton;
+    DImageButton* m_iconButton;
     QHBoxLayout* m_Layout;
 
     QGraphicsOpacityEffect *m_opacityEffect;

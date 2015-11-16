@@ -55,7 +55,8 @@ void LoginManager::initUI()
     m_switchFrame = new SwitchFrame(this);
     m_userWidget = new UserWidget(this);
     m_userWidget->setObjectName("UserWidget");
-    m_passWdEdit = new PassWdEdit("LoginIcon", this);
+    m_passWdEdit = new PassWdEdit(this);
+    m_passWdEdit->setEnterBtnStyle(":/img/login_normal.png", ":/img/login_normal.png", ":/img/login_press.png");
 
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
     m_passWdEdit->setFocus();

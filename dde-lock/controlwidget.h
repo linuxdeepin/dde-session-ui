@@ -20,16 +20,19 @@ public:
     void bindDBusService(DBusMediaPlayer2 *dbusInter);
     void hideMusicControlWidget();
     void showMusicControlWidget();
+
 signals:
-    void controlShutdown();
+    void shutdownClicked();
+
 private slots:
     void volumeWheelControl(const QWheelEvent *e);
     void changePauseBtnPic();
     void changeVolumeBtnPic();
-//    void shutdown();
     void switchToGreeter();
+
 protected:
     bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;
+
 private:
     QLabel *m_songName;
     QLabel *m_volumeNums;

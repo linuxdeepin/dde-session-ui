@@ -18,8 +18,10 @@ public:
         RequireRestart,
         RequireSuspend,
     };
+
 signals:
     void shutDownWidgetAction(const Actions sd);
+
 private:
     void initUI();
     void initConnect();
