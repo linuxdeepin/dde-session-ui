@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/audio-volume-high-symbolic-osd.svg</file>
+        <file>images/audio-volume-low-symbolic-osd.svg</file>
+        <file>images/audio-volume-medium-symbolic-osd.svg</file>
+        <file>images/audio-volume-muted-symbolic-osd.svg</file>
+        <file>images/capslock-disabled-symbolic.svg</file>
+        <file>images/capslock-enabled-symbolic.svg</file>
+        <file>images/display-brightness-symbolic.svg</file>
+        <file>images/input-touchpad-symbolic.svg</file>
+        <file>images/numlock-disabled-symbolic.svg</file>
+        <file>images/numlock-enabled-symbolic.svg</file>
+        <file>images/project_screen-duplicate-symbolic.svg</file>
+        <file>images/project_screen-duplicate-symbolic-focus.svg</file>
+        <file>images/project_screen-extend-symbolic.svg</file>
+        <file>images/project_screen-extend-symbolic-focus.svg</file>
+        <file>images/project_screen-onlyone-symbolic.svg</file>
+        <file>images/project_screen-onlyone-symbolic-focus.svg</file>
+        <file>images/touchpad-disabled-symbolic.svg</file>
+        <file>images/touchpad-toggled-symbolic.svg</file>
+    </qresource>
+</RCC>
