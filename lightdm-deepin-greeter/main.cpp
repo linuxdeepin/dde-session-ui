@@ -1,6 +1,6 @@
 #include <QApplication>
 #include <QtCore/QTranslator>
-#include "app/loginmanager.h"
+#include "app/loginframe.h"
 
 #include "logmanager.h"
 
@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
-    LoginManager  w;
+    LoginFrame  w;
     w.show();
     w.grabKeyboard();
     return a.exec();

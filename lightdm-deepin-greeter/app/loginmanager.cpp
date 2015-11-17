@@ -44,11 +44,7 @@ void LoginManager::initUI()
 {
     setFixedSize(qApp->desktop()->size());
     setObjectName("LoginManagerTool");
-    setFocusPolicy(Qt::StrongFocus);
-    setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
-    setFocusPolicy(Qt::NoFocus);
 
-    m_backgroundLabel = new BackgroundLabel(true, this);
     m_sessionWidget = new SessionWidget(this);
     m_sessionWidget->hide();
     m_logoWidget = new LogoWidget(this);
@@ -210,11 +206,8 @@ void LoginManager::leaveEvent(QEvent *)
         if (screen->geometry().contains(mousePoint))
         {
             const QRect &geometry = screen->geometry();
-
             setFixedSize(geometry.size());
-            move(QPoint(geometry.left(), geometry.top()));
-
-            updateWidgetsPosition();
+            emit screenChanged(geometry);
             return;
         }
     }

@@ -4,7 +4,7 @@
 #include <QCommandLineParser>
 #include <QDebug>
 
-#include "app/shutdownmanager.h"
+#include "app/shutdownframe.h"
 #include "dbus/dbuscontrolcenter.h"
 
 int main(int argc, char* argv[])
@@ -32,12 +32,10 @@ int main(int argc, char* argv[])
     qDebug() << parser.values(hide);
     qDebug() << parser.values(disable);
 
-    ShutdownManager w;
-    w.hideBtns(parser.values(hide));
-    w.disableBtns(parser.values(disable));
+    ShutdownFrame w;
+//    w.hideBtns(parser.values(hide));
+//    w.disableBtns(parser.values(disable));
     w.show();
-
-    QTimer::singleShot(1000, &w, SLOT(shutDownFramegrabKeyboard()));
 
     return app.exec();
 }

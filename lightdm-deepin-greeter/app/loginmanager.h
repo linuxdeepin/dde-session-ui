@@ -10,7 +10,6 @@
 #include <QLightDM/Greeter>
 #include <QLightDM/SessionsModel>
 
-#include "backgroundlabel.h"
 #include "util_updateui.h"
 #include "userwidget.h"
 #include "passwdedit.h"
@@ -24,7 +23,6 @@
 #include "dbus/dbusvariant.h"
 #include "dbus/dbuslogin1manager.h"
 
-class BackgroundLabel;
 class LoginManager: public QFrame {
     Q_OBJECT
 public:
@@ -38,6 +36,9 @@ protected:
 signals:
     void leftKeyPressed();
     void rightKeyPressed();
+    void screenChanged(QRect geom);
+public slots:
+    void updateWidgetsPosition();
 private slots:
     void initUI();
     void initConnect();
@@ -46,7 +47,7 @@ private slots:
     void authenticationComplete();
     void chooseUserMode();
     void chooseSessionMode();
-    void updateWidgetsPosition();
+
     void showShutdownFrame();
     void keyboardLayoutUI();
     void keybdLayoutWidget();
@@ -54,7 +55,6 @@ private slots:
 
     void setShutdownAction(const ShutdownWidget::Actions action);
 private:
-    BackgroundLabel* m_backgroundLabel;
     LogoWidget* m_logoWidget;
     SwitchFrame* m_switchFrame;
     UserWidget* m_userWidget;

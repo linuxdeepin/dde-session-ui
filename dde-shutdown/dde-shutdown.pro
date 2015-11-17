@@ -18,18 +18,21 @@ CONFIG += c++11 link_pkgconfig
 include(../background/background.pri)
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
+include(../boxframe/boxframe.pri)
 
 SOURCES += main.cpp \
     view/contentwidget.cpp \
     view/mainframe.cpp \
     app/shutdownmanager.cpp \
-    ../widgets/dbus/dbuscontrolcenter.cpp
+    ../widgets/dbus/dbuscontrolcenter.cpp \
+    app/shutdownframe.cpp
 
 HEADERS  += \
     view/contentwidget.h \
     view/mainframe.h \
     app/shutdownmanager.h \
-    ../widgets/dbus/dbuscontrolcenter.h
+    ../widgets/dbus/dbuscontrolcenter.h \
+    app/shutdownframe.h
 
 
 RESOURCES += \

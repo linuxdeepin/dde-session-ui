@@ -24,13 +24,9 @@ void ShutdownManager::shutDownFramegrabKeyboard() {
     this->grabKeyboard();
 }
 void ShutdownManager::initUI() {
-
     setObjectName("ShutdownManager");
-    setFocusPolicy(Qt::StrongFocus);
-    setWindowFlags(Qt::FramelessWindowHint | Qt::SplashScreen);
     resize(qApp->desktop()->screenGeometry().size());
 
-    m_backgroundLabel = new BackgroundLabel(true, this);
     m_content = new MainFrame(this);
 
     m_Layout = new QHBoxLayout;
@@ -59,6 +55,9 @@ void ShutdownManager::initUI() {
     setLayout(m_Layout);
     showFullScreen();
     activateWindow();
+
+    QTimer::singleShot(1000, this, SLOT(shutDownFramegrabKeyboard()));
+
 }
 
 void ShutdownManager::initData() {

@@ -1,72 +1,23 @@
-#ifndef LOCKFRAME_H
-#define LOCKFRAME_H
+#ifndef LOCKFRAME
+#define LOCKFRAME
 
-#include <QFrame>
-
-#include "shutdownwidget.h"
-#include "userwidget.h"
-#include "controlwidget.h"
-#include "passwdedit.h"
-#include "kblayoutwidget.h"
-
-#include "dbus/dbuslockservice.h"
-#include "dbus/dbusinputdevices.h"
-#include "dbus/dbuskeyboard.h"
-#include "dbus/dbusmediaplayer2.h"
-#include "dbus/dbussessionmanager.h"
-
-#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
-#define LOCKSERVICE_NAME "com.deepin.dde.lock"
-
-#define LOCK_KEYBOARDLAYOUT_PATH "/com/deepin/daemon/InputDevice/Keyboard"
-#define LOCK_KEYBOARDLAYOUT_NAME "com.deepin.daemon.InputDevice"
-
-class LockFrame : public QFrame
+#include <QKeyEvent>
+#include "backgroundlabel.h"
+#include "lockmanager.h"
+#include "boxframe.h"
+class LockFrame: public BoxFrame
 {
     Q_OBJECT
-
 public:
-    enum Actions {Unlock, Restart, Suspend, Shutdown};
-
-public:
-    LockFrame();
-
-    void initUI();
-    void initConnect();
-    void initData();
-    void updateUI();
-
+    LockFrame(QWidget* parent=0);
+    ~LockFrame();
 public slots:
-    void setCurrentKeyboardLayout(QString keyboard_value);
-    void passwordMode();
-    void shutdownMode();
-
+    void updateScreenPosition(QRect rect);
 protected:
-    void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QMouseEvent *);
-
+    void keyPressEvent(QKeyEvent *e);
 private:
-    void loadMPRIS();
-    void initBackend();
-    void unlock();
-
-private:
-    Actions m_action = Unlock;
-
-    ShutdownWidget* m_requireShutdownWidget;
-    UserWidget *m_userWidget;
-    ControlWidget *m_controlWidget;
-    PassWdEdit *m_passwordEdit;
-    DBusLockService *m_lockInter;
-
-    QMap<QString, QString> m_keybdInfoMap;
-    DBusKeyboard* m_keyboardLayoutInterface;
-    QStringList m_keybdLayoutNameList;
-    QStringList keybdLayoutDescList;
-    KbLayoutWidget* m_keybdLayoutWidget;
-    DBusSessionManagerInterface* m_sessionManagerIter;
-
-    DBusMediaPlayer2 *m_mprisInter = nullptr;
+    LockManager* m_lockManager;
 };
 
-#endif // LOCKFRAME_H
+#endif // LOCKFRAME
+

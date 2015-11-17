@@ -12,26 +12,29 @@ include(../background/background.pri)
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 include(../cutelogger/cutelogger.pri)
+include(../boxframe/boxframe.pri)
 
 SOURCES += main.cpp \
-    lockframe.cpp \
     timewidget.cpp \
     controlwidget.cpp \
     dbus/dbuslockservice.cpp \
     dbus/dbuskeyboard.cpp \
     dbus/dbusinputdevices.cpp \
     dbus/dbusmediaplayer2.cpp \
-    ../widgets/dbus/dbuscontrolcenter.cpp
+    ../widgets/dbus/dbuscontrolcenter.cpp \
+    lockmanager.cpp \
+    lockframe.cpp
 
 HEADERS  += \
-    lockframe.h \
     timewidget.h \
     controlwidget.h \
     dbus/dbuslockservice.h \
     dbus/dbusinputdevices.h \
     dbus/dbuskeyboard.h \
     dbus/dbusmediaplayer2.h \
-    ../widgets/dbus/dbuscontrolcenter.h
+    ../widgets/dbus/dbuscontrolcenter.h \
+    lockmanager.h \
+    lockframe.h
 
 target.path = $${PREFIX}/bin/
 INSTALLS += target

@@ -2,24 +2,21 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
-    <name>LockFrame</name>
+    <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockframe.cpp" line="154"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="179"/>
         <source>Wrong Password</source>
-        <translatorcomment>密码错误</translatorcomment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockframe.cpp" line="231"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="256"/>
         <source>Enter your password to restart</source>
-        <translatorcomment>请输入密码以完成重启</translatorcomment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockframe.cpp" line="234"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="259"/>
         <source>Enter your passwrod to shutdown</source>
-        <translatorcomment>请输入密码以完成关机</translatorcomment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -47,6 +44,19 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="23"/>
         <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Osd</name>
+    <message>
+        <location filename="../dde-osd/osd.cpp" line="371"/>
+        <source>Duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/osd.cpp" line="387"/>
+        <source>Expanded</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

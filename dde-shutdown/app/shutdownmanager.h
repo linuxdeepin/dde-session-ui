@@ -9,7 +9,6 @@
 #include "backgroundlabel.h"
 #include "util_signalmanager.h"
 
-class BackgroundLabel;
 class ShutdownManager : public QFrame
 {
     Q_OBJECT
@@ -42,7 +41,6 @@ private:
     MainFrame* m_content;
 
     DBusSessionManagerInterface* m_sessionInterface;
-    BackgroundLabel* m_backgroundLabel;
 };
 
 #endif // SessionManagerTool_H

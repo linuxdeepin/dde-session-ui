@@ -20,16 +20,19 @@ include(../background/background.pri)
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 include(../cutelogger/cutelogger.pri)
+include(../boxframe/boxframe.pri)
 
 HEADERS  += \
     view/logowidget.h \
     view/switchframe.h \
     app/loginmanager.h \
+    app/loginframe.h
 
 SOURCES += main.cpp \
     view/logowidget.cpp \
     view/switchframe.cpp \
     app/loginmanager.cpp \
+    app/loginframe.cpp
 
 target.path = $${PREFIX}/bin/
 desktop_file.files = lightdm-deepin-greeter.desktop

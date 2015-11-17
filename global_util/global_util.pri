@@ -11,7 +11,8 @@ HEADERS += \
     $$PWD/dbus/dbusdisplaymanager.h \
     $$PWD/dbus/dbuslogin1manager.h \
     $$PWD/dbus/dbusvariant.h \
-    $$PWD/dbus/dbussessionmanager.h
+    $$PWD/dbus/dbussessionmanager.h \
+    $$PWD/dbus/displayinterface.h
 
 
 SOURCES += \
@@ -22,7 +23,8 @@ SOURCES += \
     $$PWD/dbus/dbusdisplaymanager.cpp \
     $$PWD/dbus/dbuslogin1manager.cpp \
     $$PWD/dbus/dbusvariant.cpp \
-    $$PWD/dbus/dbussessionmanager.cpp
+    $$PWD/dbus/dbussessionmanager.cpp \
+    $$PWD/dbus/displayinterface.cpp
 
 
 RESOURCES += \
