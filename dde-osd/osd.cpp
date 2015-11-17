@@ -320,9 +320,11 @@ void Osd::highlightNextLayout()
         m_CurrentIndexOfKeyBoard = 0;
 
         // make sure the listwidgetitem is positioned as initial after one-cycle selection
-        for (int i = 0, length = m_KeyboardList.length(); i < length; i++) {
-            QWidget *w = m_ListWidget->itemWidget(m_ListWidget->item(i));
-            w->move(0, KEYBOARD_ITEM_HEIGHT * (i - 5));
+        if(m_KeyboardList.length()>5){
+            for (int i = 0, length = m_KeyboardList.length(); i < length; i++) {
+                QWidget *w = m_ListWidget->itemWidget(m_ListWidget->item(i));
+                w->move(0, KEYBOARD_ITEM_HEIGHT * (i + 5 - length));
+            }
         }
     } else {
         m_CurrentIndexOfKeyBoard++;
