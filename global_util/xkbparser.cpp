@@ -1,3 +1,6 @@
+#include <locale.h>
+#include <libintl.h>
+
 #include <QDomDocument>
 #include <QDomElement>
 
@@ -13,6 +16,8 @@ XkbParser::XkbParser(QObject *parent)
 
 QStringList XkbParser::lookUpKeyboardList(QStringList keyboardList_key) {
     QStringList result;
+    setlocale(LC_ALL, "");
+    const char xkbDomain[] = "xkeyboard-config";
 
     for (int k = 0; k < keyboardList_key.length(); k++) {
         QString tmpKey, head_key, tail_key;
@@ -26,12 +31,12 @@ QStringList XkbParser::lookUpKeyboardList(QStringList keyboardList_key) {
             for (int i = 0; i < KeyboardLayoutList.length(); i++) {
                 if (KeyboardLayoutList[i].name == head_key) {
                     if (tail_key.isEmpty()) {
-                        result << KeyboardLayoutList[i].description;
+                        result << dgettext(xkbDomain, KeyboardLayoutList[i].description.toLatin1());
                         break;
                     } else {
                         for (int j = 0; j < KeyboardLayoutList[i].variantItemList.length(); j++) {
                             if (KeyboardLayoutList[i].variantItemList[j].name == tail_key) {
-                                result << KeyboardLayoutList[i].variantItemList[j].description;
+                                result << dgettext(xkbDomain, KeyboardLayoutList[i].variantItemList[j].description.toLatin1());
 
 
                             }
