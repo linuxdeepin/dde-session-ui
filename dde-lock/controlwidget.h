@@ -20,6 +20,7 @@ public:
     void bindDBusService(DBusMediaPlayer2 *dbusInter);
     void hideMusicControlWidget();
     void showMusicControlWidget();
+    inline void setUserSwitchEnable(bool enable) {m_userswitch->setVisible(enable);}
 
 signals:
     void shutdownClicked();

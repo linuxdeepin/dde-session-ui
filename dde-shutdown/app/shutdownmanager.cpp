@@ -3,6 +3,7 @@
 #include <QtCore/QFile>
 
 #include "shutdownmanager.h"
+#include "userwidget.h"
 
 ShutdownManager::ShutdownManager(QWidget* parent)
     : QFrame(parent)
@@ -38,7 +39,12 @@ void ShutdownManager::initUI() {
     m_Layout->addStretch();
     m_Layout->addWidget(m_content);
     m_Layout->addStretch();
-    setLayout(m_Layout);
+
+    // hide user switch btn when only 1 user avaliable
+    UserWidget *users = new UserWidget;
+    if (users->count() < 2)
+        m_content->hideBtns(QStringList() << "SwitchUser");
+    users->deleteLater();
 
     QFile qssFile(":/skin/main.qss");
     QString qss;
@@ -50,9 +56,9 @@ void ShutdownManager::initUI() {
         qssFile.close();
     }
 
+    setLayout(m_Layout);
     showFullScreen();
     activateWindow();
-
 }
 
 void ShutdownManager::initData() {
@@ -72,11 +78,11 @@ void ShutdownManager::powerAction(const ShutDownFrame::Actions action)
 {
     switch (action)
     {
-    case ShutDownFrame::Shutdown:       m_sessionInterface->RequestShutdown();        break;
-    case ShutDownFrame::Restart:        m_sessionInterface->RequestReboot();          break;
+    case ShutDownFrame::Shutdown:       m_sessionInterface->RequestShutdown();      break;
+    case ShutDownFrame::Restart:        m_sessionInterface->RequestReboot();        break;
     case ShutDownFrame::Suspend:        m_sessionInterface->RequestSuspend();       break;
     case ShutDownFrame::Lock:           m_sessionInterface->RequestLock();          break;
-    case ShutDownFrame::Logout:         m_sessionInterface->RequestLogout();          break;
+    case ShutDownFrame::Logout:         m_sessionInterface->RequestLogout();        break;
     case ShutDownFrame::SwitchUser:     switchToGreeter();                          break;
     default:                            qWarning() << "action: " << action << " not handled";
     }

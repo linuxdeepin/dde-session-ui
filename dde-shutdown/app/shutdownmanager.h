@@ -16,18 +16,22 @@ class ShutdownManager : public QFrame
 public:
     ShutdownManager(QWidget* parent = 0);
     ~ShutdownManager();
+
 signals:
     void DirectKeyLeft();
     void DirectKeyRight();
     void pressEnter();
+
 public slots:
-    void keyPressEvent(QKeyEvent *e);
-    void mouseReleaseEvent(QMouseEvent *e);
     void powerAction(const ShutDownFrame::Actions action);
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
-
     void shutDownFramegrabKeyboard();
+
+protected:
+    void keyPressEvent(QKeyEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
+
 private:
     void initUI();
     void initConnect();

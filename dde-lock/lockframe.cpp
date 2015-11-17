@@ -84,6 +84,8 @@ void LockFrame::initUI() {
     activateWindow();
     updateStyle(":/theme/theme/lock.qss", this);
 
+    m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
+
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockFrame::unlock);
 }
 

@@ -25,6 +25,7 @@ public:
     ~UserWidget();
 
     const QString currentUser() const;
+    inline int count() const {return m_userBtns->count();}
 
 signals:
     void userChanged(const QString &username);

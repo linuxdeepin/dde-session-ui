@@ -84,6 +84,8 @@ void LoginManager::initUI()
     keyboardLayoutUI();
     leaveEvent(nullptr);
 
+    m_switchFrame->setUserSwitchEnable(m_userWidget->count() > 1);
+
     updateStyle(":/skin/login.qss", this);
 }
 
