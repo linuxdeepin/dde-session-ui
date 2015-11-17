@@ -5,7 +5,7 @@ SUBDIRS += dde-shutdown \
            dde-lockservice \
            dde-switchtogreeter \
            dde-lowpower \
-           #dde-osd \
+           dde-osd \
            dde-zone
 
 

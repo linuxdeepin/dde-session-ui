@@ -27,3 +27,6 @@ HEADERS  += osd.h \
 
 RESOURCES += \
     image.qrc
+
+target.path = /usr/lib/deepin-daemon/
+INSTALLS   += target
