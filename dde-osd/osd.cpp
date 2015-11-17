@@ -74,11 +74,6 @@ void Osd::initGlobalVars()
     // initial m_MonitersWrapper
     m_MonitersWrapper = new QWidget(this);
 
-    // find out the primary screen.
-    QDesktopWidget *desktop = QApplication::desktop();
-    m_PrimaryScreen = desktop->screenGeometry(desktop->primaryScreen());
-
-
     // init SwitchMonitors's displaymode
     if (m_DisplayInterface->displayMode() == 0) {
         displaymode = Custom;
@@ -117,7 +112,18 @@ int Osd::latterAction()
 
 void Osd::moveToCenter()
 {
-    this->move((m_PrimaryScreen.width() - this->width()) / 2, (m_PrimaryScreen.height() - this->height()) / 2);
+    // find out the screen that contains mouse.
+    QDesktopWidget *desktop = QApplication::desktop();
+    int primaryScreenKey = desktop->primaryScreen();
+    for (int i = 0; i < desktop->screenCount(); i++) {
+        QRect screen = desktop->screenGeometry(primaryScreenKey + i);
+        if (screen.contains(QCursor::pos())) {
+            m_MouseInScreen = screen;
+            break;
+        }
+    }
+    // move to corresponding screen
+    this->move(m_MouseInScreen.x() + (m_MouseInScreen.width() - this->width()) / 2, m_MouseInScreen.y() + (m_MouseInScreen.height() - this->height()) / 2);
 }
 
 void Osd::setTimer()
@@ -157,9 +163,17 @@ void Osd::loadCorrespondingImage(QString whichImage)
         actionMode = NormalBrightness;
         m_Pixmap.load(":/images/display-brightness-symbolic.svg");
     } else if (whichImage == "AudioMute") {
-        m_Pixmap.load(":/images/audio-volume-muted-symbolic-osd.svg");
+        if (m_AudioMuteNotRun) {
+            m_Pixmap.load(":/images/audio-volume-muted-symbolic-osd.svg");
+            m_AudioMuteNotRun = false;
+        } else {
+            loadCorrespondingImage("Audio");
+            m_AudioMuteNotRun = true;
+        }
     } else if (whichImage == "Audio") {
         actionMode = NormalAudio;
+        // m_AudioMuteNotRun is used to record whether service of AudioMute has called or not.
+        m_AudioMuteNotRun = true;
         double volume = m_VolumeInterface->volume();
         if (volume > 0.7 && volume <= 1.0) {
             m_Pixmap.load(":/images/audio-volume-high-symbolic-osd.svg");
@@ -320,7 +334,7 @@ void Osd::highlightNextLayout()
         m_CurrentIndexOfKeyBoard = 0;
 
         // make sure the listwidgetitem is positioned as initial after one-cycle selection
-        if(m_KeyboardList.length()>5){
+        if (m_KeyboardList.length() > 5) {
             for (int i = 0, length = m_KeyboardList.length(); i < length; i++) {
                 QWidget *w = m_ListWidget->itemWidget(m_ListWidget->item(i));
                 w->move(0, KEYBOARD_ITEM_HEIGHT * (i + 5 - length));

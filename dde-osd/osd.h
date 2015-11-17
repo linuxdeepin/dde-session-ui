@@ -57,7 +57,7 @@ private:
     VolumeDbus *m_VolumeInterface;
     DisplayDbus *m_DisplayInterface;
     LayoutDbus *m_LayoutInterface;
-    QRect m_PrimaryScreen;
+    QRect m_MouseInScreen;
     QLabel *m_ImageLabel;
     QPixmap m_Pixmap;
     QTimer *m_Timer;
@@ -77,6 +77,7 @@ private:
     int m_MaxTextWidth;
     int m_KeyboradLayoutHeight;
     int contentY = 0;
+    bool m_AudioMuteNotRun;
 
     QStringList m_ScreenList;
     QStringList m_KeyboardList;
