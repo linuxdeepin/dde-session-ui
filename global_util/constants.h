@@ -6,7 +6,7 @@
 namespace DDESESSIONCC
 {
 
-const QString CONFIG_FILE("/var/lib/lightdm/qt-lightdm-greeter/state");
+const QString CONFIG_FILE("/var/lib/lightdm/lightdm-deepin-greeter/state");
 const int PASSWDLINEEIDT_WIDTH = 250;
 const int LAYOUTBUTTON_HEIGHT =  36;
 
