@@ -15,6 +15,7 @@
 #include "dbus/dbuskeyboard.h"
 #include "dbus/dbusmediaplayer2.h"
 #include "dbus/dbussessionmanager.h"
+#include "dbus/dbushotzone.h"
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/lock"
 #define LOCKSERVICE_NAME "com.deepin.dde.lock"
@@ -70,6 +71,7 @@ private:
     DBusSessionManagerInterface* m_sessionManagerIter;
 
     DBusMediaPlayer2 *m_mprisInter = nullptr;
+    DBusHotzone* m_hotZoneInterface;
 };
 
 #endif // LOCKMANAGER_H

@@ -19,6 +19,9 @@ void ShutdownManager::initConnect() {
     connect(this, SIGNAL(pressEnter()), m_content, SIGNAL(pressEnterAction()));
 
     connect(m_content->m_shutdownFrame, &ShutDownFrame::ShutDownFrameActions, this, &ShutdownManager::powerAction);
+    connect(qApp, &QApplication::aboutToQuit, [this]{
+        m_hotZoneInterface->EnableZoneDetected(true);
+    });
 }
 void ShutdownManager::shutDownFramegrabKeyboard() {
     this->grabKeyboard();
@@ -63,6 +66,9 @@ void ShutdownManager::initUI() {
 void ShutdownManager::initData() {
     m_sessionInterface = new DBusSessionManagerInterface("com.deepin.SessionManager", "/com/deepin/SessionManager",
                                                          QDBusConnection::sessionBus(), this);
+    m_hotZoneInterface = new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone",
+                                                        QDBusConnection::sessionBus(), this);
+    m_hotZoneInterface->EnableZoneDetected(false);
 }
 
 void ShutdownManager::switchToGreeter()
@@ -103,7 +109,7 @@ void ShutdownManager::keyPressEvent(QKeyEvent* e)
 {
     switch (e->key())
     {
-    case Qt::Key_Escape:        qApp->quit();                   break; // must break;
+    case Qt::Key_Escape:        qApp->quit();  m_hotZoneInterface->EnableZoneDetected(true);  break; // must break;
     case Qt::Key_Return:        /* same as enter */
     case Qt::Key_Enter:         emit pressEnter();              break;
     case Qt::Key_Left:          emit DirectKeyLeft();           break;

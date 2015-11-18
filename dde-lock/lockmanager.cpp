@@ -36,6 +36,9 @@ void LockManager::initConnect() {
 
         passwordMode();
     });
+    connect(qApp, &QApplication::aboutToQuit, [this]{
+        m_hotZoneInterface->EnableZoneDetected(true);
+    });
 }
 void LockManager::initUI() {
     setFixedSize(qApp->desktop()->size());
@@ -117,7 +120,7 @@ void LockManager::keyPressEvent(QKeyEvent *e)
     switch (e->key())
     {
 #ifdef QT_DEBUG
-    case Qt::Key_Escape:        qApp->quit();       break;
+    case Qt::Key_Escape:   qApp->quit();   break;
 #endif
     default:;
     }
@@ -184,13 +187,17 @@ void LockManager::unlock()
     // Auth success
     switch (m_action)
     {
-    case Unlock:        qApp->quit();                               break;
+    case Unlock:        qApp->quit();                              break;
     case Restart:       m_sessionManagerIter->RequestReboot();      break;
     case Shutdown:      m_sessionManagerIter->RequestShutdown();    break;
     case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
     }
 }
 void LockManager::initBackend() {
+    m_hotZoneInterface = new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone",
+                                                        QDBusConnection::sessionBus(), this);
+    m_hotZoneInterface->EnableZoneDetected(false);
+
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
 
     DBusInputDevices * dbusInputDevices = new DBusInputDevices(this);

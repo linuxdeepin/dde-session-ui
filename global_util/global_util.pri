@@ -12,7 +12,8 @@ HEADERS += \
     $$PWD/dbus/dbuslogin1manager.h \
     $$PWD/dbus/dbusvariant.h \
     $$PWD/dbus/dbussessionmanager.h \
-    $$PWD/dbus/displayinterface.h
+    $$PWD/dbus/displayinterface.h \
+    $$PWD/dbus/dbushotzone.h
 
 
 SOURCES += \
@@ -24,9 +25,13 @@ SOURCES += \
     $$PWD/dbus/dbuslogin1manager.cpp \
     $$PWD/dbus/dbusvariant.cpp \
     $$PWD/dbus/dbussessionmanager.cpp \
-    $$PWD/dbus/displayinterface.cpp
+    $$PWD/dbus/displayinterface.cpp \
+    $$PWD/dbus/dbushotzone.cpp
 
 
 RESOURCES += \
     $$PWD/commonimage.qrc
+
+DISTFILES += \
+    $$PWD/dbus/com.deepin.daemon.Zone.xml
 

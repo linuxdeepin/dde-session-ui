@@ -6,6 +6,7 @@
 
 #include "view/mainframe.h"
 #include "dbus/dbussessionmanager.h"
+#include "dbus/dbushotzone.h"
 #include "backgroundlabel.h"
 #include "util_signalmanager.h"
 
@@ -41,6 +42,7 @@ private:
     MainFrame* m_content;
 
     DBusSessionManagerInterface* m_sessionInterface;
+    DBusHotzone* m_hotZoneInterface;
 };
 
 #endif // SessionManagerTool_H
