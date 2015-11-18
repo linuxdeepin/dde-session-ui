@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef VOLUMEDBUS_H_1446626207
-#define VOLUMEDBUS_H_1446626207
+#ifndef VOLUMEDBUS_H_1447818214
+#define VOLUMEDBUS_H_1447818214
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>
@@ -27,51 +27,68 @@ class VolumeDbus: public QDBusAbstractInterface
 {
     Q_OBJECT
 
-    Q_SLOT void __propertyChanged__(const QDBusMessage& msg)
+    Q_SLOT void __propertyChanged__(const QDBusMessage &msg)
     {
         QList<QVariant> arguments = msg.arguments();
-        if (3 != arguments.count())
+        if (3 != arguments.count()) {
             return;
+        }
         QString interfaceName = msg.arguments().at(0).toString();
-        if (interfaceName !="com.deepin.daemon.Audio.Sink")
+        if (interfaceName != "com.deepin.daemon.Audio.Sink") {
             return;
+        }
         QVariantMap changedProps = qdbus_cast<QVariantMap>(arguments.at(1).value<QDBusArgument>());
-        foreach(const QString &prop, changedProps.keys()) {
-        const QMetaObject* self = metaObject();
-            for (int i=self->propertyOffset(); i < self->propertyCount(); ++i) {
+        foreach(const QString & prop, changedProps.keys()) {
+            const QMetaObject *self = metaObject();
+            for (int i = self->propertyOffset(); i < self->propertyCount(); ++i) {
                 QMetaProperty p = self->property(i);
                 if (p.name() == prop) {
- 	            Q_EMIT p.notifySignal().invoke(this);
+                    Q_EMIT p.notifySignal().invoke(this);
                 }
             }
         }
-   }
+    }
 public:
     static inline const char *staticInterfaceName()
-    { return "com.deepin.daemon.Audio.Sink"; }
+    {
+        return "com.deepin.daemon.Audio.Sink";
+    }
 
 public:
     VolumeDbus(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 
     ~VolumeDbus();
 
+    Q_PROPERTY(bool Mute READ mute NOTIFY MuteChanged)
+    inline bool mute() const
+    {
+        return qvariant_cast< bool >(property("Mute"));
+    }
+
     Q_PROPERTY(double Volume READ volume NOTIFY VolumeChanged)
     inline double volume() const
-    { return qvariant_cast< double >(property("Volume")); }
+    {
+        return qvariant_cast< double >(property("Volume"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
 // begin property changed signals
-void VolumeChanged();
+    void MuteChanged();
+    void VolumeChanged();
 };
 
-namespace com {
-  namespace deepin {
-    namespace daemon {
-      namespace Audio {
-        typedef ::VolumeDbus Sink;
-      }
-    }
-  }
+namespace com
+{
+namespace deepin
+{
+namespace daemon
+{
+namespace Audio
+{
+typedef ::VolumeDbus Sink;
+}
+}
+}
 }
 #endif

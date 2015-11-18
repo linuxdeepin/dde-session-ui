@@ -77,7 +77,8 @@ private:
     int m_MaxTextWidth;
     int m_KeyboradLayoutHeight;
     int contentY = 0;
-    bool m_AudioMuteNotRun;
+    bool m_CanAudioMuteRun;
+    bool m_AudioMuteNotRunFromAudioMute;
 
     QStringList m_ScreenList;
     QStringList m_KeyboardList;

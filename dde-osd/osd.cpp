@@ -74,6 +74,12 @@ void Osd::initGlobalVars()
     // initial m_MonitersWrapper
     m_MonitersWrapper = new QWidget(this);
 
+    /* m_CanAudioMuteRun is used to record the mute state of sound, but because of the bug from backend,
+     I have to reverse the bool value of mute().In fact, It should be "m_CanAudioMuteRun = m_VolumeInterface->mute();" */
+    m_CanAudioMuteRun = !m_VolumeInterface->mute();
+    // to record whether AudioMute has run before this time
+    m_AudioMuteNotRunFromAudioMute = true;
+
     // init SwitchMonitors's displaymode
     if (m_DisplayInterface->displayMode() == 0) {
         displaymode = Custom;
@@ -163,17 +169,16 @@ void Osd::loadCorrespondingImage(QString whichImage)
         actionMode = NormalBrightness;
         m_Pixmap.load(":/images/display-brightness-symbolic.svg");
     } else if (whichImage == "AudioMute") {
-        if (m_AudioMuteNotRun) {
+        if (m_CanAudioMuteRun && m_AudioMuteNotRunFromAudioMute) {
             m_Pixmap.load(":/images/audio-volume-muted-symbolic-osd.svg");
-            m_AudioMuteNotRun = false;
+            m_AudioMuteNotRunFromAudioMute = false;
         } else {
             loadCorrespondingImage("Audio");
-            m_AudioMuteNotRun = true;
         }
     } else if (whichImage == "Audio") {
         actionMode = NormalAudio;
-        // m_AudioMuteNotRun is used to record whether service of AudioMute has called or not.
-        m_AudioMuteNotRun = true;
+        m_CanAudioMuteRun = true;
+        m_AudioMuteNotRunFromAudioMute = true;
         double volume = m_VolumeInterface->volume();
         if (volume > 0.7 && volume <= 1.0) {
             m_Pixmap.load(":/images/audio-volume-high-symbolic-osd.svg");
