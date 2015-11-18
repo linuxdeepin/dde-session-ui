@@ -6,43 +6,43 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="179"/>
         <source>Wrong Password</source>
-        <translation type="unfinished"></translation>
+        <translation>密码错误</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="256"/>
         <source>Enter your password to restart</source>
-        <translation type="unfinished"></translation>
+        <translation>请输入密码以完成重启</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="259"/>
         <source>Enter your passwrod to shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>请输入密码以完成关机</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="23"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>Control Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="23"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>All Windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="23"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>Launcher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="23"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>Show Desktop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="23"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
@@ -50,12 +50,12 @@
 <context>
     <name>Osd</name>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="371"/>
+        <location filename="../dde-osd/osd.cpp" line="385"/>
         <source>Duplicate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="387"/>
+        <location filename="../dde-osd/osd.cpp" line="401"/>
         <source>Expanded</source>
         <translation type="unfinished"></translation>
     </message>

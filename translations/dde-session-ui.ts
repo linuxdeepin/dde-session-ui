@@ -22,27 +22,27 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="23"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>Control Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="23"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>All Windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="23"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>Launcher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="23"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>Show Desktop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="23"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
@@ -50,12 +50,12 @@
 <context>
     <name>Osd</name>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="371"/>
+        <location filename="../dde-osd/osd.cpp" line="385"/>
         <source>Duplicate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="387"/>
+        <location filename="../dde-osd/osd.cpp" line="401"/>
         <source>Expanded</source>
         <translation type="unfinished"></translation>
     </message>
@@ -65,32 +65,32 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="89"/>
         <source>Shut down</source>
-        <translation>关机</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="92"/>
         <source>Restart</source>
-        <translation>重启</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="95"/>
         <source>Suspend</source>
-        <translation>待机</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="98"/>
         <source>Lock</source>
-        <translation>锁定</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="101"/>
         <source>Log out</source>
-        <translation>注销</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="105"/>
         <source>Switch user</source>
-        <translation>切换用户</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -98,17 +98,17 @@
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="19"/>
         <source>Shut down</source>
-        <translation>关机</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="23"/>
         <source>Restart</source>
-        <translation>重启</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="27"/>
         <source>Suspend</source>
-        <translation>待机</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
