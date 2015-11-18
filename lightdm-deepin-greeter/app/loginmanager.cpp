@@ -96,6 +96,8 @@ void LoginManager::initConnect()
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::chooseUserMode);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession);
+
+
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::show);
     connect(m_userWidget, &UserWidget::userChanged, m_sessionWidget, &SessionWidget::switchToUser);
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::updateKeybordLayoutStatus);
@@ -142,7 +144,6 @@ void LoginManager::chooseUserMode()
 {
     m_sessionWidget->hide();
     m_userWidget->show();
-    m_passWdEdit->show();
     m_requireShutdownWidget->hide();
 }
 

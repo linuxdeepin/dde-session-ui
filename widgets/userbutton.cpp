@@ -35,6 +35,14 @@ void UserButton::initUI() {
     m_textLabel->setStyleSheet("text-align:center;color: rgba(255, 255, 255, 255);\
                                           font-size:16px; ");
     m_textLabel->setText(m_buttonId);
+
+//    qDebug() << "UserButton:" << this->objectName() << m_textLabel->text().length();
+    if (m_textLabel->text().length()>12) {
+        QString tmpText = m_textLabel->text().left(12);
+        tmpText += "...";
+        m_textLabel->setText(tmpText);
+    }
+
     m_textLabel->setFixedSize(this->width(), 30);
     m_textLabel->setAlignment(Qt::AlignHCenter);
 
