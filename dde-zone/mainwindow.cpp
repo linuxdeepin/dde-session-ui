@@ -1,15 +1,27 @@
 #include "mainwindow.h"
 #include "pushbuttonlist.h"
 #include <hotzone.h>
+#include <QDesktopWidget>
+#include <QApplication>
 
-MainWindow::MainWindow(int width, int height, QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     // let the app start without system animation
     setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
     // let background be transparent
     setAttribute(Qt::WA_TranslucentBackground, true);
-    // set the size of this app
-    this->resize(width, height);
+
+    // catch the screen that mouse is in
+    QDesktopWidget *desktop = QApplication::desktop();
+    int primaryScreenKey = desktop->primaryScreen();
+    for (int i=0;i<desktop->screenCount();i++){
+        QRect screen = desktop->screenGeometry(primaryScreenKey + i);
+        if(screen.contains(QCursor::pos())){
+            // set the size and position of this app
+            this->setGeometry(screen);
+            break;
+        }
+    }
 
     // set the background
     QWidget *back = new QWidget(this);
@@ -17,9 +29,9 @@ MainWindow::MainWindow(int width, int height, QWidget *parent) : QMainWindow(par
     palette.setColor(QPalette::Background, QColor(0, 0, 0, 127));
     back->setPalette(palette);
     back->setAutoFillBackground(true);
-    back->resize(width, height);
+    back->resize(this->size());
 
-    // init
+    // init corresponding QList for addButtons()
     m_ButtonNames << tr("Control Center") << tr("All Windows") << tr("Launcher") << tr("Show Desktop") << tr("None");
     m_ActionStrs << CONTROL_CENTER_FROM_LEFT_STR << ALL_WINDOWS_STR << LAUNCHER_STR << SHOW_DESKTOP_STR << NONE_STR;
     m_ActionStrs2 << CONTROL_CENTER_FROM_RIGHT_STR << ALL_WINDOWS_STR << LAUNCHER_STR << SHOW_DESKTOP_STR << NONE_STR;

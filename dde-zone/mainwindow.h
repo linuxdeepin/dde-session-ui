@@ -9,7 +9,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    MainWindow(int width, int height, QWidget *parent = 0);
+    MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
     void mousePressEvent(QMouseEvent *);
