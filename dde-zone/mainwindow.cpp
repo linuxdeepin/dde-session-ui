@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     back->resize(this->size());
 
     // init corresponding QList for addButtons()
-    m_ButtonNames << tr("Control Center") << tr("All Windows") << tr("Launcher") << tr("Show Desktop") << tr("None");
+    m_ButtonNames << tr("Control Center") << tr("All Windows") << tr("Launcher") << tr("Desktop") << tr("None");
     m_ActionStrs << CONTROL_CENTER_FROM_LEFT_STR << ALL_WINDOWS_STR << LAUNCHER_STR << SHOW_DESKTOP_STR << NONE_STR;
     m_ActionStrs2 << CONTROL_CENTER_FROM_RIGHT_STR << ALL_WINDOWS_STR << LAUNCHER_STR << SHOW_DESKTOP_STR << NONE_STR;
 

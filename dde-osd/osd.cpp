@@ -403,7 +403,7 @@ void Osd::initMonitorItems()
     m_ExpandedScreenImage->setPixmap(QPixmap(":/images/project_screen-extend-symbolic.svg"));
     // text label for expanded mode
     m_ExpandedScreenText = new QLabel(expandedScreenItem);
-    m_ExpandedScreenText->setText(tr("Expanded"));
+    m_ExpandedScreenText->setText(tr("Extend"));
     m_ExpandedScreenText->setAlignment(Qt::AlignCenter);
     m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     // add above 2 widgets

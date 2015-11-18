@@ -13,7 +13,6 @@ TEMPLATE = app
 CONFIG += link_pkgconfig c++11
 LIBS += -lX11
 
-
 SOURCES += main.cpp \
     hotzone.cpp \
     hoverwidget.cpp \

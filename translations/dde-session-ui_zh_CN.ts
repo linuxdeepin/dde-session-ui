@@ -24,27 +24,27 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>Control Center</source>
-        <translation type="unfinished"></translation>
+        <translation>控制中心</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>All Windows</source>
-        <translation type="unfinished"></translation>
+        <translation>所有窗口</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>Launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>启动器</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="35"/>
-        <source>Show Desktop</source>
-        <translation type="unfinished"></translation>
+        <source>Desktop</source>
+        <translation>桌面</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="35"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>无</translation>
     </message>
 </context>
 <context>
@@ -52,12 +52,12 @@
     <message>
         <location filename="../dde-osd/osd.cpp" line="385"/>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>复制</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="401"/>
-        <source>Expanded</source>
-        <translation type="unfinished"></translation>
+        <source>Extend</source>
+        <translation>扩展</translation>
     </message>
 </context>
 <context>
