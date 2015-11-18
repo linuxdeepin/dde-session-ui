@@ -21,7 +21,6 @@ public:
 signals:
     void screenChanged(QRect rect);
 protected:
-//    void mouseMoveEvent(QMouseEvent *);
     void resizeEvent(QResizeEvent *e);
     void keyPressEvent(QKeyEvent *e);
 };

@@ -33,6 +33,7 @@ void LockFrame::updateScreenPosition(QRect rect) {
     m_lockManager->setFixedSize(rect.size());
     m_lockManager->move(rect.x(), rect.y());
     m_lockManager->updateGeometry();
+    m_lockManager->updateWidgetsPosition();
     qDebug() << "m_loginManager:" << m_lockManager->geometry();
 }
 

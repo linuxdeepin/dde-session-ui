@@ -37,6 +37,7 @@ void LoginFrame::updateScreenPosition(QRect rect) {
     m_loginManager->setFixedSize(rect.size());
     m_loginManager->move(rect.x(), rect.y());
     m_loginManager->updateGeometry();
+    m_loginManager->updateWidgetsPosition();
     qDebug() << "m_loginManager:" << m_loginManager->geometry();
 }
 
