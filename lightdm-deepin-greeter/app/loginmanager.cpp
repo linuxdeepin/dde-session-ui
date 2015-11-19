@@ -159,6 +159,9 @@ void LoginManager::chooseSessionMode()
     m_userWidget->hide();
     m_passWdEdit->hide();
     m_requireShutdownWidget->hide();
+    if (!m_keybdLayoutWidget->isHidden()) {
+        m_keybdLayoutWidget->hide();
+    }
 }
 
 void LoginManager::choosedSession() {
@@ -169,6 +172,9 @@ void LoginManager::choosedSession() {
         m_passWdEdit->hide();
     } else {
         m_passWdEdit->show();
+    }
+    if (!m_keybdLayoutWidget->isHidden()) {
+        m_keybdLayoutWidget->hide();
     }
 }
 
@@ -301,7 +307,16 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
     switch (action) {
         case ShutdownWidget::RequireShutdown: { m_login1ManagerInterface->PowerOff(true); break;}
         case ShutdownWidget::RequireRestart: { m_login1ManagerInterface->Reboot(true); break;}
-        case ShutdownWidget::RequireSuspend: { m_login1ManagerInterface->Suspend(true); break;}
+        case ShutdownWidget::RequireSuspend: { m_login1ManagerInterface->Suspend(true);
+            m_requireShutdownWidget->hide();
+            m_userWidget->show();
+            if (m_userWidget->isChooseUserMode) {
+                m_passWdEdit->hide();
+            } else {
+                m_passWdEdit->show();
+            }
+            m_sessionWidget->hide();
+        break;}
         default:;
     }
 }
