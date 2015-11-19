@@ -245,8 +245,10 @@ void Osd::initKeyboard()
     // variable "size" is the size of QListWidgetItem* item and QWidget* customItem
     QSize size(m_MaxTextWidth + LAYOUT_MARGIN * 2, KEYBOARD_ITEM_HEIGHT);
 
-    // vLayout is used to wrap m_ListWidget
-    QVBoxLayout *vLayout = new QVBoxLayout(this);
+    // hLayout is used to wrap m_ListWidget
+    QHBoxLayout *hLayout = new QHBoxLayout(this);
+    // make sure m_ListWidget's margins be 10px
+    hLayout->setContentsMargins(10, 10, 10, 10);
 
     // set m_ListWidget's parameters
     m_ListWidget->setStyleSheet("background:transparent");
@@ -267,7 +269,9 @@ void Osd::initKeyboard()
         QLabel *text = new QLabel(customItem);
         text->setFont(m_f);
         m_KeyboradTextList << text;
-        text->setFixedSize(m_MaxTextWidth + LAYOUT_MARGIN * 2 - 2, KEYBOARD_ITEM_HEIGHT);
+        // make sure left-margin and right-margin be 10px
+        text->setContentsMargins(10, 0, 10, 0);
+        text->setFixedSize(size);
         text->setText(m_LayoutInterface->GetLayoutDesc(m_KeyboardList[i]));
 
         // highlight the chosen customItem and text withint it, when app starts
@@ -283,7 +287,7 @@ void Osd::initKeyboard()
         m_ListWidget->setItemWidget(item, customItem);
     }
 
-    vLayout->addWidget(m_ListWidget);
+    hLayout->addWidget(m_ListWidget);
 
     // make sure that the highlighted item can be displayed in view after app startss
     m_ListWidget->scrollToItem(m_ListWidget->item(m_CurrentIndexOfKeyBoard));
@@ -323,13 +327,12 @@ void Osd::reHiglightKeyboard()
         // if m_CurrentIndexOfKeyBoard == 0,highlight the first one, and normalize the last one
         m_KeyboradTextList[0]->setStyleSheet(KEYBOARD_ITEM_HIGHLIGHT_STYLE);
         m_KeyboradTextList[m_KeyboradTextList.length() - 1]->setStyleSheet(KEYBOARD_ITEM_NORMAL_STYLE);
-        m_ListWidget->setCurrentRow(0);
     } else {
         // highlight the current one, normalize the old one
         m_KeyboradTextList[m_CurrentIndexOfKeyBoard]->setStyleSheet(KEYBOARD_ITEM_HIGHLIGHT_STYLE);
         m_KeyboradTextList[m_CurrentIndexOfKeyBoard - 1]->setStyleSheet(KEYBOARD_ITEM_NORMAL_STYLE);
-        m_ListWidget->setCurrentRow(m_CurrentIndexOfKeyBoard - 1);
     }
+    m_ListWidget->setCurrentRow(m_CurrentIndexOfKeyBoard);
 }
 
 void Osd::highlightNextLayout()
