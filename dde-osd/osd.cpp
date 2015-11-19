@@ -74,9 +74,8 @@ void Osd::initGlobalVars()
     // initial m_MonitersWrapper
     m_MonitersWrapper = new QWidget(this);
 
-    /* m_CanAudioMuteRun is used to record the mute state of sound, but because of the bug from backend,
-     I have to reverse the bool value of mute().In fact, It should be "m_CanAudioMuteRun = m_VolumeInterface->mute();" */
-    m_CanAudioMuteRun = !m_VolumeInterface->mute();
+    // m_CanAudioMuteRun is used to record the mute state of sound
+    m_CanAudioMuteRun = m_VolumeInterface->mute();
     // to record whether AudioMute has run before this time
     m_AudioMuteNotRunFromAudioMute = true;
 
