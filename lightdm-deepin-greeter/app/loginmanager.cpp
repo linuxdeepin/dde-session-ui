@@ -137,7 +137,7 @@ void LoginManager::authenticationComplete()
     m_userWidget->hideLoadingAni();
 
     if (!m_greeter->isAuthenticated()) {
-        m_passWdEdit->setAlert(true);
+        m_passWdEdit->setAlert(true, tr("Wrong password"));
         qWarning() << "auth fail !!!";
         return;
     }
@@ -248,7 +248,7 @@ void LoginManager::login()
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
 
-//    m_passWdEdit->setAlert(true);
+//    m_passWdEdit->setAlert(true, "asd");
 
     // save user last choice
     m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());

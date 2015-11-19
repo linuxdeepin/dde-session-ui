@@ -4,19 +4,27 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="179"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="182"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="256"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="263"/>
         <source>Enter your password to restart</source>
         <translation>请输入密码以完成重启</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="259"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="266"/>
         <source>Enter your passwrod to shutdown</source>
         <translation>请输入密码以完成关机</translation>
+    </message>
+</context>
+<context>
+    <name>LoginManager</name>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="136"/>
+        <source>Wrong password</source>
+        <translation>密码错误</translation>
     </message>
 </context>
 <context>
@@ -50,12 +58,12 @@
 <context>
     <name>Osd</name>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="385"/>
+        <location filename="../dde-osd/osd.cpp" line="389"/>
         <source>Duplicate</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="401"/>
+        <location filename="../dde-osd/osd.cpp" line="405"/>
         <source>Extend</source>
         <translation>扩展</translation>
     </message>
