@@ -87,28 +87,30 @@ void LoginManager::initUI()
 
 void LoginManager::initConnect()
 {
-    connect(m_switchFrame, &SwitchFrame::triggerPower, this, &LoginManager::showShutdownFrame);
-    connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, this, &LoginManager::chooseSessionMode);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, this, &LoginManager::chooseUserMode);
-
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_passWdEdit, &PassWdEdit::hide);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
-    connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
-    connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::chooseUserMode);
-    connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession);
 
+    connect(m_switchFrame, &SwitchFrame::triggerPower, this, &LoginManager::showShutdownFrame);
+    connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, this, &LoginManager::chooseSessionMode);
+
+    connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
+    connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
+    connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession);
 
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::show);
     connect(m_userWidget, &UserWidget::userChanged, m_sessionWidget, &SessionWidget::switchToUser);
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::updateKeybordLayoutStatus);
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
+
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
+
     connect(m_passWdEdit, &PassWdEdit::updateKeyboardStatus, this, &LoginManager::keyboardLayoutUI);
     connect(m_passWdEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LoginManager::keybdLayoutWidget);
-
     connect(m_passWdEdit, &PassWdEdit::leftKeyPressed, this, &LoginManager::leftKeyPressed);
     connect(m_passWdEdit, &PassWdEdit::rightKeyPressed, this, &LoginManager::rightKeyPressed);
+
     connect(this, &LoginManager::leftKeyPressed, m_userWidget, &UserWidget::leftKeySwitchUser);
     connect(this, &LoginManager::rightKeyPressed, m_userWidget, &UserWidget::rightKeySwitchUser);
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
@@ -155,6 +157,17 @@ void LoginManager::chooseSessionMode()
     m_requireShutdownWidget->hide();
 }
 
+void LoginManager::choosedSession() {
+    m_requireShutdownWidget->hide();
+    m_sessionWidget->hide();
+    m_userWidget->show();
+    if (m_userWidget->isChooseUserMode) {
+        m_passWdEdit->hide();
+    } else {
+        m_passWdEdit->show();
+    }
+}
+
 void LoginManager::updateWidgetsPosition()
 {
     const int height = this->height();
@@ -175,6 +188,7 @@ void LoginManager::showShutdownFrame() {
     qDebug() << "showShutdownFrame!";
     m_userWidget->hide();
     m_passWdEdit->hide();
+    m_sessionWidget->hide();
     m_requireShutdownWidget->show();
 }
 

@@ -26,7 +26,7 @@ public:
 
     const QString currentUser() const;
     inline int count() const {return m_userBtns->count();}
-
+    bool isChooseUserMode = false;
 signals:
     void userChanged(const QString &username);
 

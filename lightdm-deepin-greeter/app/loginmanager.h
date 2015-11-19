@@ -47,6 +47,7 @@ private slots:
     void authenticationComplete();
     void chooseUserMode();
     void chooseSessionMode();
+    void choosedSession();
 
     void showShutdownFrame();
     void keyboardLayoutUI();
