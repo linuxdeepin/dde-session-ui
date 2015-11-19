@@ -33,6 +33,7 @@ private slots:
 
 private:
     int m_currentSessionIndex;
+    QString m_lastSelectedUser = QString();
     QList<RoundItemButton *> *m_sessionBtns;
     QLightDM::SessionsModel *m_sessionModel;
 };

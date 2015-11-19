@@ -95,6 +95,10 @@ void SessionWidget::show()
 
 void SessionWidget::switchToUser(const QString &userName)
 {
+    if (m_lastSelectedUser == userName)
+        return;
+
+    m_lastSelectedUser = userName;
     qDebug() << "session switch to user: " << userName;
 
     QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
