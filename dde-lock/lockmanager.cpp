@@ -117,12 +117,17 @@ void LockManager::leaveEvent(QEvent *) {
 
 void LockManager::keyPressEvent(QKeyEvent *e)
 {
-    switch (e->key())
-    {
+    switch(e->key()) {
+    case Qt::Key_Escape:
+        if (!m_requireShutdownWidget->isHidden()) {
+            m_requireShutdownWidget->hide();
+            m_userWidget->show();
+            m_passwordEdit->show();
+        }
 #ifdef QT_DEBUG
-    case Qt::Key_Escape:   qApp->quit();   break;
+        qApp->quit();   break;
 #endif
-    default:;
+            default:;
     }
 }
 

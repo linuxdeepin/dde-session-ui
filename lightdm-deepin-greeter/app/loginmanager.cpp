@@ -111,6 +111,10 @@ void LoginManager::initConnect()
     connect(m_passWdEdit, &PassWdEdit::leftKeyPressed, this, &LoginManager::leftKeyPressed);
     connect(m_passWdEdit, &PassWdEdit::rightKeyPressed, this, &LoginManager::rightKeyPressed);
 
+    connect(m_passWdEdit, &PassWdEdit::focusIn, [this]{
+        if (!m_keybdLayoutWidget->isHidden()) {
+           m_keybdLayoutWidget->hide();
+        }});
     connect(this, &LoginManager::leftKeyPressed, m_userWidget, &UserWidget::leftKeySwitchUser);
     connect(this, &LoginManager::rightKeyPressed, m_userWidget, &UserWidget::rightKeySwitchUser);
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
@@ -194,18 +198,27 @@ void LoginManager::showShutdownFrame() {
 
 
 void LoginManager::keyPressEvent(QKeyEvent* e) {
-#ifndef QT_DEBUG
-    Q_UNUSED(e)
-#else
     if (e->key() == Qt::Key_Escape) {
+        if (!m_requireShutdownWidget->isHidden()) {
+            m_requireShutdownWidget->hide();
+            m_userWidget->show();
+            m_passWdEdit->show();
+        }
+#ifdef QT_DEBUG
         qApp->exit();
-    }
 #endif
+    }
 }
 
 void LoginManager::mousePressEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton) {
+        if (!m_requireShutdownWidget->isHidden()) {
+            m_requireShutdownWidget->hide();
+            m_userWidget->show();
+            m_passWdEdit->show();
+        }
+
         if (!m_keybdLayoutWidget->isHidden()) {
             m_keybdLayoutWidget->hide();
         }

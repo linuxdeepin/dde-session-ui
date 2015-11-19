@@ -82,6 +82,7 @@ void PassWdEdit::initData() {
 void PassWdEdit::focusInEvent(QFocusEvent *)
 {
     m_lineEdit->setFocus();
+
 }
 
 bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
@@ -166,6 +167,7 @@ void PassWdEdit::setAlert(bool alert, const QString &text)
 
 void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
 {
+    emit focusIn();
     qDebug() << "e->key:" << e->key();
     switch (e->key())
     {

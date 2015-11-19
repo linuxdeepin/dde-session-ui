@@ -37,6 +37,7 @@ signals:
     void keybdLayoutButtonClicked();
     void updateKeyboardStatus();
     void alertChanged(const int alert);
+    void focusIn();
 
     void leftKeyPressed();
     void rightKeyPressed();
