@@ -2,12 +2,17 @@
 #include <QApplication>
 #include <QScreen>
 #include <QTimer>
+#include <QTranslator>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QTranslator translator;
+    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
+    a.installTranslator(&translator);
 
     // command line options
     QCommandLineOption NumLockOn("NumLockOn", "\tOSD NumLockOn");
