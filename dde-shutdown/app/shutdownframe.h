@@ -4,9 +4,7 @@
 #include <QFrame>
 
 #include "boxframe.h"
-
 #include "shutdownmanager.h"
-#include "dbus/displayinterface.h"
 
 class ShutdownFrame:public BoxFrame
 {
@@ -20,7 +18,6 @@ protected:
     void keyPressEvent(QKeyEvent *e);
 private:
     ShutdownManager* m_shutdownManager;
-    DisplayInterface* m_displayInter;
 };
 
 #endif // SHUTDOWNFRAME

@@ -13,15 +13,22 @@ ShutdownFrame::ShutdownFrame(QWidget *parent)
     setWindowFlags(Qt::FramelessWindowHint | Qt::BypassWindowManagerHint);
 
     m_shutdownManager = new ShutdownManager(this);
-    updateScreenPosition();
-    connect(m_displayInter, &DisplayInterface::PrimaryRectChanged, this, &ShutdownFrame::updateScreenPosition);
+    QPoint mousePoint = QCursor::pos();
+
+    QList<QScreen *> screenList = qApp->screens();
+    for (int i = 0; i < screenList.length(); i++) {
+        const QRect rect = screenList[i]->geometry();
+        if (rect.contains(mousePoint)) {
+            m_shutdownManager->setFixedSize(rect.size());
+            m_shutdownManager->move(rect.x(), rect.y());
+            qDebug() << "shutdownManager:" << m_shutdownManager->geometry();
+            updateScreenPosition();
+            continue;
+        }
+    }
 }
 
 void ShutdownFrame::updateScreenPosition() {
-    m_displayInter = new DisplayInterface(this);
-    qDebug() << m_displayInter->lastError().type() << m_displayInter->isValid();
-    DisplayRect rect = m_displayInter->primaryRect();
-    m_shutdownManager->move(rect.x, rect.y);
     m_shutdownManager->show();
     m_shutdownManager->updateGeometry();
 }
@@ -32,5 +39,5 @@ void ShutdownFrame::keyPressEvent(QKeyEvent *e) {
 
 ShutdownFrame::~ShutdownFrame()
 {
-    delete m_displayInter;
+
 }
