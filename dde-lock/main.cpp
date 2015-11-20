@@ -2,6 +2,7 @@
 #include "logmanager.h"
 #include "dbus/dbuscontrolcenter.h"
 
+#include <QLabel>
 #include <QApplication>
 
 int main(int argc, char* argv[])
@@ -19,7 +20,10 @@ int main(int argc, char* argv[])
     DCCInter->deleteLater();
 
     LogManager::instance()->debug_log_console_on();
-    LockFrame lf;
+    QLabel* lock_background = new QLabel;
+    lock_background->setStyleSheet(QString("border-image: url(%1)").arg(":/theme/background/default_background.jpg"));
+
+    LockFrame lf(lock_background);
     lf.show();
 
     lf.grabKeyboard();

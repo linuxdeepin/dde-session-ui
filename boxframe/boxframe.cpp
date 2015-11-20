@@ -6,7 +6,7 @@
 #include "boxframe.h"
 #include "backgroundlabel.h"
 
-BoxFrame::BoxFrame(QWidget *parent)
+BoxFrame::BoxFrame(QWidget* background, QWidget *parent)
     : QFrame(parent)
 {
     this->move(0, 0);
@@ -19,13 +19,14 @@ BoxFrame::BoxFrame(QWidget *parent)
         const QRect rect = screenList[i]->geometry();
         qDebug() << "boxframe rect:" << i<< rect;
 
-        BackgroundLabel* background = new BackgroundLabel(true, this);
-        background->setStyleSheet("background-color: transparent;");
-        background->setFixedSize(rect.size());
-        background->move(rect.x(), rect.y());
+        m_background = background;
+        m_background->setParent(this);
+//        m_background->setStyleSheet("background-color: red;");
+        m_background->setFixedSize(rect.size());
+        m_background->move(rect.x(), rect.y());
 
-        background->show();
-        qDebug() << background->geometry();
+        m_background->show();
+        qDebug() << m_background->geometry();
     }
 
     // Always receives mouseMoveEvent.

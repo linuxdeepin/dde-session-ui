@@ -1,4 +1,4 @@
- QPushButton#LockIcon {
+QPushButton#LockIcon {
     border-image:url(":img/unlock_normal.png");
     border:none;
 }

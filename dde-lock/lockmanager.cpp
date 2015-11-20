@@ -82,7 +82,7 @@ void LockManager::initUI() {
     showFullScreen();
     activateWindow();
     updateWidgetsPosition();
-    updateStyle(":/theme/theme/lock.qss", this);
+    updateStyle(":/skin/lock.qss", this);
 
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
 }

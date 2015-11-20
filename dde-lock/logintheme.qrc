@@ -1,5 +1,6 @@
 <RCC>
-    <qresource prefix="/theme">
-        <file>theme/lock.qss</file>
+    <qresource prefix="/">
+        <file>skin/lock.qss</file>
+        <file>theme/background/default_background.jpg</file>
     </qresource>
 </RCC>
