@@ -16,6 +16,8 @@
 #include <QVariantAnimation>
 #include <QList>
 #include <QRect>
+#include <QSvgWidget>
+
 
 class Osd : public QWidget
 {
@@ -41,7 +43,10 @@ private:
     void initBasicOperation();
     void initConnects();
 
-    void paintEvent(QPaintEvent *);
+    void paintEvent(QPaintEvent *e);
+
+    QString getThemeIconPath(QString iconName);
+    void showThemeImage(QString iconName, QSvgWidget* svgLoader, QLabel* notSvgLoader);
 
     // for keyboardlayout
     void calculateKeyboardSize();
@@ -57,19 +62,22 @@ private:
     VolumeDbus *m_VolumeInterface;
     DisplayDbus *m_DisplayInterface;
     LayoutDbus *m_LayoutInterface;
+    QLabel* m_BackImageLabel;
     QRect m_MouseInScreen;
     QLabel *m_ImageLabel;
-    QPixmap m_Pixmap;
     QTimer *m_Timer;
     QWidget *m_MonitersWrapper;
     QHBoxLayout *m_HLayout;
-    QLabel *m_DuplicateScreenImage;
-    QLabel *m_DuplaicateScreenText;
-    QLabel *m_ExpandedScreenImage;
+    QSvgWidget *m_DuplicateScreenImageSvg;
+    QLabel* m_DuplicateScreenImageLabel;
+    QLabel *m_DuplicateScreenText;
+    QSvgWidget *m_ExpandedScreenImageSvg;
+    QLabel* m_ExpandedScreenImageLabel;
     QLabel *m_ExpandedScreenText;
     QListWidget *m_ListWidget;
     QVariantAnimation *m_animation;
     QFont m_f;
+    QSvgWidget* m_Svg;
 
     int m_CurrentIndexOfMonitorItem;
     int m_CurrentIndexOfKeyBoard;
@@ -82,9 +90,10 @@ private:
 
     QStringList m_ScreenList;
     QStringList m_KeyboardList;
-    QList < QLabel * > m_ImageLabelList;
-    QList < QLabel * > m_TextLabelList;
-    QList < QLabel * > m_KeyboradTextList;
+    QList <QSvgWidget *> m_ImageSvgList;
+    QList <QLabel *> m_ImageLabelList;
+    QList <QLabel *> m_TextLabelList;
+    QList <QLabel *> m_KeyboradTextList;
 
     enum DisPlayMode {
         Custom,
@@ -110,6 +119,8 @@ private:
     const QString KEYBOARD_ITEM_NORMAL_STYLE = "QLabel{color:#ffffff;font-size:14px;}";
     const QString MONITOR_TEXT_HIGHLIGHT_STYLE = "QLabel{color:#01bdff;font-size:14px}";
     const QString MONITOR_TEXT_NORMAL_STYLE = "QLabel{color:#ffffff;font-size:14px}";
+    const QString BACK_IMAGE_STYLE = "QLabel{border-width: 5px 5px 5px 5px;border-image:url(:/OSD_bg.png)}";
+    const QString DEFAULT_THEME_DIR = "/usr/share/icons/Deepin/status/scalable/";
 
 };
 

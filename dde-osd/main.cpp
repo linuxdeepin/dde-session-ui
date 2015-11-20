@@ -30,15 +30,24 @@ int main(int argc, char *argv[])
     QCommandLineOption SwitchMonitors("SwitchMonitors", "\tOSD SwitchMonitors");
     QCommandLineOption SwitchLayout("SwitchLayout", "\tOSD SwitchLayout");
 
-    QList<QCommandLineOption> cmdOptions;
-    cmdOptions << NumLockOn << NumLockOff << CapsLockOn << CapsLockOff << TouchpadOn << TouchpadOff
-               << TouchpadToggle << BrightnessDown << BrightnessUp << AudioMute << AudioDown << AudioUp << SwitchLayout << SwitchMonitors;
-
     // command line parser
     QCommandLineParser parser;
     parser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
     parser.addHelpOption();
-    parser.addOptions(cmdOptions);
+    parser.addOption(NumLockOn);
+    parser.addOption(NumLockOff);
+    parser.addOption(CapsLockOn);
+    parser.addOption(CapsLockOff);
+    parser.addOption(TouchpadOn);
+    parser.addOption(TouchpadOff);
+    parser.addOption(TouchpadToggle);
+    parser.addOption(BrightnessUp);
+    parser.addOption(BrightnessDown);
+    parser.addOption(AudioMute);
+    parser.addOption(AudioDown);
+    parser.addOption(AudioUp);
+    parser.addOption(SwitchLayout);
+    parser.addOption(SwitchMonitors);
     parser.process(a);
 
     Osd osd;

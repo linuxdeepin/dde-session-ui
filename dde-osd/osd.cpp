@@ -1,18 +1,24 @@
+#include <gtk/gtk.h>
 #include "osd.h"
 #include <X11/extensions/shape.h>
 #include <QtX11Extras/QX11Info>
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QPainter>
-#include <QBrush>
 #include <QPen>
 #include <QPainterPath>
+#include <QBrush>
+#include <QRectF>
 #include <QRect>
+#include <QFile>
 
 
 Osd::Osd(QWidget *parent)
     : QWidget(parent)
 {
+
+    gtk_init(NULL, NULL);
+    gdk_error_trap_push();
 
     initInterfaces();
 
@@ -63,6 +69,9 @@ void Osd::initInterfaces()
 
 void Osd::initGlobalVars()
 {
+    // m_BackImageLabel is used for the white border
+    m_BackImageLabel = new QLabel(this);
+
     // image label
     m_ImageLabel = new QLabel(this);
     // m_Timer is used to record time , to quit the app properly
@@ -70,6 +79,9 @@ void Osd::initGlobalVars()
 
     // initial m_ListWidget
     m_ListWidget = new QListWidget(this);
+
+    // m_Svg is used to display .svg files
+    m_Svg = new QSvgWidget(this);
 
     // initial m_MonitersWrapper
     m_MonitersWrapper = new QWidget(this);
@@ -102,12 +114,46 @@ void Osd::initBasicOperation()
     // set fixed size for image icon, and move it to app's center
     m_ImageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
     m_ImageLabel->move((this->width() - IMAGE_SIZE) / 2, (this->height() - IMAGE_SIZE) / 2);
+
+    // set fixed size for image icon, and move it to app's center
+    m_Svg->setFixedSize(IMAGE_SIZE,IMAGE_SIZE);
+    m_Svg->move((this->width() - IMAGE_SIZE) / 2, (this->height() - IMAGE_SIZE) / 2);
 }
 
 void Osd::initConnects()
 {
     // when reaches deadline, we need to quit the app immediately
     connect(m_Timer, &QTimer::timeout, qApp, &QCoreApplication::quit);
+}
+
+QString Osd::getThemeIconPath(QString iconName)
+{
+    QByteArray bytes = iconName.toUtf8();
+    const char *name = bytes.constData();
+
+    GtkIconTheme* theme = gtk_icon_theme_get_default();
+
+    GtkIconInfo* info = gtk_icon_theme_lookup_icon(theme, name, 240, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+
+    if (info) {
+        char* path = g_strdup(gtk_icon_info_get_filename(info));
+#if GTK_MAJOR_VERSION >= 3
+        g_object_unref(info);
+#elif GTK_MAJOR_VERSION == 2
+        gtk_icon_info_free(info);
+#endif
+        return QString(path);
+    } else {
+        return DEFAULT_THEME_DIR+iconName+".svg";
+    }
+}
+
+void Osd::showThemeImage(QString iconName, QSvgWidget* svgLoader, QLabel* notSvgLoader){
+    if(iconName.endsWith(".svg")){
+        svgLoader->load(iconName);
+    }else{
+        notSvgLoader->setPixmap(QPixmap(iconName).scaled(IMAGE_SIZE,IMAGE_SIZE,Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    }
 }
 
 int Osd::latterAction()
@@ -149,27 +195,30 @@ void Osd::loadCorrespondingImage(QString whichImage)
     actionMode = Normal;
     m_ListWidget->setVisible(false);
     m_MonitersWrapper->setVisible(false);
+    m_Svg->setVisible(true);
     this->resize(BASE_SIZE, BASE_SIZE);
+    m_BackImageLabel->resize(this->size());
+    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
     if (whichImage == "NumLockOn") {
-        m_Pixmap.load(":/images/numlock-enabled-symbolic.svg");
+        showThemeImage(getThemeIconPath("numlock-enabled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "NumLockOff") {
-        m_Pixmap.load(":/images/numlock-disabled-symbolic.svg");
+        showThemeImage(getThemeIconPath("numlock-disabled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "CapsLockOn") {
-        m_Pixmap.load(":/images/capslock-enabled-symbolic.svg");
+        showThemeImage(getThemeIconPath("capslock-enabled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "CapsLockOff") {
-        m_Pixmap.load(":/images/capslock-disabled-symbolic.svg");
+        showThemeImage(getThemeIconPath("capslock-disabled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "TouchpadOn") {
-        m_Pixmap.load(":/images/input-touchpad-symbolic.svg");
+        showThemeImage(getThemeIconPath("input-touchpad-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "TouchpadOff") {
-        m_Pixmap.load(":/images/touchpad-disabled-symbolic.svg");
+        showThemeImage(getThemeIconPath("touchpad-disabled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "TouchpadToggle") {
-        m_Pixmap.load(":/images/touchpad-toggled-symbolic.svg");
+        showThemeImage(getThemeIconPath("touchpad-toggled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "Brightness") {
         actionMode = NormalBrightness;
-        m_Pixmap.load(":/images/display-brightness-symbolic.svg");
+        showThemeImage(getThemeIconPath("display-brightness-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "AudioMute") {
         if (m_CanAudioMuteRun && m_AudioMuteNotRunFromAudioMute) {
-            m_Pixmap.load(":/images/audio-volume-muted-symbolic-osd.svg");
+            showThemeImage(getThemeIconPath("audio-volume-muted-symbolic-osd"), m_Svg, m_ImageLabel);
             m_AudioMuteNotRunFromAudioMute = false;
         } else {
             loadCorrespondingImage("Audio");
@@ -179,25 +228,24 @@ void Osd::loadCorrespondingImage(QString whichImage)
         m_CanAudioMuteRun = true;
         m_AudioMuteNotRunFromAudioMute = true;
         double volume = m_VolumeInterface->volume();
+        // 0.7~1.0 means high volume range, 0.3~0.7 means medium volume range, and 0.0~0.3 means low volume range.
         if (volume > 0.7 && volume <= 1.0) {
-            m_Pixmap.load(":/images/audio-volume-high-symbolic-osd.svg");
+            showThemeImage(getThemeIconPath("audio-volume-high-symbolic-osd"), m_Svg, m_ImageLabel);
         } else if (volume > 0.3 && volume <= 0.7) {
-            m_Pixmap.load(":/images/audio-volume-medium-symbolic-osd.svg");
+            showThemeImage(getThemeIconPath("audio-volume-medium-symbolic-osd"), m_Svg, m_ImageLabel);
         } else if (volume > 0.0) {
-            m_Pixmap.load(":/images/audio-volume-low-symbolic-osd.svg");
+            showThemeImage(getThemeIconPath("audio-volume-low-symbolic-osd"), m_Svg, m_ImageLabel);
         } else if (volume == 0.0) {
-            m_Pixmap.load(":/images/audio-volume-muted-symbolic-osd.svg");
+            showThemeImage(getThemeIconPath("audio-volume-muted-symbolic-osd"), m_Svg, m_ImageLabel);
         }
     }
-
-    m_ImageLabel->setPixmap(m_Pixmap);
 }
 
 // --SwitchLayout
 void Osd::loadSwitchLayout()
 {
     actionMode = SwitchLayout;
-    m_ImageLabel->setPixmap(QPixmap(""));
+    m_Svg->setVisible(false);
     m_MonitersWrapper->setVisible(false);
     m_ListWidget->setVisible(true);
 
@@ -206,6 +254,8 @@ void Osd::loadSwitchLayout()
         // give out the value of m_MaxTextWidth and m_KeyboradLayoutHeight, to help resize this app
         calculateKeyboardSize();
         this->resize(m_MaxTextWidth + LAYOUT_MARGIN * 4, m_KeyboradLayoutHeight + LAYOUT_MARGIN * 2);
+        m_BackImageLabel->resize(this->size());
+        m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
         initKeyboard();
     } else {
         // if user's keyboard layout(s) just contain(s) 1 kind, quit the app immediately
@@ -299,7 +349,7 @@ void Osd::initKeyboard()
 
     // when currentrow changes, check if new_contentY is different from contentY. If different,m_animation should start
     connect(m_ListWidget, &QListWidget::currentRowChanged,
-    this, [this] {
+            this, [this] {
         int new_contentY = m_ListWidget->itemWidget(m_ListWidget->item(0))->y();
         if (new_contentY != contentY  && m_KeyboardList.length() > 5)
         {
@@ -356,7 +406,7 @@ void Osd::highlightNextLayout()
 void Osd::loadSwitchMonitors()
 {
     actionMode = SwitchMonitor;
-    m_ImageLabel->setPixmap(QPixmap(""));
+    m_Svg->setVisible(false);
     m_ListWidget->setVisible(false);
     m_MonitersWrapper->setVisible(true);
     // get the list of all screens by using QString's method "split"
@@ -365,6 +415,8 @@ void Osd::loadSwitchMonitors()
 
     if (m_ScreenList.length() > 1) {
         this->resize(BASE_SIZE * (m_ScreenList.length() + 2), BASE_SIZE);
+        m_BackImageLabel->resize(this->size());
+        m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
 
         initMonitorItems();
 
@@ -384,32 +436,43 @@ void Osd::initMonitorItems()
     QWidget *duplicateScreenItem = new QWidget(m_MonitersWrapper);
     QVBoxLayout *vLayoutOfDuplicateScreen = new QVBoxLayout(duplicateScreenItem);
     // image label for duplicate mode
-    m_DuplicateScreenImage = new QLabel(duplicateScreenItem);
-    m_DuplicateScreenImage->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-    m_DuplicateScreenImage->setPixmap(QPixmap(":/images/project_screen-duplicate-symbolic.svg"));
+    m_DuplicateScreenImageSvg = new QSvgWidget(duplicateScreenItem);
+    m_DuplicateScreenImageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
+    m_DuplicateScreenImageLabel = new QLabel(duplicateScreenItem);
+    m_DuplicateScreenImageLabel->setFixedSize(IMAGE_SIZE,IMAGE_SIZE);
+    showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
     // text label for duplicate mode
-    m_DuplaicateScreenText = new QLabel(duplicateScreenItem);
-    m_DuplaicateScreenText->setText(tr("Duplicate"));
-    m_DuplaicateScreenText->setAlignment(Qt::AlignCenter);
-    m_DuplaicateScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
+    m_DuplicateScreenText = new QLabel(duplicateScreenItem);
+    m_DuplicateScreenText->setText(tr("Duplicate"));
+    m_DuplicateScreenText->setAlignment(Qt::AlignCenter);
+    m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     // add above 2 widgets
-    vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenImage, 0, Qt::AlignHCenter);
-    vLayoutOfDuplicateScreen->addWidget(m_DuplaicateScreenText, 0, Qt::AlignHCenter);
+    if(getThemeIconPath("project_screen-duplicate-symbolic").endsWith(".svg")){
+        vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenImageSvg, 0, Qt::AlignHCenter);
+    }else{
+        vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenImageLabel, 0, Qt::AlignHCenter);
+    }
+    vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenText, 0, Qt::AlignHCenter);
 
     // for expanded mode
     QWidget *expandedScreenItem = new QWidget(m_MonitersWrapper);
     QVBoxLayout *vLayoutOfExpandedScreen = new QVBoxLayout(expandedScreenItem);
     // image label for expanded mode
-    m_ExpandedScreenImage = new QLabel(expandedScreenItem);
-    m_ExpandedScreenImage->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-    m_ExpandedScreenImage->setPixmap(QPixmap(":/images/project_screen-extend-symbolic.svg"));
+    m_ExpandedScreenImageSvg = new QSvgWidget(expandedScreenItem);
+    m_ExpandedScreenImageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
+    m_ExpandedScreenImageLabel = new QLabel(duplicateScreenItem);
+    m_ExpandedScreenImageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
+    showThemeImage(getThemeIconPath("project_screen-extend-symbolic"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
     // text label for expanded mode
     m_ExpandedScreenText = new QLabel(expandedScreenItem);
     m_ExpandedScreenText->setText(tr("Extend"));
-    m_ExpandedScreenText->setAlignment(Qt::AlignCenter);
-    m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
+    m_ExpandedScreenText->setAlignment(Qt::AlignCenter);    m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     // add above 2 widgets
-    vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenImage, 0, Qt::AlignHCenter);
+    if(getThemeIconPath("project_screen-extend-symbolic").endsWith(".svg")){
+        vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenImageSvg, 0, Qt::AlignHCenter);
+    }else{
+        vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenImageLabel, 0, Qt::AlignHCenter);
+    }
     vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenText, 0, Qt::AlignHCenter);
 
     // add duplicate and expanded items
@@ -422,19 +485,26 @@ void Osd::initMonitorItems()
         QWidget *item = new QWidget(m_MonitersWrapper);
         QVBoxLayout *vLayout = new QVBoxLayout(item);
         // image label for one-screen mode
-        QLabel *imageLabel = new QLabel(item);
+        QSvgWidget *imageSvg = new QSvgWidget(item);
+        imageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
+        QLabel* imageLabel = new QLabel(item);
         imageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-        imageLabel->setPixmap(QPixmap(":/images/project_screen-onlyone-symbolic.svg"));
+        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic"), imageSvg, imageLabel);
         // text label for one-screen mode
         QLabel *textLabel = new QLabel(item);
         textLabel->setText(m_ScreenList[i]);
         textLabel->setAlignment(Qt::AlignCenter);
         textLabel->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
         // store imagelabel and textlabel into lists, so that we can change their style later
+        m_ImageSvgList << imageSvg;
         m_ImageLabelList << imageLabel;
         m_TextLabelList << textLabel;
         // add above 2 widgets
-        vLayout->addWidget(imageLabel, 0, Qt::AlignHCenter);
+        if(getThemeIconPath("project_screen-onlyone-symbolic").endsWith(".svg")){
+            vLayout->addWidget(imageSvg, 0, Qt::AlignHCenter);
+        }else{
+            vLayout->addWidget(imageLabel, 0, Qt::AlignHCenter);
+        }
         vLayout->addWidget(textLabel, 0, Qt::AlignHCenter);
 
         // add one-screen mode item
@@ -447,15 +517,15 @@ void Osd::initCurrentScreenMode()
     // for each mode, we would do the same operations to change it's style when app starts
     switch (displaymode) {
     case Custom:
-//        m_CurrentIndexOfMonitorItem = -1;
+        //        m_CurrentIndexOfMonitorItem = -1;
         break;
     case Duplicate:
-        m_DuplicateScreenImage->setPixmap(QPixmap(":/images/project_screen-duplicate-symbolic-focus.svg"));
-        m_DuplaicateScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
+        showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic-focus"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
+        m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
         m_CurrentIndexOfMonitorItem = 0;
         break;
     case Expanded:
-        m_ExpandedScreenImage->setPixmap(QPixmap(":/images/project_screen-extend-symbolic-focus.svg"));
+        showThemeImage(getThemeIconPath("project_screen-extend-symbolic-focus"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
         m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
         m_CurrentIndexOfMonitorItem = 1;
         break;
@@ -463,8 +533,9 @@ void Osd::initCurrentScreenMode()
         QString primaryScreenName = m_DisplayInterface->primary();
         for (int i = 0, length = m_ScreenList.length(); i < length; i++) {
             if (m_ScreenList[i] == primaryScreenName) {
-                m_ImageLabelList[i]->setPixmap(QPixmap(":/images/project_screen-onlyone-symbolic-focus.svg"));
+                showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic-focus"), m_ImageSvgList[i], m_ImageLabelList[i]);
                 m_TextLabelList[i]->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
+                // m_CurrentIndexOfMonitorItem is always 2 bigger than m_ScreenList's i
                 m_CurrentIndexOfMonitorItem = i + 2;
             }
         }
@@ -476,24 +547,24 @@ void Osd::initCurrentScreenMode()
 void Osd::reHighlightMonitor()
 {
     if (m_CurrentIndexOfMonitorItem == 0) {
-        m_DuplicateScreenImage->setPixmap(QPixmap(":/images/project_screen-duplicate-symbolic-focus.svg"));
-        m_DuplaicateScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        m_ImageLabelList[m_ScreenList.length() - 1]->setPixmap(QPixmap(":/images/project_screen-onlyone-symbolic.svg"));
+        showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic-focus"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
+        m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
+        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic"), m_ImageSvgList[m_ScreenList.length() - 1], m_ImageLabelList[m_ScreenList.length() - 1]);
         m_TextLabelList[m_ScreenList.length() - 1]->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     } else if (m_CurrentIndexOfMonitorItem == 1) {
-        m_ExpandedScreenImage->setPixmap(QPixmap(":/images/project_screen-extend-symbolic-focus.svg"));
+        showThemeImage(getThemeIconPath("project_screen-extend-symbolic-focus"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
         m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        m_DuplicateScreenImage->setPixmap(QPixmap(":/images/project_screen-duplicate-symbolic.svg"));
-        m_DuplaicateScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
+        showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
+        m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     } else if (m_CurrentIndexOfMonitorItem == 2) {
-        m_ImageLabelList[0]->setPixmap(QPixmap(":/images/project_screen-onlyone-symbolic-focus.svg"));
+        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic-focus"), m_ImageSvgList[0], m_ImageLabelList[0]);
         m_TextLabelList[0]->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        m_ExpandedScreenImage->setPixmap(QPixmap(":/images/project_screen-extend-symbolic.svg"));
+        showThemeImage(getThemeIconPath("project_screen-extend-symbolic"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
         m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     } else {
-        m_ImageLabelList[m_CurrentIndexOfMonitorItem - 2]->setPixmap(QPixmap(":/images/project_screen-onlyone-symbolic-focus.svg"));
+        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic-focus"), m_ImageSvgList[m_CurrentIndexOfMonitorItem - 2], m_ImageLabelList[m_CurrentIndexOfMonitorItem - 2]);
         m_TextLabelList[m_CurrentIndexOfMonitorItem - 2]->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        m_ImageLabelList[m_CurrentIndexOfMonitorItem - 3]->setPixmap(QPixmap(":/images/project_screen-onlyone-symbolic.svg"));
+        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic"), m_ImageSvgList[m_CurrentIndexOfMonitorItem - 3], m_ImageLabelList[m_CurrentIndexOfMonitorItem - 3]);
         m_TextLabelList[m_CurrentIndexOfMonitorItem - 3]->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     }
 }
@@ -508,48 +579,44 @@ void Osd::highlightNextMonitor()
     reHighlightMonitor();
 }
 
-void Osd::paintEvent(QPaintEvent *)
+void Osd::paintEvent(QPaintEvent *e)
 {
+    QWidget::paintEvent(e);
     // paint app's background
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
-    QRect solidRect(1, 1, this->width() - 2, this->height() - 2);
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-    brush.setColor(QColor(0, 0, 0, 127));
-    painter.setBrush(brush);
-    painter.drawRoundedRect(solidRect, 10, 10);
-
+    // for the backgound color
     QPen pen;
     pen.setStyle(Qt::SolidLine);
-    pen.setColor(QColor(255, 255, 255, 51));
+    pen.setColor(QColor(255,255,255,51));
     pen.setWidth(1);
     QPainterPath path;
-    QRect hollowRect(0, 0, this->width(), this->height());
-    path.addRoundedRect(hollowRect, 13, 13);
+    path.addRoundedRect(QRectF(0.5, 0.5, this->width()-1, this->height()-1), 10, 10);
     painter.setPen(pen);
-    painter.drawPath(path);
+    painter.fillPath(path,QColor(0,0,0,127));
 
     if (actionMode == NormalAudio || actionMode == NormalBrightness) {
         // paint progressbar's background
-        QRect progressBarBackRect(30, 106, 80, 4);
-        brush.setColor(QColor(255, 255, 255, 51));
+        QBrush brush;
+        brush.setStyle(Qt::SolidPattern);
+        QRect progressBarBackRect(30,106,80,4);
+        brush.setColor(QColor(255,255,255,51));
         painter.setBrush(brush);
-        painter.drawRoundedRect(progressBarBackRect, 2, 2);
+        painter.drawRoundedRect(progressBarBackRect,2,2);
 
         if (actionMode == NormalAudio) {
             // paint audio progressbar
-            QRect progressBarRect(30, 106, 80 * (m_VolumeInterface->volume() >= 1.0 ? 1.0 : m_VolumeInterface->volume()), 4);
-            brush.setColor(QColor(255, 255, 255, 255));
+            QRect progressBarRect(30,106,80*(m_VolumeInterface->volume()>=1.0 ? 1.0 : m_VolumeInterface->volume()),4);
+            brush.setColor(Qt::white);
             painter.setBrush(brush);
-            painter.drawRoundedRect(progressBarRect, 2, 2);
+            painter.drawRoundedRect(progressBarRect,2,2);
         } else if (actionMode == NormalBrightness) {
             // paint brightness progressbar
-            QRect progressBarRect(30, 106, 80 * m_DisplayInterface->brightness()[m_DisplayInterface->primary()], 4);
-            brush.setColor(QColor(255, 255, 255, 255));
+            QRect progressBarRect(30,106,80*m_DisplayInterface->brightness()[m_DisplayInterface->primary()],4);
+            brush.setColor(Qt::white);
             painter.setBrush(brush);
-            painter.drawRoundedRect(progressBarRect, 2, 2);
+            painter.drawRoundedRect(progressBarRect,2,2);
         }
     }
 }

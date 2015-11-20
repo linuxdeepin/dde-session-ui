@@ -4,14 +4,15 @@
 #
 #-------------------------------------------------
 
-QT       += core gui dbus x11extras
+QT       += core gui dbus x11extras svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 LIBS += -lX11 -lXext
 TARGET = dde-osd
 TEMPLATE = app
-CONFIG += c++11
+CONFIG += c++11 link_pkgconfig
+PKGCONFIG += gtk+-2.0
 
 
 SOURCES += main.cpp\
