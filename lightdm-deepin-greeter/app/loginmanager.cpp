@@ -249,6 +249,9 @@ void LoginManager::leaveEvent(QEvent *)
 
 void LoginManager::login()
 {
+    if (!m_passWdEdit->isVisible())
+        return;
+
     m_userWidget->showLoadingAni();
 
     if (m_greeter->inAuthentication())
