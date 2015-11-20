@@ -29,5 +29,8 @@ HEADERS  += osd.h \
 RESOURCES += \
     image.qrc
 
+icons_status.files += images/status/
+icons_status.path = /usr/share/icons/hicolor/scalable/
+
 target.path = /usr/lib/deepin-daemon/
-INSTALLS   += target
+INSTALLS   += target icons_status
