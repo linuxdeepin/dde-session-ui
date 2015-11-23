@@ -96,7 +96,7 @@ void LoginManager::initConnect()
 
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
-    connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession);
+    connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession, Qt::QueuedConnection);
 
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::show);
     connect(m_userWidget, &UserWidget::userChanged, m_sessionWidget, &SessionWidget::switchToUser);

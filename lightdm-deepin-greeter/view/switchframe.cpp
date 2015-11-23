@@ -18,6 +18,9 @@ SwitchFrame::~SwitchFrame()
 
 void SwitchFrame::chooseToSession(const QString &session)
 {
+    if (session.isEmpty())
+        return;
+
     m_tipsLabel->setText(session);
 
     const QString normalIcon = QString(":/img/%1_indicator_normal.png").arg(session);

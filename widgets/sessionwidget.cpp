@@ -134,6 +134,9 @@ int SessionWidget::getSessionIndex(const QString &sessionName)
             return i;
 
     // if not match any item, choose first
+    const QString name = m_sessionModel->data(m_sessionModel->index(0), Qt::DisplayRole).toString();
+    switchSession(name);
+
     return 0;
 }
 
