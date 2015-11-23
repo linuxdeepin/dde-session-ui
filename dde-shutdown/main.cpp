@@ -7,7 +7,7 @@
 #include "logmanager.h"
 #include "app/shutdownframe.h"
 #include "dbus/dbuscontrolcenter.h"
-#include "../background/backgroundlabel.h"
+#include "backgroundlabel.h"
 
 int main(int argc, char* argv[])
 {
@@ -40,6 +40,5 @@ int main(int argc, char* argv[])
 //    w.hideBtns(parser.values(hide));
 //    w.disableBtns(parser.values(disable));
     w.show();
-
     return app.exec();
 }

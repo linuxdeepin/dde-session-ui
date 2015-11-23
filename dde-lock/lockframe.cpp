@@ -7,8 +7,7 @@ LockFrame::LockFrame(QWidget* parent)
     this->move(0, 0);
     this->setFixedSize(qApp->desktop()->size());
 
-    qDebug() << "this geometry:" << geometry();
-    this->setWindowFlags(Qt::FramelessWindowHint|Qt::BypassWindowManagerHint);
+    qDebug() << "LockFrame geometry:" << geometry();
 
     m_lockManager = new LockManager(this);
     QPoint mousePoint = QCursor::pos();
@@ -25,6 +24,10 @@ LockFrame::LockFrame(QWidget* parent)
         }
     }
 
+    LockFrontDBus* lockFrontDBus = new LockFrontDBus(this);
+    QDBusConnection::sessionBus().registerObject(DBUS_PATH, this);
+
+    qDebug() << "RegistlockFrontDBus" << lockFrontDBus->lockResult();
     connect(m_lockManager, &LockManager::screenChanged, this, &LockFrame::updateScreenPosition);
 }
 
@@ -43,4 +46,21 @@ void LockFrame::keyPressEvent(QKeyEvent *e) {
 
 LockFrame::~LockFrame() {
 
+}
+
+LockFrontDBus::LockFrontDBus(LockFrame *parent):
+    QDBusAbstractAdaptor(parent),
+    m_parent(parent)
+{
+    qDebug() << "DBUS_PATH" << DBUS_PATH;
+}
+
+LockFrontDBus::~LockFrontDBus()
+{
+
+}
+
+qulonglong LockFrontDBus::lockResult()
+{
+    return 0;
 }

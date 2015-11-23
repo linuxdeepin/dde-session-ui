@@ -13,7 +13,8 @@ HEADERS += \
     $$PWD/dbus/dbusvariant.h \
     $$PWD/dbus/dbussessionmanager.h \
     $$PWD/dbus/displayinterface.h \
-    $$PWD/dbus/dbushotzone.h
+    $$PWD/dbus/dbushotzone.h \
+    $$PWD/dbus/dbuslockservice.h
 
 
 SOURCES += \
@@ -26,7 +27,8 @@ SOURCES += \
     $$PWD/dbus/dbusvariant.cpp \
     $$PWD/dbus/dbussessionmanager.cpp \
     $$PWD/dbus/displayinterface.cpp \
-    $$PWD/dbus/dbushotzone.cpp
+    $$PWD/dbus/dbushotzone.cpp \
+    $$PWD/dbus/dbuslockservice.cpp
 
 
 RESOURCES += \

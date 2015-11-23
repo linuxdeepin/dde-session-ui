@@ -10,6 +10,7 @@ LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent),
       m_greeter(new QLightDM::Greeter(this))
 {
+    recordPid();
     if (!m_greeter->connectSync())
         qWarning() << "greeter connect fail !!!";
 
@@ -50,6 +51,7 @@ void LoginManager::initUI()
     m_logoWidget = new LogoWidget(this);
     m_switchFrame = new SwitchFrame(this);
     m_userWidget = new UserWidget(this);
+
     m_userWidget->setObjectName("UserWidget");
     m_passWdEdit = new PassWdEdit(this);
     m_passWdEdit->setEnterBtnStyle(":/img/login_normal.png", ":/img/login_normal.png", ":/img/login_press.png");
@@ -83,6 +85,22 @@ void LoginManager::initUI()
     m_switchFrame->setUserSwitchEnable(m_userWidget->count() > 1);
 
     updateStyle(":/skin/login.qss", this);
+}
+
+void LoginManager::recordPid() {
+    qDebug() << "remember P i D" << qApp->applicationPid();
+
+    QFile lockPIdFile(QString("%1%2").arg("/tmp/").arg(".dgreeterpid"));
+
+    if (lockPIdFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
+        QTextStream pidInfo(&lockPIdFile);
+        pidInfo << qApp->applicationPid();
+
+        lockPIdFile.close();
+    } else {
+        qDebug() << "file open failed!";
+    }
+
 }
 
 void LoginManager::initConnect()
@@ -144,6 +162,17 @@ void LoginManager::authenticationComplete()
 
     qDebug() << "session = " << m_sessionWidget->currentSessionName();
     qDebug() << "start session: " << m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+
+//////////////kill_ddelock
+    m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
+    if (m_lockInter->isValid()) {
+        qDebug() << "LOck Greeter: " << m_lockInter->IsLiveCD(m_userWidget->currentUser());
+        /////////////kill_lock
+        m_lockInter->ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
+    } else {
+        qDebug() << "m_lockInter error!";
+    }
+///////////////
 }
 
 void LoginManager::chooseUserMode()
@@ -249,6 +278,9 @@ void LoginManager::leaveEvent(QEvent *)
 
 void LoginManager::login()
 {
+    const QString &username = m_userWidget->currentUser();
+    const QString &password = m_passWdEdit->getText();
+
     if (!m_passWdEdit->isVisible())
         return;
 
@@ -263,7 +295,7 @@ void LoginManager::login()
     m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
     m_userWidget->saveLastUser();
 
-    const QString &username = m_userWidget->currentUser();
+//    const QString &username = m_userWidget->currentUser();
     m_greeter->authenticate(username);
     qDebug() << "choose user: " << username;
     qDebug() << "auth user: " << m_greeter->authenticationUser();
@@ -311,6 +343,7 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
         case ShutdownWidget::RequireShutdown: { m_login1ManagerInterface->PowerOff(true); break;}
         case ShutdownWidget::RequireRestart: { m_login1ManagerInterface->Reboot(true); break;}
         case ShutdownWidget::RequireSuspend: { m_login1ManagerInterface->Suspend(true);
+
             m_requireShutdownWidget->hide();
             m_userWidget->show();
             if (m_userWidget->isChooseUserMode) {

@@ -22,6 +22,10 @@
 #include "dbus/dbusdisplaymanager.h"
 #include "dbus/dbusvariant.h"
 #include "dbus/dbuslogin1manager.h"
+#include "dbus/dbuslockservice.h"
+
+#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
+#define LOCKSERVICE_NAME "com.deepin.dde.lock"
 
 class LoginManager: public QFrame {
     Q_OBJECT
@@ -55,7 +59,9 @@ private slots:
     void setCurrentKeyboardLayout(QString keyboard_value);
 
     void setShutdownAction(const ShutdownWidget::Actions action);
+    void recordPid();
 private:
+
     LogoWidget* m_logoWidget;
     SwitchFrame* m_switchFrame;
     UserWidget* m_userWidget;
@@ -71,6 +77,7 @@ private:
     QLightDM::Greeter *m_greeter;
     DBusDisplayManager *m_displayInter;
     DBusLogin1Manager* m_login1ManagerInterface;
+    DBusLockService* m_lockInter;
 };
 #endif // LoginManager
 

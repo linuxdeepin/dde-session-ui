@@ -60,6 +60,7 @@ void PassWdEdit::initUI() {
     setGraphicsEffect(m_opacityEffect);
 
     QTimer::singleShot(1000, this, SLOT(lineEditGrabKeyboard()));
+
     updateStyle(":/skin/passwdedit.qss", this);
 
 }

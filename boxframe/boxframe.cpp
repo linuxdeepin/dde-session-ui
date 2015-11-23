@@ -4,7 +4,7 @@
 #include <QTimer>
 
 #include "boxframe.h"
-#include "../background/backgroundlabel.h"
+#include "backgroundlabel.h"
 
 BoxFrame::BoxFrame(QWidget* background, QWidget *parent)
     : QFrame(parent)
@@ -38,9 +38,9 @@ void BoxFrame::keyPressEvent(QKeyEvent *e) {
 #ifndef QT_DEBUG
     Q_UNUSED(e)
 #else
-    if (e->key() == Qt::Key_Escape) {
-        qApp->quit();
-    }
+//    if (e->key() == Qt::Key_Escape) {
+//        qApp->quit();
+//    }
 #endif
 }
 

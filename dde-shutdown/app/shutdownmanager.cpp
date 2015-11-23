@@ -24,7 +24,14 @@ void ShutdownManager::initConnect() {
     });
 }
 void ShutdownManager::shutDownFramegrabKeyboard() {
-    this->grabKeyboard();
+
+    qDebug() << "grabTimes:" << m_timerCount;
+    if (m_timerCount == 10) {
+        m_getFocusTimer->stop();
+    } else {
+        this->grabKeyboard();
+        m_timerCount++;
+    }
 }
 void ShutdownManager::initUI() {
     setObjectName("ShutdownManager");
@@ -59,8 +66,15 @@ void ShutdownManager::initUI() {
     showFullScreen();
     activateWindow();
 
-    QTimer::singleShot(1000, this, SLOT(shutDownFramegrabKeyboard()));
+    m_getFocusTimer = new QTimer(this);
+    m_getFocusTimer->setInterval(100);
+    m_getFocusTimer->start();
+    connect(m_getFocusTimer,  &QTimer::timeout, this, &ShutdownManager::shutDownFramegrabKeyboard);
 
+}
+
+void ShutdownManager::showEvent(QShowEvent *) {
+    shutDownFramegrabKeyboard();
 }
 
 void ShutdownManager::initData() {
@@ -107,6 +121,7 @@ void ShutdownManager::disableBtns(const QStringList &btnsName)
 
 void ShutdownManager::keyPressEvent(QKeyEvent* e)
 {
+
     switch (e->key())
     {
     case Qt::Key_Escape:        qApp->quit();  m_hotZoneInterface->EnableZoneDetected(true);  break; // must break;

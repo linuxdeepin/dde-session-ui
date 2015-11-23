@@ -20,6 +20,7 @@ LockManager::LockManager(QWidget* parent)
     updateUI();
     initConnect();
 
+
     loadMPRIS();
     leaveEvent(nullptr);
 }
@@ -48,7 +49,7 @@ void LockManager::initUI() {
     m_timeWidget->setFixedSize(400, 300);
 
     m_userWidget = new UserWidget(this);
-
+    recordPid();
     m_passwordEdit = new PassWdEdit(this);
     m_passwordEdit->setEnterBtnStyle(":/img/unlock_normal.png", ":/img/unlock_normal.png", ":/img/unlock_press.png");
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
@@ -85,6 +86,8 @@ void LockManager::initUI() {
     updateWidgetsPosition();
     updateStyle(":/skin/lock.qss", this);
 
+    m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
+    qDebug() << "DBusLockService" << m_lockInter->IsLiveCD(m_userWidget->currentUser());
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
 }
 
@@ -134,6 +137,7 @@ void LockManager::keyPressEvent(QKeyEvent *e)
 
 void LockManager::mouseReleaseEvent(QMouseEvent *)
 {
+    qDebug() << "ReleaseEvent";
     m_action = Unlock;
     passwordMode();
 }
@@ -168,6 +172,19 @@ void LockManager::loadMPRIS()
     m_controlWidget->showMusicControlWidget();
 }
 
+void LockManager::recordPid() {
+    qDebug() << "DDE-lock remember PID" << qApp->applicationPid();
+    const QString &username = m_userWidget->currentUser();
+    QFile lockPIdFile(QString("%1%2%3").arg("/home/").arg(username).arg("/.dlockpid"));
+
+    if (lockPIdFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
+        QTextStream pidInfo(&lockPIdFile);
+        pidInfo << qApp->applicationPid();
+
+        lockPIdFile.close();
+    }
+}
+
 void LockManager::unlock()
 {
     m_userWidget->showLoadingAni();
@@ -179,7 +196,9 @@ void LockManager::unlock()
     QDBusPendingReply<bool> result = m_lockInter->UnlockCheck(username, password);
     result.waitForFinished();
 
-    qDebug() << result.error() << result.value();
+    qDebug() << "dde-lock unlock^^^" << m_lockInter->isValid()
+             << m_lockInter->lastError()
+             << result.error() << result.value();
 
     if (result.error().type() != QDBusError::NoError || !result.value())
     {
@@ -204,7 +223,7 @@ void LockManager::initBackend() {
                                                         QDBusConnection::sessionBus(), this);
     m_hotZoneInterface->EnableZoneDetected(false);
 
-    m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
+
 
     DBusInputDevices * dbusInputDevices = new DBusInputDevices(this);
     foreach (InputDevice device, dbusInputDevices->infos()) {

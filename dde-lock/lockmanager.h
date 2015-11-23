@@ -44,6 +44,7 @@ public slots:
     void passwordMode();
     void shutdownMode();
     void updateWidgetsPosition();
+    void recordPid();
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *);

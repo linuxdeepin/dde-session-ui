@@ -7,7 +7,7 @@
 #include "view/mainframe.h"
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
-#include "../background/backgroundlabel.h"
+#include "backgroundlabel.h"
 #include "util_signalmanager.h"
 
 class ShutdownManager : public QFrame
@@ -31,8 +31,10 @@ public slots:
 protected:
     void keyPressEvent(QKeyEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
-
+    void showEvent(QShowEvent *);
 private:
+    QTimer* m_getFocusTimer;
+    int m_timerCount = 0;
     void initUI();
     void initConnect();
     void initData();
