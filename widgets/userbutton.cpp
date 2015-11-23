@@ -37,15 +37,15 @@ void UserButton::initUI() {
     m_textLabel->setText(m_buttonId);
 
 //    qDebug() << "UserButton:" << this->objectName() << m_textLabel->text().length();
-    if (m_textLabel->text().length()>12) {
-        QString tmpText = m_textLabel->text().left(12);
+    if (m_textLabel->text().length()>11) {
+        QString tmpText = m_textLabel->text().left(11);
         tmpText += "...";
         m_textLabel->setText(tmpText);
     }
 
     m_textLabel->setFixedSize(this->width(), 30);
     m_textLabel->setAlignment(Qt::AlignHCenter);
-
+//    qDebug() << "QQQ m_textLabel:" << m_textLabel->width() << this->width();
     m_buttonLayout = new QHBoxLayout;
     m_buttonLayout->setMargin(0);
     m_buttonLayout->setSpacing(0);
