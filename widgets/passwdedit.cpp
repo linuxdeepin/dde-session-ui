@@ -33,6 +33,7 @@ void PassWdEdit::initUI() {
     m_iconButton->setFixedSize(QSize(35, 35));
 
     m_lineEdit = new QLineEdit;
+    m_lineEdit->setContextMenuPolicy(Qt::NoContextMenu);
     m_lineEdit->setObjectName("passwdLineEdit");
     m_lineEdit->setEchoMode(QLineEdit::Password);
     m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
