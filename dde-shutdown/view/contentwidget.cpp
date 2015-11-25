@@ -2,6 +2,7 @@
 #include <QtWidgets/QLabel>
 #include <QtCore/QObject>
 
+#include "dbus/dbusvariant.h"
 #include "contentwidget.h"
 
 ShutDownFrame::ShutDownFrame(QWidget *parent)
@@ -157,10 +158,44 @@ void ShutDownFrame::initUI() {
     m_currentSelectedBtn = m_shutdownButton;
     m_currentSelectedBtn->updateState(RoundItemButton::Default);
 
-    // TODO: remove
-//    showTips("不要关机 不要关机 不要关机 不要关机 不要关机 不要关机 ");
-//    m_shutdownButton->setDisabled(true);
-//    m_restartButton->setDisabled(true);
+    //// Inhibit to shutdown
+    inhibitShutdown();
+
+    QTimer* checkTooltip = new QTimer(this);
+    checkTooltip->setInterval(5*60*1000);
+    checkTooltip->start();
+    connect(checkTooltip,  &QTimer::timeout, this, &ShutDownFrame::inhibitShutdown);
+}
+
+void ShutDownFrame::inhibitShutdown() {
+    m_login1Inter = new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
+    QString reminder_tooltip  = QString();
+
+    if (m_login1Inter->isValid()) {
+        qDebug() <<  "m_login1Inter is valid!";
+
+        QDBusPendingReply<InhibitorsList> reply = m_login1Inter->ListInhibitors();
+        reply.waitForFinished();
+
+        if (!reply.isError()){
+            InhibitorsList inhibitList = qdbus_cast<InhibitorsList>(reply.argumentAt(0));
+            qDebug() << "inhibitList:" << inhibitList.count();
+
+            for(int i = 0; i < inhibitList.count();i++) {
+                if (inhibitList.at(i).what == "shutdown" && inhibitList.at(i).dosome == "block") {
+                    reminder_tooltip = inhibitList.at(i).why;
+                }
+            }
+            qDebug() << "shutdown Reason!" << reminder_tooltip;
+            showTips(reminder_tooltip);
+        } else {
+            reminder_tooltip = "";
+            qDebug() << reply.error().message();
+        }
+    } else {
+        qDebug() << "shutdown login1Manager error!";
+        reminder_tooltip = "";
+    }
 }
 
 void ShutDownFrame::setPreviousChildFocus()
@@ -197,8 +232,18 @@ void ShutDownFrame::setNextChildFocus()
 
 void ShutDownFrame::showTips(const QString &tips)
 {
-    m_tipsLabel->setText(tips);
-    m_tipsWidget->show();
+    if (!tips.isEmpty()) {
+        m_tipsLabel->setText(tips);
+        m_tipsWidget->show();
+        m_shutdownButton->setDisabled(true);
+        m_restartButton->setDisabled(true);
+        m_suspendButton->setDisabled(true);
+    } else {
+        m_tipsWidget->hide();
+        m_shutdownButton->setDisabled(false);
+        m_restartButton->setDisabled(false);
+        m_suspendButton->setDisabled(false);
+    }
 }
 
 void ShutDownFrame::hideBtns(const QStringList &btnsName)

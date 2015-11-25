@@ -19,6 +19,11 @@ DBusLogin1Manager::DBusLogin1Manager(const QString &service, const QString &path
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
     QDBusConnection::systemBus().connect(this->service(), this->path(), "org.freedesktop.DBus.Properties",  "PropertiesChanged","sa{sv}as", this, SLOT(__propertyChanged__(QDBusMessage)));
+    Inhibit::registerMetaType();
+    UserInfo::registerMetaType();
+    SeatInfo::registerMetaType();
+    SessionInfo::registerMetaType();
+
 }
 
 DBusLogin1Manager::~DBusLogin1Manager()

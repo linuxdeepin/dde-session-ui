@@ -10,7 +10,6 @@ ShutdownFrame::ShutdownFrame(QWidget *parent)
     this->setFixedSize(qApp->desktop()->size());
 
     qDebug() << "this geometry:" << geometry();
-    setWindowFlags(Qt::FramelessWindowHint | Qt::BypassWindowManagerHint);
 
     m_shutdownManager = new ShutdownManager(this);
     QPoint mousePoint = QCursor::pos();

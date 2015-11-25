@@ -7,12 +7,15 @@ void Inhibit::registerMetaType()
 {
     qRegisterMetaType<Inhibit>("Inhibit");
     qDBusRegisterMetaType<Inhibit>();
+    qRegisterMetaType<InhibitorsList>("InhibitorsList");
+    qDBusRegisterMetaType<InhibitorsList>();
 }
+
 
 QDBusArgument &operator<<(QDBusArgument &argument, const Inhibit &obj)
 {
     argument.beginStructure();
-    argument << obj.what << obj.who << obj.why << obj.mode << obj.fd;
+    argument << obj.what << obj.who << obj.why << obj.dosome<< obj.mode << obj.fd;
     argument.endStructure();
     return argument;
 }
@@ -21,7 +24,7 @@ QDBusArgument &operator<<(QDBusArgument &argument, const Inhibit &obj)
 const QDBusArgument &operator>>(const QDBusArgument &argument, Inhibit &obj)
 {
     argument.beginStructure();
-    argument >> obj.what >> obj.who >> obj.why >> obj.mode >> obj.fd;
+    argument >> obj.what >> obj.who >> obj.why >> obj.dosome >> obj.mode >> obj.fd;
     argument.endStructure();
     return argument;
 }
@@ -33,6 +36,8 @@ void UserInfo::registerMetaType()
 {
     qRegisterMetaType<UserInfo>("UserInfo");
     qDBusRegisterMetaType<UserInfo>();
+    qRegisterMetaType<UserList>("UserList");
+    qDBusRegisterMetaType<UserList>();
 }
 
 QDBusArgument &operator<<(QDBusArgument &argument, const UserInfo &obj)
@@ -57,6 +62,8 @@ SeatInfo::~SeatInfo() {}
 void SeatInfo::registerMetaType() {
     qRegisterMetaType<SeatInfo>("SeatInfo");
     qDBusRegisterMetaType<SeatInfo>();
+    qRegisterMetaType<SeatList>("SeatList");
+    qDBusRegisterMetaType<SeatList>();
 }
 
 QDBusArgument &operator<<(QDBusArgument &argument, const SeatInfo &obj)
@@ -81,6 +88,8 @@ SessionInfo::~SessionInfo() {}
 void SessionInfo::registerMetaType() {
     qRegisterMetaType<SessionInfo>("SessionInfo");
     qDBusRegisterMetaType<SessionInfo>();
+    qRegisterMetaType<SessionList>("SessionList");
+    qDBusRegisterMetaType<SessionList>();
 }
 
 QDBusArgument &operator<<(QDBusArgument &argument, const SessionInfo &obj)

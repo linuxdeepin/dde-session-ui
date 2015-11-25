@@ -4,6 +4,7 @@
 #include <QCommandLineParser>
 #include <QDebug>
 
+#include "logmanager.h"
 #include "app/shutdownframe.h"
 #include "dbus/dbuscontrolcenter.h"
 #include "../background/backgroundlabel.h"
@@ -12,6 +13,7 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
+    LogManager::instance()->debug_log_console_on();
     // hide dde-control-center
     DBusControlCenter *DCCInter = new DBusControlCenter;
     if (DCCInter->isValid())

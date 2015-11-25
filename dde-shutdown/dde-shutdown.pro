@@ -19,6 +19,7 @@ include(../background/background.pri)
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 include(../boxframe/boxframe.pri)
+include(../cutelogger/cutelogger.pri)
 
 SOURCES += main.cpp \
     view/contentwidget.cpp \

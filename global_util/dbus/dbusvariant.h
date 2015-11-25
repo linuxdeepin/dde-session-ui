@@ -3,14 +3,16 @@
 
 #include <QtCore>
 #include <QtDBus>
+#include <QtDBus/QDBusArgument>
 
 class Inhibit {
 public:
     QString what;
     QString who;
     QString why;
-    qlonglong mode;
-    qlonglong fd;
+    QString dosome;
+    quint32 mode;
+    quint32 fd;
 
     Inhibit();
     ~Inhibit();
@@ -62,9 +64,12 @@ public:
     friend const QDBusArgument &operator>>(const QDBusArgument &argument, SessionInfo &obj);
     static void registerMetaType();
 };
+
+
 typedef QList<Inhibit> InhibitorsList;
 Q_DECLARE_METATYPE(Inhibit)
 Q_DECLARE_METATYPE(InhibitorsList)
+
 
 typedef QList<UserInfo> UserList;
 Q_DECLARE_METATYPE(UserInfo)

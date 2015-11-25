@@ -8,6 +8,8 @@
 #include "rounditembutton.h"
 #include "util_signalmanager.h"
 #include "util_updateui.h"
+#include "dbus/dbusvariant.h"
+#include "dbus/dbuslogin1manager.h"
 
 class ShutDownFrame: public QFrame
 {
@@ -38,6 +40,7 @@ public slots:
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
 
+    void inhibitShutdown();
 private:
     void initUI();
     void initConnect();
@@ -56,5 +59,6 @@ private:
 
     QWidget *m_tipsWidget;
     QLabel *m_tipsLabel;
+    DBusLogin1Manager* m_login1Inter;
 };
 #endif // CONTENTVIEWWIDGET
