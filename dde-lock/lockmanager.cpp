@@ -62,6 +62,7 @@ void LockManager::initUI() {
 
     m_controlWidget = new ControlWidget(this);
     m_controlWidget->hideMusicControlWidget();
+    m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
 
 
     QHBoxLayout *passwdLayout = new QHBoxLayout;
