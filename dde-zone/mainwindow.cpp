@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include "pushbuttonlist.h"
 #include <hotzone.h>
-#include <QDesktopWidget>
-#include <QApplication>
+#include <QScreen>
+#include <QGuiApplication>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -12,13 +12,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setAttribute(Qt::WA_TranslucentBackground, true);
 
     // catch the screen that mouse is in
-    QDesktopWidget *desktop = QApplication::desktop();
-    int primaryScreenKey = desktop->primaryScreen();
-    for (int i=0;i<desktop->screenCount();i++){
-        QRect screen = desktop->screenGeometry(primaryScreenKey + i);
+    // catch the screen that mouse is in
+    QList<QScreen*> screenList = QGuiApplication::screens();
+    for (int i=0;i<screenList.length();i++){
+        QRect screen = screenList[i]->geometry();
         if(screen.contains(QCursor::pos())){
-            // set the size and position of this app
-            this->setGeometry(screen);
+            // set the size and position of this app. Enlarge 30px to height to avoid fade-zone of mouseEvent.
+            this->setGeometry(screen.x(), screen.y()-MAIN_ITEM_TOP_MARGIN, screen.width(), screen.height()+MAIN_ITEM_TOP_MARGIN);
             break;
         }
     }
@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     palette.setColor(QPalette::Background, QColor(0, 0, 0, 127));
     back->setPalette(palette);
     back->setAutoFillBackground(true);
-    back->resize(this->size());
+    back->setGeometry(0, MAIN_ITEM_TOP_MARGIN, this->width(), this->height()-MAIN_ITEM_TOP_MARGIN);
 
     // init corresponding QList for addButtons()
     m_ButtonNames << tr("Control Center") << tr("All Windows") << tr("Launcher") << tr("Desktop") << tr("None");

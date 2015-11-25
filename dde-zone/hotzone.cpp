@@ -59,10 +59,10 @@ void HotZone::initItemAtCorrectCorner(QWidget* mainWindow)
 
     switch (corner) {
     case TopLeft:
-        m_mainItem->move(0, 0);
+        m_mainItem->move(0, MAIN_ITEM_TOP_MARGIN);
         break;
     case TopRight:
-        m_mainItem->move(mainWidth - WRAPPER_SIZE, 0);
+        m_mainItem->move(mainWidth - WRAPPER_SIZE, MAIN_ITEM_TOP_MARGIN);
         break;
     case BottomLeft:
         m_mainItem->move(0, mainHeight - WRAPPER_SIZE);

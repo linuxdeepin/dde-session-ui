@@ -27,6 +27,9 @@ private:
     const QString LAUNCHER_STR = "/usr/bin/dde-launcher";
     const QString SHOW_DESKTOP_STR = "/usr/lib/deepin-daemon/desktop-toggle";
     const QString NONE_STR = "";
+
+    // MAIN_ITEM_TOP_MARGIN is aimed to steer clear of the fade-zone of mouseEvent of mainWindow Item.
+    const int MAIN_ITEM_TOP_MARGIN = 30;
 };
 
 #endif // MAINWINDOWWITHCLICK_H
