@@ -210,7 +210,7 @@ void Osd::loadCorrespondingImage(QString whichImage)
     } else if (whichImage == "CapsLockOff") {
         showThemeImage(getThemeIconPath("capslock-disabled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "TouchpadOn") {
-        showThemeImage(getThemeIconPath("input-touchpad-symbolic"), m_Svg, m_ImageLabel);
+        showThemeImage(getThemeIconPath("touchpad-enabled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "TouchpadOff") {
         showThemeImage(getThemeIconPath("touchpad-disabled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "TouchpadToggle") {
@@ -591,7 +591,7 @@ void Osd::paintEvent(QPaintEvent *e)
     // for the backgound color
     QPen pen;
     pen.setStyle(Qt::SolidLine);
-    pen.setColor(QColor(255,255,255,51));
+    pen.setColor(Qt::transparent);
     pen.setWidth(1);
     QPainterPath path;
     path.addRoundedRect(QRectF(0.5, 0.5, this->width()-1, this->height()-1), 10, 10);
