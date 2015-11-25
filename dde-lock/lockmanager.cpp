@@ -125,7 +125,7 @@ void LockManager::keyPressEvent(QKeyEvent *e)
             m_passwordEdit->show();
         }
 #ifdef QT_DEBUG
-        qApp->quit();   break;
+//        qApp->quit();   break;
 #endif
             default:;
     }

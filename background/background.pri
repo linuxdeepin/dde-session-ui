@@ -1,5 +1,3 @@
-INCLUDEPATH += $$PWD
-
 HEADERS += \
     $$PWD/backgroundlabel.h \
     $$PWD/systembackground.h

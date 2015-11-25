@@ -1,7 +1,6 @@
 #include <QDebug>
 #include <QPushButton>
 #include <QScreen>
-#include "backgroundlabel.h"
 #include <QTimer>
 #include "loginframe.h"
 

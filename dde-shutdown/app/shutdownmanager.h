@@ -7,7 +7,7 @@
 #include "view/mainframe.h"
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
-#include "backgroundlabel.h"
+#include "../background/backgroundlabel.h"
 #include "util_signalmanager.h"
 
 class ShutdownManager : public QFrame

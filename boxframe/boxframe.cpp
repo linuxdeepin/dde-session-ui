@@ -4,7 +4,7 @@
 #include <QTimer>
 
 #include "boxframe.h"
-#include "backgroundlabel.h"
+#include "../background/backgroundlabel.h"
 
 BoxFrame::BoxFrame(QWidget* background, QWidget *parent)
     : QFrame(parent)

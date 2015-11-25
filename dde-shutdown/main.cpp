@@ -6,7 +6,7 @@
 
 #include "app/shutdownframe.h"
 #include "dbus/dbuscontrolcenter.h"
-#include "backgroundlabel.h"
+#include "../background/backgroundlabel.h"
 
 int main(int argc, char* argv[])
 {

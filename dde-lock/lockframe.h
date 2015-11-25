@@ -2,7 +2,6 @@
 #define LOCKFRAME
 
 #include <QKeyEvent>
-#include "backgroundlabel.h"
 #include "lockmanager.h"
 #include "boxframe.h"
 class LockFrame: public BoxFrame

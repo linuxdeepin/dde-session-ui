@@ -1,6 +1,6 @@
 #include <QDebug>
 
-#include "backgroundlabel.h"
+#include "../background/backgroundlabel.h"
 #include "shutdownframe.h"
 
 ShutdownFrame::ShutdownFrame(QWidget *parent)
