@@ -32,18 +32,22 @@ void UserButton::initUI() {
     m_userAvatar->setObjectName(m_buttonId);
 
     m_textLabel = new QLabel;
-    m_textLabel->setStyleSheet("text-align:center;color: rgba(255, 255, 255, 255);\
-                                          font-size:16px; ");
-    m_textLabel->setText(m_buttonId);
+    m_textLabel->setFixedSize(width(), 30);
+    m_textLabel->setStyleSheet("text-align:center;color: rgba(255, 255, 255, 255);");
 
-//    qDebug() << "UserButton:" << this->objectName() << m_textLabel->text().length();
-    if (m_textLabel->text().length()>11) {
-        QString tmpText = m_textLabel->text().left(11);
-        tmpText += "...";
-        m_textLabel->setText(tmpText);
+    QFont font(m_textLabel->font());
+    font.setPixelSize(16);
+    m_textLabel->setFont(font);
+
+    QFontMetrics metrics(m_textLabel->font());
+    if (metrics.width(m_buttonId) > m_textLabel->width())
+    {
+        const QString elidedText = metrics.elidedText(m_buttonId, Qt::ElideRight, m_textLabel->width());
+        m_textLabel->setText(elidedText);
+    } else {
+        m_textLabel->setText(m_buttonId);
     }
 
-    m_textLabel->setFixedSize(this->width(), 30);
     m_textLabel->setAlignment(Qt::AlignHCenter);
 //    qDebug() << "QQQ m_textLabel:" << m_textLabel->width() << this->width();
     m_buttonLayout = new QHBoxLayout;
