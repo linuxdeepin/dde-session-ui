@@ -120,8 +120,6 @@ private:
     const QString MONITOR_TEXT_HIGHLIGHT_STYLE = "QLabel{color:#01bdff;font-size:14px}";
     const QString MONITOR_TEXT_NORMAL_STYLE = "QLabel{color:#ffffff;font-size:14px}";
     const QString BACK_IMAGE_STYLE = "QLabel{border-width: 5px 5px 5px 5px;border-image:url(:/OSD_bg.png)}";
-    const QString DEFAULT_THEME_DIR = "/usr/share/icons/Deepin/status/scalable/";
-
 };
 
 #endif // OSD_H

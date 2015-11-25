@@ -144,13 +144,15 @@ QString Osd::getThemeIconPath(QString iconName)
 #endif
         return QString(path);
     } else {
-        return DEFAULT_THEME_DIR+iconName+".svg";
+        return "";
     }
 }
 
 void Osd::showThemeImage(QString iconName, QSvgWidget* svgLoader, QLabel* notSvgLoader){
     if(iconName.endsWith(".svg")){
         svgLoader->load(iconName);
+    }else if(iconName.isEmpty()){
+        svgLoader->load(getThemeIconPath("application-default-icon"));
     }else{
         notSvgLoader->setPixmap(QPixmap(iconName).scaled(IMAGE_SIZE,IMAGE_SIZE,Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     }
