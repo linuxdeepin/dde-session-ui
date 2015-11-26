@@ -84,13 +84,37 @@ void PassWdEdit::initData() {
 void PassWdEdit::focusInEvent(QFocusEvent *)
 {
     m_lineEdit->setFocus();
-
+    if (m_lineEdit->isReadOnly()) {
+        m_lineEdit->setReadOnly(false);
+    }
 }
 
 bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
 {
-    if (o == m_lineEdit && e->type() == QEvent::FocusIn)
+    if (o == m_lineEdit && (e->type() == QEvent::MouseButtonRelease ||
+         e->type() == QEvent::KeyRelease)) {
+
+        if (m_lineEdit->isReadOnly()) {
+            m_lineEdit->setReadOnly(false);
+            setAlert(false);
+            m_lineEdit->setFocusPolicy(Qt::StrongFocus);
+
+            if (e->type() == QEvent::KeyRelease) {
+                QKeyEvent *event = static_cast<QKeyEvent*>(e);
+
+                if (event->text().length()==1 && event->key()!=Qt::Key_Escape &&
+                        event->key() != Qt::Key_Tab) {
+                    m_lineEdit->setText(event->text());
+
+                    qDebug() << "m_lineEdit:" << m_lineEdit->text() << m_lineEdit->cursorPosition();
+                }
+
+            }
+        }
+    }
+    if (o == m_lineEdit && e->type() == QEvent::FocusIn) {
         setAlert(false);
+    }
 
     return false;
 }
@@ -159,9 +183,11 @@ void PassWdEdit::setAlert(bool alert, const QString &text)
         m_lineEdit->setText(text);
         m_lineEdit->blockSignals(false);
         m_lineEdit->setEchoMode(QLineEdit::Normal);
+        m_lineEdit->setReadOnly(true);
     } else {
         m_lineEdit->clear();
         m_lineEdit->setEchoMode(QLineEdit::Password);
+        m_lineEdit->setReadOnly(false);
     }
 
     setStyleSheet(styleSheet());
