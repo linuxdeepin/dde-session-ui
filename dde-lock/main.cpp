@@ -23,10 +23,9 @@ int main(int argc, char* argv[])
 
     if(QDBusConnection::sessionBus().registerService(DBUS_NAME)){
         qDebug() << "DBUS_NAME:" << DBUS_NAME;
-        QLabel* lock_background = new QLabel;
-        lock_background->setStyleSheet(QString("border-image: url(%1)").arg(":/theme/background/default_background.jpg"));
+        const QString &backgroundUrl = ":/theme/background/default_background.jpg";
 
-        LockFrame lf(lock_background);
+        LockFrame lf(backgroundUrl);
         lf.show();
         lf.grabKeyboard();
 

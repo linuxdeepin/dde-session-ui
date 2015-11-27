@@ -4,8 +4,8 @@
 #include <QTimer>
 #include "loginframe.h"
 
-LoginFrame::LoginFrame(QWidget *parent)
-    : BoxFrame(parent)
+LoginFrame::LoginFrame(const QString url, QWidget *parent)
+    : BoxFrame(url)
 {
     this->move(0, 0);
     this->setFixedSize(qApp->desktop()->size());

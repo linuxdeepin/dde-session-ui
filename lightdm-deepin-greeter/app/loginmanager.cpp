@@ -214,6 +214,7 @@ void LoginManager::updateWidgetsPosition()
 
     m_userWidget->setFixedWidth(width);
     m_userWidget->move(0, (height - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
+    qDebug() << "Change Screens" << m_userWidget->isChooseUserMode;
     m_sessionWidget->setFixedWidth(width);
     m_sessionWidget->move(0, (height - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
     m_logoWidget->move(48, height - m_logoWidget->height() - 36); // left 48px and bottom 36px

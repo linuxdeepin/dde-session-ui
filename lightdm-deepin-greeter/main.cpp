@@ -15,9 +15,8 @@ int main(int argc, char* argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
-    QLabel* login_background= new QLabel;
-    login_background->setStyleSheet(QString("border-image: url(%1)").arg(":/theme/background/default_background.jpg"));
-    LoginFrame  w(login_background);
+    const QString &backgroundUrl = ":/theme/background/default_background.jpg";
+    LoginFrame  w(backgroundUrl);
     w.show();
     w.grabKeyboard();
     return a.exec();

@@ -15,7 +15,7 @@ class LoginFrame : public BoxFrame
     Q_OBJECT
 
 public:
-    explicit LoginFrame(QWidget* parent = 0);
+    explicit LoginFrame(const QString url, QWidget* parent = 0);
     ~LoginFrame();
 public slots:
     void updateScreenPosition(QRect rect);

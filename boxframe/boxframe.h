@@ -16,15 +16,14 @@ class BoxFrame : public QFrame
     Q_OBJECT
 
 public:
-    explicit BoxFrame(QWidget* background, QWidget *parent = 0);
+    explicit BoxFrame(QWidget* parent = 0);
+    explicit BoxFrame(const QString url, QWidget *parent = 0);
     ~BoxFrame();
 signals:
     void screenChanged(QRect rect);
 protected:
     void resizeEvent(QResizeEvent *e);
     void keyPressEvent(QKeyEvent *e);
-private:
-    QWidget* m_background;
 };
 
 #endif // BOXFRAME_H
