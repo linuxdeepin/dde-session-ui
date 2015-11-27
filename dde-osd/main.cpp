@@ -22,6 +22,9 @@ int main(int argc, char *argv[])
     QCommandLineOption TouchpadOn("TouchpadOn", "\tOSD TouchpadOn");
     QCommandLineOption TouchpadOff("TouchpadOff", "\tOSD TouchpadOff");
     QCommandLineOption TouchpadToggle("TouchpadToggle", "\tOSD TouchpadToggle");
+    QCommandLineOption SwitchWM3D("SwitchWM3D", "\tOSD SwitchWM3D");
+    QCommandLineOption SwitchWM2D("SwitchWM2D", "\tOSD SwitchWM2D");
+    QCommandLineOption SwitchWMError("SwitchWMError", "\tOSD SwitchWMError");
     QCommandLineOption BrightnessUp("BrightnessUp", "\tOSD BrightnessUp");
     QCommandLineOption BrightnessDown("BrightnessDown", "\tOSD BrightnessDown");
     QCommandLineOption AudioMute("AudioMute", "\tOSD AudioMute");
@@ -41,6 +44,9 @@ int main(int argc, char *argv[])
     parser.addOption(TouchpadOn);
     parser.addOption(TouchpadOff);
     parser.addOption(TouchpadToggle);
+    parser.addOption(SwitchWM3D);
+    parser.addOption(SwitchWM2D);
+    parser.addOption(SwitchWMError);
     parser.addOption(BrightnessUp);
     parser.addOption(BrightnessDown);
     parser.addOption(AudioMute);
@@ -70,6 +76,12 @@ int main(int argc, char *argv[])
             osd.loadCorrespondingImage("TouchpadOff");
         } else if (parser.isSet(TouchpadToggle)) {
             osd.loadCorrespondingImage("TouchpadToggle");
+        } else if (parser.isSet(SwitchWM3D)){
+            osd.loadCorrespondingImage("SwitchWM3D");
+        } else if (parser.isSet(SwitchWM2D)) {
+            osd.loadCorrespondingImage("SwitchWM2D");
+        } else if (parser.isSet(SwitchWMError)) {
+            osd.loadCorrespondingImage("SwitchWMError");
         } else if (parser.isSet(BrightnessUp) || parser.isSet(BrightnessDown)) {
             osd.loadCorrespondingImage("Brightness");
         } else if (parser.isSet(AudioUp) || parser.isSet(AudioDown)) {
@@ -108,6 +120,12 @@ int main(int argc, char *argv[])
             iface.call("loadCorrespondingImage", "TouchpadOff");
         } else if (parser.isSet(TouchpadToggle)) {
             iface.call("loadCorrespondingImage", "TouchpadToggle");
+        } else if (parser.isSet(SwitchWM3D)) {
+            iface.call("loadCorrespondingImage", "SwitchWM3D");
+        } else if (parser.isSet(SwitchWM2D)) {
+            iface.call("loadCorrespondingImage", "SwitchWM2D");
+        } else if (parser.isSet(SwitchWMError)) {
+            iface.call("loadCorrespondingImage", "SwitchWMError");
         } else if (parser.isSet(BrightnessUp) || parser.isSet(BrightnessDown)) {
             iface.call("loadCorrespondingImage", "Brightness");
         } else if (parser.isSet(AudioUp) || parser.isSet(AudioDown)) {

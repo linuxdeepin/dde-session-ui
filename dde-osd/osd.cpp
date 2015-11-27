@@ -12,7 +12,6 @@
 #include <QRect>
 #include <QFile>
 
-
 Osd::Osd(QWidget *parent)
     : QWidget(parent)
 {
@@ -215,6 +214,12 @@ void Osd::loadCorrespondingImage(QString whichImage)
         showThemeImage(getThemeIconPath("touchpad-disabled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "TouchpadToggle") {
         showThemeImage(getThemeIconPath("touchpad-toggled-symbolic"), m_Svg, m_ImageLabel);
+    } else if (whichImage == "SwitchWM3D") {
+        showThemeImage(getThemeIconPath("wm-effect-enabled"), m_Svg, m_ImageLabel);
+    } else if (whichImage == "SwitchWM2D") {
+        showThemeImage(getThemeIconPath("wm-effect-disabled"), m_Svg, m_ImageLabel);
+    } else if (whichImage == "SwitchWMError") {
+        showThemeImage(getThemeIconPath("wm-effect-error"), m_Svg, m_ImageLabel);
     } else if (whichImage == "Brightness") {
         actionMode = NormalBrightness;
         showThemeImage(getThemeIconPath("display-brightness-symbolic"), m_Svg, m_ImageLabel);
