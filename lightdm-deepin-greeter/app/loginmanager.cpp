@@ -234,6 +234,7 @@ void LoginManager::showShutdownFrame() {
 
 
 void LoginManager::keyPressEvent(QKeyEvent* e) {
+    qDebug() << "qDebug loginManager:" << e->text();
     if (e->key() == Qt::Key_Escape) {
         if (!m_requireShutdownWidget->isHidden()) {
             m_requireShutdownWidget->hide();
@@ -279,8 +280,15 @@ void LoginManager::leaveEvent(QEvent *)
 
 void LoginManager::login()
 {
+    if (m_userWidget->isChooseUserMode) {
+        m_userWidget->chooseButtonChecked();
+        //        this->releaseKeyboard();
+
+        m_passWdEdit->lineEditGrabKeyboard();
+        return;
+    }
+
     const QString &username = m_userWidget->currentUser();
-    const QString &password = m_passWdEdit->getText();
 
     if (!m_passWdEdit->isVisible())
         return;
@@ -290,16 +298,17 @@ void LoginManager::login()
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
 
-//    m_passWdEdit->setAlert(true, "asd");
+    //    m_passWdEdit->setAlert(true, "asd");
 
     // save user last choice
     m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
     m_userWidget->saveLastUser();
 
-//    const QString &username = m_userWidget->currentUser();
+    //    const QString &username = m_userWidget->currentUser();
     m_greeter->authenticate(username);
     qDebug() << "choose user: " << username;
     qDebug() << "auth user: " << m_greeter->authenticationUser();
+
 }
 
 void LoginManager::keyboardLayoutUI() {

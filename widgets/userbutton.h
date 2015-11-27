@@ -35,6 +35,7 @@ signals:
 public slots:
     void sendClicked();
     void setImageSize(const AvatarSize &avatarsize);
+    void setButtonChecked(bool checked);
 
     void showButton();
     void hide(const int duration = 0);
@@ -42,9 +43,12 @@ public slots:
     void stopAnimation();
 
     double opacity();
+    bool isChecked();
     void setOpacity(double opa);
     void setCustomEffect();
     void addTextShadowAfter();
+protected:
+    void paintEvent(QPaintEvent* event);
 private:
     void initUI();
     void initConnect();

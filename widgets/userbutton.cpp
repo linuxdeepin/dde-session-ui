@@ -100,11 +100,13 @@ void UserButton::showButton()
         QTimer::singleShot(500, this, SLOT(addTextShadowAfter()));
     });
 }
+
 void UserButton::addTextShadowAfter() {
 
     m_opacityEffect->setEnabled(false);
     addTextShadow(true);
 }
+
 void UserButton::hide(const int duration)
 {
     Q_UNUSED(duration);
@@ -142,6 +144,20 @@ void UserButton::addTextShadow(bool isEffective) {
     m_textLabel->setGraphicsEffect(nameShadow);
 }
 
+void UserButton::paintEvent(QPaintEvent* event)
+{
+    QPushButton::paintEvent(event);
+
+    if (!m_checked)
+        return;
+
+    QPainter painter(this);
+    painter.setPen(QPen(QColor(255, 255, 255, 51), 2));
+    painter.setBrush(QColor(0, 0 , 0, 76));
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.drawRoundedRect(QRect(2, 2, width() - 4, height() - 4), 10, 10, Qt::RelativeSize);
+}
+
 void UserButton::stopAnimation()
 {
     m_moveAni->stop();
@@ -161,6 +177,15 @@ void UserButton::setOpacity(double opa) {
 void UserButton::setCustomEffect() {
     m_opacityEffect->setOpacity(m_opacity);
     setGraphicsEffect(m_opacityEffect);
+}
+
+void UserButton::setButtonChecked(bool checked) {
+    m_checked = checked;
+    update();
+}
+
+bool UserButton::isChecked() {
+    return m_checked;
 }
 
 UserButton::~UserButton()

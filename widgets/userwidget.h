@@ -41,14 +41,16 @@ public slots:
     void leftKeySwitchUser();
     void rightKeySwitchUser();
     void switchUserByKey(int i, int j);
+    void chooseButtonChecked();
 protected:
     void resizeEvent(QResizeEvent *e);
-
 private:
     void initUI();
 
 private:
+    int m_currentUserIndex = 0;
     QString m_currentUser = QString();
+    UserButton* m_currentBtns = nullptr;
     QList<UserButton *> *m_userBtns;
     QLightDM::UsersModel *m_userModel;
     DLoadingIndicator *m_loadingAni;

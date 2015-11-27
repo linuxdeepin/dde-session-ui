@@ -87,6 +87,8 @@ void UserWidget::setCurrentUser(const QString &username)
         if (user->objectName() == username) {
             user->showButton();
             user->setImageSize(user->AvatarLargerSize);
+            if (user->isChecked())
+                user->setButtonChecked(false);
         } else
             user->hide(180);
 
@@ -156,23 +158,56 @@ void UserWidget::switchUserByKey(int i, int j) {
     m_userBtns->at(j)->setImageSize(UserButton::AvatarLargerSize);
 }
 
+void UserWidget::chooseButtonChecked() {
+    qDebug() << "Grab Key Release Event";
+
+    this->grabKeyboard();
+    qDebug() << "Get the Key Return or Enter";
+    bool checkedBtsExist = false;
+    for (UserButton* user: *m_userBtns) {
+        if (user->isChecked()) {
+            setCurrentUser(user->objectName());
+            checkedBtsExist = true;
+        }
+    }
+    if (!checkedBtsExist) {
+        setCurrentUser(m_currentUser);
+    }
+}
+
 void UserWidget::leftKeySwitchUser() {
 
+    if (!isChooseUserMode) {
+        for (int i = 0; i < m_userBtns->length(); i++) {
+            qDebug() << "zz:" << i << m_userBtns->at(i)->objectName();
+            if (m_userBtns->at(i)->objectName() == m_currentUser) {
 
-    for (int i = 0; i < m_userBtns->length(); i++) {
-        qDebug() << "zz:" << i << m_userBtns->at(i)->objectName();
-        if (m_userBtns->at(i)->objectName() == m_currentUser) {
-
-            if (i == 0) {
-                switchUserByKey(0, m_userBtns->length() - 1);
-               break;
+                if (i == 0) {
+                    switchUserByKey(0, m_userBtns->length() - 1);
+                    break;
+                } else {
+                    qDebug() << "$$$" << i;
+                    switchUserByKey(i, i - 1);
+                    break;
+                }
             } else {
-                qDebug() << "$$$" << i;
-                switchUserByKey(i, i - 1);
-                break;
+                continue;
             }
+
+        }
+    } else {
+        if (m_currentUserIndex == 0) {
+            m_currentUserIndex = m_userBtns->length() - 1;
         } else {
-            continue;
+            m_currentUserIndex = m_currentUserIndex - 1;
+        }
+
+        for (int j = 0; j < m_userBtns->length(); j++) {
+            if (j == m_currentUserIndex) {
+                m_userBtns->at(j)->setButtonChecked(true);
+            } else {
+                m_userBtns->at(j)->setButtonChecked(false);
+            }
         }
 
     }
@@ -180,19 +215,35 @@ void UserWidget::leftKeySwitchUser() {
 
 void UserWidget::rightKeySwitchUser() {
     qDebug() << "RightKeyPressed";
-    for (int i = 0; i < m_userBtns->length(); i++) {
-        if (m_userBtns->at(i)->objectName() == m_currentUser) {
+    if (!isChooseUserMode) {
+        for (int i = 0; i < m_userBtns->length(); i++) {
+            if (m_userBtns->at(i)->objectName() == m_currentUser) {
 
-            if (i == m_userBtns->length() - 1) {
-                switchUserByKey(m_userBtns->length() - 1, 0);
-               break;
+                if (i == m_userBtns->length() - 1) {
+                    switchUserByKey(m_userBtns->length() - 1, 0);
+                    break;
+                } else {
+                    qDebug() << "$$$" << i;
+                    switchUserByKey(i, i + 1);
+                    break;
+                }
             } else {
-                qDebug() << "$$$" << i;
-                switchUserByKey(i, i + 1);
-                break;
+                continue;
             }
+        }
+    } else {
+        if (m_currentUserIndex ==  m_userBtns->length() - 1) {
+            m_currentUserIndex = 0;
         } else {
-            continue;
+            m_currentUserIndex = m_currentUserIndex + 1;
+        }
+
+        for (int j = 0; j < m_userBtns->length(); j++) {
+            if (j == m_currentUserIndex) {
+                m_userBtns->at(j)->setButtonChecked(true);
+            } else {
+                m_userBtns->at(j)->setButtonChecked(false);
+            }
         }
     }
 }

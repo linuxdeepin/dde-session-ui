@@ -91,6 +91,7 @@ void PassWdEdit::focusInEvent(QFocusEvent *)
 
 bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
 {
+
     if (o == m_lineEdit && (e->type() == QEvent::MouseButtonRelease ||
          e->type() == QEvent::KeyRelease)) {
 
@@ -101,7 +102,7 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
 
             if (e->type() == QEvent::KeyRelease) {
                 QKeyEvent *event = static_cast<QKeyEvent*>(e);
-
+                qDebug() << "passwdedit:" << event->text();
                 if (event->text().length()==1 && event->key()!=Qt::Key_Escape &&
                         event->key() != Qt::Key_Tab) {
                     m_lineEdit->setText(event->text());
@@ -195,7 +196,8 @@ void PassWdEdit::setAlert(bool alert, const QString &text)
 void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
 {
     emit focusIn();
-    qDebug() << "e->key:" << e->key();
+
+    qDebug() << "PassWordEdit e->key:" << e->key();
     switch (e->key())
     {
     case Qt::Key_Return:        /* submit */
