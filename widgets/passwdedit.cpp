@@ -189,7 +189,6 @@ void PassWdEdit::setAlert(bool alert, const QString &text)
         m_lineEdit->setEchoMode(QLineEdit::Password);
         m_lineEdit->setReadOnly(false);
     }
-
     setStyleSheet(styleSheet());
 }
 
