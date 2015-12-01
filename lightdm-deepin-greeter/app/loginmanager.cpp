@@ -144,7 +144,7 @@ void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
 
     switch (type)
     {
-    case QLightDM::Greeter::PromptTypeSecret:   m_greeter->respond(m_passWdEdit->getText().trimmed());     break;
+    case QLightDM::Greeter::PromptTypeSecret:   m_greeter->respond(m_passWdEdit->getText());     break;
     default:;
     }
 }

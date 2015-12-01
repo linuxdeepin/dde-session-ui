@@ -19,5 +19,6 @@ int main(int argc, char* argv[])
     LoginFrame  w(backgroundUrl);
     w.show();
     w.grabKeyboard();
+
     return a.exec();
 }

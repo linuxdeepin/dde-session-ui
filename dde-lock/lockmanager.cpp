@@ -191,7 +191,7 @@ void LockManager::unlock()
 
     qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
     const QString &username = m_userWidget->currentUser();
-    const QString &password = m_passwordEdit->getText().trimmed();
+    const QString &password = m_passwordEdit->getText();
 
     QDBusPendingReply<bool> result = m_lockInter->UnlockCheck(username, password);
     result.waitForFinished();
