@@ -4,13 +4,15 @@
 #include <QDesktopWidget>
 #include <QCursor>
 #include <QDebug>
+#include <QWindow>
 
 #include "window.h"
 
 Window::Window(QWidget *parent)
     : QWidget(parent)
 {
-    setWindowFlags(Qt::BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
+    // set window flags as dde-lock, so we can easily cover it.
+    setWindowFlags(Qt::BypassWindowManagerHint | Qt::FramelessWindowHint);
 
     setupSize();
     setStyleSheet("Window { background: black }");
@@ -51,4 +53,31 @@ void Window::setupImagePosition()
     QWidget * screen = desktop->screen(screenNum);
 
     m_image->move(screen->geometry().center() - m_image->rect().center());
+}
+
+LowPowerAdaptor::LowPowerAdaptor(Window * parent) :
+    QDBusAbstractAdaptor(parent)
+{
+
+}
+
+LowPowerAdaptor::~LowPowerAdaptor()
+{
+
+}
+
+void LowPowerAdaptor::Raise()
+{
+    Window * w = qobject_cast<Window*>(parent());
+    if (w) {
+        w->raise();
+        w->activateWindow();
+        w->grabMouse();
+        w->grabKeyboard();
+    }
+}
+
+void LowPowerAdaptor::Quit()
+{
+    qApp->quit();
 }

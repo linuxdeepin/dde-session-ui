@@ -2,6 +2,7 @@
 #define WINDOW_H
 
 #include <QWidget>
+#include <QDBusAbstractAdaptor>
 
 class QLabel;
 class Window : public QWidget
@@ -17,6 +18,19 @@ private:
 
     void setupSize();
     void setupImagePosition();
+};
+
+class LowPowerAdaptor : public QDBusAbstractAdaptor {
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "com.deepin.dde.LowPower")
+
+public:
+    LowPowerAdaptor(Window * parent);
+    ~LowPowerAdaptor();
+
+public slots:
+    void Raise();
+    void Quit();
 };
 
 #endif // WINDOW_H
