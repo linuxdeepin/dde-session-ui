@@ -100,7 +100,6 @@ void LoginManager::recordPid() {
     } else {
         qDebug() << "file open failed!";
     }
-
 }
 
 void LoginManager::initConnect()
@@ -125,13 +124,13 @@ void LoginManager::initConnect()
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
 
     connect(m_passWdEdit, &PassWdEdit::updateKeyboardStatus, this, &LoginManager::keyboardLayoutUI);
-    connect(m_passWdEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LoginManager::keybdLayoutWidget);
+    connect(m_passWdEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LoginManager::keybdLayoutWidgetPosit);
     connect(m_passWdEdit, &PassWdEdit::leftKeyPressed, this, &LoginManager::leftKeyPressed);
     connect(m_passWdEdit, &PassWdEdit::rightKeyPressed, this, &LoginManager::rightKeyPressed);
 
     connect(m_passWdEdit, &PassWdEdit::focusIn, [this]{
-        if (!m_keybdLayoutWidget->isHidden()) {
-           m_keybdLayoutWidget->hide();
+        if (!m_keybdArrowWidget->isHidden()) {
+           m_keybdArrowWidget->hide();
         }});
     connect(this, &LoginManager::leftKeyPressed, m_userWidget, &UserWidget::leftKeySwitchUser);
     connect(this, &LoginManager::rightKeyPressed, m_userWidget, &UserWidget::rightKeySwitchUser);
@@ -188,8 +187,8 @@ void LoginManager::chooseSessionMode()
     m_userWidget->hide();
     m_passWdEdit->hide();
     m_requireShutdownWidget->hide();
-    if (!m_keybdLayoutWidget->isHidden()) {
-        m_keybdLayoutWidget->hide();
+    if (!m_keybdArrowWidget->isHidden()) {
+        m_keybdArrowWidget->hide();
     }
 }
 
@@ -202,8 +201,8 @@ void LoginManager::choosedSession() {
     } else {
         m_passWdEdit->show();
     }
-    if (!m_keybdLayoutWidget->isHidden()) {
-        m_keybdLayoutWidget->hide();
+    if (!m_keybdArrowWidget->isHidden()) {
+        m_keybdArrowWidget->hide();
     }
 }
 
@@ -256,8 +255,8 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
             m_passWdEdit->show();
         }
 
-        if (!m_keybdLayoutWidget->isHidden()) {
-            m_keybdLayoutWidget->hide();
+        if (m_keybdArrowWidget->isHidden()) {
+            m_keybdArrowWidget->hide();
         }
     }
 }
@@ -320,13 +319,25 @@ void LoginManager::keyboardLayoutUI() {
     QStringList keyboardListContent =  xkbParse->lookUpKeyboardList(keyboardList);
 
 
-    m_keybdLayoutWidget = new KbLayoutWidget(keyboardListContent, this);
+    m_keybdLayoutWidget = new KbLayoutWidget(keyboardListContent);
 
-    m_keybdLayoutWidget->move(m_passWdEdit->x(), m_passWdEdit->y() + m_passWdEdit->height() + 10);
-    m_keybdLayoutWidget->hide();
+    m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
+    m_keybdArrowWidget->setBackgroundColor(QColor(0, 0, 0, .5));
+    m_keybdArrowWidget->setBorderColor(QColor(255, 255, 255, 255));
+    m_keybdArrowWidget->setArrowX(13);
+    m_keybdArrowWidget->setArrowWidth(12);
+    m_keybdArrowWidget->setArrowHeight(6);
+    m_keybdArrowWidget->setMargin(1);
+
+    m_keybdArrowWidget->setContent(m_keybdLayoutWidget);
+    m_keybdLayoutWidget->setParent(m_keybdArrowWidget);
+    m_keybdLayoutWidget->show();
+    m_keybdArrowWidget->move(m_passWdEdit->x() + 123, m_passWdEdit->y() + m_passWdEdit->height() - 15);
+
+    m_keybdArrowWidget->hide();
 
     connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &LoginManager::setCurrentKeyboardLayout);
-    connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, &KbLayoutWidget::hide);
+    connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, m_keybdArrowWidget, &DArrowRectangle::hide);
 }
 
 void LoginManager::setCurrentKeyboardLayout(QString keyboard_value) {
@@ -338,11 +349,11 @@ void LoginManager::setCurrentKeyboardLayout(QString keyboard_value) {
 
 }
 
-void LoginManager::keybdLayoutWidget() {
-    if (m_keybdLayoutWidget->isHidden()) {
-        m_keybdLayoutWidget->show();
+void LoginManager::keybdLayoutWidgetPosit() {
+    if (m_keybdArrowWidget->isHidden()) {
+        m_keybdArrowWidget->show(m_passWdEdit->x() + 123, m_passWdEdit->y() + m_passWdEdit->height() - 15);
     } else {
-        m_keybdLayoutWidget->hide();
+        m_keybdArrowWidget->hide();
     }
 
 }

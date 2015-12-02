@@ -18,7 +18,8 @@ HEADERS += \
     $$PWD/kblayoutwidget.h \
     $$PWD/dbus/dbusaccounts.h \
     $$PWD/dbus/dbususer.h \
-    $$PWD/shutdownwidget.h
+    $$PWD/shutdownwidget.h \
+    $$PWD/darrowrectangle.h
 
 
 
@@ -33,7 +34,8 @@ SOURCES += \
     $$PWD/kblayoutwidget.cpp \
     $$PWD/dbus/dbusaccounts.cpp \
     $$PWD/dbus/dbususer.cpp \
-    $$PWD/shutdownwidget.cpp
+    $$PWD/shutdownwidget.cpp \
+    $$PWD/darrowrectangle.cpp
 
 RESOURCES += \
     $$PWD/widgetstheme.qrc \

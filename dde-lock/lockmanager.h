@@ -16,6 +16,7 @@
 #include "dbus/dbusmediaplayer2.h"
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
+#include "darrowrectangle.h"
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/lock"
 #define LOCKSERVICE_NAME "com.deepin.dde.lock"
@@ -45,10 +46,12 @@ public slots:
     void shutdownMode();
     void updateWidgetsPosition();
     void recordPid();
+
+    void keybdLayoutWidgetPosit();
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QMouseEvent *);
-    void leaveEvent(QEvent *);
+    void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
 private:
     void loadMPRIS();
     void initBackend();
@@ -69,6 +72,7 @@ private:
     QStringList m_keybdLayoutNameList;
     QStringList keybdLayoutDescList;
     KbLayoutWidget* m_keybdLayoutWidget;
+    DArrowRectangle* m_keybdArrowWidget;
     DBusSessionManagerInterface* m_sessionManagerIter;
 
     DBusMediaPlayer2 *m_mprisInter = nullptr;

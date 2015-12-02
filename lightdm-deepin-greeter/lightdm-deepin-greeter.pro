@@ -5,14 +5,14 @@
 #-------------------------------------------------
 include(../common.pri)
 
-QT       += core gui dbus
+QT       += core gui dbus x11extras
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = lightdm-deepin-greeter
 TEMPLATE = app
 
-PKGCONFIG += gsettings-qt dui liblightdm-qt5-3
+PKGCONFIG += gsettings-qt dui liblightdm-qt5-3 xext
 CONFIG += c++11 link_pkgconfig
 
 

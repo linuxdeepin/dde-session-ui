@@ -26,7 +26,7 @@ LockManager::LockManager(QWidget* parent)
 }
 void LockManager::initConnect() {
 
-    connect(m_passwordEdit, &PassWdEdit::keybdLayoutButtonClicked, m_keybdLayoutWidget, &KbLayoutWidget::show);
+    connect(m_passwordEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LockManager::keybdLayoutWidgetPosit);
     connect(m_controlWidget, &ControlWidget::shutdownClicked, this, &LockManager::shutdownMode);
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, [this] (const ShutdownWidget::Actions action) {
         switch (action) {
@@ -41,6 +41,11 @@ void LockManager::initConnect() {
         m_hotZoneInterface->EnableZoneDetected(true);
     });
 }
+
+void LockManager::keybdLayoutWidgetPosit() {
+    m_keybdArrowWidget->show(m_passwordEdit->x() + 123, m_passwordEdit->y() + m_passwordEdit->height() - 15);
+}
+
 void LockManager::initUI() {
     setFixedSize(qApp->desktop()->size());
     setFocusPolicy(Qt::NoFocus);
@@ -135,11 +140,16 @@ void LockManager::keyPressEvent(QKeyEvent *e)
     }
 }
 
-void LockManager::mouseReleaseEvent(QMouseEvent *)
+void LockManager::mouseReleaseEvent(QMouseEvent *e)
 {
     qDebug() << "ReleaseEvent";
     m_action = Unlock;
     passwordMode();
+    if (e->button() == Qt::LeftButton) {
+        if (!m_keybdArrowWidget->isHidden()) {
+            m_keybdArrowWidget->hide();
+        }
+    }
 }
 
 void LockManager::loadMPRIS()
@@ -250,13 +260,25 @@ void LockManager::initBackend() {
 }
 
 void LockManager::updateUI() {
-    m_keybdLayoutWidget = new KbLayoutWidget(keybdLayoutDescList, this);
+    m_keybdLayoutWidget = new KbLayoutWidget(keybdLayoutDescList);
     m_keybdLayoutWidget->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
-    m_keybdLayoutWidget->move(m_passwordEdit->x(), m_passwordEdit->y() + m_passwordEdit->height() + 10);
-    m_keybdLayoutWidget->hide();
+
+    m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
+
+    m_keybdArrowWidget->setBackgroundColor(QColor(0, 0, 0, .5));
+    m_keybdArrowWidget->setBorderColor(QColor(255, 255, 255, 255));
+    m_keybdArrowWidget->setMargin(1);
+    m_keybdArrowWidget->setArrowX(13);
+    m_keybdArrowWidget->setArrowWidth(12);
+    m_keybdArrowWidget->setArrowHeight(6);
+    m_keybdArrowWidget->setContent(m_keybdLayoutWidget);
+    m_keybdLayoutWidget->setParent(m_keybdArrowWidget);
+    m_keybdLayoutWidget->show();
+    m_keybdArrowWidget->move(m_passwordEdit->x() + 123, m_passwordEdit->y() + m_passwordEdit->height() - 15);
+    m_keybdArrowWidget->hide();
 
     connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &LockManager::setCurrentKeyboardLayout);
-    connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, &KbLayoutWidget::hide);
+    connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, m_keybdArrowWidget, &DArrowRectangle::hide);
 }
 
 void LockManager::setCurrentKeyboardLayout(QString keyboard_value) {

@@ -24,6 +24,8 @@
 #include "dbus/dbuslogin1manager.h"
 #include "dbus/dbuslockservice.h"
 
+#include "darrowrectangle.h"
+
 #define LOCKSERVICE_PATH "/com/deepin/dde/lock"
 #define LOCKSERVICE_NAME "com.deepin.dde.lock"
 
@@ -55,7 +57,7 @@ private slots:
 
     void showShutdownFrame();
     void keyboardLayoutUI();
-    void keybdLayoutWidget();
+    void keybdLayoutWidgetPosit();
     void setCurrentKeyboardLayout(QString keyboard_value);
 
     void setShutdownAction(const ShutdownWidget::Actions action);
@@ -72,6 +74,7 @@ private:
 
     ShutdownWidget* m_requireShutdownWidget;
     KbLayoutWidget* m_keybdLayoutWidget;
+    DArrowRectangle* m_keybdArrowWidget;
     XkbParser* xkbParse;
 
     QLightDM::Greeter *m_greeter;
