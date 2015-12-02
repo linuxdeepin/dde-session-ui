@@ -36,19 +36,19 @@ void UserWidget::initUI()
 {
     DBusAccounts *accounts = new DBusAccounts("com.deepin.daemon.Accounts", "/com/deepin/daemon/Accounts", QDBusConnection::systemBus(), this);
     const QStringList userList = accounts->userList();
-    QStringList blockedList;
+    QStringList whiteList;
 
     for (const QString &user : userList)
     {
         DBusUser *inter = new DBusUser("com.deepin.daemon.Accounts", user, QDBusConnection::systemBus(), this);
 
-        if (inter->locked())
-            blockedList.append(inter->userName());
+        if (!inter->locked())
+            whiteList.append(inter->userName());
         inter->deleteLater();
     }
     accounts->deleteLater();
 
-    qDebug() << "Blocked:             " << blockedList;
+    qDebug() << "whiteList:             " << whiteList;
 
     const int userCount = m_userModel->rowCount(QModelIndex());
     for (int i(0); i != userCount; ++i)
@@ -56,7 +56,7 @@ void UserWidget::initUI()
         const QString &username = m_userModel->data(m_userModel->index(i), QLightDM::UsersModel::NameRole).toString();
 
         // pass blocked account
-        if (blockedList.contains(username))
+        if (!whiteList.contains(username))
             continue;
 
         const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
