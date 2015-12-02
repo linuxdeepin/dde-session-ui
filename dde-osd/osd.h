@@ -58,7 +58,7 @@ private:
     void initCurrentScreenMode();
     void reHighlightMonitor();
 
-
+    QDBusInterface* m_AudioInterface;
     VolumeDbus *m_VolumeInterface;
     DisplayDbus *m_DisplayInterface;
     LayoutDbus *m_LayoutInterface;
@@ -76,6 +76,7 @@ private:
     QLabel *m_ExpandedScreenText;
     QListWidget *m_ListWidget;
     QVariantAnimation *m_animation;
+    QLabel* m_SwitchWMLabel;
     QFont m_f;
     QSvgWidget* m_Svg;
 
@@ -115,6 +116,9 @@ private:
     const int KEYBOARD_ITEM_HEIGHT = 36;
     const int LAYOUT_MARGIN = 10;
     const int DEADLINE_TIME = 2000;
+    const QRect SWITCHWM_TEXT_GEOMETRY = QRect(16,96,108,34);
+    const QPoint SWITCHWM_IMAGE_POINT = QPoint(42,30);
+    const QString SWITCHWM_TEXT_STYLE = "QLabel{font-size:14px;color:#ffffff}";
     const QString KEYBOARD_ITEM_HIGHLIGHT_STYLE = "QLabel{color:#01bdff;font-size:14px;background:rgba(0,0,0,0.7);border:none;border-radius:5px}";
     const QString KEYBOARD_ITEM_NORMAL_STYLE = "QLabel{color:#ffffff;font-size:14px;}";
     const QString MONITOR_TEXT_HIGHLIGHT_STYLE = "QLabel{color:#01bdff;font-size:14px}";

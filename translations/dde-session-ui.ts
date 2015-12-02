@@ -4,18 +4,26 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="179"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="207"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="256"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="288"/>
         <source>Enter your password to restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="259"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="291"/>
         <source>Enter your passwrod to shutdown</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LoginManager</name>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="158"/>
+        <source>Wrong password</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -38,7 +46,7 @@
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="35"/>
-        <source>Show Desktop</source>
+        <source>Desktop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -50,45 +58,60 @@
 <context>
     <name>Osd</name>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="385"/>
+        <location filename="../dde-osd/osd.cpp" line="239"/>
+        <source>Enable window effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/osd.cpp" line="244"/>
+        <source>Disable window effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/osd.cpp" line="249"/>
+        <source>Failed to enable window effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/osd.cpp" line="484"/>
         <source>Duplicate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="401"/>
-        <source>Expanded</source>
+        <location filename="../dde-osd/osd.cpp" line="506"/>
+        <source>Extend</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="89"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="90"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="92"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="93"/>
         <source>Restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="95"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="96"/>
         <source>Suspend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="98"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="99"/>
         <source>Lock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="101"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="102"/>
         <source>Log out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="105"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="106"/>
         <source>Switch user</source>
         <translation type="unfinished"></translation>
     </message>

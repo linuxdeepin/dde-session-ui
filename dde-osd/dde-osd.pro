@@ -19,12 +19,12 @@ SOURCES += main.cpp\
         osd.cpp \
     dbus/volumedbus.cpp \
     dbus/layoutdbus.cpp \
-    dbus/displaydbus.cpp \
+    dbus/displaydbus.cpp
 
 HEADERS  += osd.h \
     dbus/volumedbus.h \
     dbus/layoutdbus.h \
-    dbus/displaydbus.h \
+    dbus/displaydbus.h
 
 RESOURCES += \
     image.qrc

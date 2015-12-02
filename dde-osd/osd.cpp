@@ -53,8 +53,16 @@ Osd::~Osd()
 
 void Osd::initInterfaces()
 {
+    // DbusInterface to get defalut sink, which is usabel when computer has more than 1 sound card
+    m_AudioInterface = new QDBusInterface("com.deepin.daemon.Audio",
+                                          "/com/deepin/daemon/Audio",
+                                          "",QDBusConnection::sessionBus(),this);
+
+    // default sink path
+    QString defautSinkPath = qvariant_cast<QDBusObjectPath>(m_AudioInterface->call("GetDefaultSink").arguments()[0]).path();
+
     m_VolumeInterface = new VolumeDbus("com.deepin.daemon.Audio",
-                                       "/com/deepin/daemon/Audio/Sink0",
+                                       defautSinkPath,
                                        QDBusConnection::sessionBus(), this);
 
     m_DisplayInterface = new DisplayDbus("com.deepin.daemon.Display",
@@ -75,6 +83,9 @@ void Osd::initGlobalVars()
     m_ImageLabel = new QLabel(this);
     // m_Timer is used to record time , to quit the app properly
     m_Timer = new QTimer(this);
+
+    // m_SwitchWMLabel is used to show text for SwitchWM*
+    m_SwitchWMLabel = new QLabel(this);
 
     // initial m_ListWidget
     m_ListWidget = new QListWidget(this);
@@ -117,6 +128,12 @@ void Osd::initBasicOperation()
     // set fixed size for image icon, and move it to app's center
     m_Svg->setFixedSize(IMAGE_SIZE,IMAGE_SIZE);
     m_Svg->move((this->width() - IMAGE_SIZE) / 2, (this->height() - IMAGE_SIZE) / 2);
+
+    // set font-size and color and position and wordwrap and alignment for m_SwitchWMLabel
+    m_SwitchWMLabel->setGeometry(SWITCHWM_TEXT_GEOMETRY);
+    m_SwitchWMLabel->setStyleSheet(SWITCHWM_TEXT_STYLE);
+    m_SwitchWMLabel->setWordWrap(true);
+    m_SwitchWMLabel->setAlignment(Qt::AlignCenter);
 }
 
 void Osd::initConnects()
@@ -196,8 +213,11 @@ void Osd::loadCorrespondingImage(QString whichImage)
     actionMode = Normal;
     m_ListWidget->setVisible(false);
     m_MonitersWrapper->setVisible(false);
+    m_SwitchWMLabel->setText("");
     m_Svg->setVisible(true);
     this->resize(BASE_SIZE, BASE_SIZE);
+    m_Svg->move((this->width() - IMAGE_SIZE) / 2, (this->height() - IMAGE_SIZE) / 2);
+    m_ImageLabel->move((this->width() - IMAGE_SIZE) / 2, (this->height() - IMAGE_SIZE) / 2);
     m_BackImageLabel->resize(this->size());
     m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
     if (whichImage == "NumLockOn") {
@@ -216,10 +236,19 @@ void Osd::loadCorrespondingImage(QString whichImage)
         showThemeImage(getThemeIconPath("touchpad-toggled-symbolic"), m_Svg, m_ImageLabel);
     } else if (whichImage == "SwitchWM3D") {
         showThemeImage(getThemeIconPath("wm-effect-enabled"), m_Svg, m_ImageLabel);
+        m_SwitchWMLabel->setText(tr("Enable window effects"));
+        m_Svg->move(SWITCHWM_IMAGE_POINT);
+        m_ImageLabel->move(SWITCHWM_IMAGE_POINT);
     } else if (whichImage == "SwitchWM2D") {
         showThemeImage(getThemeIconPath("wm-effect-disabled"), m_Svg, m_ImageLabel);
+        m_SwitchWMLabel->setText(tr("Disable window effects"));
+        m_Svg->move(SWITCHWM_IMAGE_POINT);
+        m_ImageLabel->move(SWITCHWM_IMAGE_POINT);
     } else if (whichImage == "SwitchWMError") {
         showThemeImage(getThemeIconPath("wm-effect-error"), m_Svg, m_ImageLabel);
+        m_SwitchWMLabel->setText(tr("Failed to enable window effects"));
+        m_Svg->move(SWITCHWM_IMAGE_POINT);
+        m_ImageLabel->move(SWITCHWM_IMAGE_POINT);
     } else if (whichImage == "Brightness") {
         actionMode = NormalBrightness;
         showThemeImage(getThemeIconPath("display-brightness-symbolic"), m_Svg, m_ImageLabel);
@@ -254,6 +283,7 @@ void Osd::loadSwitchLayout()
     actionMode = SwitchLayout;
     m_Svg->setVisible(false);
     m_MonitersWrapper->setVisible(false);
+    m_SwitchWMLabel->setText("");
     m_ListWidget->setVisible(true);
 
     if (m_LayoutInterface->userLayoutList().length() > 1) {
@@ -415,6 +445,7 @@ void Osd::loadSwitchMonitors()
     actionMode = SwitchMonitor;
     m_Svg->setVisible(false);
     m_ListWidget->setVisible(false);
+    m_SwitchWMLabel->setText("");
     m_MonitersWrapper->setVisible(true);
     // get the list of all screens by using QString's method "split"
     QString screenNamesStr = (QString)m_DisplayInterface->QueryCurrentPlanName();
@@ -467,7 +498,7 @@ void Osd::initMonitorItems()
     // image label for expanded mode
     m_ExpandedScreenImageSvg = new QSvgWidget(expandedScreenItem);
     m_ExpandedScreenImageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-    m_ExpandedScreenImageLabel = new QLabel(duplicateScreenItem);
+    m_ExpandedScreenImageLabel = new QLabel(expandedScreenItem);
     m_ExpandedScreenImageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
     showThemeImage(getThemeIconPath("project_screen-extend-symbolic"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
     // text label for expanded mode
