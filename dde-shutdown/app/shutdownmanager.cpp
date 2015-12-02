@@ -23,7 +23,7 @@ void ShutdownManager::initConnect() {
         m_hotZoneInterface->EnableZoneDetected(true);
     });
 }
-void ShutdownManager::shutDownFramegrabKeyboard() {
+void ShutdownManager::shutDownFrameGrabKeyboard() {
 
     qDebug() << "grabTimes:" << m_timerCount;
     if (m_timerCount == 10) {
@@ -69,12 +69,12 @@ void ShutdownManager::initUI() {
     m_getFocusTimer = new QTimer(this);
     m_getFocusTimer->setInterval(100);
     m_getFocusTimer->start();
-    connect(m_getFocusTimer,  &QTimer::timeout, this, &ShutdownManager::shutDownFramegrabKeyboard);
+    connect(m_getFocusTimer,  &QTimer::timeout, this, &ShutdownManager::shutDownFrameGrabKeyboard);
 
 }
 
 void ShutdownManager::showEvent(QShowEvent *) {
-    shutDownFramegrabKeyboard();
+    shutDownFrameGrabKeyboard();
 }
 
 void ShutdownManager::initData() {

@@ -26,7 +26,7 @@ public slots:
     void powerAction(const ShutDownFrame::Actions action);
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
-    void shutDownFramegrabKeyboard();
+    void shutDownFrameGrabKeyboard();
 
 protected:
     void keyPressEvent(QKeyEvent *e);

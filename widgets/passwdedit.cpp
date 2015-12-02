@@ -59,14 +59,22 @@ void PassWdEdit::initUI() {
     setLayout(m_Layout);
     setGraphicsEffect(m_opacityEffect);
 
-    QTimer::singleShot(1000, this, SLOT(lineEditGrabKeyboard()));
+    m_getFocusTimer = new QTimer(this);
+    m_getFocusTimer->setInterval(100);
+    m_getFocusTimer->start();
+    connect(m_getFocusTimer,  &QTimer::timeout, this, &PassWdEdit::lineEditGrabKeyboard);
 
     updateStyle(":/skin/passwdedit.qss", this);
 
 }
 
 void PassWdEdit::lineEditGrabKeyboard() {
-    m_lineEdit->grabKeyboard();
+    if (m_timerCount == 10) {
+        m_getFocusTimer->stop();
+    } else {
+        m_timerCount++;
+        m_lineEdit->grabKeyboard();
+    }
 }
 void PassWdEdit::initConnect() {
     connect(m_iconButton, &DImageButton::clicked, this, &PassWdEdit::submit);
@@ -109,7 +117,6 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
 
                     qDebug() << "m_lineEdit:" << m_lineEdit->text() << m_lineEdit->cursorPosition();
                 }
-
             }
         }
     }
