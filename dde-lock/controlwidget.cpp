@@ -8,10 +8,11 @@ ControlWidget::ControlWidget(QWidget *parent)
     : QWidget(parent)
 {
     m_songName = new QLabel;
+    m_songName->setAlignment(Qt::AlignCenter);
     m_songName->setStyleSheet("color:white;"
 //                              "background-color:red;"
                               "font-size:15px;"
-                              "margin:0 0 10px 5px;");
+                              "margin:0 35px 10px 5px;");
     m_volumeNums = new QLabel;
     m_volumeNums->hide();
     m_volumeNums->setStyleSheet("color:white;"
@@ -108,7 +109,13 @@ void ControlWidget::bindDBusService(DBusMediaPlayer2 *dbusInter)
         m_volumeNums->setText(QString::number(m_dbusInter->volume() * 100));
     });
     connect(m_dbusInter, &DBusMediaPlayer2::MetadataChanged, [this] {
-        m_songName->setText(m_dbusInter->metadata().value("xesam:title").toString());
+        const QString text = m_dbusInter->metadata().value("xesam:title").toString();
+        QFontMetrics qfm(m_songName->font());
+
+        if (qfm.width(text) > m_songName->width())
+            m_songName->setText(qfm.elidedText(text, Qt::ElideRight, m_songName->width()));
+        else
+            m_songName->setText(text);
     });
     connect(m_volume, &DImageButton::clicked, [this] {
         const double currentVolume = m_dbusInter->volume();
