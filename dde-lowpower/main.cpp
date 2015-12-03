@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
             w.grabMouse();
             w.grabKeyboard();
 
-            QDBusConnection::sessionBus().registerObject(DBUS_PATH, DBUS_IFCE, &w);
+            QDBusConnection::sessionBus().registerObject(DBUS_PATH, &w);
         }
     } else {
         if (parser.isSet(raiseOption)) {
