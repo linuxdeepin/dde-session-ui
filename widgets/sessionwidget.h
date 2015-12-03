@@ -23,14 +23,15 @@ public:
 public slots:
     void switchToUser(const QString &userName);
     void saveUserLastSession(const QString &userName);
-
+    void leftKeySwitch();
+    void rightKeySwitch();
+    void chooseSession();
 signals:
     void sessionChanged(const QString &sessionName);
 
 private slots:
     void switchSession(const QString &sessionName);
     int getSessionIndex(const QString &sessionName);
-
 private:
     int m_currentSessionIndex;
     QString m_lastSelectedUser = QString();

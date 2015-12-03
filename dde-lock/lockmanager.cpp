@@ -40,12 +40,26 @@ void LockManager::initConnect() {
     connect(qApp, &QApplication::aboutToQuit, [this]{
         m_hotZoneInterface->EnableZoneDetected(true);
     });
+
+    connect(m_passwordEdit, &PassWdEdit::leftKeyPressed, this, &LockManager::leftKeyPressed);
+    connect(m_passwordEdit, &PassWdEdit::rightKeyPressed, this, &LockManager::rightKeyPressed);
 }
 
 void LockManager::keybdLayoutWidgetPosit() {
     m_keybdArrowWidget->show(m_passwordEdit->x() + 123, m_passwordEdit->y() + m_passwordEdit->height() - 15);
 }
 
+void LockManager::leftKeyPressed() {
+    if (!m_requireShutdownWidget->isHidden()) {
+        m_requireShutdownWidget->leftKeySwitch();
+    }
+}
+
+void LockManager::rightKeyPressed() {
+    if (!m_requireShutdownWidget->isHidden()) {
+        m_requireShutdownWidget->rightKeySwitch();
+    }
+}
 void LockManager::initUI() {
     setFixedSize(qApp->desktop()->size());
     setFocusPolicy(Qt::NoFocus);
@@ -197,6 +211,11 @@ void LockManager::recordPid() {
 
 void LockManager::unlock()
 {
+    if (!m_requireShutdownWidget->isHidden()) {
+        m_requireShutdownWidget->shutdownAction();
+        return;
+    }
+
     m_userWidget->showLoadingAni();
 
     qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
@@ -228,6 +247,7 @@ void LockManager::unlock()
     case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
     }
 }
+
 void LockManager::initBackend() {
     m_hotZoneInterface = new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone",
                                                         QDBusConnection::sessionBus(), this);

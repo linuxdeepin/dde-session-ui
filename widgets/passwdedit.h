@@ -33,6 +33,7 @@ public:
 
     QStringList keyboardLayoutList;
     UtilSettings* utilSettings = NULL;
+    QTimer* getFocusTimer;
 signals:
     void submit();
     void keybdLayoutButtonClicked();
@@ -63,7 +64,7 @@ protected:
     bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;
 
 private:
-    QTimer* m_getFocusTimer;
+
     int m_timerCount = 0;
 
     void initUI();

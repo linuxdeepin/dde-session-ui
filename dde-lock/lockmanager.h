@@ -48,6 +48,8 @@ public slots:
     void recordPid();
 
     void keybdLayoutWidgetPosit();
+    void leftKeyPressed();
+    void rightKeyPressed();
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;

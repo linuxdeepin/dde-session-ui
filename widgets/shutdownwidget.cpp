@@ -12,7 +12,8 @@ void ShutdownWidget::initConnect() {
     connect(m_requireShutdownButton, &RoundItemButton::clicked, [this]{ emit shutDownWidgetAction(RequireShutdown);});
     connect(m_requireRestartButton, &RoundItemButton::clicked, [this]{ emit shutDownWidgetAction(RequireRestart);});
     connect(m_requireSuspendBUtton, &RoundItemButton::clicked, [this]{ emit shutDownWidgetAction(RequireSuspend);});
-
+    connect(this, &ShutdownWidget::directLeft, &ShutdownWidget::leftKeySwitch);
+    connect(this, &ShutdownWidget::directRight, &ShutdownWidget::rightKeySwitch);
 }
 
 void ShutdownWidget::initUI() {
@@ -27,6 +28,9 @@ void ShutdownWidget::initUI() {
     m_requireSuspendBUtton = new RoundItemButton(tr("Suspend"), this);
     m_requireSuspendBUtton->setObjectName("RequireSuspendButton");
     m_requireSuspendBUtton->setAutoExclusive(true);
+
+    m_currentSelectedBtn = m_requireShutdownButton;
+    m_currentSelectedBtn->updateState(RoundItemButton::Default);
 
     m_btnList = new QList<RoundItemButton*>;
     m_btnList->append(m_requireShutdownButton);
@@ -46,6 +50,32 @@ void ShutdownWidget::initUI() {
     updateStyle(":/skin/requireshutdown.qss", this);
 }
 
-ShutdownWidget::~ShutdownWidget() {
+void ShutdownWidget::leftKeySwitch() {
+    m_btnList->at(m_index)->updateState(RoundItemButton::Normal);
+    if (m_index == 0) {
+        m_index = m_btnList->length() - 1;
+    } else {
+        m_index  -= 1;
+    }
+    m_currentSelectedBtn = m_btnList->at(m_index);
+    m_currentSelectedBtn->updateState(RoundItemButton::Checked);
+}
 
+void ShutdownWidget::rightKeySwitch() {
+    m_btnList->at(m_index)->updateState(RoundItemButton::Normal);
+    if (m_index == m_btnList->length() - 1) {
+        m_index =  0;
+    } else {
+        m_index  += 1;
+    }
+    m_currentSelectedBtn = m_btnList->at(m_index);
+    m_currentSelectedBtn->updateState(RoundItemButton::Checked);
+}
+
+void ShutdownWidget::shutdownAction() {
+    qDebug() << "emit m_currentSelectedBtn clicked";
+    emit m_currentSelectedBtn->clicked();
+}
+
+ShutdownWidget::~ShutdownWidget() {
 }

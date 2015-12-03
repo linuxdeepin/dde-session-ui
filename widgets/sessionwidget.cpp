@@ -140,3 +140,26 @@ int SessionWidget::getSessionIndex(const QString &sessionName)
     return 0;
 }
 
+void SessionWidget::leftKeySwitch() {
+    m_sessionBtns->at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
+    if (m_currentSessionIndex == 0) {
+        m_currentSessionIndex = m_sessionModel->rowCount(QModelIndex()) - 1;
+    } else {
+        m_currentSessionIndex  -= 1;
+    }
+    m_sessionBtns->at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
+}
+
+void SessionWidget::rightKeySwitch() {
+    m_sessionBtns->at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
+    if (m_currentSessionIndex == m_sessionModel->rowCount(QModelIndex()) - 1) {
+        m_currentSessionIndex = 0;
+    } else {
+        m_currentSessionIndex += 1;
+    }
+    m_sessionBtns->at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
+}
+
+void SessionWidget::chooseSession() {
+    emit m_sessionBtns->at(m_currentSessionIndex)->clicked();
+}

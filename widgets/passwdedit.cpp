@@ -59,17 +59,19 @@ void PassWdEdit::initUI() {
     setLayout(m_Layout);
     setGraphicsEffect(m_opacityEffect);
 
-    m_getFocusTimer = new QTimer(this);
-    m_getFocusTimer->setInterval(100);
-    m_getFocusTimer->start();
-    connect(m_getFocusTimer,  &QTimer::timeout, this, &PassWdEdit::lineEditGrabKeyboard);
+    getFocusTimer = new QTimer(this);
+    getFocusTimer->setInterval(100);
+    getFocusTimer->start();
+    connect(getFocusTimer,  &QTimer::timeout, this, &PassWdEdit::lineEditGrabKeyboard);
 
     updateStyle(":/skin/passwdedit.qss", this);
 }
 
 void PassWdEdit::lineEditGrabKeyboard() {
+    qDebug() << "lineEditGrabKeyboard" << m_timerCount;
     if (m_timerCount == 10) {
-        m_getFocusTimer->stop();
+        getFocusTimer->stop();
+        m_timerCount = 0;
     } else {
         m_timerCount++;
         m_lineEdit->grabKeyboard();

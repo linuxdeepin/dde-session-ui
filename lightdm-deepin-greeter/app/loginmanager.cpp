@@ -132,8 +132,7 @@ void LoginManager::initConnect()
         if (!m_keybdArrowWidget->isHidden()) {
            m_keybdArrowWidget->hide();
         }});
-    connect(this, &LoginManager::leftKeyPressed, m_userWidget, &UserWidget::leftKeySwitchUser);
-    connect(this, &LoginManager::rightKeyPressed, m_userWidget, &UserWidget::rightKeySwitchUser);
+
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
 }
 
@@ -234,6 +233,7 @@ void LoginManager::showShutdownFrame() {
 
 void LoginManager::keyPressEvent(QKeyEvent* e) {
     qDebug() << "qDebug loginManager:" << e->text();
+
     if (e->key() == Qt::Key_Escape) {
         if (!m_requireShutdownWidget->isHidden()) {
             m_requireShutdownWidget->hide();
@@ -279,14 +279,25 @@ void LoginManager::leaveEvent(QEvent *)
 
 void LoginManager::login()
 {
-    if (m_userWidget->isChooseUserMode) {
-        m_userWidget->chooseButtonChecked();
-        //        this->releaseKeyboard();
-
-        m_passWdEdit->lineEditGrabKeyboard();
+    if(!m_requireShutdownWidget->isHidden()) {
+        qDebug() << "SHUTDOWN";
+        m_requireShutdownWidget->shutdownAction();
         return;
     }
 
+    if (!m_sessionWidget->isHidden()) {
+        qDebug() << "SESSIONWIDGET";
+        m_sessionWidget->chooseSession();
+        return;
+    }
+    if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
+        m_userWidget->chooseButtonChecked();
+        m_passWdEdit->getFocusTimer->start();
+        qDebug() << "lineEditGrabKeyboard";
+        return;
+    }
+
+    qDebug() << "sososos:" << m_passWdEdit->getText();
     const QString &username = m_userWidget->currentUser();
 
     if (!m_passWdEdit->isVisible())
@@ -375,5 +386,29 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
             m_sessionWidget->hide();
         break;}
         default:;
+    }
+}
+
+void LoginManager::leftKeyPressed() {
+    if (!m_userWidget->isHidden()) {
+        m_userWidget->leftKeySwitchUser();
+    }
+    if (!m_requireShutdownWidget->isHidden()) {
+        m_requireShutdownWidget->leftKeySwitch();
+    }
+    if (!m_sessionWidget->isHidden()) {
+        m_sessionWidget->leftKeySwitch();
+    }
+}
+
+void LoginManager::rightKeyPressed() {
+    if (!m_userWidget->isHidden()) {
+        m_userWidget->rightKeySwitchUser();
+    }
+    if (!m_requireShutdownWidget->isHidden()) {
+        m_requireShutdownWidget->rightKeySwitch();
+    }
+    if (!m_sessionWidget->isHidden()) {
+        m_sessionWidget->rightKeySwitch();
     }
 }

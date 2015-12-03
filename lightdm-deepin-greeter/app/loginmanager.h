@@ -40,8 +40,6 @@ protected:
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
     void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
 signals:
-    void leftKeyPressed();
-    void rightKeyPressed();
     void screenChanged(QRect geom);
 public slots:
     void updateWidgetsPosition();
@@ -62,6 +60,8 @@ private slots:
 
     void setShutdownAction(const ShutdownWidget::Actions action);
     void recordPid();
+    void leftKeyPressed();
+    void rightKeyPressed();
 private:
 
     LogoWidget* m_logoWidget;
