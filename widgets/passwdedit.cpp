@@ -65,7 +65,6 @@ void PassWdEdit::initUI() {
     connect(m_getFocusTimer,  &QTimer::timeout, this, &PassWdEdit::lineEditGrabKeyboard);
 
     updateStyle(":/skin/passwdedit.qss", this);
-
 }
 
 void PassWdEdit::lineEditGrabKeyboard() {
