@@ -192,7 +192,10 @@ void ControlWidget::changeVolumeBtnPic()
 
 void ControlWidget::switchToGreeter() {
     QProcess *process = new QProcess;
-    connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
     process->start("dde-switchtogreeter");
-    qApp->quit();
+    process->waitForFinished();
+    process->deleteLater();
+
+    // FIXME: 这儿要是不延时结束的话会闪一下桌面
+    QTimer::singleShot(2000, qApp, SLOT(quit()));
 }
