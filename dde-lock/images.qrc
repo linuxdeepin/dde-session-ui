@@ -31,4 +31,7 @@
         <file>icons/userswitch_normal.png</file>
         <file>icons/userswitch_press.png</file>
     </qresource>
+    <qresource prefix="/fonts">
+        <file>fonts/MavenProLight-200.otf</file>
+    </qresource>
 </RCC>
