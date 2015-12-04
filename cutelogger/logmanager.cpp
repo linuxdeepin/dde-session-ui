@@ -15,12 +15,13 @@ void LogManager::initConsoleAppender(){
 }
 
 void LogManager::initRollingFileAppender(){
-//    QString cachePath = QStandardPaths::standardLocations(QStandardPaths::CacheLocation).at(0);
-//    if (!QDir(cachePath).exists()){
-//        QDir(cachePath).mkpath(cachePath);
-//    }
+    //change the log storge to .cache
+    QString cachePath = QStandardPaths::standardLocations(QStandardPaths::CacheLocation).at(0);
+    if (!QDir(cachePath).exists()){
+        QDir(cachePath).mkpath(cachePath);
+    }
     // FIXME:
-    QString cachePath = "/tmp";
+
     m_logPath = joinPath(cachePath, QString("%1.log").arg(qApp->applicationName()));
     m_rollingFileAppender = new RollingFileAppender(m_logPath);
     m_rollingFileAppender->setFormat(m_format);

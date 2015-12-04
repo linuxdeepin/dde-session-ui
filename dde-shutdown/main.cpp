@@ -12,8 +12,11 @@
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
-
+    qApp->setOrganizationName("deepin");
+    qApp->setApplicationName("dde-shutdown");
+    qApp->setApplicationVersion("2015.1.0");
     LogManager::instance()->debug_log_console_on();
+
     // hide dde-control-center
     DBusControlCenter *DCCInter = new DBusControlCenter;
     if (DCCInter->isValid())
