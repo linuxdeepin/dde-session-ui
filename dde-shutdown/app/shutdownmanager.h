@@ -9,6 +9,7 @@
 #include "dbus/dbushotzone.h"
 #include "backgroundlabel.h"
 #include "util_signalmanager.h"
+#include "util_file.h"
 
 class ShutdownManager : public QFrame
 {
@@ -45,6 +46,7 @@ private:
 
     DBusSessionManagerInterface* m_sessionInterface;
     DBusHotzone* m_hotZoneInterface;
+    UtilFile* m_utilFile;
 };
 
 #endif // SessionManagerTool_H

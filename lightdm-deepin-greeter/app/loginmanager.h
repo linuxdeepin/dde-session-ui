@@ -25,6 +25,7 @@
 #include "dbus/dbuslockservice.h"
 
 #include "darrowrectangle.h"
+#include "util_file.h"
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/lock"
 #define LOCKSERVICE_NAME "com.deepin.dde.lock"
@@ -47,6 +48,7 @@ private slots:
     void initUI();
     void initConnect();
     void login();
+    void expandUserWidget();
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
     void chooseUserMode();
@@ -78,9 +80,9 @@ private:
     XkbParser* xkbParse;
 
     QLightDM::Greeter *m_greeter;
-    DBusDisplayManager *m_displayInter;
     DBusLogin1Manager* m_login1ManagerInterface;
     DBusLockService* m_lockInter;
+    UtilFile* m_utilFile;
 };
 #endif // LoginManager
 

@@ -32,7 +32,7 @@ SOURCES += main.cpp \
     view/logowidget.cpp \
     view/switchframe.cpp \
     app/loginmanager.cpp \
-    app/loginframe.cpp
+    app/loginframe.cpp \
 
 target.path = $${PREFIX}/bin/
 desktop_file.files = lightdm-deepin-greeter.desktop

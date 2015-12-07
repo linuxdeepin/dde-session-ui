@@ -14,7 +14,8 @@ HEADERS += \
     $$PWD/dbus/dbussessionmanager.h \
     $$PWD/dbus/displayinterface.h \
     $$PWD/dbus/dbushotzone.h \
-    $$PWD/dbus/dbuslockservice.h
+    $$PWD/dbus/dbuslockservice.h \
+    $$PWD/util_file.h
 
 
 SOURCES += \
@@ -28,7 +29,8 @@ SOURCES += \
     $$PWD/dbus/dbussessionmanager.cpp \
     $$PWD/dbus/displayinterface.cpp \
     $$PWD/dbus/dbushotzone.cpp \
-    $$PWD/dbus/dbuslockservice.cpp
+    $$PWD/dbus/dbuslockservice.cpp \
+    $$PWD/util_file.cpp
 
 
 RESOURCES += \

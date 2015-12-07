@@ -1,4 +1,3 @@
-#include <QDebug>
 #include "util_settings.h"
 
 UtilSettings::UtilSettings(QObject *parent)

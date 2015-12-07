@@ -8,6 +8,7 @@
 #include <libdui/dimagebutton.h>
 
 #include "dbus/dbusmediaplayer2.h"
+#include "util_file.h"
 
 DUI_USE_NAMESPACE
 
@@ -47,6 +48,7 @@ private:
     QWidget *m_songControlWidget;
     DBusMediaPlayer2 *m_dbusInter = nullptr;
     double m_lastVolumeNums = 1.0;
+    UtilFile* m_utilFile;
 };
 
 #endif // CONTROLWIDGET_H

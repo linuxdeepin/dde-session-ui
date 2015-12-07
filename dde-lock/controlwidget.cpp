@@ -1,8 +1,8 @@
-#include "controlwidget.h"
-
 #include <QHBoxLayout>
 #include <QEvent>
 #include <QWheelEvent>
+
+#include "controlwidget.h"
 
 ControlWidget::ControlWidget(QWidget *parent)
     : QWidget(parent)
@@ -198,6 +198,9 @@ void ControlWidget::changeVolumeBtnPic()
 }
 
 void ControlWidget::switchToGreeter() {
+    m_utilFile = new UtilFile(this);
+    m_utilFile->setExpandState(1);
+
     QProcess *process = new QProcess;
     process->start("dde-switchtogreeter");
     process->waitForFinished();

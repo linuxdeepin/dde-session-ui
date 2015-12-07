@@ -87,6 +87,9 @@ void ShutdownManager::initData() {
 
 void ShutdownManager::switchToGreeter()
 {
+    m_utilFile = new UtilFile(this);
+    m_utilFile->setExpandState(1);
+
     QProcess *process = new QProcess;
     connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
     process->start("dde-switchtogreeter");

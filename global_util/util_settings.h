@@ -3,7 +3,9 @@
 
 #include <QObject>
 #include <QSettings>
+#include <QDebug>
 #include <QMap>
+
 class UtilSettings:public QObject {
     Q_OBJECT
 public:
