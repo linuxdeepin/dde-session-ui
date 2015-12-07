@@ -4,6 +4,7 @@
 #include <QCommandLineParser>
 #include <QDBusInterface>
 #include <QDBusConnection>
+#include <QTimer>
 #include <QDebug>
 
 #define DBUS_SERV "com.deepin.dde.lowpower"
@@ -34,7 +35,7 @@ int main(int argc, char *argv[])
     bool result = QDBusConnection::sessionBus().registerService(DBUS_SERV);
     if (result) {
         if (parser.isSet(quitOption)) {
-            iface.call("Quit");
+            return 0;
         } else {
             w.show();
             w.grabMouse();
@@ -45,7 +46,11 @@ int main(int argc, char *argv[])
     } else {
         if (parser.isSet(raiseOption)) {
             iface.call("Raise");
+        } else if (parser.isSet(quitOption)) {
+            iface.call("Quit");
         }
+
+        QTimer::singleShot(500, &a, SLOT(quit()));
     }
 
     return a.exec();
