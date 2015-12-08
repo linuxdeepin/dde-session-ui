@@ -60,8 +60,12 @@ void UserWidget::initUI()
             continue;
 
         const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
+        const QString avatar = settings.value("User/Icon").toString();
 
-        addUser(settings.value("User/Icon").toString(), username);
+        if (!avatar.isEmpty())
+            addUser(avatar, username);
+        else
+            addUser("/var/lib/AccountsService/icons/default.png", username);
     }
 
     QPixmap loading(":/img/facelogin_animation.png");
