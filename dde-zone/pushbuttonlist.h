@@ -26,7 +26,7 @@ public:
         buttonHasClicked = btnClicked;
     };
 
-    void addButton(QString buttonName, QString actionStr);
+    void addButton(QString buttonName, QString actionStr, bool lastAddedButton);
 
     ZoneInterface *m_zoneInterface;
     QStringList m_ActionList;

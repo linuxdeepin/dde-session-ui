@@ -20,7 +20,7 @@ public:
     HotZone(QWidget *parent, bool isRight, bool isBottom);
     ~HotZone();
 
-    void addButton(QString buttonName, QString actionStr);
+    void addButton(QString buttonName, QString actionStr, bool lastAddedButton);
     void addButtons(QStringList buttonNames,QStringList actionStrs);
 private slots:
     void onMouseHasEntered();

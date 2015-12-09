@@ -42,18 +42,20 @@ PushButtonList::~PushButtonList()
 }
 
 
-void PushButtonList::addButton(QString buttonName, QString actionStr)
+void PushButtonList::addButton(QString buttonName, QString actionStr, bool lastAddedButton)
 {
     QPushButton *theButton = new QPushButton(m_ParentItem);
     theButton->setText(buttonName);
     m_IsBottom ? m_ButtonList.prepend(theButton) : m_ButtonList.append(theButton);
     m_IsBottom ? m_ActionList.prepend(actionStr) : m_ActionList.append(actionStr);
 
-    alignTheButtonAccordingToTopOrBottom();
+    if(lastAddedButton){
+        alignTheButtonAccordingToTopOrBottom();
 
-    highlightTheButtonTextWhenAppInit();
+        highlightTheButtonTextWhenAppInit();
 
-    handleSignalAndSlots();
+        handleSignalAndSlots();
+    }
 }
 
 void PushButtonList::alignTheButtonAccordingToTopOrBottom()
@@ -140,4 +142,9 @@ void PushButtonList::onButtonClicked(QString theAction, int index)
                                            "QPushButton:hover{background:rgba(0,0,0,0.5);border:none;border-radius:4px}");
     }
     m_ParentItem->setVisible(false);
+
+    qDebug() << m_zoneInterface->TopLeftAction();
+    qDebug() << m_zoneInterface->TopRightAction();
+    qDebug() << m_zoneInterface->BottomLeftAction();
+    qDebug() << m_zoneInterface->BottomRightAction();
 }

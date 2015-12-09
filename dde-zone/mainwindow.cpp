@@ -12,7 +12,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setAttribute(Qt::WA_TranslucentBackground, true);
 
     // catch the screen that mouse is in
-    // catch the screen that mouse is in
     QList<QScreen*> screenList = QGuiApplication::screens();
     for (int i=0;i<screenList.length();i++){
         QRect screen = screenList[i]->geometry();
