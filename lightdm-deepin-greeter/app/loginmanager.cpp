@@ -390,7 +390,7 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
 }
 
 void LoginManager::leftKeyPressed() {
-    if (!m_userWidget->isHidden()) {
+    if (!m_userWidget->isHidden() && m_passWdEdit->getText().isEmpty()) {
         m_userWidget->leftKeySwitchUser();
     }
     if (!m_requireShutdownWidget->isHidden()) {
@@ -402,7 +402,7 @@ void LoginManager::leftKeyPressed() {
 }
 
 void LoginManager::rightKeyPressed() {
-    if (!m_userWidget->isHidden()) {
+    if (!m_userWidget->isHidden() && m_passWdEdit->getText().isEmpty()) {
         m_userWidget->rightKeySwitchUser();
     }
     if (!m_requireShutdownWidget->isHidden()) {
