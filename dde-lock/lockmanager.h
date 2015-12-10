@@ -79,6 +79,7 @@ private:
 
     DBusMediaPlayer2 *m_mprisInter = nullptr;
     DBusHotzone* m_hotZoneInterface;
+    int m_keybdLayoutItemIndex;
 };
 
 #endif // LOCKMANAGER_H

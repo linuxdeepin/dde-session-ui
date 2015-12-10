@@ -264,8 +264,12 @@ void LockManager::initBackend() {
     }
 
     m_keybdLayoutNameList = m_keyboardLayoutInterface->userLayoutList();
+    QString currentKeybdLayout = m_keyboardLayoutInterface->currentLayout();
 
     for (int i = 0; i < m_keybdLayoutNameList.length(); i++) {
+        if (m_keybdLayoutNameList[i] == currentKeybdLayout) {
+            m_keybdLayoutItemIndex = i;
+        }
         QDBusPendingReply<QString> tmpValue =  m_keyboardLayoutInterface->GetLayoutDesc(m_keybdLayoutNameList[i]);
         tmpValue.waitForFinished();
 
@@ -282,7 +286,7 @@ void LockManager::initBackend() {
 void LockManager::updateUI() {
     m_keybdLayoutWidget = new KbLayoutWidget(keybdLayoutDescList);
     m_keybdLayoutWidget->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
-
+    m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
 
     m_keybdArrowWidget->setBackgroundColor(QColor(0, 0, 0, 78));

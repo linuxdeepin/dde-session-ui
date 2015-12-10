@@ -70,6 +70,7 @@ void LayoutButton::setButtonChecked(bool checked) {
 
 void LayoutButton::OnlyMeChecked(bool checked) {
     setButtonChecked(checked);
+    qDebug() << "onLyMeChecked" << m_text;
     emit onlyOneChecked(m_text);
 }
 
@@ -144,10 +145,21 @@ void KbLayoutWidget::setButtonsChecked(QString text) {
     for (int i = 0; i < m_layoutButtons.length(); i++) {
         if (m_layoutButtons.at(i)->m_text != text) {
             m_layoutButtons.at(i)->setButtonChecked(false);
+        } else {
+            m_layoutButtons.at(i)->setButtonChecked(true);
         }
     }
 
     emit setButtonClicked(text);
+}
+
+void KbLayoutWidget::setListItemChecked(int itemIndex) {
+    qDebug() << "m_layoutbuttons.length:" << m_layoutButtons.length() << itemIndex;
+    if (itemIndex <  m_layoutButtons.length()) {
+        QString itemText = m_layoutButtons.at(itemIndex)->m_text;
+        qDebug() << "itemIndex itemText:" << itemIndex << itemText;
+        setButtonsChecked(itemText);
+    }
 }
 
 void KbLayoutWidget::initData(QStringList buttons) {
@@ -155,6 +167,7 @@ void KbLayoutWidget::initData(QStringList buttons) {
         m_buttons << buttons[i];
     }
 }
+
 void KbLayoutWidget::updateUI() {
 
 }

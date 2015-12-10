@@ -51,6 +51,7 @@ signals:
     void setButtonClicked(QString text);
 public slots:
     void setButtonsChecked(QString text);
+    void setListItemChecked(int itemIndex);
 private:
     const int widget_width = DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 3;
     QHBoxLayout* m_Layout;

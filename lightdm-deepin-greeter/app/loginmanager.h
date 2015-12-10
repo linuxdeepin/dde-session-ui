@@ -58,7 +58,7 @@ private slots:
     void showShutdownFrame();
     void keyboardLayoutUI();
     void keybdLayoutWidgetPosit();
-    void setCurrentKeyboardLayout(QString keyboard_value);
+    void setCurrentKeybdLayoutList(QString keyboard_value);
 
     void setShutdownAction(const ShutdownWidget::Actions action);
     void recordPid();

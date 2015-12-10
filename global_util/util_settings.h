@@ -14,9 +14,11 @@ public:
 
     const QString USERS_PATH = "/var/lib/greeter/users.ini";
     QStringList keyboardLayoutNameList;
-
+    int currentListItemIndex = 0;
 public slots:
+    QString getCurrentKbdLayout(QString username);
     QStringList getKbdLayoutList(QString username);
+
     void setCurrentKbdLayout(QString username, QString keybdLayout);
 };
 

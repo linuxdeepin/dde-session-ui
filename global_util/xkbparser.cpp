@@ -27,7 +27,6 @@ QStringList XkbParser::lookUpKeyboardList(QStringList keyboardList_key) {
             head_key = tmpKeyList[0];
             tail_key = tmpKeyList[1];
 
-
             for (int i = 0; i < KeyboardLayoutList.length(); i++) {
                 if (KeyboardLayoutList[i].name == head_key) {
                     if (tail_key.isEmpty()) {

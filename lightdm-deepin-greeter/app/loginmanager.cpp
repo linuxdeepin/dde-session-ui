@@ -331,8 +331,8 @@ void LoginManager::keyboardLayoutUI() {
     xkbParse = new XkbParser(this);
     QStringList keyboardListContent =  xkbParse->lookUpKeyboardList(keyboardList);
 
-
     m_keybdLayoutWidget = new KbLayoutWidget(keyboardListContent);
+    m_keybdLayoutWidget->setListItemChecked(m_passWdEdit->utilSettings->currentListItemIndex);
 
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
     m_keybdArrowWidget->setBackgroundColor(QColor(0, 0, 0, 78));
@@ -349,12 +349,12 @@ void LoginManager::keyboardLayoutUI() {
 
     m_keybdArrowWidget->hide();
 
-    connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &LoginManager::setCurrentKeyboardLayout);
+    connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &LoginManager::setCurrentKeybdLayoutList);
     connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, m_keybdArrowWidget, &DArrowRectangle::hide);
 }
 
-void LoginManager::setCurrentKeyboardLayout(QString keyboard_value) {
-    qDebug() << "setCurrentKeyboardLayout";
+void LoginManager::setCurrentKeybdLayoutList(QString keyboard_value) {
+    qDebug() << "setCurrentKeybdLayoutList";
 
     QString keyboard_key = xkbParse->lookUpKeyboardKey(keyboard_value);
     qDebug() << "parse:" << keyboard_value << keyboard_value;
