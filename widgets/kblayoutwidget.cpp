@@ -26,7 +26,7 @@ LayoutButton::LayoutButton(QString text, QWidget *parent)
     m_Layout->addStretch();
     setLayout(m_Layout);
 
-    m_iconLabel->move(this->x() + 5, this->y() + 1);
+    m_iconLabel->move(this->x() + 5, this->y() + 4);
 
 
     updateStyle(":/skin/layoutbutton.qss", this);

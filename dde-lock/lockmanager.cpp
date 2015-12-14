@@ -285,16 +285,17 @@ void LockManager::initBackend() {
 
 void LockManager::updateUI() {
     m_keybdLayoutWidget = new KbLayoutWidget(keybdLayoutDescList);
-    m_keybdLayoutWidget->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
+
     m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
 
     m_keybdArrowWidget->setBackgroundColor(QColor(0, 0, 0, 78));
     m_keybdArrowWidget->setBorderColor(QColor(0, 0, 0, 100));
-    m_keybdArrowWidget->setMargin(1);
     m_keybdArrowWidget->setArrowX(13);
     m_keybdArrowWidget->setArrowWidth(12);
     m_keybdArrowWidget->setArrowHeight(6);
+    m_keybdArrowWidget->setMargin(1);
+
     m_keybdArrowWidget->setContent(m_keybdLayoutWidget);
     m_keybdLayoutWidget->setParent(m_keybdArrowWidget);
     m_keybdLayoutWidget->show();

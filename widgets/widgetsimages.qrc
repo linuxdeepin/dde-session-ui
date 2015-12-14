@@ -34,5 +34,6 @@
         <file>img/requireshutdown_icon/suspend_hover.png</file>
         <file>img/requireshutdown_icon/suspend_normal.png</file>
         <file>img/requireshutdown_icon/suspend_press.png</file>
+        <file>img/tick_hover.png</file>
     </qresource>
 </RCC>

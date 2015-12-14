@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>img/tick_hover.png</file>
         <file>img/Deepin_indicator_hover.png</file>
         <file>img/Deepin_indicator_normal.png</file>
         <file>img/Deepin_indicator_press.png</file>
