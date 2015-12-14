@@ -145,7 +145,9 @@ void LockManager::keyPressEvent(QKeyEvent *e)
         if (!m_requireShutdownWidget->isHidden()) {
             m_requireShutdownWidget->hide();
             m_userWidget->show();
-            m_passwordEdit->show();
+            if (!m_userWidget->isChooseUserMode) {
+                m_passwordEdit->show();
+            }
         }
 #ifdef QT_DEBUG
 //        qApp->quit();   break;

@@ -240,7 +240,9 @@ void LoginManager::keyPressEvent(QKeyEvent* e) {
         if (!m_requireShutdownWidget->isHidden()) {
             m_requireShutdownWidget->hide();
             m_userWidget->show();
-            m_passWdEdit->show();
+            if (!m_userWidget->isChooseUserMode) {
+                m_passWdEdit->show();
+            }
         }
 #ifdef QT_DEBUG
         qApp->exit();
@@ -254,7 +256,9 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
         if (!m_requireShutdownWidget->isHidden()) {
             m_requireShutdownWidget->hide();
             m_userWidget->show();
-            m_passWdEdit->show();
+            if (!m_userWidget->isChooseUserMode) {
+                m_passWdEdit->show();
+            }
         }
 
         if (m_keybdArrowWidget->isHidden()) {
