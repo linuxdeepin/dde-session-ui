@@ -72,6 +72,7 @@ private:
     void initData();
 
     bool m_alert = false;
+    bool m_alert_enter = false;
 
     QLineEdit* m_lineEdit;
     QPushButton* m_keyboardButton;

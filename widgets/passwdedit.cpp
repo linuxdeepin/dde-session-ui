@@ -114,8 +114,12 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
                 qDebug() << "passwdedit:" << event->text();
                 if (event->text().length()==1 && event->key()!=Qt::Key_Escape &&
                         event->key() != Qt::Key_Tab) {
-                    m_lineEdit->setText(event->text());
-
+                    if (event->key() == Qt::Key_Return||event->key() == Qt::Key_Enter) {
+                        m_lineEdit->setText("");
+                        m_alert_enter = true;
+                    } else {
+                        m_lineEdit->setText(event->text());
+                    }
                     qDebug() << "m_lineEdit:" << m_lineEdit->text() << m_lineEdit->cursorPosition();
                 }
             }
@@ -209,7 +213,13 @@ void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
     switch (e->key())
     {
     case Qt::Key_Return:        /* submit */
-    case Qt::Key_Enter:         emit submit();              break;
+    case Qt::Key_Enter:
+        if (m_alert_enter) {
+            m_alert_enter = false;
+        } else {
+            emit submit();
+        }
+        break;
     case Qt::Key_Left:          emit leftKeyPressed();      break;
     case Qt::Key_Right:         emit rightKeyPressed();     break;
     default:;

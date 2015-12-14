@@ -19,7 +19,7 @@ QString UtilSettings::getCurrentKbdLayout(QString username) {
     if (keybdLayoutList.length() != 0) {
         currentKeybdLayout = keybdLayoutList.at(0);
     }
-//    QString currentKeybdLayout = keyboardList[0].split("|")[0];
+    //QString currentKeybdLayout = keyboardList[0].split("|")[0];
     qDebug() << "current keyboardLayout:" << currentKeybdLayout;
     return currentKeybdLayout;
 }
