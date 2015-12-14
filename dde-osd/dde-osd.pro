@@ -19,12 +19,18 @@ SOURCES += main.cpp\
         osd.cpp \
     dbus/volumedbus.cpp \
     dbus/layoutdbus.cpp \
-    dbus/displaydbus.cpp
+    dbus/displaydbus.cpp \
+    switchlayout.cpp \
+    switchmonitor.cpp \
+    switchnormal.cpp
 
 HEADERS  += osd.h \
     dbus/volumedbus.h \
     dbus/layoutdbus.h \
-    dbus/displaydbus.h
+    dbus/displaydbus.h \
+    switchlayout.h \
+    switchmonitor.h \
+    switchnormal.h
 
 RESOURCES += \
     image.qrc

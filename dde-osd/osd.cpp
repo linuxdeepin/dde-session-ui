@@ -1,4 +1,3 @@
-#include <gtk/gtk.h>
 #include "osd.h"
 #include <X11/extensions/shape.h>
 #include <QtX11Extras/QX11Info>
@@ -8,175 +7,71 @@
 #include <QPen>
 #include <QPainterPath>
 #include <QBrush>
-#include <QRectF>
-#include <QRect>
-#include <QFile>
 
 Osd::Osd(QWidget *parent)
     : QWidget(parent)
 {
-
-    gtk_init(NULL, NULL);
-    gdk_error_trap_push();
-
-    initInterfaces();
-
     initGlobalVars();
 
     initBasicOperation();
 
-    initConnects();
+    initConnect();
+
+    initBasicCommandLine();
 }
 
 Osd::~Osd()
 {
-
     // set the monitor mode when the app quits
-    if (actionMode == SwitchMonitor) {
-        if (m_CurrentIndexOfMonitorItem == 0) {
-            // switch to duplicate mode
-            m_DisplayInterface->SwitchMode(1, "");
-        } else if (m_CurrentIndexOfMonitorItem == 1) {
-            // switch to expanded mode
-            m_DisplayInterface->SwitchMode(2, "");
-        } else {
-            // switch to one certain screen mode
-            m_DisplayInterface->SwitchMode(3, m_ScreenList[m_CurrentIndexOfMonitorItem - 2]);
-        }
+    if (actionMode == SwitchMonitorEnum) {
+        m_SwitchMonitor->setMonitorMode();
     }
 
     // set the keyboard layout when the app quits
-    if (actionMode == SwitchLayout && m_KeyboardList.length() > 0) {
-        m_LayoutInterface->setCurrentLayout(m_KeyboardList[m_CurrentIndexOfKeyBoard]);
+    if (actionMode == SwitchLayoutEnum && m_SwitchLayout->layoutCount() >= 1) {
+        m_SwitchLayout->setKeyboard();
     }
-}
-
-void Osd::initInterfaces()
-{
-    // DbusInterface to get defalut sink, which is usabel when computer has more than 1 sound card
-    m_AudioInterface = new QDBusInterface("com.deepin.daemon.Audio",
-                                          "/com/deepin/daemon/Audio",
-                                          "",QDBusConnection::sessionBus(),this);
-
-    // default sink path
-    QString defautSinkPath = qvariant_cast<QDBusObjectPath>(m_AudioInterface->call("GetDefaultSink").arguments()[0]).path();
-
-    m_VolumeInterface = new VolumeDbus("com.deepin.daemon.Audio",
-                                       defautSinkPath,
-                                       QDBusConnection::sessionBus(), this);
-
-    m_DisplayInterface = new DisplayDbus("com.deepin.daemon.Display",
-                                         "/com/deepin/daemon/Display",
-                                         QDBusConnection::sessionBus(), this);
-
-    m_LayoutInterface = new LayoutDbus("com.deepin.daemon.InputDevices",
-                                       "/com/deepin/daemon/InputDevice/Keyboard",
-                                       QDBusConnection::sessionBus(), this);
 }
 
 void Osd::initGlobalVars()
 {
+    m_SwitchNormal = new SwitchNormal(this);
+
+    m_SwitchLayout = new SwitchLayout(this);
+
+    m_SwitchMonitor = new SwitchMonitor(this);
+
     // m_BackImageLabel is used for the white border
     m_BackImageLabel = new QLabel(this);
 
-    // image label
-    m_ImageLabel = new QLabel(this);
     // m_Timer is used to record time , to quit the app properly
     m_Timer = new QTimer(this);
-
-    // m_SwitchWMLabel is used to show text for SwitchWM*
-    m_SwitchWMLabel = new QLabel(this);
-
-    // initial m_ListWidget
-    m_ListWidget = new QListWidget(this);
-
-    // m_Svg is used to display .svg files
-    m_Svg = new QSvgWidget(this);
-
-    // initial m_MonitersWrapper
-    m_MonitersWrapper = new QWidget(this);
-
-    // m_CanAudioMuteRun is used to record the mute state of sound
-    m_CanAudioMuteRun = m_VolumeInterface->mute();
-    // to record whether AudioMute has run before this time
-    m_AudioMuteNotRunFromAudioMute = true;
-
-    // init SwitchMonitors's displaymode
-    if (m_DisplayInterface->displayMode() == 0) {
-        displaymode = Custom;
-    } else if (m_DisplayInterface->displayMode() == 1) {
-        displaymode = Duplicate;
-    } else if (m_DisplayInterface->displayMode() == 2) {
-        displaymode = Expanded;
-    } else if (m_DisplayInterface->displayMode() == 3) {
-        displaymode = OneScreen;
-    }
 }
 
 void Osd::initBasicOperation()
 {
-    this->resize(BASE_SIZE, BASE_SIZE);
     setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_TranslucentBackground, true);
     // set mouse penetration
     XShapeCombineRectangles(QX11Info::display(), winId(), ShapeInput, 0, 0, NULL, 0, ShapeSet, YXBanded);
-
-    // set fixed size for image icon, and move it to app's center
-    m_ImageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-    m_ImageLabel->move((this->width() - IMAGE_SIZE) / 2, (this->height() - IMAGE_SIZE) / 2);
-
-    // set fixed size for image icon, and move it to app's center
-    m_Svg->setFixedSize(IMAGE_SIZE,IMAGE_SIZE);
-    m_Svg->move((this->width() - IMAGE_SIZE) / 2, (this->height() - IMAGE_SIZE) / 2);
-
-    // set font-size and color and position and wordwrap and alignment for m_SwitchWMLabel
-    m_SwitchWMLabel->setGeometry(SWITCHWM_TEXT_GEOMETRY);
-    m_SwitchWMLabel->setStyleSheet(SWITCHWM_TEXT_STYLE);
-    m_SwitchWMLabel->setWordWrap(true);
-    m_SwitchWMLabel->setAlignment(Qt::AlignCenter);
 }
 
-void Osd::initConnects()
+void Osd::initConnect()
 {
-    // when reaches deadline, we need to quit the app immediately
     connect(m_Timer, &QTimer::timeout, qApp, &QCoreApplication::quit);
 }
 
-QString Osd::getThemeIconPath(QString iconName)
-{
-    QByteArray bytes = iconName.toUtf8();
-    const char *name = bytes.constData();
-
-    GtkIconTheme* theme = gtk_icon_theme_get_default();
-
-    GtkIconInfo* info = gtk_icon_theme_lookup_icon(theme, name, 240, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-
-    if (info) {
-        char* path = g_strdup(gtk_icon_info_get_filename(info));
-#if GTK_MAJOR_VERSION >= 3
-        g_object_unref(info);
-#elif GTK_MAJOR_VERSION == 2
-        gtk_icon_info_free(info);
-#endif
-        return QString(path);
-    } else {
-        return "";
-    }
-}
-
-void Osd::showThemeImage(QString iconName, QSvgWidget* svgLoader, QLabel* notSvgLoader){
-    if(iconName.endsWith(".svg")){
-        svgLoader->load(iconName);
-    }else if(iconName.isEmpty()){
-        svgLoader->load(getThemeIconPath("application-default-icon"));
-    }else{
-        notSvgLoader->setPixmap(QPixmap(iconName).scaled(IMAGE_SIZE,IMAGE_SIZE,Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    }
-}
-
-int Osd::latterAction()
-{
-    return actionMode;
+void Osd::initBasicCommandLine(){
+    // command line parser
+    m_Parser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
+    m_Parser.addHelpOption();
+    m_Parser.addOption(BrightnessUp);
+    m_Parser.addOption(BrightnessDown);
+    m_Parser.addOption(AudioMute);
+    m_Parser.addOption(AudioDown);
+    m_Parser.addOption(AudioUp);
+    m_Parser.addOption(SwitchLayouts);
+    m_Parser.addOption(SwitchMonitors);
 }
 
 void Osd::moveToCenter()
@@ -195,426 +90,238 @@ void Osd::moveToCenter()
     this->move(m_MouseInScreen.x() + (m_MouseInScreen.width() - this->width()) / 2, m_MouseInScreen.y() + (m_MouseInScreen.height() - this->height()) / 2);
 }
 
+void Osd::processParser(){
+    m_Parser.process(*qApp);
+}
+
+// when reaches deadline, we need to quit the app immediately
 void Osd::setTimer()
 {
     m_Timer->start(DEADLINE_TIME);
 }
 
-void Osd::tail_in_Work()
-{
-    moveToCenter();
-    m_Timer->start(DEADLINE_TIME);
+void Osd::tailInWork(){
     this->repaint();
+    moveToCenter();
+    setTimer();
 }
 
-// this function is used to display normal osd'show, which is different from SwitchLayout and SwitchMonitors
-void Osd::loadCorrespondingImage(QString whichImage)
-{
-    actionMode = Normal;
-    m_ListWidget->setVisible(false);
-    m_MonitersWrapper->setVisible(false);
-    m_SwitchWMLabel->setText("");
-    m_Svg->setVisible(true);
+void Osd::loadBasicNormal(QString whichImage){
+    if(whichImage == "Brightness"){
+        actionMode = BrightnessProgressBar;
+    }else if(whichImage == "Audio"){
+        actionMode = AudioProgressBar;
+    }else{
+        actionMode = NoProgressBar;
+    }
+
+    m_SwitchLayout->hideLayout();
+    m_SwitchMonitor->hideMonitors();
     this->resize(BASE_SIZE, BASE_SIZE);
-    m_Svg->move((this->width() - IMAGE_SIZE) / 2, (this->height() - IMAGE_SIZE) / 2);
-    m_ImageLabel->move((this->width() - IMAGE_SIZE) / 2, (this->height() - IMAGE_SIZE) / 2);
     m_BackImageLabel->resize(this->size());
     m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
-    if (whichImage == "NumLockOn") {
-        showThemeImage(getThemeIconPath("numlock-enabled-symbolic"), m_Svg, m_ImageLabel);
-    } else if (whichImage == "NumLockOff") {
-        showThemeImage(getThemeIconPath("numlock-disabled-symbolic"), m_Svg, m_ImageLabel);
-    } else if (whichImage == "CapsLockOn") {
-        showThemeImage(getThemeIconPath("capslock-enabled-symbolic"), m_Svg, m_ImageLabel);
-    } else if (whichImage == "CapsLockOff") {
-        showThemeImage(getThemeIconPath("capslock-disabled-symbolic"), m_Svg, m_ImageLabel);
-    } else if (whichImage == "TouchpadOn") {
-        showThemeImage(getThemeIconPath("touchpad-enabled-symbolic"), m_Svg, m_ImageLabel);
-    } else if (whichImage == "TouchpadOff") {
-        showThemeImage(getThemeIconPath("touchpad-disabled-symbolic"), m_Svg, m_ImageLabel);
-    } else if (whichImage == "TouchpadToggle") {
-        showThemeImage(getThemeIconPath("touchpad-toggled-symbolic"), m_Svg, m_ImageLabel);
-    } else if (whichImage == "SwitchWM3D") {
-        showThemeImage(getThemeIconPath("wm-effect-enabled"), m_Svg, m_ImageLabel);
-        m_SwitchWMLabel->setText(tr("Enable window effects"));
-        m_Svg->move(SWITCHWM_IMAGE_POINT);
-        m_ImageLabel->move(SWITCHWM_IMAGE_POINT);
-    } else if (whichImage == "SwitchWM2D") {
-        showThemeImage(getThemeIconPath("wm-effect-disabled"), m_Svg, m_ImageLabel);
-        m_SwitchWMLabel->setText(tr("Disable window effects"));
-        m_Svg->move(SWITCHWM_IMAGE_POINT);
-        m_ImageLabel->move(SWITCHWM_IMAGE_POINT);
-    } else if (whichImage == "SwitchWMError") {
-        showThemeImage(getThemeIconPath("wm-effect-error"), m_Svg, m_ImageLabel);
-        m_SwitchWMLabel->setText(tr("Failed to enable window effects"));
-        m_Svg->move(SWITCHWM_IMAGE_POINT);
-        m_ImageLabel->move(SWITCHWM_IMAGE_POINT);
-    } else if (whichImage == "Brightness") {
-        actionMode = NormalBrightness;
-        showThemeImage(getThemeIconPath("display-brightness-symbolic"), m_Svg, m_ImageLabel);
-    } else if (whichImage == "AudioMute") {
-        if (m_CanAudioMuteRun && m_AudioMuteNotRunFromAudioMute) {
-            showThemeImage(getThemeIconPath("audio-volume-muted-symbolic-osd"), m_Svg, m_ImageLabel);
-            m_AudioMuteNotRunFromAudioMute = false;
-        } else {
-            loadCorrespondingImage("Audio");
-        }
-    } else if (whichImage == "Audio") {
-        actionMode = NormalAudio;
-        m_CanAudioMuteRun = true;
-        m_AudioMuteNotRunFromAudioMute = true;
-        double volume = m_VolumeInterface->volume();
-        // 0.7~1.0 means high volume range, 0.3~0.7 means medium volume range, and 0.0~0.3 means low volume range.
-        if (volume > 0.7 && volume <= 1.0) {
-            showThemeImage(getThemeIconPath("audio-volume-high-symbolic-osd"), m_Svg, m_ImageLabel);
-        } else if (volume > 0.3 && volume <= 0.7) {
-            showThemeImage(getThemeIconPath("audio-volume-medium-symbolic-osd"), m_Svg, m_ImageLabel);
-        } else if (volume > 0.0) {
-            showThemeImage(getThemeIconPath("audio-volume-low-symbolic-osd"), m_Svg, m_ImageLabel);
-        } else if (volume == 0.0) {
-            showThemeImage(getThemeIconPath("audio-volume-muted-symbolic-osd"), m_Svg, m_ImageLabel);
-        }
-    }
+
+    m_SwitchNormal->loadBasicImage(whichImage);
 }
 
-// --SwitchLayout
-void Osd::loadSwitchLayout()
-{
-    actionMode = SwitchLayout;
-    m_Svg->setVisible(false);
-    m_MonitersWrapper->setVisible(false);
-    m_SwitchWMLabel->setText("");
-    m_ListWidget->setVisible(true);
-
-    if (m_LayoutInterface->userLayoutList().length() > 1) {
-
-        // give out the value of m_MaxTextWidth and m_KeyboradLayoutHeight, to help resize this app
-        calculateKeyboardSize();
-        this->resize(m_MaxTextWidth + LAYOUT_MARGIN * 4, m_KeyboradLayoutHeight + LAYOUT_MARGIN * 2);
-        m_BackImageLabel->resize(this->size());
-        m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
-        initKeyboard();
-    } else {
-        // if user's keyboard layout(s) just contain(s) 1 kind, quit the app immediately
-        this->deleteLater();
-    }
-}
-
-// the following 3 functions belong to SwitchLayout,which are calculateKeyboardSize(), initKeyboard() and reHiglightKeyboard()
-void Osd::calculateKeyboardSize()
-{
-    m_MaxTextWidth = 0;
-
-    // get the list of keyboard layout
-    m_KeyboardList = m_LayoutInterface->userLayoutList();
-
-    // set font-size to 14px, so that we can calculate the max width of all keyboardlayout texts
-    QLabel *text = new QLabel;
-    m_f = text->font();
-    m_f.setPixelSize(14);
-    text->setFont(m_f);
-
-    int length = m_KeyboardList.length();
-    // give the value of m_KeyboradLayoutHeight
-    m_KeyboradLayoutHeight = (length > 5 ? KEYBOARD_ITEM_HEIGHT * 5 : KEYBOARD_ITEM_HEIGHT * length);
-
-    // give the value of m_MaxTextWidth
-    QFontMetrics metrics(text->font());
-    for (int i = 0; i < length; i++) {
-        text->setText(m_LayoutInterface->GetLayoutDesc(m_KeyboardList[i]));
-        int textWidth = metrics.boundingRect(text->text()).width();
-        m_MaxTextWidth = (textWidth > m_MaxTextWidth ? textWidth : m_MaxTextWidth);
-    }
-}
-
-void Osd::initKeyboard()
-{
-    // variable "size" is the size of QListWidgetItem* item and QWidget* customItem
-    QSize size(m_MaxTextWidth + LAYOUT_MARGIN * 2, KEYBOARD_ITEM_HEIGHT);
-
-    // hLayout is used to wrap m_ListWidget
-    QHBoxLayout *hLayout = new QHBoxLayout(this);
-    // make sure m_ListWidget's margins be 10px
-    hLayout->setContentsMargins(10, 10, 10, 10);
-
-    // set m_ListWidget's parameters
-    m_ListWidget->setStyleSheet("background:transparent");
-    m_ListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_ListWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_ListWidget->setFrameStyle(QFrame::NoFrame);
-    m_ListWidget->resize(m_MaxTextWidth + LAYOUT_MARGIN * 2, m_KeyboradLayoutHeight);
-
-    for (int i = 0, length = m_KeyboardList.length(); i < length; i++) {
-        QListWidgetItem *item = new QListWidgetItem;
-        // setFlags(Qt::NoItemFlags) can remove the default highlight
-        item->setFlags(Qt::NoItemFlags);
-        item->setSizeHint(size);
-
-        // customItem and text within it
-        QWidget *customItem = new QWidget;
-        customItem->setFixedSize(size);
-        QLabel *text = new QLabel(customItem);
-        text->setFont(m_f);
-        m_KeyboradTextList << text;
-        // make sure left-margin and right-margin be 10px
-        text->setContentsMargins(10, 0, 10, 0);
-        text->setFixedSize(size);
-        text->setText(m_LayoutInterface->GetLayoutDesc(m_KeyboardList[i]));
-
-        // highlight the chosen customItem and text withint it, when app starts
-        if (m_LayoutInterface->currentLayout() == m_KeyboardList[i]) {
-            m_CurrentIndexOfKeyBoard = i;
-            m_RecordInitialIndexOfKeyBoard = i;
-            text->setStyleSheet(KEYBOARD_ITEM_HIGHLIGHT_STYLE);
-        } else {
-            text->setStyleSheet(KEYBOARD_ITEM_NORMAL_STYLE);
-        }
-
-        m_ListWidget->addItem(item);
-        m_ListWidget->setItemWidget(item, customItem);
-    }
-
-    hLayout->addWidget(m_ListWidget);
-
-    // make sure that the highlighted item can be displayed in view after app startss
-    m_ListWidget->scrollToItem(m_ListWidget->item(m_CurrentIndexOfKeyBoard));
-
-    // the following codes are about animation
-    contentY = m_ListWidget->itemWidget(m_ListWidget->item(0))->y();
-    m_animation = new QVariantAnimation(m_ListWidget);
-    m_animation->setDuration(70);
-
-    // when currentrow changes, check if new_contentY is different from contentY. If different,m_animation should start
-    connect(m_ListWidget, &QListWidget::currentRowChanged,
-            this, [this] {
-        int new_contentY = m_ListWidget->itemWidget(m_ListWidget->item(0))->y();
-        if (new_contentY != contentY  && m_KeyboardList.length() > 5)
-        {
-            m_animation->setStartValue(QVariant::fromValue(contentY));
-            m_animation->setEndValue(QVariant::fromValue(new_contentY));
-
-            contentY = new_contentY;
-
-            m_animation->start();
-        }
-    });
-
-    connect(m_animation, &QVariantAnimation::valueChanged, this, [this](const QVariant & value) {
-        int contentY = m_ListWidget->itemWidget(m_ListWidget->item(0))->y();
-        for (int i = 0; i < m_KeyboardList.length(); i++) {
-            QWidget *w = m_ListWidget->itemWidget(m_ListWidget->item(i));
-            w->move(0, w->y() - contentY + value.toInt());
-        }
-    });
-}
-
-void Osd::reHiglightKeyboard()
-{
-    if (m_CurrentIndexOfKeyBoard == 0) {
-        // if m_CurrentIndexOfKeyBoard == 0,highlight the first one, and normalize the last one
-        m_KeyboradTextList[0]->setStyleSheet(KEYBOARD_ITEM_HIGHLIGHT_STYLE);
-        m_KeyboradTextList[m_KeyboradTextList.length() - 1]->setStyleSheet(KEYBOARD_ITEM_NORMAL_STYLE);
-    } else {
-        // highlight the current one, normalize the old one
-        m_KeyboradTextList[m_CurrentIndexOfKeyBoard]->setStyleSheet(KEYBOARD_ITEM_HIGHLIGHT_STYLE);
-        m_KeyboradTextList[m_CurrentIndexOfKeyBoard - 1]->setStyleSheet(KEYBOARD_ITEM_NORMAL_STYLE);
-    }
-    m_ListWidget->setCurrentRow(m_CurrentIndexOfKeyBoard);
-}
-
-void Osd::highlightNextLayout()
-{
-    if (m_CurrentIndexOfKeyBoard == m_KeyboardList.length() - 1) {
-        m_CurrentIndexOfKeyBoard = 0;
-
-        // make sure the listwidgetitem is positioned as initial after one-cycle selection
-        if (m_KeyboardList.length() > 5) {
-            for (int i = 0, length = m_KeyboardList.length(); i < length; i++) {
-                QWidget *w = m_ListWidget->itemWidget(m_ListWidget->item(i));
-                w->move(0, KEYBOARD_ITEM_HEIGHT * (i + 5 - length));
-            }
-        }
-    } else {
-        m_CurrentIndexOfKeyBoard++;
-    }
-    reHiglightKeyboard();
-}
-
-void Osd::loadSwitchMonitors()
-{
-    actionMode = SwitchMonitor;
-    m_Svg->setVisible(false);
-    m_ListWidget->setVisible(false);
-    m_SwitchWMLabel->setText("");
-    m_MonitersWrapper->setVisible(true);
-    // get the list of all screens by using QString's method "split"
-    QString screenNamesStr = (QString)m_DisplayInterface->QueryCurrentPlanName();
-    m_ScreenList = screenNamesStr.split(",");
-
-    if (m_ScreenList.length() > 1) {
-        this->resize(BASE_SIZE * (m_ScreenList.length() + 2), BASE_SIZE);
-        m_BackImageLabel->resize(this->size());
-        m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
-
-        initMonitorItems();
-
-        initCurrentScreenMode();
-    } else {
-        // if just 1 screen , quit the app immediately
-        this->deleteLater();
-    }
-}
-
-void Osd::initMonitorItems()
-{
-    m_MonitersWrapper->resize(this->size());
-    m_HLayout = new QHBoxLayout(m_MonitersWrapper);
-
-    // for duplicate mode
-    QWidget *duplicateScreenItem = new QWidget(m_MonitersWrapper);
-    QVBoxLayout *vLayoutOfDuplicateScreen = new QVBoxLayout(duplicateScreenItem);
-    // image label for duplicate mode
-    m_DuplicateScreenImageSvg = new QSvgWidget(duplicateScreenItem);
-    m_DuplicateScreenImageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-    m_DuplicateScreenImageLabel = new QLabel(duplicateScreenItem);
-    m_DuplicateScreenImageLabel->setFixedSize(IMAGE_SIZE,IMAGE_SIZE);
-    showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
-    // text label for duplicate mode
-    m_DuplicateScreenText = new QLabel(duplicateScreenItem);
-    m_DuplicateScreenText->setText(tr("Duplicate"));
-    m_DuplicateScreenText->setAlignment(Qt::AlignCenter);
-    m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
-    // add above 2 widgets
-    if(getThemeIconPath("project_screen-duplicate-symbolic").endsWith(".svg")){
-        vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenImageSvg, 0, Qt::AlignHCenter);
-    }else{
-        vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenImageLabel, 0, Qt::AlignHCenter);
-    }
-    vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenText, 0, Qt::AlignHCenter);
-
-    // for expanded mode
-    QWidget *expandedScreenItem = new QWidget(m_MonitersWrapper);
-    QVBoxLayout *vLayoutOfExpandedScreen = new QVBoxLayout(expandedScreenItem);
-    // image label for expanded mode
-    m_ExpandedScreenImageSvg = new QSvgWidget(expandedScreenItem);
-    m_ExpandedScreenImageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-    m_ExpandedScreenImageLabel = new QLabel(expandedScreenItem);
-    m_ExpandedScreenImageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-    showThemeImage(getThemeIconPath("project_screen-extend-symbolic"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
-    // text label for expanded mode
-    m_ExpandedScreenText = new QLabel(expandedScreenItem);
-    m_ExpandedScreenText->setText(tr("Extend"));
-    m_ExpandedScreenText->setAlignment(Qt::AlignCenter);    m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
-    // add above 2 widgets
-    if(getThemeIconPath("project_screen-extend-symbolic").endsWith(".svg")){
-        vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenImageSvg, 0, Qt::AlignHCenter);
-    }else{
-        vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenImageLabel, 0, Qt::AlignHCenter);
-    }
-    vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenText, 0, Qt::AlignHCenter);
-
-    // add duplicate and expanded items
-    m_HLayout->addWidget(duplicateScreenItem);
-    m_HLayout->addWidget(expandedScreenItem);
-
-    // for one-screen mode
-    for (int i = 0, length = m_ScreenList.length(); i < length; i++) {
-        // one-screen mode item
-        QWidget *item = new QWidget(m_MonitersWrapper);
-        QVBoxLayout *vLayout = new QVBoxLayout(item);
-        // image label for one-screen mode
-        QSvgWidget *imageSvg = new QSvgWidget(item);
-        imageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-        QLabel* imageLabel = new QLabel(item);
-        imageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic"), imageSvg, imageLabel);
-        // text label for one-screen mode
-        QLabel *textLabel = new QLabel(item);
-        textLabel->setText(m_ScreenList[i]);
-        textLabel->setAlignment(Qt::AlignCenter);
-        textLabel->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
-        // store imagelabel and textlabel into lists, so that we can change their style later
-        m_ImageSvgList << imageSvg;
-        m_ImageLabelList << imageLabel;
-        m_TextLabelList << textLabel;
-        // add above 2 widgets
-        if(getThemeIconPath("project_screen-onlyone-symbolic").endsWith(".svg")){
-            vLayout->addWidget(imageSvg, 0, Qt::AlignHCenter);
+bool Osd::handleBasicCmd(){
+    if (QDBusConnection::sessionBus().registerService("com.deepin.dde.osd")) {
+        QDBusConnection::sessionBus().registerObject("/com/deepin/dde/osd", this, QDBusConnection::ExportAllSlots);
+        if (m_Parser.isSet(BrightnessUp) || m_Parser.isSet(BrightnessDown)) {
+            loadBasicNormal("Brightness");
+        } else if (m_Parser.isSet(AudioUp) || m_Parser.isSet(AudioDown)) {
+            loadBasicNormal("Audio");
+        } else if (m_Parser.isSet(AudioMute)) {
+            loadBasicNormal("AudioMute");
+        } else if (m_Parser.isSet(SwitchLayouts)) {
+            loadSwitchLayout();
+        } else if (m_Parser.isSet(SwitchMonitors)) {
+            loadSwitchMonitors();
         }else{
-            vLayout->addWidget(imageLabel, 0, Qt::AlignHCenter);
+            return false;
         }
-        vLayout->addWidget(textLabel, 0, Qt::AlignHCenter);
-
-        // add one-screen mode item
-        m_HLayout->addWidget(item);
-    }
-}
-
-void Osd::initCurrentScreenMode()
-{
-    // for each mode, we would do the same operations to change it's style when app starts
-    switch (displaymode) {
-    case Custom:
-        //        m_CurrentIndexOfMonitorItem = -1;
-        break;
-    case Duplicate:
-        showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic-focus"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
-        m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        m_CurrentIndexOfMonitorItem = 0;
-        break;
-    case Expanded:
-        showThemeImage(getThemeIconPath("project_screen-extend-symbolic-focus"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
-        m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        m_CurrentIndexOfMonitorItem = 1;
-        break;
-    case OneScreen:
-        QString primaryScreenName = m_DisplayInterface->primary();
-        for (int i = 0, length = m_ScreenList.length(); i < length; i++) {
-            if (m_ScreenList[i] == primaryScreenName) {
-                showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic-focus"), m_ImageSvgList[i], m_ImageLabelList[i]);
-                m_TextLabelList[i]->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-                // m_CurrentIndexOfMonitorItem is always 2 bigger than m_ScreenList's i
-                m_CurrentIndexOfMonitorItem = i + 2;
+        setTimer();
+        moveToCenter();
+    }else{
+        QDBusInterface iface("com.deepin.dde.osd", "/com/deepin/dde/osd", "", QDBusConnection::sessionBus());
+        if (m_Parser.isSet(BrightnessUp) || m_Parser.isSet(BrightnessDown)) {
+            iface.call("loadBasicNormal", "Brightness");
+        } else if (m_Parser.isSet(AudioUp) || m_Parser.isSet(AudioDown)) {
+            iface.call("loadBasicNormal", "Audio");
+        } else if (m_Parser.isSet(AudioMute)) {
+            iface.call("loadBasicNormal", "AudioMute");
+        } else if (m_Parser.isSet(SwitchLayouts)) {
+            QDBusReply<int> lastActionResult = iface.call("lastAppMode");
+            QDBusReply<bool> layoutStatus = iface.call("getLayoutStatus");
+            if(lastActionResult == SwitchLayoutEnum){
+                iface.call("highlightNextLayout");
+            }else{
+                layoutStatus ? iface.call("highlightCurrentLayout") : iface.call("loadSwitchLayout");
+            }
+        } else if (m_Parser.isSet(SwitchMonitors)) {
+            QDBusReply<int> lastActionResult = iface.call("lastAppMode");
+            QDBusReply<bool> monitorStatus = iface.call("getMonitorStatus");
+            if(lastActionResult == SwitchMonitorEnum){
+                iface.call("highlightNextMonitor");
+            }else{
+                monitorStatus ? iface.call("highlightCurrentMonitor") : iface.call("loadSwitchMonitors");
             }
         }
-        break;
+        iface.call("tailInWork");
+        this->deleteLater();
+        return false;
     }
+    return true;
 }
 
-// when Meta-P is pressed , we need to refresh the highlight style
-void Osd::reHighlightMonitor()
-{
-    if (m_CurrentIndexOfMonitorItem == 0) {
-        showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic-focus"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
-        m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic"), m_ImageSvgList[m_ScreenList.length() - 1], m_ImageLabelList[m_ScreenList.length() - 1]);
-        m_TextLabelList[m_ScreenList.length() - 1]->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
-    } else if (m_CurrentIndexOfMonitorItem == 1) {
-        showThemeImage(getThemeIconPath("project_screen-extend-symbolic-focus"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
-        m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
-        m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
-    } else if (m_CurrentIndexOfMonitorItem == 2) {
-        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic-focus"), m_ImageSvgList[0], m_ImageLabelList[0]);
-        m_TextLabelList[0]->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        showThemeImage(getThemeIconPath("project_screen-extend-symbolic"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
-        m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
-    } else {
-        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic-focus"), m_ImageSvgList[m_CurrentIndexOfMonitorItem - 2], m_ImageLabelList[m_CurrentIndexOfMonitorItem - 2]);
-        m_TextLabelList[m_CurrentIndexOfMonitorItem - 2]->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic"), m_ImageSvgList[m_CurrentIndexOfMonitorItem - 3], m_ImageLabelList[m_CurrentIndexOfMonitorItem - 3]);
-        m_TextLabelList[m_CurrentIndexOfMonitorItem - 3]->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
-    }
+int Osd::lastAppMode(){
+    return actionMode;
 }
 
-void Osd::highlightNextMonitor()
-{
-    if (m_CurrentIndexOfMonitorItem < (m_ScreenList.length() + 1)) {
-        ++m_CurrentIndexOfMonitorItem;
-    } else {
-        m_CurrentIndexOfMonitorItem = 0;
+bool Osd::getLayoutStatus(){
+    return layoutHasBeenInited;
+}
+
+bool Osd::getMonitorStatus(){
+    return monitorHasBeenInited;
+}
+
+void Osd::cancelNormalText(){
+    m_SwitchNormal->cancelText();
+}
+
+void Osd::showNormalText(QString text){
+    m_SwitchNormal->showText(text);
+}
+
+void Osd::addCmdImage(QString cmdString, QString imageName){
+    QCommandLineOption cmdOption(cmdString, "\tOSD " + cmdString);
+    m_Parser.addOption(cmdOption);
+    cmdOptionList << cmdOption;
+    imageNameList << imageName;
+}
+
+bool Osd::handleAdditionalCmd(){
+    for (int i=0,length=cmdOptionList.length();i<length;i++){
+        if (QDBusConnection::sessionBus().registerService("com.deepin.dde.osd")) {
+            QDBusConnection::sessionBus().registerObject("/com/deepin/dde/osd", this, QDBusConnection::ExportAllSlots);
+            if(m_Parser.isSet(cmdOptionList[i])){
+                loadAdditionalNormal(imageNameList[i]);
+                cancelNormalText();
+                setTimer();
+                moveToCenter();
+                return true;
+            }
+        }else{
+            QDBusInterface iface("com.deepin.dde.osd", "/com/deepin/dde/osd", "", QDBusConnection::sessionBus());
+            if(m_Parser.isSet(cmdOptionList[i])){
+                iface.call("loadAdditionalNormal", imageNameList[i]);
+                iface.call("cancelNormalText");
+                iface.call("tailInWork");
+                this->deleteLater();
+                return true;
+            }
+        }
     }
-    reHighlightMonitor();
+
+    return false;
+}
+
+void Osd::addCmdImageWithText(QString cmdString, QString imageName, QString text){
+    QCommandLineOption cmdOptionWithText(cmdString, "\tOSD " + cmdString);
+    m_Parser.addOption(cmdOptionWithText);
+    cmdOptionWithTextList << cmdOptionWithText;
+    imageNameWithTextList << imageName;
+    textList << text;
+}
+
+bool Osd::handleAdditionalCmdWithText(){
+    for (int i=0,length=cmdOptionWithTextList.length();i<length;i++){
+        if (QDBusConnection::sessionBus().registerService("com.deepin.dde.osd")) {
+            QDBusConnection::sessionBus().registerObject("/com/deepin/dde/osd", this, QDBusConnection::ExportAllSlots);
+            if(m_Parser.isSet(cmdOptionWithTextList[i])){
+                loadAdditionalNormal(imageNameWithTextList[i]);
+                showNormalText(textList[i]);
+                setTimer();
+                moveToCenter();
+                return true;
+            }
+        }else{
+            QDBusInterface iface("com.deepin.dde.osd", "/com/deepin/dde/osd", "", QDBusConnection::sessionBus());
+            if(m_Parser.isSet(cmdOptionWithTextList[i])){
+                iface.call("loadAdditionalNormal", imageNameWithTextList[i]);
+                iface.call("showNormalText",textList[i]);
+                iface.call("tailInWork");
+                this->deleteLater();
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+void Osd::loadAdditionalNormal(QString imageName){
+    actionMode = NoProgressBar;
+    m_SwitchLayout->hideLayout();
+    m_SwitchMonitor->hideMonitors();
+    m_SwitchNormal->showNormal();
+    this->resize(BASE_SIZE, BASE_SIZE);
+    m_BackImageLabel->resize(this->size());
+    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
+    m_SwitchNormal->searchAddedImage(imageName);
+}
+
+void Osd::loadSwitchLayout(){
+    actionMode = SwitchLayoutEnum;
+    layoutHasBeenInited = true;
+    m_SwitchNormal->hideNormal();
+    m_SwitchMonitor->hideMonitors();
+    m_SwitchLayout->loadSwitchLayout();
+    m_BackImageLabel->resize(this->size());
+    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
+}
+
+void Osd::highlightNextLayout(){
+    actionMode = SwitchLayoutEnum;
+    m_SwitchLayout->highlightNextLayout();
+}
+
+void Osd::highlightCurrentLayout(){
+    actionMode = SwitchLayoutEnum;
+    m_SwitchNormal->hideNormal();
+    m_SwitchMonitor->hideMonitors();
+    m_SwitchLayout->showLayout();
+    m_SwitchLayout->resizeParent();
+    m_SwitchLayout->reHiglightKeyboard();
+    m_BackImageLabel->resize(this->size());
+    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
+}
+
+void Osd::loadSwitchMonitors(){
+    actionMode = SwitchMonitorEnum;
+    monitorHasBeenInited = true;
+    m_SwitchNormal->hideNormal();
+    m_SwitchLayout->hideLayout();
+    m_SwitchMonitor->loadSwitchMonitors();
+    m_BackImageLabel->resize(this->size());
+    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
+}
+
+void Osd::highlightNextMonitor(){
+    actionMode = SwitchMonitorEnum;
+    m_SwitchMonitor->highlightNextMonitor();
+}
+
+void Osd::highlightCurrentMonitor(){
+    actionMode = SwitchMonitorEnum;
+    m_SwitchNormal->hideNormal();
+    m_SwitchLayout->hideLayout();
+    m_SwitchMonitor->showMonitors();
+    m_SwitchMonitor->resizeParent();
+    m_SwitchMonitor->reHighlightMonitor();
+    m_BackImageLabel->resize(this->size());
+    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
 }
 
 void Osd::paintEvent(QPaintEvent *e)
@@ -634,24 +341,24 @@ void Osd::paintEvent(QPaintEvent *e)
     painter.setPen(pen);
     painter.fillPath(path,QColor(0,0,0,127));
 
-    if (actionMode == NormalAudio || actionMode == NormalBrightness) {
+    if (actionMode == AudioProgressBar || actionMode == BrightnessProgressBar) {
         // paint progressbar's background
         QBrush brush;
         brush.setStyle(Qt::SolidPattern);
-        QRect progressBarBackRect(30,106,80,4);
+        QRectF progressBarBackRect(30,106,80,4);
         brush.setColor(QColor(255,255,255,51));
         painter.setBrush(brush);
         painter.drawRoundedRect(progressBarBackRect,2,2);
 
-        if (actionMode == NormalAudio) {
+        if (actionMode == AudioProgressBar) {
             // paint audio progressbar
-            QRect progressBarRect(30,106,80*(m_VolumeInterface->volume()>=1.0 ? 1.0 : m_VolumeInterface->volume()),4);
+            QRectF progressBarRect(30,106,80*(m_SwitchNormal->getVolume()>=1.0 ? 1.0 : m_SwitchNormal->getVolume()),4);
             brush.setColor(Qt::white);
             painter.setBrush(brush);
             painter.drawRoundedRect(progressBarRect,2,2);
-        } else if (actionMode == NormalBrightness) {
+        } else if (actionMode == BrightnessProgressBar) {
             // paint brightness progressbar
-            QRect progressBarRect(30,106,80*m_DisplayInterface->brightness()[m_DisplayInterface->primary()],4);
+            QRectF progressBarRect(30,106,80*m_SwitchMonitor->getBrightness(),4);
             brush.setColor(Qt::white);
             painter.setBrush(brush);
             painter.drawRoundedRect(progressBarRect,2,2);

@@ -1,151 +1,71 @@
+#include <gtk/gtk.h>
 #include "osd.h"
 #include <QApplication>
-#include <QScreen>
-#include <QTimer>
 #include <QTranslator>
-#include <QCommandLineParser>
-#include <QCommandLineOption>
+
+QString getThemeIconPath(QString iconName)
+{
+    QByteArray bytes = iconName.toUtf8();
+    const char *name = bytes.constData();
+
+    GtkIconTheme* theme = gtk_icon_theme_get_default();
+
+    GtkIconInfo* info = gtk_icon_theme_lookup_icon(theme, name, 240, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+
+    if (info) {
+        char* path = g_strdup(gtk_icon_info_get_filename(info));
+#if GTK_MAJOR_VERSION >= 3
+        g_object_unref(info);
+#elif GTK_MAJOR_VERSION == 2
+        gtk_icon_info_free(info);
+#endif
+        return QString(path);
+    } else {
+        return "";
+    }
+}
+
+void showThemeImage(QString iconName, QSvgWidget* svgLoader, QLabel* notSvgLoader){
+    if(iconName.endsWith(".svg")){
+        svgLoader->load(iconName);
+    }else if(iconName.isEmpty()){
+        svgLoader->load(getThemeIconPath("application-default-icon"));
+    }else{
+        // 56 is the size of image
+        notSvgLoader->setPixmap(QPixmap(iconName).scaled(56,56,Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    }
+}
 
 int main(int argc, char *argv[])
 {
+    gtk_init(NULL, NULL);
+    gdk_error_trap_push();
+
     QApplication a(argc, argv);
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
-    // command line options
-    QCommandLineOption NumLockOn("NumLockOn", "\tOSD NumLockOn");
-    QCommandLineOption NumLockOff("NumLockOff", "\tOSD NumLockOff");
-    QCommandLineOption CapsLockOn("CapsLockOn", "\tOSD CapsLockOn");
-    QCommandLineOption CapsLockOff("CapsLockOff", "\tOSD CapsLockOff");
-    QCommandLineOption TouchpadOn("TouchpadOn", "\tOSD TouchpadOn");
-    QCommandLineOption TouchpadOff("TouchpadOff", "\tOSD TouchpadOff");
-    QCommandLineOption TouchpadToggle("TouchpadToggle", "\tOSD TouchpadToggle");
-    QCommandLineOption SwitchWM3D("SwitchWM3D", "\tOSD SwitchWM3D");
-    QCommandLineOption SwitchWM2D("SwitchWM2D", "\tOSD SwitchWM2D");
-    QCommandLineOption SwitchWMError("SwitchWMError", "\tOSD SwitchWMError");
-    QCommandLineOption BrightnessUp("BrightnessUp", "\tOSD BrightnessUp");
-    QCommandLineOption BrightnessDown("BrightnessDown", "\tOSD BrightnessDown");
-    QCommandLineOption AudioMute("AudioMute", "\tOSD AudioMute");
-    QCommandLineOption AudioDown("AudioDown", "\tOSD AudioDown");
-    QCommandLineOption AudioUp("AudioUp", "\tOSD AudioUp");
-    QCommandLineOption SwitchMonitors("SwitchMonitors", "\tOSD SwitchMonitors");
-    QCommandLineOption SwitchLayout("SwitchLayout", "\tOSD SwitchLayout");
-
-    // command line parser
-    QCommandLineParser parser;
-    parser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
-    parser.addHelpOption();
-    parser.addOption(NumLockOn);
-    parser.addOption(NumLockOff);
-    parser.addOption(CapsLockOn);
-    parser.addOption(CapsLockOff);
-    parser.addOption(TouchpadOn);
-    parser.addOption(TouchpadOff);
-    parser.addOption(TouchpadToggle);
-    parser.addOption(SwitchWM3D);
-    parser.addOption(SwitchWM2D);
-    parser.addOption(SwitchWMError);
-    parser.addOption(BrightnessUp);
-    parser.addOption(BrightnessDown);
-    parser.addOption(AudioMute);
-    parser.addOption(AudioDown);
-    parser.addOption(AudioUp);
-    parser.addOption(SwitchLayout);
-    parser.addOption(SwitchMonitors);
-    parser.process(a);
-
     Osd osd;
 
-    // if app is new, register it's service to dbus, so that we can make sure that there is only one app running no matter what happened
-    if (QDBusConnection::sessionBus().registerService("com.deepin.dde.osd")) {
-        QDBusConnection::sessionBus().registerObject("/com/deepin/dde/osd", &osd, QDBusConnection::ExportAllSlots);
+    // To future maintainer: add your cmd and image as followings.
+    osd.addCmdImage("NumLockOn","numlock-enabled-symbolic");
+    osd.addCmdImage("NumLockOff","numlock-disabled-symbolic");
+    osd.addCmdImage("CapsLockOn","capslock-enabled-symbolic");
+    osd.addCmdImage("CapsLockOff","capslock-disabled-symbolic");
+    osd.addCmdImage("TouchpadOn","touchpad-enabled-symbolic");
+    osd.addCmdImage("TouchpadOff","touchpad-disabled-symbolic");
+    osd.addCmdImage("TouchpadToggle","touchpad-toggled-symbolic");
+    osd.addCmdImageWithText("SwitchWM3D", "wm-effect-enabled", "Enable window effects");
+    osd.addCmdImageWithText("SwitchWM2D","wm-effect-disabled","Disable window effects");
+    osd.addCmdImageWithText("SwitchWMError","wm-effect-error","Failed to enable window effects");
 
-        if (parser.isSet(NumLockOn)) {
-            osd.loadCorrespondingImage("NumLockOn");
-        } else if (parser.isSet(NumLockOff)) {
-            osd.loadCorrespondingImage("NumLockOff");
-        } else if (parser.isSet(CapsLockOn)) {
-            osd.loadCorrespondingImage("CapsLockOn");
-        } else if (parser.isSet(CapsLockOff)) {
-            osd.loadCorrespondingImage("CapsLockOff");
-        } else if (parser.isSet(TouchpadOn)) {
-            osd.loadCorrespondingImage("TouchpadOn");
-        } else if (parser.isSet(TouchpadOff)) {
-            osd.loadCorrespondingImage("TouchpadOff");
-        } else if (parser.isSet(TouchpadToggle)) {
-            osd.loadCorrespondingImage("TouchpadToggle");
-        } else if (parser.isSet(SwitchWM3D)){
-            osd.loadCorrespondingImage("SwitchWM3D");
-        } else if (parser.isSet(SwitchWM2D)) {
-            osd.loadCorrespondingImage("SwitchWM2D");
-        } else if (parser.isSet(SwitchWMError)) {
-            osd.loadCorrespondingImage("SwitchWMError");
-        } else if (parser.isSet(BrightnessUp) || parser.isSet(BrightnessDown)) {
-            osd.loadCorrespondingImage("Brightness");
-        } else if (parser.isSet(AudioUp) || parser.isSet(AudioDown)) {
-            osd.loadCorrespondingImage("Audio");
-        } else if (parser.isSet(AudioMute)) {
-            osd.loadCorrespondingImage("AudioMute");
-        } else if (parser.isSet(SwitchLayout)) {
-            osd.loadSwitchLayout();
-        } else if (parser.isSet(SwitchMonitors)) {
-            osd.loadSwitchMonitors();
-        } else {
-            // if not all of above, for example, no parameter for commandline, quit the app immediately
-            return 0;
-        }
-
-        // make sure that app is always positioned in the center primary screen
-        osd.moveToCenter();
-        osd.show();
-        // kill app after 2000 miliseconds
-        osd.setTimer();
-    } else {
-        // if we have our app run, do not start another one. To register its service is a better way.
-        QDBusInterface iface("com.deepin.dde.osd", "/com/deepin/dde/osd", "", QDBusConnection::sessionBus());
-
-        if (parser.isSet(NumLockOff)) {
-            iface.call("loadCorrespondingImage", "NumLockOff");
-        } else if (parser.isSet(NumLockOn)) {
-            iface.call("loadCorrespondingImage", "NumLockOn");
-        } else if (parser.isSet(CapsLockOn)) {
-            iface.call("loadCorrespondingImage", "CapsLockOn");
-        } else if (parser.isSet(CapsLockOff)) {
-            iface.call("loadCorrespondingImage", "CapsLockOff");
-        } else if (parser.isSet(TouchpadOn)) {
-            iface.call("loadCorrespondingImage", "TouchpadOn");
-        } else if (parser.isSet(TouchpadOff)) {
-            iface.call("loadCorrespondingImage", "TouchpadOff");
-        } else if (parser.isSet(TouchpadToggle)) {
-            iface.call("loadCorrespondingImage", "TouchpadToggle");
-        } else if (parser.isSet(SwitchWM3D)) {
-            iface.call("loadCorrespondingImage", "SwitchWM3D");
-        } else if (parser.isSet(SwitchWM2D)) {
-            iface.call("loadCorrespondingImage", "SwitchWM2D");
-        } else if (parser.isSet(SwitchWMError)) {
-            iface.call("loadCorrespondingImage", "SwitchWMError");
-        } else if (parser.isSet(BrightnessUp) || parser.isSet(BrightnessDown)) {
-            iface.call("loadCorrespondingImage", "Brightness");
-        } else if (parser.isSet(AudioUp) || parser.isSet(AudioDown)) {
-            iface.call("loadCorrespondingImage", "Audio");
-        } else if (parser.isSet(AudioMute)) {
-            iface.call("loadCorrespondingImage", "AudioMute");
-        } else if (parser.isSet(SwitchLayout)) {
-            QDBusReply<int> latterActionResult = iface.call("latterAction");
-            latterActionResult.value() == 0 ? iface.call("highlightNextLayout") : iface.call("loadSwitchLayout");
-        } else if (parser.isSet(SwitchMonitors)) {
-            QDBusReply<int> latterActionResult = iface.call("latterAction");
-            latterActionResult.value() == 1 ? iface.call("highlightNextMonitor") : iface.call("loadSwitchMonitors");
-        }
-
-        // tail_in_Work contains 3 actions: setTimer ,  moveToCenter and repaint
-        iface.call("tail_in_Work");
-
-        // if iface.call(*) , after call, quit this app immediately
+    osd.processParser();
+    if(!osd.handleBasicCmd() && !osd.handleAdditionalCmd() && !osd.handleAdditionalCmdWithText()){
         return 0;
     }
+    osd.show();
 
     return a.exec();
 }
