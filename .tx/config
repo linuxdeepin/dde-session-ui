@@ -1,0 +1,10 @@
+[main]
+host = https://www.transifex.com
+minimum_perc = 80
+mode = developer
+
+[deepin-desktop-environment.dde-session-ui]
+file_filter = translations/dde-session-ui_<lang>.ts
+source_file = translations/dde-session-ui.ts
+source_lang = en
+type = QT
