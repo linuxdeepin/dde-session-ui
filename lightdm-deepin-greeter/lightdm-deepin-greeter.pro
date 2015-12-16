@@ -12,9 +12,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = lightdm-deepin-greeter
 TEMPLATE = app
 
-PKGCONFIG += gsettings-qt dui liblightdm-qt5-3 xext
+PKGCONFIG += gsettings-qt dui liblightdm-qt5-3 x11 xext xfixes xcursor
 CONFIG += c++11 link_pkgconfig
-
 
 include(../background/background.pri)
 include(../widgets/widgets.pri)
