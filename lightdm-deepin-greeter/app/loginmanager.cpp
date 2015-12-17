@@ -83,31 +83,87 @@ static int set_rootwindow_cursor() {
 // Load system cursor --end
 
 LoginManager::LoginManager(QWidget* parent)
-    : QFrame(parent),
-      m_greeter(new QLightDM::Greeter(this))
+    : QFrame(parent)
 {
     recordPid();
-    if (!m_greeter->connectSync())
-        qWarning() << "greeter connect fail !!!";
 
     initUI();
+    initData();
     initConnect();
-#ifndef SHENWEI_PLATFORM
-    m_passWdEdit->updateKeybordLayoutStatus(m_userWidget->currentUser());
-#endif
-    m_sessionWidget->switchToUser(m_userWidget->currentUser());
-
-    expandUserWidget();
-
-    m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
-    if (!m_login1ManagerInterface->isValid()) {
-        qDebug() <<"m_login1ManagerInterface:" << m_login1ManagerInterface->lastError().type();
-    }
+    initDateAndUpdate();
 }
 
 LoginManager::~LoginManager()
 {
 }
+
+void LoginManager::updateWidgetsPosition()
+{
+    const int height = this->height();
+    const int width = this->width();
+
+    m_userWidget->setFixedWidth(width);
+    m_userWidget->move(0, (height - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
+    qDebug() << "Change Screens" << m_userWidget->isChooseUserMode;
+    m_sessionWidget->setFixedWidth(width);
+    m_sessionWidget->move(0, (height - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
+    m_logoWidget->move(48, height - m_logoWidget->height() - 36); // left 48px and bottom 36px
+    m_switchFrame->move(width - m_switchFrame->width() - 20, height - m_switchFrame->height());
+    m_requireShutdownWidget->setFixedWidth(width);
+    m_requireShutdownWidget->setFixedHeight(300);
+    m_requireShutdownWidget->move(0,  (height - m_requireShutdownWidget->height())/2 - 60);
+}
+
+void LoginManager::keyPressEvent(QKeyEvent* e) {
+    qDebug() << "qDebug loginManager:" << e->text();
+
+    if (e->key() == Qt::Key_Escape) {
+        if (!m_requireShutdownWidget->isHidden()) {
+            m_requireShutdownWidget->hide();
+            m_userWidget->show();
+            if (!m_userWidget->isChooseUserMode) {
+                m_passWdEdit->show();
+            }
+        }
+#ifdef QT_DEBUG
+        qApp->exit();
+#endif
+    }
+}
+
+void LoginManager::mousePressEvent(QMouseEvent *e)
+{
+    if (e->button() == Qt::LeftButton) {
+        if (!m_requireShutdownWidget->isHidden()) {
+            m_requireShutdownWidget->hide();
+            m_userWidget->show();
+            if (!m_userWidget->isChooseUserMode) {
+                m_passWdEdit->show();
+            }
+        }
+
+        if (m_keybdArrowWidget->isHidden()) {
+            m_keybdArrowWidget->hide();
+        }
+    }
+}
+
+void LoginManager::leaveEvent(QEvent *)
+{
+    QList<QScreen *> screenList = qApp->screens();
+    QPoint mousePoint = QCursor::pos();
+    for (const QScreen *screen : screenList)
+    {
+        if (screen->geometry().contains(mousePoint))
+        {
+            const QRect &geometry = screen->geometry();
+            setFixedSize(geometry.size());
+            emit screenChanged(geometry);
+            return;
+        }
+    }
+}
+
 void LoginManager::initUI()
 {
     setFixedSize(qApp->desktop()->size());
@@ -170,6 +226,12 @@ void LoginManager::recordPid() {
     }
 }
 
+void LoginManager::initData() {
+    m_greeter = new QLightDM::Greeter(this);
+    if (!m_greeter->connectSync())
+        qWarning() << "greeter connect fail !!!";
+}
+
 void LoginManager::initConnect()
 {
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, this, &LoginManager::chooseUserMode);
@@ -202,6 +264,26 @@ void LoginManager::initConnect()
         }});
 
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
+}
+
+void LoginManager::initDateAndUpdate() {
+    /*Update the m_passWdEdit UI after get the current user
+    *If the current user owns multi-keyboardLayouts,
+    *then the button to choose keyboardLayout need show
+    */
+#ifndef SHENWEI_PLATFORM
+    m_passWdEdit->updateKeybordLayoutStatus(m_userWidget->currentUser());
+#endif
+    //Get the session of current user
+    m_sessionWidget->switchToUser(m_userWidget->currentUser());
+    //To control the expanding the widgets of all the user list(m_userWidget)
+    expandUserWidget();
+
+    //The dbus is used to control the power actions
+    m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
+    if (!m_login1ManagerInterface->isValid()) {
+        qDebug() <<"m_login1ManagerInterface:" << m_login1ManagerInterface->lastError().type();
+    }
 }
 
 void LoginManager::expandUserWidget() {
@@ -240,17 +322,50 @@ void LoginManager::authenticationComplete()
 
     qDebug() << "session = " << m_sessionWidget->currentSessionName();
     qDebug() << "start session: " << m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+}
 
-//////////////kill_ddelock
-    m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-    if (m_lockInter->isValid()) {
-        qDebug() << "LOck Greeter: " << m_lockInter->IsLiveCD(m_userWidget->currentUser());
-        /////////////kill_lock
-        m_lockInter->ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
-    } else {
-        qDebug() << "m_lockInter error!";
+void LoginManager::login()
+{
+    if(!m_requireShutdownWidget->isHidden()) {
+        qDebug() << "SHUTDOWN";
+        m_requireShutdownWidget->shutdownAction();
+        return;
     }
-///////////////
+
+    if (!m_sessionWidget->isHidden()) {
+        qDebug() << "SESSIONWIDGET";
+        m_sessionWidget->chooseSession();
+        return;
+    }
+    if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
+        m_userWidget->chooseButtonChecked();
+        m_passWdEdit->getFocusTimer->start();
+        qDebug() << "lineEditGrabKeyboard";
+        return;
+    }
+
+    qDebug() << "sososos:" << m_passWdEdit->getText();
+    const QString &username = m_userWidget->currentUser();
+
+    if (!m_passWdEdit->isVisible())
+        return;
+
+    m_userWidget->showLoadingAni();
+
+    if (m_greeter->inAuthentication())
+        m_greeter->cancelAuthentication();
+
+    //m_passWdEdit->setAlert(true, "asd");
+
+    //save user last choice
+    m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
+    m_userWidget->saveLastUser();
+
+    //const QString &username = m_userWidget->currentUser();
+    m_greeter->authenticate(username);
+    qDebug() << "choose user: " << username;
+    qDebug() << "auth user: " << m_greeter->authenticationUser();
+
 }
 
 void LoginManager::chooseUserMode()
@@ -285,26 +400,6 @@ void LoginManager::choosedSession() {
     }
 }
 
-void LoginManager::updateWidgetsPosition()
-{
-    const int height = this->height();
-    const int width = this->width();
-
-    m_userWidget->setFixedWidth(width);
-    m_userWidget->move(0, (height - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
-    qDebug() << "Change Screens" << m_userWidget->isChooseUserMode;
-    if (m_userWidget->isChooseUserMode) {
-        m_userWidget->expandWidget();
-    }
-    m_sessionWidget->setFixedWidth(width);
-    m_sessionWidget->move(0, (height - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
-    m_logoWidget->move(48, height - m_logoWidget->height() - 36); // left 48px and bottom 36px
-    m_switchFrame->move(width - m_switchFrame->width() - 20, height - m_switchFrame->height());
-    m_requireShutdownWidget->setFixedWidth(width);
-    m_requireShutdownWidget->setFixedHeight(300);
-    m_requireShutdownWidget->move(0,  (height - m_requireShutdownWidget->height())/2 - 60);
-}
-
 void LoginManager::showShutdownFrame() {
     qDebug() << "showShutdownFrame!";
     m_userWidget->hide();
@@ -313,106 +408,13 @@ void LoginManager::showShutdownFrame() {
     m_requireShutdownWidget->show();
 }
 
-
-void LoginManager::keyPressEvent(QKeyEvent* e) {
-    qDebug() << "qDebug loginManager:" << e->text();
-
-    if (e->key() == Qt::Key_Escape) {
-        if (!m_requireShutdownWidget->isHidden()) {
-            m_requireShutdownWidget->hide();
-            m_userWidget->show();
-            if (!m_userWidget->isChooseUserMode) {
-                m_passWdEdit->show();
-            }
-        }
-#ifdef QT_DEBUG
-        qApp->exit();
-#endif
-    }
-}
-
-void LoginManager::mousePressEvent(QMouseEvent *e)
-{
-    if (e->button() == Qt::LeftButton) {
-        if (!m_requireShutdownWidget->isHidden()) {
-            m_requireShutdownWidget->hide();
-            m_userWidget->show();
-            if (!m_userWidget->isChooseUserMode) {
-                m_passWdEdit->show();
-            }
-        }
-
-        if (m_keybdArrowWidget->isHidden()) {
-            m_keybdArrowWidget->hide();
-        }
-    }
-}
-
-void LoginManager::leaveEvent(QEvent *)
-{
-    QList<QScreen *> screenList = qApp->screens();
-    QPoint mousePoint = QCursor::pos();
-    for (const QScreen *screen : screenList)
-    {
-        if (screen->geometry().contains(mousePoint))
-        {
-            const QRect &geometry = screen->geometry();
-            setFixedSize(geometry.size());
-            emit screenChanged(geometry);
-            return;
-        }
-    }
-}
-
-void LoginManager::login()
-{
-    if(!m_requireShutdownWidget->isHidden()) {
-        qDebug() << "SHUTDOWN";
-        m_requireShutdownWidget->shutdownAction();
-        return;
-    }
-
-    if (!m_sessionWidget->isHidden()) {
-        qDebug() << "SESSIONWIDGET";
-        m_sessionWidget->chooseSession();
-        return;
-    }
-    if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
-        m_userWidget->chooseButtonChecked();
-        m_passWdEdit->getFocusTimer->start();
-        qDebug() << "lineEditGrabKeyboard";
-        return;
-    }
-
-    qDebug() << "sososos:" << m_passWdEdit->getText();
-    const QString &username = m_userWidget->currentUser();
-
-    if (!m_passWdEdit->isVisible())
-        return;
-
-    m_userWidget->showLoadingAni();
-
-    if (m_greeter->inAuthentication())
-        m_greeter->cancelAuthentication();
-
-    //    m_passWdEdit->setAlert(true, "asd");
-
-    // save user last choice
-    m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
-    m_userWidget->saveLastUser();
-
-    //    const QString &username = m_userWidget->currentUser();
-    m_greeter->authenticate(username);
-    qDebug() << "choose user: " << username;
-    qDebug() << "auth user: " << m_greeter->authenticationUser();
-
-}
-
 void LoginManager::keyboardLayoutUI() {
-
+    //keyboardList is the keyboardLayout list of current user
     QStringList keyboardList;
     keyboardList = m_passWdEdit->keyboardLayoutList;
-
+    /*xkbParse is used to parse the xml file,
+    * get the details info of keyboardlayout
+    */
     xkbParse = new XkbParser(this);
     QStringList keyboardListContent =  xkbParse->lookUpKeyboardList(keyboardList);
 

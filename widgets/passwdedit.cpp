@@ -196,7 +196,6 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
 #ifndef SHENWEI_PLATFORM
 void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
 {
-
     keyboardLayoutList = utilSettings->getKbdLayoutList(username);
     if (keyboardLayoutList.isEmpty()) {
         keyboardLayoutList << "";

@@ -19,6 +19,7 @@
 #include "kblayoutwidget.h"
 #include "shutdownwidget.h"
 #include "xkbparser.h"
+
 #include "dbus/dbusdisplaymanager.h"
 #include "dbus/dbusvariant.h"
 #include "dbus/dbuslogin1manager.h"
@@ -27,30 +28,36 @@
 #include "darrowrectangle.h"
 #include "util_file.h"
 
-#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
-#define LOCKSERVICE_NAME "com.deepin.dde.lock"
-
 class LoginManager: public QFrame {
     Q_OBJECT
 public:
     LoginManager(QWidget* parent=0);
     ~LoginManager();
-
+signals:
+    /*This signals is used to change the
+    widgets position in different screens*/
+    void screenChanged(QRect geom);
+public slots:
+    /*Update the position of the widgets after finished the layout of ui*/
+    void updateWidgetsPosition();
 protected:
     void keyPressEvent(QKeyEvent* e) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
     void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
-signals:
-    void screenChanged(QRect geom);
-public slots:
-    void updateWidgetsPosition();
-private slots:
+private:
+    void recordPid();
     void initUI();
+    void initData();
     void initConnect();
-    void login();
+
+    void initDateAndUpdate();
+
     void expandUserWidget();
+
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
+    void login();
+
     void chooseUserMode();
     void chooseSessionMode();
     void choosedSession();
@@ -60,12 +67,9 @@ private slots:
     void keybdLayoutWidgetPosit();
     void setCurrentKeybdLayoutList(QString keyboard_value);
 
-
     void setShutdownAction(const ShutdownWidget::Actions action);
-    void recordPid();
     void leftKeyPressed();
     void rightKeyPressed();
-private:
 
     LogoWidget* m_logoWidget;
     SwitchFrame* m_switchFrame;
@@ -82,7 +86,6 @@ private:
 
     QLightDM::Greeter *m_greeter;
     DBusLogin1Manager* m_login1ManagerInterface;
-    DBusLockService* m_lockInter;
     UtilFile* m_utilFile;
 };
 #endif // LoginManager
