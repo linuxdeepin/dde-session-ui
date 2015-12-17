@@ -6,6 +6,79 @@
 
 #include "loginmanager.h"
 
+#include <X11/Xlib-xcb.h>
+#include <X11/cursorfont.h>
+#include <X11/Xcursor/Xcursor.h>
+#include <X11/Xlib.h>
+#include <X11/extensions/Xfixes.h>
+//Load the System cursor --begin
+static XcursorImages*
+xcLoadImages(const char *image, int size)
+{
+    QSettings settings(DDESESSIONCC::DEFAULT_CURSOR_THEME, QSettings::IniFormat);
+    //The default cursor theme path
+    qDebug() << "Theme Path:" << DDESESSIONCC::DEFAULT_CURSOR_THEME;
+    QString item = "Icon Theme";
+    const char* defaultTheme = "";
+    QVariant tmpCursorTheme = settings.value(item + "/Inherits");
+    if (tmpCursorTheme.isNull()) {
+        qDebug() << "Set a default one instead, if get the cursor theme failed!";
+        defaultTheme = "Deepin";
+    } else {
+        defaultTheme = tmpCursorTheme.toString().toLocal8Bit().data();
+    }
+
+    qDebug() << "Get defaultTheme:" << tmpCursorTheme.isNull()
+             << defaultTheme;
+    return XcursorLibraryLoadImages(image, defaultTheme, size);
+}
+
+static unsigned long loadCursorHandle(Display *dpy, const char *name, int size)
+{
+    if (size == -1) {
+        size = XcursorGetDefaultSize(dpy);
+    }
+
+    // Load the cursor images
+    XcursorImages *images = NULL;
+    images = xcLoadImages(name, size);
+
+    if (!images) {
+        images = xcLoadImages(name, size);
+        if (!images) {
+            return 0;
+        }
+    }
+
+    unsigned long handle = (unsigned long)XcursorImagesLoadCursor(dpy,
+                          images);
+    XcursorImagesDestroy(images);
+
+    return handle;
+}
+
+static int set_rootwindow_cursor() {
+    Display* display = XOpenDisplay(NULL);
+    if (!display) {
+        qDebug() << "Open display failed";
+        return -1;
+    }
+
+    Cursor cursor = (Cursor)loadCursorHandle(display, "left_ptr", 24);
+    XDefineCursor(display, XDefaultRootWindow(display),cursor);
+
+    // XFixesChangeCursorByName is the key to change the cursor
+    // and the XFreeCursor and XCloseDisplay is also essential.
+
+    XFixesChangeCursorByName(display, cursor, "left_ptr");
+
+    XFreeCursor(display, cursor);
+    XCloseDisplay(display);
+
+    return 0;
+}
+// Load system cursor --end
+
 LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent),
       m_greeter(new QLightDM::Greeter(this))
@@ -33,7 +106,6 @@ LoginManager::~LoginManager()
 }
 void LoginManager::initUI()
 {
-    setCursor(Qt::ArrowCursor);
     setFixedSize(qApp->desktop()->size());
     setObjectName("LoginManagerTool");
 
@@ -75,6 +147,7 @@ void LoginManager::initUI()
     m_switchFrame->setUserSwitchEnable(m_userWidget->count() > 1);
 
     updateStyle(":/skin/login.qss", this);
+    set_rootwindow_cursor();
 }
 
 void LoginManager::recordPid() {

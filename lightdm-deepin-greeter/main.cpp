@@ -76,9 +76,7 @@ int main(int argc, char* argv[])
 
     const QString &backgroundUrl = ":/theme/background/default_background.jpg";
     LoginFrame  w(backgroundUrl);
-
     w.show();
     w.grabKeyboard();
-
     return a.exec();
 }
