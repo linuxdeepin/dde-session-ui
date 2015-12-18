@@ -101,9 +101,9 @@ void Osd::setTimer()
 }
 
 void Osd::tailInWork(){
-    this->repaint();
     moveToCenter();
     setTimer();
+    this->update();
 }
 
 void Osd::loadBasicNormal(QString whichImage){
