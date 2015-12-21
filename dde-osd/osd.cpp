@@ -153,18 +153,18 @@ bool Osd::handleBasicCmd(){
         } else if (m_Parser.isSet(SwitchLayouts)) {
             QDBusReply<int> lastActionResult = iface.call("lastAppMode");
             QDBusReply<bool> layoutStatus = iface.call("getLayoutStatus");
-            if(lastActionResult == SwitchLayoutEnum){
-                iface.call("highlightNextLayout");
+            if(!layoutStatus){
+                iface.call("loadSwitchLayout");
             }else{
-                layoutStatus ? iface.call("highlightCurrentLayout") : iface.call("loadSwitchLayout");
+                lastActionResult == SwitchLayoutEnum ? iface.call("highlightNextLayout") : iface.call("highlightCurrentLayout");
             }
         } else if (m_Parser.isSet(SwitchMonitors)) {
             QDBusReply<int> lastActionResult = iface.call("lastAppMode");
             QDBusReply<bool> monitorStatus = iface.call("getMonitorStatus");
-            if(lastActionResult == SwitchMonitorEnum){
-                iface.call("highlightNextMonitor");
+            if(!monitorStatus){
+                iface.call("loadSwitchMonitors");
             }else{
-                monitorStatus ? iface.call("highlightCurrentMonitor") : iface.call("loadSwitchMonitors");
+                lastActionResult == SwitchMonitorEnum ? iface.call("highlightNextMonitor") : iface.call("highlightCurrentMonitor");
             }
         }
         iface.call("tailInWork");
@@ -283,7 +283,6 @@ void Osd::loadSwitchLayout(){
 }
 
 void Osd::highlightNextLayout(){
-    actionMode = SwitchLayoutEnum;
     m_SwitchLayout->highlightNextLayout();
 }
 
@@ -309,7 +308,6 @@ void Osd::loadSwitchMonitors(){
 }
 
 void Osd::highlightNextMonitor(){
-    actionMode = SwitchMonitorEnum;
     m_SwitchMonitor->highlightNextMonitor();
 }
 
