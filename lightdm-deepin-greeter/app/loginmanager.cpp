@@ -64,13 +64,13 @@ static int set_rootwindow_cursor() {
         return -1;
     }
 
-    Cursor cursor = (Cursor)loadCursorHandle(display, "left_ptr", 24);
+    Cursor cursor = (Cursor)loadCursorHandle(display, "watch", 24);
     XDefineCursor(display, XDefaultRootWindow(display),cursor);
 
     // XFixesChangeCursorByName is the key to change the cursor
     // and the XFreeCursor and XCloseDisplay is also essential.
 
-    XFixesChangeCursorByName(display, cursor, "left_ptr");
+    XFixesChangeCursorByName(display, cursor, "watch");
 
     XFreeCursor(display, cursor);
     XCloseDisplay(display);

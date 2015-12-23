@@ -117,8 +117,12 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
                     if (event->key() == Qt::Key_Return||event->key() == Qt::Key_Enter) {
                         m_lineEdit->setText("");
                         m_alert_enter = true;
+                    } else if (event->key() == Qt::Key_Backspace) {
+                        m_lineEdit->setText("");
+                        m_alert_enter = m_alert_enter ?!m_alert_enter : m_alert_enter;
                     } else {
                         m_lineEdit->setText(event->text());
+                        m_alert_enter = m_alert_enter ?!m_alert_enter : m_alert_enter;
                     }
                     qDebug() << "m_lineEdit:" << m_lineEdit->text() << m_lineEdit->cursorPosition();
                 }
