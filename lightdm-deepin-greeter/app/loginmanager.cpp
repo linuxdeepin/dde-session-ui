@@ -431,6 +431,7 @@ void LoginManager::keyboardLayoutUI() {
 
     connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &LoginManager::setCurrentKeybdLayoutList);
     connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, m_keybdArrowWidget, &DArrowRectangle::hide);
+    connect(m_userWidget, &UserWidget::chooseUserModeChanged, m_passWdEdit, &PassWdEdit::recordUserPassWd);
 }
 
 void LoginManager::setCurrentKeybdLayoutList(QString keyboard_value) {
@@ -472,7 +473,11 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
 }
 
 void LoginManager::leftKeyPressed() {
-    if (!m_userWidget->isHidden() && m_passWdEdit->getText().isEmpty()) {
+    if (!m_userWidget->isHidden() && m_passWdEdit->isHidden()) {
+        m_userWidget->leftKeySwitchUser();
+    }
+    if (!m_userWidget->isHidden() && !m_passWdEdit->isHidden() &&
+            m_passWdEdit->getText().isEmpty()) {
         m_userWidget->leftKeySwitchUser();
     }
     if (!m_requireShutdownWidget->isHidden()) {
@@ -484,7 +489,11 @@ void LoginManager::leftKeyPressed() {
 }
 
 void LoginManager::rightKeyPressed() {
-    if (!m_userWidget->isHidden() && m_passWdEdit->getText().isEmpty()) {
+    if (!m_userWidget->isHidden() && m_passWdEdit->isHidden()) {
+        m_userWidget->rightKeySwitchUser();
+    }
+    if (!m_userWidget->isHidden() && !m_passWdEdit->isHidden() &&
+            m_passWdEdit->getText().isEmpty()) {
         m_userWidget->rightKeySwitchUser();
     }
     if (!m_requireShutdownWidget->isHidden()) {

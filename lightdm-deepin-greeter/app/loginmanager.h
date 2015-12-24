@@ -60,6 +60,7 @@ private slots:
     void keybdLayoutWidgetPosit();
     void setCurrentKeybdLayoutList(QString keyboard_value);
 
+
     void setShutdownAction(const ShutdownWidget::Actions action);
     void recordPid();
     void leftKeyPressed();

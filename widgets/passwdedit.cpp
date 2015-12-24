@@ -77,6 +77,38 @@ void PassWdEdit::lineEditGrabKeyboard() {
         m_lineEdit->grabKeyboard();
     }
 }
+
+void PassWdEdit::recordUserPassWd(bool isChoose, QString username) {
+    qDebug() << "remember username:" << username;
+    if (isChoose && !m_lineEdit->text().isEmpty()) {
+        passwordMap.insert(username, m_lineEdit->text());
+        qDebug() << "m_lineEdit:" << m_lineEdit->text();
+        m_lineEdit->setText("");
+        QMap<QString, QString>::const_iterator i=passwordMap.begin();
+        while (i != passwordMap.end()) {
+            qDebug() << "record the score!" << passwordMap.count()
+                     << i.key() << i.value();
+            ++i;
+        }
+    } else {
+        qDebug() << "select currentuser:" << username;
+        QMap<QString, QString>::const_iterator i = passwordMap.begin();
+        bool ownsPasswd = false;
+        while (i != passwordMap.end()) {
+            if (i.key() == username) {
+                ownsPasswd = true;
+                qDebug() << "get the score!";
+                m_lineEdit->setText(i.value());
+                break;
+            }
+            ++i;
+        }
+        if (!ownsPasswd) {
+            m_lineEdit->setText("");
+        }
+    }
+}
+
 void PassWdEdit::initConnect() {
     connect(m_iconButton, &DImageButton::clicked, this, &PassWdEdit::submit);
     connect(m_keyboardButton, &QPushButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);

@@ -57,7 +57,7 @@ public slots:
     void setAlert(bool alert, const QString &text = QString());
     inline bool alert() const {return m_alert;}
     void lineEditGrabKeyboard();
-
+    void recordUserPassWd(bool isChoose, QString username);
 protected:
     void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;
@@ -82,5 +82,6 @@ private:
     QGraphicsOpacityEffect *m_opacityEffect;
     QPropertyAnimation *m_showAni;
     QPropertyAnimation *m_hideAni;
+    QMap<QString, QString> passwordMap;
 };
 #endif // PASSWDEDIT

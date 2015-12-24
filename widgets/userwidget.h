@@ -29,7 +29,7 @@ public:
     bool isChooseUserMode = false;
 signals:
     void userChanged(const QString &username);
-
+    void chooseUserModeChanged(bool isChoose, QString curUser);
 public slots:
     void addUser(QString avatar, QString name);
     void setCurrentUser(const QString &username);

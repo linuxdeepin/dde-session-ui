@@ -87,6 +87,8 @@ void UserWidget::initUI()
 void UserWidget::setCurrentUser(const QString &username)
 {
     isChooseUserMode = false;
+
+
     for (UserButton *user : *m_userBtns) {
         if (user->objectName() == username) {
             user->showButton();
@@ -102,6 +104,7 @@ void UserWidget::setCurrentUser(const QString &username)
     m_currentUser = username;
 
     emit userChanged(username);
+    emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
 
 void UserWidget::addUser(QString avatar, QString name) {
@@ -119,6 +122,8 @@ void UserWidget::addUser(QString avatar, QString name) {
 void UserWidget::expandWidget()
 {
     isChooseUserMode = true;
+
+
     const int count = m_userBtns->count();
     const int offset = (width() - USER_ICON_WIDTH * count) / 2;
 
@@ -135,6 +140,8 @@ void UserWidget::expandWidget()
         m_userBtns->at(i)->move(QPoint(offset + i * USER_ICON_WIDTH, 0), 200);
 
     }
+
+    emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
 
 void UserWidget::saveLastUser()
