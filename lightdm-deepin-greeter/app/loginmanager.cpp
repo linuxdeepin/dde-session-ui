@@ -64,7 +64,10 @@ static int set_rootwindow_cursor() {
         return -1;
     }
 
-    Cursor cursor = (Cursor)loadCursorHandle(display, "watch", 24);
+    Cursor cursor = (Cursor)XcursorFilenameLoadCursor(display, "/usr/share/icons/deepin/cursors/loginspinner");
+    if (cursor == 0) {
+        cursor = (Cursor)loadCursorHandle(display, "watch", 24);
+    }
     XDefineCursor(display, XDefaultRootWindow(display),cursor);
 
     // XFixesChangeCursorByName is the key to change the cursor
