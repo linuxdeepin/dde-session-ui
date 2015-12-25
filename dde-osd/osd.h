@@ -68,12 +68,13 @@ private:
     QList<QString> textList;
 
     enum ActionMode {
+        Unknow,
         SwitchLayoutEnum,
         SwitchMonitorEnum,
         NoProgressBar,
         AudioProgressBar,
         BrightnessProgressBar
-    } actionMode;
+    } actionMode = Unknow;
 
     bool layoutHasBeenInited = false;
     bool monitorHasBeenInited = false;
