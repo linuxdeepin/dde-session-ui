@@ -1,5 +1,5 @@
-QPushButton#KeyBoardLayoutButton  {
-   background-image: url(":img/keyboard_normal.png");
+QPushButton#KeyBoardLayoutButton {
+   border-image: url(":img/keyboard_normal.png");
    background-color: transparent;
    border:none;
    margin:0 ;

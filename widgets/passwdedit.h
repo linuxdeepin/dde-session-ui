@@ -48,9 +48,10 @@ public slots:
     QString getText();
     void setEnterBtnStyle(const QString &normalPic, const QString &hoverPic, const QString &pressedPic);
 
+#ifndef SHENWEI_PLATFORM
     void updateKeybordLayoutStatus(const QString &username);
     void updateKeybdLayoutUI(QStringList keybdList);
-
+#endif
     void show();
     void hide();
 
@@ -75,7 +76,9 @@ private:
     bool m_alert_enter = false;
 
     QLineEdit* m_lineEdit;
+#ifndef SHENWEI_PLATFORM
     QPushButton* m_keyboardButton;
+#endif
     DImageButton* m_iconButton;
     QHBoxLayout* m_Layout;
 

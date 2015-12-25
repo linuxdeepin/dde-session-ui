@@ -15,7 +15,11 @@ PassWdEdit::PassWdEdit(QWidget* parent)
     initConnect();
     initData();
     setObjectName("PassWdEditFrame");
+#ifndef SHENWEI_PLATFORM
     setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2, 34));
+#else
+    setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 1, 34));
+#endif
 }
 
 PassWdEdit::~PassWdEdit()
@@ -23,11 +27,13 @@ PassWdEdit::~PassWdEdit()
 }
 
 void PassWdEdit::initUI() {
+#ifndef SHENWEI_PLATFORM
     m_keyboardButton = new QPushButton;
     m_keyboardButton->setObjectName("KeyBoardLayoutButton");
 
     m_keyboardButton->setFixedSize(QSize(20, 14));
     m_keyboardButton->setIconSize(QSize(20, 14));
+#endif
     m_iconButton = new DImageButton(this);
     m_iconButton->setCheckable(true);
     m_iconButton->setFixedSize(QSize(35, 35));
@@ -36,8 +42,17 @@ void PassWdEdit::initUI() {
     m_lineEdit->setContextMenuPolicy(Qt::NoContextMenu);
     m_lineEdit->setObjectName("passwdLineEdit");
     m_lineEdit->setEchoMode(QLineEdit::Password);
+#ifndef SHENWEI_PLATFORM
+
     m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
-                             - m_keyboardButton->width() - 2,m_iconButton->height());
+                             - m_keyboardButton->width() - 2, m_iconButton->height());
+#else
+    m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
+                             , m_iconButton->height()-2);
+
+    qDebug() << "m_lineEdit geometry:" << m_lineEdit->geometry();
+
+#endif
     m_lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_lineEdit->installEventFilter(this);
 
@@ -45,8 +60,10 @@ void PassWdEdit::initUI() {
     m_Layout->setMargin(0);
     m_Layout->setSpacing(0);
     m_Layout->addSpacing(3);
+#ifndef SHENWEI_PLATFORM
     m_Layout->addWidget(m_keyboardButton);
     m_Layout->addSpacing(2);
+#endif
     m_Layout->addWidget(m_lineEdit);
     m_Layout->addStretch();
 
@@ -55,7 +72,12 @@ void PassWdEdit::initUI() {
     m_showAni = new QPropertyAnimation(m_opacityEffect, "opacity");
     m_hideAni = new QPropertyAnimation(m_opacityEffect, "opacity");
 
+#ifndef SHENWEI_PLATFORM
     m_iconButton->move(this->x() + this->width()*2 + 13, this->y());
+#else
+    m_iconButton->move(this->x() + this->width()*2 + 15, this->y() - 1);
+    m_iconButton->raise();
+#endif
     setLayout(m_Layout);
     setGraphicsEffect(m_opacityEffect);
 
@@ -63,8 +85,10 @@ void PassWdEdit::initUI() {
     getFocusTimer->setInterval(100);
     getFocusTimer->start();
     connect(getFocusTimer,  &QTimer::timeout, this, &PassWdEdit::lineEditGrabKeyboard);
-
+#ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/passwdedit.qss", this);
+#endif
+
 }
 
 void PassWdEdit::lineEditGrabKeyboard() {
@@ -111,7 +135,9 @@ void PassWdEdit::recordUserPassWd(bool isChoose, QString username) {
 
 void PassWdEdit::initConnect() {
     connect(m_iconButton, &DImageButton::clicked, this, &PassWdEdit::submit);
+#ifndef SHENWEI_PLATFORM
     connect(m_keyboardButton, &QPushButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);
+#endif
     connect(m_hideAni, &QPropertyAnimation::finished, this, &QFrame::hide);
     connect(m_lineEdit, &QLineEdit::textChanged, [this] {
         setAlert(false);
@@ -167,7 +193,7 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
 
     return false;
 }
-
+#ifndef SHENWEI_PLATFORM
 void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
 {
 
@@ -192,7 +218,7 @@ void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList) {
         m_keyboardButton->hide();
     }
 }
-
+#endif
 void PassWdEdit::show()
 {
     if (isVisible())

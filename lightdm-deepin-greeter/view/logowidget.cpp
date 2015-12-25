@@ -1,6 +1,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QFile>
 #include <QTextCodec>
+#include <QPalette>
 #include <QDebug>
 #include <QSettings>
 
@@ -15,12 +16,20 @@ void LogoWidget::initUI() {
     setFixedSize(240, 40);
 
     m_logoLabel = new QLabel();
+#ifdef SHENWEI_PLATFORM
+    m_logoLabel->setPixmap(QPixmap(":img/logo_text.png"));
+#endif
     m_logoLabel->setObjectName("Logo");
     m_logoLabel->setFixedSize(150, 38);
 
     m_logoVersionLabel = new QLabel;
     m_logoVersionLabel->setObjectName("LogoVersion");
-
+#ifdef SHENWEI_PLATFORM
+    QPalette pe;
+    pe.setColor(QPalette::WindowText,Qt::white);
+    m_logoVersionLabel->setPalette(pe);
+#endif
+//    m_logoVersionLabel->setFixedWidth(30);
     this->setObjectName("LogoWidget");
 
     m_logoRightSideLayout = new QVBoxLayout;

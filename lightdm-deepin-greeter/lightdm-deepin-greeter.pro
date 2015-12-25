@@ -33,6 +33,19 @@ SOURCES += main.cpp \
     app/loginmanager.cpp \
     app/loginframe.cpp \
 
+contains(DEFINES,WITH_SHENWEI_PLATFORM){
+    SHENWEI_PLATFORM = YES
+    message("SHENWEI_PLATFORM defined")
+} else {
+    message("SHENWEI_PLATFORM not defined")
+}
+
+isEqual(SHENWEI_PLATFORM, YES) {
+    DEFINES += SHENWEI_PLATFORM
+}　else {
+    DEFINES -= SHENWEI_PLATFORM
+}
+
 target.path = $${PREFIX}/bin/
 desktop_file.files = lightdm-deepin-greeter.desktop
 desktop_file.path = $${PREFIX}/share/xgreeters/

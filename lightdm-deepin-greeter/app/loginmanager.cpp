@@ -92,8 +92,9 @@ LoginManager::LoginManager(QWidget* parent)
 
     initUI();
     initConnect();
-
+#ifndef SHENWEI_PLATFORM
     m_passWdEdit->updateKeybordLayoutStatus(m_userWidget->currentUser());
+#endif
     m_sessionWidget->switchToUser(m_userWidget->currentUser());
 
     expandUserWidget();
@@ -148,8 +149,9 @@ void LoginManager::initUI()
     leaveEvent(nullptr);
 
     m_switchFrame->setUserSwitchEnable(m_userWidget->count() > 1);
-
+#ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/login.qss", this);
+#endif
     set_rootwindow_cursor();
 }
 
@@ -176,14 +178,14 @@ void LoginManager::initConnect()
 
     connect(m_switchFrame, &SwitchFrame::triggerPower, this, &LoginManager::showShutdownFrame);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, this, &LoginManager::chooseSessionMode);
-
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession, Qt::QueuedConnection);
-
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::show);
     connect(m_userWidget, &UserWidget::userChanged, m_sessionWidget, &SessionWidget::switchToUser);
+#ifndef SHENWEI_PLATFORM
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::updateKeybordLayoutStatus);
+#endif
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
 
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
