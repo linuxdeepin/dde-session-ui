@@ -30,3 +30,4 @@ release
 build*
 
 *.pro.user*
+*.qm
