@@ -9,18 +9,21 @@ TimeWidget::TimeWidget(QWidget *parent)
 {
     int id = QFontDatabase::addApplicationFont(":/fonts/fonts/MavenProLight-200.otf");
     const QString fontFamily = QFontDatabase::applicationFontFamilies(id).first();
-    const QFont font(fontFamily);
+    const QFont timeFont(fontFamily);
+
+    const QFont dateFont("Source Han Sans SC");
 
     m_timeLabel = new QLabel;
-    m_timeLabel->setFont(font);
-    m_timeLabel->setAlignment(Qt::AlignCenter);
+    m_timeLabel->setFont(timeFont);
+    m_timeLabel->setAlignment(Qt::AlignLeft);
     m_timeLabel->setStyleSheet("color:white;"
                                "font-size:68px;");
     m_dateLabel = new QLabel;
-    m_dateLabel->setFont(font);
-    m_dateLabel->setAlignment(Qt::AlignCenter);
+    m_dateLabel->setFont(dateFont);
+    m_dateLabel->setAlignment(Qt::AlignLeft);
     m_dateLabel->setStyleSheet("color:white;"
-                               "font-size:24px;");
+                               "padding:3px 0;"
+                               "font-size:21px;");
     refreshTime();
 
     m_refreshTimer = new QTimer(this);
