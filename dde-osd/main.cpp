@@ -57,9 +57,9 @@ int main(int argc, char *argv[])
     osd.addCmdImage("TouchpadOn","touchpad-enabled-symbolic");
     osd.addCmdImage("TouchpadOff","touchpad-disabled-symbolic");
     osd.addCmdImage("TouchpadToggle","touchpad-toggled-symbolic");
-    osd.addCmdImageWithText("SwitchWM3D", "wm-effect-enabled", QObject::tr("Enable window effects"));
-    osd.addCmdImageWithText("SwitchWM2D","wm-effect-disabled",QObject::tr("Disable window effects"));
-    osd.addCmdImageWithText("SwitchWMError","wm-effect-error",QObject::tr("Failed to enable window effects"));
+    osd.addCmdImageWithText("SwitchWM3D", "wm-effect-enabled", a.translate("Osd", "Enable window effects"));
+    osd.addCmdImageWithText("SwitchWM2D","wm-effect-disabled",a.translate("Osd", "Disable window effects"));
+    osd.addCmdImageWithText("SwitchWMError","wm-effect-error",a.translate("Osd", "Failed to enable window effects"));
 
     osd.processParser();
     if(!osd.handleBasicCmd() && !osd.handleAdditionalCmd() && !osd.handleAdditionalCmdWithText()){
