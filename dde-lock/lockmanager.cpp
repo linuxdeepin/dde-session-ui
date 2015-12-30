@@ -243,11 +243,11 @@ void LockManager::unlock()
     // Auth success
     switch (m_action)
     {
-    case Unlock:        qApp->quit();                              break;
-    case Restart:       m_sessionManagerIter->RequestReboot();      break;
+    case Restart:       m_sessionManagerIter->RequestReboot();    break;
     case Shutdown:      m_sessionManagerIter->RequestShutdown();    break;
     case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
     }
+    qApp->exit();
 }
 
 void LockManager::initBackend() {
@@ -330,6 +330,7 @@ void LockManager::passwordMode()
     if (m_action == Suspend)
     {
         m_sessionManagerIter->RequestSuspend().waitForFinished();
+        qApp->quit();
         return;
     }
 
