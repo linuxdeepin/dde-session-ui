@@ -330,7 +330,7 @@ void LockManager::passwordMode()
     if (m_action == Suspend)
     {
         m_sessionManagerIter->RequestSuspend().waitForFinished();
-        qApp->quit();
+        m_action = Unlock;
         return;
     }
 
