@@ -39,13 +39,8 @@ int main(int argc, char* argv[])
     qDebug() << parser.values(disable);
 
     ShutdownFrame w;
-    w.hideBtns(parser.values(hide));
-    w.disableBtns(parser.values(disable));
-
-#ifdef DISABLE_SUSPEND
-    w.hideBtns(QStringList() << "suspend");
-#endif
-
+//    w.hideBtns(parser.values(hide));
+//    w.disableBtns(parser.values(disable));
     w.show();
     return app.exec();
 }

@@ -32,16 +32,6 @@ void ShutdownFrame::updateScreenPosition() {
     m_shutdownManager->updateGeometry();
 }
 
-void ShutdownFrame::hideBtns(const QStringList &btnsName)
-{
-    m_shutdownManager->hideBtns(btnsName);
-}
-
-void ShutdownFrame::disableBtns(const QStringList &btnsName)
-{
-    m_shutdownManager->disableBtns(btnsName);
-}
-
 void ShutdownFrame::keyPressEvent(QKeyEvent *e) {
     Q_UNUSED(e);
 }

@@ -42,7 +42,3 @@ RESOURCES += \
 
 target.path = $${PREFIX}/bin/
 INSTALLS += target
-
-isEqual(DISABLE_SUSPEND, YES) {
-    DEFINES += DISABLE_SUSPEND
-}

@@ -14,8 +14,6 @@ public:
     ~ShutdownFrame();
 public slots:
     void updateScreenPosition();
-    void hideBtns(const QStringList &btnsName);
-    void disableBtns(const QStringList &btnsName);
 protected:
     void keyPressEvent(QKeyEvent *e);
 private:
