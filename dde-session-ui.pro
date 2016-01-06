@@ -9,9 +9,7 @@ SUBDIRS += dde-shutdown \
            dde-zone
 
 # Automating generation .qm files from .ts files
-CONFIG(release, debug|release) {
-    system($$PWD/translate_generation.sh)
-}
+system($$PWD/translate_generation.sh)
 
 qm_files.path = /usr/share/dde-session-ui/translations/
 qm_files.files = translations/*.qm
