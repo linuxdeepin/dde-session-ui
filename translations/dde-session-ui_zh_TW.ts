@@ -58,7 +58,7 @@
     <message>
         <location filename="../dde-osd/osd.cpp" line="239"/>
         <source>Enable window effects</source>
-        <translation>啟用視窗效果</translation>
+        <translation>開啟視窗效果</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="244"/>
@@ -68,17 +68,17 @@
     <message>
         <location filename="../dde-osd/osd.cpp" line="249"/>
         <source>Failed to enable window effects</source>
-        <translation>啟用視窗效果失敗</translation>
+        <translation>無法開啟視窗效果</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="484"/>
         <source>Duplicate</source>
-        <translation>同步</translation>
+        <translation>同步畫面</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="506"/>
         <source>Extend</source>
-        <translation>延伸</translation>
+        <translation>延伸畫面</translation>
     </message>
 </context>
 <context>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="96"/>
         <source>Suspend</source>
-        <translation>待命</translation>
+        <translation>待機</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="99"/>
@@ -129,7 +129,7 @@
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="27"/>
         <source>Suspend</source>
-        <translation>待命</translation>
+        <translation>待機</translation>
     </message>
 </context>
 <context>
