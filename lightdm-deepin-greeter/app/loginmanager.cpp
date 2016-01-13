@@ -158,13 +158,13 @@ void LoginManager::initUI()
 void LoginManager::recordPid() {
     qDebug() << "remember P i D" << qApp->applicationPid();
 
-    QFile lockPIdFile(QString("%1%2").arg("/tmp/").arg(".dgreeterpid"));
+    QFile tmpPidFile(QString("%1%2").arg("/tmp/").arg(".dgreeterpid"));
 
-    if (lockPIdFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
-        QTextStream pidInfo(&lockPIdFile);
+    if (tmpPidFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
+        QTextStream pidInfo(&tmpPidFile);
         pidInfo << qApp->applicationPid();
 
-        lockPIdFile.close();
+        tmpPidFile.close();
     } else {
         qDebug() << "file open failed!";
     }

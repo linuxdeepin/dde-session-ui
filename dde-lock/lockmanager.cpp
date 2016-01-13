@@ -68,7 +68,7 @@ void LockManager::initUI() {
     m_timeWidget->setFixedSize(400, 300);
 
     m_userWidget = new UserWidget(this);
-    recordPid();
+
     m_passwordEdit = new PassWdEdit(this);
     m_passwordEdit->setEnterBtnStyle(":/img/unlock_normal.png", ":/img/unlock_normal.png", ":/img/unlock_press.png");
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
@@ -196,19 +196,6 @@ void LockManager::loadMPRIS()
     m_mprisInter = new DBusMediaPlayer2(service, "/org/mpris/MediaPlayer2", QDBusConnection::sessionBus(), this);
     m_controlWidget->bindDBusService(m_mprisInter);
     m_controlWidget->showMusicControlWidget();
-}
-
-void LockManager::recordPid() {
-    qDebug() << "DDE-lock remember PID" << qApp->applicationPid();
-    const QString &username = m_userWidget->currentUser();
-    QFile lockPIdFile(QString("%1%2%3").arg("/home/").arg(username).arg("/.dlockpid"));
-
-    if (lockPIdFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
-        QTextStream pidInfo(&lockPIdFile);
-        pidInfo << qApp->applicationPid();
-
-        lockPIdFile.close();
-    }
 }
 
 void LockManager::unlock()

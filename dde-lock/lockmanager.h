@@ -45,7 +45,6 @@ public slots:
     void passwordMode();
     void shutdownMode();
     void updateWidgetsPosition();
-    void recordPid();
 
     void keybdLayoutWidgetPosit();
     void leftKeyPressed();
