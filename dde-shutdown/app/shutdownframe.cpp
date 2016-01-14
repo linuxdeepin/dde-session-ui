@@ -25,6 +25,11 @@ ShutdownFrame::ShutdownFrame(QWidget *parent)
             continue;
         }
     }
+
+    ShutdownFrontDBus* shutdownFrontDBus = new ShutdownFrontDBus(this);
+    QDBusConnection::sessionBus().registerObject(DBUS_PATH, this);
+
+    qDebug() << "RegistshutdownFrontDBus" << shutdownFrontDBus->result();
 }
 
 void ShutdownFrame::updateScreenPosition() {
@@ -38,5 +43,21 @@ void ShutdownFrame::keyPressEvent(QKeyEvent *e) {
 
 ShutdownFrame::~ShutdownFrame()
 {
+}
 
+ShutdownFrontDBus::ShutdownFrontDBus(ShutdownFrame *parent):
+    QDBusAbstractAdaptor(parent),
+    m_parent(parent)
+{
+    qDebug() << "DBUS_PATH" << DBUS_PATH;
+}
+
+ShutdownFrontDBus::~ShutdownFrontDBus()
+{
+
+}
+
+qulonglong ShutdownFrontDBus::result()
+{
+    return 0;
 }

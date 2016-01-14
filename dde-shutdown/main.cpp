@@ -38,9 +38,20 @@ int main(int argc, char* argv[])
     qDebug() << parser.values(hide);
     qDebug() << parser.values(disable);
 
-    ShutdownFrame w;
-//    w.hideBtns(parser.values(hide));
-//    w.disableBtns(parser.values(disable));
-    w.show();
+    if(QDBusConnection::sessionBus().registerService(DBUS_NAME)){
+        qDebug() << "DBUS_NAME:" << DBUS_NAME;
+
+        ShutdownFrame w;
+    //    w.hideBtns(parser.values(hide));
+    //    w.disableBtns(parser.values(disable));
+        w.show();
+
+        return app.exec();
+       }
+       else {
+           qWarning() << "shutdownFront is running...";
+           return 0;
+       }
+
     return app.exec();
 }
