@@ -2,7 +2,6 @@
 #define SHUTDOWNFRAME
 
 #include <QFrame>
-
 #include "boxframe.h"
 #include "shutdownmanager.h"
 

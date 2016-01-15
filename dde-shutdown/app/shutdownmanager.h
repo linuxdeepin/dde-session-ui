@@ -27,15 +27,15 @@ public slots:
     void powerAction(const ShutDownFrame::Actions action);
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
-    void shutDownFrameGrabKeyboard();
+//    void shutDownFrameGrabKeyboard();
 
 protected:
     void keyPressEvent(QKeyEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
-    void showEvent(QShowEvent *);
+    bool event(QEvent *e);
 private:
-    QTimer* m_getFocusTimer;
-    int m_timerCount = 0;
+//    QTimer* m_getFocusTimer;
+//    int m_timerCount = 0;
     void initUI();
     void initConnect();
     void initData();
