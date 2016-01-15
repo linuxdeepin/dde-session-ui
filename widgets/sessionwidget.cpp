@@ -20,21 +20,27 @@ SessionWidget::SessionWidget(QWidget *parent)
     for (int i(0); i != count; ++i)
     {
         const QString &session = m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString();
+        qDebug() << "output session:" << Qt::DisplayRole << m_sessionModel->index(i)
+                 <<  m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole)
+                 << session;
+        QString tmpSession = processSessionName(session);
 
+        qDebug() << "tmpSession:" << tmpSession;
         RoundItemButton *sbtn = new RoundItemButton(session, this);
         sbtn->setFixedSize(160, 160);
         sbtn->hide();
         sbtn->setAutoExclusive(true);
 
-        const QString normalIcon = QString(":/img/sessions_icon/%1_normal.png").arg(session);
-        const QString hoverIcon = QString(":/img/sessions_icon/%1_hover.png").arg(session);
-        const QString checkedIcon = QString(":/img/sessions_icon/%1_press.png").arg(session);
+        const QString normalIcon = QString(":/img/sessions_icon/%1_normal.png").arg(tmpSession);
+        const QString hoverIcon = QString(":/img/sessions_icon/%1_hover.png").arg(tmpSession);
+        const QString checkedIcon = QString(":/img/sessions_icon/%1_press.png").arg(tmpSession);
 
         if (QFile(normalIcon).exists() && QFile(hoverIcon).exists() && QFile(checkedIcon).exists()) {
             sbtn->setProperty("normalIcon", normalIcon);
             sbtn->setProperty("hoverIcon", hoverIcon);
             sbtn->setProperty("checkedIcon", checkedIcon);
         } else {
+            qDebug() << "sessions not exist" << session << tmpSession;
             sbtn->setProperty("normalIcon", ":/img/sessions_icon/unknow_normal.png");
             sbtn->setProperty("hoverIcon", ":/img/sessions_icon/unknow_hover.png");
             sbtn->setProperty("checkedIcon", ":/img/sessions_icon/unknow_press.png");
@@ -162,4 +168,22 @@ void SessionWidget::rightKeySwitch() {
 
 void SessionWidget::chooseSession() {
     emit m_sessionBtns->at(m_currentSessionIndex)->clicked();
+}
+
+QString SessionWidget::processSessionName(const QString &session) {
+    QStringList tmpSessionStrings = session.split(" ");
+    qDebug() << "tmpSessionStrings" << tmpSessionStrings;
+
+    bool isBreakFlag = false;
+    for(int i(0); i<tmpSessionStrings.length()&&!isBreakFlag;i++) {
+        for(int j(0); j< Sessions.length()&&!isBreakFlag;j++) {
+            qDebug() << "xkkxkx" << tmpSessionStrings[i] << Sessions[j];
+            if (QString::compare(tmpSessionStrings[i], Sessions[j], Qt::CaseInsensitive) == 0) {
+                return Sessions[j];
+                isBreakFlag = true;
+            }
+        }
+    }
+
+    return session;
 }
