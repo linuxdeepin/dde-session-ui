@@ -10,6 +10,7 @@
 #include <QSettings>
 
 #include <unistd.h>
+#include <pwd.h>
 
 UserWidget::UserWidget(QWidget* parent)
     : QFrame(parent),
@@ -266,7 +267,11 @@ const QString UserWidget::currentUser() const
     if (!m_currentUser.isEmpty())
         return m_currentUser;
 
-    const QString currentLogin = getlogin();
+    struct passwd *pws;
+    pws = getpwuid(getuid());
+
+    const QString currentLogin(pws->pw_name);
+
     if (!currentLogin.isEmpty())
         return currentLogin;
 
