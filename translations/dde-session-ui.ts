@@ -4,17 +4,17 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="238"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="337"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="325"/>
         <source>Enter your password to restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="340"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="328"/>
         <source>Enter your passwrod to shutdown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22,7 +22,7 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="158"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="236"/>
         <source>Wrong password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -56,7 +56,7 @@
     </message>
 </context>
 <context>
-    <name>QObject</name>
+    <name>Osd</name>
     <message>
         <location filename="../dde-osd/main.cpp" line="60"/>
         <source>Enable window effects</source>
@@ -140,12 +140,12 @@
 <context>
     <name>TimeWidget</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="50"/>
+        <location filename="../dde-lock/timewidget.cpp" line="53"/>
         <source>hh:mm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="51"/>
+        <location filename="../dde-lock/timewidget.cpp" line="54"/>
         <source>yyyy-MM-dd dddd</source>
         <translation type="unfinished"></translation>
     </message>
