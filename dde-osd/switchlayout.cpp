@@ -195,6 +195,9 @@ void SwitchLayout::reAlignCurrentIndex(){
     } else {
         m_CurrentIndexOfKeyBoard++;
     }
+
+    // apply changes
+    setKeyboard();
 }
 
 void SwitchLayout::reHiglightKeyboard()
