@@ -168,7 +168,8 @@ bool Osd::handleBasicCmd(){
             }
         }
         iface.call("tailInWork");
-        this->deleteLater();
+//        this->deleteLater();
+        QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection);
         return false;
     }
     return true;
@@ -218,7 +219,8 @@ bool Osd::handleAdditionalCmd(){
                 iface.call("loadAdditionalNormal", imageNameList[i]);
                 iface.call("cancelNormalText");
                 iface.call("tailInWork");
-                this->deleteLater();
+//                this->deleteLater();
+                QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection);
                 return true;
             }
         }
@@ -252,7 +254,8 @@ bool Osd::handleAdditionalCmdWithText(){
                 iface.call("loadAdditionalNormal", imageNameWithTextList[i]);
                 iface.call("showNormalText",textList[i]);
                 iface.call("tailInWork");
-                this->deleteLater();
+//                this->deleteLater();
+                QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection);
                 return true;
             }
         }
