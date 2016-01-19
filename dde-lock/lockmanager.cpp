@@ -325,7 +325,7 @@ void LockManager::passwordMode()
         m_passwordEdit->setAlert(true, tr("Enter your password to restart"));
         m_passwordEdit->setEnterBtnStyle(":/img/restartIcon_normal.png", ":/img/restartIcon_normal.png", ":/img/restartIcon_press.png");
     } else if (m_action == Shutdown) {
-        m_passwordEdit->setAlert(true, tr("Enter your passwrod to shutdown"));
+        m_passwordEdit->setAlert(true, tr("Enter your password to shutdown"));
         m_passwordEdit->setEnterBtnStyle(":/img/shutdownIcon_normal.png", ":/img/shutdownIcon_normal.png", ":/img/shutdownIcon_press.png");
     } else if (m_action == Unlock) {
         m_passwordEdit->setEnterBtnStyle(":/img/unlock_normal.png", ":/img/unlock_normal.png", ":/img/unlock_press.png");
