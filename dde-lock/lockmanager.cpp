@@ -233,6 +233,7 @@ void LockManager::unlock()
     case Restart:       m_sessionManagerIter->RequestReboot();    break;
     case Shutdown:      m_sessionManagerIter->RequestShutdown();    break;
     case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
+    default: break;
     }
     qApp->exit();
 }

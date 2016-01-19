@@ -62,14 +62,7 @@ BoxFrame::BoxFrame(const QString url, QWidget *parent)
 }
 
 void BoxFrame::keyPressEvent(QKeyEvent *e) {
-
-#ifndef QT_DEBUG
-    Q_UNUSED(e)
-#else
-//    if (e->key() == Qt::Key_Escape) {
-//        qApp->quit();
-//    }
-#endif
+    Q_UNUSED(e);
 }
 
 void BoxFrame::resizeEvent(QResizeEvent *e) {

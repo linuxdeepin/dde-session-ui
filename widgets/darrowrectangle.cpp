@@ -68,7 +68,7 @@ void DArrowRectangle::resizeWithContent()
 
     //Shadow Transparent For MouseEvents
     qreal delta = shadowBlurRadius() + shadowDistance();
-
+    Q_UNUSED(delta);
 //    XRectangle m_contentXRect;
 //    m_contentXRect.x = 0;
 //    m_contentXRect.y = 0;
