@@ -15,14 +15,14 @@
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="328"/>
-        <source>Enter your passwrod to shutdown</source>
+        <source>Enter your password to shutdown</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="236"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="318"/>
         <source>Wrong password</source>
         <translation type="unfinished"></translation>
     </message>
