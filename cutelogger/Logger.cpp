@@ -558,6 +558,7 @@ static void qtLoggerMessageHandler(QtMsgType type, const QMessageLogContext& con
     case QtFatalMsg:
       level = Logger::Fatal;
       break;
+    default:break;
   }
 
   bool isDefaultCategory = QString::fromLatin1(context.category) == "default";

@@ -29,7 +29,6 @@ private:
     const char* kBaseFile = "/usr/share/X11/xkb/rules/base.xml";
 
     bool parse();
-
 };
 
 #endif // XKBPARSER_H

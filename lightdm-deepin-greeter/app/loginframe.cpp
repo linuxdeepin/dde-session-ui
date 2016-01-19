@@ -7,6 +7,7 @@
 LoginFrame::LoginFrame(const QString url, QWidget *parent)
     : BoxFrame(url)
 {
+    Q_UNUSED(parent);
     this->move(0, 0);
     this->setFixedSize(qApp->desktop()->size());
 

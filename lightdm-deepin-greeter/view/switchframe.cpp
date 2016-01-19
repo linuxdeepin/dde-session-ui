@@ -215,6 +215,9 @@ bool SwitchFrame::eventFilter(QObject *o, QEvent *e)
         else if (e->type() == QEvent::Leave)
             hideTips();
     }
+#else
+    Q_UNUSED(o);
+    Q_UNUSED(e);
 #endif
     return false;
 }

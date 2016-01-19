@@ -54,11 +54,11 @@ QStringList XkbParser::lookUpKeyboardList(QStringList keyboardList_key) {
     return result;
 }
 QString XkbParser::lookUpKeyboardKey(QString keyboard_value) {
-    QString keyboard_key;
+    QString keyboard_key = "";
     for (int i = 0; i < KeyboardLayoutList.length(); i++) {
         if (KeyboardLayoutList[i].description == keyboard_value) {
             keyboard_key = QString("%1|").arg(KeyboardLayoutList[i].name);
-            qDebug() << "!!!keyboard_key:" << keyboard_key;
+            qDebug() << "keyboard_key:" << keyboard_key;
             return keyboard_key;
         } else {
             for (int j = 0; j < KeyboardLayoutList[i].variantItemList.length(); j++) {
@@ -69,7 +69,9 @@ QString XkbParser::lookUpKeyboardKey(QString keyboard_value) {
             }
         }
     }
+    return keyboard_key;
 }
+
 bool XkbParser::parse() {
 
     QFile baseFile(kBaseFile);
