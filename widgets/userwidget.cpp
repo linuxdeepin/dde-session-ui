@@ -14,6 +14,7 @@
 
 UserWidget::UserWidget(QWidget* parent)
     : QFrame(parent),
+    m_currentUser(),
     m_userBtns(new QList<UserButton *>),
     m_userModel(new QLightDM::UsersModel(this))
 {
@@ -35,19 +36,10 @@ UserWidget::~UserWidget()
 
 void UserWidget::initUI()
 {
-    DBusAccounts *accounts = new DBusAccounts("com.deepin.daemon.Accounts", "/com/deepin/daemon/Accounts", QDBusConnection::systemBus(), this);
-    const QStringList userList = accounts->userList();
-    QStringList whiteList;
+    //Get the username list for the first time!
+    countNum = 3;
+    getUsernameList();
 
-    for (const QString &user : userList)
-    {
-        DBusUser *inter = new DBusUser("com.deepin.daemon.Accounts", user, QDBusConnection::systemBus(), this);
-
-        if (!inter->locked())
-            whiteList.append(inter->userName());
-        inter->deleteLater();
-    }
-    accounts->deleteLater();
 
     qDebug() << "whiteList:             " << whiteList;
 
@@ -60,15 +52,10 @@ void UserWidget::initUI()
         if (!whiteList.contains(username))
             continue;
 
-        const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-        const QString avatar = settings.value("User/Icon").toString();
-
-        if (!avatar.isEmpty())
-            addUser(avatar, username);
-        else
-            addUser("/var/lib/AccountsService/icons/default.png", username);
+        updateAvatar(username);
     }
 
+    qDebug() << "whiteList: " << whiteList;
     QPixmap loading(":/img/facelogin_animation.png");
     QSize size(110, 110);
     m_loadingAni = new DLoadingIndicator(this);
@@ -83,6 +70,41 @@ void UserWidget::initUI()
     m_loadingAni->hide();
 
     setCurrentUser(currentUser());
+}
+
+void UserWidget::updateAvatar(QString username) {
+    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
+    const QString avatar = settings.value("User/Icon").toString();
+
+    if (!avatar.isEmpty())
+        addUser(avatar, username);
+    else
+        addUser("/var/lib/AccountsService/icons/default.png", username);
+}
+
+QStringList UserWidget::getUsernameList() {
+    if (countNum==0||!whiteList.isEmpty()) {
+        return whiteList;
+    } else {
+        countNum--;
+    }
+
+    DBusAccounts *accounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
+    const QStringList userList = accounts->userList();
+
+
+    for (const QString &user : userList)
+    {
+        DBusUser *inter = new DBusUser(ACCOUNT_DBUS_SERVICE, user, QDBusConnection::systemBus(), this);
+
+        if (!inter->locked())
+             whiteList.append(inter->userName());
+        inter->deleteLater();
+    }
+    accounts->disconnect();
+    accounts->deleteLater();
+    qDebug() << "getUsernameList:" << whiteList;
+    return whiteList;
 }
 
 void UserWidget::setCurrentUser(const QString &username)
@@ -260,24 +282,41 @@ void UserWidget::rightKeySwitchUser() {
     }
 }
 
-const QString UserWidget::currentUser() const
+const QString UserWidget::currentUser()
 {
     qDebug() << "currentUser:" << m_currentUser;
 
-    if (!m_currentUser.isEmpty())
+    if (!m_currentUser.isEmpty()) {
         return m_currentUser;
+    }
 
     struct passwd *pws;
     pws = getpwuid(getuid());
-
     const QString currentLogin(pws->pw_name);
 
-    if (!currentLogin.isEmpty())
+    //except the current-user named lightdm
+    if (!currentLogin.isEmpty() && currentLogin!="lightdm")
         return currentLogin;
 
     // return first user
-    if (m_userModel->rowCount(QModelIndex()))
-        return m_userModel->data(m_userModel->index(0), QLightDM::UsersModel::NameRole).toString();
+    if (m_userModel->rowCount(QModelIndex()) > 0) {
+        QString tmpUsername = m_userModel->data(m_userModel->index(0), QLightDM::UsersModel::NameRole).toString();
+        updateAvatar(tmpUsername);
+        return tmpUsername;
+    }
+
+
+    //if get the user failed again, start to read dbus for 3 times
+    countNum = 3;
+    QTimer* mTimer = new QTimer(this);
+    mTimer->setInterval(100);
+    mTimer->start();
+    connect(mTimer,  &QTimer::timeout, this, &UserWidget::getUsernameList);
+
+    if (whiteList.length()!=0) {
+        updateAvatar(whiteList[0]);
+        return whiteList[0];
+    }
 
     qWarning() << "no users !!!";
     return QString();
