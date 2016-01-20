@@ -1,5 +1,5 @@
 ## dde-session-ui
-**Descrption**:This project include those sub-project:
+**Description**:This project include those sub-project:
 
 - dde-shutdown
 ```
