@@ -2,25 +2,25 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="207"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
         <source>Wrong Password</source>
         <translation>Fel Lösenord</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="288"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="325"/>
         <source>Enter your password to restart</source>
         <translation>Skriv in ditt lösenord för att starta om.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="291"/>
-        <source>Enter your passwrod to shutdown</source>
-        <translation>Ange ditt lösenord för att stänga av</translation>
+        <location filename="../dde-lock/lockmanager.cpp" line="328"/>
+        <source>Enter your password to shutdown</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="158"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="318"/>
         <source>Wrong password</source>
         <translation>Fel lösenord</translation>
     </message>
@@ -28,27 +28,27 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>Control Center</source>
         <translation>Kontrollcenter</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>All Windows</source>
         <translation>Alla Fönster</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>Launcher</source>
         <translation>Startare</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>Desktop</source>
         <translation>Skrivbord</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>None</source>
         <translation>Ingen</translation>
     </message>
@@ -56,29 +56,19 @@
 <context>
     <name>Osd</name>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="239"/>
+        <location filename="../dde-osd/main.cpp" line="60"/>
         <source>Enable window effects</source>
         <translation>Aktivera fönstereffekter</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="244"/>
+        <location filename="../dde-osd/main.cpp" line="61"/>
         <source>Disable window effects</source>
         <translation>Inaktivera fönstereffekter</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="249"/>
+        <location filename="../dde-osd/main.cpp" line="62"/>
         <source>Failed to enable window effects</source>
         <translation>Kunde inte aktivera fönstereffekterna</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/osd.cpp" line="484"/>
-        <source>Duplicate</source>
-        <translation>Dubblett</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/osd.cpp" line="506"/>
-        <source>Extend</source>
-        <translation>Utöka</translation>
     </message>
 </context>
 <context>
@@ -117,30 +107,43 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="19"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="20"/>
         <source>Shut down</source>
         <translation>Stäng av</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="23"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="24"/>
         <source>Restart</source>
         <translation>Starta om</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="27"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="28"/>
         <source>Suspend</source>
         <translation>Vänteläge</translation>
     </message>
 </context>
 <context>
-    <name>TimeWidget</name>
+    <name>SwitchMonitor</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="43"/>
-        <source>hh : mm</source>
-        <translation>tt : mm</translation>
+        <location filename="../dde-osd/switchmonitor.cpp" line="117"/>
+        <source>Duplicate</source>
+        <translation>Dubblett</translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="44"/>
+        <location filename="../dde-osd/switchmonitor.cpp" line="143"/>
+        <source>Extend</source>
+        <translation>Utöka</translation>
+    </message>
+</context>
+<context>
+    <name>TimeWidget</name>
+    <message>
+        <location filename="../dde-lock/timewidget.cpp" line="53"/>
+        <source>hh:mm</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-lock/timewidget.cpp" line="54"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>åååå-MM-dd dddd</translation>
     </message>

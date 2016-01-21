@@ -2,25 +2,25 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="207"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
         <source>Wrong Password</source>
         <translation>Λάθος Κωδικός Πρόσβασης</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="288"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="325"/>
         <source>Enter your password to restart</source>
         <translation>Εισάγετε τον κωδικό πρόσβασης για επανεκκίνηση</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="291"/>
-        <source>Enter your passwrod to shutdown</source>
-        <translation>Εισάγετε τον κωδικό πρόσβασής σας για τερματισμό</translation>
+        <location filename="../dde-lock/lockmanager.cpp" line="328"/>
+        <source>Enter your password to shutdown</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="158"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="318"/>
         <source>Wrong password</source>
         <translation>Λανθασμένος κωδικός πρόσβασης</translation>
     </message>
@@ -28,27 +28,27 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>Control Center</source>
         <translation>Κέντρο Ελέγχου</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>All Windows</source>
         <translation>Όλα τα Παράθυρα</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>Launcher</source>
         <translation>Πρόγραμμα εκκίνησης</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>Desktop</source>
         <translation>Επιφάνεια εργασίας</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>None</source>
         <translation>Κανένα</translation>
     </message>
@@ -56,29 +56,19 @@
 <context>
     <name>Osd</name>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="239"/>
+        <location filename="../dde-osd/main.cpp" line="60"/>
         <source>Enable window effects</source>
         <translation>Ενεργοποιήστε εφέ παραθύρου</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="244"/>
+        <location filename="../dde-osd/main.cpp" line="61"/>
         <source>Disable window effects</source>
         <translation>Απενεργοποιήστε τα εφέ του παραθύρου</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="249"/>
+        <location filename="../dde-osd/main.cpp" line="62"/>
         <source>Failed to enable window effects</source>
         <translation>Αποτυχία ενεργοποίησης εφέ παραθύρου</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/osd.cpp" line="484"/>
-        <source>Duplicate</source>
-        <translation>Διπλότυπο</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/osd.cpp" line="506"/>
-        <source>Extend</source>
-        <translation>Επέκταση</translation>
     </message>
 </context>
 <context>
@@ -117,30 +107,43 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="19"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="20"/>
         <source>Shut down</source>
         <translation>Τερματισμός λειτουργίας</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="23"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="24"/>
         <source>Restart</source>
         <translation>Επανεκκίνηση</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="27"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="28"/>
         <source>Suspend</source>
         <translation>Αναστολή</translation>
     </message>
 </context>
 <context>
-    <name>TimeWidget</name>
+    <name>SwitchMonitor</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="43"/>
-        <source>hh : mm</source>
-        <translation>ωω : λλ</translation>
+        <location filename="../dde-osd/switchmonitor.cpp" line="117"/>
+        <source>Duplicate</source>
+        <translation>Διπλότυπο</translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="44"/>
+        <location filename="../dde-osd/switchmonitor.cpp" line="143"/>
+        <source>Extend</source>
+        <translation>Επέκταση</translation>
+    </message>
+</context>
+<context>
+    <name>TimeWidget</name>
+    <message>
+        <location filename="../dde-lock/timewidget.cpp" line="53"/>
+        <source>hh:mm</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-lock/timewidget.cpp" line="54"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>εεεε-ΜΜ-ηη ηηηη</translation>
     </message>

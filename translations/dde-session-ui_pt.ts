@@ -2,25 +2,25 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="207"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
         <source>Wrong Password</source>
         <translation>Palavra-passe Errada</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="288"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="325"/>
         <source>Enter your password to restart</source>
         <translation>Insira a sua palavra-passe para recomeçar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="291"/>
-        <source>Enter your passwrod to shutdown</source>
+        <location filename="../dde-lock/lockmanager.cpp" line="328"/>
+        <source>Enter your password to shutdown</source>
         <translation>Insira a sua palavra-passe para encerrar</translation>
     </message>
 </context>
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="158"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="318"/>
         <source>Wrong password</source>
         <translation>Palavra-passe errada</translation>
     </message>
@@ -28,27 +28,27 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>Control Center</source>
         <translation>Centro de Controlo</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>All Windows</source>
         <translation>Todas as Janelas</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>Launcher</source>
         <translation>Lançador</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>Desktop</source>
         <translation>Ambiente de Trabalho</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="35"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="34"/>
         <source>None</source>
         <translation>Nenhum</translation>
     </message>
@@ -56,29 +56,19 @@
 <context>
     <name>Osd</name>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="239"/>
+        <location filename="../dde-osd/main.cpp" line="60"/>
         <source>Enable window effects</source>
         <translation>Ativar efeitos de janela</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="244"/>
+        <location filename="../dde-osd/main.cpp" line="61"/>
         <source>Disable window effects</source>
         <translation>Desativar efeitos de janela</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="249"/>
+        <location filename="../dde-osd/main.cpp" line="62"/>
         <source>Failed to enable window effects</source>
         <translation>Falha ao ativar efeitos de janela</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/osd.cpp" line="484"/>
-        <source>Duplicate</source>
-        <translation>Duplicar</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/osd.cpp" line="506"/>
-        <source>Extend</source>
-        <translation>Estender</translation>
     </message>
 </context>
 <context>
@@ -117,30 +107,43 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="19"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="20"/>
         <source>Shut down</source>
         <translation>Encerrar</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="23"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="24"/>
         <source>Restart</source>
         <translation>Reiniciar</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="27"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="28"/>
         <source>Suspend</source>
         <translation>Suspender</translation>
     </message>
 </context>
 <context>
-    <name>TimeWidget</name>
+    <name>SwitchMonitor</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="43"/>
-        <source>hh : mm</source>
-        <translation>hh : mm</translation>
+        <location filename="../dde-osd/switchmonitor.cpp" line="117"/>
+        <source>Duplicate</source>
+        <translation>Duplicar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="44"/>
+        <location filename="../dde-osd/switchmonitor.cpp" line="143"/>
+        <source>Extend</source>
+        <translation>Estender</translation>
+    </message>
+</context>
+<context>
+    <name>TimeWidget</name>
+    <message>
+        <location filename="../dde-lock/timewidget.cpp" line="53"/>
+        <source>hh:mm</source>
+        <translation>hh:mm</translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/timewidget.cpp" line="54"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>aaaa-MM-dd dddd</translation>
     </message>
