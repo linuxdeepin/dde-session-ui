@@ -17,6 +17,9 @@
 
 DUI_USE_NAMESPACE
 
+#define ACCOUNT_DBUS_SERVICE "com.deepin.daemon.Accounts"
+#define ACCOUNT_DBUS_PATH "/com/deepin/daemon/Accounts"
+
 class UserWidget : public QFrame
 {
     Q_OBJECT
@@ -24,7 +27,7 @@ public:
     UserWidget(QWidget* parent = 0);
     ~UserWidget();
 
-    const QString currentUser() const;
+    const QString currentUser();
     inline int count() const {return m_userBtns->count();}
     bool isChooseUserMode = false;
 signals:
@@ -42,14 +45,18 @@ public slots:
     void rightKeySwitchUser();
     void switchUserByKey(int i, int j);
     void chooseButtonChecked();
+
 protected:
     void resizeEvent(QResizeEvent *e);
-private:
+private slots:
     void initUI();
-
+    void updateAvatar(QString username);
+    QStringList getUsernameList();
 private:
     int m_currentUserIndex = 0;
+    int countNum = 0;
     QString m_currentUser = QString();
+    QStringList whiteList;
     UserButton* m_currentBtns = nullptr;
     QList<UserButton *> *m_userBtns;
     QLightDM::UsersModel *m_userModel;
