@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
     qApp->setApplicationName("lightdm-deepin-greeter");
     qApp->setApplicationVersion("2015.1.0");
 
-    LogManager::instance()->debug_log_console_on();
+    LogManager::instance()->initConsoleAppender();
 
     /* the logmanager is used to output debug log */
     QTranslator translator;

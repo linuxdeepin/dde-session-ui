@@ -300,8 +300,7 @@ void LoginManager::expandUserWidget() {
 
 void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
 {
-    qDebug() << "prompt: " << text << type;
-
+    Q_UNUSED(text);
     switch (type)
     {
     case QLightDM::Greeter::PromptTypeSecret:   m_greeter->respond(m_passWdEdit->getText());     break;
@@ -344,7 +343,6 @@ void LoginManager::login()
         return;
     }
 
-    qDebug() << "sososos:" << m_passWdEdit->getText();
     const QString &username = m_userWidget->currentUser();
 
     if (!m_passWdEdit->isVisible())

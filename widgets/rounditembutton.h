@@ -12,8 +12,6 @@
 #include <QGraphicsDropShadowEffect>
 #include <QGraphicsOpacityEffect>
 
-#include "util_signalmanager.h"
-
 /* The RoundItemButton is used by shutdownButton, restartButton, and so on... */
 
 class RoundItemButton: public QAbstractButton

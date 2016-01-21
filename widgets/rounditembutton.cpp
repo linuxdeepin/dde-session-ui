@@ -1,6 +1,7 @@
 #include <QtCore/QObject>
 
 #include "rounditembutton.h"
+#include "util_signalmanager.h"
 
 RoundItemButton::RoundItemButton(const QString &text, QWidget* parent)
     : QAbstractButton(parent),
