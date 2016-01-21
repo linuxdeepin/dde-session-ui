@@ -238,11 +238,13 @@ void ShutDownFrame::showTips(const QString &tips)
         m_shutdownButton->setDisabled(true);
         m_restartButton->setDisabled(true);
         m_suspendButton->setDisabled(true);
+        m_logoutButton->setDisabled(true);
     } else {
         m_tipsWidget->hide();
         m_shutdownButton->setDisabled(false);
         m_restartButton->setDisabled(false);
         m_suspendButton->setDisabled(false);
+        m_logoutButton->setDisabled(false);
         m_shutdownButton->updateState(RoundItemButton::Hover);
     }
 }
