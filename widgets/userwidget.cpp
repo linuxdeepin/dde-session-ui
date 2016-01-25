@@ -103,6 +103,7 @@ QStringList UserWidget::getUsernameList() {
     }
     accounts->disconnect();
     accounts->deleteLater();
+    whiteList = QStringList(whiteList.toSet().toList());
     qDebug() << "getUsernameList:" << whiteList;
     return whiteList;
 }
@@ -313,6 +314,7 @@ const QString UserWidget::currentUser()
     mTimer->start();
     connect(mTimer,  &QTimer::timeout, this, &UserWidget::getUsernameList);
 
+    whiteList = QStringList(whiteList.toSet().toList());
     if (whiteList.length()!=0) {
         updateAvatar(whiteList[0]);
         return whiteList[0];
