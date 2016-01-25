@@ -18,5 +18,6 @@ private:
 
 };
 static SignalManager* signalManager = SignalManager::getInstance();
+
 #endif // SIGNALMANAGER
 

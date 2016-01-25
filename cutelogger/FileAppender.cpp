@@ -68,6 +68,7 @@ bool FileAppender::openFile()
   if (!isOpen)
   {
     isOpen = m_logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
+
     if (isOpen)
       m_logStream.setDevice(&m_logFile);
     else
