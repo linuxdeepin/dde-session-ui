@@ -32,7 +32,13 @@ void SwitchMonitor::initGlobalVars(QWidget *parent){
 }
 
 double SwitchMonitor::getBrightness(){
-    return m_DisplayInterface->brightness()[m_DisplayInterface->primary()];
+
+    const QString primaryScreen = m_DisplayInterface->primary();
+
+    if (primaryScreen.contains("="))
+        return m_DisplayInterface->brightness()[primaryScreen.split('=').first()];
+    else
+        return m_DisplayInterface->brightness()[primaryScreen];
 }
 
 void SwitchMonitor::setMonitorMode(){
