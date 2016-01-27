@@ -145,7 +145,7 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="54"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>dddd, dd-MM-yyyy</translation>
+        <translation>yyyy-MM-dd dddd</translation>
     </message>
 </context>
 </TS>

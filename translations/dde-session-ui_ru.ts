@@ -140,7 +140,7 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="53"/>
         <source>hh:mm</source>
-        <translation>чч:мм</translation>
+        <translation>hh:mm</translation>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="54"/>

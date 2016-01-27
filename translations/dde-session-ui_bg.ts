@@ -140,13 +140,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="53"/>
         <source>hh:mm</source>
-        <translation>чч:мм</translation>
+        <translation>hh:mm</translation>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="54"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd
-</translation>
+        <translation>yyyy-MM-dd dddd</translation>
     </message>
 </context>
 </TS>
