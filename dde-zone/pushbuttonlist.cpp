@@ -15,8 +15,6 @@ PushButtonList::PushButtonList(HoverWidget *parent, const bool isRight, const bo
     // this variable if so important that I have to new it before everything else
     m_zoneInterface = new ZoneInterface("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone",
                                         QDBusConnection::sessionBus(), this);
-    // set corner can't be detected while user is using this app
-    m_zoneInterface->EnableZoneDetected(false);
 
     m_ParentItem = parent;
     m_ParentItem->setContentsMargins(0, 0, 0, 0);
@@ -35,13 +33,13 @@ PushButtonList::PushButtonList(HoverWidget *parent, const bool isRight, const bo
     // this variable is used to record the max width of QPushButton's text
     m_MaxTextWidth = 0;
 
-    if(!isRight && !isBottom){
+    if (!isRight && !isBottom) {
         corner = TopLeft;
-    }else if(isRight && !isBottom){
+    } else if (isRight && !isBottom) {
         corner = TopRight;
-    }else if(!isRight && isBottom){
+    } else if (!isRight && isBottom) {
         corner = BottomLeft;
-    }else{
+    } else {
         corner = BottomRight;
     }
 }
@@ -58,7 +56,7 @@ void PushButtonList::addButton(QString buttonName, QString actionStr, bool lastA
     m_IsBottom ? m_ButtonList.prepend(theButton) : m_ButtonList.append(theButton);
     m_IsBottom ? m_ActionList.prepend(actionStr) : m_ActionList.append(actionStr);
 
-    if(lastAddedButton){
+    if (lastAddedButton) {
         alignTheButtonAccordingToTopOrBottom();
 
         highlightTheButtonTextWhenAppInit();

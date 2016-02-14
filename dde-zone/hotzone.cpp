@@ -29,8 +29,6 @@ HotZone::HotZone(QWidget *parent, bool isRight, bool isBottom): QWidget(parent)
 
 HotZone::~HotZone()
 {
-    // // set corner can be detected after app quits
-    m_pushButtonList->m_zoneInterface->EnableZoneDetected(true);
 }
 
 void HotZone::initSeveralVar(bool isRight, bool isBottom)
@@ -39,13 +37,13 @@ void HotZone::initSeveralVar(bool isRight, bool isBottom)
     m_isRight = isRight;
     m_isBottom = isBottom;
 
-    if(!isRight && !isBottom){
+    if (!isRight && !isBottom) {
         corner = TopLeft;
-    }else if(isRight && !isBottom){
+    } else if (isRight && !isBottom) {
         corner = TopRight;
-    }else if(!isRight && isBottom){
+    } else if (!isRight && isBottom) {
         corner = BottomLeft;
-    }else{
+    } else {
         corner = BottomRight;
     }
 
@@ -56,7 +54,7 @@ void HotZone::initSeveralVar(bool isRight, bool isBottom)
     m_mouseIsEnterFromButtonColumnAfterButtonClick = false;
 }
 
-void HotZone::initItemAtCorrectCorner(QWidget* mainWindow)
+void HotZone::initItemAtCorrectCorner(QWidget *mainWindow)
 {
     // m_mainItem is the wrapper of images and text and buttons
     m_mainItem = new QWidget(mainWindow);
@@ -151,19 +149,20 @@ void HotZone::initButtonColumnAtCorrectCorner()
 
 void HotZone::addButtons(QStringList buttonNames, QStringList actionStrs)
 {
-    for (int i=0,length=buttonNames.length();i<length;i++)
-        addButton(buttonNames[i],actionStrs[i], i==(length-1));
+    for (int i = 0, length = buttonNames.length(); i < length; i++) {
+        addButton(buttonNames[i], actionStrs[i], i == (length - 1));
+    }
 }
 
 void HotZone::addButton(QString buttonName, QString actionStr, bool lastAddedButton)
 {
     m_pushButtonList->addButton(buttonName, actionStr, lastAddedButton);
 
-    if(lastAddedButton){
+    if (lastAddedButton) {
         // m_ButtonsNum is used to record the number of QPushButton* , to calculate m_ButtonColumnBottomDistance.
         m_ButtonsNum = m_pushButtonList->m_ActionList.length();
         // 35 is offset to make m_ButtonColumnItem's bottom-margin satisfy the design requirment.
-        m_ButtonColumnBottomDistance = m_ButtonsNum*BUTTON_HEIGHT + 35;
+        m_ButtonColumnBottomDistance = m_ButtonsNum * BUTTON_HEIGHT + 35;
         // 30 is offset to make m_ButtonColumnItem's right-margin satisfy the design requirment.
         m_ButtonColumnRightDistance = m_pushButtonList->m_MaxTextWidth + 30;
 
@@ -173,7 +172,8 @@ void HotZone::addButton(QString buttonName, QString actionStr, bool lastAddedBut
     }
 }
 
-void HotZone::reSetAnimation(){
+void HotZone::reSetAnimation()
+{
     m_endPoint = m_ButtonColumnItem->pos();
 
     m_startPoint.setX(m_endPoint.x());

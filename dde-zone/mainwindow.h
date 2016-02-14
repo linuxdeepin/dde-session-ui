@@ -14,6 +14,8 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 
+#include "dbus/dbuszone.h"
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -28,6 +30,8 @@ private:
     QStringList m_ButtonNames;
     QStringList m_ActionStrs;
     QStringList m_ActionStrs2;
+
+    ZoneInterface *m_dbusZoneInter;
 
     // all the actions' dbus-about string
     const QString CONTROL_CENTER_FROM_LEFT_STR = "dbus-send --print-reply --dest=com.deepin.dde.ControlCenter /com/deepin/dde/ControlCenter com.deepin.dde.ControlCenter.ToggleInLeft";

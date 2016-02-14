@@ -183,13 +183,13 @@ QString SessionWidget::processSessionName(const QString &session) {
     QStringList tmpSessionStrings = session.split(" ");
     qDebug() << "tmpSessionStrings" << tmpSessionStrings;
 
-    bool isBreakFlag = false;
-    for(int i(0); i<tmpSessionStrings.length()&&!isBreakFlag;i++) {
-        for(int j(0); j< Sessions.length()&&!isBreakFlag;j++) {
+//    bool isBreakFlag = false;
+    for(int i(0); i<tmpSessionStrings.length()/*&&!isBreakFlag*/;i++) {
+        for(int j(0); j< Sessions.length()/*&&!isBreakFlag*/;j++) {
             qDebug() << "xkkxkx" << tmpSessionStrings[i] << Sessions[j];
             if (QString::compare(tmpSessionStrings[i], Sessions[j], Qt::CaseInsensitive) == 0) {
                 return Sessions[j];
-                isBreakFlag = true;
+//                isBreakFlag = true;
             }
         }
     }
