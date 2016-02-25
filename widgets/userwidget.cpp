@@ -106,13 +106,13 @@ QStringList UserWidget::getUsernameList() {
     {
         DBusUser *inter = new DBusUser(ACCOUNT_DBUS_SERVICE, user, QDBusConnection::systemBus(), this);
 
-        if (!inter->locked())
+        if (!inter->locked() && !whiteList.contains(inter->userName()))
              whiteList.append(inter->userName());
         inter->deleteLater();
     }
     accounts->disconnect();
     accounts->deleteLater();
-    whiteList = QStringList(whiteList.toSet().toList());
+//    whiteList = QStringList(whiteList.toSet().toList());
     qDebug() << "getUsernameList:" << whiteList;
     return whiteList;
 }
@@ -308,6 +308,9 @@ const QString UserWidget::currentUser()
     if (!currentLogin.isEmpty() && currentLogin!="lightdm")
         return currentLogin;
 
+    if (!whiteList.isEmpty())
+        return whiteList.first();
+
     // return first user
     if (m_userModel->rowCount(QModelIndex()) > 0) {
         QString tmpUsername = m_userModel->data(m_userModel->index(0), QLightDM::UsersModel::NameRole).toString();
@@ -323,11 +326,11 @@ const QString UserWidget::currentUser()
     mTimer->start();
     connect(mTimer,  &QTimer::timeout, this, &UserWidget::getUsernameList);
 
-    whiteList = QStringList(whiteList.toSet().toList());
-    if (whiteList.length()!=0) {
-        updateAvatar(whiteList[0]);
-        return whiteList[0];
-    }
+//    whiteList = QStringList(whiteList.toSet().toList());
+//    if (whiteList.length()!=0) {
+//        updateAvatar(whiteList[0]);
+//        return whiteList[0];
+//    }
 
     qWarning() << "no users !!!";
     return QString();
