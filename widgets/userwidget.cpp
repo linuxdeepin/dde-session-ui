@@ -50,7 +50,7 @@ void UserWidget::initUI()
     getUsernameList();
 
 
-    qDebug() << "whiteList:             " << whiteList;
+    qDebug() << "whiteList:             " << m_whiteList;
 
     const int userCount = m_userModel->rowCount(QModelIndex());
     for (int i(0); i != userCount; ++i)
@@ -58,13 +58,13 @@ void UserWidget::initUI()
         const QString &username = m_userModel->data(m_userModel->index(i), QLightDM::UsersModel::NameRole).toString();
 
         // pass blocked account
-        if (!whiteList.contains(username))
+        if (!m_whiteList.contains(username))
             continue;
 
         updateAvatar(username);
     }
 
-    qDebug() << "whiteList: " << whiteList;
+    qDebug() << "whiteList: " << m_whiteList;
     QPixmap loading(":/img/facelogin_animation.png");
     QSize size(110, 110);
     m_loadingAni = new DLoadingIndicator(this);
@@ -92,8 +92,8 @@ void UserWidget::updateAvatar(QString username) {
 }
 
 QStringList UserWidget::getUsernameList() {
-    if (countNum==0||!whiteList.isEmpty()) {
-        return whiteList;
+    if (countNum==0||!m_whiteList.isEmpty()) {
+        return m_whiteList;
     } else {
         countNum--;
     }
@@ -106,21 +106,20 @@ QStringList UserWidget::getUsernameList() {
     {
         DBusUser *inter = new DBusUser(ACCOUNT_DBUS_SERVICE, user, QDBusConnection::systemBus(), this);
 
-        if (!inter->locked() && !whiteList.contains(inter->userName()))
-             whiteList.append(inter->userName());
+        if (!inter->locked() && !m_whiteList.contains(inter->userName()))
+             m_whiteList.append(inter->userName());
         inter->deleteLater();
     }
     accounts->disconnect();
     accounts->deleteLater();
 //    whiteList = QStringList(whiteList.toSet().toList());
-    qDebug() << "getUsernameList:" << whiteList;
-    return whiteList;
+    qDebug() << "getUsernameList:" << m_whiteList;
+    return m_whiteList;
 }
 
 void UserWidget::setCurrentUser(const QString &username)
 {
     isChooseUserMode = false;
-
 
     for (UserButton *user : *m_userBtns) {
         if (user->objectName() == username) {
@@ -296,7 +295,7 @@ const QString UserWidget::currentUser()
 {
     qDebug() << "currentUser:" << m_currentUser;
 
-    if (!m_currentUser.isEmpty()) {
+    if (!m_currentUser.isEmpty() && m_whiteList.contains(m_currentUser)) {
         return m_currentUser;
     }
 
@@ -308,8 +307,8 @@ const QString UserWidget::currentUser()
     if (!currentLogin.isEmpty() && currentLogin!="lightdm")
         return currentLogin;
 
-    if (!whiteList.isEmpty())
-        return whiteList.first();
+    if (!m_whiteList.isEmpty())
+        return m_whiteList.first();
 
     // return first user
     if (m_userModel->rowCount(QModelIndex()) > 0) {

@@ -65,7 +65,7 @@ private:
     int m_currentUserIndex = 0;
     int countNum = 0;
     QString m_currentUser = QString();
-    QStringList whiteList;
+    QStringList m_whiteList;
     UserButton* m_currentBtns = nullptr;
     QList<UserButton *> *m_userBtns;
     QLightDM::UsersModel *m_userModel;
