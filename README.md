@@ -39,8 +39,9 @@ User interface of setting hot zone.
 - gsettings-qt
 - glib-2.0 gio-unix-2.0
 - gtk+-2.0
-- libdui
+- [libdui](https://github.com/linuxdeepin/libdui)
 - liblightdm-qt5-3
+- xrandr
 - x11 xext xfixes xcursor x11extras
 
 ## Installation
