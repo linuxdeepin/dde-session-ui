@@ -58,28 +58,6 @@ void Frame::initSize()
 void Frame::initListView()
 {
     WallpaperListModel * model = new WallpaperListModel(this);
-    QStringList list; list << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg"
-                           << "/usr/share/backgrounds/desktop.jpg";
-    model->setStringList(list);
-
-//    m_wallpaperList->setStyleSheet("QListView { outline: none; }");
 
     m_wallpaperList->setModel(model);
 }

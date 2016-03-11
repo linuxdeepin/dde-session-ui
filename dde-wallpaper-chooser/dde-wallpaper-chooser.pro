@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui dbus
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,8 +15,10 @@ TEMPLATE = app
 SOURCES += main.cpp\
         frame.cpp \
     wallpaperlistmodel.cpp \
-    wallpaperlistview.cpp
+    wallpaperlistview.cpp \
+    dbus/appearancedaemon_interface.cpp
 
 HEADERS  += frame.h \
     wallpaperlistmodel.h \
-    wallpaperlistview.h
+    wallpaperlistview.h \
+    dbus/appearancedaemon_interface.h
