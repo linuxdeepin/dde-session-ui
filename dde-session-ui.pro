@@ -6,7 +6,8 @@ SUBDIRS += dde-shutdown \
            dde-switchtogreeter \
            dde-lowpower \
            dde-osd \
-           dde-zone
+           dde-zone \
+           dde-wallpaper-chooser
 
 # Automating generation .qm files from .ts files
 system($$PWD/translate_generation.sh)
