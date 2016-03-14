@@ -14,11 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         frame.cpp \
-    wallpaperlistmodel.cpp \
-    wallpaperlistview.cpp \
-    dbus/appearancedaemon_interface.cpp
+    dbus/appearancedaemon_interface.cpp \
+    wallpaperlist.cpp \
+    wallpaperitem.cpp
 
 HEADERS  += frame.h \
-    wallpaperlistmodel.h \
-    wallpaperlistview.h \
-    dbus/appearancedaemon_interface.h
+    dbus/appearancedaemon_interface.h \
+    wallpaperlist.h \
+    wallpaperitem.h \
+    constants.h

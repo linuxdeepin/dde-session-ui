@@ -1,17 +1,23 @@
 #include "frame.h"
-#include "wallpaperlistmodel.h"
-#include "wallpaperlistview.h"
+#include "constants.h"
+#include "wallpaperlist.h"
+#include "dbus/appearancedaemon_interface.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QDebug>
 
-static const int ListHeight = 64;
+static const QString AppearanceServ = "com.deepin.daemon.Appearance";
+static const QString AppearancePath = "/com/deepin/daemon/Appearance";
 
 Frame::Frame(QFrame *parent)
     : QFrame(parent),
-      m_wallpaperList(new WallpaperListView(this))
+      m_wallpaperList(new WallpaperList(this)),
+      m_dbusAppearance(new AppearanceDaemonInterface(AppearanceServ,
+                                                     AppearancePath,
+                                                     QDBusConnection::sessionBus(),
+                                                     this))
 {
     setFocusPolicy(Qt::StrongFocus);
     setWindowFlags(Qt::BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
@@ -57,7 +63,29 @@ void Frame::initSize()
 
 void Frame::initListView()
 {
-    WallpaperListModel * model = new WallpaperListModel(this);
+    QDBusPendingReply<QString> reply = m_dbusAppearance->List("background");
+    reply.waitForFinished();
 
-    m_wallpaperList->setModel(model);
+    QString value = reply.value();
+    QStringList strings = processListReply(value);
+
+    foreach (QString path, strings) {
+        m_wallpaperList->addWallpaper(path);
+    }
+}
+
+QStringList Frame::processListReply(QString &reply) const
+{
+    QStringList result;
+
+    QJsonDocument doc = QJsonDocument::fromJson(reply.toUtf8());
+    if (doc.isArray()) {
+        QJsonArray arr = doc.array();
+        foreach (QJsonValue val, arr) {
+            QJsonObject obj = val.toObject();
+            result.append(obj["Id"].toString());
+        }
+    }
+
+    return result;
 }

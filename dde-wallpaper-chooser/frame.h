@@ -3,7 +3,9 @@
 
 #include <QFrame>
 
+class WallpaperList;
 class WallpaperListView;
+class AppearanceDaemonInterface;
 class Frame : public QFrame
 {
     Q_OBJECT
@@ -17,10 +19,12 @@ protected:
     void keyPressEvent(QKeyEvent *);
 
 private:
-    WallpaperListView *m_wallpaperList;
+    WallpaperList *m_wallpaperList;
+    AppearanceDaemonInterface * m_dbusAppearance;
 
     void initSize();
     void initListView();
+    QStringList processListReply(QString &reply) const;
 };
 
 #endif // FRAME_H
