@@ -18,16 +18,16 @@
 #include <QtGui/QKeyEvent>
 #include <QFrame>
 
+#include <dloadingindicator.h>
+
 #include <QLightDM/UsersModel>
 
 #include "userbutton.h"
 
-#include <libdui/dloadingindicator.h>
-
-DUI_USE_NAMESPACE
-
 #define ACCOUNT_DBUS_SERVICE "com.deepin.daemon.Accounts"
 #define ACCOUNT_DBUS_PATH "/com/deepin/daemon/Accounts"
+
+
 
 class UserWidget : public QFrame
 {
@@ -69,7 +69,7 @@ private:
     UserButton* m_currentBtns = nullptr;
     QList<UserButton *> *m_userBtns;
     QLightDM::UsersModel *m_userModel;
-    DLoadingIndicator *m_loadingAni;
+    DTK_WIDGET_NAMESPACE::DLoadingIndicator *m_loadingAni;
 
     const int USER_ICON_WIDTH = 140;
     const int USER_ICON_HEIGHT = 150;

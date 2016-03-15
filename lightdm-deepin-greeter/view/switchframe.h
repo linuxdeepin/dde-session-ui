@@ -18,9 +18,7 @@
 #include <QPropertyAnimation>
 #include <QDebug>
 
-#include <libdui/dimagebutton.h>
-
-DUI_USE_NAMESPACE
+#include <dimagebutton.h>
 
 class ItemButton: public QPushButton
 {
@@ -99,9 +97,9 @@ private:
     QLabel *m_tipsLabel;
     QWidget *m_tipsWidget;
 #ifndef SHENWEI_PLATFORM
-    DImageButton* m_switchSessionButton;
-    DImageButton* m_switchUserButton;
-    DImageButton* m_powerButton;
+    DTK_WIDGET_NAMESPACE::DImageButton* m_switchSessionButton;
+    DTK_WIDGET_NAMESPACE::DImageButton* m_switchUserButton;
+    DTK_WIDGET_NAMESPACE::DImageButton* m_powerButton;
 #else
     ItemButton* m_switchSessionButton;
     ItemButton* m_switchUserButton;

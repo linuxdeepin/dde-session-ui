@@ -17,10 +17,6 @@ the image with blurring effect.
 This widgets is a encapsulation of background, which is used to process
 the situation of multi-screen.
 
-- cutelogger
-
-This module is used to record the log output of different project.
-
 - global_util
 
 This packages is some global class, such as: class of global signal manager and so on.

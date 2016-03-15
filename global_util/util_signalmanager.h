@@ -26,7 +26,8 @@ private:
     static SignalManager* m_signalManager;
 
 };
-static SignalManager* signalManager = SignalManager::getInstance();
+
+extern  SignalManager* signalManager;
 
 #endif // SIGNALMANAGER
 

@@ -19,13 +19,10 @@
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
 
-#include <libdui/dbuttonlist.h>
-#include <libdui/dimagebutton.h>
+#include <dimagebutton.h>
 
 #include "util_updateui.h"
 #include "util_settings.h"
-
-DUI_USE_NAMESPACE
 
 class PassWdEdit : public QFrame
 {
@@ -33,7 +30,7 @@ class PassWdEdit : public QFrame
     Q_PROPERTY(bool alert READ alert NOTIFY alertChanged DESIGNABLE true)
 
 public:
-    PassWdEdit(QWidget* parent=0);
+    PassWdEdit(QWidget *parent = 0);
     ~PassWdEdit();
 
     QMap<QString, QString> keybdLayoutMap;
@@ -41,8 +38,8 @@ public:
     QMap<QString, QString> keybdLayoutShortDescriptionMap;
 
     QStringList keyboardLayoutList;
-    UtilSettings* utilSettings = NULL;
-    QTimer* getFocusTimer;
+    UtilSettings *utilSettings = NULL;
+    QTimer *getFocusTimer;
 signals:
     void submit();
     void keybdLayoutButtonClicked();
@@ -84,12 +81,12 @@ private:
     bool m_alert = false;
     bool m_alert_enter = false;
 
-    QLineEdit* m_lineEdit;
+    QLineEdit *m_lineEdit;
 #ifndef SHENWEI_PLATFORM
-    QPushButton* m_keyboardButton;
+    QPushButton *m_keyboardButton;
 #endif
-    DImageButton* m_iconButton;
-    QHBoxLayout* m_Layout;
+    DTK_WIDGET_NAMESPACE::DImageButton *m_iconButton;
+    QHBoxLayout *m_Layout;
 
     QGraphicsOpacityEffect *m_opacityEffect;
     QPropertyAnimation *m_showAni;

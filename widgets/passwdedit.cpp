@@ -17,7 +17,9 @@
 #include "constants.h"
 #include "passwdedit.h"
 
-PassWdEdit::PassWdEdit(QWidget* parent)
+DWIDGET_USE_NAMESPACE
+
+PassWdEdit::PassWdEdit(QWidget *parent)
     : QFrame(parent)
 {
     initUI();
@@ -35,7 +37,8 @@ PassWdEdit::~PassWdEdit()
 {
 }
 
-void PassWdEdit::initUI() {
+void PassWdEdit::initUI()
+{
 #ifndef SHENWEI_PLATFORM
     m_keyboardButton = new QPushButton;
     m_keyboardButton->setObjectName("KeyBoardLayoutButton");
@@ -57,7 +60,7 @@ void PassWdEdit::initUI() {
                              - m_keyboardButton->width() - 2, m_iconButton->height());
 #else
     m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
-                             , m_iconButton->height()-2);
+                             , m_iconButton->height() - 2);
 
     qDebug() << "m_lineEdit geometry:" << m_lineEdit->geometry();
 
@@ -82,9 +85,9 @@ void PassWdEdit::initUI() {
     m_hideAni = new QPropertyAnimation(m_opacityEffect, "opacity");
 
 #ifndef SHENWEI_PLATFORM
-    m_iconButton->move(this->x() + this->width()*2 + 13, this->y());
+    m_iconButton->move(this->x() + this->width() * 2 + 13, this->y());
 #else
-    m_iconButton->move(this->x() + this->width()*2 + 15, this->y() - 1);
+    m_iconButton->move(this->x() + this->width() * 2 + 15, this->y() - 1);
     m_iconButton->raise();
 #endif
     setLayout(m_Layout);
@@ -100,7 +103,8 @@ void PassWdEdit::initUI() {
 
 }
 
-void PassWdEdit::lineEditGrabKeyboard() {
+void PassWdEdit::lineEditGrabKeyboard()
+{
     qDebug() << "lineEditGrabKeyboard" << m_timerCount;
     if (m_timerCount == 10) {
         getFocusTimer->stop();
@@ -111,13 +115,14 @@ void PassWdEdit::lineEditGrabKeyboard() {
     }
 }
 
-void PassWdEdit::recordUserPassWd(bool isChoose, QString username) {
+void PassWdEdit::recordUserPassWd(bool isChoose, QString username)
+{
     qDebug() << "remember username:" << username;
     if (isChoose && !m_lineEdit->text().isEmpty()) {
         passwordMap.insert(username, m_lineEdit->text());
         qDebug() << "m_lineEdit:" << m_lineEdit->text();
         m_lineEdit->setText("");
-        QMap<QString, QString>::const_iterator i=passwordMap.begin();
+        QMap<QString, QString>::const_iterator i = passwordMap.begin();
         while (i != passwordMap.end()) {
             qDebug() << "record the score!" << passwordMap.count()
                      << i.key() << i.value();
@@ -142,7 +147,8 @@ void PassWdEdit::recordUserPassWd(bool isChoose, QString username) {
     }
 }
 
-void PassWdEdit::initConnect() {
+void PassWdEdit::initConnect()
+{
     connect(m_iconButton, &DImageButton::clicked, this, &PassWdEdit::submit);
 #ifndef SHENWEI_PLATFORM
     connect(m_keyboardButton, &QPushButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);
@@ -153,7 +159,8 @@ void PassWdEdit::initConnect() {
     });
 }
 
-void PassWdEdit::initData() {
+void PassWdEdit::initData()
+{
     utilSettings = new UtilSettings(this);
 }
 
@@ -169,7 +176,7 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
 {
 
     if (o == m_lineEdit && (e->type() == QEvent::MouseButtonRelease ||
-         e->type() == QEvent::KeyRelease)) {
+                            e->type() == QEvent::KeyRelease)) {
 
         if (m_lineEdit->isReadOnly()) {
             m_lineEdit->setReadOnly(false);
@@ -177,19 +184,19 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
             m_lineEdit->setFocusPolicy(Qt::StrongFocus);
 
             if (e->type() == QEvent::KeyRelease) {
-                QKeyEvent *event = static_cast<QKeyEvent*>(e);
+                QKeyEvent *event = static_cast<QKeyEvent *>(e);
                 qDebug() << "passwdedit:" << event->text();
-                if (event->text().length()==1 && event->key()!=Qt::Key_Escape &&
+                if (event->text().length() == 1 && event->key() != Qt::Key_Escape &&
                         event->key() != Qt::Key_Tab) {
-                    if (event->key() == Qt::Key_Return||event->key() == Qt::Key_Enter) {
+                    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
                         m_lineEdit->setText("");
                         m_alert_enter = true;
                     } else if (event->key() == Qt::Key_Backspace) {
                         m_lineEdit->setText("");
-                        m_alert_enter = m_alert_enter ?!m_alert_enter : m_alert_enter;
+                        m_alert_enter = m_alert_enter ? !m_alert_enter : m_alert_enter;
                     } else {
                         m_lineEdit->setText(event->text());
-                        m_alert_enter = m_alert_enter ?!m_alert_enter : m_alert_enter;
+                        m_alert_enter = m_alert_enter ? !m_alert_enter : m_alert_enter;
                     }
                     qDebug() << "m_lineEdit:" << m_lineEdit->text() << m_lineEdit->cursorPosition();
                 }
@@ -219,7 +226,8 @@ void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
     emit updateKeyboardStatus();
 }
 
-void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList) {
+void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList)
+{
     if (keybdList.count() > 2) {
         m_keyboardButton->show();
     } else {
@@ -229,8 +237,9 @@ void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList) {
 #endif
 void PassWdEdit::show()
 {
-    if (isVisible())
+    if (isVisible()) {
         return;
+    }
 
     m_hideAni->stop();
     m_showAni->stop();
@@ -243,8 +252,9 @@ void PassWdEdit::show()
 
 void PassWdEdit::hide()
 {
-    if (!isVisible())
+    if (!isVisible()) {
         return;
+    }
 
     m_hideAni->stop();
     m_showAni->stop();
@@ -255,8 +265,9 @@ void PassWdEdit::hide()
 
 void PassWdEdit::setAlert(bool alert, const QString &text)
 {
-    if (m_alert == alert)
+    if (m_alert == alert) {
         return;
+    }
     m_alert = alert;
     emit alertChanged(alert);
 
@@ -280,8 +291,7 @@ void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
     emit focusIn();
 
     qDebug() << "PassWordEdit e->key:" << e->key();
-    switch (e->key())
-    {
+    switch (e->key()) {
     case Qt::Key_Return:        /* submit */
     case Qt::Key_Enter:
         if (m_alert_enter) {
@@ -296,7 +306,8 @@ void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
     }
 }
 
-QString PassWdEdit::getText() {
+QString PassWdEdit::getText()
+{
     return m_lineEdit->text();
 }
 

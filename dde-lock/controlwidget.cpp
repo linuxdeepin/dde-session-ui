@@ -13,6 +13,8 @@
 
 #include "controlwidget.h"
 
+DWIDGET_USE_NAMESPACE
+
 ControlWidget::ControlWidget(QWidget *parent)
     : QWidget(parent)
 {

@@ -5,7 +5,7 @@
 #-------------------------------------------------
 INCLUDEPATH += $$PWD
 
-PKGCONFIG   += liblightdm-qt5-3 dui
+PKGCONFIG   += liblightdm-qt5-3 dtkbase dtkwidget
 
 HEADERS += \
     $$PWD/useravatar.h \

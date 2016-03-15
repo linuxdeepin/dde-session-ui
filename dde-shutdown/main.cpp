@@ -13,10 +13,13 @@
 #include <QCommandLineParser>
 #include <QDebug>
 
-#include "logmanager.h"
+#include <DLog>
+
 #include "app/shutdownframe.h"
 #include "dbus/dbuscontrolcenter.h"
 #include "backgroundlabel.h"
+
+DUTIL_USE_NAMESPACE
 
 int main(int argc, char* argv[])
 {
@@ -24,7 +27,8 @@ int main(int argc, char* argv[])
     qApp->setOrganizationName("deepin");
     qApp->setApplicationName("dde-shutdown");
     qApp->setApplicationVersion("2015.1.0");
-    LogManager::instance()->debug_log_console_on();
+    DLogManager::registerConsoleAppender();
+    DLogManager::registerFileAppender();
 
     // hide dde-control-center
     DBusControlCenter *DCCInter = new DBusControlCenter;
