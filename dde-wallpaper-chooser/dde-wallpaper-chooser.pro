@@ -16,10 +16,12 @@ SOURCES += main.cpp\
         frame.cpp \
     dbus/appearancedaemon_interface.cpp \
     wallpaperlist.cpp \
-    wallpaperitem.cpp
+    wallpaperitem.cpp \
+    thumbnailmanager.cpp
 
 HEADERS  += frame.h \
     dbus/appearancedaemon_interface.h \
     wallpaperlist.h \
     wallpaperitem.h \
-    constants.h
+    constants.h \
+    thumbnailmanager.h
