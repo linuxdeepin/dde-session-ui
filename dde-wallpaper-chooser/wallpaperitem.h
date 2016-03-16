@@ -2,6 +2,7 @@
 #define WALLPAPERITEM_H
 
 #include <QFrame>
+#include <QFutureWatcher>
 
 class QLabel;
 class Button;
@@ -17,6 +18,9 @@ signals:
     void slideUp();
     void slideDown();
 
+public slots:
+    void thumbnailFinished();
+
 private:
     QString m_path;
     QFrame * m_wrapper = NULL;
@@ -24,9 +28,12 @@ private:
     Button * m_desktopButton = NULL;
     Button * m_desktopLockButton = NULL;
 
+    QFutureWatcher<QPixmap> * m_thumbnailerWatcher = NULL;
+
     void initUI();
     void initAnimation();
     void initPixmap();
+    QPixmap thumbnailImage();
 };
 
 #endif // WALLPAPERITEM_H

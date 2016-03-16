@@ -38,7 +38,7 @@ void Frame::paintEvent(QPaintEvent *)
     QPainter painter;
     painter.begin(this);
 
-    painter.fillRect(rect(), QColor::fromRgbF(0, 0, 0, 0.5));
+    painter.fillRect(rect(), QColor::fromRgbF(0, 0, 0, 0.8));
 
     painter.end();
 }

@@ -10,14 +10,18 @@
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QPropertyAnimation>
+#include <QtConcurrent>
 
 WallpaperItem::WallpaperItem(QFrame *parent, const QString &path) :
     QFrame(parent),
-    m_path(path)
+    m_path(path),
+    m_thumbnailerWatcher(new QFutureWatcher<QPixmap>(this))
 {
     initUI();
     initPixmap();
     initAnimation();
+
+    connect(m_thumbnailerWatcher, &QFutureWatcher<QPixmap>::finished, this, &WallpaperItem::thumbnailFinished);
 }
 
 void WallpaperItem::initUI()
@@ -30,7 +34,6 @@ void WallpaperItem::initUI()
 
     m_picture = new QLabel(m_wrapper);
     m_picture->setFixedSize(ItemWidth, ItemHeight);
-    m_picture->setScaledContents(true);
     m_picture->installEventFilter(this);
 
     QFrame * buttonArea = new QFrame(m_wrapper);
@@ -69,18 +72,27 @@ void WallpaperItem::initAnimation()
 
 void WallpaperItem::initPixmap()
 {
-    QUrl url = QUrl::fromPercentEncoding(m_path.toUtf8());
-    QString realPath = url.toLocalFile();
-
     ThumbnailManager * tnm = ThumbnailManager::instance();
 
     QPixmap pix;
     if (!tnm->find(QUrl::toPercentEncoding(m_path), &pix)) {
-        pix = QPixmap(realPath).scaled(QSize(ItemWidth, ItemHeight), Qt::KeepAspectRatio);
-        tnm->replace(QUrl::toPercentEncoding(m_path), pix);
+        QFuture<QPixmap> f = QtConcurrent::run(this, &WallpaperItem::thumbnailImage);
+        m_thumbnailerWatcher->setFuture(f);
+    } else {
+        m_picture->setPixmap(pix);
     }
+}
 
-    m_picture->setPixmap(pix);
+QPixmap WallpaperItem::thumbnailImage()
+{
+    QUrl url = QUrl::fromPercentEncoding(m_path.toUtf8());
+    QString realPath = url.toLocalFile();
+
+    ThumbnailManager * tnm = ThumbnailManager::instance();
+    QPixmap pix = QPixmap(realPath).scaled(QSize(ItemWidth, ItemHeight), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    tnm->replace(QUrl::toPercentEncoding(m_path), pix);
+
+    return pix;
 }
 
 bool WallpaperItem::eventFilter(QObject * obj, QEvent * event)
@@ -92,4 +104,10 @@ bool WallpaperItem::eventFilter(QObject * obj, QEvent * event)
     }
 
     return false;
+}
+
+void WallpaperItem::thumbnailFinished()
+{
+    QFuture<QPixmap> f = m_thumbnailerWatcher->future();
+    m_picture->setPixmap(f.result());
 }
