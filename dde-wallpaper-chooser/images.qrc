@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/button_normal.svg</file>
+        <file>images/button_press.svg</file>
+        <file>images/button_hover.svg</file>
+        <file>images/transparent_button_hover.svg</file>
+        <file>images/transparent_button_normal.svg</file>
+        <file>images/transparent_button_press.svg</file>
+    </qresource>
+</RCC>

@@ -7,6 +7,7 @@
 #include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QPainter>
 
 static const QString AppearanceServ = "com.deepin.daemon.Appearance";
 static const QString AppearancePath = "/com/deepin/daemon/Appearance";
@@ -21,7 +22,7 @@ Frame::Frame(QFrame *parent)
 {
     setFocusPolicy(Qt::StrongFocus);
     setWindowFlags(Qt::BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
-//    setAttribute(Qt::WA_TranslucentBackground);
+    setAttribute(Qt::WA_TranslucentBackground);
 
     initSize();
     initListView();
@@ -30,6 +31,16 @@ Frame::Frame(QFrame *parent)
 Frame::~Frame()
 {
 
+}
+
+void Frame::paintEvent(QPaintEvent *)
+{
+    QPainter painter;
+    painter.begin(this);
+
+    painter.fillRect(rect(), QColor::fromRgbF(0, 0, 0, 0.5));
+
+    painter.end();
 }
 
 void Frame::showEvent(QShowEvent * event)
@@ -51,14 +62,12 @@ void Frame::keyPressEvent(QKeyEvent * event)
 void Frame::initSize()
 {
     QDesktopWidget * desktop = QApplication::desktop();
-    QSize size = desktop->geometry().size();
     QRect primaryRect = desktop->screen(desktop->primaryScreen())->rect();
 
-    setFixedSize(size);
-    m_wallpaperList->setGeometry(QRect(primaryRect.x(),
-                                       primaryRect.y() + primaryRect.height() - ListHeight,
-                                       primaryRect.width(),
-                                       ListHeight));
+    setFixedSize(primaryRect.width(), FrameHeight);
+    move(primaryRect.x(), primaryRect.y() + primaryRect.height() - FrameHeight);
+    m_wallpaperList->setFixedSize(primaryRect.width(), ListHeight);
+    m_wallpaperList->move(0, (FrameHeight - ListHeight) / 2);
 }
 
 void Frame::initListView()
@@ -72,6 +81,8 @@ void Frame::initListView()
     foreach (QString path, strings) {
         m_wallpaperList->addWallpaper(path);
     }
+
+    m_wallpaperList->setStyleSheet("QListWidget { background: transparent }");
 }
 
 QStringList Frame::processListReply(QString &reply) const

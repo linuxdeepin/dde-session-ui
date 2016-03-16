@@ -16,6 +16,7 @@ WallpaperList::WallpaperList(QWidget * parent) :
     setWrapping(false);
     setSelectionRectVisible(false);
     setEditTriggers(QListView::NoEditTriggers);
+    setAttribute(Qt::WA_TranslucentBackground);
 }
 
 void WallpaperList::addWallpaper(const QString &path)

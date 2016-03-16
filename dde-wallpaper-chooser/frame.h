@@ -15,6 +15,7 @@ public:
     ~Frame();
 
 protected:
+    void paintEvent(QPaintEvent *);
     void showEvent(QShowEvent *);
     void keyPressEvent(QKeyEvent *);
 
