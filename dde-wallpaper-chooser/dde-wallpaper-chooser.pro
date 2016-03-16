@@ -32,3 +32,6 @@ HEADERS  += frame.h \
 
 RESOURCES += \
     images.qrc
+
+target.path = /usr/lib/deepin-daemon/
+INSTALLS += target
