@@ -49,19 +49,23 @@ public:
     void updateUI();
 signals:
     void screenChanged(QRect rect);
+
 public slots:
     void setCurrentKeyboardLayout(QString keyboard_value);
     void passwordMode();
     void shutdownMode();
     void updateWidgetsPosition();
+    void updateBackground(QString username);
 
     void keybdLayoutWidgetPosit();
     void leftKeyPressed();
     void rightKeyPressed();
+
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
     void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
+
 private:
     void loadMPRIS();
     void initBackend();

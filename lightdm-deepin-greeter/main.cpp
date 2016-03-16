@@ -85,9 +85,9 @@ int main(int argc, char* argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
-    const QString &backgroundUrl = ":/theme/background/default_background.jpg";
-    LoginFrame  w(backgroundUrl);
+    LoginFrame w;
     w.show();
     w.grabKeyboard();
+
     return a.exec();
 }

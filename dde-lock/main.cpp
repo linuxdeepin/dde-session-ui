@@ -37,17 +37,14 @@ int main(int argc, char* argv[])
 
     if(QDBusConnection::sessionBus().registerService(DBUS_NAME)){
         qDebug() << "DBUS_NAME:" << DBUS_NAME;
-        const QString &backgroundUrl = ":/theme/background/default_background.jpg";
 
-        LockFrame lf(backgroundUrl);
+        LockFrame lf;
         lf.show();
         lf.grabKeyboard();
 
         return app.exec();
-       }
-       else {
-           qWarning() << "lockFront is running...";
-           return 0;
-       }
-
+    } else {
+        qWarning() << "lockFront is running...";
+        return 0;
+    }
 }

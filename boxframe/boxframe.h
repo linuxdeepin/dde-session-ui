@@ -28,6 +28,9 @@ public:
     explicit BoxFrame(QWidget* parent = 0);
     explicit BoxFrame(const QString url, QWidget *parent = 0);
     ~BoxFrame();
+
+    void setBackground(const QString &url);
+
 signals:
     void screenChanged(QRect rect);
 protected:

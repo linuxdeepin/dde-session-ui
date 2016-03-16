@@ -9,8 +9,8 @@
 
 #include "lockframe.h"
 
-LockFrame::LockFrame(QString url, QWidget* parent)
-    : BoxFrame(url, parent)
+LockFrame::LockFrame(QWidget* parent)
+    : BoxFrame(parent)
 {
 
     this->move(0, 0);

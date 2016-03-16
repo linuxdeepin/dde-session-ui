@@ -13,8 +13,8 @@
 #include <QTimer>
 #include "loginframe.h"
 
-LoginFrame::LoginFrame(const QString url, QWidget *parent)
-    : BoxFrame(url)
+LoginFrame::LoginFrame(QWidget *parent)
+    : BoxFrame()
 {
     Q_UNUSED(parent);
     this->move(0, 0);

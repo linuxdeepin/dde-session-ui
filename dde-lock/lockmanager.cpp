@@ -19,6 +19,7 @@
 #include <QMap>
 
 #include "lockmanager.h"
+#include "lockframe.h"
 
 LockManager::LockManager(QWidget* parent)
     : QFrame(parent)
@@ -28,7 +29,6 @@ LockManager::LockManager(QWidget* parent)
     initBackend();
     updateUI();
     initConnect();
-
 
     loadMPRIS();
     leaveEvent(nullptr);
@@ -114,6 +114,8 @@ void LockManager::initUI() {
     updateWidgetsPosition();
     updateStyle(":/skin/lock.qss", this);
 
+    updateBackground(m_userWidget->currentUser());
+
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
     qDebug() << "DBusLockService" << m_lockInter->IsLiveCD(m_userWidget->currentUser());
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
@@ -130,6 +132,17 @@ void LockManager::updateWidgetsPosition() {
     m_controlWidget->move(width - m_controlWidget->width() - 50,
                           height - m_controlWidget->height() - 36); // margin right 50 margin bottom 36
 
+}
+
+void LockManager::updateBackground(QString username)
+{
+    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
+    const QString background = settings.value("User/GreeterBackground").toString();
+
+    if (!background.isEmpty()) {
+        LockFrame * frame = qobject_cast<LockFrame*>(parent());
+        frame->setBackground(background);
+    }
 }
 
 void LockManager::leaveEvent(QEvent *) {

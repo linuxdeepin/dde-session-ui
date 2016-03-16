@@ -46,13 +46,17 @@ signals:
     /*This signals is used to change the
     widgets position in different screens*/
     void screenChanged(QRect geom);
+
 public slots:
     /*Update the position of the widgets after finished the layout of ui*/
     void updateWidgetsPosition();
+    void updateBackground(QString username);
+
 protected:
     void keyPressEvent(QKeyEvent* e) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
     void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
+
 private:
     void recordPid();
     void initUI();

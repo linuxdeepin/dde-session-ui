@@ -14,6 +14,7 @@
 #include <QDebug>
 
 #include "loginmanager.h"
+#include "loginframe.h"
 
 #include <X11/Xlib-xcb.h>
 #include <X11/cursorfont.h>
@@ -123,6 +124,17 @@ void LoginManager::updateWidgetsPosition()
     m_requireShutdownWidget->move(0,  (height - m_requireShutdownWidget->height())/2 - 60);
 }
 
+void LoginManager::updateBackground(QString username)
+{
+    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
+    const QString background = settings.value("User/GreeterBackground").toString();
+
+    if (!background.isEmpty()) {
+        LoginFrame * frame = qobject_cast<LoginFrame*>(parent());
+        frame->setBackground(background);
+    }
+}
+
 void LoginManager::keyPressEvent(QKeyEvent* e) {
     qDebug() << "qDebug loginManager:" << e->text();
 
@@ -218,6 +230,8 @@ void LoginManager::initUI()
     updateStyle(":/skin/login.qss", this);
 #endif
     set_rootwindow_cursor();
+
+    updateBackground(m_userWidget->currentUser());
 }
 
 void LoginManager::recordPid() {
@@ -258,6 +272,7 @@ void LoginManager::initConnect()
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::updateKeybordLayoutStatus);
 #endif
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
+    connect(m_userWidget, &UserWidget::userChanged, this, &LoginManager::updateBackground);
 
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);

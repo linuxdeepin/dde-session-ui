@@ -28,7 +28,7 @@ class LockFrame: public BoxFrame
 {
     Q_OBJECT
 public:
-    LockFrame(QString url, QWidget* parent=0);
+    LockFrame(QWidget* parent=0);
     ~LockFrame();
 public slots:
     void updateScreenPosition(QRect rect);
