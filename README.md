@@ -36,10 +36,10 @@ User interface of setting hot zone.
 
 ## Dependencies
 - Qt
+- [deepin-tool-kit](https://github.com/linuxdeepin/deepin-tool-kit)
 - gsettings-qt
 - glib-2.0 gio-unix-2.0
 - gtk+-2.0
-- [libdui](https://github.com/linuxdeepin/libdui)
 - liblightdm-qt5-3
 - xrandr
 - x11 xext xfixes xcursor x11extras

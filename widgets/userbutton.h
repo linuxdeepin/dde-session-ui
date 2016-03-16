@@ -21,8 +21,6 @@
 
 #include "useravatar.h"
 
-DUI_USE_NAMESPACE
-
 class UserButton:public QPushButton
 {
     Q_OBJECT

@@ -14,6 +14,8 @@
 #include <QFile>
 #include <QGraphicsDropShadowEffect>
 
+DWIDGET_USE_NAMESPACE
+
 ItemButton::ItemButton(QWidget* parent)
     : QPushButton(parent),
       m_itemIcon(new QLabel(this))

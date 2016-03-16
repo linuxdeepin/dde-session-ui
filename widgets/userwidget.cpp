@@ -21,6 +21,8 @@
 #include <unistd.h>
 #include <pwd.h>
 
+DWIDGET_USE_NAMESPACE
+
 UserWidget::UserWidget(QWidget* parent)
     : QFrame(parent),
     m_currentUser(),

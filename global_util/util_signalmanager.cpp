@@ -9,6 +9,8 @@
 
 #include "util_signalmanager.h"
 
+SignalManager* signalManager = SignalManager::getInstance();
+
 SignalManager* SignalManager::m_signalManager = NULL;
 
 SignalManager::SignalManager(QObject* parent)

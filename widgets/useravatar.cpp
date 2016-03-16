@@ -9,7 +9,7 @@
 
 #include "useravatar.h"
 
-#include "libdui/dthememanager.h"
+#include "dthememanager.h"
 
 UserAvatar::UserAvatar(QWidget *parent, bool deleteable) :
     QPushButton(parent), m_deleteable(deleteable)

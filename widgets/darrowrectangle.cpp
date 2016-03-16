@@ -10,8 +10,9 @@
 #include "darrowrectangle.h"
 #include <X11/extensions/shape.h>
 #include <QApplication>
+#include <dgraphicsgloweffect.h>
 
-DUI_USE_NAMESPACE
+DWIDGET_USE_NAMESPACE
 
 DArrowRectangle::DArrowRectangle(ArrowDirection direction, QWidget * parent) :
     QWidget(parent),m_arrowDirection(direction)
@@ -269,11 +270,6 @@ int DArrowRectangle::margin() const
 void DArrowRectangle::setArrowDirection(ArrowDirection value)
 {
     m_arrowDirection = value;
-}
-
-void DArrowRectangle::setArrorDirection(ArrowDirection value)
-{
-    setArrowDirection(value);
 }
 
 void DArrowRectangle::setWidth(int value)

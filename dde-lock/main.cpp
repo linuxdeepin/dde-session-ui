@@ -7,12 +7,15 @@
  * (at your option) any later version.
  **/
 
+#include <DLog>
+
 #include "lockframe.h"
-#include "logmanager.h"
 #include "dbus/dbuscontrolcenter.h"
 
 #include <QLabel>
 #include <QApplication>
+
+DUTIL_USE_NAMESPACE;
 
 int main(int argc, char* argv[])
 {
@@ -20,7 +23,7 @@ int main(int argc, char* argv[])
     qApp->setOrganizationName("deepin");
     qApp->setApplicationName("dde-lock");
     qApp->setApplicationVersion("2015.1.0");
-    LogManager::instance()->debug_log_console_on();
+    DLogManager::registerConsoleAppender();
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());

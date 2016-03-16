@@ -13,7 +13,9 @@
 #include <QLabel>
 #include <QProcess>
 
-#include "logmanager.h"
+#include <DLog>
+
+DUTIL_USE_NAMESPACE
 
 void setAllMonitorsExtend()
 {
@@ -76,7 +78,7 @@ int main(int argc, char* argv[])
     qApp->setApplicationName("lightdm-deepin-greeter");
     qApp->setApplicationVersion("2015.1.0");
 
-    LogManager::instance()->initConsoleAppender();
+    DLogManager::registerConsoleAppender();
 
     /* the logmanager is used to output debug log */
     QTranslator translator;

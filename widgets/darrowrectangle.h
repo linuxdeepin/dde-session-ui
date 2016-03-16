@@ -21,11 +21,10 @@
 #include <QtX11Extras/QX11Info>
 #include <QDebug>
 
-#include "libdui_global.h"
 #include "dthememanager.h"
 #include "dgraphicsgloweffect.h"
 
-class LIBDUISHARED_EXPORT DArrowRectangle : public QWidget
+class DArrowRectangle : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor)
@@ -64,7 +63,6 @@ public:
     void setBorderColor(const QColor &borderColor);
     void setBackgroundColor(const QColor &backgroundColor);
     void setArrowDirection(ArrowDirection value);
-    void setArrorDirection(ArrowDirection value) DUI_DECL_DEPRECATED;
     void setWidth(int value);
     void setHeight(int value);
 

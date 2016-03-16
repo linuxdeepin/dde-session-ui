@@ -14,12 +14,10 @@
 #include <QLabel>
 #include <QWheelEvent>
 
-#include <libdui/dimagebutton.h>
+#include <dimagebutton.h>
 
 #include "dbus/dbusmediaplayer2.h"
 #include "util_file.h"
-
-DUI_USE_NAMESPACE
 
 class ControlWidget : public QWidget
 {
@@ -47,12 +45,12 @@ protected:
 private:
     QLabel *m_songName;
     QLabel *m_volumeNums;
-    DImageButton *m_prevSong;
-    DImageButton *m_pauseSong;
-    DImageButton *m_nextSong;
-    DImageButton *m_volume;
-    DImageButton* m_userswitch;
-    DImageButton *m_shutdown;
+    DTK_WIDGET_NAMESPACE::DImageButton *m_prevSong;
+    DTK_WIDGET_NAMESPACE::DImageButton *m_pauseSong;
+    DTK_WIDGET_NAMESPACE::DImageButton *m_nextSong;
+    DTK_WIDGET_NAMESPACE::DImageButton *m_volume;
+    DTK_WIDGET_NAMESPACE::DImageButton* m_userswitch;
+    DTK_WIDGET_NAMESPACE::DImageButton *m_shutdown;
 
     QWidget *m_songControlWidget;
     DBusMediaPlayer2 *m_dbusInter = nullptr;

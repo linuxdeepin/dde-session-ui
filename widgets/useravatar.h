@@ -17,11 +17,10 @@
 #include <QPainter>
 #include <QDebug>
 
-#include <libdui/dimagebutton.h>
+#include <dimagebutton.h>
 
 #include "userbreathinglabel.h"
 
-DUI_USE_NAMESPACE
 //class AvatarDeleteButton : public DImageButton
 //{
 //    Q_OBJECT
@@ -60,7 +59,6 @@ public:
     void setBorderWidth(int borderWidth);
 
     void setSelected(bool selected);
-
 
     bool deleteable() const;
     void setDeleteable(bool deleteable);
@@ -101,8 +99,8 @@ private:
     const int LARGE_ICON_SIZE = 100;
 
     QPalette m_palette;
-    QPropertyAnimation* m_showAnimation;
-    QPropertyAnimation* m_hideAnimation;
+    QPropertyAnimation *m_showAnimation;
+    QPropertyAnimation *m_hideAnimation;
 };
 
 
