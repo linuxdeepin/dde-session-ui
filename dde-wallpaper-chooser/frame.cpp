@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "wallpaperlist.h"
 #include "dbus/appearancedaemon_interface.h"
+#include "dbus/deepin_wm.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -12,13 +13,17 @@
 static const QString AppearanceServ = "com.deepin.daemon.Appearance";
 static const QString AppearancePath = "/com/deepin/daemon/Appearance";
 
+static const QString DeepinWMServ = "com.deepin.wm";
+static const QString DeepinWMPath = "/com/deepin/wm";
+
 Frame::Frame(QFrame *parent)
     : QFrame(parent),
       m_wallpaperList(new WallpaperList(this)),
       m_dbusAppearance(new AppearanceDaemonInterface(AppearanceServ,
                                                      AppearancePath,
                                                      QDBusConnection::sessionBus(),
-                                                     this))
+                                                     this)),
+      m_dbusDeepinWM(new DeepinWM(DeepinWMServ, DeepinWMPath, QDBusConnection::sessionBus(), this))
 {
     setFocusPolicy(Qt::StrongFocus);
     setWindowFlags(Qt::BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
@@ -30,7 +35,7 @@ Frame::Frame(QFrame *parent)
 
 Frame::~Frame()
 {
-
+    m_dbusDeepinWM->CancelHideWindows();
 }
 
 void Frame::paintEvent(QPaintEvent *)
@@ -38,13 +43,15 @@ void Frame::paintEvent(QPaintEvent *)
     QPainter painter;
     painter.begin(this);
 
-    painter.fillRect(rect(), QColor::fromRgbF(0, 0, 0, 0.8));
+    painter.fillRect(rect(), QColor::fromRgbF(0, 0, 0, 0.6));
 
     painter.end();
 }
 
 void Frame::showEvent(QShowEvent * event)
 {
+    m_dbusDeepinWM->RequestHideWindows();
+
     activateWindow();
 
     QFrame::showEvent(event);

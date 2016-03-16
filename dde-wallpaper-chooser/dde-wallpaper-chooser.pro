@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     wallpaperlist.cpp \
     wallpaperitem.cpp \
     thumbnailmanager.cpp \
-    button.cpp
+    button.cpp \
+    dbus/deepin_wm.cpp
 
 HEADERS  += frame.h \
     dbus/appearancedaemon_interface.h \
@@ -26,7 +27,8 @@ HEADERS  += frame.h \
     wallpaperitem.h \
     constants.h \
     thumbnailmanager.h \
-    button.h
+    button.h \
+    dbus/deepin_wm.h
 
 RESOURCES += \
     images.qrc

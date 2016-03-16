@@ -6,6 +6,7 @@
 class WallpaperList;
 class WallpaperListView;
 class AppearanceDaemonInterface;
+class DeepinWM;
 class Frame : public QFrame
 {
     Q_OBJECT
@@ -22,6 +23,7 @@ protected:
 private:
     WallpaperList *m_wallpaperList;
     AppearanceDaemonInterface * m_dbusAppearance;
+    DeepinWM * m_dbusDeepinWM = NULL;
 
     void initSize();
     void initListView();
