@@ -6,6 +6,7 @@
 
 class QLabel;
 class Button;
+class AppearanceDaemonInterface;
 class WallpaperItem : public QFrame
 {
     Q_OBJECT
@@ -30,10 +31,15 @@ private:
 
     QFutureWatcher<QPixmap> * m_thumbnailerWatcher = NULL;
 
+    AppearanceDaemonInterface * m_dbusAppearance;
+
     void initUI();
     void initAnimation();
     void initPixmap();
     QPixmap thumbnailImage();
+
+    void setWallpaper();
+    void setLockScreen();
 };
 
 #endif // WALLPAPERITEM_H

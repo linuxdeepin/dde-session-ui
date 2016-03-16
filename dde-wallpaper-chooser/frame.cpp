@@ -10,12 +10,6 @@
 #include <QDebug>
 #include <QPainter>
 
-static const QString AppearanceServ = "com.deepin.daemon.Appearance";
-static const QString AppearancePath = "/com/deepin/daemon/Appearance";
-
-static const QString DeepinWMServ = "com.deepin.wm";
-static const QString DeepinWMPath = "/com/deepin/wm";
-
 Frame::Frame(QFrame *parent)
     : QFrame(parent),
       m_wallpaperList(new WallpaperList(this)),
