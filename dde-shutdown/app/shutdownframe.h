@@ -30,6 +30,9 @@ protected:
     void keyPressEvent(QKeyEvent *e);
 private:
     ShutdownManager* m_shutdownManager;
+
+    void initShutdownManager();
+    void initBackground();
 };
 
 class ShutdownFrontDBus : public QDBusAbstractAdaptor {

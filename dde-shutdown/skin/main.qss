@@ -1,5 +1,5 @@
 QFrame#SessionManager {
-    background-image: url(:/img/outspace.jpg);
+    /*background-image: url(:/img/outspace.jpg);*/
     /*background-image:transparent;*/
     /*background-image:pink;*/
 }

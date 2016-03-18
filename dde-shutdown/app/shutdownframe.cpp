@@ -20,6 +20,25 @@ ShutdownFrame::ShutdownFrame(QWidget *parent)
 
     qDebug() << "this geometry:" << geometry();
 
+    initShutdownManager();
+    initBackground();
+
+    ShutdownFrontDBus* shutdownFrontDBus = new ShutdownFrontDBus(this);
+    QDBusConnection::sessionBus().registerObject(DBUS_PATH, this);
+
+    qDebug() << "RegistshutdownFrontDBus" << shutdownFrontDBus->result();
+}
+
+void ShutdownFrame::updateScreenPosition() {
+    m_shutdownManager->updateGeometry();
+}
+
+void ShutdownFrame::keyPressEvent(QKeyEvent *e) {
+    Q_UNUSED(e);
+}
+
+void ShutdownFrame::initShutdownManager()
+{
     m_shutdownManager = new ShutdownManager(this);
     QPoint mousePoint = QCursor::pos();
 
@@ -34,20 +53,19 @@ ShutdownFrame::ShutdownFrame(QWidget *parent)
             continue;
         }
     }
-
-    ShutdownFrontDBus* shutdownFrontDBus = new ShutdownFrontDBus(this);
-    QDBusConnection::sessionBus().registerObject(DBUS_PATH, this);
-
-    qDebug() << "RegistshutdownFrontDBus" << shutdownFrontDBus->result();
 }
 
-void ShutdownFrame::updateScreenPosition() {
-    m_shutdownManager->show();
-    m_shutdownManager->updateGeometry();
-}
+void ShutdownFrame::initBackground()
+{
+    const QString username = qgetenv("USER");
+    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
+    const QString background = settings.value("User/Background").toString();
 
-void ShutdownFrame::keyPressEvent(QKeyEvent *e) {
-    Q_UNUSED(e);
+    qDebug() << "user:" << qgetenv("USER") << " background: " << background;
+
+    if (!background.isEmpty()) {
+        setBackground(background);
+    }
 }
 
 ShutdownFrame::~ShutdownFrame()

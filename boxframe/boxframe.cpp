@@ -65,7 +65,6 @@ void BoxFrame::setBackground(const QString &url)
         QList<QScreen *> screenList = qApp->screens();
         for (int i = 0; i < screenList.length(); i++) {
             const QRect rect = screenList[i]->geometry();
-            qDebug() << "boxframe rect:" << i<< rect;
 
             QLabel* m_background = new QLabel(this);
             m_background->setObjectName("GreeterBackground");
