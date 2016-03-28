@@ -22,11 +22,6 @@ ShutdownFrame::ShutdownFrame(QWidget *parent)
 
     initShutdownManager();
     initBackground();
-
-    ShutdownFrontDBus* shutdownFrontDBus = new ShutdownFrontDBus(this);
-    QDBusConnection::sessionBus().registerObject(DBUS_PATH, this);
-
-    qDebug() << "RegistshutdownFrontDBus" << shutdownFrontDBus->result();
 }
 
 void ShutdownFrame::updateScreenPosition() {
@@ -76,15 +71,19 @@ ShutdownFrontDBus::ShutdownFrontDBus(ShutdownFrame *parent):
     QDBusAbstractAdaptor(parent),
     m_parent(parent)
 {
-    qDebug() << "DBUS_PATH" << DBUS_PATH;
 }
 
 ShutdownFrontDBus::~ShutdownFrontDBus()
 {
-
 }
 
-qulonglong ShutdownFrontDBus::result()
+void ShutdownFrontDBus::Ping()
 {
-    return 0;
+}
+
+void ShutdownFrontDBus::Show()
+{
+    if (m_parent) {
+        m_parent->show();
+    }
 }

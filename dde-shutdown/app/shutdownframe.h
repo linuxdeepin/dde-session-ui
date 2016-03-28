@@ -14,9 +14,6 @@
 #include "boxframe.h"
 #include "shutdownmanager.h"
 
-const QString DBUS_PATH = "/com/deepin/dde/shutdownFront";
-const QString DBUS_NAME = "com.deepin.dde.shutdownFront";
-
 class ShutdownFrontDBus;
 class ShutdownFrame:public BoxFrame
 {
@@ -42,7 +39,10 @@ class ShutdownFrontDBus : public QDBusAbstractAdaptor {
 public:
     ShutdownFrontDBus(ShutdownFrame* parent);
     ~ShutdownFrontDBus();
-    Q_SLOT qulonglong result();
+
+    Q_SLOT void Ping();
+    Q_SLOT void Show();
+
 private:
     ShutdownFrame* m_parent;
 };

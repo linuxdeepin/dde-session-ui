@@ -39,5 +39,21 @@ RESOURCES += \
     qss.qrc \
     image.qrc
 
+DISTFILES += dde-shutdown.desktop \
+    com.deepin.dde.shutdownFront.service
+
 target.path = $${PREFIX}/bin/
 INSTALLS += target
+
+service_file.path = /usr/share/dbus-1/services/
+service_file.files = com.deepin.dde.shutdownFront.service
+INSTALLS += service_file
+
+isEqual(SHUTDOWN_NO_QUIT, YES){
+    DEFINES += SHUTDOWN_NO_QUIT
+
+    # we want dde-shutdown to be auto-start when it's made no-quit.
+    desktop_file.files = dde-shutdown.desktop
+    desktop_file.path = /etc/xdg/autostart/
+    INSTALLS += desktop_file
+}

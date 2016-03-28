@@ -41,21 +41,24 @@ public slots:
 protected:
     void keyPressEvent(QKeyEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
-    bool event(QEvent *e);
+    void showEvent(QShowEvent *e);
+    void hideEvent(QHideEvent *e);
+
 private:
-//    QTimer* m_getFocusTimer;
+    QTimer* m_getFocusTimer = nullptr;
+    QHBoxLayout* m_Layout = nullptr;
+    MainFrame* m_content = nullptr;
+
+    DBusSessionManagerInterface* m_sessionInterface = nullptr;
+    DBusHotzone* m_hotZoneInterface = nullptr;
+    UtilFile* m_utilFile = nullptr;
+
 //    int m_timerCount = 0;
     void initUI();
     void initConnect();
     void initData();
     void switchToGreeter();
-
-    QHBoxLayout* m_Layout;
-    MainFrame* m_content;
-
-    DBusSessionManagerInterface* m_sessionInterface;
-    DBusHotzone* m_hotZoneInterface;
-    UtilFile* m_utilFile;
+    void hideToplevelWindow();
 };
 
 #endif // SessionManagerTool_H
