@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
         if (!parser.isSet(daemon)) {
             const char* interface = "com.deepin.dde.shutdownFront";
             QDBusInterface ifc(DBUS_NAME, DBUS_PATH, interface, session, NULL);
-            ifc.asyncCall("show");
+            ifc.asyncCall("Show");
         }
 
         return 0;

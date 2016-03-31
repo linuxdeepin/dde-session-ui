@@ -21,7 +21,9 @@ SOURCES += main.cpp \
     dbus/dbusmediaplayer2.cpp \
     ../widgets/dbus/dbuscontrolcenter.cpp \
     lockmanager.cpp \
-    lockframe.cpp
+    lockframe.cpp \
+    dbus/dbuslockfrontservice.cpp \
+    dbus/dbuslockfront.cpp
 
 HEADERS  += \
     timewidget.h \
@@ -31,11 +33,33 @@ HEADERS  += \
     dbus/dbusmediaplayer2.h \
     ../widgets/dbus/dbuscontrolcenter.h \
     lockmanager.h \
-    lockframe.h
-
-target.path = $${PREFIX}/bin/
-INSTALLS += target
+    lockframe.h \
+    dbus/dbuslockfrontservice.h \
+    dbus/dbuslockfront.h
 
 RESOURCES += \
     images.qrc \
     logintheme.qrc
+
+DISTFILES +=dde-lock.desktop \
+    com.deepin.dde.lockFront.service
+
+services.path = /usr/share/dbus-1/services
+services.files = com.deepin.dde.lockFront.service
+
+target.path = $${PREFIX}/bin/
+INSTALLS += target services
+
+isEqual(LOCK_NO_QUIT, YES) {
+    DEFINES +=LOCK_NO_QUIT
+
+    #let dde-lock to be auto-start
+    desktop_file.files = dde-lock.desktop
+    desktop_file.path = /etc/xdg/autostart/
+    INSTALLS += desktop_file
+}
+
+
+
+
+

@@ -23,7 +23,7 @@ const QString DBUS_PATH = "/com/deepin/dde/lockFront";
 const QString DBUS_NAME = "com.deepin.dde.lockFront";
 
 
-class LockFrontDBus;
+class DBusLockService;
 class LockFrame: public BoxFrame
 {
     Q_OBJECT
@@ -36,18 +36,6 @@ protected:
     void keyPressEvent(QKeyEvent *e);
 private:
     LockManager* m_lockManager;
-};
-
-class LockFrontDBus : public QDBusAbstractAdaptor {
-    Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "com.deepin.dde.lockFront")
-
-public:
-    LockFrontDBus(LockFrame* parent);
-    ~LockFrontDBus();
-    Q_SLOT qulonglong lockResult();
-private:
-    LockFrame* m_parent;
 };
 
 #endif // LOCKFRAME

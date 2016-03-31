@@ -33,10 +33,6 @@ LockFrame::LockFrame(QWidget* parent)
         }
     }
 
-    LockFrontDBus* lockFrontDBus = new LockFrontDBus(this);
-    QDBusConnection::sessionBus().registerObject(DBUS_PATH, this);
-
-    qDebug() << "RegistlockFrontDBus" << lockFrontDBus->lockResult();
     connect(m_lockManager, &LockManager::screenChanged, this, &LockFrame::updateScreenPosition);
 }
 
@@ -57,19 +53,3 @@ LockFrame::~LockFrame() {
 
 }
 
-LockFrontDBus::LockFrontDBus(LockFrame *parent):
-    QDBusAbstractAdaptor(parent),
-    m_parent(parent)
-{
-    qDebug() << "DBUS_PATH" << DBUS_PATH;
-}
-
-LockFrontDBus::~LockFrontDBus()
-{
-
-}
-
-qulonglong LockFrontDBus::lockResult()
-{
-    return 0;
-}
