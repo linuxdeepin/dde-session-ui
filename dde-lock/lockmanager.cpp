@@ -114,11 +114,11 @@ void LockManager::initUI() {
     updateWidgetsPosition();
     updateStyle(":/skin/lock.qss", this);
 
-    updateBackground(m_userWidget->currentUser());
-
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
     qDebug() << "DBusLockService" << m_lockInter->IsLiveCD(m_userWidget->currentUser());
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
+    connect(m_userWidget, &UserWidget::userChanged, this, &LockManager::updateBackground);
+    updateBackground(m_userWidget->currentUser());
 }
 
 void LockManager::updateWidgetsPosition() {
@@ -136,9 +136,11 @@ void LockManager::updateWidgetsPosition() {
 
 void LockManager::updateBackground(QString username)
 {
-    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString background = settings.value("User/GreeterBackground").toString();
+    qDebug() << "update background for user: " << username;
 
+    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
+    const QString background = settings.value("User/Background").toString();
+    qDebug() << "background item:" << background;
     if (!background.isEmpty()) {
         LockFrame * frame = qobject_cast<LockFrame*>(parent());
         frame->setBackground(background);

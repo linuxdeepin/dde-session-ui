@@ -68,6 +68,8 @@ int main(int argc, char* argv[])
             const char* interface = "com.deepin.dde.lockFront";
             QDBusInterface ifc(DBUS_NAME, DBUS_PATH, interface, QDBusConnection::sessionBus(), NULL);
             ifc.asyncCall("Show");
+
+	    return 0;
         }
     }
 

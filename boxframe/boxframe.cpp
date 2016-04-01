@@ -21,6 +21,8 @@ BoxFrame::BoxFrame(QWidget *parent)
     this->move(0, 0);
     this->setFixedSize(qApp->desktop()->size());
 
+    setObjectName("BoxFrame");
+
     qDebug() << "this geometry" << geometry();
     this->setWindowFlags(Qt::FramelessWindowHint|Qt::BypassWindowManagerHint);
 
@@ -33,6 +35,7 @@ BoxFrame::BoxFrame(const QString url, QWidget *parent)
 {
     this->move(0, 0);
     this->setFixedSize(qApp->desktop()->size());
+    setObjectName("BoxFrame");
 
     qDebug() << "this geometry" << geometry();
     this->setWindowFlags(Qt::FramelessWindowHint|Qt::BypassWindowManagerHint);
@@ -59,6 +62,8 @@ BoxFrame::~BoxFrame()
 void BoxFrame::setBackground(const QString &url)
 {
     static const QString objName("GreeterBackground");
+
+    setStyleSheet(QString("QFrame #BoxFrame {background-image:url(%1);}").arg(url));
 
     QList<QLabel*> labels = findChildren<QLabel*>(objName);
     if (labels.isEmpty()) {
