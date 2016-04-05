@@ -19,8 +19,12 @@ public:
     void slideUp();
     void slideDown();
 
+    QString getPath();
+
 signals:
-    void pressed(WallpaperItem * item);
+    void pressed();
+    void desktopButtonClicked();
+    void desktopLockButtonClicked();
 
 public slots:
     void thumbnailFinished();
@@ -36,15 +40,10 @@ private:
 
     QFutureWatcher<QPixmap> * m_thumbnailerWatcher = NULL;
 
-    AppearanceDaemonInterface * m_dbusAppearance;
-
     void initUI();
     void initAnimation();
     void initPixmap();
     QPixmap thumbnailImage();
-
-    void setWallpaper();
-    void setLockScreen();
 };
 
 #endif // WALLPAPERITEM_H

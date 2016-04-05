@@ -9,6 +9,7 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QPainter>
+#include <QGSettings>
 
 Frame::Frame(QFrame *parent)
     : QFrame(parent),
@@ -17,7 +18,8 @@ Frame::Frame(QFrame *parent)
                                                      AppearancePath,
                                                      QDBusConnection::sessionBus(),
                                                      this)),
-      m_dbusDeepinWM(new DeepinWM(DeepinWMServ, DeepinWMPath, QDBusConnection::sessionBus(), this))
+      m_dbusDeepinWM(new DeepinWM(DeepinWMServ, DeepinWMPath, QDBusConnection::sessionBus(), this)),
+      m_gsettings(new QGSettings(WallpaperSchemaId, WallpaperPath, this))
 {
     setFocusPolicy(Qt::StrongFocus);
     setWindowFlags(Qt::BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
@@ -25,10 +27,13 @@ Frame::Frame(QFrame *parent)
 
     initSize();
     initListView();
+
+    m_formerWallpaper = m_gsettings->get(WallpaperKey).toString();
 }
 
 Frame::~Frame()
 {
+    restoreWallpaper();
     m_dbusDeepinWM->CancelHideWindows();
 }
 
@@ -100,4 +105,9 @@ QStringList Frame::processListReply(QString &reply) const
     }
 
     return result;
+}
+
+void Frame::restoreWallpaper()
+{
+    m_dbusAppearance->Set("background", m_formerWallpaper);
 }

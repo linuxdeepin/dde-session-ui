@@ -3,6 +3,7 @@
 
 #include <QFrame>
 
+class QGSettings;
 class WallpaperList;
 class WallpaperListView;
 class AppearanceDaemonInterface;
@@ -21,13 +22,17 @@ protected:
     void keyPressEvent(QKeyEvent *);
 
 private:
-    WallpaperList *m_wallpaperList;
-    AppearanceDaemonInterface * m_dbusAppearance;
+    WallpaperList *m_wallpaperList = NULL;
+    AppearanceDaemonInterface * m_dbusAppearance = NULL;
     DeepinWM * m_dbusDeepinWM = NULL;
+    QGSettings * m_gsettings = NULL;
+
+    QString m_formerWallpaper;
 
     void initSize();
     void initListView();
     QStringList processListReply(QString &reply) const;
+    void restoreWallpaper();
 };
 
 #endif // FRAME_H

@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "thumbnailmanager.h"
 #include "button.h"
-#include "dbus/appearancedaemon_interface.h"
 
 #include <QEvent>
 #include <QPixmap>
@@ -15,11 +14,7 @@
 WallpaperItem::WallpaperItem(QFrame *parent, const QString &path) :
     QFrame(parent),
     m_path(path),
-    m_thumbnailerWatcher(new QFutureWatcher<QPixmap>(this)),
-    m_dbusAppearance(new AppearanceDaemonInterface(AppearanceServ,
-                                                   AppearancePath,
-                                                   QDBusConnection::sessionBus(),
-                                                   this))
+    m_thumbnailerWatcher(new QFutureWatcher<QPixmap>(this))
 {
     initUI();
     initPixmap();
@@ -58,8 +53,8 @@ void WallpaperItem::initUI()
     buttonLayout->addWidget(m_desktopButton);
     buttonLayout->addWidget(m_desktopLockButton);
 
-    connect(m_desktopButton, &Button::clicked, [this]{ setWallpaper(); });
-    connect(m_desktopLockButton, &Button::clicked, [this]{ setWallpaper(); setLockScreen(); });
+    connect(m_desktopButton, &Button::clicked, this, &WallpaperItem::desktopButtonClicked);
+    connect(m_desktopLockButton, &Button::clicked, this, &WallpaperItem::desktopLockButtonClicked);
 }
 
 void WallpaperItem::initAnimation()
@@ -100,26 +95,10 @@ QPixmap WallpaperItem::thumbnailImage()
     return pix;
 }
 
-void WallpaperItem::setWallpaper()
-{
-    QUrl url = QUrl::fromPercentEncoding(m_path.toUtf8());
-    QString realPath = url.toLocalFile();
-
-    m_dbusAppearance->Set("background", realPath);
-}
-
-void WallpaperItem::setLockScreen()
-{
-    QUrl url = QUrl::fromPercentEncoding(m_path.toUtf8());
-    QString realPath = url.toLocalFile();
-
-    m_dbusAppearance->Set("greeterbackground", realPath);
-}
-
 bool WallpaperItem::eventFilter(QObject * obj, QEvent * event)
 {
     if (obj == m_picture && event->type() == QEvent::MouseButtonPress) {
-        emit pressed(this);
+        emit pressed();
 
         return true;
     }
@@ -139,6 +118,12 @@ void WallpaperItem::slideDown()
     if (m_downAnim->endValue().toPoint() != m_wrapper->pos()) {
         m_downAnim->start();
     }
+}
+
+QString WallpaperItem::getPath()
+{
+    QUrl url = QUrl::fromPercentEncoding(m_path.toUtf8());
+    return url.toLocalFile();
 }
 
 void WallpaperItem::thumbnailFinished()

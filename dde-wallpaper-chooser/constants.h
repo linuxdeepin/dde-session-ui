@@ -15,4 +15,8 @@ static const QString AppearancePath = "/com/deepin/daemon/Appearance";
 static const QString DeepinWMServ = "com.deepin.wm";
 static const QString DeepinWMPath = "/com/deepin/wm";
 
+static const QByteArray WallpaperSchemaId = "com.deepin.wrap.gnome.desktop.background";
+static const QByteArray WallpaperPath = "/com/deepin/wrap/gnome/desktop/background/";
+static const QString WallpaperKey = "pictureUri";
+
 #endif // CONSTANTS_H

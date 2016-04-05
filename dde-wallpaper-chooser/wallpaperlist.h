@@ -4,6 +4,7 @@
 #include <QListWidget>
 
 class WallpaperItem;
+class AppearanceDaemonInterface;
 class WallpaperList : public QListWidget
 {
 public:
@@ -14,8 +15,16 @@ public:
 protected:
     void wheelEvent(QWheelEvent *);
 
+private:
+    AppearanceDaemonInterface * m_dbusAppearance;
+
+    void setWallpaper(QString realPath);
+    void setLockScreen(QString realPath);
+
 private slots:
-    void wallpaperItemPressed(WallpaperItem *);
+    void wallpaperItemPressed();
+    void handleSetDesktop();
+    void handleSetDesktopLock();
 };
 
 #endif // WALLPAPERLIST_H
