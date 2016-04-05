@@ -3,6 +3,7 @@
 
 #include <QListWidget>
 
+class WallpaperItem;
 class WallpaperList : public QListWidget
 {
 public:
@@ -12,6 +13,9 @@ public:
 
 protected:
     void wheelEvent(QWheelEvent *);
+
+private slots:
+    void wallpaperItemPressed(WallpaperItem *);
 };
 
 #endif // WALLPAPERLIST_H

@@ -28,6 +28,8 @@ void WallpaperList::addWallpaper(const QString &path)
     WallpaperItem * wallpaper = new WallpaperItem(this, path);
     wallpaper->setFixedSize(item->sizeHint());
     setItemWidget(item, wallpaper);
+
+    connect(wallpaper, &WallpaperItem::pressed, this, &WallpaperList::wallpaperItemPressed);
 }
 
 void WallpaperList::wheelEvent(QWheelEvent * event)
@@ -41,4 +43,20 @@ void WallpaperList::wheelEvent(QWheelEvent * event)
     }
 
     event->accept();
+}
+
+void WallpaperList::wallpaperItemPressed(WallpaperItem * item)
+{
+    for (int i = 0; i < count(); i++) {
+        QListWidgetItem * ii = this->item(i);
+        WallpaperItem * wallpaper = qobject_cast<WallpaperItem*>(itemWidget(ii));
+
+        if (wallpaper) {
+            if (wallpaper == item) {
+                wallpaper->slideUp();
+            } else {
+                wallpaper->slideDown();
+            }
+        }
+    }
 }

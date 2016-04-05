@@ -3,6 +3,7 @@
 
 #include <QFrame>
 #include <QFutureWatcher>
+#include <QPropertyAnimation>
 
 class QLabel;
 class Button;
@@ -15,9 +16,11 @@ public:
 
     bool eventFilter(QObject *, QEvent *);
 
-signals:
     void slideUp();
     void slideDown();
+
+signals:
+    void pressed(WallpaperItem * item);
 
 public slots:
     void thumbnailFinished();
@@ -28,6 +31,8 @@ private:
     QLabel * m_picture = NULL;
     Button * m_desktopButton = NULL;
     Button * m_desktopLockButton = NULL;
+    QPropertyAnimation * m_upAnim = NULL;
+    QPropertyAnimation * m_downAnim = NULL;
 
     QFutureWatcher<QPixmap> * m_thumbnailerWatcher = NULL;
 

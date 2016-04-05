@@ -10,7 +10,6 @@
 #include <QUrl>
 #include <QDebug>
 #include <QVBoxLayout>
-#include <QPropertyAnimation>
 #include <QtConcurrent>
 
 WallpaperItem::WallpaperItem(QFrame *parent, const QString &path) :
@@ -65,17 +64,15 @@ void WallpaperItem::initUI()
 
 void WallpaperItem::initAnimation()
 {
-    QPropertyAnimation * upAnim = new QPropertyAnimation(m_wrapper, "pos");
-    upAnim->setDuration(300);
-    upAnim->setStartValue(QPoint(0, 0));
-    upAnim->setEndValue(QPoint(0, -ItemHeight));
+    m_upAnim = new QPropertyAnimation(m_wrapper, "pos");
+    m_upAnim->setDuration(300);
+    m_upAnim->setStartValue(QPoint(0, 0));
+    m_upAnim->setEndValue(QPoint(0, -ItemHeight));
 
-    QPropertyAnimation * downAnim = new QPropertyAnimation(m_wrapper, "pos");
-    downAnim->setDuration(300);
-    downAnim->setStartValue(QPoint(0, -ItemHeight));
-    downAnim->setEndValue(QPoint(0, 0));
-
-    connect(this, &WallpaperItem::slideUp, [upAnim] { upAnim->start(); });
+    m_downAnim = new QPropertyAnimation(m_wrapper, "pos");
+    m_downAnim->setDuration(300);
+    m_downAnim->setStartValue(QPoint(0, -ItemHeight));
+    m_downAnim->setEndValue(QPoint(0, 0));
 }
 
 void WallpaperItem::initPixmap()
@@ -122,12 +119,26 @@ void WallpaperItem::setLockScreen()
 bool WallpaperItem::eventFilter(QObject * obj, QEvent * event)
 {
     if (obj == m_picture && event->type() == QEvent::MouseButtonPress) {
-        emit slideUp();
+        emit pressed(this);
 
         return true;
     }
 
     return false;
+}
+
+void WallpaperItem::slideUp()
+{
+    if (m_upAnim->endValue().toPoint() != m_wrapper->pos()) {
+        m_upAnim->start();
+    }
+}
+
+void WallpaperItem::slideDown()
+{
+    if (m_downAnim->endValue().toPoint() != m_wrapper->pos()) {
+        m_downAnim->start();
+    }
 }
 
 void WallpaperItem::thumbnailFinished()
