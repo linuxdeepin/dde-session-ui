@@ -23,6 +23,11 @@ WallpaperItem::WallpaperItem(QFrame *parent, const QString &path) :
     connect(m_thumbnailerWatcher, &QFutureWatcher<QPixmap>::finished, this, &WallpaperItem::thumbnailFinished);
 }
 
+WallpaperItem::~WallpaperItem()
+{
+
+}
+
 void WallpaperItem::initUI()
 {
     setAttribute(Qt::WA_TranslucentBackground);

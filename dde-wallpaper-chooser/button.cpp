@@ -17,6 +17,11 @@ Button::Button(QWidget * parent) :
     setFixedSize(160, 36);
 }
 
+Button::~Button()
+{
+
+}
+
 void Button::setAttract(bool attract)
 {
     if (attract) {

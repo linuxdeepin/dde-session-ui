@@ -89,6 +89,10 @@ void Frame::initListView()
     }
 
     m_wallpaperList->setStyleSheet("QListWidget { background: transparent }");
+
+    connect(m_wallpaperList, &WallpaperList::wallpaperSet, [this] (QString path) {
+        m_formerWallpaper = path;
+    });
 }
 
 QStringList Frame::processListReply(QString &reply) const

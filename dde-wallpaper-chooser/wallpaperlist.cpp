@@ -24,6 +24,11 @@ WallpaperList::WallpaperList(QWidget * parent) :
     setAttribute(Qt::WA_TranslucentBackground);
 }
 
+WallpaperList::~WallpaperList()
+{
+
+}
+
 void WallpaperList::addWallpaper(const QString &path)
 {
     QListWidgetItem * item = new QListWidgetItem(this);
@@ -74,6 +79,9 @@ void WallpaperList::wallpaperItemPressed()
 
 void WallpaperList::handleSetDesktop()
 {
+    WallpaperItem * item = qobject_cast<WallpaperItem*>(sender());
+    emit wallpaperSet(item->getPath());
+
     qApp->quit();
 }
 
@@ -81,6 +89,7 @@ void WallpaperList::handleSetDesktopLock()
 {
     WallpaperItem * item = qobject_cast<WallpaperItem*>(sender());
     setLockScreen(item->getPath());
+    emit wallpaperSet(item->getPath());
 
     qApp->quit();
 }

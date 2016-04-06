@@ -7,10 +7,16 @@ class WallpaperItem;
 class AppearanceDaemonInterface;
 class WallpaperList : public QListWidget
 {
+    Q_OBJECT
+
 public:
     explicit WallpaperList(QWidget * parent = 0);
+    ~WallpaperList();
 
     void addWallpaper(const QString &path);
+
+signals:
+    void wallpaperSet(QString wallpaper);
 
 protected:
     void wheelEvent(QWheelEvent *);

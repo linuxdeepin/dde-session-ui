@@ -13,6 +13,7 @@ class WallpaperItem : public QFrame
     Q_OBJECT
 public:
     WallpaperItem(QFrame *parent = 0, const QString &path = "");
+    ~WallpaperItem();
 
     bool eventFilter(QObject *, QEvent *);
 

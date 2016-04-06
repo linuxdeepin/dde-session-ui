@@ -5,8 +5,10 @@
 
 class Button : public QPushButton
 {
+    Q_OBJECT
 public:
     Button(QWidget * parent = 0);
+    ~Button();
 
     void setAttract(bool);
 };
