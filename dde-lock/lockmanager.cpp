@@ -137,10 +137,11 @@ void LockManager::updateWidgetsPosition() {
 void LockManager::updateBackground(QString username)
 {
     qDebug() << "update background for user: " << username;
+    const QString defaultBackground("/usr/share/backgrounds/default_background.jpg");
 
     const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString background = settings.value("User/Background").toString();
-    qDebug() << "background item:" << background;
+    const QString background = settings.value("User/Background", defaultBackground).toString();
+
     if (!background.isEmpty()) {
         LockFrame * frame = qobject_cast<LockFrame*>(parent());
         frame->setBackground(background);

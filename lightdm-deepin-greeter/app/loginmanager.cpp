@@ -126,8 +126,10 @@ void LoginManager::updateWidgetsPosition()
 
 void LoginManager::updateBackground(QString username)
 {
+    const QString defaultBackground("/usr/share/backgrounds/default_background.jpg");
+
     const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString background = settings.value("User/GreeterBackground").toString();
+    const QString background = settings.value("User/GreeterBackground", defaultBackground).toString();
 
     if (!background.isEmpty()) {
         LoginFrame * frame = qobject_cast<LoginFrame*>(parent());

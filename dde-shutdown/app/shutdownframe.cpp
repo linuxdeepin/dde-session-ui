@@ -52,9 +52,11 @@ void ShutdownFrame::initShutdownManager()
 
 void ShutdownFrame::initBackground()
 {
+    const QString defaultBackground("/usr/share/backgrounds/default_background.jpg");
+
     const QString username = qgetenv("USER");
     const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString background = settings.value("User/Background").toString();
+    const QString background = settings.value("User/Background", defaultBackground).toString();
 
     qDebug() << "user:" << qgetenv("USER") << " background: " << background;
 
