@@ -41,9 +41,9 @@ int main(int argc, char* argv[])
     DCCInter->deleteLater();
     const bool quit = !app.setSingleInstance(QString("dde-lock_%1").arg(getuid()));
 
+#ifdef LOCK_NO_QUIT
     QCommandLineParser cmdParser;
     cmdParser.addHelpOption();
-
     cmdParser.addVersionOption();
 
 
@@ -80,5 +80,20 @@ int main(int argc, char* argv[])
         lockFrame.show();
     }
     app.exec();
+#else
+    if(QDBusConnection::sessionBus().registerService(DBUS_NAME)){
+            qDebug() << "DBUS_NAME:" << DBUS_NAME;
+
+            LockFrame lf;
+            lf.show();
+            lf.grabKeyboard();
+
+            return app.exec();
+        } else {
+            qWarning() << "lockFront is running...";
+            return 0;
+        }
+#endif
+
 
 }

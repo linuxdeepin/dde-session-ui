@@ -30,10 +30,17 @@ class LockFrame: public BoxFrame
 public:
     LockFrame(QWidget* parent=0);
     ~LockFrame();
+
 public slots:
     void updateScreenPosition(QRect rect);
+#ifdef LOCK_NO_QUIT
+    void hideFrame();
+#endif
 protected:
     void keyPressEvent(QKeyEvent *e);
+#ifdef LOCK_NO_QUIT
+    void showEvent(QShowEvent *);
+#endif
 private:
     LockManager* m_lockManager;
 };

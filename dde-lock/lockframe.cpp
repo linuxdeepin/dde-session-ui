@@ -34,6 +34,9 @@ LockFrame::LockFrame(QWidget* parent)
     }
 
     connect(m_lockManager, &LockManager::screenChanged, this, &LockFrame::updateScreenPosition);
+#ifdef LOCK_NO_QUIT
+    connect(m_lockManager, &LockManager::checkedHide, this, &LockFrame::hideFrame);
+#endif
 }
 
 void LockFrame::updateScreenPosition(QRect rect) {
@@ -44,6 +47,16 @@ void LockFrame::updateScreenPosition(QRect rect) {
     m_lockManager->updateWidgetsPosition();
     qDebug() << "m_loginManager:" << m_lockManager->geometry();
 }
+#ifdef LOCK_NO_QUIT
+void LockFrame::hideFrame() {
+    this->hide();
+}
+
+void LockFrame::showEvent(QShowEvent *) {
+    this->raise();
+    this->activateWindow();
+}
+#endif
 
 void LockFrame::keyPressEvent(QKeyEvent *e) {
     Q_UNUSED(e);

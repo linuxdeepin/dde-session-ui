@@ -20,6 +20,7 @@
 
 #include "lockmanager.h"
 #include "lockframe.h"
+#include "dbus/dbuslockfront.h"
 
 LockManager::LockManager(QWidget* parent)
     : QFrame(parent)
@@ -246,6 +247,7 @@ void LockManager::unlock()
     if (result.error().type() != QDBusError::NoError || !result.value())
     {
         // Auth fail
+        qDebug() << "auth failed!";
         m_userWidget->hideLoadingAni();
         m_passwordEdit->setAlert(true, tr("Wrong Password"));
 
@@ -260,7 +262,14 @@ void LockManager::unlock()
     case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
     default: break;
     }
+
+#ifdef LOCK_NO_QUIT
+    m_userWidget->hideLoadingAni();
+    m_passwordEdit->clearText();
+    emit checkedHide();
+#else
     qApp->exit();
+#endif
 }
 
 void LockManager::initBackend() {
