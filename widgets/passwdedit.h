@@ -52,6 +52,9 @@ signals:
 
 public slots:
     QString getText();
+#ifdef LOCK_NO_QUIT
+    void clearText();
+#endif
     void setEnterBtnStyle(const QString &normalPic, const QString &hoverPic, const QString &pressedPic);
 
 #ifndef SHENWEI_PLATFORM

@@ -20,6 +20,7 @@
 
 #include "lockmanager.h"
 #include "lockframe.h"
+#include "dbus/dbuslockfront.h"
 
 LockManager::LockManager(QWidget* parent)
     : QFrame(parent)
@@ -114,11 +115,11 @@ void LockManager::initUI() {
     updateWidgetsPosition();
     updateStyle(":/skin/lock.qss", this);
 
-    updateBackground(m_userWidget->currentUser());
-
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
     qDebug() << "DBusLockService" << m_lockInter->IsLiveCD(m_userWidget->currentUser());
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
+    connect(m_userWidget, &UserWidget::userChanged, this, &LockManager::updateBackground);
+    updateBackground(m_userWidget->currentUser());
 }
 
 void LockManager::updateWidgetsPosition() {
@@ -136,8 +137,11 @@ void LockManager::updateWidgetsPosition() {
 
 void LockManager::updateBackground(QString username)
 {
+    qDebug() << "update background for user: " << username;
+    const QString defaultBackground("/usr/share/backgrounds/default_background.jpg");
+
     const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString background = settings.value("User/GreeterBackground").toString();
+    const QString background = settings.value("User/Background", defaultBackground).toString();
 
     if (!background.isEmpty()) {
         LockFrame * frame = qobject_cast<LockFrame*>(parent());
@@ -243,6 +247,7 @@ void LockManager::unlock()
     if (result.error().type() != QDBusError::NoError || !result.value())
     {
         // Auth fail
+        qDebug() << "auth failed!";
         m_userWidget->hideLoadingAni();
         m_passwordEdit->setAlert(true, tr("Wrong Password"));
 
@@ -257,7 +262,14 @@ void LockManager::unlock()
     case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
     default: break;
     }
+
+#ifdef LOCK_NO_QUIT
+    m_userWidget->hideLoadingAni();
+    m_passwordEdit->clearText();
+    emit checkedHide();
+#else
     qApp->exit();
+#endif
 }
 
 void LockManager::initBackend() {

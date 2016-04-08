@@ -22,11 +22,6 @@ ShutdownFrame::ShutdownFrame(QWidget *parent)
 
     initShutdownManager();
     initBackground();
-
-    ShutdownFrontDBus* shutdownFrontDBus = new ShutdownFrontDBus(this);
-    QDBusConnection::sessionBus().registerObject(DBUS_PATH, this);
-
-    qDebug() << "RegistshutdownFrontDBus" << shutdownFrontDBus->result();
 }
 
 void ShutdownFrame::updateScreenPosition() {
@@ -57,9 +52,11 @@ void ShutdownFrame::initShutdownManager()
 
 void ShutdownFrame::initBackground()
 {
+    const QString defaultBackground("/usr/share/backgrounds/default_background.jpg");
+
     const QString username = qgetenv("USER");
     const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString background = settings.value("User/Background").toString();
+    const QString background = settings.value("User/Background", defaultBackground).toString();
 
     qDebug() << "user:" << qgetenv("USER") << " background: " << background;
 
@@ -76,15 +73,19 @@ ShutdownFrontDBus::ShutdownFrontDBus(ShutdownFrame *parent):
     QDBusAbstractAdaptor(parent),
     m_parent(parent)
 {
-    qDebug() << "DBUS_PATH" << DBUS_PATH;
 }
 
 ShutdownFrontDBus::~ShutdownFrontDBus()
 {
-
 }
 
-qulonglong ShutdownFrontDBus::result()
+void ShutdownFrontDBus::Ping()
 {
-    return 0;
+}
+
+void ShutdownFrontDBus::Show()
+{
+    if (m_parent) {
+        m_parent->show();
+    }
 }

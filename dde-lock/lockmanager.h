@@ -49,7 +49,9 @@ public:
     void updateUI();
 signals:
     void screenChanged(QRect rect);
-
+#ifdef LOCK_NO_QUIT
+    void checkedHide();
+#endif
 public slots:
     void setCurrentKeyboardLayout(QString keyboard_value);
     void passwordMode();
@@ -60,7 +62,6 @@ public slots:
     void keybdLayoutWidgetPosit();
     void leftKeyPressed();
     void rightKeyPressed();
-
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
@@ -92,6 +93,8 @@ private:
     DBusMediaPlayer2 *m_mprisInter = nullptr;
     DBusHotzone* m_hotZoneInterface;
     int m_keybdLayoutItemIndex;
+
+
 };
 
 #endif // LOCKMANAGER_H

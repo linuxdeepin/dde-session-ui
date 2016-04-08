@@ -311,6 +311,12 @@ QString PassWdEdit::getText()
     return m_lineEdit->text();
 }
 
+#ifdef LOCK_NO_QUIT
+void PassWdEdit::clearText() {
+    m_lineEdit->clear();
+}
+#endif
+
 void PassWdEdit::setEnterBtnStyle(const QString &normalPic, const QString &hoverPic, const QString &pressedPic)
 {
     m_iconButton->setNormalPic(normalPic);

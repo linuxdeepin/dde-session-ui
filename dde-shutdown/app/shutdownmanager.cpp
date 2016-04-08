@@ -72,19 +72,23 @@ void ShutdownManager::initUI() {
     }
 
     setLayout(m_Layout);
-    showFullScreen();
-    activateWindow();
-
-//    m_getFocusTimer = new QTimer(this);
-//    m_getFocusTimer->setInterval(100);
-//    m_getFocusTimer->start();
-//    connect(m_getFocusTimer,  &QTimer::timeout, this, &ShutdownManager::shutDownFrameGrabKeyboard);
 }
 
-bool ShutdownManager::event(QEvent *e)
+void ShutdownManager::showEvent(QShowEvent *e)
 {
-    grabKeyboard();
-    return QWidget::event(e);
+    if (!m_getFocusTimer) { m_getFocusTimer = new QTimer(this); }
+    m_getFocusTimer->setInterval(100);
+    m_getFocusTimer->start();
+    connect(m_getFocusTimer,  &QTimer::timeout, this, &ShutdownManager::grabKeyboard);
+
+    QWidget::showEvent(e);
+}
+
+void ShutdownManager::hideEvent(QHideEvent *e)
+{
+    releaseKeyboard();
+
+    QWidget::hideEvent(e);
 }
 
 void ShutdownManager::initData() {
@@ -103,7 +107,22 @@ void ShutdownManager::switchToGreeter()
     QProcess *process = new QProcess;
     connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
     process->start("dde-switchtogreeter");
+
+    hideToplevelWindow();
+}
+
+void ShutdownManager::hideToplevelWindow()
+{
+#ifdef SHUTDOWN_NO_QUIT
+    QWidgetList widgets = qApp->topLevelWidgets();
+    for (QWidget * widget : widgets) {
+        if (widget->isVisible()) {
+            widget->hide();
+        }
+    }
+#else
     qApp->quit();
+#endif
 }
 
 void ShutdownManager::powerAction(const ShutDownFrame::Actions action)
@@ -119,7 +138,7 @@ void ShutdownManager::powerAction(const ShutDownFrame::Actions action)
     default:                            qWarning() << "action: " << action << " not handled";
     }
 
-    qApp->quit();
+    hideToplevelWindow();
 }
 
 void ShutdownManager::hideBtns(const QStringList &btnsName)
@@ -137,7 +156,7 @@ void ShutdownManager::keyPressEvent(QKeyEvent* e)
 
     switch (e->key())
     {
-    case Qt::Key_Escape:        qApp->quit();  m_hotZoneInterface->EnableZoneDetected(true);  break; // must break;
+    case Qt::Key_Escape:        hideToplevelWindow();  m_hotZoneInterface->EnableZoneDetected(true);  break; // must break;
     case Qt::Key_Return:        /* same as enter */
     case Qt::Key_Enter:         emit pressEnter();              break;
     case Qt::Key_Left:          emit DirectKeyLeft();           break;
@@ -148,7 +167,7 @@ void ShutdownManager::keyPressEvent(QKeyEvent* e)
 void ShutdownManager::mouseReleaseEvent(QMouseEvent* e)
 {
     if (e->button() == Qt::LeftButton) {
-        qApp->quit();
+        hideToplevelWindow();
     }
 }
 
