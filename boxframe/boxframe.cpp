@@ -59,11 +59,16 @@ BoxFrame::~BoxFrame()
 {
 }
 
+// Message for maintainers: DON'T use QSS to set the background !
+
+// This function takes ~2ms by setting QSS to set backgrounds, but causes show() of
+// ShutdownFrame takes ~260ms to complete. On the other hand, this function takes
+// ~130ms by setting pixmap, yet takes only ~12ms to complete the show() of ShutdownFrame.
+// It'll be more obvious on dual screens environment.
 void BoxFrame::setBackground(const QString &url)
 {
     static const QString objName("GreeterBackground");
-
-    setStyleSheet(QString("QFrame #BoxFrame {background-image:url(%1);}").arg(url));
+    QPixmap pix(url);
 
     QList<QLabel*> labels = findChildren<QLabel*>(objName);
     if (labels.isEmpty()) {
@@ -72,18 +77,15 @@ void BoxFrame::setBackground(const QString &url)
             const QRect rect = screenList[i]->geometry();
 
             QLabel* m_background = new QLabel(this);
-            m_background->setObjectName("GreeterBackground");
-            m_background->setStyleSheet(QString("border-image:url(%1)").arg(url));
+            m_background->setObjectName(objName);
             m_background->setFixedSize(rect.size());
-            qDebug() << "setFixSizeBackgroundSize:" << m_background->size() << url;
+            m_background->setPixmap(pix.scaled(rect.size(), Qt::KeepAspectRatioByExpanding));
             m_background->move(rect.x(), rect.y());
             m_background->lower();
-            qDebug() << "QLable backgroundGemoetry" << m_background->geometry();
-
         }
     } else {
         foreach (QLabel * label, labels) {
-            label->setStyleSheet(QString("border-image:url(%1)").arg(url));
+            label->setPixmap(pix.scaled(label->size(), Qt::KeepAspectRatioByExpanding));
         }
     }
 }
