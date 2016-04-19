@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     wallpaperitem.cpp \
     thumbnailmanager.cpp \
     button.cpp \
-    dbus/deepin_wm.cpp
+    dbus/deepin_wm.cpp \
+    dbus/dbusxmousearea.cpp
 
 HEADERS  += frame.h \
     dbus/appearancedaemon_interface.h \
@@ -29,10 +30,14 @@ HEADERS  += frame.h \
     constants.h \
     thumbnailmanager.h \
     button.h \
-    dbus/deepin_wm.h
+    dbus/deepin_wm.h \
+    dbus/dbusxmousearea.h
 
 RESOURCES += \
     images.qrc
 
 target.path = /usr/lib/deepin-daemon/
 INSTALLS += target
+
+DISTFILES += \
+    dbus/com.deepin.wm.xml

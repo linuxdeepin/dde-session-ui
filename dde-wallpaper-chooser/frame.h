@@ -8,6 +8,7 @@ class WallpaperList;
 class WallpaperListView;
 class AppearanceDaemonInterface;
 class DeepinWM;
+class DBusXMouseArea;
 class Frame : public QFrame
 {
     Q_OBJECT
@@ -26,8 +27,10 @@ private:
     AppearanceDaemonInterface * m_dbusAppearance = NULL;
     DeepinWM * m_dbusDeepinWM = NULL;
     QGSettings * m_gsettings = NULL;
+    DBusXMouseArea * m_dbusMouseArea = NULL;
 
     QString m_formerWallpaper;
+    QString m_mouseAreaKey;
 
     void initSize();
     void initListView();

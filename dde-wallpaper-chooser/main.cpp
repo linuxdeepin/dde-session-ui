@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 
     Frame w;
     w.show();
+    w.grabKeyboard();
 
     return a.exec();
 }

@@ -3,6 +3,7 @@
 #include "wallpaperlist.h"
 #include "dbus/appearancedaemon_interface.h"
 #include "dbus/deepin_wm.h"
+#include "dbus/dbusxmousearea.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -18,7 +19,11 @@ Frame::Frame(QFrame *parent)
                                                      AppearancePath,
                                                      QDBusConnection::sessionBus(),
                                                      this)),
-      m_dbusDeepinWM(new DeepinWM(DeepinWMServ, DeepinWMPath, QDBusConnection::sessionBus(), this)),
+      m_dbusDeepinWM(new DeepinWM(DeepinWMServ,
+                                  DeepinWMPath,
+                                  QDBusConnection::sessionBus(),
+                                  this)),
+      m_dbusMouseArea(new DBusXMouseArea(this)),
       m_gsettings(new QGSettings(WallpaperSchemaId, WallpaperPath, this))
 {
     setFocusPolicy(Qt::StrongFocus);
@@ -29,12 +34,19 @@ Frame::Frame(QFrame *parent)
     initListView();
 
     m_formerWallpaper = m_gsettings->get(WallpaperKey).toString();
+
+    connect(m_dbusMouseArea, &DBusXMouseArea::ButtonRelease, [this](int, int x, int y){
+        if (!rect().contains(x - this->x(), y - this->y())) {
+            qApp->quit();
+        }
+    });
 }
 
 Frame::~Frame()
 {
     restoreWallpaper();
     m_dbusDeepinWM->CancelHideWindows();
+    m_dbusMouseArea->UnregisterArea(m_mouseAreaKey);
 }
 
 void Frame::paintEvent(QPaintEvent *)
@@ -50,6 +62,7 @@ void Frame::paintEvent(QPaintEvent *)
 void Frame::showEvent(QShowEvent * event)
 {
     m_dbusDeepinWM->RequestHideWindows();
+    m_mouseAreaKey = m_dbusMouseArea->RegisterFullScreen();
 
     activateWindow();
 
