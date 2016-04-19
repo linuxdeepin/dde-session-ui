@@ -37,7 +37,7 @@ private:
     const QString CONTROL_CENTER_FROM_LEFT_STR = "dbus-send --print-reply --dest=com.deepin.dde.ControlCenter /com/deepin/dde/ControlCenter com.deepin.dde.ControlCenter.ToggleInLeft";
     const QString CONTROL_CENTER_FROM_RIGHT_STR = "dbus-send --print-reply --dest=com.deepin.dde.ControlCenter /com/deepin/dde/ControlCenter com.deepin.dde.ControlCenter.Toggle";
     const QString ALL_WINDOWS_STR = "dbus-send --session --dest=com.deepin.wm --print-reply /com/deepin/wm com.deepin.wm.PerformAction int32:6";
-    const QString LAUNCHER_STR = "/usr/bin/dde-launcher";
+    const QString LAUNCHER_STR = "dbus-send --print-reply --dest=com.deepin.dde.Launcher /com/deepin/dde/Launcher com.deepin.dde.Launcher.Toggle";
     const QString SHOW_DESKTOP_STR = "/usr/lib/deepin-daemon/desktop-toggle";
     const QString NONE_STR = "";
 
