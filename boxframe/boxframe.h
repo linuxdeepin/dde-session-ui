@@ -36,6 +36,8 @@ signals:
 protected:
     void resizeEvent(QResizeEvent *e);
     void keyPressEvent(QKeyEvent *e);
+private:
+    const QString DEFAULT_BACKGROUND = "/usr/share/backgrounds/default_background.jpg";
 };
 
 #endif // BOXFRAME_H

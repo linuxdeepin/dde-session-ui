@@ -69,7 +69,9 @@ void BoxFrame::setBackground(const QString &url)
 {
     static const QString objName("GreeterBackground");
     QPixmap pix(url);
-
+    if (pix.isNull()) {
+        pix.load(DEFAULT_BACKGROUND);
+    }
     QList<QLabel*> labels = findChildren<QLabel*>(objName);
     if (labels.isEmpty()) {
         QList<QScreen *> screenList = qApp->screens();
