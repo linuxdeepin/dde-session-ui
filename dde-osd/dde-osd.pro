@@ -37,3 +37,7 @@ RESOURCES += \
 
 target.path = /usr/lib/deepin-daemon/
 INSTALLS   += target
+
+service_file.path = /usr/share/dbus-1/services/
+service_file.files = com.deepin.dde.osd.service
+INSTALLS += service_file

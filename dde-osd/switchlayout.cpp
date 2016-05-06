@@ -14,7 +14,8 @@ SwitchLayout::SwitchLayout(QWidget *parent) : QWidget(parent)
     initGlobalVar(parent);
 }
 
-void SwitchLayout::initGlobalVar(QWidget *parent){
+void SwitchLayout::initGlobalVar(QWidget *parent)
+{
     m_ParentItem = parent;
 
     m_LayoutInterface = new LayoutDbus("com.deepin.daemon.InputDevices",
@@ -26,23 +27,28 @@ void SwitchLayout::initGlobalVar(QWidget *parent){
     m_KeyboardList = m_LayoutInterface->userLayoutList();
 }
 
-void SwitchLayout::deleteOsd(){
-    m_ParentItem->deleteLater();
+void SwitchLayout::deleteOsd()
+{
+    m_ParentItem->hide();
 }
 
-void SwitchLayout::hideLayout(){
+void SwitchLayout::hideLayout()
+{
     m_ListWidget->setVisible(false);
 }
 
-void SwitchLayout::showLayout(){
+void SwitchLayout::showLayout()
+{
     m_ListWidget->setVisible(true);
 }
 
-int SwitchLayout::layoutCount(){
+int SwitchLayout::layoutCount()
+{
     return m_KeyboardList.length();
 }
 
-void SwitchLayout::setKeyboard(){
+void SwitchLayout::setKeyboard()
+{
     m_LayoutInterface->setCurrentLayout(m_KeyboardList[m_CurrentIndexOfKeyBoard]);
 }
 
@@ -56,9 +62,17 @@ void SwitchLayout::loadSwitchLayout()
 
         initKeyboard();
     } else {
+        qDebug() << "hide parent";
         // if user's keyboard layout(s) just contain(s) 1 kind, quit the app immediately
+        hide();
         deleteOsd();
     }
+}
+
+bool SwitchLayout::isPanelVailed()
+{
+    m_KeyboardList = m_LayoutInterface->userLayoutList();
+    return m_KeyboardList.length() > 1;
 }
 
 void SwitchLayout::calculateKeyboardSize()
@@ -83,7 +97,8 @@ void SwitchLayout::calculateKeyboardSize()
     }
 }
 
-void SwitchLayout::resizeParent(){
+void SwitchLayout::resizeParent()
+{
     m_ParentItem->resize(m_MaxTextWidth + LAYOUT_MARGIN * 4, m_KeyboradLayoutHeight + LAYOUT_MARGIN * 2);
 }
 
@@ -98,7 +113,8 @@ void SwitchLayout::initKeyboard()
     addAnimation();
 }
 
-void SwitchLayout::initListWidget(){
+void SwitchLayout::initListWidget()
+{
     m_ListWidget->setVisible(true);
 
     // variable "size" is the size of QListWidgetItem* item and QWidget* customItem
@@ -118,7 +134,8 @@ void SwitchLayout::initListWidget(){
 
 }
 
-void SwitchLayout::fillListWidget(){
+void SwitchLayout::fillListWidget()
+{
     for (int i = 0, length = m_KeyboardList.length(); i < length; i++) {
         QListWidgetItem *item = new QListWidgetItem;
         // setFlags(Qt::NoItemFlags) can remove the default highlight
@@ -151,7 +168,8 @@ void SwitchLayout::fillListWidget(){
     m_HBoxLayout->addWidget(m_ListWidget);
 }
 
-void SwitchLayout::addAnimation(){
+void SwitchLayout::addAnimation()
+{
     // make sure that the highlighted item can be displayed in view after app startss
     m_ListWidget->scrollToItem(m_ListWidget->item(m_CurrentIndexOfKeyBoard));
     // the following codes are about animation
@@ -161,7 +179,7 @@ void SwitchLayout::addAnimation(){
 
     // when currentrow changes, check if new_contentY is different from contentY. If different,m_animation should start
     connect(m_ListWidget, &QListWidget::currentRowChanged,
-            this, [this] {
+    this, [this] {
         int new_contentY = m_ListWidget->itemWidget(m_ListWidget->item(0))->y();
         if (new_contentY != contentY  && m_KeyboardList.length() > 5)
         {
@@ -190,7 +208,8 @@ void SwitchLayout::highlightNextLayout()
     reHiglightKeyboard();
 }
 
-void SwitchLayout::reAlignCurrentIndex(){
+void SwitchLayout::reAlignCurrentIndex()
+{
     if (m_CurrentIndexOfKeyBoard == m_KeyboardList.length() - 1) {
         m_CurrentIndexOfKeyBoard = 0;
 

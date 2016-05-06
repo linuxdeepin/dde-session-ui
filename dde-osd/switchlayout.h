@@ -24,6 +24,8 @@ class SwitchLayout : public QWidget
 public:
     explicit SwitchLayout(QWidget *parent = 0);
 
+    bool isPanelVailed();
+
     void setKeyboard();
     void loadSwitchLayout();
     void highlightNextLayout();
@@ -43,10 +45,10 @@ private:
     void addAnimation();
     void reAlignCurrentIndex();
 
-    LayoutDbus* m_LayoutInterface;
-    QListWidget* m_ListWidget;
-    QWidget* m_ParentItem;
-    QHBoxLayout* m_HBoxLayout;
+    LayoutDbus *m_LayoutInterface;
+    QListWidget *m_ListWidget;
+    QWidget *m_ParentItem;
+    QHBoxLayout *m_HBoxLayout;
     QVariantAnimation *m_Animation;
     QFont m_f;
     QSize size;

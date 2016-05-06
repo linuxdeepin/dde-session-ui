@@ -23,6 +23,8 @@ class SwitchMonitor : public QWidget
 public:
     explicit SwitchMonitor(QWidget *parent = 0);
 
+    bool isPanelVailed();
+
     void setMonitorMode();
     void loadSwitchMonitors();
     void highlightNextMonitor();

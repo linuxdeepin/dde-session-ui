@@ -10,14 +10,15 @@
 #include "switchmonitor.h"
 
 extern QString getThemeIconPath(QString iconName);
-extern void showThemeImage(QString iconName, QSvgWidget* svgLoader, QLabel* notSvgLoader);
+extern void showThemeImage(QString iconName, QSvgWidget *svgLoader, QLabel *notSvgLoader);
 
 SwitchMonitor::SwitchMonitor(QWidget *parent) : QWidget(parent)
 {
     initGlobalVars(parent);
 }
 
-void SwitchMonitor::initGlobalVars(QWidget *parent){
+void SwitchMonitor::initGlobalVars(QWidget *parent)
+{
     m_DisplayInterface = new DisplayDbus("com.deepin.daemon.Display",
                                          "/com/deepin/daemon/Display",
                                          QDBusConnection::sessionBus(), this);
@@ -40,17 +41,20 @@ void SwitchMonitor::initGlobalVars(QWidget *parent){
     }
 }
 
-double SwitchMonitor::getBrightness(){
+double SwitchMonitor::getBrightness()
+{
 
     const QString primaryScreen = m_DisplayInterface->primary();
 
-    if (primaryScreen.contains("="))
+    if (primaryScreen.contains("=")) {
         return m_DisplayInterface->brightness()[primaryScreen.split('=').first()];
-    else
+    } else {
         return m_DisplayInterface->brightness()[primaryScreen];
+    }
 }
 
-void SwitchMonitor::setMonitorMode(){
+void SwitchMonitor::setMonitorMode()
+{
     if (m_CurrentIndexOfMonitorItem == 0) {
         // switch to duplicate mode
         m_DisplayInterface->SwitchMode(1, "");
@@ -63,11 +67,13 @@ void SwitchMonitor::setMonitorMode(){
     }
 }
 
-void SwitchMonitor::hideMonitors(){
+void SwitchMonitor::hideMonitors()
+{
     m_MonitersWrapper->setVisible(false);
 }
 
-void SwitchMonitor::showMonitors(){
+void SwitchMonitor::showMonitors()
+{
     m_MonitersWrapper->setVisible(true);
 }
 
@@ -83,21 +89,32 @@ void SwitchMonitor::loadSwitchMonitors()
         initScreenMode();
     } else {
         // if just 1 screen , quit the app immediately
+        hide();
         deleteOsd();
     }
 }
 
-void SwitchMonitor::deleteOsd(){
-    m_ParentItem->deleteLater();
+void SwitchMonitor::deleteOsd()
+{
+    m_ParentItem->hide();
 }
 
-void SwitchMonitor::getAllMonitors(){
+bool SwitchMonitor::isPanelVailed()
+{
+    getAllMonitors();
+    return m_ScreenList.length() > 1;
+}
+
+void SwitchMonitor::getAllMonitors()
+{
     // get the list of all screens by using QString's method "split"
     QString screenNamesStr = (QString)m_DisplayInterface->QueryCurrentPlanName();
+    qDebug() << "getAllMonitors" << screenNamesStr;
     m_ScreenList = screenNamesStr.split(",");
 }
 
-void SwitchMonitor::resizeParent(){
+void SwitchMonitor::resizeParent()
+{
     m_ParentItem->resize(BASE_SIZE * (m_ScreenList.length() + 2), BASE_SIZE);
 }
 
@@ -112,12 +129,14 @@ void SwitchMonitor::initMonitorItems()
     initOneScreenMode();
 }
 
-void SwitchMonitor::resizeMonitor(){
+void SwitchMonitor::resizeMonitor()
+{
     m_MonitersWrapper->setVisible(true);
     m_MonitersWrapper->resize(m_ParentItem->size());
 }
 
-void SwitchMonitor::initDuplicateMode(){
+void SwitchMonitor::initDuplicateMode()
+{
     // for duplicate mode
     QWidget *duplicateScreenItem = new QWidget(m_MonitersWrapper);
     QVBoxLayout *vLayoutOfDuplicateScreen = new QVBoxLayout(duplicateScreenItem);
@@ -125,7 +144,7 @@ void SwitchMonitor::initDuplicateMode(){
     m_DuplicateScreenImageSvg = new QSvgWidget(duplicateScreenItem);
     m_DuplicateScreenImageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
     m_DuplicateScreenImageLabel = new QLabel(duplicateScreenItem);
-    m_DuplicateScreenImageLabel->setFixedSize(IMAGE_SIZE,IMAGE_SIZE);
+    m_DuplicateScreenImageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
     showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
     // text label for duplicate mode
     m_DuplicateScreenText = new QLabel(duplicateScreenItem);
@@ -133,9 +152,9 @@ void SwitchMonitor::initDuplicateMode(){
     m_DuplicateScreenText->setAlignment(Qt::AlignCenter);
     m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     // add above 2 widgets
-    if(getThemeIconPath("project_screen-duplicate-symbolic").endsWith(".svg")){
+    if (getThemeIconPath("project_screen-duplicate-symbolic").endsWith(".svg")) {
         vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenImageSvg, 0, Qt::AlignHCenter);
-    }else{
+    } else {
         vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenImageLabel, 0, Qt::AlignHCenter);
     }
     vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenText, 0, Qt::AlignHCenter);
@@ -143,7 +162,8 @@ void SwitchMonitor::initDuplicateMode(){
     m_HBoxLayout->addWidget(duplicateScreenItem);
 }
 
-void SwitchMonitor::initExtendMode(){
+void SwitchMonitor::initExtendMode()
+{
     // for expanded mode
     QWidget *expandedScreenItem = new QWidget(m_MonitersWrapper);
     QVBoxLayout *vLayoutOfExpandedScreen = new QVBoxLayout(expandedScreenItem);
@@ -159,9 +179,9 @@ void SwitchMonitor::initExtendMode(){
     m_ExpandedScreenText->setAlignment(Qt::AlignCenter);
     m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     // add above 2 widgets
-    if(getThemeIconPath("project_screen-extend-symbolic").endsWith(".svg")){
+    if (getThemeIconPath("project_screen-extend-symbolic").endsWith(".svg")) {
         vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenImageSvg, 0, Qt::AlignHCenter);
-    }else{
+    } else {
         vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenImageLabel, 0, Qt::AlignHCenter);
     }
     vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenText, 0, Qt::AlignHCenter);
@@ -169,7 +189,8 @@ void SwitchMonitor::initExtendMode(){
     m_HBoxLayout->addWidget(expandedScreenItem);
 }
 
-void SwitchMonitor::initOneScreenMode(){
+void SwitchMonitor::initOneScreenMode()
+{
     // for one-screen mode
     for (int i = 0, length = m_ScreenList.length(); i < length; i++) {
         // one-screen mode item
@@ -178,7 +199,7 @@ void SwitchMonitor::initOneScreenMode(){
         // image label for one-screen mode
         QSvgWidget *imageSvg = new QSvgWidget(item);
         imageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-        QLabel* imageLabel = new QLabel(item);
+        QLabel *imageLabel = new QLabel(item);
         imageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
         showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic"), imageSvg, imageLabel);
         // text label for one-screen mode
@@ -191,9 +212,9 @@ void SwitchMonitor::initOneScreenMode(){
         m_ImageLabelList << imageLabel;
         m_TextLabelList << textLabel;
         // add above 2 widgets
-        if(getThemeIconPath("project_screen-onlyone-symbolic").endsWith(".svg")){
+        if (getThemeIconPath("project_screen-onlyone-symbolic").endsWith(".svg")) {
             vLayout->addWidget(imageSvg, 0, Qt::AlignHCenter);
-        }else{
+        } else {
             vLayout->addWidget(imageLabel, 0, Qt::AlignHCenter);
         }
         vLayout->addWidget(textLabel, 0, Qt::AlignHCenter);
@@ -240,7 +261,8 @@ void SwitchMonitor::highlightNextMonitor()
     reHighlightMonitor();
 }
 
-void SwitchMonitor::reAlignCurrentIndex(){
+void SwitchMonitor::reAlignCurrentIndex()
+{
     if (m_CurrentIndexOfMonitorItem < (m_ScreenList.length() + 1)) {
         ++m_CurrentIndexOfMonitorItem;
     } else {

@@ -20,6 +20,28 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
+class OsdOption: public QCommandLineOption
+{
+public:
+    OsdOption(const QString &name,
+              const QString &imageName = QString(),
+              const QString &text = QString()) :
+        QCommandLineOption(name, "\tOSD " + name), m_imageName(imageName), m_text(text)
+    {
+
+    }
+
+    QString imageName() const {return m_imageName;}
+    QString text() const {return m_text;}
+
+private:
+    QString m_imageName;
+    QString m_text;
+
+};
+
+class Osd;
+
 class Osd : public QWidget
 {
     Q_OBJECT
@@ -28,27 +50,29 @@ public:
     Osd(QWidget *parent = 0);
     ~Osd();
 
-    Q_SLOT void loadBasicNormal(QString whichImage);
-    Q_SLOT void loadAdditionalNormal(QString imageName);
-    Q_SLOT void loadSwitchLayout();
-    Q_SLOT void highlightNextLayout();
-    Q_SLOT void highlightCurrentLayout();
-    Q_SLOT void loadSwitchMonitors();
-    Q_SLOT void highlightNextMonitor();
-    Q_SLOT void highlightCurrentMonitor();
-    Q_SLOT void tailInWork();
-    Q_SLOT int lastAppMode();
-    Q_SLOT bool getLayoutStatus();
-    Q_SLOT bool getMonitorStatus();
-    Q_SLOT void cancelNormalText();
-    Q_SLOT void showNormalText(QString text);
+    void showOSD();
+    void dbusShowOSD();
 
-    void addCmdImage(QString cmdString, QString imageName);
-    void addCmdImageWithText(QString cmdString, QString imageName, QString text);
-    bool handleBasicCmd();
-    bool handleAdditionalCmd();
-    bool handleAdditionalCmdWithText();
+public:
+    void loadBasicNormal(QString whichImage);
+    void loadAdditionalNormal(QString imageName);
+    void loadSwitchLayout();
+    void highlightNextLayout();
+    void highlightCurrentLayout();
+    void loadSwitchMonitors();
+    void highlightNextMonitor();
+    void highlightCurrentMonitor();
+    void tailInWork();
+    int lastAppMode();
+    bool getLayoutStatus();
+    bool getMonitorStatus();
+    void cancelNormalText();
+    void showNormalText(QString text);
+
     void processParser();
+    void processParser(const QStringList &args);
+
+    void delayAction();
 
 private:
     void initGlobalVars();
@@ -61,11 +85,11 @@ private:
 
     void paintEvent(QPaintEvent *e);
 
-    SwitchNormal* m_SwitchNormal;
-    SwitchLayout* m_SwitchLayout;
-    SwitchMonitor* m_SwitchMonitor;
+    SwitchNormal *m_SwitchNormal;
+    SwitchLayout *m_SwitchLayout;
+    SwitchMonitor *m_SwitchMonitor;
     QCommandLineParser m_Parser;
-    QLabel* m_BackImageLabel;
+    QLabel *m_BackImageLabel;
     QRect m_MouseInScreen;
     QTimer *m_Timer;
 
@@ -91,16 +115,33 @@ private:
     const int BASE_SIZE = 140;
     const int DEADLINE_TIME = 2000;
     const QString BACK_IMAGE_STYLE = "QLabel{border-width: 5px 5px 5px 5px;border-image:url(:/OSD_bg.png)}";
+};
 
-    // basic commandlineoption
-    const QCommandLineOption BrightnessUp = QCommandLineOption("BrightnessUp", "\tOSD BrightnessUp");
-    const QCommandLineOption BrightnessDown = QCommandLineOption("BrightnessDown", "\tOSD BrightnessDown");
-    const QCommandLineOption AudioMute = QCommandLineOption("AudioMute", "\tOSD AudioMute");
-    const QCommandLineOption AudioDown = QCommandLineOption("AudioDown", "\tOSD AudioDown");
-    const QCommandLineOption AudioUp = QCommandLineOption("AudioUp", "\tOSD AudioUp");
-    const QCommandLineOption SwitchMonitors = QCommandLineOption("SwitchMonitors", "\tOSD SwitchMonitors");
-    const QCommandLineOption SwitchLayouts = QCommandLineOption("SwitchLayout", "\tOSD SwitchLayout");
 
+class OsdDBus: public QObject
+{
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "com.deepin.dde.osd")
+
+public:
+    explicit OsdDBus(Osd *parent = 0): QObject(parent)
+    {
+        m_Osd = parent;
+    }
+
+public slots:
+    Q_SCRIPTABLE void ShowOSD(QString osd)
+    {
+        QStringList fakeArgs;
+        fakeArgs << qApp->arguments().first();
+        fakeArgs << "--" + osd;
+        qDebug() << "DBus Call ShowOSD" << osd << fakeArgs;
+        m_Osd->processParser(fakeArgs);
+        m_Osd->showOSD();
+    }
+
+private:
+    Osd *m_Osd;
 };
 
 #endif // OSD_H
