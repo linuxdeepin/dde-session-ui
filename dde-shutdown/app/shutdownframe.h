@@ -14,6 +14,7 @@
 #include "boxframe.h"
 #include "shutdownmanager.h"
 
+class QGSettings;
 class ShutdownFrontDBus;
 class ShutdownFrame:public BoxFrame
 {
@@ -27,6 +28,7 @@ protected:
     void keyPressEvent(QKeyEvent *e);
 private:
     ShutdownManager* m_shutdownManager;
+    QGSettings *m_gsettings;
 
     void initShutdownManager();
     void initBackground();

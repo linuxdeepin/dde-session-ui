@@ -8,12 +8,17 @@
  **/
 
 #include <QDebug>
+#include <QGSettings>
 
 #include "backgroundlabel.h"
 #include "shutdownframe.h"
 
+const QString WallpaperKey = "pictureUri";
+
 ShutdownFrame::ShutdownFrame(QWidget *parent)
-    : BoxFrame(parent)
+    : BoxFrame(parent),
+      m_gsettings(new QGSettings("com.deepin.wrap.gnome.desktop.background",
+                                 "/com/deepin/wrap/gnome/desktop/background/"))
 {
     this->move(0, 0);
     this->setFixedSize(qApp->desktop()->size());
@@ -52,12 +57,20 @@ void ShutdownFrame::initShutdownManager()
 
 void ShutdownFrame::initBackground()
 {
-    const QString username = qgetenv("USER");
-    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString background = settings.value("User/Background").toString();
+//    const QString username = qgetenv("USER");
+//    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
+//    const QString background = settings.value("User/Background").toString();
 
-    qDebug() << "update background for user: " << username << " background: " << background;
-    setBackground(background);
+//    qDebug() << "update background for user: " << username << " background: " << background;
+//    setBackground(background);
+
+    auto callback = [this] {
+        const QString background = QUrl(m_gsettings->get(WallpaperKey).toString()).toLocalFile();
+        setBackground(background);
+    };
+
+    callback();
+    connect(m_gsettings, &QGSettings::changed, callback);
 }
 
 ShutdownFrame::~ShutdownFrame()
