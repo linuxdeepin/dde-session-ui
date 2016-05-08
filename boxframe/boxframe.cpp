@@ -83,8 +83,6 @@ void BoxFrame::setBackground(const QString &url)
     QString blurredPath = GetBlurredImagePath(path);
     if (QFile::exists(blurredPath)) {
         pix = QPixmap(blurredPath);
-    } else {
-        return;
     }
     if (pix.isNull()) {
         pix.load(DefaultBackground);
