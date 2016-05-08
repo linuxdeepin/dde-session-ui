@@ -19,6 +19,7 @@
 
 #include <QFrame>
 #include <QLabel>
+#include <QFileSystemWatcher>
 
 class BoxFrame : public QFrame
 {
@@ -33,11 +34,14 @@ public:
 
 signals:
     void screenChanged(QRect rect);
+
 protected:
     void resizeEvent(QResizeEvent *e);
     void keyPressEvent(QKeyEvent *e);
+
 private:
-    const QString DEFAULT_BACKGROUND = "/usr/share/backgrounds/default_background.jpg";
+    QString m_lastUrl;
+    QFileSystemWatcher m_blurredImageWatcher;
 };
 
 #endif // BOXFRAME_H

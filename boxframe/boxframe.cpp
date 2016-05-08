@@ -11,9 +11,19 @@
 #include <QPushButton>
 #include <QScreen>
 #include <QTimer>
+#include <QCryptographicHash>
 
 #include "boxframe.h"
 #include "backgroundlabel.h"
+
+static const QString DefaultBackground = "/usr/share/backgrounds/default_background.jpg";
+static const QString BlurredImageDir = "/var/cache/image-blur/";
+
+static QString GetBlurredImagePath(QString path) {
+    QString ext = path.split(".").last();
+    QString md5 = QString(QCryptographicHash::hash(path.toLatin1(), QCryptographicHash::Md5).toHex());
+    return BlurredImageDir + QString("%1.%2").arg(md5).arg(ext);
+}
 
 BoxFrame::BoxFrame(QWidget *parent)
     : QFrame(parent)
@@ -28,22 +38,17 @@ BoxFrame::BoxFrame(QWidget *parent)
 
     // Always receives mouseMoveEvent.
     this->setMouseTracking(true);
+
+    m_blurredImageWatcher.addPath(BlurredImageDir);
+    connect(&m_blurredImageWatcher, &QFileSystemWatcher::directoryChanged, [this](const QString &){
+        setBackground(m_lastUrl);
+    });
 }
 
 BoxFrame::BoxFrame(const QString url, QWidget *parent)
-    : QFrame(parent)
+    : BoxFrame(parent)
 {
-    this->move(0, 0);
-    this->setFixedSize(qApp->desktop()->size());
-    setObjectName("BoxFrame");
-
-    qDebug() << "this geometry" << geometry();
-    this->setWindowFlags(Qt::FramelessWindowHint|Qt::BypassWindowManagerHint);
-
     this->setBackground(url);
-
-    // Always receives mouseMoveEvent.
-    this->setMouseTracking(true);
 }
 
 void BoxFrame::keyPressEvent(QKeyEvent *e) {
@@ -69,12 +74,22 @@ void BoxFrame::setBackground(const QString &url)
 {
     static const QString objName("GreeterBackground");
 
+    if (m_lastUrl == url) return;
+    m_lastUrl = url;
+
     const QString path = QUrl(url).isLocalFile() ? QUrl(url).toLocalFile() : url;
 
     QPixmap pix(path);
-    if (pix.isNull()) {
-        pix.load(DEFAULT_BACKGROUND);
+    QString blurredPath = GetBlurredImagePath(path);
+    if (QFile::exists(blurredPath)) {
+        pix = QPixmap(blurredPath);
+    } else {
+        return;
     }
+    if (pix.isNull()) {
+        pix.load(DefaultBackground);
+    }
+
     QList<QLabel*> labels = findChildren<QLabel*>(objName);
     if (labels.isEmpty()) {
         QList<QScreen *> screenList = qApp->screens();
