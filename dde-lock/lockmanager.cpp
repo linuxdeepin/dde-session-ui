@@ -274,7 +274,9 @@ void LockManager::unlock()
 void LockManager::initBackend() {
     m_hotZoneInterface = new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone",
                                                         QDBusConnection::sessionBus(), this);
+#ifndef LOCK_NO_QUIT
     m_hotZoneInterface->EnableZoneDetected(false);
+#endif
 
 
 
@@ -327,6 +329,16 @@ void LockManager::updateUI() {
 
     connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &LockManager::setCurrentKeyboardLayout);
     connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, m_keybdArrowWidget, &DArrowRectangle::hide);
+}
+
+void LockManager::enableZone()
+{
+    m_hotZoneInterface->EnableZoneDetected(true);
+}
+
+void LockManager::disableZone()
+{
+    m_hotZoneInterface->EnableZoneDetected(false);
 }
 
 void LockManager::setCurrentKeyboardLayout(QString keyboard_value) {

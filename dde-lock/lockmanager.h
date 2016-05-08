@@ -47,6 +47,9 @@ public:
     void initConnect();
     void initData();
     void updateUI();
+    void enableZone();
+    void disableZone();
+
 signals:
     void screenChanged(QRect rect);
 #ifdef LOCK_NO_QUIT
@@ -62,6 +65,7 @@ public slots:
     void keybdLayoutWidgetPosit();
     void leftKeyPressed();
     void rightKeyPressed();
+
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;

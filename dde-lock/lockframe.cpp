@@ -50,11 +50,13 @@ void LockFrame::updateScreenPosition(QRect rect) {
 #ifdef LOCK_NO_QUIT
 void LockFrame::hideFrame() {
     this->hide();
+    m_lockManager->enableZone();
 }
 
 void LockFrame::showEvent(QShowEvent *) {
     this->raise();
     this->activateWindow();
+    m_lockManager->disableZone();
 }
 #endif
 
