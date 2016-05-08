@@ -68,7 +68,10 @@ BoxFrame::~BoxFrame()
 void BoxFrame::setBackground(const QString &url)
 {
     static const QString objName("GreeterBackground");
-    QPixmap pix(url);
+
+    const QString path = QUrl(url).isLocalFile() ? QUrl(url).toLocalFile() : url;
+
+    QPixmap pix(path);
     if (pix.isNull()) {
         pix.load(DEFAULT_BACKGROUND);
     }
