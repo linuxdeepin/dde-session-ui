@@ -8,7 +8,6 @@ TEMPLATE = app
 CONFIG += c++11 link_pkgconfig dbus
 PKGCONFIG += gsettings-qt dtkbase dtkutil
 
-include(../background/background.pri)
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 include(../boxframe/boxframe.pri)

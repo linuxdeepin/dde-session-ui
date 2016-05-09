@@ -10,7 +10,6 @@
 #include <QDebug>
 #include <QGSettings>
 
-#include "backgroundlabel.h"
 #include "shutdownframe.h"
 
 const QString WallpaperKey = "pictureUri";

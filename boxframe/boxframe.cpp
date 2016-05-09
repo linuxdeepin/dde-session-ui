@@ -14,7 +14,6 @@
 #include <QCryptographicHash>
 
 #include "boxframe.h"
-#include "backgroundlabel.h"
 
 static const QString DefaultBackground = "/usr/share/backgrounds/default_background.jpg";
 static const QString BlurredImageDir = "/var/cache/image-blur/";

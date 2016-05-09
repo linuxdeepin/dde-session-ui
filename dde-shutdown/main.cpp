@@ -18,7 +18,6 @@
 
 #include "app/shutdownframe.h"
 #include "dbus/dbuscontrolcenter.h"
-#include "backgroundlabel.h"
 
 const QString DBUS_PATH = "/com/deepin/dde/shutdownFront";
 const QString DBUS_NAME = "com.deepin.dde.shutdownFront";

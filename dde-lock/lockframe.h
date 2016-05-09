@@ -15,7 +15,6 @@
 #include <QDBusConnection>
 #include <QDBusAbstractAdaptor>
 
-#include "backgroundlabel.h"
 #include "lockmanager.h"
 #include "boxframe.h"
 

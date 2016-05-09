@@ -15,7 +15,6 @@ TEMPLATE = app
 PKGCONFIG += gsettings-qt dtkbase dtkutil
 CONFIG += c++11 link_pkgconfig
 
-include(../background/background.pri)
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 include(../boxframe/boxframe.pri)
