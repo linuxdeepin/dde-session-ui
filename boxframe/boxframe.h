@@ -30,7 +30,7 @@ public:
     explicit BoxFrame(const QString url, QWidget *parent = 0);
     ~BoxFrame();
 
-    void setBackground(const QString &url);
+    void setBackground(const QString &url, bool force = false);
 
 signals:
     void screenChanged(QRect rect);

@@ -41,7 +41,9 @@ BoxFrame::BoxFrame(QWidget *parent)
 
     m_blurredImageWatcher.addPath(BlurredImageDir);
     connect(&m_blurredImageWatcher, &QFileSystemWatcher::directoryChanged, [this](const QString &){
-        setBackground(m_lastUrl);
+        // NOTE: the direcotryChanged signal is triggered when the blurred background
+        // is about being written to the disk. It's not completed yet.
+        QTimer::singleShot(500, [this] { setBackground(m_lastUrl, true); });
     });
 }
 
@@ -70,13 +72,13 @@ BoxFrame::~BoxFrame()
 // ShutdownFrame takes ~260ms to complete. On the other hand, this function takes
 // ~130ms by setting pixmap, yet takes only ~12ms to complete the show() of ShutdownFrame.
 // It'll be more obvious on dual screens environment.
-void BoxFrame::setBackground(const QString &url)
+void BoxFrame::setBackground(const QString &url, bool force)
 {
     static const QString objName("GreeterBackground");
 
-    if (m_lastUrl == url) return;
-    m_lastUrl = url;
+    if (m_lastUrl == url && !force) return;
 
+    m_lastUrl = url;
     const QString path = QUrl(url).isLocalFile() ? QUrl(url).toLocalFile() : url;
 
     QPixmap pix(path);
