@@ -95,7 +95,6 @@ void PassWdEdit::initUI()
 
     getFocusTimer = new QTimer(this);
     getFocusTimer->setInterval(100);
-    getFocusTimer->start();
     connect(getFocusTimer,  &QTimer::timeout, this, &PassWdEdit::lineEditGrabKeyboard);
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/passwdedit.qss", this);
@@ -205,6 +204,10 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
     }
     if (o == m_lineEdit && e->type() == QEvent::FocusIn) {
         setAlert(false);
+    }
+
+    if (o == m_lineEdit && e->type() == QEvent::Show) {
+        getFocusTimer->start();
     }
 
     return false;
