@@ -17,6 +17,7 @@ Guardien::Guardien(QObject *parent) :
 
     QDesktopWidget *desktop = QApplication::desktop();
     connect(desktop, &QDesktopWidget::resized, this, &Guardien::restart);
+    connect(desktop, &QDesktopWidget::workAreaResized, this, &Guardien::restart);
 
     connect(m_shutdown, SIGNAL(finished(int)), this, SLOT(handleFinished(int)));
     connect(m_lock, SIGNAL(finished(int)), this, SLOT(handleFinished(int)));
