@@ -40,8 +40,7 @@ RESOURCES += \
     images.qrc \
     logintheme.qrc
 
-DISTFILES +=dde-lock.desktop \
-    com.deepin.dde.lockFront.service
+DISTFILES += com.deepin.dde.lockFront.service
 
 services.path = /usr/share/dbus-1/services
 services.files = com.deepin.dde.lockFront.service
@@ -49,13 +48,8 @@ services.files = com.deepin.dde.lockFront.service
 target.path = $${PREFIX}/bin/
 INSTALLS += target services
 
-isEqual(LOCK_NO_QUIT, YES) {
+contains(DEFINES, ARCH_MIPSEL) {
     DEFINES +=LOCK_NO_QUIT
-
-    #let dde-lock to be auto-start
-    desktop_file.files = dde-lock.desktop
-    desktop_file.path = /etc/xdg/autostart/
-    INSTALLS += desktop_file
 }
 
 

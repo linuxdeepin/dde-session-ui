@@ -9,6 +9,11 @@ SUBDIRS += dde-shutdown \
            dde-zone \
            dde-wallpaper-chooser
 
+include(common.pri)
+contains(DEFINES, ARCH_MIPSEL) {
+    SUBDIRS += session-ui-guardien
+}
+
 # Automating generation .qm files from .ts files
 system($$PWD/translate_generation.sh)
 

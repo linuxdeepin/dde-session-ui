@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=LockFront frame
-Exec=/usr/bin/dde-lock --daemon
-NoDisplay=true
-OnlyShowIn=Deepin

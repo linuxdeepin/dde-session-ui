@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Session UI Guardien
+Exec=/usr/bin/session-ui-guardien
+NoDisplay=true
+OnlyShowIn=Deepin
+X-GNOME-Autostart-Delay=5

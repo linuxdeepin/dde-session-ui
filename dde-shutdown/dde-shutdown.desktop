@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Shutdown frame
-Exec=/usr/bin/dde-shutdown --daemon
-NoDisplay=true
-OnlyShowIn=Deepin
