@@ -96,6 +96,7 @@ void BoxFrame::setBackground(const QString &url, bool force)
             const QRect rect = screenList[i]->geometry();
 
             QLabel* m_background = new QLabel(this);
+            m_background->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
             m_background->setObjectName(objName);
             m_background->setFixedSize(rect.size());
             m_background->setPixmap(pix.scaled(rect.size(), Qt::KeepAspectRatioByExpanding));
