@@ -12,6 +12,8 @@
 #include <QScreen>
 #include <QTimer>
 #include <QCryptographicHash>
+#include <QDesktopWidget>
+#include <QScreen>
 
 #include "boxframe.h"
 
@@ -44,6 +46,24 @@ BoxFrame::BoxFrame(QWidget *parent)
         // is about being written to the disk. It's not completed yet.
         QTimer::singleShot(500, [this] { setBackground(m_lastUrl, true); });
     });
+
+    m_screenSizeMonitor = new QTimer(this);
+    m_screenSizeMonitor->setInterval(1000);
+    m_screenSizeMonitor->setSingleShot(false);
+    m_lastScreenGeometry = qApp->desktop()->rect();
+    connect(m_screenSizeMonitor, &QTimer::timeout, [this] {
+        if (m_lastScreenGeometry == qApp->desktop()->rect() &&
+            m_lastPrimaryScreenGeometry == qApp->primaryScreen()->geometry())
+            return;
+
+        m_lastScreenGeometry = qApp->desktop()->rect();
+        m_lastPrimaryScreenGeometry == qApp->primaryScreen()->geometry();
+        setFixedSize(m_lastScreenGeometry.size());
+        setBackground(m_lastUrl, true);
+
+        emit screenChanged(m_lastPrimaryScreenGeometry);
+    });
+    m_screenSizeMonitor->start();
 }
 
 BoxFrame::BoxFrame(const QString url, QWidget *parent)
@@ -57,8 +77,8 @@ void BoxFrame::keyPressEvent(QKeyEvent *e) {
 }
 
 void BoxFrame::resizeEvent(QResizeEvent *e) {
-    QSize boxFrameSize = e->size();
-    this->setFixedSize(boxFrameSize);
+//    QSize boxFrameSize = e->size();
+//    this->setFixedSize(boxFrameSize);
 }
 
 BoxFrame::~BoxFrame()
@@ -77,35 +97,34 @@ void BoxFrame::setBackground(const QString &url, bool force)
 
     if (m_lastUrl == url && !force) return;
 
-    m_lastUrl = url;
-    const QString path = QUrl(url).isLocalFile() ? QUrl(url).toLocalFile() : url;
 
-    QPixmap pix(path);
-    QString blurredPath = GetBlurredImagePath(path);
+    QString path = QUrl(url).isLocalFile() ? QUrl(url).toLocalFile() : url;
+    const QString blurredPath = GetBlurredImagePath(path);
     if (QFile::exists(blurredPath)) {
-        pix = QPixmap(blurredPath);
+        path = blurredPath;
     }
-    if (pix.isNull()) {
-        pix.load(DefaultBackground);
-    }
+
+    m_lastUrl = path;
+    m_lastPixmap = QPixmap(m_lastUrl);
 
     QList<QLabel*> labels = findChildren<QLabel*>(objName);
-    if (labels.isEmpty()) {
-        QList<QScreen *> screenList = qApp->screens();
-        for (int i = 0; i < screenList.length(); i++) {
-            const QRect rect = screenList[i]->geometry();
 
-            QLabel* m_background = new QLabel(this);
-            m_background->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-            m_background->setObjectName(objName);
-            m_background->setFixedSize(rect.size());
-            m_background->setPixmap(pix.scaled(rect.size(), Qt::KeepAspectRatioByExpanding));
-            m_background->move(rect.x(), rect.y());
-            m_background->lower();
-        }
-    } else {
-        foreach (QLabel * label, labels) {
-            label->setPixmap(pix.scaled(label->size(), Qt::KeepAspectRatioByExpanding));
-        }
+    qDeleteAll(labels);
+
+    QList<QScreen *> screenList = qApp->screens();
+    for (int i = 0; i < screenList.length(); i++)
+    {
+        const QRect rect = screenList[i]->geometry();
+
+        QLabel* m_background = new QLabel(this);
+        m_background->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+        m_background->setObjectName(objName);
+        m_background->setFixedSize(rect.size());
+        m_background->setPixmap(m_lastPixmap.scaled(rect.size(), Qt::KeepAspectRatioByExpanding));
+        m_background->move(rect.x(), rect.y());
+        m_background->setVisible(true);
+        m_background->lower();
+
+        qDebug() << "create new bg: " << rect;
     }
 }

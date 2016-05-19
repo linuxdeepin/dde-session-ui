@@ -31,7 +31,7 @@ public:
     ~LockFrame();
 
 public slots:
-    void updateScreenPosition(QRect rect);
+    void updateScreenPosition();
 #ifdef LOCK_NO_QUIT
     void hideFrame();
 #endif

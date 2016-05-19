@@ -104,7 +104,7 @@ void PassWdEdit::initUI()
 
 void PassWdEdit::lineEditGrabKeyboard()
 {
-    qDebug() << "lineEditGrabKeyboard" << m_timerCount;
+//    qDebug() << "lineEditGrabKeyboard" << m_timerCount;
     if (m_timerCount == 10) {
         getFocusTimer->stop();
         m_timerCount = 0;
@@ -293,7 +293,7 @@ void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
 {
     emit focusIn();
 
-    qDebug() << "PassWordEdit e->key:" << e->key();
+//    qDebug() << "PassWordEdit e->key:" << e->key();
     switch (e->key()) {
     case Qt::Key_Return:        /* submit */
     case Qt::Key_Enter:

@@ -20,6 +20,7 @@
 #include <QFrame>
 #include <QLabel>
 #include <QFileSystemWatcher>
+#include <QTimer>
 
 class BoxFrame : public QFrame
 {
@@ -41,7 +42,12 @@ protected:
 
 private:
     QString m_lastUrl;
+    QPixmap m_lastPixmap;
+    QRect m_lastScreenGeometry;
+    QRect m_lastPrimaryScreenGeometry;
     QFileSystemWatcher m_blurredImageWatcher;
+
+    QTimer *m_screenSizeMonitor;
 };
 
 #endif // BOXFRAME_H

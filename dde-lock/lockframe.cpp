@@ -33,20 +33,32 @@ LockFrame::LockFrame(QWidget* parent)
         }
     }
 
+    connect(this, &LockFrame::screenChanged, this, &LockFrame::updateScreenPosition);
     connect(m_lockManager, &LockManager::screenChanged, this, &LockFrame::updateScreenPosition);
 #ifdef LOCK_NO_QUIT
     connect(m_lockManager, &LockManager::checkedHide, this, &LockFrame::hideFrame);
 #endif
 }
 
-void LockFrame::updateScreenPosition(QRect rect) {
-    qDebug() << "Move To the Other position:" << rect;
-    m_lockManager->setFixedSize(rect.size());
-    m_lockManager->move(rect.x(), rect.y());
-    m_lockManager->updateGeometry();
-    m_lockManager->updateWidgetsPosition();
-    qDebug() << "m_loginManager:" << m_lockManager->geometry();
+void LockFrame::updateScreenPosition()
+{
+    QList<QScreen *> screenList = qApp->screens();
+    QPoint mousePoint = QCursor::pos();
+    for (const QScreen *screen : screenList)
+    {
+        if (screen->geometry().contains(mousePoint))
+        {
+            const QRect &geometry = screen->geometry();
+            m_lockManager->setFixedSize(geometry.size());
+            m_lockManager->move(geometry.x(), geometry.y());
+            m_lockManager->updateGeometry();
+            m_lockManager->updateWidgetsPosition();
+
+            return;
+        }
+    }
 }
+
 #ifdef LOCK_NO_QUIT
 void LockFrame::hideFrame() {
     this->hide();

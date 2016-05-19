@@ -232,7 +232,7 @@ void LockManager::unlock()
 
     m_userWidget->showLoadingAni();
 
-    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
+//    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
     const QString &username = m_userWidget->currentUser();
     const QString &password = m_passwordEdit->getText();
 
