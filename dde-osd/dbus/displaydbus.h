@@ -89,6 +89,12 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("QueryCurrentPlanName"), argumentList);
     }
 
+    inline QDBusPendingReply<QStringList> ListOutputNames()
+    {
+        QList<QVariant> argumentList;
+        return asyncCallWithArgumentList(QStringLiteral("ListOutputNames"), argumentList);
+    }
+
     inline QDBusPendingReply<> SwitchMode(short in0, const QString &in1)
     {
         QList<QVariant> argumentList;

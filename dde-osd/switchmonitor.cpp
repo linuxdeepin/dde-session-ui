@@ -107,10 +107,7 @@ bool SwitchMonitor::isPanelVailed()
 
 void SwitchMonitor::getAllMonitors()
 {
-    // get the list of all screens by using QString's method "split"
-    QString screenNamesStr = (QString)m_DisplayInterface->QueryCurrentPlanName();
-    qDebug() << "getAllMonitors" << screenNamesStr;
-    m_ScreenList = screenNamesStr.split(",");
+    m_ScreenList = m_DisplayInterface->ListOutputNames();
 }
 
 void SwitchMonitor::resizeParent()
