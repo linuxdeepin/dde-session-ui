@@ -38,11 +38,14 @@ void showThemeImage(QString iconName, QSvgWidget *svgLoader, QLabel *notSvgLoade
 {
     if (iconName.endsWith(".svg")) {
         svgLoader->load(iconName);
+        notSvgLoader->clear();
     } else if (iconName.isEmpty()) {
         svgLoader->load(getThemeIconPath("application-default-icon"));
+        notSvgLoader->clear();
     } else {
         // 56 is the size of image
         notSvgLoader->setPixmap(QPixmap(iconName).scaled(56, 56, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+        svgLoader->load(QByteArray());
     }
 }
 

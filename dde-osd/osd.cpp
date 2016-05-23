@@ -188,10 +188,13 @@ void Osd::showOSD()
 {
     if (m_Parser.isSet(BrightnessUp) || m_Parser.isSet(BrightnessDown)) {
         loadBasicNormal("Brightness");
+        cancelNormalText();
     } else if (m_Parser.isSet(AudioUp) || m_Parser.isSet(AudioDown)) {
         loadBasicNormal("Audio");
+        cancelNormalText();
     } else if (m_Parser.isSet(AudioMute)) {
         loadBasicNormal("AudioMute");
+        cancelNormalText();
     } else if (m_Parser.isSet(SwitchLayouts)) {
         if (!m_SwitchLayout->isPanelVailed()) {
             return;
