@@ -32,12 +32,12 @@ public:
     }
 
     QString imageName() const {return m_imageName;}
+    void setText(const QString &text) {m_text = text;}
     QString text() const {return m_text;}
 
 private:
     QString m_imageName;
     QString m_text;
-
 };
 
 class Osd;

@@ -32,9 +32,12 @@ const OsdOption CapsLockOff = OsdOption("CapsLockOff", "capslock-disabled-symbol
 const OsdOption TouchpadOn = OsdOption("TouchpadOn", "touchpad-enabled-symbolic");
 const OsdOption TouchpadOff = OsdOption("TouchpadOff", "touchpad-disabled-symbolic");
 const OsdOption TouchpadToggle = OsdOption("TouchpadToggle" , "touchpad-toggled-symbolic");
-const OsdOption SwitchWM3D = OsdOption("SwitchWM3D", "wm-effect-enabled", qApp->translate("Osd", "Enable window effects"));
-const OsdOption SwitchWM2D = OsdOption("SwitchWM2D", "wm-effect-disabled", qApp->translate("Osd", "Disable window effects"));
-const OsdOption SwitchWMError = OsdOption("SwitchWMError", "wm-effect-error", qApp->translate("Osd", "Failed to enable window effects"));
+//const OsdOption SwitchWM3D = OsdOption("SwitchWM3D", "wm-effect-enabled", qApp->translate("Osd", "Enable window effects"));
+//const OsdOption SwitchWM2D = OsdOption("SwitchWM2D", "wm-effect-disabled", qApp->translate("Osd", "Disable window effects"));
+//const OsdOption SwitchWMError = OsdOption("SwitchWMError", "wm-effect-error", qApp->translate("Osd", "Failed to enable window effects"));
+OsdOption SwitchWM3D = OsdOption("SwitchWM3D", "wm-effect-enabled");
+OsdOption SwitchWM2D = OsdOption("SwitchWM2D", "wm-effect-disabled");
+OsdOption SwitchWMError = OsdOption("SwitchWMError", "wm-effect-error");
 
 const OsdOption *optionList[] = {
     &BrightnessUp,
@@ -59,6 +62,11 @@ const OsdOption *optionList[] = {
 Osd::Osd(QWidget *parent)
     : QWidget(parent)
 {
+    // init osd options
+    SwitchWM3D.setText(qApp->translate("Osd", "Enable window effects"));
+    SwitchWM2D.setText(qApp->translate("Osd", "Disable window effects"));
+    SwitchWMError.setText(qApp->translate("Osd", "Failed to enable window effects"));
+
     initGlobalVars();
 
     initBasicOperation();
