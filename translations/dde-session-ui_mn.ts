@@ -1,20 +1,20 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="es_419" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="mn" version="2.1">
 <context>
     <name>LockManager</name>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="251"/>
         <source>Wrong Password</source>
-        <translation>Contraseña Incorrecta</translation>
+        <translation>Нууц үг буруу байна</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="371"/>
         <source>Enter your password to restart</source>
-        <translation>Escriba su contraseña para reiniciar</translation>
+        <translation>Нууц үгийг оруулаад дахин эхлүүлэх</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="374"/>
         <source>Enter your password to shutdown</source>
-        <translation>Escriba su contraseña para apagar</translation>
+        <translation>Нууц үгийг оруулж унтраана уу</translation>
     </message>
 </context>
 <context>
@@ -22,7 +22,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="343"/>
         <source>Wrong password</source>
-        <translation>Contraseña incorrecta</translation>
+        <translation>Нууц үг буруу байна</translation>
     </message>
 </context>
 <context>
@@ -30,27 +30,27 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>Control Center</source>
-        <translation>Centro de Control</translation>
+        <translation>Удирдлагын хэсэг</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>All Windows</source>
-        <translation>Todas las Ventanas</translation>
+        <translation>Бүх цонх</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>Launcher</source>
-        <translation>Lanzador</translation>
+        <translation>Нээгч</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>Desktop</source>
-        <translation>Escritorio</translation>
+        <translation>Дэлгэц</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>None</source>
-        <translation>Ninguno</translation>
+        <translation>Байхгүй</translation>
     </message>
 </context>
 <context>
@@ -58,17 +58,17 @@
     <message>
         <location filename="../dde-osd/osd.cpp" line="35"/>
         <source>Enable window effects</source>
-        <translation>Habilitar efectos de ventana</translation>
+        <translation>Цонхны эффектийг оруулах</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="36"/>
         <source>Disable window effects</source>
-        <translation>Deshabilitar efectos de ventana</translation>
+        <translation>Цонхны эффектийг хаах</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="37"/>
         <source>Failed to enable window effects</source>
-        <translation>Error al habilitar los efectos de ventana</translation>
+        <translation>Цонхны эффектийг нээж чадсангүй</translation>
     </message>
 </context>
 <context>
@@ -76,32 +76,32 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="99"/>
         <source>Shut down</source>
-        <translation>Apagar</translation>
+        <translation>Унтраах</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="102"/>
         <source>Restart</source>
-        <translation>Reiniciar</translation>
+        <translation>Дахин эхлүүлэх</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="105"/>
         <source>Suspend</source>
-        <translation>Suspender</translation>
+        <translation>Түр зогсоох</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="108"/>
         <source>Lock</source>
-        <translation>Bloquear</translation>
+        <translation>Цоожлох</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="111"/>
         <source>Log out</source>
-        <translation>Salir</translation>
+        <translation>Гарах</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="115"/>
         <source>Switch user</source>
-        <translation>Cambiar de usuario</translation>
+        <translation>Хэрэглэгч солих</translation>
     </message>
 </context>
 <context>
@@ -109,17 +109,17 @@
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
-        <translation>Apagar</translation>
+        <translation>Унтраах</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="33"/>
         <source>Restart</source>
-        <translation>Reiniciar</translation>
+        <translation>Дахин эхлүүлэх</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="37"/>
         <source>Suspend</source>
-        <translation>Suspender</translation>
+        <translation>Түр зогсоох</translation>
     </message>
 </context>
 <context>
@@ -127,12 +127,12 @@
     <message>
         <location filename="../dde-osd/switchmonitor.cpp" line="148"/>
         <source>Duplicate</source>
-        <translation>Duplicado</translation>
+        <translation>Хувилах</translation>
     </message>
     <message>
         <location filename="../dde-osd/switchmonitor.cpp" line="175"/>
         <source>Extend</source>
-        <translation>Extender</translation>
+        <translation>Tэлэх</translation>
     </message>
 </context>
 <context>
@@ -153,7 +153,7 @@
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="52"/>
         <source>Desktop</source>
-        <translation>Escritorio</translation>
+        <translation>Дэлгэц</translation>
     </message>
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="55"/>
