@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>img/facelogin_animation.png</file>
+        <file>img/capslock.png</file>
         <file>img/sessions_icon/Deepin_hover.png</file>
         <file>img/sessions_icon/Deepin_normal.png</file>
         <file>img/sessions_icon/Deepin_press.png</file>

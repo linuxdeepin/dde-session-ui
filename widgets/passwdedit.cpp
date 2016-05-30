@@ -17,11 +17,13 @@
 
 #include "constants.h"
 #include "passwdedit.h"
+#include "capslockmonitor.h"
 
 DWIDGET_USE_NAMESPACE
 
 PassWdEdit::PassWdEdit(QWidget *parent)
-    : QFrame(parent)
+    : QFrame(parent),
+      m_capslockMonitor(new CapslockMonitor(this))
 {
     initUI();
     initConnect();
@@ -32,6 +34,10 @@ PassWdEdit::PassWdEdit(QWidget *parent)
 #else
     setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 1, 34));
 #endif
+
+    m_capslockMonitor->start(QThread::LowestPriority);
+    connect(m_capslockMonitor, &CapslockMonitor::capslockStatusChanged,
+            this, &PassWdEdit::updateCapslockStatus);
 }
 
 PassWdEdit::~PassWdEdit()
@@ -51,23 +57,19 @@ void PassWdEdit::initUI()
     m_iconButton->setCheckable(true);
     m_iconButton->setFixedSize(QSize(35, 35));
 
+    m_capslockWarning = new QLabel(this);
+    m_capslockWarning->setVisible(m_capslockMonitor->isCapslockOn());
+    m_capslockWarning->setFixedSize(DDESESSIONCC::CapslockWarningWidth,
+                                    DDESESSIONCC::CapslockWarningWidth);
+    m_capslockWarning->setPixmap(QPixmap(":/img/capslock.png"));
+
     m_lineEdit = new QLineEdit;
     m_lineEdit->setContextMenuPolicy(Qt::NoContextMenu);
     m_lineEdit->setObjectName("passwdLineEdit");
     m_lineEdit->setEchoMode(QLineEdit::Password);
 //    m_lineEdit->setValidator(new QRegExpValidator(QRegExp("^[\\w]*$")));
     m_lineEdit->setAttribute(Qt::WA_InputMethodEnabled, false);
-#ifndef SHENWEI_PLATFORM
-
-    m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
-                             - m_keyboardButton->width() - 2, m_iconButton->height());
-#else
-    m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
-                             , m_iconButton->height() - 2);
-
-    qDebug() << "m_lineEdit geometry:" << m_lineEdit->geometry();
-
-#endif
+    setupLineeditSize();
     m_lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_lineEdit->installEventFilter(this);
 
@@ -81,6 +83,11 @@ void PassWdEdit::initUI()
 #endif
     m_Layout->addWidget(m_lineEdit);
     m_Layout->addStretch();
+
+    m_capslockWarning->move(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width() - \
+                            DDESESSIONCC::CapslockWarningWidth - \
+                            DDESESSIONCC::CapslockWarningRightMargin,
+                            (height() - DDESESSIONCC::CapslockWarningWidth) / 2);
 
     m_opacityEffect = new QGraphicsOpacityEffect;
     m_opacityEffect->setOpacity(1.0);
@@ -107,7 +114,7 @@ void PassWdEdit::initUI()
 
 void PassWdEdit::lineEditGrabKeyboard()
 {
-//    qDebug() << "lineEditGrabKeyboard" << m_timerCount;
+    //    qDebug() << "lineEditGrabKeyboard" << m_timerCount;
     if (m_timerCount == 10) {
         getFocusTimer->stop();
         m_timerCount = 0;
@@ -149,6 +156,12 @@ void PassWdEdit::recordUserPassWd(bool isChoose, QString username)
     }
 }
 
+void PassWdEdit::updateCapslockStatus(bool on)
+{
+    m_capslockWarning->setVisible(on);
+    setupLineeditSize();
+}
+
 void PassWdEdit::initConnect()
 {
     connect(m_iconButton, &DImageButton::clicked, this, &PassWdEdit::submit);
@@ -164,6 +177,22 @@ void PassWdEdit::initConnect()
 void PassWdEdit::initData()
 {
     utilSettings = new UtilSettings(this);
+}
+
+void PassWdEdit::setupLineeditSize()
+{
+    int delta = 0;
+    if (m_capslockMonitor->isCapslockOn()) {
+        delta = DDESESSIONCC::CapslockWarningWidth + DDESESSIONCC::CapslockWarningRightMargin;
+    }
+
+#ifndef SHENWEI_PLATFORM
+    m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
+                             - m_keyboardButton->width() - delta - 6, m_iconButton->height());
+#else
+    m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width() - delta - 6
+                             , m_iconButton->height() - 2);
+#endif
 }
 
 void PassWdEdit::focusInEvent(QFocusEvent *)
@@ -296,7 +325,7 @@ void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
 {
     emit focusIn();
 
-//    qDebug() << "PassWordEdit e->key:" << e->key();
+    //    qDebug() << "PassWordEdit e->key:" << e->key();
     switch (e->key()) {
     case Qt::Key_Return:        /* submit */
     case Qt::Key_Enter:

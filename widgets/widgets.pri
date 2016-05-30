@@ -4,8 +4,9 @@
 #
 #-------------------------------------------------
 INCLUDEPATH += $$PWD
+QT += x11extras
 
-PKGCONFIG   += liblightdm-qt5-3 dtkbase dtkwidget
+PKGCONFIG   += liblightdm-qt5-3 dtkbase dtkwidget x11 xi
 
 HEADERS += \
     $$PWD/useravatar.h \
@@ -19,7 +20,8 @@ HEADERS += \
     $$PWD/dbus/dbusaccounts.h \
     $$PWD/dbus/dbususer.h \
     $$PWD/shutdownwidget.h \
-    $$PWD/darrowrectangle.h
+    $$PWD/darrowrectangle.h \
+    $$PWD/capslockmonitor.h
 
 
 
@@ -35,7 +37,8 @@ SOURCES += \
     $$PWD/dbus/dbusaccounts.cpp \
     $$PWD/dbus/dbususer.cpp \
     $$PWD/shutdownwidget.cpp \
-    $$PWD/darrowrectangle.cpp
+    $$PWD/darrowrectangle.cpp \
+    $$PWD/capslockmonitor.cpp
 
 RESOURCES += \
     $$PWD/widgetstheme.qrc \

@@ -24,6 +24,8 @@
 #include "util_updateui.h"
 #include "util_settings.h"
 
+class CapslockMonitor;
+
 class PassWdEdit : public QFrame
 {
     Q_OBJECT
@@ -68,6 +70,8 @@ public slots:
     inline bool alert() const {return m_alert;}
     void lineEditGrabKeyboard();
     void recordUserPassWd(bool isChoose, QString username);
+    void updateCapslockStatus(bool on);
+
 protected:
     void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;
@@ -80,6 +84,7 @@ private:
     void initUI();
     void initConnect();
     void initData();
+    void setupLineeditSize();
 
     bool m_alert = false;
     bool m_alert_enter = false;
@@ -95,5 +100,8 @@ private:
     QPropertyAnimation *m_showAni;
     QPropertyAnimation *m_hideAni;
     QMap<QString, QString> passwordMap;
+
+    CapslockMonitor *m_capslockMonitor;
+    QLabel *m_capslockWarning;
 };
 #endif // PASSWDEDIT
