@@ -13,6 +13,7 @@
 #include <QFile>
 #include <QKeyEvent>
 #include <QTimer>
+#include <QRegExpValidator>
 
 #include "constants.h"
 #include "passwdedit.h"
@@ -54,6 +55,8 @@ void PassWdEdit::initUI()
     m_lineEdit->setContextMenuPolicy(Qt::NoContextMenu);
     m_lineEdit->setObjectName("passwdLineEdit");
     m_lineEdit->setEchoMode(QLineEdit::Password);
+//    m_lineEdit->setValidator(new QRegExpValidator(QRegExp("^[\\w]*$")));
+    m_lineEdit->setAttribute(Qt::WA_InputMethodEnabled, false);
 #ifndef SHENWEI_PLATFORM
 
     m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
