@@ -57,7 +57,7 @@ BoxFrame::BoxFrame(QWidget *parent)
             return;
 
         m_lastScreenGeometry = qApp->desktop()->rect();
-        m_lastPrimaryScreenGeometry == qApp->primaryScreen()->geometry();
+        m_lastPrimaryScreenGeometry = qApp->primaryScreen()->geometry();
         setFixedSize(m_lastScreenGeometry.size());
         setBackground(m_lastUrl, true);
 
