@@ -32,6 +32,9 @@
 #include <errno.h>
 #include <crypt.h>
 
+#include <security/pam_appl.h>
+#include <security/pam_misc.h>
+
 #define LOCK_DBUS_NAME     "com.deepin.dde.lock"
 #define LOCK_DBUS_OBJ       "/com/deepin/dde/lock"
 #define LOCK_DBUS_IFACE     "com.deepin.dde.lock"
@@ -121,6 +124,10 @@ static gboolean _bus_handle_add_nopwdlogin (const gchar* username);
 static gboolean _bus_handle_remove_nopwdlogin (const gchar* username);
 
 static gboolean do_exit (gpointer user_data);
+
+static int check_user_conv(int num_msg, const struct pam_message **msgm,
+		     struct pam_response **response, void *appdata_ptr);
+static int check_user(const char *user, const char *passwd);
 
 static GDBusNodeInfo *      node_info = NULL;
 static GDBusInterfaceInfo * interface_info = NULL;
@@ -342,26 +349,88 @@ _bus_handle_unlock_check (const gchar *username, const gchar *password)
         return TRUE;
     }
 
-    struct spwd *user_data;
-    errno = 0;
+    int ret = check_user(username, password);
+    if (ret != 0) {
+        return FALSE;
+    }
+    return TRUE;
+}
 
-    user_data = getspnam (username);
+static int check_user_conv(int num_msg, const struct pam_message **msgm,
+		     struct pam_response **response, void *appdata_ptr)
+{
+    struct pam_response *aresp;
+    char *passwd = (char*)appdata_ptr;
+    int i = 0;
 
-    if (user_data == NULL) {
-        g_warning ("No such user %s, or error %s\n", username, strerror (errno));
-        return TRUE;
+    aresp = malloc(sizeof(struct pam_response) * num_msg);
+    if (!aresp) {
+        return PAM_CONV_ERR;
     }
 
-    if (user_data->sp_pwdp == NULL || strlen (user_data->sp_pwdp) == 0) {
-        g_warning ("user sp_pwdp is null\n");
-        return TRUE;
+    for (; i < num_msg; i++) {
+        switch (msgm[i]->msg_style) {
+        case PAM_PROMPT_ECHO_OFF:
+            if (passwd) {
+                aresp[i].resp = g_strdup(passwd);
+            }
+            break;
+        case PAM_PROMPT_ECHO_ON:
+            if (passwd) {
+                aresp[i].resp = g_strdup(passwd);
+            }
+            break;
+        default:
+            return PAM_CONV_ERR;
+        }
+    }
+    *response = aresp;
+    return PAM_SUCCESS;
+}
+
+static int check_user(const char *user, const char *passwd)
+{
+    if (!user || !passwd) {
+        fprintf(stderr, "[check_user] empty user or passwd\n");
+        return -1;
     }
 
-    if ((strcmp (crypt (password, user_data->sp_pwdp), user_data->sp_pwdp)) == 0) {
-        return TRUE;
+    int retval;
+    pam_handle_t *pamh=NULL;
+    struct pam_conv conv = {
+        check_user_conv,
+        (void*)passwd
+    };
+
+    retval = pam_start("lightdm", user, &conv, &pamh);
+    if (retval != PAM_SUCCESS) {
+        fprintf(stderr, "[check_user] pam_start: %s\n", pam_strerror(pamh, retval));
+        return -1;
     }
 
-    return FALSE;
+    // check passwd whether right
+    retval = pam_authenticate(pamh, 0);
+
+    if (retval != PAM_SUCCESS) {
+        printf("[check_user] pam_authenticate: %s\n", pam_strerror(pamh, retval));
+        goto out;
+    }
+
+    // check user account whether overdue
+    retval = pam_acct_mgmt(pamh, 0);
+    if (retval != PAM_SUCCESS) {
+        fprintf(stderr, "[check_user] pam_acct_mgmt: %s\n", pam_strerror(pamh, retval));
+        goto out;
+    }
+
+out:
+    if (pam_end(pamh,retval) != PAM_SUCCESS) {
+        pamh = NULL;
+        fprintf(stderr, "[check_user] pam_end: %s\n", pam_strerror(pamh, retval));
+        return -1;;
+    }
+
+    return (retval == PAM_SUCCESS) ? 0 : -1;
 }
 
 static
@@ -573,4 +642,3 @@ int main (int argc G_GNUC_UNUSED, char **argv G_GNUC_UNUSED)
 
     return 0;
 }
-

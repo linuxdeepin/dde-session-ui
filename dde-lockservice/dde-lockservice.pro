@@ -3,8 +3,8 @@ TEMPLATE = app
 QMAKE_CFLAGS += -std=c99
 
 CONFIG += link_pkgconfig
-PKGCONFIG += glib-2.0 gio-unix-2.0 
-LIBS += -lcrypt
+PKGCONFIG += glib-2.0 gio-unix-2.0
+LIBS += -lcrypt -lpam -lpam_misc
 
 include(../common.pri)
 
@@ -12,7 +12,7 @@ SOURCES += lockservice.c
 
 target.path = $${PREFIX}/bin/
 
-conf_file.files += com.deepin.dde.lock.conf 
+conf_file.files += com.deepin.dde.lock.conf
 conf_file.path = /etc/dbus-1/system.d
 
 service_file.files += com.deepin.dde.lock.service
