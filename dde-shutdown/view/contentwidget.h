@@ -19,6 +19,7 @@
 #include "util_updateui.h"
 #include "dbus/dbusvariant.h"
 #include "dbus/dbuslogin1manager.h"
+#include "common.h"
 
 class ShutDownFrame: public QFrame
 {
@@ -26,15 +27,6 @@ class ShutDownFrame: public QFrame
 public:
     ShutDownFrame(QWidget* parent=0);
     ~ShutDownFrame();
-
-    enum Actions {
-        Shutdown,
-        Restart,
-        Suspend,
-        Lock,
-        Logout,
-        SwitchUser,
-    };
 
 signals:
     void keyLeft();
@@ -56,6 +48,7 @@ private:
     void enterKeyPushed();
     void hideBtn(const QString &btnName);
     void disableBtn(const QString &btnName);
+    void beforeInvokeAction(const Actions action);
 
     RoundItemButton *m_currentSelectedBtn = nullptr;
     RoundItemButton *m_shutdownButton;

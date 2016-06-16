@@ -11,6 +11,7 @@
 #include "constants.h"
 #include "dbus/dbusaccounts.h"
 #include "dbus/dbususer.h"
+#include "accountsutils.h"
 
 #include <QApplication>
 #include <QtWidgets>
@@ -84,10 +85,8 @@ void UserWidget::initUI()
 }
 
 void UserWidget::updateAvatar(QString username) {
-    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString avatar = settings.value("User/Icon").toString();
-    const QString path = QUrl(avatar).isLocalFile() ? QUrl(avatar).toLocalFile() : avatar;
-    if (!avatar.isEmpty())
+    const QString path = AccountsUtils::GetUserAvatar(username);
+    if (!path.isEmpty())
         addUser(path, username);
     else
         addUser("/var/lib/AccountsService/icons/default.png", username);

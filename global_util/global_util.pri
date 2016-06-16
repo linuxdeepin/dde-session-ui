@@ -15,7 +15,8 @@ HEADERS += \
     $$PWD/dbus/displayinterface.h \
     $$PWD/dbus/dbushotzone.h \
     $$PWD/dbus/dbuslockservice.h \
-    $$PWD/util_file.h
+    $$PWD/util_file.h \
+    $$PWD/accountsutils.h
 
 
 SOURCES += \
@@ -30,7 +31,8 @@ SOURCES += \
     $$PWD/dbus/displayinterface.cpp \
     $$PWD/dbus/dbushotzone.cpp \
     $$PWD/dbus/dbuslockservice.cpp \
-    $$PWD/util_file.cpp
+    $$PWD/util_file.cpp \
+    $$PWD/accountsutils.cpp
 
 
 RESOURCES += \

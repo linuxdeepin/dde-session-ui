@@ -12,7 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = dde-shutdown
 TEMPLATE = app
 
-PKGCONFIG += gsettings-qt dtkbase dtkutil
+PKGCONFIG += gsettings-qt liblightdm-qt5-3 dtkbase dtkutil
 CONFIG += c++11 link_pkgconfig
 
 include(../widgets/widgets.pri)
@@ -24,14 +24,17 @@ SOURCES += main.cpp \
     view/mainframe.cpp \
     app/shutdownmanager.cpp \
     ../widgets/dbus/dbuscontrolcenter.cpp \
-    app/shutdownframe.cpp
+    app/shutdownframe.cpp \
+    view/multiuserswarningview.cpp 
 
 HEADERS  += \
     view/contentwidget.h \
     view/mainframe.h \
     app/shutdownmanager.h \
     ../widgets/dbus/dbuscontrolcenter.h \
-    app/shutdownframe.h
+    app/shutdownframe.h \
+    view/multiuserswarningview.h \
+    common.h
 
 
 RESOURCES += \

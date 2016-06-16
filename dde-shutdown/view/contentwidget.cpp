@@ -13,6 +13,8 @@
 
 #include "dbus/dbusvariant.h"
 #include "contentwidget.h"
+#include "accountsutils.h"
+#include "multiuserswarningview.h"
 
 ShutDownFrame::ShutDownFrame(QWidget *parent)
     : QFrame(parent)
@@ -31,8 +33,8 @@ void ShutDownFrame::initConnect() {
     connect(this, SIGNAL(keyRight()), SLOT(setNextChildFocus()));
     connect(this, &ShutDownFrame::pressEnterAction, this, &ShutDownFrame::enterKeyPushed);
 
-    connect(m_shutdownButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Shutdown);});
-    connect(m_restartButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Restart);});
+    connect(m_shutdownButton, &RoundItemButton::clicked, [this] { beforeInvokeAction(Shutdown);});
+    connect(m_restartButton, &RoundItemButton::clicked, [this] { beforeInvokeAction(Restart);});
     connect(m_suspendButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Suspend);});
     connect(m_lockButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Lock);});
     connect(m_logoutButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Logout);});
@@ -92,6 +94,35 @@ void ShutDownFrame::disableBtn(const QString &btnName)
         m_switchUserBtn->setDisabled(true);
     else
         return;
+}
+
+void ShutDownFrame::beforeInvokeAction(const Actions action)
+{
+    QStringList loggedInUsers = AccountsUtils::GetLoggedInUsers();
+
+    if (loggedInUsers.length() > 1) {
+        for (RoundItemButton* btn : *m_btnsList) {
+            btn->hide();
+        }
+
+        QBoxLayout * mainLayout = qobject_cast<QBoxLayout*>(parentWidget()->layout());
+
+        MultiUsersWarningView * view = new MultiUsersWarningView;
+        view->setUsers(loggedInUsers);
+        view->setAction(action);
+        mainLayout->addWidget(view, 0, Qt::AlignCenter);
+
+        connect(view, &MultiUsersWarningView::cancelled, [this, &action, view] {
+           qApp->quit();
+        });
+        connect(view, &MultiUsersWarningView::actionInvoked, [this, &action] {
+            emit ShutDownFrameActions(action);
+        });
+
+        view->show();
+    } else {
+        emit ShutDownFrameActions(action);
+    }
 }
 
 void ShutDownFrame::initUI() {

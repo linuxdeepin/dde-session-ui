@@ -127,16 +127,20 @@ void ShutdownManager::hideToplevelWindow()
 #endif
 }
 
-void ShutdownManager::powerAction(const ShutDownFrame::Actions action)
+void ShutdownManager::powerAction(const Actions action)
 {
+#ifdef QT_DEBUG
+    return;
+#endif
+
     switch (action)
     {
-    case ShutDownFrame::Shutdown:       m_sessionInterface->RequestShutdown();      break;
-    case ShutDownFrame::Restart:        m_sessionInterface->RequestReboot();        break;
-    case ShutDownFrame::Suspend:        m_sessionInterface->RequestSuspend();       break;
-    case ShutDownFrame::Lock:           m_sessionInterface->RequestLock();          break;
-    case ShutDownFrame::Logout:         m_sessionInterface->RequestLogout();        break;
-    case ShutDownFrame::SwitchUser:     switchToGreeter();                          break;
+    case Actions::Shutdown:       m_sessionInterface->RequestShutdown();      break;
+    case Actions::Restart:        m_sessionInterface->RequestReboot();        break;
+    case Actions::Suspend:        m_sessionInterface->RequestSuspend();       break;
+    case Actions::Lock:           m_sessionInterface->RequestLock();          break;
+    case Actions::Logout:         m_sessionInterface->RequestLogout();        break;
+    case Actions::SwitchUser:     switchToGreeter();                          break;
     default:                            qWarning() << "action: " << action << " not handled";
     }
 

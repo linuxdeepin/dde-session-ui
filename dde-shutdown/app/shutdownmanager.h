@@ -32,7 +32,7 @@ signals:
     void pressEnter();
 
 public slots:
-    void powerAction(const ShutDownFrame::Actions action);
+    void powerAction(const Actions action);
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
 //    void shutDownFrameGrabKeyboard();

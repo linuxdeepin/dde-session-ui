@@ -26,5 +26,14 @@
         <file>img/userswitch_normal.png</file>
         <file>img/userswitch_press.png</file>
         <file>img/waring.png</file>
+        <file>img/poweroff_warning_hover.png</file>
+        <file>img/poweroff_warning_normal.png</file>
+        <file>img/poweroff_warning_press.png</file>
+        <file>img/reboot_warning_hover.png</file>
+        <file>img/reboot_warning_normal.png</file>
+        <file>img/reboot_warning_press.png</file>
+        <file>img/cancel_hover.png</file>
+        <file>img/cancel_normal.png</file>
+        <file>img/cancel_press.png</file>
     </qresource>
 </RCC>
