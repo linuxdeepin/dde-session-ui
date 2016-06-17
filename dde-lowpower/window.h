@@ -24,9 +24,10 @@ public:
 
 private:
     QLabel * m_image;
+    QLabel * m_text;
 
     void setupSize();
-    void setupImagePosition();
+    void setupUI();
 };
 
 class LowPowerAdaptor : public QDBusAbstractAdaptor {

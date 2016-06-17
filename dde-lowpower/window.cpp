@@ -18,18 +18,18 @@
 #include "window.h"
 
 Window::Window(QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent),
+	m_image(new QLabel(this)),
+	m_text(new QLabel(tr("Low battery, please plug in"), this))
 {
     // set window flags as dde-lock, so we can easily cover it.
     setWindowFlags(Qt::BypassWindowManagerHint | Qt::FramelessWindowHint);
 
+    m_image->setPixmap(QPixmap(":/images/lowpower.png"));
+    m_text->setStyleSheet("QLabel{ color:#ff8000; font-size:15px }");
+
     setupSize();
     setStyleSheet("Window { background: black }");
-
-    m_image = new QLabel(this);
-    m_image->setPixmap(QPixmap(":/images/lowpower.png"));
-
-    setupImagePosition();
 }
 
 Window::~Window()
@@ -51,17 +51,17 @@ void Window::setupSize()
     }
 
     setFixedSize(totalWidth, totalHeight);
-}
 
-void Window::setupImagePosition()
-{
     QPoint cursorPos = QCursor::pos();
-
-    QDesktopWidget * desktop = QApplication::desktop();
     int screenNum = desktop->screenNumber(cursorPos);
     QWidget * screen = desktop->screen(screenNum);
 
+    m_image->setFixedSize(m_image->pixmap()->size());
     m_image->move(screen->geometry().center() - m_image->rect().center());
+
+    m_text->setFixedSize(screen->geometry().width(), 30);
+    m_text->setAlignment(Qt::AlignHCenter);
+    m_text->move(0, m_image->y() + m_image->pixmap()->height());
 }
 
 LowPowerAdaptor::LowPowerAdaptor(Window * parent) :
