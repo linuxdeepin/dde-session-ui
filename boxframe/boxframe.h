@@ -31,6 +31,8 @@ public:
     explicit BoxFrame(const QString url, QWidget *parent = 0);
     ~BoxFrame();
 
+public slots:
+    void setBackground();
     void setBackground(const QString &url, bool force = false);
 
 signals:

@@ -44,7 +44,7 @@ BoxFrame::BoxFrame(QWidget *parent)
     connect(&m_blurredImageWatcher, &QFileSystemWatcher::directoryChanged, [this](const QString &){
         // NOTE: the direcotryChanged signal is triggered when the blurred background
         // is about being written to the disk. It's not completed yet.
-        QTimer::singleShot(500, [this] { setBackground(m_lastUrl, true); });
+        QTimer::singleShot(500, this, SLOT(setBackground()));
     });
 
     m_screenSizeMonitor = new QTimer(this);
@@ -91,6 +91,11 @@ BoxFrame::~BoxFrame()
 // ShutdownFrame takes ~260ms to complete. On the other hand, this function takes
 // ~130ms by setting pixmap, yet takes only ~12ms to complete the show() of ShutdownFrame.
 // It'll be more obvious on dual screens environment.
+void BoxFrame::setBackground()
+{
+	setBackground(m_lastUrl, true);
+}
+
 void BoxFrame::setBackground(const QString &url, bool force)
 {
     static const QString objName("GreeterBackground");
