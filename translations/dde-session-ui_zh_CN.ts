@@ -56,17 +56,17 @@
 <context>
     <name>Osd</name>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="35"/>
+        <location filename="../dde-osd/osd.cpp" line="66"/>
         <source>Enable window effects</source>
         <translation>开启窗口特效</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="36"/>
+        <location filename="../dde-osd/osd.cpp" line="67"/>
         <source>Disable window effects</source>
         <translation>关闭窗口特效</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osd.cpp" line="37"/>
+        <location filename="../dde-osd/osd.cpp" line="68"/>
         <source>Failed to enable window effects</source>
         <translation>无法开启窗口特效</translation>
     </message>
@@ -159,6 +159,14 @@
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="55"/>
         <source>Desktop and Lock screen</source>
         <translation>桌面与锁屏</translation>
+    </message>
+</context>
+<context>
+    <name>Window</name>
+    <message>
+        <location filename="../dde-lowpower/window.cpp" line="23"/>
+        <source>Low battery, please plug in</source>
+        <translation>电量不足，请接入电源</translation>
     </message>
 </context>
 </TS>
