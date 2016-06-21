@@ -100,10 +100,12 @@ void BoxFrame::setBackground(const QString &url, bool force)
 {
     static const QString objName("GreeterBackground");
 
-    if (m_lastUrl == url && !force) return;
-
+    if (!url.isEmpty() && m_lastUrl == url && !force) return;
 
     QString path = QUrl(url).isLocalFile() ? QUrl(url).toLocalFile() : url;
+    if (path.isEmpty())
+        path = DefaultBackground;
+
     const QString blurredPath = GetBlurredImagePath(path);
     if (QFile::exists(blurredPath)) {
         path = blurredPath;

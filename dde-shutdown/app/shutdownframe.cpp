@@ -56,13 +56,6 @@ void ShutdownFrame::initShutdownManager()
 
 void ShutdownFrame::initBackground()
 {
-//    const QString username = qgetenv("USER");
-//    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-//    const QString background = settings.value("User/Background").toString();
-
-//    qDebug() << "update background for user: " << username << " background: " << background;
-//    setBackground(background);
-
     auto callback = [this] {
         const QString background = QUrl(m_gsettings->get(WallpaperKey).toString()).toLocalFile();
         setBackground(background);

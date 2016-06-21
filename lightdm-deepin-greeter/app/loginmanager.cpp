@@ -124,17 +124,13 @@ void LoginManager::updateWidgetsPosition()
     m_requireShutdownWidget->move(0,  (height - m_requireShutdownWidget->height())/2 - 60);
 }
 
-void LoginManager::updateBackground(QString /*username*/)
+void LoginManager::updateBackground(QString username)
 {
-    /*
     const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
     const QString background = settings.value("User/GreeterBackground").toString();
 
-    qDebug() << "update background for user: " << username << " background: " << background;
-    */
-
     LoginFrame * frame = qobject_cast<LoginFrame*>(parent());
-    frame->setBackground("/usr/share/backgrounds/default_background.jpg");
+    frame->setBackground(background);
 }
 
 void LoginManager::keyPressEvent(QKeyEvent* e) {
