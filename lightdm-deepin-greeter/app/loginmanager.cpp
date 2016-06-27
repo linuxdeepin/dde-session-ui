@@ -133,6 +133,29 @@ void LoginManager::updateBackground(QString username)
     frame->setBackground(background);
 }
 
+void LoginManager::updateUserLoginCondition(QString username)
+{
+    QProcess p;
+    p.start("groups", QStringList(username));
+    p.waitForFinished();
+
+    QString output = p.readAllStandardOutput().trimmed();
+    QStringList tokens = output.split(":");
+    if (tokens.length() > 1) {
+        QStringList groups = tokens.at(1).split(" ");
+        qDebug() << groups;
+        if (groups.contains("nopasswdlogin")) {
+            m_passWdEdit->setFixedSize(0, 0);
+            m_loginButton->show();
+
+            return;
+        }
+    }
+
+    m_passWdEdit->setFixedSize(m_passwdEditSize);
+    m_loginButton->hide();
+}
+
 void LoginManager::keyPressEvent(QKeyEvent* e) {
     qDebug() << "qDebug loginManager:" << e->text();
 
@@ -197,9 +220,22 @@ void LoginManager::initUI()
     m_userWidget->setObjectName("UserWidget");
     m_passWdEdit = new PassWdEdit(this);
     m_passWdEdit->setEnterBtnStyle(":/img/login_normal.png", ":/img/login_normal.png", ":/img/login_press.png");
-
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
     m_passWdEdit->setFocus();
+    m_passwdEditSize = m_passWdEdit->size();
+
+    m_loginButton = new QPushButton(this);
+    m_loginButton->setText(tr("Login"));
+    m_loginButton->setStyleSheet("QPushButton {"
+                                  "border: none;"
+                                  "background: url(:/img/login_unpwd_normal.png);"
+                                  "}"
+                                  "QPushButton:pressed {"
+                                  "border: none;"
+                                  "background: url(:/img/login_unpwd_press.png);"
+                                  "}");
+    m_loginButton->setFixedSize(160, 36);
+    m_loginButton->hide();
 
     m_requireShutdownWidget = new ShutdownWidget(this);
     m_requireShutdownWidget->hide();
@@ -208,6 +244,7 @@ void LoginManager::initUI()
     m_passWdEditLayout->setSpacing(0);
     m_passWdEditLayout->addStretch();
     m_passWdEditLayout->addWidget(m_passWdEdit);
+    m_passWdEditLayout->addWidget(m_loginButton);
     m_passWdEditLayout->addStretch();
 
     m_Layout = new QVBoxLayout;
@@ -230,6 +267,7 @@ void LoginManager::initUI()
     set_rootwindow_cursor();
 
     updateBackground(m_userWidget->currentUser());
+    updateUserLoginCondition(m_userWidget->currentUser());
 }
 
 void LoginManager::recordPid() {
@@ -256,7 +294,6 @@ void LoginManager::initData() {
 void LoginManager::initConnect()
 {
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, this, &LoginManager::chooseUserMode);
-    connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_passWdEdit, &PassWdEdit::hide);
     connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
 
     connect(m_switchFrame, &SwitchFrame::triggerPower, this, &LoginManager::showShutdownFrame);
@@ -271,6 +308,7 @@ void LoginManager::initConnect()
 #endif
     connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
     connect(m_userWidget, &UserWidget::userChanged, this, &LoginManager::updateBackground);
+    connect(m_userWidget, &UserWidget::userChanged, this, &LoginManager::updateUserLoginCondition);
 
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
@@ -286,6 +324,8 @@ void LoginManager::initConnect()
         }});
 
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
+
+    connect(m_loginButton, &QPushButton::clicked, this, &LoginManager::login);
 }
 
 void LoginManager::initDateAndUpdate() {
@@ -385,11 +425,12 @@ void LoginManager::login()
     m_greeter->authenticate(username);
     qDebug() << "choose user: " << username;
     qDebug() << "auth user: " << m_greeter->authenticationUser();
-
 }
 
 void LoginManager::chooseUserMode()
 {
+    m_passWdEdit->hide();
+    m_loginButton->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
     m_requireShutdownWidget->hide();
@@ -400,6 +441,7 @@ void LoginManager::chooseSessionMode()
     m_sessionWidget->show();
     m_userWidget->hide();
     m_passWdEdit->hide();
+    m_loginButton->hide();
     m_requireShutdownWidget->hide();
     if (!m_keybdArrowWidget->isHidden()) {
         m_keybdArrowWidget->hide();
@@ -424,6 +466,7 @@ void LoginManager::showShutdownFrame() {
     qDebug() << "showShutdownFrame!";
     m_userWidget->hide();
     m_passWdEdit->hide();
+    m_loginButton->hide();
     m_sessionWidget->hide();
     m_requireShutdownWidget->show();
 }

@@ -51,6 +51,7 @@ public slots:
     /*Update the position of the widgets after finished the layout of ui*/
     void updateWidgetsPosition();
     void updateBackground(QString username);
+    void updateUserLoginCondition(QString username);
 
 protected:
     void keyPressEvent(QKeyEvent* e) Q_DECL_OVERRIDE;
@@ -88,6 +89,7 @@ private:
     SwitchFrame* m_switchFrame;
     UserWidget* m_userWidget;
     PassWdEdit* m_passWdEdit;
+    QPushButton * m_loginButton;
     SessionWidget *m_sessionWidget;
     QHBoxLayout* m_passWdEditLayout;
     QVBoxLayout* m_Layout;
@@ -100,6 +102,8 @@ private:
     QLightDM::Greeter *m_greeter;
     DBusLogin1Manager* m_login1ManagerInterface;
     UtilFile* m_utilFile;
+
+    QSize m_passwdEditSize;
 };
 #endif // LoginManager
 

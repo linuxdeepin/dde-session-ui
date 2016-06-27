@@ -17,6 +17,7 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QMap>
+#include <QProcess>
 
 #include "lockmanager.h"
 #include "lockframe.h"
@@ -53,6 +54,8 @@ void LockManager::initConnect() {
 
     connect(m_passwordEdit, &PassWdEdit::leftKeyPressed, this, &LockManager::leftKeyPressed);
     connect(m_passwordEdit, &PassWdEdit::rightKeyPressed, this, &LockManager::rightKeyPressed);
+
+    connect(m_unlockButton, &QPushButton::clicked, this, &LockManager::unlock);
 }
 
 void LockManager::keybdLayoutWidgetPosit() {
@@ -83,6 +86,20 @@ void LockManager::initUI() {
     m_passwordEdit->setEnterBtnStyle(":/img/unlock_normal.png", ":/img/unlock_normal.png", ":/img/unlock_press.png");
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
     m_passwordEdit->setFocus();
+    m_passwdEditSize = m_passwordEdit->size();
+
+    m_unlockButton = new QPushButton(this);
+    m_unlockButton->setText(tr("Login"));
+    m_unlockButton->setStyleSheet("QPushButton {"
+                                  "border: none;"
+                                  "background: url(:/img/login_unpwd_normal.png);"
+                                  "}"
+                                  "QPushButton:pressed {"
+                                  "border: none;"
+                                  "background: url(:/img/login_unpwd_press.png);"
+                                  "}");
+    m_unlockButton->setFixedSize(160, 36);
+    m_unlockButton->hide();
 
     m_requireShutdownWidget = new ShutdownWidget(this);
     m_requireShutdownWidget->hide();
@@ -100,6 +117,7 @@ void LockManager::initUI() {
     passwdLayout->setSpacing(0);
     passwdLayout->addStretch();
     passwdLayout->addWidget(m_passwordEdit);
+    passwdLayout->addWidget(m_unlockButton);
     passwdLayout->addStretch();
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -119,7 +137,10 @@ void LockManager::initUI() {
     qDebug() << "DBusLockService" << m_lockInter->IsLiveCD(m_userWidget->currentUser());
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
     connect(m_userWidget, &UserWidget::userChanged, this, &LockManager::updateBackground);
+    connect(m_userWidget, &UserWidget::userChanged, this, &LockManager::updateUserLoginCondition);
+
     updateBackground(m_userWidget->currentUser());
+    updateUserLoginCondition(m_userWidget->currentUser());
 }
 
 void LockManager::updateWidgetsPosition() {
@@ -142,6 +163,29 @@ void LockManager::updateBackground(QString username)
 
     LockFrame * frame = qobject_cast<LockFrame*>(parent());
     frame->setBackground(background);
+}
+
+void LockManager::updateUserLoginCondition(QString username)
+{
+    QProcess p;
+    p.start("groups", QStringList(username));
+    p.waitForFinished();
+
+    QString output = p.readAllStandardOutput().trimmed();
+    QStringList tokens = output.split(":");
+    if (tokens.length() > 1) {
+        QStringList groups = tokens.at(1).split(" ");
+        qDebug() << groups;
+        if (groups.contains("nopasswdlogin")) {
+            m_passwordEdit->setFixedSize(0, 0);
+            m_unlockButton->show();
+
+            return;
+        }
+    }
+
+    m_passwordEdit->setFixedSize(m_passwdEditSize);
+    m_unlockButton->hide();
 }
 
 void LockManager::leaveEvent(QEvent *) {

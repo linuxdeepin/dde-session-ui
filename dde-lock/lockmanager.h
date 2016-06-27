@@ -61,6 +61,7 @@ public slots:
     void shutdownMode();
     void updateWidgetsPosition();
     void updateBackground(QString username);
+    void updateUserLoginCondition(QString username);
 
     void keybdLayoutWidgetPosit();
     void leftKeyPressed();
@@ -84,6 +85,7 @@ private:
     UserWidget *m_userWidget;
     ControlWidget *m_controlWidget;
     PassWdEdit *m_passwordEdit;
+    QPushButton *m_unlockButton;
     DBusLockService *m_lockInter;
 
     QMap<QString, QString> m_keybdInfoMap;
@@ -98,7 +100,7 @@ private:
     DBusHotzone* m_hotZoneInterface;
     int m_keybdLayoutItemIndex;
 
-
+    QSize m_passwdEditSize;
 };
 
 #endif // LOCKMANAGER_H

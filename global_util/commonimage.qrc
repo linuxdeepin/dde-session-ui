@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
+        <file>img/login_unpwd_normal.png</file>
+        <file>img/login_unpwd_press.png</file>
         <file>img/userswitch_press.svg</file>
         <file>img/userswitch_normal.svg</file>
         <file>img/userswitch_hover.svg</file>
