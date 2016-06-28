@@ -13,6 +13,7 @@
 #include <QCommandLineParser>
 #include <QDBusInterface>
 #include <QDBusConnection>
+#include <QTranslator>
 #include <QTimer>
 #include <QDebug>
 
@@ -23,6 +24,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QTranslator translator;
+    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
+    a.installTranslator(&translator);
 
     QCommandLineOption raiseOption("raise", "raise the main window.");
     QCommandLineOption quitOption("quit", "quit all dde-lowpower instances.");
