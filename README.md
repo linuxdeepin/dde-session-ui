@@ -43,6 +43,7 @@ User interface of setting hot zone.
 - liblightdm-qt5-3
 - xrandr
 - x11 xext xfixes xcursor x11extras
+- pam
 
 ## Installation
 Those project's installation is all the same, so we just make a example.
