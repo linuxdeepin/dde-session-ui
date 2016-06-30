@@ -60,7 +60,7 @@ SessionWidget::SessionWidget(QWidget *parent)
         m_sessionBtns->append(sbtn);
     }
 
-    setFixedSize(qApp->desktop()->width(), 200);
+    setFixedSize(qApp->desktop()->width(), 320); // 2 lines at most.
 //    setStyleSheet("background-color:red;");
 }
 
@@ -88,15 +88,23 @@ void SessionWidget::show()
 
     const int itemPadding = 20;
     const int itemWidth = m_sessionBtns->first()->width();
+    const int itemHeight = m_sessionBtns->first()->height();
     const int itemTotal = itemPadding + itemWidth;
     const int count = m_sessionBtns->count();
-    const int totalWidth = count * itemTotal - itemPadding; // sub itempadding for first item
-    const int startLeft = (width() - totalWidth) / 2;
+    const int maxLineCap = width() / itemTotal - 1; // 1 for left-offset and right-offset.
+    const int offset = (width() - itemTotal * qMin(count, maxLineCap)) / 2;
 
     for (int i(0); i != count; ++i) {
         QPropertyAnimation *ani = new QPropertyAnimation(m_sessionBtns->at(i), "pos");
-        ani->setStartValue(QPoint(width(), 0));
-        ani->setEndValue(QPoint(startLeft + i * itemTotal, 0));
+        if (i + 1 <= maxLineCap) {
+            // the first line.
+            ani->setStartValue(QPoint(width(), 0));
+            ani->setEndValue(QPoint(offset + i * itemTotal, 0));
+        } else {
+            // the second line.
+            ani->setStartValue(QPoint(width(), itemHeight));
+            ani->setEndValue(QPoint(offset + (i - maxLineCap) * itemTotal, itemHeight));
+        }
         ani->start(QAbstractAnimation::DeleteWhenStopped);
 
         m_sessionBtns->at(i)->show();

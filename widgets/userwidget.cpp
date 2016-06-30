@@ -34,7 +34,7 @@ UserWidget::UserWidget(QWidget* parent)
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 //    setStyleSheet("background-color:red;");
-    setFixedSize(qApp->desktop()->width(), USER_ICON_HEIGHT);
+    setFixedSize(qApp->desktop()->width(), USER_ICON_HEIGHT * 2); // 2 lines at most.
 //    move(0, (qApp->desktop()->height() - rect().height()) / 2 - 95);
 
     initUI();
@@ -157,9 +157,9 @@ void UserWidget::expandWidget()
 {
     isChooseUserMode = true;
 
-
     const int count = m_userBtns->count();
-    const int offset = (width() - USER_ICON_WIDTH * count) / 2;
+    const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
+    const int offset = (width() - USER_ICON_WIDTH * qMin(count, maxLineCap)) / 2;
 
     for (int i = 0; i != count; ++i)
     {
@@ -171,8 +171,13 @@ void UserWidget::expandWidget()
 
         m_userBtns->at(i)->show();
         m_userBtns->at(i)->setImageSize(UserButton::AvatarSmallSize);
-        m_userBtns->at(i)->move(QPoint(offset + i * USER_ICON_WIDTH, 0), 200);
-
+        if (i + 1 <= maxLineCap) {
+            // the first line.
+            m_userBtns->at(i)->move(QPoint(offset + i * USER_ICON_WIDTH, 0), 200);
+        } else {
+            // the second line.
+            m_userBtns->at(i)->move(QPoint(offset + (i - maxLineCap) * USER_ICON_WIDTH, USER_ICON_HEIGHT), 200);
+        }
     }
 
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
