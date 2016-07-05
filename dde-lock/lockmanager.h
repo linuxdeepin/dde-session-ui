@@ -101,6 +101,8 @@ private:
     int m_keybdLayoutItemIndex;
 
     QSize m_passwdEditSize;
+
+    int m_authFailureCount = 0;
 };
 
 #endif // LOCKMANAGER_H

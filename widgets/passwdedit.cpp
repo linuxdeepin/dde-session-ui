@@ -205,6 +205,7 @@ void PassWdEdit::focusInEvent(QFocusEvent *)
 
 bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
 {
+    if (!isEnabled()) return false;
 
     if (o == m_lineEdit && (e->type() == QEvent::MouseButtonRelease ||
                             e->type() == QEvent::KeyRelease)) {
@@ -296,6 +297,16 @@ void PassWdEdit::hide()
     m_hideAni->setStartValue(1.0);
     m_hideAni->setEndValue(0.0);
     m_hideAni->start();
+}
+
+bool PassWdEdit::isReadOnly()
+{
+    return m_lineEdit->isReadOnly();
+}
+
+void PassWdEdit::setReadOnly(bool value)
+{
+    m_lineEdit->setReadOnly(value);
 }
 
 void PassWdEdit::setAlert(bool alert, const QString &text)

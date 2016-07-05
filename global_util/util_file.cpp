@@ -9,12 +9,26 @@
 
 #include "util_file.h"
 
+#include <QSettings>
+#include <QTextCodec>
+
 UtilFile::UtilFile(QObject *parent)
     : QObject(parent) {
 
 }
 
 UtilFile::~UtilFile() {
+}
+
+int UtilFile::GetAuthLimitation()
+{
+    QSettings settings("/etc/deepin-version", QSettings::IniFormat);
+    settings.setIniCodec(QTextCodec::codecForName("utf8"));
+    if (settings.value("Release/Type").toString() == "Server") {
+        return 3;
+    }
+
+    return INT_MAX;
 }
 
 int UtilFile::getExpandState() {
