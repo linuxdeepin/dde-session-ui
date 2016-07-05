@@ -32,15 +32,12 @@ private:
     void initGlobalVars(QWidget *parent);
     void initBasicOperation();
 
-    QDBusInterface* m_AudioInterface;
-    VolumeDbus* m_VolumeInterface;
     QWidget* m_ParentItem;
     QSvgWidget* m_NormalImageSvg;
     QLabel* m_NormalImageLabel;
     QLabel* m_SwitchWMLabel;
 
-    int m_CanAudioMuteRun;
-    int m_AudioMuteNotRunFromAudioMute;
+    bool m_CanAudioMuteRun;
 
     const int BASE_SIZE = 140;
     const int IMAGE_SIZE = 56;

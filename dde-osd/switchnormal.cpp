@@ -20,17 +20,7 @@ SwitchNormal::SwitchNormal(QWidget *parent) : QWidget(parent)
 }
 
 void SwitchNormal::initGlobalVars(QWidget *parent){
-    // DbusInterface to get defalut sink, which is usabel when computer has more than 1 sound card
-    m_AudioInterface = new QDBusInterface("com.deepin.daemon.Audio",
-                                          "/com/deepin/daemon/Audio",
-                                          "",QDBusConnection::sessionBus(),this);
 
-    // default sink path
-    QString defautSinkPath = qvariant_cast<QDBusObjectPath>(m_AudioInterface->call("GetDefaultSink").arguments()[0]).path();
-
-    m_VolumeInterface = new VolumeDbus("com.deepin.daemon.Audio",
-                                       defautSinkPath,
-                                       QDBusConnection::sessionBus(), this);
 
     m_ParentItem = parent;
 
@@ -38,11 +28,6 @@ void SwitchNormal::initGlobalVars(QWidget *parent){
     m_NormalImageLabel = new QLabel(parent);
 
     m_SwitchWMLabel = new QLabel(parent);
-
-    // m_CanAudioMuteRun is used to record the mute state of sound
-    m_CanAudioMuteRun = m_VolumeInterface->mute();
-    // to record whether AudioMute has run before this time
-    m_AudioMuteNotRunFromAudioMute = true;
 }
 
 void SwitchNormal::initBasicOperation(){
@@ -90,20 +75,29 @@ void SwitchNormal::showText(QString text){
 void SwitchNormal::loadBasicImage(QString whichImage)
 {
     showNormal();
-
+    // DbusInterface to get defalut sink, which is usabel when computer has more than 1 sound card
+    QDBusInterface audioInterface("com.deepin.daemon.Audio",
+                                          "/com/deepin/daemon/Audio",
+                                          "",QDBusConnection::sessionBus(),this);
+    // default sink path
+    QString defautSinkPath = qvariant_cast<QDBusObjectPath>(audioInterface.call("GetDefaultSink").arguments()[0]).path();
+    VolumeDbus volumeInterface("com.deepin.daemon.Audio",
+                               defautSinkPath,
+                               QDBusConnection::sessionBus(), this);
+    // TODO: can not read the status first time.
+    m_CanAudioMuteRun = volumeInterface.mute();
+    m_CanAudioMuteRun = volumeInterface.mute();
+    m_CanAudioMuteRun = volumeInterface.mute();
     if (whichImage == "Brightness") {
         showThemeImage(getThemeIconPath("display-brightness-symbolic"), m_NormalImageSvg, m_NormalImageLabel);
     } else if (whichImage == "AudioMute") {
-        if (m_CanAudioMuteRun && m_AudioMuteNotRunFromAudioMute) {
+        if (m_CanAudioMuteRun) {
             showThemeImage(getThemeIconPath("audio-volume-muted-symbolic-osd"), m_NormalImageSvg, m_NormalImageLabel);
-            m_AudioMuteNotRunFromAudioMute = false;
         } else {
             loadBasicImage("Audio");
         }
     } else if (whichImage == "Audio") {
-        m_CanAudioMuteRun = true;
-        m_AudioMuteNotRunFromAudioMute = true;
-        double volume = m_VolumeInterface->volume();
+        double volume = volumeInterface.volume();
         // 0.7~1.0 means high volume range, 0.3~0.7 means medium volume range, and 0.0~0.3 means low volume range.
         if (volume > 0.7 && volume <= 1.0) {
             showThemeImage(getThemeIconPath("audio-volume-high-symbolic-osd"), m_NormalImageSvg, m_NormalImageLabel);
@@ -118,7 +112,15 @@ void SwitchNormal::loadBasicImage(QString whichImage)
 }
 
 double SwitchNormal::getVolume(){
-    return m_VolumeInterface->volume();
+    QDBusInterface audioInterface("com.deepin.daemon.Audio",
+                                          "/com/deepin/daemon/Audio",
+                                          "",QDBusConnection::sessionBus(),this);
+    // DbusInterface to get defalut sink, which is usabel when computer has more than 1 sound card
+    QString defautSinkPath = qvariant_cast<QDBusObjectPath>(audioInterface.call("GetDefaultSink").arguments()[0]).path();
+    VolumeDbus volumeInterface("com.deepin.daemon.Audio",
+                               defautSinkPath,
+                               QDBusConnection::sessionBus(), this);
+    return volumeInterface.volume();
 }
 
 void SwitchNormal::searchAddedImage(QString iconName){
