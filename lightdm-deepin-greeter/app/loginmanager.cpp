@@ -376,8 +376,16 @@ void LoginManager::authenticationComplete()
     m_userWidget->hideLoadingAni();
 
     if (!m_greeter->isAuthenticated()) {
-        m_passWdEdit->setAlert(true, tr("Wrong password"));
-        qWarning() << "auth fail !!!";
+        m_authFailureCount++;
+        if (m_authFailureCount < UtilFile::GetAuthLimitation()) {
+            m_passWdEdit->setAlert(true, tr("Wrong Password"));
+        } else {
+            m_authFailureCount = 0;
+            m_passWdEdit->setReadOnly(true);
+            m_passWdEdit->setEnabled(false);
+            m_passWdEdit->setAlert(true, tr("Please retry after 10 minutes"));
+        }
+
         return;
     }
 

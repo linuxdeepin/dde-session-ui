@@ -104,6 +104,8 @@ private:
     UtilFile* m_utilFile;
 
     QSize m_passwdEditSize;
+
+    int m_authFailureCount;
 };
 #endif // LoginManager
 

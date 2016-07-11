@@ -66,6 +66,9 @@ public slots:
     void show();
     void hide();
 
+    bool isReadOnly();
+    void setReadOnly(bool value);
+
     void setAlert(bool alert, const QString &text = QString());
     inline bool alert() const {return m_alert;}
     void lineEditGrabKeyboard();

@@ -21,6 +21,8 @@ public:
     UtilFile(QObject* parent=0);
     ~UtilFile();
 
+    static int GetAuthLimitation();
+
     int getExpandState();
     void setExpandState(int stateIndex);
 };

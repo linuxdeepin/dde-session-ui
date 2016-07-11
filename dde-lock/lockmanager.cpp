@@ -26,7 +26,6 @@
 LockManager::LockManager(QWidget* parent)
     : QFrame(parent)
 {
-
     initUI();
     initBackend();
     updateUI();
@@ -286,9 +285,17 @@ void LockManager::unlock()
     if (result.error().type() != QDBusError::NoError || !result.value())
     {
         // Auth fail
-        qDebug() << "auth failed!";
+        qDebug() << "Authorization failed!";
+        m_authFailureCount++;
         m_userWidget->hideLoadingAni();
-        m_passwordEdit->setAlert(true, tr("Wrong Password"));
+        if (m_authFailureCount < UtilFile::GetAuthLimitation()) {
+            m_passwordEdit->setAlert(true, tr("Wrong Password"));
+        } else {
+            m_authFailureCount = 0;
+            m_passwordEdit->setReadOnly(true);
+            m_passwordEdit->setEnabled(false);
+            m_passwordEdit->setAlert(true, tr("Please retry after 10 minutes"));
+        }
 
         return;
     }
