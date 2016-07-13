@@ -15,26 +15,16 @@ include(../boxframe/boxframe.pri)
 SOURCES += main.cpp \
     timewidget.cpp \
     controlwidget.cpp \
-    dbus/dbuskeyboard.cpp \
-    dbus/dbusinputdevices.cpp \
-    dbus/dbusmediaplayer2.cpp \
-    ../widgets/dbus/dbuscontrolcenter.cpp \
     lockmanager.cpp \
     lockframe.cpp \
-    dbus/dbuslockfrontservice.cpp \
-    dbus/dbuslockfront.cpp
+    dbus/dbuslockfrontservice.cpp
 
 HEADERS  += \
     timewidget.h \
     controlwidget.h \
-    dbus/dbusinputdevices.h \
-    dbus/dbuskeyboard.h \
-    dbus/dbusmediaplayer2.h \
-    ../widgets/dbus/dbuscontrolcenter.h \
     lockmanager.h \
     lockframe.h \
-    dbus/dbuslockfrontservice.h \
-    dbus/dbuslockfront.h
+    dbus/dbuslockfrontservice.h
 
 RESOURCES += \
     images.qrc \

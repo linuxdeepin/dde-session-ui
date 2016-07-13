@@ -32,12 +32,13 @@ public:
 
 signals:
     void shutdownClicked();
+    void switchUser();
 
 private slots:
     void volumeWheelControl(const QWheelEvent *e);
     void changePauseBtnPic();
     void changeVolumeBtnPic();
-    void switchToGreeter();
+//    void switchUser();
 
 protected:
     bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;

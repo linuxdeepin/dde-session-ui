@@ -8,6 +8,7 @@ HEADERS += \
     $$PWD/constants.h \
     $$PWD/util_settings.h \
     $$PWD/xkbparser.h \
+    $$PWD/util_file.h \
     $$PWD/dbus/dbusdisplaymanager.h \
     $$PWD/dbus/dbuslogin1manager.h \
     $$PWD/dbus/dbusvariant.h \
@@ -16,14 +17,21 @@ HEADERS += \
     $$PWD/dbus/dbushotzone.h \
     $$PWD/dbus/dbuslockservice.h \
     $$PWD/util_file.h \
-    $$PWD/accountsutils.h
-
+    $$PWD/accountsutils.h \
+    $$PWD/dbus/dbusaccounts.h \
+    $$PWD/dbus/dbususer.h \
+    $$PWD/dbus/dbusinputdevices.h \
+    $$PWD/dbus/dbuscontrolcenter.h \
+    $$PWD/dbus/dbuskeyboard.h \
+    $$PWD/dbus/dbuslockfront.h \
+    $$PWD/dbus/dbusmediaplayer2.h
 
 SOURCES += \
     $$PWD/util_updateui.cpp \
     $$PWD/util_signalmanager.cpp \
     $$PWD/util_settings.cpp \
     $$PWD/xkbparser.cpp \
+    $$PWD/util_file.cpp \
     $$PWD/dbus/dbusdisplaymanager.cpp \
     $$PWD/dbus/dbuslogin1manager.cpp \
     $$PWD/dbus/dbusvariant.cpp \
@@ -31,9 +39,14 @@ SOURCES += \
     $$PWD/dbus/displayinterface.cpp \
     $$PWD/dbus/dbushotzone.cpp \
     $$PWD/dbus/dbuslockservice.cpp \
-    $$PWD/util_file.cpp \
-    $$PWD/accountsutils.cpp
-
+    $$PWD/accountsutils.cpp \
+    $$PWD/dbus/dbusaccounts.cpp \
+    $$PWD/dbus/dbususer.cpp \
+    $$PWD/dbus/dbuskeyboard.cpp \
+    $$PWD/dbus/dbusinputdevices.cpp \
+    $$PWD/dbus/dbuscontrolcenter.cpp \
+    $$PWD/dbus/dbuslockfront.cpp \
+    $$PWD/dbus/dbusmediaplayer2.cpp
 
 RESOURCES += \
     $$PWD/commonimage.qrc

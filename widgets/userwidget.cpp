@@ -11,6 +11,7 @@
 #include "constants.h"
 #include "dbus/dbusaccounts.h"
 #include "dbus/dbususer.h"
+#include "dbus/dbuslockservice.h"
 #include "accountsutils.h"
 
 #include <QApplication>
@@ -22,16 +23,24 @@
 #include <unistd.h>
 #include <pwd.h>
 
+#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
+#define LOCKSERVICE_NAME "com.deepin.dde.lock"
+
 DWIDGET_USE_NAMESPACE
 
 UserWidget::UserWidget(QWidget* parent)
+    : UserWidget("", parent) {
+
+}
+
+UserWidget::UserWidget(const QString &username, QWidget* parent)
     : QFrame(parent),
     m_currentUser(),
     m_userBtns(new QList<UserButton *>),
     m_userModel(new QLightDM::UsersModel(this))
 {
-    QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
-    m_currentUser = settings.value("last-user").toString();
+    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
+    m_currentUser = username.isEmpty() ? m_lockInter.CurrentUser() : username;
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 //    setStyleSheet("background-color:red;");
@@ -128,6 +137,7 @@ void UserWidget::setCurrentUser(const QString &username)
             user->setImageSize(user->AvatarLargerSize);
             if (user->isChecked())
                 user->setButtonChecked(false);
+            user->show();
         } else
             user->hide(180);
 
@@ -159,13 +169,16 @@ void UserWidget::expandWidget()
     const int count = m_userBtns->count();
     const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
     const int offset = (width() - USER_ICON_WIDTH * qMin(count, maxLineCap)) / 2;
-
+    const QString username = currentUser();
     for (int i = 0; i != count; ++i)
     {
-        if (m_userBtns->at(i)->objectName() != currentUser()) {
+        if (m_userBtns->at(i)->objectName() != username) {
              m_userBtns->at(i)->showButton();
+             m_userBtns->at(i)->setButtonChecked(false);
         }
-
+        if (m_userBtns->at(i)->objectName() == username) {
+             m_userBtns->at(i)->setButtonChecked(true);
+        }
         m_userBtns->at(i)->stopAnimation();
 
         m_userBtns->at(i)->show();
@@ -184,8 +197,8 @@ void UserWidget::expandWidget()
 
 void UserWidget::saveLastUser()
 {
-    QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
-    settings.setValue("last-user", currentUser());
+    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
+    m_currentUser = m_lockInter.SwitchToUser(currentUser());
 }
 
 void UserWidget::resizeEvent(QResizeEvent *e)
@@ -295,6 +308,13 @@ void UserWidget::rightKeySwitchUser() {
             }
         }
     }
+}
+
+const QString UserWidget::loginUser()
+{
+    struct passwd *pws;
+    pws = getpwuid(getuid());
+    return QString(pws->pw_name);
 }
 
 const QString UserWidget::currentUser()

@@ -18,12 +18,13 @@
 #include <QDebug>
 #include <QMap>
 #include <QProcess>
+#include <QDBusConnection>
 
 #include "lockmanager.h"
 #include "lockframe.h"
 #include "dbus/dbuslockfront.h"
 
-LockManager::LockManager(QWidget* parent)
+LockManager::LockManager(QWidget *parent)
     : QFrame(parent)
 {
     initUI();
@@ -34,11 +35,16 @@ LockManager::LockManager(QWidget* parent)
     loadMPRIS();
     leaveEvent(nullptr);
 }
-void LockManager::initConnect() {
+
+void LockManager::initConnect()
+{
 
     connect(m_passwordEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LockManager::keybdLayoutWidgetPosit);
     connect(m_controlWidget, &ControlWidget::shutdownClicked, this, &LockManager::shutdownMode);
-    connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, [this] (const ShutdownWidget::Actions action) {
+    connect(m_controlWidget, &ControlWidget::switchUser, this, &LockManager::chooseUserMode);
+    connect(m_controlWidget, &ControlWidget::switchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
+
+    connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, [this](const ShutdownWidget::Actions action) {
         switch (action) {
         case ShutdownWidget::RequireRestart:    m_action = Restart;         break;
         case ShutdownWidget::RequireShutdown:   m_action = Shutdown;        break;
@@ -47,7 +53,7 @@ void LockManager::initConnect() {
 
         passwordMode();
     });
-    connect(qApp, &QApplication::aboutToQuit, [this]{
+    connect(qApp, &QApplication::aboutToQuit, [this] {
         m_hotZoneInterface->EnableZoneDetected(true);
     });
 
@@ -57,29 +63,56 @@ void LockManager::initConnect() {
     connect(m_unlockButton, &QPushButton::clicked, this, &LockManager::unlock);
 }
 
-void LockManager::keybdLayoutWidgetPosit() {
+void LockManager::keybdLayoutWidgetPosit()
+{
     m_keybdArrowWidget->show(m_passwordEdit->x() + 123, m_passwordEdit->y() + m_passwordEdit->height() - 15);
 }
 
-void LockManager::leftKeyPressed() {
+void LockManager::leftKeyPressed()
+{
+    if (!m_userWidget->isHidden() && m_passwordEdit->isHidden()) {
+        m_userWidget->leftKeySwitchUser();
+    }
+//    if (!m_userWidget->isHidden() && !m_passwordEdit->isHidden() &&
+//            m_passwordEdit->getText().isEmpty()) {
+//        m_userWidget->leftKeySwitchUser();
+//    }
     if (!m_requireShutdownWidget->isHidden()) {
         m_requireShutdownWidget->leftKeySwitch();
     }
 }
 
-void LockManager::rightKeyPressed() {
+void LockManager::rightKeyPressed()
+{
+    if (!m_userWidget->isHidden() && m_passwordEdit->isHidden()) {
+        m_userWidget->rightKeySwitchUser();
+    }
+//    if (!m_userWidget->isHidden() && !m_passwordEdit->isHidden() &&
+//            m_passwordEdit->getText().isEmpty()) {
+//        m_userWidget->rightKeySwitchUser();
+//    }
     if (!m_requireShutdownWidget->isHidden()) {
         m_requireShutdownWidget->rightKeySwitch();
     }
 }
-void LockManager::initUI() {
+
+//void LockManager::onUserUnlock(const QString &username)
+//{
+//    qDebug()<< "recive message---------------------------";
+//    if (username == m_userWidget->currentUser()) {
+//        qApp->exit();
+//    }
+//}
+
+void LockManager::initUI()
+{
     setFixedSize(qApp->desktop()->size());
     setFocusPolicy(Qt::NoFocus);
 
     m_timeWidget = new TimeWidget(this);
     m_timeWidget->setFixedSize(400, 300);
 
-    m_userWidget = new UserWidget(this);
+    m_userWidget = new UserWidget(UserWidget::loginUser(), this);
 
     m_passwordEdit = new PassWdEdit(this);
     m_passwordEdit->setEnterBtnStyle(":/img/unlock_normal.png", ":/img/unlock_normal.png", ":/img/unlock_press.png");
@@ -110,7 +143,6 @@ void LockManager::initUI() {
     m_controlWidget->hideMusicControlWidget();
     m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
 
-
     QHBoxLayout *passwdLayout = new QHBoxLayout;
     passwdLayout->setMargin(0);
     passwdLayout->setSpacing(0);
@@ -135,24 +167,56 @@ void LockManager::initUI() {
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
     qDebug() << "DBusLockService" << m_lockInter->IsLiveCD(m_userWidget->currentUser());
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
-    connect(m_userWidget, &UserWidget::userChanged, this, &LockManager::updateBackground);
-    connect(m_userWidget, &UserWidget::userChanged, this, &LockManager::updateUserLoginCondition);
+    connect(m_userWidget, &UserWidget::userChanged,
+    [&](const QString & username) {
+        if (username != UserWidget::loginUser()) {
+            m_lockInter->SwitchToUser(username);
+
+            // goto greeter
+            QProcess *process = new QProcess;
+            process->start("dde-switchtogreeter " + username);
+            process->waitForFinished();
+            process->deleteLater();
+
+            m_userWidget->setCurrentUser(UserWidget::loginUser());
+        }
+        m_passwordEdit->show();
+        this->updateBackground(username);
+        this->updateUserLoginCondition(username);
+    });
+
+    m_lockInter->connect(m_lockInter, &DBusLockService::UserUnlock,
+    [&](const QString & username) {
+        exit(0);
+        if (username == m_userWidget->currentUser()) {
+            exit(0);
+        }
+    });
 
     updateBackground(m_userWidget->currentUser());
     updateUserLoginCondition(m_userWidget->currentUser());
 }
 
-void LockManager::updateWidgetsPosition() {
-    qDebug() << "lockManager: positon" <<this->width() << this->height();
+void LockManager::updateWidgetsPosition()
+{
+    qDebug() << "lockManager: positon" << this->width() << this->height();
     const int width = this->width();
     const int height = this->height();
     m_userWidget->setFixedWidth(width);
     m_timeWidget->move(48, height - m_timeWidget->height() - 36); // left 48px and bottom 36px
     m_userWidget->move(0, (height - m_userWidget->height()) / 2 - 95);
-    m_requireShutdownWidget->move(0,  (height - m_requireShutdownWidget->height())/2 - 50);
+    m_requireShutdownWidget->move(0, (height - m_requireShutdownWidget->height()) / 2 - 50);
     m_controlWidget->move(width - m_controlWidget->width() - 50,
                           height - m_controlWidget->height() - 36); // margin right 50 margin bottom 36
 
+}
+
+void LockManager::chooseUserMode()
+{
+    m_passwordEdit->hide();
+    m_unlockButton->hide();
+    m_userWidget->show();
+    m_requireShutdownWidget->hide();
 }
 
 void LockManager::updateBackground(QString username)
@@ -160,7 +224,7 @@ void LockManager::updateBackground(QString username)
     const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
     const QString background = settings.value("User/GreeterBackground").toString();
 
-    LockFrame * frame = qobject_cast<LockFrame*>(parent());
+    LockFrame *frame = qobject_cast<LockFrame *>(parent());
     frame->setBackground(background);
 }
 
@@ -178,7 +242,6 @@ void LockManager::updateUserLoginCondition(QString username)
         if (groups.contains("nopasswdlogin")) {
             m_passwordEdit->setFixedSize(0, 0);
             m_unlockButton->show();
-
             return;
         }
     }
@@ -187,13 +250,12 @@ void LockManager::updateUserLoginCondition(QString username)
     m_unlockButton->hide();
 }
 
-void LockManager::leaveEvent(QEvent *) {
+void LockManager::leaveEvent(QEvent *)
+{
     QList<QScreen *> screenList = qApp->screens();
     QPoint mousePoint = QCursor::pos();
-    for (const QScreen *screen : screenList)
-    {
-        if (screen->geometry().contains(mousePoint))
-        {
+    for (const QScreen *screen : screenList) {
+        if (screen->geometry().contains(mousePoint)) {
             const QRect &geometry = screen->geometry();
             setFixedSize(geometry.size());
             emit screenChanged(geometry);
@@ -204,7 +266,7 @@ void LockManager::leaveEvent(QEvent *) {
 
 void LockManager::keyPressEvent(QKeyEvent *e)
 {
-    switch(e->key()) {
+    switch (e->key()) {
     case Qt::Key_Escape:
         if (!m_requireShutdownWidget->isHidden()) {
             m_requireShutdownWidget->hide();
@@ -216,7 +278,7 @@ void LockManager::keyPressEvent(QKeyEvent *e)
 #ifdef QT_DEBUG
 //        qApp->quit();   break;
 #endif
-            default:;
+    default:;
     }
 }
 
@@ -224,7 +286,9 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
 {
     qDebug() << "ReleaseEvent";
     m_action = Unlock;
-    passwordMode();
+    if (!m_userWidget->isChooseUserMode) {
+        passwordMode();
+    }
     if (e->button() == Qt::LeftButton) {
         if (!m_keybdArrowWidget->isHidden()) {
             m_keybdArrowWidget->hide();
@@ -234,26 +298,29 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
 
 void LockManager::loadMPRIS()
 {
-    if (m_mprisInter)
+    if (m_mprisInter) {
         m_mprisInter->deleteLater();
+    }
 
     QDBusInterface *dbusInter = new QDBusInterface("org.freedesktop.DBus", "/", "org.freedesktop.DBus", QDBusConnection::sessionBus(), this);
-    if (!dbusInter)
+    if (!dbusInter) {
         return;
+    }
 
     QDBusReply<QStringList> response = dbusInter->call("ListNames");
     const QStringList &serviceList = response.value();
     QString service = QString();
-    for (const QString &serv : serviceList)
-    {
-        if (!serv.startsWith("org.mpris.MediaPlayer2."))
+    for (const QString &serv : serviceList) {
+        if (!serv.startsWith("org.mpris.MediaPlayer2.")) {
             continue;
+        }
         service = serv;
         break;
     }
 
-    if (service.isEmpty())
+    if (service.isEmpty()) {
         return;
+    }
 
     qDebug() << "got service: " << service;
 
@@ -266,6 +333,13 @@ void LockManager::unlock()
 {
     if (!m_requireShutdownWidget->isHidden()) {
         m_requireShutdownWidget->shutdownAction();
+        return;
+    }
+
+    if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
+        m_userWidget->chooseButtonChecked();
+        m_passwordEdit->getFocusTimer->start();
+        qDebug() << "lineEditGrabKeyboard";
         return;
     }
 
@@ -282,8 +356,7 @@ void LockManager::unlock()
              << m_lockInter->lastError()
              << result.error() << result.value();
 
-    if (result.error().type() != QDBusError::NoError || !result.value())
-    {
+    if (result.error().type() != QDBusError::NoError || !result.value()) {
         // Auth fail
         qDebug() << "Authorization failed!";
         m_authFailureCount++;
@@ -301,8 +374,7 @@ void LockManager::unlock()
     }
 
     // Auth success
-    switch (m_action)
-    {
+    switch (m_action) {
     case Restart:       m_sessionManagerIter->RequestReboot();    break;
     case Shutdown:      m_sessionManagerIter->RequestShutdown();    break;
     case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
@@ -318,17 +390,18 @@ void LockManager::unlock()
 #endif
 }
 
-void LockManager::initBackend() {
+void LockManager::initBackend()
+{
     m_hotZoneInterface = new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone",
-                                                        QDBusConnection::sessionBus(), this);
+                                         QDBusConnection::sessionBus(), this);
 #ifndef LOCK_NO_QUIT
     m_hotZoneInterface->EnableZoneDetected(false);
 #endif
 
 
 
-    DBusInputDevices * dbusInputDevices = new DBusInputDevices(this);
-    foreach (InputDevice device, dbusInputDevices->infos()) {
+    DBusInputDevices *dbusInputDevices = new DBusInputDevices(this);
+    foreach(InputDevice device, dbusInputDevices->infos()) {
         if (device.deviceType == "keyboard") {
             m_keyboardLayoutInterface = new DBusKeyboard(this);
             break;
@@ -352,10 +425,11 @@ void LockManager::initBackend() {
     m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
 
     m_sessionManagerIter = new DBusSessionManagerInterface("com.deepin.SessionManager", "/com/deepin/SessionManager",
-                                                           QDBusConnection::sessionBus(), this);
+            QDBusConnection::sessionBus(), this);
 }
 
-void LockManager::updateUI() {
+void LockManager::updateUI()
+{
     m_keybdLayoutWidget = new KbLayoutWidget(keybdLayoutDescList);
 
     m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
@@ -388,7 +462,13 @@ void LockManager::disableZone()
     m_hotZoneInterface->EnableZoneDetected(false);
 }
 
-void LockManager::setCurrentKeyboardLayout(QString keyboard_value) {
+ControlWidget *LockManager::control()
+{
+    return m_controlWidget;
+}
+
+void LockManager::setCurrentKeyboardLayout(QString keyboard_value)
+{
     QMap<QString, QString>::iterator lookupIt;
 
     for (lookupIt = m_keybdInfoMap.begin(); lookupIt != m_keybdInfoMap.end(); ++lookupIt) {
@@ -407,8 +487,7 @@ void LockManager::passwordMode()
     m_passwordEdit->setFocus();
     m_requireShutdownWidget->hide();
 
-    if (m_action == Suspend)
-    {
+    if (m_action == Suspend) {
         m_sessionManagerIter->RequestSuspend().waitForFinished();
         m_action = Unlock;
         return;

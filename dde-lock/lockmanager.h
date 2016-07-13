@@ -49,6 +49,7 @@ public:
     void updateUI();
     void enableZone();
     void disableZone();
+    ControlWidget *control();
 
 signals:
     void screenChanged(QRect rect);
@@ -66,6 +67,9 @@ public slots:
     void keybdLayoutWidgetPosit();
     void leftKeyPressed();
     void rightKeyPressed();
+
+    void chooseUserMode();
+//    void onUserUnlock(const QString& username);
 
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;

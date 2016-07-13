@@ -22,20 +22,17 @@ include(../boxframe/boxframe.pri)
 SOURCES += main.cpp \
     view/contentwidget.cpp \
     view/mainframe.cpp \
+    view/multiuserswarningview.cpp \
     app/shutdownmanager.cpp \
-    ../widgets/dbus/dbuscontrolcenter.cpp \
-    app/shutdownframe.cpp \
-    view/multiuserswarningview.cpp 
+    app/shutdownframe.cpp
 
 HEADERS  += \
+    common.h \
     view/contentwidget.h \
     view/mainframe.h \
-    app/shutdownmanager.h \
-    ../widgets/dbus/dbuscontrolcenter.h \
-    app/shutdownframe.h \
     view/multiuserswarningview.h \
-    common.h
-
+    app/shutdownmanager.h \
+    app/shutdownframe.h
 
 RESOURCES += \
     qss.qrc \

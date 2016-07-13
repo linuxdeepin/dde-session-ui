@@ -11,10 +11,11 @@
 #include <QApplication>
 #include <QtCore/QFile>
 
+#include "common.h"
 #include "shutdownmanager.h"
 #include "userwidget.h"
 
-ShutdownManager::ShutdownManager(QWidget* parent)
+ShutdownManager::ShutdownManager(QWidget *parent)
     : QFrame(parent)
 {
     initUI();
@@ -22,7 +23,8 @@ ShutdownManager::ShutdownManager(QWidget* parent)
     initData();
 }
 
-void ShutdownManager::initConnect() {
+void ShutdownManager::initConnect()
+{
     connect(this, SIGNAL(DirectKeyLeft()) , m_content, SIGNAL(OutKeyLeft()));
     connect(this, SIGNAL(DirectKeyRight()), m_content, SIGNAL(OutKeyRight()));
     connect(this, SIGNAL(pressEnter()), m_content, SIGNAL(pressEnterAction()));
@@ -42,7 +44,8 @@ void ShutdownManager::initConnect() {
 //        m_timerCount++;
 //    }
 //}
-void ShutdownManager::initUI() {
+void ShutdownManager::initUI()
+{
     setObjectName("ShutdownManager");
     resize(qApp->desktop()->screenGeometry().size());
 
@@ -57,15 +60,15 @@ void ShutdownManager::initUI() {
 
     // hide user switch btn when only 1 user avaliable
     UserWidget *users = new UserWidget;
-    if (users->count() < 2)
+    if (users->count() < 2) {
         m_content->hideBtns(QStringList() << "SwitchUser");
+    }
     users->deleteLater();
 
     QFile qssFile(":/skin/main.qss");
     QString qss;
     qssFile.open(QFile::ReadOnly);
-    if(qssFile.isOpen())
-    {
+    if (qssFile.isOpen()) {
         qss = QLatin1String(qssFile.readAll());
         this->setStyleSheet(qss);
         qssFile.close();
@@ -93,11 +96,12 @@ void ShutdownManager::hideEvent(QHideEvent *e)
     QWidget::hideEvent(e);
 }
 
-void ShutdownManager::initData() {
+void ShutdownManager::initData()
+{
     m_sessionInterface = new DBusSessionManagerInterface("com.deepin.SessionManager", "/com/deepin/SessionManager",
-                                                         QDBusConnection::sessionBus(), this);
+            QDBusConnection::sessionBus(), this);
     m_hotZoneInterface = new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone",
-                                                        QDBusConnection::sessionBus(), this);
+                                         QDBusConnection::sessionBus(), this);
 //    m_hotZoneInterface->EnableZoneDetected(false);
 }
 
@@ -108,7 +112,7 @@ void ShutdownManager::switchToGreeter()
 
     QProcess *process = new QProcess;
     connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
-    process->start("dde-switchtogreeter");
+    process->start("dde-locker -");
 
     hideToplevelWindow();
 }
@@ -117,7 +121,7 @@ void ShutdownManager::hideToplevelWindow()
 {
 #ifdef SHUTDOWN_NO_QUIT
     QWidgetList widgets = qApp->topLevelWidgets();
-    for (QWidget * widget : widgets) {
+    for (QWidget *widget : widgets) {
         if (widget->isVisible()) {
             widget->hide();
         }
@@ -133,15 +137,23 @@ void ShutdownManager::powerAction(const Actions action)
     return;
 #endif
 
-    switch (action)
-    {
-    case Actions::Shutdown:       m_sessionInterface->RequestShutdown();      break;
-    case Actions::Restart:        m_sessionInterface->RequestReboot();        break;
-    case Actions::Suspend:        m_sessionInterface->RequestSuspend();       break;
-    case Actions::Lock:           m_sessionInterface->RequestLock();          break;
-    case Actions::Logout:         m_sessionInterface->RequestLogout();        break;
-    case Actions::SwitchUser:     switchToGreeter();                          break;
-    default:                            qWarning() << "action: " << action << " not handled";
+    QDBusInterface ifc("com.deepin.dde.lockFront",
+                       "/com/deepin/dde/lockFront",
+                       "com.deepin.dde.lockFront",
+                       QDBusConnection::sessionBus(), NULL);
+
+    switch (action) {
+    case Shutdown:       m_sessionInterface->RequestShutdown();      break;
+    case Restart:        m_sessionInterface->RequestReboot();        break;
+    case Suspend:        m_sessionInterface->RequestSuspend();       break;
+    case Lock:           m_sessionInterface->RequestLock();          break;
+    case Logout:         m_sessionInterface->RequestLogout();        break;
+    case SwitchUser:
+        ifc.asyncCall("ShowUserList");
+        break;
+    default:
+        qWarning() << "action: " << action << " not handled";
+        break;
     }
 
     hideToplevelWindow();
@@ -157,11 +169,10 @@ void ShutdownManager::disableBtns(const QStringList &btnsName)
     m_content->disableBtns(btnsName);
 }
 
-void ShutdownManager::keyPressEvent(QKeyEvent* e)
+void ShutdownManager::keyPressEvent(QKeyEvent *e)
 {
 
-    switch (e->key())
-    {
+    switch (e->key()) {
     case Qt::Key_Escape:        hideToplevelWindow();  m_hotZoneInterface->EnableZoneDetected(true);  break; // must break;
     case Qt::Key_Return:        /* same as enter */
     case Qt::Key_Enter:         emit pressEnter();              break;
@@ -170,7 +181,7 @@ void ShutdownManager::keyPressEvent(QKeyEvent* e)
     default:;
     }
 }
-void ShutdownManager::mouseReleaseEvent(QMouseEvent* e)
+void ShutdownManager::mouseReleaseEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton) {
         hideToplevelWindow();

@@ -38,6 +38,7 @@ public:
 public:// PROPERTIES
 public Q_SLOTS:// METHODS
     void Show();
+    void ShowUserList();
     bool lockResult();
 };
 

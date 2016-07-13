@@ -40,6 +40,13 @@ LockFrame::LockFrame(QWidget* parent)
 #endif
 }
 
+void LockFrame::showUserList() {
+    show();
+    emit m_lockManager->control()->switchUser();
+    qDebug()<< "dddddddd";
+//    m_lockManager->chooseUserMode();
+}
+
 void LockFrame::updateScreenPosition()
 {
     QList<QScreen *> screenList = qApp->screens();

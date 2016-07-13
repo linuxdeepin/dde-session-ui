@@ -17,8 +17,6 @@ HEADERS += \
     $$PWD/userbreathinglabel.h \
     $$PWD/rounditembutton.h \
     $$PWD/kblayoutwidget.h \
-    $$PWD/dbus/dbusaccounts.h \
-    $$PWD/dbus/dbususer.h \
     $$PWD/shutdownwidget.h \
     $$PWD/darrowrectangle.h \
     $$PWD/capslockmonitor.h
@@ -34,8 +32,6 @@ SOURCES += \
     $$PWD/userbreathinglabel.cpp \
     $$PWD/rounditembutton.cpp \
     $$PWD/kblayoutwidget.cpp \
-    $$PWD/dbus/dbusaccounts.cpp \
-    $$PWD/dbus/dbususer.cpp \
     $$PWD/shutdownwidget.cpp \
     $$PWD/darrowrectangle.cpp \
     $$PWD/capslockmonitor.cpp

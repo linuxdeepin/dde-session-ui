@@ -116,6 +116,11 @@ void SessionWidget::show()
     QWidget::show();
 }
 
+QString SessionWidget::lastSelectedUser() const
+{
+    return m_lastSelectedUser;
+}
+
 void SessionWidget::switchToUser(const QString &userName)
 {
     if (m_lastSelectedUser == userName)

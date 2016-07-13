@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
+#include <glib/gkeyfile.h>
 #include <gio/gio.h>
 #include <stdio.h>
 #include <string.h>
@@ -31,174 +32,187 @@
 #include <unistd.h>
 #include <errno.h>
 #include <crypt.h>
+#include <time.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
 
+#define LigthDMGreeterConfig "/var/lib/lightdm/lightdm-deepin-greeter/state_user"
 #define LOCK_DBUS_NAME     "com.deepin.dde.lock"
 #define LOCK_DBUS_OBJ       "/com/deepin/dde/lock"
 #define LOCK_DBUS_IFACE     "com.deepin.dde.lock"
 
-
 struct LoginInfo {
-    char* username;
+    char *username;
     gboolean is_already_no_pwd_login;
 };
 
 static struct LoginInfo login_info = {NULL, FALSE};
 
-const char* _lock_dbus_iface_xml =
-"<?xml version=\"1.0\"?>\n"
-"<node>\n"
-"	<interface name=\""LOCK_DBUS_IFACE"\">\n"
-"		<method name=\"UnlockCheck\">\n"
-"			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
-"			</arg>\n"
-"			<arg name=\"password\" type=\"s\" direction=\"in\">\n"
-"			</arg>\n"
-"			<arg name=\"succeed\" type=\"b\" direction=\"out\">\n"
-"			</arg>\n"
-"		</method>\n"
-"		<method name=\"ExitLock\">\n"
-"			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
-"			</arg>\n"
-"			<arg name=\"password\" type=\"s\" direction=\"in\">\n"
-"			</arg>\n"
-"		</method>\n"
-"		<method name=\"NeedPwd\">\n"
-"			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
-"			</arg>\n"
-"			<arg name=\"needed\" type=\"b\" direction=\"out\">\n"
-"			</arg>\n"
-"		</method>\n"
-"		<method name=\"IsLiveCD\">\n"
-"			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
-"			</arg>\n"
-"			<arg name=\"livecd\" type=\"b\" direction=\"out\">\n"
-"			</arg>\n"
-"		</method>\n"
-"		<method name=\"AddNoPwdLogin\">\n"
-"			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
-"			</arg>\n"
-"			<arg name=\"result\" type=\"b\" direction=\"out\">\n"
-"			</arg>\n"
-"		</method>\n"
-"		<method name=\"RemoveNoPwdLogin\">\n"
-"			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
-"			</arg>\n"
-"			<arg name=\"result\" type=\"b\" direction=\"out\">\n"
-"			</arg>\n"
-"		</method>\n"
-"	</interface>\n"
-"</node>\n"
-;
+const char *_lock_dbus_iface_xml =
+    "<?xml version=\"1.0\"?>\n"
+    "<node>\n"
+    "	<interface name=\""LOCK_DBUS_IFACE"\">\n"
+    "		<method name=\"SwitchToUser\">\n"
+    "			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
+    "			</arg>\n"
+    "			<arg name=\"succeed\" type=\"b\" direction=\"out\">\n"
+    "			</arg>\n"
+    "		</method>\n"
+    "		<method name=\"CurrentUser\">\n"
+    "			<arg name=\"username\" type=\"s\" direction=\"out\">\n"
+    "			</arg>\n"
+    "		</method>\n"
+    "		<method name=\"UnlockCheck\">\n"
+    "			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
+    "			</arg>\n"
+    "			<arg name=\"password\" type=\"s\" direction=\"in\">\n"
+    "			</arg>\n"
+    "			<arg name=\"succeed\" type=\"b\" direction=\"out\">\n"
+    "			</arg>\n"
+    "		</method>\n"
+    "		<method name=\"NeedPwd\">\n"
+    "			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
+    "			</arg>\n"
+    "			<arg name=\"needed\" type=\"b\" direction=\"out\">\n"
+    "			</arg>\n"
+    "		</method>\n"
+    "		<method name=\"IsLiveCD\">\n"
+    "			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
+    "			</arg>\n"
+    "			<arg name=\"livecd\" type=\"b\" direction=\"out\">\n"
+    "			</arg>\n"
+    "		</method>\n"
+    "		<method name=\"AddNoPwdLogin\">\n"
+    "			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
+    "			</arg>\n"
+    "			<arg name=\"result\" type=\"b\" direction=\"out\">\n"
+    "			</arg>\n"
+    "		</method>\n"
+    "		<method name=\"RemoveNoPwdLogin\">\n"
+    "			<arg name=\"username\" type=\"s\" direction=\"in\">\n"
+    "			</arg>\n"
+    "			<arg name=\"result\" type=\"b\" direction=\"out\">\n"
+    "			</arg>\n"
+    "		</method>\n"
+    "       <signal name=\"UserUnlock\">"
+    "           <arg type=\"s\" name=\"user\"></arg>"
+    "       </signal>"
+    "       <signal name=\"UserChanged\">"
+    "           <arg type=\"s\" name=\"user\"></arg>"
+    "       </signal>"
+    "	</interface>\n"
+    "</node>\n"
+    ;
 
 static GMainLoop *loop = NULL;
 static guint lock_service_owner_id;
-static guint lock_service_reg_id;        //used for unregister an object path
+static guint lock_service_reg_id;    //used for unregister an object path
 static guint retry_reg_timeout_id;   //timer used for retrying dbus name registration.
-static GDBusConnection* lock_connection;
+static GDBusConnection *lock_connection;
 
 //internal functions
-static gboolean _retry_registration (gpointer user_data);
+static gboolean _retry_registration(gpointer user_data);
 
-static void _on_bus_acquired (GDBusConnection * connection, const gchar * name, gpointer user_data);
+static void _on_bus_acquired(GDBusConnection *connection, const gchar *name, gpointer user_data);
 
-static void _on_name_acquired (GDBusConnection * connection, const gchar * name, gpointer user_data);
+static void _on_name_acquired(GDBusConnection *connection, const gchar *name, gpointer user_data);
 
-static void _on_name_lost (GDBusConnection * connection, const gchar * name, gpointer user_data);
+static void _on_name_lost(GDBusConnection *connection, const gchar *name, gpointer user_data);
 
-static void _bus_method_call (GDBusConnection * connection, const gchar * sender, const gchar * object_path, const gchar * interface,
-                              const gchar * method, GVariant * params, GDBusMethodInvocation * invocation, gpointer user_data);
+static void _bus_method_call(GDBusConnection *connection, const gchar *sender, const gchar *object_path, const gchar *interface,
+                             const gchar *method, GVariant *params, GDBusMethodInvocation *invocation, gpointer user_data);
 
-static void _bus_handle_exit_lock (const gchar *username, const gchar *password);
+static void _bus_handle_exit_lock(GDBusConnection *connection, const gchar *username, const gchar *password);
 
-static gboolean _bus_handle_need_pwd (const gchar *username);
+static gboolean _bus_handle_need_pwd(const gchar *username);
 
-static gboolean _bus_handle_is_livecd (const gchar *username);
+static gboolean _bus_handle_is_livecd(const gchar *username);
 
-static gboolean _bus_handle_unlock_check (const gchar *username, const gchar *password);
+static gboolean _bus_handle_unlock_check(const gchar *username, const gchar *password);
 
-static gboolean _bus_handle_add_nopwdlogin (const gchar* username);
+static gboolean _bus_handle_add_nopwdlogin(const gchar *username);
 
-static gboolean _bus_handle_remove_nopwdlogin (const gchar* username);
+static gboolean _bus_handle_remove_nopwdlogin(const gchar *username);
 
-static gboolean do_exit (gpointer user_data);
+static gboolean do_exit(gpointer user_data);
 
 static int check_user_conv(int num_msg, const struct pam_message **msgm,
-		     struct pam_response **response, void *appdata_ptr);
+                           struct pam_response **response, void *appdata_ptr);
 static int check_user(const char *user, const char *passwd);
 
-static GDBusNodeInfo *      node_info = NULL;
-static GDBusInterfaceInfo * interface_info = NULL;
+static GDBusNodeInfo       *node_info = NULL;
+static GDBusInterfaceInfo *interface_info = NULL;
 static GDBusInterfaceVTable interface_table = {
-                               method_call:   _bus_method_call,
-                               get_property:   NULL, /* No properties */
-                               set_property:   NULL  /* No properties */
-                            };
+method_call:   _bus_method_call,
+get_property:   NULL, /* No properties */
+set_property:   NULL  /* No properties */
+};
 
 void
-lock_setup_dbus_service ()
+lock_setup_dbus_service()
 {
-    GError* error = NULL;
+    GError *error = NULL;
 
-    node_info = g_dbus_node_info_new_for_xml (_lock_dbus_iface_xml, &error);
+    node_info = g_dbus_node_info_new_for_xml(_lock_dbus_iface_xml, &error);
     if (error != NULL) {
-        g_critical ("Unable to parse interface xml: %s", error->message);
-        g_error_free (error);
+        g_critical("Unable to parse interface xml: %s", error->message);
+        g_error_free(error);
     }
 
-    interface_info = g_dbus_node_info_lookup_interface (node_info, LOCK_DBUS_IFACE);
+    interface_info = g_dbus_node_info_lookup_interface(node_info, LOCK_DBUS_IFACE);
     if (interface_info == NULL) {
-        g_critical ("Unable to find interface '"LOCK_DBUS_IFACE"'");
+        g_critical("Unable to find interface '"LOCK_DBUS_IFACE"'");
     }
 
     lock_service_owner_id = 0;
     lock_service_reg_id = 0;
     retry_reg_timeout_id = 0;
 
-    _retry_registration (NULL);
+    _retry_registration(NULL);
 }
 
 static gboolean
-_retry_registration (gpointer user_data G_GNUC_UNUSED)
+_retry_registration(gpointer user_data G_GNUC_UNUSED)
 {
-    lock_service_owner_id = g_bus_own_name (G_BUS_TYPE_SYSTEM,
-                                            LOCK_DBUS_NAME,
-                                            G_BUS_NAME_OWNER_FLAGS_NONE,
-                                            lock_service_reg_id ? NULL : _on_bus_acquired,
-                                            _on_name_acquired,
-                                            _on_name_lost,
-                                            NULL,
-                                            NULL);
+    lock_service_owner_id = g_bus_own_name(G_BUS_TYPE_SYSTEM,
+                                           LOCK_DBUS_NAME,
+                                           G_BUS_NAME_OWNER_FLAGS_NONE,
+                                           lock_service_reg_id ? NULL : _on_bus_acquired,
+                                           _on_name_acquired,
+                                           _on_name_lost,
+                                           NULL,
+                                           NULL);
     return TRUE;
 }
 
 static void
-_on_bus_acquired (GDBusConnection * connection, const gchar * name G_GNUC_UNUSED, gpointer user_data)
+_on_bus_acquired(GDBusConnection *connection, const gchar *name G_GNUC_UNUSED, gpointer user_data)
 {
-    GError* error = NULL;
+    GError *error = NULL;
 
-    g_debug ("on_bus_acquired");
+    g_debug("on_bus_acquired");
     lock_connection = connection;
 
     //register object.
-    lock_service_reg_id = g_dbus_connection_register_object (connection,
-                                                             LOCK_DBUS_OBJ,
-                                                             interface_info,
-                                                             &interface_table,
-                                                             user_data,
-                                                             NULL,
-                                                             &error);
+    lock_service_reg_id = g_dbus_connection_register_object(connection,
+                          LOCK_DBUS_OBJ,
+                          interface_info,
+                          &interface_table,
+                          user_data,
+                          NULL,
+                          &error);
     if (error != NULL) {
-        g_critical ("Unable to register the object to DBus: %s", error->message);
+        g_critical("Unable to register the object to DBus: %s", error->message);
 
-        g_error_free (error);
+        g_error_free(error);
 
-        g_bus_unown_name (lock_service_owner_id);
+        g_bus_unown_name(lock_service_owner_id);
 
         lock_service_owner_id = 0;
-        retry_reg_timeout_id = g_timeout_add_seconds (1, _retry_registration, NULL);
+        retry_reg_timeout_id = g_timeout_add_seconds(1, _retry_registration, NULL);
 
         return;
     }
@@ -206,15 +220,15 @@ _on_bus_acquired (GDBusConnection * connection, const gchar * name G_GNUC_UNUSED
 }
 
 static void
-_on_name_acquired (GDBusConnection * connection G_GNUC_UNUSED,
-                   const gchar * name G_GNUC_UNUSED,
-                   gpointer user_data G_GNUC_UNUSED)
+_on_name_acquired(GDBusConnection *connection G_GNUC_UNUSED,
+                  const gchar *name G_GNUC_UNUSED,
+                  gpointer user_data G_GNUC_UNUSED)
 {
-    g_debug ("Dbus name acquired");
+    g_debug("Dbus name acquired");
 }
 
 static void
-_on_name_lost (GDBusConnection * connection, const gchar * name G_GNUC_UNUSED, gpointer user_data G_GNUC_UNUSED)
+_on_name_lost(GDBusConnection *connection, const gchar *name G_GNUC_UNUSED, gpointer user_data G_GNUC_UNUSED)
 {
     if (connection == NULL) {
         g_critical("Unable to get a connection to DBus");
@@ -227,125 +241,163 @@ _on_name_lost (GDBusConnection * connection, const gchar * name G_GNUC_UNUSED, g
 }
 
 /*
- * 	this function implements all the methods in the Registrar interface.
+ *  this function implements all the methods in the Registrar interface.
  */
 static void
-_bus_method_call (GDBusConnection * connection G_GNUC_UNUSED,
-                  const gchar * sender G_GNUC_UNUSED,
-                  const gchar * object_path G_GNUC_UNUSED,
-                  const gchar * interface G_GNUC_UNUSED,
-                  const gchar * method,
-                  GVariant * params,
-                  GDBusMethodInvocation * invocation,
-                  gpointer user_data G_GNUC_UNUSED)
+_bus_method_call(GDBusConnection *connection G_GNUC_UNUSED,
+                 const gchar *sender G_GNUC_UNUSED,
+                 const gchar *object_path G_GNUC_UNUSED,
+                 const gchar *interface G_GNUC_UNUSED,
+                 const gchar *method,
+                 GVariant *params,
+                 GDBusMethodInvocation *invocation,
+                 gpointer user_data G_GNUC_UNUSED)
 {
-    g_debug ("bus_method_call");
-    GVariant * retval = NULL;
-    GError * error = NULL;
+    GVariant *retval = NULL;
+    GError *error = NULL;
 
-    if (g_strcmp0 (method, "ExitLock") == 0) {
+    if (g_strcmp0(method, "SwitchToUser") == 0) {
+        const gchar *username = NULL;
+        GKeyFile *key_file = NULL;
+        int cfg = open(LigthDMGreeterConfig,  O_RDWR | O_CREAT, S_IRUSR | S_IRGRP | S_IROTH);
+        close(cfg);
+
+        g_variant_get(params, "(s)", &username);
+
+        key_file = g_key_file_new();
+        g_key_file_load_from_file(key_file,
+                                  LigthDMGreeterConfig,
+                                  G_KEY_FILE_NONE,
+                                  &error);
+        g_key_file_set_value(key_file,
+                             "General",
+                             "last-user",
+                             username);
+        g_key_file_save_to_file(key_file,
+                                LigthDMGreeterConfig,
+                                &error);
+        g_key_file_free(key_file);
+
+        g_dbus_connection_emit_signal(connection,
+                                      NULL,
+                                      LOCK_DBUS_OBJ,
+                                      LOCK_DBUS_IFACE,
+                                      "UserChanged",
+                                      params,
+                                      &error);
+        retval = g_variant_new("(b)", TRUE);
+    } else if (g_strcmp0(method, "CurrentUser") == 0) {
+        gchar *username = NULL;
+        GKeyFile *key_file = NULL;
+        key_file = g_key_file_new();
+        g_key_file_load_from_file(key_file,
+                                  LigthDMGreeterConfig,
+                                  G_KEY_FILE_NONE,
+                                  &error);
+
+        username = g_key_file_get_value(key_file,
+                                        "General",
+                                        "last-user",
+                                        &error);
+        g_key_file_free(key_file);
+        retval = g_variant_new("(s)", username);
+    } else if (g_strcmp0(method, "UnlockCheck") == 0) {
 
         const gchar *username = NULL;
         const gchar *password = NULL;
-        g_variant_get (params, "(ss)", &username, &password);
-
-        _bus_handle_exit_lock (username, password);
-
-    } else if (g_strcmp0 (method, "UnlockCheck") == 0) {
-
-        const gchar *username = NULL;
-        const gchar *password = NULL;
-        g_variant_get (params, "(ss)", &username, &password);
+        g_variant_get(params, "(ss)", &username, &password);
 
         retval = g_variant_new("(b)", _bus_handle_unlock_check(username, password));
 
-    } else if (g_strcmp0 (method, "NeedPwd") == 0) {
+    } else if (g_strcmp0(method, "NeedPwd") == 0) {
 
         const gchar *username = NULL;
-        g_variant_get (params, "(s)", &username);
+        g_variant_get(params, "(s)", &username);
 
-        retval = g_variant_new("(b)", _bus_handle_need_pwd (username));
+        retval = g_variant_new("(b)", _bus_handle_need_pwd(username));
 
-    } else if (g_strcmp0 (method, "IsLiveCD") == 0) {
+    } else if (g_strcmp0(method, "IsLiveCD") == 0) {
 
         const gchar *username = NULL;
-        g_variant_get (params, "(s)", &username);
+        g_variant_get(params, "(s)", &username);
 
-        retval = g_variant_new ("(b)", _bus_handle_is_livecd (username));
+        retval = g_variant_new("(b)", _bus_handle_is_livecd(username));
 
     } else if (0 == g_strcmp0(method, "AddNoPwdLogin")) {
-        const gchar* username = NULL;
+        const gchar *username = NULL;
         g_variant_get(params, "(s)", &username);
 
-        retval = g_variant_new ("(b)", _bus_handle_add_nopwdlogin (username));
+        retval = g_variant_new("(b)", _bus_handle_add_nopwdlogin(username));
 
     } else if (0 == g_strcmp0(method, "RemoveNoPwdLogin")) {
-        const gchar* username = NULL;
+        const gchar *username = NULL;
         g_variant_get(params, "(s)", &username);
 
-        retval = g_variant_new ("(b)", _bus_handle_remove_nopwdlogin (username));
+        retval = g_variant_new("(b)", _bus_handle_remove_nopwdlogin(username));
 
     } else {
 
-        g_warning ("Calling method '%s' on lock and it's unknown", method);
+        g_warning("Calling method '%s' on lock and it's unknown", method);
     }
 
     if (error != NULL) {
 
-        g_dbus_method_invocation_return_dbus_error (invocation, "com.deepin.dde.lock.Error", error->message);
-        g_error_free (error);
+        g_dbus_method_invocation_return_dbus_error(invocation, "com.deepin.dde.lock.Error", error->message);
+        g_error_free(error);
 
     } else {
-        g_dbus_method_invocation_return_value (invocation, retval);
+        g_dbus_method_invocation_return_value(invocation, retval);
     }
 }
 
 static void
-_bus_handle_exit_lock (const gchar *username, const gchar *password)
+_bus_handle_exit_lock(GDBusConnection *connection, const gchar *username, const gchar *password)
 {
-    gchar *lockpid_file = g_strdup_printf ("%s%s%s", "/home/", username, "/.dlockpid");
+    GVariant *arg = NULL;
+    GError *error = NULL;
+    gboolean succeed = _bus_handle_unlock_check(username, password);
 
-    if (!g_file_test (lockpid_file, G_FILE_TEST_EXISTS)) {
-        g_debug("user hadn't locked");
+    time_t timer;
+    char buffer[26];
+    struct tm *tm_info;
 
-    } else {
-        gchar *contents = NULL;
-        gsize length;
+    time(&timer);
+    tm_info = localtime(&timer);
 
-        if (g_file_get_contents (lockpid_file, &contents, &length, NULL)) {
+    strftime(buffer, 26, "%Y:%m:%d %H:%M:%S", tm_info);
 
-            gboolean succeed = _bus_handle_unlock_check (username, password);
-            g_debug ("kill user lock by pid");
-
-            if (succeed) {
-                // header doesn't work, add this to avoid warning
-                extern int kill(pid_t, int);
-
-                if (kill ((pid_t)strtol (contents, NULL, 10), SIGTERM) == 0){
-                    g_debug ("kill user lock succeed");
-
-                } else {
-                    g_debug ("kill user lock failed");
-                }
-
-            } else {
-                g_debug ("username and password not match");
-            }
-
-        } else {
-            g_warning("get lockpid contents failed");
-        }
-
-        g_free(contents);
+    printf("exit lock %s\n", buffer);
+    if (!succeed) {
+        g_debug("username and password not match");
+        goto _bus_handle_exit_lock_out;
     }
+    // TODO: donot use the fuck dbus
 
-    g_free(lockpid_file);
+    gchar *add_cmd = g_strdup_printf("killall dde-lock");
+    g_spawn_command_line_sync(add_cmd, NULL, NULL, NULL, &error);
+    if (error != NULL) {
+        printf("g_spawn_command_line_sync:%s\n", error->message);
+        g_error_free(error);
+    }
+    error = NULL;
+
+    arg = g_variant_new("(s)", username);
+    g_dbus_connection_emit_signal(connection,
+                                  NULL,
+                                  LOCK_DBUS_OBJ,
+                                  LOCK_DBUS_IFACE,
+                                  "UserUnlock",
+                                  arg,
+                                  &error);
+    // check user is lock or not
+_bus_handle_exit_lock_out:
+    printf("exit lock of %s\n", username);
 }
 
 static gboolean
-_bus_handle_unlock_check (const gchar *username, const gchar *password)
+_bus_handle_unlock_check(const gchar *username, const gchar *password)
 {
-    if (!(_bus_handle_need_pwd (username))) {
+    if (!(_bus_handle_need_pwd(username))) {
         return TRUE;
     }
 
@@ -357,10 +409,10 @@ _bus_handle_unlock_check (const gchar *username, const gchar *password)
 }
 
 static int check_user_conv(int num_msg, const struct pam_message **msgm,
-		     struct pam_response **response, void *appdata_ptr)
+                           struct pam_response **response, void *appdata_ptr)
 {
     struct pam_response *aresp;
-    char *passwd = (char*)appdata_ptr;
+    char *passwd = (char *)appdata_ptr;
     int i = 0;
 
     aresp = malloc(sizeof(struct pam_response) * num_msg);
@@ -396,10 +448,10 @@ static int check_user(const char *user, const char *passwd)
     }
 
     int retval;
-    pam_handle_t *pamh=NULL;
+    pam_handle_t *pamh = NULL;
     struct pam_conv conv = {
         check_user_conv,
-        (void*)passwd
+        (void *)passwd
     };
 
     retval = pam_start("lightdm", user, &conv, &pamh);
@@ -424,7 +476,7 @@ static int check_user(const char *user, const char *passwd)
     }
 
 out:
-    if (pam_end(pamh,retval) != PAM_SUCCESS) {
+    if (pam_end(pamh, retval) != PAM_SUCCESS) {
         pamh = NULL;
         fprintf(stderr, "[check_user] pam_end: %s\n", pam_strerror(pamh, retval));
         return -1;;
@@ -434,101 +486,101 @@ out:
 }
 
 static
-GPtrArray *get_nopasswdlogin_users ()
+GPtrArray *get_nopasswdlogin_users()
 {
-    GPtrArray *nopasswdlogin = g_ptr_array_new ();
+    GPtrArray *nopasswdlogin = g_ptr_array_new();
     GError *error = NULL;
 
-    GFile *file = g_file_new_for_path ("/etc/group");
-    g_assert (file);
+    GFile *file = g_file_new_for_path("/etc/group");
+    g_assert(file);
 
-    GFileInputStream *input = g_file_read (file, NULL, &error);
+    GFileInputStream *input = g_file_read(file, NULL, &error);
     if (error != NULL) {
-        g_warning ("read /etc/group failed\n");
-        g_clear_error (&error);
+        g_warning("read /etc/group failed\n");
+        g_clear_error(&error);
     }
-    g_assert (input);
+    g_assert(input);
 
-    GDataInputStream *data_input = g_data_input_stream_new ((GInputStream *) input);
-    g_assert (data_input);
+    GDataInputStream *data_input = g_data_input_stream_new((GInputStream *) input);
+    g_assert(data_input);
 
     char *data = (char *) 1;
     while (data) {
         gsize length = 0;
-        data = g_data_input_stream_read_line (data_input, &length, NULL, &error);
+        data = g_data_input_stream_read_line(data_input, &length, NULL, &error);
         if (error != NULL) {
-            g_warning ("read line error\n");
-            g_clear_error (&error);
+            g_warning("read line error\n");
+            g_clear_error(&error);
         }
 
         if (data != NULL) {
-            if (g_str_has_prefix (data, "nopasswdlogin")){
-                gchar **nopwd_line = g_strsplit (data, ":", 4);
-                g_debug ("data:%s", data);
-                g_debug ("nopwd_line[3]:%s", nopwd_line[3]);
+            if (g_str_has_prefix(data, "nopasswdlogin")) {
+                gchar **nopwd_line = g_strsplit(data, ":", 4);
+                g_debug("data:%s", data);
+                g_debug("nopwd_line[3]:%s", nopwd_line[3]);
 
                 if (nopwd_line[3] != NULL) {
-                    gchar **user_strv = g_strsplit (nopwd_line[3], ",", 1024);
+                    gchar **user_strv = g_strsplit(nopwd_line[3], ",", 1024);
 
-                    for (guint i = 0; i < g_strv_length (user_strv); i++) {
-                        g_debug ("user_strv[i]:%s", user_strv[i]);
-                        g_ptr_array_add (nopasswdlogin, g_strdup (user_strv[i]));
+                    for (guint i = 0; i < g_strv_length(user_strv); i++) {
+                        g_debug("user_strv[i]:%s", user_strv[i]);
+                        g_ptr_array_add(nopasswdlogin, g_strdup(user_strv[i]));
                     }
-                    g_strfreev (user_strv);
+                    g_strfreev(user_strv);
                 }
-                g_strfreev (nopwd_line);
+                g_strfreev(nopwd_line);
             }
         } else {
             break;
         }
     }
 
-    g_object_unref (data_input);
-    g_object_unref (input);
-    g_object_unref (file);
+    g_object_unref(data_input);
+    g_object_unref(input);
+    g_object_unref(file);
 
     return nopasswdlogin;
 }
 
 static
-gboolean is_user_nopasswdlogin (const gchar *username)
+gboolean is_user_nopasswdlogin(const gchar *username)
 {
     gboolean ret = FALSE;
-    GPtrArray *nopwdlogin = get_nopasswdlogin_users ();
+    GPtrArray *nopwdlogin = get_nopasswdlogin_users();
 
     for (guint i = 0; i < nopwdlogin->len; i++) {
-        g_debug ("array i:%s", (gchar*) g_ptr_array_index (nopwdlogin, i));
+        g_debug("array i:%s", (gchar *) g_ptr_array_index(nopwdlogin, i));
 
-        if(g_strcmp0 (username, g_ptr_array_index (nopwdlogin, i)) == 0){
-            g_debug ("nopwd login true");
+        if (g_strcmp0(username, g_ptr_array_index(nopwdlogin, i)) == 0) {
+            g_debug("nopwd login true");
             ret = TRUE;
         }
     }
 
-    g_ptr_array_free (nopwdlogin, TRUE);
+    g_ptr_array_free(nopwdlogin, TRUE);
 
     return ret;
 }
 
 static gboolean
-_bus_handle_need_pwd (const gchar *username)
+_bus_handle_need_pwd(const gchar *username)
 {
     struct spwd *user_data;
 
-    user_data = getspnam (username);
+    user_data = getspnam(username);
 
-    if (user_data != NULL && strlen (user_data->sp_pwdp) == 0) {
-        g_debug ("user had blank password\n");
+    if (user_data != NULL && strlen(user_data->sp_pwdp) == 0) {
+        g_debug("user had blank password\n");
         return FALSE;
     }
 
-    if (is_user_nopasswdlogin (username)) {
-        g_debug ("user in nopasswdlogin group\n");
+    if (is_user_nopasswdlogin(username)) {
+        g_debug("user in nopasswdlogin group\n");
         return FALSE;
     }
 
-    if ((strcmp (crypt ("", user_data->sp_pwdp), user_data->sp_pwdp)) == 0) {
-        g_debug ("live account don't need password\n");
+    if ((strcmp(crypt("", user_data->sp_pwdp), user_data->sp_pwdp)) == 0) {
+        g_debug("live account don't need password\n");
         return FALSE;
     }
 
@@ -536,21 +588,21 @@ _bus_handle_need_pwd (const gchar *username)
 }
 
 static gboolean
-_bus_handle_is_livecd (const gchar *username)
+_bus_handle_is_livecd(const gchar *username)
 {
-    if (g_strcmp0 ("deepin", username) != 0) {
+    if (g_strcmp0("deepin", username) != 0) {
         return FALSE;
     }
 
     struct spwd *user_data;
 
-    user_data = getspnam (username);
+    user_data = getspnam(username);
 
-    if (user_data == NULL || strlen (user_data->sp_pwdp) == 0) {
+    if (user_data == NULL || strlen(user_data->sp_pwdp) == 0) {
         return FALSE;
     }
 
-    if ((strcmp (crypt ("", user_data->sp_pwdp), user_data->sp_pwdp)) != 0) {
+    if ((strcmp(crypt("", user_data->sp_pwdp), user_data->sp_pwdp)) != 0) {
         return FALSE;
     }
 
@@ -558,87 +610,90 @@ _bus_handle_is_livecd (const gchar *username)
 }
 
 static gboolean
-_bus_handle_add_nopwdlogin (const gchar* username)
+_bus_handle_add_nopwdlogin(const gchar *username)
 {
     gboolean ret = FALSE;
 
     GError *error = NULL;
 
-    if (is_user_nopasswdlogin (username)) {
+    if (is_user_nopasswdlogin(username)) {
 
-        login_info.username = g_strdup (username);
+        login_info.username = g_strdup(username);
         login_info.is_already_no_pwd_login = TRUE;
         ret = TRUE;
 
     } else {
-        gchar *add_cmd = g_strdup_printf ("gpasswd -a %s nopasswdlogin", username);
+        gchar *add_cmd = g_strdup_printf("gpasswd -a %s nopasswdlogin", username);
 
-        g_spawn_command_line_sync (add_cmd, NULL, NULL, NULL, &error);
+        g_spawn_command_line_sync(add_cmd, NULL, NULL, NULL, &error);
         if (error != NULL) {
-            g_warning ("_bus_handle_add_nopwdlogin:%s\n", error->message);
-            g_error_free (error);
+            g_warning("_bus_handle_add_nopwdlogin:%s\n", error->message);
+            g_error_free(error);
 
         } else {
             ret = TRUE;
         }
         error = NULL;
 
-        g_free (add_cmd);
+        g_free(add_cmd);
     }
 
     return ret;
 }
 
 static gboolean
-_bus_handle_remove_nopwdlogin (const gchar* username)
+_bus_handle_remove_nopwdlogin(const gchar *username)
 {
     gboolean ret = FALSE;
 
-    if (login_info.is_already_no_pwd_login)
+    if (login_info.is_already_no_pwd_login) {
         return TRUE;
+    }
 
     GError *error = NULL;
 
-    if (!is_user_nopasswdlogin (username)) {
+    if (!is_user_nopasswdlogin(username)) {
 
         ret = TRUE;
 
     } else {
-        gchar *remove_cmd = g_strdup_printf ("gpasswd -d %s nopasswdlogin", username);
+        gchar *remove_cmd = g_strdup_printf("gpasswd -d %s nopasswdlogin", username);
 
-        g_spawn_command_line_sync (remove_cmd, NULL, NULL, NULL, &error);
+        g_spawn_command_line_sync(remove_cmd, NULL, NULL, NULL, &error);
         if (error != NULL) {
-            g_warning ("_bus_handle_remove_nopwdlogin:%s\n", error->message);
-            g_error_free (error);
+            g_warning("_bus_handle_remove_nopwdlogin:%s\n", error->message);
+            g_error_free(error);
 
         } else {
             ret = TRUE;
         }
         error = NULL;
 
-        g_free (remove_cmd);
+        g_free(remove_cmd);
     }
 
     return ret;
 }
 
 static gboolean
-do_exit (gpointer user_data G_GNUC_UNUSED)
+do_exit(gpointer user_data G_GNUC_UNUSED)
 {
-    g_main_loop_quit (loop);
+    g_main_loop_quit(loop);
 
     return FALSE;
 }
 
-int main (int argc G_GNUC_UNUSED, char **argv G_GNUC_UNUSED)
+int main(int argc G_GNUC_UNUSED, char **argv G_GNUC_UNUSED)
 {
-    loop = g_main_loop_new (NULL, FALSE);
+    printf("start");
+    fflush(stdout);
+    loop = g_main_loop_new(NULL, FALSE);
 
-    lock_setup_dbus_service ();
+    lock_setup_dbus_service();
 
-    g_timeout_add_seconds (60, do_exit, NULL);
+    g_timeout_add_seconds(600000, do_exit, NULL);
 
-    g_main_loop_run (loop);
+    g_main_loop_run(loop);
 
     return 0;
 }

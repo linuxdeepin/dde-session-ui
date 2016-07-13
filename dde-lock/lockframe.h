@@ -31,6 +31,7 @@ public:
     ~LockFrame();
 
 public slots:
+    void showUserList();
     void updateScreenPosition();
 #ifdef LOCK_NO_QUIT
     void hideFrame();

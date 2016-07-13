@@ -104,7 +104,7 @@ ControlWidget::ControlWidget(QWidget *parent)
     setFixedSize(500, 150);
 
     connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::shutdownClicked);
-    connect(m_userswitch, &DImageButton::clicked, this, &ControlWidget::switchToGreeter);
+    connect(m_userswitch, &DImageButton::clicked, this, &ControlWidget::switchUser);
 }
 
 void ControlWidget::bindDBusService(DBusMediaPlayer2 *dbusInter)
@@ -208,15 +208,15 @@ void ControlWidget::changeVolumeBtnPic()
     }
 }
 
-void ControlWidget::switchToGreeter() {
-    m_utilFile = new UtilFile(this);
-    m_utilFile->setExpandState(1);
+//void ControlWidget::switchUser() {
+//    m_utilFile = new UtilFile(this);
+//    m_utilFile->setExpandState(1);
 
-    QProcess *process = new QProcess;
-    process->start("dde-switchtogreeter");
-    process->waitForFinished();
-    process->deleteLater();
+//    QProcess *process = new QProcess;
+//    process->start("dde-switchtogreeter");
+//    process->waitForFinished();
+//    process->deleteLater();
 
-    // FIXME: 这儿要是不延时结束的话会闪一下桌面
-    QTimer::singleShot(2000, qApp, SLOT(quit()));
-}
+//    // FIXME: 这儿要是不延时结束的话会闪一下桌面
+//  //  QTimer::singleShot(2000, qApp, SLOT(quit()));
+//}

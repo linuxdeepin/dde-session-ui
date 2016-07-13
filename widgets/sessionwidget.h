@@ -36,6 +36,7 @@ public:
         "xfce"
     };
     void show();
+    QString lastSelectedUser() const;
 
 public slots:
     void switchToUser(const QString &userName);

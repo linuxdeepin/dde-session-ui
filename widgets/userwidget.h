@@ -34,8 +34,10 @@ class UserWidget : public QFrame
     Q_OBJECT
 public:
     UserWidget(QWidget* parent = 0);
+    UserWidget(const QString &username, QWidget* parent = 0);
     ~UserWidget();
 
+    static const QString loginUser();
     const QString currentUser();
     inline int count() const {return m_userBtns->count();}
     bool isChooseUserMode = false;

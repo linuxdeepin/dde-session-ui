@@ -15,12 +15,17 @@
 
 #include "loginmanager.h"
 #include "loginframe.h"
+#include "dbus/dbuslockservice.h"
 
 #include <X11/Xlib-xcb.h>
 #include <X11/cursorfont.h>
 #include <X11/Xcursor/Xcursor.h>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
+
+#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
+#define LOCKSERVICE_NAME "com.deepin.dde.lock"
+
 //Load the System cursor --begin
 static XcursorImages*
 xcLoadImages(const char *image, int size)
@@ -301,14 +306,31 @@ void LoginManager::initConnect()
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession, Qt::QueuedConnection);
-    connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::show);
-    connect(m_userWidget, &UserWidget::userChanged, m_sessionWidget, &SessionWidget::switchToUser);
-#ifndef SHENWEI_PLATFORM
-    connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, &PassWdEdit::updateKeybordLayoutStatus);
-#endif
-    connect(m_userWidget, &UserWidget::userChanged, m_passWdEdit, static_cast<void (PassWdEdit::*)()>(&PassWdEdit::setFocus));
-    connect(m_userWidget, &UserWidget::userChanged, this, &LoginManager::updateBackground);
-    connect(m_userWidget, &UserWidget::userChanged, this, &LoginManager::updateUserLoginCondition);
+
+    connect(m_userWidget, &UserWidget::userChanged,
+            [&](const QString username){
+        qDebug()<<"IIIIIIIIIIII Change to "<<username;
+        qDebug()<<"IIIIIIIIIIII Session User "<< m_sessionWidget->lastSelectedUser();
+        if (username != m_sessionWidget->lastSelectedUser()) {
+            // goto greeter
+            QProcess *process = new QProcess;
+            process->start("dde-switchtogreeter " + username);
+            process->waitForFinished();
+            if (process->exitCode() == 0) {
+                exit(0);
+            }
+            process->deleteLater();
+        }
+
+        m_sessionWidget->switchToUser(username);
+        m_passWdEdit->show();
+    #ifndef SHENWEI_PLATFORM
+        m_passWdEdit->updateKeybordLayoutStatus(username);
+    #endif
+        m_passWdEdit->setFocus();
+        updateBackground(username);
+        updateUserLoginCondition(username);
+    });
 
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
@@ -389,8 +411,13 @@ void LoginManager::authenticationComplete()
         return;
     }
 
-    qDebug() << "session = " << m_sessionWidget->currentSessionName();
-    qDebug() << "start session: " << m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
+    m_lockInter.ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
+
+    QTimer::singleShot(100, [&] {
+        qDebug() << "session = " << m_sessionWidget->currentSessionName();
+        qDebug() << "start session: " << m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+    });
 }
 
 void LoginManager::login()
@@ -527,7 +554,6 @@ void LoginManager::keybdLayoutWidgetPosit() {
     } else {
         m_keybdArrowWidget->hide();
     }
-
 }
 
 void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
@@ -554,10 +580,10 @@ void LoginManager::leftKeyPressed() {
     if (!m_userWidget->isHidden() && m_passWdEdit->isHidden()) {
         m_userWidget->leftKeySwitchUser();
     }
-    if (!m_userWidget->isHidden() && !m_passWdEdit->isHidden() &&
-            m_passWdEdit->getText().isEmpty()) {
-        m_userWidget->leftKeySwitchUser();
-    }
+//    if (!m_userWidget->isHidden() && !m_passWdEdit->isHidden() &&
+//            m_passWdEdit->getText().isEmpty()) {
+//        m_userWidget->leftKeySwitchUser();
+//    }
     if (!m_requireShutdownWidget->isHidden()) {
         m_requireShutdownWidget->leftKeySwitch();
     }
@@ -570,10 +596,10 @@ void LoginManager::rightKeyPressed() {
     if (!m_userWidget->isHidden() && m_passWdEdit->isHidden()) {
         m_userWidget->rightKeySwitchUser();
     }
-    if (!m_userWidget->isHidden() && !m_passWdEdit->isHidden() &&
-            m_passWdEdit->getText().isEmpty()) {
-        m_userWidget->rightKeySwitchUser();
-    }
+//   if (!m_userWidget->isHidden() && !m_passWdEdit->isHidden() &&
+//            m_passWdEdit->getText().isEmpty()) {
+//        m_userWidget->rightKeySwitchUser();
+//    }
     if (!m_requireShutdownWidget->isHidden()) {
         m_requireShutdownWidget->rightKeySwitch();
     }
