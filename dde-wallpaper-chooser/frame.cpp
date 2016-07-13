@@ -1,6 +1,7 @@
 #include "frame.h"
 #include "constants.h"
 #include "wallpaperlist.h"
+#include "wallpaperitem.h"
 #include "dbus/appearancedaemon_interface.h"
 #include "dbus/deepin_wm.h"
 #include "dbus/dbusxmousearea.h"
@@ -15,6 +16,9 @@
 Frame::Frame(QFrame *parent)
     : QFrame(parent),
       m_wallpaperList(new WallpaperList(this)),
+      m_closeButton(new DImageButton(":/images/close_normal.png",
+                                 ":/images/close_hover.png",
+                                 ":/images/close_press.png", this)),
       m_dbusAppearance(new AppearanceDaemonInterface(AppearanceServ,
                                                      AppearancePath,
                                                      QDBusConnection::sessionBus(),
@@ -23,8 +27,8 @@ Frame::Frame(QFrame *parent)
                                   DeepinWMPath,
                                   QDBusConnection::sessionBus(),
                                   this)),
-      m_dbusMouseArea(new DBusXMouseArea(this)),
-      m_gsettings(new QGSettings(WallpaperSchemaId, WallpaperPath, this))
+      m_gsettings(new QGSettings(WallpaperSchemaId, WallpaperPath, this)),
+      m_dbusMouseArea(new DBusXMouseArea(this))
 {
     setFocusPolicy(Qt::StrongFocus);
     setWindowFlags(Qt::BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
@@ -40,6 +44,9 @@ Frame::Frame(QFrame *parent)
             qApp->quit();
         }
     });
+
+    m_closeButton->hide();
+    connect(m_wallpaperList, &WallpaperList::needCloseButton, this, &Frame::handleNeedCloseButton);
 }
 
 Frame::~Frame()
@@ -47,6 +54,23 @@ Frame::~Frame()
     restoreWallpaper();
     m_dbusDeepinWM->CancelHideWindows();
     m_dbusMouseArea->UnregisterArea(m_mouseAreaKey);
+}
+
+void Frame::handleNeedCloseButton(QString path, QPoint pos)
+{
+    if (!path.isEmpty()) {
+        m_closeButton->move(pos.x() - 10, pos.y() + 10);
+        m_closeButton->show();
+        m_closeButton->disconnect();
+
+        connect(m_closeButton, &DImageButton::clicked, [this, path] {
+            m_closeButton->hide();
+            m_dbusAppearance->Delete("background", path);
+            m_wallpaperList->removeWallpaper(path);
+        });
+    } else {
+        m_closeButton->hide();
+    }
 }
 
 void Frame::paintEvent(QPaintEvent *)
@@ -98,7 +122,8 @@ void Frame::initListView()
     QStringList strings = processListReply(value);
 
     foreach (QString path, strings) {
-        m_wallpaperList->addWallpaper(path);
+        WallpaperItem * item = m_wallpaperList->addWallpaper(path);
+        item->setDeletable(m_deletableInfo.value(path));
     }
 
     m_wallpaperList->setStyleSheet("QListWidget { background: transparent }");
@@ -108,7 +133,7 @@ void Frame::initListView()
     });
 }
 
-QStringList Frame::processListReply(QString &reply) const
+QStringList Frame::processListReply(const QString &reply)
 {
     QStringList result;
 
@@ -117,7 +142,9 @@ QStringList Frame::processListReply(QString &reply) const
         QJsonArray arr = doc.array();
         foreach (QJsonValue val, arr) {
             QJsonObject obj = val.toObject();
-            result.append(obj["Id"].toString());
+            QString id = obj["Id"].toString();
+            result.append(id);
+            m_deletableInfo[id] = obj["Deletable"].toBool();
         }
     }
 

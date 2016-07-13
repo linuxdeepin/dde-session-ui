@@ -29,7 +29,7 @@ WallpaperList::~WallpaperList()
 
 }
 
-void WallpaperList::addWallpaper(const QString &path)
+WallpaperItem * WallpaperList::addWallpaper(const QString &path)
 {
     QListWidgetItem * item = new QListWidgetItem(this);
     item->setSizeHint(QSize(ItemWidth, ItemHeight));
@@ -40,13 +40,32 @@ void WallpaperList::addWallpaper(const QString &path)
     setItemWidget(item, wallpaper);
 
     connect(wallpaper, &WallpaperItem::pressed, this, &WallpaperList::wallpaperItemPressed);
+    connect(wallpaper, &WallpaperItem::hoverIn, this, &WallpaperList::wallpaperItemHoverIn);
+    connect(wallpaper, &WallpaperItem::hoverOut, this, &WallpaperList::wallpaperItemHoverOut);
     connect(wallpaper, &WallpaperItem::desktopButtonClicked, this, &WallpaperList::handleSetDesktop);
     connect(wallpaper, &WallpaperItem::desktopLockButtonClicked, this, &WallpaperList::handleSetDesktopLock);
+
+    return wallpaper;
+}
+
+void WallpaperList::removeWallpaper(const QString &path)
+{
+    for (int i = 0; i < count(); i++) {
+        QListWidgetItem * ii = this->item(i);
+        WallpaperItem * wallpaper = qobject_cast<WallpaperItem*>(itemWidget(ii));
+
+        if (wallpaper) {
+            if (wallpaper->getPath() == path) {
+                removeItemWidget(ii);
+                takeItem(i);
+            }
+        }
+    }
 }
 
 void WallpaperList::wheelEvent(QWheelEvent * event)
 {
-    QPoint numDegrees = event->angleDelta() / 8;
+    QPoint numDegrees = event->angleDelta();
 
     if (numDegrees.x()) {
         horizontalScrollBar()->setValue(horizontalScrollBar()->value() - numDegrees.x());
@@ -55,6 +74,9 @@ void WallpaperList::wheelEvent(QWheelEvent * event)
     }
 
     event->accept();
+
+    // hide the delete button.
+    emit needCloseButton("", QPoint(0, 0));
 }
 
 void WallpaperList::wallpaperItemPressed()
@@ -75,6 +97,22 @@ void WallpaperList::wallpaperItemPressed()
             }
         }
     }
+}
+
+void WallpaperList::wallpaperItemHoverIn()
+{
+    WallpaperItem * item = qobject_cast<WallpaperItem*>(sender());
+
+    if (item->getDeletable()) {
+        emit needCloseButton(item->getPath(), item->geometry().topRight());
+    } else {
+        emit needCloseButton("", QPoint(0, 0));
+    }
+}
+
+void WallpaperList::wallpaperItemHoverOut()
+{
+//    emit needCloseButton("", QPoint(0, 0));
 }
 
 void WallpaperList::handleSetDesktop()

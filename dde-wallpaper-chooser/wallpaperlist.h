@@ -13,10 +13,12 @@ public:
     explicit WallpaperList(QWidget * parent = 0);
     ~WallpaperList();
 
-    void addWallpaper(const QString &path);
+    WallpaperItem * addWallpaper(const QString &path);
+    void removeWallpaper(const QString &path);
 
 signals:
     void wallpaperSet(QString wallpaper);
+    void needCloseButton(QString path, QPoint pos);
 
 protected:
     void wheelEvent(QWheelEvent *);
@@ -29,6 +31,8 @@ private:
 
 private slots:
     void wallpaperItemPressed();
+    void wallpaperItemHoverIn();
+    void wallpaperItemHoverOut();
     void handleSetDesktop();
     void handleSetDesktopLock();
 };

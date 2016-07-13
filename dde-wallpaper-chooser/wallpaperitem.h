@@ -21,9 +21,15 @@ public:
     void slideDown();
 
     QString getPath();
+    void setPath(const QString &path);
+
+    bool getDeletable() const;
+    void setDeletable(bool deletable);
 
 signals:
     void pressed();
+    void hoverIn();
+    void hoverOut();
     void desktopButtonClicked();
     void desktopLockButtonClicked();
 
@@ -32,6 +38,8 @@ public slots:
 
 private:
     QString m_path;
+    bool m_deletable;
+
     QFrame * m_wrapper = NULL;
     QLabel * m_picture = NULL;
     Button * m_desktopButton = NULL;

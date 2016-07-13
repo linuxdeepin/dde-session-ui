@@ -106,6 +106,14 @@ bool WallpaperItem::eventFilter(QObject * obj, QEvent * event)
         emit pressed();
 
         return true;
+    } else if (obj == m_picture && event->type() == QEvent::Enter) {
+        emit hoverIn();
+
+        return true;
+    } else if (obj == m_picture && event->type() == QEvent::Leave) {
+        emit hoverOut();
+
+        return true;
     }
 
     return false;
@@ -135,4 +143,19 @@ void WallpaperItem::thumbnailFinished()
 {
     QFuture<QPixmap> f = m_thumbnailerWatcher->future();
     m_picture->setPixmap(f.result());
+}
+
+bool WallpaperItem::getDeletable() const
+{
+    return m_deletable;
+}
+
+void WallpaperItem::setDeletable(bool deletable)
+{
+    m_deletable = deletable;
+}
+
+void WallpaperItem::setPath(const QString &path)
+{
+    m_path = path;
 }
