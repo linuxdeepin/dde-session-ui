@@ -112,10 +112,10 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         view->setAction(action);
         mainLayout->addWidget(view, 0, Qt::AlignCenter);
 
-        connect(view, &MultiUsersWarningView::cancelled, [this, &action, view] {
+        connect(view, &MultiUsersWarningView::cancelled, [this] {
            qApp->quit();
         });
-        connect(view, &MultiUsersWarningView::actionInvoked, [this, &action] {
+        connect(view, &MultiUsersWarningView::actionInvoked, [this, action] {
             emit ShutDownFrameActions(action);
         });
 
