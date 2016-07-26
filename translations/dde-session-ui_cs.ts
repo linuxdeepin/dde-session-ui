@@ -2,17 +2,27 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="251"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="124"/>
+        <source>Login</source>
+        <translation>Přihlášení</translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
         <source>Wrong Password</source>
         <translation>Špatné heslo</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="371"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
+        <source>Please retry after 10 minutes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="497"/>
         <source>Enter your password to restart</source>
         <translation>Chcete-li restartovat, zadejte heslo.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="374"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="500"/>
         <source>Enter your password to shutdown</source>
         <translation>Zadejte své heslo pro vypnutí</translation>
     </message>
@@ -20,9 +30,19 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="343"/>
-        <source>Wrong password</source>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="233"/>
+        <source>Login</source>
+        <translation>Přihlášení</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="403"/>
+        <source>Wrong Password</source>
         <translation>Špatné heslo</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="408"/>
+        <source>Please retry after 10 minutes</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -54,6 +74,14 @@
     </message>
 </context>
 <context>
+    <name>MultiUsersWarningView</name>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="39"/>
+        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>Osd</name>
     <message>
         <location filename="../dde-osd/osd.cpp" line="66"/>
@@ -74,32 +102,32 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="99"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="130"/>
         <source>Shut down</source>
         <translation>Vypnout</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="102"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="133"/>
         <source>Restart</source>
         <translation>Restartovat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="105"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="136"/>
         <source>Suspend</source>
         <translation>Uspat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="108"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="139"/>
         <source>Lock</source>
         <translation>Uzamknout</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="111"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="142"/>
         <source>Log out</source>
         <translation>Odhlásit se</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="115"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="146"/>
         <source>Switch user</source>
         <translation>Přepnout uživatele</translation>
     </message>
@@ -158,7 +186,7 @@
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="55"/>
         <source>Desktop and Lock screen</source>
-        <translation type="unfinished"/>
+        <translation>Pracovní plocha a zámek obrazovky</translation>
     </message>
 </context>
 <context>
@@ -166,7 +194,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="23"/>
         <source>Low battery, please plug in</source>
-        <translation type="unfinished"/>
+        <translation>Nízký stav baterie. Připojte, prosím, počítač k síti</translation>
     </message>
 </context>
 </TS>

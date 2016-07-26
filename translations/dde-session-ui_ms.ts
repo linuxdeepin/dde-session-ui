@@ -2,17 +2,27 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="251"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="124"/>
+        <source>Login</source>
+        <translation>Daftar Masuk</translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
         <source>Wrong Password</source>
         <translation>Kata Laluan Salah</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="371"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
+        <source>Please retry after 10 minutes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="497"/>
         <source>Enter your password to restart</source>
         <translation>Masukkan kata laluan anda untuk mulakan semula</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="374"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="500"/>
         <source>Enter your password to shutdown</source>
         <translation>Masukkan kata laluan anda untuk matikan</translation>
     </message>
@@ -20,9 +30,19 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="343"/>
-        <source>Wrong password</source>
-        <translation>Kata laluan salah</translation>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="233"/>
+        <source>Login</source>
+        <translation>Daftar Masuk</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="403"/>
+        <source>Wrong Password</source>
+        <translation>Kata Laluan Salah</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="408"/>
+        <source>Please retry after 10 minutes</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -54,6 +74,14 @@
     </message>
 </context>
 <context>
+    <name>MultiUsersWarningView</name>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="39"/>
+        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>Osd</name>
     <message>
         <location filename="../dde-osd/osd.cpp" line="66"/>
@@ -74,32 +102,32 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="99"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="130"/>
         <source>Shut down</source>
         <translation>Matikan</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="102"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="133"/>
         <source>Restart</source>
         <translation>Mula semula</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="105"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="136"/>
         <source>Suspend</source>
         <translation>Tangguh</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="108"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="139"/>
         <source>Lock</source>
         <translation>Kunci</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="111"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="142"/>
         <source>Log out</source>
         <translation>Daftar  keluar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="115"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="146"/>
         <source>Switch user</source>
         <translation>Tukar pengguna</translation>
     </message>
@@ -158,7 +186,7 @@
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="55"/>
         <source>Desktop and Lock screen</source>
-        <translation type="unfinished"/>
+        <translation>Desktop dan Skrin kunci</translation>
     </message>
 </context>
 <context>
@@ -166,7 +194,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="23"/>
         <source>Low battery, please plug in</source>
-        <translation type="unfinished"/>
+        <translation>Kuasa bateri lemah, sila palamkan kuasa</translation>
     </message>
 </context>
 </TS>

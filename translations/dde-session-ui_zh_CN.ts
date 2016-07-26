@@ -2,17 +2,27 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="251"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="124"/>
+        <source>Login</source>
+        <translation>登录</translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="371"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
+        <source>Please retry after 10 minutes</source>
+        <translation>10分钟后再尝试</translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="497"/>
         <source>Enter your password to restart</source>
         <translation>请输入密码以完成重启</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="374"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="500"/>
         <source>Enter your password to shutdown</source>
         <translation>请输入密码以完成关机</translation>
     </message>
@@ -20,9 +30,19 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="343"/>
-        <source>Wrong password</source>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="233"/>
+        <source>Login</source>
+        <translation>登录</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="403"/>
+        <source>Wrong Password</source>
         <translation>密码错误</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="408"/>
+        <source>Please retry after 10 minutes</source>
+        <translation>10分钟后再尝试</translation>
     </message>
 </context>
 <context>
@@ -54,6 +74,14 @@
     </message>
 </context>
 <context>
+    <name>MultiUsersWarningView</name>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="39"/>
+        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
+        <translation>此电脑还有以上帐户在登录，关闭电脑会导致其数据丢失，是否要关闭此电脑？</translation>
+    </message>
+</context>
+<context>
     <name>Osd</name>
     <message>
         <location filename="../dde-osd/osd.cpp" line="66"/>
@@ -74,32 +102,32 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="99"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="130"/>
         <source>Shut down</source>
         <translation>关机</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="102"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="133"/>
         <source>Restart</source>
         <translation>重启</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="105"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="136"/>
         <source>Suspend</source>
         <translation>待机</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="108"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="139"/>
         <source>Lock</source>
         <translation>锁定</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="111"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="142"/>
         <source>Log out</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="115"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="146"/>
         <source>Switch user</source>
         <translation>切换用户</translation>
     </message>
