@@ -12,12 +12,13 @@
 #include "app/loginframe.h"
 #include <QLabel>
 #include <QProcess>
+#include <QThread>
 
 #include <DLog>
 
 DUTIL_USE_NAMESPACE
 
-void setAllMonitorsExtend()
+bool setAllMonitorsExtend()
 {
     QProcess *checkMons = new QProcess;
     checkMons->start("xrandr");
@@ -28,27 +29,38 @@ void setAllMonitorsExtend()
 
     const QString result = checkMons->readAllStandardOutput();
     const QStringList &infoList = result.split('\n');
+    bool foundMonitor = false;
     for (const QString &info : infoList)
     {
-        qDebug() << "info: " << info;
-
         const QStringList details = info.split(' ');
 
         if (details.count() < 3 || details.at(1) != "connected")
             continue;
 
+        qDebug() << "info: " << info;
         qDebug() << "found monitor: " << details.first();
-
+        foundMonitor = true;
         if (details.at(2) == "primary")
             primaryMonitor = details.first();
         else
             otherMonitors.append(details.first());
     }
 
+    if (!foundMonitor) {
+        qCritical() << "can not find any monitor" << "retray in 15 second...";
+        return foundMonitor;
+    }
+
     // set other monitors
     QString lastMonitor = primaryMonitor;
     if (lastMonitor.isEmpty())
         lastMonitor = otherMonitors.first();
+
+    // call enable xrandr first
+    QProcess enableMonitor;
+    enableMonitor.start("xrandr --auto");
+    bool ret = enableMonitor.waitForFinished(-1);
+    qDebug()<< "enable monitor" <<ret<<enableMonitor.readAll();
 
     for (const QString &m : otherMonitors)
     {
@@ -67,11 +79,23 @@ void setAllMonitorsExtend()
     }
 
     checkMons->deleteLater();
+    return foundMonitor;
+}
+
+// This workaround is work when you don not plug in any monitor and
+// power on computer. Then Qt can not draw out any thing.
+// You can not quit application because lightdm will quit with greeter quit.
+// And you can not recive and signal of monitor plugin from kernel.
+// So please dectect time by time, :<
+void waitMonitorReady() {
+    while(!setAllMonitorsExtend()) {
+        QThread::sleep(10);
+    }
 }
 
 int main(int argc, char* argv[])
 {
-    setAllMonitorsExtend();
+    waitMonitorReady();
 
     QApplication a(argc, argv);
     qApp->setOrganizationName("deepin");
