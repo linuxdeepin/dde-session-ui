@@ -1,5 +1,7 @@
 #include <QApplication>
 #include <QDebug>
+#include <QCommandLineParser>
+#include <QCommandLineOption>
 
 #include "frame.h"
 #include "dialog.h"
@@ -39,6 +41,18 @@ static void UpgradeNotNow() {
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setApplicationName("dde-offline-upgrader");
+    a.setApplicationVersion("0.9");
+
+    QCommandLineParser parser;
+    parser.addHelpOption();
+    parser.addVersionOption();
+
+    QCommandLineOption noAskOption(QStringList() << "s" << "silent",
+                                   "don't show the option dialog, upgrade directly.");
+    parser.addOption(noAskOption);
+
+    parser.process(a);
 
     /* No need to do this, lastore-session-helper will do this before launch this program.
     if (!DownloadedPackagesAvailable()) {
@@ -47,34 +61,40 @@ int main(int argc, char *argv[])
     }
     */
 
-    Dialog d;
-    d.show();
-
-    QObject::connect(&d, &Dialog::buttonClicked, [](int index, const QString &){
+    if (parser.isSet(noAskOption)) {
         Frame * f = new Frame;
-        switch (index) {
-        case 0:
-            // remind later
-            UpgradeRemindMeLater();
-            break;
-        case 1:
-            Upgrading = true;
-            f->showFullScreen();
-            f->distUpgrade();
-            break;
-        case 2:
-            // not now.
-            UpgradeNotNow();
-            break;
-        default:
-            break;
-        }
-    });
+        f->showFullScreen();
+        f->distUpgrade();
+    } else {
+        Dialog * d = new Dialog;
+        d->show();
 
-    QObject::connect(&d, &Dialog::aboutToClose, []{
-        // remind later;
-        UpgradeRemindMeLater();
-    });
+        QObject::connect(d, &Dialog::buttonClicked, [](int index, const QString &){
+            Frame * f = new Frame;
+            switch (index) {
+            case 0:
+                // remind later
+                UpgradeRemindMeLater();
+                break;
+            case 1:
+                Upgrading = true;
+                f->showFullScreen();
+                f->distUpgrade();
+                break;
+            case 2:
+                // not now.
+                UpgradeNotNow();
+                break;
+            default:
+                break;
+            }
+        });
+
+        QObject::connect(d, &Dialog::aboutToClose, []{
+            // remind later;
+            UpgradeRemindMeLater();
+        });
+    }
 
     return a.exec();
 }
