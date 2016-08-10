@@ -25,11 +25,14 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     DApplication app(argc, argv);
-    qApp->setOrganizationName("deepin");
-    qApp->setApplicationName("dde-lock");
-    qApp->setApplicationVersion("2015.1.0");
+    app.setOrganizationName("deepin");
+    app.setApplicationName("dde-lock");
+    app.setApplicationVersion("2015.1.0");
+
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
+
+    app.setSingleInstance(QString("dde-lock_%1").arg(getuid()));
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
@@ -41,9 +44,7 @@ int main(int argc, char *argv[])
         DCCInter->HideImmediately();
     }
     DCCInter->deleteLater();
-    const bool quit = !app.setSingleInstance(QString("dde-lock_%1").arg(getuid()));
 
-#ifndef LOCK_NO_QUIT
     QCommandLineParser cmdParser;
     cmdParser.addHelpOption();
     cmdParser.addVersionOption();
@@ -54,16 +55,17 @@ int main(int argc, char *argv[])
     cmdParser.addOption(switchUser);
     cmdParser.process(app);
 
-    QString runDaemon = cmdParser.value(backend);
+    bool runDaemon = cmdParser.isSet(backend);
     bool showUserList = cmdParser.isSet(switchUser);
 
     LockFrame lockFrame;
     DBusLockFrontService service(&lockFrame);
     QDBusConnection conn = QDBusConnection::sessionBus();
-    if (!conn.registerService("com.deepin.dde.lockFront") ||
+    if (!conn.registerService(DBUS_NAME) ||
             !conn.registerObject("/com/deepin/dde/lockFront", &lockFrame)) {
-        qDebug() << "register failed";
-        if (!cmdParser.isSet(backend)) {
+        qDebug() << "register dbus failed"<< "maybe lockFront is running..." << conn.lastError();
+
+        if (!runDaemon) {
             const char *interface = "com.deepin.dde.lockFront";
             QDBusInterface ifc(DBUS_NAME, DBUS_PATH, interface, QDBusConnection::sessionBus(), NULL);
             if (showUserList) {
@@ -71,35 +73,21 @@ int main(int argc, char *argv[])
             } else {
                 ifc.asyncCall("Show");
             }
-
-            return 0;
         }
-    }
-
-    if (runDaemon == "d" || runDaemon == "daemon") {
-        lockFrame.hide();
     } else {
-        if (showUserList) {
-            lockFrame.showUserList();
+        if (!runDaemon) {
+            if (showUserList) {
+                lockFrame.showUserList();
+            } else {
+                lockFrame.show();
+            }
+            lockFrame.grabKeyboard();
         } else {
-            lockFrame.show();
+            lockFrame.hide();
         }
+        app.exec();
     }
-    app.exec();
-#else
-    if (QDBusConnection::sessionBus().registerService(DBUS_NAME)) {
-        qDebug() << "DBUS_NAME:" << DBUS_NAME;
 
-        LockFrame lf;
-        lf.show();
-        lf.grabKeyboard();
-
-        return app.exec();
-    } else {
-        qWarning() << "lockFront is running...";
-        return 0;
-    }
-#endif
-
-
+    return 0;
 }
+
