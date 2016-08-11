@@ -11,6 +11,8 @@
 #include <QtWidgets/QLabel>
 #include <QtCore/QObject>
 
+#include <libintl.h>
+
 #include "dbus/dbusvariant.h"
 #include "contentwidget.h"
 #include "accountsutils.h"
@@ -222,8 +224,14 @@ void ShutDownFrame::inhibitShutdown() {
             qDebug() << "inhibitList:" << inhibitList.count();
 
             for(int i = 0; i < inhibitList.count();i++) {
-                if (inhibitList.at(i).what == "shutdown" && inhibitList.at(i).dosome == "block") {
-                    reminder_tooltip = inhibitList.at(i).why;
+                // Just take care of DStore's inhibition, ignore others'.
+                if (inhibitList.at(i).what == "shutdown"
+                        && inhibitList.at(i).dosome == "block"
+                        && inhibitList.at(i).who == "Deepin Store")
+                {
+                    setlocale(LC_ALL, "");
+                    reminder_tooltip = dgettext("lastore-daemon", inhibitList.at(i).why.toUtf8());
+                    break;
                 }
             }
             qDebug() << "shutdown Reason!" << reminder_tooltip;
