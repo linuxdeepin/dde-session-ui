@@ -7,7 +7,8 @@ SUBDIRS += dde-shutdown \
            dde-lowpower \
            dde-osd \
            dde-zone \
-           dde-wallpaper-chooser
+           dde-wallpaper-chooser \
+		   dde-offline-upgrader
 
 include(common.pri)
 contains(DEFINES, ARCH_MIPSEL) {
