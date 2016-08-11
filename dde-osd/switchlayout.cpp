@@ -9,6 +9,8 @@
 
 #include "switchlayout.h"
 
+static const int MinLayoutWindowWidth = 200;
+
 SwitchLayout::SwitchLayout(QWidget *parent) : QWidget(parent)
 {
     initGlobalVar(parent);
@@ -25,6 +27,14 @@ void SwitchLayout::initGlobalVar(QWidget *parent)
     m_ListWidget = new QListWidget(parent);
 
     m_KeyboardList = m_LayoutInterface->userLayoutList();
+
+    connect(m_LayoutInterface, &LayoutDbus::UserLayoutListChanged, [this] {
+        m_KeyboardList = m_LayoutInterface->userLayoutList();
+        calculateKeyboardSize();
+        if (m_ListWidget && m_HBoxLayout) {
+            fillListWidget();
+        }
+    });
 }
 
 void SwitchLayout::deleteOsd()
@@ -93,7 +103,7 @@ void SwitchLayout::calculateKeyboardSize()
     for (int i = 0; i < length; i++) {
         text->setText(m_LayoutInterface->GetLayoutDesc(m_KeyboardList[i]));
         int textWidth = metrics.boundingRect(text->text()).width();
-        m_MaxTextWidth = (textWidth > m_MaxTextWidth ? textWidth : m_MaxTextWidth);
+        m_MaxTextWidth = qMax(MinLayoutWindowWidth, qMax(textWidth, m_MaxTextWidth));
     }
 }
 
@@ -136,6 +146,9 @@ void SwitchLayout::initListWidget()
 
 void SwitchLayout::fillListWidget()
 {
+    m_KeyboradTextList.clear();
+    m_ListWidget->clear();
+
     for (int i = 0, length = m_KeyboardList.length(); i < length; i++) {
         QListWidgetItem *item = new QListWidgetItem;
         // setFlags(Qt::NoItemFlags) can remove the default highlight
@@ -230,6 +243,8 @@ void SwitchLayout::reAlignCurrentIndex()
 
 void SwitchLayout::reHiglightKeyboard()
 {
+    if (m_KeyboradTextList.isEmpty()) return;
+
     if (m_CurrentIndexOfKeyBoard == 0) {
         // if m_CurrentIndexOfKeyBoard == 0,highlight the first one, and normalize the last one
         m_KeyboradTextList[0]->setStyleSheet(KEYBOARD_ITEM_HIGHLIGHT_STYLE);
