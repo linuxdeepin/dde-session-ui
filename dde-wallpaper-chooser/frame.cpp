@@ -12,6 +12,7 @@
 #include <QDebug>
 #include <QPainter>
 #include <QGSettings>
+#include <QScrollBar>
 
 Frame::Frame(QFrame *parent)
     : QFrame(parent),
@@ -39,9 +40,19 @@ Frame::Frame(QFrame *parent)
 
     m_formerWallpaper = m_gsettings->get(WallpaperKey).toString();
 
-    connect(m_dbusMouseArea, &DBusXMouseArea::ButtonRelease, [this](int, int x, int y){
-        if (!rect().contains(x - this->x(), y - this->y())) {
-            qApp->quit();
+    connect(m_dbusMouseArea, &DBusXMouseArea::ButtonRelease, [this](int button, int x, int y, const QString &id){
+        if (id != m_mouseAreaKey) return;
+
+        if (button == 4) {
+            QScrollBar * bar = m_wallpaperList->horizontalScrollBar();
+            bar->setValue(bar->value() - 120);
+        } else if (button == 5) {
+            QScrollBar * bar = m_wallpaperList->horizontalScrollBar();
+            bar->setValue(bar->value() + 120);
+        } else {
+            if (!rect().contains(x - this->x(), y - this->y())) {
+                qApp->quit();
+            }
         }
     });
 
