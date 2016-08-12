@@ -18,13 +18,17 @@ SOURCES += main.cpp\
     deepinwave.cpp \
     dbus/dbusupdatejob.cpp \
     dbus/dbusupdatejobmanager.cpp \
-    dialog.cpp
+    dialog.cpp \
+    ../global_util/dbus/dbuslogin1manager.cpp \
+    ../global_util/dbus/dbusvariant.cpp
 
 HEADERS  += frame.h \
     deepinwave.h \
     dbus/dbusupdatejob.h \
     dbus/dbusupdatejobmanager.h \
-    dialog.h
+    dialog.h \
+    ../global_util/dbus/dbuslogin1manager.h \
+    ../global_util/dbus/dbusvariant.h
 
 RESOURCES += \
     images.qrc

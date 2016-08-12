@@ -65,7 +65,7 @@ public:
 
     ~DBusLogin1Manager();
 
-    Q_PROPERTY(QString BlockInhibited READ blockInhibited)
+    Q_PROPERTY(QString BlockInhibited READ blockInhibited NOTIFY BlockInhibitedChanged)
     inline QString blockInhibited() const
     { return qvariant_cast< QString >(property("BlockInhibited")); }
 
@@ -400,6 +400,8 @@ public Q_SLOTS: // METHODS
     }
 
 Q_SIGNALS: // SIGNALS
+    void BlockInhibitedChanged();
+
     void PrepareForShutdown(bool active);
     void PrepareForSleep(bool active);
     void SeatNew(const QString &id, const QDBusObjectPath &path);

@@ -3,6 +3,7 @@
 
 #include "dbus/dbusupdatejobmanager.h"
 #include "dbus/dbusupdatejob.h"
+#include "../global_util/dbus/dbuslogin1manager.h"
 
 #include <QResizeEvent>
 #include <QDesktopWidget>
@@ -85,11 +86,14 @@ void Frame::distUpgrade()
             qDebug() << "job status changed: " << status;
 
             if (status == "succeed" || status == "end" || status.isEmpty()) {
-                QDBusInterface sessionManager("com.deepin.SessionManager",
-                                              "/com/deepin/SessionManager",
-                                              "com.deepin.SessionManager",
-                                              QDBusConnection::sessionBus());
-                sessionManager.asyncCall("ForceReboot");
+                DBusLogin1Manager * manager = new DBusLogin1Manager("org.freedesktop.login1",
+                                                                    "/org/freedesktop/login1",
+                                                                    QDBusConnection::systemBus());
+                connect(manager, &DBusLogin1Manager::BlockInhibitedChanged, [manager] {
+                    if (manager->blockInhibited().isEmpty()) {
+                        manager->Reboot(false);
+                    }
+                });
             }
             if (status == "failed") {
                 // Failed to upgrade, quit the application.
