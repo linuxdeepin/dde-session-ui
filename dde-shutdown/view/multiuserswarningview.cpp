@@ -26,17 +26,18 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
     setFixedSize(ViewSize);
 
     m_userList->setAttribute(Qt::WA_TranslucentBackground);
-    m_userList->setSelectionRectVisible(false);
+//    m_userList->setSelectionRectVisible(false);
     m_userList->setSelectionMode(QListView::NoSelection);
     m_userList->setEditTriggers(QListView::NoEditTriggers);
     m_userList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_userList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_userList->viewport()->setAttribute(Qt::WA_TranslucentBackground);
+//    m_userList->viewport()->setAttribute(Qt::WA_TranslucentBackground);
     m_userList->setFrameStyle(QFrame::NoFrame);
     m_userList->setGridSize(UserListItemSize);
+    m_userList->setFocusPolicy(Qt::NoFocus);
+    m_userList->setStyleSheet("background-color:transparent;");
 
     m_warningTip->setStyleSheet("color:white");
-    m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? "));
     m_warningTip->setWordWrap(true);
     m_warningTip->setFixedWidth(500);
     m_warningTip->setAlignment(Qt::AlignHCenter);
@@ -88,11 +89,13 @@ void MultiUsersWarningView::setAction(const Actions action)
         m_actionBtn->setNormalPic(":/img/poweroff_warning_normal.png");
         m_actionBtn->setHoverPic(":/img/poweroff_warning_hover.png");
         m_actionBtn->setPressPic(":/img/poweroff_warning_press.png");
+        m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to shutdown, are you sure to shutdown? "));
         break;
     default:
         m_actionBtn->setNormalPic(":/img/reboot_warning_normal.png");
         m_actionBtn->setHoverPic(":/img/reboot_warning_hover.png");
         m_actionBtn->setPressPic(":/img/reboot_warning_press.png");
+        m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? "));
         break;
     }
 }

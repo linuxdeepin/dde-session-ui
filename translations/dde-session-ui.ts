@@ -2,6 +2,42 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>Dialog</name>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
+        <source>Updates downloaded, update now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
+        <source>Remind Later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
+        <source>Update Now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
+        <source>Not Now</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Frame</name>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="28"/>
+        <source>Please don&apos;t power off or unplug your machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="109"/>
+        <source>Installing updates %1%, please wait...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LockManager</name>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="124"/>
@@ -78,8 +114,13 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="39"/>
-        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="92"/>
+        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shutdown? </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
+        <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -104,32 +145,32 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="132"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="133"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="135"/>
         <source>Restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="136"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
         <source>Suspend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="139"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
         <source>Lock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="142"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
         <source>Log out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="146"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="148"/>
         <source>Switch user</source>
         <translation type="unfinished"></translation>
     </message>

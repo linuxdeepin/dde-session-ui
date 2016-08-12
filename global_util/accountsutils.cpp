@@ -30,6 +30,8 @@ QStringList AccountsUtils::GetLoggedInUsers()
         }
     }
 
+    qDebug() << "All logged in users: " << result;
+
     return result;
 }
 
