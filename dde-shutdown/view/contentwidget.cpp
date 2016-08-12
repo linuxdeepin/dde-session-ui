@@ -49,9 +49,9 @@ void ShutDownFrame::enterKeyPushed()
         return;
 
     if (m_currentSelectedBtn == m_shutdownButton)
-        emit ShutDownFrameActions(Shutdown);
+        beforeInvokeAction(Shutdown);
     else if (m_currentSelectedBtn == m_restartButton)
-        emit ShutDownFrameActions(Restart);
+        beforeInvokeAction(Restart);
     else if (m_currentSelectedBtn == m_suspendButton)
         emit ShutDownFrameActions(Suspend);
     else if (m_currentSelectedBtn == m_lockButton)
