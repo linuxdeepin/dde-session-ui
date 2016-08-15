@@ -1,28 +1,64 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="ar" version="2.1">
 <context>
+    <name>Dialog</name>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
+        <source>Updates downloaded, update now?</source>
+        <translation>تم تنزيل التحديثات ،هل تريد تثبيتها الآن ؟</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
+        <source>Remind Later</source>
+        <translation>ذكرني لاحقاً</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
+        <source>Update Now</source>
+        <translation>تحديث الآن</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
+        <source>Not Now</source>
+        <translation>ليس الآن</translation>
+    </message>
+</context>
+<context>
+    <name>Frame</name>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
+        <source>Please don&apos;t power off or unplug your machine</source>
+        <translation>الرجاء عدم &quot;إيقاف التشغيل&quot;  أو فصل الجهاز من الطاقة .</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="113"/>
+        <source>Installing updates %1%, please wait...</source>
+        <translation>يتم تثبيت التحديثات %1% ، يرجى الانتظار ...</translation>
+    </message>
+</context>
+<context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="124"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="126"/>
         <source>Login</source>
         <translation>تسجيل دخول</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
         <source>Wrong Password</source>
-        <translation>كلمة مرور خاطئة</translation>
+        <translation>كلمة المرور غير صحيحة</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="377"/>
         <source>Please retry after 10 minutes</source>
         <translation>الرجاء إعادة المحاولة بعد 10 دقائق</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="497"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="509"/>
         <source>Enter your password to restart</source>
         <translation>أدخل كلمة المرور لإعادة التشغيل</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="500"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="512"/>
         <source>Enter your password to shutdown</source>
         <translation>أدخل كلمة المرور ﻹيقاف التشغيل.</translation>
     </message>
@@ -30,17 +66,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="233"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="245"/>
         <source>Login</source>
         <translation>تسجيل دخول</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="403"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="415"/>
         <source>Wrong Password</source>
-        <translation>كلمة مرور خاطئة</translation>
+        <translation>كلمة المرور غير صحيحة</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="408"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="420"/>
         <source>Please retry after 10 minutes</source>
         <translation>الرجاء إعادة المحاولة بعد 10 دقائق</translation>
     </message>
@@ -60,7 +96,7 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>Launcher</source>
-        <translation>مُطلق</translation>
+        <translation>المُطلق</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
@@ -76,9 +112,14 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="39"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="92"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>المستخدمين أعلاه لا يزالون قيد تسجيل الدخول وسوف يتم فقدان البيانات بسبب بإيقاف التشغيل ، هل أنت متأكد من أنك لا تزال تريد إيقاف التشغيل ؟</translation>
+        <translation>المستخدمون أعلاه لا يزالون قيد تسجيل الدخول وسيتم فقدان البيانات بسبب إيقاف التشغيل ، هل أنت متأكد من مواصلة إيقاف التشغيل ؟</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
+        <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
+        <translation>المستخدمون أعلاه لا يزالون قيد تسجيل الدخول وسيتم فقدان البيانات بسبب إعادة التشغيل ، هل أنت متأكد من مواصلة إعادة التشغيل ؟</translation>
     </message>
 </context>
 <context>
@@ -86,7 +127,7 @@
     <message>
         <location filename="../dde-osd/osd.cpp" line="66"/>
         <source>Enable window effects</source>
-        <translation>تفعيل تأثيرات النوافذ</translation>
+        <translation>تمكين تأثيرات النوافذ</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="67"/>
@@ -96,38 +137,38 @@
     <message>
         <location filename="../dde-osd/osd.cpp" line="68"/>
         <source>Failed to enable window effects</source>
-        <translation>فشل في تفعيل تأثيرات النوافذ</translation>
+        <translation>تعذر تفعيل تأثيرات النوافذ</translation>
     </message>
 </context>
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="132"/>
         <source>Shut down</source>
         <translation>إيقاف التشغيل</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="133"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="135"/>
         <source>Restart</source>
         <translation>إعادة التشغيل</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="136"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
         <source>Suspend</source>
         <translation>إسبات</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="139"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
         <source>Lock</source>
         <translation>قفل</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="142"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
         <source>Log out</source>
         <translation>تسجيل الخروج</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="146"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="148"/>
         <source>Switch user</source>
         <translation>تبديل المستخدم</translation>
     </message>

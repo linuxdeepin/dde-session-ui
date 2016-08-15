@@ -1,48 +1,84 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" version="2.1">
 <context>
+    <name>Dialog</name>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
+        <source>Updates downloaded, update now?</source>
+        <translation>Обновления загружены, обновить сейчас?</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
+        <source>Remind Later</source>
+        <translation>Напомнить позже</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
+        <source>Update Now</source>
+        <translation>Обновить сейчас</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
+        <source>Not Now</source>
+        <translation>Не сейчас</translation>
+    </message>
+</context>
+<context>
+    <name>Frame</name>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
+        <source>Please don&apos;t power off or unplug your machine</source>
+        <translation>Пожалуйста, не выключайте питание и не отключайте машину</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="113"/>
+        <source>Installing updates %1%, please wait...</source>
+        <translation>Установка обновлений %1%, пожалуйста ждите... </translation>
+    </message>
+</context>
+<context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="124"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="126"/>
         <source>Login</source>
         <translation>Вход</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
         <source>Wrong Password</source>
         <translation>Неверный пароль</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="377"/>
         <source>Please retry after 10 minutes</source>
-        <translation type="unfinished"/>
+        <translation>Пожалуйста повторите через 10 минут</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="497"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="509"/>
         <source>Enter your password to restart</source>
-        <translation>Введите пароль  для перезагрузки</translation>
+        <translation>Введите пароль, чтобы перезагрузить</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="500"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="512"/>
         <source>Enter your password to shutdown</source>
-        <translation>Введите пароль чтобы выключить</translation>
+        <translation>Введите пароль, чтобы выключить</translation>
     </message>
 </context>
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="233"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="245"/>
         <source>Login</source>
         <translation>Вход</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="403"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="415"/>
         <source>Wrong Password</source>
         <translation>Неверный пароль</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="408"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="420"/>
         <source>Please retry after 10 minutes</source>
-        <translation type="unfinished"/>
+        <translation>Пожалуйста повторите через 10 минут</translation>
     </message>
 </context>
 <context>
@@ -76,9 +112,14 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="39"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="92"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation type="unfinished"/>
+        <translation>Вышеуказанные пользователи по-прежнему находятся в системе и данные будут потеряны из-за отключения, вы уверены, что хотите выключить?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
+        <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
+        <translation>Вышеуказанные пользователи по-прежнему находятся в системе и данные будут потеряны после перезагрузки, вы уверены, что хотите перезагрузить?</translation>
     </message>
 </context>
 <context>
@@ -102,32 +143,32 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="132"/>
         <source>Shut down</source>
         <translation>Выключить</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="133"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="135"/>
         <source>Restart</source>
         <translation>Перезагрузить</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="136"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
         <source>Suspend</source>
         <translation>Приостановить</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="139"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
         <source>Lock</source>
         <translation>Блокировать</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="142"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
         <source>Log out</source>
         <translation>Выйти</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="146"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="148"/>
         <source>Switch user</source>
         <translation>Сменить пользователя</translation>
     </message>
@@ -155,7 +196,7 @@
     <message>
         <location filename="../dde-osd/switchmonitor.cpp" line="148"/>
         <source>Duplicate</source>
-        <translation>Дубликат</translation>
+        <translation>Дублировать</translation>
     </message>
     <message>
         <location filename="../dde-osd/switchmonitor.cpp" line="175"/>
@@ -168,12 +209,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="62"/>
         <source>hh:mm</source>
-        <translation>hh:mm</translation>
+        <translation>чч:мм</translation>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="63"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation>гггг-ММ-дд дддд</translation>
     </message>
 </context>
 <context>
@@ -194,7 +235,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="23"/>
         <source>Low battery, please plug in</source>
-        <translation>Батарея разряжена, подключите питание</translation>
+        <translation>Батарея разряжена, пожалуйста подключите питание</translation>
     </message>
 </context>
 </TS>

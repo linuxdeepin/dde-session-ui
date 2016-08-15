@@ -1,28 +1,64 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="pt" version="2.1">
 <context>
+    <name>Dialog</name>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
+        <source>Updates downloaded, update now?</source>
+        <translation>Atualizações transferidas, atualizar agora?</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
+        <source>Remind Later</source>
+        <translation>Lembrar Mais Tarde</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
+        <source>Update Now</source>
+        <translation>Atualizar Agora</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
+        <source>Not Now</source>
+        <translation>Agora Não</translation>
+    </message>
+</context>
+<context>
+    <name>Frame</name>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
+        <source>Please don&apos;t power off or unplug your machine</source>
+        <translation>Por favor não desligue o computador ou desligue-o da corrente</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="113"/>
+        <source>Installing updates %1%, please wait...</source>
+        <translation>A instalar atualizações %1%, por favor aguarde...</translation>
+    </message>
+</context>
+<context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="124"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="126"/>
         <source>Login</source>
         <translation>Entrar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
         <source>Wrong Password</source>
         <translation>Palavra-passe Errada</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="377"/>
         <source>Please retry after 10 minutes</source>
-        <translation type="unfinished"/>
+        <translation>Por favor tente novamente depois de 10 minutos</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="497"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="509"/>
         <source>Enter your password to restart</source>
         <translation>Insira a sua palavra-passe para recomeçar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="500"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="512"/>
         <source>Enter your password to shutdown</source>
         <translation>Insira a sua palavra-passe para encerrar</translation>
     </message>
@@ -30,19 +66,19 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="233"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="245"/>
         <source>Login</source>
         <translation>Entrar</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="403"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="415"/>
         <source>Wrong Password</source>
         <translation>Palavra-passe Errada</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="408"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="420"/>
         <source>Please retry after 10 minutes</source>
-        <translation type="unfinished"/>
+        <translation>Por favor tente novamente depois de 10 minutos</translation>
     </message>
 </context>
 <context>
@@ -76,9 +112,14 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="39"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="92"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation type="unfinished"/>
+        <translation>Os utilizadores acima continuam logados e os dados serão perdidos por causa do encerramento, tem a certeza que quer encerrar?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
+        <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
+        <translation>Os utilizadores acima continuam logados e os dados serão perdidos devido ao reiniciar, tem a certeza que quer reiniciar?</translation>
     </message>
 </context>
 <context>
@@ -102,32 +143,32 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="132"/>
         <source>Shut down</source>
         <translation>Encerrar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="133"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="135"/>
         <source>Restart</source>
         <translation>Reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="136"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
         <source>Suspend</source>
         <translation>Suspender</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="139"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
         <source>Lock</source>
         <translation>Trancar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="142"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
         <source>Log out</source>
         <translation>Sair</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="146"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="148"/>
         <source>Switch user</source>
         <translation>Mudar de utilizador</translation>
     </message>
