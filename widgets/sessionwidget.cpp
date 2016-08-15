@@ -19,6 +19,9 @@
 #include <QSettings>
 #include <QPropertyAnimation>
 
+static const int SessionButtonWidth = 160;
+static const int SessionButtonHeight = 160;
+
 SessionWidget::SessionWidget(QWidget *parent)
     : QFrame(parent),
       m_sessionBtns(new QList<RoundItemButton *>),
@@ -36,7 +39,7 @@ SessionWidget::SessionWidget(QWidget *parent)
 
         qDebug() << "tmpSession:" << tmpSession;
         RoundItemButton *sbtn = new RoundItemButton(session, this);
-        sbtn->setFixedSize(160, 160);
+        sbtn->setFixedSize(SessionButtonWidth, SessionButtonHeight);
         sbtn->hide();
         sbtn->setAutoExclusive(true);
 
@@ -60,7 +63,7 @@ SessionWidget::SessionWidget(QWidget *parent)
         m_sessionBtns->append(sbtn);
     }
 
-    setFixedSize(qApp->desktop()->width(), 320); // 2 lines at most.
+    setFixedSize(qApp->desktop()->width(), SessionButtonHeight);
 //    setStyleSheet("background-color:red;");
 }
 
@@ -93,6 +96,11 @@ void SessionWidget::show()
     const int count = m_sessionBtns->count();
     const int maxLineCap = width() / itemTotal - 1; // 1 for left-offset and right-offset.
     const int offset = (width() - itemTotal * qMin(count, maxLineCap)) / 2;
+
+    // Adjust size according to session count.
+    if (maxLineCap < count) {
+        setFixedSize(width(), qCeil(count * 1.0 / maxLineCap) * SessionButtonHeight);
+    }
 
     for (int i(0); i != count; ++i) {
         QPropertyAnimation *ani = new QPropertyAnimation(m_sessionBtns->at(i), "pos");

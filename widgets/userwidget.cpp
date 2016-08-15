@@ -44,7 +44,7 @@ UserWidget::UserWidget(const QString &username, QWidget* parent)
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 //    setStyleSheet("background-color:red;");
-    setFixedSize(qApp->desktop()->width(), USER_ICON_HEIGHT * 2); // 2 lines at most.
+    setFixedSize(qApp->desktop()->width(), USER_ICON_HEIGHT);
 //    move(0, (qApp->desktop()->height() - rect().height()) / 2 - 95);
 
     initUI();
@@ -170,6 +170,12 @@ void UserWidget::expandWidget()
     const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
     const int offset = (width() - USER_ICON_WIDTH * qMin(count, maxLineCap)) / 2;
     const QString username = currentUser();
+
+    // Adjust size according to user count.
+    if (maxLineCap < count) {
+        setFixedSize(width(), USER_ICON_HEIGHT * qCeil(count * 1.0 / maxLineCap));
+    }
+
     for (int i = 0; i != count; ++i)
     {
         if (m_userBtns->at(i)->objectName() != username) {
