@@ -40,7 +40,7 @@ Frame::Frame(QFrame *parent)
 
     m_formerWallpaper = m_gsettings->get(WallpaperKey).toString();
 
-    connect(m_dbusMouseArea, &DBusXMouseArea::ButtonRelease, [this](int button, int x, int y, const QString &id){
+    connect(m_dbusMouseArea, &DBusXMouseArea::ButtonPress, [this](int button, int x, int y, const QString &id){
         if (id != m_mouseAreaKey) return;
 
         if (button == 4) {
@@ -50,6 +50,8 @@ Frame::Frame(QFrame *parent)
             QScrollBar * bar = m_wallpaperList->horizontalScrollBar();
             bar->setValue(bar->value() + 120);
         } else {
+            qDebug() << "button pressed on blank area, quit.";
+
             if (!rect().contains(x - this->x(), y - this->y())) {
                 qApp->quit();
             }
@@ -107,6 +109,7 @@ void Frame::showEvent(QShowEvent * event)
 void Frame::keyPressEvent(QKeyEvent * event)
 {
     if (event->key() == Qt::Key_Escape) {
+        qDebug() << "escape key pressed, quit.";
         qApp->quit();
     }
 

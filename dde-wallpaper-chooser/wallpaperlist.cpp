@@ -120,6 +120,7 @@ void WallpaperList::handleSetDesktop()
     WallpaperItem * item = qobject_cast<WallpaperItem*>(sender());
     emit wallpaperSet(item->getPath());
 
+    qDebug() << "desktop item set, quit";
     qApp->quit();
 }
 
@@ -129,6 +130,7 @@ void WallpaperList::handleSetDesktopLock()
     setLockScreen(item->getPath());
     emit wallpaperSet(item->getPath());
 
+    qDebug() << "lock item set, quit";
     qApp->quit();
 }
 
