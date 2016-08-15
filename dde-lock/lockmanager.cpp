@@ -24,6 +24,8 @@
 #include "lockframe.h"
 #include "dbus/dbuslockfront.h"
 
+static const QSize ZoreSize = QSize(0, 0);
+
 LockManager::LockManager(QWidget *parent)
     : QFrame(parent)
 {
@@ -181,8 +183,8 @@ void LockManager::initUI()
             m_userWidget->setCurrentUser(UserWidget::loginUser());
         }
         m_passwordEdit->show();
-        this->updateBackground(username);
-        this->updateUserLoginCondition(username);
+        this->updateBackground(m_userWidget->currentUser());
+        this->updateUserLoginCondition(m_userWidget->currentUser());
     });
 
     m_lockInter->connect(m_lockInter, &DBusLockService::UserUnlock,
@@ -240,7 +242,7 @@ void LockManager::updateUserLoginCondition(QString username)
         QStringList groups = tokens.at(1).split(" ");
         qDebug() << groups;
         if (groups.contains("nopasswdlogin")) {
-            m_passwordEdit->setFixedSize(0, 0);
+            m_passwordEdit->setFixedSize(ZoreSize);
             m_unlockButton->show();
             return;
         }
@@ -272,7 +274,12 @@ void LockManager::keyPressEvent(QKeyEvent *e)
             m_requireShutdownWidget->hide();
             m_userWidget->show();
             if (!m_userWidget->isChooseUserMode) {
-                m_passwordEdit->show();
+                if (m_passwordEdit->size() != ZoreSize) {
+                    m_passwordEdit->show();
+                    m_passwordEdit->setFocus();
+                } else {
+                    m_unlockButton->show();
+                }
             }
         }
 #ifdef QT_DEBUG
@@ -483,9 +490,14 @@ void LockManager::setCurrentKeyboardLayout(QString keyboard_value)
 void LockManager::passwordMode()
 {
     m_userWidget->show();
-    m_passwordEdit->show();
-    m_passwordEdit->setFocus();
     m_requireShutdownWidget->hide();
+
+    if (m_passwordEdit->size() != ZoreSize) {
+        m_passwordEdit->show();
+        m_passwordEdit->setFocus();
+    } else {
+        m_unlockButton->show();
+    }
 
     if (m_action == Suspend) {
         m_sessionManagerIter->RequestSuspend().waitForFinished();
@@ -508,5 +520,6 @@ void LockManager::shutdownMode()
 {
     m_userWidget->hide();
     m_passwordEdit->hide();
+	m_unlockButton->hide();
     m_requireShutdownWidget->show();
 }

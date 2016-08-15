@@ -26,6 +26,8 @@
 #define LOCKSERVICE_PATH "/com/deepin/dde/lock"
 #define LOCKSERVICE_NAME "com.deepin.dde.lock"
 
+static const QSize ZoreSize = QSize(0, 0);
+
 //Load the System cursor --begin
 static XcursorImages*
 xcLoadImages(const char *image, int size)
@@ -150,7 +152,7 @@ void LoginManager::updateUserLoginCondition(QString username)
         QStringList groups = tokens.at(1).split(" ");
         qDebug() << groups;
         if (groups.contains("nopasswdlogin")) {
-            m_passWdEdit->setFixedSize(0, 0);
+            m_passWdEdit->setFixedSize(ZoreSize);
             m_loginButton->show();
 
             return;
@@ -169,7 +171,12 @@ void LoginManager::keyPressEvent(QKeyEvent* e) {
             m_requireShutdownWidget->hide();
             m_userWidget->show();
             if (!m_userWidget->isChooseUserMode) {
-                m_passWdEdit->show();
+                if (m_passWdEdit->size() != ZoreSize) {
+                    m_passWdEdit->show();
+                    m_passWdEdit->setFocus();
+                } else {
+                    m_loginButton->show();
+                }
             }
         }
 #ifdef QT_DEBUG
@@ -185,7 +192,12 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
             m_requireShutdownWidget->hide();
             m_userWidget->show();
             if (!m_userWidget->isChooseUserMode) {
-                m_passWdEdit->show();
+                if (m_passWdEdit->size() != ZoreSize) {
+                    m_passWdEdit->show();
+                    m_passWdEdit->setFocus();
+                } else {
+                    m_loginButton->show();
+                }
             }
         }
 
@@ -490,7 +502,12 @@ void LoginManager::choosedSession() {
     if (m_userWidget->isChooseUserMode) {
         m_passWdEdit->hide();
     } else {
-        m_passWdEdit->show();
+        if (m_passWdEdit->size() != ZoreSize) {
+            m_passWdEdit->show();
+            m_passWdEdit->setFocus();
+        } else {
+            m_loginButton->show();
+        }
     }
     if (!m_keybdArrowWidget->isHidden()) {
         m_keybdArrowWidget->hide();
@@ -568,7 +585,12 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
             if (m_userWidget->isChooseUserMode) {
                 m_passWdEdit->hide();
             } else {
-                m_passWdEdit->show();
+                if (m_passWdEdit->size() != ZoreSize) {
+                    m_passWdEdit->show();
+                    m_passWdEdit->setFocus();
+                } else {
+                    m_loginButton->show();
+                }
             }
             m_sessionWidget->hide();
         break;}
