@@ -109,19 +109,23 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
 
         QBoxLayout * mainLayout = qobject_cast<QBoxLayout*>(parentWidget()->layout());
 
-        MultiUsersWarningView * view = new MultiUsersWarningView;
-        view->setUsers(loggedInUsers);
-        view->setAction(action);
-        mainLayout->addWidget(view, 0, Qt::AlignCenter);
+        if (m_warningView != nullptr) {
+            m_warningView->deleteLater();
+        }
 
-        connect(view, &MultiUsersWarningView::cancelled, [this] {
+        m_warningView = new MultiUsersWarningView;
+        m_warningView->setUsers(loggedInUsers);
+        m_warningView->setAction(action);
+        mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+
+        connect(m_warningView, &MultiUsersWarningView::cancelled, [this] {
            qApp->quit();
         });
-        connect(view, &MultiUsersWarningView::actionInvoked, [this, action] {
+        connect(m_warningView, &MultiUsersWarningView::actionInvoked, [this, action] {
             emit ShutDownFrameActions(action);
         });
 
-        view->show();
+        m_warningView->show();
     } else {
         emit ShutDownFrameActions(action);
     }
@@ -248,6 +252,8 @@ void ShutDownFrame::inhibitShutdown() {
 
 void ShutDownFrame::setPreviousChildFocus()
 {
+    if (m_warningView && m_warningView->isVisible()) return;
+
     if (!m_currentSelectedBtn->isDisabled() &&
         !m_currentSelectedBtn->isChecked())
         m_currentSelectedBtn->updateState(RoundItemButton::Normal);
@@ -265,6 +271,8 @@ void ShutDownFrame::setPreviousChildFocus()
 
 void ShutDownFrame::setNextChildFocus()
 {
+    if (m_warningView && m_warningView->isVisible()) return;
+
     if (!m_currentSelectedBtn->isDisabled() &&
         !m_currentSelectedBtn->isChecked())
         m_currentSelectedBtn->updateState(RoundItemButton::Normal);

@@ -21,6 +21,8 @@
 #include "dbus/dbuslogin1manager.h"
 #include "common.h"
 
+class MultiUsersWarningView;
+
 class ShutDownFrame: public QFrame
 {
     Q_OBJECT
@@ -62,5 +64,7 @@ private:
     QWidget *m_tipsWidget;
     QLabel *m_tipsLabel;
     DBusLogin1Manager* m_login1Inter;
+
+    MultiUsersWarningView *m_warningView = nullptr;
 };
 #endif // CONTENTVIEWWIDGET
