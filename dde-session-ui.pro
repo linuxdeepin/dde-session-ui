@@ -21,4 +21,7 @@ system($$PWD/translate_generation.sh)
 qm_files.path = /usr/share/dde-session-ui/translations/
 qm_files.files = translations/*.qm
 
-INSTALLS += qm_files
+toggle_desktop.path = /usr/share/applications/
+toggle_desktop.files = misc/applications/deepin-toggle-desktop.desktop
+
+INSTALLS += qm_files toggle_desktop
