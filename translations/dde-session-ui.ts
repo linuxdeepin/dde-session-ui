@@ -27,12 +27,12 @@
 <context>
     <name>Frame</name>
     <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="28"/>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
         <source>Please don&apos;t power off or unplug your machine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="109"/>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="113"/>
         <source>Installing updates %1%, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -40,27 +40,27 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="124"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="126"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="377"/>
         <source>Please retry after 10 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="497"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="509"/>
         <source>Enter your password to restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="500"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="512"/>
         <source>Enter your password to shutdown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -68,17 +68,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="233"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="245"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="403"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="415"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="408"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="420"/>
         <source>Please retry after 10 minutes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -115,7 +115,7 @@
     <name>MultiUsersWarningView</name>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="92"/>
-        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shutdown? </source>
+        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>

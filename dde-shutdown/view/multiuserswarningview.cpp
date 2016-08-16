@@ -89,7 +89,7 @@ void MultiUsersWarningView::setAction(const Actions action)
         m_actionBtn->setNormalPic(":/img/poweroff_warning_normal.png");
         m_actionBtn->setHoverPic(":/img/poweroff_warning_hover.png");
         m_actionBtn->setPressPic(":/img/poweroff_warning_press.png");
-        m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to shutdown, are you sure to shutdown? "));
+        m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? "));
         break;
     default:
         m_actionBtn->setNormalPic(":/img/reboot_warning_normal.png");

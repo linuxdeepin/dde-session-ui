@@ -7,6 +7,7 @@ DWIDGET_USE_NAMESPACE
 
 class Dialog : public DDialog
 {
+	Q_OBJECT
 public:
     Dialog();
 };
