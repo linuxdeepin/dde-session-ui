@@ -86,14 +86,8 @@ void Frame::distUpgrade()
             qDebug() << "job status changed: " << status;
 
             if (status == "succeed" || status == "end" || status.isEmpty()) {
-                DBusLogin1Manager * manager = new DBusLogin1Manager("org.freedesktop.login1",
-                                                                    "/org/freedesktop/login1",
-                                                                    QDBusConnection::systemBus());
-                connect(manager, &DBusLogin1Manager::BlockInhibitedChanged, [manager] {
-                    if (manager->blockInhibited().isEmpty()) {
-                        manager->Reboot(false);
-                    }
-                });
+                // give lastore daemon some time to take care of its business.
+                QTimer::singleShot(1000, this, &Frame::tryReboot);
             }
             if (status == "failed") {
                 // Failed to upgrade, quit the application.
@@ -111,4 +105,21 @@ void Frame::updateProgress(double progress)
 
     QString percentage = QString::number(progress * 100, 'f', 0);
     m_progressTip->setText(tr("Installing updates %1%, please wait...").arg(percentage));
+}
+
+void Frame::tryReboot()
+{
+    DBusLogin1Manager * manager = new DBusLogin1Manager("org.freedesktop.login1",
+                                                        "/org/freedesktop/login1",
+                                                        QDBusConnection::systemBus());
+
+    qDebug() << "try to reboot the machine";
+    manager->Reboot(false);
+
+    qDebug() << "failed to reboot the machine, there must be some inhibitors, wait for them";
+    connect(manager, &DBusLogin1Manager::BlockInhibitedChanged, [manager] {
+        if (manager->blockInhibited().isEmpty()) {
+            manager->Reboot(false);
+        }
+    });
 }

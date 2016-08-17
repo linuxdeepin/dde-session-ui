@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = dde-offline-upgrader
 TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dtkwidget dtkbase
+PKGCONFIG += dtkwidget dtkbase dtkutil
 
 SOURCES += main.cpp\
         frame.cpp \

@@ -1,4 +1,5 @@
-#include <QApplication>
+#include <DApplication>
+#include <DLog>
 #include <QDebug>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
@@ -6,6 +7,10 @@
 #include "frame.h"
 #include "dialog.h"
 #include "dbus/dbusupdatejobmanager.h"
+
+DWIDGET_USE_NAMESPACE
+
+DUTIL_USE_NAMESPACE
 
 static bool DownloadedPackagesAvailable() {
     DBusUpdateJobManager manager("com.deepin.lastore",
@@ -40,7 +45,8 @@ static void UpgradeNotNow() {
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    DApplication a(argc, argv);
+    a.setOrganizationName("deepin");
     a.setApplicationName("dde-offline-upgrader");
     a.setApplicationVersion("0.9");
 
@@ -53,6 +59,14 @@ int main(int argc, char *argv[])
     parser.addOption(noAskOption);
 
     parser.process(a);
+
+    DLogManager::registerConsoleAppender();
+    DLogManager::registerFileAppender();
+
+    if (!a.setSingleInstance(a.applicationName())) {
+        qDebug() << "Another instance is running.";
+        return 0;
+    }
 
     /* No need to do this, lastore-session-helper will do this before launch this program.
     if (!DownloadedPackagesAvailable()) {

@@ -29,6 +29,7 @@ private:
     DBusUpdateJobManager *m_dbusJobManagerInter;
 
     void updateProgress(double progress);
+    void tryReboot();
 };
 
 #endif // FRAME_H
