@@ -45,6 +45,8 @@ void ShutDownFrame::initConnect() {
 
 void ShutDownFrame::enterKeyPushed()
 {
+    if (m_warningView && m_warningView->isVisible()) return;
+
     if (m_currentSelectedBtn->isDisabled())
         return;
 
