@@ -22,6 +22,11 @@ WallpaperList::WallpaperList(QWidget * parent) :
     setSelectionRectVisible(false);
     setEditTriggers(QListView::NoEditTriggers);
     setAttribute(Qt::WA_TranslucentBackground);
+
+    connect(this->horizontalScrollBar(), &QScrollBar::valueChanged, [this] {
+        // hide the delete button.
+        emit needCloseButton("", QPoint(0, 0));
+    });
 }
 
 WallpaperList::~WallpaperList()
@@ -74,9 +79,6 @@ void WallpaperList::wheelEvent(QWheelEvent * event)
     }
 
     event->accept();
-
-    // hide the delete button.
-    emit needCloseButton("", QPoint(0, 0));
 }
 
 void WallpaperList::wallpaperItemPressed()
