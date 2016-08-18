@@ -185,6 +185,10 @@ switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
 {
     int ret = 1;
     char **sessions = NULL;
+    char *seat = NULL;
+    char *display = NULL;
+    char *cur_seat = NULL;
+    gchar **strlist = NULL;
     char *new_user_session = NULL;
     GDBusProxy *seat_proxy = NULL;
     GDBusProxy *login1_proxy = NULL;
@@ -211,16 +215,41 @@ switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
     }
     error = NULL;
 
+    printf("current seat path: %s\n", seat_path);
+    strlist = g_strsplit(seat_path, "/", -1);
+    while (*strlist) {
+        cur_seat = *strlist;
+        strlist++;
+    }
+
+    printf("current seat: %s\n", cur_seat);
     printf("usd->session_path: %s\n", usd->session_path);
     printf("usd->username: %s\n", usd->username);
 
     if (usd->session_path != NULL && usd->username != NULL) {
         sd_uid_get_sessions(name_to_uid(usd->username), 0, &sessions);
-        new_user_session = *sessions;
-        if (new_user_session == NULL) {
-            g_warning("switchtogreeter:invalid sessions path\n");
+        while (*sessions) {
+            sd_session_get_display(*sessions, &display);
+            if (NULL == display){
+                sessions++;
+                continue;
+            }
+
+            sd_session_get_seat(*sessions, &seat);
+            printf("session display %s %s\n", *sessions, display);
+            if (seat != NULL && (0 == g_ascii_strcasecmp(seat, cur_seat))) {
+                new_user_session = *sessions;
+                printf("switchtogreeter: find sessions path %s %s \n", new_user_session, seat);
+                break;
+            }
+            sessions++;
+        }
+
+        if (NULL == new_user_session) {
+            g_error("switchtogreeter: can not find user sessions %s \n", usd->username);
             return 1;
         }
+        printf("find user session: %s\n", new_user_session);
 
         login1_proxy = g_dbus_proxy_new_for_bus_sync(G_BUS_TYPE_SYSTEM,
                        G_DBUS_PROXY_FLAGS_NONE,
@@ -240,7 +269,7 @@ switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
         ret = 0;
     } else if (usd->username != NULL) {
         printf("SwitchToUser\n");
-        usd->session_path="";
+        usd->session_path = "";
         g_dbus_proxy_call_sync(seat_proxy,
                                "SwitchToUser",
                                g_variant_new("(ss)", usd->username, usd->session_path),
