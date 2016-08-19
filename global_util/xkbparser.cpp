@@ -31,7 +31,7 @@ QStringList XkbParser::lookUpKeyboardList(QStringList keyboardList_key) {
     for (int k = 0; k < keyboardList_key.length(); k++) {
         QString tmpKey, head_key, tail_key;
         tmpKey = keyboardList_key[k];
-        QStringList tmpKeyList = tmpKey.split("|");
+        QStringList tmpKeyList = tmpKey.split(";");
         if (tmpKeyList.length() == 2) {
             head_key = tmpKeyList[0];
             tail_key = tmpKeyList[1];

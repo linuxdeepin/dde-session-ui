@@ -142,7 +142,7 @@ void KbLayoutWidget::initUI() {
         this->setGridSize(QSize(widget_width, DDESESSIONCC::LAYOUTBUTTON_HEIGHT));
         this->setFixedWidth(widget_width);
     }
-    this->setFixedHeight(DDESESSIONCC::LAYOUTBUTTON_HEIGHT*3);
+    this->setFixedHeight(DDESESSIONCC::LAYOUTBUTTON_HEIGHT * std::min(3, m_buttons.length()));
 
 
 

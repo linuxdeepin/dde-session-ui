@@ -248,13 +248,14 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
 #ifndef SHENWEI_PLATFORM
 void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
 {
+    Q_ASSERT(false); // this function is deprecreated
     keyboardLayoutList = utilSettings->getKbdLayoutList(username);
     if (keyboardLayoutList.isEmpty()) {
         keyboardLayoutList << "";
     }
     qDebug() << "get UpdateKeybordLayoutStatus";
 
-    if (keyboardLayoutList.count() > 2) {
+    if (keyboardLayoutList.count() > 1) {
         m_keyboardButton->show();
     } else {
         m_keyboardButton->hide();
@@ -264,7 +265,7 @@ void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
 
 void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList)
 {
-    if (keybdList.count() > 2) {
+    if (keybdList.count() > 1) {
         m_keyboardButton->show();
     } else {
         m_keyboardButton->hide();

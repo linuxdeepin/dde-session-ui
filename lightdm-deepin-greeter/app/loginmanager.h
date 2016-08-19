@@ -28,6 +28,7 @@
 #include "kblayoutwidget.h"
 #include "shutdownwidget.h"
 #include "xkbparser.h"
+#include "dbus/dbuskeyboard.h"
 
 #include "dbus/dbusdisplaymanager.h"
 #include "dbus/dbusvariant.h"

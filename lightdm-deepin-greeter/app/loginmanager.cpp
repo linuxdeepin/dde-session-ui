@@ -16,6 +16,8 @@
 #include "loginmanager.h"
 #include "loginframe.h"
 #include "dbus/dbuslockservice.h"
+#include "dbus/dbusaccounts.h"
+#include "dbus/dbususer.h"
 
 #include <X11/Xlib-xcb.h>
 #include <X11/cursorfont.h>
@@ -325,7 +327,7 @@ void LoginManager::initConnect()
         m_sessionWidget->switchToUser(username);
         m_passWdEdit->show();
     #ifndef SHENWEI_PLATFORM
-        m_passWdEdit->updateKeybordLayoutStatus(username);
+//        m_passWdEdit->updateKeybordLayoutStatus(username);
     #endif
         m_passWdEdit->setFocus();
         updateBackground(username);
@@ -356,7 +358,7 @@ void LoginManager::initDateAndUpdate() {
     *then the button to choose keyboardLayout need show
     */
 #ifndef SHENWEI_PLATFORM
-    m_passWdEdit->updateKeybordLayoutStatus(m_userWidget->currentUser());
+//    m_passWdEdit->updateKeybordLayoutStatus(m_userWidget->currentUser());
 #endif
     //Get the session of current user
     m_sessionWidget->switchToUser(m_userWidget->currentUser());
@@ -509,15 +511,53 @@ void LoginManager::showShutdownFrame() {
 void LoginManager::keyboardLayoutUI() {
     //keyboardList is the keyboardLayout list of current user
     QStringList keyboardList;
-    keyboardList = m_passWdEdit->keyboardLayoutList;
+//    keyboardList = m_passWdEdit->keyboardLayoutList;
     /*xkbParse is used to parse the xml file,
     * get the details info of keyboardlayout
     */
     xkbParse = new XkbParser(this);
-    QStringList keyboardListContent =  xkbParse->lookUpKeyboardList(keyboardList);
+//    QStringList keyboardListContent =  xkbParse->lookUpKeyboardList(keyboardList);
+    QString currentKeybdLayout;
+    QStringList keyboardList1;
 
-    m_keybdLayoutWidget = new KbLayoutWidget(keyboardListContent);
-    m_keybdLayoutWidget->setListItemChecked(m_passWdEdit->utilSettings->currentListItemIndex);
+    DBusAccounts *accounts = new DBusAccounts("com.deepin.daemon.Accounts", "/com/deepin/daemon/Accounts", QDBusConnection::systemBus(), this);
+    for (auto u : accounts->userList())
+    {
+        DBusUser *user = new DBusUser("com.deepin.daemon.Accounts", u, QDBusConnection::systemBus(), this);
+
+        if (user->userName() == m_userWidget->currentUser())
+        {
+            keyboardList = user->historyLayout();
+            currentKeybdLayout = user->layout();
+            break;
+        }
+        user->deleteLater();
+    }
+
+//    keyboardList = m_keyboardLayoutInterface->userLayoutList();
+//    QString currentKeybdLayout = m_keyboardLayoutInterface->currentLayout();
+
+    int index = 0;
+    for (int i = 0; i < keyboardList.length(); i++) {
+        if (keyboardList[i] == currentKeybdLayout) {
+            index = i;
+            break;
+        }
+//        m_keybdLayoutWidget->setListItemChecked(i);
+//        QDBusPendingReply<QString> tmpValue =  m_keyboardLayoutInterface->GetLayoutDesc(keyboardList[i]);
+//        tmpValue.waitForFinished();
+
+////        m_keybdInfoMap.insert(keyboardList[i], tmpValue);
+    }
+
+    qDebug() << keyboardList;
+    keyboardList1 << xkbParse->lookUpKeyboardList(keyboardList);
+    qDebug() << "QStringList" << keyboardList1;
+
+    m_keybdLayoutWidget = new KbLayoutWidget(keyboardList1);
+    m_keybdLayoutWidget->setListItemChecked(index);
+//    m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
+
 
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
     m_keybdArrowWidget->setBackgroundColor(QColor(0, 0, 0, 78));
