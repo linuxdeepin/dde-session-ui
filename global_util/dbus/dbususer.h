@@ -85,9 +85,17 @@ public:
     inline QStringList historyIcons() const
     { return qvariant_cast< QStringList >(property("HistoryIcons")); }
 
+    Q_PROPERTY(QStringList HistoryLayout READ historyLayout NOTIFY HistoryLayoutChanged)
+    inline QStringList historyLayout() const
+    { return qvariant_cast< QStringList >(property("HistoryLayout")); }
+
     Q_PROPERTY(QString HomeDir READ homeDir NOTIFY HomeDirChanged)
     inline QString homeDir() const
     { return qvariant_cast< QString >(property("HomeDir")); }
+
+    Q_PROPERTY(QString Layout READ layout)
+    inline QString layout() const
+    { return qvariant_cast< QString >(property("Layout")); }
 
     Q_PROPERTY(QString IconFile READ iconFile NOTIFY IconFileChanged)
     inline QString iconFile() const
@@ -223,6 +231,7 @@ void LoginTimeChanged();
 void ShellChanged();
 void UidChanged();
 void UserNameChanged();
+void HistoryLayoutChanged();
 };
 
 namespace com {

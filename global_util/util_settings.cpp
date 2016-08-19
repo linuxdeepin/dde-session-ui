@@ -34,11 +34,12 @@ QString UtilSettings::getCurrentKbdLayout(QString username) {
 }
 
 QStringList UtilSettings::getKbdLayoutList(QString username) {
+    Q_ASSERT(false); // this function is deprecreated
     QSettings settings(USERS_PATH, QSettings::IniFormat);
     //The KeyboardLayoutList in new file USERS_PATH is like:
     // KeyboardList = us| ac|dd ...
     qDebug() << "usersPath:" << username << USERS_PATH;
-    QStringList keyboardList = settings.value(username + "/KeyboardLayoutList").toString().split(" ");
+    QStringList keyboardList = settings.value(username + "/KeyboardLayout").toString().split(" ");
     qDebug() << "ORIGIN keyboardList" << keyboardList << keyboardList.length();
     for (int k(0); k < keyboardList.length(); k++) {
         if (keyboardList[k].split("|")[0] == getCurrentKbdLayout(username)) {
