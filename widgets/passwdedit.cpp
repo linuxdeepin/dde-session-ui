@@ -48,6 +48,7 @@ void PassWdEdit::initUI()
 {
 #ifndef SHENWEI_PLATFORM
     m_keyboardButton = new QPushButton;
+    m_keyboardButton->setVisible(false);
     m_keyboardButton->setObjectName("KeyBoardLayoutButton");
 
     m_keyboardButton->setFixedSize(QSize(20, 14));

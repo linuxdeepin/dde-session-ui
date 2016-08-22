@@ -571,6 +571,7 @@ void LoginManager::keyboardLayoutUI() {
     keyboardList1 << xkbParse->lookUpKeyboardList(keyboardList);
     qDebug() << "QStringList" << keyboardList1;
 
+    m_passWdEdit->updateKeybdLayoutUI(keyboardList1);
     m_keybdLayoutWidget = new KbLayoutWidget(keyboardList1);
     m_keybdLayoutWidget->setListItemChecked(index);
 //    m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
