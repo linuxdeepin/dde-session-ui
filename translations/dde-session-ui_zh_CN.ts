@@ -32,7 +32,7 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="113"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>正在安装更新1%，请稍后......</translation>
+        <translation>正在安装更新%1%，请稍后......</translation>
     </message>
 </context>
 <context>
