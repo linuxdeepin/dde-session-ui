@@ -133,9 +133,10 @@ void ShutdownManager::hideToplevelWindow()
 
 void ShutdownManager::powerAction(const Actions action)
 {
-#ifdef QT_DEBUG
-    return;
-#endif
+    // if we don't force this widget to hide, hideEvent will happen after
+    // dde-lock showing, since hideEvent enables hot zone, hot zone will
+    // take effect while dde-lock is showing.
+    this->hide();
 
     QDBusInterface ifc("com.deepin.dde.lockFront",
                        "/com/deepin/dde/lockFront",
@@ -173,7 +174,7 @@ void ShutdownManager::keyPressEvent(QKeyEvent *e)
 {
 
     switch (e->key()) {
-    case Qt::Key_Escape:        hideToplevelWindow();  m_hotZoneInterface->EnableZoneDetected(true);  break; // must break;
+    case Qt::Key_Escape:        hideToplevelWindow(); break; // must break;
     case Qt::Key_Return:        /* same as enter */
     case Qt::Key_Enter:         emit pressEnter();              break;
     case Qt::Key_Left:          emit DirectKeyLeft();           break;
