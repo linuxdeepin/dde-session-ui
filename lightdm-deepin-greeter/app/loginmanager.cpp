@@ -280,6 +280,7 @@ void LoginManager::initUI()
     leaveEvent(nullptr);
 
     m_switchFrame->setUserSwitchEnable(m_userWidget->count() > 1);
+    m_switchFrame->setSessionSwitchEnable(m_sessionWidget->sessionCount() > 1);
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/login.qss", this);
 #endif

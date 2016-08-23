@@ -37,6 +37,7 @@ public:
     };
     void show();
     QString lastSelectedUser() const;
+    int sessionCount() const;
 
 public slots:
     void switchToUser(const QString &userName);

@@ -81,6 +81,7 @@ signals:
 public slots:
     void chooseToSession(const QString &tips);
     inline void setUserSwitchEnable(bool enable) {m_switchUserButton->setVisible(enable);}
+    inline void setSessionSwitchEnable(bool enable) {m_switchSessionButton->setVisible(enable);}
 
 protected:
     bool eventFilter(QObject *o, QEvent *e);

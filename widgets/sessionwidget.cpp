@@ -129,6 +129,11 @@ QString SessionWidget::lastSelectedUser() const
     return m_lastSelectedUser;
 }
 
+int SessionWidget::sessionCount() const
+{
+    return m_sessionModel->rowCount(QModelIndex());
+}
+
 void SessionWidget::switchToUser(const QString &userName)
 {
     if (m_lastSelectedUser == userName)
