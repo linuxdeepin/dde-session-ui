@@ -19,22 +19,11 @@ LockFrame::LockFrame(QWidget* parent)
     qDebug() << "LockFrame geometry:" << geometry();
 
     m_lockManager = new LockManager(this);
-    QPoint mousePoint = QCursor::pos();
 
-    QList<QScreen *> screenList = qApp->screens();
-    for (int i = 0; i < screenList.length(); i++) {
-        const QRect rect = screenList[i]->geometry();
-        if (rect.contains(mousePoint)) {
-            m_lockManager->setFixedSize(rect.size());
-            m_lockManager->move(rect.x(), rect.y());
-            qDebug() << "loginManager:" << m_lockManager->geometry();
-            m_lockManager->updateWidgetsPosition();
-            continue;
-        }
-    }
-
+    updateScreenPosition();
     connect(this, &LockFrame::screenChanged, this, &LockFrame::updateScreenPosition);
     connect(m_lockManager, &LockManager::screenChanged, this, &LockFrame::updateScreenPosition);
+
 #ifdef LOCK_NO_QUIT
     connect(m_lockManager, &LockManager::checkedHide, this, &LockFrame::hideFrame);
 #endif

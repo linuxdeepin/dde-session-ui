@@ -211,8 +211,13 @@ void UserWidget::resizeEvent(QResizeEvent *e)
 {
     QFrame::resizeEvent(e);
 
-    for (UserButton *user : *m_userBtns)
-        user->move(rect().center() - user->rect().center(), 1);
+    if (isChooseUserMode) {
+        // rearrange the user icons.
+        expandWidget();
+    } else {
+        for (UserButton *user : *m_userBtns)
+            user->move(rect().center() - user->rect().center(), 1);
+    }
 
     m_loadingAni->move(rect().center().x() - UserButton::AvatarLargerSize / 2,
                        rect().center().y() - UserButton::AvatarLargerSize / 2 - 14);
