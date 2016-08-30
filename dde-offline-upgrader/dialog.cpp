@@ -2,12 +2,12 @@
 
 Dialog::Dialog() : DDialog()
 {
-    setTitle(tr("Updates downloaded, update now?"));
+    setTitle(tr("Updates downloaded, restart to update?"));
     setIcon(QIcon::fromTheme("system_updated", QIcon::fromTheme("system-software-update")).pixmap(48));
 
     addButton(tr("Remind Later"));
-    addButton(tr("Update Now"));
     addButton(tr("Not Now"));
+    addButton(tr("Update Now"));
 
     new Adaptor(this);
 }

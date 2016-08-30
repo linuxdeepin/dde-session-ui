@@ -102,13 +102,13 @@ int main(int argc, char *argv[])
                 UpgradeRemindMeLater();
                 break;
             case 1:
+                // not now.
+                UpgradeNotNow();
+                break;
+            case 2:
                 Upgrading = true;
                 f->showFullScreen();
                 f->distUpgrade();
-                break;
-            case 2:
-                // not now.
-                UpgradeNotNow();
                 break;
             default:
                 break;
