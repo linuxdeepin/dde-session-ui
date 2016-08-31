@@ -105,6 +105,8 @@ private:
     UtilFile* m_utilFile;
 
     QSize m_passwdEditSize;
+    QStringList m_kbdList;
+    QStringList m_kbdParseList;
 
     int m_authFailureCount;
 };

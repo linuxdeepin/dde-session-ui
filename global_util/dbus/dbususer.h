@@ -93,7 +93,7 @@ public:
     inline QString homeDir() const
     { return qvariant_cast< QString >(property("HomeDir")); }
 
-    Q_PROPERTY(QString Layout READ layout)
+    Q_PROPERTY(QString Layout READ layout WRITE SetLayout)
     inline QString layout() const
     { return qvariant_cast< QString >(property("Layout")); }
 
@@ -179,6 +179,13 @@ public Q_SLOTS: // METHODS
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(in0);
         return asyncCallWithArgumentList(QStringLiteral("SetHomeDir"), argumentList);
+    }
+
+    inline QDBusPendingReply<bool> SetLayout(const QString &in0)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(in0);
+        return asyncCallWithArgumentList(QStringLiteral("SetLayout"), argumentList);
     }
 
     inline QDBusPendingReply<bool> SetIconFile(const QString &in0)

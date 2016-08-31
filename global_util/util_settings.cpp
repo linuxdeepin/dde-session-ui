@@ -50,6 +50,7 @@ QStringList UtilSettings::getKbdLayoutList(QString username) {
 }
 
 void UtilSettings::setCurrentKbdLayout(QString username, QString keybdLayout) {
+    Q_ASSERT(false); // this function is deprecreated
     QSettings settings(USERS_PATH, QSettings::IniFormat);
 
     qDebug() << "settings.value:" << settings.value(username + "/KeyboardLayout").toString();
