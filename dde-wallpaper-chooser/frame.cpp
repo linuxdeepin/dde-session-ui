@@ -11,7 +11,6 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QPainter>
-#include <QGSettings>
 #include <QScrollBar>
 
 Frame::Frame(QFrame *parent)
@@ -28,7 +27,6 @@ Frame::Frame(QFrame *parent)
                                   DeepinWMPath,
                                   QDBusConnection::sessionBus(),
                                   this)),
-      m_gsettings(new QGSettings(WallpaperSchemaId, WallpaperPath, this)),
       m_dbusMouseArea(new DBusXMouseArea(this))
 {
     setFocusPolicy(Qt::StrongFocus);
@@ -37,8 +35,6 @@ Frame::Frame(QFrame *parent)
 
     initSize();
     initListView();
-
-    m_formerWallpaper = m_gsettings->get(WallpaperKey).toString();
 
     connect(m_dbusMouseArea, &DBusXMouseArea::ButtonPress, [this](int button, int x, int y, const QString &id){
         if (id != m_mouseAreaKey) return;
@@ -64,7 +60,6 @@ Frame::Frame(QFrame *parent)
 
 Frame::~Frame()
 {
-    restoreWallpaper();
     m_dbusDeepinWM->CancelHideWindows();
     m_dbusMouseArea->UnregisterArea(m_mouseAreaKey);
 }
@@ -141,10 +136,6 @@ void Frame::initListView()
     }
 
     m_wallpaperList->setStyleSheet("QListWidget { background: transparent }");
-
-    connect(m_wallpaperList, &WallpaperList::wallpaperSet, [this] (QString path) {
-        m_formerWallpaper = path;
-    });
 }
 
 QStringList Frame::processListReply(const QString &reply)
@@ -163,9 +154,4 @@ QStringList Frame::processListReply(const QString &reply)
     }
 
     return result;
-}
-
-void Frame::restoreWallpaper()
-{
-    m_dbusAppearance->Set("background", m_formerWallpaper);
 }

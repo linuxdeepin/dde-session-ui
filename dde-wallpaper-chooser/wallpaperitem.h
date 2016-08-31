@@ -31,7 +31,7 @@ signals:
     void hoverIn();
     void hoverOut();
     void desktopButtonClicked();
-    void desktopLockButtonClicked();
+    void lockButtonClicked();
 
 public slots:
     void thumbnailFinished();
@@ -43,7 +43,7 @@ private:
     QFrame * m_wrapper = NULL;
     QLabel * m_picture = NULL;
     Button * m_desktopButton = NULL;
-    Button * m_desktopLockButton = NULL;
+    Button * m_lockButton = NULL;
     QPropertyAnimation * m_upAnim = NULL;
     QPropertyAnimation * m_downAnim = NULL;
 

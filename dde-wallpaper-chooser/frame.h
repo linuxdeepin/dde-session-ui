@@ -6,7 +6,6 @@
 
 DWIDGET_USE_NAMESPACE
 
-class QGSettings;
 class WallpaperList;
 class WallpaperListView;
 class AppearanceDaemonInterface;
@@ -34,7 +33,6 @@ private:
 
     AppearanceDaemonInterface * m_dbusAppearance = NULL;
     DeepinWM * m_dbusDeepinWM = NULL;
-    QGSettings * m_gsettings = NULL;
     DBusXMouseArea * m_dbusMouseArea = NULL;
 
     QString m_formerWallpaper;
@@ -44,7 +42,6 @@ private:
     void initSize();
     void initListView();
     QStringList processListReply(const QString &reply);
-    void restoreWallpaper();
 };
 
 #endif // FRAME_H

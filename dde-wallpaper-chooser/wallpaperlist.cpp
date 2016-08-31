@@ -6,14 +6,30 @@
 #include <QDebug>
 #include <QScrollBar>
 #include <QWheelEvent>
+#include <QGSettings>
 
-WallpaperList::WallpaperList(QWidget * parent) :
-    QListWidget(parent),
-    m_dbusAppearance(new AppearanceDaemonInterface(AppearanceServ,
+WallpaperList::WallpaperList(QWidget * parent)
+    : QListWidget(parent)
+    , m_dbusAppearance(new AppearanceDaemonInterface(AppearanceServ,
                                                    AppearancePath,
                                                    QDBusConnection::sessionBus(),
                                                    this))
+    , m_gsettings(new QGSettings(WallpaperSchemaId, WallpaperPath, this))
 {
+    m_oldWallpaperPath = m_gsettings->get(WallpaperKey).toString();
+
+#ifdef Q_OS_WIN
+    const QString userName = qgetenv("USERNAME");
+#else
+    const QString userName = qgetenv("USER");
+#endif
+
+    QSettings setting("/var/lib/AccountsService/users/" + userName, QSettings::NativeFormat);
+
+    setting.beginGroup("User");
+
+    m_oldLockPath = setting.value("GreeterBackground").toUrl().toLocalFile();
+
     setViewMode(QListView::IconMode);
     setGridSize(QSize(ItemCellWidth, ItemCellHeight));
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -48,7 +64,7 @@ WallpaperItem * WallpaperList::addWallpaper(const QString &path)
     connect(wallpaper, &WallpaperItem::hoverIn, this, &WallpaperList::wallpaperItemHoverIn);
     connect(wallpaper, &WallpaperItem::hoverOut, this, &WallpaperList::wallpaperItemHoverOut);
     connect(wallpaper, &WallpaperItem::desktopButtonClicked, this, &WallpaperList::handleSetDesktop);
-    connect(wallpaper, &WallpaperItem::desktopLockButtonClicked, this, &WallpaperList::handleSetDesktopLock);
+    connect(wallpaper, &WallpaperItem::lockButtonClicked, this, &WallpaperList::handleSetLock);
 
     return wallpaper;
 }
@@ -93,7 +109,10 @@ void WallpaperList::wallpaperItemPressed()
             if (wallpaper == item) {
                 wallpaper->slideUp();
 
-                setWallpaper(wallpaper->getPath());
+                const QString &path = wallpaper->getPath();
+
+                setWallpaper(path);
+                setLockScreen(path);
             } else {
                 wallpaper->slideDown();
             }
@@ -120,17 +139,18 @@ void WallpaperList::wallpaperItemHoverOut()
 void WallpaperList::handleSetDesktop()
 {
     WallpaperItem * item = qobject_cast<WallpaperItem*>(sender());
-    emit wallpaperSet(item->getPath());
+    setWallpaper(item->getPath());
+    setLockScreen(m_oldWallpaperPath);
 
     qDebug() << "desktop item set, quit";
     qApp->quit();
 }
 
-void WallpaperList::handleSetDesktopLock()
+void WallpaperList::handleSetLock()
 {
     WallpaperItem * item = qobject_cast<WallpaperItem*>(sender());
     setLockScreen(item->getPath());
-    emit wallpaperSet(item->getPath());
+    setWallpaper(m_oldWallpaperPath);
 
     qDebug() << "lock item set, quit";
     qApp->quit();

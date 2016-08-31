@@ -5,6 +5,7 @@
 
 class WallpaperItem;
 class AppearanceDaemonInterface;
+class QGSettings;
 class WallpaperList : public QListWidget
 {
     Q_OBJECT
@@ -25,6 +26,9 @@ protected:
 
 private:
     AppearanceDaemonInterface * m_dbusAppearance;
+    QGSettings * m_gsettings = NULL;
+    QString m_oldWallpaperPath;
+    QString m_oldLockPath;
 
     void setWallpaper(QString realPath);
     void setLockScreen(QString realPath);
@@ -34,7 +38,7 @@ private slots:
     void wallpaperItemHoverIn();
     void wallpaperItemHoverOut();
     void handleSetDesktop();
-    void handleSetDesktopLock();
+    void handleSetLock();
 };
 
 #endif // WALLPAPERLIST_H

@@ -49,17 +49,17 @@ void WallpaperItem::initUI()
     buttonLayout->setMargin(0);
 
     m_desktopButton = new Button;
-    m_desktopButton->setText(tr("Desktop"));
+    m_desktopButton->setText(tr("Only desktop"));
     m_desktopButton->setAttract(false);
-    m_desktopLockButton = new Button;
-    m_desktopLockButton->setText(tr("Desktop and Lock screen"));
-    m_desktopLockButton->setAttract(true);
+    m_lockButton = new Button;
+    m_lockButton->setText(tr("Only lock screen"));
+    m_lockButton->setAttract(true);
 
     buttonLayout->addWidget(m_desktopButton);
-    buttonLayout->addWidget(m_desktopLockButton);
+    buttonLayout->addWidget(m_lockButton);
 
     connect(m_desktopButton, &Button::clicked, this, &WallpaperItem::desktopButtonClicked);
-    connect(m_desktopLockButton, &Button::clicked, this, &WallpaperItem::desktopLockButtonClicked);
+    connect(m_lockButton, &Button::clicked, this, &WallpaperItem::lockButtonClicked);
 }
 
 void WallpaperItem::initAnimation()
