@@ -54,7 +54,7 @@ void PassWdEdit::initUI()
     m_keyboardButton->setIconSize(QSize(20, 14));
 #endif
     m_iconButton = new DImageButton(this);
-    m_iconButton->setCheckable(true);
+//    m_iconButton->setCheckable(true);
     m_iconButton->setFixedSize(QSize(35, 35));
 
     m_capslockWarning = new QLabel(this);
