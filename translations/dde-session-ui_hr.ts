@@ -3,8 +3,8 @@
     <name>Dialog</name>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
-        <source>Updates downloaded, update now?</source>
-        <translation>Ažuriranja preuzeta, ažuriraj sada?</translation>
+        <source>Updates downloaded, restart to update?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
@@ -12,12 +12,12 @@
         <translation>Podsjeti kasnije</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
         <source>Update Now</source>
         <translation>Ažuriraj sada</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
         <source>Not Now</source>
         <translation>Ne sada</translation>
     </message>
@@ -30,7 +30,7 @@
         <translation>Molim nemojte isključiti ili iskopčati svoj stroj</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="113"/>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="107"/>
         <source>Installing updates %1%, please wait...</source>
         <translation>Instaliranje ažuriranja %1%, molim pričekajte...</translation>
     </message>
@@ -66,17 +66,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="245"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="247"/>
         <source>Login</source>
         <translation>Prijava</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="415"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="418"/>
         <source>Wrong Password</source>
         <translation>Pogrešna lozinka</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="420"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
         <source>Please retry after 10 minutes</source>
         <translation>Molim ponovite nakon 10 minuta</translation>
     </message>
@@ -119,7 +119,7 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation type="unfinished"/>
+        <translation>Gornji korisnici su još uvijek prijavljeni i ukoliko ponovno podignete računalo podaci će biti izgubljeni, jeste li sigurni da želite ponovno podignuti računalo?</translation>
     </message>
 </context>
 <context>
@@ -143,32 +143,32 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="132"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
         <source>Shut down</source>
         <translation>Isključi</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="135"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
         <source>Restart</source>
         <translation>Ponovno pokreni</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
         <source>Suspend</source>
         <translation>Suspendiraj</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="147"/>
         <source>Lock</source>
         <translation>Zaključaj</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
         <source>Log out</source>
         <translation>Odjava</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="148"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="154"/>
         <source>Switch user</source>
         <translation>Promjeni korisnika</translation>
     </message>

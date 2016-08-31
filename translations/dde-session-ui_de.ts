@@ -3,8 +3,8 @@
     <name>Dialog</name>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
-        <source>Updates downloaded, update now?</source>
-        <translation>Aktualisierungen heruntergeladen, jetzt aktualisieren?</translation>
+        <source>Updates downloaded, restart to update?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
@@ -12,12 +12,12 @@
         <translation>Später erinnern</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
         <source>Update Now</source>
         <translation>Jetzt aktualisieren</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
         <source>Not Now</source>
         <translation>Nicht jetzt</translation>
     </message>
@@ -30,7 +30,7 @@
         <translation>Bitte schalten oder stecken Sie Ihren Rechner nicht aus</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="113"/>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="107"/>
         <source>Installing updates %1%, please wait...</source>
         <translation>%1% Aktualisierungen werden installiert, bitte warten...</translation>
     </message>
@@ -66,17 +66,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="245"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="247"/>
         <source>Login</source>
         <translation>Anmelden</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="415"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="418"/>
         <source>Wrong Password</source>
         <translation>Falsches Passwort</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="420"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
         <source>Please retry after 10 minutes</source>
         <translation>Bitte versuchen Sie es nach 10 Minuten erneut</translation>
     </message>
@@ -143,32 +143,32 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="132"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
         <source>Shut down</source>
         <translation>Herunterfahren</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="135"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
         <source>Restart</source>
         <translation>Neustarten</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
         <source>Suspend</source>
         <translation>Ruhezustand</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="147"/>
         <source>Lock</source>
         <translation>Sperren</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
         <source>Log out</source>
         <translation>Abmelden</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="148"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="154"/>
         <source>Switch user</source>
         <translation>Benutzer wechseln</translation>
     </message>

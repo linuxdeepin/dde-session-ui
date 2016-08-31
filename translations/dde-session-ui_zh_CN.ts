@@ -3,8 +3,8 @@
     <name>Dialog</name>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
-        <source>Updates downloaded, update now?</source>
-        <translation>更新已下载完毕，是否立即更新？</translation>
+        <source>Updates downloaded, restart to update?</source>
+        <translation>更新已经下载完毕， 需要重启以完成更新， 是否需要更新？</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
@@ -12,12 +12,12 @@
         <translation>稍后提醒</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
         <source>Update Now</source>
         <translation>立即更新</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
         <source>Not Now</source>
         <translation>暂不更新</translation>
     </message>
@@ -30,7 +30,7 @@
         <translation>请不要拔掉电源或强行关机</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="113"/>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="107"/>
         <source>Installing updates %1%, please wait...</source>
         <translation>正在安装更新%1%，请稍候......</translation>
     </message>
@@ -66,17 +66,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="245"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="247"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="415"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="418"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="420"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
         <source>Please retry after 10 minutes</source>
         <translation>10分钟后再尝试</translation>
     </message>
@@ -143,32 +143,32 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="132"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
         <source>Shut down</source>
         <translation>关机</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="135"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
         <source>Restart</source>
         <translation>重启</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
         <source>Suspend</source>
         <translation>待机</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="147"/>
         <source>Lock</source>
         <translation>锁定</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
         <source>Log out</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="148"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="154"/>
         <source>Switch user</source>
         <translation>切换用户</translation>
     </message>

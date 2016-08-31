@@ -3,23 +3,23 @@
     <name>Dialog</name>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
-        <source>Updates downloaded, update now?</source>
+        <source>Updates downloaded, restart to update?</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
         <source>Remind Later</source>
-        <translation type="unfinished"/>
+        <translation>Sonra Hatırlat</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
         <source>Update Now</source>
         <translation>Şimdi Güncelle</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
         <source>Not Now</source>
-        <translation type="unfinished"/>
+        <translation>Şimdi Değil</translation>
     </message>
 </context>
 <context>
@@ -27,12 +27,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation type="unfinished"/>
+        <translation>Bilgisayarınızı kapatmayın veya fişini çekmeyin</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="113"/>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="107"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation type="unfinished"/>
+        <translation>%1% Güncellemeler kuruluyor, lütfen bekleyin...</translation>
     </message>
 </context>
 <context>
@@ -66,17 +66,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="245"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="247"/>
         <source>Login</source>
         <translation>Giriş</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="415"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="418"/>
         <source>Wrong Password</source>
         <translation>Yanlış Şifre</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="420"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
         <source>Please retry after 10 minutes</source>
         <translation>Lütfen 10 dakika sonra tekrar deneyin</translation>
     </message>
@@ -143,32 +143,32 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="132"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
         <source>Shut down</source>
         <translation>Kapat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="135"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
         <source>Restart</source>
         <translation>Yeniden başlat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
         <source>Suspend</source>
         <translation>Askıya al</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="147"/>
         <source>Lock</source>
         <translation>Kilitle</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
         <source>Log out</source>
         <translation>Çıkış yap</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="148"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="154"/>
         <source>Switch user</source>
         <translation>Kullanıcı değiştir</translation>
     </message>
