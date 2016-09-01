@@ -65,7 +65,7 @@ Frame::~Frame()
 void Frame::handleNeedCloseButton(QString path, QPoint pos)
 {
     if (!path.isEmpty()) {
-        m_closeButton->move(pos.x() - 10, pos.y() + 10);
+        m_closeButton->move(pos.x() - 10, pos.y() - 10);
         m_closeButton->show();
         m_closeButton->disconnect();
 

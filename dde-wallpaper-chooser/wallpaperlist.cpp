@@ -49,9 +49,7 @@ WallpaperList::WallpaperList(QWidget * parent)
     horizontalScrollBar()->setEnabled(false);
 
     connect(&scrollAnimation, &QAbstractAnimation::finished, [this] {
-        // hide the delete button.
-        emit needCloseButton("", QPoint(0, 0));
-
+        showDeleteButtonForItem(static_cast<WallpaperItem*>(itemWidget(itemAt(mapFromGlobal(QCursor::pos())))));
         onListWidgetScroll();
     });
 
@@ -61,9 +59,6 @@ WallpaperList::WallpaperList(QWidget * parent)
     nextButton->hide();
     nextButton.setAnchor(Qt::AnchorVerticalCenter, this, Qt::AnchorVerticalCenter);
     nextButton.setAnchor(Qt::AnchorRight, this, Qt::AnchorRight);
-
-    prevItemEffect.setOpacity(0.4);
-    nextItemEffect.setOpacity(0.4);
 
     connect(prevButton.widget(), &DImageButton::clicked, this, &WallpaperList::prevPage);
     connect(nextButton.widget(), &DImageButton::clicked, this, &WallpaperList::nextPage);
@@ -81,7 +76,7 @@ WallpaperList::~WallpaperList()
 WallpaperItem * WallpaperList::addWallpaper(const QString &path)
 {
     QListWidgetItem * item = new QListWidgetItem(this);
-    item->setSizeHint(QSize(ItemWidth, ItemHeight));
+    item->setSizeHint(QSize(ItemCellWidth, ItemCellHeight));
     addItem(item);
 
     WallpaperItem * wallpaper = new WallpaperItem(this, path);
@@ -135,11 +130,17 @@ void WallpaperList::scrollList(int step, int duration)
     scrollAnimation.setEndValue(end_value);
     scrollAnimation.start();
 
-    prevItemEffect.setEnabled(false);
-    nextItemEffect.setEnabled(false);
-
     prevButton->hide();
     nextButton->hide();
+
+    if (prevItem)
+        prevItem->setOpacity(1);
+
+    if (nextItem)
+        nextItem->setOpacity(1);
+
+    // hide the delete button.
+    emit needCloseButton("", QPoint(0, 0));
 }
 
 void WallpaperList::prevPage()
@@ -194,11 +195,7 @@ void WallpaperList::wallpaperItemHoverIn()
 {
     WallpaperItem * item = qobject_cast<WallpaperItem*>(sender());
 
-    if (item->getDeletable()) {
-        emit needCloseButton(item->getPath(), item->geometry().topRight());
-    } else {
-        emit needCloseButton("", QPoint(0, 0));
-    }
+    showDeleteButtonForItem(item);
 }
 
 void WallpaperList::wallpaperItemHoverOut()
@@ -280,17 +277,24 @@ void WallpaperList::onListWidgetScroll()
 
     if (prevItem) {
         prevButton.setLeftMargin(gridSize().width() / 8);
-        prevItem->setGraphicsEffect(&prevItemEffect);
+        prevItem->setOpacity(0.4);
     }
 
     prevButton->setVisible(prevItem);
-    prevItemEffect.setEnabled(prevItem);
 
     if (nextItem) {
         nextButton.setRightMargin(gridSize().width() / 8);
-        nextItem->setGraphicsEffect(&nextItemEffect);
+        nextItem->setOpacity(0.4);
     }
 
     nextButton->setVisible(nextItem);
-    nextItemEffect.setEnabled(nextItem);
+}
+
+void WallpaperList::showDeleteButtonForItem(const WallpaperItem *item) const
+{
+    if (item && item->getDeletable()) {
+        emit needCloseButton(item->getPath(), mapToParent(item->geometry().topRight()));
+    } else {
+        emit needCloseButton("", QPoint(0, 0));
+    }
 }

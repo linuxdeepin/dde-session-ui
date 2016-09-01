@@ -10,6 +10,31 @@
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QtConcurrent>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QResizeEvent>
+
+class WrapperWidget : public QWidget
+{
+public:
+    explicit WrapperWidget(QWidget *parent = 0) : QWidget(parent) {}
+
+protected:
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE
+    {
+        QPainter pa(this);
+
+        pa.setOpacity(m_opacity);
+        pa.drawPixmap(m_pixmapBoxGeometry.topLeft(), m_pixmap, m_pixmapBoxGeometry.united(event->rect()));
+    }
+
+private:
+    QPixmap m_pixmap;
+    qreal m_opacity = 1;
+    QRect m_pixmapBoxGeometry;
+
+    friend class WallpaperItem;
+};
 
 WallpaperItem::WallpaperItem(QFrame *parent, const QString &path) :
     QFrame(parent),
@@ -32,17 +57,12 @@ void WallpaperItem::initUI()
 {
     setAttribute(Qt::WA_TranslucentBackground);
 
-    m_wrapper = new QFrame(this);
+    m_wrapper = new WrapperWidget(this);
     m_wrapper->setFixedSize(ItemWidth, ItemHeight * 2);
     m_wrapper->setAttribute(Qt::WA_TranslucentBackground);
 
-    m_picture = new QLabel(m_wrapper);
-    m_picture->setFixedSize(ItemWidth, ItemHeight);
-    m_picture->setAlignment(Qt::AlignCenter);
-    m_picture->installEventFilter(this);
-
     QFrame * buttonArea = new QFrame(m_wrapper);
-    buttonArea->setFixedSize(m_picture->size());
+    buttonArea->setFixedSize(ItemWidth, ItemHeight);
     buttonArea->move(0, ItemHeight);
 
     QVBoxLayout * buttonLayout = new QVBoxLayout(buttonArea);
@@ -80,12 +100,10 @@ void WallpaperItem::initPixmap()
 {
     ThumbnailManager * tnm = ThumbnailManager::instance();
 
-    QPixmap pix;
-    if (!tnm->find(QUrl::toPercentEncoding(m_path), &pix)) {
+    if (!tnm->find(QUrl::toPercentEncoding(m_path), &m_wrapper->m_pixmap)
+            || m_wrapper->m_pixmap.size() != QSize(ItemWidth, ItemHeight)) {
         QFuture<QPixmap> f = QtConcurrent::run(this, &WallpaperItem::thumbnailImage);
         m_thumbnailerWatcher->setFuture(f);
-    } else {
-        m_picture->setPixmap(pix);
     }
 }
 
@@ -95,29 +113,15 @@ QPixmap WallpaperItem::thumbnailImage()
     QString realPath = url.toLocalFile();
 
     ThumbnailManager * tnm = ThumbnailManager::instance();
-    QPixmap pix = QPixmap(realPath).scaled(QSize(ItemWidth, ItemHeight), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap pix = QPixmap(realPath).scaled(QSize(ItemWidth, ItemHeight), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+
+    if (pix.width() > ItemWidth || pix.height() > ItemHeight) {
+        pix = pix.copy((pix.width() - ItemWidth) / 2, (pix.height() - ItemHeight) / 2, ItemWidth, ItemHeight);
+    }
+
     tnm->replace(QUrl::toPercentEncoding(m_path), pix);
 
     return pix;
-}
-
-bool WallpaperItem::eventFilter(QObject * obj, QEvent * event)
-{
-    if (obj == m_picture && event->type() == QEvent::MouseButtonPress) {
-        emit pressed();
-
-        return true;
-    } else if (obj == m_picture && event->type() == QEvent::Enter) {
-        emit hoverIn();
-
-        return true;
-    } else if (obj == m_picture && event->type() == QEvent::Leave) {
-        emit hoverOut();
-
-        return true;
-    }
-
-    return false;
 }
 
 void WallpaperItem::slideUp()
@@ -134,7 +138,7 @@ void WallpaperItem::slideDown()
     }
 }
 
-QString WallpaperItem::getPath()
+QString WallpaperItem::getPath() const
 {
     QUrl url = QUrl::fromPercentEncoding(m_path.toUtf8());
     return url.toLocalFile();
@@ -143,7 +147,37 @@ QString WallpaperItem::getPath()
 void WallpaperItem::thumbnailFinished()
 {
     QFuture<QPixmap> f = m_thumbnailerWatcher->future();
-    m_picture->setPixmap(f.result());
+    m_wrapper->m_pixmap = f.result();
+    m_wrapper->update();
+}
+
+void WallpaperItem::mousePressEvent(QMouseEvent *event)
+{
+    if (event->buttons() == Qt::LeftButton)
+        emit pressed();
+}
+
+void WallpaperItem::enterEvent(QEvent *event)
+{
+    Q_UNUSED(event);
+
+    emit hoverIn();
+}
+
+void WallpaperItem::leaveEvent(QEvent *event)
+{
+    Q_UNUSED(event);
+
+    emit hoverOut();
+}
+
+void WallpaperItem::resizeEvent(QResizeEvent *event)
+{
+    const QPoint &offset = QPoint((event->size().width() - ItemWidth) / 2, (event->size().height() - ItemHeight) / 2);
+
+    m_wrapper->m_pixmapBoxGeometry = QRect(offset, QSize(ItemWidth, ItemHeight));
+
+    QFrame::resizeEvent(event);
 }
 
 bool WallpaperItem::getDeletable() const
@@ -154,6 +188,15 @@ bool WallpaperItem::getDeletable() const
 void WallpaperItem::setDeletable(bool deletable)
 {
     m_deletable = deletable;
+}
+
+void WallpaperItem::setOpacity(qreal opacity)
+{
+    if (m_wrapper->m_opacity == opacity)
+        return;
+
+    m_wrapper->m_opacity = opacity;
+    m_wrapper->update();
 }
 
 void WallpaperItem::setPath(const QString &path)

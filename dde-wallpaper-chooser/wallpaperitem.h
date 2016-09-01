@@ -8,6 +8,7 @@
 class QLabel;
 class Button;
 class AppearanceDaemonInterface;
+class WrapperWidget;
 class WallpaperItem : public QFrame
 {
     Q_OBJECT
@@ -15,16 +16,16 @@ public:
     WallpaperItem(QFrame *parent = 0, const QString &path = "");
     ~WallpaperItem();
 
-    bool eventFilter(QObject *, QEvent *);
-
     void slideUp();
     void slideDown();
 
-    QString getPath();
+    QString getPath() const;
     void setPath(const QString &path);
 
     bool getDeletable() const;
     void setDeletable(bool deletable);
+
+    void setOpacity(qreal opacity);
 
 signals:
     void pressed();
@@ -36,12 +37,17 @@ signals:
 public slots:
     void thumbnailFinished();
 
+protected:
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+
 private:
     QString m_path;
     bool m_deletable;
 
-    QFrame * m_wrapper = NULL;
-    QLabel * m_picture = NULL;
+    WrapperWidget * m_wrapper = NULL;
     Button * m_desktopButton = NULL;
     Button * m_lockButton = NULL;
     QPropertyAnimation * m_upAnim = NULL;

@@ -2,12 +2,12 @@
 #define CONSTANTS_H
 
 static const int FrameHeight = 120;
-static const int ListHeight = 120;
+static const int ListHeight = 100;
 
 static const int ItemCellWidth = 160;
 static const int ItemCellHeight = ListHeight;
 static const int ItemWidth = ItemCellWidth;
-static const int ItemHeight = ItemCellHeight;
+static const int ItemHeight = ListHeight;
 
 static const QString AppearanceServ = "com.deepin.daemon.Appearance";
 static const QString AppearancePath = "/com/deepin/daemon/Appearance";

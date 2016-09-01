@@ -36,7 +36,7 @@ public:
 
 signals:
     void wallpaperSet(QString wallpaper);
-    void needCloseButton(QString path, QPoint pos);
+    void needCloseButton(QString path, QPoint pos) const;
 
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
@@ -57,15 +57,13 @@ private:
     Anchors<DImageButton> prevButton;
     Anchors<DImageButton> nextButton;
 
-    QGraphicsOpacityEffect prevItemEffect;
-    QGraphicsOpacityEffect nextItemEffect;
-
     QPropertyAnimation scrollAnimation;
 
     void setWallpaper(QString realPath);
     void setLockScreen(QString realPath);
 
     void onListWidgetScroll();
+    void showDeleteButtonForItem(const WallpaperItem *item) const;
 
 private slots:
     void wallpaperItemPressed();
