@@ -43,22 +43,22 @@
         <translation>Prihlásiť</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
         <source>Wrong Password</source>
         <translation>Chybné heslo</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="377"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="378"/>
         <source>Please retry after 10 minutes</source>
         <translation>Skúste to znova po 10 minútach</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="509"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="510"/>
         <source>Enter your password to restart</source>
         <translation>Zadajte svoje heslo pre reštartovanie</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="512"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="513"/>
         <source>Enter your password to shutdown</source>
         <translation>Zadajte svoje heslo pre vypnutie</translation>
     </message>
@@ -220,14 +220,14 @@
 <context>
     <name>WallpaperItem</name>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="52"/>
-        <source>Desktop</source>
-        <translation>Pracovné prostredie</translation>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="53"/>
+        <source>Only desktop</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="55"/>
-        <source>Desktop and Lock screen</source>
-        <translation>Pracovná plocha a obrazovka uzamknutia</translation>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="56"/>
+        <source>Only lock screen</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

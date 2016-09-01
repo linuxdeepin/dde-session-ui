@@ -43,22 +43,22 @@
         <translation>登入</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
         <source>Wrong Password</source>
         <translation>密碼錯誤</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="377"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="378"/>
         <source>Please retry after 10 minutes</source>
         <translation>請 10 分鐘重試</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="509"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="510"/>
         <source>Enter your password to restart</source>
         <translation>輸入你的密碼重新啟動</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="512"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="513"/>
         <source>Enter your password to shutdown</source>
         <translation>輸入你的密碼關機</translation>
     </message>
@@ -220,14 +220,14 @@
 <context>
     <name>WallpaperItem</name>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="52"/>
-        <source>Desktop</source>
-        <translation>桌面</translation>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="53"/>
+        <source>Only desktop</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="55"/>
-        <source>Desktop and Lock screen</source>
-        <translation>桌面與鎖定畫面</translation>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="56"/>
+        <source>Only lock screen</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

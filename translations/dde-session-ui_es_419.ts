@@ -43,22 +43,22 @@
         <translation>Iniciar sesión</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
         <source>Wrong Password</source>
         <translation>Contraseña Incorrecta</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="377"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="378"/>
         <source>Please retry after 10 minutes</source>
         <translation>Por favor, intente nuevamente luego de 10 minutos</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="509"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="510"/>
         <source>Enter your password to restart</source>
         <translation>Escriba su contraseña para reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="512"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="513"/>
         <source>Enter your password to shutdown</source>
         <translation>Escriba su contraseña para apagar</translation>
     </message>
@@ -220,14 +220,14 @@
 <context>
     <name>WallpaperItem</name>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="52"/>
-        <source>Desktop</source>
-        <translation>Escritorio</translation>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="53"/>
+        <source>Only desktop</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="55"/>
-        <source>Desktop and Lock screen</source>
-        <translation>Escritorio y Pantalla de bloqueo</translation>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="56"/>
+        <source>Only lock screen</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

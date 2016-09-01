@@ -4,7 +4,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation type="unfinished"/>
+        <translation>Обновления загружены, перезагрузить для обновления?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
@@ -43,22 +43,22 @@
         <translation>Вход</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
         <source>Wrong Password</source>
         <translation>Неверный пароль</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="377"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="378"/>
         <source>Please retry after 10 minutes</source>
         <translation>Пожалуйста повторите через 10 минут</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="509"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="510"/>
         <source>Enter your password to restart</source>
         <translation>Введите пароль, чтобы перезагрузить</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="512"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="513"/>
         <source>Enter your password to shutdown</source>
         <translation>Введите пароль, чтобы выключить</translation>
     </message>
@@ -220,14 +220,14 @@
 <context>
     <name>WallpaperItem</name>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="52"/>
-        <source>Desktop</source>
-        <translation>Рабочий стол</translation>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="53"/>
+        <source>Only desktop</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="55"/>
-        <source>Desktop and Lock screen</source>
-        <translation>Рабочий стол и экран блокировки</translation>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="56"/>
+        <source>Only lock screen</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
