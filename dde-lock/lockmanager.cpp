@@ -115,6 +115,8 @@ void LockManager::initUI()
     m_timeWidget->setFixedSize(400, 300);
 
     m_userWidget = new UserWidget(UserWidget::loginUser(), this);
+    m_userWidget->setFixedWidth(width());
+    m_userWidget->move(0, (height() - m_userWidget->height()) / 2 - 95);
 
     m_passwordEdit = new PassWdEdit(this);
     m_passwordEdit->setEnterBtnStyle(":/img/unlock_normal.png", ":/img/unlock_normal.png", ":/img/unlock_press.png");
@@ -204,8 +206,8 @@ void LockManager::updateWidgetsPosition()
     qDebug() << "lockManager: positon" << this->width() << this->height();
     const int width = this->width();
     const int height = this->height();
-    m_userWidget->setFixedWidth(width);
     m_timeWidget->move(48, height - m_timeWidget->height() - 36); // left 48px and bottom 36px
+    m_userWidget->setFixedWidth(width);
     m_userWidget->move(0, (height - m_userWidget->height()) / 2 - 95);
     m_requireShutdownWidget->setFixedWidth(width);
     m_requireShutdownWidget->move(0, (height - m_requireShutdownWidget->height()) / 2 - 50);

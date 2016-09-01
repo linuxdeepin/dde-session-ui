@@ -44,7 +44,8 @@ UserWidget::UserWidget(const QString &username, QWidget* parent)
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 //    setStyleSheet("background-color:red;");
-    setFixedSize(qApp->desktop()->width(), USER_ICON_HEIGHT);
+//    setFixedSize(qApp->desktop()->width(), USER_ICON_HEIGHT);
+    setFixedWidth(qApp->desktop()->width());
 //    move(0, (qApp->desktop()->height() - rect().height()) / 2 - 95);
 
     initUI();
@@ -91,6 +92,16 @@ void UserWidget::initUI()
     m_loadingAni->hide();
 
     setCurrentUser(currentUser());
+
+    const int count = m_userBtns->count();
+    const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
+
+    // Adjust size according to user count.
+    if (maxLineCap < count) {
+        setFixedSize(width(), USER_ICON_HEIGHT * qCeil(count * 1.0 / maxLineCap));
+    } else {
+        setFixedHeight(USER_ICON_HEIGHT);
+    }
 }
 
 void UserWidget::updateAvatar(QString username) {
