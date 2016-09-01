@@ -5,8 +5,11 @@
 
 #include <QDebug>
 #include <QScrollBar>
-#include <QWheelEvent>
+#include <QToolButton>
 #include <QGSettings>
+
+#include <anchors.h>
+#include <dimagebutton.h>
 
 WallpaperList::WallpaperList(QWidget * parent)
     : QListWidget(parent)
@@ -15,6 +18,12 @@ WallpaperList::WallpaperList(QWidget * parent)
                                                    QDBusConnection::sessionBus(),
                                                    this))
     , m_gsettings(new QGSettings(WallpaperSchemaId, WallpaperPath, this))
+    , prevButton(new DImageButton(":/images/previous_normal.png",
+                                  ":/images/previous_hover.png",
+                                  ":/images/previous_press.png", this))
+    , nextButton(new DImageButton(":/images/next_normal.png",
+                                  ":/images/next_hover.png",
+                                  ":/images/next_press.png", this))
 {
     m_oldWallpaperPath = m_gsettings->get(WallpaperKey).toString();
 
@@ -31,18 +40,37 @@ WallpaperList::WallpaperList(QWidget * parent)
     m_oldLockPath = setting.value("GreeterBackground").toUrl().toLocalFile();
 
     setViewMode(QListView::IconMode);
-    setGridSize(QSize(ItemCellWidth, ItemCellHeight));
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setWrapping(false);
     setSelectionRectVisible(false);
     setEditTriggers(QListView::NoEditTriggers);
     setAttribute(Qt::WA_TranslucentBackground);
+    horizontalScrollBar()->setEnabled(false);
 
-    connect(this->horizontalScrollBar(), &QScrollBar::valueChanged, [this] {
+    connect(&scrollAnimation, &QAbstractAnimation::finished, [this] {
         // hide the delete button.
         emit needCloseButton("", QPoint(0, 0));
+
+        onListWidgetScroll();
     });
+
+    prevButton->hide();
+    prevButton.setAnchor(Qt::AnchorVerticalCenter, this, Qt::AnchorVerticalCenter);
+    prevButton.setAnchor(Qt::AnchorLeft, this, Qt::AnchorLeft);
+    nextButton->hide();
+    nextButton.setAnchor(Qt::AnchorVerticalCenter, this, Qt::AnchorVerticalCenter);
+    nextButton.setAnchor(Qt::AnchorRight, this, Qt::AnchorRight);
+
+    prevItemEffect.setOpacity(0.4);
+    nextItemEffect.setOpacity(0.4);
+
+    connect(prevButton.widget(), &DImageButton::clicked, this, &WallpaperList::prevPage);
+    connect(nextButton.widget(), &DImageButton::clicked, this, &WallpaperList::nextPage);
+
+    scrollAnimation.setTargetObject(horizontalScrollBar());
+    scrollAnimation.setPropertyName("value");
+    scrollAnimation.setDuration(QEasingCurve::OutExpo);
 }
 
 WallpaperList::~WallpaperList()
@@ -84,22 +112,64 @@ void WallpaperList::removeWallpaper(const QString &path)
     }
 }
 
-void WallpaperList::wheelEvent(QWheelEvent * event)
+int WallpaperList::singleStep() const
 {
-    QPoint numDegrees = event->angleDelta();
+    return m_singleStep;
+}
 
-    if (numDegrees.x()) {
-        horizontalScrollBar()->setValue(horizontalScrollBar()->value() - numDegrees.x());
-    } else if (numDegrees.y()){
-        horizontalScrollBar()->setValue(horizontalScrollBar()->value() - numDegrees.y());
+void WallpaperList::scrollList(int step, int duration)
+{
+    if (scrollAnimation.state() == QAbstractAnimation::Running)
+        return;
+
+    int start_value = horizontalScrollBar()->value();
+    int end_value = start_value + step;
+
+    if ((end_value < horizontalScrollBar()->minimum() && start_value == horizontalScrollBar()->minimum())
+            || (end_value > horizontalScrollBar()->maximum() && start_value == horizontalScrollBar()->maximum())) {
+        return;
     }
 
-    event->accept();
+    scrollAnimation.setDuration(duration);
+    scrollAnimation.setStartValue(start_value);
+    scrollAnimation.setEndValue(end_value);
+    scrollAnimation.start();
+
+    prevItemEffect.setEnabled(false);
+    nextItemEffect.setEnabled(false);
+
+    prevButton->hide();
+    nextButton->hide();
+}
+
+void WallpaperList::prevPage()
+{
+    scrollList(-width(), 500);
+}
+
+void WallpaperList::nextPage()
+{
+    scrollList(width(), 500);
+}
+
+void WallpaperList::resizeEvent(QResizeEvent *event)
+{
+    onListWidgetScroll();
+
+    QFrame::resizeEvent(event);
+}
+
+void WallpaperList::wheelEvent(QWheelEvent *event)
+{
+    Q_UNUSED(event);
 }
 
 void WallpaperList::wallpaperItemPressed()
 {
     WallpaperItem * item = qobject_cast<WallpaperItem*>(sender());
+
+    if (item == prevItem || item == nextItem)
+        return;
 
     for (int i = 0; i < count(); i++) {
         QListWidgetItem * ii = this->item(i);
@@ -164,4 +234,63 @@ void WallpaperList::setWallpaper(QString realPath)
 void WallpaperList::setLockScreen(QString realPath)
 {
     m_dbusAppearance->Set("greeterbackground", realPath);
+}
+
+void WallpaperList::onListWidgetScroll()
+{
+    int screen_item_count = width() / ItemWidth;
+    int current_value = horizontalScrollBar()->value();
+
+    if (current_value == horizontalScrollBar()->minimum()
+            || current_value == horizontalScrollBar()->maximum()) {
+        int spacing = (width() - ItemWidth * (screen_item_count - 0.5)) / screen_item_count;
+        setGridSize(QSize(ItemWidth + spacing, height()));
+
+        m_singleStep = gridSize().width() / 2;
+
+        if (current_value == horizontalScrollBar()->minimum()) {
+            prevItem = Q_NULLPTR;
+            nextItem = static_cast<WallpaperItem*>(itemWidget(item((current_value + width()) / gridSize().width())));
+        } else {
+            prevItem = static_cast<WallpaperItem*>(itemWidget(item(current_value / gridSize().width())));
+            nextItem = Q_NULLPTR;
+        }
+    }  else {
+        int spacing = (width() - ItemWidth * screen_item_count) / screen_item_count;
+
+        if (spacing <= 1)
+            spacing = ItemWidth / (screen_item_count - 1);
+
+        setGridSize(QSize(ItemWidth + spacing, height()));
+
+        int maximum = gridSize().width() * count() - width();
+
+        if (current_value == horizontalScrollBar()->maximum() - m_singleStep) {
+            current_value = maximum - gridSize().width() / 2;
+
+            horizontalScrollBar()->setMaximum(maximum);
+            horizontalScrollBar()->setValue(current_value);
+        }
+
+        m_singleStep = gridSize().width();
+
+        prevItem = static_cast<WallpaperItem*>(itemWidget(item(current_value / gridSize().width())));
+        nextItem = static_cast<WallpaperItem*>(itemWidget(item((current_value + width()) / gridSize().width())));
+    }
+
+    if (prevItem) {
+        prevButton.setLeftMargin(gridSize().width() / 8);
+        prevItem->setGraphicsEffect(&prevItemEffect);
+    }
+
+    prevButton->setVisible(prevItem);
+    prevItemEffect.setEnabled(prevItem);
+
+    if (nextItem) {
+        nextButton.setRightMargin(gridSize().width() / 8);
+        nextItem->setGraphicsEffect(&nextItemEffect);
+    }
+
+    nextButton->setVisible(nextItem);
+    nextItemEffect.setEnabled(nextItem);
 }

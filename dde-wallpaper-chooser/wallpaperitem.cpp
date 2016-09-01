@@ -38,6 +38,7 @@ void WallpaperItem::initUI()
 
     m_picture = new QLabel(m_wrapper);
     m_picture->setFixedSize(ItemWidth, ItemHeight);
+    m_picture->setAlignment(Qt::AlignCenter);
     m_picture->installEventFilter(this);
 
     QFrame * buttonArea = new QFrame(m_wrapper);

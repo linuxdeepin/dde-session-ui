@@ -40,11 +40,9 @@ Frame::Frame(QFrame *parent)
         if (id != m_mouseAreaKey) return;
 
         if (button == 4) {
-            QScrollBar * bar = m_wallpaperList->horizontalScrollBar();
-            bar->setValue(bar->value() - 120);
+            m_wallpaperList->prevPage();
         } else if (button == 5) {
-            QScrollBar * bar = m_wallpaperList->horizontalScrollBar();
-            bar->setValue(bar->value() + 120);
+            m_wallpaperList->nextPage();
         } else {
             qDebug() << "button pressed on blank area, quit.";
 
