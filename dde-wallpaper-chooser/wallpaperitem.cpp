@@ -54,7 +54,7 @@ void WallpaperItem::initUI()
     m_desktopButton->setAttract(false);
     m_lockButton = new Button;
     m_lockButton->setText(tr("Only lock screen"));
-    m_lockButton->setAttract(true);
+    m_lockButton->setAttract(false);
 
     buttonLayout->addWidget(m_desktopButton);
     buttonLayout->addWidget(m_lockButton);
