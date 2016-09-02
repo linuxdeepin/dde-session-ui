@@ -22,7 +22,7 @@ Frame::Frame(QWidget *parent)
                                                      this))
 {
     setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
-
+    setCursor(Qt::BlankCursor);
     setStyleSheet("background:black");
     m_progressTip->setStyleSheet("color:white; font-size:14px");
     m_warningTip->setStyleSheet("color:white; font-size:11px");
