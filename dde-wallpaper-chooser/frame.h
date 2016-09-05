@@ -11,7 +11,7 @@ class WallpaperListView;
 class AppearanceDaemonInterface;
 class DeepinWM;
 class DBusXMouseArea;
-class Frame : public QFrame
+class Frame : public QWidget
 {
     Q_OBJECT
 

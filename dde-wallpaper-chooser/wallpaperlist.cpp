@@ -46,11 +46,12 @@ WallpaperList::WallpaperList(QWidget * parent)
     setSelectionRectVisible(false);
     setEditTriggers(QListView::NoEditTriggers);
     setAttribute(Qt::WA_TranslucentBackground);
+    setFrameShape(QFrame::NoFrame);
     horizontalScrollBar()->setEnabled(false);
 
     connect(&scrollAnimation, &QAbstractAnimation::finished, [this] {
         showDeleteButtonForItem(static_cast<WallpaperItem*>(itemWidget(itemAt(mapFromGlobal(QCursor::pos())))));
-        onListWidgetScroll();
+        updateBothEndsItem();
     });
 
     prevButton->hide();
@@ -105,11 +106,8 @@ void WallpaperList::removeWallpaper(const QString &path)
             }
         }
     }
-}
 
-int WallpaperList::singleStep() const
-{
-    return m_singleStep;
+    updateBothEndsItem();
 }
 
 void WallpaperList::scrollList(int step, int duration)
@@ -145,19 +143,26 @@ void WallpaperList::scrollList(int step, int duration)
 
 void WallpaperList::prevPage()
 {
-    scrollList(-width(), 500);
+    scrollList(-gridSize().width() * (width() / gridSize().width() - 2), 500);
 }
 
 void WallpaperList::nextPage()
 {
-    scrollList(width(), 500);
+    scrollList(gridSize().width() * (width() / gridSize().width() - 2), 500);
 }
 
 void WallpaperList::resizeEvent(QResizeEvent *event)
 {
-    onListWidgetScroll();
-
     QFrame::resizeEvent(event);
+
+    int screen_item_count = width() / ItemWidth;
+
+    if (width() % ItemWidth == 0)
+        --screen_item_count;
+
+    setGridSize(QSize(width() / screen_item_count, ItemHeight));
+
+    updateBothEndsItem();
 }
 
 void WallpaperList::wheelEvent(QWheelEvent *event)
@@ -233,57 +238,36 @@ void WallpaperList::setLockScreen(QString realPath)
     m_dbusAppearance->Set("greeterbackground", realPath);
 }
 
-void WallpaperList::onListWidgetScroll()
+void WallpaperList::updateBothEndsItem()
 {
-    int screen_item_count = width() / ItemWidth;
     int current_value = horizontalScrollBar()->value();
 
-    if (current_value == horizontalScrollBar()->minimum()
-            || current_value == horizontalScrollBar()->maximum()) {
-        int spacing = (width() - ItemWidth * (screen_item_count - 0.5)) / screen_item_count;
-        setGridSize(QSize(ItemWidth + spacing, height()));
+    if (prevItem)
+        prevItem->setOpacity(1);
 
-        m_singleStep = gridSize().width() / 2;
+    if (nextItem)
+        nextItem->setOpacity(1);
 
-        if (current_value == horizontalScrollBar()->minimum()) {
-            prevItem = Q_NULLPTR;
-            nextItem = static_cast<WallpaperItem*>(itemWidget(item((current_value + width()) / gridSize().width())));
-        } else {
-            prevItem = static_cast<WallpaperItem*>(itemWidget(item(current_value / gridSize().width())));
-            nextItem = Q_NULLPTR;
-        }
-    }  else {
-        int spacing = (width() - ItemWidth * screen_item_count) / screen_item_count;
-
-        if (spacing <= 1)
-            spacing = ItemWidth / (screen_item_count - 1);
-
-        setGridSize(QSize(ItemWidth + spacing, height()));
-
-        int maximum = gridSize().width() * count() - width();
-
-        if (current_value == horizontalScrollBar()->maximum() - m_singleStep) {
-            current_value = maximum - gridSize().width() / 2;
-
-            horizontalScrollBar()->setMaximum(maximum);
-            horizontalScrollBar()->setValue(current_value);
-        }
-
-        m_singleStep = gridSize().width();
-
-        prevItem = static_cast<WallpaperItem*>(itemWidget(item(current_value / gridSize().width())));
-        nextItem = static_cast<WallpaperItem*>(itemWidget(item((current_value + width()) / gridSize().width())));
+    if (current_value == horizontalScrollBar()->minimum()) {
+        prevItem = Q_NULLPTR;
+        nextItem = static_cast<WallpaperItem*>(itemWidget(item(width() / gridSize().width() - 1)));
+    } else if (current_value == horizontalScrollBar()->maximum()) {
+        prevItem = static_cast<WallpaperItem*>(itemWidget(item(count() - width() / gridSize().width())));
+        nextItem = Q_NULLPTR;
+    } else {
+        prevItem = static_cast<WallpaperItem*>(itemWidget(itemAt(ItemWidth / 2, ItemHeight / 2)));
+        nextItem = static_cast<WallpaperItem*>(itemWidget(itemAt(width() - ItemWidth / 2, ItemHeight / 2)));
     }
 
     if (prevItem) {
-        prevButton.setLeftMargin(gridSize().width() / 8);
+        prevButton.setLeftMargin(gridSize().width() / 2 - prevButton->sizeHint().width() / 2);
         prevItem->setOpacity(0.4);
     }
 
     prevButton->setVisible(prevItem);
 
     if (nextItem) {
-        nextButton.setRightMargin(gridSize().width() / 8);
+        nextButton.setRightMargin(gridSize().width() / 2 - nextButton->sizeHint().width() / 2);
         nextItem->setOpacity(0.4);
     }
 

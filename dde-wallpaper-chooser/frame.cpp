@@ -14,7 +14,7 @@
 #include <QScrollBar>
 
 Frame::Frame(QFrame *parent)
-    : QFrame(parent),
+    : QWidget(parent),
       m_wallpaperList(new WallpaperList(this)),
       m_closeButton(new DImageButton(":/images/close_normal.png",
                                  ":/images/close_hover.png",
@@ -96,7 +96,7 @@ void Frame::showEvent(QShowEvent * event)
 
     activateWindow();
 
-    QFrame::showEvent(event);
+    QWidget::showEvent(event);
 }
 
 void Frame::keyPressEvent(QKeyEvent * event)
@@ -106,7 +106,7 @@ void Frame::keyPressEvent(QKeyEvent * event)
         qApp->quit();
     }
 
-    QFrame::keyPressEvent(event);
+    QWidget::keyPressEvent(event);
 }
 
 void Frame::initSize()
