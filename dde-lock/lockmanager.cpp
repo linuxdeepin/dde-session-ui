@@ -492,6 +492,7 @@ void LockManager::setCurrentKeyboardLayout(QString keyboard_value)
 
 void LockManager::passwordMode()
 {
+    m_userWidget->setCurrentUser(UserWidget::loginUser());
     m_userWidget->show();
     m_requireShutdownWidget->hide();
 
