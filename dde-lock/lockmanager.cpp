@@ -30,9 +30,9 @@ LockManager::LockManager(QWidget *parent)
     : QFrame(parent)
 {
     initUI();
+    initConnect();
     initBackend();
     updateUI();
-    initConnect();
 
     loadMPRIS();
     leaveEvent(nullptr);

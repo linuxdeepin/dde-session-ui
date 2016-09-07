@@ -99,8 +99,9 @@ void UserButton::setImageSize(const AvatarSize &avatarsize) {
 
 void UserButton::showButton()
 {
-    m_showAnimation->setStartValue(0);
-    m_showAnimation->setEndValue(1);
+    m_showAnimation->stop();
+    m_showAnimation->setStartValue(0.0);
+    m_showAnimation->setEndValue(1.0);
     m_showAnimation->setDuration(800);
 
     m_showAnimation->start();

@@ -189,7 +189,6 @@ void UserWidget::expandWidget()
 
     for (int i = 0; i != count; ++i)
     {
-        m_userBtns->at(i)->showButton();
         if (m_userBtns->at(i)->objectName() != username) {
              m_userBtns->at(i)->setButtonChecked(false);
         }
@@ -199,6 +198,7 @@ void UserWidget::expandWidget()
         m_userBtns->at(i)->stopAnimation();
 
         m_userBtns->at(i)->show();
+        m_userBtns->at(i)->showButton();
         m_userBtns->at(i)->setImageSize(UserButton::AvatarSmallSize);
         if (i + 1 <= maxLineCap) {
             // the first line.

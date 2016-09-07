@@ -138,11 +138,6 @@ void ShutdownManager::powerAction(const Actions action)
     // take effect while dde-lock is showing.
     this->hide();
 
-    QDBusInterface ifc("com.deepin.dde.lockFront",
-                       "/com/deepin/dde/lockFront",
-                       "com.deepin.dde.lockFront",
-                       QDBusConnection::sessionBus(), NULL);
-
     switch (action) {
     case Shutdown:       m_sessionInterface->RequestShutdown();      break;
     case Restart:        m_sessionInterface->RequestReboot();        break;
@@ -150,8 +145,14 @@ void ShutdownManager::powerAction(const Actions action)
     case Lock:           m_sessionInterface->RequestLock();          break;
     case Logout:         m_sessionInterface->RequestLogout();        break;
     case SwitchUser:
+    {
+        QDBusInterface ifc("com.deepin.dde.lockFront",
+                           "/com/deepin/dde/lockFront",
+                           "com.deepin.dde.lockFront",
+                           QDBusConnection::sessionBus(), NULL);
         ifc.asyncCall("ShowUserList");
         break;
+    }
     default:
         qWarning() << "action: " << action << " not handled";
         break;
