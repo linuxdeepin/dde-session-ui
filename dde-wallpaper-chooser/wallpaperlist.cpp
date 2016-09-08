@@ -212,7 +212,7 @@ void WallpaperList::handleSetDesktop()
 {
     WallpaperItem * item = qobject_cast<WallpaperItem*>(sender());
     setWallpaper(item->getPath());
-    setLockScreen(m_oldWallpaperPath);
+    setLockScreen(m_oldLockPath);
 
     qDebug() << "desktop item set, quit";
     qApp->quit();
