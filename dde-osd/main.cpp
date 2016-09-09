@@ -7,6 +7,7 @@
  * (at your option) any later version.
  **/
 
+#include <sys/mman.h>
 #include <gtk/gtk.h>
 #include "osd.h"
 #include <QApplication>
@@ -83,6 +84,12 @@ int main(int argc, char *argv[])
 //        qDebug() << "Call dbus to show osd";
 //        osd.dbusShowOSD();
         exit(0x0001);
+    }
+
+    QString deepinMlockall = QProcessEnvironment::systemEnvironment().value("DEEPIN_MLOCKALL");
+    if (deepinMlockall == "true") {
+        qWarning() << "call mlockall(MCL_CURRENT) to avoid swap";
+        mlockall(MCL_CURRENT);
     }
 
     return a.exec();

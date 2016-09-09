@@ -35,6 +35,7 @@
 #include <time.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <sys/mman.h>
 
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
@@ -692,6 +693,8 @@ int main(int argc G_GNUC_UNUSED, char **argv G_GNUC_UNUSED)
     lock_setup_dbus_service();
 
     g_timeout_add_seconds(600000, do_exit, NULL);
+
+    mlockall(MCL_CURRENT);
 
     g_main_loop_run(loop);
 
