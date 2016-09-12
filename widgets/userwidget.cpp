@@ -215,7 +215,7 @@ void UserWidget::expandWidget()
 void UserWidget::saveLastUser()
 {
     DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-    m_currentUser = m_lockInter.SwitchToUser(currentUser());
+    m_lockInter.SwitchToUser(currentUser());
 }
 
 void UserWidget::resizeEvent(QResizeEvent *e)
