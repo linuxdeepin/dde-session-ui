@@ -39,7 +39,7 @@
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
 
-#define LigthDMGreeterConfig "/var/lib/lightdm/lightdm-deepin-greeter/state_user"
+#define LightDMGreeterConfig "/var/lib/lightdm/lightdm-deepin-greeter/state_user"
 #define LOCK_DBUS_NAME     "com.deepin.dde.lock"
 #define LOCK_DBUS_OBJ       "/com/deepin/dde/lock"
 #define LOCK_DBUS_IFACE     "com.deepin.dde.lock"
@@ -259,14 +259,14 @@ _bus_method_call(GDBusConnection *connection G_GNUC_UNUSED,
     if (g_strcmp0(method, "SwitchToUser") == 0) {
         const gchar *username = NULL;
         GKeyFile *key_file = NULL;
-        int cfg = open(LigthDMGreeterConfig,  O_RDWR | O_CREAT, S_IRUSR | S_IRGRP | S_IROTH);
+        int cfg = open(LightDMGreeterConfig,  O_RDWR | O_CREAT, S_IRUSR | S_IRGRP | S_IROTH);
         close(cfg);
 
         g_variant_get(params, "(s)", &username);
 
         key_file = g_key_file_new();
         g_key_file_load_from_file(key_file,
-                                  LigthDMGreeterConfig,
+                                  LightDMGreeterConfig,
                                   G_KEY_FILE_NONE,
                                   &error);
         g_key_file_set_value(key_file,
@@ -274,7 +274,7 @@ _bus_method_call(GDBusConnection *connection G_GNUC_UNUSED,
                              "last-user",
                              username);
         g_key_file_save_to_file(key_file,
-                                LigthDMGreeterConfig,
+                                LightDMGreeterConfig,
                                 &error);
         g_key_file_free(key_file);
 
@@ -291,7 +291,7 @@ _bus_method_call(GDBusConnection *connection G_GNUC_UNUSED,
         GKeyFile *key_file = NULL;
         key_file = g_key_file_new();
         g_key_file_load_from_file(key_file,
-                                  LigthDMGreeterConfig,
+                                  LightDMGreeterConfig,
                                   G_KEY_FILE_NONE,
                                   &error);
 
