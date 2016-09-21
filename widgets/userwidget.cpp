@@ -120,7 +120,6 @@ QStringList UserWidget::getUsernameList() {
              m_whiteList.append(inter->userName());
         inter->deleteLater();
     }
-    accounts->disconnect();
     accounts->deleteLater();
 //    whiteList = QStringList(whiteList.toSet().toList());
     qDebug() << "getUsernameList:" << m_whiteList;

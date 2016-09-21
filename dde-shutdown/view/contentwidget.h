@@ -19,6 +19,7 @@
 #include "util_updateui.h"
 #include "dbus/dbusvariant.h"
 #include "dbus/dbuslogin1manager.h"
+#include "dbus/dbusaccounts.h"
 #include "common.h"
 
 class ShutDownFrame: public QFrame
@@ -42,6 +43,9 @@ public slots:
     void disableBtns(const QStringList &btnsName);
 
     void inhibitShutdown();
+    void intiAccountDbus();
+    void handleUserChange(const QString&);
+
 private:
     void initUI();
     void initConnect();
@@ -62,5 +66,6 @@ private:
     QWidget *m_tipsWidget;
     QLabel *m_tipsLabel;
     DBusLogin1Manager* m_login1Inter;
+    DBusAccounts        *m_accoutnInter = nullptr;
 };
 #endif // CONTENTVIEWWIDGET

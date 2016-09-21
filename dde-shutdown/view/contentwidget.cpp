@@ -12,6 +12,8 @@
 #include <QtCore/QObject>
 
 #include "dbus/dbusvariant.h"
+
+#include "userwidget.h"
 #include "contentwidget.h"
 #include "accountsutils.h"
 #include "multiuserswarningview.h"
@@ -200,6 +202,7 @@ void ShutDownFrame::initUI() {
 
     //// Inhibit to shutdown
     inhibitShutdown();
+    intiAccountDbus();
 
     QTimer* checkTooltip = new QTimer(this);
     checkTooltip->setInterval(5*60*1000);
@@ -236,6 +239,24 @@ void ShutDownFrame::inhibitShutdown() {
         qDebug() << "shutdown login1Manager error!";
         reminder_tooltip = "";
     }
+}
+
+void ShutDownFrame::intiAccountDbus()
+{
+    qDebug()<<"intiAccountDbus";
+    m_accoutnInter = new DBusAccounts("com.deepin.daemon.Accounts", "/com/deepin/daemon/Accounts", QDBusConnection::systemBus(), this);
+    connect(m_accoutnInter, &DBusAccounts::UserAdded, this, &ShutDownFrame::handleUserChange);
+    connect(m_accoutnInter, &DBusAccounts::UserDeleted, this, &ShutDownFrame::handleUserChange);
+}
+
+void ShutDownFrame::handleUserChange(const QString &)
+{
+    if (!m_accoutnInter) {
+        qCritical() << "m_accoutnInter is invaild" <<m_accoutnInter;
+        return;
+    }
+
+    m_switchUserBtn->setVisible(m_accoutnInter->userList().length() >= 2);
 }
 
 void ShutDownFrame::setPreviousChildFocus()
