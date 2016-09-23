@@ -24,6 +24,7 @@ public:
     ~ShutdownFrame();
 public slots:
     void updateScreenPosition();
+    void powerAction(const Actions action);
 protected:
     void keyPressEvent(QKeyEvent *e);
 private:
@@ -43,6 +44,11 @@ public:
     ~ShutdownFrontDBus();
 
     Q_SLOT void Ping();
+    Q_SLOT void Shutdown();
+    Q_SLOT void Restart();
+    Q_SLOT void Logout();
+    Q_SLOT void Suspend();
+    Q_SLOT void SwitchUser();
     Q_SLOT void Show();
 
 private:

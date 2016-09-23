@@ -32,6 +32,11 @@ void ShutdownFrame::updateScreenPosition() {
     m_shutdownManager->updateGeometry();
 }
 
+void ShutdownFrame::powerAction(const Actions action)
+{
+    m_shutdownManager->powerAction(action);
+}
+
 void ShutdownFrame::keyPressEvent(QKeyEvent *e) {
     Q_UNUSED(e);
 }
@@ -81,6 +86,31 @@ ShutdownFrontDBus::~ShutdownFrontDBus()
 
 void ShutdownFrontDBus::Ping()
 {
+}
+
+void ShutdownFrontDBus::Shutdown()
+{
+    m_parent->powerAction(Actions::Shutdown);
+}
+
+void ShutdownFrontDBus::Restart()
+{
+    m_parent->powerAction(Actions::Restart);
+}
+
+void ShutdownFrontDBus::Logout()
+{
+    m_parent->powerAction(Actions::Logout);
+}
+
+void ShutdownFrontDBus::Suspend()
+{
+    m_parent->powerAction(Actions::Suspend);
+}
+
+void ShutdownFrontDBus::SwitchUser()
+{
+    m_parent->powerAction(Actions::SwitchUser);
 }
 
 void ShutdownFrontDBus::Show()
