@@ -34,7 +34,12 @@ void ShutdownFrame::updateScreenPosition() {
 
 void ShutdownFrame::powerAction(const Actions action)
 {
-    m_shutdownManager->powerAction(action);
+    m_shutdownManager->powerActionFromExternal(action);
+}
+
+void ShutdownFrame::setConfirm(const bool confrim)
+{
+    m_shutdownManager->setConfrim(confrim);
 }
 
 void ShutdownFrame::keyPressEvent(QKeyEvent *e) {
@@ -90,16 +95,19 @@ void ShutdownFrontDBus::Ping()
 
 void ShutdownFrontDBus::Shutdown()
 {
+    m_parent->setConfirm(true);
     m_parent->powerAction(Actions::Shutdown);
 }
 
 void ShutdownFrontDBus::Restart()
 {
+    m_parent->setConfirm(true);
     m_parent->powerAction(Actions::Restart);
 }
 
 void ShutdownFrontDBus::Logout()
 {
+    m_parent->setConfirm(true);
     m_parent->powerAction(Actions::Logout);
 }
 

@@ -171,6 +171,11 @@ void ShutdownManager::disableBtns(const QStringList &btnsName)
     m_content->disableBtns(btnsName);
 }
 
+void ShutdownManager::setConfrim(const bool confrim)
+{
+    m_content->setConfrim(confrim);
+}
+
 void ShutdownManager::keyPressEvent(QKeyEvent *e)
 {
 
@@ -192,4 +197,9 @@ void ShutdownManager::mouseReleaseEvent(QMouseEvent *e)
 
 ShutdownManager::~ShutdownManager()
 {
+}
+
+void ShutdownManager::powerActionFromExternal(const Actions action)
+{
+    m_content->powerAction(action);
 }

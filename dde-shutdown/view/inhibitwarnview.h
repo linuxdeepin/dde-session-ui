@@ -17,7 +17,9 @@ public:
     explicit InhibitWarnView(QWidget *parent = 0);
 
     void setInhibitReason(const QString &reason);
+    void setAcceptReason(const QString &reason);
     void setAction(const Actions action);
+    void setAcceptVisible(const bool acceptable);
 
 signals:
     void cancelled() const;
@@ -27,6 +29,7 @@ private:
     Actions m_action;
 
     QLabel *m_reasonLbl;
+    QLabel *m_acceptLbl;
     DImageButton *m_acceptBtn;
     DImageButton *m_cancelBtn;
 };

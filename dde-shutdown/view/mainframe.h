@@ -35,6 +35,8 @@ signals:
     void pressEnterAction();
 
 public slots:
+    void setConfrim(const bool confirm);
+    void powerAction(const Actions action);
     void changeView(bool a);
     void DirectLeft();
     void DirectRight();

@@ -37,6 +37,8 @@ signals:
     void ShutDownFrameActions(const Actions action);
 
 public slots:
+    void setConfirm(const bool confirm);
+    void powerAction(const Actions action);
     void setPreviousChildFocus();
     void setNextChildFocus();
     void showTips(const QString &tips);
@@ -66,5 +68,7 @@ private:
     DBusLogin1Manager* m_login1Inter;
 
     QWidget *m_warningView = nullptr;
+
+    bool m_confirm = false;
 };
 #endif // CONTENTVIEWWIDGET

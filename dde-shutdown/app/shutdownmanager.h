@@ -32,9 +32,11 @@ signals:
     void pressEnter();
 
 public slots:
+    void powerActionFromExternal(const Actions action);
     void powerAction(const Actions action);
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
+    void setConfrim(const bool confrim);
 //    void shutDownFrameGrabKeyboard();
 
 protected:

@@ -31,6 +31,24 @@ ShutDownFrame::~ShutDownFrame()
 
 }
 
+void ShutDownFrame::setConfirm(const bool confirm)
+{
+    m_confirm = confirm;
+}
+
+void ShutDownFrame::powerAction(const Actions action)
+{
+    switch (action)
+    {
+    case Shutdown:
+    case Restart:
+        beforeInvokeAction(action);
+        break;
+    default:
+        emit ShutDownFrameActions(action);
+    }
+}
+
 void ShutDownFrame::initConnect() {
     connect(this, SIGNAL(keyLeft()), SLOT(setPreviousChildFocus()));
     connect(this, SIGNAL(keyRight()), SLOT(setNextChildFocus()));
@@ -107,7 +125,7 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
     QStringList loggedInUsers = AccountsUtils::GetLoggedInUsers();
 
     // change ui
-    if (!inhibitReason.isEmpty() || loggedInUsers.length() > 1)
+    if (m_confirm || !inhibitReason.isEmpty() || loggedInUsers.length() > 1)
     {
         for (RoundItemButton* btn : *m_btnsList) {
             btn->hide();
@@ -127,6 +145,11 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         InhibitWarnView *view = new InhibitWarnView;
         view->setAction(action);
         view->setInhibitReason(inhibitReason);
+        view->setAcceptVisible(false);
+        if (action == Shutdown)
+            view->setAcceptReason(tr("Shut down"));
+        else
+            view->setAcceptReason(tr("Restart"));
 
         m_warningView = view;
         mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
@@ -162,6 +185,41 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         });
 
         m_warningView->show();
+
+        return;
+    }
+
+    if (m_confirm)
+    {
+        m_confirm = false;
+
+        QBoxLayout *mainLayout = qobject_cast<QBoxLayout*>(parentWidget()->layout());
+
+        InhibitWarnView *view = new InhibitWarnView;
+        view->setAction(action);
+        if (action == Shutdown)
+        {
+            view->setAcceptReason(tr("Shut down"));
+            view->setInhibitReason(tr("Are you sure to shut down the machine?"));
+        }
+        else
+        {
+            view->setAcceptReason(tr("Restart"));
+            view->setInhibitReason(tr("Are you sure to restart the machine?"));
+        }
+
+        m_warningView = view;
+        mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+
+        connect(view, &InhibitWarnView::cancelled, [this] {
+           qApp->quit();
+        });
+        connect(view, &InhibitWarnView::actionInvoked, [this, action] {
+            emit ShutDownFrameActions(action);
+        });
+
+        m_warningView->show();
+        m_warningView->raise();
 
         return;
     }
@@ -245,10 +303,17 @@ void ShutDownFrame::initUI() {
     //// Inhibit to shutdown
     getInhibitReason();
 
-//    QTimer* checkTooltip = new QTimer(this);
-//    checkTooltip->setInterval(5*60*1000);
-//    checkTooltip->start();
-//    connect(checkTooltip,  &QTimer::timeout, this, &ShutDownFrame::inhibitShutdown);
+    QTimer* checkTooltip = new QTimer(this);
+    checkTooltip->setInterval(10000);
+    checkTooltip->setSingleShot(false);
+    connect(checkTooltip,  &QTimer::timeout, [this] {
+        InhibitWarnView *view = qobject_cast<InhibitWarnView *>(m_warningView);
+        if (!view)
+            return;
+        if (getInhibitReason().isEmpty())
+            view->setAcceptVisible(true);
+    });
+    checkTooltip->start();
 }
 
 const QString ShutDownFrame::getInhibitReason() {

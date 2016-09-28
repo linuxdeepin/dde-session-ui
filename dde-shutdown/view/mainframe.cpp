@@ -65,3 +65,13 @@ void MainFrame::disableBtns(const QStringList &btnsName)
 }
 MainFrame::~MainFrame()
 {}
+
+void MainFrame::setConfrim(const bool confirm)
+{
+    m_shutdownFrame->setConfirm(confirm);
+}
+
+void MainFrame::powerAction(const Actions action)
+{
+    m_shutdownFrame->powerAction(action);
+}

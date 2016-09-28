@@ -25,6 +25,7 @@ public:
 public slots:
     void updateScreenPosition();
     void powerAction(const Actions action);
+    void setConfirm(const bool confrim);
 protected:
     void keyPressEvent(QKeyEvent *e);
 private:
