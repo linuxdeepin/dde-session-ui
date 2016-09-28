@@ -43,7 +43,7 @@ public slots:
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
 
-    void inhibitShutdown();
+    const QString getInhibitReason();
 private:
     void initUI();
     void initConnect();
@@ -65,6 +65,6 @@ private:
     QLabel *m_tipsLabel;
     DBusLogin1Manager* m_login1Inter;
 
-    MultiUsersWarningView *m_warningView = nullptr;
+    QWidget *m_warningView = nullptr;
 };
 #endif // CONTENTVIEWWIDGET

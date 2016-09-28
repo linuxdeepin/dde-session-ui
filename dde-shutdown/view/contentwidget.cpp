@@ -17,6 +17,7 @@
 #include "contentwidget.h"
 #include "accountsutils.h"
 #include "multiuserswarningview.h"
+#include "inhibitwarnview.h"
 
 ShutDownFrame::ShutDownFrame(QWidget *parent)
     : QFrame(parent)
@@ -102,35 +103,70 @@ void ShutDownFrame::disableBtn(const QString &btnName)
 
 void ShutDownFrame::beforeInvokeAction(const Actions action)
 {
+    const QString inhibitReason = getInhibitReason();
     QStringList loggedInUsers = AccountsUtils::GetLoggedInUsers();
 
-    if (loggedInUsers.length() > 1) {
+    // change ui
+    if (!inhibitReason.isEmpty() || loggedInUsers.length() > 1)
+    {
         for (RoundItemButton* btn : *m_btnsList) {
             btn->hide();
         }
 
-        QBoxLayout * mainLayout = qobject_cast<QBoxLayout*>(parentWidget()->layout());
-
         if (m_warningView != nullptr) {
             m_warningView->deleteLater();
+            m_warningView = nullptr;
         }
+    }
 
-        m_warningView = new MultiUsersWarningView;
-        m_warningView->setUsers(loggedInUsers);
-        m_warningView->setAction(action);
+
+    if (!inhibitReason.isEmpty())
+    {
+        QBoxLayout *mainLayout = qobject_cast<QBoxLayout*>(parentWidget()->layout());
+
+        InhibitWarnView *view = new InhibitWarnView;
+        view->setAction(action);
+        view->setInhibitReason(inhibitReason);
+
+        m_warningView = view;
         mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
-        connect(m_warningView, &MultiUsersWarningView::cancelled, [this] {
+        connect(view, &InhibitWarnView::cancelled, [this] {
            qApp->quit();
         });
-        connect(m_warningView, &MultiUsersWarningView::actionInvoked, [this, action] {
+        connect(view, &InhibitWarnView::actionInvoked, [this, action] {
             emit ShutDownFrameActions(action);
         });
 
         m_warningView->show();
-    } else {
-        emit ShutDownFrameActions(action);
+        m_warningView->raise();
+
+        return;
     }
+
+    if (loggedInUsers.length() > 1) {
+
+        QBoxLayout * mainLayout = qobject_cast<QBoxLayout*>(parentWidget()->layout());
+
+        MultiUsersWarningView *view = new MultiUsersWarningView;
+        view->setUsers(loggedInUsers);
+        view->setAction(action);
+        m_warningView = view;
+        mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+
+        connect(view, &MultiUsersWarningView::cancelled, [this] {
+           qApp->quit();
+        });
+        connect(view, &MultiUsersWarningView::actionInvoked, [this, action] {
+            emit ShutDownFrameActions(action);
+        });
+
+        m_warningView->show();
+
+        return;
+    }
+
+    emit ShutDownFrameActions(action);
 }
 
 void ShutDownFrame::initUI() {
@@ -207,15 +243,15 @@ void ShutDownFrame::initUI() {
     m_currentSelectedBtn->updateState(RoundItemButton::Default);
 
     //// Inhibit to shutdown
-    inhibitShutdown();
+    getInhibitReason();
 
-    QTimer* checkTooltip = new QTimer(this);
-    checkTooltip->setInterval(5*60*1000);
-    checkTooltip->start();
-    connect(checkTooltip,  &QTimer::timeout, this, &ShutDownFrame::inhibitShutdown);
+//    QTimer* checkTooltip = new QTimer(this);
+//    checkTooltip->setInterval(5*60*1000);
+//    checkTooltip->start();
+//    connect(checkTooltip,  &QTimer::timeout, this, &ShutDownFrame::inhibitShutdown);
 }
 
-void ShutDownFrame::inhibitShutdown() {
+const QString ShutDownFrame::getInhibitReason() {
     m_login1Inter = new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
     QString reminder_tooltip  = QString();
 
@@ -241,7 +277,8 @@ void ShutDownFrame::inhibitShutdown() {
                 }
             }
             qDebug() << "shutdown Reason!" << reminder_tooltip;
-            showTips(reminder_tooltip);
+//            showTips(reminder_tooltip);
+            return reminder_tooltip;
         } else {
             reminder_tooltip = "";
             qDebug() << reply.error().message();
@@ -250,6 +287,8 @@ void ShutDownFrame::inhibitShutdown() {
         qDebug() << "shutdown login1Manager error!";
         reminder_tooltip = "";
     }
+
+    return reminder_tooltip;
 }
 
 void ShutDownFrame::setPreviousChildFocus()
@@ -291,12 +330,12 @@ void ShutDownFrame::setNextChildFocus()
 void ShutDownFrame::showTips(const QString &tips)
 {
     if (!tips.isEmpty()) {
-        m_tipsLabel->setText(tips);
+//        m_tipsLabel->setText(tips);
         m_tipsWidget->show();
-        m_shutdownButton->setDisabled(true);
-        m_restartButton->setDisabled(true);
-        m_suspendButton->setDisabled(true);
-        m_logoutButton->setDisabled(true);
+//        m_shutdownButton->setDisabled(true);
+//        m_restartButton->setDisabled(true);
+//        m_suspendButton->setDisabled(true);
+//        m_logoutButton->setDisabled(true);
     } else {
         m_tipsWidget->hide();
         m_shutdownButton->setDisabled(false);

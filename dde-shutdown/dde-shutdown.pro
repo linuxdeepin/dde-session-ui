@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     view/mainframe.cpp \
     view/multiuserswarningview.cpp \
     app/shutdownmanager.cpp \
-    app/shutdownframe.cpp
+    app/shutdownframe.cpp \
+    view/inhibitwarnview.cpp
 
 HEADERS  += \
     common.h \
@@ -32,7 +33,8 @@ HEADERS  += \
     view/mainframe.h \
     view/multiuserswarningview.h \
     app/shutdownmanager.h \
-    app/shutdownframe.h
+    app/shutdownframe.h \
+    view/inhibitwarnview.h
 
 RESOURCES += \
     qss.qrc \
