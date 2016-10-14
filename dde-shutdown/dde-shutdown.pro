@@ -46,6 +46,10 @@ service_file.path = /usr/share/dbus-1/services/
 service_file.files = com.deepin.dde.shutdownFront.service
 INSTALLS += service_file
 
-contains(DEFINES, ARCH_MIPSEL) {
+isEqual(ARCH, mips64) | isEqual(ARCH, mips32) {
     DEFINES += SHUTDOWN_NO_QUIT
 }
+isEqual(ARCH, sw_64) {
+    DEFINES -= SHUTDOWN_NO_QUIT
+}
+

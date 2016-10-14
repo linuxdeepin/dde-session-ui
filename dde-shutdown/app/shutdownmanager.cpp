@@ -63,7 +63,7 @@ void ShutdownManager::initUI()
     if (users->count() < 2) {
         m_content->hideBtns(QStringList() << "SwitchUser");
     }
-    users->deleteLater();
+    users->hide();
 
     QFile qssFile(":/skin/main.qss");
     QString qss;
@@ -137,21 +137,21 @@ void ShutdownManager::powerAction(const Actions action)
     // dde-lock showing, since hideEvent enables hot zone, hot zone will
     // take effect while dde-lock is showing.
     this->hide();
-
-    QDBusInterface ifc("com.deepin.dde.lockFront",
-                       "/com/deepin/dde/lockFront",
-                       "com.deepin.dde.lockFront",
-                       QDBusConnection::sessionBus(), NULL);
-
     switch (action) {
     case Shutdown:       m_sessionInterface->RequestShutdown();      break;
     case Restart:        m_sessionInterface->RequestReboot();        break;
     case Suspend:        m_sessionInterface->RequestSuspend();       break;
     case Lock:           m_sessionInterface->RequestLock();          break;
     case Logout:         m_sessionInterface->RequestLogout();        break;
-    case SwitchUser:
+    case SwitchUser: {
+        QDBusInterface ifc("com.deepin.dde.lockFront",
+                           "/com/deepin/dde/lockFront",
+                           "com.deepin.dde.lockFront",
+                           QDBusConnection::sessionBus(), NULL);
+
         ifc.asyncCall("ShowUserList");
         break;
+    }
     default:
         qWarning() << "action: " << action << " not handled";
         break;
