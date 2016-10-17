@@ -313,11 +313,26 @@ void PassWdEdit::setReadOnly(bool value)
 
 void PassWdEdit::setAlert(bool alert, const QString &text)
 {
+    static QTimer * RestoreTimer = nullptr;
+
     if (m_alert == alert) {
         return;
     }
+
     m_alert = alert;
     emit alertChanged(alert);
+
+    if (!RestoreTimer) {
+        RestoreTimer = new QTimer(this);
+        RestoreTimer->setSingleShot(true);
+        RestoreTimer->setInterval(1000 * 60 * 10);
+
+        connect(RestoreTimer, &QTimer::timeout, [this] {
+            setEnabled(true);
+            setReadOnly(false);
+            setAlert(false);
+        });
+    }
 
     if (m_alert) {
         // block text changed signal
@@ -326,6 +341,9 @@ void PassWdEdit::setAlert(bool alert, const QString &text)
         m_lineEdit->blockSignals(false);
         m_lineEdit->setEchoMode(QLineEdit::Normal);
         m_lineEdit->setReadOnly(true);
+
+        // Restore to normal state after 10s.
+        RestoreTimer->start();
     } else {
         m_lineEdit->clear();
         m_lineEdit->setEchoMode(QLineEdit::Password);
