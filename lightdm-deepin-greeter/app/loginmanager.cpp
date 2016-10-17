@@ -102,7 +102,8 @@ static int set_rootwindow_cursor() {
 // Load system cursor --end
 
 LoginManager::LoginManager(QWidget* parent)
-    : QFrame(parent)
+    : QFrame(parent),
+    m_authFailureCount(0)
 {
     recordPid();
 
