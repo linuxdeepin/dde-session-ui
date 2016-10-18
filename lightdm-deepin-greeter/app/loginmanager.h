@@ -54,6 +54,8 @@ public slots:
     void updateBackground(QString username);
     void updateUserLoginCondition(QString username);
 
+    void startSession();
+
 protected:
     void keyPressEvent(QKeyEvent* e) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;

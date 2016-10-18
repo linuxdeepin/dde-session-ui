@@ -166,6 +166,12 @@ void LoginManager::updateUserLoginCondition(QString username)
     m_loginButton->hide();
 }
 
+void LoginManager::startSession()
+{
+    qDebug() << "start session = " << m_sessionWidget->currentSessionName();
+    m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+}
+
 void LoginManager::keyPressEvent(QKeyEvent* e) {
     qDebug() << "qDebug loginManager:" << e->text();
 
@@ -429,6 +435,8 @@ void LoginManager::authenticationComplete()
 
     DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
     m_lockInter.ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
+
+    QTimer::singleShot(100, this, SLOT(startSession()));
 }
 
 void LoginManager::login()
