@@ -87,7 +87,7 @@ void Frame::distUpgrade()
 
             if (status == "succeed" || status == "end" || status.isEmpty()) {
                 // give lastore daemon some time to take care of its business.
-                QTimer::singleShot(1000, this, &Frame::tryReboot);
+                QTimer::singleShot(1000, this, SLOT(tryReboot()));
             }
             if (status == "failed") {
                 // Failed to upgrade, quit the application.

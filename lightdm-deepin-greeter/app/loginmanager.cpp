@@ -429,11 +429,6 @@ void LoginManager::authenticationComplete()
 
     DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
     m_lockInter.ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
-
-    QTimer::singleShot(100, [&] {
-        qDebug() << "session = " << m_sessionWidget->currentSessionName();
-        qDebug() << "start session: " << m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
-    });
 }
 
 void LoginManager::login()
