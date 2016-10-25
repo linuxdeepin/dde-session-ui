@@ -27,7 +27,7 @@ static void ScheduleUpgrade(int secs) {
                              "/com/deepin/LastoreSessionHelper",
                              "com.deepin.LastoreSessionHelper",
                              QDBusConnection::sessionBus());
-    scheduler.call("TimeAfter", secs);
+    scheduler.call("LaterUpgrade", secs);
 }
 
 static bool Upgrading = false;
@@ -94,7 +94,10 @@ int main(int argc, char *argv[])
             QDBusConnection::sessionBus().registerObject("/", d);
         }
 
-        QObject::connect(d, &Dialog::buttonClicked, [](int index, const QString &){
+        bool buttonClicked = false;
+        QObject::connect(d, &Dialog::buttonClicked, [&buttonClicked](int index, const QString &){
+            buttonClicked = true;
+
             Frame * f = new Frame;
             switch (index) {
             case 0:
@@ -115,9 +118,11 @@ int main(int argc, char *argv[])
             }
         });
 
-        QObject::connect(d, &Dialog::aboutToClose, []{
-            // remind later;
-            UpgradeRemindMeLater();
+        QObject::connect(d, &Dialog::aboutToClose, [&buttonClicked]{
+            if (!buttonClicked) {
+                // remind later;
+                UpgradeRemindMeLater();
+            }
         });
     }
 
