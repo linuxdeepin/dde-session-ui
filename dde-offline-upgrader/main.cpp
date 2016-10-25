@@ -75,12 +75,12 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    /* No need to do this, lastore-session-helper will do this before launch this program.
+    // Double check if there're upgradable packages available before the
+    // GUI show.
     if (!DownloadedPackagesAvailable()) {
         qDebug() << "No downloaded packages available.";
         return 0;
     }
-    */
 
     if (parser.isSet(noAskOption)) {
         Frame * f = new Frame;
