@@ -13,13 +13,17 @@ DWIDGET_USE_NAMESPACE
 DUTIL_USE_NAMESPACE
 
 static bool DownloadedPackagesAvailable() {
-    DBusUpdateJobManager manager("com.deepin.lastore",
-                                 "/com/deepin/lastore",
-                                 QDBusConnection::systemBus());
-    QDBusObjectPath path;
-    bool result = manager.CheckDownloadUpgradablePackagesJob(path);
+    QDBusInterface scheduler("com.deepin.LastoreSessionHelper",
+                             "/com/deepin/LastoreSessionHelper",
+                             "com.deepin.LastoreSessionHelper",
+                             QDBusConnection::sessionBus());
+    QDBusMessage msg = scheduler.call("CheckPrepareDistUpgradeJob");
+    QVariantList args = msg.arguments();
+    if (args.length() > 1) {
+        return args.at(0).toBool();
+    }
 
-    return result;
+    return false;
 }
 
 static void ScheduleUpgrade(int secs) {
