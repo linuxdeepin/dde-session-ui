@@ -85,7 +85,7 @@ void Frame::distUpgrade()
             const QString status = job->status();
             qDebug() << "job status changed: " << status;
 
-            if (status == "succeed" || status == "end" || status.isEmpty()) {
+            if (status == "succeed") {
                 // give lastore daemon some time to take care of its business.
                 QTimer::singleShot(1000, this, SLOT(tryReboot()));
             }
@@ -122,4 +122,7 @@ void Frame::tryReboot()
             manager->Reboot(false);
         }
     });
+
+    // Try again.
+    QTimer::singleShot(1000, this, SLOT(tryReboot()));
 }
