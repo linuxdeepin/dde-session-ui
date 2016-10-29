@@ -68,7 +68,11 @@ void Frame::distUpgrade()
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(m_dbusJobManagerInter->DistUpgrade(), this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher] {
         const QDBusPendingReply<QDBusObjectPath> &reply = *watcher;
-        if (reply.isError()) return;
+        if (reply.isError()) {
+            qDebug() << reply.error().message();
+            qDebug() << "Quiting the program due to last error.";
+            qApp->quit();
+        }
 
         const QDBusObjectPath &path = reply.value();
         qDebug() << "distupgrade, getting job path " << path.path();
