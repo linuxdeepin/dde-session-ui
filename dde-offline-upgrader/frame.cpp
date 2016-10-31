@@ -113,14 +113,16 @@ void Frame::updateProgress(double progress)
 
 void Frame::tryReboot()
 {
+    static int TryRebootTimes = 1;
+
     DBusLogin1Manager * manager = new DBusLogin1Manager("org.freedesktop.login1",
                                                         "/org/freedesktop/login1",
                                                         QDBusConnection::systemBus());
 
-    qDebug() << "try to reboot the machine";
+    qDebug() << "try to reboot the machine for the " << TryRebootTimes << " time";
+    TryRebootTimes++;
     manager->Reboot(false);
 
-    qDebug() << "failed to reboot the machine, there must be some inhibitors, wait for them";
     connect(manager, &DBusLogin1Manager::BlockInhibitedChanged, [manager] {
         if (manager->blockInhibited().isEmpty()) {
             manager->Reboot(false);

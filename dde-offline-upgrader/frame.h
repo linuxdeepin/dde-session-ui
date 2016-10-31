@@ -28,6 +28,7 @@ private:
     QLabel * m_warningTip;
     DBusUpdateJobManager *m_dbusJobManagerInter;
 
+private slots:
     void updateProgress(double progress);
     void tryReboot();
 };

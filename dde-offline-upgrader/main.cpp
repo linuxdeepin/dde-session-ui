@@ -102,6 +102,13 @@ int main(int argc, char *argv[])
         QObject::connect(d, &Dialog::buttonClicked, [&buttonClicked](int index, const QString &){
             buttonClicked = true;
 
+            // Triple check if there're upgradable packages available before the actual
+            // actions taken.
+            if (!DownloadedPackagesAvailable()) {
+                qDebug() << "No downloaded packages available.";
+                return 0;
+            }
+
             Frame * f = new Frame;
             switch (index) {
             case 0:
