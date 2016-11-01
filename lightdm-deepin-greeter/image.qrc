@@ -1,8 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>img/Deepin_indicator_hover.png</file>
-        <file>img/Deepin_indicator_normal.png</file>
-        <file>img/Deepin_indicator_press.png</file>
+        <file>img/deepin_indicator_hover.png</file>
+        <file>img/deepin_indicator_normal.png</file>
+        <file>img/deepin_indicator_press.png</file>
         <file>img/deepin2D.png</file>
         <file>img/enlightenment_indicator_hover.png</file>
         <file>img/enlightenment_indicator_normal.png</file>
@@ -13,6 +13,9 @@
         <file>img/gnome_indicator_hover.png</file>
         <file>img/gnome_indicator_normal.png</file>
         <file>img/gnome_indicator_press.png</file>
+        <file>img/plasma_indicator_normal.png</file>
+        <file>img/plasma_indicator_hover.png</file>
+        <file>img/plasma_indicator_press.png</file>
         <file>img/kde_indicator_hover.png</file>
         <file>img/kde_indicator_normal.png</file>
         <file>img/kde_indicator_press.png</file>

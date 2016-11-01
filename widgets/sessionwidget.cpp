@@ -32,12 +32,9 @@ SessionWidget::SessionWidget(QWidget *parent)
     for (int i(0); i != count; ++i)
     {
         const QString &session = m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString();
-        qDebug() << "output session:" << Qt::DisplayRole << m_sessionModel->index(i)
-                 <<  m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole)
-                 << session;
-        QString tmpSession = processSessionName(session);
+        QString tmpSession = processSessionName(session).toLower();
 
-        qDebug() << "tmpSession:" << tmpSession;
+        qDebug() << "found session: " << tmpSession;
         RoundItemButton *sbtn = new RoundItemButton(session, this);
         sbtn->setFixedSize(SessionButtonWidth, SessionButtonHeight);
         sbtn->hide();

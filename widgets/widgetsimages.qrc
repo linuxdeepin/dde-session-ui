@@ -2,9 +2,9 @@
     <qresource prefix="/">
         <file>img/facelogin_animation.png</file>
         <file>img/capslock.png</file>
-        <file>img/sessions_icon/Deepin_hover.png</file>
-        <file>img/sessions_icon/Deepin_normal.png</file>
-        <file>img/sessions_icon/Deepin_press.png</file>
+        <file>img/sessions_icon/deepin_hover.png</file>
+        <file>img/sessions_icon/deepin_normal.png</file>
+        <file>img/sessions_icon/deepin_press.png</file>
         <file>img/sessions_icon/enlightenment_hover.png</file>
         <file>img/sessions_icon/enlightenment_normal.png</file>
         <file>img/sessions_icon/enlightenment_press.png</file>
@@ -15,6 +15,9 @@
         <file>img/sessions_icon/ubuntu_hover.png</file>
         <file>img/sessions_icon/lxde_press.png</file>
         <file>img/sessions_icon/lxde_hover.png</file>
+        <file>img/sessions_icon/plasma_press.png</file>
+        <file>img/sessions_icon/plasma_normal.png</file>
+        <file>img/sessions_icon/plasma_hover.png</file>
         <file>img/sessions_icon/kde_press.png</file>
         <file>img/sessions_icon/kde_normal.png</file>
         <file>img/sessions_icon/kde_hover.png</file>

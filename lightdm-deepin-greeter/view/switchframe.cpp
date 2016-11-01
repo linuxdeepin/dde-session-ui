@@ -164,14 +164,16 @@ SwitchFrame::~SwitchFrame()
 
 void SwitchFrame::chooseToSession(const QString &session)
 {
+    qDebug() << "choosed session: " << session;
     if (session.isEmpty())
         return;
 
     m_tipsLabel->setText(session);
 
-    const QString normalIcon = QString(":/img/%1_indicator_normal.png").arg(session);
-    const QString hoverIcon = QString(":/img/%1_indicator_hover.png").arg(session);
-    const QString checkedIcon = QString(":/img/%1_indicator_press.png").arg(session);
+    const QString sessionId = session.toLower();
+    const QString normalIcon = QString(":/img/%1_indicator_normal.png").arg(sessionId);
+    const QString hoverIcon = QString(":/img/%1_indicator_hover.png").arg(sessionId);
+    const QString checkedIcon = QString(":/img/%1_indicator_press.png").arg(sessionId);
 
     if (QFile(normalIcon).exists() && QFile(hoverIcon).exists() && QFile(checkedIcon).exists()) {
 #ifndef SHENWEI_PLATFORM
