@@ -1,0 +1,1 @@
+debian/60-lightdm-deepin-greeter.conf /usr/share/lightdm/lightdm.conf.d/

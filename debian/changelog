@@ -1,0 +1,161 @@
+dde-session-ui (3.0.14) unstable; urgency=low
+
+  * Autobuild Tag 3.0.14 
+
+ -- TagBuilder <tagbuilder@deepin.com>  Fri, 12 Aug 2016 18:58:15 +0000
+
+dde-session-ui (3.0.13-1) unstable; urgency=low
+
+  * Autobuild Tag 3.0.13 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Wed, 01 Jun 2016 02:38:54 +0000
+
+dde-session-ui (3.0.12-2) unstable; urgency=low
+
+  * Rebuild Version 3.0.12 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Wed, 25 May 2016 17:01:56 +0000
+
+dde-session-ui (3.0.12-1) unstable; urgency=low
+
+  * Autobuild Tag 3.0.12 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 23 May 2016 16:05:55 +0000
+
+dde-session-ui (3.0.11-1) unstable; urgency=low
+
+  * Autobuild Tag 3.0.11 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 23 May 2016 12:33:32 +0000
+
+dde-session-ui (3.0.9-3) stable; urgency=low
+
+  * Rebuild Version 3.0.9 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 25 Apr 2016 11:20:29 +0000
+
+dde-session-ui (3.0.9-2) stable; urgency=low
+
+  * Rebuild Version 3.0.9 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Thu, 21 Apr 2016 16:16:31 +0000
+
+dde-session-ui (3.0.9-1) stable; urgency=low
+
+  * Autobuild Tag 3.0.9 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 07 Mar 2016 15:48:06 +0000
+
+dde-session-ui (3.0.8-1) stable; urgency=low
+
+  * Autobuild Tag 3.0.8 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Thu, 25 Feb 2016 09:51:31 +0000
+
+dde-session-ui (3.0.7-1) stable; urgency=low
+
+  * Autobuild Tag 3.0.7 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 22 Feb 2016 16:41:00 +0000
+
+dde-session-ui (3.0.6-1) stable; urgency=low
+
+  * Autobuild Tag 3.0.6 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Wed, 27 Jan 2016 18:51:46 +0000
+
+dde-session-ui (3.0.5-1) stable; urgency=low
+
+  * Autobuild Tag 3.0.5 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Fri, 22 Jan 2016 19:51:31 +0000
+
+dde-session-ui (3.0.4-1) stable; urgency=low
+
+  * Autobuild Tag 3.0.4 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Tue, 12 Jan 2016 18:30:32 +0000
+
+dde-session-ui (3.0.3-1) stable; urgency=low
+
+  * Autobuild Tag 3.0.3 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Wed, 06 Jan 2016 16:42:53 +0000
+
+dde-session-ui (3.0.2-1) stable; urgency=low
+
+  * Autobuild Tag 3.0.2 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Wed, 30 Dec 2015 15:34:34 +0000
+
+dde-session-ui (3.0.1-1) stable; urgency=low
+
+  * Autobuild Tag 3.0.1 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Tue, 29 Dec 2015 21:39:51 +0000
+
+dde-session-ui (3.0.0-1) stable; urgency=low
+
+  * Autobuild Tag 3.0.0 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 28 Dec 2015 21:04:09 +0000
+
+dde-session-ui (2.90.4-5) stable; urgency=low
+
+  * Rebuild Version 2.90.4 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Tue, 22 Dec 2015 13:21:35 +0000
+
+dde-session-ui (2.90.4-4) stable; urgency=low
+
+  * Rebuild Version 2.90.4 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 21 Dec 2015 22:42:09 +0000
+
+dde-session-ui (2.90.4-3) stable; urgency=low
+
+  * Rebuild Version 2.90.4 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Sun, 20 Dec 2015 11:30:22 +0000
+
+dde-session-ui (2.90.4-2) stable; urgency=low
+
+  * Rebuild Version 2.90.4 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Sun, 20 Dec 2015 10:33:28 +0000
+
+dde-session-ui (2.90.4-1) stable; urgency=low
+
+  * Autobuild Tag 2.90.4 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Sat, 19 Dec 2015 13:07:13 +0000
+
+dde-session-ui (2.90.3-1) stable; urgency=low
+
+  * Autobuild Tag 2.90.3 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Wed, 09 Dec 2015 22:05:31 +0000
+
+dde-session-ui (2.90.2-1) stable; urgency=low
+
+  * Autobuild Tag 2.90.2 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Fri, 20 Nov 2015 17:03:09 +0000
+
+dde-session-ui (2.90.1-2) stable; urgency=low
+
+  * Rebuild Version 2.90.1 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Fri, 20 Nov 2015 11:58:05 +0000
+
+dde-session-ui (2.90.1-1) stable; urgency=low
+
+  * Autobuild Tag 2.90.1 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Fri, 20 Nov 2015 09:47:11 +0000
+
+dde-session-ui (0.0~git20150824-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Deepin Packages Builder <packages@linuxdeepin.com>  Mon, 24 Aug 2015 19:03:01 +0800
