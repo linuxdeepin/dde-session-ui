@@ -11,6 +11,9 @@
 #define SHUTDOWNFRAME
 
 #include <QFrame>
+
+#include <com_deepin_wm.h>
+
 #include "boxframe.h"
 #include "shutdownmanager.h"
 
@@ -30,7 +33,7 @@ protected:
     void keyPressEvent(QKeyEvent *e);
 private:
     ShutdownManager* m_shutdownManager;
-    QGSettings *m_gsettings;
+    com::deepin::wm *m_wmInter;
 
     void initShutdownManager();
     void initBackground();
