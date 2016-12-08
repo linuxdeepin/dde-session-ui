@@ -10,7 +10,6 @@
 #ifndef SWITCHNORMAL_H
 #define SWITCHNORMAL_H
 
-#include "dbus/volumedbus.h"
 #include <QWidget>
 #include <QSvgWidget>
 #include <QLabel>

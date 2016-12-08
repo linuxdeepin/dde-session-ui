@@ -9,6 +9,9 @@
 
 #include "switchnormal.h"
 
+#include <com_deepin_daemon_audio.h>
+#include <com_deepin_daemon_audio_sink.h>
+
 extern QString getThemeIconPath(QString iconName);
 extern void showThemeImage(QString iconName, QSvgWidget* svgLoader, QLabel* notSvgLoader);
 
@@ -75,19 +78,16 @@ void SwitchNormal::showText(QString text){
 void SwitchNormal::loadBasicImage(QString whichImage)
 {
     showNormal();
-    // DbusInterface to get defalut sink, which is usabel when computer has more than 1 sound card
-    QDBusInterface audioInterface("com.deepin.daemon.Audio",
-                                          "/com/deepin/daemon/Audio",
-                                          "",QDBusConnection::sessionBus(),this);
-    // default sink path
-    QString defautSinkPath = qvariant_cast<QDBusObjectPath>(audioInterface.call("GetDefaultSink").arguments()[0]).path();
-    VolumeDbus volumeInterface("com.deepin.daemon.Audio",
-                               defautSinkPath,
-                               QDBusConnection::sessionBus(), this);
+
+    com::deepin::daemon::Audio audioInterface("com.deepin.daemon.Audio",
+                                              "/com/deepin/daemon/Audio",
+                                              QDBusConnection::sessionBus(),this);
+    com::deepin::daemon::audio::Sink volumeInterface("com.deepin.daemon.Audio",
+                                                     audioInterface.defaultSink().path(),
+                                                     QDBusConnection::sessionBus(), this);
     // TODO: can not read the status first time.
     m_CanAudioMuteRun = volumeInterface.mute();
-    m_CanAudioMuteRun = volumeInterface.mute();
-    m_CanAudioMuteRun = volumeInterface.mute();
+
     if (whichImage == "Brightness") {
         showThemeImage(getThemeIconPath("display-brightness-symbolic"), m_NormalImageSvg, m_NormalImageLabel);
     } else if (whichImage == "AudioMute") {
@@ -112,14 +112,12 @@ void SwitchNormal::loadBasicImage(QString whichImage)
 }
 
 double SwitchNormal::getVolume(){
-    QDBusInterface audioInterface("com.deepin.daemon.Audio",
-                                          "/com/deepin/daemon/Audio",
-                                          "",QDBusConnection::sessionBus(),this);
-    // DbusInterface to get defalut sink, which is usabel when computer has more than 1 sound card
-    QString defautSinkPath = qvariant_cast<QDBusObjectPath>(audioInterface.call("GetDefaultSink").arguments()[0]).path();
-    VolumeDbus volumeInterface("com.deepin.daemon.Audio",
-                               defautSinkPath,
-                               QDBusConnection::sessionBus(), this);
+    com::deepin::daemon::Audio audioInterface("com.deepin.daemon.Audio",
+                                              "/com/deepin/daemon/Audio",
+                                              QDBusConnection::sessionBus(),this);
+    com::deepin::daemon::audio::Sink volumeInterface("com.deepin.daemon.Audio",
+                                                     audioInterface.defaultSink().path(),
+                                                     QDBusConnection::sessionBus(), this);
     return volumeInterface.volume();
 }
 
