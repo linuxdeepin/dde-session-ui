@@ -1,0 +1,26 @@
+Source: dde-session-ui
+Section: dde
+Priority: optional
+Maintainer: Deepin Sysdev <sysdev@deepin.com>
+Build-Depends: debhelper (>= 8.0.0), pkg-config, dpkg-dev,
+ qt5-qmake, qt5-default, qtbase5-dev, liblightdm-qt5-3-dev,
+ libxcb-ewmh-dev, libqt5x11extras5-dev, libgsettings-qt-dev,
+ libqt5svg5-dev,liblightdm-qt5-3-dev, libglib2.0-dev,
+ libdtkbase-dev, libdtkutil-dev, libdtkwidget-dev,
+ libgtk2.0-dev, qttools5-dev-tools, libpam0g-dev,libsystemd-dev,
+Standards-Version: 3.9.4
+Homepage: http://www.deepin.org/
+
+Package: dde-session-ui
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, deepin-desktop-schemas (>= 2.91.2), dde-daemon, x11-xserver-utils, libpam0g
+Provides: lightdm-greeter
+Conflicts: dde-workspace, startdde (<< 2.91.1)
+Breaks: dde-workspace, startdde(<< 2.91.1)
+Description: deepin desktop-environment - dde-session-ui module
+ Deepin desktop environment 2015 - dde-session-ui module.
+
+Package: dde-session-ui-dbg
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, dde-session-ui(= ${binary:Version})
+Description: deepin desktop-environment - dde-session-ui dbg module

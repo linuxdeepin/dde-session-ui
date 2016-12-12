@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+include /usr/share/dpkg/default.mk
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_configure:
+	dh_auto_configure -- SHUTDOWN_NO_QUIT=YES LOCK_NO_QUIT=YES
+
+override_dh_strip:
+	dh_strip 
+
+override_dh_insall:
+	dh_install debian/60-lightdm-deepin-greeter.conf usr/share/lightdm/lightdm.conf.d/
