@@ -17,14 +17,17 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
 
     m_reasonLbl->setText("The reason of inhibit.");
     m_reasonLbl->setAlignment(Qt::AlignCenter);
-    m_reasonLbl->setStyleSheet("color:white;");
+    m_reasonLbl->setStyleSheet("color:white;"
+                               "font-size:14px;");
 
     QLabel *cancenLbl = new QLabel;
     cancenLbl->setAlignment(Qt::AlignCenter);
     cancenLbl->setText(tr("Cancel"));
-    cancenLbl->setStyleSheet("color:white;");
+    cancenLbl->setStyleSheet("color:white;"
+                             "font-size:14px;");
 
-    m_acceptLbl->setStyleSheet("color:white;");
+    m_acceptLbl->setStyleSheet("color:white;"
+                               "font-size:14px;");
 
     QVBoxLayout *cancelLayout = new QVBoxLayout;
     cancelLayout->addWidget(m_cancelBtn);
