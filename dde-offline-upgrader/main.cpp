@@ -71,11 +71,16 @@ int main(int argc, char *argv[])
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
-    if (!a.setSingleInstance(a.applicationName())) {
-        qDebug() << "Another instance is running, raise it's window.";
-        QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.OfflineUpgrader "
-                                "/ "
-                                "com.deepin.dde.OfflineUpgrader.RaiseWindow");
+    if (!QDBusConnection::sessionBus().registerService("com.deepin.dde.OfflineUpgrader")) {
+        qDebug() << "Another process has taken our service name.";
+
+        if (!a.setSingleInstance(a.applicationName())) {
+            qDebug() << "Another instance is running, raise it's window.";
+            QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.OfflineUpgrader "
+                                    "/ "
+                                    "com.deepin.dde.OfflineUpgrader.RaiseWindow");
+        }
+
         return 0;
     }
 
@@ -94,9 +99,7 @@ int main(int argc, char *argv[])
         Dialog * d = new Dialog;
         d->show();
 
-        if (QDBusConnection::sessionBus().registerService("com.deepin.dde.OfflineUpgrader")) {
-            QDBusConnection::sessionBus().registerObject("/", d);
-        }
+        QDBusConnection::sessionBus().registerObject("/", d);
 
         bool buttonClicked = false;
         QObject::connect(d, &Dialog::buttonClicked, [&buttonClicked](int index, const QString &){
