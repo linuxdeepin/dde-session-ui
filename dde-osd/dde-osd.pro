@@ -17,15 +17,11 @@ PKGCONFIG += gtk+-2.0 dframeworkdbus
 
 SOURCES += main.cpp\
         osd.cpp \
-    dbus/layoutdbus.cpp \
-    dbus/displaydbus.cpp \
     switchlayout.cpp \
     switchmonitor.cpp \
     switchnormal.cpp
 
 HEADERS  += osd.h \
-    dbus/layoutdbus.h \
-    dbus/displaydbus.h \
     switchlayout.h \
     switchmonitor.h \
     switchnormal.h

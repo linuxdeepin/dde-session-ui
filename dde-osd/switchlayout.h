@@ -10,13 +10,16 @@
 #ifndef SWITCHLAYOUT_H
 #define SWITCHLAYOUT_H
 
-#include "dbus/layoutdbus.h"
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QWidget>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVariantAnimation>
+
+#include <com_deepin_daemon_inputdevice_keyboard.h>
+
+using LayoutDbus = com::deepin::daemon::inputdevice::Keyboard;
 
 class SwitchLayout : public QWidget
 {

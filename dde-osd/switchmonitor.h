@@ -10,12 +10,15 @@
 #ifndef SWITCHMONITOR_H
 #define SWITCHMONITOR_H
 
-#include "dbus/displaydbus.h"
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QSvgWidget>
+
+#include <com_deepin_daemon_display.h>
+
+using DisplayDbus = com::deepin::daemon::Display;
 
 class SwitchMonitor : public QWidget
 {
