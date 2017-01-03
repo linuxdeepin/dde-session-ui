@@ -14,12 +14,14 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    SuspendDialog w;
-    int code = w.exec();
+    Manager manager;
+    QObject::connect(&manager, &Manager::finished, [] (const int code) {
+        if (code == 0) {
+            qApp->exit(1);
+        } else {
+            qApp->exit(0);
+        }
+    });
 
-    if (code == 0) {
-        return -1;
-    } else {
-        return 0;
-    }
+    return a.exec();
 }

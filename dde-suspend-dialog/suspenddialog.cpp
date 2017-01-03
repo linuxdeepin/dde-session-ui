@@ -9,8 +9,14 @@
 
 #include "suspenddialog.h"
 
-SuspendDialog::SuspendDialog()
+#include <QApplication>
+#include <QDesktopWidget>
+
+#include <QDebug>
+
+SuspendDialog::SuspendDialog(QRect screenGeometry)
     : DDialog(tr("External monitor detected, suspend?"), tr("%1s").arg(15)),
+      m_screenGeometry(screenGeometry),
       m_timerTick(0)
 {
     QIcon icon( QIcon::fromTheme("system-settings") );
@@ -34,7 +40,27 @@ SuspendDialog::SuspendDialog()
     m_timer.start();
 }
 
-SuspendDialog::~SuspendDialog()
+void SuspendDialog::showEvent(QShowEvent *event)
 {
+    DDialog::showEvent(event);
 
+    move(m_screenGeometry.center() - rect().center());
+}
+
+Manager::Manager()
+{
+    setupDialogs();
+}
+
+void Manager::setupDialogs()
+{
+    const QDesktopWidget *desktop = QApplication::desktop();
+    for (int i = 0; i < desktop->screenCount(); i++) {
+        const QRect geom = desktop->screenGeometry(i);
+
+        SuspendDialog *dialog = new SuspendDialog(geom);
+        dialog->show();
+
+        connect(dialog, &SuspendDialog::finished, this, &Manager::finished);
+    }
 }
