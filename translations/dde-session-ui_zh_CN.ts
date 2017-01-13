@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
     <name>Dialog</name>
     <message>
@@ -32,7 +30,7 @@
         <translation>请不要拔掉电源或强行关机</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="107"/>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
         <source>Installing updates %1%, please wait...</source>
         <translation>正在安装更新%1%，请稍候......</translation>
     </message>
@@ -40,7 +38,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="24"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="25"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -76,17 +74,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="247"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="254"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="418"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="425"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="430"/>
         <source>Please retry after 10 minutes</source>
         <translation>10分钟后再尝试</translation>
     </message>
@@ -122,12 +120,12 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="92"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>此电脑还有以上帐户在登录，关闭电脑会导致其数据丢失，是否要关闭此电脑？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>此电脑还有以上帐户在登录，重启电脑会导致其数据丢失，是否要重启此电脑？</translation>
     </message>
@@ -169,12 +167,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="203"/>
         <source>Are you sure to shut down the machine?</source>
-        <translation>您确定要关机吗？</translation>
+        <translation>你确定要关闭计算机？</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="208"/>
         <source>Are you sure to restart the machine?</source>
-        <translation>您确定要重启吗？</translation>
+        <translation>你确定要重启机器？</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
@@ -211,6 +209,30 @@
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="37"/>
+        <source>Suspend</source>
+        <translation>待机</translation>
+    </message>
+</context>
+<context>
+    <name>SuspendDialog</name>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
+        <source>External monitor detected, suspend?</source>
+        <translation>检测到外部显示器，是否待机？</translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
+        <source>%1s</source>
+        <translation>%1秒</translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Suspend</source>
         <translation>待机</translation>
     </message>

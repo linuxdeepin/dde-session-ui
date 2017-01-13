@@ -30,35 +30,43 @@
         <translation>Non spegnere o scollegare il PC</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="107"/>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
         <source>Installing updates %1%, please wait...</source>
         <translation>Installazione aggiornamenti %1%, attendere prego...</translation>
     </message>
 </context>
 <context>
+    <name>InhibitWarnView</name>
+    <message>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="25"/>
+        <source>Cancel</source>
+        <translation>Cancella</translation>
+    </message>
+</context>
+<context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="126"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="128"/>
         <source>Login</source>
         <translation>Login</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="375"/>
         <source>Wrong Password</source>
         <translation>Password errata</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="378"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="380"/>
         <source>Please retry after 10 minutes</source>
         <translation>Riprova tra 10 minuti</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="510"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="513"/>
         <source>Enter your password to restart</source>
         <translation>Inserisci la password per riavviare</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="513"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="516"/>
         <source>Enter your password to shutdown</source>
         <translation>Inserisci la password per spegnere</translation>
     </message>
@@ -66,17 +74,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="247"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="254"/>
         <source>Login</source>
         <translation>Login</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="418"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="425"/>
         <source>Wrong Password</source>
         <translation>Password errata</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="430"/>
         <source>Please retry after 10 minutes</source>
         <translation>Riprova tra 10 minuti</translation>
     </message>
@@ -112,12 +120,12 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="92"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>L&apos;utente qui sopra è ancora loggato ed i suoi dati saranno persi, sicuro di voler spegnere?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>L&apos;utente qui sopra è ancora loggato ed i suoi dati saranno persi, sicuro di voler riavviare?</translation>
     </message>
@@ -143,32 +151,46 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="202"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="232"/>
         <source>Shut down</source>
         <translation>Spegni</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="152"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="207"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="235"/>
         <source>Restart</source>
         <translation>Riavvia</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="203"/>
+        <source>Are you sure to shut down the machine?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="208"/>
+        <source>Are you sure to restart the machine?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
         <source>Suspend</source>
         <translation>Sospendi</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="147"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="241"/>
         <source>Lock</source>
         <translation>Blocca</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
         <source>Log out</source>
         <translation>Logout</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="154"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="248"/>
         <source>Switch user</source>
         <translation>Cambia utente</translation>
     </message>
@@ -187,6 +209,30 @@
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="37"/>
+        <source>Suspend</source>
+        <translation>Sospendi</translation>
+    </message>
+</context>
+<context>
+    <name>SuspendDialog</name>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
+        <source>External monitor detected, suspend?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
+        <source>%1s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
+        <source>Cancel</source>
+        <translation>Cancella</translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Suspend</source>
         <translation>Sospendi</translation>
     </message>
@@ -220,14 +266,14 @@
 <context>
     <name>WallpaperItem</name>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="53"/>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="73"/>
         <source>Only desktop</source>
-        <translation type="unfinished"/>
+        <translation>Solo desktop</translation>
     </message>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="56"/>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="76"/>
         <source>Only lock screen</source>
-        <translation type="unfinished"/>
+        <translation>Solo lockscreen</translation>
     </message>
 </context>
 <context>

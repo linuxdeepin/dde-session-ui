@@ -4,7 +4,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation type="unfinished"/>
+        <translation>Atnaujinimai yra atsiųsti. Paleisti iš naujo, kad būtų atnaujinta?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
@@ -27,38 +27,46 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation type="unfinished"/>
+        <translation>Neišjunkite kompiuterį ir neištraukite kištuką</translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="107"/>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
         <source>Installing updates %1%, please wait...</source>
         <translation>Įdiegiami atnaujinimai %1%, prašome palaukti...</translation>
     </message>
 </context>
 <context>
+    <name>InhibitWarnView</name>
+    <message>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="25"/>
+        <source>Cancel</source>
+        <translation>Atsisakyti</translation>
+    </message>
+</context>
+<context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="126"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="128"/>
         <source>Login</source>
         <translation>Prisijungti</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="375"/>
         <source>Wrong Password</source>
         <translation>Neteisingas slaptažodis</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="378"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="380"/>
         <source>Please retry after 10 minutes</source>
         <translation>Prašome bandyti vėl po 10 minučių</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="510"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="513"/>
         <source>Enter your password to restart</source>
         <translation>Įrašykite savo slaptažodį, kad paleistumėte iš naujo</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="513"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="516"/>
         <source>Enter your password to shutdown</source>
         <translation>Įrašykite savo slaptažodį, kad išjungtumėte</translation>
     </message>
@@ -66,17 +74,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="247"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="254"/>
         <source>Login</source>
         <translation>Prisijungti</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="418"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="425"/>
         <source>Wrong Password</source>
         <translation>Neteisingas slaptažodis</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="430"/>
         <source>Please retry after 10 minutes</source>
         <translation>Prašome bandyti vėl po 10 minučių</translation>
     </message>
@@ -112,12 +120,12 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="92"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>Aukščiau paminėti naudotojai išlieka prisijungę ir dėl išjungimo praras duomenis, ar tikrai norite išjungti?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>Aukščiau paminėti naudotojai išlieka prisijungę ir dėl paleidimo iš naujo praras duomenis, ar tikrai norite paleisti iš naujo?</translation>
     </message>
@@ -143,32 +151,46 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="138"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="202"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="232"/>
         <source>Shut down</source>
         <translation>Išjungti</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="141"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="152"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="207"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="235"/>
         <source>Restart</source>
         <translation>Paleisti iš naujo</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="144"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="203"/>
+        <source>Are you sure to shut down the machine?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="208"/>
+        <source>Are you sure to restart the machine?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
         <source>Suspend</source>
         <translation>Pristabdyti</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="147"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="241"/>
         <source>Lock</source>
         <translation>Užrakinti</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
         <source>Log out</source>
         <translation>Atsijungti</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="154"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="248"/>
         <source>Switch user</source>
         <translation>Perjungti naudotoją</translation>
     </message>
@@ -187,6 +209,30 @@
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="37"/>
+        <source>Suspend</source>
+        <translation>Pristabdyti</translation>
+    </message>
+</context>
+<context>
+    <name>SuspendDialog</name>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
+        <source>External monitor detected, suspend?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
+        <source>%1s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
+        <source>Cancel</source>
+        <translation>Atsisakyti</translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Suspend</source>
         <translation>Pristabdyti</translation>
     </message>
@@ -220,14 +266,14 @@
 <context>
     <name>WallpaperItem</name>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="53"/>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="73"/>
         <source>Only desktop</source>
-        <translation type="unfinished"/>
+        <translation>Tik darbalaukis</translation>
     </message>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="56"/>
+        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="76"/>
         <source>Only lock screen</source>
-        <translation type="unfinished"/>
+        <translation>Tik užrakinimo ekranas</translation>
     </message>
 </context>
 <context>
@@ -235,7 +281,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="23"/>
         <source>Low battery, please plug in</source>
-        <translation type="unfinished"/>
+        <translation>Žema baterijos įkrova, prašome prijungti prie maitinimo šaltinio</translation>
     </message>
 </context>
 </TS>

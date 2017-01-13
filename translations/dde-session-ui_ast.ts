@@ -1,25 +1,25 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="pl" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ast" version="2.1">
 <context>
     <name>Dialog</name>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Pobrano aktualizacje. Czy uruchomić ponownie, aby zaktualizować?</translation>
+        <translation>Baxáronse los anovamientos, ¿reaniciar p&apos;anovar?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
         <source>Remind Later</source>
-        <translation>Przypomnij później</translation>
+        <translation>Recordar más sero</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
         <source>Update Now</source>
-        <translation>Aktualizuj teraz</translation>
+        <translation>Anovar agora</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
         <source>Not Now</source>
-        <translation>Nie teraz</translation>
+        <translation>Agora non</translation>
     </message>
 </context>
 <context>
@@ -27,12 +27,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Prosimy nie wyłączać ani nie odłączać swojego komputera</translation>
+        <translation>Nun apagues o desenchufes la to máquina</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>Zainstalowano aktualizacje w %1%, prosimy czekać...</translation>
+        <translation>Instalando anovamientos %1%, espera por favor...</translation>
     </message>
 </context>
 <context>
@@ -40,7 +40,7 @@
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="25"/>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Encaboxar</translation>
     </message>
 </context>
 <context>
@@ -48,27 +48,27 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="128"/>
         <source>Login</source>
-        <translation>Zaloguj</translation>
+        <translation>Aniciar sesión</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="375"/>
         <source>Wrong Password</source>
-        <translation>Błędne hasło</translation>
+        <translation>Contraseña incorreuta</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="380"/>
         <source>Please retry after 10 minutes</source>
-        <translation>Prosimy ponowić za 10 minut</translation>
+        <translation>Volvi tentalo dempués de 10 minutos, por favor</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="513"/>
         <source>Enter your password to restart</source>
-        <translation>Podaj swoje hasło, aby uruchomić ponownie</translation>
+        <translation>Introduz la to contraseña pa reaniciar</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="516"/>
         <source>Enter your password to shutdown</source>
-        <translation>Podaj swoje hasło, aby wyłączyć</translation>
+        <translation>Introduz la to contraseña p&apos;apagar</translation>
     </message>
 </context>
 <context>
@@ -76,17 +76,17 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="254"/>
         <source>Login</source>
-        <translation>Logowanie</translation>
+        <translation>Aniciar sesión</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="425"/>
         <source>Wrong Password</source>
-        <translation>Błędne hasło</translation>
+        <translation>Contraseña incorreuta</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="430"/>
         <source>Please retry after 10 minutes</source>
-        <translation>Prosimy ponowić za 10 minut</translation>
+        <translation>Volvi tentalo dempués de 10 minutos, por favor</translation>
     </message>
 </context>
 <context>
@@ -94,27 +94,27 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>Control Center</source>
-        <translation>Centrum sterowania</translation>
+        <translation>Centru de control</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>All Windows</source>
-        <translation>Wszystkie okna</translation>
+        <translation>Toles ventanes</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>Launcher</source>
-        <translation>Aktywator</translation>
+        <translation>Llanzador</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>Desktop</source>
-        <translation>Pulpit</translation>
+        <translation>Escritoriu</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>None</source>
-        <translation>Brak</translation>
+        <translation>Nada</translation>
     </message>
 </context>
 <context>
@@ -122,12 +122,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Powyżsi użytkownicy są wciąż zalogowani i ich dane mogą zostać utracone przy wyłączeniu komputera. Czy na pewno wyłączyć komputer?</translation>
+        <translation>Los usuarios d&apos;enriba entá tienen la sesión aniciada y perderánse los sos datos pol apagáu, ¿de xuru que quies apagar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Powyżsi użytkownicy są wciąż zalogowani i ich dane mogą zostać utracone w wyniku ponownego uruchomienia komputera. Czy na pewno chcesz ponownie uruchomić komputer?</translation>
+        <translation>Los usuarios d&apos;enriba entá tienen la sesión aniciada y perderánse los sos datos pol reaniciu, ¿de xuru que quies apagar?</translation>
     </message>
 </context>
 <context>
@@ -135,17 +135,17 @@
     <message>
         <location filename="../dde-osd/osd.cpp" line="66"/>
         <source>Enable window effects</source>
-        <translation>Włącz efekty okna</translation>
+        <translation>Habilitar efeutos de ventana</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="67"/>
         <source>Disable window effects</source>
-        <translation>Wyłącz efekty okna</translation>
+        <translation>Deshabilitar efeutos de ventana</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="68"/>
         <source>Failed to enable window effects</source>
-        <translation>Wystąpił błąd włączania efektów okna</translation>
+        <translation>Fallu al habilitar los efeutos de ventana</translation>
     </message>
 </context>
 <context>
@@ -155,14 +155,14 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="202"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="232"/>
         <source>Shut down</source>
-        <translation>Wyłącz</translation>
+        <translation>Apagar</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="152"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="207"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="235"/>
         <source>Restart</source>
-        <translation>Uruchom ponownie</translation>
+        <translation>Reaniciar</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="203"/>
@@ -177,22 +177,22 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
         <source>Suspend</source>
-        <translation>Wstrzymaj</translation>
+        <translation>Suspender</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="241"/>
         <source>Lock</source>
-        <translation>Zablokuj</translation>
+        <translation>Bloquiar</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
         <source>Log out</source>
-        <translation>Wyloguj</translation>
+        <translation>Zarrar sesión</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="248"/>
         <source>Switch user</source>
-        <translation>Przełącz użytkownika</translation>
+        <translation>Camudar d&apos;usuariu</translation>
     </message>
 </context>
 <context>
@@ -200,17 +200,17 @@
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
-        <translation>Wyłącz</translation>
+        <translation>Apagar</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="33"/>
         <source>Restart</source>
-        <translation>Uruchom ponownie</translation>
+        <translation>Reaniciar</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="37"/>
         <source>Suspend</source>
-        <translation>Wstrzymaj</translation>
+        <translation>Suspender</translation>
     </message>
 </context>
 <context>
@@ -229,12 +229,12 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Encaboxar</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Suspend</source>
-        <translation>Wstrzymaj</translation>
+        <translation>Suspender</translation>
     </message>
 </context>
 <context>
@@ -242,12 +242,12 @@
     <message>
         <location filename="../dde-osd/switchmonitor.cpp" line="148"/>
         <source>Duplicate</source>
-        <translation>Powiel</translation>
+        <translation>Duplicar</translation>
     </message>
     <message>
         <location filename="../dde-osd/switchmonitor.cpp" line="175"/>
         <source>Extend</source>
-        <translation>Rozwiń</translation>
+        <translation>Estender</translation>
     </message>
 </context>
 <context>
@@ -260,7 +260,7 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="63"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>dddd dd-MM-yyyy</translation>
+        <translation>yyyy-MM-dd dddd</translation>
     </message>
 </context>
 <context>
@@ -268,12 +268,12 @@
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="73"/>
         <source>Only desktop</source>
-        <translation>Tylko pulpit</translation>
+        <translation>Namái escritoriu</translation>
     </message>
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="76"/>
         <source>Only lock screen</source>
-        <translation>Tylko blokada ekranu</translation>
+        <translation>Namái pantalla de bloquéu</translation>
     </message>
 </context>
 <context>
@@ -281,7 +281,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="23"/>
         <source>Low battery, please plug in</source>
-        <translation>Niski stan baterii, prosimy podłączyć do zasilania</translation>
+        <translation>Batería baxa. Enchufa&apos;l portátil, por favor</translation>
     </message>
 </context>
 </TS>
