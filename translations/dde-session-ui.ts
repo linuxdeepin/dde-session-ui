@@ -32,7 +32,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="107"/>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
         <source>Installing updates %1%, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -40,7 +40,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="24"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="25"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -76,17 +76,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="247"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="254"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="418"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="425"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="430"/>
         <source>Please retry after 10 minutes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -122,12 +122,12 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="92"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation type="unfinished"></translation>
     </message>
@@ -211,6 +211,30 @@
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="37"/>
+        <source>Suspend</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SuspendDialog</name>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
+        <source>External monitor detected, suspend?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
+        <source>%1s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Suspend</source>
         <translation type="unfinished"></translation>
     </message>

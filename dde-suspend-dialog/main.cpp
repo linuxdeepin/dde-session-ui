@@ -9,10 +9,15 @@
 
 #include "suspenddialog.h"
 #include <QApplication>
+#include <QTranslator>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QTranslator translator;
+    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
+    a.installTranslator(&translator);
 
     Manager manager;
     QObject::connect(&manager, &Manager::finished, [] (const int code) {
