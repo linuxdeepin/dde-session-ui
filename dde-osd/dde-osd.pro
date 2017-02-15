@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui dbus x11extras svg
+QT       += core gui dbus x11extras svg concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,6 +20,7 @@ SOURCES += main.cpp\
     dbus/volumedbus.cpp \
     dbus/layoutdbus.cpp \
     dbus/displaydbus.cpp \
+    dbus/dbusaudio.cpp \
     switchlayout.cpp \
     switchmonitor.cpp \
     switchnormal.cpp
@@ -28,6 +29,7 @@ HEADERS  += osd.h \
     dbus/volumedbus.h \
     dbus/layoutdbus.h \
     dbus/displaydbus.h \
+    dbus/dbusaudio.h \
     switchlayout.h \
     switchmonitor.h \
     switchnormal.h

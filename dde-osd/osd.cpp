@@ -189,8 +189,11 @@ void Osd::showOSD()
     if (m_Parser.isSet(BrightnessUp) || m_Parser.isSet(BrightnessDown)) {
         loadBasicNormal("Brightness");
         cancelNormalText();
-    } else if (m_Parser.isSet(AudioUp) || m_Parser.isSet(AudioDown)) {
-        loadBasicNormal("Audio");
+    } else if (m_Parser.isSet(AudioUp)) {
+        loadBasicNormal("AudioUp");
+        cancelNormalText();
+    } else if (m_Parser.isSet(AudioDown)) {
+        loadBasicNormal("AudioDown");
         cancelNormalText();
     } else if (m_Parser.isSet(AudioMute)) {
         loadBasicNormal("AudioMute");
@@ -254,9 +257,9 @@ void Osd::showOSD()
 
 void Osd::loadBasicNormal(QString whichImage)
 {
-    if (whichImage == "Brightness") {
+    if (whichImage.startsWith("Brightness")) {
         actionMode = BrightnessProgressBar;
-    } else if (whichImage == "Audio") {
+    } else if (whichImage.startsWith("Audio")) {
         actionMode = AudioProgressBar;
     } else {
         actionMode = NoProgressBar;

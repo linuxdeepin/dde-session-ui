@@ -15,22 +15,38 @@
 #include <QSvgWidget>
 #include <QLabel>
 
+#include "dbus/dbusaudio.h"
+#include "dbus/volumedbus.h"
+
 class SwitchNormal : public QWidget
 {
     Q_OBJECT
 public:
     explicit SwitchNormal(QWidget *parent = 0);
 
-    double getVolume();
     void loadBasicImage(QString whichImage);
     void searchAddedImage(QString iconName);
     void hideNormal();
     void showNormal();
     void cancelText();
     void showText(QString text);
+
+    double getVolume();
+    bool getMute();
+
+private slots:
+    void defaultSinkChanged();
+
 private:
     void initGlobalVars(QWidget *parent);
     void initBasicOperation();
+
+    QString m_lastImage;
+    bool m_mute;
+    double m_volume;
+
+    DBusAudio *m_dbusAudio;
+    VolumeDbus *m_dbusSink;
 
     QWidget* m_ParentItem;
     QSvgWidget* m_NormalImageSvg;

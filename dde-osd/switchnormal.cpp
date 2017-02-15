@@ -9,19 +9,28 @@
 
 #include "switchnormal.h"
 
+#include <QtConcurrent>
+#include <QFutureWatcher>
+
 extern QString getThemeIconPath(QString iconName);
 extern void showThemeImage(QString iconName, QSvgWidget* svgLoader, QLabel* notSvgLoader);
 
-SwitchNormal::SwitchNormal(QWidget *parent) : QWidget(parent)
+SwitchNormal::SwitchNormal(QWidget *parent)
+    : QWidget(parent),
+      m_mute(false),
+      m_volume(0),
+      m_dbusAudio(new DBusAudio(this)),
+      m_dbusSink(nullptr)
 {
     initGlobalVars(parent);
-
     initBasicOperation();
+
+    defaultSinkChanged();
+    connect(m_dbusAudio, &DBusAudio::DefaultSinkChanged, this, &SwitchNormal::defaultSinkChanged);
 }
 
-void SwitchNormal::initGlobalVars(QWidget *parent){
-
-
+void SwitchNormal::initGlobalVars(QWidget *parent)
+{
     m_ParentItem = parent;
 
     m_NormalImageSvg = new QSvgWidget(parent);
@@ -45,6 +54,38 @@ void SwitchNormal::initBasicOperation(){
     m_SwitchWMLabel->setStyleSheet(SWITCHWM_TEXT_STYLE);
     m_SwitchWMLabel->setWordWrap(true);
     m_SwitchWMLabel->setAlignment(Qt::AlignCenter);
+}
+
+bool SwitchNormal::getMute()
+{
+    return m_mute;
+}
+
+double SwitchNormal::getVolume()
+{
+    return m_volume;
+}
+
+void SwitchNormal::defaultSinkChanged()
+{
+    const QDBusObjectPath path = m_dbusAudio->GetDefaultSink();
+    const QString sinkPath = path.path();
+
+    if (m_dbusSink) {
+        m_dbusSink->deleteLater();
+    }
+    m_dbusSink = new VolumeDbus("com.deepin.daemon.Audio", sinkPath, QDBusConnection::sessionBus(), this);
+    m_volume = m_dbusSink->volume();
+    m_mute = m_dbusSink->mute();
+
+    connect(m_dbusSink, &VolumeDbus::MuteChanged, [this] { m_mute = m_dbusSink->mute(); });
+    connect(m_dbusSink, &VolumeDbus::VolumeChanged, [this] {
+        if (m_lastImage == "AudioUp") {
+            m_volume = qMax(m_dbusSink->volume(), m_volume);
+        } else {
+            m_volume = qMin(m_dbusSink->volume(), m_volume);
+        }
+    });
 }
 
 void SwitchNormal::hideNormal(){
@@ -75,29 +116,17 @@ void SwitchNormal::showText(QString text){
 void SwitchNormal::loadBasicImage(QString whichImage)
 {
     showNormal();
-    // DbusInterface to get defalut sink, which is usabel when computer has more than 1 sound card
-    QDBusInterface audioInterface("com.deepin.daemon.Audio",
-                                          "/com/deepin/daemon/Audio",
-                                          "",QDBusConnection::sessionBus(),this);
-    // default sink path
-    QString defautSinkPath = qvariant_cast<QDBusObjectPath>(audioInterface.call("GetDefaultSink").arguments()[0]).path();
-    VolumeDbus volumeInterface("com.deepin.daemon.Audio",
-                               defautSinkPath,
-                               QDBusConnection::sessionBus(), this);
-    // TODO: can not read the status first time.
-    m_CanAudioMuteRun = volumeInterface.mute();
-    m_CanAudioMuteRun = volumeInterface.mute();
-    m_CanAudioMuteRun = volumeInterface.mute();
-    if (whichImage == "Brightness") {
+
+    if (whichImage.startsWith("Brightness")) {
         showThemeImage(getThemeIconPath("display-brightness-symbolic"), m_NormalImageSvg, m_NormalImageLabel);
     } else if (whichImage == "AudioMute") {
-        if (m_CanAudioMuteRun) {
+        if (!m_mute) {
             showThemeImage(getThemeIconPath("audio-volume-muted-symbolic-osd"), m_NormalImageSvg, m_NormalImageLabel);
         } else {
-            loadBasicImage("Audio");
+            loadBasicImage("AudioUp");
         }
-    } else if (whichImage == "Audio") {
-        double volume = volumeInterface.volume();
+    } else if (whichImage.startsWith("Audio")) {
+        double volume = m_volume;
         // 0.7~1.0 means high volume range, 0.3~0.7 means medium volume range, and 0.0~0.3 means low volume range.
         if (volume > 0.7 && volume <= 1.0) {
             showThemeImage(getThemeIconPath("audio-volume-high-symbolic-osd"), m_NormalImageSvg, m_NormalImageLabel);
@@ -109,20 +138,10 @@ void SwitchNormal::loadBasicImage(QString whichImage)
             showThemeImage(getThemeIconPath("audio-volume-muted-symbolic-osd"), m_NormalImageSvg, m_NormalImageLabel);
         }
     }
+
+    m_lastImage = whichImage;
 }
 
-double SwitchNormal::getVolume(){
-    QDBusInterface audioInterface("com.deepin.daemon.Audio",
-                                          "/com/deepin/daemon/Audio",
-                                          "",QDBusConnection::sessionBus(),this);
-    // DbusInterface to get defalut sink, which is usabel when computer has more than 1 sound card
-    QString defautSinkPath = qvariant_cast<QDBusObjectPath>(audioInterface.call("GetDefaultSink").arguments()[0]).path();
-    VolumeDbus volumeInterface("com.deepin.daemon.Audio",
-                               defautSinkPath,
-                               QDBusConnection::sessionBus(), this);
-    return volumeInterface.volume();
-}
-
-void SwitchNormal::searchAddedImage(QString iconName){
+void SwitchNormal::searchAddedImage(QString iconName) {
     showThemeImage(getThemeIconPath(iconName),m_NormalImageSvg,m_NormalImageLabel);
 }
