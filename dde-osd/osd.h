@@ -20,6 +20,10 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
+#include <DBlurEffectWidget>
+
+DWIDGET_USE_NAMESPACE
+
 class OsdOption: public QCommandLineOption
 {
 public:
@@ -42,7 +46,7 @@ private:
 
 class Osd;
 
-class Osd : public QWidget
+class Osd : public DBlurEffectWidget
 {
     Q_OBJECT
 

@@ -60,7 +60,7 @@ const OsdOption *optionList[] = {
 };
 
 Osd::Osd(QWidget *parent)
-    : QWidget(parent)
+    : DBlurEffectWidget(parent)
 {
     // init osd options
     SwitchWM3D.setText(qApp->translate("Osd", "Enable window effects"));
@@ -68,12 +68,14 @@ Osd::Osd(QWidget *parent)
     SwitchWMError.setText(qApp->translate("Osd", "Failed to enable window effects"));
 
     initGlobalVars();
-
     initBasicOperation();
-
     initConnect();
-
     initBasicCommandLine();
+
+    setBlendMode(DBlurEffectWidget::BehindWindowBlend);
+    setBlurRectXRadius(10);
+    setBlurRectYRadius(10);
+    setMaskColor(Qt::black);
 }
 
 Osd::~Osd()
@@ -369,27 +371,20 @@ void Osd::highlightCurrentMonitor()
 
 void Osd::paintEvent(QPaintEvent *e)
 {
-    QWidget::paintEvent(e);
+    DBlurEffectWidget::paintEvent(e);
+
     // paint app's background
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
-
-    // for the backgound color
-    QPen pen;
-    pen.setStyle(Qt::SolidLine);
-    pen.setColor(Qt::transparent);
-    pen.setWidth(1);
-    QPainterPath path;
-    path.addRoundedRect(QRectF(0.5, 0.5, this->width() - 1, this->height() - 1), 10, 10);
-    painter.setPen(pen);
-    painter.fillPath(path, QColor(0, 0, 0, 127));
 
     if (actionMode == AudioProgressBar || actionMode == BrightnessProgressBar) {
         // paint progressbar's background
         QBrush brush;
         brush.setStyle(Qt::SolidPattern);
+
         QRectF progressBarBackRect(30, 106, 80, 4);
         brush.setColor(QColor(255, 255, 255, 51));
+        painter.setPen(Qt::NoPen);
         painter.setBrush(brush);
         painter.drawRoundedRect(progressBarBackRect, 2, 2);
 

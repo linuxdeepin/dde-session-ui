@@ -9,8 +9,11 @@
 
 #include <gtk/gtk.h>
 #include "osd.h"
-#include <QApplication>
 #include <QTranslator>
+
+#include <DApplication>
+
+DWIDGET_USE_NAMESPACE
 
 QString getThemeIconPath(QString iconName)
 {
@@ -54,14 +57,16 @@ int main(int argc, char *argv[])
     gtk_init(NULL, NULL);
     gdk_error_trap_push();
 
-    QApplication a(argc, argv);
+    DApplication::loadDXcbPlugin();
+    DApplication a(argc, argv);
+    a.setApplicationName("dde-osd");
+    a.setApplicationVersion("1.0");
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
     Osd osd;
-
     //print help
     osd.processParser();
 
