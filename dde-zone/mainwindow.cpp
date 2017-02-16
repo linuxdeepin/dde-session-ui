@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     // set the background
     QWidget *back = new QWidget(this);
     QPalette palette;
-    palette.setColor(QPalette::Background, QColor(0, 0, 0, 127));
+    palette.setColor(QPalette::Background, QColor(0, 0, 0, 178));
     back->setPalette(palette);
     back->setAutoFillBackground(true);
     back->setGeometry(0, MAIN_ITEM_TOP_MARGIN, this->width(), this->height() - MAIN_ITEM_TOP_MARGIN);
