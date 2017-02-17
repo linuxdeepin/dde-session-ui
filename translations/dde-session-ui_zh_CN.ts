@@ -116,6 +116,11 @@
         <source>None</source>
         <translation>无</translation>
     </message>
+    <message>
+        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <source>Fast Screen Off</source>
+        <translation>快速黑屏</translation>
+    </message>
 </context>
 <context>
     <name>MultiUsersWarningView</name>

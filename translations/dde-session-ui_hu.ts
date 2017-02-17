@@ -4,7 +4,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation type="unfinished"/>
+        <translation>Frissítések letöltve, újraindítható a számítógép?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
@@ -116,6 +116,11 @@
         <source>None</source>
         <translation>Nincs</translation>
     </message>
+    <message>
+        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <source>Fast Screen Off</source>
+        <translation>Gyorsképernyő kikapcsolás</translation>
+    </message>
 </context>
 <context>
     <name>MultiUsersWarningView</name>
@@ -167,12 +172,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="203"/>
         <source>Are you sure to shut down the machine?</source>
-        <translation type="unfinished"/>
+        <translation>Biztosan ki akarja kapcsolni a számítógépet?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="208"/>
         <source>Are you sure to restart the machine?</source>
-        <translation type="unfinished"/>
+        <translation>Biztosan újra szeretné indítani a számítógépet?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
@@ -218,13 +223,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>Külső monitort érzékeltem, legyen alvó állapotban ez?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
@@ -268,12 +273,12 @@
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="73"/>
         <source>Only desktop</source>
-        <translation type="unfinished"/>
+        <translation>Csak az asztal</translation>
     </message>
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="76"/>
         <source>Only lock screen</source>
-        <translation type="unfinished"/>
+        <translation>Csak a képernyő zárolása</translation>
     </message>
 </context>
 <context>

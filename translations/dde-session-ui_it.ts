@@ -116,6 +116,11 @@
         <source>None</source>
         <translation>No</translation>
     </message>
+    <message>
+        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <source>Fast Screen Off</source>
+        <translation>Fast Screen Disattivato</translation>
+    </message>
 </context>
 <context>
     <name>MultiUsersWarningView</name>
@@ -167,12 +172,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="203"/>
         <source>Are you sure to shut down the machine?</source>
-        <translation type="unfinished"/>
+        <translation>Sicuro di voler spegnere la macchina?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="208"/>
         <source>Are you sure to restart the machine?</source>
-        <translation type="unfinished"/>
+        <translation>Sicuro di voler riavviare la macchina?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
@@ -218,13 +223,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>Monitor esterno rilevato, sospenderlo?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>

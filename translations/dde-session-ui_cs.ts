@@ -116,6 +116,11 @@
         <source>None</source>
         <translation>Žádný</translation>
     </message>
+    <message>
+        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <source>Fast Screen Off</source>
+        <translation>Rychlá obrazovka vypnuta</translation>
+    </message>
 </context>
 <context>
     <name>MultiUsersWarningView</name>
@@ -167,12 +172,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="203"/>
         <source>Are you sure to shut down the machine?</source>
-        <translation type="unfinished"/>
+        <translation>Opravdu chcete vypnout počítač?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="208"/>
         <source>Are you sure to restart the machine?</source>
-        <translation type="unfinished"/>
+        <translation>Opravdu chcete restartovat počítač?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
@@ -218,13 +223,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>Zjištěna vnější obrazovka. Uspat?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>

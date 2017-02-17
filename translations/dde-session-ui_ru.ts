@@ -94,17 +94,17 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>Control Center</source>
-        <translation>Центр управления</translation>
+        <translation>Центр Управления</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>All Windows</source>
-        <translation>Все окна</translation>
+        <translation>Все Окна</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>Launcher</source>
-        <translation>  Выбор программ</translation>
+        <translation> Выбор программ</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
@@ -115,6 +115,11 @@
         <location filename="../dde-zone/mainwindow.cpp" line="46"/>
         <source>None</source>
         <translation>Ничего</translation>
+    </message>
+    <message>
+        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <source>Fast Screen Off</source>
+        <translation>Быстрый Экран Выкл.</translation>
     </message>
 </context>
 <context>
@@ -135,12 +140,12 @@
     <message>
         <location filename="../dde-osd/osd.cpp" line="66"/>
         <source>Enable window effects</source>
-        <translation>Включить эффекты окон</translation>
+        <translation>Включение эффектов окон</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="67"/>
         <source>Disable window effects</source>
-        <translation>Отключить эффекты окон</translation>
+        <translation>Отключение эффектов окон</translation>
     </message>
     <message>
         <location filename="../dde-osd/osd.cpp" line="68"/>
@@ -167,12 +172,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="203"/>
         <source>Are you sure to shut down the machine?</source>
-        <translation type="unfinished"/>
+        <translation>Вы уверены, что хотите выключить компьютер?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="208"/>
         <source>Are you sure to restart the machine?</source>
-        <translation type="unfinished"/>
+        <translation>Вы уверены, что хотите перезагрузить компьютер?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
@@ -218,13 +223,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>Внешний монитор обнаружен, приостановить?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1с</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
