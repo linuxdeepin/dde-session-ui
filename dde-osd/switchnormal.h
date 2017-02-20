@@ -27,6 +27,10 @@ public:
     void showNormal();
     void cancelText();
     void showText(QString text);
+
+signals:
+    void muteChanged();
+
 private:
     void initGlobalVars(QWidget *parent);
     void initBasicOperation();
@@ -37,9 +41,10 @@ private:
     QLabel* m_SwitchWMLabel;
 
     bool m_CanAudioMuteRun;
+    bool m_switchAudioOrBright;
 
     const int BASE_SIZE = 140;
-    const int IMAGE_SIZE = 56;
+    const int IMAGE_SIZE = 64;
     const QRect SWITCHWM_TEXT_GEOMETRY = QRect(16,96,108,34);
     const QPoint SWITCHWM_IMAGE_POINT = QPoint(42,30);
     const QString SWITCHWM_TEXT_STYLE = "QLabel{font-size:14px;color:#ffffff}";

@@ -64,7 +64,12 @@ void SwitchNormal::showNormal(){
 
 void SwitchNormal::cancelText(){
     m_NormalImageSvg->move((m_ParentItem->width() - IMAGE_SIZE) / 2, (m_ParentItem->height() - IMAGE_SIZE) / 2);
-    m_NormalImageLabel->move((m_ParentItem->width() - IMAGE_SIZE) / 2, (m_ParentItem->height() - IMAGE_SIZE) / 2);
+
+    int Y = (m_ParentItem->height() - IMAGE_SIZE) / 2;
+    if (m_switchAudioOrBright)
+        Y = (m_ParentItem->height() - IMAGE_SIZE) / 2.5;
+
+    m_NormalImageLabel->move((m_ParentItem->width() - IMAGE_SIZE) / 2, Y);
     m_SwitchWMLabel->setText("");
 }
 
@@ -88,11 +93,14 @@ void SwitchNormal::loadBasicImage(QString whichImage)
     // TODO: can not read the status first time.
     m_CanAudioMuteRun = volumeInterface.mute();
 
+    m_switchAudioOrBright = true;
+
     if (whichImage == "Brightness") {
-        showThemeImage(getThemeIconPath("display-brightness-symbolic"), m_NormalImageSvg, m_NormalImageLabel);
+        showThemeImage(":/icons/OSD_light.png", m_NormalImageSvg, m_NormalImageLabel);
     } else if (whichImage == "AudioMute") {
         if (m_CanAudioMuteRun) {
-            showThemeImage(getThemeIconPath("audio-volume-muted-symbolic-osd"), m_NormalImageSvg, m_NormalImageLabel);
+            m_switchAudioOrBright = false;
+            showThemeImage(":/icons/OSD_mute.png", m_NormalImageSvg, m_NormalImageLabel);
         } else {
             loadBasicImage("Audio");
         }
@@ -100,14 +108,15 @@ void SwitchNormal::loadBasicImage(QString whichImage)
         double volume = volumeInterface.volume();
         // 0.7~1.0 means high volume range, 0.3~0.7 means medium volume range, and 0.0~0.3 means low volume range.
         if (volume > 0.7 && volume <= 1.0) {
-            showThemeImage(getThemeIconPath("audio-volume-high-symbolic-osd"), m_NormalImageSvg, m_NormalImageLabel);
+            showThemeImage(":/icons/OSD_volume_3.png", m_NormalImageSvg, m_NormalImageLabel);
         } else if (volume > 0.3 && volume <= 0.7) {
-            showThemeImage(getThemeIconPath("audio-volume-medium-symbolic-osd"), m_NormalImageSvg, m_NormalImageLabel);
+            showThemeImage(":/icons/OSD_volume_2.png", m_NormalImageSvg, m_NormalImageLabel);
         } else if (volume > 0.0) {
-            showThemeImage(getThemeIconPath("audio-volume-low-symbolic-osd"), m_NormalImageSvg, m_NormalImageLabel);
+            showThemeImage(":/icons/OSD_volume_1.png", m_NormalImageSvg, m_NormalImageLabel);
         } else if (volume == 0.0) {
-            showThemeImage(getThemeIconPath("audio-volume-muted-symbolic-osd"), m_NormalImageSvg, m_NormalImageLabel);
+            showThemeImage(":/icons/OSD_mute.png", m_NormalImageSvg, m_NormalImageLabel);
         }
+        emit muteChanged();
     }
 }
 
@@ -122,5 +131,20 @@ double SwitchNormal::getVolume(){
 }
 
 void SwitchNormal::searchAddedImage(QString iconName){
-    showThemeImage(getThemeIconPath(iconName),m_NormalImageSvg,m_NormalImageLabel);
+    if (iconName =="capslock-enabled-symbolic") {
+        showThemeImage(":/icons/OSD_caps_lock_off.png",m_NormalImageSvg,m_NormalImageLabel);
+    } else if (iconName == "numlock-disabled-symbolic") {
+        showThemeImage(":/icons/OSD_num_lock_off.png",m_NormalImageSvg,m_NormalImageLabel);
+    } else if (iconName == "numlock-enabled-symbolic") {
+        showThemeImage(":/icons/OSD_num_lock_on.png",m_NormalImageSvg,m_NormalImageLabel);
+    } else if (iconName == "capslock-disabled-symbolic") {
+        showThemeImage(":/icons/OSD_caps_lock_on.png",m_NormalImageSvg,m_NormalImageLabel);
+    } else if (iconName == "touchpad-toggled-symbolic") {
+        showThemeImage(":/icons/OSD_trackpad_on.png",m_NormalImageSvg,m_NormalImageLabel);
+    } else if (iconName == "touchpad-disabled-symbolic") {
+        showThemeImage(":/icons/OSD_trackpad_off.png",m_NormalImageSvg,m_NormalImageLabel);
+    } else {
+        showThemeImage(getThemeIconPath(iconName),m_NormalImageSvg,m_NormalImageLabel);
+    }
+    m_switchAudioOrBright = false;
 }

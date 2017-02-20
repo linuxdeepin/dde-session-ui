@@ -75,7 +75,7 @@ private:
     int m_CurrentIndexOfMonitorItem;
 
     const int BASE_SIZE = 140;
-    const int IMAGE_SIZE = 56;
+    const int IMAGE_SIZE = 64;
     const QString MONITOR_TEXT_HIGHLIGHT_STYLE = "QLabel{color:#01bdff;font-size:14px}";
     const QString MONITOR_TEXT_NORMAL_STYLE = "QLabel{color:#ffffff;font-size:14px}";
 };

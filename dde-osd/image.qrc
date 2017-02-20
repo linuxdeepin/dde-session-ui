@@ -1,5 +1,16 @@
 <RCC>
     <qresource prefix="/">
-        <file>OSD_bg.png</file>
+        <file>icons/OSD_caps_lock_off.png</file>
+        <file>icons/OSD_caps_lock_on.png</file>
+        <file>icons/OSD_light.png</file>
+        <file>icons/OSD_mute.png</file>
+        <file>icons/OSD_num_lock_off.png</file>
+        <file>icons/OSD_num_lock_on.png</file>
+        <file>icons/OSD_rotate.png</file>
+        <file>icons/OSD_trackpad_off.png</file>
+        <file>icons/OSD_trackpad_on.png</file>
+        <file>icons/OSD_volume_1.png</file>
+        <file>icons/OSD_volume_2.png</file>
+        <file>icons/OSD_volume_3.png</file>
     </qresource>
 </RCC>

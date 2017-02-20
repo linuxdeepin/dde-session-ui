@@ -17,6 +17,8 @@
 #include <QPainterPath>
 #include <QBrush>
 
+#include <dplatformwindowhandle.h>
+
 // basic commandlineoption
 const OsdOption BrightnessUp = OsdOption("BrightnessUp");
 const OsdOption BrightnessDown = OsdOption("BrightnessDown");
@@ -29,7 +31,7 @@ const OsdOption NumLockOn = OsdOption("NumLockOn", "numlock-enabled-symbolic");
 const OsdOption NumLockOff = OsdOption("NumLockOff", "numlock-disabled-symbolic");
 const OsdOption CapsLockOn = OsdOption("CapsLockOn", "capslock-enabled-symbolic");
 const OsdOption CapsLockOff = OsdOption("CapsLockOff", "capslock-disabled-symbolic");
-const OsdOption TouchpadOn = OsdOption("TouchpadOn", "touchpad-enabled-symbolic");
+const OsdOption TouchpadOn = OsdOption("TouchpadOn", "touchpad-toggled-symbolic");
 const OsdOption TouchpadOff = OsdOption("TouchpadOff", "touchpad-disabled-symbolic");
 const OsdOption TouchpadToggle = OsdOption("TouchpadToggle" , "touchpad-toggled-symbolic");
 //const OsdOption SwitchWM3D = OsdOption("SwitchWM3D", "wm-effect-enabled", qApp->translate("Osd", "Enable window effects"));
@@ -67,6 +69,12 @@ Osd::Osd(QWidget *parent)
     SwitchWM2D.setText(qApp->translate("Osd", "Disable window effects"));
     SwitchWMError.setText(qApp->translate("Osd", "Failed to enable window effects"));
 
+    DPlatformWindowHandle handle(this);
+
+    handle.setBorderColor(QColor(0, 0, 0, 25));
+    handle.setWindowRadius(10);
+    handle.setShadowColor(Qt::transparent);
+
     initGlobalVars();
     initBasicOperation();
     initConnect();
@@ -75,7 +83,7 @@ Osd::Osd(QWidget *parent)
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setBlurRectXRadius(10);
     setBlurRectYRadius(10);
-    setMaskColor(Qt::black);
+    setMaskColor(QColor(245, 245, 245));
 }
 
 Osd::~Osd()
@@ -107,11 +115,13 @@ void Osd::initGlobalVars()
 
     m_SwitchMonitor = new SwitchMonitor(this);
 
-    // m_BackImageLabel is used for the white border
-    m_BackImageLabel = new QLabel(this);
-
     // m_Timer is used to record time , to quit the app properly
     m_Timer = new QTimer(this);
+
+    connect(m_SwitchNormal, &SwitchNormal::muteChanged, this, [=]{
+        actionMode = AudioProgressBar;
+        update();
+    });
 }
 
 void Osd::initBasicOperation()
@@ -252,6 +262,7 @@ void Osd::showOSD()
     setTimer();
     moveToCenter();
     show();
+    update();
 }
 
 void Osd::loadBasicNormal(QString whichImage)
@@ -267,8 +278,6 @@ void Osd::loadBasicNormal(QString whichImage)
     m_SwitchLayout->hideLayout();
     m_SwitchMonitor->hideMonitors();
     this->resize(BASE_SIZE, BASE_SIZE);
-    m_BackImageLabel->resize(this->size());
-    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
 
     m_SwitchNormal->loadBasicImage(whichImage);
 }
@@ -307,8 +316,6 @@ void Osd::loadAdditionalNormal(QString imageName)
     m_SwitchMonitor->hideMonitors();
     m_SwitchNormal->showNormal();
     this->resize(BASE_SIZE, BASE_SIZE);
-    m_BackImageLabel->resize(this->size());
-    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
     m_SwitchNormal->searchAddedImage(imageName);
 }
 
@@ -318,8 +325,6 @@ void Osd::loadSwitchLayout()
     m_SwitchNormal->hideNormal();
     m_SwitchMonitor->hideMonitors();
     m_SwitchLayout->loadSwitchLayout();
-    m_BackImageLabel->resize(this->size());
-    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
     actionMode = SwitchLayoutEnum;
     layoutHasBeenInited = true;
 }
@@ -337,8 +342,6 @@ void Osd::highlightCurrentLayout()
     m_SwitchLayout->showLayout();
     m_SwitchLayout->resizeParent();
     m_SwitchLayout->reHiglightKeyboard();
-    m_BackImageLabel->resize(this->size());
-    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
 }
 
 void Osd::loadSwitchMonitors()
@@ -346,8 +349,6 @@ void Osd::loadSwitchMonitors()
     m_SwitchNormal->hideNormal();
     m_SwitchLayout->hideLayout();
     m_SwitchMonitor->loadSwitchMonitors();
-    m_BackImageLabel->resize(this->size());
-    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
     actionMode = SwitchMonitorEnum;
     monitorHasBeenInited = true;
 }
@@ -365,8 +366,6 @@ void Osd::highlightCurrentMonitor()
     m_SwitchMonitor->showMonitors();
     m_SwitchMonitor->resizeParent();
     m_SwitchMonitor->reHighlightMonitor();
-    m_BackImageLabel->resize(this->size());
-    m_BackImageLabel->setStyleSheet(BACK_IMAGE_STYLE);
 }
 
 void Osd::paintEvent(QPaintEvent *e)
@@ -382,22 +381,22 @@ void Osd::paintEvent(QPaintEvent *e)
         QBrush brush;
         brush.setStyle(Qt::SolidPattern);
 
-        QRectF progressBarBackRect(30, 106, 80, 4);
-        brush.setColor(QColor(255, 255, 255, 51));
+        QRectF progressBarBackRect(30, 110, 80, 4);
+        brush.setColor(QColor(0, 0, 0, 25));
         painter.setPen(Qt::NoPen);
         painter.setBrush(brush);
         painter.drawRoundedRect(progressBarBackRect, 2, 2);
 
         if (actionMode == AudioProgressBar) {
             // paint audio progressbar
-            QRectF progressBarRect(30, 106, 80 * (m_SwitchNormal->getVolume() >= 1.0 ? 1.0 : m_SwitchNormal->getVolume()), 4);
-            brush.setColor(Qt::white);
+            QRectF progressBarRect(30, 110, 80 * (m_SwitchNormal->getVolume() >= 1.0 ? 1.0 : m_SwitchNormal->getVolume()), 4);
+            brush.setColor(Qt::black);
             painter.setBrush(brush);
             painter.drawRoundedRect(progressBarRect, 2, 2);
         } else if (actionMode == BrightnessProgressBar) {
             // paint brightness progressbar
-            QRectF progressBarRect(30, 106, 80 * m_SwitchMonitor->getBrightness(), 4);
-            brush.setColor(Qt::white);
+            QRectF progressBarRect(30, 110, 80 * m_SwitchMonitor->getBrightness(), 4);
+            brush.setColor(Qt::black);
             painter.setBrush(brush);
             painter.drawRoundedRect(progressBarRect, 2, 2);
         }

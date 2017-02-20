@@ -46,8 +46,8 @@ void showThemeImage(QString iconName, QSvgWidget *svgLoader, QLabel *notSvgLoade
         svgLoader->load(getThemeIconPath("application-default-icon"));
         notSvgLoader->clear();
     } else {
-        // 56 is the size of image
-        notSvgLoader->setPixmap(QPixmap(iconName).scaled(56, 56, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+        // 64 is the size of image
+        notSvgLoader->setPixmap(QPixmap(iconName).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
         svgLoader->load(QByteArray());
     }
 }

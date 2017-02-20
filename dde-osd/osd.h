@@ -93,7 +93,6 @@ private:
     SwitchLayout *m_SwitchLayout;
     SwitchMonitor *m_SwitchMonitor;
     QCommandLineParser m_Parser;
-    QLabel *m_BackImageLabel;
     QRect m_MouseInScreen;
     QTimer *m_Timer;
 
@@ -118,7 +117,6 @@ private:
 
     const int BASE_SIZE = 140;
     const int DEADLINE_TIME = 2000;
-    const QString BACK_IMAGE_STYLE = "QLabel{border-width: 5px 5px 5px 5px;border-image:url(:/OSD_bg.png)}";
 };
 
 
