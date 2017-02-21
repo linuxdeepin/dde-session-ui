@@ -132,13 +132,13 @@ double SwitchNormal::getVolume(){
 
 void SwitchNormal::searchAddedImage(QString iconName){
     if (iconName =="capslock-enabled-symbolic") {
-        showThemeImage(":/icons/OSD_caps_lock_off.png",m_NormalImageSvg,m_NormalImageLabel);
+        showThemeImage(":/icons/OSD_caps_lock_on.png",m_NormalImageSvg,m_NormalImageLabel);
     } else if (iconName == "numlock-disabled-symbolic") {
         showThemeImage(":/icons/OSD_num_lock_off.png",m_NormalImageSvg,m_NormalImageLabel);
     } else if (iconName == "numlock-enabled-symbolic") {
         showThemeImage(":/icons/OSD_num_lock_on.png",m_NormalImageSvg,m_NormalImageLabel);
     } else if (iconName == "capslock-disabled-symbolic") {
-        showThemeImage(":/icons/OSD_caps_lock_on.png",m_NormalImageSvg,m_NormalImageLabel);
+        showThemeImage(":/icons/OSD_caps_lock_off.png",m_NormalImageSvg,m_NormalImageLabel);
     } else if (iconName == "touchpad-toggled-symbolic") {
         showThemeImage(":/icons/OSD_trackpad_on.png",m_NormalImageSvg,m_NormalImageLabel);
     } else if (iconName == "touchpad-disabled-symbolic") {
