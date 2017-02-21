@@ -26,7 +26,7 @@ static bool DownloadedPackagesAvailable() {
     return false;
 }
 
-static void ScheduleUpgrade(int secs) {
+static void ScheduleUpgrade(uint secs) {
     QDBusInterface scheduler("com.deepin.LastoreSessionHelper",
                              "/com/deepin/LastoreSessionHelper",
                              "com.deepin.LastoreSessionHelper",
@@ -49,6 +49,7 @@ static void UpgradeNotNow() {
 
 int main(int argc, char *argv[])
 {
+    DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
     a.setOrganizationName("deepin");
     a.setApplicationName("dde-offline-upgrader");
