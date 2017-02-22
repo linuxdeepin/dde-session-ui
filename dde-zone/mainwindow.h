@@ -40,7 +40,7 @@ private:
     const QString LAUNCHER_STR = "dbus-send --print-reply --dest=com.deepin.dde.Launcher /com/deepin/dde/Launcher com.deepin.dde.Launcher.Toggle";
     const QString SHOW_DESKTOP_STR = "/usr/lib/deepin-daemon/desktop-toggle";
     const QString NONE_STR = "";
-    const QString FAST_SCREEN_OFF = "xset dpms force off";
+    const QString FAST_SCREEN_OFF = "sh -c 'sleep 0.5 && xset dpms force off'";
 
     // MAIN_ITEM_TOP_MARGIN is aimed to steer clear of the fade-zone of mouseEvent of mainWindow Item.
     const int MAIN_ITEM_TOP_MARGIN = 30;
