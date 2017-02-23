@@ -27,19 +27,18 @@ const OsdOption AudioDown = OsdOption("AudioDown");
 const OsdOption AudioUp = OsdOption("AudioUp");
 const OsdOption SwitchMonitors = OsdOption("SwitchMonitors");
 const OsdOption SwitchLayouts = OsdOption("SwitchLayout");
-const OsdOption NumLockOn = OsdOption("NumLockOn", "numlock-enabled-symbolic");
-const OsdOption NumLockOff = OsdOption("NumLockOff", "numlock-disabled-symbolic");
-const OsdOption CapsLockOn = OsdOption("CapsLockOn", "capslock-enabled-symbolic");
-const OsdOption CapsLockOff = OsdOption("CapsLockOff", "capslock-disabled-symbolic");
-const OsdOption TouchpadOn = OsdOption("TouchpadOn", "touchpad-toggled-symbolic");
-const OsdOption TouchpadOff = OsdOption("TouchpadOff", "touchpad-disabled-symbolic");
-const OsdOption TouchpadToggle = OsdOption("TouchpadToggle" , "touchpad-toggled-symbolic");
+const OsdOption NumLockOn = OsdOption("NumLockOn", ":/icons/OSD_num_lock_on.png");
+const OsdOption NumLockOff = OsdOption("NumLockOff", ":/icons/OSD_num_lock_off.png");
+const OsdOption CapsLockOn = OsdOption("CapsLockOn", ":/icons/OSD_caps_lock_on.png");
+const OsdOption CapsLockOff = OsdOption("CapsLockOff", ":/icons/OSD_caps_lock_off.png");
+const OsdOption TouchpadOn = OsdOption("TouchpadOn", ":/icons/OSD_trackpad_on.png");
+const OsdOption TouchpadOff = OsdOption("TouchpadOff", ":/icons/OSD_trackpad_off.png");
 //const OsdOption SwitchWM3D = OsdOption("SwitchWM3D", "wm-effect-enabled", qApp->translate("Osd", "Enable window effects"));
 //const OsdOption SwitchWM2D = OsdOption("SwitchWM2D", "wm-effect-disabled", qApp->translate("Osd", "Disable window effects"));
 //const OsdOption SwitchWMError = OsdOption("SwitchWMError", "wm-effect-error", qApp->translate("Osd", "Failed to enable window effects"));
-OsdOption SwitchWM3D = OsdOption("SwitchWM3D", "wm-effect-enabled");
-OsdOption SwitchWM2D = OsdOption("SwitchWM2D", "wm-effect-disabled");
-OsdOption SwitchWMError = OsdOption("SwitchWMError", "wm-effect-error");
+OsdOption SwitchWM3D = OsdOption("SwitchWM3D", ":/icons/OSD_wm_3d.png");
+OsdOption SwitchWM2D = OsdOption("SwitchWM2D", ":/icons/OSD_wm_2d.png");
+OsdOption SwitchWMError = OsdOption("SwitchWMError", ":/icons/OSD_wm_failed.png");
 
 const OsdOption *optionList[] = {
     &BrightnessUp,
@@ -55,7 +54,6 @@ const OsdOption *optionList[] = {
     &CapsLockOff,
     &TouchpadOn,
     &TouchpadOff,
-    &TouchpadToggle,
     &SwitchWM3D,
     &SwitchWM2D,
     &SwitchWMError,
@@ -242,9 +240,6 @@ void Osd::showOSD()
         cancelNormalText();
     } else if (m_Parser.isSet(TouchpadOff)) {
         loadAdditionalNormal(TouchpadOff.imageName());
-        cancelNormalText();
-    } else if (m_Parser.isSet(TouchpadToggle)) {
-        loadAdditionalNormal(TouchpadToggle.imageName());
         cancelNormalText();
     } else if (m_Parser.isSet(SwitchWM2D)) {
         loadAdditionalNormal(SwitchWM2D.imageName());

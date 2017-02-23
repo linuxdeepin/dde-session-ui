@@ -142,21 +142,17 @@ void SwitchMonitor::initDuplicateMode()
     m_DuplicateScreenImageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
     m_DuplicateScreenImageLabel = new QLabel(duplicateScreenItem);
     m_DuplicateScreenImageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-    showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
+    showThemeImage(":/icons/OSD_copy_mode.png", m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
     // text label for duplicate mode
     m_DuplicateScreenText = new QLabel(duplicateScreenItem);
     m_DuplicateScreenText->setText(tr("Duplicate"));
     m_DuplicateScreenText->setAlignment(Qt::AlignCenter);
     m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
-    // add above 2 widgets
-    if (getThemeIconPath("project_screen-duplicate-symbolic").endsWith(".svg")) {
-        vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenImageSvg, 0, Qt::AlignHCenter);
-    } else {
-        vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenImageLabel, 0, Qt::AlignHCenter);
-    }
+
+    vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenImageLabel, 0, Qt::AlignHCenter);
     vLayoutOfDuplicateScreen->addWidget(m_DuplicateScreenText, 0, Qt::AlignHCenter);
 
-    m_HBoxLayout->addWidget(duplicateScreenItem);
+    m_HBoxLayout->addWidget(duplicateScreenItem, 0, Qt::AlignHCenter);
 }
 
 void SwitchMonitor::initExtendMode()
@@ -169,26 +165,26 @@ void SwitchMonitor::initExtendMode()
     m_ExpandedScreenImageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
     m_ExpandedScreenImageLabel = new QLabel(expandedScreenItem);
     m_ExpandedScreenImageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-    showThemeImage(getThemeIconPath("project_screen-extend-symbolic"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
+    showThemeImage(":/icons/OSD_extend_mode.png", m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
     // text label for expanded mode
     m_ExpandedScreenText = new QLabel(expandedScreenItem);
     m_ExpandedScreenText->setText(tr("Extend"));
     m_ExpandedScreenText->setAlignment(Qt::AlignCenter);
     m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
-    // add above 2 widgets
-    if (getThemeIconPath("project_screen-extend-symbolic").endsWith(".svg")) {
-        vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenImageSvg, 0, Qt::AlignHCenter);
-    } else {
-        vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenImageLabel, 0, Qt::AlignHCenter);
-    }
+
+    vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenImageLabel, 0, Qt::AlignHCenter);
     vLayoutOfExpandedScreen->addWidget(m_ExpandedScreenText, 0, Qt::AlignHCenter);
 
-    m_HBoxLayout->addWidget(expandedScreenItem);
+    m_HBoxLayout->addWidget(expandedScreenItem, 0, Qt::AlignHCenter);
 }
 
 void SwitchMonitor::initOneScreenMode()
 {
     // for one-screen mode
+
+
+    QString primaryScreenName = m_DisplayInterface->primary();
+
     for (int i = 0, length = m_ScreenList.length(); i < length; i++) {
         // one-screen mode item
         QWidget *item = new QWidget(m_MonitersWrapper);
@@ -198,7 +194,14 @@ void SwitchMonitor::initOneScreenMode()
         imageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
         QLabel *imageLabel = new QLabel(item);
         imageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic"), imageSvg, imageLabel);
+
+        qDebug() << m_ScreenList[i] << primaryScreenName;
+        if (m_ScreenList[i] == primaryScreenName) {
+            showThemeImage(QString(":/icons/OSD_only%1_active.png").arg(i + 1), imageSvg, imageLabel);
+        } else {
+            showThemeImage(QString(":/icons/OSD_only%1.png").arg(i + 1), imageSvg, imageLabel);
+        }
+
         // text label for one-screen mode
         QLabel *textLabel = new QLabel(item);
         textLabel->setText(m_ScreenList[i]);
@@ -208,15 +211,11 @@ void SwitchMonitor::initOneScreenMode()
         m_ImageSvgList << imageSvg;
         m_ImageLabelList << imageLabel;
         m_TextLabelList << textLabel;
-        // add above 2 widgets
-        if (getThemeIconPath("project_screen-onlyone-symbolic").endsWith(".svg")) {
-            vLayout->addWidget(imageSvg, 0, Qt::AlignHCenter);
-        } else {
-            vLayout->addWidget(imageLabel, 0, Qt::AlignHCenter);
-        }
+
+        vLayout->addWidget(imageLabel, 0, Qt::AlignHCenter);
         vLayout->addWidget(textLabel, 0, Qt::AlignHCenter);
 
-        m_HBoxLayout->addWidget(item);
+        m_HBoxLayout->addWidget(item, 0, Qt::AlignHCenter);
     }
 }
 
@@ -228,12 +227,12 @@ void SwitchMonitor::initScreenMode()
         //        m_CurrentIndexOfMonitorItem = -1;
         break;
     case Duplicate:
-        showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic-focus"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
+        showThemeImage(":/icons/OSD_copy_mode_active.png", m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
         m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
         m_CurrentIndexOfMonitorItem = 0;
         break;
     case Expanded:
-        showThemeImage(getThemeIconPath("project_screen-extend-symbolic-focus"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
+        showThemeImage(":/icons/OSD_extend_mode_active.png", m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
         m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
         m_CurrentIndexOfMonitorItem = 1;
         break;
@@ -241,8 +240,13 @@ void SwitchMonitor::initScreenMode()
         QString primaryScreenName = m_DisplayInterface->primary();
         for (int i = 0, length = m_ScreenList.length(); i < length; i++) {
             if (m_ScreenList[i] == primaryScreenName) {
-                showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic-focus"), m_ImageSvgList[i], m_ImageLabelList[i]);
+                showThemeImage(QString(":/icons/OSD_only%1_active.png").arg(i + 1), m_ImageSvgList[i], m_ImageLabelList[i]);
                 m_TextLabelList[i]->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
+                // m_CurrentIndexOfMonitorItem is always 2 bigger than m_ScreenList's i
+                m_CurrentIndexOfMonitorItem = i + 2;
+            } else {
+                showThemeImage(QString(":/icons/OSD_only%1.png").arg(i + 1), m_ImageSvgList[i], m_ImageLabelList[i]);
+                m_TextLabelList[i]->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
                 // m_CurrentIndexOfMonitorItem is always 2 bigger than m_ScreenList's i
                 m_CurrentIndexOfMonitorItem = i + 2;
             }
@@ -270,24 +274,24 @@ void SwitchMonitor::reAlignCurrentIndex()
 void SwitchMonitor::reHighlightMonitor()
 {
     if (m_CurrentIndexOfMonitorItem == 0) {
-        showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic-focus"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
+        showThemeImage(":/icons/OSD_copy_mode_active.png", m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
         m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic"), m_ImageSvgList[m_ScreenList.length() - 1], m_ImageLabelList[m_ScreenList.length() - 1]);
+        showThemeImage(":/icons/OSD_only2.png", m_ImageSvgList[m_ScreenList.length() - 1], m_ImageLabelList[m_ScreenList.length() - 1]);
         m_TextLabelList[m_ScreenList.length() - 1]->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     } else if (m_CurrentIndexOfMonitorItem == 1) {
-        showThemeImage(getThemeIconPath("project_screen-extend-symbolic-focus"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
+        showThemeImage(":/icons/OSD_extend_mode_active.png", m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
         m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        showThemeImage(getThemeIconPath("project_screen-duplicate-symbolic"), m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
+        showThemeImage(":/icons/OSD_copy_mode.png", m_DuplicateScreenImageSvg, m_DuplicateScreenImageLabel);
         m_DuplicateScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     } else if (m_CurrentIndexOfMonitorItem == 2) {
-        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic-focus"), m_ImageSvgList[0], m_ImageLabelList[0]);
+        showThemeImage(":/icons/OSD_only1_active.png", m_ImageSvgList[0], m_ImageLabelList[0]);
         m_TextLabelList[0]->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        showThemeImage(getThemeIconPath("project_screen-extend-symbolic"), m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
+        showThemeImage(":/icons/OSD_extend_mode.png", m_ExpandedScreenImageSvg, m_ExpandedScreenImageLabel);
         m_ExpandedScreenText->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     } else {
-        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic-focus"), m_ImageSvgList[m_CurrentIndexOfMonitorItem - 2], m_ImageLabelList[m_CurrentIndexOfMonitorItem - 2]);
+        showThemeImage(":/icons/OSD_only2_active.png", m_ImageSvgList[m_CurrentIndexOfMonitorItem - 2], m_ImageLabelList[m_CurrentIndexOfMonitorItem - 2]);
         m_TextLabelList[m_CurrentIndexOfMonitorItem - 2]->setStyleSheet(MONITOR_TEXT_HIGHLIGHT_STYLE);
-        showThemeImage(getThemeIconPath("project_screen-onlyone-symbolic"), m_ImageSvgList[m_CurrentIndexOfMonitorItem - 3], m_ImageLabelList[m_CurrentIndexOfMonitorItem - 3]);
+        showThemeImage(":/icons/OSD_only1.png", m_ImageSvgList[m_CurrentIndexOfMonitorItem - 3], m_ImageLabelList[m_CurrentIndexOfMonitorItem - 3]);
         m_TextLabelList[m_CurrentIndexOfMonitorItem - 3]->setStyleSheet(MONITOR_TEXT_NORMAL_STYLE);
     }
 }

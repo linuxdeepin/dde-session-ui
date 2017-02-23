@@ -65,8 +65,8 @@ private:
 
     const int KEYBOARD_ITEM_HEIGHT = 36;
     const int LAYOUT_MARGIN = 10;
-    const QString KEYBOARD_ITEM_HIGHLIGHT_STYLE = "QLabel{color:#01bdff;font-size:14px;background:rgba(0,0,0,0.7);border:none;border-radius:5px}";
-    const QString KEYBOARD_ITEM_NORMAL_STYLE = "QLabel{color:#ffffff;font-size:14px;}";
+    const QString KEYBOARD_ITEM_HIGHLIGHT_STYLE = "QLabel{color:#01bdff;font-size:14px;background:rgba(0,0,0,0.1);border:none;border-radius:5px}";
+    const QString KEYBOARD_ITEM_NORMAL_STYLE = "QLabel{color:#000000;font-size:14px;}";
 };
 
 #endif // SWITCHLAYOUT_H

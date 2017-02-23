@@ -45,9 +45,9 @@ private:
 
     const int BASE_SIZE = 140;
     const int IMAGE_SIZE = 64;
-    const QRect SWITCHWM_TEXT_GEOMETRY = QRect(16,96,108,34);
-    const QPoint SWITCHWM_IMAGE_POINT = QPoint(42,30);
-    const QString SWITCHWM_TEXT_STYLE = "QLabel{font-size:14px;color:#ffffff}";
+    const QRect SWITCHWM_TEXT_GEOMETRY = QRect(10,96,120,34);
+    const QPoint SWITCHWM_IMAGE_POINT = QPoint(38,30);
+    const QString SWITCHWM_TEXT_STYLE = "QLabel{font-size:14px;color:#000000}";
 };
 
 #endif // SWITCHNORMAL_H

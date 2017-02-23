@@ -12,5 +12,18 @@
         <file>icons/OSD_volume_1.png</file>
         <file>icons/OSD_volume_2.png</file>
         <file>icons/OSD_volume_3.png</file>
+        <file>icons/OSD_copy_mode.png</file>
+        <file>icons/OSD_copy_mode_active.png</file>
+        <file>icons/OSD_custom.png</file>
+        <file>icons/OSD_custom_active.png</file>
+        <file>icons/OSD_extend_mode.png</file>
+        <file>icons/OSD_extend_mode_active.png</file>
+        <file>icons/OSD_only1.png</file>
+        <file>icons/OSD_only1_active.png</file>
+        <file>icons/OSD_only2.png</file>
+        <file>icons/OSD_only2_active.png</file>
+        <file>icons/OSD_wm_2d.png</file>
+        <file>icons/OSD_wm_3d.png</file>
+        <file>icons/OSD_wm_failed.png</file>
     </qresource>
 </RCC>

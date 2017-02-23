@@ -15,35 +15,10 @@
 
 DWIDGET_USE_NAMESPACE
 
-QString getThemeIconPath(QString iconName)
-{
-    QByteArray bytes = iconName.toUtf8();
-    const char *name = bytes.constData();
-
-    GtkIconTheme *theme = gtk_icon_theme_get_default();
-
-    GtkIconInfo *info = gtk_icon_theme_lookup_icon(theme, name, 240, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-
-    if (info) {
-        char *path = g_strdup(gtk_icon_info_get_filename(info));
-#if GTK_MAJOR_VERSION >= 3
-        g_object_unref(info);
-#elif GTK_MAJOR_VERSION == 2
-        gtk_icon_info_free(info);
-#endif
-        return QString(path);
-    } else {
-        return "";
-    }
-}
-
 void showThemeImage(QString iconName, QSvgWidget *svgLoader, QLabel *notSvgLoader)
 {
     if (iconName.endsWith(".svg")) {
         svgLoader->load(iconName);
-        notSvgLoader->clear();
-    } else if (iconName.isEmpty()) {
-        svgLoader->load(getThemeIconPath("application-default-icon"));
         notSvgLoader->clear();
     } else {
         // 64 is the size of image
