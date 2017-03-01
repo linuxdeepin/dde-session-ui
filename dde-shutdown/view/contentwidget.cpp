@@ -42,6 +42,7 @@ void ShutDownFrame::powerAction(const Actions action)
     {
     case Shutdown:
     case Restart:
+    case Logout:
         beforeInvokeAction(action);
         break;
     default:
@@ -58,7 +59,7 @@ void ShutDownFrame::initConnect() {
     connect(m_restartButton, &RoundItemButton::clicked, [this] { beforeInvokeAction(Restart);});
     connect(m_suspendButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Suspend);});
     connect(m_lockButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Lock);});
-    connect(m_logoutButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Logout);});
+    connect(m_logoutButton, &RoundItemButton::clicked, [this] {emit beforeInvokeAction(Logout);});
     connect(m_switchUserBtn, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(SwitchUser);});
 }
 
@@ -78,7 +79,7 @@ void ShutDownFrame::enterKeyPushed()
     else if (m_currentSelectedBtn == m_lockButton)
         emit ShutDownFrameActions(Lock);
     else if (m_currentSelectedBtn == m_logoutButton)
-        emit ShutDownFrameActions(Logout);
+        emit beforeInvokeAction(Logout);
     else if (m_currentSelectedBtn == m_switchUserBtn)
         emit ShutDownFrameActions(SwitchUser);
 }
@@ -148,8 +149,10 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         view->setAcceptVisible(false);
         if (action == Shutdown)
             view->setAcceptReason(tr("Shut down"));
-        else
+        else if (action == Restart)
             view->setAcceptReason(tr("Restart"));
+        else if (action == Logout)
+            view->setAcceptReason(tr("Log out"));
 
         m_warningView = view;
         mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
@@ -200,12 +203,17 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         if (action == Shutdown)
         {
             view->setAcceptReason(tr("Shut down"));
-            view->setInhibitReason(tr("Are you sure to shut down the machine?"));
+            view->setInhibitReason(tr("Are you sure to shut down?"));
         }
-        else
+        else if (action == Restart)
         {
             view->setAcceptReason(tr("Restart"));
-            view->setInhibitReason(tr("Are you sure to restart the machine?"));
+            view->setInhibitReason(tr("Are you sure to restart?"));
+        }
+        else if (action == Logout)
+        {
+            view->setAcceptReason(tr("Log out"));
+            view->setInhibitReason(tr("Are you sure to log out?"));
         }
 
         m_warningView = view;
