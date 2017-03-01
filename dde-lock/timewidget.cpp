@@ -20,19 +20,16 @@ TimeWidget::TimeWidget(QWidget *parent)
     const QString fontFamily = QFontDatabase::applicationFontFamilies(id).first();
     const QFont timeFont(fontFamily);
 
-    const QFont dateFont("Source Han Sans SC");
-
     m_timeLabel = new QLabel;
     m_timeLabel->setFont(timeFont);
     m_timeLabel->setAlignment(Qt::AlignLeft);
     m_timeLabel->setStyleSheet("color:white;"
                                "font-size:68px;");
     m_dateLabel = new QLabel;
-    m_dateLabel->setFont(dateFont);
     m_dateLabel->setAlignment(Qt::AlignLeft);
     m_dateLabel->setStyleSheet("color:white;"
                                "padding:3px 0;"
-                               "font-size:21px;");
+                               "font-size:16px;");
     refreshTime();
 
     m_refreshTimer = new QTimer(this);

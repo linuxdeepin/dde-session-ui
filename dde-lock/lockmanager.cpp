@@ -119,21 +119,13 @@ void LockManager::initUI()
     m_userWidget->move(0, (height() - m_userWidget->height()) / 2 - 95);
 
     m_passwordEdit = new PassWdEdit(this);
-    m_passwordEdit->setEnterBtnStyle(":/img/unlock_normal.png", ":/img/unlock_normal.png", ":/img/unlock_press.png");
+    m_passwordEdit->setEnterBtnStyle(":/img/action_icons/unlock_normal.png", ":/img/action_icons/unlock_hover.png", ":/img/action_icons/unlock_press.png");
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
     m_passwordEdit->setFocus();
     m_passwdEditSize = m_passwordEdit->size();
 
     m_unlockButton = new QPushButton(this);
     m_unlockButton->setText(tr("Login"));
-    m_unlockButton->setStyleSheet("QPushButton {"
-                                  "border: none;"
-                                  "background: url(:/img/login_unpwd_normal.png);"
-                                  "}"
-                                  "QPushButton:pressed {"
-                                  "border: none;"
-                                  "background: url(:/img/login_unpwd_press.png);"
-                                  "}");
     m_unlockButton->setFixedSize(160, 36);
     m_unlockButton->hide();
 
@@ -445,9 +437,9 @@ void LockManager::updateUI()
     m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
 
-    m_keybdArrowWidget->setBackgroundColor(QColor(0, 0, 0, 78));
-    m_keybdArrowWidget->setBorderColor(QColor(0, 0, 0, 100));
-    m_keybdArrowWidget->setArrowX(13);
+    m_keybdArrowWidget->setBackgroundColor(QColor::fromRgbF(1, 1, 1, 0.15));
+    m_keybdArrowWidget->setBorderColor(Qt::transparent);
+    m_keybdArrowWidget->setArrowX(17);
     m_keybdArrowWidget->setArrowWidth(12);
     m_keybdArrowWidget->setArrowHeight(6);
     m_keybdArrowWidget->setMargin(1);
@@ -511,12 +503,12 @@ void LockManager::passwordMode()
 
     if (m_action == Restart) {
         m_passwordEdit->setAlert(true, tr("Enter your password to restart"));
-        m_passwordEdit->setEnterBtnStyle(":/img/restartIcon_normal.png", ":/img/restartIcon_normal.png", ":/img/restartIcon_press.png");
+        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/reboot_normal.png", ":/img/action_icons/reboot_hover.png", ":/img/action_icons/reboot_press.png");
     } else if (m_action == Shutdown) {
         m_passwordEdit->setAlert(true, tr("Enter your password to shutdown"));
-        m_passwordEdit->setEnterBtnStyle(":/img/shutdownIcon_normal.png", ":/img/shutdownIcon_normal.png", ":/img/shutdownIcon_press.png");
+        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/shutdown_normal.png", ":/img/action_icons/shutdown_hover.png", ":/img/action_icons/shutdown_press.png");
     } else if (m_action == Unlock) {
-        m_passwordEdit->setEnterBtnStyle(":/img/unlock_normal.png", ":/img/unlock_normal.png", ":/img/unlock_press.png");
+        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/unlock_normal.png", ":/img/action_icons/unlock_hover.png", ":/img/action_icons/unlock_press.png");
     }
 }
 

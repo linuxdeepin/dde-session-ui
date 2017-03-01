@@ -30,36 +30,36 @@ ControlWidget::ControlWidget(QWidget *parent)
 //                                "background-color:red;"
                                 "font-size:13px;");
     m_prevSong = new DImageButton;
-    m_prevSong->setNormalPic(":/icons/previous_normal.png");
-    m_prevSong->setHoverPic(":/icons/previous_hover.png");
-    m_prevSong->setPressPic(":/icons/previous_press.png");
+    m_prevSong->setNormalPic(":/img/mpris/previous_normal.png");
+    m_prevSong->setHoverPic(":/img/mpris/previous_hover.png");
+    m_prevSong->setPressPic(":/img/mpris/previous_press.png");
 
     m_pauseSong = new DImageButton;
-    m_pauseSong->setNormalPic(":/icons/pause_normal.png");
-    m_pauseSong->setHoverPic(":/icons/pause_hover.png");
-    m_pauseSong->setPressPic(":/icons/pause_press.png");
+    m_pauseSong->setNormalPic(":/img/mpris/pause_normal.png");
+    m_pauseSong->setHoverPic(":/img/mpris/pause_hover.png");
+    m_pauseSong->setPressPic(":/img/mpris/pause_press.png");
 
     m_nextSong = new DImageButton;
-    m_nextSong->setNormalPic(":/icons/next_normal.png");
-    m_nextSong->setHoverPic(":/icons/next_hover.png");
-    m_nextSong->setPressPic(":/icons/next_press.png");
+    m_nextSong->setNormalPic(":/img/mpris/next_normal.png");
+    m_nextSong->setHoverPic(":/img/mpris/next_hover.png");
+    m_nextSong->setPressPic(":/img/mpris/next_press.png");
     m_volume = new DImageButton;
-    m_volume->setNormalPic(":/icons/volume_normal.png");
-    m_volume->setHoverPic(":/icons/volume_hover.png");
-    m_volume->setPressPic(":/icons/volume_press.png");
+    m_volume->setNormalPic(":/img/mpris/volume_normal.png");
+    m_volume->setHoverPic(":/img/mpris/volume_hover.png");
+    m_volume->setPressPic(":/img/mpris/volume_press.png");
     m_volume->installEventFilter(this);
 
 
     m_userswitch = new DImageButton;
-    m_userswitch->setNormalPic(":/icons/userswitch_normal.png");
-    m_userswitch->setHoverPic(":/icons/userswitch_hover.png");
-    m_userswitch->setPressPic(":/icons/userswitch_press.png");
+    m_userswitch->setNormalPic(":/img/bottom_actions/userswitch_normal.png");
+    m_userswitch->setHoverPic(":/img/bottom_actions/userswitch_hover.png");
+    m_userswitch->setPressPic(":/img/bottom_actions/userswitch_press.png");
 
 
     m_shutdown = new DImageButton;
-    m_shutdown->setNormalPic(":/icons/shutdown_normal.png");
-    m_shutdown->setHoverPic(":/icons/shutdown_hover.png");
-    m_shutdown->setPressPic(":/icons/shutdown_press.png");
+    m_shutdown->setNormalPic(":/img/bottom_actions/shutdown_normal.png");
+    m_shutdown->setHoverPic(":/img/bottom_actions/shutdown_hover.png");
+    m_shutdown->setPressPic(":/img/bottom_actions/shutdown_press.png");
 
 
     QHBoxLayout *volumeLayout = new QHBoxLayout;
@@ -185,26 +185,26 @@ void ControlWidget::volumeWheelControl(const QWheelEvent *e)
 void ControlWidget::changePauseBtnPic()
 {
     if (m_dbusInter->playbackStatus() == "Playing") {
-        m_pauseSong->setNormalPic(":/icons/pause_normal.png");
-        m_pauseSong->setHoverPic(":/icons/pause_hover.png");
-        m_pauseSong->setPressPic(":/icons/pause_press.png");
+        m_pauseSong->setNormalPic(":/img/mpris/pause_normal.png");
+        m_pauseSong->setHoverPic(":/img/mpris/pause_hover.png");
+        m_pauseSong->setPressPic(":/img/mpris/pause_press.png");
     } else {
-        m_pauseSong->setNormalPic(":/icons/start_normal.png");
-        m_pauseSong->setHoverPic(":/icons/start_hover.png");
-        m_pauseSong->setPressPic(":/icons/start_press.png");
+        m_pauseSong->setNormalPic(":/img/mpris/start_normal.png");
+        m_pauseSong->setHoverPic(":/img/mpris/start_hover.png");
+        m_pauseSong->setPressPic(":/img/mpris/start_press.png");
     }
 }
 
 void ControlWidget::changeVolumeBtnPic()
 {
     if (m_dbusInter->volume()) {
-        m_volume->setNormalPic(":/icons/volume_normal.png");
-        m_volume->setHoverPic(":/icons/volume_hover.png");
-        m_volume->setPressPic(":/icons/volume_press.png");
+        m_volume->setNormalPic(":/img/mpris/volume_normal.png");
+        m_volume->setHoverPic(":/img/mpris/volume_hover.png");
+        m_volume->setPressPic(":/img/mpris/volume_press.png");
     } else {
-        m_volume->setNormalPic(":/icons/mute_normal.png");
-        m_volume->setHoverPic(":/icons/mute_hover.png");
-        m_volume->setPressPic(":/icons/mute_press.png");
+        m_volume->setNormalPic(":/img/mpris/mute_normal.png");
+        m_volume->setHoverPic(":/img/mpris/mute_hover.png");
+        m_volume->setPressPic(":/img/mpris/mute_press.png");
     }
 }
 

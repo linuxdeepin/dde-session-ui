@@ -72,9 +72,6 @@ private:
     QList<UserButton *> *m_userBtns;
     QLightDM::UsersModel *m_userModel;
     DTK_WIDGET_NAMESPACE::DLoadingIndicator *m_loadingAni;
-
-    const int USER_ICON_WIDTH = 140;
-    const int USER_ICON_HEIGHT = 150;
 };
 
 #endif // WIDGET_H

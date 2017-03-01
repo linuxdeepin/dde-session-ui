@@ -2,6 +2,9 @@
     <qresource prefix="/">
         <file>img/facelogin_animation.png</file>
         <file>img/capslock.png</file>
+        <file>img/keyboard_normal.png</file>
+        <file>img/keyboard_hover.png</file>
+        <file>img/keyboard_press.png</file>
         <file>img/sessions_icon/deepin_hover.png</file>
         <file>img/sessions_icon/deepin_normal.png</file>
         <file>img/sessions_icon/deepin_press.png</file>
@@ -29,15 +32,51 @@
         <file>img/sessions_icon/xfce_hover.png</file>
         <file>img/sessions_icon/xfce_normal.png</file>
         <file>img/sessions_icon/xfce_press.png</file>
-        <file>img/requireshutdown_icon/restart_hover.png</file>
-        <file>img/requireshutdown_icon/restart_normal.png</file>
-        <file>img/requireshutdown_icon/restart_press.png</file>
-        <file>img/requireshutdown_icon/shutdown_hover.png</file>
-        <file>img/requireshutdown_icon/shutdown_normal.png</file>
-        <file>img/requireshutdown_icon/shutdown_press.png</file>
-        <file>img/requireshutdown_icon/suspend_hover.png</file>
-        <file>img/requireshutdown_icon/suspend_normal.png</file>
-        <file>img/requireshutdown_icon/suspend_press.png</file>
+        <file>img/action_icons/shutdown_hover.png</file>
+        <file>img/action_icons/shutdown_normal.png</file>
+        <file>img/action_icons/shutdown_press.png</file>
         <file>img/tick_hover.png</file>
+        <file>img/mpris/mute_hover.png</file>
+        <file>img/mpris/mute_normal.png</file>
+        <file>img/mpris/mute_press.png</file>
+        <file>img/mpris/next_hover.png</file>
+        <file>img/mpris/next_normal.png</file>
+        <file>img/mpris/next_press.png</file>
+        <file>img/mpris/pause_hover.png</file>
+        <file>img/mpris/pause_normal.png</file>
+        <file>img/mpris/pause_press.png</file>
+        <file>img/mpris/previous_hover.png</file>
+        <file>img/mpris/previous_normal.png</file>
+        <file>img/mpris/previous_press.png</file>
+        <file>img/mpris/start_hover.png</file>
+        <file>img/mpris/start_normal.png</file>
+        <file>img/mpris/start_press.png</file>
+        <file>img/mpris/volume_hover.png</file>
+        <file>img/mpris/volume_normal.png</file>
+        <file>img/mpris/volume_press.png</file>
+        <file>img/action_icons/login_hover.png</file>
+        <file>img/action_icons/login_normal.png</file>
+        <file>img/action_icons/login_press.png</file>
+        <file>img/action_icons/reboot_hover.png</file>
+        <file>img/action_icons/reboot_normal.png</file>
+        <file>img/action_icons/reboot_press.png</file>
+        <file>img/action_icons/unlock_hover.png</file>
+        <file>img/action_icons/unlock_normal.png</file>
+        <file>img/action_icons/unlock_press.png</file>
+        <file>img/bottom_actions/shutdown_hover.png</file>
+        <file>img/bottom_actions/shutdown_normal.png</file>
+        <file>img/bottom_actions/shutdown_press.png</file>
+        <file>img/bottom_actions/userswitch_hover.png</file>
+        <file>img/bottom_actions/userswitch_normal.png</file>
+        <file>img/bottom_actions/userswitch_press.png</file>
+        <file>img/list_actions/restart_hover.png</file>
+        <file>img/list_actions/restart_normal.png</file>
+        <file>img/list_actions/restart_press.png</file>
+        <file>img/list_actions/shutdown_hover.png</file>
+        <file>img/list_actions/shutdown_normal.png</file>
+        <file>img/list_actions/shutdown_press.png</file>
+        <file>img/list_actions/suspend_hover.png</file>
+        <file>img/list_actions/suspend_normal.png</file>
+        <file>img/list_actions/suspend_press.png</file>
     </qresource>
 </RCC>

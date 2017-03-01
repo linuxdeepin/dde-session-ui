@@ -33,7 +33,7 @@ void UserButton::initConnect() {
 }
 
 void UserButton::initUI() {
-    setFixedSize(120, 150);
+    setFixedSize(USER_ICON_WIDTH, USER_ICON_HEIGHT);
     setFocusPolicy(Qt::NoFocus);
     m_userAvatar = new UserAvatar;
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);

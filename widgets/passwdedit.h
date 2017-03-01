@@ -87,7 +87,6 @@ private:
     void initUI();
     void initConnect();
     void initData();
-    void setupLineeditSize();
 
     bool m_alert = false;
     bool m_alert_enter = false;

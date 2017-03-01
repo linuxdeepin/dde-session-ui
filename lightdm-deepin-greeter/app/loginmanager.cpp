@@ -245,21 +245,13 @@ void LoginManager::initUI()
 
     m_userWidget->setObjectName("UserWidget");
     m_passWdEdit = new PassWdEdit(this);
-    m_passWdEdit->setEnterBtnStyle(":/img/login_normal.png", ":/img/login_normal.png", ":/img/login_press.png");
+    m_passWdEdit->setEnterBtnStyle(":/img/action_icons/login_normal.png", ":/img/action_icons/login_normal.png", ":/img/action_icons/login_press.png");
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
     m_passWdEdit->setFocus();
     m_passwdEditSize = m_passWdEdit->size();
 
     m_loginButton = new QPushButton(this);
     m_loginButton->setText(tr("Login"));
-    m_loginButton->setStyleSheet("QPushButton {"
-                                  "border: none;"
-                                  "background: url(:/img/login_unpwd_normal.png);"
-                                  "}"
-                                  "QPushButton:pressed {"
-                                  "border: none;"
-                                  "background: url(:/img/login_unpwd_press.png);"
-                                  "}");
     m_loginButton->setFixedSize(160, 36);
     m_loginButton->hide();
 

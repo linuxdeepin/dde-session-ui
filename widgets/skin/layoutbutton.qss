@@ -1,10 +1,10 @@
 QPushButton#LayoutButton {
-    background-color: rgba(255, 0, 0, 0);
+    background-color: transparent;
     border: none;
 }
 
 QPushButton#LayoutButton:hover {
-    background-color: rgba(0, 0, 0, .4);
+    background-color: rgba(255, 255, 255, 0.15);
     border: none
 }
 

@@ -78,7 +78,7 @@ void UserWidget::initUI()
     }
 
     qDebug() << "whiteList: " << m_whiteList;
-    QPixmap loading(":/img/facelogin_animation.png");
+    QPixmap loading(":/img/action_icons/facelogin_animation.png");
     QSize size(110, 110);
     m_loadingAni = new DLoadingIndicator(this);
     m_loadingAni->setLoading(true);

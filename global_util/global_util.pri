@@ -48,9 +48,6 @@ SOURCES += \
     $$PWD/dbus/dbuslockfront.cpp \
     $$PWD/dbus/dbusmediaplayer2.cpp
 
-RESOURCES += \
-    $$PWD/commonimage.qrc
-
 DISTFILES += \
     $$PWD/dbus/com.deepin.daemon.Zone.xml
 

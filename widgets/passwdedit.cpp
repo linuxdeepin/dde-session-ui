@@ -51,12 +51,12 @@ void PassWdEdit::initUI()
     m_keyboardButton->setVisible(false);
     m_keyboardButton->setObjectName("KeyBoardLayoutButton");
 
-    m_keyboardButton->setFixedSize(QSize(20, 14));
+    m_keyboardButton->setFixedSize(QSize(34, 14));
     m_keyboardButton->setIconSize(QSize(20, 14));
 #endif
     m_iconButton = new DImageButton(this);
 //    m_iconButton->setCheckable(true);
-    m_iconButton->setFixedSize(QSize(35, 35));
+    m_iconButton->setFixedSize(QSize(28, 28));
 
     m_capslockWarning = new QLabel(this);
     m_capslockWarning->setVisible(m_capslockMonitor->isCapslockOn());
@@ -68,39 +68,30 @@ void PassWdEdit::initUI()
     m_lineEdit->setContextMenuPolicy(Qt::NoContextMenu);
     m_lineEdit->setObjectName("passwdLineEdit");
     m_lineEdit->setEchoMode(QLineEdit::Password);
-//    m_lineEdit->setValidator(new QRegExpValidator(QRegExp("^[\\w]*$")));
     m_lineEdit->setAttribute(Qt::WA_InputMethodEnabled, false);
-    setupLineeditSize();
     m_lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_lineEdit->setAlignment(Qt::AlignVCenter);
     m_lineEdit->installEventFilter(this);
 
     m_Layout = new QHBoxLayout;
     m_Layout->setMargin(0);
     m_Layout->setSpacing(0);
-    m_Layout->addSpacing(3);
 #ifndef SHENWEI_PLATFORM
-    m_Layout->addWidget(m_keyboardButton);
-    m_Layout->addSpacing(2);
+    m_Layout->addWidget(m_keyboardButton, 0, Qt::AlignVCenter);
 #endif
-    m_Layout->addWidget(m_lineEdit);
-    m_Layout->addStretch();
-
-    m_capslockWarning->move(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width() - \
-                            DDESESSIONCC::CapslockWarningWidth - \
-                            DDESESSIONCC::CapslockWarningRightMargin,
-                            (height() - DDESESSIONCC::CapslockWarningWidth) / 2);
+    m_Layout->addSpacing(4);
+    m_Layout->addWidget(m_lineEdit, 1, Qt::AlignVCenter);
+    m_Layout->addSpacing(2);
+    m_Layout->addWidget(m_capslockWarning, 0, Qt::AlignVCenter);
+    m_Layout->addSpacing(2);
+    m_Layout->addWidget(m_iconButton, 0, Qt::AlignVCenter);
+    m_Layout->addSpacing(3);
 
     m_opacityEffect = new QGraphicsOpacityEffect;
     m_opacityEffect->setOpacity(1.0);
     m_showAni = new QPropertyAnimation(m_opacityEffect, "opacity");
     m_hideAni = new QPropertyAnimation(m_opacityEffect, "opacity");
 
-#ifndef SHENWEI_PLATFORM
-    m_iconButton->move(this->x() + this->width() * 2 + 13, this->y());
-#else
-    m_iconButton->move(this->x() + this->width() * 2 + 15, this->y() - 1);
-    m_iconButton->raise();
-#endif
     setLayout(m_Layout);
     setGraphicsEffect(m_opacityEffect);
 
@@ -160,7 +151,6 @@ void PassWdEdit::recordUserPassWd(bool isChoose, QString username)
 void PassWdEdit::updateCapslockStatus(bool on)
 {
     m_capslockWarning->setVisible(on);
-    setupLineeditSize();
 }
 
 void PassWdEdit::initConnect()
@@ -178,22 +168,6 @@ void PassWdEdit::initConnect()
 void PassWdEdit::initData()
 {
     utilSettings = new UtilSettings(this);
-}
-
-void PassWdEdit::setupLineeditSize()
-{
-    int delta = 0;
-    if (m_capslockMonitor->isCapslockOn()) {
-        delta = DDESESSIONCC::CapslockWarningWidth + DDESESSIONCC::CapslockWarningRightMargin;
-    }
-
-#ifndef SHENWEI_PLATFORM
-    m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width()
-                             - m_keyboardButton->width() - delta - 6, m_iconButton->height());
-#else
-    m_lineEdit->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - m_iconButton->width() - delta - 6
-                             , m_iconButton->height() - 2);
-#endif
 }
 
 void PassWdEdit::focusInEvent(QFocusEvent *)

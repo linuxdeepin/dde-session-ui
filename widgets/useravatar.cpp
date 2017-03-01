@@ -93,12 +93,14 @@ void UserAvatar::paintEvent(QPaintEvent *)
 
     QColor penColor = m_selected ? m_borderSelectedColor : m_borderColor;
 
-    QPen pen;
-    pen.setColor(penColor);
-    pen.setWidth(m_borderWidth);
-    painter.setPen(pen);
-    painter.drawPath(path);
-    painter.end();
+    if (m_borderWidth) {
+        QPen pen;
+        pen.setColor(penColor);
+        pen.setWidth(m_borderWidth);
+        painter.setPen(pen);
+        painter.drawPath(path);
+        painter.end();
+    }
 }
 
 QImage UserAvatar::imageToGray(const QImage &image)

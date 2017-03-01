@@ -21,6 +21,9 @@
 
 #include "useravatar.h"
 
+static const int USER_ICON_WIDTH = 180;
+static const int USER_ICON_HEIGHT = 180;
+
 class UserButton:public QPushButton
 {
     Q_OBJECT
@@ -71,7 +74,7 @@ private:
 
     AvatarSize m_avatarsize = AvatarLargerSize;
     QPropertyAnimation *m_moveAni;
-    int m_borderWidth = 4;
+    int m_borderWidth = 0;
 
     double m_opacity;
     QPropertyAnimation* m_showAnimation;

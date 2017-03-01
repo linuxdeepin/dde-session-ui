@@ -90,7 +90,7 @@ private:
     QColor m_borderColor;
     QColor m_borderSelectedColor;
     AvatarSize m_avatarSize = AvatarNormalSize;
-    int m_borderWidth = 5;
+    int m_borderWidth = 0;
     bool m_selected = false;
     bool m_deleteable = false;
 
