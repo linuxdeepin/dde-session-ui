@@ -141,8 +141,6 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
 
     if (!inhibitReason.isEmpty())
     {
-        QBoxLayout *mainLayout = qobject_cast<QBoxLayout*>(parentWidget()->layout());
-
         InhibitWarnView *view = new InhibitWarnView;
         view->setAction(action);
         view->setInhibitReason(inhibitReason);
@@ -155,7 +153,7 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
             view->setAcceptReason(tr("Log out"));
 
         m_warningView = view;
-        mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
         connect(view, &InhibitWarnView::cancelled, [this] {
            qApp->quit();
@@ -172,13 +170,11 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
 
     if (loggedInUsers.length() > 1) {
 
-        QBoxLayout * mainLayout = qobject_cast<QBoxLayout*>(parentWidget()->layout());
-
         MultiUsersWarningView *view = new MultiUsersWarningView;
         view->setUsers(loggedInUsers);
         view->setAction(action);
         m_warningView = view;
-        mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
         connect(view, &MultiUsersWarningView::cancelled, [this] {
            qApp->quit();
@@ -195,8 +191,6 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
     if (m_confirm)
     {
         m_confirm = false;
-
-        QBoxLayout *mainLayout = qobject_cast<QBoxLayout*>(parentWidget()->layout());
 
         InhibitWarnView *view = new InhibitWarnView;
         view->setAction(action);
@@ -217,7 +211,8 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         }
 
         m_warningView = view;
-        mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+
+        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
         connect(view, &InhibitWarnView::cancelled, [this] {
            qApp->quit();
@@ -265,13 +260,14 @@ void ShutDownFrame::initUI() {
                                "font-size:14px;");
     QHBoxLayout *tipsLayout = new QHBoxLayout;
     tipsLayout->addStretch();
-    tipsLayout->addWidget(tipsIcon);
-    tipsLayout->addWidget(m_tipsLabel);
+    tipsLayout->addWidget(tipsIcon, 0, Qt::AlignHCenter);
+    tipsLayout->addWidget(m_tipsLabel, 0, Qt::AlignHCenter);
     tipsLayout->addStretch();
 
     m_tipsWidget = new QWidget;
     m_tipsWidget->hide();
     m_tipsWidget->setLayout(tipsLayout);
+    m_tipsWidget->setFixedWidth(800);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->setMargin(0);
@@ -285,15 +281,15 @@ void ShutDownFrame::initUI() {
     buttonLayout->addWidget(m_logoutButton);
     buttonLayout->addStretch(0);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setMargin(0);
-    mainLayout->setSpacing(0);
-    mainLayout->addStretch();
-    mainLayout->addLayout(buttonLayout);
-    mainLayout->addWidget(m_tipsWidget);
-    mainLayout->addStretch();
+    m_mainLayout = new QVBoxLayout;
+    m_mainLayout->setMargin(0);
+    m_mainLayout->setSpacing(0);
+    m_mainLayout->addStretch();
+    m_mainLayout->addLayout(buttonLayout);
+    m_mainLayout->addWidget(m_tipsWidget, 0, Qt::AlignHCenter);
+    m_mainLayout->addStretch();
     setFocusPolicy(Qt::StrongFocus);
-    setLayout(mainLayout);
+    setLayout(m_mainLayout);
 
     updateStyle(":/skin/shutdown.qss", this);
 

@@ -68,6 +68,7 @@ private:
     DBusLogin1Manager* m_login1Inter;
 
     QWidget *m_warningView = nullptr;
+    QVBoxLayout *m_mainLayout;
 
     bool m_confirm = false;
 };
