@@ -23,7 +23,8 @@ DWIDGET_USE_NAMESPACE
 
 PassWdEdit::PassWdEdit(QWidget *parent)
     : QFrame(parent),
-      m_capslockMonitor(new CapslockMonitor(this))
+      m_capslockMonitor(new CapslockMonitor(this)),
+      m_errorTooltip(new ErrorTooltip("", this->parentWidget()))
 {
     initUI();
     initConnect();
@@ -46,6 +47,8 @@ PassWdEdit::~PassWdEdit()
 
 void PassWdEdit::initUI()
 {
+    m_errorTooltip->hide();
+
 #ifndef SHENWEI_PLATFORM
     m_keyboardButton = new QPushButton;
     m_keyboardButton->setVisible(false);
@@ -202,6 +205,7 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
                         m_lineEdit->setText("");
                         m_alert_enter = m_alert_enter ? !m_alert_enter : m_alert_enter;
                     } else {
+                        m_errorTooltip->hide();
                         m_lineEdit->setText(event->text());
                         m_alert_enter = m_alert_enter ? !m_alert_enter : m_alert_enter;
                     }
@@ -287,8 +291,6 @@ void PassWdEdit::setReadOnly(bool value)
 
 void PassWdEdit::setAlert(bool alert, const QString &text)
 {
-    static QTimer * RestoreTimer = nullptr;
-
     if (m_alert == alert) {
         return;
     }
@@ -296,33 +298,15 @@ void PassWdEdit::setAlert(bool alert, const QString &text)
     m_alert = alert;
     emit alertChanged(alert);
 
-    if (!RestoreTimer) {
-        RestoreTimer = new QTimer(this);
-        RestoreTimer->setSingleShot(true);
-        RestoreTimer->setInterval(1000 * 60 * 10);
-
-        connect(RestoreTimer, &QTimer::timeout, [this] {
-            setEnabled(true);
-            setReadOnly(false);
-            setAlert(false);
-        });
-    }
-
     if (m_alert) {
         // block text changed signal
-        m_lineEdit->blockSignals(true);
-        m_lineEdit->setText(text);
-        m_lineEdit->blockSignals(false);
-        m_lineEdit->setEchoMode(QLineEdit::Normal);
-        m_lineEdit->setReadOnly(true);
-
-        // Restore to normal state after 10s.
-        RestoreTimer->start();
+        const QPoint pos = mapTo(m_errorTooltip->parentWidget(), QPoint(m_lineEdit->x(), height() - 10));
+        m_errorTooltip->setMessage(text);
+        m_errorTooltip->show(pos.x(), pos.y());
     } else {
-        m_lineEdit->clear();
-        m_lineEdit->setEchoMode(QLineEdit::Password);
-        m_lineEdit->setReadOnly(false);
+        m_errorTooltip->hide();
     }
+
     setStyleSheet(styleSheet());
 }
 

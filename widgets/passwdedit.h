@@ -24,6 +24,8 @@
 #include "util_updateui.h"
 #include "util_settings.h"
 
+#include "errortooltip.h"
+
 class CapslockMonitor;
 
 class PassWdEdit : public QFrame
@@ -81,7 +83,6 @@ protected:
     bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;
 
 private:
-
     int m_timerCount = 0;
 
     void initUI();
@@ -105,5 +106,7 @@ private:
 
     CapslockMonitor *m_capslockMonitor;
     QLabel *m_capslockWarning;
+
+    ErrorTooltip *m_errorTooltip;
 };
 #endif // PASSWDEDIT

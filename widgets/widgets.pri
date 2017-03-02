@@ -19,7 +19,8 @@ HEADERS += \
     $$PWD/kblayoutwidget.h \
     $$PWD/shutdownwidget.h \
     $$PWD/darrowrectangle.h \
-    $$PWD/capslockmonitor.h
+    $$PWD/capslockmonitor.h \
+    $$PWD/errortooltip.h
 
 
 
@@ -34,7 +35,8 @@ SOURCES += \
     $$PWD/kblayoutwidget.cpp \
     $$PWD/shutdownwidget.cpp \
     $$PWD/darrowrectangle.cpp \
-    $$PWD/capslockmonitor.cpp
+    $$PWD/capslockmonitor.cpp \
+    $$PWD/errortooltip.cpp
 
 RESOURCES += \
     $$PWD/widgetstheme.qrc \
