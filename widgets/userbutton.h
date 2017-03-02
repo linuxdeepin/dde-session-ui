@@ -38,6 +38,9 @@ public:
         AvatarLargerSize = 110,
     };
 
+    bool selected() const;
+    void setSelected(bool selected);
+
 signals:
     void imageClicked(QString nam);
     void opacityChanged();
@@ -64,12 +67,14 @@ private:
     void initConnect();
     void addTextShadow(bool isEffective);
 
-    bool m_checked = false;
+    bool m_selected = false;
     QString m_iconUrl;
     QString m_buttonId;
     UserAvatar* m_userAvatar;
     QLabel* m_textLabel;
+    QLabel *m_checkedMark;
     QHBoxLayout* m_buttonLayout;
+    QHBoxLayout *m_nameLayout;
     QVBoxLayout* m_Layout;
 
     AvatarSize m_avatarsize = AvatarLargerSize;

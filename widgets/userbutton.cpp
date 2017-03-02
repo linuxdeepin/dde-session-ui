@@ -42,8 +42,14 @@ void UserButton::initUI() {
     m_userAvatar->setObjectName(m_buttonId);
 
     m_textLabel = new QLabel;
-    m_textLabel->setFixedSize(width(), 30);
-    m_textLabel->setStyleSheet("text-align:center;color: rgba(255, 255, 255, 255);");
+    m_textLabel->setFixedHeight(30);
+    m_textLabel->setStyleSheet("text-align:center; color: white;");
+
+    m_checkedMark = new QLabel;
+    m_checkedMark->setFixedSize(16 + 10, 16);
+    m_checkedMark->setPixmap(QPixmap(""));
+    m_checkedMark->setStyleSheet("background: url(\":/img/avatar_checked.png\"); margin-right: 10");
+    m_checkedMark->setVisible(false);
 
     QFont font(m_textLabel->font());
     font.setPixelSize(16);
@@ -59,7 +65,7 @@ void UserButton::initUI() {
     }
 
     m_textLabel->setAlignment(Qt::AlignHCenter);
-//    qDebug() << "QQQ m_textLabel:" << m_textLabel->width() << this->width();
+
     m_buttonLayout = new QHBoxLayout;
     m_buttonLayout->setMargin(0);
     m_buttonLayout->setSpacing(0);
@@ -67,11 +73,19 @@ void UserButton::initUI() {
     m_buttonLayout->addWidget(m_userAvatar);
     m_buttonLayout->addStretch();
 
+    m_nameLayout = new QHBoxLayout;
+    m_nameLayout->setSpacing(0);
+    m_nameLayout->setMargin(0);
+    m_nameLayout->addStretch();
+    m_nameLayout->addWidget(m_checkedMark, 0, Qt::AlignVCenter);
+    m_nameLayout->addWidget(m_textLabel, 0, Qt::AlignVCenter);
+    m_nameLayout->addStretch();
+
     m_Layout = new QVBoxLayout;
     m_Layout->setMargin(0);
     m_Layout->setSpacing(0);
     m_Layout->addLayout(m_buttonLayout);
-    m_Layout->addWidget(m_textLabel);
+    m_Layout->addLayout(m_nameLayout);
     m_Layout->addStretch();
     setStyleSheet("border: none;");
 
@@ -155,11 +169,22 @@ void UserButton::addTextShadow(bool isEffective) {
     m_textLabel->setGraphicsEffect(nameShadow);
 }
 
+bool UserButton::selected() const
+{
+    return m_selected;
+}
+
+void UserButton::setSelected(bool selected)
+{
+    m_selected = selected;
+    update();
+}
+
 void UserButton::paintEvent(QPaintEvent* event)
 {
     QPushButton::paintEvent(event);
 
-    if (!m_checked)
+    if (!m_selected)
         return;
 
     QPainter painter(this);
@@ -191,12 +216,11 @@ void UserButton::setCustomEffect() {
 }
 
 void UserButton::setButtonChecked(bool checked) {
-    m_checked = checked;
-    update();
+    m_checkedMark->setVisible(checked);
 }
 
 bool UserButton::isChecked() {
-    return m_checked;
+    return m_checkedMark->isVisible();
 }
 
 UserButton::~UserButton()

@@ -78,5 +78,6 @@
         <file>img/list_actions/suspend_hover.png</file>
         <file>img/list_actions/suspend_normal.png</file>
         <file>img/list_actions/suspend_press.png</file>
+        <file>img/avatar_checked.png</file>
     </qresource>
 </RCC>

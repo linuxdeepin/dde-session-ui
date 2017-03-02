@@ -13,6 +13,7 @@
 #include "dbus/dbususer.h"
 #include "dbus/dbuslockservice.h"
 #include "accountsutils.h"
+#include "accountsutils.h"
 
 #include <QApplication>
 #include <QtWidgets>
@@ -146,8 +147,8 @@ void UserWidget::setCurrentUser(const QString &username)
         if (user->objectName() == username) {
             user->showButton();
             user->setImageSize(user->AvatarLargerSize);
-            if (user->isChecked())
-                user->setButtonChecked(false);
+            user->setButtonChecked(false);
+            user->setSelected(false);
             user->show();
         } else
             user->hide(180);
@@ -180,32 +181,37 @@ void UserWidget::expandWidget()
     const int count = m_userBtns->count();
     const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
     const int offset = (width() - USER_ICON_WIDTH * qMin(count, maxLineCap)) / 2;
-    const QString username = currentUser();
+    const QString currentUserName = currentUser();
 
     // Adjust size according to user count.
     if (maxLineCap < count) {
         setFixedSize(width(), USER_ICON_HEIGHT * qCeil(count * 1.0 / maxLineCap));
     }
 
+    const QStringList loggedInUsers = AccountsUtils::GetLoggedInUsers();
+
     for (int i = 0; i != count; ++i)
     {
-        if (m_userBtns->at(i)->objectName() != username) {
-             m_userBtns->at(i)->setButtonChecked(false);
-        }
-        if (m_userBtns->at(i)->objectName() == username) {
-             m_userBtns->at(i)->setButtonChecked(true);
-        }
-        m_userBtns->at(i)->stopAnimation();
+        UserButton *user = m_userBtns->at(i);
+        const QString username = user->objectName();
 
-        m_userBtns->at(i)->show();
-        m_userBtns->at(i)->showButton();
-        m_userBtns->at(i)->setImageSize(UserButton::AvatarSmallSize);
+        if (loggedInUsers.contains(username)) {
+            user->setButtonChecked(true);
+        } else {
+            user->setButtonChecked(false);
+        }
+
+        user->stopAnimation();
+
+        user->show();
+        user->showButton();
+        user->setImageSize(UserButton::AvatarSmallSize);
         if (i + 1 <= maxLineCap) {
             // the first line.
-            m_userBtns->at(i)->move(QPoint(offset + i * USER_ICON_WIDTH, 0), 200);
+            user->move(QPoint(offset + i * USER_ICON_WIDTH, 0), 200);
         } else {
             // the second line.
-            m_userBtns->at(i)->move(QPoint(offset + (i - maxLineCap) * USER_ICON_WIDTH, USER_ICON_HEIGHT), 200);
+            user->move(QPoint(offset + (i - maxLineCap) * USER_ICON_WIDTH, USER_ICON_HEIGHT), 200);
         }
     }
 
@@ -237,6 +243,7 @@ void UserWidget::resizeEvent(QResizeEvent *e)
 void UserWidget::switchUserByKey(int i, int j) {
     m_userBtns->at(i)->hide(10);
     m_currentUser = m_userBtns->at(j)->objectName();
+    m_userBtns->at(j)->setSelected(false);
     m_userBtns->at(j)->show();
     m_userBtns->at(j)->showButton();
     m_userBtns->at(j)->setImageSize(UserButton::AvatarLargerSize);
@@ -288,9 +295,9 @@ void UserWidget::leftKeySwitchUser() {
 
         for (int j = 0; j < m_userBtns->length(); j++) {
             if (j == m_currentUserIndex) {
-                m_userBtns->at(j)->setButtonChecked(true);
+                m_userBtns->at(j)->setSelected(true);
             } else {
-                m_userBtns->at(j)->setButtonChecked(false);
+                m_userBtns->at(j)->setSelected(false);
             }
         }
 
@@ -324,9 +331,9 @@ void UserWidget::rightKeySwitchUser() {
 
         for (int j = 0; j < m_userBtns->length(); j++) {
             if (j == m_currentUserIndex) {
-                m_userBtns->at(j)->setButtonChecked(true);
+                m_userBtns->at(j)->setSelected(true);
             } else {
-                m_userBtns->at(j)->setButtonChecked(false);
+                m_userBtns->at(j)->setSelected(false);
             }
         }
     }
