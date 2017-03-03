@@ -26,7 +26,7 @@
 
 #include "errortooltip.h"
 
-class CapslockMonitor;
+class KeyboardMonitor;
 
 class PassWdEdit : public QFrame
 {
@@ -104,7 +104,7 @@ private:
     QPropertyAnimation *m_hideAni;
     QMap<QString, QString> passwordMap;
 
-    CapslockMonitor *m_capslockMonitor;
+    KeyboardMonitor *m_capslockMonitor;
     QLabel *m_capslockWarning;
 
     ErrorTooltip *m_errorTooltip;

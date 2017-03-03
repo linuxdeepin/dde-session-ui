@@ -17,13 +17,13 @@
 
 #include "constants.h"
 #include "passwdedit.h"
-#include "capslockmonitor.h"
+#include "keyboardmonitor.h"
 
 DWIDGET_USE_NAMESPACE
 
 PassWdEdit::PassWdEdit(QWidget *parent)
     : QFrame(parent),
-      m_capslockMonitor(new CapslockMonitor(this)),
+      m_capslockMonitor(KeyboardMonitor::instance()),
       m_errorTooltip(new ErrorTooltip("", this->parentWidget()))
 {
     initUI();
@@ -37,7 +37,7 @@ PassWdEdit::PassWdEdit(QWidget *parent)
 #endif
 
     m_capslockMonitor->start(QThread::LowestPriority);
-    connect(m_capslockMonitor, &CapslockMonitor::capslockStatusChanged,
+    connect(m_capslockMonitor, &KeyboardMonitor::capslockStatusChanged,
             this, &PassWdEdit::updateCapslockStatus);
 }
 

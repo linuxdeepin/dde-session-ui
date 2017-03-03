@@ -1,4 +1,4 @@
-#include "capslockmonitor.h"
+#include "keyboardmonitor.h"
 
 #include <QX11Info>
 #include <QDebug>
@@ -71,7 +71,7 @@ void select_events(Display* display)
     XSync(display, False);
 }
 
-int CapslockMonitor::listen(Display *display)
+int KeyboardMonitor::listen(Display *display)
 {
     Window root = DefaultRootWindow(display);
     int root_x, root_y, nouse;
@@ -103,6 +103,8 @@ int CapslockMonitor::listen(Display *display)
             case XI_RawKeyRelease:
                 if (event->detail == 66) { // check if the key pressed is capslock first.
                     emit capslockStatusChanged(isCapslockOn());
+                } else if (event->detail == 77) {
+                    emit numlockStatusChanged(isNumlockOn());
                 }
                 /*printf("Key release: Detail(%d), X(%d), Y(%d), Mask(%u)\n", event->detail, root_x, root_y, mask);*/
                 break;
@@ -123,29 +125,58 @@ int CapslockMonitor::listen(Display *display)
     return EXIT_SUCCESS;
 }
 
-CapslockMonitor::CapslockMonitor(QObject * parent) :
-    QThread(parent)
+KeyboardMonitor::KeyboardMonitor() :
+    QThread()
 {
 
 }
 
-bool CapslockMonitor::isCapslockOn()
+KeyboardMonitor *KeyboardMonitor::instance()
+{
+    static KeyboardMonitor *KeyboardMonitorInstance = nullptr;
+
+    if (!KeyboardMonitorInstance) {
+        KeyboardMonitorInstance = new KeyboardMonitor;
+    }
+
+    return KeyboardMonitorInstance;
+}
+
+bool KeyboardMonitor::isCapslockOn()
 {
     bool result;
     unsigned int n = 0;
-    static Display* d = NULL;
-
-    if (d == NULL) {
-        d = XOpenDisplay(NULL);
-    }
+    static Display* d = QX11Info::display();
 
     XkbGetIndicatorState(d, XkbUseCoreKbd, &n);
-    result = (n & 0x01) == 1;
+    result = (n & 0x01) != 0;
 
     return result;
 }
 
-void CapslockMonitor::run()
+bool KeyboardMonitor::isNumlockOn()
+{
+    bool result;
+    unsigned int n = 0;
+    static Display* d = QX11Info::display();
+
+    XkbGetIndicatorState(d, XkbUseCoreKbd, &n);
+    result = (n & 0x02) != 0;
+
+    return result;
+}
+
+bool KeyboardMonitor::setNumlockStatus(const bool &on)
+{
+    Display* d = QX11Info::display();
+
+    bool result = XkbLockModifiers(d, XkbUseCoreKbd, Mod2Mask, on ? Mod2Mask : 0);
+    XFlush(d);
+
+    return result;
+}
+
+void KeyboardMonitor::run()
 {
     Display* display = XOpenDisplay(NULL);
     int event, error;

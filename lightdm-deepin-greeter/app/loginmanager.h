@@ -29,6 +29,7 @@
 #include "shutdownwidget.h"
 #include "xkbparser.h"
 #include "dbus/dbuskeyboard.h"
+#include "keyboardmonitor.h"
 
 #include "dbus/dbusdisplaymanager.h"
 #include "dbus/dbusvariant.h"
@@ -88,6 +89,9 @@ private:
     void leftKeyPressed();
     void rightKeyPressed();
 
+    void saveNumlockStatus(const bool &on);
+    void restoreNumlockStatus();
+
     LogoWidget* m_logoWidget;
     SwitchFrame* m_switchFrame;
     UserWidget* m_userWidget;
@@ -105,6 +109,8 @@ private:
     QLightDM::Greeter *m_greeter;
     DBusLogin1Manager* m_login1ManagerInterface;
     UtilFile* m_utilFile;
+
+    KeyboardMonitor *m_keyboardMonitor;
 
     QSize m_passwdEditSize;
     QStringList m_kbdList;

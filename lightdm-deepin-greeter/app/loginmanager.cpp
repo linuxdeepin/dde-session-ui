@@ -103,7 +103,8 @@ static int set_rootwindow_cursor() {
 
 LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent),
-    m_authFailureCount(0)
+      m_keyboardMonitor(KeyboardMonitor::instance()),
+      m_authFailureCount(0)
 {
     recordPid();
 
@@ -111,6 +112,9 @@ LoginManager::LoginManager(QWidget* parent)
     initData();
     initConnect();
     initDateAndUpdate();
+
+    m_keyboardMonitor->start(QThread::LowestPriority);
+    QTimer::singleShot(0, this, &LoginManager::restoreNumlockStatus);
 }
 
 LoginManager::~LoginManager()
@@ -362,6 +366,8 @@ void LoginManager::initConnect()
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
 
     connect(m_loginButton, &QPushButton::clicked, this, &LoginManager::login);
+
+    connect(m_keyboardMonitor, &KeyboardMonitor::numlockStatusChanged, this, &LoginManager::saveNumlockStatus);
 }
 
 void LoginManager::initDateAndUpdate() {
@@ -698,4 +704,26 @@ void LoginManager::rightKeyPressed() {
     if (!m_sessionWidget->isHidden()) {
         m_sessionWidget->rightKeySwitch();
     }
+}
+
+void LoginManager::saveNumlockStatus(const bool &on)
+{
+    qDebug() << "save numlock statuc to " << on;
+    QSettings settings;
+    settings.beginGroup("NumlockStatus");
+    settings.setValue(m_userWidget->currentUser(), on);
+    settings.endGroup();
+}
+
+void LoginManager::restoreNumlockStatus()
+{
+    bool value = false;
+
+    QSettings settings;
+    settings.beginGroup("NumlockStatus");
+    value = settings.value(m_userWidget->currentUser(), m_keyboardMonitor->isNumlockOn()).toBool();
+    settings.endGroup();
+
+    qDebug() << "restore numlock status to " << value;
+    m_keyboardMonitor->setNumlockStatus(value);
 }
