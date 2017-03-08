@@ -75,6 +75,11 @@ void InhibitWarnView::setAction(const Actions action)
         m_acceptBtn->setHoverPic(":/img/poweroff_warning_hover.png");
         m_acceptBtn->setPressPic(":/img/poweroff_warning_press.png");
         break;
+    case Actions::Logout:
+        m_acceptBtn->setNormalPic(":/img/logout_warning_normal.png");
+        m_acceptBtn->setHoverPic(":/img/logout_warning_hover.png");
+        m_acceptBtn->setPressPic(":/img/logout_warning_press.png");
+        break;
     default:
         m_acceptBtn->setNormalPic(":/img/reboot_warning_normal.png");
         m_acceptBtn->setHoverPic(":/img/reboot_warning_hover.png");

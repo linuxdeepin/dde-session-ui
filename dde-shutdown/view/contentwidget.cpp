@@ -168,7 +168,7 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         return;
     }
 
-    if (loggedInUsers.length() > 1) {
+    if (loggedInUsers.length() > 1 && action != Logout) {
 
         MultiUsersWarningView *view = new MultiUsersWarningView;
         view->setUsers(loggedInUsers);

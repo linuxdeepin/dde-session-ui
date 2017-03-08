@@ -35,5 +35,20 @@
         <file>img/cancel_hover.png</file>
         <file>img/cancel_normal.png</file>
         <file>img/cancel_press.png</file>
+        <file>img/smallImage/powermenu.png</file>
+        <file>img/smallImage/restart_hover.png</file>
+        <file>img/smallImage/restart_normal.png</file>
+        <file>img/smallImage/restart_press.png</file>
+        <file>img/smallImage/shutdown_hover.png</file>
+        <file>img/smallImage/shutdown_normal.png</file>
+        <file>img/smallImage/shutdown_press.png</file>
+        <file>img/smallImage/suspend_hover.png</file>
+        <file>img/smallImage/suspend_normal.png</file>
+        <file>img/smallImage/suspend_press.png</file>
+        <file>img/user/kakaxi.png</file>
+        <file>img/user/mingren.png</file>
+        <file>img/logout_warning_hover.png</file>
+        <file>img/logout_warning_normal.png</file>
+        <file>img/logout_warning_press.png</file>
     </qresource>
 </RCC>
