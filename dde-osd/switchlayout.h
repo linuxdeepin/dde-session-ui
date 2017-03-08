@@ -38,6 +38,8 @@ public:
     void reHiglightKeyboard();
     void resizeParent();
 
+    void directSwitchNextLayout();
+
 private:
     void initGlobalVar(QWidget *parent);
     void deleteOsd();

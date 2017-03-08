@@ -27,6 +27,7 @@ const OsdOption AudioDown = OsdOption("AudioDown");
 const OsdOption AudioUp = OsdOption("AudioUp");
 const OsdOption SwitchMonitors = OsdOption("SwitchMonitors");
 const OsdOption SwitchLayouts = OsdOption("SwitchLayout");
+const OsdOption DirectSwitchLayouts = OsdOption("DirectSwitchLayout");
 const OsdOption NumLockOn = OsdOption("NumLockOn", ":/icons/OSD_num_lock_on.png");
 const OsdOption NumLockOff = OsdOption("NumLockOff", ":/icons/OSD_num_lock_off.png");
 const OsdOption CapsLockOn = OsdOption("CapsLockOn", ":/icons/OSD_caps_lock_on.png");
@@ -47,6 +48,7 @@ const OsdOption *optionList[] = {
     &AudioDown,
     &AudioUp,
     &SwitchLayouts,
+    &DirectSwitchLayouts,
     &SwitchMonitors,
     &NumLockOn,
     &NumLockOff,
@@ -214,6 +216,13 @@ void Osd::showOSD()
         } else {
             lastAppMode() == SwitchLayoutEnum ? highlightNextLayout() : highlightCurrentLayout();
         }
+    } else if (m_Parser.isSet(DirectSwitchLayouts)) {
+        if (!m_SwitchLayout->isPanelVailed()) {
+            return;
+        }
+
+        m_SwitchLayout->directSwitchNextLayout();
+        return;
     } else if (m_Parser.isSet(SwitchMonitors)) {
         if (!m_SwitchMonitor->isPanelVailed()) {
             return;

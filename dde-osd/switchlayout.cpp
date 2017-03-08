@@ -112,7 +112,20 @@ void SwitchLayout::resizeParent()
     m_ParentItem->resize(m_MaxTextWidth + LAYOUT_MARGIN * 4, m_KeyboradLayoutHeight + LAYOUT_MARGIN * 2);
 }
 
+// Switch to next layout and don't show the UI.
+void SwitchLayout::directSwitchNextLayout()
+{
+    const QString currentLayout = m_LayoutInterface->currentLayout();
+    const int nextIndex = (m_KeyboardList.indexOf(currentLayout) + 1 ) % m_KeyboardList.length();
+    m_LayoutInterface->setCurrentLayout(m_KeyboardList.at(nextIndex));
 
+    // set this state property so that the normal behavior of this OSD won't go wrong.
+    // sigh :(
+    m_CurrentIndexOfKeyBoard = nextIndex;
+    if (isVisible()) {
+        reHiglightKeyboard();
+    }
+}
 
 void SwitchLayout::initKeyboard()
 {
