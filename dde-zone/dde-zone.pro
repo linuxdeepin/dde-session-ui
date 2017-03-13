@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = dde-zone
 TEMPLATE = app
 CONFIG += link_pkgconfig c++11
+PKGCONFIG += dtkwidget dtkbase dtkutil
 LIBS += -lX11
 
 SOURCES += main.cpp \

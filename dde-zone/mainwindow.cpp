@@ -14,7 +14,8 @@
 #include <QGuiApplication>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent),
+      m_timer(new QTimer)
 {
     m_dbusZoneInter = new ZoneInterface("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone", QDBusConnection::sessionBus(), this);
 
@@ -41,6 +42,20 @@ MainWindow::MainWindow(QWidget *parent)
     back->setPalette(palette);
     back->setAutoFillBackground(true);
     back->setGeometry(0, MAIN_ITEM_TOP_MARGIN, this->width(), this->height() - MAIN_ITEM_TOP_MARGIN);
+
+    m_animationSequence = new DPictureSequenceView(this);
+    int x = (this->rect().right() - 450) / 2;
+    int y = (this->rect().bottom() - 348) / 2;
+    m_animationSequence->setGeometry(x, y, 450, 348);
+
+    QStringList sequence;
+    for (int i = 0; i != 472; ++i) {
+      sequence.append(QString(":/images/Aminations/Prompt_%1").arg((i % 472), 3, 10, QChar('0')));
+    }
+
+    m_animationSequence->setPictureSequence(sequence);
+    m_animationSequence->setSpeed(40);
+    m_animationSequence->play();
 
     // init corresponding QList for addButtons()
     m_ButtonNames << tr("Fast Screen Off") << tr("Control Center") << tr("All Windows") << tr("Launcher") << tr("Desktop") << tr("None");
