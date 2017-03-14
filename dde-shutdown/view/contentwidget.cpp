@@ -139,7 +139,7 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
     }
 
 
-    if (!inhibitReason.isEmpty())
+    if (!inhibitReason.isEmpty() && action != Logout)
     {
         InhibitWarnView *view = new InhibitWarnView;
         view->setAction(action);
@@ -149,8 +149,8 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
             view->setAcceptReason(tr("Shut down"));
         else if (action == Restart)
             view->setAcceptReason(tr("Restart"));
-        else if (action == Logout)
-            view->setAcceptReason(tr("Log out"));
+        else
+            Q_UNREACHABLE();
 
         m_warningView = view;
         m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
