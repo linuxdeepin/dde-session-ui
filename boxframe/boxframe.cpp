@@ -103,7 +103,7 @@ void BoxFrame::setBackground(const QString &url, bool force)
     if (!url.isEmpty() && m_lastUrl == url && !force) return;
 
     QString path = QUrl(url).isLocalFile() ? QUrl(url).toLocalFile() : url;
-    if (path.isEmpty())
+    if (path.isEmpty() || !QFile::exists(path))
         path = DefaultBackground;
 
     const QString blurredPath = GetBlurredImagePath(path);
