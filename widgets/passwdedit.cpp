@@ -277,6 +277,7 @@ void PassWdEdit::hide()
     m_hideAni->setStartValue(1.0);
     m_hideAni->setEndValue(0.0);
     m_hideAni->start();
+    m_errorTooltip->hide();
 }
 
 bool PassWdEdit::isReadOnly()

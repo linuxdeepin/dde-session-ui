@@ -417,7 +417,7 @@ void LoginManager::authenticationComplete()
     qDebug() << "authenticationComplete";
     m_userWidget->hideLoadingAni();
 
-    if (!m_greeter->isAuthenticated()) {
+    if (!m_greeter->isAuthenticated() && m_passWdEdit->isVisible()) {
         m_authFailureCount++;
         if (m_authFailureCount < UtilFile::GetAuthLimitation()) {
             m_passWdEdit->setAlert(true, tr("Wrong Password"));
