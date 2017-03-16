@@ -105,6 +105,8 @@ void Osd::delayAction()
         m_SwitchLayout->setKeyboard();
     }
     actionMode =Unknow;
+
+    qApp->quit();
 }
 
 void Osd::initGlobalVars()

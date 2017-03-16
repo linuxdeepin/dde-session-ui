@@ -194,13 +194,7 @@ void SwitchMonitor::initOneScreenMode()
         imageSvg->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
         QLabel *imageLabel = new QLabel(item);
         imageLabel->setFixedSize(IMAGE_SIZE, IMAGE_SIZE);
-
-        qDebug() << m_ScreenList[i] << primaryScreenName;
-        if (m_ScreenList[i] == primaryScreenName) {
-            showThemeImage(QString(":/icons/OSD_only%1_active.png").arg(i + 1), imageSvg, imageLabel);
-        } else {
-            showThemeImage(QString(":/icons/OSD_only%1.png").arg(i + 1), imageSvg, imageLabel);
-        }
+        showThemeImage(QString(":/icons/OSD_only%1.png").arg(i + 1), imageSvg, imageLabel);
 
         // text label for one-screen mode
         QLabel *textLabel = new QLabel(item);
