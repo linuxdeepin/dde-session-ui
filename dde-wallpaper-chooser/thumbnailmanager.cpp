@@ -4,11 +4,13 @@
 #include <QPixmap>
 #include <QDebug>
 #include <QStandardPaths>
+#include <QApplication>
 
 ThumbnailManager::ThumbnailManager() :
     QObject(NULL)
 {
-    m_cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    const QString cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    m_cacheDir = cacheDir + QDir::separator() + qApp->applicationVersion();
 
     QDir::root().mkpath(m_cacheDir);
 }
