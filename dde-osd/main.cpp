@@ -7,31 +7,17 @@
  * (at your option) any later version.
  **/
 
-#include <gtk/gtk.h>
-#include "osd.h"
 #include <QTranslator>
 
 #include <DApplication>
+#include <QFile>
+
+#include "manager.h"
 
 DWIDGET_USE_NAMESPACE
 
-void showThemeImage(QString iconName, QSvgWidget *svgLoader, QLabel *notSvgLoader)
-{
-    if (iconName.endsWith(".svg")) {
-        svgLoader->load(iconName);
-        notSvgLoader->clear();
-    } else {
-        // 64 is the size of image
-        notSvgLoader->setPixmap(QPixmap(iconName).scaled(64, 64, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-        svgLoader->load(QByteArray());
-    }
-}
-
 int main(int argc, char *argv[])
 {
-    gtk_init(NULL, NULL);
-    gdk_error_trap_push();
-
     DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
     a.setApplicationName("dde-osd");
@@ -41,28 +27,31 @@ int main(int argc, char *argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
-    Osd osd;
-    //print help
-    osd.processParser();
-
-    //dbus-send --dest=com.deepin.dde.osd / com.deepin.dde.showosd  string:""
-    OsdDBus osdDBus(&osd);
-    QDBusConnection connection = QDBusConnection::sessionBus();
-    if (!connection.registerObject("/",  &osdDBus,
-                                   QDBusConnection::ExportAllSlots |
-                                   QDBusConnection::ExportAllSignals |
-                                   QDBusConnection::ExportAllProperties)) {
-        qDebug() << "registerObject Error" << QDBusConnection::sessionBus().lastError();
-        exit(0x0003);
+    QFile file(":/themes/light.qss");
+    if (file.open(QFile::ReadOnly | QFile::Text)) {
+        a.setStyleSheet(file.readAll());
+        file.close();
     }
 
-    if (connection.registerService("com.deepin.dde.osd")) {
-        qDebug() << "registerService Successfully";
-    } else {
-        qDebug() << "registerService Failed" << QDBusConnection::sessionBus().lastError();
-//        qDebug() << "Call dbus to show osd";
-//        osd.dbusShowOSD();
-        exit(0x0001);
+    QStringList args = a.arguments();
+    QString action;
+    if (args.length() > 1) {
+        action = args.at(1);
+    }
+
+    if (!QDBusConnection::sessionBus().registerService("com.deepin.dde.osd")) {
+        if (!action.isEmpty()) {
+            QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.osd / com.deepin.dde.osd.ShowOSD string:" + action);
+        }
+
+        return 0;
+    }
+
+    Manager m;
+    QDBusConnection::sessionBus().registerObject("/", "com.deepin.dde.osd", &m, QDBusConnection::ExportAllSlots);
+
+    if (!action.isEmpty()) {
+        m.ShowOSD(action);
     }
 
     return a.exec();
