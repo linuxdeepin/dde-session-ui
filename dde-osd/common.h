@@ -1,6 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#define Pair(x, y) QPair<QString, QString>(x, y)
+
 static const int ImageTextItemWidth = 140;
 static const int ImageTextItemHeight = 140;
 static const int TextItemWidth = 200;

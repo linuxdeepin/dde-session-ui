@@ -13,7 +13,6 @@ Delegate::Delegate(QWidget *parent)
 
 void Delegate::setStyle(const Style &style)
 {
-    qDebug() << style;
     m_style = style;
 }
 

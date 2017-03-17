@@ -11,6 +11,8 @@
 
 #include <DApplication>
 #include <QFile>
+#include <QDBusConnection>
+#include <QProcess>
 
 #include "manager.h"
 

@@ -19,14 +19,21 @@ SOURCES += main.cpp \
     manager.cpp \
     listview.cpp \
     delegate.cpp \
-    model.cpp
+    model.cpp \
+    osdprovider.cpp \
+    audioprovider.cpp \
+    common.cpp \
+    brightnessprovider.cpp
 
 HEADERS  += container.h \
     manager.h \
     listview.h \
     delegate.h \
     model.h \
-    common.h
+    common.h \
+    osdprovider.h \
+    audioprovider.h \
+    brightnessprovider.h
 
 RESOURCES += \
     image.qrc \
