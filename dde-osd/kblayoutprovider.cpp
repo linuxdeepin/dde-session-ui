@@ -57,6 +57,11 @@ void KBLayoutProvider::highlightNext()
     m_userCurrentLayout = m_userLayouts.at((index + count + 1) % count);
 }
 
+void KBLayoutProvider::sync()
+{
+    m_keyboardInter->setCurrentLayout(m_userCurrentLayout);
+}
+
 int KBLayoutProvider::rowCount(const QModelIndex &) const
 {
     return m_userLayouts.length();

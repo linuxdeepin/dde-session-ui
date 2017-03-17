@@ -26,12 +26,14 @@ private:
     Model *m_model;
 
     AbstractOSDProvider *m_currentProvider;
+    AbstractOSDProvider *m_kbLayoutProvider;
     QList<AbstractOSDProvider*> m_providers;
 
     QTimer *m_timer;
 
 private slots:
     void updateUI();
+    void doneSetting();
 };
 
 #endif // MANAGER_H
