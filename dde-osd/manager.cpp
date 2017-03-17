@@ -76,4 +76,5 @@ void Manager::updateUI()
     m_listview->setFlow(m_currentProvider->flow());
     m_container->setContentsMargins(m_currentProvider->contentMargins());
     m_container->setFixedSize(m_currentProvider->contentSize());
+    m_container->moveToCenter();
 }

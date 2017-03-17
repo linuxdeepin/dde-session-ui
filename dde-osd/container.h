@@ -13,6 +13,7 @@ public:
     explicit Container(QWidget *parent = 0);
 
     void setContent(QWidget *content);
+    void moveToCenter();
 
 private:
     QHBoxLayout *m_layout;
