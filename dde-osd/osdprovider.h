@@ -32,6 +32,8 @@ public:
     virtual void highlightCurrent();
     virtual void highlightNext();
 
+    virtual void sync();
+
     // model
     virtual int rowCount(const QModelIndex &parent) const = 0;
     virtual QVariant data(const QModelIndex &index, int role) const = 0;

@@ -21,6 +21,8 @@ public:
     void highlightCurrent() Q_DECL_OVERRIDE;
     void highlightNext() Q_DECL_OVERRIDE;
 
+    void sync() Q_DECL_OVERRIDE;
+
     // model
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;

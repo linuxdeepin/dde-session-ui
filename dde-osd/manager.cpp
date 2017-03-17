@@ -38,6 +38,7 @@ Manager::Manager(QObject *parent)
 
     connect(m_timer, &QTimer::timeout, this, [this] {
         m_container->hide();
+        m_currentProvider->sync();
         m_currentProvider = nullptr;
     });
 }

@@ -50,6 +50,14 @@ void DisplayModeProvider::highlightNext()
     m_currentPlan = m_planItems.at((currentIndex + itemsCount + 1) % itemsCount);
 }
 
+void DisplayModeProvider::sync()
+{
+    const uchar displayMode = m_currentPlan.first;
+    const QString monitorId = m_currentPlan.second;
+
+    m_displayInter->SwitchMode(displayMode, monitorId);
+}
+
 int DisplayModeProvider::rowCount(const QModelIndex &) const
 {
     return m_planItems.length();

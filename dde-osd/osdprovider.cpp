@@ -40,3 +40,8 @@ void AbstractOSDProvider::highlightNext()
 {
 
 }
+
+void AbstractOSDProvider::sync()
+{
+
+}
