@@ -25,7 +25,7 @@ inline static void DrawText(QPainter *painter, const QStyleOptionViewItem &optio
 {
     QRect rect( option.rect );
     if (withImage) {
-        rect.setY(rect.y() + 75);
+        rect.setY(rect.y() + 80);
     }
 
     QTextOption opt;

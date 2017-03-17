@@ -14,6 +14,7 @@
 #include "kblayoutprovider.h"
 #include "displaymodeprovider.h"
 #include "indicatorprovider.h"
+#include "wmstateprovider.h"
 
 Manager::Manager(QObject *parent)
     : QObject(parent),
@@ -33,7 +34,7 @@ Manager::Manager(QObject *parent)
 
     m_providers << new AudioProvider(this) << new BrightnessProvider(this);
     m_providers << new KBLayoutProvider(this) << new DisplayModeProvider(this);
-    m_providers << new IndicatorProvider(this);
+    m_providers << new IndicatorProvider(this) << new WMStateProvider(this);
 
     connect(m_timer, &QTimer::timeout, this, [this] {
         m_container->hide();
