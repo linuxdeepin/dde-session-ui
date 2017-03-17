@@ -13,6 +13,7 @@
 #include "brightnessprovider.h"
 #include "kblayoutprovider.h"
 #include "displaymodeprovider.h"
+#include "indicatorprovider.h"
 
 Manager::Manager(QObject *parent)
     : QObject(parent),
@@ -32,6 +33,7 @@ Manager::Manager(QObject *parent)
 
     m_providers << new AudioProvider(this) << new BrightnessProvider(this);
     m_providers << new KBLayoutProvider(this) << new DisplayModeProvider(this);
+    m_providers << new IndicatorProvider(this);
 
     connect(m_timer, &QTimer::timeout, this, [this] {
         m_container->hide();
@@ -44,6 +46,7 @@ void Manager::ShowOSD(const QString &osd)
     bool repeat = false;
 
     for (AbstractOSDProvider *provider : m_providers) {
+        qDebug() << provider << osd << provider->match(osd);
         if (provider->match(osd)) {
             repeat = (m_currentProvider == provider);
             m_currentProvider = provider;
@@ -53,7 +56,7 @@ void Manager::ShowOSD(const QString &osd)
         }
     }
 
-    if (repeat && m_container->isVisible()) {
+    if (m_currentProvider && repeat && m_container->isVisible()) {
         m_currentProvider->highlightNext();
     } else {
         m_currentProvider->highlightCurrent();

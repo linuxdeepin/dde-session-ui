@@ -6,7 +6,7 @@ AbstractOSDProvider::AbstractOSDProvider(QObject *parent)
 
 }
 
-bool AbstractOSDProvider::match(const QString &param) const
+bool AbstractOSDProvider::match(const QString &param)
 {
     return m_suitableParams.contains(param);
 }

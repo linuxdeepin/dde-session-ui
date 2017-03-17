@@ -25,7 +25,8 @@ SOURCES += main.cpp \
     common.cpp \
     brightnessprovider.cpp \
     kblayoutprovider.cpp \
-    displaymodeprovider.cpp
+    displaymodeprovider.cpp \
+    indicatorprovider.cpp
 
 HEADERS  += container.h \
     manager.h \
@@ -37,7 +38,8 @@ HEADERS  += container.h \
     audioprovider.h \
     brightnessprovider.h \
     kblayoutprovider.h \
-    displaymodeprovider.h
+    displaymodeprovider.h \
+    indicatorprovider.h
 
 RESOURCES += \
     image.qrc \

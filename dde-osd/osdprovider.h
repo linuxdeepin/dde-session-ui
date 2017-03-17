@@ -16,7 +16,7 @@ public:
     explicit AbstractOSDProvider(QObject *parent = 0);
 
     // match tell if we should handle the param.
-    virtual bool match(const QString &param) const;
+    virtual bool match(const QString &param);
 
     // check whether the conditions are all met so we can show
     // our content.
