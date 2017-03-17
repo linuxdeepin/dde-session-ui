@@ -3,6 +3,7 @@
 
 #include <QPainter>
 #include <QStyleOptionViewItem>
+#include <QDebug>
 
 #define Pair(x, y) QPair<QString, QString>(x, y)
 
@@ -11,13 +12,7 @@ static const int ImageTextItemHeight = 140;
 static const int TextItemWidth = 200;
 static const int TextItemHeight = 36;
 
-enum Style {
-    StyleImage,
-    StyleImageText,
-    StyleImageProg,
-    StyleHList,
-    StyleVList
-};
+static const QColor ItemHighlightColor = "#01bdff";
 
 inline static void DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QPixmap &pix, bool withText = false)
 {
@@ -30,7 +25,7 @@ inline static void DrawText(QPainter *painter, const QStyleOptionViewItem &optio
 {
     QRect rect( option.rect );
     if (withImage) {
-        rect.moveTop(110);
+        rect.setY(rect.y() + 75);
     }
 
     QTextOption opt;

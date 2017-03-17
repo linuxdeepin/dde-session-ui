@@ -26,9 +26,9 @@ QMargins AbstractOSDProvider::contentMargins() const
     return QMargins();
 }
 
-Style AbstractOSDProvider::style() const
+QListView::Flow AbstractOSDProvider::flow() const
 {
-    return StyleImage;
+    return QListView::TopToBottom;
 }
 
 void AbstractOSDProvider::highlightCurrent()

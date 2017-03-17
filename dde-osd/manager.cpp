@@ -12,6 +12,7 @@
 #include "audioprovider.h"
 #include "brightnessprovider.h"
 #include "kblayoutprovider.h"
+#include "displaymodeprovider.h"
 
 Manager::Manager(QObject *parent)
     : QObject(parent),
@@ -30,7 +31,7 @@ Manager::Manager(QObject *parent)
     m_container->setContent(m_listview);
 
     m_providers << new AudioProvider(this) << new BrightnessProvider(this);
-    m_providers << new KBLayoutProvider(this);
+    m_providers << new KBLayoutProvider(this) << new DisplayModeProvider(this);
 
     connect(m_timer, &QTimer::timeout, this, [this] {
         m_container->hide();
@@ -72,6 +73,7 @@ void Manager::updateUI()
 
     m_model->setProvider(m_currentProvider);
     m_delegate->setProvider(m_currentProvider);
+    m_listview->setFlow(m_currentProvider->flow());
     m_container->setContentsMargins(m_currentProvider->contentMargins());
     m_container->setFixedSize(m_currentProvider->contentSize());
 }

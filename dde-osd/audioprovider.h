@@ -12,8 +12,6 @@ class AudioProvider : public AbstractOSDProvider
 public:
     explicit AudioProvider(QObject *parent = 0);
 
-    Style style() const Q_DECL_OVERRIDE;
-
     void setVolume(double volume);
     void setMute(bool mute);
 

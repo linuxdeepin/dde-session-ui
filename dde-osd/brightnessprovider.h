@@ -13,8 +13,6 @@ class BrightnessProvider : public AbstractOSDProvider
 public:
     explicit BrightnessProvider(QObject *parent = 0);
 
-    Style style() const Q_DECL_OVERRIDE;
-
     // model
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;

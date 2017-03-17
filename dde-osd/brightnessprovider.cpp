@@ -15,11 +15,6 @@ BrightnessProvider::BrightnessProvider(QObject *parent)
     brightnessChanged(m_displayInter->brightness());
 }
 
-Style BrightnessProvider::style() const
-{
-    return StyleImageProg;
-}
-
 int BrightnessProvider::rowCount(const QModelIndex &) const
 {
     return 1;

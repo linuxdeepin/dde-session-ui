@@ -28,11 +28,6 @@ KBLayoutProvider::KBLayoutProvider(QObject *parent) :
     });
 }
 
-Style KBLayoutProvider::style() const
-{
-    return StyleVList;
-}
-
 bool KBLayoutProvider::checkConditions() const
 {
     return m_userLayouts.length() > 1;
@@ -82,7 +77,7 @@ void KBLayoutProvider::paint(QPainter *painter, const QStyleOptionViewItem &opti
         painter->setBrush(QColor::fromRgbF(0, 0, 0, 0.1));
         painter->drawRoundedRect(option.rect, 4, 4);
 
-        DrawText(painter, option, textData.toString(), "#01bdff", false);
+        DrawText(painter, option, textData.toString(), ItemHighlightColor, false);
     }
 }
 

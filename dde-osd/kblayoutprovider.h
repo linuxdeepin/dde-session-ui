@@ -13,7 +13,6 @@ class KBLayoutProvider : public AbstractOSDProvider
 public:
     explicit KBLayoutProvider(QObject *parent = 0);
 
-    Style style() const Q_DECL_OVERRIDE;
     bool checkConditions() const Q_DECL_OVERRIDE;
     QSize contentSize() const Q_DECL_OVERRIDE;
     QMargins contentMargins() const Q_DECL_OVERRIDE;

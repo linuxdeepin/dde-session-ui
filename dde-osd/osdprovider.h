@@ -5,6 +5,7 @@
 #include <QSize>
 #include <QPainter>
 #include <QStyleOptionViewItem>
+#include <QListView>
 
 #include "common.h"
 
@@ -26,8 +27,7 @@ public:
 
     virtual QMargins contentMargins() const;
 
-    // provide style.
-    virtual Style style() const;
+    virtual QListView::Flow flow() const;
 
     virtual void highlightCurrent();
     virtual void highlightNext();

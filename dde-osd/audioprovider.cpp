@@ -19,11 +19,6 @@ AudioProvider::AudioProvider(QObject *parent)
     defaultSinkChanged(m_audioInter->defaultSink());
 }
 
-Style AudioProvider::style() const
-{
-    return StyleImageProg;
-}
-
 void AudioProvider::setVolume(double volume)
 {
     if (volume == m_volume) return;
