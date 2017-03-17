@@ -14,19 +14,38 @@ TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += gtk+-2.0 dframeworkdbus dtkwidget dtkbase
 
-SOURCES += main.cpp\
-        osd.cpp \
-    switchlayout.cpp \
-    switchmonitor.cpp \
-    switchnormal.cpp
+SOURCES += main.cpp \
+    container.cpp \
+    manager.cpp \
+    listview.cpp \
+    delegate.cpp \
+    model.cpp \
+    osdprovider.cpp \
+    audioprovider.cpp \
+    common.cpp \
+    brightnessprovider.cpp \
+    kblayoutprovider.cpp \
+    displaymodeprovider.cpp \
+    indicatorprovider.cpp \
+    wmstateprovider.cpp
 
-HEADERS  += osd.h \
-    switchlayout.h \
-    switchmonitor.h \
-    switchnormal.h
+HEADERS  += container.h \
+    manager.h \
+    listview.h \
+    delegate.h \
+    model.h \
+    common.h \
+    osdprovider.h \
+    audioprovider.h \
+    brightnessprovider.h \
+    kblayoutprovider.h \
+    displaymodeprovider.h \
+    indicatorprovider.h \
+    wmstateprovider.h
 
 RESOURCES += \
-    image.qrc
+    image.qrc \
+    theme.qrc
 
 target.path = /usr/lib/deepin-daemon/
 INSTALLS   += target
