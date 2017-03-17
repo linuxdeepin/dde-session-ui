@@ -28,6 +28,8 @@ private:
     AbstractOSDProvider *m_currentProvider;
     QList<AbstractOSDProvider*> m_providers;
 
+    QTimer *m_timer;
+
 private slots:
     void updateUI();
 };

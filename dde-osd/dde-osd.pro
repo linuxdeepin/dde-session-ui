@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     osdprovider.cpp \
     audioprovider.cpp \
     common.cpp \
-    brightnessprovider.cpp
+    brightnessprovider.cpp \
+    kblayoutprovider.cpp
 
 HEADERS  += container.h \
     manager.h \
@@ -33,7 +34,8 @@ HEADERS  += container.h \
     common.h \
     osdprovider.h \
     audioprovider.h \
-    brightnessprovider.h
+    brightnessprovider.h \
+    kblayoutprovider.h
 
 RESOURCES += \
     image.qrc \

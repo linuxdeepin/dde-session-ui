@@ -12,11 +12,18 @@ class AudioProvider : public AbstractOSDProvider
 public:
     explicit AudioProvider(QObject *parent = 0);
 
-    QList<QPair<QString, QString>> data() const Q_DECL_OVERRIDE;
     Style style() const Q_DECL_OVERRIDE;
 
     void setVolume(double volume);
     void setMute(bool mute);
+
+    // model
+    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+
+    // delegate
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 
 private:
     double m_volume;

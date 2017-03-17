@@ -11,6 +11,7 @@
 
 #include "audioprovider.h"
 #include "brightnessprovider.h"
+#include "kblayoutprovider.h"
 
 Manager::Manager(QObject *parent)
     : QObject(parent),
@@ -18,25 +19,32 @@ Manager::Manager(QObject *parent)
       m_listview(new ListView),
       m_delegate(new Delegate),
       m_model(new Model(this)),
-      m_currentProvider(nullptr)
+      m_currentProvider(nullptr),
+      m_timer(new QTimer)
 {
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->setSpacing(0);
-    layout->setMargin(0);
+    m_timer->setSingleShot(true);
+    m_timer->setInterval(2000);
 
     m_listview->setItemDelegate(m_delegate);
     m_listview->setModel(m_model);
-
-    layout->addWidget(m_listview);
-    m_container->setLayout(layout);
+    m_container->setContent(m_listview);
 
     m_providers << new AudioProvider(this) << new BrightnessProvider(this);
+    m_providers << new KBLayoutProvider(this);
+
+    connect(m_timer, &QTimer::timeout, this, [this] {
+        m_container->hide();
+        m_currentProvider = nullptr;
+    });
 }
 
 void Manager::ShowOSD(const QString &osd)
 {
+    bool repeat = false;
+
     for (AbstractOSDProvider *provider : m_providers) {
         if (provider->match(osd)) {
+            repeat = (m_currentProvider == provider);
             m_currentProvider = provider;
             connect(provider, &AbstractOSDProvider::dataChanged, this, &Manager::updateUI);
         } else {
@@ -44,15 +52,26 @@ void Manager::ShowOSD(const QString &osd)
         }
     }
 
+    if (repeat && m_container->isVisible()) {
+        m_currentProvider->highlightNext();
+    } else {
+        m_currentProvider->highlightCurrent();
+    }
+
     updateUI();
-    m_container->show();
+
+    if (m_currentProvider->checkConditions()) {
+        m_container->show();
+        m_timer->start();
+    }
 }
 
 void Manager::updateUI()
 {
     if (!m_currentProvider) return;
 
-    m_delegate->setStyle(m_currentProvider->style());
+    m_model->setProvider(m_currentProvider);
+    m_delegate->setProvider(m_currentProvider);
+    m_container->setContentsMargins(m_currentProvider->contentMargins());
     m_container->setFixedSize(m_currentProvider->contentSize());
-    m_model->setData(m_currentProvider->data());
 }

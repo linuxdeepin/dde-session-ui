@@ -1,5 +1,7 @@
 #include "audioprovider.h"
 
+#include "common.h"
+
 AudioProvider::AudioProvider(QObject *parent)
     : AbstractOSDProvider(parent),
       m_volume(0),
@@ -15,16 +17,6 @@ AudioProvider::AudioProvider(QObject *parent)
     connect(m_audioInter, &__Audio::DefaultSinkChanged,
             this, &AudioProvider::defaultSinkChanged);
     defaultSinkChanged(m_audioInter->defaultSink());
-}
-
-QList<QPair<QString, QString> > AudioProvider::data() const
-{
-    QList<QPair<QString, QString>> ret;
-
-    const double progress = m_mute ? 0 : m_volume;
-    ret << Pair(pixmapPath(), QString::number(progress));
-
-    return ret;
 }
 
 Style AudioProvider::style() const
@@ -46,6 +38,34 @@ void AudioProvider::setMute(bool mute)
 
     m_mute = mute;
     emit dataChanged();
+}
+
+int AudioProvider::rowCount(const QModelIndex &) const
+{
+    return 1;
+}
+
+QVariant AudioProvider::data(const QModelIndex &, int role) const
+{
+    if (role == Qt::DecorationRole) {
+        return pixmapPath();
+    }
+
+    return m_mute ? 0 : m_volume;
+}
+
+void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    QVariant imageData = index.data(Qt::DecorationRole);
+    QVariant progressData = index.data(Qt::DisplayRole);
+
+    DrawImage(painter, option, QPixmap(imageData.toString()), true);
+    DrawProgressBar(painter, option, progressData.toDouble());
+}
+
+QSize AudioProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
+{
+    return QSize(ImageTextItemWidth, ImageTextItemHeight);
 }
 
 QString AudioProvider::pixmapPath() const
@@ -78,3 +98,5 @@ void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)
         setMute(m_sinkInter->mute());
     }
 }
+
+

@@ -21,12 +21,22 @@ QSize AbstractOSDProvider::contentSize() const
     return QSize(ImageTextItemWidth, ImageTextItemHeight);
 }
 
-QList<QPair<QString, QString>> AbstractOSDProvider::data() const
+QMargins AbstractOSDProvider::contentMargins() const
 {
-    return QList<QPair<QString,QString>>();
+    return QMargins();
 }
 
 Style AbstractOSDProvider::style() const
 {
     return StyleImage;
+}
+
+void AbstractOSDProvider::highlightCurrent()
+{
+
+}
+
+void AbstractOSDProvider::highlightNext()
+{
+
 }

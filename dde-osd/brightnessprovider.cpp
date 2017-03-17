@@ -15,16 +15,36 @@ BrightnessProvider::BrightnessProvider(QObject *parent)
     brightnessChanged(m_displayInter->brightness());
 }
 
-QList<QPair<QString, QString>> BrightnessProvider::data() const
-{
-    QList<QPair<QString,QString>> ret;
-    ret << Pair(":/icons/OSD_light.png", QString::number(m_brightness));
-    return ret;
-}
-
 Style BrightnessProvider::style() const
 {
     return StyleImageProg;
+}
+
+int BrightnessProvider::rowCount(const QModelIndex &) const
+{
+    return 1;
+}
+
+QVariant BrightnessProvider::data(const QModelIndex &, int role) const
+{
+    if (role == Qt::DecorationRole) {
+        return ":/icons/OSD_light.png";
+    }
+    return m_brightness;
+}
+
+void BrightnessProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    QVariant imageData = index.data(Qt::DecorationRole);
+    QVariant progressData = index.data(Qt::DisplayRole);
+
+    DrawImage(painter, option, QPixmap(imageData.toString()), true);
+    DrawProgressBar(painter, option, progressData.toDouble());
+}
+
+QSize BrightnessProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
+{
+    return QSize(ImageTextItemWidth, ImageTextItemHeight);
 }
 
 void BrightnessProvider::setBrightness(double brightness)

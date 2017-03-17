@@ -2,29 +2,32 @@
 
 #include <QDebug>
 
+#include "osdprovider.h"
+
 Model::Model(QObject *parent)
-    : QAbstractListModel(parent)
+    : QAbstractListModel(parent),
+      m_provider(nullptr)
 {
 
 }
 
-int Model::rowCount(const QModelIndex &) const
+int Model::rowCount(const QModelIndex &index) const
 {
-    return m_data.length();
+    if (!m_provider) return 0;
+
+    return m_provider->rowCount(index);
 }
 
 QVariant Model::data(const QModelIndex &index, int role) const
 {
-    QPair<QString, QString> item = m_data.at(index.row());
-    if (role == Qt::DecorationRole) {
-        return item.first;
-    }
-    return item.second;
+    if (!m_provider) return QVariant();
+
+    return m_provider->data(index, role);
 }
 
-void Model::setData(const QList<QPair<QString, QString> > &data)
+void Model::setProvider(AbstractOSDProvider *provider)
 {
     beginResetModel();
-    m_data = data;
+    m_provider = provider;
     endResetModel();
 }

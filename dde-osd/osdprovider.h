@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QSize>
+#include <QPainter>
+#include <QStyleOptionViewItem>
 
 #include "common.h"
 
@@ -22,11 +24,21 @@ public:
     // provide hint about how many space we will take.
     virtual QSize contentSize() const;
 
-    // provide data.
-    virtual QList<QPair<QString, QString>> data() const;
+    virtual QMargins contentMargins() const;
 
     // provide style.
     virtual Style style() const;
+
+    virtual void highlightCurrent();
+    virtual void highlightNext();
+
+    // model
+    virtual int rowCount(const QModelIndex &parent) const = 0;
+    virtual QVariant data(const QModelIndex &index, int role) const = 0;
+
+    // delegate
+    virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const = 0;
+    virtual QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const = 0;
 
 signals:
     void dataChanged();
