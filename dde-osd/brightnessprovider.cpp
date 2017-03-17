@@ -12,7 +12,11 @@ BrightnessProvider::BrightnessProvider(QObject *parent)
     m_displayInter->setSync(false);
     connect(m_displayInter, &__Display::BrightnessChanged,
             this, &BrightnessProvider::brightnessChanged);
+    connect(m_displayInter, &__Display::PrimaryChanged,
+            this, &BrightnessProvider::primaryChanged);
+
     brightnessChanged(m_displayInter->brightness());
+    primaryChanged(m_displayInter->primary());
 }
 
 int BrightnessProvider::rowCount(const QModelIndex &) const
@@ -53,5 +57,15 @@ void BrightnessProvider::setBrightness(double brightness)
 void BrightnessProvider::brightnessChanged(const BrightnessMap &brightness)
 {
     if (brightness.values().length() == 0) return;
-    setBrightness(brightness.values().at(0));
+
+    m_brightnessMap = brightness;
+    setBrightness(brightness.value(m_primaryScreen, 0));
+}
+
+void BrightnessProvider::primaryChanged(const QString &primary)
+{
+    if (primary == m_primaryScreen) return;
+
+    m_primaryScreen = primary;
+    setBrightness(m_brightnessMap.value(primary, 0));
 }

@@ -25,9 +25,13 @@ public:
 
 private slots:
     void brightnessChanged(const BrightnessMap &brightness);
+    void primaryChanged(const QString &primary);
 
 private:
     double m_brightness;
+
+    QString m_primaryScreen;
+    BrightnessMap m_brightnessMap;
 
     com::deepin::daemon::Display *m_displayInter;
 };
