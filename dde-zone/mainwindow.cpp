@@ -62,12 +62,15 @@ MainWindow::MainWindow(QWidget *parent)
     m_ActionStrs << FAST_SCREEN_OFF << CONTROL_CENTER_FROM_LEFT_STR << ALL_WINDOWS_STR << LAUNCHER_STR << SHOW_DESKTOP_STR << NONE_STR;
     m_ActionStrs2 << FAST_SCREEN_OFF << CONTROL_CENTER_FROM_RIGHT_STR << ALL_WINDOWS_STR << LAUNCHER_STR << SHOW_DESKTOP_STR << NONE_STR;
 
+    QStringList topRightNames = QStringList() << m_ButtonNames << tr("Close Window");
+    QStringList topRightActionStr = QStringList() << m_ActionStrs2 << CLOSE_MAX_WINDOW_STR;
+
     // load 4 corners
     HotZone *hotzone1 = new HotZone(this, false, false);
     hotzone1->addButtons(m_ButtonNames, m_ActionStrs);
 
     HotZone *hotzone2 = new HotZone(this, true, false);
-    hotzone2->addButtons(m_ButtonNames, m_ActionStrs2);
+    hotzone2->addButtons(topRightNames, topRightActionStr);
 
     HotZone *hotzone3 = new HotZone(this, false, true);
     hotzone3->addButtons(m_ButtonNames, m_ActionStrs);
