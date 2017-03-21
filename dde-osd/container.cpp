@@ -21,6 +21,7 @@ Container::Container(QWidget *parent)
     handle.setBorderColor(QColor(0, 0, 0, 0.04 * 255));
     handle.setWindowRadius(10);
     handle.setShadowColor(Qt::transparent);
+    handle.setTranslucentBackground(true);
 
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setBlurRectXRadius(10);
