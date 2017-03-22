@@ -34,7 +34,7 @@ QVariant IndicatorProvider::data(const QModelIndex &, int) const
 void IndicatorProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QVariant pixData = index.data(Qt::DecorationRole);
-    DrawImage(painter, option, QPixmap(pixData.toString()));
+    DrawHelper::DrawImage(painter, option, QPixmap(pixData.toString()));
 }
 
 QSize IndicatorProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const

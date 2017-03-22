@@ -27,8 +27,8 @@ void WMStateProvider::paint(QPainter *painter, const QStyleOptionViewItem &optio
     QVariant pixPath = index.data(Qt::DecorationRole);
     QVariant textData = index.data();
 
-    DrawImage(painter, option, QPixmap(pixPath.toString()), true);
-    DrawText(painter, option, textData.toString());
+    DrawHelper::DrawImage(painter, option, QPixmap(pixPath.toString()), true);
+    DrawHelper::DrawText(painter, option, textData.toString());
 }
 
 QSize WMStateProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const

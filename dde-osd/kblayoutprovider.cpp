@@ -76,13 +76,13 @@ void KBLayoutProvider::paint(QPainter *painter, const QStyleOptionViewItem &opti
 {
     QVariant textData = index.data();
     if (index.row() != m_userLayouts.indexOf(m_userCurrentLayout)) {
-        DrawText(painter, option, textData.toString(), Qt::black, false);
+        DrawHelper::DrawText(painter, option, textData.toString(), Qt::black, false);
     } else {
         painter->setPen(Qt::NoPen);
         painter->setBrush(QColor::fromRgbF(0, 0, 0, 0.1));
         painter->drawRoundedRect(option.rect, 4, 4);
 
-        DrawText(painter, option, textData.toString(), ItemHighlightColor, false);
+        DrawHelper::DrawText(painter, option, textData.toString(), ItemHighlightColor, false);
     }
 }
 

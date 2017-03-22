@@ -78,13 +78,13 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant textData = index.data(Qt::DisplayRole);
 
-    DrawImage(painter, option, QPixmap(imageData.toString()), true);
+    DrawHelper::DrawImage(painter, option, QPixmap(imageData.toString()), true);
 
     const int currentIndex = m_planItems.indexOf(m_currentPlan);
     if (currentIndex != index.row()) {
-        DrawText(painter, option, textData.toString());
+        DrawHelper::DrawText(painter, option, textData.toString());
     } else {
-        DrawText(painter, option, textData.toString(), ItemHighlightColor);
+        DrawHelper::DrawText(painter, option, textData.toString(), ItemHighlightColor);
     }
 }
 
