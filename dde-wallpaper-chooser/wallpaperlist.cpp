@@ -17,7 +17,7 @@ WallpaperList::WallpaperList(QWidget * parent)
                                                    AppearancePath,
                                                    QDBusConnection::sessionBus(),
                                                    this))
-    , m_gsettings(new QGSettings(WallpaperSchemaId, WallpaperPath, this))
+    , m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
     , prevButton(new DImageButton(":/images/previous_normal.png",
                                   ":/images/previous_hover.png",
                                   ":/images/previous_press.png", this))
@@ -25,19 +25,7 @@ WallpaperList::WallpaperList(QWidget * parent)
                                   ":/images/next_hover.png",
                                   ":/images/next_press.png", this))
 {
-    m_oldWallpaperPath = m_gsettings->get(WallpaperKey).toString();
-
-#ifdef Q_OS_WIN
-    const QString userName = qgetenv("USERNAME");
-#else
-    const QString userName = qgetenv("USER");
-#endif
-
-    QSettings setting("/var/lib/AccountsService/users/" + userName, QSettings::NativeFormat);
-
-    setting.beginGroup("User");
-
-    m_oldLockPath = setting.value("GreeterBackground").toUrl().toLocalFile();
+    recordOldValues();
 
     setViewMode(QListView::IconMode);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -223,6 +211,7 @@ void WallpaperList::handleSetLock()
     WallpaperItem * item = qobject_cast<WallpaperItem*>(sender());
     setLockScreen(item->getPath());
     setWallpaper(m_oldWallpaperPath);
+    qDebug() << m_oldWallpaperPath;
 
     qDebug() << "lock item set, quit";
     qApp->quit();
@@ -281,4 +270,28 @@ void WallpaperList::showDeleteButtonForItem(const WallpaperItem *item) const
     } else {
         emit needCloseButton("", QPoint(0, 0));
     }
+}
+
+void WallpaperList::recordOldValues()
+{
+#ifdef Q_OS_WIN
+    const QString userName = qgetenv("USERNAME");
+#else
+    const QString userName = qgetenv("USER");
+#endif
+
+    QSettings setting("/var/lib/AccountsService/users/" + userName, QSettings::NativeFormat);
+    setting.beginGroup("User");
+    m_oldLockPath = setting.value("GreeterBackground").toUrl().toLocalFile();
+
+    QDBusPendingCall call = m_wmInter->GetCurrentWorkspaceBackground();
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, call] {
+        if (call.isError()) {
+            qWarning() << "failed to get current workspace background" << call.error().message();
+        } else {
+            QDBusReply<QString> reply = call.reply();
+            m_oldWallpaperPath = reply.value();
+        }
+    });
 }

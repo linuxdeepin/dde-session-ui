@@ -8,6 +8,8 @@
 #include <dwidget_global.h>
 #include <anchors.h>
 
+#include <com_deepin_wm.h>
+
 DWIDGET_BEGIN_NAMESPACE
 class DImageButton;
 DWIDGET_END_NAMESPACE
@@ -43,7 +45,7 @@ protected:
 
 private:
     AppearanceDaemonInterface * m_dbusAppearance;
-    QGSettings * m_gsettings = NULL;
+    com::deepin::wm *m_wmInter;
     QString m_oldWallpaperPath;
     QString m_oldLockPath;
 
@@ -61,6 +63,8 @@ private:
 
     void updateBothEndsItem();
     void showDeleteButtonForItem(const WallpaperItem *item) const;
+
+    void recordOldValues();
 
 private slots:
     void wallpaperItemPressed();

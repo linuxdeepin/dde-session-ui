@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = dde-wallpaper-chooser
 TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += gsettings-qt dtkbase dtkwidget dtkutil
+PKGCONFIG += gsettings-qt dtkbase dtkwidget dtkutil dframeworkdbus
 
 SOURCES += main.cpp\
         frame.cpp \
