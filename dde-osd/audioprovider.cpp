@@ -54,7 +54,7 @@ void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option,
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant progressData = index.data(Qt::DisplayRole);
 
-    DrawImage(painter, option, QPixmap(imageData.toString()), true);
+    DrawImage(painter, option, QPixmap(imageData.toString()), false, true);
     DrawProgressBar(painter, option, progressData.toDouble());
 }
 

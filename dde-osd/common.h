@@ -14,10 +14,10 @@ static const int TextItemHeight = 36;
 
 static const QColor ItemHighlightColor = "#01bdff";
 
-inline static void DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QPixmap &pix, bool withText = false)
+inline static void DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QPixmap &pix, bool withText = false, bool withProgress = false)
 {
     const QRect rect( option.rect );
-    const int yOffset = withText ? 30 : 40;
+    const int yOffset = withProgress ? 30 : withText ? 20 : 40;
     painter->drawPixmap(rect.x() + (rect.width() - pix.width()) / 2, rect.y() + yOffset, pix);
 }
 
@@ -25,7 +25,7 @@ inline static void DrawText(QPainter *painter, const QStyleOptionViewItem &optio
 {
     QRect rect( option.rect );
     if (withImage) {
-        rect.setY(rect.y() + 80);
+        rect.setY(rect.y() + 70);
     }
 
     QTextOption opt;
