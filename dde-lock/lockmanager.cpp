@@ -34,7 +34,6 @@ LockManager::LockManager(QWidget *parent)
     initBackend();
     updateUI();
 
-    loadMPRIS();
     leaveEvent(nullptr);
 }
 
@@ -136,7 +135,6 @@ void LockManager::initUI()
 
 
     m_controlWidget = new ControlWidget(this);
-    m_controlWidget->hideMusicControlWidget();
     m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
 
     QHBoxLayout *passwdLayout = new QHBoxLayout;
@@ -296,39 +294,6 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
             m_keybdArrowWidget->hide();
         }
     }
-}
-
-void LockManager::loadMPRIS()
-{
-    if (m_mprisInter) {
-        m_mprisInter->deleteLater();
-    }
-
-    QDBusInterface *dbusInter = new QDBusInterface("org.freedesktop.DBus", "/", "org.freedesktop.DBus", QDBusConnection::sessionBus(), this);
-    if (!dbusInter) {
-        return;
-    }
-
-    QDBusReply<QStringList> response = dbusInter->call("ListNames");
-    const QStringList &serviceList = response.value();
-    QString service = QString();
-    for (const QString &serv : serviceList) {
-        if (!serv.startsWith("org.mpris.MediaPlayer2.")) {
-            continue;
-        }
-        service = serv;
-        break;
-    }
-
-    if (service.isEmpty()) {
-        return;
-    }
-
-    qDebug() << "got service: " << service;
-
-    m_mprisInter = new DBusMediaPlayer2(service, "/org/mpris/MediaPlayer2", QDBusConnection::sessionBus(), this);
-    m_controlWidget->bindDBusService(m_mprisInter);
-    m_controlWidget->showMusicControlWidget();
 }
 
 void LockManager::unlock()

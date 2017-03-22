@@ -8,8 +8,6 @@
  **/
 
 #include <QHBoxLayout>
-#include <QEvent>
-#include <QWheelEvent>
 
 #include "controlwidget.h"
 
@@ -18,82 +16,25 @@ DWIDGET_USE_NAMESPACE
 ControlWidget::ControlWidget(QWidget *parent)
     : QWidget(parent)
 {
-    m_songName = new QLabel;
-    m_songName->setAlignment(Qt::AlignCenter);
-    m_songName->setStyleSheet("color:white;"
-//                              "background-color:red;"
-                              "font-size:15px;"
-                              "margin:0 35px 10px 5px;");
-    m_volumeNums = new QLabel;
-    m_volumeNums->hide();
-    m_volumeNums->setStyleSheet("color:white;"
-//                                "background-color:red;"
-                                "font-size:13px;");
-    m_prevSong = new DImageButton;
-    m_prevSong->setNormalPic(":/img/mpris/previous_normal.png");
-    m_prevSong->setHoverPic(":/img/mpris/previous_hover.png");
-    m_prevSong->setPressPic(":/img/mpris/previous_press.png");
-
-    m_pauseSong = new DImageButton;
-    m_pauseSong->setNormalPic(":/img/mpris/pause_normal.png");
-    m_pauseSong->setHoverPic(":/img/mpris/pause_hover.png");
-    m_pauseSong->setPressPic(":/img/mpris/pause_press.png");
-
-    m_nextSong = new DImageButton;
-    m_nextSong->setNormalPic(":/img/mpris/next_normal.png");
-    m_nextSong->setHoverPic(":/img/mpris/next_hover.png");
-    m_nextSong->setPressPic(":/img/mpris/next_press.png");
-    m_volume = new DImageButton;
-    m_volume->setNormalPic(":/img/mpris/volume_normal.png");
-    m_volume->setHoverPic(":/img/mpris/volume_hover.png");
-    m_volume->setPressPic(":/img/mpris/volume_press.png");
-    m_volume->installEventFilter(this);
-
+    m_mprisWidget = new DMPRISControl;
+    m_mprisWidget->setFixedWidth(200);
+    m_mprisWidget->setStyleSheet("color:white;"
+                              "font-size:15px;");
 
     m_userswitch = new DImageButton;
     m_userswitch->setNormalPic(":/img/bottom_actions/userswitch_normal.png");
     m_userswitch->setHoverPic(":/img/bottom_actions/userswitch_hover.png");
     m_userswitch->setPressPic(":/img/bottom_actions/userswitch_press.png");
 
-
     m_shutdown = new DImageButton;
     m_shutdown->setNormalPic(":/img/bottom_actions/shutdown_normal.png");
     m_shutdown->setHoverPic(":/img/bottom_actions/shutdown_hover.png");
     m_shutdown->setPressPic(":/img/bottom_actions/shutdown_press.png");
 
-
-    QHBoxLayout *volumeLayout = new QHBoxLayout;
-    volumeLayout->addWidget(m_volumeNums);
-    volumeLayout->setSpacing(0);
-    volumeLayout->setMargin(0);
-
-    QWidget *volumeWidget = new QWidget;
-    volumeWidget->setFixedWidth(30);
-    volumeWidget->setLayout(volumeLayout);
-
-    QHBoxLayout *songCtrls = new QHBoxLayout;
-    songCtrls->addWidget(m_prevSong);
-    songCtrls->addWidget(m_pauseSong);
-    songCtrls->addWidget(m_nextSong);
-    songCtrls->addWidget(m_volume);
-    songCtrls->addWidget(volumeWidget);
-    songCtrls->setSpacing(0);
-    songCtrls->setMargin(0);
-
-    QVBoxLayout *songLayout = new QVBoxLayout;
-    songLayout->addWidget(m_songName);
-    songLayout->addStretch();
-    songLayout->addLayout(songCtrls);
-    songLayout->setSpacing(0);
-    songLayout->setMargin(0);
-
-    m_songControlWidget = new QWidget;
-    m_songControlWidget->setLayout(songLayout);
-
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addStretch();
-    mainLayout->addWidget(m_songControlWidget);
-    mainLayout->setAlignment(m_songControlWidget, Qt::AlignBottom);
+    mainLayout->addWidget(m_mprisWidget);
+    mainLayout->setAlignment(m_mprisWidget, Qt::AlignBottom);
     mainLayout->addSpacing(10);
     mainLayout->addWidget(m_userswitch);
     mainLayout->setAlignment(m_userswitch, Qt::AlignBottom);
@@ -105,107 +46,12 @@ ControlWidget::ControlWidget(QWidget *parent)
 
     connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::shutdownClicked);
     connect(m_userswitch, &DImageButton::clicked, this, &ControlWidget::switchUser);
-}
 
-void ControlWidget::bindDBusService(DBusMediaPlayer2 *dbusInter)
-{
-    m_dbusInter = dbusInter;
+    connect(m_mprisWidget, &DMPRISControl::mprisAcquired, [=] { m_mprisWidget->setVisible(m_mprisWidget->isWorking()); });
+    connect(m_mprisWidget, &DMPRISControl::mprisLosted, [=] { m_mprisWidget->setVisible(m_mprisWidget->isWorking()); });
 
-    connect(m_prevSong, &DImageButton::clicked, m_dbusInter, &DBusMediaPlayer2::Previous);
-    connect(m_nextSong, &DImageButton::clicked, m_dbusInter, &DBusMediaPlayer2::Next);
-    connect(m_pauseSong, &DImageButton::clicked, m_dbusInter, &DBusMediaPlayer2::PlayPause);
-    connect(m_dbusInter, &DBusMediaPlayer2::PlaybackStatusChanged, this, &ControlWidget::changePauseBtnPic);
-    connect(m_dbusInter, &DBusMediaPlayer2::VolumeChanged, this, &ControlWidget::changeVolumeBtnPic);
-    connect(m_dbusInter, &DBusMediaPlayer2::VolumeChanged, [this] {
-        m_volumeNums->setText(QString::number(m_dbusInter->volume() * 100));
-    });
-    connect(m_dbusInter, &DBusMediaPlayer2::MetadataChanged, [this] {
-        const QString text = m_dbusInter->metadata().value("xesam:title").toString();
-        QFontMetrics qfm(m_songName->font());
+    m_mprisWidget->setVisible(m_mprisWidget->isWorking());
 
-        if (qfm.width(text) > m_songName->width())
-            m_songName->setText(qfm.elidedText(text, Qt::ElideRight, m_songName->width()));
-        else
-            m_songName->setText(text);
-    });
-    connect(m_volume, &DImageButton::clicked, [this] {
-        const double currentVolume = m_dbusInter->volume();
-
-        if (currentVolume) {
-            m_lastVolumeNums = currentVolume;
-            m_dbusInter->setVolume(0);
-        } else {
-            m_dbusInter->setVolume(m_lastVolumeNums);
-        }
-    });
-
-    m_dbusInter->VolumeChanged();
-    m_dbusInter->MetadataChanged();
-    m_dbusInter->PlaybackStatusChanged();
-    m_dbusInter->VolumeChanged();
-}
-
-void ControlWidget::hideMusicControlWidget()
-{
-    m_songControlWidget->hide();
-}
-
-void ControlWidget::showMusicControlWidget()
-{
-    m_songControlWidget->show();
-}
-
-bool ControlWidget::eventFilter(QObject *o, QEvent *e)
-{
-    if (o == m_volume) {
-        switch (e->type()) {
-        case QEvent::Wheel:     volumeWheelControl(reinterpret_cast<QWheelEvent *>(e));         break;
-        case QEvent::Enter:     m_volumeNums->show();       break;
-        case QEvent::Leave:     m_volumeNums->hide();       break;
-        default:;
-        }
-    }
-
-    return false;
-}
-
-void ControlWidget::volumeWheelControl(const QWheelEvent *e)
-{
-    const int delta = e->delta() / 60;
-
-    m_lastVolumeNums += double(delta) / 100;
-    if (m_lastVolumeNums < 0)
-        m_lastVolumeNums = 0;
-    if (m_lastVolumeNums > 1.0)
-        m_lastVolumeNums = 1.0;
-
-    m_dbusInter->setVolume(m_lastVolumeNums);
-}
-
-void ControlWidget::changePauseBtnPic()
-{
-    if (m_dbusInter->playbackStatus() == "Playing") {
-        m_pauseSong->setNormalPic(":/img/mpris/pause_normal.png");
-        m_pauseSong->setHoverPic(":/img/mpris/pause_hover.png");
-        m_pauseSong->setPressPic(":/img/mpris/pause_press.png");
-    } else {
-        m_pauseSong->setNormalPic(":/img/mpris/start_normal.png");
-        m_pauseSong->setHoverPic(":/img/mpris/start_hover.png");
-        m_pauseSong->setPressPic(":/img/mpris/start_press.png");
-    }
-}
-
-void ControlWidget::changeVolumeBtnPic()
-{
-    if (m_dbusInter->volume()) {
-        m_volume->setNormalPic(":/img/mpris/volume_normal.png");
-        m_volume->setHoverPic(":/img/mpris/volume_hover.png");
-        m_volume->setPressPic(":/img/mpris/volume_press.png");
-    } else {
-        m_volume->setNormalPic(":/img/mpris/mute_normal.png");
-        m_volume->setHoverPic(":/img/mpris/mute_hover.png");
-        m_volume->setPressPic(":/img/mpris/mute_press.png");
-    }
 }
 
 //void ControlWidget::switchUser() {

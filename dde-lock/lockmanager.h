@@ -22,7 +22,6 @@
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbusinputdevices.h"
 #include "dbus/dbuskeyboard.h"
-#include "dbus/dbusmediaplayer2.h"
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
 #include "darrowrectangle.h"
@@ -77,7 +76,6 @@ protected:
     void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
 
 private:
-    void loadMPRIS();
     void initBackend();
     void unlock();
 
@@ -100,7 +98,6 @@ private:
     DArrowRectangle* m_keybdArrowWidget;
     DBusSessionManagerInterface* m_sessionManagerIter;
 
-    DBusMediaPlayer2 *m_mprisInter = nullptr;
     DBusHotzone* m_hotZoneInterface;
     int m_keybdLayoutItemIndex;
 
