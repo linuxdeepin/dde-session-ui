@@ -12,6 +12,7 @@
 #include <QDebug>
 #include <QPainter>
 #include <QScrollBar>
+#include <QScreen>
 
 Frame::Frame(QFrame *parent)
     : QWidget(parent),
@@ -111,13 +112,15 @@ void Frame::keyPressEvent(QKeyEvent * event)
 
 void Frame::initSize()
 {
-    QDesktopWidget * desktop = QApplication::desktop();
-    QRect primaryRect = desktop->screen(desktop->primaryScreen())->rect();
+    const QRect primaryRect = qApp->primaryScreen()->geometry();
 
     setFixedSize(primaryRect.width(), FrameHeight);
+    qDebug() << "move befor: " << this->geometry() << m_wallpaperList->geometry();
     move(primaryRect.x(), primaryRect.y() + primaryRect.height() - FrameHeight);
+    qDebug() << "this move : " << this->geometry() << m_wallpaperList->geometry();
     m_wallpaperList->setFixedSize(primaryRect.width(), ListHeight);
     m_wallpaperList->move(0, (FrameHeight - ListHeight) / 2);
+    qDebug() << "m_wallpaperList move: " << this->geometry() << m_wallpaperList->geometry();
 }
 
 void Frame::initListView()
