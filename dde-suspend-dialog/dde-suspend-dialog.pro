@@ -30,5 +30,8 @@ SOURCES += main.cpp\
 
 HEADERS  += suspenddialog.h
 
+icons.file = data/*
+icons.path = /usr/share/icons/hicolor/scalable/devices
+
 target.path = /usr/lib/deepin-daemon/
-INSTALLS += target
+INSTALLS += target icons

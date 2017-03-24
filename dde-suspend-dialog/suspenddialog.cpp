@@ -19,7 +19,7 @@ SuspendDialog::SuspendDialog(QRect screenGeometry)
       m_screenGeometry(screenGeometry),
       m_timerTick(0)
 {
-    QIcon icon( QIcon::fromTheme("system-settings") );
+    QIcon icon( QIcon::fromTheme("computer") );
     setIconPixmap(icon.pixmap(48, 48));
 
     QStringList buttons;
