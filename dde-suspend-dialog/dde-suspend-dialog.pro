@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = dde-suspend-dialog
 TEMPLATE = app
-CONFIG += link_pkgconfig
+CONFIG += link_pkgconfig c++11
 PKGCONFIG += dtkbase dtkwidget
 
 # The following define makes your compiler emit warnings if you use
