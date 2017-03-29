@@ -22,6 +22,6 @@ int main(int argc, char *argv[])
 
     MainWindow *mainWindow = new MainWindow(0);
     mainWindow->show();
-    mainWindow->grabKeyboard();
+//    mainWindow->grabKeyboard();
     return a.exec();
 }
