@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
     <name>Dialog</name>
     <message>
@@ -190,17 +188,17 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
         <source>Are you sure to shut down?</source>
-        <translation>你确定要关机吗？</translation>
+        <translation>您确定要关机吗？</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
         <source>Are you sure to restart?</source>
-        <translation>你确定要重启吗？</translation>
+        <translation>您确定要重启吗？</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>
         <source>Are you sure to log out?</source>
-        <translation>你确定要注销吗？</translation>
+        <translation>您确定要注销吗？</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>

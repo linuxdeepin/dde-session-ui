@@ -4,12 +4,12 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Opdateringer hentet, genstart for at opdatere?</translation>
+        <translation>Opdateringer downloadet. Genstart for at opdatere?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
         <source>Remind Later</source>
-        <translation>Påmind Senere</translation>
+        <translation>Påmind senere</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
@@ -19,7 +19,20 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
         <source>Not Now</source>
-        <translation>Ikke Nu</translation>
+        <translation>Ikke nu</translation>
+    </message>
+</context>
+<context>
+    <name>DisplayModeProvider</name>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="133"/>
+        <source>Duplicate</source>
+        <translation>Duplikér</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="135"/>
+        <source>Extend</source>
+        <translation>Udvid</translation>
     </message>
 </context>
 <context>
@@ -27,12 +40,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Vær venlig ikke at slukke, eller tage stikket ud af din maskine</translation>
+        <translation>Vær venlig ikke at slukke, eller tage strømstikket ud af din maskine</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>Installalrer opdateringer %1%, vent venligst ...</translation>
+        <translation>Installerer opdateringer %1%, vent venligst...</translation>
     </message>
 </context>
 <context>
@@ -48,25 +61,25 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="128"/>
         <source>Login</source>
-        <translation>Log ind</translation>
+        <translation>Login</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="375"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="367"/>
         <source>Wrong Password</source>
-        <translation>Forkert kodeord</translation>
+        <translation>Forkert adgangskode</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="380"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
         <source>Please retry after 10 minutes</source>
-        <translation>Prøv igen efter 10 minutter</translation>
+        <translation>Prøv igen om 10 minutter</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="513"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="505"/>
         <source>Enter your password to restart</source>
         <translation>Indtast din adgangskode for at genstarte</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="516"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="508"/>
         <source>Enter your password to shutdown</source>
         <translation>Indtast din adgangskode for at lukke ned</translation>
     </message>
@@ -74,52 +87,57 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="254"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="258"/>
         <source>Login</source>
-        <translation>Log ind</translation>
+        <translation>Login</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="425"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
         <source>Wrong Password</source>
-        <translation>Forkert kodeord</translation>
+        <translation>Forkert adgangskode</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="430"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="428"/>
         <source>Please retry after 10 minutes</source>
-        <translation>Prøv igen efter 10 minutter</translation>
+        <translation>Prøv igen om 10 minutter</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Control Center</source>
         <translation>Kontrolcenter</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>All Windows</source>
         <translation>Alle vinduer</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Launcher</source>
-        <translation>Launcher</translation>
+        <translation>Programstarter</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Desktop</source>
         <translation>Skrivebord</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>None</source>
         <translation>Ingen</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="46"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Fast Screen Off</source>
-        <translation type="unfinished"/>
+        <translation>Hurtig skærm fra</translation>
+    </message>
+    <message>
+        <location filename="../dde-zone/mainwindow.cpp" line="65"/>
+        <source>Close Window</source>
+        <translation>Luk vindue</translation>
     </message>
 </context>
 <context>
@@ -127,75 +145,63 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Ovenstående brugere er stadig holde logget ind, og data går tabt på grund af lukning, er du sikker på at lukke ned?</translation>
+        <translation>De ovenstående brugere er stadig logget ind, og data vil gå tabt på grund af nedlukning. Er du sikker på, at du vil lukke ned?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Ovenstående brugere er stadig holde logget ind og data går tabt på grund af genstart, er du sikker på at du vil genstarte?</translation>
-    </message>
-</context>
-<context>
-    <name>Osd</name>
-    <message>
-        <location filename="../dde-osd/osd.cpp" line="66"/>
-        <source>Enable window effects</source>
-        <translation>Aktiver vindueseffekter</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/osd.cpp" line="67"/>
-        <source>Disable window effects</source>
-        <translation>Deaktiver vindueseffekter</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/osd.cpp" line="68"/>
-        <source>Failed to enable window effects</source>
-        <translation>Det lykkedes ikke at aktivere vindueseffekter</translation>
+        <translation>De ovenstående brugere er stadig logget ind, og data vil gå tabt på grund af genstart. Er du sikker på, at du vil genstarte?</translation>
     </message>
 </context>
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="202"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="232"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="149"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="199"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="235"/>
         <source>Shut down</source>
         <translation>Luk ned</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="152"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="207"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="235"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="151"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="204"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
         <source>Restart</source>
         <translation>Genstart</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="203"/>
-        <source>Are you sure to shut down the machine?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="208"/>
-        <source>Are you sure to restart the machine?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
-        <source>Suspend</source>
-        <translation>Standby</translation>
-    </message>
-    <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="241"/>
+        <source>Suspend</source>
+        <translation>Hvile</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
         <source>Lock</source>
         <translation>Lås</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="209"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="247"/>
         <source>Log out</source>
         <translation>Log ud</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="248"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
+        <source>Are you sure to shut down?</source>
+        <translation>Er du sikker på, at du vil lukke ned?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
+        <source>Are you sure to restart?</source>
+        <translation>Er du sikker på, at du vil genstarte?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>
+        <source>Are you sure to log out?</source>
+        <translation>Er du sikker på, at du vil logge ud?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>
         <source>Switch user</source>
         <translation>Skift bruger</translation>
     </message>
@@ -215,7 +221,7 @@
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="37"/>
         <source>Suspend</source>
-        <translation>Standby</translation>
+        <translation>Hvile</translation>
     </message>
 </context>
 <context>
@@ -223,13 +229,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>Ekstern skærm registreret, sæt i hvil?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
@@ -239,33 +245,38 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Suspend</source>
-        <translation>Standby</translation>
-    </message>
-</context>
-<context>
-    <name>SwitchMonitor</name>
-    <message>
-        <location filename="../dde-osd/switchmonitor.cpp" line="148"/>
-        <source>Duplicate</source>
-        <translation>Dupliker</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/switchmonitor.cpp" line="175"/>
-        <source>Extend</source>
-        <translation>Udvid</translation>
+        <translation>Hvile</translation>
     </message>
 </context>
 <context>
     <name>TimeWidget</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="62"/>
+        <location filename="../dde-lock/timewidget.cpp" line="59"/>
         <source>hh:mm</source>
         <translation>hh:mm</translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="63"/>
+        <location filename="../dde-lock/timewidget.cpp" line="60"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>yyyy-MM-dd dddd</translation>
+    </message>
+</context>
+<context>
+    <name>WMStateProvider</name>
+    <message>
+        <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
+        <source>Enable window effects</source>
+        <translation>Aktivér vindueseffekter</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
+        <source>Disable window effects</source>
+        <translation>Deaktivér vindueseffekter</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
+        <source>Failed to enable window effects</source>
+        <translation>Det lykkedes ikke at aktivere vindueseffekter</translation>
     </message>
 </context>
 <context>
@@ -273,12 +284,12 @@
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="73"/>
         <source>Only desktop</source>
-        <translation>Kun desktop</translation>
+        <translation>Kun skrivebord</translation>
     </message>
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="76"/>
         <source>Only lock screen</source>
-        <translation>Kun lås af skærmen</translation>
+        <translation>Lås kun skærmen</translation>
     </message>
 </context>
 <context>
@@ -286,7 +297,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="23"/>
         <source>Low battery, please plug in</source>
-        <translation>Batteriet er lavt, slut computeren til strøm</translation>
+        <translation>Batteriet er lavt. Sæt venligst strømstikket i</translation>
     </message>
 </context>
 </TS>
