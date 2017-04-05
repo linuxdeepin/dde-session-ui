@@ -214,6 +214,51 @@ void LockManager::chooseUserMode()
     m_requireShutdownWidget->hide();
 }
 
+void LockManager::onUnlockFinished(QDBusPendingCallWatcher *w)
+{
+
+    QDBusPendingReply<bool> reply = *w;
+
+    qDebug() << "dde-lock unlock^^^" << m_lockInter->isValid()
+             << m_lockInter->lastError()
+             << reply.error() << reply.value();
+
+    if (!reply.value()) {
+
+        // Auth fail
+        qDebug() << "Authorization failed!";
+        m_authFailureCount++;
+        m_userWidget->hideLoadingAni();
+        if (m_authFailureCount < UtilFile::GetAuthLimitation()) {
+            m_passwordEdit->setAlert(true, tr("Wrong Password"));
+        } else {
+            m_authFailureCount = 0;
+            m_passwordEdit->setReadOnly(true);
+            m_passwordEdit->setEnabled(false);
+            m_passwordEdit->setAlert(true, tr("Please retry after 10 minutes"));
+        }
+        w->deleteLater();
+        return;
+    }
+    w->deleteLater();
+
+    // Auth success
+    switch (m_action) {
+    case Restart:       m_sessionManagerIter->RequestReboot();    break;
+    case Shutdown:      m_sessionManagerIter->RequestShutdown();    break;
+    case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
+    default: break;
+    }
+
+#ifdef LOCK_NO_QUIT
+    m_userWidget->hideLoadingAni();
+    m_passwordEdit->clearText();
+    emit checkedHide();
+#else
+    qApp->exit();
+#endif
+}
+
 void LockManager::updateBackground(QString username)
 {
     const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
@@ -317,44 +362,8 @@ void LockManager::unlock()
     const QString &password = m_passwordEdit->getText();
 
     QDBusPendingReply<bool> result = m_lockInter->UnlockCheck(username, password);
-    result.waitForFinished();
-
-    qDebug() << "dde-lock unlock^^^" << m_lockInter->isValid()
-             << m_lockInter->lastError()
-             << result.error() << result.value();
-
-    if (result.error().type() != QDBusError::NoError || !result.value()) {
-        // Auth fail
-        qDebug() << "Authorization failed!";
-        m_authFailureCount++;
-        m_userWidget->hideLoadingAni();
-        if (m_authFailureCount < UtilFile::GetAuthLimitation()) {
-            m_passwordEdit->setAlert(true, tr("Wrong Password"));
-        } else {
-            m_authFailureCount = 0;
-            m_passwordEdit->setReadOnly(true);
-            m_passwordEdit->setEnabled(false);
-            m_passwordEdit->setAlert(true, tr("Please retry after 10 minutes"));
-        }
-
-        return;
-    }
-
-    // Auth success
-    switch (m_action) {
-    case Restart:       m_sessionManagerIter->RequestReboot();    break;
-    case Shutdown:      m_sessionManagerIter->RequestShutdown();    break;
-    case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
-    default: break;
-    }
-
-#ifdef LOCK_NO_QUIT
-    m_userWidget->hideLoadingAni();
-    m_passwordEdit->clearText();
-    emit checkedHide();
-#else
-    qApp->exit();
-#endif
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(result, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, &LockManager::onUnlockFinished);
 }
 
 void LockManager::initBackend()

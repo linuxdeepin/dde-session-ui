@@ -68,6 +68,7 @@ public slots:
     void rightKeyPressed();
 
     void chooseUserMode();
+    void onUnlockFinished(QDBusPendingCallWatcher *w);
 //    void onUserUnlock(const QString& username);
 
 protected:
