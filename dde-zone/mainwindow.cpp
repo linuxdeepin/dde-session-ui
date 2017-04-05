@@ -12,12 +12,8 @@
 #include <hotzone.h>
 #include <QScreen>
 #include <QGuiApplication>
-#include <QVideoWidget>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
-#include <DVideoWidget>
-
-DWIDGET_USE_NAMESPACE
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -48,21 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
     back->setAutoFillBackground(true);
     back->setGeometry(0, MAIN_ITEM_TOP_MARGIN, this->width(), this->height() - MAIN_ITEM_TOP_MARGIN);
 
-    QMediaPlayer *player = new QMediaPlayer;
-    QMediaPlaylist *list = new QMediaPlaylist;
-    list->addMedia(QUrl("qrc:/images/Prompt.mov"));
-    list->setPlaybackMode(QMediaPlaylist::Loop);
-
-    DVideoWidget *videoWidget = new DVideoWidget(this);
-
-    int x = (this->rect().right() - 450) / 2;
-    int y = (this->rect().bottom() - 348) / 2;
-    videoWidget->setGeometry(x, y, 450, 348);
-
-    videoWidget->setSource(player);
-    player->setPlaylist(list);
-
-    player->play();
+    m_videoWidget = new DVideoWidget(this);
 
     // init corresponding QList for addButtons()
     m_ButtonNames << tr("Fast Screen Off") << tr("Control Center") << tr("All Windows") << tr("Launcher") << tr("Desktop") << tr("None");
@@ -86,6 +68,8 @@ MainWindow::MainWindow(QWidget *parent)
     hotzone4->addButtons(m_ButtonNames, m_ActionStrs2);
 
     m_dbusZoneInter->EnableZoneDetected(false);
+
+    QTimer::singleShot(1000, this, &MainWindow::onDemoVideo);
 }
 
 MainWindow::~MainWindow()
@@ -107,4 +91,22 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         this->deleteLater();
         qApp->quit();
     }
+}
+
+void MainWindow::onDemoVideo()
+{
+    QMediaPlayer *player = new QMediaPlayer;
+
+    QMediaPlaylist *list = new QMediaPlaylist;
+
+    list->addMedia(QUrl("qrc:/images/Prompt.mov"));
+    list->setPlaybackMode(QMediaPlaylist::Loop);
+
+    int x = (this->rect().right() - 450) / 2;
+    int y = (this->rect().bottom() - 348) / 2;
+    m_videoWidget->setGeometry(x, y, 450, 348);
+
+    m_videoWidget->setSource(player);
+    player->setPlaylist(list);
+    player->play();
 }

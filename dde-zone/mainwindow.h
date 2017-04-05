@@ -16,7 +16,7 @@
 
 #include "dbus/dbuszone.h"
 #include <QLabel>
-#include <dpicturesequenceview.h>
+#include <DVideoWidget>
 
 DWIDGET_USE_NAMESPACE
 
@@ -29,6 +29,9 @@ public:
 
     void mousePressEvent(QMouseEvent *);
     void keyPressEvent(QKeyEvent *);
+
+private slots:
+    void onDemoVideo();
 
 private:
     QStringList m_ButtonNames;
@@ -49,7 +52,7 @@ private:
 
     // MAIN_ITEM_TOP_MARGIN is aimed to steer clear of the fade-zone of mouseEvent of mainWindow Item.
     const int MAIN_ITEM_TOP_MARGIN = 30;
-    DPictureSequenceView *m_animationSequence;
+    DVideoWidget *m_videoWidget;
 };
 
 #endif // MAINWINDOWWITHCLICK_H
