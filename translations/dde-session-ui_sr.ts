@@ -1,25 +1,25 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="sr" version="2.1">
 <context>
     <name>Dialog</name>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Mises à jour prêtes, actualiser et redémarrer?</translation>
+        <translation>Ажурирања преузета. Рестартовати систем ради ажурирања?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
         <source>Remind Later</source>
-        <translation>Rappeler plus tard</translation>
+        <translation>Подсети касније</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
         <source>Update Now</source>
-        <translation>D&apos;accord</translation>
+        <translation>Ажурирај сада</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
         <source>Not Now</source>
-        <translation>Pas maintenant</translation>
+        <translation>Не сада</translation>
     </message>
 </context>
 <context>
@@ -27,12 +27,12 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="133"/>
         <source>Duplicate</source>
-        <translation>Dupliquer</translation>
+        <translation>Дуплирај</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="135"/>
         <source>Extend</source>
-        <translation>Etendre</translation>
+        <translation>Прошири</translation>
     </message>
 </context>
 <context>
@@ -40,12 +40,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Veuillez ne pas arrêter ou redémarrer votre appareil</translation>
+        <translation>Немојте гасити или искључивати рачунар</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>Installation des mises à jour %1%, veuillez patienter...</translation>
+        <translation>Инсталирам ажурирања %1%, сачекајте...</translation>
     </message>
 </context>
 <context>
@@ -53,7 +53,7 @@
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="25"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>Откажи</translation>
     </message>
 </context>
 <context>
@@ -61,27 +61,27 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="128"/>
         <source>Login</source>
-        <translation>Identifiant</translation>
+        <translation>Пријави се</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="367"/>
         <source>Wrong Password</source>
-        <translation>Mauvais mot de passe </translation>
+        <translation>Погрешна лозинка</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="372"/>
         <source>Please retry after 10 minutes</source>
-        <translation>Veuillez réessayer dans 10 minutes </translation>
+        <translation>Покушајте поново након 10 минута</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="505"/>
         <source>Enter your password to restart</source>
-        <translation>Insérer votre mot de passe pour redémarrer </translation>
+        <translation>Унесите лозинку за рестарт</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="508"/>
         <source>Enter your password to shutdown</source>
-        <translation>Entrez votre mot de passe pour arrêter </translation>
+        <translation>Унесите лозинку за гашење</translation>
     </message>
 </context>
 <context>
@@ -89,17 +89,17 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="258"/>
         <source>Login</source>
-        <translation>Identifiant</translation>
+        <translation>Пријави се</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
         <source>Wrong Password</source>
-        <translation>Mauvais mot de passe </translation>
+        <translation>Погрешна лозинка</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="428"/>
         <source>Please retry after 10 minutes</source>
-        <translation>Veuillez réessayer dans 10 minutes</translation>
+        <translation>Покушајте поново након 10 минута</translation>
     </message>
 </context>
 <context>
@@ -107,37 +107,37 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Control Center</source>
-        <translation>Centre de contrôle</translation>
+        <translation>Контролни центар</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>All Windows</source>
-        <translation>Toutes les fenêtres</translation>
+        <translation>Сви прозори</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Launcher</source>
-        <translation>Lanceur</translation>
+        <translation>Покретач</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Desktop</source>
-        <translation>Bureau</translation>
+        <translation>Радна површ</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>None</source>
-        <translation>Aucun</translation>
+        <translation>Ништа</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Fast Screen Off</source>
-        <translation>Extinction rapide écran</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="65"/>
         <source>Close Window</source>
-        <translation>Fermer la fenêtre</translation>
+        <translation>Затвори прозор</translation>
     </message>
 </context>
 <context>
@@ -145,12 +145,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Cet utilisateur a sa session encore active et ses données peuvent êtres perdues si vous arrêter, voulez-vous continuer la procédure?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Cet utilisateur a sa session encore active et ses données peuvent êtres perdues si vous redémarrer, voulez-vous continuer la procédure?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -160,50 +160,50 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="199"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="235"/>
         <source>Shut down</source>
-        <translation>Arrêter</translation>
+        <translation>Угаси</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="151"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="204"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
         <source>Restart</source>
-        <translation>Redémarrer</translation>
+        <translation>Поново покрени</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="241"/>
         <source>Suspend</source>
-        <translation>Mettre en veille </translation>
+        <translation>Обустави</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
         <source>Lock</source>
-        <translation>Verrouiller</translation>
+        <translation>Закључај</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="209"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="247"/>
         <source>Log out</source>
-        <translation>Déconnexion</translation>
+        <translation>Одјави се</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
         <source>Are you sure to shut down?</source>
-        <translation>Êtes-vous sûr de vouloir éteindre ?</translation>
+        <translation>Заиста желите да угасите?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
         <source>Are you sure to restart?</source>
-        <translation>Êtes-vous sûr de vouloir redémarrer ?</translation>
+        <translation>Заиста желите да поново покренете?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>
         <source>Are you sure to log out?</source>
-        <translation>Êtes-vous sûr de vouloir vous déconnecter ?</translation>
+        <translation>Заиста желите да се одјавите?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>
         <source>Switch user</source>
-        <translation>Changer d&apos;utilisateur</translation>
+        <translation>Промени корисника</translation>
     </message>
 </context>
 <context>
@@ -211,17 +211,17 @@
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
-        <translation>Arrêter</translation>
+        <translation>Угаси</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="33"/>
         <source>Restart</source>
-        <translation>Redémarrer</translation>
+        <translation>Поново покрени</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="37"/>
         <source>Suspend</source>
-        <translation>Mettre en veille </translation>
+        <translation>Обустави</translation>
     </message>
 </context>
 <context>
@@ -229,23 +229,23 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <source>External monitor detected, suspend?</source>
-        <translation> Moniteur externe détécté, suspendre ?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
         <source>%1s</source>
-        <translation>%1s </translation>
+        <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation>Откажи</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Suspend</source>
-        <translation>Mettre en veille </translation>
+        <translation>Обустави</translation>
     </message>
 </context>
 <context>
@@ -266,17 +266,17 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
         <source>Enable window effects</source>
-        <translation>Activer les effets de fenêtres </translation>
+        <translation>Укључи ефекте прозора</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
         <source>Disable window effects</source>
-        <translation>Désactiver les effets de fenêtres </translation>
+        <translation>Искључи ефекте прозора</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
         <source>Failed to enable window effects</source>
-        <translation>Impossible d&apos;activer les effets de fenêtres</translation>
+        <translation>Неуспело укључивање ефеката</translation>
     </message>
 </context>
 <context>
@@ -284,12 +284,12 @@
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="73"/>
         <source>Only desktop</source>
-        <translation>Bureau uniquement</translation>
+        <translation>Само радна површ</translation>
     </message>
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="76"/>
         <source>Only lock screen</source>
-        <translation>Écran de verrouillage uniquement</translation>
+        <translation>Само закључан екран</translation>
     </message>
 </context>
 <context>
@@ -297,7 +297,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="23"/>
         <source>Low battery, please plug in</source>
-        <translation>Batterie faible,veuillez brancher votre appareil</translation>
+        <translation>Батерија при крају. Укључите пуњач</translation>
     </message>
 </context>
 </TS>

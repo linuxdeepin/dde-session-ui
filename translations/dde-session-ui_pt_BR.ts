@@ -193,7 +193,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
         <source>Are you sure to restart?</source>
-        <translation>Deseja Reiniciar agora?</translation>
+        <translation>Deseja reiniciar agora?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>

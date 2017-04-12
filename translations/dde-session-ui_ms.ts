@@ -137,7 +137,7 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="65"/>
         <source>Close Window</source>
-        <translation type="unfinished"/>
+        <translation>Tutup Tetingkap</translation>
     </message>
 </context>
 <context>
@@ -188,17 +188,17 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
         <source>Are you sure to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Anda pasti mahu matikan komputer?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
         <source>Are you sure to restart?</source>
-        <translation type="unfinished"/>
+        <translation>Anda pasti mahu mulakan semula?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>
         <source>Are you sure to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Anda pasti mahu mendaftar keluar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>

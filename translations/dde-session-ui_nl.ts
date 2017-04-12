@@ -137,7 +137,7 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="65"/>
         <source>Close Window</source>
-        <translation type="unfinished"/>
+        <translation>Venster Sluiten</translation>
     </message>
 </context>
 <context>
@@ -188,17 +188,17 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
         <source>Are you sure to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Bent u zeker dat u wil uitschakelen?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
         <source>Are you sure to restart?</source>
-        <translation type="unfinished"/>
+        <translation>Bent u zeker dat u wil herstarten?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>
         <source>Are you sure to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Ben u zeker dat u wil uitloggen?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>

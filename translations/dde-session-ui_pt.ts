@@ -145,12 +145,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Os utilizadores acima continuam logados e os dados serão perdidos por causa do encerramento, tem a certeza que quer encerrar?</translation>
+        <translation>Os utilizadores acima continuam logados e os dados serão perdidos por causa do encerramento, tem a certeza que deseja encerrar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Os utilizadores acima continuam logados e os dados serão perdidos devido ao reiniciar, tem a certeza que quer reiniciar?</translation>
+        <translation>Os utilizadores acima continuam logados e os dados serão perdidos devido ao reiniciar, tem a certeza que deseja reiniciar?</translation>
     </message>
 </context>
 <context>
@@ -188,17 +188,17 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
         <source>Are you sure to shut down?</source>
-        <translation>Tem a certeza que quer encerrar?</translation>
+        <translation>Tem a certeza que deseja encerrar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
         <source>Are you sure to restart?</source>
-        <translation>Tem a certeza que quer reiniciar?</translation>
+        <translation>Tem a certeza que deseja reiniciar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>
         <source>Are you sure to log out?</source>
-        <translation>Tem a certeza que quer terminar a sessão?</translation>
+        <translation>Tem a certeza que deseja terminar a sessão?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>
