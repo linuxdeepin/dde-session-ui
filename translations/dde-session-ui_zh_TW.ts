@@ -4,7 +4,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>更新套件已下載，重新開機以完成更新？</translation>
+        <translation>已下載更新套件，是否更新（重新開機）？</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
@@ -27,7 +27,7 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="133"/>
         <source>Duplicate</source>
-        <translation>同步畫面</translation>
+        <translation>同步顯示畫面</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="135"/>
@@ -40,12 +40,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>請不要將機器關機或拔除電源</translation>
+        <translation>請勿關機或拔除電源</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>正在安裝更新 %1%，請稍等…</translation>
+        <translation>正在安裝更新 %1%，請稍候…</translation>
     </message>
 </context>
 <context>
@@ -71,17 +71,17 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="372"/>
         <source>Please retry after 10 minutes</source>
-        <translation>請 10 分鐘重試</translation>
+        <translation>請 10 分鐘後再試</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="505"/>
         <source>Enter your password to restart</source>
-        <translation>輸入你的密碼重新啟動</translation>
+        <translation>輸入密碼重新啟動</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="508"/>
         <source>Enter your password to shutdown</source>
-        <translation>輸入你的密碼關機</translation>
+        <translation>輸入密碼關機</translation>
     </message>
 </context>
 <context>
@@ -99,7 +99,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="428"/>
         <source>Please retry after 10 minutes</source>
-        <translation>請 10 分鐘重試</translation>
+        <translation>請 10 分鐘後再試</translation>
     </message>
 </context>
 <context>
@@ -137,7 +137,7 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="65"/>
         <source>Close Window</source>
-        <translation type="unfinished"/>
+        <translation>關閉視窗</translation>
     </message>
 </context>
 <context>
@@ -145,12 +145,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>仍有使用者登入，關機將導致其資料遺失，你確定要關機？</translation>
+        <translation>關機會導致登入使用者的資料遺失，確定關機？</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>仍有使用者登入，重新啟動將導致其資料遺失，你確定要重新啟動？</translation>
+        <translation>重新啟動會導致登入使用者的資料遺失，確定重新啟動？</translation>
     </message>
 </context>
 <context>
@@ -188,17 +188,17 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
         <source>Are you sure to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>確定關機？</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
         <source>Are you sure to restart?</source>
-        <translation type="unfinished"/>
+        <translation>確定重新啟動？</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>
         <source>Are you sure to log out?</source>
-        <translation type="unfinished"/>
+        <translation>確定登出？</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>
@@ -229,13 +229,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <source>External monitor detected, suspend?</source>
-        <translation>偵測到外接螢幕，關閉此螢幕？</translation>
+        <translation>偵測到外接螢幕，確定待機？</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
         <source>%1s</source>
-        <translation>%1s</translation>
+        <translation>%1 秒</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
@@ -253,12 +253,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="59"/>
         <source>hh:mm</source>
-        <translation> hh:mm </translation>
+        <translation>hh : mm</translation>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="60"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation>yyyy 年 MM 月 dd 日 dddd</translation>
     </message>
 </context>
 <context>
@@ -266,17 +266,17 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
         <source>Enable window effects</source>
-        <translation>開啟視窗效果</translation>
+        <translation>開啟視窗特效</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
         <source>Disable window effects</source>
-        <translation>關閉視窗效果</translation>
+        <translation>關閉視窗特效</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
         <source>Failed to enable window effects</source>
-        <translation>無法開啟視窗效果</translation>
+        <translation>視窗特效開啟失敗</translation>
     </message>
 </context>
 <context>
@@ -284,12 +284,12 @@
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="73"/>
         <source>Only desktop</source>
-        <translation>只用於桌面</translation>
+        <translation>僅套用桌面</translation>
     </message>
     <message>
         <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="76"/>
         <source>Only lock screen</source>
-        <translation>只用於鎖定畫面</translation>
+        <translation>僅套用鎖定畫面</translation>
     </message>
 </context>
 <context>
@@ -297,7 +297,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="23"/>
         <source>Low battery, please plug in</source>
-        <translation>電池低電量，請接上電源</translation>
+        <translation>低電量請接電源</translation>
     </message>
 </context>
 </TS>
