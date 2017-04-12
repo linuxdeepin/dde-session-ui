@@ -8,3 +8,9 @@ file_filter = translations/dde-session-ui_<lang>.ts
 source_file = translations/dde-session-ui.ts
 source_lang = en
 type = QT
+
+[deepin-desktop-environment.deepin-toggle-desktop]
+file_filter = translations/toggle-desktop/desktop_<lang>.ts
+source_file = translations/toggle-desktop/desktop.ts
+source_lang = en
+type = QT

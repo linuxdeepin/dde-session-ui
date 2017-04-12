@@ -1,12 +1,17 @@
 [Desktop Entry]
-Type=Application
-Name=Show Desktop
-Name[zh_CN]=显示桌面
+Categories=GNOME;GTK;System;
 Comment=Show desktop or show windows
+Exec=/usr/lib/deepin-daemon/desktop-toggle
 GenericName=Show Desktop
 Icon=deepin-show-desktop
-Terminal=false
-Categories=GNOME;GTK;System;
-Exec=/usr/lib/deepin-daemon/desktop-toggle
+Name=Show Desktop
 OnlyShowIn=Deepin;
+Terminal=false
+Type=Application
 X-AppStream-Ignore=true
+
+# Translations:
+# Do not manually modify!
+GenericName[zh_CN]=显示桌面
+Name[zh_CN]=显示桌面
+

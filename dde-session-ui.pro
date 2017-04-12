@@ -16,6 +16,8 @@ contains(DEFINES, ARCH_MIPSEL) {
     SUBDIRS += session-ui-guardien
 }
 
+system($$PWD/translate_desktop.sh)
+
 # Automating generation .qm files from .ts files
 system($$PWD/translate_generation.sh)
 
