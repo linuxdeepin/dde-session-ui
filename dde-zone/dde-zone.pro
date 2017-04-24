@@ -33,3 +33,7 @@ RESOURCES += \
 
 target.path = /usr/lib/deepin-daemon/
 INSTALLS += target
+
+isEqual(DISABLE_DEMO_VIDEO, YES){
+    DEFINES += DISABLE_DEMO_VIDEO
+}

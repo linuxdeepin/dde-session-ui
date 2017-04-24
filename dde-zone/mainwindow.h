@@ -31,7 +31,9 @@ public:
     void keyPressEvent(QKeyEvent *);
 
 private slots:
+#ifndef DISABLE_DEMO_VIDEO
     void onDemoVideo();
+#endif
 
 private:
     QStringList m_ButtonNames;
@@ -52,7 +54,9 @@ private:
 
     // MAIN_ITEM_TOP_MARGIN is aimed to steer clear of the fade-zone of mouseEvent of mainWindow Item.
     const int MAIN_ITEM_TOP_MARGIN = 30;
+#ifndef DISABLE_DEMO_VIDEO
     DVideoWidget *m_videoWidget;
+#endif
 };
 
 #endif // MAINWINDOWWITHCLICK_H

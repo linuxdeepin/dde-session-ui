@@ -44,7 +44,10 @@ MainWindow::MainWindow(QWidget *parent)
     back->setAutoFillBackground(true);
     back->setGeometry(0, MAIN_ITEM_TOP_MARGIN, this->width(), this->height() - MAIN_ITEM_TOP_MARGIN);
 
+#ifndef DISABLE_DEMO_VIDEO
     m_videoWidget = new DVideoWidget(this);
+    QTimer::singleShot(1000, this, &MainWindow::onDemoVideo);
+#endif
 
     // init corresponding QList for addButtons()
     m_ButtonNames << tr("Fast Screen Off") << tr("Control Center") << tr("All Windows") << tr("Launcher") << tr("Desktop") << tr("None");
@@ -69,7 +72,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_dbusZoneInter->EnableZoneDetected(false);
 
-    QTimer::singleShot(1000, this, &MainWindow::onDemoVideo);
 }
 
 MainWindow::~MainWindow()
@@ -93,6 +95,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
     }
 }
 
+#ifndef DISABLE_DEMO_VIDEO
 void MainWindow::onDemoVideo()
 {
     QMediaPlayer *player = new QMediaPlayer;
@@ -110,3 +113,4 @@ void MainWindow::onDemoVideo()
     player->setPlaylist(list);
     player->play();
 }
+#endif
