@@ -15,9 +15,9 @@ QVariant WMStateProvider::data(const QModelIndex &, int role) const
 {
     const bool decoration = role == Qt::DecorationRole;
     if (m_param == "SwitchWM3D") {
-        return decoration ? ":/icons/OSD_wm_3d" : tr("Enable window effects");
+        return decoration ? ":/icons/OSD_wm_3d" : tr("Window effect enabled");
     } else if (m_param == "SwitchWM2D") {
-        return decoration ? ":/icons/OSD_wm_2d" : tr("Disable window effects");
+        return decoration ? ":/icons/OSD_wm_2d" : tr("Window effect disabled");
     }
     return decoration ? ":/icons/OSD_wm_failed" : tr("Failed to enable window effects");
 }
