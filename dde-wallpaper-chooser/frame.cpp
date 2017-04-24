@@ -35,7 +35,6 @@ Frame::Frame(QFrame *parent)
     setAttribute(Qt::WA_TranslucentBackground);
 
     initSize();
-    initListView();
 
     connect(m_dbusMouseArea, &DBusXMouseArea::ButtonPress, [this](int button, int x, int y, const QString &id){
         if (id != m_mouseAreaKey) return;
@@ -54,7 +53,21 @@ Frame::Frame(QFrame *parent)
     });
 
     m_closeButton->hide();
+    m_dbusDeepinWM->RequestHideWindows();
     connect(m_wallpaperList, &WallpaperList::needCloseButton, this, &Frame::handleNeedCloseButton);
+
+    QDBusPendingCall call = m_dbusMouseArea->RegisterFullScreen();
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, call] {
+         if (call.isError()) {
+             qWarning() << "failed to register full screen mousearea: " << call.error().message();
+         } else {
+             QDBusReply<QString> reply = call.reply();
+             m_mouseAreaKey = reply.value();
+         }
+    });
+
+    QTimer::singleShot(0, this, &Frame::initListView);
 }
 
 Frame::~Frame()
@@ -92,9 +105,6 @@ void Frame::paintEvent(QPaintEvent *)
 
 void Frame::showEvent(QShowEvent * event)
 {
-    m_dbusDeepinWM->RequestHideWindows();
-    m_mouseAreaKey = m_dbusMouseArea->RegisterFullScreen();
-
     activateWindow();
 
     QWidget::showEvent(event);
@@ -125,18 +135,25 @@ void Frame::initSize()
 
 void Frame::initListView()
 {
-    QDBusPendingReply<QString> reply = m_dbusAppearance->List("background");
-    reply.waitForFinished();
-
-    QString value = reply.value();
-    QStringList strings = processListReply(value);
-
-    foreach (QString path, strings) {
-        WallpaperItem * item = m_wallpaperList->addWallpaper(path);
-        item->setDeletable(m_deletableInfo.value(path));
-    }
-
     m_wallpaperList->setStyleSheet("QListWidget { background: transparent }");
+
+    QDBusPendingCall call = m_dbusAppearance->List("background");
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, call] {
+        if (call.isError()) {
+            qWarning() << "failed to get all backgrounds: " << call.error().message();
+            qApp->exit(-1);
+        }
+
+        QDBusReply<QString> reply = call.reply();
+        QString value = reply.value();
+        QStringList strings = processListReply(value);
+
+        foreach (QString path, strings) {
+            WallpaperItem * item = m_wallpaperList->addWallpaper(path);
+            item->setDeletable(m_deletableInfo.value(path));
+        }
+    });
 }
 
 QStringList Frame::processListReply(const QString &reply)
