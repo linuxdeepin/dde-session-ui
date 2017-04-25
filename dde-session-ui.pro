@@ -7,7 +7,6 @@ SUBDIRS += dde-shutdown \
            dde-lowpower \
            dde-osd \
            dde-zone \
-           dde-wallpaper-chooser \
            dde-offline-upgrader \
            dde-suspend-dialog
 
