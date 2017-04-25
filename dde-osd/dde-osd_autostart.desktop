@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Control Center
+Exec=/usr/lib/deepin-daemon/dde-osd
+OnlyShowIn=Deepin
+StartupNotify=false
+Terminal=false
+Type=Application

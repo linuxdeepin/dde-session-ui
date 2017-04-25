@@ -53,3 +53,7 @@ INSTALLS   += target
 service_file.path = /usr/share/dbus-1/services/
 service_file.files = com.deepin.dde.osd.service
 INSTALLS += service_file
+
+autostart_file.path = /etc/xdg/autostart/
+autostart_file.files = dde-osd_autostart.desktop
+INSTALLS += autostart_file
