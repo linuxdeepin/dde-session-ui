@@ -13,3 +13,8 @@ ifeq ($(DEB_BUILD_ARCH), mipsel)
 override_dh_auto_configure:
 	dh_auto_configure -- SHUTDOWN_NO_QUIT=YES LOCK_NO_QUIT=YES
 endif
+
+ifeq ($(DEB_BUILD_ARCH), sw_64)
+override_dh_auto_configure:
+	dh_auto_configure -- SHUTDOWN_NO_QUIT=YES LOCK_NO_QUIT=YES
+endif
