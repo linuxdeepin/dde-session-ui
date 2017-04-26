@@ -6,7 +6,6 @@ SUBDIRS += dde-shutdown \
            dde-switchtogreeter \
            dde-lowpower \
            dde-osd \
-           dde-zone \
 #           dde-offline-upgrader \
            dde-suspend-dialog \
            dde-warning-dialog \
