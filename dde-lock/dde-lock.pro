@@ -38,11 +38,7 @@ services.files = com.deepin.dde.lockFront.service
 target.path = $${PREFIX}/bin/
 INSTALLS += target services
 
-contains(DEFINES, ARCH_MIPSEL) {
+isEqual(LOCK_NO_QUIT, YES) {
     DEFINES +=LOCK_NO_QUIT
 }
-
-
-
-
 
