@@ -4,7 +4,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Aktualizácie boli stiahnuté, reštartovať pre aktualizáciu?</translation>
+        <translation>Aktualizácie boli stiahnuté, chcete reštartovať pre aktualizáciu?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>

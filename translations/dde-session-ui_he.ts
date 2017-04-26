@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="mn" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="he" version="2.1">
 <context>
     <name>Dialog</name>
     <message>
@@ -9,12 +9,12 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
         <source>Remind Later</source>
-        <translation>Дараа нь сануулах</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
         <source>Update Now</source>
-        <translation>Одоо шинэчлэ</translation>
+        <translation>עדכון כעת</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
@@ -27,12 +27,12 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="133"/>
         <source>Duplicate</source>
-        <translation>Хувилах</translation>
+        <translation>שכפל</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="135"/>
         <source>Extend</source>
-        <translation>Tэлэх</translation>
+        <translation>הרחבה</translation>
     </message>
 </context>
 <context>
@@ -40,12 +40,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Төхөөрөмжийг унтраах эсвэл цахилгаан үүсгүүрээс бүү салгана уу</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>Шинэчлэлийн суулгац %1%, түр хүлээнэ үү...</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -53,7 +53,7 @@
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="25"/>
         <source>Cancel</source>
-        <translation>Цуцлах</translation>
+        <translation>ביטול</translation>
     </message>
 </context>
 <context>
@@ -61,27 +61,27 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="128"/>
         <source>Login</source>
-        <translation>Нэвтрэх</translation>
+        <translation>התחבר</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="367"/>
         <source>Wrong Password</source>
-        <translation>Нууц үг буруу байна</translation>
+        <translation>סיסמא שגויה</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="372"/>
         <source>Please retry after 10 minutes</source>
-        <translation>10 минутын дараа дахин оролдно уу</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="505"/>
         <source>Enter your password to restart</source>
-        <translation>Нууц үгийг оруулаад дахин эхлүүлэх</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="508"/>
         <source>Enter your password to shutdown</source>
-        <translation>Нууц үгийг оруулж унтраана уу</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -89,17 +89,17 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="258"/>
         <source>Login</source>
-        <translation>Нэвтрэх</translation>
+        <translation>התחבר</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
         <source>Wrong Password</source>
-        <translation>Нууц үг буруу байна</translation>
+        <translation>סיסמא שגויה</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="428"/>
         <source>Please retry after 10 minutes</source>
-        <translation>10 минутын дараа дахин оролдно уу</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -107,27 +107,27 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Control Center</source>
-        <translation>Удирдлагын хэсэг</translation>
+        <translation>מרכז בקרה</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>All Windows</source>
-        <translation>Бүх цонх</translation>
+        <translation>כל החלונות</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Launcher</source>
-        <translation>Нээгч</translation>
+        <translation>לאנצ&apos;ר</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Desktop</source>
-        <translation>Дэлгэц</translation>
+        <translation>שולחן העבודה</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>None</source>
-        <translation>Байхгүй</translation>
+        <translation>אין</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
@@ -145,7 +145,7 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Дээрх хэрэглэгчид одоогоор нэвтэрсэн хэвээр байгаа ба унтрааснаар мэдээлэл нь алдагдах болно, унтраах уу?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
@@ -160,30 +160,30 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="199"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="235"/>
         <source>Shut down</source>
-        <translation>Унтраах</translation>
+        <translation>כיבוי</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="151"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="204"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
         <source>Restart</source>
-        <translation>Дахин эхлүүлэх</translation>
+        <translation>אתחול</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="241"/>
         <source>Suspend</source>
-        <translation>Түр зогсоох</translation>
+        <translation>השהיה</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
         <source>Lock</source>
-        <translation>Цоожлох</translation>
+        <translation>נעילה</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="209"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="247"/>
         <source>Log out</source>
-        <translation>Гарах</translation>
+        <translation>התנתקות</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
@@ -203,7 +203,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>
         <source>Switch user</source>
-        <translation>Хэрэглэгч солих</translation>
+        <translation>החלף משתמש</translation>
     </message>
 </context>
 <context>
@@ -211,17 +211,17 @@
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
-        <translation>Унтраах</translation>
+        <translation>כיבוי</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="33"/>
         <source>Restart</source>
-        <translation>Дахин эхлүүлэх</translation>
+        <translation>אתחול</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="37"/>
         <source>Suspend</source>
-        <translation>Түр зогсоох</translation>
+        <translation>השהיה</translation>
     </message>
 </context>
 <context>
@@ -240,12 +240,12 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Cancel</source>
-        <translation>Цуцлах</translation>
+        <translation>ביטול</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Suspend</source>
-        <translation>Түр зогсоох</translation>
+        <translation>השהיה</translation>
     </message>
 </context>
 <context>
@@ -266,17 +266,17 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
         <source>Enable window effects</source>
-        <translation>Цонхны эффектийг оруулах</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
         <source>Disable window effects</source>
-        <translation>Цонхны эффектийг хаах</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
         <source>Failed to enable window effects</source>
-        <translation>Цонхны эффектийг нээж чадсангүй</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -132,12 +132,12 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Fast Screen Off</source>
-        <translation type="unfinished"/>
+        <translation>Hızlı Ekran Kapalı</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="65"/>
         <source>Close Window</source>
-        <translation type="unfinished"/>
+        <translation>Pencereyi Kapat</translation>
     </message>
 </context>
 <context>
@@ -188,17 +188,17 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
         <source>Are you sure to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Kapatmak istediğinize emin misiniz ?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
         <source>Are you sure to restart?</source>
-        <translation type="unfinished"/>
+        <translation>Yeniden başlatmak istediğinize emin misiniz ?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>
         <source>Are you sure to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Çıkmak istediğinize emin misiniz ?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>
@@ -229,13 +229,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>Harici monitor saptandı, uyutulsun mu ?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>

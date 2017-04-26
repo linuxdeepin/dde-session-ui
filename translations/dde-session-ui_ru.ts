@@ -132,7 +132,7 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Fast Screen Off</source>
-        <translation>Быстрый Экран Выкл.</translation>
+        <translation>Погасить Экран</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="65"/>
@@ -145,12 +145,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Вышеуказанные пользователи по-прежнему находятся в системе и данные будут потеряны из-за отключения, вы уверены, что хотите выключить?</translation>
+        <translation>Некоторые пользователи по-прежнему находятся в системе и данные будут потеряны из-за отключения, вы уверены, что хотите выключить?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Вышеуказанные пользователи по-прежнему находятся в системе и данные будут потеряны после перезагрузки, вы уверены, что хотите перезагрузить?</translation>
+        <translation>Некоторые пользователи по-прежнему находятся в системе и данные будут потеряны после перезагрузки, вы уверены, что хотите перезагрузить?</translation>
     </message>
 </context>
 <context>

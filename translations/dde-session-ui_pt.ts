@@ -40,7 +40,7 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Por favor não desligue o computador ou desligue-o da corrente</translation>
+        <translation>Por favor não encerre o computador nem o desligue da corrente</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
@@ -132,7 +132,7 @@
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="61"/>
         <source>Fast Screen Off</source>
-        <translation>Ecrã Rápido Desligado</translation>
+        <translation>Desligar ecrã</translation>
     </message>
     <message>
         <location filename="../dde-zone/mainwindow.cpp" line="65"/>
@@ -150,7 +150,7 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Os utilizadores acima continuam logados e os dados serão perdidos devido ao reiniciar, tem a certeza que deseja reiniciar?</translation>
+        <translation>Os utilizadores acima continuam logados e os dados serão perdidos devido ao reinício, tem a certeza que deseja reiniciar?</translation>
     </message>
 </context>
 <context>
@@ -266,17 +266,17 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
         <source>Enable window effects</source>
-        <translation>Ativar efeitos de janela</translation>
+        <translation>Efeitos visuais ativados</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
         <source>Disable window effects</source>
-        <translation>Desativar efeitos de janela</translation>
+        <translation>Efeitos visuais desativados</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
         <source>Failed to enable window effects</source>
-        <translation>Falha ao ativar efeitos de janela</translation>
+        <translation>Falha ao ativar efeitos visuais</translation>
     </message>
 </context>
 <context>
