@@ -8,6 +8,7 @@
  **/
 
 #include <QHBoxLayout>
+#include <QWheelEvent>
 
 #include "controlwidget.h"
 
@@ -21,6 +22,11 @@ ControlWidget::ControlWidget(QWidget *parent)
     m_mprisWidget->setStyleSheet("color:white;"
                               "font-size:15px;");
 
+    m_volumeNums = new QLabel;
+    m_volumeNums->hide();
+    m_volumeNums->setStyleSheet("color:white;"
+                                "font-size:13px;");
+
     m_userswitch = new DImageButton;
     m_userswitch->setNormalPic(":/img/bottom_actions/userswitch_normal.png");
     m_userswitch->setHoverPic(":/img/bottom_actions/userswitch_hover.png");
@@ -31,10 +37,25 @@ ControlWidget::ControlWidget(QWidget *parent)
     m_shutdown->setHoverPic(":/img/bottom_actions/shutdown_hover.png");
     m_shutdown->setPressPic(":/img/bottom_actions/shutdown_press.png");
 
+    m_volume = new DImageButton;
+    m_volume->setNormalPic(":/img/mpris/volume_normal.png");
+    m_volume->setHoverPic(":/img/mpris/volume_hover.png");
+    m_volume->setPressPic(":/img/mpris/volume_press.png");
+    m_volume->installEventFilter(this);
+
+    QVBoxLayout *volumeLayout = new QVBoxLayout;
+    volumeLayout->setMargin(0);
+    volumeLayout->setSpacing(0);
+    volumeLayout->addStretch();
+    volumeLayout->addWidget(m_volumeNums, 0 , Qt::AlignHCenter);
+    volumeLayout->addSpacing(10);
+    volumeLayout->addWidget(m_volume);
+
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addStretch();
     mainLayout->addWidget(m_mprisWidget);
     mainLayout->setAlignment(m_mprisWidget, Qt::AlignBottom);
+    mainLayout->addLayout(volumeLayout);
     mainLayout->addSpacing(10);
     mainLayout->addWidget(m_userswitch);
     mainLayout->setAlignment(m_userswitch, Qt::AlignBottom);
@@ -53,6 +74,86 @@ ControlWidget::ControlWidget(QWidget *parent)
     m_mprisWidget->setVisible(m_mprisWidget->isWorking());
 
 }
+
+void ControlWidget::bindDBusService(DBusMediaPlayer2 *dbusInter)
+{
+    m_dbusInter = dbusInter;
+
+    connect(m_dbusInter, &DBusMediaPlayer2::VolumeChanged, this, &ControlWidget::changeVolumeBtnPic);
+    connect(m_dbusInter, &DBusMediaPlayer2::VolumeChanged, [this] {
+        m_volumeNums->setText(QString::number(m_dbusInter->volume() * 100));
+    });
+
+    connect(m_volume, &DImageButton::clicked, [this] {
+        const double currentVolume = m_dbusInter->volume();
+
+        if (currentVolume) {
+            m_lastVolumeNums = currentVolume;
+            m_dbusInter->setVolume(0);
+        } else {
+            m_dbusInter->setVolume(m_lastVolumeNums);
+        }
+    });
+
+    m_dbusInter->VolumeChanged();
+    m_dbusInter->MetadataChanged();
+    m_dbusInter->PlaybackStatusChanged();
+    m_dbusInter->VolumeChanged();
+}
+
+
+bool ControlWidget::eventFilter(QObject *o, QEvent *e)
+{
+    if (o == m_volume) {
+        switch (e->type()) {
+        case QEvent::Wheel:     volumeWheelControl(reinterpret_cast<QWheelEvent *>(e));         break;
+        case QEvent::Enter:     m_volumeNums->show();       break;
+        case QEvent::Leave:     m_volumeNums->hide();       break;
+        default:;
+        }
+    }
+
+    return false;
+}
+
+void ControlWidget::volumeWheelControl(const QWheelEvent *e)
+{
+    const int delta = e->delta() / 60;
+
+    m_lastVolumeNums += double(delta) / 100;
+    if (m_lastVolumeNums < 0)
+        m_lastVolumeNums = 0;
+    if (m_lastVolumeNums > 1.0)
+        m_lastVolumeNums = 1.0;
+
+    m_dbusInter->setVolume(m_lastVolumeNums);
+}
+
+void ControlWidget::changeVolumeBtnPic()
+{
+    if (m_dbusInter->volume()) {
+
+        const double volume = m_dbusInter->volume();
+        if (volume < 0.3) {
+            m_volume->setNormalPic(":/img/mpris/volume3_normal.png");
+            m_volume->setHoverPic(":/img/mpris/volume3_hover.png");
+            m_volume->setPressPic(":/img/mpris/volume3_press.png");
+        } else if (volume < 0.6) {
+            m_volume->setNormalPic(":/img/mpris/volume2_normal.png");
+            m_volume->setHoverPic(":/img/mpris/volume2_hover.png");
+            m_volume->setPressPic(":/img/mpris/volume2_press.png");
+        } else {
+            m_volume->setNormalPic(":/img/mpris/volume_normal.png");
+            m_volume->setHoverPic(":/img/mpris/volume_hover.png");
+            m_volume->setPressPic(":/img/mpris/volume_press.png");
+        }
+    } else {
+        m_volume->setNormalPic(":/img/mpris/mute_normal.png");
+        m_volume->setHoverPic(":/img/mpris/mute_hover.png");
+        m_volume->setPressPic(":/img/mpris/mute_press.png");
+    }
+}
+
 
 //void ControlWidget::switchUser() {
 //    m_utilFile = new UtilFile(this);

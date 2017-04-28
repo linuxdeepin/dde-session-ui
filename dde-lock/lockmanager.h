@@ -25,6 +25,7 @@
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
 #include "darrowrectangle.h"
+#include "dbus/dbusmediaplayer2.h"
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/lock"
 #define LOCKSERVICE_NAME "com.deepin.dde.lock"
@@ -79,6 +80,7 @@ protected:
 private:
     void initBackend();
     void unlock();
+    void loadMPRIS();
 
 private:
     Actions m_action = Unlock;
@@ -105,6 +107,7 @@ private:
     QSize m_passwdEditSize;
 
     int m_authFailureCount = 0;
+    DBusMediaPlayer2 *m_mprisInter = nullptr;
 };
 
 #endif // LOCKMANAGER_H

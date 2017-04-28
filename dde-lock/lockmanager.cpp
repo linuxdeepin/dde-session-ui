@@ -33,6 +33,7 @@ LockManager::LockManager(QWidget *parent)
     initConnect();
     initBackend();
     updateUI();
+    loadMPRIS();
 
     leaveEvent(nullptr);
 }
@@ -364,6 +365,38 @@ void LockManager::unlock()
     QDBusPendingReply<bool> result = m_lockInter->UnlockCheck(username, password);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(result, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, &LockManager::onUnlockFinished);
+}
+
+void LockManager::loadMPRIS()
+{
+    if (m_mprisInter) {
+        m_mprisInter->deleteLater();
+    }
+
+    QDBusInterface *dbusInter = new QDBusInterface("org.freedesktop.DBus", "/", "org.freedesktop.DBus", QDBusConnection::sessionBus(), this);
+    if (!dbusInter) {
+        return;
+    }
+
+    QDBusReply<QStringList> response = dbusInter->call("ListNames");
+    const QStringList &serviceList = response.value();
+    QString service = QString();
+    for (const QString &serv : serviceList) {
+        if (!serv.startsWith("org.mpris.MediaPlayer2.")) {
+            continue;
+        }
+        service = serv;
+        break;
+    }
+
+    if (service.isEmpty()) {
+        return;
+    }
+
+    qDebug() << "got service: " << service;
+
+    m_mprisInter = new DBusMediaPlayer2(service, "/org/mpris/MediaPlayer2", QDBusConnection::sessionBus(), this);
+    m_controlWidget->bindDBusService(m_mprisInter);
 }
 
 void LockManager::initBackend()

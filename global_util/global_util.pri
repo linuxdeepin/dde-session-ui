@@ -23,7 +23,8 @@ HEADERS += \
     $$PWD/dbus/dbusinputdevices.h \
     $$PWD/dbus/dbuscontrolcenter.h \
     $$PWD/dbus/dbuskeyboard.h \
-    $$PWD/dbus/dbuslockfront.h
+    $$PWD/dbus/dbuslockfront.h \
+    $$PWD/dbus/dbusmediaplayer2.h
 
 SOURCES += \
     $$PWD/util_updateui.cpp \
@@ -44,7 +45,8 @@ SOURCES += \
     $$PWD/dbus/dbuskeyboard.cpp \
     $$PWD/dbus/dbusinputdevices.cpp \
     $$PWD/dbus/dbuscontrolcenter.cpp \
-    $$PWD/dbus/dbuslockfront.cpp
+    $$PWD/dbus/dbuslockfront.cpp \
+    $$PWD/dbus/dbusmediaplayer2.cpp
 
 DISTFILES += \
     $$PWD/dbus/com.deepin.daemon.Zone.xml

@@ -79,5 +79,11 @@
         <file>img/list_actions/suspend_normal.png</file>
         <file>img/list_actions/suspend_press.png</file>
         <file>img/avatar_checked.png</file>
+        <file>img/mpris/volume2_hover.png</file>
+        <file>img/mpris/volume2_normal.png</file>
+        <file>img/mpris/volume2_press.png</file>
+        <file>img/mpris/volume3_hover.png</file>
+        <file>img/mpris/volume3_normal.png</file>
+        <file>img/mpris/volume3_press.png</file>
     </qresource>
 </RCC>

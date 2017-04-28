@@ -14,6 +14,7 @@
 #include <dimagebutton.h>
 #include <dmpriscontrol.h>
 #include "util_file.h"
+#include "dbus/dbusmediaplayer2.h"
 
 class ControlWidget : public QWidget
 {
@@ -21,10 +22,18 @@ class ControlWidget : public QWidget
 public:
     explicit ControlWidget(QWidget *parent = 0);
     inline void setUserSwitchEnable(bool enable) {m_userswitch->setVisible(enable);}
+    void bindDBusService(DBusMediaPlayer2 *dbusInter);
 
 signals:
     void shutdownClicked();
     void switchUser();
+
+private slots:
+    void volumeWheelControl(const QWheelEvent *e);
+    void changeVolumeBtnPic();
+
+protected:
+    bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;
 
 private:
     DTK_WIDGET_NAMESPACE::DImageButton* m_userswitch;
@@ -32,6 +41,10 @@ private:
 
     UtilFile* m_utilFile;
     Dtk::Widget::DMPRISControl *m_mprisWidget;
+    DTK_WIDGET_NAMESPACE::DImageButton *m_volume;
+    QLabel *m_volumeNums;
+    DBusMediaPlayer2 *m_dbusInter = nullptr;
+    double m_lastVolumeNums = 1.0;
 };
 
 #endif // CONTROLWIDGET_H
