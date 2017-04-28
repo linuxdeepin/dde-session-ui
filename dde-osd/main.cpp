@@ -46,7 +46,8 @@ int main(int argc, char *argv[])
             QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.osd / com.deepin.dde.osd.ShowOSD string:" + action);
         }
 
-        return 0;
+        qWarning() << "failed to register dbus service";
+        return -1;
     }
 
     Manager m;
