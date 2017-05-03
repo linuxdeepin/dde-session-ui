@@ -48,19 +48,21 @@ ControlWidget::ControlWidget(QWidget *parent)
     volumeLayout->setSpacing(0);
     volumeLayout->addStretch();
     volumeLayout->addWidget(m_volumeNums, 0 , Qt::AlignHCenter);
-    volumeLayout->addSpacing(10);
+    volumeLayout->addSpacing(15);
     volumeLayout->addWidget(m_volume);
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(26);
     mainLayout->addStretch();
     mainLayout->addWidget(m_mprisWidget);
     mainLayout->setAlignment(m_mprisWidget, Qt::AlignBottom);
     mainLayout->addLayout(volumeLayout);
-    mainLayout->addSpacing(10);
     mainLayout->addWidget(m_userswitch);
     mainLayout->setAlignment(m_userswitch, Qt::AlignBottom);
     mainLayout->addWidget(m_shutdown);
     mainLayout->setAlignment(m_shutdown, Qt::AlignBottom);
+    mainLayout->addSpacing(28);
 
     setLayout(mainLayout);
     setFixedSize(500, 150);
@@ -68,11 +70,10 @@ ControlWidget::ControlWidget(QWidget *parent)
     connect(m_shutdown, &DImageButton::clicked, this, &ControlWidget::shutdownClicked);
     connect(m_userswitch, &DImageButton::clicked, this, &ControlWidget::switchUser);
 
-    connect(m_mprisWidget, &DMPRISControl::mprisAcquired, [=] { m_mprisWidget->setVisible(m_mprisWidget->isWorking()); });
-    connect(m_mprisWidget, &DMPRISControl::mprisLosted, [=] { m_mprisWidget->setVisible(m_mprisWidget->isWorking()); });
+    connect(m_mprisWidget, &DMPRISControl::mprisAcquired, this, &ControlWidget::changeVisible);
+    connect(m_mprisWidget, &DMPRISControl::mprisLosted, this, &ControlWidget::changeVisible);
 
-    m_mprisWidget->setVisible(m_mprisWidget->isWorking());
-
+    changeVisible();
 }
 
 void ControlWidget::bindDBusService(DBusMediaPlayer2 *dbusInter)
@@ -152,6 +153,13 @@ void ControlWidget::changeVolumeBtnPic()
         m_volume->setHoverPic(":/img/mpris/mute_hover.png");
         m_volume->setPressPic(":/img/mpris/mute_press.png");
     }
+}
+
+void ControlWidget::changeVisible()
+{
+    const bool isWorking = m_mprisWidget->isWorking();
+    m_mprisWidget->setVisible(isWorking);
+    m_volume->setVisible(isWorking);
 }
 
 

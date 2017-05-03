@@ -31,6 +31,7 @@ signals:
 private slots:
     void volumeWheelControl(const QWheelEvent *e);
     void changeVolumeBtnPic();
+    void changeVisible();
 
 protected:
     bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;
