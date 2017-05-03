@@ -106,18 +106,21 @@ void ShutdownFrontDBus::Shutdown()
 {
     m_parent->setConfirm(true);
     m_parent->powerAction(Actions::Shutdown);
+    m_parent->show();
 }
 
 void ShutdownFrontDBus::Restart()
 {
     m_parent->setConfirm(true);
     m_parent->powerAction(Actions::Restart);
+    m_parent->show();
 }
 
 void ShutdownFrontDBus::Logout()
 {
     m_parent->setConfirm(true);
     m_parent->powerAction(Actions::Logout);
+    m_parent->show();
 }
 
 void ShutdownFrontDBus::Suspend()
@@ -128,6 +131,7 @@ void ShutdownFrontDBus::Suspend()
 void ShutdownFrontDBus::SwitchUser()
 {
     m_parent->powerAction(Actions::SwitchUser);
+    m_parent->show();
 }
 
 void ShutdownFrontDBus::Show()
