@@ -136,7 +136,9 @@ void ShutdownManager::powerAction(const Actions action)
     // if we don't force this widget to hide, hideEvent will happen after
     // dde-lock showing, since hideEvent enables hot zone, hot zone will
     // take effect while dde-lock is showing.
+#ifndef SHUTDOWN_NO_QUIT
     this->hide();
+#endif
 
     switch (action) {
     case Shutdown:       m_sessionInterface->RequestShutdown();      break;
