@@ -60,6 +60,7 @@ private:
     void initData();
     void switchToGreeter();
     void hideToplevelWindow();
+    void checkUsers();
 };
 
 #endif // SessionManagerTool_H

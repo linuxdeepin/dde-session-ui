@@ -44,8 +44,9 @@ public slots:
     void showTips(const QString &tips);
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
-
+    void onCancel();
     const QString getInhibitReason();
+    void recoveryLayout();
 private:
     void initUI();
     void initConnect();

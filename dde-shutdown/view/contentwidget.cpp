@@ -133,6 +133,7 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         }
 
         if (m_warningView != nullptr) {
+            m_mainLayout->removeWidget(m_warningView);
             m_warningView->deleteLater();
             m_warningView = nullptr;
         }
@@ -155,9 +156,7 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         m_warningView = view;
         m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
-        connect(view, &InhibitWarnView::cancelled, [this] {
-           qApp->quit();
-        });
+        connect(view, &InhibitWarnView::cancelled, this, &ShutDownFrame::onCancel);
         connect(view, &InhibitWarnView::actionInvoked, [this, action] {
             emit ShutDownFrameActions(action);
         });
@@ -176,9 +175,7 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         m_warningView = view;
         m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
-        connect(view, &MultiUsersWarningView::cancelled, [this] {
-           qApp->quit();
-        });
+        connect(view, &MultiUsersWarningView::cancelled, this, &ShutDownFrame::onCancel);
         connect(view, &MultiUsersWarningView::actionInvoked, [this, action] {
             emit ShutDownFrameActions(action);
         });
@@ -214,9 +211,7 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
 
         m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
-        connect(view, &InhibitWarnView::cancelled, [this] {
-           qApp->quit();
-        });
+        connect(view, &InhibitWarnView::cancelled, this, &ShutDownFrame::onCancel);
         connect(view, &InhibitWarnView::actionInvoked, [this, action] {
             emit ShutDownFrameActions(action);
         });
@@ -360,6 +355,19 @@ const QString ShutDownFrame::getInhibitReason() {
     return reminder_tooltip;
 }
 
+void ShutDownFrame::recoveryLayout()
+{
+    for (RoundItemButton* btn : *m_btnsList) {
+        btn->show();
+    }
+
+    if (m_warningView != nullptr) {
+        m_mainLayout->removeWidget(m_warningView);
+        m_warningView->deleteLater();
+        m_warningView = nullptr;
+    }
+}
+
 void ShutDownFrame::setPreviousChildFocus()
 {
     if (m_warningView && m_warningView->isVisible()) return;
@@ -425,4 +433,13 @@ void ShutDownFrame::disableBtns(const QStringList &btnsName)
 {
     for (const QString &name : btnsName)
         disableBtn(name);
+}
+
+void ShutDownFrame::onCancel()
+{
+#ifdef SHUTDOWN_NO_QUIT
+    recoveryLayout();
+#else
+    qApp->quit();
+#endif
 }

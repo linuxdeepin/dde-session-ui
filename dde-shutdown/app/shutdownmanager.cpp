@@ -58,12 +58,7 @@ void ShutdownManager::initUI()
     m_Layout->addWidget(m_content);
     m_Layout->addStretch();
 
-    // hide user switch btn when only 1 user avaliable
-    UserWidget *users = new UserWidget;
-    if (users->count() < 2) {
-        m_content->hideBtns(QStringList() << "SwitchUser");
-    }
-    users->deleteLater();
+    checkUsers();
 
     QFile qssFile(":/skin/main.qss");
     QString qss;
@@ -84,6 +79,8 @@ void ShutdownManager::showEvent(QShowEvent *e)
     m_getFocusTimer->start();
     connect(m_getFocusTimer,  &QTimer::timeout, this, &ShutdownManager::grabKeyboard);
     m_hotZoneInterface->EnableZoneDetected(false);
+
+    checkUsers();
 
     QWidget::showEvent(e);
 }
@@ -129,6 +126,16 @@ void ShutdownManager::hideToplevelWindow()
 #else
     qApp->quit();
 #endif
+}
+
+void ShutdownManager::checkUsers()
+{
+    // hide user switch btn when only 1 user avaliable
+    UserWidget *users = new UserWidget;
+    if (users->count() < 2) {
+        m_content->hideBtns(QStringList() << "SwitchUser");
+    }
+    users->deleteLater();
 }
 
 void ShutdownManager::powerAction(const Actions action)
@@ -193,6 +200,8 @@ void ShutdownManager::keyPressEvent(QKeyEvent *e)
 void ShutdownManager::mouseReleaseEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton) {
+        m_content->m_shutdownFrame->recoveryLayout();
+        checkUsers();
         hideToplevelWindow();
     }
 }
