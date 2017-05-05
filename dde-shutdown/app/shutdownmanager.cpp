@@ -30,6 +30,13 @@ void ShutdownManager::initConnect()
     connect(this, SIGNAL(pressEnter()), m_content, SIGNAL(pressEnterAction()));
 
     connect(m_content->m_shutdownFrame, &ShutDownFrame::ShutDownFrameActions, this, &ShutdownManager::powerAction);
+#ifdef SHUTDOWN_NO_QUIT
+    connect(m_content->m_shutdownFrame, &ShutDownFrame::requestRecoveryLayout, this, [=]{
+        m_content->m_shutdownFrame->recoveryLayout();
+        checkUsers();
+        hideToplevelWindow();
+    });
+#endif
 //    connect(qApp, &QApplication::aboutToQuit, [this]{
 //        m_hotZoneInterface->EnableZoneDetected(true);
 //    });

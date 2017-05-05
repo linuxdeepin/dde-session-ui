@@ -438,7 +438,7 @@ void ShutDownFrame::disableBtns(const QStringList &btnsName)
 void ShutDownFrame::onCancel()
 {
 #ifdef SHUTDOWN_NO_QUIT
-    recoveryLayout();
+    emit requestRecoveryLayout();
 #else
     qApp->quit();
 #endif

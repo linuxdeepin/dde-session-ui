@@ -35,6 +35,9 @@ signals:
     void keyRight();
     void pressEnterAction();
     void ShutDownFrameActions(const Actions action);
+#ifdef SHUTDOWN_NO_QUIT
+    void requestRecoveryLayout();
+#endif
 
 public slots:
     void setConfirm(const bool confirm);
