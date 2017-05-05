@@ -64,6 +64,16 @@ BoxFrame::BoxFrame(QWidget *parent)
         emit screenChanged(m_lastPrimaryScreenGeometry);
     });
     m_screenSizeMonitor->start();
+
+    m_dbusAppearance = new Appearance("com.deepin.daemon.Appearance",
+                                      "/com/deepin/daemon/Appearance",
+                                      QDBusConnection::sessionBus(),
+                                      this);
+    connect(m_dbusAppearance, &Appearance::Changed, this, [=](const QString &type, const QString &path){
+        if (type == "background") {
+            setBackground(path);
+        }
+    });
 }
 
 BoxFrame::BoxFrame(const QString url, QWidget *parent)

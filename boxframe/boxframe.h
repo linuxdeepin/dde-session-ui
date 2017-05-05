@@ -21,6 +21,8 @@
 #include <QLabel>
 #include <QFileSystemWatcher>
 #include <QTimer>
+#include <com_deepin_daemon_apperance.h>
+using Appearance = com::deepin::daemon::Appearance;
 
 class BoxFrame : public QFrame
 {
@@ -50,6 +52,7 @@ private:
     QFileSystemWatcher m_blurredImageWatcher;
 
     QTimer *m_screenSizeMonitor;
+    Appearance *m_dbusAppearance = NULL;
 };
 
 #endif // BOXFRAME_H
