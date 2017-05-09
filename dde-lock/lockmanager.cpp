@@ -217,6 +217,7 @@ void LockManager::chooseUserMode()
 
 void LockManager::onUnlockFinished(QDBusPendingCallWatcher *w)
 {
+    m_checkingPWD = false;
 
     QDBusPendingReply<bool> reply = *w;
 
@@ -344,6 +345,11 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
 
 void LockManager::unlock()
 {
+    if (m_checkingPWD)
+        return;
+
+    m_checkingPWD = true;
+
     if (!m_requireShutdownWidget->isHidden()) {
         m_requireShutdownWidget->shutdownAction();
         return;
