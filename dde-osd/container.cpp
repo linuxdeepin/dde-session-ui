@@ -18,6 +18,7 @@ Container::Container(QWidget *parent)
     setLayout(m_layout);
 
     DPlatformWindowHandle handle(this);
+    handle.setBorderColor(QColor(0, 0, 0, 0.04 * 255));
     handle.setWindowRadius(10);
     handle.setShadowColor(Qt::transparent);
     handle.setTranslucentBackground(true);
