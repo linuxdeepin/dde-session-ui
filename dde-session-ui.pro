@@ -8,7 +8,8 @@ SUBDIRS += dde-shutdown \
            dde-osd \
            dde-zone \
            dde-offline-upgrader \
-           dde-suspend-dialog
+           dde-suspend-dialog \
+           dde-warning-dialog
 
 include(common.pri)
 contains(DEFINES, ARCH_MIPSEL) {
