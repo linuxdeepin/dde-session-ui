@@ -3,11 +3,14 @@
 #include <QHBoxLayout>
 #include <QDesktopWidget>
 #include <QApplication>
+#include <QDebug>
 
 #include <DPlatformWindowHandle>
 
 Container::Container(QWidget *parent)
-    : DBlurEffectWidget(parent)
+    : DBlurEffectWidget(parent),
+      m_wmHelper(DWindowManagerHelper::instance()),
+      m_supportComposite(m_wmHelper->hasComposite())
 {
     setWindowFlags(Qt::ToolTip);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -19,14 +22,17 @@ Container::Container(QWidget *parent)
 
     DPlatformWindowHandle handle(this);
     handle.setBorderColor(QColor(0, 0, 0, 0.04 * 255));
-    handle.setWindowRadius(10);
+    handle.setWindowRadius(getWindowRadius());
     handle.setShadowColor(Qt::transparent);
     handle.setTranslucentBackground(true);
 
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
-    setBlurRectXRadius(10);
-    setBlurRectYRadius(10);
+    setBlurRectXRadius(getWindowRadius());
+    setBlurRectYRadius(getWindowRadius());
     setMaskColor(DBlurEffectWidget::LightColor);
+
+    connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged,
+            this, &Container::windowManagerChanged);
 }
 
 void Container::setContent(QWidget *content)
@@ -41,5 +47,28 @@ void Container::moveToCenter()
     const QRect primaryRect = desktop->screenGeometry(primary);
 
     move(primaryRect.center() - rect().center());
+}
+
+void Container::windowManagerChanged()
+{
+    m_supportComposite = m_wmHelper->hasComposite();
+
+    updateWindowRadius();
+}
+
+void Container::updateWindowRadius()
+{
+    const int value = getWindowRadius();
+
+    DPlatformWindowHandle handle(this);
+    handle.setWindowRadius(value);
+
+    setBlurRectXRadius(value);
+    setBlurRectYRadius(value);
+}
+
+int Container::getWindowRadius()
+{
+    return m_supportComposite ? 10 : 0;
 }
 
