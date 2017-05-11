@@ -352,11 +352,6 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
 
 void LockManager::unlock()
 {
-    if (m_checkingPWD)
-        return;
-
-    m_checkingPWD = true;
-
     if (!m_requireShutdownWidget->isHidden()) {
         m_requireShutdownWidget->shutdownAction();
         return;
@@ -370,6 +365,14 @@ void LockManager::unlock()
     }
 
     m_userWidget->showLoadingAni();
+
+    if (!m_passwordEdit->isVisible())
+        return;
+
+    if (m_checkingPWD)
+        return;
+
+    m_checkingPWD = true;
 
 //    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
     const QString &username = m_userWidget->currentUser();
