@@ -11,6 +11,7 @@ WarningDialog::WarningDialog(QWidget *parent)
     setTitle(title);
     setMessage(body);
     setIconPixmap(QIcon::fromTheme("dialog-warning").pixmap(48, 48));
+    addButton(tr("OK"), true);
 
     const QDesktopWidget *desktop = QApplication::desktop();
     const QPoint cursorPoint = QCursor::pos();
