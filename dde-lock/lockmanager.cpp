@@ -306,6 +306,13 @@ void LockManager::leaveEvent(QEvent *)
     }
 }
 
+void LockManager::showEvent(QShowEvent *event)
+{
+    updateBackground(m_userWidget->currentUser());
+
+    QFrame::showEvent(event);
+}
+
 void LockManager::keyPressEvent(QKeyEvent *e)
 {
     switch (e->key()) {

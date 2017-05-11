@@ -13,9 +13,11 @@
 #include <QFrame>
 
 #include <com_deepin_wm.h>
-
+#include <com_deepin_daemon_apperance.h>
 #include "boxframe.h"
 #include "shutdownmanager.h"
+
+using Appearance = com::deepin::daemon::Appearance;
 
 class QGSettings;
 class ShutdownFrontDBus;
@@ -34,7 +36,7 @@ protected:
 private:
     ShutdownManager* m_shutdownManager;
     com::deepin::wm *m_wmInter;
-
+    Appearance *m_dbusAppearance = NULL;
     void initShutdownManager();
     void initBackground();
 };

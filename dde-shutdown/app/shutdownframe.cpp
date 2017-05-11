@@ -82,6 +82,17 @@ void ShutdownFrame::initBackground()
 
     callback(0, 0);
     connect(m_wmInter, &__wm::WorkspaceSwitched, callback);
+
+    m_dbusAppearance = new Appearance("com.deepin.daemon.Appearance",
+                                      "/com/deepin/daemon/Appearance",
+                                      QDBusConnection::sessionBus(),
+                                      this);
+
+    connect(m_dbusAppearance, &Appearance::Changed, this, [=](const QString &type, const QString &path){
+        if (type == "background") {
+            setBackground(path);
+        }
+    });
 }
 
 ShutdownFrame::~ShutdownFrame()
