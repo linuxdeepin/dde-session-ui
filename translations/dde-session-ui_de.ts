@@ -1,28 +1,5 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="de" version="2.1">
 <context>
-    <name>Dialog</name>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
-        <source>Updates downloaded, restart to update?</source>
-        <translation>Aktualisierungen heruntergeladen. Jetzt neu starten um zu aktualisieren?</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
-        <source>Remind Later</source>
-        <translation>Später erinnern</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
-        <source>Update Now</source>
-        <translation>Jetzt aktualisieren</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
-        <source>Not Now</source>
-        <translation>Nicht jetzt</translation>
-    </message>
-</context>
-<context>
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="133"/>
@@ -33,19 +10,6 @@
         <location filename="../dde-osd/displaymodeprovider.cpp" line="135"/>
         <source>Extend</source>
         <translation>Erweitern</translation>
-    </message>
-</context>
-<context>
-    <name>Frame</name>
-    <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
-        <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Bitte schalten Sie ihren Rechner nicht aus oder entfernen den Netzstecker.</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
-        <source>Installing updates %1%, please wait...</source>
-        <translation>%1% Aktualisierungen werden installiert, bitte warten...</translation>
     </message>
 </context>
 <context>
@@ -64,22 +28,22 @@
         <translation>Anmelden</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="367"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="235"/>
         <source>Wrong Password</source>
         <translation>Falsches Passwort</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="240"/>
         <source>Please retry after 10 minutes</source>
         <translation>Bitte versuchen Sie es nach 10 Minuten erneut</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="505"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="528"/>
         <source>Enter your password to restart</source>
         <translation>Geben Sie Ihr Passwort ein, um den Computer neuzustarten</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="508"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="531"/>
         <source>Enter your password to shutdown</source>
         <translation>Geben Sie Ihr Passwort ein, um den Computer herunterzufahren</translation>
     </message>
@@ -105,37 +69,37 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Control Center</source>
         <translation>Kontrollzentrum</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>All Windows</source>
         <translation>Alle Fenster</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Launcher</source>
         <translation>Starter</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Desktop</source>
         <translation>Desktop</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>None</source>
         <translation>Keine</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Fast Screen Off</source>
         <translation>Schnellbildschirm aus</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="65"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="57"/>
         <source>Close Window</source>
         <translation>Fenster schließen</translation>
     </message>
@@ -156,52 +120,52 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="149"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="199"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="235"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="196"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="230"/>
         <source>Shut down</source>
         <translation>Herunterfahren</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="151"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="204"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="152"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="201"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="233"/>
         <source>Restart</source>
         <translation>Neustarten</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="241"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="236"/>
         <source>Suspend</source>
         <translation>Ruhezustand</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="239"/>
         <source>Lock</source>
         <translation>Sperren</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="209"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="247"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="206"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="242"/>
         <source>Log out</source>
         <translation>Abmelden</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="197"/>
         <source>Are you sure to shut down?</source>
         <translation>Sind Sie sicher herunterzufahren?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="202"/>
         <source>Are you sure to restart?</source>
         <translation>Sind Sie sicher, neu zu starten?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="207"/>
         <source>Are you sure to log out?</source>
         <translation>Sind Sie sicher, sich abzumelden?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
         <source>Switch user</source>
         <translation>Benutzer wechseln</translation>
     </message>
@@ -265,13 +229,13 @@
     <name>WMStateProvider</name>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
-        <source>Enable window effects</source>
-        <translation>Fenstereffekte aktivieren</translation>
+        <source>Window effect enabled</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
-        <source>Disable window effects</source>
-        <translation>Fenstereffekte deaktivieren</translation>
+        <source>Window effect disabled</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
@@ -280,16 +244,21 @@
     </message>
 </context>
 <context>
-    <name>WallpaperItem</name>
+    <name>WarningDialog</name>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="73"/>
-        <source>Only desktop</source>
-        <translation>Nur Desktop</translation>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
+        <source>Kindly Reminder</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="76"/>
-        <source>Only lock screen</source>
-        <translation>Nur Sperrbildschirm</translation>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
+        <source>This application can not run without window effect</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="14"/>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

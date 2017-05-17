@@ -1,28 +1,5 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_TW" version="2.1">
 <context>
-    <name>Dialog</name>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="5"/>
-        <source>Updates downloaded, restart to update?</source>
-        <translation>已下載更新套件，是否更新（重新開機）？</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="8"/>
-        <source>Remind Later</source>
-        <translation>稍後提醒</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="10"/>
-        <source>Update Now</source>
-        <translation>立刻更新</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="9"/>
-        <source>Not Now</source>
-        <translation>現在不要</translation>
-    </message>
-</context>
-<context>
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="133"/>
@@ -33,19 +10,6 @@
         <location filename="../dde-osd/displaymodeprovider.cpp" line="135"/>
         <source>Extend</source>
         <translation>延伸畫面</translation>
-    </message>
-</context>
-<context>
-    <name>Frame</name>
-    <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="29"/>
-        <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>請勿關機或拔除電源</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="111"/>
-        <source>Installing updates %1%, please wait...</source>
-        <translation>正在安裝更新 %1%，請稍候…</translation>
     </message>
 </context>
 <context>
@@ -64,22 +28,22 @@
         <translation>登入</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="367"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="235"/>
         <source>Wrong Password</source>
         <translation>密碼錯誤</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="372"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="240"/>
         <source>Please retry after 10 minutes</source>
         <translation>請 10 分鐘後再試</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="505"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="528"/>
         <source>Enter your password to restart</source>
         <translation>輸入密碼重新啟動</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="508"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="531"/>
         <source>Enter your password to shutdown</source>
         <translation>輸入密碼關機</translation>
     </message>
@@ -105,37 +69,37 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Control Center</source>
         <translation>控制中心</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>All Windows</source>
         <translation>所有視窗</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Launcher</source>
         <translation>啟動器</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Desktop</source>
         <translation>桌面</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>None</source>
         <translation>無</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="61"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Fast Screen Off</source>
         <translation>快速關閉螢幕</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="65"/>
+        <location filename="../dde-zone/mainwindow.cpp" line="57"/>
         <source>Close Window</source>
         <translation>關閉視窗</translation>
     </message>
@@ -156,52 +120,52 @@
 <context>
     <name>ShutDownFrame</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="149"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="199"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="235"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="196"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="230"/>
         <source>Shut down</source>
         <translation>關機</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="151"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="204"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="152"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="201"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="233"/>
         <source>Restart</source>
         <translation>重新啟動</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="241"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="236"/>
         <source>Suspend</source>
         <translation>待機</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="239"/>
         <source>Lock</source>
         <translation>鎖定</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="209"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="247"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="206"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="242"/>
         <source>Log out</source>
         <translation>登出</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="200"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="197"/>
         <source>Are you sure to shut down?</source>
         <translation>確定關機？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="205"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="202"/>
         <source>Are you sure to restart?</source>
         <translation>確定重新啟動？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="210"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="207"/>
         <source>Are you sure to log out?</source>
         <translation>確定登出？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="251"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
         <source>Switch user</source>
         <translation>切換使用者</translation>
     </message>
@@ -265,13 +229,13 @@
     <name>WMStateProvider</name>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
-        <source>Enable window effects</source>
-        <translation>開啟視窗特效</translation>
+        <source>Window effect enabled</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
-        <source>Disable window effects</source>
-        <translation>關閉視窗特效</translation>
+        <source>Window effect disabled</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
@@ -280,16 +244,21 @@
     </message>
 </context>
 <context>
-    <name>WallpaperItem</name>
+    <name>WarningDialog</name>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="73"/>
-        <source>Only desktop</source>
-        <translation>僅套用桌面</translation>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
+        <source>Kindly Reminder</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-wallpaper-chooser/wallpaperitem.cpp" line="76"/>
-        <source>Only lock screen</source>
-        <translation>僅套用鎖定畫面</translation>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
+        <source>This application can not run without window effect</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="14"/>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
