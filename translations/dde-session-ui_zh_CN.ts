@@ -226,6 +226,34 @@
     </message>
 </context>
 <context>
+    <name>WMChooser</name>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="31"/>
+        <source>Effect Mode</source>
+        <translation>特效模式</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="34"/>
+        <source>Common Mode</source>
+        <translation>普通模式</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="38"/>
+        <source>Friendly Reminder</source>
+        <translation>友情提示</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="42"/>
+        <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
+        <translation>检测到您正在使用虚拟机，在虚拟机下使用deepin会影响系统性能和操作体验，为了让您能流畅地使用deepin，建议您选择普通模式进入桌面。</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="45"/>
+        <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
+        <translation>特效模式：让您流畅使用最精致的体验；普通模式：让您享受极速的体验</translation>
+    </message>
+</context>
+<context>
     <name>WMStateProvider</name>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>

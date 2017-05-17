@@ -152,17 +152,17 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="197"/>
         <source>Are you sure to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>¿De xuru que quies apagar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="202"/>
         <source>Are you sure to restart?</source>
-        <translation type="unfinished"/>
+        <translation>¿De xuru que quies reaniciar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="207"/>
         <source>Are you sure to log out?</source>
-        <translation type="unfinished"/>
+        <translation>¿De xuru que quies zarrar sesión?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
@@ -199,7 +199,7 @@
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="18"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="36"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
@@ -226,6 +226,34 @@
     </message>
 </context>
 <context>
+    <name>WMChooser</name>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="31"/>
+        <source>Effect Mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="34"/>
+        <source>Common Mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="38"/>
+        <source>Friendly Reminder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="42"/>
+        <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="45"/>
+        <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>WMStateProvider</name>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
@@ -248,12 +276,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Recordatoriu amistosu</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
         <source>This application can not run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Esta aplicación nun pue executase ensin los efeutos de ventana</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="14"/>

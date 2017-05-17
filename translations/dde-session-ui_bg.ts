@@ -226,16 +226,45 @@
     </message>
 </context>
 <context>
+    <name>WMChooser</name>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="31"/>
+        <source>Effect Mode</source>
+        <translation>Режим с ефекти</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="34"/>
+        <source>Common Mode</source>
+        <translation>Обикновен режим</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="38"/>
+        <source>Friendly Reminder</source>
+        <translation>Приятелско напомняне</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="42"/>
+        <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
+        <translation>Засечено е използване на виртуална машина, което ще се отрази върху системната производителност и представяне. Препоръчваме  да използвате Обикновен режим.</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="45"/>
+        <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
+        <translation>Режим с ефекти: Получавате гладко и прекрасно преживяване
+Обикновен режим: Получавате голямо бързодействие</translation>
+    </message>
+</context>
+<context>
     <name>WMStateProvider</name>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Разрешени ефекти на прозорците</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Забранени ефекти на прозорците</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
@@ -248,12 +277,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Учтиво напомняне</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
         <source>This application can not run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Програмата не тръгва без ефекти на прозорците</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="14"/>

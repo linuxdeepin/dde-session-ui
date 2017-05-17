@@ -226,6 +226,34 @@
     </message>
 </context>
 <context>
+    <name>WMChooser</name>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="31"/>
+        <source>Effect Mode</source>
+        <translation>Режим Эффектов</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="34"/>
+        <source>Common Mode</source>
+        <translation>Обычный Режим</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="38"/>
+        <source>Friendly Reminder</source>
+        <translation>Вежливое Напоминание</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="42"/>
+        <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
+        <translation>Система обнаружила, что вы используете виртуальную машину, которая будет влиять на производительность системы и работу режима сглаживания, рекомендуется выбрать Обычный Режим</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="45"/>
+        <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
+        <translation>Режим Эффектов: вы ощутите великолепие режима плавности и сглаживания. Обычный Режим: вы ощутите чрезвычайно быструю скорость работы</translation>
+    </message>
+</context>
+<context>
     <name>WMStateProvider</name>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>

@@ -226,16 +226,44 @@
     </message>
 </context>
 <context>
+    <name>WMChooser</name>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="31"/>
+        <source>Effect Mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="34"/>
+        <source>Common Mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="38"/>
+        <source>Friendly Reminder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="42"/>
+        <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="45"/>
+        <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>WMStateProvider</name>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>開啟視窗特效</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>關閉視窗特效</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
@@ -248,17 +276,17 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>友善提醒</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
         <source>This application can not run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>此程式在無視窗特效環境沒法運作</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="14"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>確定</translation>
     </message>
 </context>
 <context>
