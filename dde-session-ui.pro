@@ -27,4 +27,14 @@ qm_files.files = translations/*.qm
 toggle_desktop.path = /usr/share/applications/
 toggle_desktop.files = misc/applications/deepin-toggle-desktop.desktop
 
-INSTALLS += qm_files toggle_desktop
+toogle_desktop_icon_48x48.path = /usr/share/icons/hicolor/48x48/apps/
+toogle_desktop_icon_48x48.files = misc/icons/48x48/deepin-toggle-desktop.png
+toogle_desktop_icon_64x64.path = /usr/share/icons/hicolor/64x64/apps/
+toogle_desktop_icon_64x64.files = misc/icons/64x64/deepin-toggle-desktop.png
+toogle_desktop_icon_96x96.path = /usr/share/icons/hicolor/96x96/apps/
+toogle_desktop_icon_96x96.files = misc/icons/96x96/deepin-toggle-desktop.png
+toogle_desktop_icon_scalable.path = /usr/share/icons/hicolor/scalable/apps/
+toogle_desktop_icon_scalable.files = misc/icons/scalable/deepin-toggle-desktop.svg
+
+INSTALLS += qm_files toggle_desktop toogle_desktop_icon_48x48 toogle_desktop_icon_64x64 toogle_desktop_icon_96x96 toogle_desktop_icon_scalable
+
