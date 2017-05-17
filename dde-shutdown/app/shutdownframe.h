@@ -33,6 +33,7 @@ public slots:
     void setConfirm(const bool confrim);
 protected:
     void keyPressEvent(QKeyEvent *e);
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 private:
     ShutdownManager* m_shutdownManager;
     com::deepin::wm *m_wmInter;

@@ -63,6 +63,7 @@ void LockFrame::hideFrame() {
 void LockFrame::showEvent(QShowEvent *) {
     this->raise();
     this->activateWindow();
+    updateScreenPosition();
     m_lockManager->disableZone();
 }
 #endif

@@ -23,6 +23,7 @@ ShutdownFrame::ShutdownFrame(QWidget *parent)
 
     qDebug() << "this geometry:" << geometry();
 
+    m_shutdownManager = new ShutdownManager(this);
     initShutdownManager();
     initBackground();
 }
@@ -45,9 +46,15 @@ void ShutdownFrame::keyPressEvent(QKeyEvent *e) {
     Q_UNUSED(e);
 }
 
+void ShutdownFrame::showEvent(QShowEvent *event)
+{
+    BoxFrame::showEvent(event);
+
+    initShutdownManager();
+}
+
 void ShutdownFrame::initShutdownManager()
 {
-    m_shutdownManager = new ShutdownManager(this);
     QPoint mousePoint = QCursor::pos();
 
     QList<QScreen *> screenList = qApp->screens();
