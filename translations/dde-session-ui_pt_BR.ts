@@ -222,7 +222,7 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="60"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation>aaaa-MM-dd dddd</translation>
     </message>
 </context>
 <context>
@@ -253,7 +253,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
         <source>This application can not run without window effect</source>
-        <translation>Este aplicativo não pode rodar sem efeitos de janela</translation>
+        <translation>Este aplicativo não pode rodar sem efeitos da janela</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="14"/>
