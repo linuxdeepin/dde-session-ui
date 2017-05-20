@@ -230,12 +230,12 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Efeitos da janela habilitados</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Efeitos da janela desabilitados</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
@@ -248,12 +248,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Lembrete Gentil</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
         <source>This application can not run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Este aplicativo não pode rodar sem efeitos de janela</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="14"/>
