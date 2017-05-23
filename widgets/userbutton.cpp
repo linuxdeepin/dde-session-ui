@@ -120,10 +120,12 @@ void UserButton::showButton()
 
     m_showAnimation->start();
 
+#ifndef DISABLE_TEXT_SHADOW
     connect(m_showAnimation, &QPropertyAnimation::finished, [&]{
 
         QTimer::singleShot(500, this, SLOT(addTextShadowAfter()));
     });
+#endif
 }
 
 void UserButton::addTextShadowAfter() {
