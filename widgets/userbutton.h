@@ -78,12 +78,16 @@ private:
     QVBoxLayout* m_Layout;
 
     AvatarSize m_avatarsize = AvatarLargerSize;
-    QPropertyAnimation *m_moveAni;
     int m_borderWidth = 0;
 
     double m_opacity;
+
+#ifndef DISABLE_ANIMATIONS
+    QPropertyAnimation *m_moveAni;
     QPropertyAnimation* m_showAnimation;
     QPropertyAnimation* m_hideAnimation;
+#endif
+
     QGraphicsOpacityEffect* m_opacityEffect;
 };
 #endif // UserButton

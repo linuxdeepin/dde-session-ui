@@ -15,10 +15,13 @@
 
 UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
     : QPushButton(parent),
+      m_opacity(0)
+#ifndef DISABLE_ANIMATIONS
+    ,
       m_moveAni(new QPropertyAnimation(this, "pos")),
-      m_opacity(0),
       m_showAnimation(new QPropertyAnimation(this, "opacity")),
       m_hideAnimation(new QPropertyAnimation(this, "opacity"))
+#endif
 {
     m_iconUrl = iconUrl;
     m_buttonId = idName;
@@ -113,23 +116,21 @@ void UserButton::setImageSize(const AvatarSize &avatarsize) {
 
 void UserButton::showButton()
 {
+#ifndef DISABLE_ANIMATIONS
     m_showAnimation->stop();
     m_showAnimation->setStartValue(0.0);
     m_showAnimation->setEndValue(1.0);
     m_showAnimation->setDuration(800);
-
     m_showAnimation->start();
 
-#ifndef DISABLE_TEXT_SHADOW
     connect(m_showAnimation, &QPropertyAnimation::finished, [&]{
-
         QTimer::singleShot(500, this, SLOT(addTextShadowAfter()));
     });
 #endif
 }
 
-void UserButton::addTextShadowAfter() {
-
+void UserButton::addTextShadowAfter()
+{
     m_opacityEffect->setEnabled(false);
     addTextShadow(true);
 }
@@ -137,20 +138,26 @@ void UserButton::addTextShadowAfter() {
 void UserButton::hide(const int duration)
 {
     Q_UNUSED(duration);
+#ifndef DISABLE_ANIMATIONS
     m_hideAnimation->setStartValue(1);
     m_hideAnimation->setEndValue(0);
     m_hideAnimation->start();
 
-       addTextShadow(false);
-       m_opacityEffect->setEnabled(true);
+    connect(m_hideAnimation, &QPropertyAnimation::finished, [&]{
+        QPushButton::hide();
+    });
+#endif
 
-       connect(m_hideAnimation, &QPropertyAnimation::finished, [&]{
-           QPushButton::hide();
-       });
+#ifndef DISABLE_TEXT_SHADOW
+    addTextShadow(false);
+#endif
+
+    m_opacityEffect->setEnabled(true);
 }
 
 void UserButton::move(const QPoint &position, int duration)
 {
+#ifndef DISABLE_ANIMATIONS
     if (!duration)
         return QPushButton::move(position);
 
@@ -160,15 +167,22 @@ void UserButton::move(const QPoint &position, int duration)
     m_moveAni->setEndValue(position);
 
     m_moveAni->start();
+#else
+    Q_UNUSED(duration);
+    QPushButton::move(position);
+#endif
 }
 
-void UserButton::addTextShadow(bool isEffective) {
+void UserButton::addTextShadow(bool isEffective)
+{
+#ifndef DISABLE_TEXT_SHADOW
     QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect;
     nameShadow->setBlurRadius(16);
     nameShadow->setColor(QColor(0, 0, 0, 85));
     nameShadow->setOffset(0, 4);
     nameShadow->setEnabled(isEffective);
     m_textLabel->setGraphicsEffect(nameShadow);
+#endif
 }
 
 bool UserButton::selected() const
@@ -198,7 +212,9 @@ void UserButton::paintEvent(QPaintEvent* event)
 
 void UserButton::stopAnimation()
 {
+#ifndef DISABLE_ANIMATIONS
     m_moveAni->stop();
+#endif
 }
 
 double UserButton::opacity() {
