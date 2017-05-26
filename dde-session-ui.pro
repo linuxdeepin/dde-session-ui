@@ -9,7 +9,8 @@ SUBDIRS += dde-shutdown \
            dde-zone \
 #           dde-offline-upgrader \
            dde-suspend-dialog \
-           dde-warning-dialog
+           dde-warning-dialog \
+           dde-wm-chooser
 
 include(common.pri)
 contains(DEFINES, ARCH_MIPSEL) {
