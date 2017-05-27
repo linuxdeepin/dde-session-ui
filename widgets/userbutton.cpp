@@ -146,6 +146,8 @@ void UserButton::hide(const int duration)
     connect(m_hideAnimation, &QPropertyAnimation::finished, [&]{
         QPushButton::hide();
     });
+#else
+    QPushButton::hide();
 #endif
 
 #ifndef DISABLE_TEXT_SHADOW
