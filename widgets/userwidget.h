@@ -39,7 +39,7 @@ public:
 
     static const QString loginUser();
     const QString currentUser();
-    inline int count() const {return m_userBtns->count();}
+    inline int count() const {return m_userBtns.count();}
     bool isChooseUserMode = false;
 signals:
     void userChanged(const QString &username);
@@ -69,7 +69,7 @@ private:
     QString m_currentUser = QString();
     QStringList m_whiteList;
     UserButton* m_currentBtns = nullptr;
-    QList<UserButton *> *m_userBtns;
+    QList<UserButton *> m_userBtns;
     QLightDM::UsersModel *m_userModel;
     DTK_WIDGET_NAMESPACE::DLoadingIndicator *m_loadingAni;
 };
