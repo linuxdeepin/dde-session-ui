@@ -8,7 +8,6 @@
  **/
 
 #include <QDebug>
-#include <QGSettings>
 
 #include "shutdownframe.h"
 

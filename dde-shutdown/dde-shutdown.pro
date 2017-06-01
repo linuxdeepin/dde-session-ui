@@ -12,7 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = dde-shutdown
 TEMPLATE = app
 
-PKGCONFIG += gsettings-qt liblightdm-qt5-3 dtkbase dtkutil dframeworkdbus
+PKGCONFIG += dtkbase dtkutil dframeworkdbus
 CONFIG += c++11 link_pkgconfig
 
 include(../widgets/widgets.pri)

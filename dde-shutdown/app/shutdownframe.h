@@ -19,7 +19,6 @@
 
 using Appearance = com::deepin::daemon::Appearance;
 
-class QGSettings;
 class ShutdownFrontDBus;
 class ShutdownFrame:public BoxFrame
 {
