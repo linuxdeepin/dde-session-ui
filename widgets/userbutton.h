@@ -40,6 +40,7 @@ public:
 
     bool selected() const;
     void setSelected(bool selected);
+    QString &name();
 
 signals:
     void imageClicked(QString nam);
@@ -60,6 +61,7 @@ public slots:
     void setOpacity(double opa);
     void setCustomEffect();
     void addTextShadowAfter();
+    void updateAvatar(const QString &icon);
 protected:
     void paintEvent(QPaintEvent* event);
 private:

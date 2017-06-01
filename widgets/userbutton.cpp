@@ -135,6 +135,15 @@ void UserButton::addTextShadowAfter()
     addTextShadow(true);
 }
 
+void UserButton::updateAvatar(const QString &icon)
+{
+    if(m_iconUrl == icon)
+        return;
+
+    m_iconUrl = icon;
+    m_userAvatar->setIcon(icon);
+}
+
 void UserButton::hide(const int duration)
 {
     Q_UNUSED(duration);
@@ -196,6 +205,11 @@ void UserButton::setSelected(bool selected)
 {
     m_selected = selected;
     update();
+}
+
+QString& UserButton::name()
+{
+    return m_buttonId;
 }
 
 void UserButton::paintEvent(QPaintEvent* event)

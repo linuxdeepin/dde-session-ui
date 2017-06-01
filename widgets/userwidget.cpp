@@ -262,7 +262,6 @@ void UserWidget::expandWidget()
         }
 
         user->stopAnimation();
-
         user->show();
         user->showButton();
         user->setImageSize(UserButton::AvatarSmallSize);
@@ -298,6 +297,15 @@ void UserWidget::resizeEvent(QResizeEvent *e)
 
     m_loadingAni->move(rect().center().x() - UserButton::AvatarLargerSize / 2,
                        rect().center().y() - UserButton::AvatarLargerSize / 2 - 14);
+}
+
+void UserWidget::showEvent(QShowEvent *event)
+{
+    QFrame::showEvent(event);
+
+    for (UserButton* user: m_userBtns) {
+        user->updateAvatar(AccountsUtils::GetUserAvatar(user->name()));
+    }
 }
 
 void UserWidget::switchUserByKey(int i, int j) {
