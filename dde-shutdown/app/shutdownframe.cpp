@@ -148,7 +148,6 @@ void ShutdownFrontDBus::Suspend()
 void ShutdownFrontDBus::SwitchUser()
 {
     m_parent->powerAction(Actions::SwitchUser);
-    m_parent->show();
 }
 
 void ShutdownFrontDBus::Show()
