@@ -41,11 +41,15 @@ public:
     const QString currentUser();
     inline int count() const {return m_userBtns.count();}
     bool isChooseUserMode = false;
+
 signals:
     void userChanged(const QString &username);
     void chooseUserModeChanged(bool isChoose, QString curUser);
+
 public slots:
     void addUser(QString avatar, QString name);
+    void removeUser(QString name);
+
     void setCurrentUser(const QString &username);
     void expandWidget();
     void saveLastUser();
@@ -59,10 +63,17 @@ public slots:
 
 protected:
     void resizeEvent(QResizeEvent *e);
+
 private slots:
     void initUI();
+    void initConnections();
     void updateAvatar(QString username);
+
     QStringList getUsernameList();
+
+    void handleUserAdded(const QModelIndex &parent, int first, int last);
+    void handleUserRemoved(const QModelIndex &parent, int first, int last);
+
 private:
     int m_currentUserIndex = 0;
     int countNum = 0;

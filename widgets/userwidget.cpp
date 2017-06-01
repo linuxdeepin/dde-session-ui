@@ -49,6 +49,7 @@ UserWidget::UserWidget(const QString &username, QWidget* parent)
 //    move(0, (qApp->desktop()->height() - rect().height()) / 2 - 95);
 
     initUI();
+    initConnections();
 }
 
 UserWidget::~UserWidget()
@@ -104,6 +105,14 @@ void UserWidget::initUI()
     }
 }
 
+void UserWidget::initConnections()
+{
+    connect(m_userModel, &QLightDM::UsersModel::rowsInserted,
+            this, &UserWidget::handleUserAdded);
+    connect(m_userModel, &QLightDM::UsersModel::rowsRemoved,
+            this, &UserWidget::handleUserRemoved);
+}
+
 void UserWidget::updateAvatar(QString username) {
     const QString path = AccountsUtils::GetUserAvatar(username);
     if (!path.isEmpty())
@@ -137,6 +146,45 @@ QStringList UserWidget::getUsernameList() {
     return m_whiteList;
 }
 
+void UserWidget::handleUserAdded(const QModelIndex &, int first, int last)
+{
+    // wait the accounts daemon to set up the user.
+    QTimer::singleShot(1000, this, [this, first, last] () {
+        for (int i = first; i <= last; i++) {
+            const QModelIndex index = m_userModel->index(i);
+            const QString &username = m_userModel->data(index, QLightDM::UsersModel::NameRole).toString();
+            updateAvatar(username);
+        }
+    });
+}
+
+void UserWidget::handleUserRemoved(const QModelIndex &, int, int)
+{
+    // the item is removed already, so there's no easy way to determine which
+    // user is removed from the model with the information provided by the
+    // signal parameters.
+    // we have to traverse thru the whole UserButtons list and the model to
+    // see which user's gone.
+
+    QStringList oldUsers;
+
+    for (const UserButton *btn : m_userBtns) {
+        oldUsers << btn->objectName();
+    }
+
+    const int userCount = m_userModel->rowCount(QModelIndex());
+    for (int i(0); i != userCount; ++i)
+    {
+        const QString &username = m_userModel->data(m_userModel->index(i), QLightDM::UsersModel::NameRole).toString();
+
+        oldUsers.removeAll(username);
+    }
+
+    for (const QString &name : oldUsers) {
+        removeUser(name);
+    }
+}
+
 void UserWidget::setCurrentUser(const QString &username)
 {
     isChooseUserMode = false;
@@ -160,7 +208,10 @@ void UserWidget::setCurrentUser(const QString &username)
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
 
-void UserWidget::addUser(QString avatar, QString name) {
+void UserWidget::addUser(QString avatar, QString name)
+{
+    qDebug() << "add user: " << name << ", icon file: " << avatar;
+
     UserButton *user = new UserButton(avatar, name);
     user->hide();
     user->setObjectName(name);
@@ -170,6 +221,17 @@ void UserWidget::addUser(QString avatar, QString name) {
     connect(user, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
 
     m_userBtns.append(user);
+}
+
+void UserWidget::removeUser(QString name)
+{
+    qDebug() << "remove user: " << name;
+
+    for (UserButton *btn : m_userBtns) {
+        if (btn->objectName() == name) {
+            btn->deleteLater();
+        }
+    }
 }
 
 void UserWidget::expandWidget()
