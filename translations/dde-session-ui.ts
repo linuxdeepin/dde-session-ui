@@ -251,7 +251,7 @@
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="45"/>
-        <source>Effect Mode: You can soomthly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
+        <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
