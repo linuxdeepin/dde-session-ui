@@ -122,29 +122,9 @@ void KbLayoutWidget::initUI() {
     setResizeMode(Adjust);
 
     for (int i = 0; i < m_buttons.length(); i++) {
-        LayoutButton* itemButton = new LayoutButton(m_buttons[i]);
-        m_layoutButtons.append(itemButton);
-        itemButton->setFixedSize(widget_width, DDESESSIONCC::LAYOUTBUTTON_HEIGHT);
-
-        QFrame* borderFrame = new QFrame;
-        borderFrame->setObjectName("LayoutBorderFrame");
-        QVBoxLayout* borderLayout = new QVBoxLayout;
-        borderLayout->setContentsMargins(0, 0, 0, 0);
-        borderLayout->setSpacing(0);
-        borderLayout->addWidget(itemButton);
-        borderFrame->setLayout(borderLayout);
-        borderFrame->setFixedSize(widget_width, DDESESSIONCC::LAYOUTBUTTON_HEIGHT);
-
-        QListWidgetItem* item = new QListWidgetItem(this);
-        item->sizeHint();
-        this->addItem(item);
-        setItemWidget(item,  borderFrame);
-        this->setGridSize(QSize(widget_width, DDESESSIONCC::LAYOUTBUTTON_HEIGHT));
-        this->setFixedWidth(widget_width);
+        addButton(m_buttons[i]);
     }
     this->setFixedHeight(DDESESSIONCC::LAYOUTBUTTON_HEIGHT * std::min(3, m_buttons.length()));
-
-
 
     updateStyle(":/skin/keybdlayoutwidget.qss", this);
 }
@@ -169,6 +149,62 @@ void KbLayoutWidget::setListItemChecked(int itemIndex) {
         qDebug() << "itemIndex itemText:" << itemIndex << itemText;
         setButtonsChecked(itemText);
     }
+}
+
+void KbLayoutWidget::updateButtonList(const QStringList &buttons)
+{
+    if (buttons == m_buttons)
+        return;
+
+    m_buttons = buttons;
+
+    for (LayoutButton* button : m_layoutButtons)
+        button->deleteLater();
+
+    m_layoutButtons.clear();
+
+    for (auto it(m_layoutItemList.begin()); it != m_layoutItemList.end(); ++it) {
+        removeItemWidget(it.key());
+
+        if (it.key())
+            delete it.key();
+
+        if (it.value())
+            delete it.value();
+    }
+
+    m_layoutItemList.clear();
+
+    for (int i = 0; i < m_buttons.length(); i++) {
+        addButton(m_buttons[i]);
+    }
+    this->setFixedHeight(DDESESSIONCC::LAYOUTBUTTON_HEIGHT * std::min(3, m_buttons.length()));
+
+    updateStyle(":/skin/keybdlayoutwidget.qss", this);
+}
+
+void KbLayoutWidget::addButton(const QString &button)
+{
+    LayoutButton* itemButton = new LayoutButton(button);
+    m_layoutButtons.append(itemButton);
+    itemButton->setFixedSize(widget_width, DDESESSIONCC::LAYOUTBUTTON_HEIGHT);
+
+    QFrame *borderFrame = new QFrame;
+    borderFrame->setObjectName("LayoutBorderFrame");
+    QVBoxLayout* borderLayout = new QVBoxLayout;
+    borderLayout->setContentsMargins(0, 0, 0, 0);
+    borderLayout->setSpacing(0);
+    borderLayout->addWidget(itemButton);
+    borderFrame->setLayout(borderLayout);
+    borderFrame->setFixedSize(widget_width, DDESESSIONCC::LAYOUTBUTTON_HEIGHT);
+
+    QListWidgetItem* item = new QListWidgetItem(this);
+    item->sizeHint();
+    this->addItem(item);
+    setItemWidget(item,  borderFrame);
+    m_layoutItemList.insert(item, borderFrame);
+    this->setGridSize(QSize(widget_width, DDESESSIONCC::LAYOUTBUTTON_HEIGHT));
+    this->setFixedWidth(widget_width);
 }
 
 void KbLayoutWidget::initData(QStringList buttons) {

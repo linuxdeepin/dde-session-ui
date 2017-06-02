@@ -68,6 +68,7 @@ void LockManager::initConnect()
 void LockManager::keybdLayoutWidgetPosit()
 {
     m_keybdArrowWidget->show(m_passwordEdit->x() + 123, m_passwordEdit->y() + m_passwordEdit->height() - 15);
+    m_keybdLayoutWidget->show();
 }
 
 void LockManager::leftKeyPressed()
@@ -213,6 +214,8 @@ void LockManager::chooseUserMode()
     m_unlockButton->hide();
     m_userWidget->show();
     m_requireShutdownWidget->hide();
+    m_keybdLayoutWidget->hide();
+    m_keybdArrowWidget->hide();
 }
 
 void LockManager::onUnlockFinished(QDBusPendingCallWatcher *w)
@@ -308,7 +311,31 @@ void LockManager::leaveEvent(QEvent *)
 
 void LockManager::showEvent(QShowEvent *event)
 {
+    m_keybdLayoutWidget->hide();
+    m_keybdArrowWidget->hide();
+
     updateBackground(m_userWidget->currentUser());
+
+    m_keybdInfoMap.clear();
+    m_keybdLayoutNameList.clear();
+    keybdLayoutDescList.clear();
+
+    m_keybdLayoutNameList = m_keyboardLayoutInterface->userLayoutList();
+    QString currentKeybdLayout = m_keyboardLayoutInterface->currentLayout();
+
+    for (int i = 0; i < m_keybdLayoutNameList.length(); i++) {
+        if (m_keybdLayoutNameList[i] == currentKeybdLayout) {
+            m_keybdLayoutItemIndex = i;
+        }
+        QDBusPendingReply<QString> tmpValue =  m_keyboardLayoutInterface->GetLayoutDesc(m_keybdLayoutNameList[i]);
+        tmpValue.waitForFinished();
+
+        keybdLayoutDescList << tmpValue;
+        m_keybdInfoMap.insert(m_keybdLayoutNameList[i], tmpValue);
+    }
+    qDebug() << "QStringList" << m_keybdLayoutNameList;
+    m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
+    m_keybdLayoutWidget->updateButtonList(keybdLayoutDescList);
 
     QFrame::showEvent(event);
 }
@@ -352,6 +379,9 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
 
 void LockManager::unlock()
 {
+    m_keybdLayoutWidget->hide();
+    m_keybdArrowWidget->hide();
+
     if (!m_requireShutdownWidget->isHidden()) {
         m_requireShutdownWidget->shutdownAction();
         return;
