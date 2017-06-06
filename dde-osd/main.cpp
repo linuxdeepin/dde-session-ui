@@ -15,6 +15,7 @@
 #include <QProcess>
 
 #include "manager.h"
+#include "kblayoutindicator.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -24,6 +25,8 @@ int main(int argc, char *argv[])
     DApplication a(argc, argv);
     a.setApplicationName("dde-osd");
     a.setApplicationVersion("1.0");
+
+    a.setTheme("light");
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
@@ -56,6 +59,9 @@ int main(int argc, char *argv[])
     if (!action.isEmpty()) {
         m.ShowOSD(action);
     }
+
+    KBLayoutIndicator indicator;
+    indicator.show();
 
     return a.exec();
 }
