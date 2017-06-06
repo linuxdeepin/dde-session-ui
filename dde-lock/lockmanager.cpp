@@ -336,6 +336,7 @@ void LockManager::showEvent(QShowEvent *event)
     qDebug() << "QStringList" << m_keybdLayoutNameList;
     m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
     m_keybdLayoutWidget->updateButtonList(keybdLayoutDescList);
+    m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
 
     QFrame::showEvent(event);
 }

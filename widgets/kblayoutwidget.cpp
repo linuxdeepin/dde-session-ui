@@ -96,21 +96,8 @@ KbLayoutWidget::KbLayoutWidget(QStringList buttons, QWidget *parent)
     }
 
     initUI();
-    initConnect();
-    initData(buttons);
+    updateButtonList(buttons);
     updateUI();
-
-}
-
-void KbLayoutWidget::initConnect() {
-
-    const int count = m_layoutButtons.length();
-    for (int i = 0; i != count; ++i)
-    {
-        connect(m_layoutButtons.at(i), SIGNAL(clicked(bool)), m_layoutButtons.at(i), SLOT(OnlyMeChecked(bool)));
-        connect(m_layoutButtons.at(i), SIGNAL(onlyOneChecked(QString)), this, SLOT(setButtonsChecked(QString)));
-        connect(m_layoutButtons.at(i), SIGNAL(onlyOneChecked(QString)), this, SIGNAL(setButtonClicked(QString)));
-    }
 
 }
 
@@ -205,12 +192,11 @@ void KbLayoutWidget::addButton(const QString &button)
     m_layoutItemList.insert(item, borderFrame);
     this->setGridSize(QSize(widget_width, DDESESSIONCC::LAYOUTBUTTON_HEIGHT));
     this->setFixedWidth(widget_width);
-}
+    updateStyle(":/skin/layoutbutton.qss", this);
 
-void KbLayoutWidget::initData(QStringList buttons) {
-    for (int i = 0; i < buttons.length(); i++) {
-        m_buttons << buttons[i];
-    }
+    connect(itemButton, &LayoutButton::clicked, itemButton, &LayoutButton::OnlyMeChecked, Qt::UniqueConnection);
+    connect(itemButton, &LayoutButton::onlyOneChecked, this, &KbLayoutWidget::setButtonsChecked, Qt::UniqueConnection);
+    connect(itemButton, &LayoutButton::onlyOneChecked, this, &KbLayoutWidget::setButtonClicked, Qt::UniqueConnection);
 }
 
 void KbLayoutWidget::updateUI() {

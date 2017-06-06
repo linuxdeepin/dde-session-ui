@@ -52,9 +52,7 @@ public:
     KbLayoutWidget(QStringList buttons, QWidget* parent = 0);
     ~KbLayoutWidget();
 
-    void initData(QStringList buttons);
     void initUI();
-    void initConnect();
     void updateUI();
 signals:
     void setButtonClicked(QString text);
