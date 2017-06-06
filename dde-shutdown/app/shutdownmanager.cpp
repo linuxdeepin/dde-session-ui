@@ -32,9 +32,8 @@ void ShutdownManager::initConnect()
     connect(m_content->m_shutdownFrame, &ShutDownFrame::ShutDownFrameActions, this, &ShutdownManager::powerAction);
 #ifdef SHUTDOWN_NO_QUIT
     connect(m_content->m_shutdownFrame, &ShutDownFrame::requestRecoveryLayout, this, [=]{
-        m_content->m_shutdownFrame->recoveryLayout();
-        checkUsers();
         hideToplevelWindow();
+        m_content->m_shutdownFrame->recoveryLayout();
     });
 #endif
 //    connect(qApp, &QApplication::aboutToQuit, [this]{
@@ -207,9 +206,8 @@ void ShutdownManager::keyPressEvent(QKeyEvent *e)
 void ShutdownManager::mouseReleaseEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton) {
-        m_content->m_shutdownFrame->recoveryLayout();
-        checkUsers();
         hideToplevelWindow();
+        m_content->m_shutdownFrame->recoveryLayout();
     }
 }
 
