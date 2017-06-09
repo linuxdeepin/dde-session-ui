@@ -33,16 +33,19 @@ public:
 public slots:
     void showUserList();
     void updateScreenPosition();
+    void tryGrabKeyboard();
+    void sendESC();
 #ifdef LOCK_NO_QUIT
     void hideFrame();
 #endif
 protected:
     void keyPressEvent(QKeyEvent *e);
-#ifdef LOCK_NO_QUIT
     void showEvent(QShowEvent *);
-#endif
+
 private:
     LockManager* m_lockManager;
+    Display *m_display;
+    int m_failures = 0;
 };
 
 #endif // LOCKFRAME

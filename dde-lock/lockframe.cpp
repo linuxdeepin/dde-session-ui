@@ -8,10 +8,16 @@
  **/
 
 #include "lockframe.h"
+#include <QX11Info>
+#include <X11/Xlib.h>
+#include <X11/keysym.h>
+#include <X11/extensions/XTest.h>
+#include <QApplication>
 
 LockFrame::LockFrame(QWidget* parent)
     : BoxFrame(parent)
 {
+    m_display = QX11Info::display();
 
     this->move(0, 0);
     this->setFixedSize(qApp->desktop()->size());
@@ -54,19 +60,47 @@ void LockFrame::updateScreenPosition()
     }
 }
 
+void LockFrame::tryGrabKeyboard()
+{
+    int requestCode = XGrabKeyboard(m_display, winId(), true, GrabModeAsync, GrabModeAsync, CurrentTime);
+
+    if (requestCode != 0) {
+        m_failures++;
+
+        if (m_failures == 15) {
+            qDebug() << "Trying grabkeyboard has exceeded the upper limit. dde-lock will quit.";
+            qApp->quit();
+        }
+
+        QTimer::singleShot(100, this, &LockFrame::tryGrabKeyboard);
+    }
+}
+
+void LockFrame::sendESC()
+{
+    KeySym keysym= XStringToKeysym("Escape");
+    KeyCode keycode = XKeysymToKeycode(m_display, keysym);
+    XTestFakeKeyEvent(m_display, keycode, true, CurrentTime);
+    XTestFakeKeyEvent(m_display, keycode, false, CurrentTime);
+    XFlush(m_display);
+}
+
 #ifdef LOCK_NO_QUIT
 void LockFrame::hideFrame() {
     this->hide();
     m_lockManager->enableZone();
 }
+#endif
 
 void LockFrame::showEvent(QShowEvent *) {
+    sendESC();
+    m_failures = 0;
+    tryGrabKeyboard();
     this->raise();
     this->activateWindow();
     updateScreenPosition();
     m_lockManager->disableZone();
 }
-#endif
 
 void LockFrame::keyPressEvent(QKeyEvent *e) {
     Q_UNUSED(e);
@@ -75,4 +109,3 @@ void LockFrame::keyPressEvent(QKeyEvent *e) {
 LockFrame::~LockFrame() {
 
 }
-

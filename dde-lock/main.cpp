@@ -81,7 +81,6 @@ int main(int argc, char *argv[])
             } else {
                 lockFrame.show();
             }
-            lockFrame.grabKeyboard();
         } else {
             lockFrame.hide();
         }
