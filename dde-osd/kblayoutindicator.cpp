@@ -127,6 +127,8 @@ void KBLayoutIndicator::updateMenu()
 
 void KBLayoutIndicator::updateIcon()
 {
+    const QString layout = nameOfLayout(m_data->currentLayout());
+
     QPixmap pix(16, 16);
     pix.fill(Qt::transparent);
 
@@ -135,12 +137,16 @@ void KBLayoutIndicator::updateIcon()
     pa.setPen(Qt::white);
 
     QFont font = pa.font();
-    font.setPixelSize(12);
+    font.setPixelSize(layout.length() > 2 ? 10 : 15);
+    font.setWeight(QFont::Bold);
     pa.setFont(font);
 
     QTextOption op;
     op.setAlignment(Qt::AlignCenter);
-    pa.drawText(pix.rect(), nameOfLayout(m_data->currentLayout()), op);
+
+    QRect r( pix.rect() );
+    r.adjust(0, -2, 0, 0); // make the text looks more center aligned.
+    pa.drawText(r, layout, op);
 
     setIcon(QIcon(pix));
 }
