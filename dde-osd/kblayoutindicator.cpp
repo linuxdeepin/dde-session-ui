@@ -153,8 +153,12 @@ void KBLayoutIndicator::updateIcon()
 
 void KBLayoutIndicator::handleDataChanged()
 {
+    if (m_data->layoutList().length() < 2)
+        return setVisible(false);
+
     updateIcon();
     updateMenu();
+    show();
 }
 
 void KBLayoutIndicator::handleActionTriggered(QAction *action)
