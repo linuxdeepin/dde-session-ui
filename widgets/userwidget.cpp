@@ -324,7 +324,7 @@ void UserWidget::chooseButtonChecked() {
     qDebug() << "Get the Key Return or Enter";
     bool checkedBtsExist = false;
     for (UserButton* user: m_userBtns) {
-        if (user->isChecked()) {
+        if (user->selected()) {
             setCurrentUser(user->objectName());
             checkedBtsExist = true;
         }
