@@ -3,6 +3,8 @@
 #include <QDBusConnection>
 #include <QPainter>
 
+#include <QMouseEvent>
+
 static QString nameOfLayout(const QString &layout)
 {
     QString ret( layout );
@@ -97,6 +99,9 @@ KBLayoutIndicator::KBLayoutIndicator(QWidget *parent)
 
     connect(m_menu, &QMenu::triggered,
             this, &KBLayoutIndicator::handleActionTriggered);
+
+    connect(this, &KBLayoutIndicator::activated,
+            this, &KBLayoutIndicator::handleActivated);
 }
 
 void KBLayoutIndicator::updateMenu()
@@ -151,6 +156,17 @@ void KBLayoutIndicator::updateIcon()
     setIcon(QIcon(pix));
 }
 
+void KBLayoutIndicator::switchToNextLayout()
+{
+    const QString layout = m_data->currentLayout();
+    const QStringList layouts = m_data->layoutList();
+
+    const int currentIdx = layouts.indexOf(layout);
+    const QString targetLayout = layouts.at((currentIdx + 1) % layouts.length());
+
+    m_keyboardInter->setCurrentLayout(targetLayout);
+}
+
 void KBLayoutIndicator::handleDataChanged()
 {
     if (m_data->layoutList().length() < 2)
@@ -172,6 +188,13 @@ void KBLayoutIndicator::handleActionTriggered(QAction *action)
     const QString layout = action->objectName();
     if (m_data->layoutList().contains(layout)) {
         m_keyboardInter->setCurrentLayout(layout);
+    }
+}
+
+void KBLayoutIndicator::handleActivated(QSystemTrayIcon::ActivationReason reason)
+{
+    if (reason == QSystemTrayIcon::Trigger) {
+        switchToNextLayout();
     }
 }
 

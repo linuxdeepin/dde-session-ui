@@ -53,9 +53,13 @@ private:
 
     void updateMenu();
     void updateIcon();
+
+    void switchToNextLayout();
+
     void handleDataChanged();
 
     void handleActionTriggered(QAction *action);
+    void handleActivated(QSystemTrayIcon::ActivationReason reason);
 };
 
 #endif // KBLAYOUTINDICATOR_H
