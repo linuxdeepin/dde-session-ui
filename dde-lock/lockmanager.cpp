@@ -200,7 +200,8 @@ void LockManager::updateWidgetsPosition()
     const int height = this->height();
     m_timeWidget->move(48, height - m_timeWidget->height() - 36); // left 48px and bottom 36px
     m_userWidget->setFixedWidth(width);
-    m_userWidget->move(0, (height - m_userWidget->height()) / 2 - 95);
+    if (!m_userWidget->isChooseUserMode)
+        m_userWidget->move(0, (height - m_userWidget->height()) / 2 - 95);
     m_requireShutdownWidget->setFixedWidth(width);
     m_requireShutdownWidget->move(0, (height - m_requireShutdownWidget->height()) / 2 - 50);
     m_controlWidget->move(width - m_controlWidget->width(),
