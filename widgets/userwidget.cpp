@@ -227,9 +227,12 @@ void UserWidget::removeUser(QString name)
 {
     qDebug() << "remove user: " << name;
 
-    for (UserButton *btn : m_userBtns) {
-        if (btn->objectName() == name) {
+    for (int i(0); i < m_userBtns.count(); ++i) {
+        if (m_userBtns[i]->name() == name) {
+            UserButton *btn = m_userBtns[i];
+            m_userBtns.removeAt(i);
             btn->deleteLater();
+            break;
         }
     }
 }

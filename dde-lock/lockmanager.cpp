@@ -315,6 +315,7 @@ void LockManager::showEvent(QShowEvent *event)
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
 
+    m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
     updateBackground(m_userWidget->currentUser());
 
     m_keybdInfoMap.clear();
