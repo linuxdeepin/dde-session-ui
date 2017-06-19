@@ -76,15 +76,6 @@ void LockFrame::tryGrabKeyboard()
     }
 }
 
-void LockFrame::sendESC()
-{
-    KeySym keysym= XStringToKeysym("Escape");
-    KeyCode keycode = XKeysymToKeycode(m_display, keysym);
-    XTestFakeKeyEvent(m_display, keycode, true, CurrentTime);
-    XTestFakeKeyEvent(m_display, keycode, false, CurrentTime);
-    XFlush(m_display);
-}
-
 #ifdef LOCK_NO_QUIT
 void LockFrame::hideFrame() {
     this->hide();
@@ -93,7 +84,6 @@ void LockFrame::hideFrame() {
 #endif
 
 void LockFrame::showEvent(QShowEvent *) {
-    sendESC();
     m_failures = 0;
     tryGrabKeyboard();
     this->raise();

@@ -34,7 +34,6 @@ public slots:
     void showUserList();
     void updateScreenPosition();
     void tryGrabKeyboard();
-    void sendESC();
 #ifdef LOCK_NO_QUIT
     void hideFrame();
 #endif
