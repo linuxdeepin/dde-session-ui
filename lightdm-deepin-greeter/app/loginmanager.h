@@ -72,6 +72,7 @@ private:
 
     void expandUserWidget();
 
+    void message(QString text, QLightDM::Greeter::MessageType type);
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
     void login();

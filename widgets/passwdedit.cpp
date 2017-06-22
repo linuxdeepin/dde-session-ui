@@ -311,6 +311,12 @@ void PassWdEdit::setAlert(bool alert, const QString &text)
     setStyleSheet(styleSheet());
 }
 
+void PassWdEdit::setMessage(const QString &message)
+{
+    m_lineEdit->setText("");
+    m_lineEdit->setPlaceholderText(message);
+}
+
 void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
 {
     emit focusIn();

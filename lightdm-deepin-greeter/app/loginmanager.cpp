@@ -402,6 +402,20 @@ void LoginManager::expandUserWidget() {
     m_utilFile->setExpandState(0);
 }
 
+void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
+{
+    switch (type) {
+    case QLightDM::Greeter::MessageTypeInfo:
+        m_passWdEdit->setMessage(text);
+        break;
+    case QLightDM::Greeter::MessageTypeError:
+        qWarning() << "error message from lightdm: " << text;
+        break;
+    default:
+        break;
+    }
+}
+
 void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
 {
     Q_UNUSED(text);
