@@ -160,8 +160,12 @@ void LockManager::initUI()
     updateWidgetsPosition();
     updateStyle(":/skin/lock.qss", this);
 
-    m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-    qDebug() << "DBusLockService" << m_lockInter->IsLiveCD(m_userWidget->currentUser());
+    m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH,
+                                      QDBusConnection::systemBus(), this);
+    m_lockInter->AuthenticateUser(m_userWidget->currentUser());
+
+    connect(m_lockInter, &DBusLockService::Event, this, &LockManager::lockServiceEvent);
+
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
     connect(m_userWidget, &UserWidget::userChanged,
     [&](const QString & username) {
@@ -179,14 +183,6 @@ void LockManager::initUI()
         m_passwordEdit->show();
         this->updateBackground(m_userWidget->currentUser());
         this->updateUserLoginCondition(m_userWidget->currentUser());
-    });
-
-    m_lockInter->connect(m_lockInter, &DBusLockService::UserUnlock,
-    [&](const QString & username) {
-        exit(0);
-        if (username == m_userWidget->currentUser()) {
-            exit(0);
-        }
     });
 
     updateBackground(m_userWidget->currentUser());
@@ -219,20 +215,14 @@ void LockManager::chooseUserMode()
     m_keybdArrowWidget->hide();
 }
 
-void LockManager::onUnlockFinished(QDBusPendingCallWatcher *w)
+void LockManager::onUnlockFinished(const bool unlocked)
 {
-    m_checkingPWD = false;
-
-    QDBusPendingReply<bool> reply = *w;
-
-    qDebug() << "dde-lock unlock^^^" << m_lockInter->isValid()
-             << m_lockInter->lastError()
-             << reply.error() << reply.value();
-
-    if (!reply.value()) {
-
-        // Auth fail
+    if (!unlocked) {
         qDebug() << "Authorization failed!";
+
+        const QString &username = m_userWidget->currentUser();
+        m_lockInter->AuthenticateUser(username);
+
         m_authFailureCount++;
         m_userWidget->hideLoadingAni();
         if (m_authFailureCount < UtilFile::GetAuthLimitation()) {
@@ -243,10 +233,9 @@ void LockManager::onUnlockFinished(QDBusPendingCallWatcher *w)
             m_passwordEdit->setEnabled(false);
             m_passwordEdit->setAlert(true, tr("Please retry after 10 minutes"));
         }
-        w->deleteLater();
+
         return;
     }
-    w->deleteLater();
 
     // Auth success
     switch (m_action) {
@@ -404,18 +393,16 @@ void LockManager::unlock()
     if (!m_passwordEdit->isVisible())
         return;
 
-    if (m_checkingPWD)
+    if (m_authenticating)
         return;
 
-    m_checkingPWD = true;
+    m_authenticating = true;
 
 //    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
     const QString &username = m_userWidget->currentUser();
     const QString &password = m_passwordEdit->getText();
 
-    QDBusPendingReply<bool> result = m_lockInter->UnlockCheck(username, password);
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(result, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, &LockManager::onUnlockFinished);
+    m_lockInter->UnlockCheck(username, password);
 }
 
 void LockManager::loadMPRIS()
@@ -452,6 +439,42 @@ void LockManager::loadMPRIS()
     m_controlWidget->bindDBusService(m_mprisInter);
 }
 
+void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message)
+{
+    qDebug() << eventType << pid << username << message;
+
+    // Don't show password prompt from standard pam modules since
+    // we'll provide our own prompt or just not.
+    const QString msg = message == "Password: " ? "" : message;
+
+    m_authenticating = false;
+
+    switch (eventType) {
+    case DBusLockService::PromptQuestion:
+        qDebug() << "prompt quesiton from pam: " << message;
+        m_passwordEdit->setMessage(message);
+        break;
+    case DBusLockService::PromptSecret:
+        qDebug() << "prompt secret from pam: " << message;
+        m_passwordEdit->setMessage(msg);
+        break;
+    case DBusLockService::ErrorMsg:
+        qWarning() << "error message from pam: " << message;
+        break;
+    case DBusLockService::TextInfo:
+        m_passwordEdit->setMessage(message);
+        break;
+    case DBusLockService::Failure:
+        onUnlockFinished(false);
+        break;
+    case DBusLockService::Successed:
+        onUnlockFinished(true);
+        break;
+    default:
+        break;
+    }
+}
+
 void LockManager::initBackend()
 {
     m_hotZoneInterface = new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone",
@@ -459,7 +482,6 @@ void LockManager::initBackend()
 #ifndef LOCK_NO_QUIT
     m_hotZoneInterface->EnableZoneDetected(false);
 #endif
-
 
 
     DBusInputDevices *dbusInputDevices = new DBusInputDevices(this);

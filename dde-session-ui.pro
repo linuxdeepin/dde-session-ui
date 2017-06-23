@@ -2,7 +2,6 @@ TEMPLATE = subdirs
 SUBDIRS += dde-shutdown \
            dde-lock \
            lightdm-deepin-greeter \
-           dde-lockservice \
            dde-switchtogreeter \
            dde-lowpower \
            dde-osd \

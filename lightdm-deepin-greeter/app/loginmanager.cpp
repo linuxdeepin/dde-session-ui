@@ -452,8 +452,8 @@ void LoginManager::authenticationComplete()
         return;
     }
 
-    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-    m_lockInter.ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
+//    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
+//    m_lockInter.ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
 
     QTimer::singleShot(100, this, SLOT(startSession()));
 }

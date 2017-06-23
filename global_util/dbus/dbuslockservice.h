@@ -30,30 +30,26 @@ public:
     static inline const char *staticInterfaceName()
     { return "com.deepin.dde.lock"; }
 
+    enum EventType {
+        PromptQuestion = 1,
+        PromptSecret = 2,
+        ErrorMsg = 3,
+        TextInfo = 4,
+        Failure = 5,
+        Successed = 6
+    };
+
 public:
     DBusLockService(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 
     ~DBusLockService();
 
 public Q_SLOTS: // METHODS
-    inline QDBusPendingReply<bool> AddNoPwdLogin(const QString &username)
-    {
-        QList<QVariant> argumentList;
-        argumentList << QVariant::fromValue(username);
-        return asyncCallWithArgumentList(QStringLiteral("AddNoPwdLogin"), argumentList);
-    }
 
     inline QDBusPendingReply<QString> CurrentUser()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("CurrentUser"), argumentList);
-    }
-
-    inline QDBusPendingReply<> ExitLock(const QString &username, const QString &password)
-    {
-        QList<QVariant> argumentList;
-        argumentList << QVariant::fromValue(username) << QVariant::fromValue(password);
-        return asyncCallWithArgumentList(QStringLiteral("ExitLock"), argumentList);
     }
 
     inline QDBusPendingReply<bool> IsLiveCD(const QString &username)
@@ -63,37 +59,30 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("IsLiveCD"), argumentList);
     }
 
-    inline QDBusPendingReply<bool> NeedPwd(const QString &username)
-    {
-        QList<QVariant> argumentList;
-        argumentList << QVariant::fromValue(username);
-        return asyncCallWithArgumentList(QStringLiteral("NeedPwd"), argumentList);
-    }
-
-    inline QDBusPendingReply<bool> RemoveNoPwdLogin(const QString &username)
-    {
-        QList<QVariant> argumentList;
-        argumentList << QVariant::fromValue(username);
-        return asyncCallWithArgumentList(QStringLiteral("RemoveNoPwdLogin"), argumentList);
-    }
-
-    inline QDBusPendingReply<bool> SwitchToUser(const QString &username)
+    inline QDBusPendingReply<> SwitchToUser(const QString &username)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(username);
         return asyncCallWithArgumentList(QStringLiteral("SwitchToUser"), argumentList);
     }
 
-    inline QDBusPendingReply<bool> UnlockCheck(const QString &username, const QString &password)
+    inline QDBusPendingReply<> UnlockCheck(const QString &username, const QString &password)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(username) << QVariant::fromValue(password);
         return asyncCallWithArgumentList(QStringLiteral("UnlockCheck"), argumentList);
     }
 
+    inline QDBusPendingReply<> AuthenticateUser(const QString &username)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(username);
+        return asyncCallWithArgumentList(QStringLiteral("AuthenticateUser"), argumentList);
+    }
+
 Q_SIGNALS: // SIGNALS
     void UserChanged(const QString &user);
-    void UserUnlock(const QString &username);
+    void Event(quint32 eventType, quint32 pid, const QString &username, const QString &messsage);
 };
 
 namespace com {

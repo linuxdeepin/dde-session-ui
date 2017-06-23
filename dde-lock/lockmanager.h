@@ -69,7 +69,7 @@ public slots:
     void rightKeyPressed();
 
     void chooseUserMode();
-    void onUnlockFinished(QDBusPendingCallWatcher *w);
+    void onUnlockFinished(const bool unlocked);
 //    void onUserUnlock(const QString& username);
 
 protected:
@@ -82,6 +82,7 @@ private:
     void initBackend();
     void unlock();
     void loadMPRIS();
+    void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
 
 private:
     Actions m_action = Unlock;
@@ -109,7 +110,7 @@ private:
 
     int m_authFailureCount = 0;
     DBusMediaPlayer2 *m_mprisInter = nullptr;
-    bool m_checkingPWD = false;
+    bool m_authenticating = false;
 };
 
 #endif // LOCKMANAGER_H
