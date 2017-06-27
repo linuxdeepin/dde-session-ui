@@ -16,10 +16,10 @@ contains(DEFINES, ARCH_MIPSEL) {
     SUBDIRS += session-ui-guardien
 }
 
-system($$PWD/translate_desktop.sh)
+!system($$PWD/translate_desktop.sh): error("Failed to generate translation")
 
 # Automating generation .qm files from .ts files
-system($$PWD/translate_generation.sh)
+!system($$PWD/translate_generation.sh): error("Failed to generate translation")
 
 qm_files.path = /usr/share/dde-session-ui/translations/
 qm_files.files = translations/*.qm
