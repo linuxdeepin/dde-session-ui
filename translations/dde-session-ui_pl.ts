@@ -230,17 +230,17 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="31"/>
         <source>Effect Mode</source>
-        <translation type="unfinished"/>
+        <translation>Tryb efektywny</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="34"/>
         <source>Common Mode</source>
-        <translation type="unfinished"/>
+        <translation>Tryb wspólny</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="38"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Grzeczne przypomnienie</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="42"/>

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
     <name>DisplayModeProvider</name>
     <message>
@@ -23,37 +21,29 @@
     </message>
 </context>
 <context>
-    <name>KBLayoutIndicator</name>
-    <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="128"/>
-        <source>Add keyboard layout</source>
-        <translation>添加键盘布局</translation>
-    </message>
-</context>
-<context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="129"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="128"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="238"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="235"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="243"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="240"/>
         <source>Please retry after 10 minutes</source>
         <translation>10分钟后再尝试</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="559"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="528"/>
         <source>Enter your password to restart</source>
         <translation>请输入密码以完成重启</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="562"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="531"/>
         <source>Enter your password to shutdown</source>
         <translation>请输入密码以完成关机</translation>
     </message>

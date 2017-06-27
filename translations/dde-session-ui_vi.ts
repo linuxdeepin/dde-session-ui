@@ -230,27 +230,27 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="31"/>
         <source>Effect Mode</source>
-        <translation type="unfinished"/>
+        <translation>Chế độ Hiệu quả</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="34"/>
         <source>Common Mode</source>
-        <translation type="unfinished"/>
+        <translation>Chế độ Thông thường</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="38"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Nhắc nhở Thân thiện</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="42"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation type="unfinished"/>
+        <translation>Hệ thống đã phát hiện rằng bạn đang sử dụng một máy ảo, mà sẽ ảnh hưởng tới hoạt động hệ thống và trải nghiệm khi vận hành, để có một trải nghiệm êm ái, khuyến khích nên chọn Chế độ Thông thường</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="45"/>
         <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
-        <translation type="unfinished"/>
+        <translation>Chế độ Hiệu quả: Bạn có thể trải nghiệm êm ái và ngất ngây. Chế độ Thông thường: Bạn có thể trải nghiệm cực kỳ nhanh</translation>
     </message>
 </context>
 <context>
@@ -258,12 +258,12 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Hiệu ứng của sổ được cho phép</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Hiệu ứng của sổ bị vô hiệu hóa</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
@@ -276,12 +276,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Nhắc nhở Thân thiện</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
         <source>This application can not run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Ứng dụng này không thể chạy mà không có hiệu ứng cửa sổ</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="14"/>
