@@ -54,6 +54,11 @@ void LoginFrame::keyPressEvent(QKeyEvent *e) {
     Q_UNUSED(e);
 }
 
+void LoginFrame::showEvent(QShowEvent *event)
+{
+    m_loginManager->authenticate();
+}
+
 LoginFrame::~LoginFrame()
 {
 

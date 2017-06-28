@@ -26,10 +26,14 @@ class LoginFrame : public BoxFrame
 public:
     explicit LoginFrame(QWidget* parent = 0);
     ~LoginFrame();
+
 public slots:
     void updateScreenPosition(QRect rect);
+
 protected:
-    void keyPressEvent(QKeyEvent *e);
+    void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+
 private:
     QList<QLabel*> otherScreenBackgroundList;
     LoginManager* m_loginManager;

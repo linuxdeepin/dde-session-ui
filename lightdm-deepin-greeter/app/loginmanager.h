@@ -55,6 +55,7 @@ public slots:
     void updateBackground(QString username);
     void updateUserLoginCondition(QString username);
 
+    void authenticate();
     void startSession();
 
 protected:
@@ -75,6 +76,7 @@ private:
     void message(QString text, QLightDM::Greeter::MessageType type);
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
+
     void login();
 
     void chooseUserMode();

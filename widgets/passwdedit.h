@@ -63,7 +63,6 @@ public slots:
     void setEnterBtnStyle(const QString &normalPic, const QString &hoverPic, const QString &pressedPic);
 
 #ifndef SHENWEI_PLATFORM
-    void updateKeybordLayoutStatus(const QString &username);
     void updateKeybdLayoutUI(QStringList keybdList);
 #endif
     void show();

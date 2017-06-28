@@ -177,7 +177,7 @@ void LoginManager::startSession()
 }
 
 void LoginManager::keyPressEvent(QKeyEvent* e) {
-    qDebug() << "qDebug loginManager:" << e->text();
+    qDebug() << "key pressed: " << e->text();
 
     if (e->key() == Qt::Key_Escape) {
         if (!m_requireShutdownWidget->isHidden()) {
@@ -325,10 +325,11 @@ void LoginManager::initConnect()
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession, Qt::QueuedConnection);
 
-    connect(m_userWidget, &UserWidget::userChanged,
-            [&](const QString username){
-        qDebug()<<"IIIIIIIIIIII Change to "<<username;
-        qDebug()<<"IIIIIIIIIIII Session User "<< m_sessionWidget->lastSelectedUser();
+    connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
+
+        qDebug()<<"selected user: " << username;
+        qDebug()<<"previous selected user: " << m_sessionWidget->lastSelectedUser();
+
         if (username != m_sessionWidget->lastSelectedUser()) {
             // goto greeter
             QProcess *process = new QProcess;
@@ -342,15 +343,14 @@ void LoginManager::initConnect()
 
         m_sessionWidget->switchToUser(username);
         m_passWdEdit->show();
-    #ifndef SHENWEI_PLATFORM
-//        m_passWdEdit->updateKeybordLayoutStatus(username);
-    #endif
         m_passWdEdit->setFocus();
+
         updateBackground(username);
         updateUserLoginCondition(username);
     });
 
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
+    connect(m_greeter, &QLightDM::Greeter::showMessage, this, &LoginManager::message);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
 
     connect(m_passWdEdit, &PassWdEdit::updateKeyboardStatus, this, &LoginManager::keyboardLayoutUI);
@@ -375,9 +375,7 @@ void LoginManager::initDateAndUpdate() {
     *If the current user owns multi-keyboardLayouts,
     *then the button to choose keyboardLayout need show
     */
-#ifndef SHENWEI_PLATFORM
-//    m_passWdEdit->updateKeybordLayoutStatus(m_userWidget->currentUser());
-#endif
+
     //Get the session of current user
     m_sessionWidget->switchToUser(m_userWidget->currentUser());
     //To control the expanding the widgets of all the user list(m_userWidget)
@@ -418,21 +416,29 @@ void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
 
 void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
 {
-    Q_UNUSED(text);
+    qDebug() << "pam prompt: " << text << type;
+
     switch (type)
     {
-    case QLightDM::Greeter::PromptTypeSecret:   m_greeter->respond(m_passWdEdit->getText());     break;
+    case QLightDM::Greeter::PromptTypeSecret:
+    case QLightDM::Greeter::PromptTypeQuestion:
+        m_passWdEdit->setMessage(text);
+        break;
     default:;
+        break;
     }
 }
 
 void LoginManager::authenticationComplete()
 {
-    qDebug() << "authenticationComplete";
+    qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
+
     m_userWidget->hideLoadingAni();
 
     if (!m_greeter->isAuthenticated() && m_passWdEdit->isVisible()) {
+
         m_authFailureCount++;
+
         if (m_authFailureCount < UtilFile::GetAuthLimitation()) {
             m_passWdEdit->setAlert(true, tr("Wrong Password"));
         } else {
@@ -441,6 +447,8 @@ void LoginManager::authenticationComplete()
             m_passWdEdit->setEnabled(false);
             m_passWdEdit->setAlert(true, tr("Please retry after 10 minutes"));
         }
+
+        authenticate();
 
         return;
     }
@@ -471,26 +479,33 @@ void LoginManager::login()
         return;
     }
 
-    const QString &username = m_userWidget->currentUser();
-
     if (!m_passWdEdit->isVisible())
         return;
 
     m_userWidget->showLoadingAni();
 
+    if (m_greeter->isAuthenticated())
+        startSession();
+    else if (m_greeter->inAuthentication())
+        m_greeter->respond(m_passWdEdit->getText());
+    else
+        authenticate();
+}
+
+void LoginManager::authenticate()
+{
+    const QString &username = m_userWidget->currentUser();
+
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
-
-    //m_passWdEdit->setAlert(true, "asd");
 
     //save user last choice
     m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
     m_userWidget->saveLastUser();
 
-    //const QString &username = m_userWidget->currentUser();
     m_greeter->authenticate(username);
-    qDebug() << "choose user: " << username;
-    qDebug() << "auth user: " << m_greeter->authenticationUser();
+
+    qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
 }
 
 void LoginManager::chooseUserMode()
