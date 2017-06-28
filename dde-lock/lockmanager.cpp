@@ -340,6 +340,8 @@ void LockManager::showEvent(QShowEvent *event)
     m_keybdLayoutWidget->updateButtonList(keybdLayoutDescList);
     m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
 
+    loadMPRIS();
+
     QFrame::showEvent(event);
 }
 
@@ -441,6 +443,8 @@ void LockManager::loadMPRIS()
     if (service.isEmpty()) {
         return;
     }
+
+    dbusInter->deleteLater();
 
     qDebug() << "got service: " << service;
 
