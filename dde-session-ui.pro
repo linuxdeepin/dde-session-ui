@@ -9,6 +9,7 @@ SUBDIRS += dde-shutdown \
 #           dde-offline-upgrader \
            dde-suspend-dialog \
            dde-warning-dialog \
+           dde-welcome \
            dde-wm-chooser
 
 include(common.pri)

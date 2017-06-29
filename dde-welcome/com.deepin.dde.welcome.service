@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=com.deepin.dde.welcome
+Exec=/usr/lib/deepin-daemon/dde-welcome
