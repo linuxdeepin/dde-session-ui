@@ -9,10 +9,12 @@ PKGCONFIG += dframeworkdbus dtkwidget dtkbase dframeworkdbus
 
 SOURCES += \
     main.cpp \
-    welcome.cpp
+    welcome.cpp \
+    welcomeservice.cpp
 
 HEADERS  += \
-    welcome.h
+    welcome.h \
+    welcomeservice.h
 
 RESOURCES += \
 

@@ -15,6 +15,9 @@ public:
     explicit Welcome(QWidget *parent = 0);
     ~Welcome();
 
+    void dbus_show();
+    void dbus_exit();
+
 private:
     void keyPressEvent(QKeyEvent *e);
     void paintEvent(QPaintEvent *e);

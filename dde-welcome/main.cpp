@@ -1,6 +1,7 @@
 #include <DApplication>
 
 #include "welcome.h"
+#include "welcomeservice.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -10,7 +11,17 @@ int main(int argc, char *argv[])
     DApplication app(argc, argv);
 
     Welcome w;
-    w.show();
+    WelcomeService serviceAdaptor(&w);
+    Q_UNUSED(serviceAdaptor);
+
+    QDBusConnection connection = QDBusConnection::sessionBus();
+    if (!connection.registerService("com.deepin.dde.Welcome") ||
+        !connection.registerObject("/com/deepin/dde/Welcome", &w))
+    {
+        qDebug() << "dbus service already registered!";
+
+        return -1;
+    }
 
     return app.exec();
 }

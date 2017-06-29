@@ -31,6 +31,16 @@ Welcome::~Welcome()
     qApp->restoreOverrideCursor();
 }
 
+void Welcome::dbus_show()
+{
+    show();
+}
+
+void Welcome::dbus_exit()
+{
+    qApp->quit();
+}
+
 void Welcome::keyPressEvent(QKeyEvent *e)
 {
     switch (e->key())
@@ -58,6 +68,6 @@ void Welcome::onScreenRectChanged()
     const int w = m_displayInter->screenWidth();
     const int h = m_displayInter->screenHeight();
 
-    setFixedWidth(w);
-    setFixedHeight(h);
+    setFixedWidth(w / 2);
+    setFixedHeight(h / 2);
 }
