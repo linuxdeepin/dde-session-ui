@@ -68,6 +68,6 @@ void Welcome::onScreenRectChanged()
     const int w = m_displayInter->screenWidth();
     const int h = m_displayInter->screenHeight();
 
-    setFixedWidth(w / 2);
-    setFixedHeight(h / 2);
+    setFixedWidth(w);
+    setFixedHeight(h);
 }

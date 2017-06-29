@@ -7,22 +7,25 @@
 
 using DisplayInter = com::deepin::daemon::Display;
 
+class WelcomeService;
 class Welcome : public QWidget
 {
     Q_OBJECT
 
+    friend class WelcomeService;
+
 public:
     explicit Welcome(QWidget *parent = 0);
     ~Welcome();
-
-    void dbus_show();
-    void dbus_exit();
 
 private:
     void keyPressEvent(QKeyEvent *e);
     void paintEvent(QPaintEvent *e);
 
 private:
+    void dbus_show();
+    void dbus_exit();
+
     void onScreenRectChanged();
 
 private:
