@@ -287,7 +287,7 @@ void LoginManager::initUI()
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/login.qss", this);
 #endif
-    set_rootwindow_cursor();
+//    set_rootwindow_cursor();
 
     updateBackground(m_userWidget->currentUser());
     updateUserLoginCondition(m_userWidget->currentUser());
