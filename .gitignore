@@ -31,3 +31,5 @@ build*
 
 *.pro.user*
 *.qm
+
+misc/*/deepin-toggle-desktop.desktop

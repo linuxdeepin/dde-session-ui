@@ -437,13 +437,20 @@ void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
 {
     qDebug() << "pam prompt: " << text << type;
 
+    // Don't show password prompt from standard pam modules since
+    // we'll provide our own prompt or just not.
+    const QString msg = text == "Password: " ? "" : text;
+
     switch (type)
     {
     case QLightDM::Greeter::PromptTypeSecret:
-    case QLightDM::Greeter::PromptTypeQuestion:
-        m_passWdEdit->setMessage(text);
+        m_passWdEdit->setMessage(msg);
         break;
-    default:;
+    case QLightDM::Greeter::PromptTypeQuestion:
+        // trim the right : in the message if exists.
+        m_passWdEdit->setMessage(text.replace(":", ""));
+        break;
+    default:
         break;
     }
 }
