@@ -341,6 +341,7 @@ void LoginManager::initConnect()
             process->deleteLater();
         }
 
+        m_greeter->authenticate(username);
         m_sessionWidget->switchToUser(username);
         m_passWdEdit->show();
         m_passWdEdit->setFocus();
@@ -447,8 +448,6 @@ void LoginManager::authenticationComplete()
             m_passWdEdit->setEnabled(false);
             m_passWdEdit->setAlert(true, tr("Please retry after 10 minutes"));
         }
-
-        authenticate();
 
         return;
     }
