@@ -3,10 +3,6 @@
 
 #include <QWidget>
 
-#include <com_deepin_daemon_display.h>
-
-using DisplayInter = com::deepin::daemon::Display;
-
 class WelcomeService;
 class Welcome : public QWidget
 {
@@ -21,15 +17,17 @@ public:
 private:
     void keyPressEvent(QKeyEvent *e);
     void paintEvent(QPaintEvent *e);
+    void showEvent(QShowEvent *e);
 
 private:
     void dbus_show();
     void dbus_exit();
 
+private slots:
+    void clearCursor();
     void onScreenRectChanged();
 
 private:
-    DisplayInter *m_displayInter;
     QTimer *m_sizeAdjustTimer;
 };
 

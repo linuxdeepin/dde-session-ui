@@ -35,12 +35,16 @@ WelcomeService::~WelcomeService()
 
 void WelcomeService::Exit()
 {
+    qDebug() << Q_FUNC_INFO;
+
     // handle method call com.deepin.dde.Welcome.Exit
     parent()->dbus_exit();
 }
 
 void WelcomeService::Show()
 {
+    qDebug() << Q_FUNC_INFO;
+
     // handle method call com.deepin.dde.Welcome.Show
     parent()->dbus_show();
 }

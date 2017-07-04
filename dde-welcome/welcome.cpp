@@ -4,26 +4,26 @@
 #include <QKeyEvent>
 #include <QApplication>
 #include <QDebug>
+#include <QDesktopWidget>
+#include <QTimer>
+
+#include <X11/Xlib.h>
+#include <X11/extensions/Xfixes.h>
 
 Welcome::Welcome(QWidget *parent)
     : QWidget(parent),
 
-      m_displayInter(new DisplayInter("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus(), this)),
-
       m_sizeAdjustTimer(new QTimer(this))
 {
-    m_displayInter->setSync(false);
-
     m_sizeAdjustTimer->setInterval(100);
     m_sizeAdjustTimer->setSingleShot(true);
 
-    setWindowFlags(Qt::X11BypassWindowManagerHint);
-    qApp->setOverrideCursor(Qt::BlankCursor);
+    setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
 
-    connect(m_displayInter, &DisplayInter::ScreenHeightChanged, m_sizeAdjustTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
     connect(m_sizeAdjustTimer, &QTimer::timeout, this, &Welcome::onScreenRectChanged, Qt::QueuedConnection);
 
-    QTimer::singleShot(1, this, &Welcome::onScreenRectChanged);
+    m_sizeAdjustTimer->start();
+    QTimer::singleShot(1, this, &Welcome::clearCursor);
 }
 
 Welcome::~Welcome()
@@ -33,12 +33,40 @@ Welcome::~Welcome()
 
 void Welcome::dbus_show()
 {
+    qDebug() << Q_FUNC_INFO;
+
     show();
 }
 
 void Welcome::dbus_exit()
 {
+    qDebug() << Q_FUNC_INFO;
+
     qApp->quit();
+}
+
+void Welcome::clearCursor()
+{
+    qApp->setOverrideCursor(Qt::BlankCursor);
+
+    const auto disp = XOpenDisplay(nullptr);
+    Q_ASSERT(disp);
+    const auto window = DefaultRootWindow(disp);
+
+    Cursor invisibleCursor;
+    Pixmap bitmapNoData;
+    XColor black;
+    static char noData[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    black.red = black.green = black.blue = 0;
+
+    bitmapNoData = XCreateBitmapFromData(disp, window, noData, 8, 8);
+    invisibleCursor = XCreatePixmapCursor(disp, bitmapNoData, bitmapNoData,
+                                          &black, &black, 0, 0);
+    XDefineCursor(disp, window, invisibleCursor);
+    XFixesChangeCursorByName(disp, invisibleCursor, "watch");
+    XFreeCursor(disp, invisibleCursor);
+    XFreePixmap(disp, bitmapNoData);
+    XFlush(disp);
 }
 
 void Welcome::keyPressEvent(QKeyEvent *e)
@@ -59,15 +87,30 @@ void Welcome::paintEvent(QPaintEvent *e)
     QWidget::paintEvent(e);
 
     QPainter painter(this);
-
     painter.fillRect(rect(), Qt::black);
+
+    // debug
+//    painter.fillRect(QRect(0, 0, 500, 500), Qt::red);
+}
+
+void Welcome::showEvent(QShowEvent *e)
+{
+    qDebug() << Q_FUNC_INFO;
+
+    QWidget::showEvent(e);
+
+    QTimer::singleShot(1, this, [this] () {
+        raise();
+        activateWindow();
+        grabMouse();
+        grabKeyboard();
+        clearCursor();
+
+        qDebug() << Q_FUNC_INFO;
+    });
 }
 
 void Welcome::onScreenRectChanged()
 {
-    const int w = m_displayInter->screenWidth();
-    const int h = m_displayInter->screenHeight();
-
-    setFixedWidth(w);
-    setFixedHeight(h);
+    setFixedSize(qApp->desktop()->size());
 }

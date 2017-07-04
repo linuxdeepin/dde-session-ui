@@ -1,11 +1,11 @@
 
-QT       += core gui dbus x11extras svg widgets
+QT       += core gui dbus svg widgets
 
-LIBS += -lX11 -lXext
+LIBS += -lX11 -lXext -lXfixes
 TARGET = dde-welcome
 TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dframeworkdbus dtkwidget dtkbase dframeworkdbus
+PKGCONFIG += dtkwidget dtkbase
 
 SOURCES += \
     main.cpp \

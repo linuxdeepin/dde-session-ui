@@ -1,14 +1,19 @@
 #include <DApplication>
+#include <DLog>
 
 #include "welcome.h"
 #include "welcomeservice.h"
 
 DWIDGET_USE_NAMESPACE
+DUTIL_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
     DApplication::loadDXcbPlugin();
     DApplication app(argc, argv);
+
+    DLogManager::registerConsoleAppender();
+    DLogManager::registerFileAppender();
 
     Welcome w;
     WelcomeService serviceAdaptor(&w);
