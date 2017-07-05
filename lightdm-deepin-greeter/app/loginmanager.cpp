@@ -444,7 +444,11 @@ void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
     switch (type)
     {
     case QLightDM::Greeter::PromptTypeSecret:
-        m_passWdEdit->setMessage(msg);
+        if (msg.isEmpty() && !m_passWdEdit->getText().isEmpty())
+            m_greeter->respond(m_passWdEdit->getText());
+
+        if (!msg.isEmpty())
+            m_passWdEdit->setMessage(msg);
         break;
     case QLightDM::Greeter::PromptTypeQuestion:
         // trim the right : in the message if exists.
