@@ -28,7 +28,7 @@ class DBusLockService: public QDBusAbstractInterface
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
-    { return "com.deepin.dde.lock"; }
+    { return "com.deepin.dde.LockService"; }
 
     enum EventType {
         PromptQuestion = 1,

@@ -115,7 +115,7 @@ void LockManager::initUI()
     m_timeWidget = new TimeWidget(this);
     m_timeWidget->setFixedSize(400, 300);
 
-    m_userWidget = new UserWidget(UserWidget::loginUser(), this);
+    m_userWidget = new UserWidget;
     m_userWidget->setFixedWidth(width());
     m_userWidget->move(0, (height() - m_userWidget->height()) / 2 - 95);
 
@@ -170,6 +170,7 @@ void LockManager::initUI()
     connect(m_userWidget, &UserWidget::userChanged,
     [&](const QString & username) {
         if (username != UserWidget::loginUser()) {
+            m_userWidget->setCurrentUser(username);
             m_lockInter->SwitchToUser(username);
 
             // goto greeter
@@ -177,8 +178,6 @@ void LockManager::initUI()
             process->start("dde-switchtogreeter " + username);
             process->waitForFinished();
             process->deleteLater();
-
-            m_userWidget->setCurrentUser(UserWidget::loginUser());
         }
         m_passwordEdit->show();
         this->updateBackground(m_userWidget->currentUser());

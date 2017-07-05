@@ -24,29 +24,21 @@
 #include <unistd.h>
 #include <pwd.h>
 
-#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
-#define LOCKSERVICE_NAME "com.deepin.dde.lock"
+#define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
+#define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 
 DWIDGET_USE_NAMESPACE
 
 UserWidget::UserWidget(QWidget* parent)
-    : UserWidget("", parent) {
-
-}
-
-UserWidget::UserWidget(const QString &username, QWidget* parent)
     : QFrame(parent),
-    m_currentUser(),
+    m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this),
     m_userModel(new QLightDM::UsersModel(this))
 {
-    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-    m_currentUser = username.isEmpty() ? m_lockInter.CurrentUser() : username;
+    m_currentUser = m_lockInter.CurrentUser();
+    qDebug() << Q_FUNC_INFO << m_currentUser;
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-//    setStyleSheet("background-color:red;");
-//    setFixedSize(qApp->desktop()->width(), USER_ICON_HEIGHT);
     setFixedWidth(qApp->desktop()->width());
-//    move(0, (qApp->desktop()->height() - rect().height()) / 2 - 95);
 
     initUI();
     initConnections();
@@ -282,7 +274,6 @@ void UserWidget::expandWidget()
 
 void UserWidget::saveLastUser()
 {
-    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
     m_lockInter.SwitchToUser(currentUser());
 }
 
@@ -419,7 +410,7 @@ const QString UserWidget::loginUser()
 
 const QString UserWidget::currentUser()
 {
-    qDebug() << "currentUser:" << m_currentUser;
+    qDebug() << Q_FUNC_INFO << m_currentUser;
 
     if (!m_currentUser.isEmpty() && m_whiteList.contains(m_currentUser)) {
         return m_currentUser;

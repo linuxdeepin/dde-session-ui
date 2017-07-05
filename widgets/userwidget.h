@@ -23,18 +23,16 @@
 #include <QLightDM/UsersModel>
 
 #include "userbutton.h"
+#include "dbus/dbuslockservice.h"
 
 #define ACCOUNT_DBUS_SERVICE "com.deepin.daemon.Accounts"
 #define ACCOUNT_DBUS_PATH "/com/deepin/daemon/Accounts"
-
-
 
 class UserWidget : public QFrame
 {
     Q_OBJECT
 public:
     UserWidget(QWidget* parent = 0);
-    UserWidget(const QString &username, QWidget* parent = 0);
     ~UserWidget();
 
     static const QString loginUser();
@@ -78,8 +76,10 @@ private slots:
 private:
     int m_currentUserIndex = 0;
     int countNum = 0;
+    QSettings m_settings;
     QString m_currentUser = QString();
     QStringList m_whiteList;
+    DBusLockService m_lockInter;
     UserButton* m_currentBtns = nullptr;
     QList<UserButton *> m_userBtns;
     QLightDM::UsersModel *m_userModel;

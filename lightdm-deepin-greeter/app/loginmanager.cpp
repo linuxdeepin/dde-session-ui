@@ -25,8 +25,8 @@
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
 
-#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
-#define LOCKSERVICE_NAME "com.deepin.dde.lock"
+#define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
+#define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 
 static const QSize ZoreSize = QSize(0, 0);
 
@@ -115,6 +115,14 @@ LoginManager::LoginManager(QWidget* parent)
 
     m_keyboardMonitor->start(QThread::LowestPriority);
     QTimer::singleShot(0, this, &LoginManager::restoreNumlockStatus);
+
+    const QString u = m_userWidget->currentUser();
+    qDebug() << Q_FUNC_INFO << "current user: " << u;
+    m_sessionWidget->switchToUser(u);
+    m_passWdEdit->show();
+    m_passWdEdit->setFocus();
+    updateBackground(u);
+    updateUserLoginCondition(u);
 }
 
 LoginManager::~LoginManager()
@@ -306,9 +314,6 @@ void LoginManager::initUI()
     XFreeCursor(disp, invisibleCursor);
     XFreePixmap(disp, bitmapNoData);
     XFlush(disp);
-
-    updateBackground(m_userWidget->currentUser());
-    updateUserLoginCondition(m_userWidget->currentUser());
 }
 
 void LoginManager::recordPid() {
@@ -359,6 +364,7 @@ void LoginManager::initConnect()
             process->deleteLater();
         }
 
+        m_userWidget->saveLastUser();
         m_greeter->authenticate(username);
         m_sessionWidget->switchToUser(username);
         m_passWdEdit->show();

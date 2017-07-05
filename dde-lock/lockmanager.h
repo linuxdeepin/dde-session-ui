@@ -27,8 +27,8 @@
 #include "darrowrectangle.h"
 #include "dbus/dbusmediaplayer2.h"
 
-#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
-#define LOCKSERVICE_NAME "com.deepin.dde.lock"
+#define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
+#define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 
 #define LOCK_KEYBOARDLAYOUT_PATH "/com/deepin/daemon/InputDevice/Keyboard"
 #define LOCK_KEYBOARDLAYOUT_NAME "com.deepin.daemon.InputDevice"
