@@ -115,7 +115,7 @@ void LockManager::initUI()
     m_timeWidget = new TimeWidget(this);
     m_timeWidget->setFixedSize(400, 300);
 
-    m_userWidget = new UserWidget;
+    m_userWidget = new UserWidget(this);
     m_userWidget->setFixedWidth(width());
     m_userWidget->move(0, (height() - m_userWidget->height()) / 2 - 95);
 
