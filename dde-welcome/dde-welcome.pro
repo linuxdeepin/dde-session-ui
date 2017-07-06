@@ -17,6 +17,7 @@ HEADERS  += \
     welcomeservice.h
 
 RESOURCES += \
+    resources.qrc
 
 target.path = /usr/lib/deepin-daemon/
 INSTALLS   += target

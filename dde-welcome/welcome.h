@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include <dpicturesequenceview.h>
+
 class WelcomeService;
 class Welcome : public QWidget
 {
@@ -29,6 +31,8 @@ private slots:
 
 private:
     QTimer *m_sizeAdjustTimer;
+
+    Dtk::Widget::DPictureSequenceView *m_loadingSpinner;
 };
 
 #endif // WELCOME_H

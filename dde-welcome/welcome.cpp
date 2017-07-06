@@ -6,18 +6,36 @@
 #include <QDebug>
 #include <QDesktopWidget>
 #include <QTimer>
+#include <QVBoxLayout>
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
 
+DWIDGET_USE_NAMESPACE
+
 Welcome::Welcome(QWidget *parent)
     : QWidget(parent),
 
-      m_sizeAdjustTimer(new QTimer(this))
+      m_sizeAdjustTimer(new QTimer(this)),
+
+      m_loadingSpinner(new DPictureSequenceView(this))
 {
     m_sizeAdjustTimer->setInterval(100);
     m_sizeAdjustTimer->setSingleShot(true);
 
+    QStringList spinner;
+    for (int i(0); i != 90; ++i)
+        spinner << QString(":/loading_spinner/resources/loading_spinner/loading_spinner_%1.png").arg(QString::number(i), 3, '0');
+    m_loadingSpinner->setPictureSequence(spinner);
+    m_loadingSpinner->play();
+
+    QVBoxLayout *centralLayout = new QVBoxLayout;
+    centralLayout->addWidget(m_loadingSpinner);
+    centralLayout->setAlignment(m_loadingSpinner, Qt::AlignCenter);
+    centralLayout->setSpacing(0);
+    centralLayout->setMargin(0);
+
+    setLayout(centralLayout);
     setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
 
     connect(m_sizeAdjustTimer, &QTimer::timeout, this, &Welcome::onScreenRectChanged, Qt::QueuedConnection);
