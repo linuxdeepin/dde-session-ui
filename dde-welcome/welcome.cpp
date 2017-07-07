@@ -7,6 +7,7 @@
 #include <QDesktopWidget>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <QScreen>
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
@@ -27,21 +28,19 @@ Welcome::Welcome(QWidget *parent)
     for (int i(0); i != 90; ++i)
         spinner << QString(":/loading_spinner/resources/loading_spinner/loading_spinner_%1.png").arg(QString::number(i), 3, '0');
     m_loadingSpinner->setPictureSequence(spinner);
-    m_loadingSpinner->play();
+    m_loadingSpinner->setFixedSize(32, 32);
 
-    QVBoxLayout *centralLayout = new QVBoxLayout;
-    centralLayout->addWidget(m_loadingSpinner);
-    centralLayout->setAlignment(m_loadingSpinner, Qt::AlignCenter);
-    centralLayout->setSpacing(0);
-    centralLayout->setMargin(0);
-
-    setLayout(centralLayout);
     setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
 
     connect(m_sizeAdjustTimer, &QTimer::timeout, this, &Welcome::onScreenRectChanged, Qt::QueuedConnection);
 
     m_sizeAdjustTimer->start();
     QTimer::singleShot(1, this, &Welcome::clearCursor);
+    QTimer::singleShot(1, m_loadingSpinner, &DPictureSequenceView::play);
+
+#ifdef QT_DEBUG
+    show();
+#endif
 }
 
 Welcome::~Welcome()
@@ -131,4 +130,8 @@ void Welcome::showEvent(QShowEvent *e)
 void Welcome::onScreenRectChanged()
 {
     setFixedSize(qApp->desktop()->size());
+
+    const QPoint center = qApp->primaryScreen()->geometry().center();
+    m_loadingSpinner->move(center.x() - m_loadingSpinner->width() / 2,
+                           center.y() - m_loadingSpinner->height() / 2);
 }
