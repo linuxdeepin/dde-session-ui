@@ -24,7 +24,8 @@ static const int SessionButtonHeight = 160;
 
 SessionWidget::SessionWidget(QWidget *parent)
     : QFrame(parent),
-      m_sessionBtns(new QList<RoundItemButton *>),
+
+      m_currentSessionIndex(0),
       m_sessionModel(new QLightDM::SessionsModel(this))
 {
     // add sessions button
@@ -57,7 +58,7 @@ SessionWidget::SessionWidget(QWidget *parent)
 
         connect(sbtn, &RoundItemButton::clicked, [this, session] {switchSession(session);});
 
-        m_sessionBtns->append(sbtn);
+        m_sessionBtns.append(sbtn);
     }
 
     setFixedSize(qApp->desktop()->width(), SessionButtonHeight);
@@ -66,9 +67,8 @@ SessionWidget::SessionWidget(QWidget *parent)
 
 SessionWidget::~SessionWidget()
 {
-    for (RoundItemButton *sbtn : *m_sessionBtns)
+    for (RoundItemButton *sbtn : m_sessionBtns)
         delete sbtn;
-    delete m_sessionBtns;
 }
 
 const QString SessionWidget::currentSessionName() const
@@ -87,10 +87,10 @@ void SessionWidget::show()
         return;
 
     const int itemPadding = 20;
-    const int itemWidth = m_sessionBtns->first()->width();
-    const int itemHeight = m_sessionBtns->first()->height();
+    const int itemWidth = m_sessionBtns.first()->width();
+    const int itemHeight = m_sessionBtns.first()->height();
     const int itemTotal = itemPadding + itemWidth;
-    const int count = m_sessionBtns->count();
+    const int count = m_sessionBtns.count();
     const int maxLineCap = width() / itemTotal - 1; // 1 for left-offset and right-offset.
     const int offset = (width() - itemTotal * qMin(count, maxLineCap)) / 2;
 
@@ -100,7 +100,7 @@ void SessionWidget::show()
     }
 
     for (int i(0); i != count; ++i) {
-        QPropertyAnimation *ani = new QPropertyAnimation(m_sessionBtns->at(i), "pos");
+        QPropertyAnimation *ani = new QPropertyAnimation(m_sessionBtns[i], "pos");
         if (i + 1 <= maxLineCap) {
             // the first line.
             ani->setStartValue(QPoint(width(), 0));
@@ -112,18 +112,18 @@ void SessionWidget::show()
         }
         ani->start(QAbstractAnimation::DeleteWhenStopped);
 
-        m_sessionBtns->at(i)->show();
+        m_sessionBtns.at(i)->show();
     }
 
     // checked default session button
-    m_sessionBtns->at(m_currentSessionIndex)->setChecked(true);
+    m_sessionBtns.at(m_currentSessionIndex)->setChecked(true);
 
     QWidget::show();
 }
 
 QString SessionWidget::lastSelectedUser() const
 {
-    return m_lastSelectedUser;
+    return m_currentUser;
 }
 
 int SessionWidget::sessionCount() const
@@ -133,10 +133,10 @@ int SessionWidget::sessionCount() const
 
 void SessionWidget::switchToUser(const QString &userName)
 {
-    if (m_lastSelectedUser == userName)
+    if (m_currentUser == userName)
         return;
 
-    m_lastSelectedUser = userName;
+    m_currentUser = userName;
     qDebug() << "session switch to user: " << userName;
 
     QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
@@ -158,7 +158,7 @@ void SessionWidget::switchSession(const QString &sessionName)
 {
     qDebug() << "switch to " << sessionName;
     m_currentSessionIndex = getSessionIndex(sessionName);
-    m_sessionBtns->at(m_currentSessionIndex)->setChecked(true);
+    m_sessionBtns.at(m_currentSessionIndex)->setChecked(true);
 
     // TODO: emit after hide animation finished
     emit sessionChanged(sessionName);
@@ -179,27 +179,27 @@ int SessionWidget::getSessionIndex(const QString &sessionName)
 }
 
 void SessionWidget::leftKeySwitch() {
-    m_sessionBtns->at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
+    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
     if (m_currentSessionIndex == 0) {
         m_currentSessionIndex = m_sessionModel->rowCount(QModelIndex()) - 1;
     } else {
         m_currentSessionIndex  -= 1;
     }
-    m_sessionBtns->at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
+    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
 }
 
 void SessionWidget::rightKeySwitch() {
-    m_sessionBtns->at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
+    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
     if (m_currentSessionIndex == m_sessionModel->rowCount(QModelIndex()) - 1) {
         m_currentSessionIndex = 0;
     } else {
         m_currentSessionIndex += 1;
     }
-    m_sessionBtns->at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
+    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
 }
 
 void SessionWidget::chooseSession() {
-    emit m_sessionBtns->at(m_currentSessionIndex)->clicked();
+    emit m_sessionBtns.at(m_currentSessionIndex)->clicked();
 }
 
 QString SessionWidget::processSessionName(const QString &session) {

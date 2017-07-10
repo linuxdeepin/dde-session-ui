@@ -46,17 +46,20 @@ public slots:
     void rightKeySwitch();
     void chooseSession();
     QString processSessionName(const QString &session);
+
 signals:
     void sessionChanged(const QString &sessionName);
 
 private slots:
     void switchSession(const QString &sessionName);
     int getSessionIndex(const QString &sessionName);
+
 private:
     int m_currentSessionIndex;
-    QString m_lastSelectedUser = QString();
-    QList<RoundItemButton *> *m_sessionBtns;
+
     QLightDM::SessionsModel *m_sessionModel;
+    QString m_currentUser;
+    QList<RoundItemButton *> m_sessionBtns;
 };
 
 #endif // SESSIONWIDGET_H
