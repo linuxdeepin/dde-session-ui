@@ -56,7 +56,7 @@ SessionWidget::SessionWidget(QWidget *parent)
             sbtn->setProperty("checkedIcon", ":/img/sessions_icon/unknow_press.png");
         }
 
-        connect(sbtn, &RoundItemButton::clicked, [this, session] {switchSession(session);});
+//        connect(sbtn, &RoundItemButton::clicked, [this, session] {switchSession(session);});
 
         m_sessionBtns.append(sbtn);
     }
@@ -178,34 +178,41 @@ int SessionWidget::getSessionIndex(const QString &sessionName)
     return 0;
 }
 
-void SessionWidget::leftKeySwitch() {
-    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
-    if (m_currentSessionIndex == 0) {
-        m_currentSessionIndex = m_sessionModel->rowCount(QModelIndex()) - 1;
-    } else {
-        m_currentSessionIndex  -= 1;
-    }
-    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
-}
+//void SessionWidget::leftKeySwitch() {
+//    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
+//    if (m_currentSessionIndex == 0) {
+//        m_currentSessionIndex = m_sessionModel->rowCount(QModelIndex()) - 1;
+//    } else {
+//        m_currentSessionIndex  -= 1;
+//    }
+//    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
+//}
 
-void SessionWidget::rightKeySwitch() {
-    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
-    if (m_currentSessionIndex == m_sessionModel->rowCount(QModelIndex()) - 1) {
-        m_currentSessionIndex = 0;
-    } else {
-        m_currentSessionIndex += 1;
-    }
-    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
-}
+//void SessionWidget::rightKeySwitch() {
+//    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
+//    if (m_currentSessionIndex == m_sessionModel->rowCount(QModelIndex()) - 1) {
+//        m_currentSessionIndex = 0;
+//    } else {
+//        m_currentSessionIndex += 1;
+//    }
+//    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
+//}
 
-void SessionWidget::chooseSession() {
-    emit m_sessionBtns.at(m_currentSessionIndex)->clicked();
-}
+//void SessionWidget::chooseSession() {
+//    emit m_sessionBtns.at(m_currentSessionIndex)->clicked();
+//}
 
 QString SessionWidget::processSessionName(const QString &session) {
     QStringList tmpSessionStrings = session.split(" ");
     qDebug() << "tmpSessionStrings" << tmpSessionStrings;
-
+    QStringList Sessions = {
+        "Deepin",
+        "fluxbox",
+        "gnome",
+        "kde",
+        "ubuntu",
+        "xfce"
+    };
 //    bool isBreakFlag = false;
     for(int i(0); i<tmpSessionStrings.length()/*&&!isBreakFlag*/;i++) {
         for(int j(0); j< Sessions.length()/*&&!isBreakFlag*/;j++) {

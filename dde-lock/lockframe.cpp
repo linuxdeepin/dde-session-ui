@@ -92,8 +92,14 @@ void LockFrame::showEvent(QShowEvent *) {
     m_lockManager->disableZone();
 }
 
-void LockFrame::keyPressEvent(QKeyEvent *e) {
-    Q_UNUSED(e);
+void LockFrame::keyPressEvent(QKeyEvent *e)
+{
+    switch (e->key())
+    {
+#ifdef QT_DEBUG
+    case Qt::Key_Escape:    qApp->quit();       break;
+#endif
+    }
 }
 
 LockFrame::~LockFrame() {

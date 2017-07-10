@@ -26,15 +26,6 @@ public:
 
     const QString currentSessionName() const;
     const QString currentSessionKey() const;
-
-    QStringList Sessions = {
-        "Deepin",
-        "fluxbox",
-        "gnome",
-        "kde",
-        "ubuntu",
-        "xfce"
-    };
     void show();
     QString lastSelectedUser() const;
     int sessionCount() const;
@@ -42,9 +33,9 @@ public:
 public slots:
     void switchToUser(const QString &userName);
     void saveUserLastSession(const QString &userName);
-    void leftKeySwitch();
-    void rightKeySwitch();
-    void chooseSession();
+//    void leftKeySwitch();
+//    void rightKeySwitch();
+//    void chooseSession();
     QString processSessionName(const QString &session);
 
 signals:

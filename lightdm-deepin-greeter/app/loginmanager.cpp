@@ -511,7 +511,7 @@ void LoginManager::login()
 
     if (!m_sessionWidget->isHidden()) {
         qDebug() << "SESSIONWIDGET";
-        m_sessionWidget->chooseSession();
+//        m_sessionWidget->chooseSession();
         return;
     }
     if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
@@ -757,7 +757,7 @@ void LoginManager::leftKeyPressed() {
         m_requireShutdownWidget->leftKeySwitch();
     }
     if (!m_sessionWidget->isHidden()) {
-        m_sessionWidget->leftKeySwitch();
+//        m_sessionWidget->leftKeySwitch();
     }
 }
 
@@ -773,7 +773,7 @@ void LoginManager::rightKeyPressed() {
         m_requireShutdownWidget->rightKeySwitch();
     }
     if (!m_sessionWidget->isHidden()) {
-        m_sessionWidget->rightKeySwitch();
+//        m_sessionWidget->rightKeySwitch();
     }
 }
 
