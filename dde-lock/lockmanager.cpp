@@ -167,21 +167,24 @@ void LockManager::initUI()
     connect(m_lockInter, &DBusLockService::Event, this, &LockManager::lockServiceEvent);
 
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
-    connect(m_userWidget, &UserWidget::userChanged,
-    [&](const QString & username) {
-        if (username != UserWidget::loginUser()) {
-            m_userWidget->setCurrentUser(username);
-            m_lockInter->SwitchToUser(username);
+    connect(m_userWidget, &UserWidget::userChanged, this, [=] (const QString & username) {
+        m_userWidget->saveLastUser();
+        m_passwordEdit->show();
 
+        qDebug() << username;
+
+        if (username != UserWidget::loginUser()) {
             // goto greeter
             QProcess *process = new QProcess;
             process->start("dde-switchtogreeter " + username);
             process->waitForFinished();
             process->deleteLater();
+
+            return;
+        } else {
+            this->updateBackground(m_userWidget->currentUser());
+            this->updateUserLoginCondition(m_userWidget->currentUser());
         }
-        m_passwordEdit->show();
-        this->updateBackground(m_userWidget->currentUser());
-        this->updateUserLoginCondition(m_userWidget->currentUser());
     });
 
     updateBackground(m_userWidget->currentUser());

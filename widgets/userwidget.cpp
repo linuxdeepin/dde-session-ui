@@ -103,6 +103,7 @@ void UserWidget::initConnections()
             this, &UserWidget::handleUserAdded);
     connect(m_userModel, &QLightDM::UsersModel::rowsRemoved,
             this, &UserWidget::handleUserRemoved);
+    connect(&m_lockInter, &DBusLockService::UserChanged, this, &UserWidget::setCurrentUser, Qt::QueuedConnection);
 }
 
 void UserWidget::updateAvatar(QString username) {
@@ -179,6 +180,10 @@ void UserWidget::handleUserRemoved(const QModelIndex &, int, int)
 
 void UserWidget::setCurrentUser(const QString &username)
 {
+    qDebug() << username;
+    m_currentUser = username;
+    m_lockInter.SwitchToUser(username);
+
     isChooseUserMode = false;
 
     for (UserButton *user : m_userBtns) {
@@ -194,9 +199,7 @@ void UserWidget::setCurrentUser(const QString &username)
         user->move(rect().center() - user->rect().center(), 200);
     }
 
-    m_currentUser = username;
-
-    emit userChanged(username);
+    emit userChanged(m_currentUser);
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
 
@@ -236,7 +239,6 @@ void UserWidget::expandWidget()
     const int count = m_userBtns.count();
     const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
     const int offset = (width() - USER_ICON_WIDTH * qMin(count, maxLineCap)) / 2;
-    const QString currentUserName = currentUser();
 
     // Adjust size according to user count.
     if (maxLineCap < count) {
@@ -274,7 +276,7 @@ void UserWidget::expandWidget()
 
 void UserWidget::saveLastUser()
 {
-    m_lockInter.SwitchToUser(currentUser());
+    m_lockInter.SwitchToUser(currentUser()).waitForFinished();
 }
 
 void UserWidget::resizeEvent(QResizeEvent *e)
