@@ -96,6 +96,8 @@ void ControlWidget::bindDBusService(DBusMediaPlayer2 *dbusInter)
         }
     });
 
+    m_lastVolumeNums = m_dbusInter->volume();
+
     m_dbusInter->VolumeChanged();
     m_dbusInter->MetadataChanged();
     m_dbusInter->PlaybackStatusChanged();
