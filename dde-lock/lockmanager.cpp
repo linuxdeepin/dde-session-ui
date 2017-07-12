@@ -168,10 +168,9 @@ void LockManager::initUI()
 
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
     connect(m_userWidget, &UserWidget::userChanged, this, [=] (const QString & username) {
-        m_userWidget->saveLastUser();
         m_passwordEdit->show();
 
-        qDebug() << username;
+        qDebug() << "current User:" << username << " Login User:" << UserWidget::loginUser();
 
         if (username != UserWidget::loginUser()) {
             // goto greeter

@@ -31,8 +31,7 @@ UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
 }
 
 void UserButton::initConnect() {
-    connect(this, SIGNAL(clicked()), this, SLOT(sendClicked()));
-    connect(m_userAvatar, SIGNAL(userAvatarClicked()), this, SLOT(sendClicked()));
+    connect(m_userAvatar, &UserAvatar::clicked, this, &UserButton::sendClicked);
 }
 
 void UserButton::initUI() {

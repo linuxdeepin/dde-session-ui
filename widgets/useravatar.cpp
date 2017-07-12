@@ -33,8 +33,6 @@ UserAvatar::UserAvatar(QWidget *parent, bool deleteable) :
     setStyleSheet("background-color: rgba(255, 255, 255, 0);\
                                     color: #b4b4b4;\
                                     border: none;");
-
-    connect(this, SIGNAL(clicked()), SIGNAL(userAvatarClicked()));
 }
 
 void UserAvatar::setIcon(const QString &iconPath, const QSize &size)

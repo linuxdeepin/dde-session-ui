@@ -352,7 +352,6 @@ void LoginManager::initConnect()
 
         qDebug()<<"selected user: " << username;
         qDebug()<<"previous selected user: " << m_sessionWidget->lastSelectedUser();
-        m_userWidget->saveLastUser();
 
         qDebug() << username << m_sessionWidget->lastSelectedUser();
 
@@ -362,9 +361,11 @@ void LoginManager::initConnect()
             QProcess *process = new QProcess;
             process->start("dde-switchtogreeter " + username);
             process->waitForFinished();
-            if (process->exitCode() == 0)
-                qApp->quit();
-            process->deleteLater();
+            if (process->exitCode() == 0) {
+                process->deleteLater();
+                exit(0);
+                return;
+            }
         }
 
         m_sessionWidget->switchToUser(username);
