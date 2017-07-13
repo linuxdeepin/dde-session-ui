@@ -7,10 +7,6 @@ QFrame#UserWidget {
     border: none;
 }
 
-QLabel#Logo {
-    border-image:url(":img/logo_text.png");
-    border-none;
-}
 QLabel#LogoVersion {
     color: rgba(255, 255, 255, 255);
 }
