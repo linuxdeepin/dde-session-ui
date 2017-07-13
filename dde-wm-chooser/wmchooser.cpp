@@ -94,10 +94,8 @@ void WMChooser::saveConfig()
     createParentDir(m_configPath);
     QFile file(m_configPath);
 
-    if (!file.open(QFile::WriteOnly)) {
-        qDebug() << file.errorString();
-        return;
-    }
+    if (!file.open(QFile::WriteOnly))
+        exit(0);
 
     QJsonObject obj;
     obj.insert("allow_switch", "true");
