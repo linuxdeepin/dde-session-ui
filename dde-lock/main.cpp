@@ -32,7 +32,8 @@ int main(int argc, char *argv[])
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
-    app.setSingleInstance(QString("dde-lock_%1").arg(getuid()));
+    if (!app.setSingleInstance(QString("dde-lock_%1").arg(getuid())))
+        return -1;
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());

@@ -180,9 +180,13 @@ void UserWidget::handleUserRemoved(const QModelIndex &, int, int)
 
 void UserWidget::setCurrentUser(const QString &username)
 {
-    qDebug() << username;
+    qDebug() << username << sender();
+
+    const bool isChooseUser = isChooseUserMode;
+
     m_currentUser = username;
-    m_lockInter.SwitchToUser(username);
+    if (isChooseUser)
+        m_lockInter.SwitchToUser(username);
 
     isChooseUserMode = false;
 

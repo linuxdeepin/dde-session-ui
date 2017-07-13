@@ -27,7 +27,9 @@
 static const QSize ZoreSize = QSize(0, 0);
 
 LockManager::LockManager(QWidget *parent)
-    : QFrame(parent)
+    : QFrame(parent),
+
+      m_activatedUser(UserWidget::loginUser())
 {
     initUI();
     initConnect();
@@ -162,7 +164,7 @@ void LockManager::initUI()
 
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH,
                                       QDBusConnection::systemBus(), this);
-    m_lockInter->AuthenticateUser(m_userWidget->currentUser());
+    m_lockInter->AuthenticateUser(m_activatedUser);
 
     connect(m_lockInter, &DBusLockService::Event, this, &LockManager::lockServiceEvent);
 
@@ -170,9 +172,9 @@ void LockManager::initUI()
     connect(m_userWidget, &UserWidget::userChanged, this, [=] (const QString & username) {
         m_passwordEdit->show();
 
-        qDebug() << "current User:" << username << " Login User:" << UserWidget::loginUser();
+        qDebug() << "current User:" << username << "11 m_activatedUser:" << m_activatedUser;
 
-        if (username != UserWidget::loginUser()) {
+        if (username != m_activatedUser) {
             // goto greeter
             QProcess *process = new QProcess;
             process->start("dde-switchtogreeter " + username);
@@ -181,13 +183,13 @@ void LockManager::initUI()
 
             return;
         } else {
-            this->updateBackground(m_userWidget->currentUser());
-            this->updateUserLoginCondition(m_userWidget->currentUser());
+            this->updateBackground(m_activatedUser);
+            this->updateUserLoginCondition(m_activatedUser);
         }
     });
 
-    updateBackground(m_userWidget->currentUser());
-    updateUserLoginCondition(m_userWidget->currentUser());
+    updateBackground(m_activatedUser);
+    updateUserLoginCondition(m_activatedUser);
 }
 
 void LockManager::updateWidgetsPosition()
@@ -221,8 +223,7 @@ void LockManager::onUnlockFinished(const bool unlocked)
     if (!unlocked) {
         qDebug() << "Authorization failed!";
 
-        const QString &username = m_userWidget->currentUser();
-        m_lockInter->AuthenticateUser(username);
+        m_lockInter->AuthenticateUser(m_activatedUser);
 
         m_authFailureCount++;
         m_userWidget->hideLoadingAni();
@@ -306,7 +307,7 @@ void LockManager::showEvent(QShowEvent *event)
     m_keybdArrowWidget->hide();
 
     m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
-    updateBackground(m_userWidget->currentUser());
+    updateBackground(m_activatedUser);
 
     m_keybdInfoMap.clear();
     m_keybdLayoutNameList.clear();
@@ -400,7 +401,7 @@ void LockManager::unlock()
     m_authenticating = true;
 
 //    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
-    const QString &username = m_userWidget->currentUser();
+    const QString &username = m_activatedUser;
     const QString &password = m_passwordEdit->getText();
 
     m_lockInter->UnlockCheck(username, password);
@@ -442,6 +443,9 @@ void LockManager::loadMPRIS()
 
 void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message)
 {
+    if (username != m_activatedUser)
+        return;
+
     qDebug() << eventType << pid << username << message;
 
     // Don't show password prompt from standard pam modules since
@@ -567,7 +571,7 @@ void LockManager::setCurrentKeyboardLayout(QString keyboard_value)
 
 void LockManager::passwordMode()
 {
-    m_userWidget->setCurrentUser(UserWidget::loginUser());
+//    m_userWidget->setCurrentUser(m_activatedUser);
     m_userWidget->show();
     m_requireShutdownWidget->hide();
 
