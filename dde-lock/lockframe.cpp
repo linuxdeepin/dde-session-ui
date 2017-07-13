@@ -37,7 +37,7 @@ LockFrame::LockFrame(QWidget* parent)
 
 void LockFrame::showUserList() {
     show();
-    emit m_lockManager->control()->switchUser();
+    emit m_lockManager->control()->requestSwitchUser();
 //    m_lockManager->chooseUserMode();
 }
 

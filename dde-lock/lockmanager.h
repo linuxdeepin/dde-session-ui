@@ -81,7 +81,6 @@ protected:
 private:
     void initBackend();
     void unlock();
-    void loadMPRIS();
     void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
 
 private:

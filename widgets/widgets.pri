@@ -21,7 +21,8 @@ HEADERS += \
     $$PWD/darrowrectangle.h \
     $$PWD/errortooltip.h \
     $$PWD/keyboardmonitor.h \
-    $$PWD/mediawidget.h
+    $$PWD/mediawidget.h \
+    $$PWD/controlwidget.h
 
 
 
@@ -38,7 +39,8 @@ SOURCES += \
     $$PWD/darrowrectangle.cpp \
     $$PWD/errortooltip.cpp \
     $$PWD/keyboardmonitor.cpp \
-    $$PWD/mediawidget.cpp
+    $$PWD/mediawidget.cpp \
+    $$PWD/controlwidget.cpp
 
 RESOURCES += \
     $$PWD/widgetstheme.qrc \

@@ -20,6 +20,7 @@
 #include <QProcess>
 #include <QDBusConnection>
 
+#include "util_file.h"
 #include "lockmanager.h"
 #include "lockframe.h"
 #include "dbus/dbuslockfront.h"
@@ -35,7 +36,6 @@ LockManager::LockManager(QWidget *parent)
     initConnect();
     initBackend();
     updateUI();
-    loadMPRIS();
 
     leaveEvent(nullptr);
 }
@@ -44,9 +44,9 @@ void LockManager::initConnect()
 {
 
     connect(m_passwordEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LockManager::keybdLayoutWidgetPosit);
-    connect(m_controlWidget, &ControlWidget::shutdownClicked, this, &LockManager::shutdownMode);
-    connect(m_controlWidget, &ControlWidget::switchUser, this, &LockManager::chooseUserMode);
-    connect(m_controlWidget, &ControlWidget::switchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
+    connect(m_controlWidget, &ControlWidget::requestShutdown, this, &LockManager::shutdownMode);
+    connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LockManager::chooseUserMode);
+    connect(m_controlWidget, &ControlWidget::requestSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
 
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, [this](const ShutdownWidget::Actions action) {
         switch (action) {
@@ -137,9 +137,9 @@ void LockManager::initUI()
     m_requireShutdownWidget->setFixedWidth(width());
     m_requireShutdownWidget->setFixedHeight(300);
 
-
     m_controlWidget = new ControlWidget(this);
     m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
+    m_controlWidget->setMPRISEnable(true);
 
     QHBoxLayout *passwdLayout = new QHBoxLayout;
     passwdLayout->setMargin(0);
@@ -331,8 +331,6 @@ void LockManager::showEvent(QShowEvent *event)
     m_keybdLayoutWidget->updateButtonList(keybdLayoutDescList);
     m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
 
-    loadMPRIS();
-
     QFrame::showEvent(event);
 }
 
@@ -405,40 +403,6 @@ void LockManager::unlock()
     const QString &password = m_passwordEdit->getText();
 
     m_lockInter->UnlockCheck(username, password);
-}
-
-void LockManager::loadMPRIS()
-{
-    if (m_mprisInter) {
-        m_mprisInter->deleteLater();
-    }
-
-    QDBusInterface *dbusInter = new QDBusInterface("org.freedesktop.DBus", "/", "org.freedesktop.DBus", QDBusConnection::sessionBus(), this);
-    if (!dbusInter) {
-        return;
-    }
-
-    QDBusReply<QStringList> response = dbusInter->call("ListNames");
-    const QStringList &serviceList = response.value();
-    QString service = QString();
-    for (const QString &serv : serviceList) {
-        if (!serv.startsWith("org.mpris.MediaPlayer2.")) {
-            continue;
-        }
-        service = serv;
-        break;
-    }
-
-    if (service.isEmpty()) {
-        return;
-    }
-
-    dbusInter->deleteLater();
-
-    qDebug() << "got service: " << service;
-
-    m_mprisInter = new DBusMediaPlayer2(service, "/org/mpris/MediaPlayer2", QDBusConnection::sessionBus(), this);
-    m_controlWidget->bindDBusService(m_mprisInter);
 }
 
 void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message)
