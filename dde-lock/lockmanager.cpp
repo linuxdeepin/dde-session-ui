@@ -461,7 +461,8 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
         break;
     case DBusLockService::PromptSecret:
         qDebug() << "prompt secret from pam: " << message;
-        m_passwordEdit->setMessage(msg);
+        if (!msg.isEmpty())
+            m_passwordEdit->setMessage(msg);
         break;
     case DBusLockService::ErrorMsg:
         qWarning() << "error message from pam: " << message;
