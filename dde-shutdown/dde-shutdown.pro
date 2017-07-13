@@ -21,7 +21,6 @@ include(../boxframe/boxframe.pri)
 
 SOURCES += main.cpp \
     view/contentwidget.cpp \
-    view/mainframe.cpp \
     view/multiuserswarningview.cpp \
     app/shutdownmanager.cpp \
     app/shutdownframe.cpp \
@@ -30,7 +29,6 @@ SOURCES += main.cpp \
 HEADERS  += \
     common.h \
     view/contentwidget.h \
-    view/mainframe.h \
     view/multiuserswarningview.h \
     app/shutdownmanager.h \
     app/shutdownframe.h \

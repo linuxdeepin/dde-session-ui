@@ -25,15 +25,15 @@ ShutdownManager::ShutdownManager(QWidget *parent)
 
 void ShutdownManager::initConnect()
 {
-    connect(this, SIGNAL(DirectKeyLeft()) , m_content, SIGNAL(OutKeyLeft()));
-    connect(this, SIGNAL(DirectKeyRight()), m_content, SIGNAL(OutKeyRight()));
-    connect(this, SIGNAL(pressEnter()), m_content, SIGNAL(pressEnterAction()));
+    connect(this, &ShutdownManager::DirectKeyLeft,  m_content, &ShutDownFrame::keyLeft);
+    connect(this, &ShutdownManager::DirectKeyRight, m_content, &ShutDownFrame::keyRight);
+    connect(this, &ShutdownManager::pressEnter,     m_content, &ShutDownFrame::pressEnterAction);
 
-    connect(m_content->m_shutdownFrame, &ShutDownFrame::ShutDownFrameActions, this, &ShutdownManager::powerAction);
+    connect(m_content, &ShutDownFrame::ShutDownFrameActions, this, &ShutdownManager::powerAction);
 #ifdef SHUTDOWN_NO_QUIT
-    connect(m_content->m_shutdownFrame, &ShutDownFrame::requestRecoveryLayout, this, [=]{
+    connect(m_content, &ShutDownFrame::requestRecoveryLayout, this, [=]{
         hideToplevelWindow();
-        m_content->m_shutdownFrame->recoveryLayout();
+        m_content->recoveryLayout();
     });
 #endif
 //    connect(qApp, &QApplication::aboutToQuit, [this]{
@@ -53,9 +53,8 @@ void ShutdownManager::initConnect()
 void ShutdownManager::initUI()
 {
     setObjectName("ShutdownManager");
-    resize(qApp->desktop()->screenGeometry().size());
 
-    m_content = new MainFrame(this);
+    m_content = new ShutDownFrame(this);
 
     m_Layout = new QHBoxLayout;
     m_Layout->setMargin(0);
@@ -185,7 +184,7 @@ void ShutdownManager::disableBtns(const QStringList &btnsName)
 
 void ShutdownManager::setConfrim(const bool confrim)
 {
-    m_content->setConfrim(confrim);
+    m_content->setConfirm(confrim);
 }
 
 void ShutdownManager::keyPressEvent(QKeyEvent *e)
@@ -204,7 +203,7 @@ void ShutdownManager::mouseReleaseEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton) {
         hideToplevelWindow();
-        m_content->m_shutdownFrame->recoveryLayout();
+        m_content->recoveryLayout();
     }
 }
 

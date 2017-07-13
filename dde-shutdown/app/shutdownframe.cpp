@@ -17,11 +17,6 @@ ShutdownFrame::ShutdownFrame(QWidget *parent)
     : BoxFrame(parent),
       m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
 {
-    this->move(0, 0);
-    this->setFixedSize(qApp->desktop()->size());
-
-    qDebug() << "this geometry:" << geometry();
-
     m_shutdownManager = new ShutdownManager(this);
     initShutdownManager();
     initBackground();

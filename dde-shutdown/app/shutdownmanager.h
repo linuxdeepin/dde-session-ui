@@ -13,7 +13,7 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 
-#include "view/mainframe.h"
+#include "view/contentwidget.h"
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
 
@@ -46,7 +46,7 @@ protected:
 private:
     QTimer* m_getFocusTimer = nullptr;
     QHBoxLayout* m_Layout = nullptr;
-    MainFrame* m_content = nullptr;
+    ShutDownFrame* m_content = nullptr;
 
     DBusSessionManagerInterface* m_sessionInterface = nullptr;
     DBusHotzone* m_hotZoneInterface = nullptr;

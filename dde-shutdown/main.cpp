@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
         //    w.hideBtns(parser.values(hide));
         //    w.disableBtns(parser.values(disable));
         if (!parser.isSet(daemon)) {
-            w.show();
+            w.showFullScreen();
         }
 
         ShutdownFrontDBus adaptor(&w); Q_UNUSED(adaptor);
