@@ -22,47 +22,33 @@
 static const int SessionButtonWidth = 160;
 static const int SessionButtonHeight = 160;
 
+const QString session_standard_icon_name(const QString &realName)
+{
+    const QStringList standard_icon_list = {
+        "deepin",
+        "fluxbox",
+        "gnome",
+        "kde",
+        "ubuntu",
+        "xfce"
+    };
+
+    for (const auto &name : standard_icon_list)
+        if (realName.contains(name, Qt::CaseInsensitive))
+            return name;
+
+    return QStringLiteral("unknow");
+}
+
 SessionWidget::SessionWidget(QWidget *parent)
     : QFrame(parent),
 
       m_currentSessionIndex(0),
       m_sessionModel(new QLightDM::SessionsModel(this))
 {
-    // add sessions button
-    const int count = m_sessionModel->rowCount(QModelIndex());
-    for (int i(0); i != count; ++i)
-    {
-        const QString &session = m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString();
-        QString tmpSession = processSessionName(session).toLower();
+    setStyleSheet("background-color:red;");
 
-        qDebug() << "found session: " << tmpSession;
-        RoundItemButton *sbtn = new RoundItemButton(session, this);
-        sbtn->setFixedSize(SessionButtonWidth, SessionButtonHeight);
-        sbtn->hide();
-        sbtn->setAutoExclusive(true);
-
-        const QString normalIcon = QString(":/img/sessions_icon/%1_normal.png").arg(tmpSession);
-        const QString hoverIcon = QString(":/img/sessions_icon/%1_hover.png").arg(tmpSession);
-        const QString checkedIcon = QString(":/img/sessions_icon/%1_press.png").arg(tmpSession);
-
-        if (QFile(normalIcon).exists() && QFile(hoverIcon).exists() && QFile(checkedIcon).exists()) {
-            sbtn->setProperty("normalIcon", normalIcon);
-            sbtn->setProperty("hoverIcon", hoverIcon);
-            sbtn->setProperty("checkedIcon", checkedIcon);
-        } else {
-            qDebug() << "sessions not exist" << session << tmpSession;
-            sbtn->setProperty("normalIcon", ":/img/sessions_icon/unknow_normal.png");
-            sbtn->setProperty("hoverIcon", ":/img/sessions_icon/unknow_hover.png");
-            sbtn->setProperty("checkedIcon", ":/img/sessions_icon/unknow_press.png");
-        }
-
-//        connect(sbtn, &RoundItemButton::clicked, [this, session] {switchSession(session);});
-
-        m_sessionBtns.append(sbtn);
-    }
-
-    setFixedSize(qApp->desktop()->width(), SessionButtonHeight);
-//    setStyleSheet("background-color:red;");
+    loadSessionList();
 }
 
 SessionWidget::~SessionWidget()
@@ -121,7 +107,7 @@ void SessionWidget::show()
     QWidget::show();
 }
 
-QString SessionWidget::lastSelectedUser() const
+const QString SessionWidget::currentSessionOwner() const
 {
     return m_currentUser;
 }
@@ -146,13 +132,13 @@ void SessionWidget::switchToUser(const QString &userName)
     qDebug() << userName << "default session is: " << sessionName << m_currentSessionIndex;
 }
 
-void SessionWidget::saveUserLastSession(const QString &userName)
-{
-    qDebug() << "save user session: " << userName << currentSessionName();
+//void SessionWidget::saveUserLastSession(const QString &userName)
+//{
+//    qDebug() << "save user session: " << userName << currentSessionName();
 
-    QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
-    settings.setValue(userName + "/last-session", currentSessionName());
-}
+//    QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
+//    settings.setValue(userName + "/last-session", currentSessionName());
+//}
 
 void SessionWidget::switchSession(const QString &sessionName)
 {
@@ -202,7 +188,7 @@ int SessionWidget::getSessionIndex(const QString &sessionName)
 //    emit m_sessionBtns.at(m_currentSessionIndex)->clicked();
 //}
 
-QString SessionWidget::processSessionName(const QString &session) {
+const QString SessionWidget::processSessionName(const QString &session) {
     QStringList tmpSessionStrings = session.split(" ");
     qDebug() << "tmpSessionStrings" << tmpSessionStrings;
     QStringList Sessions = {
@@ -225,4 +211,29 @@ QString SessionWidget::processSessionName(const QString &session) {
     }
 
     return session;
+}
+
+void SessionWidget::loadSessionList()
+{
+    // add sessions button
+    const int count = m_sessionModel->rowCount(QModelIndex());
+    for (int i(0); i != count; ++i)
+    {
+        const QString &session_name = m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString();
+        const QString &session_icon = session_standard_icon_name(session_name);
+        const QString normalIcon = QString(":/img/sessions_icon/%1_normal.png").arg(session_icon);
+        const QString hoverIcon = QString(":/img/sessions_icon/%1_hover.png").arg(session_icon);
+        const QString checkedIcon = QString(":/img/sessions_icon/%1_press.png").arg(session_icon);
+
+        qDebug() << "found session: " << session_name << session_icon;
+        RoundItemButton *sbtn = new RoundItemButton(session_name, this);
+        sbtn->setFixedSize(SessionButtonWidth, SessionButtonHeight);
+        sbtn->setAutoExclusive(true);
+        sbtn->setProperty("normalIcon", normalIcon);
+        sbtn->setProperty("hoverIcon", hoverIcon);
+        sbtn->setProperty("checkedIcon", checkedIcon);
+        sbtn->hide();
+
+        m_sessionBtns.append(sbtn);
+    }
 }

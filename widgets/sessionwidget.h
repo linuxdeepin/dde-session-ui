@@ -24,19 +24,24 @@ public:
     explicit SessionWidget(QWidget *parent = 0);
     ~SessionWidget();
 
+    void show();
+    int sessionCount() const;
     const QString currentSessionName() const;
     const QString currentSessionKey() const;
-    void show();
-    QString lastSelectedUser() const;
-    int sessionCount() const;
+    const QString currentSessionOwner() const;
 
 public slots:
     void switchToUser(const QString &userName);
-    void saveUserLastSession(const QString &userName);
-//    void leftKeySwitch();
-//    void rightKeySwitch();
-//    void chooseSession();
-    QString processSessionName(const QString &session);
+
+    const QString processSessionName(const QString &session);
+
+    //    void saveUserLastSession(const QString &userName);
+    //    void leftKeySwitch();
+    //    void rightKeySwitch();
+    //    void chooseSession();
+
+private slots:
+    void loadSessionList();
 
 signals:
     void sessionChanged(const QString &sessionName);
@@ -47,9 +52,9 @@ private slots:
 
 private:
     int m_currentSessionIndex;
+    QString m_currentUser;
 
     QLightDM::SessionsModel *m_sessionModel;
-    QString m_currentUser;
     QList<RoundItemButton *> m_sessionBtns;
 };
 
