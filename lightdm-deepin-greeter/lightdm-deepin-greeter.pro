@@ -21,13 +21,11 @@ include(../boxframe/boxframe.pri)
 
 HEADERS  += \
     view/logowidget.h \
-    view/switchframe.h \
     app/loginmanager.h \
     app/loginframe.h
 
 SOURCES += main.cpp \
     view/logowidget.cpp \
-    view/switchframe.cpp \
     app/loginmanager.cpp \
     app/loginframe.cpp \
 

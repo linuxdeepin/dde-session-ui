@@ -23,14 +23,13 @@
 #include "userwidget.h"
 #include "passwdedit.h"
 #include "view/logowidget.h"
-#include "view/switchframe.h"
 #include "sessionwidget.h"
 #include "kblayoutwidget.h"
 #include "shutdownwidget.h"
 #include "xkbparser.h"
 #include "dbus/dbuskeyboard.h"
 #include "keyboardmonitor.h"
-
+#include "controlwidget.h"
 #include "dbus/dbusdisplaymanager.h"
 #include "dbus/dbusvariant.h"
 #include "dbus/dbuslogin1manager.h"
@@ -95,7 +94,6 @@ private:
     void restoreNumlockStatus();
 
     LogoWidget* m_logoWidget;
-    SwitchFrame* m_switchFrame;
     UserWidget* m_userWidget;
     PassWdEdit* m_passWdEdit;
     QPushButton * m_loginButton;
@@ -116,6 +114,8 @@ private:
     QSize m_passwdEditSize;
     QStringList m_kbdList;
     QStringList m_kbdParseList;
+
+    ControlWidget *m_controlWidget;
 
     int m_authFailureCount;
 };
