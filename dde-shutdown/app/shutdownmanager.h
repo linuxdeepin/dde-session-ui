@@ -16,7 +16,6 @@
 #include "view/mainframe.h"
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
-#include "util_signalmanager.h"
 
 class ShutdownManager : public QFrame
 {

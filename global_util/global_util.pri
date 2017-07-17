@@ -4,7 +4,6 @@ QT  += xml
 
 HEADERS += \
     $$PWD/util_updateui.h \
-    $$PWD/util_signalmanager.h \
     $$PWD/constants.h \
     $$PWD/xkbparser.h \
     $$PWD/dbus/dbusdisplaymanager.h \
@@ -25,7 +24,6 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/util_updateui.cpp \
-    $$PWD/util_signalmanager.cpp \
     $$PWD/xkbparser.cpp \
     $$PWD/dbus/dbusdisplaymanager.cpp \
     $$PWD/dbus/dbuslogin1manager.cpp \

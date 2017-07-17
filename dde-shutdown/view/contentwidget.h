@@ -15,7 +15,6 @@
 #include <QtWidgets/QPushButton>
 
 #include "rounditembutton.h"
-#include "util_signalmanager.h"
 #include "util_updateui.h"
 #include "dbus/dbusvariant.h"
 #include "dbus/dbuslogin1manager.h"

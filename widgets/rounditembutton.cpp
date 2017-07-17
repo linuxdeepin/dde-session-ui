@@ -10,7 +10,6 @@
 #include <QtCore/QObject>
 
 #include "rounditembutton.h"
-#include "util_signalmanager.h"
 
 RoundItemButton::RoundItemButton(const QString &text, QWidget* parent)
     : QAbstractButton(parent),
@@ -61,11 +60,11 @@ void RoundItemButton::initConnect()
     connect(this, &RoundItemButton::stateChanged, this, static_cast<void (RoundItemButton::*)()>(&RoundItemButton::update));
     connect(this, &RoundItemButton::iconChanged, this, &RoundItemButton::updateIcon);
     connect(this, &RoundItemButton::toggled, this, &RoundItemButton::setChecked);
-    connect(signalManager, &SignalManager::setButtonHover, [this] (const QString &text) {
-        if (m_itemText->text() != text && !isChecked() && !isDisabled()) {
-            updateState(Normal);
-        }
-    });
+//    connect(signalManager, &SignalManager::setButtonHover, [this] (const QString &text) {
+//        if (m_itemText->text() != text && !isChecked() && !isDisabled()) {
+//            updateState(Normal);
+//        }
+//    });
 }
 
 void RoundItemButton::initUI() {
@@ -108,7 +107,7 @@ void RoundItemButton::enterEvent(QEvent* event)
     if (m_state == Normal)
         updateState(Hover);
 
-    emit signalManager->setButtonHover(m_itemText->text());
+//    emit signalManager->setButtonHover(m_itemText->text());
 }
 
 void RoundItemButton::leaveEvent(QEvent* event)
