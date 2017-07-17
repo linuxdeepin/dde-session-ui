@@ -8,7 +8,6 @@ HEADERS += \
     $$PWD/constants.h \
     $$PWD/util_settings.h \
     $$PWD/xkbparser.h \
-    $$PWD/util_file.h \
     $$PWD/dbus/dbusdisplaymanager.h \
     $$PWD/dbus/dbuslogin1manager.h \
     $$PWD/dbus/dbusvariant.h \
@@ -16,7 +15,6 @@ HEADERS += \
     $$PWD/dbus/displayinterface.h \
     $$PWD/dbus/dbushotzone.h \
     $$PWD/dbus/dbuslockservice.h \
-    $$PWD/util_file.h \
     $$PWD/accountsutils.h \
     $$PWD/dbus/dbusaccounts.h \
     $$PWD/dbus/dbususer.h \
@@ -31,7 +29,6 @@ SOURCES += \
     $$PWD/util_signalmanager.cpp \
     $$PWD/util_settings.cpp \
     $$PWD/xkbparser.cpp \
-    $$PWD/util_file.cpp \
     $$PWD/dbus/dbusdisplaymanager.cpp \
     $$PWD/dbus/dbuslogin1manager.cpp \
     $$PWD/dbus/dbusvariant.cpp \

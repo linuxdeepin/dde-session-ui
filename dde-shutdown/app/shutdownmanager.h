@@ -17,7 +17,6 @@
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
 #include "util_signalmanager.h"
-#include "util_file.h"
 
 class ShutdownManager : public QFrame
 {
@@ -52,7 +51,6 @@ private:
 
     DBusSessionManagerInterface* m_sessionInterface = nullptr;
     DBusHotzone* m_hotZoneInterface = nullptr;
-    UtilFile* m_utilFile = nullptr;
 
 //    int m_timerCount = 0;
     void initUI();

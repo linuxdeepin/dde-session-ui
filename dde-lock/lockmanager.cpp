@@ -20,7 +20,6 @@
 #include <QProcess>
 #include <QDBusConnection>
 
-#include "util_file.h"
 #include "lockmanager.h"
 #include "lockframe.h"
 #include "dbus/dbuslockfront.h"
@@ -227,7 +226,7 @@ void LockManager::onUnlockFinished(const bool unlocked)
 
         m_authFailureCount++;
         m_userWidget->hideLoadingAni();
-        if (m_authFailureCount < UtilFile::GetAuthLimitation()) {
+        if (m_authFailureCount < INT_MAX) {
             m_passwordEdit->setAlert(true, tr("Wrong Password"));
         } else {
             m_authFailureCount = 0;

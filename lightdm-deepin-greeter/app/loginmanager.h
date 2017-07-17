@@ -37,7 +37,6 @@
 #include "dbus/dbuslockservice.h"
 
 #include "darrowrectangle.h"
-#include "util_file.h"
 
 class LoginManager: public QFrame {
     Q_OBJECT
@@ -111,7 +110,6 @@ private:
 
     QLightDM::Greeter *m_greeter;
     DBusLogin1Manager* m_login1ManagerInterface;
-    UtilFile* m_utilFile;
 
     KeyboardMonitor *m_keyboardMonitor;
 
