@@ -22,7 +22,6 @@
 #include <dimagebutton.h>
 
 #include "util_updateui.h"
-#include "util_settings.h"
 
 #include "errortooltip.h"
 
@@ -42,7 +41,6 @@ public:
     QMap<QString, QString> keybdLayoutShortDescriptionMap;
 
     QStringList keyboardLayoutList;
-    UtilSettings *utilSettings = NULL;
     QTimer *getFocusTimer;
 
 signals:

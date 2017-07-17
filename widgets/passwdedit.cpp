@@ -170,7 +170,6 @@ void PassWdEdit::initConnect()
 
 void PassWdEdit::initData()
 {
-    utilSettings = new UtilSettings(this);
 }
 
 void PassWdEdit::focusInEvent(QFocusEvent *)

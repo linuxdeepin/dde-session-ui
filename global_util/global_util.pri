@@ -6,7 +6,6 @@ HEADERS += \
     $$PWD/util_updateui.h \
     $$PWD/util_signalmanager.h \
     $$PWD/constants.h \
-    $$PWD/util_settings.h \
     $$PWD/xkbparser.h \
     $$PWD/dbus/dbusdisplaymanager.h \
     $$PWD/dbus/dbuslogin1manager.h \
@@ -27,7 +26,6 @@ HEADERS += \
 SOURCES += \
     $$PWD/util_updateui.cpp \
     $$PWD/util_signalmanager.cpp \
-    $$PWD/util_settings.cpp \
     $$PWD/xkbparser.cpp \
     $$PWD/dbus/dbusdisplaymanager.cpp \
     $$PWD/dbus/dbuslogin1manager.cpp \
