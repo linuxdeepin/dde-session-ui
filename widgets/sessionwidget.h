@@ -12,6 +12,7 @@
 
 #include <QFrame>
 #include <QList>
+#include <QSettings>
 
 #include <QLightDM/SessionsModel>
 
@@ -26,16 +27,17 @@ public:
 
     void show();
     int sessionCount() const;
+    const QString lastSessionName() const;
     const QString currentSessionName() const;
     const QString currentSessionKey() const;
-    const QString currentSessionOwner() const;
+    const QString currentSessionOwner() const { return m_currentUser; }
+
+signals:
+    void sessionChanged(const QString &sessionName);
 
 public slots:
+    void saveSettings();
     void switchToUser(const QString &userName);
-
-    const QString processSessionName(const QString &session);
-
-    //    void saveUserLastSession(const QString &userName);
     //    void leftKeySwitch();
     //    void rightKeySwitch();
     //    void chooseSession();
@@ -43,16 +45,16 @@ public slots:
 private slots:
     void loadSessionList();
 
-signals:
-    void sessionChanged(const QString &sessionName);
-
 private slots:
     void switchSession(const QString &sessionName);
-    int getSessionIndex(const QString &sessionName);
+
+private:
+    int sessionIndex(const QString &sessionName);
 
 private:
     int m_currentSessionIndex;
     QString m_currentUser;
+    QSettings m_userSettings;
 
     QLightDM::SessionsModel *m_sessionModel;
     QList<RoundItemButton *> m_sessionBtns;

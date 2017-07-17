@@ -44,17 +44,19 @@ SessionWidget::SessionWidget(QWidget *parent)
     : QFrame(parent),
 
       m_currentSessionIndex(0),
+      m_userSettings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat),
       m_sessionModel(new QLightDM::SessionsModel(this))
 {
-    setStyleSheet("background-color:red;");
+    setStyleSheet("QFrame {"
+                  "background-color: red;"
+                  "}");
 
     loadSessionList();
 }
 
 SessionWidget::~SessionWidget()
 {
-    for (RoundItemButton *sbtn : m_sessionBtns)
-        delete sbtn;
+    qDeleteAll(m_sessionBtns);
 }
 
 const QString SessionWidget::currentSessionName() const
@@ -107,14 +109,21 @@ void SessionWidget::show()
     QWidget::show();
 }
 
-const QString SessionWidget::currentSessionOwner() const
-{
-    return m_currentUser;
-}
-
 int SessionWidget::sessionCount() const
 {
     return m_sessionModel->rowCount(QModelIndex());
+}
+
+const QString SessionWidget::lastSessionName() const
+{
+    return m_userSettings.value(QString("%1/last-session").arg(m_currentUser)).toString();
+}
+
+void SessionWidget::saveSettings()
+{
+    qDebug() << "save user session: " << m_currentUser << currentSessionName();
+
+    m_userSettings.setValue(QString("%1/last-session").arg(m_currentUser), currentSessionName());
 }
 
 void SessionWidget::switchToUser(const QString &userName)
@@ -123,45 +132,29 @@ void SessionWidget::switchToUser(const QString &userName)
         return;
 
     m_currentUser = userName;
-    qDebug() << "session switch to user: " << userName;
-
-    QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
-    const QString &sessionName = settings.value(userName + "/last-session").toString();
-    switchSession(sessionName);
+    const QString sessionName = lastSessionName();
 
     qDebug() << userName << "default session is: " << sessionName << m_currentSessionIndex;
 }
 
-//void SessionWidget::saveUserLastSession(const QString &userName)
-//{
-//    qDebug() << "save user session: " << userName << currentSessionName();
-
-//    QSettings settings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat);
-//    settings.setValue(userName + "/last-session", currentSessionName());
-//}
-
 void SessionWidget::switchSession(const QString &sessionName)
 {
     qDebug() << "switch to " << sessionName;
-    m_currentSessionIndex = getSessionIndex(sessionName);
+    m_currentSessionIndex = sessionIndex(sessionName);
     m_sessionBtns.at(m_currentSessionIndex)->setChecked(true);
 
     // TODO: emit after hide animation finished
     emit sessionChanged(sessionName);
 }
 
-int SessionWidget::getSessionIndex(const QString &sessionName)
+int SessionWidget::sessionIndex(const QString &sessionName)
 {
     const int count = m_sessionModel->rowCount(QModelIndex());
     for (int i(0); i != count; ++i)
         if (m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole) == sessionName)
             return i;
 
-    // if not match any item, choose first
-    const QString name = m_sessionModel->data(m_sessionModel->index(0), Qt::DisplayRole).toString();
-    switchSession(name);
-
-    return 0;
+    Q_UNREACHABLE();
 }
 
 //void SessionWidget::leftKeySwitch() {
@@ -187,31 +180,6 @@ int SessionWidget::getSessionIndex(const QString &sessionName)
 //void SessionWidget::chooseSession() {
 //    emit m_sessionBtns.at(m_currentSessionIndex)->clicked();
 //}
-
-const QString SessionWidget::processSessionName(const QString &session) {
-    QStringList tmpSessionStrings = session.split(" ");
-    qDebug() << "tmpSessionStrings" << tmpSessionStrings;
-    QStringList Sessions = {
-        "Deepin",
-        "fluxbox",
-        "gnome",
-        "kde",
-        "ubuntu",
-        "xfce"
-    };
-//    bool isBreakFlag = false;
-    for(int i(0); i<tmpSessionStrings.length()/*&&!isBreakFlag*/;i++) {
-        for(int j(0); j< Sessions.length()/*&&!isBreakFlag*/;j++) {
-            qDebug() << "xkkxkx" << tmpSessionStrings[i] << Sessions[j];
-            if (QString::compare(tmpSessionStrings[i], Sessions[j], Qt::CaseInsensitive) == 0) {
-                return Sessions[j];
-//                isBreakFlag = true;
-            }
-        }
-    }
-
-    return session;
-}
 
 void SessionWidget::loadSessionList()
 {
