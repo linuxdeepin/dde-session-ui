@@ -133,18 +133,23 @@ void SessionWidget::switchToUser(const QString &userName)
 
     m_currentUser = userName;
     const QString sessionName = lastSessionName();
+    m_currentSessionIndex = sessionIndex(sessionName);
 
     qDebug() << userName << "default session is: " << sessionName << m_currentSessionIndex;
+
+    emit sessionChanged(currentSessionName());
 }
 
-void SessionWidget::switchSession(const QString &sessionName)
+void SessionWidget::onSessionButtonClicked()
 {
-    qDebug() << "switch to " << sessionName;
-    m_currentSessionIndex = sessionIndex(sessionName);
-    m_sessionBtns.at(m_currentSessionIndex)->setChecked(true);
+    RoundItemButton *btn = qobject_cast<RoundItemButton *>(sender());
+    Q_ASSERT(btn);
+    Q_ASSERT(m_sessionBtns.contains(btn));
 
-    // TODO: emit after hide animation finished
-    emit sessionChanged(sessionName);
+    btn->setChecked(true);
+    m_currentSessionIndex = m_sessionBtns.indexOf(btn);
+
+    emit sessionChanged(currentSessionName());
 }
 
 int SessionWidget::sessionIndex(const QString &sessionName)
@@ -201,6 +206,8 @@ void SessionWidget::loadSessionList()
         sbtn->setProperty("hoverIcon", hoverIcon);
         sbtn->setProperty("checkedIcon", checkedIcon);
         sbtn->hide();
+
+        connect(sbtn, &RoundItemButton::clicked, this, &SessionWidget::onSessionButtonClicked);
 
         m_sessionBtns.append(sbtn);
     }

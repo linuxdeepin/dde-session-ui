@@ -46,7 +46,7 @@ private slots:
     void loadSessionList();
 
 private slots:
-    void switchSession(const QString &sessionName);
+    void onSessionButtonClicked();
 
 private:
     int sessionIndex(const QString &sessionName);
