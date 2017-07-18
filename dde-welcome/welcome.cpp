@@ -8,35 +8,74 @@
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QScreen>
+#include <QSettings>
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
+#include <X11/Xlib-xcb.h>
+#include <X11/cursorfont.h>
+#include <X11/Xcursor/Xcursor.h>
 
-DWIDGET_USE_NAMESPACE
+//Load the System cursor --begin
+static XcursorImages*
+xcLoadImages(const char *image, int size)
+{
+    QSettings settings("/usr/share/icons/default/index.theme", QSettings::IniFormat);
+    //The default cursor theme path
+    QString item = "Icon Theme";
+    const char* defaultTheme = "";
+    QVariant tmpCursorTheme = settings.value(item + "/Inherits");
+    if (tmpCursorTheme.isNull()) {
+        qDebug() << "Set a default one instead, if get the cursor theme failed!";
+        defaultTheme = "Deepin";
+    } else {
+        defaultTheme = tmpCursorTheme.toString().toLocal8Bit().data();
+    }
+
+    qDebug() << "Get defaultTheme:" << tmpCursorTheme.isNull()
+             << defaultTheme;
+    return XcursorLibraryLoadImages(image, defaultTheme, size);
+}
+
+static unsigned long loadCursorHandle(Display *dpy, const char *name, int size)
+{
+    if (size == -1) {
+        size = XcursorGetDefaultSize(dpy);
+    }
+
+    // Load the cursor images
+    XcursorImages *images = NULL;
+    images = xcLoadImages(name, size);
+
+    if (!images) {
+        images = xcLoadImages(name, size);
+        if (!images) {
+            return 0;
+        }
+    }
+
+    unsigned long handle = (unsigned long)XcursorImagesLoadCursor(dpy,
+                          images);
+    XcursorImagesDestroy(images);
+
+    return handle;
+}
 
 Welcome::Welcome(QWidget *parent)
     : QWidget(parent),
 
-      m_sizeAdjustTimer(new QTimer(this)),
-
-      m_loadingSpinner(new DPictureSequenceView(this))
+      m_sizeAdjustTimer(new QTimer(this))
 {
     m_sizeAdjustTimer->setInterval(100);
     m_sizeAdjustTimer->setSingleShot(true);
 
-    QStringList spinner;
-    for (int i(0); i != 90; ++i)
-        spinner << QString(":/loading_spinner/resources/loading_spinner/loading_spinner_%1.png").arg(QString::number(i), 3, '0');
-    m_loadingSpinner->setPictureSequence(spinner);
-    m_loadingSpinner->setFixedSize(32, 32);
-
+    setMouseTracking(true);
     setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
 
     connect(m_sizeAdjustTimer, &QTimer::timeout, this, &Welcome::onScreenRectChanged, Qt::QueuedConnection);
 
     m_sizeAdjustTimer->start();
-    QTimer::singleShot(1, this, &Welcome::clearCursor);
-    QTimer::singleShot(1, m_loadingSpinner, &DPictureSequenceView::play);
+    QTimer::singleShot(1, this, &Welcome::overrideCursor);
 
 #ifdef QT_DEBUG
     show();
@@ -45,7 +84,6 @@ Welcome::Welcome(QWidget *parent)
 
 Welcome::~Welcome()
 {
-    qApp->restoreOverrideCursor();
 }
 
 void Welcome::dbus_show()
@@ -62,27 +100,37 @@ void Welcome::dbus_exit()
     qApp->quit();
 }
 
-void Welcome::clearCursor()
+void Welcome::overrideCursor()
 {
-    qApp->setOverrideCursor(Qt::BlankCursor);
+//    const auto disp = XOpenDisplay(nullptr);
+//    Q_ASSERT(disp);
+//    const auto window = DefaultRootWindow(disp);
 
-    const auto disp = XOpenDisplay(nullptr);
-    Q_ASSERT(disp);
-    const auto window = DefaultRootWindow(disp);
+//    Cursor invisibleCursor;
+//    Pixmap bitmapNoData;
+//    XColor black;
+//    static char noData[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+//    black.red = black.green = black.blue = 0;
 
-    Cursor invisibleCursor;
-    Pixmap bitmapNoData;
-    XColor black;
-    static char noData[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-    black.red = black.green = black.blue = 0;
+//    bitmapNoData = XCreateBitmapFromData(disp, window, noData, 8, 8);
+//    invisibleCursor = XCreatePixmapCursor(disp, bitmapNoData, bitmapNoData,
+//                                          &black, &black, 0, 0);
+//    XDefineCursor(disp, window, invisibleCursor);
+//    XFixesChangeCursorByName(disp, invisibleCursor, "watch");
+//    XFreeCursor(disp, invisibleCursor);
+//    XFreePixmap(disp, bitmapNoData);
+//    XFlush(disp);
 
-    bitmapNoData = XCreateBitmapFromData(disp, window, noData, 8, 8);
-    invisibleCursor = XCreatePixmapCursor(disp, bitmapNoData, bitmapNoData,
-                                          &black, &black, 0, 0);
-    XDefineCursor(disp, window, invisibleCursor);
-    XFixesChangeCursorByName(disp, invisibleCursor, "watch");
-    XFreeCursor(disp, invisibleCursor);
-    XFreePixmap(disp, bitmapNoData);
+    // override cursor
+    Display* disp = XOpenDisplay(nullptr);
+
+    Cursor cursor = (Cursor)XcursorFilenameLoadCursor(disp, "/usr/share/icons/deepin/cursors/loginspinner");
+    if (cursor == 0)
+        cursor = (Cursor)loadCursorHandle(disp, "watch", 24);
+
+    XDefineCursor(disp, winId(), cursor);
+    XFixesChangeCursorByName(disp, cursor, "watch");
+    XFreeCursor(disp, cursor);
     XFlush(disp);
 }
 
@@ -116,22 +164,25 @@ void Welcome::showEvent(QShowEvent *e)
 
     QWidget::showEvent(e);
 
-    QTimer::singleShot(1, this, [this] () {
+    QTimer::singleShot(1, this, [this] {
         raise();
         activateWindow();
         grabMouse();
         grabKeyboard();
-        clearCursor();
-
-        qDebug() << Q_FUNC_INFO;
+        overrideCursor();
     });
+}
+
+void Welcome::mouseMoveEvent(QMouseEvent *e)
+{
+    e->ignore();
+
+    QCursor::setPos(qApp->primaryScreen()->geometry().center());
 }
 
 void Welcome::onScreenRectChanged()
 {
     setFixedSize(qApp->desktop()->size());
 
-    const QPoint center = qApp->primaryScreen()->geometry().center();
-    m_loadingSpinner->move(center.x() - m_loadingSpinner->width() / 2,
-                           center.y() - m_loadingSpinner->height() / 2);
+    QCursor::setPos(qApp->primaryScreen()->geometry().center());
 }

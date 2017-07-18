@@ -3,8 +3,6 @@
 
 #include <QWidget>
 
-#include <dpicturesequenceview.h>
-
 class WelcomeService;
 class Welcome : public QWidget
 {
@@ -20,19 +18,18 @@ private:
     void keyPressEvent(QKeyEvent *e);
     void paintEvent(QPaintEvent *e);
     void showEvent(QShowEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
 
 private:
     void dbus_show();
     void dbus_exit();
 
 private slots:
-    void clearCursor();
+    void overrideCursor();
     void onScreenRectChanged();
 
 private:
     QTimer *m_sizeAdjustTimer;
-
-    Dtk::Widget::DPictureSequenceView *m_loadingSpinner;
 };
 
 #endif // WELCOME_H
