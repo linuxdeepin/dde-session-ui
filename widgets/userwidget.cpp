@@ -9,18 +9,16 @@
 
 #include "userwidget.h"
 #include "constants.h"
-#include "dbus/dbusaccounts.h"
 #include "dbus/dbususer.h"
 #include "dbus/dbuslockservice.h"
-#include "accountsutils.h"
-#include "accountsutils.h"
 
 #include <QApplication>
 #include <QtWidgets>
 #include <QtGui>
 #include <QtCore>
 #include <QSettings>
-
+#include <QJsonObject>
+#include <QJsonValue>
 #include <unistd.h>
 #include <pwd.h>
 
@@ -32,13 +30,20 @@ DWIDGET_USE_NAMESPACE
 UserWidget::UserWidget(QWidget* parent)
     : QFrame(parent),
     m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this),
-    m_userModel(new QLightDM::UsersModel(this))
+    m_dbusLogined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
 {
     m_currentUser = m_lockInter.CurrentUser();
     qDebug() << Q_FUNC_INFO << m_currentUser;
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     setFixedWidth(qApp->desktop()->width());
+
+    m_dbusAccounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
+
+    onUserListChanged();
+
+    m_dbusLogined->setSync(false);
+    m_dbusLogined->userList();
 
     initUI();
     initConnections();
@@ -55,22 +60,6 @@ void UserWidget::initUI()
     countNum = 3;
     getUsernameList();
 
-
-    qDebug() << "whiteList:             " << m_whiteList;
-
-    const int userCount = m_userModel->rowCount(QModelIndex());
-    for (int i(0); i != userCount; ++i)
-    {
-        const QString &username = m_userModel->data(m_userModel->index(i), QLightDM::UsersModel::NameRole).toString();
-
-        // pass blocked account
-        if (!m_whiteList.contains(username))
-            continue;
-
-        updateAvatar(username);
-    }
-
-    qDebug() << "whiteList: " << m_whiteList;
     QPixmap loading(":/img/action_icons/facelogin_animation.png");
     QSize size(110, 110);
     m_loadingAni = new DLoadingIndicator(this);
@@ -99,19 +88,13 @@ void UserWidget::initUI()
 
 void UserWidget::initConnections()
 {
-    connect(m_userModel, &QLightDM::UsersModel::rowsInserted,
-            this, &UserWidget::handleUserAdded);
-    connect(m_userModel, &QLightDM::UsersModel::rowsRemoved,
-            this, &UserWidget::handleUserRemoved);
-    connect(&m_lockInter, &DBusLockService::UserChanged, this, &UserWidget::setCurrentUser, Qt::QueuedConnection);
-}
+    connect(&m_lockInter, &DBusLockService::UserChanged, this, &UserWidget::setCurrentUser);
 
-void UserWidget::updateAvatar(QString username) {
-    const QString path = AccountsUtils::GetUserAvatar(username);
-    if (!path.isEmpty())
-        addUser(path, username);
-    else
-        addUser("/var/lib/AccountsService/icons/default.png", username);
+    connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, &UserWidget::onUserListChanged);
+    connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onUserAdded);
+    connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onUserRemoved);
+
+    connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged);
 }
 
 QStringList UserWidget::getUsernameList() {
@@ -121,60 +104,70 @@ QStringList UserWidget::getUsernameList() {
         countNum--;
     }
 
-    DBusAccounts *accounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
-    const QStringList userList = accounts->userList();
-
-
-    for (const QString &user : userList)
-    {
-        DBusUser *inter = new DBusUser(ACCOUNT_DBUS_SERVICE, user, QDBusConnection::systemBus(), this);
-
+    for (DBusUser *inter : m_userDbus.values()) {
         if (!inter->locked() && !m_whiteList.contains(inter->userName()))
-             m_whiteList.append(inter->userName());
-        inter->deleteLater();
+            m_whiteList.append(inter->userName());
     }
-    accounts->deleteLater();
+
 //    whiteList = QStringList(whiteList.toSet().toList());
     qDebug() << "getUsernameList:" << m_whiteList;
     return m_whiteList;
 }
 
-void UserWidget::handleUserAdded(const QModelIndex &, int first, int last)
+void UserWidget::onUserListChanged()
 {
-    // wait the accounts daemon to set up the user.
-    QTimer::singleShot(1000, this, [this, first, last] () {
-        for (int i = first; i <= last; i++) {
-            const QModelIndex index = m_userModel->index(i);
-            const QString &username = m_userModel->data(index, QLightDM::UsersModel::NameRole).toString();
-            updateAvatar(username);
-        }
-    });
+    for (const QString &name : m_dbusAccounts->userList())
+        onUserAdded(name);
 }
 
-void UserWidget::handleUserRemoved(const QModelIndex &, int, int)
+void UserWidget::onUserAdded(const QString &name)
 {
-    // the item is removed already, so there's no easy way to determine which
-    // user is removed from the model with the information provided by the
-    // signal parameters.
-    // we have to traverse thru the whole UserButtons list and the model to
-    // see which user's gone.
+    if (m_userDbus.contains(name))
+        return;
 
-    QStringList oldUsers;
+    DBusUser *user = new DBusUser(ACCOUNT_DBUS_SERVICE, name, QDBusConnection::systemBus(), this);
 
-    for (const UserButton *btn : m_userBtns) {
-        oldUsers << btn->objectName();
+    m_userDbus.insert(name, user);
+
+    updateAvatar(user->userName());
+}
+
+void UserWidget::onUserRemoved(const QString &name)
+{
+    DBusUser *user;
+    user = m_userDbus.find(name).value();
+
+    if (user) {
+        m_userDbus.remove(name);
+        user->deleteLater();
+
+        UserButton *button;
+        for (int index(0); index != m_userBtns.count(); ++index) {
+            button = m_userBtns.at(index);
+
+            if (button) {
+                m_userBtns.removeOne(button);
+                button->deleteLater();
+                return;
+            }
+        }
     }
+}
 
-    const int userCount = m_userModel->rowCount(QModelIndex());
-    for (int i(0); i != userCount; ++i)
-    {
-        const QString &username = m_userModel->data(m_userModel->index(i), QLightDM::UsersModel::NameRole).toString();
+void UserWidget::onLoginUserListChanged(const QString &value)
+{
+    QJsonDocument doc = QJsonDocument::fromJson(value.toUtf8());
 
-        oldUsers.removeAll(username);
-    }
+    QJsonArray jsonArray = doc.array();
 
-    for (const QString &name : oldUsers) {
-        removeUser(name);
+    if (jsonArray.isEmpty())
+        return;
+
+    for (int i(0); i != jsonArray.count(); ++i) {
+        const QJsonObject &obj = jsonArray.at(i).toObject();
+        if (obj["Display"].toString().isEmpty())
+            continue;
+        m_loggedInUsers << obj["Name"].toString();
     }
 }
 
@@ -207,11 +200,11 @@ void UserWidget::setCurrentUser(const QString &username)
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
 
-void UserWidget::addUser(QString avatar, QString name)
+void UserWidget::updateAvatar(QString name)
 {
-    qDebug() << "add user: " << name << ", icon file: " << avatar;
+    qDebug() << "add user: " << name;
 
-    UserButton *user = new UserButton(avatar, name);
+    UserButton *user = new UserButton(name);
     user->hide();
     user->setObjectName(name);
     user->setParent(this);
@@ -249,14 +242,12 @@ void UserWidget::expandWidget()
         setFixedSize(width(), USER_ICON_HEIGHT * qCeil(count * 1.0 / maxLineCap));
     }
 
-    const QStringList loggedInUsers = AccountsUtils::GetLoggedInUsers();
-
     for (int i = 0; i != count; ++i)
     {
         UserButton *user = m_userBtns.at(i);
         const QString username = user->objectName();
 
-        if (loggedInUsers.contains(username)) {
+        if (m_loggedInUsers.contains(username)) {
             user->setButtonChecked(true);
         } else {
             user->setButtonChecked(false);
@@ -304,7 +295,7 @@ void UserWidget::showEvent(QShowEvent *event)
     QFrame::showEvent(event);
 
     for (UserButton* user: m_userBtns) {
-        user->updateAvatar(AccountsUtils::GetUserAvatar(user->name()));
+        user->updateAvatar();
     }
 }
 
@@ -434,8 +425,8 @@ const QString UserWidget::currentUser()
         return m_whiteList.first();
 
     // return first user
-    if (m_userModel->rowCount(QModelIndex()) > 0) {
-        QString tmpUsername = m_userModel->data(m_userModel->index(0), QLightDM::UsersModel::NameRole).toString();
+    if (m_userDbus.count() > 0) {
+        const QString tmpUsername = m_userDbus.first()->userName();
         updateAvatar(tmpUsername);
         return tmpUsername;
     }
@@ -456,4 +447,18 @@ const QString UserWidget::currentUser()
 
     qWarning() << "no users !!!";
     return QString();
+}
+
+const QString &UserWidget::getUserAvatar(const QString &username)
+{
+    for (UserButton *button : m_userBtns)
+        if (button->name() == username)
+            return button->avatar();
+
+    return QString();
+}
+
+const QStringList UserWidget::getLoggedInUsers() const
+{
+    return m_loggedInUsers;
 }

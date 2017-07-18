@@ -133,11 +133,10 @@ void ShutdownManager::hideToplevelWindow()
 void ShutdownManager::checkUsers()
 {
     // hide user switch btn when only 1 user avaliable
-    UserWidget *users = new UserWidget;
-    if (users->count() < 2) {
+    UserWidget users;
+    if (users.count() < 2) {
         m_content->hideBtns(QStringList() << "SwitchUser");
     }
-    users->deleteLater();
 }
 
 void ShutdownManager::powerAction(const Actions action)

@@ -29,7 +29,7 @@ class UserButton:public QPushButton
     Q_OBJECT
     Q_PROPERTY(double opacity READ opacity WRITE setOpacity NOTIFY opacityChanged)
 public:
-    UserButton(QString iconUrl, QString idName, QWidget* parent=0);
+    UserButton(QString idName, QWidget* parent=0);
     ~UserButton();
 
 
@@ -40,7 +40,8 @@ public:
 
     bool selected() const;
     void setSelected(bool selected);
-    QString &name();
+    const QString &name();
+    const QString &avatar() const;
 
 signals:
     void imageClicked(QString nam);
@@ -61,7 +62,7 @@ public slots:
     void setOpacity(double opa);
     void setCustomEffect();
     void addTextShadowAfter();
-    void updateAvatar(const QString &icon);
+    void updateAvatar();
 protected:
     void paintEvent(QPaintEvent* event);
 private:

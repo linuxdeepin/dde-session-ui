@@ -15,7 +15,6 @@
 
 #include "dbus/dbusvariant.h"
 #include "contentwidget.h"
-#include "accountsutils.h"
 #include "multiuserswarningview.h"
 #include "inhibitwarnview.h"
 
@@ -28,7 +27,7 @@ ShutDownFrame::ShutDownFrame(QWidget *parent)
 
 ShutDownFrame::~ShutDownFrame()
 {
-
+    m_userWidget->deleteLater();
 }
 
 void ShutDownFrame::setConfirm(const bool confirm)
@@ -123,7 +122,7 @@ void ShutDownFrame::disableBtn(const QString &btnName)
 void ShutDownFrame::beforeInvokeAction(const Actions action)
 {
     const QString inhibitReason = getInhibitReason();
-    QStringList loggedInUsers = AccountsUtils::GetLoggedInUsers();
+    QStringList loggedInUsers = m_userWidget->getLoggedInUsers();
 
     // change ui
     if (m_confirm || !inhibitReason.isEmpty() || loggedInUsers.length() > 1)
@@ -288,6 +287,7 @@ void ShutDownFrame::initUI() {
 
     updateStyle(":/skin/shutdown.qss", this);
 
+    m_userWidget = new UserWidget;
 
     m_btnsList->append(m_shutdownButton);
     m_btnsList->append(m_restartButton);

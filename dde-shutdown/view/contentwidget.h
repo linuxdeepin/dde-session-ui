@@ -14,6 +14,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QPushButton>
 
+#include "userwidget.h"
 #include "rounditembutton.h"
 #include "util_updateui.h"
 #include "dbus/dbusvariant.h"
@@ -72,6 +73,7 @@ private:
 
     QWidget *m_warningView = nullptr;
     QVBoxLayout *m_mainLayout;
+    UserWidget *m_userWidget;
 
     bool m_confirm = false;
 };

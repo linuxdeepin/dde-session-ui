@@ -19,14 +19,17 @@
 #include <QFrame>
 
 #include <dloadingindicator.h>
+#include <com_deepin_daemon_logined.h>
 
-#include <QLightDM/UsersModel>
-
+#include "dbus/dbususer.h"
+#include "dbus/dbusaccounts.h"
 #include "userbutton.h"
 #include "dbus/dbuslockservice.h"
 
 #define ACCOUNT_DBUS_SERVICE "com.deepin.daemon.Accounts"
 #define ACCOUNT_DBUS_PATH "/com/deepin/daemon/Accounts"
+
+using Logined = com::deepin::daemon::Logined;
 
 class UserWidget : public QFrame
 {
@@ -39,15 +42,14 @@ public:
     const QString currentUser();
     inline int count() const {return m_userBtns.count();}
     bool isChooseUserMode = false;
+    const QString& getUserAvatar(const QString &username);
+    const QStringList getLoggedInUsers() const;
 
 signals:
     void userChanged(const QString &username);
     void chooseUserModeChanged(bool isChoose, QString curUser);
 
 public slots:
-    void addUser(QString avatar, QString name);
-    void removeUser(QString name);
-
     void setCurrentUser(const QString &username);
     void expandWidget();
     void saveLastUser();
@@ -67,11 +69,13 @@ private slots:
     void initUI();
     void initConnections();
     void updateAvatar(QString username);
+    void removeUser(QString name);
 
     QStringList getUsernameList();
-
-    void handleUserAdded(const QModelIndex &parent, int first, int last);
-    void handleUserRemoved(const QModelIndex &parent, int first, int last);
+    void onUserListChanged();
+    void onUserAdded(const QString &name);
+    void onUserRemoved(const QString &name);
+    void onLoginUserListChanged(const QString &value);
 
 private:
     int m_currentUserIndex = 0;
@@ -82,8 +86,11 @@ private:
     DBusLockService m_lockInter;
     UserButton* m_currentBtns = nullptr;
     QList<UserButton *> m_userBtns;
-    QLightDM::UsersModel *m_userModel;
     DTK_WIDGET_NAMESPACE::DLoadingIndicator *m_loadingAni;
+    DBusAccounts *m_dbusAccounts;
+    QMap<QString, DBusUser *> m_userDbus;
+    Logined *m_dbusLogined;
+    QStringList m_loggedInUsers;
 };
 
 #endif // WIDGET_H

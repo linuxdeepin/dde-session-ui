@@ -10,10 +10,10 @@
 #include <QtGui/QPainter>
 #include <QDebug>
 #include <QTimer>
-
+#include <QSettings>
 #include "userbutton.h"
 
-UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
+UserButton::UserButton(QString idName, QWidget *parent)
     : QPushButton(parent),
       m_opacity(0)
 #ifndef DISABLE_ANIMATIONS
@@ -23,7 +23,6 @@ UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
       m_hideAnimation(new QPropertyAnimation(this, "opacity"))
 #endif
 {
-    m_iconUrl = iconUrl;
     m_buttonId = idName;
 
     initUI();
@@ -40,8 +39,9 @@ void UserButton::initUI() {
     m_userAvatar = new UserAvatar;
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
     m_userAvatar->setFixedSize(120, 120);
-    m_userAvatar->setIcon(m_iconUrl);
     m_userAvatar->setObjectName(m_buttonId);
+
+    updateAvatar();
 
     m_textLabel = new QLabel;
     m_textLabel->setFixedHeight(30);
@@ -134,13 +134,19 @@ void UserButton::addTextShadowAfter()
     addTextShadow(true);
 }
 
-void UserButton::updateAvatar(const QString &icon)
+void UserButton::updateAvatar()
 {
-    if(m_iconUrl == icon)
-        return;
+    const QSettings settings("/var/lib/AccountsService/users/" + m_buttonId, QSettings::IniFormat);
+    const QString avatar = settings.value("User/Icon").toString();
+    QString path;
+    if (avatar.isEmpty())
+        path = "/var/lib/AccountsService/icons/default.png";
+    else
+        path = QUrl(avatar).isLocalFile() ? QUrl(avatar).toLocalFile() : avatar;
 
-    m_iconUrl = icon;
-    m_userAvatar->setIcon(icon);
+    m_iconUrl = path;
+
+    m_userAvatar->setIcon(path);
 }
 
 void UserButton::hide(const int duration)
@@ -206,9 +212,14 @@ void UserButton::setSelected(bool selected)
     update();
 }
 
-QString& UserButton::name()
+const QString& UserButton::name()
 {
     return m_buttonId;
+}
+
+const QString &UserButton::avatar() const
+{
+    return m_iconUrl;
 }
 
 void UserButton::paintEvent(QPaintEvent* event)

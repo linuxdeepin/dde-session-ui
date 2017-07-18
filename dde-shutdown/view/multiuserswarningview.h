@@ -4,7 +4,7 @@
 #include <QFrame>
 
 #include <dimagebutton.h>
-
+#include "userwidget.h"
 #include "common.h"
 
 class QListWidget;
@@ -18,6 +18,7 @@ class MultiUsersWarningView : public QFrame
     Q_OBJECT
 public:
     MultiUsersWarningView(QWidget *parent = 0);
+    ~MultiUsersWarningView();
 
     void setUsers(QStringList &users);
 
@@ -34,7 +35,7 @@ private:
     QLabel * m_warningTip;
     DImageButton * m_cancelBtn;
     DImageButton * m_actionBtn;
-
+    UserWidget *m_userWidget;
     Actions m_action;
 };
 
