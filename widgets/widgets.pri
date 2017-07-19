@@ -22,7 +22,8 @@ HEADERS += \
     $$PWD/errortooltip.h \
     $$PWD/keyboardmonitor.h \
     $$PWD/mediawidget.h \
-    $$PWD/controlwidget.h
+    $$PWD/controlwidget.h \
+    $$PWD/fullscreenbackground.h
 
 
 
@@ -40,7 +41,8 @@ SOURCES += \
     $$PWD/errortooltip.cpp \
     $$PWD/keyboardmonitor.cpp \
     $$PWD/mediawidget.cpp \
-    $$PWD/controlwidget.cpp
+    $$PWD/controlwidget.cpp \
+    $$PWD/fullscreenbackground.cpp
 
 RESOURCES += \
     $$PWD/widgetstheme.qrc \

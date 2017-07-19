@@ -47,9 +47,9 @@ SessionWidget::SessionWidget(QWidget *parent)
       m_userSettings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat),
       m_sessionModel(new QLightDM::SessionsModel(this))
 {
-    setStyleSheet("QFrame {"
-                  "background-color: red;"
-                  "}");
+//    setStyleSheet("QFrame {"
+//                  "background-color: red;"
+//                  "}");
 
     loadSessionList();
 }
