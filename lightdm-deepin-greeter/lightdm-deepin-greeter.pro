@@ -21,13 +21,11 @@ include(../boxframe/boxframe.pri)
 
 HEADERS  += \
     view/logowidget.h \
-    app/loginmanager.h \
-    app/loginframe.h
+    app/loginmanager.h
 
 SOURCES += main.cpp \
     view/logowidget.cpp \
     app/loginmanager.cpp \
-    app/loginframe.cpp \
 
 contains(DEFINES,WITH_SHENWEI_PLATFORM){
     SHENWEI_PLATFORM = YES

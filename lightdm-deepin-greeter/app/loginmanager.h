@@ -19,6 +19,7 @@
 #include <QLightDM/Greeter>
 #include <QLightDM/SessionsModel>
 
+#include "fullscreenbackground.h"
 #include "util_updateui.h"
 #include "userwidget.h"
 #include "passwdedit.h"
@@ -37,7 +38,7 @@
 
 #include "darrowrectangle.h"
 
-class LoginManager: public QFrame {
+class LoginManager: public FullscreenBackground {
     Q_OBJECT
 public:
     LoginManager(QWidget* parent=0);
@@ -57,9 +58,9 @@ public slots:
     void startSession();
 
 protected:
+    void resizeEvent(QResizeEvent *e) override;
     void keyPressEvent(QKeyEvent* e) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
 
 private:
     void recordPid();
@@ -96,9 +97,9 @@ private:
     LogoWidget* m_logoWidget;
     UserWidget* m_userWidget;
     PassWdEdit* m_passWdEdit;
-    QPushButton * m_loginButton;
+//    QPushButton * m_loginButton;
     SessionWidget *m_sessionWidget;
-    QHBoxLayout* m_passWdEditLayout;
+//    QHBoxLayout* m_passWdEditLayout;
     QVBoxLayout* m_Layout;
 
     ShutdownWidget* m_requireShutdownWidget;
@@ -111,7 +112,6 @@ private:
 
     KeyboardMonitor *m_keyboardMonitor;
 
-    QSize m_passwdEditSize;
     QStringList m_kbdList;
     QStringList m_kbdParseList;
 
