@@ -70,8 +70,6 @@ private slots:
     void initConnections();
     void updateAvatar(QString username);
     void removeUser(QString name);
-
-    QStringList getUsernameList();
     void onUserListChanged();
     void onUserAdded(const QString &name);
     void onUserRemoved(const QString &name);
@@ -79,7 +77,6 @@ private slots:
 
 private:
     int m_currentUserIndex = 0;
-    int countNum = 0;
     QSettings m_settings;
     QString m_currentUser = QString();
     QStringList m_whiteList;

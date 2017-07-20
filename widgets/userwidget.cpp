@@ -56,9 +56,10 @@ UserWidget::~UserWidget()
 
 void UserWidget::initUI()
 {
-    //Get the username list for the first time!
-    countNum = 3;
-    getUsernameList();
+    for (DBusUser *inter : m_userDbus.values()) {
+        if (!inter->locked() && !m_whiteList.contains(inter->userName()))
+            m_whiteList.append(inter->userName());
+    }
 
     QPixmap loading(":/img/action_icons/facelogin_animation.png");
     QSize size(110, 110);
@@ -95,23 +96,6 @@ void UserWidget::initConnections()
     connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onUserRemoved);
 
     connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged);
-}
-
-QStringList UserWidget::getUsernameList() {
-    if (countNum==0||!m_whiteList.isEmpty()) {
-        return m_whiteList;
-    } else {
-        countNum--;
-    }
-
-    for (DBusUser *inter : m_userDbus.values()) {
-        if (!inter->locked() && !m_whiteList.contains(inter->userName()))
-            m_whiteList.append(inter->userName());
-    }
-
-//    whiteList = QStringList(whiteList.toSet().toList());
-    qDebug() << "getUsernameList:" << m_whiteList;
-    return m_whiteList;
 }
 
 void UserWidget::onUserListChanged()
@@ -245,7 +229,7 @@ void UserWidget::expandWidget()
     for (int i = 0; i != count; ++i)
     {
         UserButton *user = m_userBtns.at(i);
-        const QString username = user->objectName();
+        const QString username = user->name();
 
         if (m_loggedInUsers.contains(username)) {
             user->setButtonChecked(true);
@@ -430,14 +414,6 @@ const QString UserWidget::currentUser()
         updateAvatar(tmpUsername);
         return tmpUsername;
     }
-
-
-    //if get the user failed again, start to read dbus for 3 times
-    countNum = 3;
-    QTimer* mTimer = new QTimer(this);
-    mTimer->setInterval(100);
-    mTimer->start();
-    connect(mTimer,  &QTimer::timeout, this, &UserWidget::getUsernameList);
 
 //    whiteList = QStringList(whiteList.toSet().toList());
 //    if (whiteList.length()!=0) {
