@@ -44,6 +44,10 @@ isEqual(SHENWEI_PLATFORM, YES) {
     DEFINES -= SHENWEI_PLATFORM
 }
 
+isEqual(USE_CURSOR_LOADING_ANI, YES) {
+    DEFINES += USE_CURSOR_LOADING_ANI
+}
+
 target.path = $${PREFIX}/bin/
 desktop_file.files = lightdm-deepin-greeter.desktop
 desktop_file.path = $${PREFIX}/share/xgreeters/

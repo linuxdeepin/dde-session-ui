@@ -295,7 +295,11 @@ void LoginManager::initUI()
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/login.qss", this);
 #endif
-//    set_rootwindow_cursor();
+
+#ifdef USE_CURSOR_LOADING_ANI
+    set_rootwindow_cursor();
+#else
+    // clear current cursor
     const auto disp = XOpenDisplay(nullptr);
     Q_ASSERT(disp);
     const auto window = DefaultRootWindow(disp);
@@ -314,6 +318,7 @@ void LoginManager::initUI()
     XFreeCursor(disp, invisibleCursor);
     XFreePixmap(disp, bitmapNoData);
     XFlush(disp);
+#endif
 }
 
 void LoginManager::recordPid() {
