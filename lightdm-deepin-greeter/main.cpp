@@ -7,7 +7,7 @@
  * (at your option) any later version.
  **/
 
-#include "app/loginmanager.h"
+#include "loginwindow.h"
 
 #include <QApplication>
 #include <QtCore/QTranslator>
@@ -110,8 +110,8 @@ int main(int argc, char* argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
-    LoginManager lm;
-    lm.show();
+    LoginWindow lw;
+    lw.showFullScreen();
 
     return a.exec();
 }

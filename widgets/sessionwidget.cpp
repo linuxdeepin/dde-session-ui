@@ -18,6 +18,7 @@
 #include <QButtonGroup>
 #include <QSettings>
 #include <QPropertyAnimation>
+#include <QString>
 
 static const int SessionButtonWidth = 160;
 static const int SessionButtonHeight = 160;
@@ -155,11 +156,12 @@ void SessionWidget::onSessionButtonClicked()
 int SessionWidget::sessionIndex(const QString &sessionName)
 {
     const int count = m_sessionModel->rowCount(QModelIndex());
+    Q_ASSERT(count);
     for (int i(0); i != count; ++i)
-        if (m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole) == sessionName)
+        if (sessionName.compare(m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString(), Qt::CaseInsensitive))
             return i;
 
-    Q_UNREACHABLE();
+    return -1;
 }
 
 //void SessionWidget::leftKeySwitch() {

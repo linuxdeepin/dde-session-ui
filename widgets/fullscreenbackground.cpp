@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QUrl>
 #include <QFileInfo>
+#include <QKeyEvent>
 
 FullscreenBackground::FullscreenBackground(QWidget *parent)
     : QWidget(parent),
@@ -18,11 +19,6 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
     connect(m_adjustTimer, &QTimer::timeout, this, &FullscreenBackground::adjustGeometry);
-}
-
-const QRect FullscreenBackground::primaryRect() const
-{
-    return qApp->primaryScreen()->geometry();
 }
 
 void FullscreenBackground::setBackground(const QString &file)
@@ -55,18 +51,21 @@ void FullscreenBackground::setContent(QWidget * const w)
 
 void FullscreenBackground::adjustGeometry()
 {
-    QRect r;
+    const QPoint cp(QCursor::pos());
+    QRect r, pr;
     for (const auto *s : qApp->screens())
-        r.intersected(s->geometry());
+    {
+        const QRect sr = s->geometry();
+        if (sr.contains(cp))
+            pr = sr;
+
+        r = r.united(sr);
+    }
 
     QWidget::setGeometry(r);
 
-    const QRect pr(qApp->primaryScreen()->geometry());
-
     if (!m_content.isNull())
         m_content->setGeometry(pr);
-
-    emit primaryRectChanged(pr);
 }
 
 bool FullscreenBackground::eventFilter(QObject *watched, QEvent *event)
@@ -93,4 +92,15 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
 
     for (auto *s : qApp->screens())
         painter.drawPixmap(s->geometry(), m_background);
+}
+
+void FullscreenBackground::keyPressEvent(QKeyEvent *e)
+{
+    QWidget::keyPressEvent(e);
+
+    switch (e->key())
+    {
+    case Qt::Key_Escape:        qApp->quit();       break;
+    default:;
+    }
 }

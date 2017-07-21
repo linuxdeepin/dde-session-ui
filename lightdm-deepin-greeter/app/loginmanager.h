@@ -19,7 +19,6 @@
 #include <QLightDM/Greeter>
 #include <QLightDM/SessionsModel>
 
-#include "fullscreenbackground.h"
 #include "util_updateui.h"
 #include "userwidget.h"
 #include "passwdedit.h"
@@ -38,7 +37,8 @@
 
 #include "darrowrectangle.h"
 
-class LoginManager: public FullscreenBackground {
+class LoginManager: public QFrame
+{
     Q_OBJECT
 public:
     LoginManager(QWidget* parent=0);

@@ -12,11 +12,6 @@ class FullscreenBackground : public QWidget
 public:
     explicit FullscreenBackground(QWidget *parent = 0);
 
-    const QRect primaryRect() const;
-
-signals:
-    void primaryRectChanged(const QRect &r);
-
 public slots:
     void setBackground(const QString &file);
     void setBackground(const QPixmap &pixmap);
@@ -31,6 +26,7 @@ private:
     bool eventFilter(QObject *watched, QEvent *event);
     void showEvent(QShowEvent *e);
     void paintEvent(QPaintEvent *e);
+    void keyPressEvent(QKeyEvent *e);
 
 private:
     QPixmap m_background;

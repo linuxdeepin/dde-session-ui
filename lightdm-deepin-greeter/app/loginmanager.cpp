@@ -152,7 +152,13 @@ void LoginManager::updateBackground(QString username)
     const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
     const QString background = settings.value("User/GreeterBackground").toString();
 
+<<<<<<< HEAD
     emit requestBackground(background);
+=======
+//    setBackground(background);
+//    LoginFrame * frame = qobject_cast<LoginFrame*>(parent());
+//    frame->setBackground(background);
+>>>>>>> greeter: fix widget position
 }
 
 void LoginManager::updateUserLoginCondition(QString username)
