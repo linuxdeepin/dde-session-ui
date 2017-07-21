@@ -49,6 +49,10 @@ void ShutdownFrame::showEvent(QShowEvent *event)
 {
     BoxFrame::showEvent(event);
 
+    QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.Launcher "
+                            "/com/deepin/dde/Launcher "
+                            "com.deepin.dde.Launcher.Hide");
+
     initShutdownManager();
 }
 
