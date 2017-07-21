@@ -14,58 +14,24 @@
 const QString WallpaperKey = "pictureUri";
 
 ShutdownFrame::ShutdownFrame(QWidget *parent)
-    : BoxFrame(parent),
+    : FullscreenBackground(parent),
       m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
 {
-    m_shutdownManager = new ShutdownManager(this);
-    initShutdownManager();
-    initBackground();
-}
+    m_shutdownFrame = new ContentWidget(this);
 
-void ShutdownFrame::updateScreenPosition() {
-    m_shutdownManager->updateGeometry();
+    setContent(m_shutdownFrame);
+
+    initBackground();
 }
 
 void ShutdownFrame::powerAction(const Actions action)
 {
-    m_shutdownManager->powerActionFromExternal(action);
+    m_shutdownFrame->powerAction(action);
 }
 
 void ShutdownFrame::setConfirm(const bool confrim)
 {
-    m_shutdownManager->setConfrim(confrim);
-}
-
-void ShutdownFrame::keyPressEvent(QKeyEvent *e) {
-    Q_UNUSED(e);
-}
-
-void ShutdownFrame::showEvent(QShowEvent *event)
-{
-    BoxFrame::showEvent(event);
-
-    QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.Launcher "
-                            "/com/deepin/dde/Launcher "
-                            "com.deepin.dde.Launcher.Hide");
-
-    initShutdownManager();
-}
-
-void ShutdownFrame::initShutdownManager()
-{
-    QPoint mousePoint = QCursor::pos();
-
-    QList<QScreen *> screenList = qApp->screens();
-    for (int i = 0; i < screenList.length(); i++) {
-        const QRect rect = screenList[i]->geometry();
-        if (rect.contains(mousePoint)) {
-            m_shutdownManager->setFixedSize(rect.size());
-            m_shutdownManager->move(rect.x(), rect.y());
-            qDebug() << "shutdownManager:" << m_shutdownManager->geometry();
-            updateScreenPosition();
-            continue;
-        }
-    }
+    m_shutdownFrame->setConfirm(confrim);
 }
 
 void ShutdownFrame::initBackground()

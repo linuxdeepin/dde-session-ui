@@ -14,31 +14,28 @@
 
 #include <com_deepin_wm.h>
 #include <com_deepin_daemon_apperance.h>
-#include "boxframe.h"
-#include "shutdownmanager.h"
+#include "fullscreenbackground.h"
+#include "view/contentwidget.h"
 
 using Appearance = com::deepin::daemon::Appearance;
 
 class ShutdownFrontDBus;
-class ShutdownFrame:public BoxFrame
+class ShutdownFrame:public FullscreenBackground
 {
     Q_OBJECT
 public:
     ShutdownFrame(QWidget* parent = 0);
     ~ShutdownFrame();
+
 public slots:
-    void updateScreenPosition();
     void powerAction(const Actions action);
     void setConfirm(const bool confrim);
-protected:
-    void keyPressEvent(QKeyEvent *e);
-    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+
 private:
-    ShutdownManager* m_shutdownManager;
     com::deepin::wm *m_wmInter;
     Appearance *m_dbusAppearance = NULL;
-    void initShutdownManager();
     void initBackground();
+    ContentWidget *m_shutdownFrame;
 };
 
 class ShutdownFrontDBus : public QDBusAbstractAdaptor {
