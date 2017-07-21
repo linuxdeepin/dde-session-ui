@@ -15,20 +15,15 @@
 #include <QApplication>
 
 LockFrame::LockFrame(QWidget* parent)
-    : BoxFrame(parent)
+    : FullscreenBackground(parent)
 {
     m_display = QX11Info::display();
-
-    this->move(0, 0);
-    this->setFixedSize(qApp->desktop()->size());
 
     qDebug() << "LockFrame geometry:" << geometry();
 
     m_lockManager = new LockManager(this);
 
-    updateScreenPosition();
-    connect(this, &LockFrame::screenChanged, this, &LockFrame::updateScreenPosition);
-    connect(m_lockManager, &LockManager::screenChanged, this, &LockFrame::updateScreenPosition);
+    setContent(m_lockManager);
 
 #ifdef LOCK_NO_QUIT
     connect(m_lockManager, &LockManager::checkedHide, this, &LockFrame::hideFrame);
@@ -39,25 +34,6 @@ void LockFrame::showUserList() {
     show();
     emit m_lockManager->control()->requestSwitchUser();
 //    m_lockManager->chooseUserMode();
-}
-
-void LockFrame::updateScreenPosition()
-{
-    QList<QScreen *> screenList = qApp->screens();
-    QPoint mousePoint = QCursor::pos();
-    for (const QScreen *screen : screenList)
-    {
-        if (screen->geometry().contains(mousePoint))
-        {
-            const QRect &geometry = screen->geometry();
-            m_lockManager->setFixedSize(geometry.size());
-            m_lockManager->move(geometry.x(), geometry.y());
-            m_lockManager->updateGeometry();
-            m_lockManager->updateWidgetsPosition();
-
-            return;
-        }
-    }
 }
 
 void LockFrame::tryGrabKeyboard()
@@ -82,15 +58,6 @@ void LockFrame::hideFrame() {
     m_lockManager->enableZone();
 }
 #endif
-
-void LockFrame::showEvent(QShowEvent *) {
-    m_failures = 0;
-    tryGrabKeyboard();
-    this->raise();
-    this->activateWindow();
-    updateScreenPosition();
-    m_lockManager->disableZone();
-}
 
 void LockFrame::keyPressEvent(QKeyEvent *e)
 {

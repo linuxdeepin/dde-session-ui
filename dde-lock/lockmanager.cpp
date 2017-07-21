@@ -110,7 +110,6 @@ void LockManager::rightKeyPressed()
 
 void LockManager::initUI()
 {
-    setFixedSize(qApp->desktop()->size());
     setFocusPolicy(Qt::NoFocus);
 
     m_timeWidget = new TimeWidget(this);
@@ -286,22 +285,10 @@ void LockManager::updateUserLoginCondition(QString username)
     m_unlockButton->hide();
 }
 
-void LockManager::leaveEvent(QEvent *)
-{
-    QList<QScreen *> screenList = qApp->screens();
-    QPoint mousePoint = QCursor::pos();
-    for (const QScreen *screen : screenList) {
-        if (screen->geometry().contains(mousePoint)) {
-            const QRect &geometry = screen->geometry();
-            setFixedSize(geometry.size());
-            emit screenChanged(geometry);
-            return;
-        }
-    }
-}
-
 void LockManager::showEvent(QShowEvent *event)
 {
+    disableZone();
+
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
 
@@ -331,6 +318,13 @@ void LockManager::showEvent(QShowEvent *event)
     m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
 
     QFrame::showEvent(event);
+}
+
+void LockManager::resizeEvent(QResizeEvent *event)
+{
+    QFrame::resizeEvent(event);
+
+    updateWidgetsPosition();
 }
 
 void LockManager::keyPressEvent(QKeyEvent *e)
