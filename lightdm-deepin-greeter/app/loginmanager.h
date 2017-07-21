@@ -47,6 +47,7 @@ signals:
     /*This signals is used to change the
     widgets position in different screens*/
     void screenChanged(QRect geom);
+    void requestBackground(const QString &background) const;
 
 public slots:
     /*Update the position of the widgets after finished the layout of ui*/

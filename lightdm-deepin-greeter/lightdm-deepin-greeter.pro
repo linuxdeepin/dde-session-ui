@@ -13,7 +13,7 @@ TARGET = lightdm-deepin-greeter
 TEMPLATE = app
 
 PKGCONFIG += gsettings-qt liblightdm-qt5-3 x11 xext xfixes xcursor dtkbase dtkutil dtkwidget
-CONFIG += c++11 link_pkgconfig
+CONFIG += c++14 link_pkgconfig
 
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
