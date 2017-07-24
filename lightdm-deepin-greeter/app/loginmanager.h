@@ -42,11 +42,8 @@ class LoginManager: public QFrame
     Q_OBJECT
 public:
     LoginManager(QWidget* parent=0);
-    ~LoginManager();
+
 signals:
-    /*This signals is used to change the
-    widgets position in different screens*/
-    void screenChanged(QRect geom);
     void requestBackground(const QString &background) const;
 
 public slots:
@@ -64,7 +61,7 @@ protected:
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
 
 private:
-    void recordPid();
+//    void recordPid();
     void initUI();
     void initData();
     void initConnect();
@@ -98,9 +95,7 @@ private:
     LogoWidget* m_logoWidget;
     UserWidget* m_userWidget;
     PassWdEdit* m_passWdEdit;
-//    QPushButton * m_loginButton;
     SessionWidget *m_sessionWidget;
-//    QHBoxLayout* m_passWdEditLayout;
     QVBoxLayout* m_Layout;
 
     ShutdownWidget* m_requireShutdownWidget;

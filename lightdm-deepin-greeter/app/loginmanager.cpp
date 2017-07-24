@@ -105,7 +105,7 @@ LoginManager::LoginManager(QWidget* parent)
       m_keyboardMonitor(KeyboardMonitor::instance()),
       m_authFailureCount(0)
 {
-    recordPid();
+//    recordPid();
 
     initUI();
     initData();
@@ -123,10 +123,6 @@ LoginManager::LoginManager(QWidget* parent)
     updateUserLoginCondition(u);
 
     QTimer::singleShot(1, this, [=] { updateBackground(u); });
-}
-
-LoginManager::~LoginManager()
-{
 }
 
 void LoginManager::updateWidgetsPosition()
@@ -312,20 +308,20 @@ void LoginManager::initUI()
 //    XFlush(disp);
 }
 
-void LoginManager::recordPid() {
-    qDebug() << "remember P i D" << qApp->applicationPid();
+//void LoginManager::recordPid() {
+//    qDebug() << "remember P i D" << qApp->applicationPid();
 
-    QFile tmpPidFile(QString("%1%2").arg("/tmp/").arg(".dgreeterpid"));
+//    QFile tmpPidFile(QString("%1%2").arg("/tmp/").arg(".dgreeterpid"));
 
-    if (tmpPidFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
-        QTextStream pidInfo(&tmpPidFile);
-        pidInfo << qApp->applicationPid();
+//    if (tmpPidFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
+//        QTextStream pidInfo(&tmpPidFile);
+//        pidInfo << qApp->applicationPid();
 
-        tmpPidFile.close();
-    } else {
-        qDebug() << "file open failed!";
-    }
-}
+//        tmpPidFile.close();
+//    } else {
+//        qDebug() << "file open failed!";
+//    }
+//}
 
 void LoginManager::initData() {
     m_greeter = new QLightDM::Greeter(this);
