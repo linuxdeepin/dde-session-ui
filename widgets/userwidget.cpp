@@ -391,5 +391,6 @@ const QString UserWidget::getUserGreeterBackground(const QString &username)
     UserButton *user = getUserByName(username);
     if (user)
         return user->greeter();
+
     return QString();
 }

@@ -256,11 +256,8 @@ void LockManager::onUnlockFinished(const bool unlocked)
 
 void LockManager::updateBackground(QString username)
 {
-    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString background = settings.value("User/GreeterBackground").toString();
-
     LockFrame *frame = qobject_cast<LockFrame *>(parent());
-    frame->setBackground(background);
+    frame->setBackground(m_userWidget->getUserGreeterBackground(username));
 }
 
 void LockManager::updateUserLoginCondition(QString username)
