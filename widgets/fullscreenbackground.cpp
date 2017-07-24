@@ -37,6 +37,8 @@ void FullscreenBackground::setBackground(const QPixmap &pixmap)
     Q_ASSERT(!pixmap.isNull());
 
     m_background = pixmap;
+
+    update();
 }
 
 void FullscreenBackground::setContent(QWidget * const w)
@@ -91,7 +93,13 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
     for (auto *s : qApp->screens())
-        painter.drawPixmap(s->geometry(), m_background);
+    {
+        const QRect tr = s->geometry();
+        const QPixmap pix = m_background.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        const QRect pix_r = QRect((pix.width() - tr.width()) / 2, (pix.height() - tr.height()) / 2, tr.width(), tr.height());
+
+        painter.drawPixmap(s->geometry(), pix, pix_r);
+    }
 }
 
 void FullscreenBackground::keyPressEvent(QKeyEvent *e)
