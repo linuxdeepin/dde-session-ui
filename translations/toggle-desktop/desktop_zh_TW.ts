@@ -10,7 +10,7 @@
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Show desktop or show windows</source>
-            <translation>顯示桌面或還原視窗</translation>
+            <translation>顯示桌面或還原視窗狀態</translation>
         </message>
     </context>
 </TS>

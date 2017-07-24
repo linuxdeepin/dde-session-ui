@@ -52,20 +52,24 @@ public:
     KbLayoutWidget(QStringList buttons, QWidget* parent = 0);
     ~KbLayoutWidget();
 
-    void initData(QStringList buttons);
     void initUI();
-    void initConnect();
     void updateUI();
 signals:
     void setButtonClicked(QString text);
 public slots:
     void setButtonsChecked(QString text);
     void setListItemChecked(int itemIndex);
+    void updateButtonList(const QStringList &buttons);
+
+private:
+    void addButton(const QString &button);
+
 private:
     const int widget_width = DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 3;
     QHBoxLayout* m_Layout;
     QStringList m_buttons;
     QList<LayoutButton* > m_layoutButtons;
+    QMap<QListWidgetItem*, QFrame*> m_layoutItemList;
 };
 #endif // KEYBOARDLAYOUTFRAME
 

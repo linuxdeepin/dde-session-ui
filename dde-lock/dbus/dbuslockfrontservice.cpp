@@ -23,11 +23,3 @@ void DBusLockFrontService::ShowUserList()
 {
     parent()->showUserList();
 }
-
-bool DBusLockFrontService::lockResult() {
-    if (parent()->isVisible()) {
-        return true;
-    } else {
-        return false;
-    }
-}

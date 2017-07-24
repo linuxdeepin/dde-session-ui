@@ -170,7 +170,6 @@ void PassWdEdit::initConnect()
 
 void PassWdEdit::initData()
 {
-    utilSettings = new UtilSettings(this);
 }
 
 void PassWdEdit::focusInEvent(QFocusEvent *)
@@ -224,24 +223,8 @@ bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
 
     return false;
 }
+
 #ifndef SHENWEI_PLATFORM
-void PassWdEdit::updateKeybordLayoutStatus(const QString &username)
-{
-    Q_ASSERT(false); // this function is deprecreated
-    keyboardLayoutList = utilSettings->getKbdLayoutList(username);
-    if (keyboardLayoutList.isEmpty()) {
-        keyboardLayoutList << "";
-    }
-    qDebug() << "get UpdateKeybordLayoutStatus";
-
-    if (keyboardLayoutList.count() > 1) {
-        m_keyboardButton->show();
-    } else {
-        m_keyboardButton->hide();
-    }
-    emit updateKeyboardStatus();
-}
-
 void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList)
 {
     if (keybdList.count() > 1) {
@@ -251,6 +234,7 @@ void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList)
     }
 }
 #endif
+
 void PassWdEdit::show()
 {
     if (isVisible()) {
@@ -309,6 +293,12 @@ void PassWdEdit::setAlert(bool alert, const QString &text)
     }
 
     setStyleSheet(styleSheet());
+}
+
+void PassWdEdit::setMessage(const QString &message)
+{
+    m_lineEdit->setText("");
+    m_lineEdit->setPlaceholderText(message);
 }
 
 void PassWdEdit::keyReleaseEvent(QKeyEvent *e)

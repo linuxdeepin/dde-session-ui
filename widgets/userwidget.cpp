@@ -9,76 +9,58 @@
 
 #include "userwidget.h"
 #include "constants.h"
-#include "dbus/dbusaccounts.h"
 #include "dbus/dbususer.h"
 #include "dbus/dbuslockservice.h"
-#include "accountsutils.h"
-#include "accountsutils.h"
 
 #include <QApplication>
 #include <QtWidgets>
 #include <QtGui>
 #include <QtCore>
 #include <QSettings>
-
+#include <QJsonObject>
+#include <QJsonValue>
 #include <unistd.h>
 #include <pwd.h>
 
-#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
-#define LOCKSERVICE_NAME "com.deepin.dde.lock"
+#define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
+#define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 
 DWIDGET_USE_NAMESPACE
 
 UserWidget::UserWidget(QWidget* parent)
-    : UserWidget("", parent) {
-
-}
-
-UserWidget::UserWidget(const QString &username, QWidget* parent)
     : QFrame(parent),
-    m_currentUser(),
-    m_userBtns(new QList<UserButton *>),
-    m_userModel(new QLightDM::UsersModel(this))
+    m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this),
+    m_dbusLogined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
 {
-    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-    m_currentUser = username.isEmpty() ? m_lockInter.CurrentUser() : username;
+    m_currentUser = m_lockInter.CurrentUser();
+    qDebug() << Q_FUNC_INFO << m_currentUser;
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-//    setStyleSheet("background-color:red;");
-//    setFixedSize(qApp->desktop()->width(), USER_ICON_HEIGHT);
     setFixedWidth(qApp->desktop()->width());
-//    move(0, (qApp->desktop()->height() - rect().height()) / 2 - 95);
+
+    m_dbusAccounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
+
+    onUserListChanged();
+
+    m_dbusLogined->setSync(false);
+    m_dbusLogined->userList();
 
     initUI();
+    initConnections();
 }
 
 UserWidget::~UserWidget()
 {
-
+    qDeleteAll(m_userBtns);
 }
 
 void UserWidget::initUI()
 {
-    //Get the username list for the first time!
-    countNum = 3;
-    getUsernameList();
-
-
-    qDebug() << "whiteList:             " << m_whiteList;
-
-    const int userCount = m_userModel->rowCount(QModelIndex());
-    for (int i(0); i != userCount; ++i)
-    {
-        const QString &username = m_userModel->data(m_userModel->index(i), QLightDM::UsersModel::NameRole).toString();
-
-        // pass blocked account
-        if (!m_whiteList.contains(username))
-            continue;
-
-        updateAvatar(username);
+    for (DBusUser *inter : m_userDbus.values()) {
+        if (!inter->locked() && !m_whiteList.contains(inter->userName()))
+            m_whiteList.append(inter->userName());
     }
 
-    qDebug() << "whiteList: " << m_whiteList;
     QPixmap loading(":/img/action_icons/facelogin_animation.png");
     QSize size(110, 110);
     m_loadingAni = new DLoadingIndicator(this);
@@ -94,7 +76,7 @@ void UserWidget::initUI()
 
     setCurrentUser(currentUser());
 
-    const int count = m_userBtns->count();
+    const int count = m_userBtns.count();
     const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
 
     // Adjust size according to user count.
@@ -105,45 +87,87 @@ void UserWidget::initUI()
     }
 }
 
-void UserWidget::updateAvatar(QString username) {
-    const QString path = AccountsUtils::GetUserAvatar(username);
-    if (!path.isEmpty())
-        addUser(path, username);
-    else
-        addUser("/var/lib/AccountsService/icons/default.png", username);
+void UserWidget::initConnections()
+{
+    connect(&m_lockInter, &DBusLockService::UserChanged, this, &UserWidget::setCurrentUser);
+
+    connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, &UserWidget::onUserListChanged);
+    connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onUserAdded);
+    connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onUserRemoved);
+
+    connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged);
 }
 
-QStringList UserWidget::getUsernameList() {
-    if (countNum==0||!m_whiteList.isEmpty()) {
-        return m_whiteList;
-    } else {
-        countNum--;
+void UserWidget::onUserListChanged()
+{
+    for (const QString &name : m_dbusAccounts->userList())
+        onUserAdded(name);
+}
+
+void UserWidget::onUserAdded(const QString &name)
+{
+    if (m_userDbus.contains(name))
+        return;
+
+    DBusUser *user = new DBusUser(ACCOUNT_DBUS_SERVICE, name, QDBusConnection::systemBus(), this);
+
+    m_userDbus.insert(name, user);
+
+    updateAvatar(user->userName());
+}
+
+void UserWidget::onUserRemoved(const QString &name)
+{
+    DBusUser *user;
+    user = m_userDbus.find(name).value();
+
+    if (user) {
+        m_userDbus.remove(name);
+        user->deleteLater();
+
+        UserButton *button;
+        for (int index(0); index != m_userBtns.count(); ++index) {
+            button = m_userBtns.at(index);
+
+            if (button) {
+                m_userBtns.removeOne(button);
+                button->deleteLater();
+                return;
+            }
+        }
     }
+}
 
-    DBusAccounts *accounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
-    const QStringList userList = accounts->userList();
+void UserWidget::onLoginUserListChanged(const QString &value)
+{
+    QJsonDocument doc = QJsonDocument::fromJson(value.toUtf8());
 
+    QJsonArray jsonArray = doc.array();
 
-    for (const QString &user : userList)
-    {
-        DBusUser *inter = new DBusUser(ACCOUNT_DBUS_SERVICE, user, QDBusConnection::systemBus(), this);
+    if (jsonArray.isEmpty())
+        return;
 
-        if (!inter->locked() && !m_whiteList.contains(inter->userName()))
-             m_whiteList.append(inter->userName());
-        inter->deleteLater();
+    for (int i(0); i != jsonArray.count(); ++i) {
+        const QJsonObject &obj = jsonArray.at(i).toObject();
+        if (obj["Display"].toString().isEmpty())
+            continue;
+        m_loggedInUsers << obj["Name"].toString();
     }
-    accounts->disconnect();
-    accounts->deleteLater();
-//    whiteList = QStringList(whiteList.toSet().toList());
-    qDebug() << "getUsernameList:" << m_whiteList;
-    return m_whiteList;
 }
 
 void UserWidget::setCurrentUser(const QString &username)
 {
+    qDebug() << username << sender();
+
+    const bool isChooseUser = isChooseUserMode;
+
+    m_currentUser = username;
+    if (isChooseUser)
+        m_lockInter.SwitchToUser(username);
+
     isChooseUserMode = false;
 
-    for (UserButton *user : *m_userBtns) {
+    for (UserButton *user : m_userBtns) {
         if (user->objectName() == username) {
             user->showButton();
             user->setImageSize(user->AvatarLargerSize);
@@ -156,14 +180,15 @@ void UserWidget::setCurrentUser(const QString &username)
         user->move(rect().center() - user->rect().center(), 200);
     }
 
-    m_currentUser = username;
-
-    emit userChanged(username);
+    emit userChanged(m_currentUser);
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
 
-void UserWidget::addUser(QString avatar, QString name) {
-    UserButton *user = new UserButton(avatar, name);
+void UserWidget::updateAvatar(QString name)
+{
+    qDebug() << "add user: " << name;
+
+    UserButton *user = new UserButton(name);
     user->hide();
     user->setObjectName(name);
     user->setParent(this);
@@ -171,38 +196,48 @@ void UserWidget::addUser(QString avatar, QString name) {
 
     connect(user, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
 
-    m_userBtns->append(user);
+    m_userBtns.append(user);
+}
+
+void UserWidget::removeUser(QString name)
+{
+    qDebug() << "remove user: " << name;
+
+    for (int i(0); i < m_userBtns.count(); ++i) {
+        if (m_userBtns[i]->name() == name) {
+            UserButton *btn = m_userBtns[i];
+            m_userBtns.removeAt(i);
+            btn->deleteLater();
+            break;
+        }
+    }
 }
 
 void UserWidget::expandWidget()
 {
     isChooseUserMode = true;
 
-    const int count = m_userBtns->count();
+    const int count = m_userBtns.count();
     const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
     const int offset = (width() - USER_ICON_WIDTH * qMin(count, maxLineCap)) / 2;
-    const QString currentUserName = currentUser();
 
     // Adjust size according to user count.
     if (maxLineCap < count) {
         setFixedSize(width(), USER_ICON_HEIGHT * qCeil(count * 1.0 / maxLineCap));
     }
 
-    const QStringList loggedInUsers = AccountsUtils::GetLoggedInUsers();
-
     for (int i = 0; i != count; ++i)
     {
-        UserButton *user = m_userBtns->at(i);
-        const QString username = user->objectName();
+        UserButton *user = m_userBtns.at(i);
+        const QString username = user->name();
 
-        if (loggedInUsers.contains(username)) {
+        if (m_loggedInUsers.contains(username)) {
             user->setButtonChecked(true);
         } else {
             user->setButtonChecked(false);
         }
 
         user->stopAnimation();
-
         user->show();
         user->showButton();
         user->setImageSize(UserButton::AvatarSmallSize);
@@ -220,8 +255,7 @@ void UserWidget::expandWidget()
 
 void UserWidget::saveLastUser()
 {
-    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-    m_lockInter.SwitchToUser(currentUser());
+    m_lockInter.SwitchToUser(currentUser()).waitForFinished();
 }
 
 void UserWidget::resizeEvent(QResizeEvent *e)
@@ -232,7 +266,7 @@ void UserWidget::resizeEvent(QResizeEvent *e)
         // rearrange the user icons.
         expandWidget();
     } else {
-        for (UserButton *user : *m_userBtns)
+        for (UserButton *user : m_userBtns)
             user->move(rect().center() - user->rect().center(), 1);
     }
 
@@ -240,13 +274,22 @@ void UserWidget::resizeEvent(QResizeEvent *e)
                        rect().center().y() - UserButton::AvatarLargerSize / 2 - 14);
 }
 
+void UserWidget::showEvent(QShowEvent *event)
+{
+    QFrame::showEvent(event);
+
+    for (UserButton* user: m_userBtns) {
+        user->updateAvatar();
+    }
+}
+
 void UserWidget::switchUserByKey(int i, int j) {
-    m_userBtns->at(i)->hide(10);
-    m_currentUser = m_userBtns->at(j)->objectName();
-    m_userBtns->at(j)->setSelected(false);
-    m_userBtns->at(j)->show();
-    m_userBtns->at(j)->showButton();
-    m_userBtns->at(j)->setImageSize(UserButton::AvatarLargerSize);
+    m_userBtns.at(i)->hide(10);
+    m_currentUser = m_userBtns.at(j)->objectName();
+    m_userBtns.at(j)->setSelected(false);
+    m_userBtns.at(j)->show();
+    m_userBtns.at(j)->showButton();
+    m_userBtns.at(j)->setImageSize(UserButton::AvatarLargerSize);
 }
 
 void UserWidget::chooseButtonChecked() {
@@ -255,8 +298,8 @@ void UserWidget::chooseButtonChecked() {
     this->grabKeyboard();
     qDebug() << "Get the Key Return or Enter";
     bool checkedBtsExist = false;
-    for (UserButton* user: *m_userBtns) {
-        if (user->isChecked()) {
+    for (UserButton* user: m_userBtns) {
+        if (user->selected()) {
             setCurrentUser(user->objectName());
             checkedBtsExist = true;
         }
@@ -269,12 +312,12 @@ void UserWidget::chooseButtonChecked() {
 void UserWidget::leftKeySwitchUser() {
 
     if (!isChooseUserMode) {
-        for (int i = 0; i < m_userBtns->length(); i++) {
-            qDebug() << "zz:" << i << m_userBtns->at(i)->objectName();
-            if (m_userBtns->at(i)->objectName() == m_currentUser) {
+        for (int i = 0; i < m_userBtns.length(); i++) {
+            qDebug() << "zz:" << i << m_userBtns.at(i)->objectName();
+            if (m_userBtns.at(i)->objectName() == m_currentUser) {
 
                 if (i == 0) {
-                    switchUserByKey(0, m_userBtns->length() - 1);
+                    switchUserByKey(0, m_userBtns.length() - 1);
                     break;
                 } else {
                     qDebug() << "$$$" << i;
@@ -288,16 +331,16 @@ void UserWidget::leftKeySwitchUser() {
         }
     } else {
         if (m_currentUserIndex == 0) {
-            m_currentUserIndex = m_userBtns->length() - 1;
+            m_currentUserIndex = m_userBtns.length() - 1;
         } else {
             m_currentUserIndex = m_currentUserIndex - 1;
         }
 
-        for (int j = 0; j < m_userBtns->length(); j++) {
+        for (int j = 0; j < m_userBtns.length(); j++) {
             if (j == m_currentUserIndex) {
-                m_userBtns->at(j)->setSelected(true);
+                m_userBtns.at(j)->setSelected(true);
             } else {
-                m_userBtns->at(j)->setSelected(false);
+                m_userBtns.at(j)->setSelected(false);
             }
         }
 
@@ -307,11 +350,11 @@ void UserWidget::leftKeySwitchUser() {
 void UserWidget::rightKeySwitchUser() {
     qDebug() << "RightKeyPressed";
     if (!isChooseUserMode) {
-        for (int i = 0; i < m_userBtns->length(); i++) {
-            if (m_userBtns->at(i)->objectName() == m_currentUser) {
+        for (int i = 0; i < m_userBtns.length(); i++) {
+            if (m_userBtns.at(i)->objectName() == m_currentUser) {
 
-                if (i == m_userBtns->length() - 1) {
-                    switchUserByKey(m_userBtns->length() - 1, 0);
+                if (i == m_userBtns.length() - 1) {
+                    switchUserByKey(m_userBtns.length() - 1, 0);
                     break;
                 } else {
                     qDebug() << "$$$" << i;
@@ -323,17 +366,17 @@ void UserWidget::rightKeySwitchUser() {
             }
         }
     } else {
-        if (m_currentUserIndex ==  m_userBtns->length() - 1) {
+        if (m_currentUserIndex ==  m_userBtns.length() - 1) {
             m_currentUserIndex = 0;
         } else {
             m_currentUserIndex = m_currentUserIndex + 1;
         }
 
-        for (int j = 0; j < m_userBtns->length(); j++) {
+        for (int j = 0; j < m_userBtns.length(); j++) {
             if (j == m_currentUserIndex) {
-                m_userBtns->at(j)->setSelected(true);
+                m_userBtns.at(j)->setSelected(true);
             } else {
-                m_userBtns->at(j)->setSelected(false);
+                m_userBtns.at(j)->setSelected(false);
             }
         }
     }
@@ -348,7 +391,7 @@ const QString UserWidget::loginUser()
 
 const QString UserWidget::currentUser()
 {
-    qDebug() << "currentUser:" << m_currentUser;
+    qDebug() << Q_FUNC_INFO << m_currentUser;
 
     if (!m_currentUser.isEmpty() && m_whiteList.contains(m_currentUser)) {
         return m_currentUser;
@@ -366,19 +409,11 @@ const QString UserWidget::currentUser()
         return m_whiteList.first();
 
     // return first user
-    if (m_userModel->rowCount(QModelIndex()) > 0) {
-        QString tmpUsername = m_userModel->data(m_userModel->index(0), QLightDM::UsersModel::NameRole).toString();
+    if (m_userDbus.count() > 0) {
+        const QString tmpUsername = m_userDbus.first()->userName();
         updateAvatar(tmpUsername);
         return tmpUsername;
     }
-
-
-    //if get the user failed again, start to read dbus for 3 times
-    countNum = 3;
-    QTimer* mTimer = new QTimer(this);
-    mTimer->setInterval(100);
-    mTimer->start();
-    connect(mTimer,  &QTimer::timeout, this, &UserWidget::getUsernameList);
 
 //    whiteList = QStringList(whiteList.toSet().toList());
 //    if (whiteList.length()!=0) {
@@ -388,4 +423,18 @@ const QString UserWidget::currentUser()
 
     qWarning() << "no users !!!";
     return QString();
+}
+
+const QString &UserWidget::getUserAvatar(const QString &username)
+{
+    for (UserButton *button : m_userBtns)
+        if (button->name() == username)
+            return button->avatar();
+
+    return QString();
+}
+
+const QStringList UserWidget::getLoggedInUsers() const
+{
+    return m_loggedInUsers;
 }

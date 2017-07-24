@@ -13,7 +13,7 @@ TARGET = lightdm-deepin-greeter
 TEMPLATE = app
 
 PKGCONFIG += gsettings-qt liblightdm-qt5-3 x11 xext xfixes xcursor dtkbase dtkutil dtkwidget
-CONFIG += c++11 link_pkgconfig
+CONFIG += c++14 link_pkgconfig
 
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
@@ -21,15 +21,13 @@ include(../boxframe/boxframe.pri)
 
 HEADERS  += \
     view/logowidget.h \
-    view/switchframe.h \
     app/loginmanager.h \
-    app/loginframe.h
+    loginwindow.h
 
 SOURCES += main.cpp \
     view/logowidget.cpp \
-    view/switchframe.cpp \
     app/loginmanager.cpp \
-    app/loginframe.cpp \
+    loginwindow.cpp
 
 contains(DEFINES,WITH_SHENWEI_PLATFORM){
     SHENWEI_PLATFORM = YES
@@ -42,6 +40,10 @@ isEqual(SHENWEI_PLATFORM, YES) {
     DEFINES += SHENWEI_PLATFORM
 }　else {
     DEFINES -= SHENWEI_PLATFORM
+}
+
+isEqual(USE_CURSOR_LOADING_ANI, YES) {
+    DEFINES += USE_CURSOR_LOADING_ANI
 }
 
 target.path = $${PREFIX}/bin/

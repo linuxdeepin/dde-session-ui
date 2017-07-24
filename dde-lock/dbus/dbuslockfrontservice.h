@@ -25,7 +25,6 @@ class DBusLockFrontService: public QDBusAbstractAdaptor
     Q_CLASSINFO("D-Bus Introspection", ""
                                        "  <interface name=\"com.deepin.dde.lockFront\">\n"
                                        "    <method name=\"Show\"/>\n"
-                                       "    <method name=\"lockResult\"/>\n"
                                        "  </interface>\n"
                                        "")
 public:
@@ -39,7 +38,6 @@ public:// PROPERTIES
 public Q_SLOTS:// METHODS
     void Show();
     void ShowUserList();
-    bool lockResult();
 };
 
 #endif // DBUSLOCKFRONTSERVICE_H

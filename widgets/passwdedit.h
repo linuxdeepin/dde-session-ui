@@ -22,7 +22,6 @@
 #include <dimagebutton.h>
 
 #include "util_updateui.h"
-#include "util_settings.h"
 
 #include "errortooltip.h"
 
@@ -42,8 +41,8 @@ public:
     QMap<QString, QString> keybdLayoutShortDescriptionMap;
 
     QStringList keyboardLayoutList;
-    UtilSettings *utilSettings = NULL;
     QTimer *getFocusTimer;
+
 signals:
     void submit();
     void keybdLayoutButtonClicked();
@@ -62,7 +61,6 @@ public slots:
     void setEnterBtnStyle(const QString &normalPic, const QString &hoverPic, const QString &pressedPic);
 
 #ifndef SHENWEI_PLATFORM
-    void updateKeybordLayoutStatus(const QString &username);
     void updateKeybdLayoutUI(QStringList keybdList);
 #endif
     void show();
@@ -73,6 +71,9 @@ public slots:
 
     void setAlert(bool alert, const QString &text = QString());
     inline bool alert() const {return m_alert;}
+
+    void setMessage(const QString &message);
+
     void lineEditGrabKeyboard();
     void recordUserPassWd(bool isChoose, QString username);
     void updateCapslockStatus(bool on);

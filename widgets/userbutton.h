@@ -29,7 +29,7 @@ class UserButton:public QPushButton
     Q_OBJECT
     Q_PROPERTY(double opacity READ opacity WRITE setOpacity NOTIFY opacityChanged)
 public:
-    UserButton(QString iconUrl, QString idName, QWidget* parent=0);
+    UserButton(QString idName, QWidget* parent=0);
     ~UserButton();
 
 
@@ -40,6 +40,8 @@ public:
 
     bool selected() const;
     void setSelected(bool selected);
+    const QString &name();
+    const QString &avatar() const;
 
 signals:
     void imageClicked(QString nam);
@@ -60,6 +62,7 @@ public slots:
     void setOpacity(double opa);
     void setCustomEffect();
     void addTextShadowAfter();
+    void updateAvatar();
 protected:
     void paintEvent(QPaintEvent* event);
 private:
@@ -78,12 +81,16 @@ private:
     QVBoxLayout* m_Layout;
 
     AvatarSize m_avatarsize = AvatarLargerSize;
-    QPropertyAnimation *m_moveAni;
     int m_borderWidth = 0;
 
     double m_opacity;
+
+#ifndef DISABLE_ANIMATIONS
+    QPropertyAnimation *m_moveAni;
     QPropertyAnimation* m_showAnimation;
     QPropertyAnimation* m_hideAnimation;
+#endif
+
     QGraphicsOpacityEffect* m_opacityEffect;
 };
 #endif // UserButton

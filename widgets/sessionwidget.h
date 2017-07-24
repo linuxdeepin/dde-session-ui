@@ -12,6 +12,7 @@
 
 #include <QFrame>
 #include <QList>
+#include <QSettings>
 
 #include <QLightDM/SessionsModel>
 
@@ -24,39 +25,39 @@ public:
     explicit SessionWidget(QWidget *parent = 0);
     ~SessionWidget();
 
+    void show();
+    int sessionCount() const;
+    const QString lastSessionName() const;
     const QString currentSessionName() const;
     const QString currentSessionKey() const;
+    const QString currentSessionOwner() const { return m_currentUser; }
 
-    QStringList Sessions = {
-        "Deepin",
-        "fluxbox",
-        "gnome",
-        "kde",
-        "ubuntu",
-        "xfce"
-    };
-    void show();
-    QString lastSelectedUser() const;
-    int sessionCount() const;
-
-public slots:
-    void switchToUser(const QString &userName);
-    void saveUserLastSession(const QString &userName);
-    void leftKeySwitch();
-    void rightKeySwitch();
-    void chooseSession();
-    QString processSessionName(const QString &session);
 signals:
     void sessionChanged(const QString &sessionName);
 
+public slots:
+    void saveSettings();
+    void switchToUser(const QString &userName);
+    //    void leftKeySwitch();
+    //    void rightKeySwitch();
+    //    void chooseSession();
+
 private slots:
-    void switchSession(const QString &sessionName);
-    int getSessionIndex(const QString &sessionName);
+    void loadSessionList();
+
+private slots:
+    void onSessionButtonClicked();
+
+private:
+    int sessionIndex(const QString &sessionName);
+
 private:
     int m_currentSessionIndex;
-    QString m_lastSelectedUser = QString();
-    QList<RoundItemButton *> *m_sessionBtns;
+    QString m_currentUser;
+    QSettings m_userSettings;
+
     QLightDM::SessionsModel *m_sessionModel;
+    QList<RoundItemButton *> m_sessionBtns;
 };
 
 #endif // SESSIONWIDGET_H

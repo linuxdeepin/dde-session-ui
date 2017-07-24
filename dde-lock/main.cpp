@@ -32,7 +32,8 @@ int main(int argc, char *argv[])
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
-    app.setSingleInstance(QString("dde-lock_%1").arg(getuid()));
+    if (!app.setSingleInstance(QString("dde-lock_%1").arg(getuid())))
+        return -1;
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
@@ -49,7 +50,7 @@ int main(int argc, char *argv[])
     cmdParser.addHelpOption();
     cmdParser.addVersionOption();
 
-    QCommandLineOption backend(QStringList() << "d" << "daemon", "starting mode");
+    QCommandLineOption backend(QStringList() << "d" << "daemon", "start to daemon mode");
     cmdParser.addOption(backend);
     QCommandLineOption switchUser(QStringList() << "s" << "switch", "show user switch");
     cmdParser.addOption(switchUser);
@@ -60,9 +61,11 @@ int main(int argc, char *argv[])
 
     LockFrame lockFrame;
     DBusLockFrontService service(&lockFrame);
+    Q_UNUSED(service);
+
     QDBusConnection conn = QDBusConnection::sessionBus();
     if (!conn.registerService(DBUS_NAME) ||
-            !conn.registerObject("/com/deepin/dde/lockFront", &lockFrame)) {
+        !conn.registerObject("/com/deepin/dde/lockFront", &lockFrame)) {
         qDebug() << "register dbus failed"<< "maybe lockFront is running..." << conn.lastError();
 
         if (!runDaemon) {
@@ -79,9 +82,8 @@ int main(int argc, char *argv[])
             if (showUserList) {
                 lockFrame.showUserList();
             } else {
-                lockFrame.show();
+                lockFrame.showFullScreen();
             }
-            lockFrame.grabKeyboard();
         } else {
             lockFrame.hide();
         }

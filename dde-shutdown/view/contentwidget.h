@@ -14,30 +14,33 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QPushButton>
 
+#include "userwidget.h"
 #include "rounditembutton.h"
-#include "util_signalmanager.h"
 #include "util_updateui.h"
 #include "dbus/dbusvariant.h"
 #include "dbus/dbuslogin1manager.h"
 #include "common.h"
+#include "dbus/dbussessionmanager.h"
+#include "dbus/dbushotzone.h"
 
 class MultiUsersWarningView;
 
-class ShutDownFrame: public QFrame
+class ContentWidget: public QFrame
 {
     Q_OBJECT
 public:
-    ShutDownFrame(QWidget* parent=0);
-    ~ShutDownFrame();
+    ContentWidget(QWidget* parent=0);
+    ~ContentWidget();
 
 signals:
-    void keyLeft();
-    void keyRight();
-    void pressEnterAction();
-    void ShutDownFrameActions(const Actions action);
 #ifdef SHUTDOWN_NO_QUIT
     void requestRecoveryLayout();
 #endif
+
+protected:
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+    void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 
 public slots:
     void setConfirm(const bool confirm);
@@ -50,13 +53,18 @@ public slots:
     void onCancel();
     const QString getInhibitReason();
     void recoveryLayout();
+
 private:
     void initUI();
     void initConnect();
+    void initData();
     void enterKeyPushed();
     void hideBtn(const QString &btnName);
     void disableBtn(const QString &btnName);
     void beforeInvokeAction(const Actions action);
+    void hideToplevelWindow();
+    void checkUsers();
+    void shutDownFrameActions(const Actions action);
 
     RoundItemButton *m_currentSelectedBtn = nullptr;
     RoundItemButton *m_shutdownButton;
@@ -73,7 +81,11 @@ private:
 
     QWidget *m_warningView = nullptr;
     QVBoxLayout *m_mainLayout;
+    UserWidget *m_userWidget;
 
     bool m_confirm = false;
+
+    DBusSessionManagerInterface* m_sessionInterface = nullptr;
+    DBusHotzone* m_hotZoneInterface = nullptr;
 };
 #endif // CONTENTVIEWWIDGET

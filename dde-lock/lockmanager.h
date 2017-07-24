@@ -27,8 +27,8 @@
 #include "darrowrectangle.h"
 #include "dbus/dbusmediaplayer2.h"
 
-#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
-#define LOCKSERVICE_NAME "com.deepin.dde.lock"
+#define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
+#define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 
 #define LOCK_KEYBOARDLAYOUT_PATH "/com/deepin/daemon/InputDevice/Keyboard"
 #define LOCK_KEYBOARDLAYOUT_NAME "com.deepin.daemon.InputDevice"
@@ -69,19 +69,19 @@ public slots:
     void rightKeyPressed();
 
     void chooseUserMode();
-    void onUnlockFinished(QDBusPendingCallWatcher *w);
+    void onUnlockFinished(const bool unlocked);
 //    void onUserUnlock(const QString& username);
 
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
-    void showEvent(QShowEvent *event);
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void initBackend();
     void unlock();
-    void loadMPRIS();
+    void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
 
 private:
     Actions m_action = Unlock;
@@ -104,12 +104,13 @@ private:
 
     DBusHotzone* m_hotZoneInterface;
     int m_keybdLayoutItemIndex;
+    const QString m_activatedUser;
 
     QSize m_passwdEditSize;
 
     int m_authFailureCount = 0;
     DBusMediaPlayer2 *m_mprisInter = nullptr;
-    bool m_checkingPWD = false;
+    bool m_authenticating = false;
 };
 
 #endif // LOCKMANAGER_H

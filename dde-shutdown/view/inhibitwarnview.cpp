@@ -45,8 +45,11 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
     btnsLayout->addStretch();
 
     QVBoxLayout *centeralLayout = new QVBoxLayout;
+    centeralLayout->addStretch();
     centeralLayout->addWidget(m_reasonLbl);
+    centeralLayout->addSpacing(20);
     centeralLayout->addLayout(btnsLayout);
+    centeralLayout->addStretch();
 
     setLayout(centeralLayout);
     setFixedSize(500, 300);

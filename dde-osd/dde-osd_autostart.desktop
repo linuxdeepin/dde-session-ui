@@ -1,7 +1,8 @@
 [Desktop Entry]
-Name=Control Center
+Name=dde-osd
 Exec=/usr/lib/deepin-daemon/dde-osd
 OnlyShowIn=Deepin
 StartupNotify=false
 Terminal=false
 Type=Application
+X-GNOME-Autostart-Delay=5

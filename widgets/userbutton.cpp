@@ -10,17 +10,19 @@
 #include <QtGui/QPainter>
 #include <QDebug>
 #include <QTimer>
-
+#include <QSettings>
 #include "userbutton.h"
 
-UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
+UserButton::UserButton(QString idName, QWidget *parent)
     : QPushButton(parent),
+      m_opacity(0)
+#ifndef DISABLE_ANIMATIONS
+    ,
       m_moveAni(new QPropertyAnimation(this, "pos")),
-      m_opacity(0),
       m_showAnimation(new QPropertyAnimation(this, "opacity")),
       m_hideAnimation(new QPropertyAnimation(this, "opacity"))
+#endif
 {
-    m_iconUrl = iconUrl;
     m_buttonId = idName;
 
     initUI();
@@ -28,8 +30,7 @@ UserButton::UserButton(QString iconUrl, QString idName, QWidget *parent)
 }
 
 void UserButton::initConnect() {
-    connect(this, SIGNAL(clicked()), this, SLOT(sendClicked()));
-    connect(m_userAvatar, SIGNAL(userAvatarClicked()), this, SLOT(sendClicked()));
+    connect(m_userAvatar, &UserAvatar::clicked, this, &UserButton::sendClicked);
 }
 
 void UserButton::initUI() {
@@ -38,8 +39,9 @@ void UserButton::initUI() {
     m_userAvatar = new UserAvatar;
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
     m_userAvatar->setFixedSize(120, 120);
-    m_userAvatar->setIcon(m_iconUrl);
     m_userAvatar->setObjectName(m_buttonId);
+
+    updateAvatar();
 
     m_textLabel = new QLabel;
     m_textLabel->setFixedHeight(30);
@@ -113,42 +115,65 @@ void UserButton::setImageSize(const AvatarSize &avatarsize) {
 
 void UserButton::showButton()
 {
+#ifndef DISABLE_ANIMATIONS
     m_showAnimation->stop();
     m_showAnimation->setStartValue(0.0);
     m_showAnimation->setEndValue(1.0);
     m_showAnimation->setDuration(800);
-
     m_showAnimation->start();
 
     connect(m_showAnimation, &QPropertyAnimation::finished, [&]{
-
         QTimer::singleShot(500, this, SLOT(addTextShadowAfter()));
     });
+#endif
 }
 
-void UserButton::addTextShadowAfter() {
-
+void UserButton::addTextShadowAfter()
+{
     m_opacityEffect->setEnabled(false);
     addTextShadow(true);
+}
+
+void UserButton::updateAvatar()
+{
+    const QSettings settings("/var/lib/AccountsService/users/" + m_buttonId, QSettings::IniFormat);
+    const QString avatar = settings.value("User/Icon").toString();
+    QString path;
+    if (avatar.isEmpty())
+        path = "/var/lib/AccountsService/icons/default.png";
+    else
+        path = QUrl(avatar).isLocalFile() ? QUrl(avatar).toLocalFile() : avatar;
+
+    m_iconUrl = path;
+
+    m_userAvatar->setIcon(path);
 }
 
 void UserButton::hide(const int duration)
 {
     Q_UNUSED(duration);
+#ifndef DISABLE_ANIMATIONS
     m_hideAnimation->setStartValue(1);
     m_hideAnimation->setEndValue(0);
     m_hideAnimation->start();
 
-       addTextShadow(false);
-       m_opacityEffect->setEnabled(true);
+    connect(m_hideAnimation, &QPropertyAnimation::finished, [&]{
+        QPushButton::hide();
+    });
+#else
+    QPushButton::hide();
+#endif
 
-       connect(m_hideAnimation, &QPropertyAnimation::finished, [&]{
-           QPushButton::hide();
-       });
+#ifndef DISABLE_TEXT_SHADOW
+    addTextShadow(false);
+#endif
+
+    m_opacityEffect->setEnabled(true);
 }
 
 void UserButton::move(const QPoint &position, int duration)
 {
+#ifndef DISABLE_ANIMATIONS
     if (!duration)
         return QPushButton::move(position);
 
@@ -158,15 +183,22 @@ void UserButton::move(const QPoint &position, int duration)
     m_moveAni->setEndValue(position);
 
     m_moveAni->start();
+#else
+    Q_UNUSED(duration);
+    QPushButton::move(position);
+#endif
 }
 
-void UserButton::addTextShadow(bool isEffective) {
+void UserButton::addTextShadow(bool isEffective)
+{
+#ifndef DISABLE_TEXT_SHADOW
     QGraphicsDropShadowEffect *nameShadow = new QGraphicsDropShadowEffect;
     nameShadow->setBlurRadius(16);
     nameShadow->setColor(QColor(0, 0, 0, 85));
     nameShadow->setOffset(0, 4);
     nameShadow->setEnabled(isEffective);
     m_textLabel->setGraphicsEffect(nameShadow);
+#endif
 }
 
 bool UserButton::selected() const
@@ -178,6 +210,16 @@ void UserButton::setSelected(bool selected)
 {
     m_selected = selected;
     update();
+}
+
+const QString& UserButton::name()
+{
+    return m_buttonId;
+}
+
+const QString &UserButton::avatar() const
+{
+    return m_iconUrl;
 }
 
 void UserButton::paintEvent(QPaintEvent* event)
@@ -196,7 +238,9 @@ void UserButton::paintEvent(QPaintEvent* event)
 
 void UserButton::stopAnimation()
 {
+#ifndef DISABLE_ANIMATIONS
     m_moveAni->stop();
+#endif
 }
 
 double UserButton::opacity() {

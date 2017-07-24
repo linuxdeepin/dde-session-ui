@@ -14,7 +14,6 @@
 #include <QDebug>
 
 #include "loginmanager.h"
-#include "loginframe.h"
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbusaccounts.h"
 #include "dbus/dbususer.h"
@@ -25,8 +24,8 @@
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
 
-#define LOCKSERVICE_PATH "/com/deepin/dde/lock"
-#define LOCKSERVICE_NAME "com.deepin.dde.lock"
+#define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
+#define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 
 static const QSize ZoreSize = QSize(0, 0);
 
@@ -115,6 +114,15 @@ LoginManager::LoginManager(QWidget* parent)
 
     m_keyboardMonitor->start(QThread::LowestPriority);
     QTimer::singleShot(0, this, &LoginManager::restoreNumlockStatus);
+
+    const QString u = m_userWidget->currentUser();
+    qDebug() << Q_FUNC_INFO << "current user: " << u;
+    m_sessionWidget->switchToUser(u);
+    m_passWdEdit->show();
+    m_passWdEdit->setFocus();
+    updateUserLoginCondition(u);
+
+    QTimer::singleShot(1, this, [=] { updateBackground(u); });
 }
 
 LoginManager::~LoginManager()
@@ -123,19 +131,20 @@ LoginManager::~LoginManager()
 
 void LoginManager::updateWidgetsPosition()
 {
-    const int height = this->height();
-    const int width = this->width();
+    const int h = height();
+    const int w = width();
 
-    m_userWidget->setFixedWidth(width);
-    m_userWidget->move(0, (height - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
+    m_userWidget->setFixedWidth(w);
+    m_userWidget->move(0, (h - m_userWidget->height()) / 2 - 95); // center and margin-top: -95px
     qDebug() << "Change Screens" << m_userWidget->isChooseUserMode;
-    m_sessionWidget->setFixedWidth(width);
-    m_sessionWidget->move(0, (height - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
-    m_logoWidget->move(48, height - m_logoWidget->height() - 36); // left 48px and bottom 36px
-    m_switchFrame->move(width - m_switchFrame->width() - 20, height - m_switchFrame->height());
-    m_requireShutdownWidget->setFixedWidth(width);
+    m_sessionWidget->setFixedWidth(w);
+    m_sessionWidget->move(0, (h - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
+    m_logoWidget->move(48, h - m_logoWidget->height() - 36); // left 48px and bottom 36px
+    m_controlWidget->move(w - m_controlWidget->width(), h - m_controlWidget->height() - 36);
+    m_passWdEdit->move((w - m_passWdEdit->width()) / 2, (h - m_passWdEdit->height()) / 2);
+    m_requireShutdownWidget->setFixedWidth(w);
     m_requireShutdownWidget->setFixedHeight(300);
-    m_requireShutdownWidget->move(0,  (height - m_requireShutdownWidget->height())/2 - 60);
+    m_requireShutdownWidget->move(0,  (h - m_requireShutdownWidget->height())/2 - 60);
 }
 
 void LoginManager::updateBackground(QString username)
@@ -143,8 +152,7 @@ void LoginManager::updateBackground(QString username)
     const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
     const QString background = settings.value("User/GreeterBackground").toString();
 
-    LoginFrame * frame = qobject_cast<LoginFrame*>(parent());
-    frame->setBackground(background);
+    emit requestBackground(background);
 }
 
 void LoginManager::updateUserLoginCondition(QString username)
@@ -160,14 +168,13 @@ void LoginManager::updateUserLoginCondition(QString username)
         qDebug() << groups;
         if (groups.contains("nopasswdlogin")) {
             m_passWdEdit->setFixedSize(ZoreSize);
-            m_loginButton->show();
+//            m_loginButton->show();
 
             return;
         }
     }
 
-    m_passWdEdit->setFixedSize(m_passwdEditSize);
-    m_loginButton->hide();
+//    m_loginButton->hide();
 }
 
 void LoginManager::startSession()
@@ -176,8 +183,15 @@ void LoginManager::startSession()
     m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
 }
 
+void LoginManager::resizeEvent(QResizeEvent *e)
+{
+    QWidget::resizeEvent(e);
+
+     QTimer::singleShot(1, this, &LoginManager::updateWidgetsPosition);
+}
+
 void LoginManager::keyPressEvent(QKeyEvent* e) {
-    qDebug() << "qDebug loginManager:" << e->text();
+    qDebug() << "key pressed: " << e->text();
 
     if (e->key() == Qt::Key_Escape) {
         if (!m_requireShutdownWidget->isHidden()) {
@@ -188,7 +202,7 @@ void LoginManager::keyPressEvent(QKeyEvent* e) {
                     m_passWdEdit->show();
                     m_passWdEdit->setFocus();
                 } else {
-                    m_loginButton->show();
+//                    m_loginButton->show();
                 }
             }
         }
@@ -209,7 +223,7 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
                     m_passWdEdit->show();
                     m_passWdEdit->setFocus();
                 } else {
-                    m_loginButton->show();
+//                    m_loginButton->show();
                 }
             }
         }
@@ -220,31 +234,18 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
     }
 }
 
-void LoginManager::leaveEvent(QEvent *)
-{
-    QList<QScreen *> screenList = qApp->screens();
-    QPoint mousePoint = QCursor::pos();
-    for (const QScreen *screen : screenList)
-    {
-        if (screen->geometry().contains(mousePoint))
-        {
-            const QRect &geometry = screen->geometry();
-            setFixedSize(geometry.size());
-            emit screenChanged(geometry);
-            return;
-        }
-    }
-}
-
 void LoginManager::initUI()
 {
-    setFixedSize(qApp->desktop()->size());
+//    setFixedSize(qApp->desktop()->size());
     setObjectName("LoginManagerTool");
 
+    m_controlWidget = new ControlWidget(this);
+
     m_sessionWidget = new SessionWidget(this);
+    m_sessionWidget->setFixedHeight(200);
+//    m_sessionWidget->setFixedWidth(qApp->primaryScreen()->geometry().width());
     m_sessionWidget->hide();
     m_logoWidget = new LogoWidget(this);
-    m_switchFrame = new SwitchFrame(this);
     m_userWidget = new UserWidget(this);
 
     m_userWidget->setObjectName("UserWidget");
@@ -252,45 +253,63 @@ void LoginManager::initUI()
     m_passWdEdit->setEnterBtnStyle(":/img/action_icons/login_normal.png", ":/img/action_icons/login_hover.png", ":/img/action_icons/login_press.png");
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
     m_passWdEdit->setFocus();
-    m_passwdEditSize = m_passWdEdit->size();
 
-    m_loginButton = new QPushButton(this);
-    m_loginButton->setText(tr("Login"));
-    m_loginButton->setFixedSize(160, 36);
-    m_loginButton->hide();
+//    m_loginButton = new QPushButton(this);
+//    m_loginButton->setText(tr("Login"));
+//    m_loginButton->setFixedSize(160, 36);
+//    m_loginButton->hide();
 
     m_requireShutdownWidget = new ShutdownWidget(this);
     m_requireShutdownWidget->hide();
-    m_passWdEditLayout = new QHBoxLayout;
-    m_passWdEditLayout->setMargin(0);
-    m_passWdEditLayout->setSpacing(0);
-    m_passWdEditLayout->addStretch();
-    m_passWdEditLayout->addWidget(m_passWdEdit);
-    m_passWdEditLayout->addWidget(m_loginButton);
-    m_passWdEditLayout->addStretch();
+//    m_passWdEditLayout = new QHBoxLayout;
+//    m_passWdEditLayout->setMargin(0);
+//    m_passWdEditLayout->setSpacing(0);
+//    m_passWdEditLayout->addStretch();
+//    m_passWdEditLayout->addWidget(m_passWdEdit);
+//    m_passWdEditLayout->addWidget(m_loginButton);
+//    m_passWdEditLayout->addStretch();
 
-    m_Layout = new QVBoxLayout;
-    m_Layout->setMargin(0);
-    m_Layout->setSpacing(0);
-    m_Layout->addStretch();
-    m_Layout->addLayout(m_passWdEditLayout);
-    m_Layout->addStretch();
-    setLayout(m_Layout);
+//    m_Layout = new QVBoxLayout;
+//    m_Layout->setMargin(0);
+//    m_Layout->setSpacing(0);
+//    m_Layout->addStretch();
+//    m_Layout->addLayout(m_passWdEditLayout);
+//    m_Layout->addStretch();
+
+//    QWidget *centralWidget = new QWidget;
+//    centralWidget->setLayout(m_Layout);
+
+//    setContent(centralWidget);
+//    setLayout(m_Layout);
     showFullScreen();
 
     m_passWdEdit->updateKeyboardStatus();
     keyboardLayoutUI();
-    leaveEvent(nullptr);
 
-    m_switchFrame->setUserSwitchEnable(m_userWidget->count() > 1);
-    m_switchFrame->setSessionSwitchEnable(m_sessionWidget->sessionCount() > 1);
+    m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
+    m_controlWidget->setSessionSwitchEnable(m_sessionWidget->sessionCount() > 1);
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/login.qss", this);
 #endif
-    set_rootwindow_cursor();
+//    set_rootwindow_cursor();
+//    const auto disp = XOpenDisplay(nullptr);
+//    Q_ASSERT(disp);
+//    const auto window = DefaultRootWindow(disp);
 
-    updateBackground(m_userWidget->currentUser());
-    updateUserLoginCondition(m_userWidget->currentUser());
+//    Cursor invisibleCursor;
+//    Pixmap bitmapNoData;
+//    XColor black;
+//    static char noData[] = { 0,0,0,0,0,0,0,0 };
+//    black.red = black.green = black.blue = 0;
+
+//    bitmapNoData = XCreateBitmapFromData(disp, window, noData, 8, 8);
+//    invisibleCursor = XCreatePixmapCursor(disp, bitmapNoData, bitmapNoData,
+//                                          &black, &black, 0, 0);
+//    XDefineCursor(disp, window, invisibleCursor);
+//    XFixesChangeCursorByName(disp, invisibleCursor, "watch");
+//    XFreeCursor(disp, invisibleCursor);
+//    XFreePixmap(disp, bitmapNoData);
+//    XFlush(disp);
 }
 
 void LoginManager::recordPid() {
@@ -316,41 +335,45 @@ void LoginManager::initData() {
 
 void LoginManager::initConnect()
 {
-    connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, this, &LoginManager::chooseUserMode);
-    connect(m_switchFrame, &SwitchFrame::triggerSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
+    connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LoginManager::chooseUserMode);
+    connect(m_controlWidget, &ControlWidget::requestSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
 
-    connect(m_switchFrame, &SwitchFrame::triggerPower, this, &LoginManager::showShutdownFrame);
-    connect(m_switchFrame, &SwitchFrame::triggerSwitchSession, this, &LoginManager::chooseSessionMode);
+    connect(m_controlWidget, &ControlWidget::requestShutdown, this, &LoginManager::showShutdownFrame);
+    connect(m_controlWidget, &ControlWidget::requestSwitchSession, this, &LoginManager::chooseSessionMode);
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
-    connect(m_sessionWidget, &SessionWidget::sessionChanged, m_switchFrame, &SwitchFrame::chooseToSession, Qt::QueuedConnection);
+    connect(m_sessionWidget, &SessionWidget::sessionChanged, m_controlWidget, &ControlWidget::chooseToSession, Qt::QueuedConnection);
 
-    connect(m_userWidget, &UserWidget::userChanged,
-            [&](const QString username){
-        qDebug()<<"IIIIIIIIIIII Change to "<<username;
-        qDebug()<<"IIIIIIIIIIII Session User "<< m_sessionWidget->lastSelectedUser();
-        if (username != m_sessionWidget->lastSelectedUser()) {
-            // goto greeter
+    connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
+
+        qDebug()<<"selected user: " << username;
+        qDebug()<<"previous selected user: " << m_sessionWidget->currentSessionOwner();
+        m_userWidget->saveLastUser();
+
+        qDebug() << username << m_sessionWidget->currentSessionOwner();
+
+        // goto previous lock
+        if (username != m_sessionWidget->currentSessionOwner())
+        {
             QProcess *process = new QProcess;
             process->start("dde-switchtogreeter " + username);
             process->waitForFinished();
-            if (process->exitCode() == 0) {
-                exit(0);
-            }
+            if (process->exitCode() == 0)
+                qApp->quit();
             process->deleteLater();
         }
 
         m_sessionWidget->switchToUser(username);
         m_passWdEdit->show();
-    #ifndef SHENWEI_PLATFORM
-//        m_passWdEdit->updateKeybordLayoutStatus(username);
-    #endif
         m_passWdEdit->setFocus();
+        m_greeter->authenticate(username);
+
         updateBackground(username);
         updateUserLoginCondition(username);
     });
 
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
+    connect(m_greeter, &QLightDM::Greeter::showMessage, this, &LoginManager::message);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
 
     connect(m_passWdEdit, &PassWdEdit::updateKeyboardStatus, this, &LoginManager::keyboardLayoutUI);
@@ -365,7 +388,7 @@ void LoginManager::initConnect()
 
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
 
-    connect(m_loginButton, &QPushButton::clicked, this, &LoginManager::login);
+//    connect(m_loginButton, &QPushButton::clicked, this, &LoginManager::login);
 
     connect(m_keyboardMonitor, &KeyboardMonitor::numlockStatusChanged, this, &LoginManager::saveNumlockStatus);
 }
@@ -375,9 +398,7 @@ void LoginManager::initDateAndUpdate() {
     *If the current user owns multi-keyboardLayouts,
     *then the button to choose keyboardLayout need show
     */
-#ifndef SHENWEI_PLATFORM
-//    m_passWdEdit->updateKeybordLayoutStatus(m_userWidget->currentUser());
-#endif
+
     //Get the session of current user
     m_sessionWidget->switchToUser(m_userWidget->currentUser());
     //To control the expanding the widgets of all the user list(m_userWidget)
@@ -391,35 +412,67 @@ void LoginManager::initDateAndUpdate() {
 }
 
 void LoginManager::expandUserWidget() {
-    m_utilFile = new UtilFile(this);
-    int expandState = m_utilFile->getExpandState();
-    qDebug() << "expandState:" << expandState;
-    if (expandState == 1) {
-        qDebug() << "expandState:" << expandState;
-        QMetaObject::invokeMethod(m_switchFrame, "triggerSwitchUser", Qt::QueuedConnection);
-    }
+//    int expandState = m_utilFile->getExpandState();
+//    qDebug() << "expandState:" << expandState;
+//    if (expandState == 1) {
+//        qDebug() << "expandState:" << expandState;
+//        QMetaObject::invokeMethod(m_controlWidget, "requestSwitchUser", Qt::QueuedConnection);
+//    }
 
-    m_utilFile->setExpandState(0);
+//    m_utilFile->setExpandState(0);
+}
+
+void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
+{
+    switch (type) {
+    case QLightDM::Greeter::MessageTypeInfo:
+        m_passWdEdit->setMessage(text);
+        break;
+    case QLightDM::Greeter::MessageTypeError:
+        qWarning() << "error message from lightdm: " << text;
+        break;
+    default:
+        break;
+    }
 }
 
 void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
 {
-    Q_UNUSED(text);
+    qDebug() << "pam prompt: " << text << type;
+
+    // Don't show password prompt from standard pam modules since
+    // we'll provide our own prompt or just not.
+    const QString msg = text == "Password: " ? "" : text;
+
     switch (type)
     {
-    case QLightDM::Greeter::PromptTypeSecret:   m_greeter->respond(m_passWdEdit->getText());     break;
-    default:;
+    case QLightDM::Greeter::PromptTypeSecret:
+        if (msg.isEmpty() && !m_passWdEdit->getText().isEmpty())
+            m_greeter->respond(m_passWdEdit->getText());
+
+        if (!msg.isEmpty())
+            m_passWdEdit->setMessage(msg);
+        break;
+    case QLightDM::Greeter::PromptTypeQuestion:
+        // trim the right : in the message if exists.
+        m_passWdEdit->setMessage(text.replace(":", ""));
+        break;
+    default:
+        break;
     }
 }
 
 void LoginManager::authenticationComplete()
 {
-    qDebug() << "authenticationComplete";
+    qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
+
     m_userWidget->hideLoadingAni();
 
     if (!m_greeter->isAuthenticated() && m_passWdEdit->isVisible()) {
+
         m_authFailureCount++;
-        if (m_authFailureCount < UtilFile::GetAuthLimitation()) {
+
+        if (m_authFailureCount < INT_MAX) {
             m_passWdEdit->setAlert(true, tr("Wrong Password"));
         } else {
             m_authFailureCount = 0;
@@ -431,8 +484,8 @@ void LoginManager::authenticationComplete()
         return;
     }
 
-    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-    m_lockInter.ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
+//    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
+//    m_lockInter.ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
 
     QTimer::singleShot(100, this, SLOT(startSession()));
 }
@@ -447,7 +500,7 @@ void LoginManager::login()
 
     if (!m_sessionWidget->isHidden()) {
         qDebug() << "SESSIONWIDGET";
-        m_sessionWidget->chooseSession();
+//        m_sessionWidget->chooseSession();
         return;
     }
     if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
@@ -457,32 +510,39 @@ void LoginManager::login()
         return;
     }
 
-    const QString &username = m_userWidget->currentUser();
-
     if (!m_passWdEdit->isVisible())
         return;
 
     m_userWidget->showLoadingAni();
 
+    if (m_greeter->isAuthenticated())
+        startSession();
+    else if (m_greeter->inAuthentication())
+        m_greeter->respond(m_passWdEdit->getText());
+    else
+        authenticate();
+}
+
+void LoginManager::authenticate()
+{
+    const QString &username = m_userWidget->currentUser();
+
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
 
-    //m_passWdEdit->setAlert(true, "asd");
-
     //save user last choice
-    m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
+//    m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
     m_userWidget->saveLastUser();
 
-    //const QString &username = m_userWidget->currentUser();
     m_greeter->authenticate(username);
-    qDebug() << "choose user: " << username;
-    qDebug() << "auth user: " << m_greeter->authenticationUser();
+
+    qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
 }
 
 void LoginManager::chooseUserMode()
 {
     m_passWdEdit->hide();
-    m_loginButton->hide();
+//    m_loginButton->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
     m_requireShutdownWidget->hide();
@@ -493,7 +553,7 @@ void LoginManager::chooseSessionMode()
     m_sessionWidget->show();
     m_userWidget->hide();
     m_passWdEdit->hide();
-    m_loginButton->hide();
+//    m_loginButton->hide();
     m_requireShutdownWidget->hide();
     if (!m_keybdArrowWidget->isHidden()) {
         m_keybdArrowWidget->hide();
@@ -511,7 +571,7 @@ void LoginManager::choosedSession() {
             m_passWdEdit->show();
             m_passWdEdit->setFocus();
         } else {
-            m_loginButton->show();
+//            m_loginButton->show();
         }
     }
     if (!m_keybdArrowWidget->isHidden()) {
@@ -523,7 +583,7 @@ void LoginManager::showShutdownFrame() {
     qDebug() << "showShutdownFrame!";
     m_userWidget->hide();
     m_passWdEdit->hide();
-    m_loginButton->hide();
+//    m_loginButton->hide();
     m_sessionWidget->hide();
     m_requireShutdownWidget->show();
 }
@@ -665,7 +725,7 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
                     m_passWdEdit->show();
                     m_passWdEdit->setFocus();
                 } else {
-                    m_loginButton->show();
+//                    m_loginButton->show();
                 }
             }
             m_sessionWidget->hide();
@@ -686,7 +746,7 @@ void LoginManager::leftKeyPressed() {
         m_requireShutdownWidget->leftKeySwitch();
     }
     if (!m_sessionWidget->isHidden()) {
-        m_sessionWidget->leftKeySwitch();
+//        m_sessionWidget->leftKeySwitch();
     }
 }
 
@@ -702,7 +762,7 @@ void LoginManager::rightKeyPressed() {
         m_requireShutdownWidget->rightKeySwitch();
     }
     if (!m_sessionWidget->isHidden()) {
-        m_sessionWidget->rightKeySwitch();
+//        m_sessionWidget->rightKeySwitch();
     }
 }
 

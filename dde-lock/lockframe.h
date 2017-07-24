@@ -11,19 +11,17 @@
 #define LOCKFRAME
 
 #include <QKeyEvent>
-
 #include <QDBusConnection>
 #include <QDBusAbstractAdaptor>
 
+#include "fullscreenbackground.h"
 #include "lockmanager.h"
-#include "boxframe.h"
 
 const QString DBUS_PATH = "/com/deepin/dde/lockFront";
 const QString DBUS_NAME = "com.deepin.dde.lockFront";
 
-
 class DBusLockService;
-class LockFrame: public BoxFrame
+class LockFrame: public FullscreenBackground
 {
     Q_OBJECT
 public:
@@ -32,17 +30,17 @@ public:
 
 public slots:
     void showUserList();
-    void updateScreenPosition();
+    void tryGrabKeyboard();
 #ifdef LOCK_NO_QUIT
     void hideFrame();
 #endif
 protected:
     void keyPressEvent(QKeyEvent *e);
-#ifdef LOCK_NO_QUIT
-    void showEvent(QShowEvent *);
-#endif
+
 private:
     LockManager* m_lockManager;
+    Display *m_display;
+    int m_failures = 0;
 };
 
 #endif // LOCKFRAME

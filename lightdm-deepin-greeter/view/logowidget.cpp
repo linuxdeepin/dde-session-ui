@@ -15,6 +15,19 @@
 #include <QSettings>
 
 #include "logowidget.h"
+
+const QPixmap systemLogo()
+{
+    const QSettings settings("/etc/deepin-installer.conf", QSettings::IniFormat);
+    const QString logo_path = settings.value("system_info_vendor_logo").toString();
+    const QPixmap oem_logo(logo_path);
+
+    if (oem_logo.isNull())
+        return QPixmap(":img/logo_text.png");
+    else
+        return oem_logo;
+}
+
 LogoWidget::LogoWidget(QWidget* parent)
     : QFrame(parent)
 {
@@ -25,9 +38,7 @@ void LogoWidget::initUI() {
     setFixedSize(240, 40);
 
     m_logoLabel = new QLabel();
-#ifdef SHENWEI_PLATFORM
-    m_logoLabel->setPixmap(QPixmap(":img/logo_text.png"));
-#endif
+    m_logoLabel->setPixmap(systemLogo());
     m_logoLabel->setObjectName("Logo");
     m_logoLabel->setFixedSize(150, 38);
 

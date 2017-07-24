@@ -23,23 +23,22 @@
 #include "userwidget.h"
 #include "passwdedit.h"
 #include "view/logowidget.h"
-#include "view/switchframe.h"
 #include "sessionwidget.h"
 #include "kblayoutwidget.h"
 #include "shutdownwidget.h"
 #include "xkbparser.h"
 #include "dbus/dbuskeyboard.h"
 #include "keyboardmonitor.h"
-
+#include "controlwidget.h"
 #include "dbus/dbusdisplaymanager.h"
 #include "dbus/dbusvariant.h"
 #include "dbus/dbuslogin1manager.h"
 #include "dbus/dbuslockservice.h"
 
 #include "darrowrectangle.h"
-#include "util_file.h"
 
-class LoginManager: public QFrame {
+class LoginManager: public QFrame
+{
     Q_OBJECT
 public:
     LoginManager(QWidget* parent=0);
@@ -48,6 +47,7 @@ signals:
     /*This signals is used to change the
     widgets position in different screens*/
     void screenChanged(QRect geom);
+    void requestBackground(const QString &background) const;
 
 public slots:
     /*Update the position of the widgets after finished the layout of ui*/
@@ -55,12 +55,13 @@ public slots:
     void updateBackground(QString username);
     void updateUserLoginCondition(QString username);
 
+    void authenticate();
     void startSession();
 
 protected:
+    void resizeEvent(QResizeEvent *e) override;
     void keyPressEvent(QKeyEvent* e) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
 
 private:
     void recordPid();
@@ -72,8 +73,10 @@ private:
 
     void expandUserWidget();
 
+    void message(QString text, QLightDM::Greeter::MessageType type);
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
+
     void login();
 
     void chooseUserMode();
@@ -93,12 +96,11 @@ private:
     void restoreNumlockStatus();
 
     LogoWidget* m_logoWidget;
-    SwitchFrame* m_switchFrame;
     UserWidget* m_userWidget;
     PassWdEdit* m_passWdEdit;
-    QPushButton * m_loginButton;
+//    QPushButton * m_loginButton;
     SessionWidget *m_sessionWidget;
-    QHBoxLayout* m_passWdEditLayout;
+//    QHBoxLayout* m_passWdEditLayout;
     QVBoxLayout* m_Layout;
 
     ShutdownWidget* m_requireShutdownWidget;
@@ -108,13 +110,13 @@ private:
 
     QLightDM::Greeter *m_greeter;
     DBusLogin1Manager* m_login1ManagerInterface;
-    UtilFile* m_utilFile;
 
     KeyboardMonitor *m_keyboardMonitor;
 
-    QSize m_passwdEditSize;
     QStringList m_kbdList;
     QStringList m_kbdParseList;
+
+    ControlWidget *m_controlWidget;
 
     int m_authFailureCount;
 };

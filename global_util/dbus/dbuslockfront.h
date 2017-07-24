@@ -48,12 +48,6 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("Hide"), argumentList);
     }
 
-    inline QDBusPendingReply<bool> lockResult()
-    {
-        QList<QVariant> argumentList;
-        return asyncCallWithArgumentList(QStringLiteral("lockResult"), argumentList);
-    }
-
 };
 
 namespace com {

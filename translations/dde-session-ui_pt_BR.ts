@@ -226,11 +226,39 @@
     </message>
 </context>
 <context>
+    <name>WMChooser</name>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="31"/>
+        <source>Effect Mode</source>
+        <translation>Modo Eficiente</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="34"/>
+        <source>Common Mode</source>
+        <translation>Modo Normal</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="38"/>
+        <source>Friendly Reminder</source>
+        <translation>Lembrete Amigável</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="42"/>
+        <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
+        <translation>O sistema detectou que você está usando uma máquina virtual, que irá afetar o desempenho do sistema e a experiência de uso, para uma experiência estável, é recomendável selecionar Modo Normal</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="45"/>
+        <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
+        <translation>Modo Eficiente: você pode experimentar de forma suave e maravilhosa. Modo Normal: você pode experimentar rapidamente</translation>
+    </message>
+</context>
+<context>
     <name>WMStateProvider</name>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
         <source>Window effect enabled</source>
-        <translation>Efeitos da janela habilitados</translation>
+        <translation>Efeitos de janela habilitados</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
@@ -240,7 +268,7 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
         <source>Failed to enable window effects</source>
-        <translation>Falha ao habilitar efeitos da janela</translation>
+        <translation>Falha ao habilitar efeitos de janela</translation>
     </message>
 </context>
 <context>
@@ -253,7 +281,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
         <source>This application can not run without window effect</source>
-        <translation>Este aplicativo não pode rodar sem efeitos da janela</translation>
+        <translation>Este aplicativo não pode executar sem efeitos de janela</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="14"/>

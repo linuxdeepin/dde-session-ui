@@ -19,33 +19,37 @@
 #include <QFrame>
 
 #include <dloadingindicator.h>
+#include <com_deepin_daemon_logined.h>
 
-#include <QLightDM/UsersModel>
-
+#include "dbus/dbususer.h"
+#include "dbus/dbusaccounts.h"
 #include "userbutton.h"
+#include "dbus/dbuslockservice.h"
 
 #define ACCOUNT_DBUS_SERVICE "com.deepin.daemon.Accounts"
 #define ACCOUNT_DBUS_PATH "/com/deepin/daemon/Accounts"
 
-
+using Logined = com::deepin::daemon::Logined;
 
 class UserWidget : public QFrame
 {
     Q_OBJECT
 public:
     UserWidget(QWidget* parent = 0);
-    UserWidget(const QString &username, QWidget* parent = 0);
     ~UserWidget();
 
     static const QString loginUser();
     const QString currentUser();
-    inline int count() const {return m_userBtns->count();}
+    inline int count() const {return m_userBtns.count();}
     bool isChooseUserMode = false;
+    const QString& getUserAvatar(const QString &username);
+    const QStringList getLoggedInUsers() const;
+
 signals:
     void userChanged(const QString &username);
     void chooseUserModeChanged(bool isChoose, QString curUser);
+
 public slots:
-    void addUser(QString avatar, QString name);
     void setCurrentUser(const QString &username);
     void expandWidget();
     void saveLastUser();
@@ -58,20 +62,32 @@ public slots:
     void chooseButtonChecked();
 
 protected:
-    void resizeEvent(QResizeEvent *e);
+    void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+
 private slots:
     void initUI();
+    void initConnections();
     void updateAvatar(QString username);
-    QStringList getUsernameList();
+    void removeUser(QString name);
+    void onUserListChanged();
+    void onUserAdded(const QString &name);
+    void onUserRemoved(const QString &name);
+    void onLoginUserListChanged(const QString &value);
+
 private:
     int m_currentUserIndex = 0;
-    int countNum = 0;
+    QSettings m_settings;
     QString m_currentUser = QString();
     QStringList m_whiteList;
+    DBusLockService m_lockInter;
     UserButton* m_currentBtns = nullptr;
-    QList<UserButton *> *m_userBtns;
-    QLightDM::UsersModel *m_userModel;
+    QList<UserButton *> m_userBtns;
     DTK_WIDGET_NAMESPACE::DLoadingIndicator *m_loadingAni;
+    DBusAccounts *m_dbusAccounts;
+    QMap<QString, DBusUser *> m_userDbus;
+    Logined *m_dbusLogined;
+    QStringList m_loggedInUsers;
 };
 
 #endif // WIDGET_H

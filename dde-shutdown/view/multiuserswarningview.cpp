@@ -8,8 +8,6 @@
 #include <QPainterPath>
 #include <QVBoxLayout>
 
-#include "accountsutils.h"
-
 const static QSize ViewSize = QSize(500, 500);
 
 const static QSize UserAvatarSize = QSize(64, 64);
@@ -25,6 +23,8 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
 {
     setFixedSize(ViewSize);
 
+    m_userWidget = new UserWidget;
+
     m_userList->setAttribute(Qt::WA_TranslucentBackground);
 //    m_userList->setSelectionRectVisible(false);
     m_userList->setSelectionMode(QListView::NoSelection);
@@ -37,8 +37,8 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
     m_userList->setFocusPolicy(Qt::NoFocus);
     m_userList->setStyleSheet("background-color:transparent;");
 
-    m_warningTip->setStyleSheet("color:white"
-                                "font-size:14px;");
+    m_warningTip->setStyleSheet("color: white;"
+                                "font-size: 14px;");
     m_warningTip->setWordWrap(true);
     m_warningTip->setFixedWidth(500);
     m_warningTip->setAlignment(Qt::AlignHCenter);
@@ -64,6 +64,11 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
     connect(m_actionBtn, &DImageButton::clicked, this, &MultiUsersWarningView::actionInvoked);
 }
 
+MultiUsersWarningView::~MultiUsersWarningView()
+{
+    m_userWidget->deleteLater();
+}
+
 void MultiUsersWarningView::setUsers(QStringList &users)
 {
     m_userList->setFixedSize(UserListItemSize.width(),
@@ -73,7 +78,7 @@ void MultiUsersWarningView::setUsers(QStringList &users)
         QListWidgetItem * item = new QListWidgetItem;
         m_userList->addItem(item);
 
-        QString icon = AccountsUtils::GetUserAvatar(user);
+        QString icon = m_userWidget->getUserAvatar(user);
         m_userList->setItemWidget(item, new UserListItem(icon, user));
     }
 }

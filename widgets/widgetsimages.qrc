@@ -5,33 +5,6 @@
         <file>img/keyboard_normal.png</file>
         <file>img/keyboard_hover.png</file>
         <file>img/keyboard_press.png</file>
-        <file>img/sessions_icon/deepin_hover.png</file>
-        <file>img/sessions_icon/deepin_normal.png</file>
-        <file>img/sessions_icon/deepin_press.png</file>
-        <file>img/sessions_icon/enlightenment_hover.png</file>
-        <file>img/sessions_icon/enlightenment_normal.png</file>
-        <file>img/sessions_icon/enlightenment_press.png</file>
-        <file>img/sessions_icon/fluxbox_hover.png</file>
-        <file>img/sessions_icon/fluxbox_press.png</file>
-        <file>img/sessions_icon/gnome_hover.png</file>
-        <file>img/sessions_icon/gnome_normal.png</file>
-        <file>img/sessions_icon/ubuntu_hover.png</file>
-        <file>img/sessions_icon/lxde_press.png</file>
-        <file>img/sessions_icon/lxde_hover.png</file>
-        <file>img/sessions_icon/plasma_press.png</file>
-        <file>img/sessions_icon/plasma_normal.png</file>
-        <file>img/sessions_icon/plasma_hover.png</file>
-        <file>img/sessions_icon/kde_press.png</file>
-        <file>img/sessions_icon/kde_normal.png</file>
-        <file>img/sessions_icon/kde_hover.png</file>
-        <file>img/sessions_icon/gnome_press.png</file>
-        <file>img/sessions_icon/ubuntu_press.png</file>
-        <file>img/sessions_icon/unknow_hover.png</file>
-        <file>img/sessions_icon/unknow_normal.png</file>
-        <file>img/sessions_icon/unknow_press.png</file>
-        <file>img/sessions_icon/xfce_hover.png</file>
-        <file>img/sessions_icon/xfce_normal.png</file>
-        <file>img/sessions_icon/xfce_press.png</file>
         <file>img/action_icons/shutdown_hover.png</file>
         <file>img/action_icons/shutdown_normal.png</file>
         <file>img/action_icons/shutdown_press.png</file>
@@ -85,5 +58,62 @@
         <file>img/mpris/volume3_hover.png</file>
         <file>img/mpris/volume3_normal.png</file>
         <file>img/mpris/volume3_press.png</file>
+        <file>img/sessions/deepin_indicator_hover.png</file>
+        <file>img/sessions/deepin_indicator_normal.png</file>
+        <file>img/sessions/deepin_indicator_press.png</file>
+        <file>img/sessions/enlightenment_indicator_hover.png</file>
+        <file>img/sessions/enlightenment_indicator_normal.png</file>
+        <file>img/sessions/enlightenment_indicator_press.png</file>
+        <file>img/sessions/fluxbox_indicator_hover.png</file>
+        <file>img/sessions/fluxbox_indicator_normal.png</file>
+        <file>img/sessions/fluxbox_indicator_press.png</file>
+        <file>img/sessions/gnome_indicator_hover.png</file>
+        <file>img/sessions/gnome_indicator_normal.png</file>
+        <file>img/sessions/gnome_indicator_press.png</file>
+        <file>img/sessions/kde_indicator_hover.png</file>
+        <file>img/sessions/kde_indicator_normal.png</file>
+        <file>img/sessions/kde_indicator_press.png</file>
+        <file>img/sessions/lxde_indicator_hover.png</file>
+        <file>img/sessions/lxde_indicator_normal.png</file>
+        <file>img/sessions/lxde_indicator_press.png</file>
+        <file>img/sessions/plasma_indicator_hover.png</file>
+        <file>img/sessions/plasma_indicator_normal.png</file>
+        <file>img/sessions/plasma_indicator_press.png</file>
+        <file>img/sessions/ubuntu_indicator_hover.png</file>
+        <file>img/sessions/ubuntu_indicator_normal.png</file>
+        <file>img/sessions/ubuntu_indicator_press.png</file>
+        <file>img/sessions/unknow_indicator_hover.png</file>
+        <file>img/sessions/unknow_indicator_normal.png</file>
+        <file>img/sessions/unknow_indicator_press.png</file>
+        <file>img/sessions/xfce_indicator_hover.png</file>
+        <file>img/sessions/xfce_indicator_normal.png</file>
+        <file>img/sessions/xfce_indicator_press.png</file>
+        <file>img/sessions_icon/deepin_hover.png</file>
+        <file>img/sessions_icon/deepin_normal.png</file>
+        <file>img/sessions_icon/deepin_press.png</file>
+        <file>img/sessions_icon/enlightenment_hover.png</file>
+        <file>img/sessions_icon/enlightenment_normal.png</file>
+        <file>img/sessions_icon/enlightenment_press.png</file>
+        <file>img/sessions_icon/fluxbox_hover.png</file>
+        <file>img/sessions_icon/fluxbox_press.png</file>
+        <file>img/sessions_icon/gnome_hover.png</file>
+        <file>img/sessions_icon/gnome_normal.png</file>
+        <file>img/sessions_icon/gnome_press.png</file>
+        <file>img/sessions_icon/kde_hover.png</file>
+        <file>img/sessions_icon/kde_normal.png</file>
+        <file>img/sessions_icon/kde_press.png</file>
+        <file>img/sessions_icon/lxde_hover.png</file>
+        <file>img/sessions_icon/lxde_press.png</file>
+        <file>img/sessions_icon/plasma_hover.png</file>
+        <file>img/sessions_icon/plasma_normal.png</file>
+        <file>img/sessions_icon/plasma_press.png</file>
+        <file>img/sessions_icon/ubuntu_hover.png</file>
+        <file>img/sessions_icon/ubuntu_press.png</file>
+        <file>img/sessions_icon/unknow_hover.png</file>
+        <file>img/sessions_icon/unknow_normal.png</file>
+        <file>img/sessions_icon/unknow_press.png</file>
+        <file>img/sessions_icon/xfce_hover.png</file>
+        <file>img/sessions_icon/xfce_normal.png</file>
+        <file>img/sessions_icon/xfce_press.png</file>
     </qresource>
 </RCC>

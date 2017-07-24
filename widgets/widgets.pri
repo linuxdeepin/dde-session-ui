@@ -20,7 +20,10 @@ HEADERS += \
     $$PWD/shutdownwidget.h \
     $$PWD/darrowrectangle.h \
     $$PWD/errortooltip.h \
-    $$PWD/keyboardmonitor.h
+    $$PWD/keyboardmonitor.h \
+    $$PWD/mediawidget.h \
+    $$PWD/controlwidget.h \
+    $$PWD/fullscreenbackground.h
 
 
 
@@ -36,7 +39,10 @@ SOURCES += \
     $$PWD/shutdownwidget.cpp \
     $$PWD/darrowrectangle.cpp \
     $$PWD/errortooltip.cpp \
-    $$PWD/keyboardmonitor.cpp
+    $$PWD/keyboardmonitor.cpp \
+    $$PWD/mediawidget.cpp \
+    $$PWD/controlwidget.cpp \
+    $$PWD/fullscreenbackground.cpp
 
 RESOURCES += \
     $$PWD/widgetstheme.qrc \

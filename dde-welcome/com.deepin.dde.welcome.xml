@@ -1,0 +1,4 @@
+<interface name="com.deepin.dde.Welcome">
+	<method name="Show"></method>
+	<method name="Exit"></method>
+</interface>

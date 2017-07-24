@@ -15,28 +15,57 @@
 
 #include "dbus/dbusvariant.h"
 #include "contentwidget.h"
-#include "accountsutils.h"
 #include "multiuserswarningview.h"
 #include "inhibitwarnview.h"
 
-ShutDownFrame::ShutDownFrame(QWidget *parent)
+ContentWidget::ContentWidget(QWidget *parent)
     : QFrame(parent)
 {
     initUI();
+    initData();
     initConnect();
 }
 
-ShutDownFrame::~ShutDownFrame()
+ContentWidget::~ContentWidget()
 {
-
+    m_userWidget->deleteLater();
 }
 
-void ShutDownFrame::setConfirm(const bool confirm)
+void ContentWidget::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+        onCancel();
+}
+
+void ContentWidget::showEvent(QShowEvent *event)
+{
+    QFrame::showEvent(event);
+
+    QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.Launcher "
+                            "/com/deepin/dde/Launcher "
+                            "com.deepin.dde.Launcher.Hide");
+
+    checkUsers();
+}
+
+void ContentWidget::keyReleaseEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Escape: onCancel(); break;
+    case Qt::Key_Return:
+    case Qt::Key_Enter: enterKeyPushed(); break;
+    case Qt::Key_Left: emit setPreviousChildFocus(); break;
+    case Qt::Key_Right: emit setNextChildFocus(); break;
+    default:;
+    }
+}
+
+void ContentWidget::setConfirm(const bool confirm)
 {
     m_confirm = confirm;
 }
 
-void ShutDownFrame::powerAction(const Actions action)
+void ContentWidget::powerAction(const Actions action)
 {
     switch (action)
     {
@@ -46,24 +75,32 @@ void ShutDownFrame::powerAction(const Actions action)
         beforeInvokeAction(action);
         break;
     default:
-        emit ShutDownFrameActions(action);
+        shutDownFrameActions(action);
     }
 }
 
-void ShutDownFrame::initConnect() {
-    connect(this, SIGNAL(keyLeft()), SLOT(setPreviousChildFocus()));
-    connect(this, SIGNAL(keyRight()), SLOT(setNextChildFocus()));
-    connect(this, &ShutDownFrame::pressEnterAction, this, &ShutDownFrame::enterKeyPushed);
-
+void ContentWidget::initConnect() {
     connect(m_shutdownButton, &RoundItemButton::clicked, [this] { beforeInvokeAction(Shutdown);});
     connect(m_restartButton, &RoundItemButton::clicked, [this] { beforeInvokeAction(Restart);});
-    connect(m_suspendButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Suspend);});
-    connect(m_lockButton, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(Lock);});
+    connect(m_suspendButton, &RoundItemButton::clicked, [this] { shutDownFrameActions(Suspend);});
+    connect(m_lockButton, &RoundItemButton::clicked, [this] { shutDownFrameActions(Lock);});
     connect(m_logoutButton, &RoundItemButton::clicked, [this] {emit beforeInvokeAction(Logout);});
-    connect(m_switchUserBtn, &RoundItemButton::clicked, [this] {emit ShutDownFrameActions(SwitchUser);});
+    connect(m_switchUserBtn, &RoundItemButton::clicked, [this] { shutDownFrameActions(SwitchUser);});
+
+    connect(qApp, &QApplication::aboutToQuit, [this]{
+        m_hotZoneInterface->EnableZoneDetected(true);
+    });
 }
 
-void ShutDownFrame::enterKeyPushed()
+void ContentWidget::initData()
+{
+    m_sessionInterface = new DBusSessionManagerInterface("com.deepin.SessionManager", "/com/deepin/SessionManager",
+            QDBusConnection::sessionBus(), this);
+    m_hotZoneInterface = new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone",
+                                         QDBusConnection::sessionBus(), this);
+}
+
+void ContentWidget::enterKeyPushed()
 {
     if (m_warningView && m_warningView->isVisible()) return;
 
@@ -75,16 +112,16 @@ void ShutDownFrame::enterKeyPushed()
     else if (m_currentSelectedBtn == m_restartButton)
         beforeInvokeAction(Restart);
     else if (m_currentSelectedBtn == m_suspendButton)
-        emit ShutDownFrameActions(Suspend);
+         shutDownFrameActions(Suspend);
     else if (m_currentSelectedBtn == m_lockButton)
-        emit ShutDownFrameActions(Lock);
+         shutDownFrameActions(Lock);
     else if (m_currentSelectedBtn == m_logoutButton)
         emit beforeInvokeAction(Logout);
     else if (m_currentSelectedBtn == m_switchUserBtn)
-        emit ShutDownFrameActions(SwitchUser);
+         shutDownFrameActions(SwitchUser);
 }
 
-void ShutDownFrame::hideBtn(const QString &btnName)
+void ContentWidget::hideBtn(const QString &btnName)
 {
     if (!btnName.compare("Shutdown", Qt::CaseInsensitive))
         m_shutdownButton->hide();
@@ -102,7 +139,7 @@ void ShutDownFrame::hideBtn(const QString &btnName)
         return;
 }
 
-void ShutDownFrame::disableBtn(const QString &btnName)
+void ContentWidget::disableBtn(const QString &btnName)
 {
     if (!btnName.compare("Shutdown", Qt::CaseInsensitive))
         m_shutdownButton->setDisabled(true);
@@ -120,10 +157,10 @@ void ShutDownFrame::disableBtn(const QString &btnName)
         return;
 }
 
-void ShutDownFrame::beforeInvokeAction(const Actions action)
+void ContentWidget::beforeInvokeAction(const Actions action)
 {
     const QString inhibitReason = getInhibitReason();
-    QStringList loggedInUsers = AccountsUtils::GetLoggedInUsers();
+    QStringList loggedInUsers = m_userWidget->getLoggedInUsers();
 
     // change ui
     if (m_confirm || !inhibitReason.isEmpty() || loggedInUsers.length() > 1)
@@ -156,9 +193,9 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         m_warningView = view;
         m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
-        connect(view, &InhibitWarnView::cancelled, this, &ShutDownFrame::onCancel);
+        connect(view, &InhibitWarnView::cancelled, this, &ContentWidget::onCancel);
         connect(view, &InhibitWarnView::actionInvoked, [this, action] {
-            emit ShutDownFrameActions(action);
+             shutDownFrameActions(action);
         });
 
         m_warningView->show();
@@ -175,9 +212,9 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         m_warningView = view;
         m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
-        connect(view, &MultiUsersWarningView::cancelled, this, &ShutDownFrame::onCancel);
+        connect(view, &MultiUsersWarningView::cancelled, this, &ContentWidget::onCancel);
         connect(view, &MultiUsersWarningView::actionInvoked, [this, action] {
-            emit ShutDownFrameActions(action);
+             shutDownFrameActions(action);
         });
 
         m_warningView->show();
@@ -211,9 +248,9 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
 
         m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
-        connect(view, &InhibitWarnView::cancelled, this, &ShutDownFrame::onCancel);
+        connect(view, &InhibitWarnView::cancelled, this, &ContentWidget::onCancel);
         connect(view, &InhibitWarnView::actionInvoked, [this, action] {
-            emit ShutDownFrameActions(action);
+             shutDownFrameActions(action);
         });
 
         m_warningView->show();
@@ -222,10 +259,64 @@ void ShutDownFrame::beforeInvokeAction(const Actions action)
         return;
     }
 
-    emit ShutDownFrameActions(action);
+     shutDownFrameActions(action);
 }
 
-void ShutDownFrame::initUI() {
+void ContentWidget::hideToplevelWindow()
+{
+#ifdef SHUTDOWN_NO_QUIT
+    QWidgetList widgets = qApp->topLevelWidgets();
+    for (QWidget *widget : widgets) {
+        if (widget->isVisible()) {
+            widget->hide();
+        }
+    }
+#else
+    qApp->quit();
+#endif
+}
+
+void ContentWidget::checkUsers()
+{
+    UserWidget users;
+    if (users.count() < 2) {
+        hideBtns(QStringList() << "SwitchUser");
+    }
+}
+
+void ContentWidget::shutDownFrameActions(const Actions action)
+{
+    // if we don't force this widget to hide, hideEvent will happen after
+    // dde-lock showing, since hideEvent enables hot zone, hot zone will
+    // take effect while dde-lock is showing.
+#ifndef SHUTDOWN_NO_QUIT
+    this->hide();
+#endif
+
+    switch (action) {
+    case Shutdown:       m_sessionInterface->RequestShutdown();      break;
+    case Restart:        m_sessionInterface->RequestReboot();        break;
+    case Suspend:        m_sessionInterface->RequestSuspend();       break;
+    case Lock:           m_sessionInterface->RequestLock();          break;
+    case Logout:         m_sessionInterface->RequestLogout();        break;
+    case SwitchUser:
+    {
+        QDBusInterface ifc("com.deepin.dde.lockFront",
+                           "/com/deepin/dde/lockFront",
+                           "com.deepin.dde.lockFront",
+                           QDBusConnection::sessionBus(), NULL);
+        ifc.asyncCall("ShowUserList");
+        break;
+    }
+    default:
+        qWarning() << "action: " << action << " not handled";
+        break;
+    }
+
+    hideToplevelWindow();
+}
+
+void ContentWidget::initUI() {
     m_btnsList = new QList<RoundItemButton *>;
     m_shutdownButton = new RoundItemButton(tr("Shut down"));
     m_shutdownButton->setAutoExclusive(true);
@@ -288,6 +379,7 @@ void ShutDownFrame::initUI() {
 
     updateStyle(":/skin/shutdown.qss", this);
 
+    m_userWidget = new UserWidget;
 
     m_btnsList->append(m_shutdownButton);
     m_btnsList->append(m_restartButton);
@@ -315,7 +407,7 @@ void ShutDownFrame::initUI() {
     checkTooltip->start();
 }
 
-const QString ShutDownFrame::getInhibitReason() {
+const QString ContentWidget::getInhibitReason() {
     m_login1Inter = new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
     QString reminder_tooltip  = QString();
 
@@ -355,7 +447,7 @@ const QString ShutDownFrame::getInhibitReason() {
     return reminder_tooltip;
 }
 
-void ShutDownFrame::recoveryLayout()
+void ContentWidget::recoveryLayout()
 {
     for (RoundItemButton* btn : *m_btnsList) {
         btn->show();
@@ -368,7 +460,7 @@ void ShutDownFrame::recoveryLayout()
     }
 }
 
-void ShutDownFrame::setPreviousChildFocus()
+void ContentWidget::setPreviousChildFocus()
 {
     if (m_warningView && m_warningView->isVisible()) return;
 
@@ -387,7 +479,7 @@ void ShutDownFrame::setPreviousChildFocus()
         m_currentSelectedBtn->setChecked(true);
 }
 
-void ShutDownFrame::setNextChildFocus()
+void ContentWidget::setNextChildFocus()
 {
     if (m_warningView && m_warningView->isVisible()) return;
 
@@ -404,7 +496,7 @@ void ShutDownFrame::setNextChildFocus()
         m_currentSelectedBtn->setChecked(true);
 }
 
-void ShutDownFrame::showTips(const QString &tips)
+void ContentWidget::showTips(const QString &tips)
 {
     if (!tips.isEmpty()) {
 //        m_tipsLabel->setText(tips);
@@ -423,22 +515,23 @@ void ShutDownFrame::showTips(const QString &tips)
     }
 }
 
-void ShutDownFrame::hideBtns(const QStringList &btnsName)
+void ContentWidget::hideBtns(const QStringList &btnsName)
 {
     for (const QString &name : btnsName)
         hideBtn(name);
 }
 
-void ShutDownFrame::disableBtns(const QStringList &btnsName)
+void ContentWidget::disableBtns(const QStringList &btnsName)
 {
     for (const QString &name : btnsName)
         disableBtn(name);
 }
 
-void ShutDownFrame::onCancel()
+void ContentWidget::onCancel()
 {
 #ifdef SHUTDOWN_NO_QUIT
-    emit requestRecoveryLayout();
+    hideToplevelWindow();
+    recoveryLayout();
 #else
     qApp->quit();
 #endif
