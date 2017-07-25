@@ -13,8 +13,9 @@
 #include <QSettings>
 #include "userbutton.h"
 
-UserButton::UserButton(QString idName, QWidget *parent)
+UserButton::UserButton(DBusUser *user, QWidget *parent)
     : QPushButton(parent),
+      m_user(user),
       m_opacity(0)
 #ifndef DISABLE_ANIMATIONS
     ,
@@ -23,14 +24,15 @@ UserButton::UserButton(QString idName, QWidget *parent)
       m_hideAnimation(new QPropertyAnimation(this, "opacity"))
 #endif
 {
-    m_buttonId = idName;
-
     initUI();
     initConnect();
 }
 
 void UserButton::initConnect() {
     connect(m_userAvatar, &UserAvatar::clicked, this, &UserButton::sendClicked);
+    connect(m_user, &DBusUser::IconFileChanged, this, [=] (QString iconPath) {
+        m_userAvatar->setIcon(iconPath);
+    });
 }
 
 void UserButton::initUI() {
@@ -39,9 +41,7 @@ void UserButton::initUI() {
     m_userAvatar = new UserAvatar;
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
     m_userAvatar->setFixedSize(120, 120);
-    m_userAvatar->setObjectName(m_buttonId);
-
-    updateAvatar();
+    m_userAvatar->setIcon(m_user->iconFile());
 
     m_textLabel = new QLabel;
     m_textLabel->setFixedHeight(30);
@@ -58,12 +58,12 @@ void UserButton::initUI() {
     m_textLabel->setFont(font);
 
     QFontMetrics metrics(m_textLabel->font());
-    if (metrics.width(m_buttonId) > m_textLabel->width())
+    if (metrics.width(name()) > m_textLabel->width())
     {
-        const QString elidedText = metrics.elidedText(m_buttonId, Qt::ElideRight, m_textLabel->width());
+        const QString elidedText = metrics.elidedText(name(), Qt::ElideRight, m_textLabel->width());
         m_textLabel->setText(elidedText);
     } else {
-        m_textLabel->setText(m_buttonId);
+        m_textLabel->setText(name());
     }
 
     m_textLabel->setAlignment(Qt::AlignHCenter);
@@ -99,7 +99,7 @@ void UserButton::initUI() {
 }
 
 void UserButton::sendClicked() {
-    emit imageClicked(m_buttonId);
+    emit imageClicked(name());
 }
 
 void UserButton::setImageSize(const AvatarSize &avatarsize) {
@@ -132,21 +132,6 @@ void UserButton::addTextShadowAfter()
 {
     m_opacityEffect->setEnabled(false);
     addTextShadow(true);
-}
-
-void UserButton::updateAvatar()
-{
-    const QSettings settings("/var/lib/AccountsService/users/" + m_buttonId, QSettings::IniFormat);
-    const QString avatar = settings.value("User/Icon").toString();
-    QString path;
-    if (avatar.isEmpty())
-        path = "/var/lib/AccountsService/icons/default.png";
-    else
-        path = QUrl(avatar).isLocalFile() ? QUrl(avatar).toLocalFile() : avatar;
-
-    m_iconUrl = path;
-
-    m_userAvatar->setIcon(path);
 }
 
 void UserButton::hide(const int duration)
@@ -212,14 +197,24 @@ void UserButton::setSelected(bool selected)
     update();
 }
 
-const QString& UserButton::name()
+const QString UserButton::name() const
 {
-    return m_buttonId;
+    return m_user->userName();
 }
 
-const QString &UserButton::avatar() const
+const QString UserButton::avatar() const
 {
-    return m_iconUrl;
+    return m_user->iconFile();
+}
+
+const QString UserButton::greeter() const
+{
+    return m_user->greeterBackground();
+}
+
+bool UserButton::automaticLogin() const
+{
+    return m_user->automaticLogin();
 }
 
 void UserButton::paintEvent(QPaintEvent* event)

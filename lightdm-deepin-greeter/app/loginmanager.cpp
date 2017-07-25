@@ -16,7 +16,8 @@
 #include "loginmanager.h"
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbusaccounts.h"
-#include "dbus/dbususer.h"
+
+#include <com_deepin_daemon_accounts_user.h>
 
 #include <X11/Xlib-xcb.h>
 #include <X11/cursorfont.h>
@@ -26,6 +27,8 @@
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
+
+using DBusUser = com::deepin::daemon::accounts::User;
 
 static const QSize ZoreSize = QSize(0, 0);
 
@@ -682,7 +685,7 @@ void LoginManager::setCurrentKeybdLayoutList(QString keyboard_value)
         if (user->userName() == m_userWidget->currentUser())
         {
             qDebug() << keyboard_value;
-            qDebug() << user->SetLayout(kbd);
+            user->SetLayout(kbd);
             break;
         }
         user->deleteLater();

@@ -20,8 +20,8 @@
 
 #include <dloadingindicator.h>
 #include <com_deepin_daemon_logined.h>
+#include <com_deepin_daemon_accounts_user.h>
 
-#include "dbus/dbususer.h"
 #include "dbus/dbusaccounts.h"
 #include "userbutton.h"
 #include "dbus/dbuslockservice.h"
@@ -30,6 +30,7 @@
 #define ACCOUNT_DBUS_PATH "/com/deepin/daemon/Accounts"
 
 using Logined = com::deepin::daemon::Logined;
+using DBusUser = com::deepin::daemon::accounts::User;
 
 class UserWidget : public QFrame
 {
@@ -42,8 +43,10 @@ public:
     const QString currentUser();
     inline int count() const {return m_userBtns.count();}
     bool isChooseUserMode = false;
-    const QString& getUserAvatar(const QString &username);
+    const QString getUserAvatar(const QString &username);
     const QStringList getLoggedInUsers() const;
+    bool getUserIsAutoLogin(const QString &username);
+    const QString getUserGreeterBackground(const QString &username);
 
 signals:
     void userChanged(const QString &username);
@@ -58,22 +61,20 @@ public slots:
 
     void leftKeySwitchUser();
     void rightKeySwitchUser();
-    void switchUserByKey(int i, int j);
     void chooseButtonChecked();
 
 protected:
     void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
-    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
     void initUI();
     void initConnections();
-    void updateAvatar(QString username);
     void removeUser(QString name);
     void onUserListChanged();
     void onUserAdded(const QString &name);
     void onUserRemoved(const QString &name);
     void onLoginUserListChanged(const QString &value);
+    UserButton* getUserByName(const QString &username);
 
 private:
     int m_currentUserIndex = 0;

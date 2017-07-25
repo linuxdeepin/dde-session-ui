@@ -18,8 +18,11 @@
 #include <QObject>
 #include <QLabel>
 #include <QPropertyAnimation>
+#include <com_deepin_daemon_accounts_user.h>
 
 #include "useravatar.h"
+
+using DBusUser = com::deepin::daemon::accounts::User;
 
 static const int USER_ICON_WIDTH = 180;
 static const int USER_ICON_HEIGHT = 180;
@@ -29,7 +32,7 @@ class UserButton:public QPushButton
     Q_OBJECT
     Q_PROPERTY(double opacity READ opacity WRITE setOpacity NOTIFY opacityChanged)
 public:
-    UserButton(QString idName, QWidget* parent=0);
+    UserButton(DBusUser *user, QWidget* parent=0);
     ~UserButton();
 
 
@@ -40,8 +43,10 @@ public:
 
     bool selected() const;
     void setSelected(bool selected);
-    const QString &name();
-    const QString &avatar() const;
+    const QString name() const;
+    const QString avatar() const;
+    const QString greeter() const;
+    bool automaticLogin() const;
 
 signals:
     void imageClicked(QString nam);
@@ -62,7 +67,7 @@ public slots:
     void setOpacity(double opa);
     void setCustomEffect();
     void addTextShadowAfter();
-    void updateAvatar();
+
 protected:
     void paintEvent(QPaintEvent* event);
 private:
@@ -70,9 +75,9 @@ private:
     void initConnect();
     void addTextShadow(bool isEffective);
 
+private:
+    DBusUser *m_user;
     bool m_selected = false;
-    QString m_iconUrl;
-    QString m_buttonId;
     UserAvatar* m_userAvatar;
     QLabel* m_textLabel;
     QLabel *m_checkedMark;

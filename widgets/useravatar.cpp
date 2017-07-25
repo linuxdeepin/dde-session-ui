@@ -8,8 +8,8 @@
  **/
 
 #include "useravatar.h"
-
 #include "dthememanager.h"
+#include <QUrl>
 
 UserAvatar::UserAvatar(QWidget *parent, bool deleteable) :
     QPushButton(parent), m_deleteable(deleteable)
@@ -37,13 +37,17 @@ UserAvatar::UserAvatar(QWidget *parent, bool deleteable) :
 
 void UserAvatar::setIcon(const QString &iconPath, const QSize &size)
 {
+    QUrl url(iconPath);
+
+    if (url.isLocalFile())
+        m_iconPath = url.path();
+
     if (size.isEmpty())
         m_iconLabel->setFixedSize(NORMAL_ICON_SIZE, NORMAL_ICON_SIZE);
     else
         m_iconLabel->setFixedSize(size);
 
-    m_iconPath = iconPath;
-    repaint();
+    update();
 }
 
 QString UserAvatar::iconPath() const
