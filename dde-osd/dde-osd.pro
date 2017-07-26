@@ -12,7 +12,7 @@ LIBS += -lX11 -lXext
 TARGET = dde-osd
 TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += gtk+-2.0 dframeworkdbus dtkwidget dtkbase
+PKGCONFIG += gtk+-2.0 dframeworkdbus dtkwidget
 
 SOURCES += main.cpp \
     container.cpp \

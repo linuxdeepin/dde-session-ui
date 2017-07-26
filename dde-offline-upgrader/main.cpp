@@ -10,7 +10,7 @@
 
 DWIDGET_USE_NAMESPACE
 
-DUTIL_USE_NAMESPACE
+DCORE_USE_NAMESPACE
 
 static bool DownloadedPackagesAvailable() {
     QDBusInterface scheduler("com.deepin.LastoreSessionHelper",

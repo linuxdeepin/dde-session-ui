@@ -6,7 +6,7 @@ TARGET = dde-lock
 TEMPLATE = app
 
 CONFIG += c++11 link_pkgconfig dbus
-PKGCONFIG += gsettings-qt dtkbase dtkutil xtst xext x11
+PKGCONFIG += gsettings-qt xtst xext x11
 
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
