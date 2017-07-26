@@ -5,12 +5,6 @@
 
 #include <QMouseEvent>
 
-static QString nameOfLayout(const QString &layout)
-{
-    QString ret( layout );
-    return ret.remove(";");
-}
-
 DataWrapper::DataWrapper(KeyboardInterface *kinter, QObject *parent) :
     QObject(parent),
     m_keyboardInter(kinter)
@@ -79,6 +73,11 @@ QString DataWrapper::localizedNameOfLayout(const QString &layout) const
     return m_layoutListAll.value(layout);
 }
 
+QStringList DataWrapper::userLayoutList() const
+{
+    return m_keyboardInter->userLayoutList();
+}
+
 KBLayoutIndicator::KBLayoutIndicator(QWidget *parent)
     : QSystemTrayIcon(parent),
       m_keyboardInter(new KeyboardInterface("com.deepin.daemon.InputDevices",
@@ -112,7 +111,7 @@ void KBLayoutIndicator::updateMenu()
     setContextMenu(m_menu);
 
     for (const QString &layout : m_data->layoutList()) {
-        const QString layoutName = nameOfLayout(layout);
+        const QString layoutName = duplicateCheck(layout);
         const QString layoutLocalizedName = m_data->localizedNameOfLayout(layout);
         const QString text = QString("%1 (%2)").arg(layoutLocalizedName).arg(layoutName);
 
@@ -132,7 +131,7 @@ void KBLayoutIndicator::updateMenu()
 
 void KBLayoutIndicator::updateIcon()
 {
-    const QString layout = nameOfLayout(m_data->currentLayout());
+    const QString layout = duplicateCheck(m_data->currentLayout());
 
     QPixmap pix(16, 16);
     pix.fill(Qt::transparent);
@@ -154,6 +153,21 @@ void KBLayoutIndicator::updateIcon()
     pa.drawText(r, layout, op);
 
     setIcon(QIcon(pix));
+}
+
+QString KBLayoutIndicator::duplicateCheck(const QString &kb)
+{
+    QStringList list;
+    const QString kbFirst = kb.split(";").first();
+    for (const QString &data : m_data->userLayoutList()) {
+        if (data.split(";").first() == kbFirst) {
+            list << data;
+        }
+    }
+
+    const QString kblayout = kb.split(";").first().mid(0, 2);
+
+    return kblayout + (list.count() > 1 ? QString::number(list.indexOf(kb) + 1) : "");
 }
 
 void KBLayoutIndicator::switchToNextLayout()
