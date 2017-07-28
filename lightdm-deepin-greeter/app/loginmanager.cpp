@@ -148,10 +148,7 @@ void LoginManager::updateWidgetsPosition()
 
 void LoginManager::updateBackground(QString username)
 {
-    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString background = settings.value("User/GreeterBackground").toString();
-
-    emit requestBackground(background);
+    emit requestBackground(m_userWidget->getUserGreeterBackground(username));
 }
 
 void LoginManager::updateUserLoginCondition(QString username)
@@ -291,24 +288,25 @@ void LoginManager::initUI()
     updateStyle(":/skin/login.qss", this);
 #endif
 //    set_rootwindow_cursor();
-//    const auto disp = XOpenDisplay(nullptr);
-//    Q_ASSERT(disp);
-//    const auto window = DefaultRootWindow(disp);
 
-//    Cursor invisibleCursor;
-//    Pixmap bitmapNoData;
-//    XColor black;
-//    static char noData[] = { 0,0,0,0,0,0,0,0 };
-//    black.red = black.green = black.blue = 0;
+    const auto disp = XOpenDisplay(nullptr);
+    Q_ASSERT(disp);
+    const auto window = DefaultRootWindow(disp);
 
-//    bitmapNoData = XCreateBitmapFromData(disp, window, noData, 8, 8);
-//    invisibleCursor = XCreatePixmapCursor(disp, bitmapNoData, bitmapNoData,
-//                                          &black, &black, 0, 0);
-//    XDefineCursor(disp, window, invisibleCursor);
-//    XFixesChangeCursorByName(disp, invisibleCursor, "watch");
-//    XFreeCursor(disp, invisibleCursor);
-//    XFreePixmap(disp, bitmapNoData);
-//    XFlush(disp);
+    Cursor invisibleCursor;
+    Pixmap bitmapNoData;
+    XColor black;
+    static char noData[] = { 0,0,0,0,0,0,0,0 };
+    black.red = black.green = black.blue = 0;
+
+    bitmapNoData = XCreateBitmapFromData(disp, window, noData, 8, 8);
+    invisibleCursor = XCreatePixmapCursor(disp, bitmapNoData, bitmapNoData,
+                                          &black, &black, 0, 0);
+    XDefineCursor(disp, window, invisibleCursor);
+    XFixesChangeCursorByName(disp, invisibleCursor, "watch");
+    XFreeCursor(disp, invisibleCursor);
+    XFreePixmap(disp, bitmapNoData);
+    XFlush(disp);
 }
 
 //void LoginManager::recordPid() {
