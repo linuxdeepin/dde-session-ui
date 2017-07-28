@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPointer>
 #include <QTimer>
+#include <QFileSystemWatcher>
 
 class FullscreenBackground : public QWidget
 {
@@ -21,6 +22,7 @@ protected:
 
 private slots:
     void adjustGeometry();
+    const QString getBlurImagePath(const QString &path);
 
 private:
     bool eventFilter(QObject *watched, QEvent *event);
@@ -29,9 +31,10 @@ private:
     void keyPressEvent(QKeyEvent *e);
 
 private:
+    QString m_bgPath;
     QPixmap m_background;
     QPointer<QWidget> m_content;
-
+    QFileSystemWatcher m_blurWatcher;
     QTimer *m_adjustTimer;
 };
 

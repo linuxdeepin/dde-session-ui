@@ -8,6 +8,9 @@
 #include <QUrl>
 #include <QFileInfo>
 #include <QKeyEvent>
+#include <QCryptographicHash>
+
+static const QString BlurredImageDir = "/var/cache/image-blur/";
 
 FullscreenBackground::FullscreenBackground(QWidget *parent)
     : QWidget(parent),
@@ -19,6 +22,14 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
     connect(m_adjustTimer, &QTimer::timeout, this, &FullscreenBackground::adjustGeometry);
+
+    m_blurWatcher.addPath(BlurredImageDir);
+//    connect(&m_blurWatcher, &QFileSystemWatcher::directoryChanged, this, [=] {
+//        // It takes time to blur a wallpaper.
+//        QTimer::singleShot(500, this, [=] {
+//            setBackground(m_bgPath);
+//        });
+//    });
 }
 
 void FullscreenBackground::setBackground(const QString &file)
@@ -27,9 +38,11 @@ void FullscreenBackground::setBackground(const QString &file)
     if (url.isLocalFile())
         return setBackground(url.path());
 
+    m_bgPath = file;
+
     Q_ASSERT(QFileInfo(file).isFile());
 
-    setBackground(QPixmap(file));
+    setBackground(QPixmap(getBlurImagePath(file)));
 }
 
 void FullscreenBackground::setBackground(const QPixmap &pixmap)
@@ -68,6 +81,18 @@ void FullscreenBackground::adjustGeometry()
 
     if (!m_content.isNull())
         m_content->setGeometry(pr);
+}
+
+const QString FullscreenBackground::getBlurImagePath(const QString &path)
+{
+    const QString ext = path.split(".").last();
+    const QString md5 = QString(QCryptographicHash::hash(path.toUtf8(), QCryptographicHash::Md5).toHex());
+    const QString blur = BlurredImageDir + QString("%1.%2").arg(md5).arg(ext);
+    QFile file(blur);
+    if (file.exists())
+        return blur;
+    else
+        return path;
 }
 
 bool FullscreenBackground::eventFilter(QObject *watched, QEvent *event)
