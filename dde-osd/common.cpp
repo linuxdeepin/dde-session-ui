@@ -1,10 +1,14 @@
 #include "common.h"
+#include <QSvgRenderer>
 
-void DrawHelper::DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QPixmap &pix, bool withText, bool withProgress)
+void DrawHelper::DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QString &pix, bool withText, bool withProgress)
 {
-    const QRect rect( option.rect );
+    const QRect rect(option.rect);
     const int yOffset = withProgress ? 30 : withText ? 20 : 40;
-    painter->drawPixmap(rect.x() + (rect.width() - pix.width()) / 2, rect.y() + yOffset, pix);
+    QPixmap pixmap(pix);
+
+    QSvgRenderer renderer(pix);
+    renderer.render(painter, QRect(QPoint(rect.x() + (rect.width() - pixmap.width()) / 2, rect.y() + yOffset), pixmap.size()));
 }
 
 void DrawHelper::DrawText(QPainter *painter, const QStyleOptionViewItem &option, const QString &text, QColor color, bool withImage)
