@@ -381,16 +381,30 @@ const QStringList UserWidget::getLoggedInUsers() const
 bool UserWidget::getUserIsAutoLogin(const QString &username)
 {
     UserButton *user = getUserByName(username);
-    if (user)
-        return user->automaticLogin();
-    return false;
+    return user ? user->automaticLogin() : false;
 }
 
 const QString UserWidget::getUserGreeterBackground(const QString &username)
 {
     UserButton *user = getUserByName(username);
-    if (user)
-        return user->greeter();
+    return user ? user->greeter() : QString();
+}
 
-    return QString();
+const QStringList UserWidget::getUserKBHistory(const QString &username)
+{
+    UserButton *user = getUserByName(username);
+    return user ? user->kbHistory() : QStringList();
+}
+
+const QString UserWidget::getUserKBLayout(const QString &username)
+{
+    UserButton *user = getUserByName(username);
+    return user ? user->kblayout() : QString();
+}
+
+void UserWidget::setUserKBlayout(const QString &username, const QString &layout)
+{
+    UserButton *user = getUserByName(username);
+    if (user)
+        user->setKbLayout(layout);
 }

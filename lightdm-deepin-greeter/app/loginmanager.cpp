@@ -586,56 +586,10 @@ void LoginManager::showShutdownFrame() {
 }
 
 void LoginManager::keyboardLayoutUI() {
-    //keyboardList is the keyboardLayout list of current user
-    m_kbdList.clear();
-//    keyboardList = m_passWdEdit->keyboardLayoutList;
-    /*xkbParse is used to parse the xml file,
-    * get the details info of keyboardlayout
-    */
-    xkbParse = new XkbParser(this);
-//    QStringList keyboardListContent =  xkbParse->lookUpKeyboardList(keyboardList);
-    QString currentKeybdLayout;
-    m_kbdParseList.clear();
-
-    DBusAccounts *accounts = new DBusAccounts("com.deepin.daemon.Accounts", "/com/deepin/daemon/Accounts", QDBusConnection::systemBus(), this);
-    for (auto u : accounts->userList())
-    {
-        DBusUser *user = new DBusUser("com.deepin.daemon.Accounts", u, QDBusConnection::systemBus(), this);
-
-        if (user->userName() == m_userWidget->currentUser())
-        {
-            m_kbdList = user->historyLayout();
-            currentKeybdLayout = user->layout();
-            break;
-        }
-        user->deleteLater();
-    }
-
-//    keyboardList = m_keyboardLayoutInterface->userLayoutList();
-//    QString currentKeybdLayout = m_keyboardLayoutInterface->currentLayout();
-
-    int index = 0;
-    for (int i = 0; i < m_kbdList.length(); i++) {
-        if (m_kbdList[i] == currentKeybdLayout) {
-            index = i;
-            break;
-        }
-//        m_keybdLayoutWidget->setListItemChecked(i);
-//        QDBusPendingReply<QString> tmpValue =  m_keyboardLayoutInterface->GetLayoutDesc(keyboardList[i]);
-//        tmpValue.waitForFinished();
-
-////        m_keybdInfoMap.insert(keyboardList[i], tmpValue);
-    }
-
-    qDebug() << m_kbdList;
-    m_kbdParseList << xkbParse->lookUpKeyboardList(m_kbdList);
-    qDebug() << "QStringList" << m_kbdParseList << m_kbdList << currentKeybdLayout;
-
-    m_passWdEdit->updateKeybdLayoutUI(m_kbdParseList);
-    m_keybdLayoutWidget = new KbLayoutWidget(m_kbdParseList);
-    m_keybdLayoutWidget->setListItemChecked(index);
-//    m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
-
+    m_passWdEdit->updateKeybdLayoutUI(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+    m_keybdLayoutWidget = new KbLayoutWidget;
+    m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+    m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
 
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
     m_keybdArrowWidget->setBackgroundColor(QColor(0, 0, 0, 78));
@@ -659,43 +613,7 @@ void LoginManager::keyboardLayoutUI() {
 
 void LoginManager::setCurrentKeybdLayoutList(QString keyboard_value)
 {
-    qDebug() << keyboard_value << m_kbdList << m_kbdParseList;
-    QString kbd = m_kbdList[m_kbdParseList.indexOf(keyboard_value)];
-    qDebug() << kbd;
-    QStringList kList = kbd.split(';');
-    QStringList args;
-    args << "-layout" << kList.first();
-    if (kList.size() > 1)
-        args << "-variant" << kList[1];
-
-    qDebug() << args;
-    QProcess *proc = new QProcess;
-    proc->start("setxkbmap", args);
-    proc->waitForFinished();
-    qDebug() << proc->exitCode() << proc->readAll();
-
-    // set system daemon data
-    DBusAccounts *accounts = new DBusAccounts("com.deepin.daemon.Accounts", "/com/deepin/daemon/Accounts", QDBusConnection::systemBus(), this);
-    for (auto u : accounts->userList())
-    {
-        DBusUser *user = new DBusUser("com.deepin.daemon.Accounts", u, QDBusConnection::systemBus(), this);
-
-        if (user->userName() == m_userWidget->currentUser())
-        {
-            qDebug() << keyboard_value;
-            user->SetLayout(kbd);
-            break;
-        }
-        user->deleteLater();
-    }
-    accounts->deleteLater();
-
-//    qDebug() << "setCurrentKeybdLayoutList";
-
-//    QString keyboard_key = xkbParse->lookUpKeyboardKey(keyboard_value);
-//    qDebug() << "parse:" << keyboard_value << keyboard_value;
-//    m_passWdEdit->utilSettings->setCurrentKbdLayout(m_userWidget->currentUser(),keyboard_key);
-
+    m_userWidget->setUserKBlayout(m_userWidget->currentUser(), keyboard_value);
 }
 
 void LoginManager::keybdLayoutWidgetPosit() {

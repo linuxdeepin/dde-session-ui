@@ -47,6 +47,9 @@ public:
     const QStringList getLoggedInUsers() const;
     bool getUserIsAutoLogin(const QString &username);
     const QString getUserGreeterBackground(const QString &username);
+    const QStringList getUserKBHistory(const QString &username);
+    const QString getUserKBLayout(const QString &username);
+    void setUserKBlayout(const QString &username, const QString &layout);
 
 signals:
     void userChanged(const QString &username);

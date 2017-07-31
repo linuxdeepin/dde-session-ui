@@ -17,6 +17,7 @@
 
 #include "constants.h"
 #include "util_updateui.h"
+#include "xkbparser.h"
 
 class LayoutButton: public QPushButton
 {
@@ -49,7 +50,7 @@ class KbLayoutWidget: public QListWidget
 {
     Q_OBJECT
 public:
-    KbLayoutWidget(QStringList buttons, QWidget* parent = 0);
+    KbLayoutWidget(QStringList buttons = QStringList(), QWidget* parent = 0);
     ~KbLayoutWidget();
 
     void initUI();
@@ -60,6 +61,7 @@ public slots:
     void setButtonsChecked(QString text);
     void setListItemChecked(int itemIndex);
     void updateButtonList(const QStringList &buttons);
+    void setDefault(const QString &layout);
 
 private:
     void addButton(const QString &button);
@@ -70,6 +72,10 @@ private:
     QStringList m_buttons;
     QList<LayoutButton* > m_layoutButtons;
     QMap<QListWidgetItem*, QFrame*> m_layoutItemList;
+    QString m_userLayout;
+    XkbParser* xkbParse;
+    QStringList m_kbdList;
+    QStringList m_kbdParseList;
 };
 #endif // KEYBOARDLAYOUTFRAME
 

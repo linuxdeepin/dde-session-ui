@@ -292,27 +292,9 @@ void LockManager::showEvent(QShowEvent *event)
     m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
     updateBackground(m_activatedUser);
 
-    m_keybdInfoMap.clear();
-    m_keybdLayoutNameList.clear();
-    keybdLayoutDescList.clear();
-
-    m_keybdLayoutNameList = m_keyboardLayoutInterface->userLayoutList();
-    QString currentKeybdLayout = m_keyboardLayoutInterface->currentLayout();
-
-    for (int i = 0; i < m_keybdLayoutNameList.length(); i++) {
-        if (m_keybdLayoutNameList[i] == currentKeybdLayout) {
-            m_keybdLayoutItemIndex = i;
-        }
-        QDBusPendingReply<QString> tmpValue =  m_keyboardLayoutInterface->GetLayoutDesc(m_keybdLayoutNameList[i]);
-        tmpValue.waitForFinished();
-
-        keybdLayoutDescList << tmpValue;
-        m_keybdInfoMap.insert(m_keybdLayoutNameList[i], tmpValue);
-    }
-    qDebug() << "QStringList" << m_keybdLayoutNameList;
-    m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
-    m_keybdLayoutWidget->updateButtonList(keybdLayoutDescList);
-    m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
+    m_passwordEdit->updateKeybdLayoutUI(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+    m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+    m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
 
     QFrame::showEvent(event);
 }
@@ -452,29 +434,13 @@ void LockManager::initBackend()
         }
     }
 
-    m_keybdLayoutNameList = m_keyboardLayoutInterface->userLayoutList();
-    QString currentKeybdLayout = m_keyboardLayoutInterface->currentLayout();
-
-    for (int i = 0; i < m_keybdLayoutNameList.length(); i++) {
-        if (m_keybdLayoutNameList[i] == currentKeybdLayout) {
-            m_keybdLayoutItemIndex = i;
-        }
-        QDBusPendingReply<QString> tmpValue =  m_keyboardLayoutInterface->GetLayoutDesc(m_keybdLayoutNameList[i]);
-        tmpValue.waitForFinished();
-
-        keybdLayoutDescList << tmpValue;
-        m_keybdInfoMap.insert(m_keybdLayoutNameList[i], tmpValue);
-    }
-    qDebug() << "QStringList" << m_keybdLayoutNameList;
-    m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
-
     m_sessionManagerIter = new DBusSessionManagerInterface("com.deepin.SessionManager", "/com/deepin/SessionManager",
             QDBusConnection::sessionBus(), this);
 }
 
 void LockManager::updateUI()
 {
-    m_keybdLayoutWidget = new KbLayoutWidget(keybdLayoutDescList);
+    m_keybdLayoutWidget = new KbLayoutWidget;
 
     m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
@@ -513,15 +479,7 @@ ControlWidget *LockManager::control()
 
 void LockManager::setCurrentKeyboardLayout(QString keyboard_value)
 {
-    QMap<QString, QString>::iterator lookupIt;
-
-    for (lookupIt = m_keybdInfoMap.begin(); lookupIt != m_keybdInfoMap.end(); ++lookupIt) {
-        if (lookupIt.value() == keyboard_value && m_keyboardLayoutInterface->currentLayout() != lookupIt.key()) {
-
-            m_keyboardLayoutInterface->setCurrentLayout(lookupIt.key());
-        }
-    }
-
+    m_userWidget->setUserKBlayout(m_userWidget->currentUser(), keyboard_value);
 }
 
 void LockManager::passwordMode()

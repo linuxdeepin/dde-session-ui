@@ -101,15 +101,11 @@ private:
     ShutdownWidget* m_requireShutdownWidget;
     KbLayoutWidget* m_keybdLayoutWidget;
     DArrowRectangle* m_keybdArrowWidget;
-    XkbParser* xkbParse;
 
     QLightDM::Greeter *m_greeter;
     DBusLogin1Manager* m_login1ManagerInterface;
 
     KeyboardMonitor *m_keyboardMonitor;
-
-    QStringList m_kbdList;
-    QStringList m_kbdParseList;
 
     ControlWidget *m_controlWidget;
 

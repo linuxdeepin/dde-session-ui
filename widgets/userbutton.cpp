@@ -134,6 +134,11 @@ void UserButton::addTextShadowAfter()
     addTextShadow(true);
 }
 
+void UserButton::setKbLayout(const QString &layout)
+{
+    m_user->SetLayout(layout);
+}
+
 void UserButton::hide(const int duration)
 {
     Q_UNUSED(duration);
@@ -215,6 +220,16 @@ const QString UserButton::greeter() const
 bool UserButton::automaticLogin() const
 {
     return m_user->automaticLogin();
+}
+
+const QStringList UserButton::kbHistory()
+{
+    return m_user->historyLayout();
+}
+
+const QString UserButton::kblayout()
+{
+    return m_user->layout();
 }
 
 void UserButton::paintEvent(QPaintEvent* event)

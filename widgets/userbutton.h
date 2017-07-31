@@ -47,6 +47,8 @@ public:
     const QString avatar() const;
     const QString greeter() const;
     bool automaticLogin() const;
+    const QStringList kbHistory();
+    const QString kblayout();
 
 signals:
     void imageClicked(QString nam);
@@ -67,6 +69,8 @@ public slots:
     void setOpacity(double opa);
     void setCustomEffect();
     void addTextShadowAfter();
+
+    void setKbLayout(const QString &layout);
 
 protected:
     void paintEvent(QPaintEvent* event);
