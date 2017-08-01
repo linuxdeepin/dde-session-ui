@@ -186,7 +186,9 @@ void KbLayoutWidget::setDefault(const QString &layout)
 {
     m_userLayout = layout;
 
-    setListItemChecked(m_buttons.indexOf(layout));
+    const int index = m_buttons.indexOf(layout);
+    if(index > -1)
+        setListItemChecked(index);
 }
 
 void KbLayoutWidget::addButton(const QString &button)
