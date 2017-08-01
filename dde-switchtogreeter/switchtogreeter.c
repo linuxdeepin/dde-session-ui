@@ -299,8 +299,6 @@ switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
     return ret;
 }
 
-#define GETTEXT_PACKAGE "gtk20"
-
 int main(int argc G_GNUC_UNUSED, char **argv G_GNUC_UNUSED)
 {
     gchar *current_username = NULL;

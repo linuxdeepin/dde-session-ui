@@ -41,11 +41,6 @@ The sub-project is design by three steps:
 0. initial the backend datas;
 0. update the user interface by the backend data.
 
-##Lists of TODO
-
-* The lockservice, switchtogreeter is developed by gtk, and we will replace it by Qt.
-
-
 ##List of Workaround
 In some platform the lightdm-deepin-greeter enter the password very slowly,
 which is caused by applying the qt style sheet(qss), so we add some conditional
