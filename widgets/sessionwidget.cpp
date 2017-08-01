@@ -120,19 +120,20 @@ const QString SessionWidget::lastSessionName() const
     return m_userSettings.value(QString("%1/last-session").arg(m_currentUser)).toString();
 }
 
-void SessionWidget::saveSettings()
+void SessionWidget::saveUserSession()
 {
     qDebug() << "save user session: " << m_currentUser << currentSessionName();
 
     m_userSettings.setValue(QString("%1/last-session").arg(m_currentUser), currentSessionName());
+    m_userSettings.sync();
 }
 
 void SessionWidget::switchToUser(const QString &userName)
 {
-    if (m_currentUser == userName)
-        return;
+    qDebug() << "switch to user" << userName;
+    if (m_currentUser != userName)
+        m_currentUser = userName;
 
-    m_currentUser = userName;
     const QString sessionName = lastSessionName();
     m_currentSessionIndex = sessionIndex(sessionName);
 
@@ -158,10 +159,11 @@ int SessionWidget::sessionIndex(const QString &sessionName)
     const int count = m_sessionModel->rowCount(QModelIndex());
     Q_ASSERT(count);
     for (int i(0); i != count; ++i)
-        if (sessionName.compare(m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString(), Qt::CaseInsensitive))
+        if (!sessionName.compare(m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString(), Qt::CaseInsensitive))
             return i;
 
-    return -1;
+    Q_UNREACHABLE();
+    return 0;
 }
 
 //void SessionWidget::leftKeySwitch() {

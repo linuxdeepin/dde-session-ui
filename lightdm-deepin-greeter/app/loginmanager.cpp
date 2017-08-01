@@ -120,10 +120,13 @@ LoginManager::LoginManager(QWidget* parent)
 
     const QString u = m_userWidget->currentUser();
     qDebug() << Q_FUNC_INFO << "current user: " << u;
-    m_sessionWidget->switchToUser(u);
+
     m_passWdEdit->show();
     m_passWdEdit->setFocus();
     updateUserLoginCondition(u);
+
+    m_sessionWidget->switchToUser(u);
+    m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
 
     QTimer::singleShot(1, this, [=] { updateBackground(u); });
 }
@@ -176,6 +179,11 @@ void LoginManager::updateUserLoginCondition(QString username)
 void LoginManager::startSession()
 {
     qDebug() << "start session = " << m_sessionWidget->currentSessionName();
+
+    // save session
+    m_userWidget->saveLastUser();
+    m_sessionWidget->saveUserSession();
+
     m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
 }
 
@@ -334,9 +342,9 @@ void LoginManager::initConnect()
 {
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LoginManager::chooseUserMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
-
     connect(m_controlWidget, &ControlWidget::requestShutdown, this, &LoginManager::showShutdownFrame);
     connect(m_controlWidget, &ControlWidget::requestSwitchSession, this, &LoginManager::chooseSessionMode);
+
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_controlWidget, &ControlWidget::chooseToSession, Qt::QueuedConnection);
