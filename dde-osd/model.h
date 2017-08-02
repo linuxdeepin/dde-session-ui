@@ -14,6 +14,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
 
     void setProvider(AbstractOSDProvider *provider);
+    AbstractOSDProvider *provider();
 
 private:
     AbstractOSDProvider *m_provider;

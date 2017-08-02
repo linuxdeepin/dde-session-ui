@@ -67,13 +67,25 @@ void Manager::ShowOSD(const QString &osd)
     }
 
     if (m_currentProvider) {
+        updateUI();
         if (repeat && m_container->isVisible()) {
+            QModelIndex currentIndex = m_listview->currentIndex();
+            if (currentIndex.row() < 0)
+                currentIndex = m_listview->model()->index(0, 0);
+
+            QModelIndex targetIndex;
+            if (currentIndex.row() + 1 >= m_listview->model()->rowCount(QModelIndex())) {
+                targetIndex = m_listview->model()->index(0, 0);
+            } else {
+                targetIndex = currentIndex.sibling(currentIndex.row() + 1, 0);
+            }
+
+            m_listview->setCurrentIndex(targetIndex);
             m_currentProvider->highlightNext();
+
         } else {
             m_currentProvider->highlightCurrent();
         }
-
-        updateUI();
 
         if (m_currentProvider->checkConditions()) {
             m_container->show();
@@ -86,7 +98,9 @@ void Manager::updateUI()
 {
     if (!m_currentProvider) return;
 
-    m_model->setProvider(m_currentProvider);
+    if (m_model->provider() != m_currentProvider)
+        m_model->setProvider(m_currentProvider);
+
     m_delegate->setProvider(m_currentProvider);
     m_listview->setFlow(m_currentProvider->flow());
     m_container->setContentsMargins(m_currentProvider->contentMargins());
@@ -98,6 +112,8 @@ void Manager::doneSetting()
 {
     m_timer->stop();
     m_container->hide();
-    m_currentProvider->sync();
-    m_currentProvider = nullptr;
+    if (m_currentProvider) {
+        m_currentProvider->sync();
+        m_currentProvider = nullptr;
+    }
 }
