@@ -139,6 +139,13 @@ void LockManager::initUI()
     m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
     m_controlWidget->setMPRISEnable(true);
 
+    QSettings authFailPolicy("/var/lib/lightdm/lightdm-deepin-greeter/policy.conf", QSettings::IniFormat);
+    const int block_secs = authFailPolicy.value("retry_exceed_block_secs", -1).toInt();
+    m_authFailMaxTimes = authFailPolicy.value("retry_maximum", -1).toInt();
+    m_authFailWattingTimer = new QTimer(this);
+    m_authFailWattingTimer->setSingleShot(true);
+    m_authFailWattingTimer->setInterval(block_secs <= 0 ? 0 : block_secs * 1000);
+
     QHBoxLayout *passwdLayout = new QHBoxLayout;
     passwdLayout->setMargin(0);
     passwdLayout->setSpacing(0);
@@ -220,6 +227,12 @@ void LockManager::onUnlockFinished(const bool unlocked)
 {
     if (!unlocked) {
         qDebug() << "Authorization failed!";
+
+        if (++m_authFailTimes >= m_authFailMaxTimes)
+        {
+            m_authFailTimes = 0;
+            m_authFailWattingTimer->start();
+        }
 
         m_passwordEdit->setAlert(true, tr("Wrong Password"));
         m_lockInter->AuthenticateUser(m_activatedUser);
@@ -347,6 +360,12 @@ void LockManager::unlock()
         m_userWidget->chooseButtonChecked();
         m_passwordEdit->getFocusTimer->start();
         qDebug() << "lineEditGrabKeyboard";
+        return;
+    }
+
+    if (m_authFailWattingTimer->isActive())
+    {
+        m_passwordEdit->setAlert(true, QString("请 %1 秒后再试").arg(m_authFailWattingTimer->remainingTime() / 1000));
         return;
     }
 

@@ -110,6 +110,10 @@ private:
     DBusMediaPlayer2 *m_mprisInter = nullptr;
     bool m_authenticating = false;
 
+    // forbid auth if fail multiple times
+    int m_authFailMaxTimes = -1;
+    int m_authFailTimes = 0;
+    QTimer *m_authFailWattingTimer;
 };
 
 #endif // LOCKMANAGER_H
