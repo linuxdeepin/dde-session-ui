@@ -105,8 +105,7 @@ static int set_rootwindow_cursor() {
 
 LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent),
-      m_keyboardMonitor(KeyboardMonitor::instance()),
-      m_authFailureCount(0)
+      m_keyboardMonitor(KeyboardMonitor::instance())
 {
 //    recordPid();
 
@@ -472,25 +471,10 @@ void LoginManager::authenticationComplete()
     qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
 
     m_userWidget->hideLoadingAni();
-
     if (!m_greeter->isAuthenticated() && m_passWdEdit->isVisible()) {
-
-        m_authFailureCount++;
-
-        if (m_authFailureCount < INT_MAX) {
-            m_passWdEdit->setAlert(true, tr("Wrong Password"));
-        } else {
-            m_authFailureCount = 0;
-            m_passWdEdit->setReadOnly(true);
-            m_passWdEdit->setEnabled(false);
-            m_passWdEdit->setAlert(true, tr("Please retry after 10 minutes"));
-        }
-
+        m_passWdEdit->setAlert(true, tr("Wrong Password"));
         return;
     }
-
-//    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-//    m_lockInter.ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
 
     QTimer::singleShot(100, this, SLOT(startSession()));
 }

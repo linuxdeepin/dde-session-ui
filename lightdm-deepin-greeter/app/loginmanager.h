@@ -108,8 +108,6 @@ private:
     KeyboardMonitor *m_keyboardMonitor;
 
     ControlWidget *m_controlWidget;
-
-    int m_authFailureCount;
 };
 #endif // LoginManager
 
