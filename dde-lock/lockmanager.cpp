@@ -221,19 +221,9 @@ void LockManager::onUnlockFinished(const bool unlocked)
     if (!unlocked) {
         qDebug() << "Authorization failed!";
 
+        m_passwordEdit->setAlert(true, tr("Wrong Password"));
         m_lockInter->AuthenticateUser(m_activatedUser);
-
-        m_authFailureCount++;
         m_userWidget->hideLoadingAni();
-        if (m_authFailureCount < INT_MAX) {
-            m_passwordEdit->setAlert(true, tr("Wrong Password"));
-        } else {
-            m_authFailureCount = 0;
-            m_passwordEdit->setReadOnly(true);
-            m_passwordEdit->setEnabled(false);
-            m_passwordEdit->setAlert(true, tr("Please retry after 10 minutes"));
-        }
-
         return;
     }
 
