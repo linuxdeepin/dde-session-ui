@@ -108,6 +108,9 @@ private:
     KeyboardMonitor *m_keyboardMonitor;
 
     ControlWidget *m_controlWidget;
+    QTimer *m_authFailWattingTimer;
+    int m_authFailMaxTimes;
+    int m_authFailTimes;
 };
 #endif // LoginManager
 

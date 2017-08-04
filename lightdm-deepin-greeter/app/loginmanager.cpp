@@ -127,6 +127,14 @@ LoginManager::LoginManager(QWidget* parent)
     m_sessionWidget->switchToUser(u);
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
 
+    QSettings authFailPolicy("/var/lib/lightdm/lightdm-deepin-greeter/policy.conf", QSettings::IniFormat);
+    const int block_secs = authFailPolicy.value("retry_exceed_block_secs", -1).toInt();
+    m_authFailMaxTimes = authFailPolicy.value("retry_maximum", -1).toInt();
+    m_authFailWattingTimer = new QTimer(this);
+    m_authFailWattingTimer->setSingleShot(true);
+    m_authFailWattingTimer->setInterval(block_secs <= 0 ? 0 : block_secs * 1000);
+    m_authFailTimes = 0;
+
     QTimer::singleShot(1, this, [=] { updateBackground(u); });
 }
 
@@ -472,6 +480,10 @@ void LoginManager::authenticationComplete()
 
     m_userWidget->hideLoadingAni();
     if (!m_greeter->isAuthenticated() && m_passWdEdit->isVisible()) {
+        if (++m_authFailTimes >= m_authFailMaxTimes) {
+            m_authFailTimes = 0;
+            m_authFailWattingTimer->start();
+        }
         m_passWdEdit->setAlert(true, tr("Wrong Password"));
         return;
     }
@@ -481,6 +493,11 @@ void LoginManager::authenticationComplete()
 
 void LoginManager::login()
 {
+    if (m_authFailWattingTimer->isActive()) {
+        m_passWdEdit->setAlert(true, QString("请 %1 秒后再试").arg(m_authFailWattingTimer->remainingTime() / 1000));
+        return;
+    }
+
     if(!m_requireShutdownWidget->isHidden()) {
         qDebug() << "SHUTDOWN";
         m_requireShutdownWidget->shutdownAction();
