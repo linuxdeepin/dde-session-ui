@@ -5,7 +5,7 @@
 #-------------------------------------------------
 include(../common.pri)
 
-QT       += core gui dbus
+QT       += core gui dbus svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,14 +23,16 @@ SOURCES += main.cpp \
     view/contentwidget.cpp \
     view/multiuserswarningview.cpp \
     app/shutdownframe.cpp \
-    view/inhibitwarnview.cpp
+    view/inhibitwarnview.cpp \
+    view/systemmonitor.cpp
 
 HEADERS  += \
     common.h \
     view/contentwidget.h \
     view/multiuserswarningview.h \
     app/shutdownframe.h \
-    view/inhibitwarnview.h
+    view/inhibitwarnview.h \
+    view/systemmonitor.h
 
 RESOURCES += \
     qss.qrc \

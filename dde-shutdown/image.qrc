@@ -50,5 +50,6 @@
         <file>img/logout_warning_hover.png</file>
         <file>img/logout_warning_normal.png</file>
         <file>img/logout_warning_press.png</file>
+        <file>img/deepin-system-monitor.svg</file>
     </qresource>
 </RCC>

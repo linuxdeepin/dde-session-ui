@@ -22,6 +22,7 @@
 #include "common.h"
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
+#include "systemmonitor.h"
 
 class MultiUsersWarningView;
 
@@ -53,6 +54,7 @@ public slots:
     void onCancel();
     const QString getInhibitReason();
     void recoveryLayout();
+    void runSystemMonitor();
 
 private:
     void initUI();
@@ -87,5 +89,6 @@ private:
 
     DBusSessionManagerInterface* m_sessionInterface = nullptr;
     DBusHotzone* m_hotZoneInterface = nullptr;
+    SystemMonitor *m_systemMonitor;
 };
 #endif // CONTENTVIEWWIDGET

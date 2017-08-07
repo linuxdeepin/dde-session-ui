@@ -50,12 +50,29 @@ void ContentWidget::showEvent(QShowEvent *event)
 
 void ContentWidget::keyReleaseEvent(QKeyEvent *event)
 {
+    setFocus();
+
     switch (event->key()) {
     case Qt::Key_Escape: onCancel(); break;
     case Qt::Key_Return:
     case Qt::Key_Enter: enterKeyPushed(); break;
-    case Qt::Key_Left: emit setPreviousChildFocus(); break;
-    case Qt::Key_Right: emit setNextChildFocus(); break;
+    case Qt::Key_Left: {
+        m_systemMonitor->setState(SystemMonitor::Leave);
+        setPreviousChildFocus();
+        break;
+    }
+    case Qt::Key_Right: {
+        m_systemMonitor->setState(SystemMonitor::Leave);
+        setNextChildFocus();
+        break;
+    }
+    case Qt::Key_Up:
+    case Qt::Key_Down: {
+        m_currentSelectedBtn->updateState(RoundItemButton::Normal);
+        m_systemMonitor->setFocus();
+        m_systemMonitor->setState(SystemMonitor::Enter);
+        break;
+    }
     default:;
     }
 }
@@ -90,6 +107,8 @@ void ContentWidget::initConnect() {
     connect(qApp, &QApplication::aboutToQuit, [this]{
         m_hotZoneInterface->EnableZoneDetected(true);
     });
+
+    connect(m_systemMonitor, &SystemMonitor::clicked, this, &ContentWidget::runSystemMonitor);
 }
 
 void ContentWidget::initData()
@@ -374,6 +393,14 @@ void ContentWidget::initUI() {
     m_mainLayout->addLayout(buttonLayout);
     m_mainLayout->addWidget(m_tipsWidget, 0, Qt::AlignHCenter);
     m_mainLayout->addStretch();
+
+    QFile file("/usr/bin/deepin-system-monitor");
+    if (file.exists()) {
+        m_systemMonitor = new SystemMonitor;
+        m_mainLayout->addWidget(m_systemMonitor, 0, Qt::AlignHCenter);
+        m_mainLayout->addSpacing(60);
+    }
+
     setFocusPolicy(Qt::StrongFocus);
     setLayout(m_mainLayout);
 
@@ -458,6 +485,20 @@ void ContentWidget::recoveryLayout()
         m_warningView->deleteLater();
         m_warningView = nullptr;
     }
+}
+
+void ContentWidget::runSystemMonitor()
+{
+    QProcess::startDetached("/usr/bin/deepin-system-monitor");
+
+#ifdef SHUTDOWN_NO_QUIT
+    m_systemMonitor->clearFocus();
+    m_systemMonitor->setState(SystemMonitor::Leave);
+    hideToplevelWindow();
+    recoveryLayout();
+#else
+    qApp->quit();
+#endif
 }
 
 void ContentWidget::setPreviousChildFocus()
