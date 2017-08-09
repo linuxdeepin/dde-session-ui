@@ -432,7 +432,6 @@ void LockManager::updateUI()
 {
     m_keybdLayoutWidget = new KbLayoutWidget;
 
-    m_keybdLayoutWidget->setListItemChecked(m_keybdLayoutItemIndex);
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
 
     m_keybdArrowWidget->setBackgroundColor(QColor::fromRgbF(1, 1, 1, 0.15));

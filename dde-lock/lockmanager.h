@@ -102,7 +102,6 @@ private:
     DBusSessionManagerInterface* m_sessionManagerIter;
 
     DBusHotzone* m_hotZoneInterface;
-    int m_keybdLayoutItemIndex;
     const QString m_activatedUser;
 
     QSize m_passwdEditSize;
