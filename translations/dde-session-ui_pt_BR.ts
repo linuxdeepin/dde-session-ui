@@ -1,5 +1,58 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="pt_BR" version="2.1">
 <context>
+    <name>ContentWidget</name>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="187"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="233"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="321"/>
+        <source>Shut down</source>
+        <translation>Desligar</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="189"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="324"/>
+        <source>Restart</source>
+        <translation>Reiniciar</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="234"/>
+        <source>Are you sure to shut down?</source>
+        <translation>Deseja desligar?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="239"/>
+        <source>Are you sure to restart?</source>
+        <translation>Deseja reiniciar?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="243"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="333"/>
+        <source>Log out</source>
+        <translation>Sair</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
+        <source>Are you sure to log out?</source>
+        <translation>Deseja sair?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <source>Suspend</source>
+        <translation>Suspender</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
+        <source>Lock</source>
+        <translation>Bloquear</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="337"/>
+        <source>Switch user</source>
+        <translation>Alternar usuário</translation>
+    </message>
+</context>
+<context>
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="133"/>
@@ -21,29 +74,37 @@
     </message>
 </context>
 <context>
+    <name>KBLayoutIndicator</name>
+    <message>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="128"/>
+        <source>Add keyboard layout</source>
+        <translation>Adicionar layout de teclado</translation>
+    </message>
+</context>
+<context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="128"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="129"/>
         <source>Login</source>
         <translation>Entrar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="235"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="229"/>
         <source>Wrong Password</source>
         <translation>Senha incorreta</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="240"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="234"/>
         <source>Please retry after 10 minutes</source>
-        <translation>Por favor tente dentro de 10 minutos</translation>
+        <translation>Por favor, tente dentro de 10 minutos</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="528"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="505"/>
         <source>Enter your password to restart</source>
         <translation>Digite sua senha para reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="531"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="508"/>
         <source>Enter your password to shutdown</source>
         <translation>Digite sua senha para desligar</translation>
     </message>
@@ -51,123 +112,27 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="258"/>
-        <source>Login</source>
-        <translation>Entrar</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="481"/>
         <source>Wrong Password</source>
         <translation>Senha incorreta</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="428"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="486"/>
         <source>Please retry after 10 minutes</source>
-        <translation>Por favor tente dentro de 10 minutos</translation>
-    </message>
-</context>
-<context>
-    <name>MainWindow</name>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Control Center</source>
-        <translation>Central de Controle</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>All Windows</source>
-        <translation>Todas as Janelas</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Launcher</source>
-        <translation>Lançador</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Desktop</source>
-        <translation>Área de trabalho</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>None</source>
-        <translation>Nenhum</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Fast Screen Off</source>
-        <translation>Tela rápida desligada</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="57"/>
-        <source>Close Window</source>
-        <translation>Fechar janela</translation>
+        <translation>Por favor, tente dentro de 10 minutos</translation>
     </message>
 </context>
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>Os usuários acima ainda tem sessões abertas, os dados serão perdidos devido ao desligamento. Tem certeza que deseja desligar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="104"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>Os usuários acima ainda tem sessões abertas e os dados serão perdidos devido a reinicialização, você tem certeza que reiniciar?</translation>
-    </message>
-</context>
-<context>
-    <name>ShutDownFrame</name>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="196"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="230"/>
-        <source>Shut down</source>
-        <translation>Desligar</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="152"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="201"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="233"/>
-        <source>Restart</source>
-        <translation>Reiniciar</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="236"/>
-        <source>Suspend</source>
-        <translation>Suspender</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="239"/>
-        <source>Lock</source>
-        <translation>Bloquear</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="206"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="242"/>
-        <source>Log out</source>
-        <translation>Sair</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="197"/>
-        <source>Are you sure to shut down?</source>
-        <translation>Deseja desligar agora?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="202"/>
-        <source>Are you sure to restart?</source>
-        <translation>Deseja reiniciar agora?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="207"/>
-        <source>Are you sure to log out?</source>
-        <translation>Você deseja sair?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
-        <source>Switch user</source>
-        <translation>Alternar usuário</translation>
     </message>
 </context>
 <context>
@@ -230,7 +195,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="31"/>
         <source>Effect Mode</source>
-        <translation>Modo Eficiente</translation>
+        <translation>Modo efeito</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="34"/>
@@ -240,7 +205,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="38"/>
         <source>Friendly Reminder</source>
-        <translation>Lembrete Amigável</translation>
+        <translation>Lembrete amigável</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="42"/>
@@ -276,7 +241,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
         <source>Kindly Reminder</source>
-        <translation>Lembrete Gentil</translation>
+        <translation>Lembrete gentil</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
@@ -294,7 +259,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="23"/>
         <source>Low battery, please plug in</source>
-        <translation>Bateria fraca, por favor conecte ao carregador</translation>
+        <translation>Bateria fraca, conecte ao carregador</translation>
     </message>
 </context>
 </TS>

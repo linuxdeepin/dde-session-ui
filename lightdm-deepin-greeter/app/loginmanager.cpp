@@ -16,7 +16,8 @@
 #include "loginmanager.h"
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbusaccounts.h"
-#include "dbus/dbususer.h"
+
+#include <com_deepin_daemon_accounts_user.h>
 
 #include <X11/Xlib-xcb.h>
 #include <X11/cursorfont.h>
@@ -26,6 +27,8 @@
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
+
+using DBusUser = com::deepin::daemon::accounts::User;
 
 static const QSize ZoreSize = QSize(0, 0);
 
@@ -102,10 +105,9 @@ static int set_rootwindow_cursor() {
 
 LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent),
-      m_keyboardMonitor(KeyboardMonitor::instance()),
-      m_authFailureCount(0)
+      m_keyboardMonitor(KeyboardMonitor::instance())
 {
-    recordPid();
+//    recordPid();
 
     initUI();
     initData();
@@ -117,16 +119,15 @@ LoginManager::LoginManager(QWidget* parent)
 
     const QString u = m_userWidget->currentUser();
     qDebug() << Q_FUNC_INFO << "current user: " << u;
-    m_sessionWidget->switchToUser(u);
+
     m_passWdEdit->show();
     m_passWdEdit->setFocus();
     updateUserLoginCondition(u);
 
-    QTimer::singleShot(1, this, [=] { updateBackground(u); });
-}
+    m_sessionWidget->switchToUser(u);
+    m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
 
-LoginManager::~LoginManager()
-{
+    QTimer::singleShot(1, this, [=] { updateBackground(u); });
 }
 
 void LoginManager::updateWidgetsPosition()
@@ -149,10 +150,7 @@ void LoginManager::updateWidgetsPosition()
 
 void LoginManager::updateBackground(QString username)
 {
-    const QSettings settings("/var/lib/AccountsService/users/" + username, QSettings::IniFormat);
-    const QString background = settings.value("User/GreeterBackground").toString();
-
-    emit requestBackground(background);
+    emit requestBackground(m_userWidget->getUserGreeterBackground(username));
 }
 
 void LoginManager::updateUserLoginCondition(QString username)
@@ -180,6 +178,11 @@ void LoginManager::updateUserLoginCondition(QString username)
 void LoginManager::startSession()
 {
     qDebug() << "start session = " << m_sessionWidget->currentSessionName();
+
+    // save session
+    m_userWidget->saveLastUser();
+    m_sessionWidget->saveUserSession();
+
     m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
 }
 
@@ -292,40 +295,41 @@ void LoginManager::initUI()
     updateStyle(":/skin/login.qss", this);
 #endif
 //    set_rootwindow_cursor();
-//    const auto disp = XOpenDisplay(nullptr);
-//    Q_ASSERT(disp);
-//    const auto window = DefaultRootWindow(disp);
 
-//    Cursor invisibleCursor;
-//    Pixmap bitmapNoData;
-//    XColor black;
-//    static char noData[] = { 0,0,0,0,0,0,0,0 };
-//    black.red = black.green = black.blue = 0;
+    const auto disp = XOpenDisplay(nullptr);
+    Q_ASSERT(disp);
+    const auto window = DefaultRootWindow(disp);
 
-//    bitmapNoData = XCreateBitmapFromData(disp, window, noData, 8, 8);
-//    invisibleCursor = XCreatePixmapCursor(disp, bitmapNoData, bitmapNoData,
-//                                          &black, &black, 0, 0);
-//    XDefineCursor(disp, window, invisibleCursor);
-//    XFixesChangeCursorByName(disp, invisibleCursor, "watch");
-//    XFreeCursor(disp, invisibleCursor);
-//    XFreePixmap(disp, bitmapNoData);
-//    XFlush(disp);
+    Cursor invisibleCursor;
+    Pixmap bitmapNoData;
+    XColor black;
+    static char noData[] = { 0,0,0,0,0,0,0,0 };
+    black.red = black.green = black.blue = 0;
+
+    bitmapNoData = XCreateBitmapFromData(disp, window, noData, 8, 8);
+    invisibleCursor = XCreatePixmapCursor(disp, bitmapNoData, bitmapNoData,
+                                          &black, &black, 0, 0);
+    XDefineCursor(disp, window, invisibleCursor);
+    XFixesChangeCursorByName(disp, invisibleCursor, "watch");
+    XFreeCursor(disp, invisibleCursor);
+    XFreePixmap(disp, bitmapNoData);
+    XFlush(disp);
 }
 
-void LoginManager::recordPid() {
-    qDebug() << "remember P i D" << qApp->applicationPid();
+//void LoginManager::recordPid() {
+//    qDebug() << "remember P i D" << qApp->applicationPid();
 
-    QFile tmpPidFile(QString("%1%2").arg("/tmp/").arg(".dgreeterpid"));
+//    QFile tmpPidFile(QString("%1%2").arg("/tmp/").arg(".dgreeterpid"));
 
-    if (tmpPidFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
-        QTextStream pidInfo(&tmpPidFile);
-        pidInfo << qApp->applicationPid();
+//    if (tmpPidFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
+//        QTextStream pidInfo(&tmpPidFile);
+//        pidInfo << qApp->applicationPid();
 
-        tmpPidFile.close();
-    } else {
-        qDebug() << "file open failed!";
-    }
-}
+//        tmpPidFile.close();
+//    } else {
+//        qDebug() << "file open failed!";
+//    }
+//}
 
 void LoginManager::initData() {
     m_greeter = new QLightDM::Greeter(this);
@@ -337,9 +341,9 @@ void LoginManager::initConnect()
 {
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LoginManager::chooseUserMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
-
     connect(m_controlWidget, &ControlWidget::requestShutdown, this, &LoginManager::showShutdownFrame);
     connect(m_controlWidget, &ControlWidget::requestSwitchSession, this, &LoginManager::chooseSessionMode);
+
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_controlWidget, &ControlWidget::chooseToSession, Qt::QueuedConnection);
@@ -467,25 +471,10 @@ void LoginManager::authenticationComplete()
     qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
 
     m_userWidget->hideLoadingAni();
-
     if (!m_greeter->isAuthenticated() && m_passWdEdit->isVisible()) {
-
-        m_authFailureCount++;
-
-        if (m_authFailureCount < INT_MAX) {
-            m_passWdEdit->setAlert(true, tr("Wrong Password"));
-        } else {
-            m_authFailureCount = 0;
-            m_passWdEdit->setReadOnly(true);
-            m_passWdEdit->setEnabled(false);
-            m_passWdEdit->setAlert(true, tr("Please retry after 10 minutes"));
-        }
-
+        m_passWdEdit->setAlert(true, tr("Wrong Password"));
         return;
     }
-
-//    DBusLockService m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-//    m_lockInter.ExitLock(m_userWidget->currentUser(), m_passWdEdit->getText());
 
     QTimer::singleShot(100, this, SLOT(startSession()));
 }
@@ -589,56 +578,10 @@ void LoginManager::showShutdownFrame() {
 }
 
 void LoginManager::keyboardLayoutUI() {
-    //keyboardList is the keyboardLayout list of current user
-    m_kbdList.clear();
-//    keyboardList = m_passWdEdit->keyboardLayoutList;
-    /*xkbParse is used to parse the xml file,
-    * get the details info of keyboardlayout
-    */
-    xkbParse = new XkbParser(this);
-//    QStringList keyboardListContent =  xkbParse->lookUpKeyboardList(keyboardList);
-    QString currentKeybdLayout;
-    m_kbdParseList.clear();
-
-    DBusAccounts *accounts = new DBusAccounts("com.deepin.daemon.Accounts", "/com/deepin/daemon/Accounts", QDBusConnection::systemBus(), this);
-    for (auto u : accounts->userList())
-    {
-        DBusUser *user = new DBusUser("com.deepin.daemon.Accounts", u, QDBusConnection::systemBus(), this);
-
-        if (user->userName() == m_userWidget->currentUser())
-        {
-            m_kbdList = user->historyLayout();
-            currentKeybdLayout = user->layout();
-            break;
-        }
-        user->deleteLater();
-    }
-
-//    keyboardList = m_keyboardLayoutInterface->userLayoutList();
-//    QString currentKeybdLayout = m_keyboardLayoutInterface->currentLayout();
-
-    int index = 0;
-    for (int i = 0; i < m_kbdList.length(); i++) {
-        if (m_kbdList[i] == currentKeybdLayout) {
-            index = i;
-            break;
-        }
-//        m_keybdLayoutWidget->setListItemChecked(i);
-//        QDBusPendingReply<QString> tmpValue =  m_keyboardLayoutInterface->GetLayoutDesc(keyboardList[i]);
-//        tmpValue.waitForFinished();
-
-////        m_keybdInfoMap.insert(keyboardList[i], tmpValue);
-    }
-
-    qDebug() << m_kbdList;
-    m_kbdParseList << xkbParse->lookUpKeyboardList(m_kbdList);
-    qDebug() << "QStringList" << m_kbdParseList << m_kbdList << currentKeybdLayout;
-
-    m_passWdEdit->updateKeybdLayoutUI(m_kbdParseList);
-    m_keybdLayoutWidget = new KbLayoutWidget(m_kbdParseList);
-    m_keybdLayoutWidget->setListItemChecked(index);
-//    m_passwordEdit->updateKeybdLayoutUI(keybdLayoutDescList);
-
+    m_passWdEdit->updateKeybdLayoutUI(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+    m_keybdLayoutWidget = new KbLayoutWidget;
+    m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+    m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
 
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
     m_keybdArrowWidget->setBackgroundColor(QColor(0, 0, 0, 78));
@@ -662,43 +605,7 @@ void LoginManager::keyboardLayoutUI() {
 
 void LoginManager::setCurrentKeybdLayoutList(QString keyboard_value)
 {
-    qDebug() << keyboard_value << m_kbdList << m_kbdParseList;
-    QString kbd = m_kbdList[m_kbdParseList.indexOf(keyboard_value)];
-    qDebug() << kbd;
-    QStringList kList = kbd.split(';');
-    QStringList args;
-    args << "-layout" << kList.first();
-    if (kList.size() > 1)
-        args << "-variant" << kList[1];
-
-    qDebug() << args;
-    QProcess *proc = new QProcess;
-    proc->start("setxkbmap", args);
-    proc->waitForFinished();
-    qDebug() << proc->exitCode() << proc->readAll();
-
-    // set system daemon data
-    DBusAccounts *accounts = new DBusAccounts("com.deepin.daemon.Accounts", "/com/deepin/daemon/Accounts", QDBusConnection::systemBus(), this);
-    for (auto u : accounts->userList())
-    {
-        DBusUser *user = new DBusUser("com.deepin.daemon.Accounts", u, QDBusConnection::systemBus(), this);
-
-        if (user->userName() == m_userWidget->currentUser())
-        {
-            qDebug() << keyboard_value;
-            qDebug() << user->SetLayout(kbd);
-            break;
-        }
-        user->deleteLater();
-    }
-    accounts->deleteLater();
-
-//    qDebug() << "setCurrentKeybdLayoutList";
-
-//    QString keyboard_key = xkbParse->lookUpKeyboardKey(keyboard_value);
-//    qDebug() << "parse:" << keyboard_value << keyboard_value;
-//    m_passWdEdit->utilSettings->setCurrentKbdLayout(m_userWidget->currentUser(),keyboard_key);
-
+    m_userWidget->setUserKBlayout(m_userWidget->currentUser(), keyboard_value);
 }
 
 void LoginManager::keybdLayoutWidgetPosit() {

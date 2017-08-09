@@ -54,7 +54,7 @@ void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option,
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant progressData = index.data(Qt::DisplayRole);
 
-    DrawHelper::DrawImage(painter, option, QPixmap(imageData.toString()), false, true);
+    DrawHelper::DrawImage(painter, option, imageData.toString(), false, true);
     DrawHelper::DrawProgressBar(painter, option, progressData.toDouble());
 }
 
@@ -66,11 +66,11 @@ QSize AudioProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &)
 QString AudioProvider::pixmapPath() const
 {
     if (m_mute) {
-        return ":/icons/OSD_mute.png";
+        return ":/icons/OSD_mute.svg";
     }
 
     const int level = m_volume > 0.6 ? 3 : m_volume > 0.3 ? 2 : 1;
-    return QString(":/icons/OSD_volume_%1.png").arg(level);
+    return QString(":/icons/OSD_volume_%1.svg").arg(level);
 }
 
 void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)

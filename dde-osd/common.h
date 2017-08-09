@@ -16,7 +16,7 @@ static const QColor ItemHighlightColor = "#01bdff";
 
 class DrawHelper {
 public:
-    static void DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QPixmap &pix, bool withText = false, bool withProgress = false);
+    static void DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QString &pix, bool withText = false, bool withProgress = false);
     static void DrawText(QPainter *painter, const QStyleOptionViewItem &option, const QString &text, QColor color = Qt::black, bool withImage = true);
     static void DrawProgressBar(QPainter *painter, const QStyleOptionViewItem &option, double progress);
 };

@@ -27,7 +27,7 @@ int BrightnessProvider::rowCount(const QModelIndex &) const
 QVariant BrightnessProvider::data(const QModelIndex &, int role) const
 {
     if (role == Qt::DecorationRole) {
-        return ":/icons/OSD_light.png";
+        return ":/icons/OSD_light.svg";
     }
     return m_brightness;
 }
@@ -37,7 +37,7 @@ void BrightnessProvider::paint(QPainter *painter, const QStyleOptionViewItem &op
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant progressData = index.data(Qt::DisplayRole);
 
-    DrawHelper::DrawImage(painter, option, QPixmap(imageData.toString()), false, true);
+    DrawHelper::DrawImage(painter, option, imageData.toString(), false, true);
     DrawHelper::DrawProgressBar(painter, option, progressData.toDouble());
 }
 

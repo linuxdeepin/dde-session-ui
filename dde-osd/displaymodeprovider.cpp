@@ -78,7 +78,7 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant textData = index.data(Qt::DisplayRole);
 
-    DrawHelper::DrawImage(painter, option, QPixmap(imageData.toString()), true);
+    DrawHelper::DrawImage(painter, option, imageData.toString(), true);
 
     const int currentIndex = m_planItems.indexOf(m_currentPlan);
     if (currentIndex != index.row()) {
@@ -148,12 +148,12 @@ QString DisplayModeProvider::getPlanItemIcon(QPair<uchar, QString> &plan) const
     const bool active = plan == m_currentPlan;
 
     if (displayMode == 1) {
-        return active ? ":/icons/OSD_copy_mode_active.png" : ":/icons/OSD_copy_mode.png";
+        return active ? ":/icons/OSD_copy_mode_active.svg" : ":/icons/OSD_copy_mode.svg";
     } else if (displayMode == 2) {
-        return active ? ":/icons/OSD_extend_mode_active.png" : ":/icons/OSD_extend_mode.png";
+        return active ? ":/icons/OSD_extend_mode_active.svg" : ":/icons/OSD_extend_mode.svg";
     } else if (displayMode == 3) {
         const int index = m_outputNames.indexOf(monitorId) + 1;
-        return QString(":/icons/OSD_only%1%2.png").arg(index).arg(active ? "_active" : "");
+        return QString(":/icons/OSD_only%1%2.svg").arg(index).arg(active ? "_active" : "");
     }
 
     return "";

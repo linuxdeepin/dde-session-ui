@@ -8,6 +8,9 @@
 #include <QUrl>
 #include <QFileInfo>
 #include <QKeyEvent>
+#include <QCryptographicHash>
+
+static const QString BlurredImageDir = "/var/cache/image-blur/";
 
 FullscreenBackground::FullscreenBackground(QWidget *parent)
     : QWidget(parent),
@@ -19,6 +22,14 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
     connect(m_adjustTimer, &QTimer::timeout, this, &FullscreenBackground::adjustGeometry);
+
+    m_blurWatcher.addPath(BlurredImageDir);
+//    connect(&m_blurWatcher, &QFileSystemWatcher::directoryChanged, this, [=] {
+//        // It takes time to blur a wallpaper.
+//        QTimer::singleShot(500, this, [=] {
+//            setBackground(m_bgPath);
+//        });
+//    });
 }
 
 void FullscreenBackground::setBackground(const QString &file)
@@ -27,9 +38,11 @@ void FullscreenBackground::setBackground(const QString &file)
     if (url.isLocalFile())
         return setBackground(url.path());
 
+    m_bgPath = file;
+
     Q_ASSERT(QFileInfo(file).isFile());
 
-    setBackground(QPixmap(file));
+    setBackground(QPixmap(getBlurImagePath(file)));
 }
 
 void FullscreenBackground::setBackground(const QPixmap &pixmap)
@@ -37,6 +50,8 @@ void FullscreenBackground::setBackground(const QPixmap &pixmap)
     Q_ASSERT(!pixmap.isNull());
 
     m_background = pixmap;
+
+    update();
 }
 
 void FullscreenBackground::setContent(QWidget * const w)
@@ -68,6 +83,18 @@ void FullscreenBackground::adjustGeometry()
         m_content->setGeometry(pr);
 }
 
+const QString FullscreenBackground::getBlurImagePath(const QString &path)
+{
+    const QString ext = path.split(".").last();
+    const QString md5 = QString(QCryptographicHash::hash(path.toUtf8(), QCryptographicHash::Md5).toHex());
+    const QString blur = BlurredImageDir + QString("%1.%2").arg(md5).arg(ext);
+    QFile file(blur);
+    if (file.exists())
+        return blur;
+    else
+        return path;
+}
+
 bool FullscreenBackground::eventFilter(QObject *watched, QEvent *event)
 {
     if (watched == m_content && event->type() == QEvent::Leave)
@@ -91,7 +118,13 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
     for (auto *s : qApp->screens())
-        painter.drawPixmap(s->geometry(), m_background);
+    {
+        const QRect tr = s->geometry();
+        const QPixmap pix = m_background.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        const QRect pix_r = QRect((pix.width() - tr.width()) / 2, (pix.height() - tr.height()) / 2, tr.width(), tr.height());
+
+        painter.drawPixmap(s->geometry(), pix, pix_r);
+    }
 }
 
 void FullscreenBackground::keyPressEvent(QKeyEvent *e)

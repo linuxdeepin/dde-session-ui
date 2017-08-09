@@ -26,6 +26,7 @@
 #include "dbus/dbushotzone.h"
 #include "darrowrectangle.h"
 #include "dbus/dbusmediaplayer2.h"
+#include "xkbparser.h"
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
@@ -96,8 +97,6 @@ private:
 
     QMap<QString, QString> m_keybdInfoMap;
     DBusKeyboard* m_keyboardLayoutInterface;
-    QStringList m_keybdLayoutNameList;
-    QStringList keybdLayoutDescList;
     KbLayoutWidget* m_keybdLayoutWidget;
     DArrowRectangle* m_keybdArrowWidget;
     DBusSessionManagerInterface* m_sessionManagerIter;
@@ -108,9 +107,9 @@ private:
 
     QSize m_passwdEditSize;
 
-    int m_authFailureCount = 0;
     DBusMediaPlayer2 *m_mprisInter = nullptr;
     bool m_authenticating = false;
+
 };
 
 #endif // LOCKMANAGER_H

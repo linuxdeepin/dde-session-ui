@@ -9,7 +9,6 @@
 
 #include "userwidget.h"
 #include "constants.h"
-#include "dbus/dbususer.h"
 #include "dbus/dbuslockservice.h"
 
 #include <QApplication>
@@ -113,7 +112,14 @@ void UserWidget::onUserAdded(const QString &name)
 
     m_userDbus.insert(name, user);
 
-    updateAvatar(user->userName());
+    UserButton *userBtn = new UserButton(user);
+    userBtn->hide();
+    userBtn->setParent(this);
+    userBtn->move(rect().center() - userBtn->rect().center());
+
+    connect(userBtn, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
+
+    m_userBtns.append(userBtn);
 }
 
 void UserWidget::onUserRemoved(const QString &name)
@@ -155,6 +161,17 @@ void UserWidget::onLoginUserListChanged(const QString &value)
     }
 }
 
+UserButton *UserWidget::getUserByName(const QString &username)
+{
+    for (UserButton *button : m_userBtns)
+        if (button->name() == username)
+            return button;
+
+    Q_UNREACHABLE();
+
+    return nullptr;
+}
+
 void UserWidget::setCurrentUser(const QString &username)
 {
     qDebug() << username << sender();
@@ -168,7 +185,7 @@ void UserWidget::setCurrentUser(const QString &username)
     isChooseUserMode = false;
 
     for (UserButton *user : m_userBtns) {
-        if (user->objectName() == username) {
+        if (user->name() == username) {
             user->showButton();
             user->setImageSize(user->AvatarLargerSize);
             user->setButtonChecked(false);
@@ -182,21 +199,6 @@ void UserWidget::setCurrentUser(const QString &username)
 
     emit userChanged(m_currentUser);
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
-}
-
-void UserWidget::updateAvatar(QString name)
-{
-    qDebug() << "add user: " << name;
-
-    UserButton *user = new UserButton(name);
-    user->hide();
-    user->setObjectName(name);
-    user->setParent(this);
-    user->move(rect().center() - user->rect().center());
-
-    connect(user, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
-
-    m_userBtns.append(user);
 }
 
 void UserWidget::removeUser(QString name)
@@ -230,6 +232,8 @@ void UserWidget::expandWidget()
     {
         UserButton *user = m_userBtns.at(i);
         const QString username = user->name();
+
+        user->setSelected(username == m_currentUser);
 
         if (m_loggedInUsers.contains(username)) {
             user->setButtonChecked(true);
@@ -274,24 +278,6 @@ void UserWidget::resizeEvent(QResizeEvent *e)
                        rect().center().y() - UserButton::AvatarLargerSize / 2 - 14);
 }
 
-void UserWidget::showEvent(QShowEvent *event)
-{
-    QFrame::showEvent(event);
-
-    for (UserButton* user: m_userBtns) {
-        user->updateAvatar();
-    }
-}
-
-void UserWidget::switchUserByKey(int i, int j) {
-    m_userBtns.at(i)->hide(10);
-    m_currentUser = m_userBtns.at(j)->objectName();
-    m_userBtns.at(j)->setSelected(false);
-    m_userBtns.at(j)->show();
-    m_userBtns.at(j)->showButton();
-    m_userBtns.at(j)->setImageSize(UserButton::AvatarLargerSize);
-}
-
 void UserWidget::chooseButtonChecked() {
     qDebug() << "Grab Key Release Event";
 
@@ -300,7 +286,7 @@ void UserWidget::chooseButtonChecked() {
     bool checkedBtsExist = false;
     for (UserButton* user: m_userBtns) {
         if (user->selected()) {
-            setCurrentUser(user->objectName());
+            setCurrentUser(user->name());
             checkedBtsExist = true;
         }
     }
@@ -310,75 +296,30 @@ void UserWidget::chooseButtonChecked() {
 }
 
 void UserWidget::leftKeySwitchUser() {
-
-    if (!isChooseUserMode) {
-        for (int i = 0; i < m_userBtns.length(); i++) {
-            qDebug() << "zz:" << i << m_userBtns.at(i)->objectName();
-            if (m_userBtns.at(i)->objectName() == m_currentUser) {
-
-                if (i == 0) {
-                    switchUserByKey(0, m_userBtns.length() - 1);
-                    break;
-                } else {
-                    qDebug() << "$$$" << i;
-                    switchUserByKey(i, i - 1);
-                    break;
-                }
-            } else {
-                continue;
-            }
-
-        }
-    } else {
-        if (m_currentUserIndex == 0) {
+    if (isChooseUserMode) {
+        if (!m_currentUserIndex)
             m_currentUserIndex = m_userBtns.length() - 1;
-        } else {
-            m_currentUserIndex = m_currentUserIndex - 1;
-        }
+        else
+            m_currentUserIndex -= 1;
 
-        for (int j = 0; j < m_userBtns.length(); j++) {
-            if (j == m_currentUserIndex) {
-                m_userBtns.at(j)->setSelected(true);
-            } else {
-                m_userBtns.at(j)->setSelected(false);
-            }
-        }
+        m_currentUser = m_userBtns.at(m_currentUserIndex)->name();
 
+        for (int i(0); i < m_userBtns.count(); i++)
+            m_userBtns.at(i)->setSelected(i == m_currentUserIndex);
     }
 }
 
 void UserWidget::rightKeySwitchUser() {
-    qDebug() << "RightKeyPressed";
-    if (!isChooseUserMode) {
-        for (int i = 0; i < m_userBtns.length(); i++) {
-            if (m_userBtns.at(i)->objectName() == m_currentUser) {
-
-                if (i == m_userBtns.length() - 1) {
-                    switchUserByKey(m_userBtns.length() - 1, 0);
-                    break;
-                } else {
-                    qDebug() << "$$$" << i;
-                    switchUserByKey(i, i + 1);
-                    break;
-                }
-            } else {
-                continue;
-            }
-        }
-    } else {
-        if (m_currentUserIndex ==  m_userBtns.length() - 1) {
+    if (isChooseUserMode) {
+        if (m_currentUserIndex ==  m_userBtns.length() - 1)
             m_currentUserIndex = 0;
-        } else {
+        else
             m_currentUserIndex = m_currentUserIndex + 1;
-        }
 
-        for (int j = 0; j < m_userBtns.length(); j++) {
-            if (j == m_currentUserIndex) {
-                m_userBtns.at(j)->setSelected(true);
-            } else {
-                m_userBtns.at(j)->setSelected(false);
-            }
-        }
+        m_currentUser = m_userBtns.at(m_currentUserIndex)->name();
+
+        for (int i(0); i < m_userBtns.count(); i++)
+            m_userBtns.at(i)->setSelected(i == m_currentUserIndex);
     }
 }
 
@@ -411,7 +352,6 @@ const QString UserWidget::currentUser()
     // return first user
     if (m_userDbus.count() > 0) {
         const QString tmpUsername = m_userDbus.first()->userName();
-        updateAvatar(tmpUsername);
         return tmpUsername;
     }
 
@@ -425,16 +365,46 @@ const QString UserWidget::currentUser()
     return QString();
 }
 
-const QString &UserWidget::getUserAvatar(const QString &username)
+const QString UserWidget::getUserAvatar(const QString &username)
 {
-    for (UserButton *button : m_userBtns)
-        if (button->name() == username)
-            return button->avatar();
-
+    UserButton *user = getUserByName(username);
+    if (user)
+        return user->avatar();
     return QString();
 }
 
 const QStringList UserWidget::getLoggedInUsers() const
 {
     return m_loggedInUsers;
+}
+
+bool UserWidget::getUserIsAutoLogin(const QString &username)
+{
+    UserButton *user = getUserByName(username);
+    return user ? user->automaticLogin() : false;
+}
+
+const QString UserWidget::getUserGreeterBackground(const QString &username)
+{
+    UserButton *user = getUserByName(username);
+    return user ? user->greeter() : QString();
+}
+
+const QStringList UserWidget::getUserKBHistory(const QString &username)
+{
+    UserButton *user = getUserByName(username);
+    return user ? user->kbHistory() : QStringList();
+}
+
+const QString UserWidget::getUserKBLayout(const QString &username)
+{
+    UserButton *user = getUserByName(username);
+    return user ? user->kblayout() : QString();
+}
+
+void UserWidget::setUserKBlayout(const QString &username, const QString &layout)
+{
+    UserButton *user = getUserByName(username);
+    if (user)
+        user->setKbLayout(layout);
 }

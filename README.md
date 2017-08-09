@@ -39,7 +39,6 @@ User interface of setting hot zone.
 - [deepin-tool-kit](https://github.com/linuxdeepin/deepin-tool-kit)
 - gsettings-qt
 - glib-2.0 gio-unix-2.0
-- gtk+-2.0
 - liblightdm-qt5-3
 - xrandr
 - x11 xext xfixes xcursor x11extras

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>OSD_wm_3d</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.9">
+        <g id="OSD_wm_3d" fill="#000000">
+            <path d="M5,11.002615 C5,9.34431651 6.33483887,8 7.99956092,8 L56.0004391,8 C57.6570508,8 59,9.33389258 59,11.002615 L59,52.997385 C59,54.6556835 57.6651611,56 56.0004391,56 L7.99956092,56 C6.34294917,56 5,54.6661074 5,52.997385 L5,11.002615 Z M8,17 L8,53 L56,53 L56,17 L8,17 Z M42,11 L42,14 L45,14 L45,11 L42,11 Z M47,11 L47,14 L50,14 L50,11 L47,11 Z M52,11 L52,14 L55,14 L55,11 L52,11 Z M20.1271115,32.7245283 L28.1306274,41.8387363 L45.9674595,24.9119466 L48.0325405,27.0880534 L27.9338887,46.1612637 L17.8728885,34.7040431 L20.1271115,32.7245283 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

@@ -23,6 +23,8 @@ public:
 
     QString localizedNameOfLayout(const QString &layout) const;
 
+    QStringList userLayoutList() const;
+
 signals:
     void layoutListChanged(const QStringList &list);
     void currentLayoutChanged(const QString &layout);
@@ -53,6 +55,8 @@ private:
 
     void updateMenu();
     void updateIcon();
+
+    QString duplicateCheck(const QString &kb);
 
     void switchToNextLayout();
 

@@ -15,17 +15,17 @@ int IndicatorProvider::rowCount(const QModelIndex &) const
 QVariant IndicatorProvider::data(const QModelIndex &, int) const
 {
     if (m_param == "CapsLockOn") {
-        return ":/icons/OSD_caps_lock_on";
+        return ":/icons/OSD_caps_lock_on.svg";
     } else if (m_param == "CapsLockOff") {
-        return ":/icons/OSD_caps_lock_off";
+        return ":/icons/OSD_caps_lock_off.svg";
     } else if (m_param == "NumLockOn") {
-        return ":/icons/OSD_num_lock_on";
+        return ":/icons/OSD_num_lock_on.svg";
     } else if (m_param == "NumLockOff") {
-        return ":/icons/OSD_num_lock_off";
+        return ":/icons/OSD_num_lock_off.svg";
     } else if (m_param == "TouchpadOn") {
-        return ":/icons/OSD_trackpad_on";
+        return ":/icons/OSD_trackpad_on.svg";
     } else if (m_param == "TouchpadOff") {
-        return ":/icons/OSD_trackpad_off";
+        return ":/icons/OSD_trackpad_off.svg";
     }
 
     return "";
@@ -34,7 +34,7 @@ QVariant IndicatorProvider::data(const QModelIndex &, int) const
 void IndicatorProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QVariant pixData = index.data(Qt::DecorationRole);
-    DrawHelper::DrawImage(painter, option, QPixmap(pixData.toString()));
+    DrawHelper::DrawImage(painter, option, pixData.toString());
 }
 
 QSize IndicatorProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const

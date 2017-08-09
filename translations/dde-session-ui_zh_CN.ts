@@ -1,5 +1,58 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
+    <name>ContentWidget</name>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="187"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="233"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="321"/>
+        <source>Shut down</source>
+        <translation>关机</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="189"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="324"/>
+        <source>Restart</source>
+        <translation>重启</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="234"/>
+        <source>Are you sure to shut down?</source>
+        <translation>您确定要关机吗？</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="239"/>
+        <source>Are you sure to restart?</source>
+        <translation>您确定要重启吗？</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="243"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="333"/>
+        <source>Log out</source>
+        <translation>注销</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
+        <source>Are you sure to log out?</source>
+        <translation>您确定要注销吗？</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <source>Suspend</source>
+        <translation>待机</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
+        <source>Lock</source>
+        <translation>锁定</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="337"/>
+        <source>Switch user</source>
+        <translation>切换用户</translation>
+    </message>
+</context>
+<context>
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="133"/>
@@ -21,29 +74,37 @@
     </message>
 </context>
 <context>
+    <name>KBLayoutIndicator</name>
+    <message>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="128"/>
+        <source>Add keyboard layout</source>
+        <translation>添加键盘布局</translation>
+    </message>
+</context>
+<context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="128"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="129"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="235"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="229"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="240"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="234"/>
         <source>Please retry after 10 minutes</source>
         <translation>10分钟后再尝试</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="528"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="505"/>
         <source>Enter your password to restart</source>
         <translation>请输入密码以完成重启</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="531"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="508"/>
         <source>Enter your password to shutdown</source>
         <translation>请输入密码以完成关机</translation>
     </message>
@@ -51,123 +112,27 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="258"/>
-        <source>Login</source>
-        <translation>登录</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="481"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="428"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="486"/>
         <source>Please retry after 10 minutes</source>
         <translation>10分钟后再尝试</translation>
     </message>
 </context>
 <context>
-    <name>MainWindow</name>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Control Center</source>
-        <translation>控制中心</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>All Windows</source>
-        <translation>所有窗口</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Launcher</source>
-        <translation>启动器</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Desktop</source>
-        <translation>桌面</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>None</source>
-        <translation>无</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Fast Screen Off</source>
-        <translation>快速黑屏</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="57"/>
-        <source>Close Window</source>
-        <translation>关闭窗口</translation>
-    </message>
-</context>
-<context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>此电脑还有以上帐户在登录，关闭电脑会导致其数据丢失，是否要关闭此电脑？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="104"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>此电脑还有以上帐户在登录，重启电脑会导致其数据丢失，是否要重启此电脑？</translation>
-    </message>
-</context>
-<context>
-    <name>ShutDownFrame</name>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="196"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="230"/>
-        <source>Shut down</source>
-        <translation>关机</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="152"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="201"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="233"/>
-        <source>Restart</source>
-        <translation>重启</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="236"/>
-        <source>Suspend</source>
-        <translation>待机</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="239"/>
-        <source>Lock</source>
-        <translation>锁定</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="206"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="242"/>
-        <source>Log out</source>
-        <translation>注销</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="197"/>
-        <source>Are you sure to shut down?</source>
-        <translation>您确定要关机吗？</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="202"/>
-        <source>Are you sure to restart?</source>
-        <translation>您确定要重启吗？</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="207"/>
-        <source>Are you sure to log out?</source>
-        <translation>您确定要注销吗？</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
-        <source>Switch user</source>
-        <translation>切换用户</translation>
     </message>
 </context>
 <context>

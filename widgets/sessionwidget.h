@@ -36,7 +36,7 @@ signals:
     void sessionChanged(const QString &sessionName);
 
 public slots:
-    void saveSettings();
+    void saveUserSession();
     void switchToUser(const QString &userName);
     //    void leftKeySwitch();
     //    void rightKeySwitch();

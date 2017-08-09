@@ -1,5 +1,58 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="es" version="2.1">
 <context>
+    <name>ContentWidget</name>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="187"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="233"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="321"/>
+        <source>Shut down</source>
+        <translation>Apagar</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="189"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="324"/>
+        <source>Restart</source>
+        <translation>Reiniciar</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="234"/>
+        <source>Are you sure to shut down?</source>
+        <translation>¿Seguro quiere apagar?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="239"/>
+        <source>Are you sure to restart?</source>
+        <translation>¿Seguro de querer reiniciar?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="243"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="333"/>
+        <source>Log out</source>
+        <translation>Cerrar sesión</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
+        <source>Are you sure to log out?</source>
+        <translation>¿Esta usted seguro de que quiere cerrar sesión?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <source>Suspend</source>
+        <translation>Suspender</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
+        <source>Lock</source>
+        <translation>Bloquear</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="337"/>
+        <source>Switch user</source>
+        <translation>Cambiar usuario</translation>
+    </message>
+</context>
+<context>
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="133"/>
@@ -21,29 +74,37 @@
     </message>
 </context>
 <context>
+    <name>KBLayoutIndicator</name>
+    <message>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="128"/>
+        <source>Add keyboard layout</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="128"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="129"/>
         <source>Login</source>
         <translation>Acceder</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="235"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="229"/>
         <source>Wrong Password</source>
-        <translation>Contraseña Incorrecta </translation>
+        <translation>Contraseña incorrecta </translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="240"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="234"/>
         <source>Please retry after 10 minutes</source>
         <translation>Por favor, reintente luego de 10 minutos</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="528"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="505"/>
         <source>Enter your password to restart</source>
         <translation>Introduzca su contraseña para reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="531"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="508"/>
         <source>Enter your password to shutdown</source>
         <translation>Escriba su contraseña para apagar</translation>
     </message>
@@ -51,123 +112,27 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="258"/>
-        <source>Login</source>
-        <translation>Iniciar sesión</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="481"/>
         <source>Wrong Password</source>
         <translation>Contraseña incorrecta</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="428"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="486"/>
         <source>Please retry after 10 minutes</source>
         <translation>Por favor, reintente luego de 10 minutos</translation>
     </message>
 </context>
 <context>
-    <name>MainWindow</name>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Control Center</source>
-        <translation>Centro de Control</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>All Windows</source>
-        <translation>Todas las Ventanas</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Launcher</source>
-        <translation>Lanzador</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Desktop</source>
-        <translation>Escritorio</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>None</source>
-        <translation>Ninguno</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
-        <source>Fast Screen Off</source>
-        <translation>Apagado de pantalla rápido</translation>
-    </message>
-    <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="57"/>
-        <source>Close Window</source>
-        <translation>Cerrar ventana</translation>
-    </message>
-</context>
-<context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="93"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="98"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Los usuarios anteriores aún se encuentran conectados y sus datos podrían perderse a causa del apagado. ¿Está seguro de apagar?</translation>
+        <translation>Los usuarios anteriores aún se encuentran conectados y sus datos podrían perderse a causa del apagado, ¿Está seguro de apagar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="104"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Los usuarios anteriores aún se encuentran conectados y sus datos podrían perderse a causa del reinicio. ¿Está seguro de reiniciar?</translation>
-    </message>
-</context>
-<context>
-    <name>ShutDownFrame</name>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="150"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="196"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="230"/>
-        <source>Shut down</source>
-        <translation>Apagar</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="152"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="201"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="233"/>
-        <source>Restart</source>
-        <translation>Reiniciar</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="236"/>
-        <source>Suspend</source>
-        <translation>Suspender</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="239"/>
-        <source>Lock</source>
-        <translation>Bloquear</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="206"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="242"/>
-        <source>Log out</source>
-        <translation>Cerrar sesión</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="197"/>
-        <source>Are you sure to shut down?</source>
-        <translation>¿Esta seguro de que quiere apagar?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="202"/>
-        <source>Are you sure to restart?</source>
-        <translation>¿Esta usted seguro de que quiere reiniciar?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="207"/>
-        <source>Are you sure to log out?</source>
-        <translation>¿Esta usted seguro de que quiere cerrar sesión?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
-        <source>Switch user</source>
-        <translation>Cambiar de usuario</translation>
+        <translation>Los usuarios anteriores aún se encuentran conectados y sus datos podrían perderse a causa del reinicio, ¿Está seguro de reiniciar?</translation>
     </message>
 </context>
 <context>
@@ -230,27 +195,27 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="31"/>
         <source>Effect Mode</source>
-        <translation type="unfinished"/>
+        <translation>Modo de efectos</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="34"/>
         <source>Common Mode</source>
-        <translation type="unfinished"/>
+        <translation>Modo común</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="38"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Recordatorio amigable</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="42"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation type="unfinished"/>
+        <translation>El sistema ha detectado que estás usando una máquina virtual, lo que afectará al rendimiento y la experiencia de uso, para una experiencia más fluida, se recomienda seleccionar el Modo común</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="45"/>
         <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
-        <translation type="unfinished"/>
+        <translation>Modo con efectos: Tendrás una experiencia suave y grata. Modo común: Tendrás una experiencia extremadamente rápida</translation>
     </message>
 </context>
 <context>
@@ -258,12 +223,12 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="18"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Efectos de ventanas habilitados</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="20"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Efectos de ventana deshabilitados</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="22"/>
@@ -276,12 +241,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Recordatorio amigable</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="10"/>
         <source>This application can not run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Esta aplicación no puede ser ejecutada sin efectos de ventanas</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="14"/>

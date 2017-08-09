@@ -31,3 +31,8 @@ void Model::setProvider(AbstractOSDProvider *provider)
     m_provider = provider;
     endResetModel();
 }
+
+AbstractOSDProvider *Model::provider()
+{
+    return m_provider;
+}

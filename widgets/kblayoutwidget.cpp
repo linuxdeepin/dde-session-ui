@@ -95,6 +95,8 @@ KbLayoutWidget::KbLayoutWidget(QStringList buttons, QWidget *parent)
         m_buttons = buttons;
     }
 
+    xkbParse = new XkbParser(this);
+
     initUI();
     updateButtonList(buttons);
     updateUI();
@@ -126,7 +128,14 @@ void KbLayoutWidget::setButtonsChecked(QString text) {
         }
     }
 
-    emit setButtonClicked(text);
+    QString kbd = m_buttons[m_kbdParseList.indexOf(text)];
+
+    QProcess *proc = new QProcess;
+    proc->start("setxkbmap -layout " + kbd.split(";").first());
+    proc->waitForFinished();
+    qDebug() << proc->exitCode() << proc->readAll()<< "setxkbmap -layout " + kbd.split(";").first();
+
+    emit setButtonClicked(kbd);
 }
 
 void KbLayoutWidget::setListItemChecked(int itemIndex) {
@@ -161,13 +170,25 @@ void KbLayoutWidget::updateButtonList(const QStringList &buttons)
     }
 
     m_layoutItemList.clear();
+    m_kbdParseList.clear();
 
-    for (int i = 0; i < m_buttons.length(); i++) {
-        addButton(m_buttons[i]);
+    m_kbdParseList = xkbParse->lookUpKeyboardList(m_buttons);
+
+    for (int i = 0; i < m_kbdParseList.length(); i++) {
+        addButton(m_kbdParseList[i]);
     }
     this->setFixedHeight(DDESESSIONCC::LAYOUTBUTTON_HEIGHT * std::min(3, m_buttons.length()));
 
     updateStyle(":/skin/keybdlayoutwidget.qss", this);
+}
+
+void KbLayoutWidget::setDefault(const QString &layout)
+{
+    m_userLayout = layout;
+
+    const int index = m_buttons.indexOf(layout);
+    if(index > -1)
+        setListItemChecked(index);
 }
 
 void KbLayoutWidget::addButton(const QString &button)
@@ -196,10 +217,12 @@ void KbLayoutWidget::addButton(const QString &button)
 
     connect(itemButton, &LayoutButton::clicked, itemButton, &LayoutButton::OnlyMeChecked, Qt::UniqueConnection);
     connect(itemButton, &LayoutButton::onlyOneChecked, this, &KbLayoutWidget::setButtonsChecked, Qt::UniqueConnection);
-    connect(itemButton, &LayoutButton::onlyOneChecked, this, &KbLayoutWidget::setButtonClicked, Qt::UniqueConnection);
 }
 
 void KbLayoutWidget::updateUI() {
+
+
+
 
 }
 KbLayoutWidget::~KbLayoutWidget(){

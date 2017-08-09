@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>OSD_light</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="OSD_light">
+            <circle id="Oval-156" fill="#000000" opacity="0.900000036" cx="32.2727273" cy="32.2727273" r="11.2727273"></circle>
+            <path d="M32.2779523,5 L32.2779523,13 M51.7233888,13.0545635 L46.0665345,18.7114178 M59.7779523,32.5 L51.7779523,32.5 M51.7233888,51.9454365 L46.0665345,46.2885822 M32.2779523,60 L32.2779523,52 M12.8325158,51.9454365 L18.48937,46.2885822 M4.77795227,32.5 L12.7779523,32.5 M12.8325158,13.0545635 L18.48937,18.7114178" id="Line" stroke="#000000" stroke-width="2.5" stroke-linecap="round"></path>
+        </g>
+    </g>
+</svg>
