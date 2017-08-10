@@ -74,7 +74,7 @@ private slots:
     void initConnections();
     void removeUser(QString name);
     void onUserListChanged();
-    void onUserAdded(const QString &name);
+    void onUserAdded(const QString &path);
     void onUserRemoved(const QString &name);
     void onLoginUserListChanged(const QString &value);
     UserButton* getUserByName(const QString &username);

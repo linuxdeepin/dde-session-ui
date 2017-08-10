@@ -103,14 +103,14 @@ void UserWidget::onUserListChanged()
         onUserAdded(name);
 }
 
-void UserWidget::onUserAdded(const QString &name)
+void UserWidget::onUserAdded(const QString &path)
 {
-    if (m_userDbus.contains(name))
+    if (m_userDbus.contains(path))
         return;
 
-    DBusUser *user = new DBusUser(ACCOUNT_DBUS_SERVICE, name, QDBusConnection::systemBus(), this);
+    DBusUser *user = new DBusUser(ACCOUNT_DBUS_SERVICE, path, QDBusConnection::systemBus(), this);
 
-    m_userDbus.insert(name, user);
+    m_userDbus.insert(path, user);
 
     UserButton *userBtn = new UserButton(user);
     userBtn->hide();
