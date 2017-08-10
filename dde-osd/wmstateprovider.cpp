@@ -15,11 +15,11 @@ QVariant WMStateProvider::data(const QModelIndex &, int role) const
 {
     const bool decoration = role == Qt::DecorationRole;
     if (m_param == "SwitchWM3D") {
-        return decoration ? ":/icons/OSD_wm_3d" : tr("Window effect enabled");
+        return decoration ? ":/icons/OSD_wm_3d.svg" : tr("Window effect enabled");
     } else if (m_param == "SwitchWM2D") {
-        return decoration ? ":/icons/OSD_wm_2d" : tr("Window effect disabled");
+        return decoration ? ":/icons/OSD_wm_2d.svg" : tr("Window effect disabled");
     }
-    return decoration ? ":/icons/OSD_wm_failed" : tr("Failed to enable window effects");
+    return decoration ? ":/icons/OSD_wm_failed.svg" : tr("Failed to enable window effects");
 }
 
 void WMStateProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
