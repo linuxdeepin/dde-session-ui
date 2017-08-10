@@ -5,7 +5,11 @@
 #include "welcomeservice.h"
 
 DWIDGET_USE_NAMESPACE
+#ifdef DCORE_NAMESPACE
 DCORE_USE_NAMESPACE
+#else
+DUTIL_USE_NAMESPACE
+#endif
 
 int main(int argc, char *argv[])
 {

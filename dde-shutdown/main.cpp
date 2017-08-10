@@ -22,7 +22,12 @@
 const QString DBUS_PATH = "/com/deepin/dde/shutdownFront";
 const QString DBUS_NAME = "com.deepin.dde.shutdownFront";
 
+DWIDGET_USE_NAMESPACE
+#ifdef DCORE_NAMESPACE
 DCORE_USE_NAMESPACE
+#else
+DUTIL_USE_NAMESPACE
+#endif
 
 int main(int argc, char* argv[])
 {
