@@ -57,13 +57,17 @@ void UserButton::initUI() {
     font.setPixelSize(16);
     m_textLabel->setFont(font);
 
+    QString name = m_user->fullName();
+    if (name.isEmpty())
+        name = "本地用户";
+
     QFontMetrics metrics(m_textLabel->font());
-    if (metrics.width(name()) > m_textLabel->width())
+    if (metrics.width(name) > m_textLabel->width())
     {
-        const QString elidedText = metrics.elidedText(name(), Qt::ElideRight, m_textLabel->width());
+        const QString elidedText = metrics.elidedText(name, Qt::ElideRight, m_textLabel->width());
         m_textLabel->setText(elidedText);
     } else {
-        m_textLabel->setText(name());
+        m_textLabel->setText(name);
     }
 
     m_textLabel->setAlignment(Qt::AlignHCenter);
