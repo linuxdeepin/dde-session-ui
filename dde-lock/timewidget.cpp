@@ -12,6 +12,7 @@
 #include <QVBoxLayout>
 #include <QDateTime>
 #include <QFontDatabase>
+#include <QSettings>
 
 TimeWidget::TimeWidget(QWidget *parent)
     : QWidget(parent)
@@ -56,7 +57,11 @@ TimeWidget::TimeWidget(QWidget *parent)
 
 void TimeWidget::refreshTime()
 {
-    m_timeLabel->setText(QDateTime::currentDateTime().toString(tr("hh:mm")));
+    QSettings dateSetting("deepin", "dde-dock-datetime", this);
+    if (dateSetting.value("24HourFormat").toBool())
+        m_timeLabel->setText(QDateTime::currentDateTime().toString(tr("hh:mm")));
+    else
+        m_timeLabel->setText(QDateTime::currentDateTime().toString(tr("hh:mm A")));
     m_dateLabel->setText(QDateTime::currentDateTime().toString(tr("yyyy-MM-dd dddd")));
 }
 
