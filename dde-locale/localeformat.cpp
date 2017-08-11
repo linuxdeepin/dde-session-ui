@@ -68,7 +68,7 @@ void LocaleFormat::setAllInfo(const QVariant &value)
     numberLabel->setText(locale.toCurrencyString(double(123456789)," "));
     dateLabel->setText(QDateTime::currentDateTime().toString(locale.dateFormat(QLocale::ShortFormat)) + "(短日期格式)");
     dateShortLabel->setText(QDateTime::currentDateTime().toString(locale.dateFormat(QLocale::LongFormat)) + "(长日期格式)");
-    moneyLabel->setText(locale.toCurrencyString(24));
+    moneyLabel->setText(locale.toCurrencyString(double(123456789)));
 
     m_setting.All = localeinfo;
     m_setting.date = localeinfo;
