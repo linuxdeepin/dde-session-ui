@@ -77,6 +77,15 @@ void ContentWidget::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+void ContentWidget::resizeEvent(QResizeEvent *event)
+{
+    QFrame::resizeEvent(event);
+
+    QRect re = QApplication::desktop()->screenGeometry(QCursor::pos());
+    m_systemMonitor->move((re.width() - m_systemMonitor->width()) / 2,
+                          re.height() - 60);
+}
+
 void ContentWidget::setConfirm(const bool confirm)
 {
     m_confirm = confirm;
@@ -389,16 +398,12 @@ void ContentWidget::initUI() {
     m_mainLayout = new QVBoxLayout;
     m_mainLayout->setMargin(0);
     m_mainLayout->setSpacing(0);
-    m_mainLayout->addStretch();
     m_mainLayout->addLayout(buttonLayout);
     m_mainLayout->addWidget(m_tipsWidget, 0, Qt::AlignHCenter);
-    m_mainLayout->addStretch();
 
     QFile file("/usr/bin/deepin-system-monitor");
     if (file.exists()) {
-        m_systemMonitor = new SystemMonitor;
-        m_mainLayout->addWidget(m_systemMonitor, 0, Qt::AlignHCenter);
-        m_mainLayout->addSpacing(60);
+        m_systemMonitor = new SystemMonitor(this);
     }
 
     setFocusPolicy(Qt::StrongFocus);

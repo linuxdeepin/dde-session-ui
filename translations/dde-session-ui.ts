@@ -4,52 +4,52 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="187"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="233"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="321"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="215"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="261"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="349"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="189"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="238"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="324"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="217"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="266"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="352"/>
         <source>Restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="234"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="262"/>
         <source>Are you sure to shut down?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="239"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="267"/>
         <source>Are you sure to restart?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="243"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="333"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="271"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="361"/>
         <source>Log out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="272"/>
         <source>Are you sure to log out?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="355"/>
         <source>Suspend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="358"/>
         <source>Lock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="337"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="365"/>
         <source>Switch user</source>
         <translation type="unfinished"></translation>
     </message>
@@ -78,7 +78,7 @@
 <context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="128"/>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="127"/>
         <source>Add keyboard layout</source>
         <translation type="unfinished"></translation>
     </message>
@@ -91,22 +91,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="229"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="224"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="234"/>
-        <source>Please retry after 10 minutes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="505"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="494"/>
         <source>Enter your password to restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="508"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="497"/>
         <source>Enter your password to shutdown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -114,13 +109,8 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="481"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="475"/>
         <source>Wrong Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="486"/>
-        <source>Please retry after 10 minutes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -176,6 +166,14 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="26"/>
         <source>Suspend</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SystemMonitor</name>
+    <message>
+        <location filename="../dde-shutdown/view/systemmonitor.cpp" line="22"/>
+        <source>Start system monitor</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
