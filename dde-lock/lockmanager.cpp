@@ -191,6 +191,7 @@ void LockManager::initUI()
             this->updateBackground(m_activatedUser);
             this->updateUserLoginCondition(m_activatedUser);
         }
+        m_userWidget->move(0, (height() - m_userWidget->height()) / 2 - 95);
     });
 
     updateBackground(m_activatedUser);
