@@ -53,6 +53,7 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
     btnLayout->addWidget(m_actionBtn);
     btnLayout->addStretch(1);
 
+    m_vLayout->addStretch();
     m_vLayout->addWidget(m_userList, 0, Qt::AlignHCenter);
     m_vLayout->addSpacing(40);
     m_vLayout->addWidget(m_warningTip, 0, Qt::AlignHCenter);
@@ -78,7 +79,7 @@ void MultiUsersWarningView::setUsers(QStringList &users)
         QListWidgetItem * item = new QListWidgetItem;
         m_userList->addItem(item);
 
-        QString icon = m_userWidget->getUserAvatar(user);
+        QString icon = getUserIcon(m_userWidget->getUserAvatar(user));
         m_userList->setItemWidget(item, new UserListItem(icon, user));
     }
 }
@@ -104,6 +105,15 @@ void MultiUsersWarningView::setAction(const Actions action)
         m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? "));
         break;
     }
+}
+
+QString MultiUsersWarningView::getUserIcon(const QString &path)
+{
+    const QUrl url(path);
+    if (url.isLocalFile())
+        return url.path();
+
+    return path;
 }
 
 UserListItem::UserListItem(QString &icon, QString &name) :
