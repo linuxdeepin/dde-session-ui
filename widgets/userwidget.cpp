@@ -408,3 +408,9 @@ void UserWidget::setUserKBlayout(const QString &username, const QString &layout)
     if (user)
         user->setKbLayout(layout);
 }
+
+const QString UserWidget::getUserFullName(const QString &username)
+{
+    UserButton *user = getUserByName(username);
+    return user ? user->fullName() : QString();
+}

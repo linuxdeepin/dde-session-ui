@@ -50,6 +50,7 @@ public:
     const QStringList getUserKBHistory(const QString &username);
     const QString getUserKBLayout(const QString &username);
     void setUserKBlayout(const QString &username, const QString &layout);
+    const QString getUserFullName(const QString &username);
 
 signals:
     void userChanged(const QString &username);

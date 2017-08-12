@@ -236,6 +236,11 @@ const QString UserButton::kblayout()
     return m_user->layout();
 }
 
+const QString UserButton::fullName() const
+{
+    return m_user->fullName();
+}
+
 void UserButton::paintEvent(QPaintEvent* event)
 {
     QPushButton::paintEvent(event);

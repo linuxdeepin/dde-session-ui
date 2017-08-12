@@ -49,6 +49,7 @@ public:
     bool automaticLogin() const;
     const QStringList kbHistory();
     const QString kblayout();
+    const QString fullName() const;
 
 signals:
     void imageClicked(QString nam);

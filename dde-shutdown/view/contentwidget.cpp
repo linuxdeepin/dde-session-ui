@@ -370,10 +370,8 @@ void ContentWidget::initUI() {
     m_mainLayout = new QVBoxLayout;
     m_mainLayout->setMargin(0);
     m_mainLayout->setSpacing(0);
-    m_mainLayout->addStretch();
     m_mainLayout->addLayout(buttonLayout);
     m_mainLayout->addWidget(m_tipsWidget, 0, Qt::AlignHCenter);
-    m_mainLayout->addStretch();
     setFocusPolicy(Qt::StrongFocus);
     setLayout(m_mainLayout);
 

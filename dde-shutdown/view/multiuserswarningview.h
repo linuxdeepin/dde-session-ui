@@ -30,6 +30,9 @@ signals:
     void cancelled();
 
 private:
+    QString getUserIcon(const QString &path);
+
+private:
     QVBoxLayout * m_vLayout;
     QListWidget * m_userList;
     QLabel * m_warningTip;

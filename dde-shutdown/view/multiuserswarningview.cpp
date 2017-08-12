@@ -13,6 +13,8 @@ const static QSize ViewSize = QSize(500, 500);
 const static QSize UserAvatarSize = QSize(64, 64);
 const static QSize UserListItemSize = QSize(180, 80);
 
+static QString UserName = "本地用户";
+
 MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
     QFrame(parent),
     m_vLayout(new QVBoxLayout(this)),
@@ -53,6 +55,7 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
     btnLayout->addWidget(m_actionBtn);
     btnLayout->addStretch(1);
 
+    m_vLayout->addStretch();
     m_vLayout->addWidget(m_userList, 0, Qt::AlignHCenter);
     m_vLayout->addSpacing(40);
     m_vLayout->addWidget(m_warningTip, 0, Qt::AlignHCenter);
@@ -78,8 +81,9 @@ void MultiUsersWarningView::setUsers(QStringList &users)
         QListWidgetItem * item = new QListWidgetItem;
         m_userList->addItem(item);
 
-        QString icon = m_userWidget->getUserAvatar(user);
-        m_userList->setItemWidget(item, new UserListItem(icon, user));
+        QString icon = getUserIcon(m_userWidget->getUserAvatar(user));
+        QString username = m_userWidget->getUserFullName(user);
+        m_userList->setItemWidget(item, new UserListItem(icon, username.isEmpty() ? UserName : username));
     }
 }
 
@@ -104,6 +108,15 @@ void MultiUsersWarningView::setAction(const Actions action)
         m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? "));
         break;
     }
+}
+
+QString MultiUsersWarningView::getUserIcon(const QString &path)
+{
+    const QUrl url(path);
+    if (url.isLocalFile())
+        return url.path();
+
+    return path;
 }
 
 UserListItem::UserListItem(QString &icon, QString &name) :
