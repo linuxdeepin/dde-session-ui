@@ -10,7 +10,8 @@ SUBDIRS += dde-shutdown \
            dde-warning-dialog \
            dde-welcome \
            dde-wm-chooser \
-    dde-locale
+    dde-locale \
+    dde-runlevel
 
 include(common.pri)
 contains(DEFINES, ARCH_MIPSEL) {
