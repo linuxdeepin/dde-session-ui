@@ -192,7 +192,7 @@ void LockManager::initUI()
 
 void LockManager::updateWidgetsPosition()
 {
-    qDebug() << "lockManager: positon" << this->width() << this->height();
+    qDebug() << "lockManager: position" << this->width() << this->height();
     const int width = this->width();
     const int height = this->height();
     m_timeWidget->move(48, height - m_timeWidget->height() - 36); // left 48px and bottom 36px
