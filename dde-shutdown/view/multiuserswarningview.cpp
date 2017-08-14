@@ -43,9 +43,9 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
     m_warningTip->setFixedWidth(500);
     m_warningTip->setAlignment(Qt::AlignHCenter);
 
-    m_cancelBtn->setNormalPic(":/img/cancel_normal.png");
-    m_cancelBtn->setHoverPic(":/img/cancel_hover.png");
-    m_cancelBtn->setPressPic(":/img/cancel_press.png");
+    m_cancelBtn->setNormalPic(":/img/cancel_normal.svg");
+    m_cancelBtn->setHoverPic(":/img/cancel_hover.svg");
+    m_cancelBtn->setPressPic(":/img/cancel_press.svg");
 
     QHBoxLayout * btnLayout = new QHBoxLayout;
     btnLayout->addStretch(1);
@@ -93,15 +93,15 @@ void MultiUsersWarningView::setAction(const Actions action)
 {
     switch (action) {
     case Actions::Shutdown:
-        m_actionBtn->setNormalPic(":/img/poweroff_warning_normal.png");
-        m_actionBtn->setHoverPic(":/img/poweroff_warning_hover.png");
-        m_actionBtn->setPressPic(":/img/poweroff_warning_press.png");
+        m_actionBtn->setNormalPic(":/img/poweroff_warning_normal.svg");
+        m_actionBtn->setHoverPic(":/img/poweroff_warning_hover.svg");
+        m_actionBtn->setPressPic(":/img/poweroff_warning_press.svg");
         m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? "));
         break;
     default:
-        m_actionBtn->setNormalPic(":/img/reboot_warning_normal.png");
-        m_actionBtn->setHoverPic(":/img/reboot_warning_hover.png");
-        m_actionBtn->setPressPic(":/img/reboot_warning_press.png");
+        m_actionBtn->setNormalPic(":/img/reboot_warning_normal.svg");
+        m_actionBtn->setHoverPic(":/img/reboot_warning_hover.svg");
+        m_actionBtn->setPressPic(":/img/reboot_warning_press.svg");
         m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? "));
         break;
     }

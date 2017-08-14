@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 INCLUDEPATH += $$PWD
-QT += x11extras
+QT += x11extras svg
 
 PKGCONFIG   += liblightdm-qt5-3 dtkwidget x11 xi
 

@@ -406,7 +406,7 @@ void ContentWidget::initUI() {
     m_btnsList->append(m_switchUserBtn);
     m_btnsList->append(m_logoutButton);
 
-    m_currentSelectedBtn = m_shutdownButton;
+    m_currentSelectedBtn = m_lockButton;
     m_currentSelectedBtn->updateState(RoundItemButton::Default);
 
     //// Inhibit to shutdown

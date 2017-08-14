@@ -8,7 +8,7 @@
  **/
 
 #include <QtCore/QObject>
-
+#include <QSvgRenderer>
 #include "rounditembutton.h"
 
 RoundItemButton::RoundItemButton(const QString &text, QWidget* parent)
@@ -69,7 +69,8 @@ void RoundItemButton::initConnect()
 
 void RoundItemButton::initUI() {
     m_itemIcon->setFocusPolicy(Qt::NoFocus);
-    m_itemIcon->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    m_itemIcon->setFixedSize(75, 75);
+    m_itemIcon->installEventFilter(this);
 
     m_itemText->setWordWrap(true);
     m_itemText->setStyleSheet("color: rgba(255, 255, 255, 255);"
@@ -143,6 +144,18 @@ void RoundItemButton::mouseReleaseEvent(QMouseEvent* e)
         emit clicked();
 }
 
+bool RoundItemButton::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == m_itemIcon && event->type() == QEvent::Paint) {
+        QSvgRenderer renderer(m_currentIcon, m_itemIcon);
+        QPainter painter(m_itemIcon);
+        painter.setRenderHints(QPainter::Antialiasing|QPainter::SmoothPixmapTransform, true);
+        renderer.render(&painter, m_itemIcon->rect());
+    }
+
+    return false;
+}
+
 void RoundItemButton::paintEvent(QPaintEvent* event)
 {
     QWidget::paintEvent(event);
@@ -159,21 +172,18 @@ void RoundItemButton::paintEvent(QPaintEvent* event)
 
 void RoundItemButton::updateIcon()
 {
-    QPixmap pixmap;
     switch (m_state)
     {
     case Disabled:  /* show normal pic */
-    case Normal:    pixmap.load(m_normalIcon);      break;
+    case Normal:    m_currentIcon = m_normalIcon;  break;
     case Default:
-    case Hover:     pixmap.load(m_hoverIcon);       break;
-    case Checked:   pixmap.load(m_normalIcon);      break;
-    case Pressed:   pixmap.load(m_pressedIcon);     break;
+    case Hover:     m_currentIcon = m_hoverIcon;   break;
+    case Checked:   m_currentIcon = m_normalIcon;  break;
+    case Pressed:   m_currentIcon = m_pressedIcon; break;
     default:;
     }
 
-    if (!pixmap.isNull()) {
-        m_itemIcon->setPixmap(pixmap);
-    }
+    m_itemIcon->update();
 }
 
 void RoundItemButton::updateState(const RoundItemButton::State state)

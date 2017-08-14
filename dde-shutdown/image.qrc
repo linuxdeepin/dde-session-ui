@@ -1,40 +1,12 @@
 <RCC>
     <qresource prefix="/">
         <file>img/facelogin_boder.png</file>
-        <file>img/lock_hover.png</file>
-        <file>img/lock_normal.png</file>
-        <file>img/lock_press.png</file>
         <file>img/login_normal.png</file>
         <file>img/login_press.png</file>
         <file>img/logo.png</file>
-        <file>img/logout_hover.png</file>
         <file>img/logo1.png</file>
-        <file>img/logout_normal.png</file>
-        <file>img/logout_press.png</file>
         <file>img/passwdlock.png</file>
         <file>img/powermenu.png</file>
-        <file>img/restart_normal.png</file>
-        <file>img/restart_hover.png</file>
-        <file>img/restart_press.png</file>
-        <file>img/shutdown_hover.png</file>
-        <file>img/shutdown_normal.png</file>
-        <file>img/shutdown_press.png</file>
-        <file>img/suspend_normal.png</file>
-        <file>img/suspend_hover.png</file>
-        <file>img/suspend_press.png</file>
-        <file>img/userswitch_hover.png</file>
-        <file>img/userswitch_normal.png</file>
-        <file>img/userswitch_press.png</file>
-        <file>img/waring.png</file>
-        <file>img/poweroff_warning_hover.png</file>
-        <file>img/poweroff_warning_normal.png</file>
-        <file>img/poweroff_warning_press.png</file>
-        <file>img/reboot_warning_hover.png</file>
-        <file>img/reboot_warning_normal.png</file>
-        <file>img/reboot_warning_press.png</file>
-        <file>img/cancel_hover.png</file>
-        <file>img/cancel_normal.png</file>
-        <file>img/cancel_press.png</file>
         <file>img/smallImage/powermenu.png</file>
         <file>img/smallImage/restart_hover.png</file>
         <file>img/smallImage/restart_normal.png</file>
@@ -47,9 +19,36 @@
         <file>img/smallImage/suspend_press.png</file>
         <file>img/user/kakaxi.png</file>
         <file>img/user/mingren.png</file>
-        <file>img/logout_warning_hover.png</file>
-        <file>img/logout_warning_normal.png</file>
-        <file>img/logout_warning_press.png</file>
         <file>img/deepin-system-monitor.svg</file>
+        <file>img/lock_hover.svg</file>
+        <file>img/lock_normal.svg</file>
+        <file>img/lock_press.svg</file>
+        <file>img/logout_hover.svg</file>
+        <file>img/logout_normal.svg</file>
+        <file>img/logout_press.svg</file>
+        <file>img/logout_warning_hover.svg</file>
+        <file>img/logout_warning_normal.svg</file>
+        <file>img/logout_warning_press.svg</file>
+        <file>img/poweroff_hover.svg</file>
+        <file>img/poweroff_normal.svg</file>
+        <file>img/poweroff_press.svg</file>
+        <file>img/poweroff_warning_hover.svg</file>
+        <file>img/poweroff_warning_normal.svg</file>
+        <file>img/poweroff_warning_press.svg</file>
+        <file>img/reboot_hover.svg</file>
+        <file>img/reboot_normal.svg</file>
+        <file>img/reboot_press.svg</file>
+        <file>img/reboot_warning_hover.svg</file>
+        <file>img/reboot_warning_normal.svg</file>
+        <file>img/reboot_warning_press.svg</file>
+        <file>img/suspend_hover.svg</file>
+        <file>img/suspend_normal.svg</file>
+        <file>img/suspend_press.svg</file>
+        <file>img/userswitch_hover.svg</file>
+        <file>img/userswitch_normal.svg</file>
+        <file>img/userswitch_press.svg</file>
+        <file>img/cancel_hover.svg</file>
+        <file>img/cancel_normal.svg</file>
+        <file>img/cancel_press.svg</file>
     </qresource>
 </RCC>

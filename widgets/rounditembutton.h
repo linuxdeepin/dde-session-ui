@@ -59,6 +59,7 @@ protected:
     void leaveEvent(QEvent* event);
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* e);
+    bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void initUI();
@@ -74,5 +75,6 @@ private:
     QString m_normalIcon;
     QString m_hoverIcon;
     QString m_pressedIcon;
+    QString m_currentIcon;
 };
 #endif // ROUNDITEMBUTTON

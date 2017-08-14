@@ -11,9 +11,9 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
     m_acceptLbl = new QLabel;
     m_acceptLbl->setAlignment(Qt::AlignCenter);
 
-    m_cancelBtn->setNormalPic(":/img/cancel_normal.png");
-    m_cancelBtn->setHoverPic(":/img/cancel_hover.png");
-    m_cancelBtn->setPressPic(":/img/cancel_press.png");
+    m_cancelBtn->setNormalPic(":/img/cancel_normal.svg");
+    m_cancelBtn->setHoverPic(":/img/cancel_hover.svg");
+    m_cancelBtn->setPressPic(":/img/cancel_press.svg");
 
     m_reasonLbl->setText("The reason of inhibit.");
     m_reasonLbl->setAlignment(Qt::AlignCenter);
@@ -74,19 +74,19 @@ void InhibitWarnView::setAction(const Actions action)
 
     switch (action) {
     case Actions::Shutdown:
-        m_acceptBtn->setNormalPic(":/img/poweroff_warning_normal.png");
-        m_acceptBtn->setHoverPic(":/img/poweroff_warning_hover.png");
-        m_acceptBtn->setPressPic(":/img/poweroff_warning_press.png");
+        m_acceptBtn->setNormalPic(":/img/poweroff_warning_normal.svg");
+        m_acceptBtn->setHoverPic(":/img/poweroff_warning_hover.svg");
+        m_acceptBtn->setPressPic(":/img/poweroff_warning_press.svg");
         break;
     case Actions::Logout:
-        m_acceptBtn->setNormalPic(":/img/logout_warning_normal.png");
-        m_acceptBtn->setHoverPic(":/img/logout_warning_hover.png");
-        m_acceptBtn->setPressPic(":/img/logout_warning_press.png");
+        m_acceptBtn->setNormalPic(":/img/logout_warning_normal.svg");
+        m_acceptBtn->setHoverPic(":/img/logout_warning_hover.svg");
+        m_acceptBtn->setPressPic(":/img/logout_warning_press.svg");
         break;
     default:
-        m_acceptBtn->setNormalPic(":/img/reboot_warning_normal.png");
-        m_acceptBtn->setHoverPic(":/img/reboot_warning_hover.png");
-        m_acceptBtn->setPressPic(":/img/reboot_warning_press.png");
+        m_acceptBtn->setNormalPic(":/img/reboot_warning_normal.svg");
+        m_acceptBtn->setHoverPic(":/img/reboot_warning_hover.svg");
+        m_acceptBtn->setPressPic(":/img/reboot_warning_press.svg");
         break;
     }
 }
