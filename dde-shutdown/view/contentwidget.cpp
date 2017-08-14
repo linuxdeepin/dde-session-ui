@@ -81,9 +81,11 @@ void ContentWidget::resizeEvent(QResizeEvent *event)
 {
     QFrame::resizeEvent(event);
 
-    QRect re = QApplication::desktop()->screenGeometry(QCursor::pos());
-    m_systemMonitor->move((re.width() - m_systemMonitor->width()) / 2,
-                          re.height() - 60);
+    if (m_systemMonitor) {
+        QRect re = QApplication::desktop()->screenGeometry(QCursor::pos());
+        m_systemMonitor->move((re.width() - m_systemMonitor->width()) / 2,
+                              re.height() - 60);
+    }
 }
 
 void ContentWidget::setConfirm(const bool confirm)
@@ -117,7 +119,8 @@ void ContentWidget::initConnect() {
         m_hotZoneInterface->EnableZoneDetected(true);
     });
 
-    connect(m_systemMonitor, &SystemMonitor::clicked, this, &ContentWidget::runSystemMonitor);
+    if (m_systemMonitor)
+        connect(m_systemMonitor, &SystemMonitor::clicked, this, &ContentWidget::runSystemMonitor);
 }
 
 void ContentWidget::initData()
@@ -366,23 +369,6 @@ void ContentWidget::initUI() {
     m_switchUserBtn->setAutoExclusive(true);
     m_switchUserBtn->setObjectName("SwitchUserButton");
 
-    QLabel *tipsIcon = new QLabel;
-    tipsIcon->setPixmap(QPixmap(":/img/waring.png"));
-    m_tipsLabel = new QLabel;
-    m_tipsLabel->setAlignment(Qt::AlignCenter);
-    m_tipsLabel->setStyleSheet("color:white;"
-                               "font-size:14px;");
-    QHBoxLayout *tipsLayout = new QHBoxLayout;
-    tipsLayout->addStretch();
-    tipsLayout->addWidget(tipsIcon, 0, Qt::AlignHCenter);
-    tipsLayout->addWidget(m_tipsLabel, 0, Qt::AlignHCenter);
-    tipsLayout->addStretch();
-
-    m_tipsWidget = new QWidget;
-    m_tipsWidget->hide();
-    m_tipsWidget->setLayout(tipsLayout);
-    m_tipsWidget->setFixedWidth(800);
-
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->setMargin(0);
     buttonLayout->setSpacing(10);
@@ -399,12 +385,12 @@ void ContentWidget::initUI() {
     m_mainLayout->setMargin(0);
     m_mainLayout->setSpacing(0);
     m_mainLayout->addLayout(buttonLayout);
-    m_mainLayout->addWidget(m_tipsWidget, 0, Qt::AlignHCenter);
 
     QFile file("/usr/bin/deepin-system-monitor");
-    if (file.exists()) {
+    if (file.exists())
         m_systemMonitor = new SystemMonitor(this);
-    }
+    else
+        m_systemMonitor = nullptr;
 
     setFocusPolicy(Qt::StrongFocus);
     setLayout(m_mainLayout);
