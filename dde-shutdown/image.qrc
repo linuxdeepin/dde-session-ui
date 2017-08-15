@@ -50,5 +50,8 @@
         <file>img/logout_warning_hover.png</file>
         <file>img/logout_warning_normal.png</file>
         <file>img/logout_warning_press.png</file>
+        <file>img/sleep_hover.svg</file>
+        <file>img/sleep_normal.svg</file>
+        <file>img/sleep_press.svg</file>
     </qresource>
 </RCC>

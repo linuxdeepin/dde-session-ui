@@ -9,6 +9,7 @@ enum Actions {
     Lock,
     Logout,
     SwitchUser,
+    Sleep,
 };
 
 #endif // COMMON_H

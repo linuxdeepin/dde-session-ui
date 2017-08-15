@@ -86,6 +86,7 @@ void ContentWidget::initConnect() {
     connect(m_lockButton, &RoundItemButton::clicked, [this] { shutDownFrameActions(Lock);});
     connect(m_logoutButton, &RoundItemButton::clicked, [this] {emit beforeInvokeAction(Logout);});
     connect(m_switchUserBtn, &RoundItemButton::clicked, [this] { shutDownFrameActions(SwitchUser);});
+    connect(m_sleepBtn, &RoundItemButton::clicked, [this] { shutDownFrameActions(Sleep);});
 
     connect(qApp, &QApplication::aboutToQuit, [this]{
         m_hotZoneInterface->EnableZoneDetected(true);
@@ -112,13 +113,15 @@ void ContentWidget::enterKeyPushed()
     else if (m_currentSelectedBtn == m_restartButton)
         beforeInvokeAction(Restart);
     else if (m_currentSelectedBtn == m_suspendButton)
-         shutDownFrameActions(Suspend);
+        shutDownFrameActions(Suspend);
     else if (m_currentSelectedBtn == m_lockButton)
-         shutDownFrameActions(Lock);
+        shutDownFrameActions(Lock);
     else if (m_currentSelectedBtn == m_logoutButton)
         emit beforeInvokeAction(Logout);
     else if (m_currentSelectedBtn == m_switchUserBtn)
-         shutDownFrameActions(SwitchUser);
+        shutDownFrameActions(SwitchUser);
+    else if (m_currentSelectedBtn == m_sleepBtn);
+        shutDownFrameActions(Sleep);
 }
 
 void ContentWidget::hideBtn(const QString &btnName)
@@ -299,6 +302,12 @@ void ContentWidget::shutDownFrameActions(const Actions action)
     case Suspend:        m_sessionInterface->RequestSuspend();       break;
     case Lock:           m_sessionInterface->RequestLock();          break;
     case Logout:         m_sessionInterface->RequestLogout();        break;
+    case Sleep:
+    {
+        qDebug() << "sleep";
+        QProcess::startDetached("qdbus com.deepin.SessionManager /com/deepin/SessionManager com.deepin.SessionManager.RequestHibernate");
+        break;
+    }
     case SwitchUser:
     {
         QDBusInterface ifc("com.deepin.dde.lockFront",
@@ -334,6 +343,10 @@ void ContentWidget::initUI() {
     m_logoutButton->setAutoExclusive(true);
     m_logoutButton->setObjectName("LogoutButton");
 
+    m_sleepBtn = new RoundItemButton("休眠");
+    m_sleepBtn->setAutoExclusive(true);
+    m_sleepBtn->setObjectName("SleepButton");
+
     m_switchUserBtn = new RoundItemButton(tr("Switch user"));
     m_switchUserBtn->setAutoExclusive(true);
     m_switchUserBtn->setObjectName("SwitchUserButton");
@@ -362,6 +375,7 @@ void ContentWidget::initUI() {
     buttonLayout->addWidget(m_shutdownButton);
     buttonLayout->addWidget(m_restartButton);
     buttonLayout->addWidget(m_suspendButton);
+    buttonLayout->addWidget(m_sleepBtn);
     buttonLayout->addWidget(m_lockButton);
     buttonLayout->addWidget(m_switchUserBtn);
     buttonLayout->addWidget(m_logoutButton);
@@ -382,6 +396,7 @@ void ContentWidget::initUI() {
     m_btnsList->append(m_shutdownButton);
     m_btnsList->append(m_restartButton);
     m_btnsList->append(m_suspendButton);
+    m_btnsList->append(m_sleepBtn);
     m_btnsList->append(m_lockButton);
     m_btnsList->append(m_switchUserBtn);
     m_btnsList->append(m_logoutButton);
