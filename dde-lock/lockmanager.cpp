@@ -243,7 +243,7 @@ void LockManager::onUnlockFinished(const bool unlocked)
 
 #ifdef LOCK_NO_QUIT
     m_userWidget->hideLoadingAni();
-    m_passwordEdit->clearText();
+    m_passwordEdit->setMessage("");
     emit checkedHide();
 #else
     qApp->exit();
