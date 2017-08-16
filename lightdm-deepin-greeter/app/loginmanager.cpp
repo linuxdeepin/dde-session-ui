@@ -360,24 +360,23 @@ void LoginManager::initConnect()
 
         qDebug()<<"selected user: " << username;
         qDebug()<<"previous selected user: " << m_sessionWidget->currentSessionOwner();
-        m_userWidget->saveLastUser();
+
+        m_passWdEdit->show();
+        m_passWdEdit->setFocus();
 
         qDebug() << username << m_sessionWidget->currentSessionOwner();
 
         // goto previous lock
-        if (username != m_sessionWidget->currentSessionOwner())
+        if (m_userWidget->getLoggedInUsers().contains(username))
         {
             QProcess *process = new QProcess;
+            connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
             process->start("dde-switchtogreeter " + username);
-            process->waitForFinished();
-            if (process->exitCode() == 0)
-                qApp->quit();
-            process->deleteLater();
+            m_userWidget->setCurrentUser(m_sessionWidget->currentSessionOwner());
+            return;
         }
 
         m_sessionWidget->switchToUser(username);
-        m_passWdEdit->show();
-        m_passWdEdit->setFocus();
         m_greeter->authenticate(username);
 
         updateBackground(username);
@@ -535,10 +534,6 @@ void LoginManager::authenticate()
 
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
-
-    //save user last choice
-//    m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
-    m_userWidget->saveLastUser();
 
     m_greeter->authenticate(username);
 

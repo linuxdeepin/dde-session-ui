@@ -181,9 +181,10 @@ void LockManager::initUI()
         if (username != m_activatedUser) {
             // goto greeter
             QProcess *process = new QProcess;
+            connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
             process->start("dde-switchtogreeter " + username);
-            process->waitForFinished();
-            process->deleteLater();
+
+            m_userWidget->setCurrentUser(m_userWidget->loginUser());
 
             return;
         } else {
@@ -247,6 +248,8 @@ void LockManager::onUnlockFinished(const bool unlocked)
     case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
     default: break;
     }
+
+    m_userWidget->saveLastUser();
 
 #ifdef LOCK_NO_QUIT
     m_userWidget->hideLoadingAni();
