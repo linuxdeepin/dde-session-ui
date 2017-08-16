@@ -117,7 +117,8 @@ int SessionWidget::sessionCount() const
 
 const QString SessionWidget::lastSessionName() const
 {
-    return m_userSettings.value(QString("%1/last-session").arg(m_currentUser)).toString();
+    const QString value = m_userSettings.value(QString("%1/last-session").arg(m_currentUser)).toString();
+    return value.isEmpty() ? m_sessionModel->data(m_sessionModel->index(0), Qt::DisplayRole).toString() : value;
 }
 
 void SessionWidget::saveUserSession()

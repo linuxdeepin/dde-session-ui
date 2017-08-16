@@ -89,9 +89,6 @@ void ControlWidget::setUserSwitchEnable(const bool visible)
 
 void ControlWidget::setSessionSwitchEnable(const bool visible)
 {
-    if (!m_sessionBtn && !m_tipWidget && !m_sessionTip && !m_tipsAni && !visible)
-        return;
-
     if (!m_sessionBtn) {
         m_sessionBtn = new DImageButton;
         m_sessionBtn->setFixedSize(40, 40);
