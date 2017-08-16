@@ -352,23 +352,20 @@ void LoginManager::initConnect()
 
         qDebug()<<"selected user: " << username;
         qDebug()<<"previous selected user: " << m_sessionWidget->lastSelectedUser();
+        m_passWdEdit->show();
+        m_passWdEdit->setFocus();
 
         if (username != m_sessionWidget->lastSelectedUser()) {
             // goto greeter
             QProcess *process = new QProcess;
             process->start("dde-switchtogreeter " + username);
             process->waitForFinished();
-            if (process->exitCode() == 0) {
-                exit(0);
-            }
             process->deleteLater();
+            return;
         }
 
-        m_userWidget->saveLastUser();
         m_greeter->authenticate(username);
         m_sessionWidget->switchToUser(username);
-        m_passWdEdit->show();
-        m_passWdEdit->setFocus();
 
         updateBackground(username);
         updateUserLoginCondition(username);
