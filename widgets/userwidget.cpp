@@ -88,8 +88,6 @@ void UserWidget::initUI()
 
 void UserWidget::initConnections()
 {
-    connect(&m_lockInter, &DBusLockService::UserChanged, this, &UserWidget::setCurrentUser);
-
     connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, &UserWidget::onUserListChanged);
     connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onUserAdded);
     connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onUserRemoved);
@@ -176,11 +174,7 @@ void UserWidget::setCurrentUser(const QString &username)
 {
     qDebug() << username << sender();
 
-    const bool isChooseUser = isChooseUserMode;
-
     m_currentUser = username;
-    if (isChooseUser)
-        m_lockInter.SwitchToUser(username);
 
     isChooseUserMode = false;
 
