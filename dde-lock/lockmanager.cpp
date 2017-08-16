@@ -169,7 +169,6 @@ void LockManager::initUI()
 
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH,
                                       QDBusConnection::systemBus(), this);
-    m_lockInter->AuthenticateUser(m_activatedUser);
 
     connect(m_lockInter, &DBusLockService::Event, this, &LockManager::lockServiceEvent);
 
@@ -251,7 +250,7 @@ void LockManager::onUnlockFinished(const bool unlocked)
 
 #ifdef LOCK_NO_QUIT
     m_userWidget->hideLoadingAni();
-    m_passwordEdit->clearText();
+    m_passwordEdit->setMessage("");
     emit checkedHide();
 #else
     qApp->exit();
@@ -292,6 +291,8 @@ void LockManager::showEvent(QShowEvent *event)
 
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
+
+    m_lockInter->AuthenticateUser(m_activatedUser);
 
     m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
     updateBackground(m_activatedUser);
