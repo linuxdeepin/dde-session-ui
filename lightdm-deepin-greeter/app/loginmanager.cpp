@@ -114,16 +114,17 @@ LoginManager::LoginManager(QWidget* parent)
     initConnect();
     initDateAndUpdate();
 
+    QString lastUser;
     QFile file("/tmp/lastuser");
     if (file.open(QIODevice::ReadWrite)) {
-        m_lastUser = file.readAll().trimmed();
+        lastUser = file.readAll().trimmed();
         file.resize(0);
         qDebug() << "file remove: " << int(file.remove());
     }
 
-    if (!m_lastUser.isEmpty()) {
-        m_userWidget->setCurrentUser(m_lastUser);
-        m_sessionWidget->switchToUser(m_lastUser);
+    if (!lastUser.isEmpty()) {
+        m_userWidget->setCurrentUser(lastUser);
+        m_sessionWidget->switchToUser(lastUser);
     }
 
     m_keyboardMonitor->start(QThread::LowestPriority);
