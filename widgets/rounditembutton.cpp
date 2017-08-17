@@ -149,7 +149,6 @@ bool RoundItemButton::eventFilter(QObject *watched, QEvent *event)
     if (watched == m_itemIcon && event->type() == QEvent::Paint) {
         QSvgRenderer renderer(m_currentIcon, m_itemIcon);
         QPainter painter(m_itemIcon);
-        painter.setRenderHints(QPainter::Antialiasing|QPainter::SmoothPixmapTransform, true);
         renderer.render(&painter, m_itemIcon->rect());
     }
 

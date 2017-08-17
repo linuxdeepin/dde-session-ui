@@ -199,9 +199,9 @@ void SessionWidget::loadSessionList()
     {
         const QString &session_name = m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString();
         const QString &session_icon = session_standard_icon_name(session_name);
-        const QString normalIcon = QString(":/img/sessions_icon/%1_normal.png").arg(session_icon);
-        const QString hoverIcon = QString(":/img/sessions_icon/%1_hover.png").arg(session_icon);
-        const QString checkedIcon = QString(":/img/sessions_icon/%1_press.png").arg(session_icon);
+        const QString normalIcon = QString(":/img/sessions_icon/%1_normal.svg").arg(session_icon);
+        const QString hoverIcon = QString(":/img/sessions_icon/%1_hover.svg").arg(session_icon);
+        const QString checkedIcon = QString(":/img/sessions_icon/%1_press.svg").arg(session_icon);
 
         qDebug() << "found session: " << session_name << session_icon;
         RoundItemButton *sbtn = new RoundItemButton(session_name, this);

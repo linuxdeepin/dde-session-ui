@@ -1,5 +1,5 @@
 #include "mediawidget.h"
-
+#include "util_updateui.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QWheelEvent>
@@ -16,9 +16,9 @@ void MediaWidget::initUI()
     m_dmprisWidget->setFixedWidth(200);
 
     m_volumeBtn = new DImageButton;
-    m_volumeBtn->setNormalPic(":/img/mpris/volume_normal.png");
-    m_volumeBtn->setHoverPic(":/img/mpris/volume_hover.png");
-    m_volumeBtn->setPressPic(":/img/mpris/volume_press.png");
+    m_volumeBtn->setNormalPic(":/img/mpris/volume_normal.svg");
+    m_volumeBtn->setHoverPic(":/img/mpris/volume_hover.svg");
+    m_volumeBtn->setPressPic(":/img/mpris/volume_press.svg");
     m_volumeBtn->installEventFilter(this);
 
     m_volumeNums = new QLabel;
@@ -42,6 +42,8 @@ void MediaWidget::initUI()
     mainlayout->addLayout(volumeLayout);
 
     setLayout(mainlayout);
+
+    updateStyle(":/skin/mediawidget.qss", this);
 }
 
 void MediaWidget::initConnect()
@@ -92,22 +94,22 @@ void MediaWidget::onVolumeChanged()
     if (m_dbusInter->volume()) {
         const double volume = m_dbusInter->volume();
         if (volume < 0.3) {
-            m_volumeBtn->setNormalPic(":/img/mpris/volume3_normal.png");
-            m_volumeBtn->setHoverPic(":/img/mpris/volume3_hover.png");
-            m_volumeBtn->setPressPic(":/img/mpris/volume3_press.png");
+            m_volumeBtn->setNormalPic(":/img/mpris/volume_low_normal.svg");
+            m_volumeBtn->setHoverPic(":/img/mpris/volume_low_hover.svg");
+            m_volumeBtn->setPressPic(":/img/mpris/volume_low_press.svg");
         } else if (volume < 0.6) {
-            m_volumeBtn->setNormalPic(":/img/mpris/volume2_normal.png");
-            m_volumeBtn->setHoverPic(":/img/mpris/volume2_hover.png");
-            m_volumeBtn->setPressPic(":/img/mpris/volume2_press.png");
+            m_volumeBtn->setNormalPic(":/img/mpris/volume_medium_normal.svg");
+            m_volumeBtn->setHoverPic(":/img/mpris/volume_medium_hover.svg");
+            m_volumeBtn->setPressPic(":/img/mpris/volume_medium_press.svg");
         } else {
-            m_volumeBtn->setNormalPic(":/img/mpris/volume_normal.png");
-            m_volumeBtn->setHoverPic(":/img/mpris/volume_hover.png");
-            m_volumeBtn->setPressPic(":/img/mpris/volume_press.png");
+            m_volumeBtn->setNormalPic(":/img/mpris/volume_normal.svg");
+            m_volumeBtn->setHoverPic(":/img/mpris/volume_hover.svg");
+            m_volumeBtn->setPressPic(":/img/mpris/volume_press.svg");
         }
     } else {
-        m_volumeBtn->setNormalPic(":/img/mpris/mute_normal.png");
-        m_volumeBtn->setHoverPic(":/img/mpris/mute_hover.png");
-        m_volumeBtn->setPressPic(":/img/mpris/mute_press.png");
+        m_volumeBtn->setNormalPic(":/img/mpris/mute_normal.svg");
+        m_volumeBtn->setHoverPic(":/img/mpris/mute_hover.svg");
+        m_volumeBtn->setPressPic(":/img/mpris/mute_press.svg");
     }
 }
 

@@ -21,14 +21,14 @@ void ControlWidget::initUI()
     m_mainLayout = new QHBoxLayout;
 
     m_switchUserBtn = new DImageButton;
-    m_switchUserBtn->setNormalPic(":/img/bottom_actions/userswitch_normal.png");
-    m_switchUserBtn->setHoverPic(":/img/bottom_actions/userswitch_hover.png");
-    m_switchUserBtn->setPressPic(":/img/bottom_actions/userswitch_press.png");
+    m_switchUserBtn->setNormalPic(":/img/bottom_actions/userswitch_normal.svg");
+    m_switchUserBtn->setHoverPic(":/img/bottom_actions/userswitch_hover.svg");
+    m_switchUserBtn->setPressPic(":/img/bottom_actions/userswitch_press.svg");
 
     m_powerBtn = new DImageButton;
-    m_powerBtn->setNormalPic(":/img/bottom_actions/shutdown_normal.png");
-    m_powerBtn->setHoverPic(":/img/bottom_actions/shutdown_hover.png");
-    m_powerBtn->setPressPic(":/img/bottom_actions/shutdown_press.png");
+    m_powerBtn->setNormalPic(":/img/bottom_actions/shutdown_normal.svg");
+    m_powerBtn->setHoverPic(":/img/bottom_actions/shutdown_hover.svg");
+    m_powerBtn->setPressPic(":/img/bottom_actions/shutdown_press.svg");
 
     m_mainLayout->setMargin(0);
     m_mainLayout->setSpacing(26);
@@ -95,9 +95,9 @@ void ControlWidget::setSessionSwitchEnable(const bool visible)
 #ifndef SHENWEI_PLATFORM
         m_sessionBtn->installEventFilter(this);
 #else
-        m_sessionBtn->setProperty("normalIcon", ":/img/sessions/unknow_indicator_normal.png");
-        m_sessionBtn->setProperty("hoverIcon", ":/img/sessions/unknow_indicator_hover.png");
-        m_sessionBtn->setProperty("checkedIcon", ":/img/sessions/unknow_indicator_press.png");
+        m_sessionBtn->setProperty("normalIcon", ":/img/sessions/unknow_indicator_normal.svg");
+        m_sessionBtn->setProperty("hoverIcon", ":/img/sessions/unknow_indicator_hover.svg");
+        m_sessionBtn->setProperty("checkedIcon", ":/img/sessions/unknow_indicator_press.svg");
 
 #endif
 
@@ -156,9 +156,9 @@ void ControlWidget::chooseToSession(const QString &session)
         m_sessionTip->setText(session);
 
         const QString sessionId = session.toLower();
-        const QString normalIcon = QString(":/img/sessions/%1_indicator_normal.png").arg(sessionId);
-        const QString hoverIcon = QString(":/img/sessions/%1_indicator_hover.png").arg(sessionId);
-        const QString checkedIcon = QString(":/img/sessions/%1_indicator_press.png").arg(sessionId);
+        const QString normalIcon = QString(":/img/sessions/%1_indicator_normal.svg").arg(sessionId);
+        const QString hoverIcon = QString(":/img/sessions/%1_indicator_hover.svg").arg(sessionId);
+        const QString checkedIcon = QString(":/img/sessions/%1_indicator_press.svg").arg(sessionId);
 
         if (QFile(normalIcon).exists() && QFile(hoverIcon).exists() && QFile(checkedIcon).exists()) {
     #ifndef SHENWEI_PLATFORM
@@ -172,13 +172,13 @@ void ControlWidget::chooseToSession(const QString &session)
     #endif
         } else {
     #ifndef SHENWEI_PLATFORM
-            m_sessionBtn->setNormalPic(":/img/sessions/unknow_indicator_normal.png");
-            m_sessionBtn->setHoverPic(":/img/sessions/unknow_indicator_hover.png");
-            m_sessionBtn->setPressPic(":/img/sessions/unknow_indicator_press.png");
+            m_sessionBtn->setNormalPic(":/img/sessions/unknow_indicator_normal.svg");
+            m_sessionBtn->setHoverPic(":/img/sessions/unknow_indicator_hover.svg");
+            m_sessionBtn->setPressPic(":/img/sessions/unknow_indicator_press.svg");
     #else
-            m_sessionBtn->setProperty("normalIcon", ":/img/sessions/unknow_indicator_normal.png");
-            m_sessionBtn->setProperty("hoverIcon", ":/img/sessions/unknow_indicator_hover.png");
-            m_sessionBtn->setProperty("checkedIcon", ":/img/sessions/unknow_indicator_press.png");
+            m_sessionBtn->setProperty("normalIcon", ":/img/sessions/unknow_indicator_normal.svg");
+            m_sessionBtn->setProperty("hoverIcon", ":/img/sessions/unknow_indicator_hover.svg");
+            m_sessionBtn->setProperty("checkedIcon", ":/img/sessions/unknow_indicator_press.svg");
     #endif
         }
     }
