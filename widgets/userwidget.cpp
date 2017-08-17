@@ -103,8 +103,6 @@ void UserWidget::initConnections()
             this, &UserWidget::handleUserAdded);
     connect(m_userModel, &QLightDM::UsersModel::rowsRemoved,
             this, &UserWidget::handleUserRemoved);
-
-    connect(&m_lockInter, &DBusLockService::UserChanged, this, &UserWidget::setCurrentUser);
 }
 
 void UserWidget::updateAvatar(QString username) {
@@ -181,6 +179,7 @@ void UserWidget::handleUserRemoved(const QModelIndex &, int, int)
 
 void UserWidget::setCurrentUser(const QString &username)
 {
+
     isChooseUserMode = false;
 
     for (UserButton *user : m_userBtns) {
@@ -213,7 +212,6 @@ void UserWidget::addUser(QString avatar, QString name)
     user->move(rect().center() - user->rect().center());
 
     connect(user, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
-    connect(user, &UserButton::imageClicked, this, &UserWidget::saveLastUser);
 
     m_userBtns.append(user);
 }

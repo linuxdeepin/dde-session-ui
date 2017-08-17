@@ -172,11 +172,22 @@ void LockManager::initUI()
         m_passwordEdit->show();
 
         if (username != UserWidget::loginUser()) {
+        qDebug() << "current User:" << username;
+
+            QFile f("/tmp/lastuser");
+            if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                f.write(username.toLocal8Bit());
+                f.setPermissions(QFileDevice::Permissions(0x7777));
+                f.close();
+            }
+
             // goto greeter
             QProcess *process = new QProcess;
+            connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
             process->start("dde-switchtogreeter " + username);
-            process->waitForFinished();
-            process->deleteLater();
+
+            m_userWidget->setCurrentUser(m_userWidget->loginUser());
+
             return;
         }
         this->updateBackground(m_userWidget->currentUser());
@@ -242,6 +253,8 @@ void LockManager::onUnlockFinished(const bool unlocked)
     case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
     default: break;
     }
+
+    m_userWidget->saveLastUser();
 
 #ifdef LOCK_NO_QUIT
     m_userWidget->hideLoadingAni();
@@ -440,6 +453,9 @@ void LockManager::loadMPRIS()
 void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message)
 {
     qDebug() << eventType << pid << username << message;
+
+    if (username != UserWidget::loginUser())
+        return;
 
     // Don't show password prompt from standard pam modules since
     // we'll provide our own prompt or just not.

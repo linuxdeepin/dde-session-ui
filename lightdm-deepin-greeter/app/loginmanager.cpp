@@ -18,7 +18,7 @@
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbusaccounts.h"
 #include "dbus/dbususer.h"
-
+#include "accountsutils.h"
 #include <X11/Xlib-xcb.h>
 #include <X11/cursorfont.h>
 #include <X11/Xcursor/Xcursor.h>
@@ -108,10 +108,23 @@ LoginManager::LoginManager(QWidget* parent)
 {
     recordPid();
 
+
     initUI();
     initData();
     initConnect();
     initDateAndUpdate();
+
+    QFile file("/tmp/lastuser");
+    if (file.open(QIODevice::ReadWrite)) {
+        m_lastUser = file.readAll().trimmed();
+        file.resize(0);
+        qDebug() << "file remove: " << int(file.remove());
+    }
+
+    if (!m_lastUser.isEmpty()) {
+        m_userWidget->setCurrentUser(m_lastUser);
+        m_sessionWidget->switchToUser(m_lastUser);
+    }
 
     m_keyboardMonitor->start(QThread::LowestPriority);
     QTimer::singleShot(0, this, &LoginManager::restoreNumlockStatus);
@@ -180,6 +193,10 @@ void LoginManager::updateUserLoginCondition(QString username)
 
 void LoginManager::startSession()
 {
+    //save user last choice
+    m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
+    m_userWidget->saveLastUser();
+
     qDebug() << "start session = " << m_sessionWidget->currentSessionName();
     m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
 }
@@ -351,16 +368,17 @@ void LoginManager::initConnect()
     connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
 
         qDebug()<<"selected user: " << username;
-        qDebug()<<"previous selected user: " << m_sessionWidget->lastSelectedUser();
         m_passWdEdit->show();
         m_passWdEdit->setFocus();
 
-        if (username != m_sessionWidget->lastSelectedUser()) {
+        const QStringList loggedInUsers = AccountsUtils::GetLoggedInUsers();
+        qDebug() << "login users: " << loggedInUsers;
+        if (loggedInUsers.contains(username)) {
             // goto greeter
             QProcess *process = new QProcess;
+            connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
             process->start("dde-switchtogreeter " + username);
-            process->waitForFinished();
-            process->deleteLater();
+
             return;
         }
 
@@ -529,10 +547,6 @@ void LoginManager::authenticate()
 
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
-
-    //save user last choice
-    m_sessionWidget->saveUserLastSession(m_userWidget->currentUser());
-    m_userWidget->saveLastUser();
 
     m_greeter->authenticate(username);
 
