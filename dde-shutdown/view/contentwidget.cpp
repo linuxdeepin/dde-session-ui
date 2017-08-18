@@ -57,20 +57,24 @@ void ContentWidget::keyReleaseEvent(QKeyEvent *event)
     case Qt::Key_Return:
     case Qt::Key_Enter: enterKeyPushed(); break;
     case Qt::Key_Left: {
-        m_systemMonitor->setState(SystemMonitor::Leave);
+        if (m_systemMonitor)
+            m_systemMonitor->setState(SystemMonitor::Leave);
         setPreviousChildFocus();
         break;
     }
     case Qt::Key_Right: {
-        m_systemMonitor->setState(SystemMonitor::Leave);
+        if (m_systemMonitor)
+            m_systemMonitor->setState(SystemMonitor::Leave);
         setNextChildFocus();
         break;
     }
     case Qt::Key_Up:
     case Qt::Key_Down: {
-        m_currentSelectedBtn->updateState(RoundItemButton::Normal);
-        m_systemMonitor->setFocus();
-        m_systemMonitor->setState(SystemMonitor::Enter);
+        if (m_systemMonitor) {
+            m_currentSelectedBtn->updateState(RoundItemButton::Normal);
+            m_systemMonitor->setFocus();
+            m_systemMonitor->setState(SystemMonitor::Enter);
+        }
         break;
     }
     default:;
@@ -482,9 +486,12 @@ void ContentWidget::runSystemMonitor()
 {
     QProcess::startDetached("/usr/bin/deepin-system-monitor");
 
+
 #ifdef SHUTDOWN_NO_QUIT
-    m_systemMonitor->clearFocus();
-    m_systemMonitor->setState(SystemMonitor::Leave);
+    if (m_systemMonitor) {
+        m_systemMonitor->clearFocus();
+        m_systemMonitor->setState(SystemMonitor::Leave);
+    }
     hideToplevelWindow();
     recoveryLayout();
 #else
