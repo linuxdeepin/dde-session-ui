@@ -76,6 +76,10 @@ void PassWdEdit::initUI()
     m_lineEdit->setAlignment(Qt::AlignVCenter);
     m_lineEdit->installEventFilter(this);
 
+    QFont font = m_lineEdit->font();
+    font.setWeight(QFont::Normal);
+    m_lineEdit->setFont(font);
+
     m_Layout = new QHBoxLayout;
     m_Layout->setMargin(0);
     m_Layout->setSpacing(0);
