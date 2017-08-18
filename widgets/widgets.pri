@@ -6,7 +6,7 @@
 INCLUDEPATH += $$PWD
 QT += x11extras
 
-PKGCONFIG   += liblightdm-qt5-3 dtkbase dtkwidget x11 xi
+PKGCONFIG   += liblightdm-qt5-3 dtkwidget x11 xi
 
 HEADERS += \
     $$PWD/useravatar.h \

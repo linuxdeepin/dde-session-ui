@@ -16,7 +16,7 @@
 
 #include <DLog>
 
-DUTIL_USE_NAMESPACE
+DCORE_USE_NAMESPACE
 
 bool setAllMonitorsExtend()
 {

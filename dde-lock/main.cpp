@@ -19,8 +19,8 @@
 #include <dapplication.h>
 #include <QDBusInterface>
 
-DUTIL_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
+DCORE_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {

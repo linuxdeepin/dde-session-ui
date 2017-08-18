@@ -12,7 +12,7 @@ TARGET = dde-wm-chooser
 TEMPLATE = app
 
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dtkbase dtkwidget dtkutil
+PKGCONFIG += dtkwidget
 
 include(../boxframe/boxframe.pri)
 

@@ -5,7 +5,7 @@ LIBS += -lX11 -lXext -lXfixes
 TARGET = dde-welcome
 TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dtkwidget dtkbase
+PKGCONFIG += dtkwidget dtkcore
 
 SOURCES += \
     main.cpp \
