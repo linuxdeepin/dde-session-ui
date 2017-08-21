@@ -57,11 +57,7 @@ TimeWidget::TimeWidget(QWidget *parent)
 
 void TimeWidget::refreshTime()
 {
-    QSettings dateSetting("deepin", "dde-dock-datetime", this);
-    if (dateSetting.value("24HourFormat").toBool())
-        m_timeLabel->setText(QDateTime::currentDateTime().toString(tr("hh:mm")));
-    else
-        m_timeLabel->setText(QDateTime::currentDateTime().toString(tr("hh:mm A")));
+    m_timeLabel->setText(QDateTime::currentDateTime().toString(tr("hh:mm")));
     m_dateLabel->setText(QDateTime::currentDateTime().toString(tr("yyyy-MM-dd dddd")));
 }
 
