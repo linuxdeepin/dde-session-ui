@@ -68,7 +68,13 @@ void ContentWidget::keyReleaseEvent(QKeyEvent *event)
         setNextChildFocus();
         break;
     }
-    case Qt::Key_Up:
+    case Qt::Key_Up: {
+        if (m_systemMonitor) {
+            m_systemMonitor->setState(SystemMonitor::Leave);
+        }
+        m_currentSelectedBtn->setChecked(true);
+        break;
+    }
     case Qt::Key_Down: {
         if (m_systemMonitor) {
             m_currentSelectedBtn->updateState(RoundItemButton::Normal);
