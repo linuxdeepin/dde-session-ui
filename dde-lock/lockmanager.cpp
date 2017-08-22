@@ -342,14 +342,17 @@ void LockManager::unlock()
     if (!m_passwordEdit->isVisible())
         return;
 
+//    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
+    const QString &username = m_activatedUser;
+    const QString &password = m_passwordEdit->getText();
+
+    if (password.isEmpty())
+        return;
+
     if (m_authenticating)
         return;
 
     m_authenticating = true;
-
-//    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
-    const QString &username = m_activatedUser;
-    const QString &password = m_passwordEdit->getText();
 
     m_lockInter->UnlockCheck(username, password);
 }
@@ -374,8 +377,7 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
         break;
     case DBusLockService::PromptSecret:
         qDebug() << "prompt secret from pam: " << message;
-        if (!msg.isEmpty())
-            m_passwordEdit->setMessage(msg);
+        m_passwordEdit->setMessage(msg);
         break;
     case DBusLockService::ErrorMsg:
         qWarning() << "error message from pam: " << message;
