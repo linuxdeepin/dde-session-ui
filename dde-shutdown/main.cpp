@@ -57,29 +57,6 @@ int main(int argc, char* argv[])
     parser.addOption(daemon);
     parser.process(app);
 
-    if (parser.isSet(daemon))
-    {
-        QProcess p1;
-        p1.start("ps aux");
-        p1.waitForFinished();
-
-        QString pid;
-        for (const QString &line : p1.readAll().split('\n'))
-        {
-            if (line.endsWith("dde-shutdown"))
-            {
-                pid = line.split(QRegularExpression(" +")).at(1);
-                qDebug() << line << pid;
-
-                break;
-            }
-        }
-
-        QProcess p2;
-        p2.start("kill " + pid);
-        qDebug() << p2.waitForFinished();
-    }
-
     QDBusConnection session = QDBusConnection::sessionBus();
     if(session.registerService(DBUS_NAME)){
         qDebug() << "dbus registration success.";
@@ -98,11 +75,11 @@ int main(int argc, char* argv[])
     } else {
         qWarning() << "dde-shutdown is running...";
 
-        Q_ASSERT_X(!parser.isSet(daemon), Q_FUNC_INFO, "State Error");
-
-        const char* interface = "com.deepin.dde.shutdownFront";
-        QDBusInterface ifc(DBUS_NAME, DBUS_PATH, interface, session, NULL);
-        ifc.asyncCall("Show");
+        if (!parser.isSet(daemon)) {
+            const char* interface = "com.deepin.dde.shutdownFront";
+            QDBusInterface ifc(DBUS_NAME, DBUS_PATH, interface, session, NULL);
+            ifc.asyncCall("Show");
+        }
 
         return 0;
     }
