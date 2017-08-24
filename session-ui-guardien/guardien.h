@@ -16,6 +16,10 @@ private:
     QProcess *m_lock;
 
     void restart();
+    void startShutdown();
+    void startLock();
+    void killOtherShutdown();
+    void killOtherLock();
 
 private slots:
     void handleFinished(int);

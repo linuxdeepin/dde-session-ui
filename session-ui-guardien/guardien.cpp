@@ -25,8 +25,8 @@ Guardien::Guardien(QObject *parent) :
 
 void Guardien::start()
 {
-    m_shutdown->start();
-    m_lock->start();
+    startShutdown();
+    startLock();
 }
 
 void Guardien::restart()
@@ -35,12 +35,50 @@ void Guardien::restart()
     m_lock->kill();
 }
 
+void Guardien::startShutdown()
+{
+    killOtherShutdown();
+    m_shutdown->start();
+}
+
+void Guardien::startLock()
+{
+    killOtherLock();
+    m_lock->start();
+}
+
+void Guardien::killOtherShutdown()
+{
+    QProcess p;
+    p.setProgram("killall");
+
+    QStringList args;
+    args << "dde-shutdown";
+    p.setArguments(args);
+
+    p.start();
+    p.waitForFinished();
+}
+
+void Guardien::killOtherLock()
+{
+    QProcess p;
+    p.setProgram("killall");
+
+    QStringList args;
+    args << "dde-lock";
+    p.setArguments(args);
+
+    p.start();
+    p.waitForFinished();
+}
+
 void Guardien::handleFinished(int)
 {
     QProcess *p = qobject_cast<QProcess*>(sender());
     if (p == m_shutdown) {
-        m_shutdown->start();
+        startShutdown();
     } else if (p == m_lock) {
-        m_lock->start();
+        startLock();
     }
 }
