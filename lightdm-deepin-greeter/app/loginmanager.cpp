@@ -373,6 +373,14 @@ void LoginManager::initConnect()
         updateUserLoginCondition(username);
     });
 
+    connect(m_userWidget, &UserWidget::userListChanged, this, [=] (const QString &username) {
+        m_greeter->authenticate(username);
+        m_sessionWidget->switchToUser(username);
+        updateBackground(username);
+        updateUserLoginCondition(username);
+        m_switchFrame->setUserSwitchEnable(m_userWidget->count() > 1);
+    });
+
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
     connect(m_greeter, &QLightDM::Greeter::showMessage, this, &LoginManager::message);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);

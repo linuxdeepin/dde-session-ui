@@ -179,7 +179,6 @@ void UserWidget::handleUserRemoved(const QModelIndex &, int, int)
 
 void UserWidget::setCurrentUser(const QString &username)
 {
-
     isChooseUserMode = false;
 
     for (UserButton *user : m_userBtns) {
@@ -224,10 +223,26 @@ void UserWidget::removeUser(QString name)
         if (m_userBtns[i]->name() == name) {
             UserButton *btn = m_userBtns[i];
             m_userBtns.removeAt(i);
-            btn->deleteLater();
+            delete btn;
             break;
         }
     }
+
+    for (UserButton *user : m_userBtns) {
+        user->hide(180);
+        user->move(rect().center() - user->rect().center(), 200);
+    }
+
+    UserButton *user = m_userBtns.first();
+    user->showButton();
+    user->setImageSize(user->AvatarLargerSize);
+    user->setButtonChecked(false);
+    user->setSelected(false);
+    user->show();
+
+    m_currentUser = user->name();
+    qDebug() << m_currentUser;
+    emit userListChanged(m_currentUser);
 }
 
 void UserWidget::expandWidget()

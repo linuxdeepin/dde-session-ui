@@ -42,6 +42,7 @@ public:
 
 signals:
     void userChanged(const QString &username);
+    void userListChanged(const QString &username);
     void chooseUserModeChanged(bool isChoose, QString curUser);
 
 public slots:
