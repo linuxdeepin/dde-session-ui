@@ -1,20 +1,28 @@
-
+include(../common.pri)
 QT       += core gui dbus svg widgets
 
 LIBS += -lX11 -lXext -lXfixes
 TARGET = dde-welcome
 TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dtkwidget
+PKGCONFIG += dtkwidget dframeworkdbus gsettings-qt
+
+include(../widgets/widgets.pri)
+include(../global_util/global_util.pri)
 
 SOURCES += \
     main.cpp \
     welcome.cpp \
-    welcomeservice.cpp
+    welcomeservice.cpp \
+    update.cpp \
+    updatecontent.cpp
 
 HEADERS  += \
     welcome.h \
-    welcomeservice.h
+    welcomeservice.h \
+    update.h \
+    updatecontent.h \
+    version.h
 
 RESOURCES += \
     resources.qrc

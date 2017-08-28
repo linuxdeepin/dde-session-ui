@@ -91,4 +91,7 @@
         <file>resources/loading_spinner/loading_spinner_088.png</file>
         <file>resources/loading_spinner/loading_spinner_089.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>resources/success.svg</file>
+    </qresource>
 </RCC>
