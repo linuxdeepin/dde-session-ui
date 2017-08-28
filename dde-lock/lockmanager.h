@@ -63,7 +63,6 @@ public slots:
     void shutdownMode();
     void updateWidgetsPosition();
     void updateBackground(QString username);
-    void updateUserLoginCondition(QString username);
 
     void keybdLayoutWidgetPosit();
     void leftKeyPressed();
@@ -83,6 +82,7 @@ private:
     void initBackend();
     void unlock();
     void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
+    void checkUserIsNoPWGrp();
 
 private:
     Actions m_action = Unlock;

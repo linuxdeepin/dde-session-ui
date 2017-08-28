@@ -19,6 +19,10 @@
 #include <QMap>
 #include <QProcess>
 #include <QDBusConnection>
+#include <grp.h>
+#include <pwd.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "lockmanager.h"
 #include "lockframe.h"
@@ -162,7 +166,6 @@ void LockManager::initUI()
 
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH,
                                       QDBusConnection::systemBus(), this);
-    m_lockInter->AuthenticateUser(m_activatedUser);
 
     connect(m_lockInter, &DBusLockService::Event, this, &LockManager::lockServiceEvent);
 
@@ -181,14 +184,14 @@ void LockManager::initUI()
             m_userWidget->setCurrentUser(m_userWidget->loginUser());
 
             return;
-        } else {
-            this->updateBackground(m_activatedUser);
-            this->updateUserLoginCondition(m_activatedUser);
         }
+
+        checkUserIsNoPWGrp();
+
+        updateBackground(m_activatedUser);
     });
 
     updateBackground(m_activatedUser);
-    updateUserLoginCondition(m_activatedUser);
 }
 
 void LockManager::updateWidgetsPosition()
@@ -253,34 +256,15 @@ void LockManager::updateBackground(QString username)
     frame->setBackground(m_userWidget->getUserGreeterBackground(username));
 }
 
-void LockManager::updateUserLoginCondition(QString username)
-{
-    QProcess p;
-    p.start("groups", QStringList(username));
-    p.waitForFinished();
-
-    QString output = p.readAllStandardOutput().trimmed();
-    QStringList tokens = output.split(":");
-    if (tokens.length() > 1) {
-        QStringList groups = tokens.at(1).split(" ");
-        qDebug() << groups;
-        if (groups.contains("nopasswdlogin")) {
-            m_passwordEdit->setFixedSize(ZoreSize);
-            m_unlockButton->show();
-            return;
-        }
-    }
-
-    m_passwordEdit->setFixedSize(m_passwdEditSize);
-    m_unlockButton->hide();
-}
-
 void LockManager::showEvent(QShowEvent *event)
 {
     disableZone();
 
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
+
+    // check user is nopassword group
+    checkUserIsNoPWGrp();
 
     m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
     updateBackground(m_activatedUser);
@@ -407,6 +391,55 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
         break;
     default:
         break;
+    }
+}
+
+void LockManager::checkUserIsNoPWGrp()
+{
+    bool isNOPWGrp = false;
+    do {
+        long ngroups_max = sysconf(_SC_NGROUPS_MAX) + 1;
+        int ngroups;
+        struct group *gr;
+        const char *currentUser = m_userWidget->currentUser().toStdString().c_str();
+        const QString &checkGrp = "nopasswdlogin";
+
+        gid_t *groups = new gid_t[ngroups_max * sizeof(gid_t)];
+
+        ngroups = getgroups(ngroups_max, groups);
+
+        struct passwd *pw = getpwnam(currentUser);
+        if (pw == nullptr) {
+            delete []groups;
+            break;
+        }
+
+        if (getgrouplist(currentUser, pw->pw_gid, groups, &ngroups) == -1) {
+            delete []groups;
+            break;
+        }
+
+        for (int i = 0; i < ngroups; i++) {
+            gr = getgrgid(groups[i]);
+            if (gr == nullptr)
+                continue;
+            if (QString(gr->gr_name) == checkGrp) {
+                isNOPWGrp = true;
+                break;
+            }
+        }
+
+        delete []groups;
+
+    } while(false);
+
+    if (isNOPWGrp) {
+        m_unlockButton->show();
+        m_passwordEdit->setFixedSize(ZoreSize);
+    } else {
+        m_lockInter->AuthenticateUser(m_activatedUser);
+        m_unlockButton->hide();
+        m_passwordEdit->setFixedSize(m_passwdEditSize);
     }
 }
 
