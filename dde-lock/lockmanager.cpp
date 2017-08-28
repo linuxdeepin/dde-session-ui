@@ -162,7 +162,6 @@ void LockManager::initUI()
 
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH,
                                       QDBusConnection::systemBus(), this);
-    m_lockInter->AuthenticateUser(m_userWidget->currentUser());
 
     connect(m_lockInter, &DBusLockService::Event, this, &LockManager::lockServiceEvent);
 
@@ -258,7 +257,7 @@ void LockManager::onUnlockFinished(const bool unlocked)
 
 #ifdef LOCK_NO_QUIT
     m_userWidget->hideLoadingAni();
-    m_passwordEdit->clearText();
+    m_passwordEdit->setMessage("");
     emit checkedHide();
 #else
     qApp->exit();
@@ -317,6 +316,8 @@ void LockManager::showEvent(QShowEvent *event)
 
     m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
     updateBackground(m_userWidget->currentUser());
+
+    m_lockInter->AuthenticateUser(m_userWidget->currentUser());
 
     m_keybdInfoMap.clear();
     m_keybdLayoutNameList.clear();
@@ -404,11 +405,6 @@ void LockManager::unlock()
     if (!m_passwordEdit->isVisible())
         return;
 
-    if (m_authenticating)
-        return;
-
-    m_authenticating = true;
-
 //    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
     const QString &username = m_userWidget->currentUser();
     const QString &password = m_passwordEdit->getText();
@@ -461,14 +457,14 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
     // we'll provide our own prompt or just not.
     const QString msg = message == "Password: " ? "" : message;
 
-    m_authenticating = false;
-
     switch (eventType) {
     case DBusLockService::PromptQuestion:
+        m_passwordEdit->setDisabled(false);
         qDebug() << "prompt quesiton from pam: " << message;
         m_passwordEdit->setMessage(message);
         break;
     case DBusLockService::PromptSecret:
+        m_passwordEdit->setDisabled(false);
         qDebug() << "prompt secret from pam: " << message;
         m_passwordEdit->setMessage(msg);
         break;
@@ -476,12 +472,15 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
         qWarning() << "error message from pam: " << message;
         break;
     case DBusLockService::TextInfo:
+        m_passwordEdit->setDisabled(true);
         m_passwordEdit->setMessage(message);
         break;
     case DBusLockService::Failure:
+        m_passwordEdit->setDisabled(false);
         onUnlockFinished(false);
         break;
     case DBusLockService::Successed:
+        m_passwordEdit->setDisabled(false);
         onUnlockFinished(true);
         break;
     default:

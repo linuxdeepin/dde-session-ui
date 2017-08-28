@@ -110,7 +110,6 @@ private:
 
     int m_authFailureCount = 0;
     DBusMediaPlayer2 *m_mprisInter = nullptr;
-    bool m_authenticating = false;
 };
 
 #endif // LOCKMANAGER_H
