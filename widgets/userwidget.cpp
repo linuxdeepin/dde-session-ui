@@ -151,6 +151,8 @@ void UserWidget::onLoginUserListChanged(const QString &value)
     if (jsonArray.isEmpty())
         return;
 
+    m_loggedInUsers.clear();
+
     for (int i(0); i != jsonArray.count(); ++i) {
         const QJsonObject &obj = jsonArray.at(i).toObject();
         if (obj["Display"].toString().isEmpty())
