@@ -364,6 +364,8 @@ void LoginManager::initConnect()
             connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
             process->start("dde-switchtogreeter " + username);
 
+            m_userWidget->setCurrentUser(m_sessionWidget->currentSessionOwner());
+
             return;
         }
 
