@@ -106,6 +106,10 @@ void Welcome::keyPressEvent(QKeyEvent *e)
 #ifdef  QT_DEBUG
     case Qt::Key_Escape:        qApp->quit();       break;
 #endif
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        if (m_isUpgrade)
+            qApp->quit();
     default:;
     }
 
