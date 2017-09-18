@@ -18,7 +18,8 @@ HEADERS += \
     $$PWD/dbus/dbuscontrolcenter.h \
     $$PWD/dbus/dbuskeyboard.h \
     $$PWD/dbus/dbuslockfront.h \
-    $$PWD/dbus/dbusmediaplayer2.h
+    $$PWD/dbus/dbusmediaplayer2.h \
+    $$PWD/public_func.h
 
 SOURCES += \
     $$PWD/util_updateui.cpp \
