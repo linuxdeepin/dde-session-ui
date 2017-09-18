@@ -29,6 +29,7 @@
 #include <QPalette>
 #include <QDebug>
 #include <QSettings>
+#include "public_func.h"
 
 #include "logowidget.h"
 
@@ -36,10 +37,10 @@ const QPixmap systemLogo()
 {
     const QSettings settings("/etc/deepin-installer.conf", QSettings::IniFormat);
     const QString logo_path = settings.value("system_info_vendor_logo").toString();
-    const QPixmap oem_logo(logo_path);
+    const QPixmap oem_logo(loadPixmap(logo_path));
 
     if (oem_logo.isNull())
-        return QPixmap(":img/logo_text.png");
+        return loadPixmap(":img/logo.svg");
     else
         return oem_logo;
 }

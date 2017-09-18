@@ -19,9 +19,6 @@
         <file>img/kde_indicator_hover.png</file>
         <file>img/kde_indicator_normal.png</file>
         <file>img/kde_indicator_press.png</file>
-        <file>img/login_normal.png</file>
-        <file>img/login_press.png</file>
-        <file>img/logo_text.png</file>
         <file>img/lxde_indicator_hover.png</file>
         <file>img/lxde_indicator_normal.png</file>
         <file>img/lxde_indicator_press.png</file>
@@ -58,5 +55,6 @@
         <file>img/switchframe/userswitch_hover.png</file>
         <file>img/switchframe/userswitch_normal.png</file>
         <file>img/switchframe/userswitch_press.png</file>
+        <file>img/logo.svg</file>
     </qresource>
 </RCC>

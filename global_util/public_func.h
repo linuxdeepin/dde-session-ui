@@ -29,6 +29,7 @@
 #include <QPixmap>
 #include <QApplication>
 #include <QIcon>
+#include <QImageReader>
 
 QPixmap loadPixmap(const QString &file) {
     qreal ratio = 1.0;
@@ -37,12 +38,13 @@ QPixmap loadPixmap(const QString &file) {
     QPixmap pixmap;
 
     if (!qFuzzyCompare(ratio, devicePixel)) {
-        pixmap.load(qt_findAtNxFile(file, devicePixel, &ratio));
-        pixmap = pixmap.scaled(devicePixel / ratio * pixmap.width(),
-                               devicePixel / ratio * pixmap.height(),
-                               Qt::IgnoreAspectRatio,
-                               Qt::SmoothTransformation);
-        pixmap.setDevicePixelRatio(devicePixel);
+        QImageReader reader;
+        reader.setFileName(qt_findAtNxFile(file, devicePixel, &ratio));
+        if (reader.canRead()) {
+            reader.setScaledSize(reader.size() * (devicePixel / ratio));
+            pixmap = QPixmap::fromImage(reader.read());
+            pixmap.setDevicePixelRatio(devicePixel);
+        }
     } else {
         pixmap.load(file);
     }
