@@ -13,7 +13,7 @@ SystemMonitor::SystemMonitor(QWidget *parent) : QWidget(parent)
 {
     m_state = Leave;
 
-    const qreal ratio = qApp->primaryScreen()->devicePixelRatio();
+    const qreal ratio = devicePixelRatioF();
 
     m_icon = new QWidget;
     m_icon->installEventFilter(this);
@@ -26,7 +26,7 @@ SystemMonitor::SystemMonitor(QWidget *parent) : QWidget(parent)
 
     m_text->adjustSize();
     setFixedHeight(40 * ratio);
-    setFixedWidth((24 + 10 + 60 + m_text->width()) * ratio);
+    setFixedWidth(24 * ratio + 10 + 60 + m_text->width());
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setMargin(0);
