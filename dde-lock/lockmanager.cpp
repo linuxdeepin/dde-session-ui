@@ -243,7 +243,6 @@ void LockManager::onUnlockFinished(const bool unlocked)
     if (!unlocked) {
         qDebug() << "Authorization failed!";
 
-        m_passwordEdit->setAlert(true, tr("Wrong Password"));
         m_lockInter->AuthenticateUser(m_activatedUser);
         m_userWidget->hideLoadingAni();
         return;
@@ -286,6 +285,8 @@ void LockManager::showEvent(QShowEvent *event)
 
     m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
     updateBackground(m_activatedUser);
+
+    m_passwordEdit->setMessage("");
 
     m_passwordEdit->updateKeybdLayoutUI(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
     m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
@@ -395,7 +396,10 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
         break;
     case DBusLockService::PromptSecret:
         qDebug() << "prompt secret from pam: " << message;
-        m_passwordEdit->setMessage(msg);
+        if (msg.isEmpty())
+            m_passwordEdit->setAlert(true, tr("Wrong Password"));
+        else
+            m_passwordEdit->setMessage(msg);
         break;
     case DBusLockService::ErrorMsg:
         qWarning() << "error message from pam: " << message;
