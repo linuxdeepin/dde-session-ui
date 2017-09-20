@@ -66,22 +66,6 @@ void UserAvatar::setIcon(const QString &iconPath, const QSize &size)
     update();
 }
 
-QString UserAvatar::iconPath() const
-{
-    return m_iconPath;
-}
-
-void UserAvatar::enterEvent(QEvent *)
-{
-//    if (m_deleteable)
-//        m_deleteButton->show();
-}
-
-void UserAvatar::leaveEvent(QEvent *)
-{
-//    m_deleteButton->hide();
-}
-
 void UserAvatar::paintEvent(QPaintEvent *)
 {
     int iconSize = NORMAL_ICON_SIZE;
@@ -105,7 +89,12 @@ void UserAvatar::paintEvent(QPaintEvent *)
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     painter.setClipPath(path);
 
-    QImage tmpImg(m_iconPath);
+    const auto ratio = devicePixelRatioF();
+    QString imgPath = m_iconPath;
+    if (ratio > 1.0)
+        imgPath.replace("icons/", "icons/bigger/");
+
+    QImage tmpImg(imgPath);
 
     painter.drawImage(ellipseRec, this->isEnabled() ? tmpImg : imageToGray(tmpImg));
 

@@ -112,5 +112,6 @@
         <file>img/keyboard_hover.svg</file>
         <file>img/keyboard_normal.svg</file>
         <file>img/keyboard_press.svg</file>
+        <file>img/avatar_checked@2x.png</file>
     </qresource>
 </RCC>

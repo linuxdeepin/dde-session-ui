@@ -63,8 +63,6 @@ public:
     void setAvatarSize(const AvatarSize &avatarSize);
     void setDisabled(bool disable);
 
-    QString iconPath() const;
-
     QColor borderSelectedColor() const;
     void setBorderSelectedColor(const QColor &borderSelectedColor);
 
@@ -92,8 +90,6 @@ signals:
     void showFinished();
     void hideFinished();
 protected:
-    void enterEvent(QEvent *);
-    void leaveEvent(QEvent *);
     void paintEvent(QPaintEvent *);
 
 private:
