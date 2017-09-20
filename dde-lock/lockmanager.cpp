@@ -140,7 +140,9 @@ void LockManager::initUI()
     m_userWidget->move(0, (height() - m_userWidget->height()) / 2 - 95);
 
     m_passwordEdit = new PassWdEdit(this);
-    m_passwordEdit->setEnterBtnStyle(":/img/action_icons/unlock_normal.png", ":/img/action_icons/unlock_hover.png", ":/img/action_icons/unlock_press.png");
+    m_passwordEdit->setEnterBtnStyle(":/img/action_icons/unlock_normal.svg",
+                                     ":/img/action_icons/unlock_hover.svg",
+                                     ":/img/action_icons/unlock_press.svg");
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
     m_passwordEdit->setFocus();
     m_passwdEditSize = m_passwordEdit->size();
@@ -546,12 +548,18 @@ void LockManager::passwordMode()
 
     if (m_action == Restart) {
         m_passwordEdit->setAlert(true, tr("Enter your password to restart"));
-        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/reboot_normal.png", ":/img/action_icons/reboot_hover.png", ":/img/action_icons/reboot_press.png");
+        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/reboot_normal.svg",
+                                         ":/img/action_icons/reboot_hover.svg",
+                                         ":/img/action_icons/reboot_press.svg");
     } else if (m_action == Shutdown) {
         m_passwordEdit->setAlert(true, tr("Enter your password to shutdown"));
-        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/shutdown_normal.png", ":/img/action_icons/shutdown_hover.png", ":/img/action_icons/shutdown_press.png");
+        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/shutdown_normal.svg",
+                                         ":/img/action_icons/shutdown_hover.svg",
+                                         ":/img/action_icons/shutdown_press.svg");
     } else if (m_action == Unlock) {
-        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/unlock_normal.png", ":/img/action_icons/unlock_hover.png", ":/img/action_icons/unlock_press.png");
+        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/unlock_normal.svg",
+                                         ":/img/action_icons/unlock_hover.svg",
+                                         ":/img/action_icons/unlock_press.svg");
     }
 }
 

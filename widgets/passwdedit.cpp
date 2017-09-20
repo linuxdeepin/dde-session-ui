@@ -30,6 +30,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QRegExpValidator>
+#include "public_func.h"
 
 #include "constants.h"
 #include "passwdedit.h"
@@ -66,12 +67,9 @@ void PassWdEdit::initUI()
     m_errorTooltip->hide();
 
 #ifndef SHENWEI_PLATFORM
-    m_keyboardButton = new QPushButton;
+    m_keyboardButton = new DImageButton;
     m_keyboardButton->setVisible(false);
     m_keyboardButton->setObjectName("KeyBoardLayoutButton");
-
-    m_keyboardButton->setFixedSize(QSize(34, 14));
-    m_keyboardButton->setIconSize(QSize(20, 14));
 #endif
     m_iconButton = new DImageButton(this);
 //    m_iconButton->setCheckable(true);
@@ -81,7 +79,7 @@ void PassWdEdit::initUI()
     m_capslockWarning->setVisible(m_capslockMonitor->isCapslockOn());
     m_capslockWarning->setFixedSize(DDESESSIONCC::CapslockWarningWidth,
                                     DDESESSIONCC::CapslockWarningWidth);
-    m_capslockWarning->setPixmap(QPixmap(":/img/capslock.png"));
+    m_capslockWarning->setPixmap(loadPixmap(":/img/capslock.svg"));
 
     m_lineEdit = new QLineEdit;
     m_lineEdit->setContextMenuPolicy(Qt::NoContextMenu);
@@ -180,7 +178,7 @@ void PassWdEdit::initConnect()
 {
     connect(m_iconButton, &DImageButton::clicked, this, &PassWdEdit::submit);
 #ifndef SHENWEI_PLATFORM
-    connect(m_keyboardButton, &QPushButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);
+    connect(m_keyboardButton, &DImageButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);
 #endif
     connect(m_hideAni, &QPropertyAnimation::finished, this, &QFrame::hide);
     connect(m_lineEdit, &QLineEdit::textChanged, [this] {

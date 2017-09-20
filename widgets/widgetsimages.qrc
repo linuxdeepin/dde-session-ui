@@ -1,17 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>img/facelogin_animation.png</file>
-        <file>img/capslock.png</file>
-        <file>img/keyboard_normal.png</file>
-        <file>img/keyboard_hover.png</file>
-        <file>img/keyboard_press.png</file>
         <file>img/tick_hover.png</file>
-        <file>img/action_icons/login_hover.png</file>
-        <file>img/action_icons/login_normal.png</file>
-        <file>img/action_icons/login_press.png</file>
-        <file>img/action_icons/unlock_hover.png</file>
-        <file>img/action_icons/unlock_normal.png</file>
-        <file>img/action_icons/unlock_press.png</file>
         <file>img/avatar_checked.png</file>
         <file>img/sessions_icon/deepin_hover.svg</file>
         <file>img/sessions_icon/deepin_normal.svg</file>
@@ -112,5 +102,15 @@
         <file>img/mpris/previous_hover.svg</file>
         <file>img/mpris/previous_normal.svg</file>
         <file>img/mpris/previous_press.svg</file>
+        <file>img/action_icons/login_hover.svg</file>
+        <file>img/action_icons/login_normal.svg</file>
+        <file>img/action_icons/login_press.svg</file>
+        <file>img/action_icons/unlock_hover.svg</file>
+        <file>img/action_icons/unlock_normal.svg</file>
+        <file>img/action_icons/unlock_press.svg</file>
+        <file>img/capslock.svg</file>
+        <file>img/keyboard_hover.svg</file>
+        <file>img/keyboard_normal.svg</file>
+        <file>img/keyboard_press.svg</file>
     </qresource>
 </RCC>

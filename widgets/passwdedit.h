@@ -111,7 +111,7 @@ private:
 
     QLineEdit *m_lineEdit;
 #ifndef SHENWEI_PLATFORM
-    QPushButton *m_keyboardButton;
+    DImageButton *m_keyboardButton;
 #endif
     DTK_WIDGET_NAMESPACE::DImageButton *m_iconButton;
     QHBoxLayout *m_Layout;

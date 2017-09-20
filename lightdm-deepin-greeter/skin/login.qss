@@ -14,12 +14,4 @@ QLabel#LogoVersion {
 QPushButton#passwdButtonIcon {
     border:none;
 }
-QPushButton#LoginIcon {
-    border-image:url(":img/login_normal.png");
-    border:none;
-}
-QPushButton#LoginIcon:pressed {
-    border-image:url(":img/login_press.png");
-    border:none;
-}
 

@@ -36,7 +36,8 @@ SOURCES += \
     $$PWD/dbus/dbusinputdevices.cpp \
     $$PWD/dbus/dbuscontrolcenter.cpp \
     $$PWD/dbus/dbuslockfront.cpp \
-    $$PWD/dbus/dbusmediaplayer2.cpp
+    $$PWD/dbus/dbusmediaplayer2.cpp \
+    $$PWD/public_func.cpp
 
 DISTFILES += \
     $$PWD/dbus/com.deepin.daemon.Zone.xml

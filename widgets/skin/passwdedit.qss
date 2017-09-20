@@ -1,18 +1,12 @@
-QPushButton#KeyBoardLayoutButton {
-   border-image: url(":img/keyboard_normal.png");
+#KeyBoardLayoutButton {
+   qproperty-normalPic: url(":/img/keyboard_normal.svg");
+   qproperty-pressPic: url(":/img/keyboard_press.svg");
+   qproperty-hoverPic: url(":/img/keyboard_hover.svg");
    background-color: transparent;
    border:none;
    margin: 0;
    margin-left: 10px;
    margin-right: 4px;
-}
-
-QPushButton#KeyBoardLayoutButton:hover {
-    border-image: url(":img/keyboard_hover.png");
-}
-
-QPushButton#KeyBoardLayoutButton:pressed {
-    border-image: url(":img/keyboard_press.png");
 }
 
 QLineEdit#passwdLineEdit {
