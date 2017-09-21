@@ -41,7 +41,11 @@ Window::Window(QWidget *parent)
     // set window flags as dde-lock, so we can easily cover it.
     setWindowFlags(Qt::BypassWindowManagerHint | Qt::FramelessWindowHint);
 
-    m_image->setPixmap(QPixmap(":/images/lowpower.png"));
+    const qreal ratio = devicePixelRatioF();
+    const QString iconPath = qt_findAtNxFile(":/images/lowpower.png", ratio);
+    QPixmap pix(iconPath);
+    pix.setDevicePixelRatio(ratio);
+    m_image->setPixmap(pix);
     m_text->setStyleSheet("QLabel{ color:#ff8000; font-size:15px }");
 
     setupSize();
@@ -72,7 +76,8 @@ void Window::setupSize()
     int screenNum = desktop->screenNumber(cursorPos);
     QWidget * screen = desktop->screen(screenNum);
 
-    m_image->setFixedSize(m_image->pixmap()->size());
+    const qreal ratio = screen->devicePixelRatioF();
+    m_image->setFixedSize(m_image->pixmap()->size() / ratio);
     m_image->move(screen->geometry().center() - m_image->rect().center());
 
     m_text->setFixedSize(screen->geometry().width(), 30);
