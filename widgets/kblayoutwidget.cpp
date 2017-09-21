@@ -25,6 +25,7 @@
 
 #include <QDebug>
 #include "kblayoutwidget.h"
+#include "public_func.h"
 
 LayoutButton::LayoutButton(QString text, QWidget *parent)
     : QPushButton(parent)
@@ -34,7 +35,7 @@ LayoutButton::LayoutButton(QString text, QWidget *parent)
 
     m_text = text;
     m_iconLabel = new QLabel(this);
-    QPixmap pix(":img/tick_hover.png");
+    QPixmap pix = loadPixmap(":/img/keyboard_select.png");
     m_iconLabel->setPixmap(pix);
     m_iconLabel->setMinimumSize(pix.size());
     m_textLabel = new QLabel;

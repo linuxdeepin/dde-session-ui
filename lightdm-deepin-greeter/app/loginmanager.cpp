@@ -598,9 +598,9 @@ void LoginManager::keyboardLayoutUI() {
     m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
 
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
-    m_keybdArrowWidget->setBackgroundColor(QColor(0, 0, 0, 78));
-    m_keybdArrowWidget->setBorderColor(QColor(0, 0, 0, 100));
-    m_keybdArrowWidget->setArrowX(13);
+    m_keybdArrowWidget->setBackgroundColor(QColor::fromRgbF(1, 1, 1, 0.15));
+    m_keybdArrowWidget->setBorderColor(Qt::transparent);
+    m_keybdArrowWidget->setArrowX(17);
     m_keybdArrowWidget->setArrowWidth(12);
     m_keybdArrowWidget->setArrowHeight(6);
     m_keybdArrowWidget->setMargin(1);
