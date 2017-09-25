@@ -70,8 +70,6 @@ Welcome::Welcome(QWidget *parent)
             clearCursor();
 
             m_loadingSpinner->play();
-
-            qDebug() << Q_FUNC_INFO;
         });
     }
 
@@ -154,16 +152,12 @@ void Welcome::paintEvent(QPaintEvent *e)
 
 void Welcome::showEvent(QShowEvent *e)
 {
-    qDebug() << Q_FUNC_INFO;
-
     QWidget::showEvent(e);
 
     QTimer::singleShot(1, this, [=] {
         showFullScreen();
         activateWindow();
         grabKeyboard();
-
-        qDebug() << Q_FUNC_INFO;
     });
 }
 
@@ -171,9 +165,8 @@ void Welcome::onScreenRectChanged()
 {
     setFixedSize(qApp->desktop()->size());
 
-    const QPoint center = qApp->primaryScreen()->geometry().center();
-    m_loadingSpinner->move(center.x() - m_loadingSpinner->width() / 2,
-                           center.y() - m_loadingSpinner->height() / 2);
+    m_loadingSpinner->move(width() / 2 - m_loadingSpinner->width() / 2,
+                           height() / 2 - m_loadingSpinner->height() / 2);
 }
 
 bool Welcome::checkVersion()
