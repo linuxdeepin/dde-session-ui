@@ -95,18 +95,17 @@ void FullscreenBackground::adjustGeometry()
     QRect r, pr;
     for (const auto *s : qApp->screens())
     {
-        const QRect g = s->geometry();
-        const QRect sr(r.width(), r.y(), g.width(), g.height());
-        if (sr.contains(cp))
-            pr = sr;
+        const QRect& g = s->geometry();
+        if (g.contains(cp))
+            pr = g;
 
-        r = r.united(sr);
+        r = r.united(g);
     }
 
     QWidget::setGeometry(r);
 
     if (!m_content.isNull())
-        m_content->setGeometry(pr);
+        m_content->setGeometry(pr.isNull() ? qApp->primaryScreen()->geometry() : pr);
 }
 
 const QString FullscreenBackground::getBlurImagePath(const QString &path)
