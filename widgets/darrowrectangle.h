@@ -101,6 +101,8 @@ public:
     qreal shadowYOffset() const;
     void setShadowYOffset(const qreal &shadowYOffset);
 
+    void setCornerPoint(const QPoint &cornerPoint);
+
 protected:
     void paintEvent(QPaintEvent *);
 
@@ -132,6 +134,7 @@ private:
 
     ArrowDirection m_arrowDirection;
     QPoint m_lastPos = QPoint(0, 0);
+    QPoint m_cornerPoint;
 
     QWidget *m_content = NULL;
 };

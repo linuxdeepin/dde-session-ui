@@ -395,7 +395,8 @@ QPainterPath DArrowRectangle::getTopCornerPath()
 
     QRect rect = this->rect().marginsRemoved(QMargins(delta, delta, delta, delta));
 
-    QPoint cornerPoint(rect.x() + (m_arrowX > 0 ? m_arrowX : rect.width() / 2), rect.y());
+    QPoint cornerPoint = m_cornerPoint.isNull() ? QPoint(rect.x() + (m_arrowX > 0 ? m_arrowX : rect.width() / 2), rect.y()) : m_cornerPoint;
+
     QPoint topLeft(rect.x(), rect.y() + m_arrowHeight);
     QPoint topRight(rect.x() + rect.width(), rect.y() + m_arrowHeight);
     QPoint bottomRight(rect.x() + rect.width(), rect.y() + rect.height());
@@ -519,6 +520,11 @@ void DArrowRectangle::horizontalMove(int x, int y)
     default:
         break;
     }
+}
+
+void DArrowRectangle::setCornerPoint(const QPoint &cornerPoint)
+{
+    m_cornerPoint = cornerPoint;
 }
 
 DArrowRectangle::~DArrowRectangle()

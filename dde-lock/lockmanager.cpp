@@ -88,7 +88,14 @@ void LockManager::initConnect()
 
 void LockManager::keybdLayoutWidgetPosit()
 {
-    m_keybdArrowWidget->show(m_passwordEdit->x() + 123, m_passwordEdit->y() + m_passwordEdit->height() - 15);
+    const QPoint p(m_keybdArrowWidget->rect().x() + 45, m_keybdArrowWidget->rect().y() + 21);
+
+    m_keybdArrowWidget->setCornerPoint(p);
+
+    const int x = m_passwordEdit->x() + m_keybdArrowWidget->width() / 2 - 22;
+
+    m_keybdArrowWidget->show(x, m_passwordEdit->y() + m_passwordEdit->height() - 15);
+
     m_keybdLayoutWidget->show();
 }
 

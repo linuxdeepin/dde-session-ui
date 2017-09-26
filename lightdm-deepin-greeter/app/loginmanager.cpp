@@ -624,7 +624,14 @@ void LoginManager::setCurrentKeybdLayoutList(QString keyboard_value)
 
 void LoginManager::keybdLayoutWidgetPosit() {
     if (m_keybdArrowWidget->isHidden()) {
-        m_keybdArrowWidget->show(m_passWdEdit->x() + 123, m_passWdEdit->y() + m_passWdEdit->height() - 15);
+        const QPoint p(m_keybdArrowWidget->rect().x() + 45, m_keybdArrowWidget->rect().y() + 21);
+
+        m_keybdArrowWidget->setCornerPoint(p);
+
+        const int x = m_passWdEdit->x() + m_keybdArrowWidget->width() / 2 - 22;
+
+        m_keybdArrowWidget->show(x, m_passWdEdit->y() + m_passWdEdit->height() - 15);
+
     } else {
         m_keybdArrowWidget->hide();
     }
