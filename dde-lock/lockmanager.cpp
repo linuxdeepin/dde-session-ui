@@ -251,7 +251,6 @@ void LockManager::onUnlockFinished(const bool unlocked)
         qDebug() << "Authorization failed!";
 
         m_lockInter->AuthenticateUser(m_activatedUser);
-        m_userWidget->hideLoadingAni();
         return;
     }
 
@@ -266,7 +265,6 @@ void LockManager::onUnlockFinished(const bool unlocked)
     m_userWidget->saveLastUser();
 
 #ifdef LOCK_NO_QUIT
-    m_userWidget->hideLoadingAni();
     m_passwordEdit->setMessage("");
     emit checkedHide();
 #else
@@ -362,8 +360,6 @@ void LockManager::unlock()
         qDebug() << "lineEditGrabKeyboard";
         return;
     }
-
-    m_userWidget->showLoadingAni();
 
     if (!m_passwordEdit->isVisible())
         return;

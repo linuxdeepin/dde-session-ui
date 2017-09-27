@@ -488,7 +488,6 @@ void LoginManager::authenticationComplete()
 {
     qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
 
-    m_userWidget->hideLoadingAni();
     if (!m_greeter->isAuthenticated() && m_passWdEdit->isVisible()) {
         m_passWdEdit->setAlert(true, tr("Wrong Password"));
         return;
@@ -519,8 +518,6 @@ void LoginManager::login()
 
     if (!m_passWdEdit->isVisible())
         return;
-
-    m_userWidget->showLoadingAni();
 
     if (m_greeter->isAuthenticated())
         startSession();

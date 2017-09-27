@@ -34,7 +34,6 @@
 #include <QtGui/QKeyEvent>
 #include <QFrame>
 
-#include <dloadingindicator.h>
 #include <com_deepin_daemon_logined.h>
 #include <com_deepin_daemon_accounts_user.h>
 
@@ -75,8 +74,6 @@ public slots:
     void setCurrentUser(const QString &username);
     void expandWidget();
     void saveLastUser();
-    inline void showLoadingAni() {m_loadingAni->show();}
-    inline void hideLoadingAni() {m_loadingAni->hide();}
 
     void leftKeySwitchUser();
     void rightKeySwitchUser();
@@ -103,7 +100,6 @@ private:
     DBusLockService m_lockInter;
     UserButton* m_currentBtns = nullptr;
     QList<UserButton *> m_userBtns;
-    DTK_WIDGET_NAMESPACE::DLoadingIndicator *m_loadingAni;
     DBusAccounts *m_dbusAccounts;
     QMap<QString, DBusUser *> m_userDbus;
     Logined *m_dbusLogined;

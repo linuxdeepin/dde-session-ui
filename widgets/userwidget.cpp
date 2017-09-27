@@ -76,19 +76,6 @@ void UserWidget::initUI()
             m_whiteList.append(inter->userName());
     }
 
-    QPixmap loading(":/img/action_icons/facelogin_animation.png");
-    QSize size(110, 110);
-    m_loadingAni = new DLoadingIndicator(this);
-    m_loadingAni->setLoading(true);
-    m_loadingAni->setSmooth(true);
-    m_loadingAni->setAniDuration(600);
-    m_loadingAni->setAniEasingCurve(QEasingCurve::Linear);
-    m_loadingAni->move(rect().center().x() - UserButton::AvatarLargerSize / 2,
-                       rect().center().y() - UserButton::AvatarLargerSize / 2 - 14);
-    m_loadingAni->setFixedSize(size);
-    m_loadingAni->setImageSource(loading.scaled(size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    m_loadingAni->hide();
-
     setCurrentUser(currentUser());
 
     const int count = m_userBtns.count();
@@ -285,9 +272,6 @@ void UserWidget::resizeEvent(QResizeEvent *e)
         for (UserButton *user : m_userBtns)
             user->move(rect().center() - user->rect().center(), 1);
     }
-
-    m_loadingAni->move(rect().center().x() - UserButton::AvatarLargerSize / 2,
-                       rect().center().y() - UserButton::AvatarLargerSize / 2 - 14);
 }
 
 void UserWidget::chooseButtonChecked() {
