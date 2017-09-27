@@ -45,7 +45,7 @@ const QString session_standard_icon_name(const QString &realName)
         "deepin",
         "fluxbox",
         "gnome",
-        "kde",
+        "plasma",
         "ubuntu",
         "xfce"
     };
