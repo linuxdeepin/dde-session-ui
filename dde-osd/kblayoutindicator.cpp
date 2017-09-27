@@ -27,7 +27,7 @@
 
 #include <QDBusConnection>
 #include <QPainter>
-
+#include <QApplication>
 #include <QMouseEvent>
 
 DataWrapper::DataWrapper(KeyboardInterface *kinter, QObject *parent) :
@@ -156,28 +156,17 @@ void KBLayoutIndicator::updateMenu()
 
 void KBLayoutIndicator::updateIcon()
 {
+    const qreal dpr = qApp->devicePixelRatio();
     const QString layout = duplicateCheck(m_data->currentLayout());
 
-    QPixmap pix(16, 16);
-    pix.fill(Qt::transparent);
+    QPixmap pixNormal = generateIconPixmap(layout);
+    QPixmap pixHiDPI = generateIconPixmap(layout, dpr);
 
-    QPainter pa(&pix);
-    pa.setRenderHints(pa.renderHints() | QPainter::Antialiasing);
-    pa.setPen(Qt::white);
+    QIcon icon;
+    icon.addPixmap(pixNormal);
+    icon.addPixmap(pixHiDPI);
 
-    QFont font = pa.font();
-    font.setPixelSize(layout.length() > 2 ? 10 : 15);
-    font.setWeight(QFont::Bold);
-    pa.setFont(font);
-
-    QTextOption op;
-    op.setAlignment(Qt::AlignCenter);
-
-    QRect r( pix.rect() );
-    r.adjust(0, -2, 0, 0); // make the text looks more center aligned.
-    pa.drawText(r, layout, op);
-
-    setIcon(QIcon(pix));
+    setIcon(icon);
 }
 
 QString KBLayoutIndicator::duplicateCheck(const QString &kb)
@@ -193,6 +182,35 @@ QString KBLayoutIndicator::duplicateCheck(const QString &kb)
     const QString kblayout = kb.split(";").first().mid(0, 2);
 
     return kblayout + (list.count() > 1 ? QString::number(list.indexOf(kb) + 1) : "");
+}
+
+QPixmap KBLayoutIndicator::generateIconPixmap(const QString &layout, qreal dpr)
+{
+    const int iconSize = 16;
+
+    QPixmap pix(100 * dpr, 100 * dpr);
+    pix.fill(Qt::transparent);
+
+    QPainter pa(&pix);
+    pa.setRenderHints(pa.renderHints() | QPainter::TextAntialiasing);
+    pa.setPen(Qt::white);
+
+    QFont font = pa.font();
+    font.setPointSizeF(70);
+    font.setWeight(QFont::Medium);
+    pa.setFont(font);
+
+    QTextOption op;
+    op.setAlignment(Qt::AlignCenter);
+
+    QRect r( pix.rect() );
+    pa.drawText(r, layout, op);
+
+    QPixmap ret = pix.scaled(QSize(iconSize * dpr, iconSize * dpr),
+                             Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    ret.setDevicePixelRatio(dpr);
+
+    return ret;
 }
 
 void KBLayoutIndicator::switchToNextLayout()

@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
 {
     DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
+    a.setAttribute(Qt::AA_UseHighDpiPixmaps);
     a.setApplicationName("dde-osd");
     a.setApplicationVersion("1.0");
 
