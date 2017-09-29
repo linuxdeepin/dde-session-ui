@@ -96,10 +96,11 @@ void FullscreenBackground::adjustGeometry()
     for (const auto *s : qApp->screens())
     {
         const QRect& g = s->geometry();
-        if (g.contains(cp))
-            pr = g;
+        const QRect realRect(g.topLeft() / devicePixelRatioF(), g.size());
+        if (realRect.contains(cp))
+            pr = realRect;
 
-        r = r.united(g);
+        r = r.united(realRect);
     }
 
     QWidget::setGeometry(r);
@@ -145,8 +146,8 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
     QRect r;
     for (auto *s : qApp->screens())
     {
-        const QRect g = s->geometry();
-        const QRect tr(r.width(), r.y(), g.width(), g.height());
+        const QRect &geom = s->geometry();
+        const QRect tr(geom.topLeft() / devicePixelRatioF(), geom.size());
         const QPixmap pix = m_background.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
         const QRect pix_r = QRect((pix.width() - tr.width()) / 2, (pix.height() - tr.height()) / 2, tr.width(), tr.height());
 
