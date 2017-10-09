@@ -58,9 +58,7 @@ void ShutdownFrame::initBackground()
         connect(watcher, &QDBusPendingCallWatcher::finished, [this, call] {
             if (!call. isError()) {
                 QDBusReply<QString> reply = call.reply();
-                const QString uri = reply.value();
-                const QString background = QUrl(uri).toLocalFile();
-                setBackground(background);
+                setBackground(reply.value());
             } else {
                 qWarning() << "get current workspace background error: " << call.error().message();
             }
