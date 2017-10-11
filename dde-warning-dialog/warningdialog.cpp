@@ -35,7 +35,7 @@ WarningDialog::WarningDialog(QWidget *parent)
     QPixmap icon = QIcon::fromTheme("dialog-warning").pixmap(48 * ratio, 48 * ratio);
     icon.setDevicePixelRatio(ratio);
 
-    const QString title = tr("Kindly Reminder");
+    const QString title = tr("Friendly Reminder");
     const QString body = tr("This application can not run without window effect");
     setTitle(title);
     setMessage(body);
