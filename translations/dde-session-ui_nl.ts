@@ -241,7 +241,7 @@ Algemene modus: U geniet van een razendsnel systeem.</translation>
     <name>WarningDialog</name>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
-        <source>Kindly Reminder</source>
+        <source>Friendly Reminder</source>
         <translation>Vriendelijke Herinnering</translation>
     </message>
     <message>
