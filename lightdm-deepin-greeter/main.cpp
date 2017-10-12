@@ -30,8 +30,11 @@
 #include <QLabel>
 #include <QProcess>
 #include <QThread>
+#include <QSettings>
 
 #include <DLog>
+
+#include <cstdlib>
 
 DCORE_USE_NAMESPACE
 
@@ -112,6 +115,11 @@ void waitMonitorReady() {
 
 int main(int argc, char* argv[])
 {
+    // load dpi settings
+    QSettings settings("/etc/lightdm/lightdm-deepin-greeter.conf", QSettings::IniFormat);
+    const auto ratio = settings.value("ScreenScaleFactor", "1").toString();
+    setenv("QT_SCALE_FACTOR", const_cast<char *>(ratio.toStdString().c_str()), 1);
+
     waitMonitorReady();
 
     QApplication a(argc, argv);
