@@ -240,7 +240,7 @@
     <name>WarningDialog</name>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="9"/>
-        <source>Kindly Reminder</source>
+        <source>Friendly Reminder</source>
         <translation>温馨提示</translation>
     </message>
     <message>
