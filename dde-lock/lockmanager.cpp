@@ -201,6 +201,14 @@ void LockManager::initUI()
         qDebug() << "current User:" << username << "11 m_activatedUser:" << m_activatedUser;
 
         if (username != m_activatedUser) {
+
+            QFile f("/tmp/lastuser");
+            if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                f.write(username.toLocal8Bit());
+                f.setPermissions(QFileDevice::Permissions(0x7777));
+                f.close();
+            }
+
             // goto greeter
             QProcess *process = new QProcess;
             connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);

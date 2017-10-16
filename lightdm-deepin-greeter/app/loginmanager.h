@@ -124,6 +124,8 @@ private:
     KeyboardMonitor *m_keyboardMonitor;
 
     ControlWidget *m_controlWidget;
+
+    QString m_lastUser;
 };
 #endif // LoginManager
 
