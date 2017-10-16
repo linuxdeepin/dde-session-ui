@@ -174,6 +174,11 @@ void PassWdEdit::updateCapslockStatus(bool on)
     m_capslockWarning->setVisible(on);
 }
 
+void PassWdEdit::selectAll() const
+{
+    m_lineEdit->selectAll();
+}
+
 void PassWdEdit::initConnect()
 {
     connect(m_iconButton, &DImageButton::clicked, this, &PassWdEdit::submit);

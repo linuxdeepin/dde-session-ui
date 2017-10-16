@@ -93,6 +93,7 @@ public slots:
     void lineEditGrabKeyboard();
     void recordUserPassWd(bool isChoose, QString username);
     void updateCapslockStatus(bool on);
+    void selectAll() const;
 
 protected:
     void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;

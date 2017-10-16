@@ -489,6 +489,7 @@ void LoginManager::authenticationComplete()
     qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
 
     if (!m_greeter->isAuthenticated() && m_passWdEdit->isVisible()) {
+        m_passWdEdit->selectAll();
         m_passWdEdit->setAlert(true, tr("Wrong Password"));
         return;
     }

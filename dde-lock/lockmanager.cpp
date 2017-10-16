@@ -250,6 +250,8 @@ void LockManager::onUnlockFinished(const bool unlocked)
     if (!unlocked) {
         qDebug() << "Authorization failed!";
 
+        m_passwordEdit->selectAll();
+
         m_lockInter->AuthenticateUser(m_activatedUser);
         return;
     }
