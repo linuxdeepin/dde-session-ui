@@ -42,7 +42,7 @@ SystemMonitor::SystemMonitor(QWidget *parent) : QWidget(parent)
 
     m_icon = new QWidget;
     m_icon->installEventFilter(this);
-    m_icon->setFixedSize(24 * ratio, 24 * ratio);
+    m_icon->setFixedSize(24, 24);
 
     m_text = new QLabel(tr("Start system monitor"));
     m_text->setStyleSheet("color: white;"
@@ -50,8 +50,8 @@ SystemMonitor::SystemMonitor(QWidget *parent) : QWidget(parent)
                           "font-weight: 400;");
 
     m_text->adjustSize();
-    setFixedHeight(40 * ratio);
-    setFixedWidth(24 * ratio + 10 + 60 + m_text->width());
+    setFixedHeight(40);
+    setFixedWidth(24 + 10 + 60 + m_text->width());
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setMargin(0);
@@ -128,8 +128,7 @@ bool SystemMonitor::eventFilter(QObject *watched, QEvent *event)
     if (watched == m_icon) {
         if (event->type() == QEvent::Paint) {
             QPainter painter(m_icon);
-            const QString pix(":/img/deepin-system-monitor.svg");
-            QSvgRenderer render(pix);
+            QSvgRenderer render(QString(":/img/deepin-system-monitor.svg"), m_icon);
             render.render(&painter, m_icon->rect());
         }
     }
