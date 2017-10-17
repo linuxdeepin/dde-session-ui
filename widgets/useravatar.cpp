@@ -26,6 +26,7 @@
 #include "useravatar.h"
 #include "dthememanager.h"
 #include <QUrl>
+#include <QFile>
 
 UserAvatar::UserAvatar(QWidget *parent, bool deleteable) :
     QPushButton(parent), m_deleteable(deleteable)
@@ -93,6 +94,8 @@ void UserAvatar::paintEvent(QPaintEvent *)
     QString imgPath = m_iconPath;
     if (ratio > 1.0)
         imgPath.replace("icons/", "icons/bigger/");
+    if (!QFile(imgPath).exists())
+        imgPath = m_iconPath;
 
     QImage tmpImg(imgPath);
 
