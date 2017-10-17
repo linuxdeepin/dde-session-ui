@@ -1,16 +1,16 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_TW" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ta" version="2.1">
     <context>
         <name>desktop</name>
         <message>
             <location filename="Desktop Entry]GenericName" line="0"/>
             <location filename="Desktop Entry]Name" line="0"/>
             <source>Show Desktop</source>
-            <translation>顯示桌面</translation>
+            <translation>திரைமுகப்பு  காட்டு</translation>
         </message>
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Show desktop or show windows</source>
-            <translation>顯示桌面或還原視窗</translation>
+            <translation>திரைமுகப்பு அல்லது சாளரம் காட்டு</translation>
         </message>
     </context>
 </TS>
