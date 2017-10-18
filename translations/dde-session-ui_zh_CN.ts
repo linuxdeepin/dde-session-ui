@@ -12,7 +12,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="295"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
-        <source>Restart</source>
+        <source>Reboot</source>
         <translation>重启</translation>
     </message>
     <message>
@@ -22,7 +22,7 @@
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
-        <source>Are you sure to restart?</source>
+        <source>Are you sure to reboot?</source>
         <translation>您确定要重启吗？</translation>
     </message>
     <message>
@@ -89,17 +89,17 @@
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="405"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="413"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="559"/>
-        <source>Enter your password to restart</source>
+        <location filename="../dde-lock/lockmanager.cpp" line="567"/>
+        <source>Enter your password to reboot</source>
         <translation>请输入密码以完成重启</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="564"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
         <source>Enter your password to shutdown</source>
         <translation>请输入密码以完成关机</translation>
     </message>
@@ -107,7 +107,7 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="493"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="505"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
@@ -134,7 +134,7 @@
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <source>Restart</source>
+        <source>Reboot</source>
         <translation>重启</translation>
     </message>
     <message>

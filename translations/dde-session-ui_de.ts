@@ -12,8 +12,8 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="295"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
-        <source>Restart</source>
-        <translation>Neu starten</translation>
+        <source>Reboot</source>
+        <translation>Neustarten</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
@@ -22,8 +22,8 @@
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
-        <source>Are you sure to restart?</source>
-        <translation>Sind Sie sicher, dass Sie Neustarten möchten?</translation>
+        <source>Are you sure to reboot?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
@@ -89,17 +89,17 @@
         <translation>Anmelden</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="405"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="413"/>
         <source>Wrong Password</source>
         <translation>Falsches Passwort</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="559"/>
-        <source>Enter your password to restart</source>
-        <translation>Geben Sie Ihr Passwort ein, um den Computer neuzustarten</translation>
+        <location filename="../dde-lock/lockmanager.cpp" line="567"/>
+        <source>Enter your password to reboot</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="564"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
         <source>Enter your password to shutdown</source>
         <translation>Geben Sie Ihr Passwort ein, um den Computer herunterzufahren</translation>
     </message>
@@ -107,7 +107,7 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="493"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="505"/>
         <source>Wrong Password</source>
         <translation>Falsches Passwort</translation>
     </message>
@@ -134,7 +134,7 @@
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <source>Restart</source>
+        <source>Reboot</source>
         <translation>Neustarten</translation>
     </message>
     <message>
