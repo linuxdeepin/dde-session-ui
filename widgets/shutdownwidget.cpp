@@ -46,7 +46,7 @@ void ShutdownWidget::initUI() {
     m_requireShutdownButton->setObjectName("RequireShutdownButton");
     m_requireShutdownButton->setAutoExclusive(true);
 
-    m_requireRestartButton = new RoundItemButton(tr("Restart"), this);
+    m_requireRestartButton = new RoundItemButton(tr("Reboot"), this);
     m_requireRestartButton->setObjectName("RequireRestartButton");
     m_requireRestartButton->setAutoExclusive(true);
 

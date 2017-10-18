@@ -243,7 +243,7 @@ void ContentWidget::beforeInvokeAction(const Actions action)
         if (action == Shutdown)
             view->setAcceptReason(tr("Shut down"));
         else if (action == Restart)
-            view->setAcceptReason(tr("Restart"));
+            view->setAcceptReason(tr("Reboot"));
         else
             Q_UNREACHABLE();
 
@@ -292,8 +292,8 @@ void ContentWidget::beforeInvokeAction(const Actions action)
         }
         else if (action == Restart)
         {
-            view->setAcceptReason(tr("Restart"));
-            view->setInhibitReason(tr("Are you sure to restart?"));
+            view->setAcceptReason(tr("Reboot"));
+            view->setInhibitReason(tr("Are you sure to reboot?"));
         }
         else if (action == Logout)
         {
@@ -378,7 +378,7 @@ void ContentWidget::initUI() {
     m_shutdownButton = new RoundItemButton(tr("Shut down"));
     m_shutdownButton->setAutoExclusive(true);
     m_shutdownButton->setObjectName("ShutDownButton");
-    m_restartButton = new RoundItemButton(tr("Restart"));
+    m_restartButton = new RoundItemButton(tr("Reboot"));
     m_restartButton->setAutoExclusive(true);
     m_restartButton->setObjectName("RestartButton");
     m_suspendButton = new RoundItemButton(tr("Suspend"));

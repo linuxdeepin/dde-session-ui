@@ -564,7 +564,7 @@ void LockManager::passwordMode()
     }
 
     if (m_action == Restart) {
-        m_passwordEdit->setAlert(true, tr("Enter your password to restart"));
+        m_passwordEdit->setAlert(true, tr("Enter your password to reboot"));
         m_passwordEdit->setEnterBtnStyle(":/img/action_icons/reboot_normal.svg",
                                          ":/img/action_icons/reboot_hover.svg",
                                          ":/img/action_icons/reboot_press.svg");
