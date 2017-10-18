@@ -126,6 +126,9 @@ private:
     ControlWidget *m_controlWidget;
 
     QString m_lastUser;
+    QPushButton *m_loginButton;
+    QSize m_passwdEditSize;
+    QHBoxLayout *m_passWdEditLayout;
 };
 #endif // LoginManager
 

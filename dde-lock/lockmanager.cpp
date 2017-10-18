@@ -35,10 +35,6 @@
 #include <QMap>
 #include <QProcess>
 #include <QDBusConnection>
-#include <grp.h>
-#include <pwd.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 #include "lockmanager.h"
 #include "lockframe.h"
@@ -371,14 +367,14 @@ void LockManager::unlock()
         return;
     }
 
-    if (!m_passwordEdit->isVisible())
+    if (!m_passwordEdit->isVisible() && !m_unlockButton->isVisible())
         return;
 
 //    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
     const QString &username = m_activatedUser;
     const QString &password = m_passwordEdit->getText();
 
-    if (password.isEmpty())
+    if (password.isEmpty() && !m_unlockButton->isVisible())
         return;
 
     if (m_authenticating)
@@ -433,50 +429,26 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
 
 void LockManager::checkUserIsNoPWGrp()
 {
-    bool isNOPWGrp = false;
-    do {
-        long ngroups_max = sysconf(_SC_NGROUPS_MAX) + 1;
-        int ngroups;
-        struct group *gr;
-        const char *currentUser = m_userWidget->currentUser().toStdString().c_str();
-        const QString &checkGrp = "nopasswdlogin";
+    QProcess p;
+    p.start("groups", QStringList(m_userWidget->currentUser()));
+    p.waitForFinished();
 
-        gid_t *groups = new gid_t[ngroups_max * sizeof(gid_t)];
+    QString output = p.readAllStandardOutput().trimmed();
+    QStringList tokens = output.split(":");
+    if (tokens.length() > 1) {
+        QStringList groups = tokens.at(1).split(" ");
+        qDebug() << groups;
 
-        ngroups = getgroups(ngroups_max, groups);
-
-        struct passwd *pw = getpwnam(currentUser);
-        if (pw == nullptr) {
-            delete []groups;
-            break;
+        if (groups.contains("nopasswdlogin")) {
+            m_unlockButton->show();
+            m_passwordEdit->setFixedSize(ZoreSize);
+        } else {
+            m_lockInter->AuthenticateUser(m_activatedUser);
+            m_unlockButton->hide();
+            m_passwordEdit->setFixedSize(m_passwdEditSize);
         }
 
-        if (getgrouplist(currentUser, pw->pw_gid, groups, &ngroups) == -1) {
-            delete []groups;
-            break;
-        }
-
-        for (int i = 0; i < ngroups; i++) {
-            gr = getgrgid(groups[i]);
-            if (gr == nullptr)
-                continue;
-            if (QString(gr->gr_name) == checkGrp) {
-                isNOPWGrp = true;
-                break;
-            }
-        }
-
-        delete []groups;
-
-    } while(false);
-
-    if (isNOPWGrp) {
-        m_unlockButton->show();
-        m_passwordEdit->setFixedSize(ZoreSize);
-    } else {
-        m_lockInter->AuthenticateUser(m_activatedUser);
-        m_unlockButton->hide();
-        m_passwordEdit->setFixedSize(m_passwdEditSize);
+        return;
     }
 }
 

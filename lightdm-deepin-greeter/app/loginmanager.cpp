@@ -156,6 +156,7 @@ LoginManager::LoginManager(QWidget* parent)
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
 
     QTimer::singleShot(1, this, [=] { updateBackground(u); });
+
 }
 
 void LoginManager::updateWidgetsPosition()
@@ -192,12 +193,17 @@ void LoginManager::updateUserLoginCondition(QString username)
     if (tokens.length() > 1) {
         QStringList groups = tokens.at(1).split(" ");
         qDebug() << groups;
-        if (groups.contains("nopasswdlogin")) {
-            m_passWdEdit->setFixedSize(ZoreSize);
-//            m_loginButton->show();
 
-            return;
+        if (groups.contains("nopasswdlogin")) {
+            m_loginButton->show();
+            m_passWdEdit->setFixedSize(ZoreSize);
+        } else {
+            m_greeter->authenticate(m_userWidget->currentUser());
+            m_loginButton->hide();
+            m_passWdEdit->setFixedSize(m_passwdEditSize);
         }
+
+        return;
     }
 
 //    m_loginButton->hide();
@@ -287,33 +293,35 @@ void LoginManager::initUI()
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
     m_passWdEdit->setFocus();
 
-//    m_loginButton = new QPushButton(this);
-//    m_loginButton->setText(tr("Login"));
-//    m_loginButton->setFixedSize(160, 36);
-//    m_loginButton->hide();
+    m_loginButton = new QPushButton(this);
+    m_loginButton->setText(tr("Login"));
+    m_loginButton->setFixedSize(160, 36);
+    m_loginButton->hide();
+
+    m_passwdEditSize = m_passWdEdit->size();
 
     m_requireShutdownWidget = new ShutdownWidget(this);
     m_requireShutdownWidget->hide();
-//    m_passWdEditLayout = new QHBoxLayout;
-//    m_passWdEditLayout->setMargin(0);
-//    m_passWdEditLayout->setSpacing(0);
-//    m_passWdEditLayout->addStretch();
-//    m_passWdEditLayout->addWidget(m_passWdEdit);
-//    m_passWdEditLayout->addWidget(m_loginButton);
-//    m_passWdEditLayout->addStretch();
+    m_passWdEditLayout = new QHBoxLayout;
+    m_passWdEditLayout->setMargin(0);
+    m_passWdEditLayout->setSpacing(0);
+    m_passWdEditLayout->addStretch();
+    m_passWdEditLayout->addWidget(m_passWdEdit);
+    m_passWdEditLayout->addWidget(m_loginButton);
+    m_passWdEditLayout->addStretch();
 
-//    m_Layout = new QVBoxLayout;
-//    m_Layout->setMargin(0);
-//    m_Layout->setSpacing(0);
-//    m_Layout->addStretch();
-//    m_Layout->addLayout(m_passWdEditLayout);
-//    m_Layout->addStretch();
+    m_Layout = new QVBoxLayout;
+    m_Layout->setMargin(0);
+    m_Layout->setSpacing(0);
+    m_Layout->addStretch();
+    m_Layout->addLayout(m_passWdEditLayout);
+    m_Layout->addStretch();
 
 //    QWidget *centralWidget = new QWidget;
 //    centralWidget->setLayout(m_Layout);
 
 //    setContent(centralWidget);
-//    setLayout(m_Layout);
+    setLayout(m_Layout);
     showFullScreen();
 
     m_passWdEdit->updateKeyboardStatus();
@@ -422,7 +430,7 @@ void LoginManager::initConnect()
 
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
 
-//    connect(m_loginButton, &QPushButton::clicked, this, &LoginManager::login);
+    connect(m_loginButton, &QPushButton::clicked, this, &LoginManager::login);
 
     connect(m_keyboardMonitor, &KeyboardMonitor::numlockStatusChanged, this, &LoginManager::saveNumlockStatus);
 }
@@ -555,7 +563,7 @@ void LoginManager::authenticate()
 void LoginManager::chooseUserMode()
 {
     m_passWdEdit->hide();
-//    m_loginButton->hide();
+    m_loginButton->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
     m_requireShutdownWidget->hide();
@@ -566,7 +574,7 @@ void LoginManager::chooseSessionMode()
     m_sessionWidget->show();
     m_userWidget->hide();
     m_passWdEdit->hide();
-//    m_loginButton->hide();
+    m_loginButton->hide();
     m_requireShutdownWidget->hide();
     if (!m_keybdArrowWidget->isHidden()) {
         m_keybdArrowWidget->hide();
@@ -584,7 +592,7 @@ void LoginManager::choosedSession() {
             m_passWdEdit->show();
             m_passWdEdit->setFocus();
         } else {
-//            m_loginButton->show();
+            m_loginButton->show();
         }
     }
     if (!m_keybdArrowWidget->isHidden()) {
@@ -596,7 +604,7 @@ void LoginManager::showShutdownFrame() {
     qDebug() << "showShutdownFrame!";
     m_userWidget->hide();
     m_passWdEdit->hide();
-//    m_loginButton->hide();
+    m_loginButton->hide();
     m_sessionWidget->hide();
     m_requireShutdownWidget->show();
 }
@@ -663,7 +671,7 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
                     m_passWdEdit->show();
                     m_passWdEdit->setFocus();
                 } else {
-//                    m_loginButton->show();
+                    m_loginButton->show();
                 }
             }
             m_sessionWidget->hide();
@@ -725,3 +733,4 @@ void LoginManager::restoreNumlockStatus()
     qDebug() << "restore numlock status to " << value;
     m_keyboardMonitor->setNumlockStatus(value);
 }
+
