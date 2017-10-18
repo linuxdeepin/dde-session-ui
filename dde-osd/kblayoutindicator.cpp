@@ -188,7 +188,7 @@ QPixmap KBLayoutIndicator::generateIconPixmap(const QString &layout, qreal dpr)
 {
     const int iconSize = 16;
 
-    QPixmap pix(100 * dpr, 100 * dpr);
+    QPixmap pix(100, 100);
     pix.fill(Qt::transparent);
 
     QPainter pa(&pix);
@@ -204,6 +204,7 @@ QPixmap KBLayoutIndicator::generateIconPixmap(const QString &layout, qreal dpr)
     op.setAlignment(Qt::AlignCenter);
 
     QRect r( pix.rect() );
+    r.setTop(r.top() - 14);
     pa.drawText(r, layout, op);
 
     QPixmap ret = pix.scaled(QSize(iconSize * dpr, iconSize * dpr),
