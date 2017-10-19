@@ -36,7 +36,7 @@
 using Appearance = com::deepin::daemon::Appearance;
 
 class ShutdownFrontDBus;
-class ShutdownFrame:public FullscreenBackground
+class ShutdownFrame: public FullscreenBackground
 {
     Q_OBJECT
 public:

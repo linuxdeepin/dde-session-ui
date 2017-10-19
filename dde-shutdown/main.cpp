@@ -80,9 +80,8 @@ int main(int argc, char* argv[])
         ShutdownFrame w;
         //    w.hideBtns(parser.values(hide));
         //    w.disableBtns(parser.values(disable));
-        if (!parser.isSet(daemon)) {
-            w.showFullScreen();
-        }
+        if (!parser.isSet(daemon))
+            QMetaObject::invokeMethod(&w, "showFullScreen", Qt::QueuedConnection);
 
         ShutdownFrontDBus adaptor(&w); Q_UNUSED(adaptor);
         QDBusConnection::sessionBus().registerObject(DBUS_PATH, &w);

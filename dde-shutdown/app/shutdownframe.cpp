@@ -33,10 +33,7 @@ ShutdownFrame::ShutdownFrame(QWidget *parent)
     : FullscreenBackground(parent),
       m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
 {
-    m_shutdownFrame = new ContentWidget(this);
-
-    setContent(m_shutdownFrame);
-
+    setContent(new ContentWidget);
     initBackground();
 }
 

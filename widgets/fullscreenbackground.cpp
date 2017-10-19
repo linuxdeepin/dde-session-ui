@@ -84,6 +84,7 @@ void FullscreenBackground::setContent(QWidget * const w)
     Q_ASSERT(m_content.isNull());
 
     m_content = w;
+    m_content->setParent(this);
     m_content->installEventFilter(this);
 
     m_adjustTimer->start();
