@@ -8,7 +8,7 @@ QFrame#UserWidget {
 }
 
 QLabel#LogoVersion {
-    color: rgba(255, 255, 255, 255);
+    color: rgba(255, 255, 255, 153);
 }
 
 QPushButton#passwdButtonIcon {
