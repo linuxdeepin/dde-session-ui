@@ -108,7 +108,7 @@ void ContentWidget::resizeEvent(QResizeEvent *event)
     QFrame::resizeEvent(event);
 
     if (m_systemMonitor) {
-        QRect re = QApplication::desktop()->screenGeometry(QCursor::pos());
+        const QRect &re = rect();
         m_systemMonitor->move((re.width() - m_systemMonitor->width()) / 2,
                               re.height() - m_systemMonitor->height() - 40);
     }
