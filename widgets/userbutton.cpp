@@ -163,7 +163,7 @@ void UserButton::hide(const int duration)
     m_hideAnimation->setEndValue(0);
     m_hideAnimation->start();
 
-    connect(m_hideAnimation, &QPropertyAnimation::finished, [&]{
+    connect(m_hideAnimation, &QPropertyAnimation::finished, this, [=]{
         QPushButton::hide();
     });
 #else

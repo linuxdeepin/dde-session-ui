@@ -424,6 +424,7 @@ void ContentWidget::initUI() {
     updateStyle(":/skin/shutdown.qss", this);
 
     m_userWidget = new UserWidget;
+    m_userWidget->hide();
 
     m_btnsList->append(m_shutdownButton);
     m_btnsList->append(m_restartButton);
