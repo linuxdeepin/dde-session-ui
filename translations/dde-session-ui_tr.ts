@@ -13,7 +13,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="295"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
         <source>Reboot</source>
-        <translation>Yeniden başlat</translation>
+        <translation>Yeniden Başlat</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
@@ -23,7 +23,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Yeniden başlatmak istediğinize emin misiniz ?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="567"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Yeniden başlatmak için şifrenizi giriniz</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="572"/>

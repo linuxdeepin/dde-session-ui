@@ -23,7 +23,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Sind Sie sicher, dass Sie einen Neustart ausführen wollen?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="567"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Geben Sie Ihr Passwort ein um den Computer neuzustarten</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="572"/>
@@ -193,12 +193,12 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="41"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Willkommen! Das System wurde erfolgreich auf den neuesten Stand gebracht.</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="42"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>Aktuelle Edition:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="43"/>

@@ -23,7 +23,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Ar tikrai norite paleisti iš naujo?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
@@ -96,12 +96,12 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="567"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Norėdami paleisti iš naujo, įveskite slaptažodį</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="572"/>
         <source>Enter your password to shutdown</source>
-        <translation>Įrašykite savo slaptažodį, kad išjungtumėte</translation>
+        <translation>Norėdami išjungti, įveskite slaptažodį</translation>
     </message>
 </context>
 <context>

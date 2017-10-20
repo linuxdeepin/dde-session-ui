@@ -23,7 +23,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>¿Estás seguro de reiniciar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="567"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Ingrese su contraseña para reiniciar</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="572"/>

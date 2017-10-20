@@ -23,7 +23,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Res hočete ponovno zagnati sistem?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="567"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Vnesite geslo, da ponovno zaženete napravo</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="572"/>
@@ -193,17 +193,17 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="41"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Dobrodošli, sistem je bil uspešno posodobljen</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="42"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>Trenutna različica:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="43"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Vhod</translation>
     </message>
 </context>
 <context>
