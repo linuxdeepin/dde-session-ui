@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
     <title>OSD_only1_active</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="OSD_only1_active" fill-rule="nonzero" fill="#2CA7F8">
-            <path d="M10.7692308,16 L53.2307692,16 C54.4513528,16 55,16.5704721 55,17.7777778 L55,46.2222222 C55,47.4172635 54.4384551,48 53.2307692,48 L10.7692308,48 C9.5486472,48 9,47.4295279 9,46.2222222 L9,17.7777778 C9,16.5827365 9.56154491,16 10.7692308,16 Z M34.4375,40.32 L34.4375,21.92 L33.0223348,21.92 C32.6400757,22.7116706 31.9894315,23.5283291 31.0703829,24.37 C30.1513342,25.2116709 29.0777714,25.9283304 27.8496622,26.52 L27.8496622,28.695 C28.5328488,28.4366654 29.3034554,28.0491693 30.1615053,27.5325 C31.0195551,27.0158308 31.7128978,26.4991693 32.2415541,25.9825 L32.2415541,40.32 L34.4375,40.32 Z" id="Combined-Shape"></path>
+        <g id="OSD_only1_active" fill-rule="nonzero" fill="#FFFFFF">
+            <path d="M10.7692308,16 L10.7692308,16 L53.2307692,16 C54.4513528,16 55,16.5704721 55,17.7777778 L55,46.2222222 C55,47.4172635 54.4384551,48 53.2307692,48 L10.7692308,48 C9.5486472,48 9,47.4295279 9,46.2222222 L9,17.7777778 C9,16.5827365 9.56154491,16 10.7692308,16 L10.7692308,16 Z" id="Combined-Shape"></path>
         </g>
     </g>
 </svg>

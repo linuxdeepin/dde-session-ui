@@ -29,7 +29,7 @@
 void DrawHelper::DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QString &pix, bool withText, bool withProgress)
 {
     const QRect rect(option.rect);
-    const int yOffset = withProgress ? 30 : withText ? 20 : 40;
+    const int yOffset = withProgress ? 30 : withText ? 25 : 40;
     QPixmap pixmap(pix);
 
     QSvgRenderer renderer(pix);
@@ -40,7 +40,7 @@ void DrawHelper::DrawText(QPainter *painter, const QStyleOptionViewItem &option,
 {
     QRect rect( option.rect );
     if (withImage) {
-        rect.setY(rect.y() + 70);
+        rect.setY(rect.y() + 60);
     }
 
     QTextOption opt;
@@ -66,4 +66,34 @@ void DrawHelper::DrawProgressBar(QPainter *painter, const QStyleOptionViewItem &
     dest.setWidth(dest.width() * progress);
     painter->setBrush(Qt::black);
     painter->drawRoundedRect(dest, radius, radius);
+}
+
+void DrawHelper::DrawCenterNum(QPainter *painter, const QStyleOptionViewItem &option, const QString &text, const bool isCurrent)
+{
+    QRect rect(option.rect);
+    rect.setY(rect.y() - 30);
+
+    QFont font(painter->font());
+    QPen pen(painter->pen());
+
+    QFont f(painter->font());
+    f.setPointSize(17);
+    f.setWeight(440);
+
+    painter->setPen(isCurrent ? QColor("#2ca7f8") : Qt::black);
+
+    painter->setFont(f);
+
+    painter->drawText(rect, Qt::AlignCenter, text);
+
+    painter->setFont(font);
+    painter->setPen(pen);
+}
+
+void DrawHelper::DrawBackground(QPainter *painter, const QStyleOptionViewItem &option)
+{
+    QPainterPath path;
+    path.addRoundedRect(option.rect.marginsRemoved(QMargins(10, 10, 10, 10)), 5, 5);
+
+    painter->fillPath(path, QColor("#2ca7f8"));
 }

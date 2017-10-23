@@ -103,14 +103,20 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant textData = index.data(Qt::DisplayRole);
 
+    const int currentIndex = m_planItems.indexOf(m_currentPlan);
+    const bool iscurrent = currentIndex == index.row();
+    if (iscurrent) {
+        DrawHelper::DrawBackground(painter, option);
+        DrawHelper::DrawText(painter, option, textData.toString(), Qt::white);
+    } else {
+        DrawHelper::DrawText(painter, option, textData.toString());
+    }
+
     DrawHelper::DrawImage(painter, option, imageData.toString(), true);
 
-    const int currentIndex = m_planItems.indexOf(m_currentPlan);
-    if (currentIndex != index.row()) {
-        DrawHelper::DrawText(painter, option, textData.toString());
-    } else {
-        DrawHelper::DrawText(painter, option, textData.toString(), ItemHighlightColor);
-    }
+    const int v = index.row();
+    if (v > 1)
+        DrawHelper::DrawCenterNum(painter,option, QString::number(v - 1), iscurrent);
 }
 
 QSize DisplayModeProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
@@ -168,7 +174,6 @@ QString DisplayModeProvider::getPlanItemName(QPair<uchar, QString> &plan) const
 QString DisplayModeProvider::getPlanItemIcon(QPair<uchar, QString> &plan) const
 {
     const uchar displayMode = plan.first;
-    const QString monitorId = plan.second;
 
     const bool active = plan == m_currentPlan;
 
@@ -177,8 +182,7 @@ QString DisplayModeProvider::getPlanItemIcon(QPair<uchar, QString> &plan) const
     } else if (displayMode == 2) {
         return active ? ":/icons/OSD_extend_mode_active.svg" : ":/icons/OSD_extend_mode.svg";
     } else if (displayMode == 3) {
-        const int index = m_outputNames.indexOf(monitorId) + 1;
-        return QString(":/icons/OSD_only%1%2.svg").arg(index).arg(active ? "_active" : "");
+        return QString(":/icons/OSD_only1%2.svg").arg(active ? "_active" : "");
     }
 
     return "";
