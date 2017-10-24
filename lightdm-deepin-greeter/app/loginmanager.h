@@ -129,6 +129,7 @@ private:
     QPushButton *m_loginButton;
     QSize m_passwdEditSize;
     QHBoxLayout *m_passWdEditLayout;
+    bool m_isThumbAuth = false;
 };
 #endif // LoginManager
 

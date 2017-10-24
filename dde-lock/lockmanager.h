@@ -124,6 +124,7 @@ private:
 
     DBusMediaPlayer2 *m_mprisInter = nullptr;
     bool m_authenticating = false;
+    bool m_isThumbAuth = false;
 
 };
 

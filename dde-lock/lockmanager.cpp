@@ -352,6 +352,8 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
 
 void LockManager::unlock()
 {
+    m_isThumbAuth = false;
+
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
 
@@ -398,6 +400,12 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
 
     m_authenticating = false;
 
+    if (msg == "Verification timed out") {
+        m_isThumbAuth = true;
+        m_passwordEdit->setMessage(tr("Please enter your password manually if fingerprint password timed out"));
+        return;
+    }
+
     switch (eventType) {
     case DBusLockService::PromptQuestion:
         qDebug() << "prompt quesiton from pam: " << message;
@@ -405,6 +413,9 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
         break;
     case DBusLockService::PromptSecret:
         qDebug() << "prompt secret from pam: " << message;
+        if (m_isThumbAuth)
+            return;
+
         if (msg.isEmpty())
             m_passwordEdit->setAlert(true, tr("Wrong Password"));
         else

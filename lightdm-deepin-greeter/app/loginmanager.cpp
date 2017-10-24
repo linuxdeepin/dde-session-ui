@@ -466,8 +466,19 @@ void LoginManager::expandUserWidget() {
 
 void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
 {
+    qDebug() << "pam message: " << text << type;
+
+    if (text == "Verification timed out") {
+        m_isThumbAuth = true;
+        m_passWdEdit->setMessage(tr("Please enter your password manually if fingerprint password timed out"));
+        return;
+    }
+
     switch (type) {
     case QLightDM::Greeter::MessageTypeInfo:
+        if (m_isThumbAuth)
+            break;
+
         m_passWdEdit->setMessage(text);
         break;
     case QLightDM::Greeter::MessageTypeError:
@@ -489,6 +500,9 @@ void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
     switch (type)
     {
     case QLightDM::Greeter::PromptTypeSecret:
+        if (m_isThumbAuth)
+            return;
+
         if (msg.isEmpty() && !m_passWdEdit->getText().isEmpty())
             m_greeter->respond(m_passWdEdit->getText());
 
@@ -519,6 +533,8 @@ void LoginManager::authenticationComplete()
 
 void LoginManager::login()
 {
+    m_isThumbAuth = false;
+
     if(!m_requireShutdownWidget->isHidden()) {
         qDebug() << "SHUTDOWN";
         m_requireShutdownWidget->shutdownAction();
