@@ -30,10 +30,11 @@
 const QString WallpaperKey = "pictureUri";
 
 ShutdownFrame::ShutdownFrame(QWidget *parent)
-    : FullscreenBackground(parent),
-      m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
+    : FullscreenBackground(parent)
+    , m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
+    , m_shutdownFrame(new ContentWidget)
 {
-    setContent(new ContentWidget);
+    setContent(m_shutdownFrame);
     initBackground();
 }
 
