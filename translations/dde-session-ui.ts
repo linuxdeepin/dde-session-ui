@@ -86,22 +86,27 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="158"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="154"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="413"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="405"/>
+        <source>Please enter your password manually if fingerprint password timed out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="420"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="567"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="550"/>
         <source>Enter your password to reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="555"/>
         <source>Enter your password to shutdown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -109,7 +114,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="505"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="297"/>
+        <source>Login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
+        <source>Please enter your password manually if fingerprint password timed out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="527"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
