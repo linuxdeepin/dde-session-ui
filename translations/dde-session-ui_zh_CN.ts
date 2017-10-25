@@ -91,7 +91,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="405"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>指纹密码验证超时，请手动输入密码！</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="420"/>
@@ -119,7 +119,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>指纹密码验证超时，请手动输入密码！</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="527"/>
