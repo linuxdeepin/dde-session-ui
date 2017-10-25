@@ -29,7 +29,7 @@
 #include <QFrame>
 
 #include <com_deepin_wm.h>
-#include <com_deepin_daemon_apperance.h>
+#include <com_deepin_daemon_appearance.h>
 #include "fullscreenbackground.h"
 #include "view/contentwidget.h"
 
