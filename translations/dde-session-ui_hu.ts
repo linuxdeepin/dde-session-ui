@@ -23,7 +23,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Biztos benne, hogy újraindítja a gépet?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
@@ -84,22 +84,27 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="158"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="154"/>
         <source>Login</source>
         <translation>Bejelentkezés</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="413"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="405"/>
+        <source>Please enter your password manually if fingerprint password timed out</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="420"/>
         <source>Wrong Password</source>
         <translation>Helytelen jelszó</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="567"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="550"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Adja meg a jelszavát az újraindításhoz.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="555"/>
         <source>Enter your password to shutdown</source>
         <translation>Adjuk meg a jelszót a leállításhoz</translation>
     </message>
@@ -107,7 +112,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="505"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="297"/>
+        <source>Login</source>
+        <translation>Bejelentkezés</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
+        <source>Please enter your password manually if fingerprint password timed out</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="527"/>
         <source>Wrong Password</source>
         <translation>Helytelen jelszó</translation>
     </message>
@@ -193,17 +208,17 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="41"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>A rendszerfrissítés sikerült.</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="42"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>Jelenlegi verzió:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="43"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Belépés</translation>
     </message>
 </context>
 <context>
