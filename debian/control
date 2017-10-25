@@ -13,7 +13,7 @@ Homepage: http://www.deepin.org/
 
 Package: dde-session-ui
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, deepin-desktop-schemas (>= 2.91.2), dde-daemon, x11-xserver-utils, libpam0g
+Depends: ${shlibs:Depends}, ${misc:Depends}, deepin-desktop-schemas (>= 2.91.2), dde-daemon, x11-xserver-utils
 Provides: lightdm-greeter
 Conflicts: dde-workspace, startdde (<< 2.91.1)
 Breaks: dde-workspace, startdde(<< 2.91.1)
