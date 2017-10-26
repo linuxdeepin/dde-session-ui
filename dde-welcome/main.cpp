@@ -40,6 +40,10 @@ int main(int argc, char *argv[])
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
+    QTranslator translator;
+    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
+    app.installTranslator(&translator);
+
     Welcome w;
     WelcomeService serviceAdaptor(&w);
     Q_UNUSED(serviceAdaptor);
