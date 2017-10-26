@@ -61,6 +61,9 @@ void ContentWidget::showEvent(QShowEvent *event)
                             "/com/deepin/dde/Launcher "
                             "com.deepin.dde.Launcher.Hide");
 
+    if (m_hotZoneInterface->isValid())
+        m_hotZoneInterface->EnableZoneDetected(false);
+
     checkUsers();
 }
 
@@ -112,6 +115,14 @@ void ContentWidget::resizeEvent(QResizeEvent *event)
         m_systemMonitor->move((re.width() - m_systemMonitor->width()) / 2,
                               re.height() - m_systemMonitor->height() - 40);
     }
+}
+
+void ContentWidget::hideEvent(QHideEvent *event)
+{
+    QFrame::hideEvent(event);
+
+    if (m_hotZoneInterface->isValid())
+        m_hotZoneInterface->EnableZoneDetected(true);
 }
 
 void ContentWidget::setConfirm(const bool confirm)
