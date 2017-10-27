@@ -60,14 +60,13 @@ WMChooser::WMChooser(QWidget *parent)
     m_topSpeedBtn->setFixedSize(m_gorgeousBtn->size());
     m_topSpeedBtn->setStyleSheet(btnStyle);
 
-    QLabel *titleTip = new QLabel(tr("Friendly Reminder"));
+    QLabel *titleTip = new QLabel(tr("Select Video Mode"));
     titleTip->setStyleSheet("font-size: 40px;"
                             "color: #ffffff;");
 
-    QLabel*tip = new QLabel(tr("System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode"));
-    tip->setWordWrap(true);
+    QLabel*tip = new QLabel(tr("In a virtual machine 'Common Mode'<br/>is recommended for a smooth experience."));
 
-    QLabel *bottomTip = new QLabel(tr("Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience"));
+    QLabel *bottomTip = new QLabel(tr("Some features will be unavailable in 'Common Mode'.<br/>You can switch modes anytime with SHIFT+SUPER+TAB."));
     tip->setStyleSheet("line-height: 1.43;"
                        "color: #ffffff;"
                        "font-size: 14px;");
