@@ -102,11 +102,11 @@ bool setAllMonitorsExtend()
     return foundMonitor;
 }
 
-// This workaround is work when you don not plug in any monitor and
-// power on computer. Then Qt can not draw out any thing.
-// You can not quit application because lightdm will quit with greeter quit.
-// And you can not recive and signal of monitor plugin from kernel.
-// So please dectect time by time, :<
+// This workaround works when you do not plug in any monitor and
+// power on computer. Then Qt can not draw out anything.
+// You can not quit application because lightdm will quit when greeter quit.
+// Also you can not receive any signal of monitor plugin from kernel.
+// So please detect time by time, :<
 void waitMonitorReady() {
     while(!setAllMonitorsExtend()) {
         QThread::sleep(10);
