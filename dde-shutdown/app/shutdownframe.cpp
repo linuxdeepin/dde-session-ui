@@ -59,6 +59,7 @@ void ShutdownFrame::initBackground()
                 setBackground(reply.value());
             } else {
                 qWarning() << "get current workspace background error: " << call.error().message();
+                setBackground("/usr/share/backgrounds/deepin/desktop.jpg");
             }
         });
     };
