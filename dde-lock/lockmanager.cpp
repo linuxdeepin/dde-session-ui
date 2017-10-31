@@ -422,6 +422,10 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
         break;
     case DBusLockService::ErrorMsg:
         qWarning() << "error message from pam: " << message;
+        if (msg == "Failed to match fingerprint") {
+            m_passwordEdit->setAlert(true, tr("Failed to match fingerprint"));
+            m_passwordEdit->setMessage("");
+        }
         break;
     case DBusLockService::TextInfo:
         m_passwordEdit->setMessage(message);

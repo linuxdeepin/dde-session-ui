@@ -483,6 +483,10 @@ void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
         break;
     case QLightDM::Greeter::MessageTypeError:
         qWarning() << "error message from lightdm: " << text;
+        if (text == "Failed to match fingerprint") {
+            m_passWdEdit->setAlert(true, tr("Failed to match fingerprint"));
+            m_passWdEdit->setMessage("");
+        }
         break;
     default:
         break;
