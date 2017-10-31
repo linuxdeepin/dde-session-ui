@@ -255,6 +255,7 @@ void LockManager::onUnlockFinished(const bool unlocked)
         qDebug() << "Authorization failed!";
 
         m_passwordEdit->selectAll();
+        m_passwordEdit->setAlert(true, tr("Wrong Password"));
 
         m_lockInter->AuthenticateUser(m_activatedUser);
         return;
@@ -416,9 +417,7 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
         if (m_isThumbAuth)
             return;
 
-        if (msg.isEmpty())
-            m_passwordEdit->setAlert(true, tr("Wrong Password"));
-        else
+        if (!msg.isEmpty())
             m_passwordEdit->setMessage(msg);
         break;
     case DBusLockService::ErrorMsg:
