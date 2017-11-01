@@ -95,6 +95,7 @@ void Manager::ShowOSD(const QString &osd)
         updateUI();
         if (repeat && m_container->isVisible()) {
             QModelIndex currentIndex = m_listview->currentIndex();
+
             if (currentIndex.row() < 0)
                 currentIndex = m_listview->model()->index(0, 0);
 
@@ -106,9 +107,19 @@ void Manager::ShowOSD(const QString &osd)
             }
 
             m_listview->setCurrentIndex(targetIndex);
+            m_listview->scrollTo(targetIndex);
             m_currentProvider->highlightNext();
-
         } else {
+            KBLayoutProvider *provide = qobject_cast<KBLayoutProvider*>(m_kbLayoutProvider);
+            if (provide) {
+                QModelIndex currentIndex = m_listview->currentIndex();
+
+                if (currentIndex.row() < 0)
+                    currentIndex = m_listview->model()->index(0, 0).sibling(provide->currentIndex(), 0);
+
+                m_listview->setCurrentIndex(currentIndex);
+                m_listview->scrollTo(currentIndex);
+            }
             m_currentProvider->highlightCurrent();
         }
 

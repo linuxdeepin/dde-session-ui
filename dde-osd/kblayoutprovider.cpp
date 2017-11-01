@@ -97,6 +97,11 @@ QVariant KBLayoutProvider::data(const QModelIndex &index, int) const
     return describeLayout(m_userLayouts.at(index.row()));
 }
 
+int KBLayoutProvider::currentIndex() const
+{
+    return  m_userLayouts.indexOf(m_userCurrentLayout);
+}
+
 void KBLayoutProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QVariant textData = index.data();
