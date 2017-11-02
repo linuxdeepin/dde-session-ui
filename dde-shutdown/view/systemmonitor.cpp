@@ -38,15 +38,12 @@ SystemMonitor::SystemMonitor(QWidget *parent) : QWidget(parent)
 {
     m_state = Leave;
 
-    const qreal ratio = devicePixelRatioF();
-
     m_icon = new QWidget;
     m_icon->installEventFilter(this);
     m_icon->setFixedSize(24, 24);
 
     m_text = new QLabel(tr("Start system monitor"));
     m_text->setStyleSheet("color: white;"
-                          "font-size: 14px;"
                           "font-weight: 400;");
 
     m_text->adjustSize();
@@ -76,7 +73,6 @@ void SystemMonitor::enterEvent(QEvent *event)
     QWidget::enterEvent(event);
 
     m_text->setStyleSheet("color: white;"
-                          "font-size: 14px;"
                           "font-weight: 400;");
 
     m_state = Enter;
@@ -88,7 +84,6 @@ void SystemMonitor::leaveEvent(QEvent *event)
     QWidget::leaveEvent(event);
 
     m_text->setStyleSheet("color: white;"
-                          "font-size: 14px;"
                           "font-weight: 400;");
 
     m_state = Leave;
@@ -100,7 +95,6 @@ void SystemMonitor::mouseReleaseEvent(QMouseEvent *event)
     QWidget::mouseReleaseEvent(event);
 
     m_text->setStyleSheet("color: white;"
-                          "font-size: 14px;"
                           "font-weight: 400;");
 
     m_state = Release;
@@ -114,7 +108,6 @@ void SystemMonitor::mousePressEvent(QMouseEvent *event)
     QWidget::mousePressEvent(event);
 
     m_text->setStyleSheet("color: #2ca7f8;"
-                          "font-size: 14px;"
                           "font-weight: 400;");
 
     m_state = Press;

@@ -62,8 +62,7 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
     m_userList->setFocusPolicy(Qt::NoFocus);
     m_userList->setStyleSheet("background-color:transparent;");
 
-    m_warningTip->setStyleSheet("color: white;"
-                                "font-size: 14px;");
+    m_warningTip->setStyleSheet("color: white;");
     m_warningTip->setWordWrap(true);
     m_warningTip->setFixedWidth(500);
     m_warningTip->setAlignment(Qt::AlignHCenter);
@@ -152,7 +151,7 @@ UserListItem::UserListItem(QString &icon, QString &name) :
     m_icon->setScaledContents(true);
     m_icon->setPixmap(getRoundPixmap(icon));
 
-    m_name->setStyleSheet("color: white; font-size: 14px");
+    m_name->setStyleSheet("color: white;");
     m_name->move(80, 20);
 }
 

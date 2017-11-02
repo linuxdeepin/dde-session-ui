@@ -90,7 +90,7 @@ void RoundItemButton::initUI() {
 
     m_itemText->setWordWrap(true);
     m_itemText->setStyleSheet("color: rgba(255, 255, 255, 255);"
-                              "font-size:16px; margin:0 5px;");
+                              "margin:0 5px;");
     m_itemText->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     m_itemText->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
