@@ -54,3 +54,10 @@ WarningDialog::WarningDialog(QWidget *parent)
 WarningDialog::~WarningDialog()
 {
 }
+
+void WarningDialog::RaiseWindow()
+{
+    show();
+    raise();
+    activateWindow();
+}

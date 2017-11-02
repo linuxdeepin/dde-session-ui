@@ -22,5 +22,8 @@ SOURCES += main.cpp \
 HEADERS  += \
     warningdialog.h
 
+service.files += com.deepin.dde.WarningDialog.service
+service.path = /usr/share/dbus-1/services/
+
 target.path = /usr/lib/deepin-daemon/
-INSTALLS   += target
+INSTALLS   += target service

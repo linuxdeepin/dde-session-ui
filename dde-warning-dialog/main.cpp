@@ -26,8 +26,15 @@
 #include "warningdialog.h"
 #include <DApplication>
 #include <QTranslator>
+#include <QDBusConnection>
+#include <QDBusInterface>
+#include <QDebug>
 
 DWIDGET_USE_NAMESPACE
+
+static const QString Service = "com.deepin.dde.WarningDialog";
+static const QString Path = "/com/deepin/dde/WarningDialog";
+static const QString Interface = "com.deepin.dde.WarningDialog";
 
 int main(int argc, char *argv[])
 {
@@ -40,8 +47,22 @@ int main(int argc, char *argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
-    WarningDialog w;
-    w.show();
 
-    return a.exec();
+    QDBusConnection session = QDBusConnection::sessionBus();
+    bool result = session.registerService(Service);
+    if (result) {
+        WarningDialog w;
+        w.show();
+
+        result = session.registerObject(Path, Interface, &w, QDBusConnection::ExportAllSlots);
+        if (!result) {
+            qWarning() << "failed to register dbus object";
+        }
+
+        return a.exec();
+    } else {
+        qWarning() << "another instance is running, raising its window.";
+        QDBusInterface iface(Service, Path, Interface, session);
+        iface.call("RaiseWindow");
+    }
 }
