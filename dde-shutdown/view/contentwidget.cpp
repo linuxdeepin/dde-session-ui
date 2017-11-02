@@ -65,6 +65,10 @@ void ContentWidget::showEvent(QShowEvent *event)
         m_hotZoneInterface->EnableZoneDetected(false);
 
     checkUsers();
+
+    QTimer::singleShot(1, this, [=] {
+        grabKeyboard();
+    });
 }
 
 void ContentWidget::keyReleaseEvent(QKeyEvent *event)
@@ -123,6 +127,8 @@ void ContentWidget::hideEvent(QHideEvent *event)
 
     if (m_hotZoneInterface->isValid())
         m_hotZoneInterface->EnableZoneDetected(true);
+
+    releaseKeyboard();
 }
 
 void ContentWidget::setConfirm(const bool confirm)
