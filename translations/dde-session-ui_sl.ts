@@ -2,52 +2,52 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="290"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="261"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="307"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
         <source>Shut down</source>
         <translation>Zaustavitev sistema</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="295"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="263"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="312"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
         <source>Reboot</source>
         <translation>Ponovni zagon</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="308"/>
         <source>Are you sure to shut down?</source>
         <translation>Res hočete zaustaviti?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
         <source>Are you sure to reboot?</source>
         <translation>Res hočete ponovno zagnati sistem?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="390"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Log out</source>
         <translation>Izpis</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="301"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="318"/>
         <source>Are you sure to log out?</source>
         <translation>Se res hočete izpisati?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <source>Suspend</source>
         <translation>V način mirovanja</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
         <source>Lock</source>
         <translation>Zakleni</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="394"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
         <source>Switch user</source>
         <translation>Zamenjaj uporabnika</translation>
     </message>
@@ -68,7 +68,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="50"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="49"/>
         <source>Cancel</source>
         <translation>Prekliči</translation>
     </message>
@@ -89,22 +89,27 @@
         <translation>Prijava</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="405"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="406"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Če geslo s prstnim odtisom ne deluje, prosim vnesite geslo ročno</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="420"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="258"/>
         <source>Wrong Password</source>
         <translation>Napačno geslo</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="550"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="426"/>
+        <source>Failed to match fingerprint</source>
+        <translation>Prstni odtisi se ne ujemajo</translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="553"/>
         <source>Enter your password to reboot</source>
         <translation>Vnesite geslo, da ponovno zaženete napravo</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="555"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="558"/>
         <source>Enter your password to shutdown</source>
         <translation>Vnesite geslo za izklop sistema</translation>
     </message>
@@ -119,10 +124,15 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Če geslo s prstnim odtisom ne deluje, prosim vnesite geslo ročno</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="527"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
+        <source>Failed to match fingerprint</source>
+        <translation>Prstni odtisi se ne ujemajo</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>
         <source>Wrong Password</source>
         <translation>Napačno geslo</translation>
     </message>
@@ -130,12 +140,12 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="124"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>Zgoraj navedeni uporabniki so še zmeraj vpisani v sistem, zato bodo nekateri podatki ob ugasnitvi izgubljeni. Res želite ugasniti računalnik?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>Zgoraj navedeni uporabniki so še vedno prijavljeni, zato bodo zaradi ponovnega zagona podatki izgubljeni. Ali res želite ponovni zagon?</translation>
     </message>
@@ -185,7 +195,7 @@
 <context>
     <name>SystemMonitor</name>
     <message>
-        <location filename="../dde-shutdown/view/systemmonitor.cpp" line="47"/>
+        <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
         <translation>Zaženi sistemski nadzor</translation>
     </message>

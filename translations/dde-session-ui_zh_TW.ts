@@ -2,52 +2,52 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="290"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="261"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="307"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
         <source>Shut down</source>
         <translation>關機</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="295"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="263"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="312"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
         <source>Reboot</source>
         <translation>重新啟動</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="308"/>
         <source>Are you sure to shut down?</source>
         <translation>確定關機？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>確定要重新開機？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="390"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Log out</source>
         <translation>登出</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="301"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="318"/>
         <source>Are you sure to log out?</source>
         <translation>確定登出？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <source>Suspend</source>
         <translation>待機</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
         <source>Lock</source>
         <translation>鎖定</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="394"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
         <source>Switch user</source>
         <translation>切換使用者</translation>
     </message>
@@ -68,7 +68,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="50"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="49"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -89,22 +89,27 @@
         <translation>登入</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="405"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="406"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="420"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="258"/>
         <source>Wrong Password</source>
         <translation>密碼錯誤</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="550"/>
-        <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="426"/>
+        <source>Failed to match fingerprint</source>
+        <translation>配對指紋失敗</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="555"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="553"/>
+        <source>Enter your password to reboot</source>
+        <translation>輸入密碼以重開機</translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="558"/>
         <source>Enter your password to shutdown</source>
         <translation>輸入密碼關機</translation>
     </message>
@@ -122,7 +127,12 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="527"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
+        <source>Failed to match fingerprint</source>
+        <translation>配對指紋失敗</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>
         <source>Wrong Password</source>
         <translation>密碼錯誤</translation>
     </message>
@@ -130,12 +140,12 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="124"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>關機會導致登入使用者的資料遺失，確定關機？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>重新啟動會導致登入使用者的資料遺失，確定重新啟動？</translation>
     </message>
@@ -185,7 +195,7 @@
 <context>
     <name>SystemMonitor</name>
     <message>
-        <location filename="../dde-shutdown/view/systemmonitor.cpp" line="47"/>
+        <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
         <translation>啟動 Deepin 系統監視器</translation>
     </message>
@@ -208,12 +218,12 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="41"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>哈囉，系統已更新成功</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="42"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>目前版本：</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="43"/>

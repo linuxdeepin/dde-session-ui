@@ -2,52 +2,52 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="290"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="261"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="307"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
         <source>Shut down</source>
         <translation>Apagar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="295"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="263"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="312"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
         <source>Reboot</source>
         <translation>Reaniciar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="308"/>
         <source>Are you sure to shut down?</source>
         <translation>¿De xuru que quies apagar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
         <source>Are you sure to reboot?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="390"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Log out</source>
         <translation>Zarrar sesión</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="301"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="318"/>
         <source>Are you sure to log out?</source>
         <translation>¿De xuru que quies zarrar sesión?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <source>Suspend</source>
         <translation>Suspender</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
         <source>Lock</source>
         <translation>Bloquiar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="394"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
         <source>Switch user</source>
         <translation>Camudar d&apos;usuariu</translation>
     </message>
@@ -68,7 +68,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="50"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="49"/>
         <source>Cancel</source>
         <translation>Encaboxar</translation>
     </message>
@@ -89,22 +89,27 @@
         <translation>Aniciar sesión</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="405"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="406"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="420"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="258"/>
         <source>Wrong Password</source>
         <translation>Contraseña incorreuta</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="550"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="426"/>
+        <source>Failed to match fingerprint</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="553"/>
         <source>Enter your password to reboot</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="555"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="558"/>
         <source>Enter your password to shutdown</source>
         <translation>Introduz la to contraseña p&apos;apagar</translation>
     </message>
@@ -122,7 +127,12 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="527"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
+        <source>Failed to match fingerprint</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>
         <source>Wrong Password</source>
         <translation>Contraseña incorreuta</translation>
     </message>
@@ -130,12 +140,12 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="124"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>Los usuarios d&apos;enriba entá tienen la sesión aniciada y perderánse los sos datos pol apagáu, ¿de xuru que quies apagar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>Los usuarios d&apos;enriba entá tienen la sesión aniciada y perderánse los sos datos pol reaniciu, ¿de xuru que quies apagar?</translation>
     </message>
@@ -185,7 +195,7 @@
 <context>
     <name>SystemMonitor</name>
     <message>
-        <location filename="../dde-shutdown/view/systemmonitor.cpp" line="47"/>
+        <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
         <translation>Aniciar monitor del sistema</translation>
     </message>

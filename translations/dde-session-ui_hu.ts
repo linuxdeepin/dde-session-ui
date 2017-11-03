@@ -2,52 +2,52 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="244"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="290"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="261"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="307"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
         <source>Shut down</source>
         <translation>Leállítás</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="246"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="295"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="263"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="312"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
         <source>Reboot</source>
         <translation>Újraindítás</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="308"/>
         <source>Are you sure to shut down?</source>
         <translation>Biztosan leállítja a számítógépet?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="296"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
         <source>Are you sure to reboot?</source>
         <translation>Biztos benne, hogy újraindítja a gépet?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="300"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="390"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Log out</source>
         <translation>Kijelentkezés</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="301"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="318"/>
         <source>Are you sure to log out?</source>
         <translation>Biztosan kijelentkezik?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <source>Suspend</source>
         <translation>Felfüggesztés</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
         <source>Lock</source>
         <translation>Zárolás</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="394"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
         <source>Switch user</source>
         <translation>Felhasználóváltás</translation>
     </message>
@@ -68,7 +68,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="50"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="49"/>
         <source>Cancel</source>
         <translation>Mégse</translation>
     </message>
@@ -89,22 +89,27 @@
         <translation>Bejelentkezés</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="405"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="406"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="420"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="258"/>
         <source>Wrong Password</source>
         <translation>Helytelen jelszó</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="550"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="426"/>
+        <source>Failed to match fingerprint</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="553"/>
         <source>Enter your password to reboot</source>
         <translation>Adja meg a jelszavát az újraindításhoz.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="555"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="558"/>
         <source>Enter your password to shutdown</source>
         <translation>Adjuk meg a jelszót a leállításhoz</translation>
     </message>
@@ -122,7 +127,12 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="527"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
+        <source>Failed to match fingerprint</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>
         <source>Wrong Password</source>
         <translation>Helytelen jelszó</translation>
     </message>
@@ -130,12 +140,12 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="124"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>A fenti felhasználók továbbra is bejelentkezve vannak és minden adat elfog veszni, biztos hogy kikapcsoljuk a számítógépet?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>A fenti felhasználók továbbra is bejelentkezve vannak és minden adat elfog veszni, biztos hogy újraindítjuk a számítógépet?</translation>
     </message>
@@ -185,7 +195,7 @@
 <context>
     <name>SystemMonitor</name>
     <message>
-        <location filename="../dde-shutdown/view/systemmonitor.cpp" line="47"/>
+        <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
         <translation>Rendszer monitor indítása</translation>
     </message>
@@ -255,12 +265,12 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation>Ablak effektus engedélyezve</translation>
+        <translation>Ablak effektusok engedélyezve</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="45"/>
         <source>Window effect disabled</source>
-        <translation>Ablak effektus kikapcsolva</translation>
+        <translation>Ablak effektusok kikapcsolva</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="47"/>
@@ -278,7 +288,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="39"/>
         <source>This application can not run without window effect</source>
-        <translation>Az alkalmazást nem lehet ablak effektus nélkül futtatni</translation>
+        <translation>Az alkalmazást nem lehet futtatni, csak ha be van kapcsolva az ablak effektusok.</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="43"/>
