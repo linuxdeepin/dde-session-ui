@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QApplication>
+#include <DApplication>
 #include <QtCore/QTranslator>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
@@ -39,13 +39,15 @@ const QString DBUS_PATH = "/com/deepin/dde/shutdownFront";
 const QString DBUS_NAME = "com.deepin.dde.shutdownFront";
 
 DCORE_USE_NAMESPACE
+DWIDGET_USE_NAMESPACE
 
 int main(int argc, char* argv[])
 {
-    QApplication app(argc, argv);
-    qApp->setOrganizationName("deepin");
-    qApp->setApplicationName("dde-shutdown");
-    qApp->setApplicationVersion("2015.1.0");
+    DApplication app(argc, argv);
+    app.setOrganizationName("deepin");
+    app.setApplicationName("dde-shutdown");
+    app.setTheme("light");
+
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
