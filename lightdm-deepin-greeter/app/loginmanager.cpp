@@ -154,6 +154,7 @@ LoginManager::LoginManager(QWidget* parent)
 
     m_sessionWidget->switchToUser(u);
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
+    m_greeter->authenticate(u);
 
     QTimer::singleShot(1, this, [=] { updateBackground(u); });
 
@@ -198,7 +199,6 @@ void LoginManager::updateUserLoginCondition(QString username)
             m_loginButton->show();
             m_passWdEdit->setFixedSize(ZoreSize);
         } else {
-            m_greeter->authenticate(m_userWidget->currentUser());
             m_loginButton->hide();
             m_passWdEdit->setFixedSize(m_passwdEditSize);
         }
@@ -408,7 +408,6 @@ void LoginManager::initConnect()
         }
 
         m_sessionWidget->switchToUser(username);
-        m_greeter->authenticate(username);
 
         updateBackground(username);
         updateUserLoginCondition(username);
@@ -562,8 +561,6 @@ void LoginManager::login()
 
     if (m_greeter->isAuthenticated())
         startSession();
-    else if (m_greeter->inAuthentication())
-        m_greeter->respond(m_passWdEdit->getText());
     else
         authenticate();
 }
