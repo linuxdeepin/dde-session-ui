@@ -561,6 +561,8 @@ void LoginManager::login()
 
     if (m_greeter->isAuthenticated())
         startSession();
+    else if (m_greeter->inAuthentication())
+        m_greeter->respond(m_passWdEdit->getText());
     else
         authenticate();
 }

@@ -103,6 +103,8 @@ public:
 
     void setCornerPoint(const QPoint &cornerPoint);
 
+    void moveToPos(const QPoint &topleft);
+
 protected:
     void paintEvent(QPaintEvent *);
 

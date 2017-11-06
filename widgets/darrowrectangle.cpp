@@ -527,6 +527,11 @@ void DArrowRectangle::setCornerPoint(const QPoint &cornerPoint)
     m_cornerPoint = cornerPoint;
 }
 
+void DArrowRectangle::moveToPos(const QPoint &topleft)
+{
+    QWidget::move(topleft);
+}
+
 DArrowRectangle::~DArrowRectangle()
 {
 

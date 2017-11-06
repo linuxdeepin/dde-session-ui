@@ -307,10 +307,14 @@ void PassWdEdit::setAlert(bool alert, const QString &text)
     emit alertChanged(alert);
 
     if (m_alert) {
-        // block text changed signal
-        const QPoint pos = mapTo(m_errorTooltip->parentWidget(), QPoint(m_lineEdit->x(), height() - 10));
         m_errorTooltip->setMessage(text);
-        m_errorTooltip->show(pos.x(), pos.y());
+
+        QPoint pos = mapTo(m_errorTooltip->parentWidget(),
+                           QPoint(m_keyboardButton->isVisible() ? m_lineEdit->x() - 60 : - 20, height() - 10));
+
+        m_errorTooltip->setCornerPoint(QPoint(m_keyboardButton->isVisible() ? m_lineEdit->x() + 15 : 30, height() - 13));
+        m_errorTooltip->moveToPos(pos);
+        m_errorTooltip->setVisible(true);
     } else {
         m_errorTooltip->hide();
     }

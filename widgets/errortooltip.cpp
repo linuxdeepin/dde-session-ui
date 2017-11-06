@@ -35,6 +35,7 @@ ErrorTooltip::ErrorTooltip(QString errorMessage, QWidget *parent) :
 {
     m_label->setStyleSheet("padding: 5px 10px; color: #f9704f");
     m_label->adjustSize();
+    m_label->setWordWrap(true);
     setContent(m_label);
     setBackgroundColor(Qt::white);
     setBorderColor(Qt::white);
