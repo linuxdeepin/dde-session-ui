@@ -24,6 +24,8 @@
  */
 
 #include "welcome.h"
+#include "version.h"
+
 #include <QPainter>
 #include <QKeyEvent>
 #include <QApplication>
@@ -35,7 +37,7 @@
 #include <QSettings>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
-#include "version.h"
+#include <QStandardPaths>
 
 DWIDGET_USE_NAMESPACE
 
@@ -54,7 +56,22 @@ Welcome::Welcome(QWidget *parent)
     connect(m_sizeAdjustTimer, &QTimer::timeout, this, &Welcome::onScreenRectChanged, Qt::QueuedConnection);
     m_sizeAdjustTimer->start();
 
-    m_isUpgrade = checkVersion();
+    if (QFile::exists(QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first() + "/autostart/dde-first-run.desktop")) {
+        m_isUpgrade = false;
+
+        QString currentVersion = getSystemVersion();
+
+        if (!currentVersion.isEmpty()) {
+            QSettings welcomeSetting("deepin", "dde-welcome");
+            QString version = welcomeSetting.value("Version").toString();
+            if (version.isEmpty()) {
+                welcomeSetting.setValue("Version", currentVersion);
+            }
+        }
+    } else {
+        m_isUpgrade = checkVersion();
+    }
+
     if (m_isUpgrade) {
         m_update = new Update(getSystemVersion(), this);
     } else {
@@ -181,7 +198,7 @@ bool Welcome::checkVersion()
     QString version = welcomeSetting.value("Version").toString();
     if (version.isEmpty()) {
         welcomeSetting.setValue("Version", currentVersion);
-        return false;
+        return true;
     }
 
     QRegExp re("(^\\d+\\.\\d+)");
