@@ -35,26 +35,22 @@
 #include <QKeyEvent>
 #include <QCryptographicHash>
 
-static const QString BlurredImageDir = "/var/cache/image-blur/";
-
 FullscreenBackground::FullscreenBackground(QWidget *parent)
-    : QWidget(parent),
-
-      m_adjustTimer(new QTimer(this))
+    : QWidget(parent)
+    , m_adjustTimer(new QTimer(this))
+    , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
+                                     "/com/deepin/daemon/ImageBlur",
+                                     QDBusConnection::systemBus(), this))
 {
+    m_blurImageInter->setSync(false);
+
     m_adjustTimer->setSingleShot(true);
 
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
     connect(m_adjustTimer, &QTimer::timeout, this, &FullscreenBackground::adjustGeometry);
 
-    m_blurWatcher.addPath(BlurredImageDir);
-//    connect(&m_blurWatcher, &QFileSystemWatcher::directoryChanged, this, [=] {
-//        // It takes time to blur a wallpaper.
-//        QTimer::singleShot(500, this, [=] {
-//            setBackground(m_bgPath);
-//        });
-//    });
+    connect(m_blurImageInter, &ImageBlur::BlurDone, this, &FullscreenBackground::onBlurFinished);
 }
 
 void FullscreenBackground::setBackground(const QString &file)
@@ -67,7 +63,9 @@ void FullscreenBackground::setBackground(const QString &file)
 
     Q_ASSERT(QFileInfo(file).isFile());
 
-    setBackground(QPixmap(getBlurImagePath(file)));
+    QDBusPendingReply<QString> call = m_blurImageInter->Get(m_bgPath);
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, &FullscreenBackground::onGetBlurFinished);
 }
 
 void FullscreenBackground::setBackground(const QPixmap &pixmap)
@@ -110,16 +108,24 @@ void FullscreenBackground::adjustGeometry()
         m_content->setGeometry(pr.isNull() ? qApp->primaryScreen()->geometry() : pr);
 }
 
-const QString FullscreenBackground::getBlurImagePath(const QString &path)
+void FullscreenBackground::onBlurFinished(const QString &source, const QString &blur, bool status)
 {
-    const QString ext = path.split(".").last();
-    const QString md5 = QString(QCryptographicHash::hash(path.toUtf8(), QCryptographicHash::Md5).toHex());
-    const QString blur = BlurredImageDir + QString("%1.%2").arg(md5).arg(ext);
-    QFile file(blur);
-    if (file.exists())
-        return blur;
-    else
-        return path;
+    const QString &sourcePath = QUrl(source).isLocalFile() ? QUrl(source).toLocalFile() : source;
+
+    if (status && m_bgPath == sourcePath)
+        setBackground(QPixmap(blur));
+}
+
+void FullscreenBackground::onGetBlurFinished(QDBusPendingCallWatcher *watcher)
+{
+    if (!watcher->isError()) {
+        QDBusPendingReply<QString> reply = watcher->reply();
+        const QString &blur = reply.value();
+        if (!blur.isEmpty())
+            setBackground(QPixmap(blur));
+    }
+
+    watcher->deleteLater();
 }
 
 bool FullscreenBackground::eventFilter(QObject *watched, QEvent *event)

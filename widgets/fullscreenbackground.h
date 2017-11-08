@@ -29,7 +29,10 @@
 #include <QWidget>
 #include <QPointer>
 #include <QTimer>
-#include <QFileSystemWatcher>
+
+#include <com_deepin_daemon_imageblur.h>
+
+using ImageBlur = com::deepin::daemon::ImageBlur;
 
 class FullscreenBackground : public QWidget
 {
@@ -47,7 +50,8 @@ protected:
 
 private slots:
     void adjustGeometry();
-    const QString getBlurImagePath(const QString &path);
+    void onBlurFinished(const QString &source, const QString &blur, bool status);
+    void onGetBlurFinished(QDBusPendingCallWatcher *watcher);
 
 private:
     bool eventFilter(QObject *watched, QEvent *event);
@@ -59,8 +63,8 @@ private:
     QString m_bgPath;
     QPixmap m_background;
     QPointer<QWidget> m_content;
-    QFileSystemWatcher m_blurWatcher;
     QTimer *m_adjustTimer;
+    ImageBlur *m_blurImageInter;
 };
 
 #endif // FULLSCREENBACKGROUND_H
