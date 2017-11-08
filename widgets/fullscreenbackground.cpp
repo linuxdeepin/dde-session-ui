@@ -90,12 +90,13 @@ void FullscreenBackground::setContent(QWidget * const w)
 
 void FullscreenBackground::adjustGeometry()
 {
+    const auto ratio = devicePixelRatioF();
     const QPoint cp(QCursor::pos());
     QRect r, pr;
     for (const auto *s : qApp->screens())
     {
-        const QRect& g = s->geometry();
-        const QRect realRect(g.topLeft() / devicePixelRatioF(), g.size());
+        const QRect &g(s->geometry());
+        const QRect realRect(g.topLeft() / ratio, g.size());
         if (realRect.contains(cp))
             pr = realRect;
 
@@ -104,8 +105,15 @@ void FullscreenBackground::adjustGeometry()
 
     QWidget::setGeometry(r);
 
-    if (!m_content.isNull())
-        m_content->setGeometry(pr.isNull() ? qApp->primaryScreen()->geometry() : pr);
+    if (m_content.isNull())
+        return;
+
+    if (!pr.isNull())
+        return m_content->setGeometry(pr);
+
+    const QRect &pg(qApp->primaryScreen()->geometry());
+    const QRect realPg(pg.topLeft() / ratio, pg.size());
+    m_content->setGeometry(realPg);
 }
 
 void FullscreenBackground::onBlurFinished(const QString &source, const QString &blur, bool status)
