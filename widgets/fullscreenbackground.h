@@ -59,6 +59,9 @@ private:
     void paintEvent(QPaintEvent *e);
     void keyPressEvent(QKeyEvent *e);
 
+    void setGeometry(const QRect &rect);
+    const QScreen *screenForGeometry(const QRect &rect) const;
+
 private:
     QString m_bgPath;
     QPixmap m_background;

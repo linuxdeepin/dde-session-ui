@@ -103,7 +103,7 @@ void FullscreenBackground::adjustGeometry()
         r = r.united(realRect);
     }
 
-    QWidget::setGeometry(r);
+    setGeometry(r);
 
     if (m_content.isNull())
         return;
@@ -182,4 +182,37 @@ void FullscreenBackground::keyPressEvent(QKeyEvent *e)
 #endif
     default:;
     }
+}
+
+void FullscreenBackground::setGeometry(const QRect &rect)
+{
+    QRect r(rect);
+
+    // guess the screen of this window before change the window geometry, so we
+    // can avoid the loop of changing the geometry and chaning the screen(dpr).
+    const QScreen *screen = screenForGeometry(rect);
+    if (screen) {
+        const qreal dpr = screen->devicePixelRatio();
+        const QRect screenGeo = screen->geometry();
+        r.moveTopLeft(screenGeo.topLeft() + (rect.topLeft() - screenGeo.topLeft()) / dpr);
+    }
+
+    QWidget::setGeometry(r);
+}
+
+// implements the basic idea used by Qt to find the associated QScreen of a window.
+const QScreen *FullscreenBackground::screenForGeometry(const QRect &rect) const
+{
+    const qreal ratio = qApp->devicePixelRatio();
+
+    for (const auto *s : qApp->screens())
+    {
+        const QRect &g(s->geometry());
+        const QRect realRect(g.topLeft() / ratio, g.size());
+
+        if (realRect.contains(rect.center()))
+            return s;
+    }
+
+    return nullptr;
 }
