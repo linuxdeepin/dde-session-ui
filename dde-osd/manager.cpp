@@ -72,6 +72,14 @@ void Manager::ShowOSD(const QString &osd)
     if (osd == "DirectSwitchLayout") {
         m_kbLayoutProvider->highlightNext();
         m_kbLayoutProvider->sync();
+
+        KBLayoutProvider *provide = qobject_cast<KBLayoutProvider*>(m_kbLayoutProvider);
+        if (provide) {
+            QModelIndex currentIndex;
+            currentIndex = m_listview->model()->index(0, 0).sibling(provide->currentIndex(), 0);
+            m_listview->setCurrentIndex(currentIndex);
+            m_listview->scrollTo(currentIndex);
+        }
         return;
     }
 
