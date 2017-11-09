@@ -1,3 +1,24 @@
+<a name="4.1.1"></a>
+### 4.1.1 (2017-11-09)
+
+
+#### Bug Fixes
+
+*   osd support multiple screens list ([5a8b880c](https://github.com/linuxdeepin/dde-session-ui/commit/5a8b880cc7988c4774f59bab1888304b128f2ca7))
+* **greeter:**  switch user will login ([4cb700d7](https://github.com/linuxdeepin/dde-session-ui/commit/4cb700d75cb9fae8ec30936b97bffdf68338110a))
+* **hidpi:**  window placed at wrong position ([8252e1ee](https://github.com/linuxdeepin/dde-session-ui/commit/8252e1ee5f2015cec76f28430a64fc0f8fba665b))
+* **lock:**  update ts with fprint ([acfa282c](https://github.com/linuxdeepin/dde-session-ui/commit/acfa282c362a96ec4788de34d279ac9951fcbf7e))
+* **osd:**
+  *  support dapplication single instance ([d04ef2e8](https://github.com/linuxdeepin/dde-session-ui/commit/d04ef2e858a5c9744e14d93d244c993cafe64a25))
+  *  scroll to current item when direct switch ([766a1116](https://github.com/linuxdeepin/dde-session-ui/commit/766a11161f9b2bcd9530f436427c70771f47dae7))
+
+#### Features
+
+* **background:**  use blur image dbus ([2f135276](https://github.com/linuxdeepin/dde-session-ui/commit/2f135276126bd9ad48a6ad446a48fc3190d98930))
+* **dde-welcome:**  adding detection rules ([426bc903](https://github.com/linuxdeepin/dde-session-ui/commit/426bc903ac40093cbc5961f1843baa81fbb17e1e))
+
+
+
 <a name=""></a>
 ##  4.1.0 (2017-11-03)
 
