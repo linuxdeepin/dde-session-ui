@@ -63,6 +63,8 @@ void FullscreenBackground::setBackground(const QString &file)
 
     Q_ASSERT(QFileInfo(file).isFile());
 
+    setBackground(QPixmap(file));
+
     QDBusPendingReply<QString> call = m_blurImageInter->Get(m_bgPath);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, &FullscreenBackground::onGetBlurFinished);
