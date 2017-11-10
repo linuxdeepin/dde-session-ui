@@ -82,7 +82,7 @@ public Q_SLOTS: // METHODS
 
 Q_SIGNALS: // SIGNALS
     void UserChanged(const QString &user);
-    void Event(quint32 eventType, quint32 pid, const QString &username, const QString &messsage);
+    void Event(quint32 eventType, quint32 pid, const QString &username, const QString &message);
 };
 
 namespace com {
