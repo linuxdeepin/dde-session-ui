@@ -34,7 +34,7 @@
 #include "dbus/dbusaccounts.h"
 
 #include <com_deepin_daemon_accounts_user.h>
-
+#include <libintl.h>
 #include <X11/Xlib-xcb.h>
 #include <X11/cursorfont.h>
 #include <X11/Xcursor/Xcursor.h>
@@ -476,7 +476,7 @@ void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
         if (m_isThumbAuth)
             break;
 
-        m_passWdEdit->setMessage(text);
+        m_passWdEdit->setMessage(QString(dgettext("fprintd", text.toLatin1())));
         break;
     case QLightDM::Greeter::MessageTypeError:
         qWarning() << "error message from lightdm: " << text;

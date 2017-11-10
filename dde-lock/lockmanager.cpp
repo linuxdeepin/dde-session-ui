@@ -35,6 +35,7 @@
 #include <QMap>
 #include <QProcess>
 #include <QDBusConnection>
+#include <libintl.h>
 
 #include "lockmanager.h"
 #include "lockframe.h"
@@ -428,7 +429,7 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
         }
         break;
     case DBusLockService::TextInfo:
-        m_passwordEdit->setMessage(message);
+        m_passwordEdit->setMessage(QString(dgettext("fprintd", message.toLatin1())));
         break;
     case DBusLockService::Failure:
         onUnlockFinished(false);
