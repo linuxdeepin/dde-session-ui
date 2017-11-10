@@ -1,3 +1,15 @@
+<a name="4.1.2"></a>
+### 4.1.2 (2017-11-10)
+
+
+#### Bug Fixes
+
+* **greeter:**  nopasswordlogin function failure ([c02c4d3c](https://github.com/linuxdeepin/dde-session-ui/commit/c02c4d3cd9eb6c7f4a2a337542ed8eee436b0a75))
+* **lock:**  use dgettext update ts with fprint ([43ba4a3e](https://github.com/linuxdeepin/dde-session-ui/commit/43ba4a3e6369e7db57bba1f04df94c8690d27bbb))
+* **shutdown:**  set default background when get blur error ([9f7ab4e2](https://github.com/linuxdeepin/dde-session-ui/commit/9f7ab4e2caa567275e892477e6667feeac46828f))
+
+
+
 <a name="4.1.1"></a>
 ### 4.1.1 (2017-11-09)
 
