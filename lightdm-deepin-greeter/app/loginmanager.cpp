@@ -393,6 +393,9 @@ void LoginManager::initConnect()
 
         qDebug() << username << m_sessionWidget->currentSessionOwner();
 
+        if (username == m_sessionWidget->currentSessionOwner())
+            return;
+
         // goto previous lock
         if (m_userWidget->getLoggedInUsers().contains(username))
         {
