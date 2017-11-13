@@ -403,6 +403,12 @@ const QString UserWidget::getUserKBLayout(const QString &username)
     return user ? user->kblayout() : QString();
 }
 
+const QString UserWidget::getDisplayName(const QString &username)
+{
+    UserButton *user = getUserByName(username);
+    return user ? user->displayName() : QString();
+}
+
 void UserWidget::setUserKBlayout(const QString &username, const QString &layout)
 {
     UserButton *user = getUserByName(username);

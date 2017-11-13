@@ -64,6 +64,8 @@ public:
     const QString getUserGreeterBackground(const QString &username);
     const QStringList getUserKBHistory(const QString &username);
     const QString getUserKBLayout(const QString &username);
+    const QString getDisplayName(const QString &username);
+
     void setUserKBlayout(const QString &username, const QString &layout);
 
 signals:

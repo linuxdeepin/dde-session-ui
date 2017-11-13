@@ -38,17 +38,16 @@ const static QSize ViewSize = QSize(500, 500);
 const static QSize UserAvatarSize = QSize(64, 64);
 const static QSize UserListItemSize = QSize(180, 80);
 
-MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
+MultiUsersWarningView::MultiUsersWarningView(UserWidget *userWidget, QWidget *parent) :
     QFrame(parent),
     m_vLayout(new QVBoxLayout(this)),
     m_userList(new QListWidget),
     m_warningTip(new QLabel),
     m_cancelBtn(new DImageButton),
-    m_actionBtn(new DImageButton)
+    m_actionBtn(new DImageButton),
+    m_userWidget(userWidget)
 {
     setFixedSize(ViewSize);
-
-    m_userWidget = new UserWidget;
 
     m_userList->setAttribute(Qt::WA_TranslucentBackground);
 //    m_userList->setSelectionRectVisible(false);
@@ -91,7 +90,6 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent) :
 
 MultiUsersWarningView::~MultiUsersWarningView()
 {
-    m_userWidget->deleteLater();
 }
 
 void MultiUsersWarningView::setUsers(QStringList &users)
@@ -104,7 +102,7 @@ void MultiUsersWarningView::setUsers(QStringList &users)
         m_userList->addItem(item);
 
         QString icon = getUserIcon(m_userWidget->getUserAvatar(user));
-        m_userList->setItemWidget(item, new UserListItem(icon, user));
+        m_userList->setItemWidget(item, new UserListItem(icon, m_userWidget->getDisplayName(user)));
     }
 }
 
@@ -140,7 +138,7 @@ QString MultiUsersWarningView::getUserIcon(const QString &path)
     return path;
 }
 
-UserListItem::UserListItem(QString &icon, QString &name) :
+UserListItem::UserListItem(const QString &icon, const QString &name) :
     QFrame(),
     m_icon(new QLabel(this)),
     m_name(new QLabel(name, this))
@@ -155,7 +153,7 @@ UserListItem::UserListItem(QString &icon, QString &name) :
     m_name->move(80, 20);
 }
 
-QPixmap UserListItem::getRoundPixmap(QString &path)
+QPixmap UserListItem::getRoundPixmap(const QString &path)
 {
     QPixmap source(path);
     QPixmap result(source.size());

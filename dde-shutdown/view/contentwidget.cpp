@@ -280,7 +280,7 @@ void ContentWidget::beforeInvokeAction(const Actions action)
 
     if (loggedInUsers.length() > 1 && action != Logout) {
 
-        MultiUsersWarningView *view = new MultiUsersWarningView;
+        MultiUsersWarningView *view = new MultiUsersWarningView(m_userWidget);
         view->setUsers(loggedInUsers);
         view->setAction(action);
         m_warningView = view;

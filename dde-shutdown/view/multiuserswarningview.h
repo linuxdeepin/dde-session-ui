@@ -42,7 +42,7 @@ class MultiUsersWarningView : public QFrame
 {
     Q_OBJECT
 public:
-    MultiUsersWarningView(QWidget *parent = 0);
+    MultiUsersWarningView(UserWidget *userWidget, QWidget *parent = 0);
     ~MultiUsersWarningView();
 
     void setUsers(QStringList &users);
@@ -71,13 +71,13 @@ class UserListItem : public QFrame
 {
     Q_OBJECT
 public:
-    UserListItem(QString &icon, QString &name);
+    UserListItem(const QString &icon, const QString &name);
 
 private:
     QLabel * m_icon;
     QLabel * m_name;
 
-    QPixmap getRoundPixmap(QString & path);
+    QPixmap getRoundPixmap(const QString &path);
 };
 
 #endif // MULTIUSERSWARNINGVIEW_H
