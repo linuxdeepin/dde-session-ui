@@ -65,6 +65,7 @@ public:
     bool automaticLogin() const;
     const QStringList kbHistory();
     const QString kblayout();
+    const QString displayName() const;
 
 signals:
     void imageClicked(QString nam);
@@ -94,6 +95,7 @@ private:
     void initUI();
     void initConnect();
     void addTextShadow(bool isEffective);
+    void updateUserDisplayName(const QString &name);
 
 private:
     DBusUser *m_user;

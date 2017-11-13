@@ -49,6 +49,7 @@ void UserButton::initConnect() {
     connect(m_user, &DBusUser::IconFileChanged, this, [=] (QString iconPath) {
         m_userAvatar->setIcon(iconPath);
     });
+    connect(m_user, &DBusUser::FullNameChanged, this, &UserButton::updateUserDisplayName);
 }
 
 void UserButton::initUI() {
@@ -72,17 +73,9 @@ void UserButton::initUI() {
     QFont font(m_textLabel->font());
     font.setPixelSize(16);
     m_textLabel->setFont(font);
-
-    QFontMetrics metrics(m_textLabel->font());
-    if (metrics.width(name()) > m_textLabel->width())
-    {
-        const QString elidedText = metrics.elidedText(name(), Qt::ElideRight, m_textLabel->width());
-        m_textLabel->setText(elidedText);
-    } else {
-        m_textLabel->setText(name());
-    }
-
     m_textLabel->setAlignment(Qt::AlignHCenter);
+
+    updateUserDisplayName(displayName());
 
     m_buttonLayout = new QHBoxLayout;
     m_buttonLayout->setMargin(0);
@@ -207,6 +200,18 @@ void UserButton::addTextShadow(bool isEffective)
 #endif
 }
 
+void UserButton::updateUserDisplayName(const QString &name)
+{
+    QFontMetrics metrics(m_textLabel->font());
+    if (metrics.width(name) > m_textLabel->width())
+    {
+        const QString elidedText = metrics.elidedText(name, Qt::ElideRight, m_textLabel->width());
+        m_textLabel->setText(elidedText);
+    } else {
+        m_textLabel->setText(name);
+    }
+}
+
 bool UserButton::selected() const
 {
     return m_selected;
@@ -246,6 +251,11 @@ const QStringList UserButton::kbHistory()
 const QString UserButton::kblayout()
 {
     return m_user->layout();
+}
+
+const QString UserButton::displayName() const
+{
+    return m_user->fullName().isEmpty() ? m_user->userName() : m_user->fullName();
 }
 
 void UserButton::paintEvent(QPaintEvent* event)
