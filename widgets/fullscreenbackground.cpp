@@ -59,6 +59,9 @@ void FullscreenBackground::setBackground(const QString &file)
     if (url.isLocalFile())
         return setBackground(url.path());
 
+    if (m_bgPath == file)
+        return;
+
     m_bgPath = file;
 
     Q_ASSERT(QFileInfo(file).isFile());
