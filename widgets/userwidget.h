@@ -91,6 +91,7 @@ private slots:
     void onUserRemoved(const QString &name);
     void onLoginUserListChanged(const QString &value);
     UserButton* getUserByName(const QString &username);
+    void updateCurrentUserPos(const int duration = 0) const;
 
 private:
     int m_currentUserIndex = 0;

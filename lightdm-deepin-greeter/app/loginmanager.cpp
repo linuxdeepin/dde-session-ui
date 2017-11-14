@@ -220,9 +220,9 @@ void LoginManager::startSession()
 
 void LoginManager::resizeEvent(QResizeEvent *e)
 {
-    QWidget::resizeEvent(e);
+    updateWidgetsPosition();
 
-     QTimer::singleShot(1, this, &LoginManager::updateWidgetsPosition);
+    QWidget::resizeEvent(e);
 }
 
 void LoginManager::keyPressEvent(QKeyEvent* e) {

@@ -96,6 +96,9 @@ void UserWidget::initConnections()
     connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onUserRemoved);
 
     connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged);
+    connect(this, &UserWidget::userChanged, this, [=] {
+        updateCurrentUserPos(200);
+    });
 }
 
 void UserWidget::onUserListChanged()
@@ -114,9 +117,8 @@ void UserWidget::onUserAdded(const QString &path)
     m_userDbus.insert(path, user);
 
     UserButton *userBtn = new UserButton(user);
-    userBtn->hide();
+    userBtn->setVisible(userBtn->name() == m_currentUser);
     userBtn->setParent(this);
-    userBtn->move(rect().center() - userBtn->rect().center());
 
     connect(userBtn, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
 
@@ -175,6 +177,12 @@ UserButton *UserWidget::getUserByName(const QString &username)
     return nullptr;
 }
 
+void UserWidget::updateCurrentUserPos(const int duration) const
+{
+    for (UserButton *user : m_userBtns)
+        user->move(rect().center() - user->rect().center(), duration);
+}
+
 void UserWidget::setCurrentUser(const QString &username)
 {
     qDebug() << username << sender();
@@ -192,8 +200,6 @@ void UserWidget::setCurrentUser(const QString &username)
             user->show();
         } else
             user->hide(180);
-
-        user->move(rect().center() - user->rect().center(), 200);
     }
 
     emit userChanged(m_currentUser);
@@ -269,8 +275,7 @@ void UserWidget::resizeEvent(QResizeEvent *e)
         // rearrange the user icons.
         expandWidget();
     } else {
-        for (UserButton *user : m_userBtns)
-            user->move(rect().center() - user->rect().center(), 1);
+        updateCurrentUserPos();
     }
 }
 
