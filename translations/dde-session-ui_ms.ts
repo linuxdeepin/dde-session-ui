@@ -23,7 +23,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Anda pasti mahu but semula?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
@@ -101,12 +101,12 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="426"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Gagal padankan cap jari</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="553"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Masukkan kata laluan anda untuk membut semula</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="558"/>
@@ -129,7 +129,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Gagal padankan cap jari</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>
@@ -218,12 +218,12 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="41"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Selamat datang, sistem berjaya dikemaskinikan</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="42"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>Edisi Semasa:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="43"/>
