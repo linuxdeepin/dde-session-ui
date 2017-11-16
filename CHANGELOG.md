@@ -1,3 +1,13 @@
+<a name="4.1.4"></a>
+### 4.1.4 (2017-11-16)
+
+
+#### Bug Fixes
+
+* **shutdown:**  background white ([d1f8809c](https://github.com/linuxdeepin/dde-session-ui/commit/d1f8809c0ed85956ce79c963f0ddf1cdf64baff2))
+
+
+
 <a name="4.1.3"></a>
 ### 4.1.3 (2017-11-16)
 
