@@ -123,6 +123,8 @@ void UserWidget::onUserAdded(const QString &path)
     connect(userBtn, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
 
     m_userBtns.append(userBtn);
+
+    onLoginUserListChanged(m_dbusLogined->userList());
 }
 
 void UserWidget::onUserRemoved(const QString &name)
@@ -145,24 +147,33 @@ void UserWidget::onUserRemoved(const QString &name)
             }
         }
     }
+
+    onLoginUserListChanged(m_dbusLogined->userList());
 }
 
 void UserWidget::onLoginUserListChanged(const QString &value)
 {
     QJsonDocument doc = QJsonDocument::fromJson(value.toUtf8());
 
-    QJsonArray jsonArray = doc.array();
+    QJsonObject obj = doc.object();
 
-    if (jsonArray.isEmpty())
+    if (obj.isEmpty())
         return;
 
     m_loggedInUsers.clear();
 
-    for (int i(0); i != jsonArray.count(); ++i) {
-        const QJsonObject &obj = jsonArray.at(i).toObject();
-        if (obj["Display"].toString().isEmpty())
+    for (DBusUser *user : m_userDbus.values()) {
+        const QJsonArray &array = obj[user->uid()].toArray();
+        if (array.isEmpty())
             continue;
-        m_loggedInUsers << obj["Name"].toString();
+
+        for (int i(0); i != array.count(); ++i) {
+            const QJsonObject &obj = array.at(i).toObject();
+            if (obj["Display"].toString().isEmpty() || obj["Desktop"].toString().isEmpty())
+                continue;
+
+            m_loggedInUsers << user->userName();
+        }
     }
 }
 
