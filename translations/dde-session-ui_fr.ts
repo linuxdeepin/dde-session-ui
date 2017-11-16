@@ -91,7 +91,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="406"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Veuillez saisir votre mot de passe si l&apos;authentification par empreinte digitale a expiré.</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="258"/>
@@ -101,7 +101,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="426"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de faire correspondre l&apos;empreinte digitale.</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="553"/>
@@ -124,12 +124,12 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Veuillez saisir votre mot de passe si l&apos;authentification par empreinte digitale a expiré.</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de faire correspondre l&apos;empreinte digitale.</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>

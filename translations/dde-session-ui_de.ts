@@ -241,7 +241,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
         <source>Common Mode</source>
-        <translation>Normaleffekte</translation>
+        <translation>Einfacher Modus</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
@@ -256,7 +256,8 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
-        <translation>Animationseffekte: Großartiges und flüssiges Anwendungserlebnis.  Normaleffekte: Extrem schnelles Anwendungserlebnis</translation>
+        <translation>Effektmodus: Großartiges und flüssiges Anwendungserlebnis. 
+Einfacher Modus: Extrem schnelles Anwendungserlebnis</translation>
     </message>
 </context>
 <context>

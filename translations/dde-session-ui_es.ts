@@ -111,7 +111,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="558"/>
         <source>Enter your password to shutdown</source>
-        <translation>Escriba su contraseña para apagar</translation>
+        <translation>Ingrese su contraseña para apagar</translation>
     </message>
 </context>
 <context>

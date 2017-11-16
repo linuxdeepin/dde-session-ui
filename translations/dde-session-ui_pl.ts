@@ -23,7 +23,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Czy na pewno chcesz ponownie uruchomić?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
@@ -91,7 +91,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="406"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Prosimy ręcznie wprowadzić swoje hasło, jeśli przekroczono czas na odblokowanie odciskiem palca</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="258"/>
@@ -101,12 +101,12 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="426"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Błąd porównania odcisków palcy</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="553"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Podaj swoje hasło, aby uruchomić ponownie</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="558"/>
@@ -124,12 +124,12 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Prosimy ręcznie wprowadzić swoje hasło, jeśli przekroczono czas na odblokowanie odciskiem palca</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Błąd porównania odcisków palcy</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>
@@ -218,17 +218,17 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="41"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Witamy, system został pomyślnie zaktualizowany</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="42"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>Obecne wydanie:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="43"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Wprowadź</translation>
     </message>
 </context>
 <context>

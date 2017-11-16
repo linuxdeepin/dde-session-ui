@@ -96,7 +96,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="258"/>
         <source>Wrong Password</source>
-        <translation>Неверный пароль</translation>
+        <translation>Неверный Пароль</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="426"/>
