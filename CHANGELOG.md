@@ -1,3 +1,23 @@
+<a name="4.1.3"></a>
+### 4.1.3 (2017-11-16)
+
+
+#### Bug Fixes
+
+* **background:**  refresh wallpaper when not the same file ([43931726](https://github.com/linuxdeepin/dde-session-ui/commit/43931726241f5e42a8f7b07cc88e435a11a30e07))
+* **dde-lock:**  some widget shown too early ([fa857876](https://github.com/linuxdeepin/dde-session-ui/commit/fa85787610cc18765bf19cec0230171b2554a332))
+* **greeter:**  skip when click self ([3128a549](https://github.com/linuxdeepin/dde-session-ui/commit/3128a54987df85c6c9e3407d1be2c55008506cc1))
+* **lock:**  userwidget pos error when size changed ([13775f5b](https://github.com/linuxdeepin/dde-session-ui/commit/13775f5b66f0faea0dd58ed3a11e688e69214373))
+
+#### Features
+
+*   add dde-dman-portal ([f7772551](https://github.com/linuxdeepin/dde-session-ui/commit/f77725511b03162073699ca8c67ee9292f6d8363))
+* **shutdown:**  support display user displayname ([c7a3fe69](https://github.com/linuxdeepin/dde-session-ui/commit/c7a3fe69780e1f9c209e5ea5044fabc43d948545))
+* **user:**  support display user fullname ([34f2f9ff](https://github.com/linuxdeepin/dde-session-ui/commit/34f2f9ffc48819ec46d4b62f76e48452cf4b8d0e))
+* **userwidget:**  login user interface updated ([7eeeb589](https://github.com/linuxdeepin/dde-session-ui/commit/7eeeb58991a7fbe76e391a9fd046c57f3c35a635))
+
+
+
 <a name="4.1.2"></a>
 ### 4.1.2 (2017-11-10)
 
