@@ -61,17 +61,12 @@ int main(int argc, char* argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app.installTranslator(&translator);
 
-//    QCommandLineOption hide(QStringList() << "H" << "Hide", "hide buttons", "btns");
-//    QCommandLineOption disable(QStringList() << "D" << "Disable", "disable buttons", "btns");
-
     // NOTE: it's better to be -h/--show, but some apps may have used the binary to show
     // the shutdown frame directly, we need to keep the default behavier to that.
     QCommandLineOption daemon(QStringList() << "d" << "daemon",
                               "start the program, but do not show the window.");
     QCommandLineParser parser;
     parser.addHelpOption();
-//    parser.addOption(hide);
-//    parser.addOption(disable);
     parser.addOption(daemon);
     parser.process(app);
 
@@ -80,8 +75,7 @@ int main(int argc, char* argv[])
         qDebug() << "dbus registration success.";
 
         ShutdownFrame w;
-        //    w.hideBtns(parser.values(hide));
-        //    w.disableBtns(parser.values(disable));
+
         if (!parser.isSet(daemon))
             QMetaObject::invokeMethod(&w, "showFullScreen", Qt::QueuedConnection);
 

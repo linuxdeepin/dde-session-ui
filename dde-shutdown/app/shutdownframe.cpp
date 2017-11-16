@@ -32,10 +32,12 @@ const QString WallpaperKey = "pictureUri";
 ShutdownFrame::ShutdownFrame(QWidget *parent)
     : FullscreenBackground(parent)
     , m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
-    , m_shutdownFrame(new ContentWidget)
 {
-    setContent(m_shutdownFrame);
     initBackground();
+
+    m_shutdownFrame = new ContentWidget(this);
+
+    setContent(m_shutdownFrame);
 }
 
 void ShutdownFrame::powerAction(const Actions action)
@@ -50,10 +52,10 @@ void ShutdownFrame::setConfirm(const bool confrim)
 
 void ShutdownFrame::initBackground()
 {
-    auto callback = [this] (int, int) {
+    auto callback = [this] {
         QDBusPendingCall call = m_wmInter->GetCurrentWorkspaceBackground();
         QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
-        connect(watcher, &QDBusPendingCallWatcher::finished, [this, call] {
+        connect(watcher, &QDBusPendingCallWatcher::finished, [=] {
             if (!call. isError()) {
                 QDBusReply<QString> reply = call.reply();
                 setBackground(reply.value());
@@ -61,10 +63,12 @@ void ShutdownFrame::initBackground()
                 qWarning() << "get current workspace background error: " << call.error().message();
                 setBackground("/usr/share/backgrounds/deepin/desktop.jpg");
             }
+
+            watcher->deleteLater();
         });
     };
 
-    callback(0, 0);
+    callback();
     connect(m_wmInter, &__wm::WorkspaceSwitched, callback);
 
     m_dbusAppearance = new Appearance("com.deepin.daemon.Appearance",
