@@ -52,7 +52,7 @@ Manager::Manager(QObject *parent)
       m_timer(new QTimer)
 {
     m_timer->setSingleShot(true);
-    m_timer->setInterval(2000);
+    m_timer->setInterval(1000);
 
     m_listview->setItemDelegate(m_delegate);
     m_listview->setModel(m_model);
