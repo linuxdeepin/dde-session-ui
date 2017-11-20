@@ -1,3 +1,13 @@
+<a name="4.1.5"></a>
+### 4.1.5 (2017-11-20)
+
+
+#### Features
+
+* **osd:**  change hide time to 1 second ([615d7208](https://github.com/linuxdeepin/dde-session-ui/commit/615d7208c864c84454c4dbe1e2e449e45f0fae5a))
+
+
+
 <a name="4.1.4"></a>
 ### 4.1.4 (2017-11-16)
 
