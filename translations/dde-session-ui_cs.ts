@@ -23,7 +23,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Opravdu chcete restartovat?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
@@ -91,7 +91,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="406"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Zadejte, prosím ručně své heslo, pokud otisk prstu vypršel</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="258"/>
@@ -101,12 +101,12 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="426"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se porovnat otisk prstu</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="553"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Zadejte heslo pro restart</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="558"/>
@@ -124,12 +124,12 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Zadejte, prosím ručně své heslo, pokud otisk prstu vypršel</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se porovnat otisk prstu</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>

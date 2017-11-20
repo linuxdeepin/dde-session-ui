@@ -251,12 +251,12 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>Systemet har registreret at du bruger en virtuel maskine, hvilket vil påvirke systemydelsen og anvendelsesoplevelsen. Det anbefales at vælge Almindelig tilstand, for at få en glat oplevelse.</translation>
+        <translation>Systemet har registreret at du bruger en virtuel maskine, hvilket vil påvirke systemydelsen og anvendelsesoplevelsen. Det anbefales at vælge Almindelig tilstand, for at få en glat oplevelse</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
-        <translation>Effekttilstand: For en glat og smuk oplevelse. Almindelig tilstand: For en hurtig oplevelse.</translation>
+        <translation>Effekttilstand: For en glat og smuk oplevelse. Almindelig tilstand: For en hurtig oplevelse</translation>
     </message>
 </context>
 <context>

@@ -13,28 +13,28 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="312"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
         <source>Reboot</source>
-        <translation>Reiniciar </translation>
+        <translation>Reiniciar</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="308"/>
         <source>Are you sure to shut down?</source>
-        <translation>¿Estás seguro de que quiere apagar?</translation>
+        <translation>¿Estás seguro de apagar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
         <source>Are you sure to reboot?</source>
-        <translation>¡Estás seguro de reiniciar?</translation>
+        <translation>¿Estás seguro de reiniciar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Log out</source>
-        <translation>Salir</translation>
+        <translation>Cerrar sesión</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="318"/>
         <source>Are you sure to log out?</source>
-        <translation>¿Estás seguro de que quiere cerrar sesión?</translation>
+        <translation>¿Seguro quiere cerrar sesión?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
@@ -49,7 +49,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
         <source>Switch user</source>
-        <translation>Cambiar de usuario</translation>
+        <translation>Cambiar usuario</translation>
     </message>
 </context>
 <context>
@@ -57,7 +57,7 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="158"/>
         <source>Duplicate</source>
-        <translation>Duplicado</translation>
+        <translation>Duplicar</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="160"/>
@@ -86,32 +86,32 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="154"/>
         <source>Login</source>
-        <translation>Iniciar sesión</translation>
+        <translation>Acceder</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="406"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Ingrese su contraseña manualmente si se agotó el tiempo de la contraseña de huella digital</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="258"/>
         <source>Wrong Password</source>
-        <translation>Contraseña Incorrecta</translation>
+        <translation>Contraseña incorrecta </translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="426"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Falló la coincidencia de huella</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="553"/>
         <source>Enter your password to reboot</source>
-        <translation>Ingresa tu contraseña para reiniciar</translation>
+        <translation>Ingrese su contraseña para reiniciar</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="558"/>
         <source>Enter your password to shutdown</source>
-        <translation>Escriba su contraseña para apagar</translation>
+        <translation>Ingrese su contraseña para apagar</translation>
     </message>
 </context>
 <context>
@@ -124,12 +124,12 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Ingrese su contraseña manualmente si se agotó el tiempo de la contraseña de huella digital</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Falló la coincidencia de huella</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>
@@ -142,12 +142,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Los usuarios anteriores todavía siguen conectados y sus datos podrían perderse si reinicia ¿Apagar igualmente?</translation>
+        <translation>Los usuarios anteriores aún se encuentran conectados y sus datos podrían perderse a causa del apagado, ¿Está seguro de apagar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Los usuarios anteriores todavía siguen conectados y sus datos podrían perderse si reinicia ¿Reiniciar igualmente?</translation>
+        <translation>Los usuarios anteriores aún se encuentran conectados y sus datos podrían perderse a causa del reinicio, ¿Está seguro de reiniciar?</translation>
     </message>
 </context>
 <context>
@@ -160,7 +160,7 @@
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
         <source>Reboot</source>
-        <translation>Reiniciar </translation>
+        <translation>Reiniciar</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="53"/>
@@ -197,7 +197,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>Iniciar el monitor del sistema</translation>
+        <translation>Iniciar monitor del sistema</translation>
     </message>
 </context>
 <context>
@@ -218,7 +218,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="41"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Bienvenido, su sistema se actualizó satisfactoriamente</translation>
+        <translation>Bienvenido, el sistema se actualizó con éxito</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="42"/>
@@ -228,7 +228,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="43"/>
         <source>Enter</source>
-        <translation>Ingresar</translation>
+        <translation>Entrar</translation>
     </message>
 </context>
 <context>
@@ -236,7 +236,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
         <source>Effect Mode</source>
-        <translation>Modo de efecto</translation>
+        <translation>Modo con efectos</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
@@ -246,17 +246,17 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
         <source>Friendly Reminder</source>
-        <translation>Recordatorio amistoso</translation>
+        <translation>Recordatorio amigable</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>El sistema ha detectado que está utilizando una máquina virtual, lo que afectará el rendimiento del sistema y la experiencia de operación, para una experiencia suave, se recomienda seleccionar Modo Común</translation>
+        <translation>El sistema ha detectado que estás usando una máquina virtual, lo que afectará al rendimiento y la experiencia de uso; para una experiencia más fluida, se recomienda seleccionar el Modo común</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
-        <translation>Modo de efecto: Usted puede suavemente y magníficamente experiencia. Modo común: puede experimentar muy rápidamente</translation>
+        <translation>Modo con efectos: Tendrás una experiencia suave y grata. Modo común: Tendrás una experiencia extremadamente rápida</translation>
     </message>
 </context>
 <context>
@@ -264,12 +264,12 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation>Efecto ventana habilitado</translation>
+        <translation>Efectos de ventanas habilitados</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="45"/>
         <source>Window effect disabled</source>
-        <translation>Efecto ventana desactivado</translation>
+        <translation>Efectos de ventana deshabilitados</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="47"/>
@@ -282,12 +282,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>Kindly Reminder</source>
-        <translation>Recordatorio bondadoso</translation>
+        <translation>Recordatorio amigable</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="39"/>
         <source>This application can not run without window effect</source>
-        <translation>Esta aplicación no se puede ejecutar sin efecto de ventana</translation>
+        <translation>Esta aplicación no puede ser ejecutada sin efectos de ventanas</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="43"/>
@@ -300,7 +300,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Batería baja, por favor, enchufe a una toma de corriente eléctrica</translation>
+        <translation>Batería baja. Por favor, conecte a una toma eléctrica</translation>
     </message>
 </context>
 </TS>

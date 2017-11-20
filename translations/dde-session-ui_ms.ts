@@ -91,7 +91,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="406"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Sila masukkan kata laluan anda secara manual jika kata laluan cap jari telah tamat masa.</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="258"/>
@@ -124,7 +124,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
         <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <translation>Sila masukkan kata laluan anda secara manual jika kata laluan cap jari telah tamat masa</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
@@ -228,7 +228,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="43"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Enter</translation>
     </message>
 </context>
 <context>
