@@ -551,12 +551,18 @@ void LockManager::passwordMode()
     }
 
     if (m_action == Restart) {
-        m_passwordEdit->setAlert(true, tr("Enter your password to reboot"));
+        if (!m_unlockButton->isVisible())
+            m_passwordEdit->setAlert(true, tr("Enter your password to reboot"));
+        else
+            m_unlockButton->setText(QApplication::translate("ShutdownWidget", "Reboot"));
         m_passwordEdit->setEnterBtnStyle(":/img/action_icons/reboot_normal.svg",
                                          ":/img/action_icons/reboot_hover.svg",
                                          ":/img/action_icons/reboot_press.svg");
     } else if (m_action == Shutdown) {
-        m_passwordEdit->setAlert(true, tr("Enter your password to shutdown"));
+        if (!m_unlockButton->isVisible())
+            m_passwordEdit->setAlert(true, tr("Enter your password to shutdown"));
+        else
+            m_unlockButton->setText(QApplication::translate("ShutdownWidget", "Shut down"));
         m_passwordEdit->setEnterBtnStyle(":/img/action_icons/shutdown_normal.svg",
                                          ":/img/action_icons/shutdown_hover.svg",
                                          ":/img/action_icons/shutdown_press.svg");
