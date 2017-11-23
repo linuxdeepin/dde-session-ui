@@ -174,7 +174,7 @@ void ControlWidget::setSessionSwitchEnable(const bool visible)
 void ControlWidget::chooseToSession(const QString &session)
 {
     if (m_sessionBtn && m_sessionTip) {
-        qDebug() << "choosed session: " << session;
+        qDebug() << "chosen session: " << session;
         if (session.isEmpty())
             return;
 
