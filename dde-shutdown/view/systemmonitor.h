@@ -42,6 +42,8 @@ public:
         Release
     };
 
+    inline State state() { return m_state; }
+
 signals:
     void clicked();
 
@@ -55,7 +57,6 @@ protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 
 private:
     QWidget *m_icon;

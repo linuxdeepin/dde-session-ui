@@ -154,11 +154,3 @@ void SystemMonitor::paintEvent(QPaintEvent *event)
     }
 
 }
-
-void SystemMonitor::keyPressEvent(QKeyEvent *event)
-{
-    if (m_state == Enter && (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return)) {
-        event->accept();
-        emit clicked();
-    }
-}

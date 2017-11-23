@@ -73,8 +73,6 @@ void ContentWidget::showEvent(QShowEvent *event)
 
 void ContentWidget::keyReleaseEvent(QKeyEvent *event)
 {
-    setFocus();
-
     switch (event->key()) {
     case Qt::Key_Escape: onCancel(); break;
     case Qt::Key_Return:
@@ -101,7 +99,6 @@ void ContentWidget::keyReleaseEvent(QKeyEvent *event)
     case Qt::Key_Down: {
         if (m_systemMonitor) {
             m_currentSelectedBtn->updateState(RoundItemButton::Normal);
-            m_systemMonitor->setFocus();
             m_systemMonitor->setState(SystemMonitor::Enter);
         }
         break;
@@ -176,6 +173,11 @@ void ContentWidget::initData()
 
 void ContentWidget::enterKeyPushed()
 {
+    if (m_systemMonitor && m_systemMonitor->state() == SystemMonitor::Enter) {
+        runSystemMonitor();
+        return;
+    }
+
     if (m_warningView && m_warningView->isVisible()) return;
 
     if (m_currentSelectedBtn->isDisabled())
