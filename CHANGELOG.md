@@ -1,3 +1,14 @@
+<a name="4.1.6"></a>
+### 4.1.6 (2017-11-23)
+
+
+#### Bug Fixes
+
+* **lock:**  don't show alert when user is nopasswdlogin ([97f52db0](https://github.com/linuxdeepin/dde-session-ui/commit/97f52db085b285030cdc381c9c7782f72a5cdf7b))
+* **shutdown:**  cannot open system monitor ([7e3156fa](https://github.com/linuxdeepin/dde-session-ui/commit/7e3156fa6e35d1710938e5af0fcb2b9678c20b09))
+
+
+
 <a name="4.1.5"></a>
 ### 4.1.5 (2017-11-20)
 
