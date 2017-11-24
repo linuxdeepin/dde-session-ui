@@ -42,8 +42,6 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
 {
-    m_blurImageInter->setSync(false);
-
     m_adjustTimer->setSingleShot(true);
 
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
@@ -66,11 +64,9 @@ void FullscreenBackground::setBackground(const QString &file)
 
     Q_ASSERT(QFileInfo(file).isFile());
 
-    setBackground(QPixmap(file));
+    const QString &p = m_blurImageInter->Get(m_bgPath);
 
-    QDBusPendingReply<QString> call = m_blurImageInter->Get(m_bgPath);
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, &FullscreenBackground::onGetBlurFinished);
+    setBackground(QPixmap(p.isEmpty() ? m_bgPath : p));
 }
 
 void FullscreenBackground::setBackground(const QPixmap &pixmap)
@@ -127,18 +123,6 @@ void FullscreenBackground::onBlurFinished(const QString &source, const QString &
 
     if (status && m_bgPath == sourcePath)
         setBackground(QPixmap(blur));
-}
-
-void FullscreenBackground::onGetBlurFinished(QDBusPendingCallWatcher *watcher)
-{
-    if (!watcher->isError()) {
-        QDBusPendingReply<QString> reply = watcher->reply();
-        const QString &blur = reply.value();
-        if (!blur.isEmpty())
-            setBackground(QPixmap(blur));
-    }
-
-    watcher->deleteLater();
 }
 
 bool FullscreenBackground::eventFilter(QObject *watched, QEvent *event)

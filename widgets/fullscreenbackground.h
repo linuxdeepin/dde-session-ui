@@ -51,7 +51,6 @@ protected:
 private slots:
     void adjustGeometry();
     void onBlurFinished(const QString &source, const QString &blur, bool status);
-    void onGetBlurFinished(QDBusPendingCallWatcher *watcher);
 
 private:
     bool eventFilter(QObject *watched, QEvent *event);
