@@ -434,7 +434,7 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
     case DBusLockService::Failure:
         onUnlockFinished(false);
         break;
-    case DBusLockService::Successed:
+    case DBusLockService::Success:
         onUnlockFinished(true);
         break;
     default:

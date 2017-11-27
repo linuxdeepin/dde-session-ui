@@ -36,7 +36,7 @@ public:
         ErrorMsg = 3,
         TextInfo = 4,
         Failure = 5,
-        Successed = 6
+        Success = 6
     };
 
 public:
