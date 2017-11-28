@@ -1,3 +1,15 @@
+<a name="4.1.7"></a>
+### 4.1.7 (2017-11-28)
+
+
+#### Bug Fixes
+
+* **greeter:**
+  *  unable to login other desktop when user is nopassword ([4827e09b](https://github.com/linuxdeepin/dde-session-ui/commit/4827e09b1f3b7e9ab3efdfd9ab4ab5f99892c84a))
+  *  error auth password when nopassword user ([e3986aa8](https://github.com/linuxdeepin/dde-session-ui/commit/e3986aa8123410b84c49dbf2b6ebd90d9f0225c8))
+
+
+
 <a name="4.1.6"></a>
 ### 4.1.6 (2017-11-23)
 
