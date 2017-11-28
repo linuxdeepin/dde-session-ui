@@ -46,7 +46,7 @@
 
 using DBusUser = com::deepin::daemon::accounts::User;
 
-static const QSize ZoreSize = QSize(0, 0);
+static const QSize ZeroSize = QSize(0, 0);
 
 //Load the System cursor --begin
 static XcursorImages*
@@ -196,7 +196,7 @@ void LoginManager::updateUserLoginCondition(QString username)
 
         if (groups.contains("nopasswdlogin")) {
             m_loginButton->show();
-            m_passWdEdit->setFixedSize(ZoreSize);
+            m_passWdEdit->setFixedSize(ZeroSize);
         } else {
             m_greeter->authenticate(m_userWidget->currentUser());
             m_loginButton->hide();
@@ -233,7 +233,7 @@ void LoginManager::keyPressEvent(QKeyEvent* e) {
             m_requireShutdownWidget->hide();
             m_userWidget->show();
             if (!m_userWidget->isChooseUserMode) {
-                if (m_passWdEdit->size() != ZoreSize) {
+                if (m_passWdEdit->size() != ZeroSize) {
                     m_passWdEdit->show();
                     m_passWdEdit->setFocus();
                 } else {
@@ -254,7 +254,7 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
             m_requireShutdownWidget->hide();
             m_userWidget->show();
             if (!m_userWidget->isChooseUserMode) {
-                if (m_passWdEdit->size() != ZoreSize) {
+                if (m_passWdEdit->size() != ZeroSize) {
                     m_passWdEdit->show();
                     m_passWdEdit->setFocus();
                 } else {
@@ -557,7 +557,7 @@ void LoginManager::login()
         return;
     }
 
-    if (!m_passWdEdit->isVisible())
+    if (!m_passWdEdit->isVisible() && !m_loginButton->isVisible())
         return;
 
     if (m_greeter->isAuthenticated())
@@ -608,7 +608,7 @@ void LoginManager::choosedSession() {
     if (m_userWidget->isChooseUserMode) {
         m_passWdEdit->hide();
     } else {
-        if (m_passWdEdit->size() != ZoreSize) {
+        if (m_passWdEdit->size() != ZeroSize) {
             m_passWdEdit->show();
             m_passWdEdit->setFocus();
         } else {
@@ -687,7 +687,7 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
             if (m_userWidget->isChooseUserMode) {
                 m_passWdEdit->hide();
             } else {
-                if (m_passWdEdit->size() != ZoreSize) {
+                if (m_passWdEdit->size() != ZeroSize) {
                     m_passWdEdit->show();
                     m_passWdEdit->setFocus();
                 } else {
