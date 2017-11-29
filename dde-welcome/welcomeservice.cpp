@@ -21,7 +21,7 @@
  * Implementation of adaptor class WelcomeService
  */
 
-WelcomeService::WelcomeService(Welcome *parent)
+WelcomeService::WelcomeService(MainWidget *parent)
     : QDBusAbstractAdaptor(parent)
 {
     // constructor

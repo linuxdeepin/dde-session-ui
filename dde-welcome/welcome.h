@@ -26,7 +26,6 @@
 #ifndef WELCOME_H
 #define WELCOME_H
 
-#include "update.h"
 #include <QWidget>
 
 #include <dpicturesequenceview.h>
@@ -43,25 +42,14 @@ public:
     ~Welcome();
 
 private:
-    void keyPressEvent(QKeyEvent *e);
-    void paintEvent(QPaintEvent *e);
-    void showEvent(QShowEvent *e);
-
-private:
-    void dbus_show();
-    void dbus_exit();
+    void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
 
 private slots:
     void clearCursor();
-    void onScreenRectChanged();
-    bool checkVersion();
-    const QString getSystemVersion();
 
 private:
-    QTimer *m_sizeAdjustTimer;
-    Update *m_update;
     Dtk::Widget::DPictureSequenceView *m_loadingSpinner;
-    bool m_isUpgrade;
 };
 
 #endif // WELCOME_H

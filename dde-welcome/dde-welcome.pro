@@ -14,15 +14,15 @@ SOURCES += \
     main.cpp \
     welcome.cpp \
     welcomeservice.cpp \
-    update.cpp \
-    updatecontent.cpp
+    updatecontent.cpp \
+    mainwidget.cpp
 
 HEADERS  += \
     welcome.h \
     welcomeservice.h \
-    update.h \
     updatecontent.h \
-    version.h
+    version.h \
+    mainwidget.h
 
 RESOURCES += \
     resources.qrc
