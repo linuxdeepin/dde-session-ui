@@ -47,6 +47,8 @@ public slots:
 
 protected:
     void setContent(QWidget * const w);
+    void paintEvent(QPaintEvent *e);
+    void keyPressEvent(QKeyEvent *e);
 
 private slots:
     void adjustGeometry();
@@ -55,8 +57,6 @@ private slots:
 private:
     bool eventFilter(QObject *watched, QEvent *event);
     void showEvent(QShowEvent *e);
-    void paintEvent(QPaintEvent *e);
-    void keyPressEvent(QKeyEvent *e);
 
     void setGeometry(const QRect &rect);
     const QScreen *screenForGeometry(const QRect &rect) const;

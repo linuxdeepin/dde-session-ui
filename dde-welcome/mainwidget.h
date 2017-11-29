@@ -23,18 +23,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "update.h"
-#include "updatecontent.h"
-#include <QGSettings/QGSettings>
-#include <QVariant>
+#ifndef MAINWIDGET_H
+#define MAINWIDGET_H
 
-Update::Update(const QString &version, QWidget *parent) :
-    FullscreenBackground(parent)
+#include "fullscreenbackground.h"
+
+#include <QWidget>
+
+class MainWidget : public FullscreenBackground
 {
-    UpdateContent *content = new UpdateContent(version, this);
-    setContent(content);
+    Q_OBJECT
+public:
+    explicit MainWidget(QWidget *parent = nullptr);
 
-    QGSettings *gsettings = new QGSettings("com.deepin.dde.appearance", "", this);
-    const QStringList list = gsettings->get("background-uris").toStringList();
-    setBackground(list.first());
-}
+public slots:
+    void dbus_show();
+    void dbus_exit();
+
+protected:
+    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+
+private:
+    bool checkVersion();
+    const QString getSystemVersion();
+
+private:
+    bool m_isUpgrade;
+};
+
+#endif // MAINWIDGET_H

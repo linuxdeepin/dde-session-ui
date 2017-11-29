@@ -12,7 +12,7 @@
 #ifndef WELCOMESERVICE_H
 #define WELCOMESERVICE_H
 
-#include "welcome.h"
+#include "mainwidget.h"
 
 #include <QtCore/QObject>
 #include <QtDBus/QtDBus>
@@ -39,11 +39,11 @@ class WelcomeService: public QDBusAbstractAdaptor
 "  </interface>\n"
         "")
 public:
-    WelcomeService(Welcome *parent);
+    WelcomeService(MainWidget *parent);
     virtual ~WelcomeService();
 
-    inline Welcome *parent() const
-    { return static_cast<Welcome *>(QObject::parent()); }
+    inline MainWidget *parent() const
+    { return static_cast<MainWidget *>(QObject::parent()); }
 
 public: // PROPERTIES
 public Q_SLOTS: // METHODS

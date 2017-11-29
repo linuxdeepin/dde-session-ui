@@ -24,17 +24,11 @@
  */
 
 #include "welcome.h"
-#include "version.h"
 
 #include <QPainter>
 #include <QKeyEvent>
-#include <QApplication>
-#include <QDebug>
-#include <QDesktopWidget>
 #include <QTimer>
-#include <QVBoxLayout>
-#include <QScreen>
-#include <QSettings>
+#include <QApplication>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
 #include <QStandardPaths>
@@ -43,52 +37,21 @@ DWIDGET_USE_NAMESPACE
 
 Welcome::Welcome(QWidget *parent)
     : QWidget(parent),
-
-      m_sizeAdjustTimer(new QTimer(this)),
-
-      m_loadingSpinner(new DPictureSequenceView(this)),
-      m_isUpgrade(false)
+      m_loadingSpinner(new DPictureSequenceView(this))
 {
-    setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
+    QStringList spinner;
+    for (int i(0); i != 90; ++i)
+        spinner << QString(":/loading_spinner/resources/loading_spinner/loading_spinner_%1.png").arg(QString::number(i), 3, '0');
+    m_loadingSpinner->setPictureSequence(spinner);
+    m_loadingSpinner->setFixedSize(32, 32);
 
-    m_sizeAdjustTimer->setInterval(100);
-    m_sizeAdjustTimer->setSingleShot(true);
-    connect(m_sizeAdjustTimer, &QTimer::timeout, this, &Welcome::onScreenRectChanged, Qt::QueuedConnection);
-    m_sizeAdjustTimer->start();
+    QTimer::singleShot(1, this, [this] () {
+        raise();
+        grabMouse();
+        clearCursor();
 
-    if (QFile::exists(QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first() + "/autostart/dde-first-run.desktop")) {
-        m_isUpgrade = false;
-
-        QString currentVersion = getSystemVersion();
-
-        if (!currentVersion.isEmpty()) {
-            QSettings welcomeSetting("deepin", "dde-welcome");
-            QString version = welcomeSetting.value("Version").toString();
-            if (version.isEmpty()) {
-                welcomeSetting.setValue("Version", currentVersion);
-            }
-        }
-    } else {
-        m_isUpgrade = checkVersion();
-    }
-
-    if (m_isUpgrade) {
-        m_update = new Update(getSystemVersion(), this);
-    } else {
-        QStringList spinner;
-        for (int i(0); i != 90; ++i)
-            spinner << QString(":/loading_spinner/resources/loading_spinner/loading_spinner_%1.png").arg(QString::number(i), 3, '0');
-        m_loadingSpinner->setPictureSequence(spinner);
-        m_loadingSpinner->setFixedSize(32, 32);
-
-        QTimer::singleShot(1, this, [this] () {
-            raise();
-            grabMouse();
-            clearCursor();
-
-            m_loadingSpinner->play();
-        });
-    }
+        m_loadingSpinner->play();
+    });
 
 #ifdef QT_DEBUG
     show();
@@ -98,21 +61,6 @@ Welcome::Welcome(QWidget *parent)
 Welcome::~Welcome()
 {
     qApp->restoreOverrideCursor();
-}
-
-void Welcome::dbus_show()
-{
-    qDebug() << Q_FUNC_INFO;
-
-    show();
-}
-
-void Welcome::dbus_exit()
-{
-    qDebug() << Q_FUNC_INFO;
-
-    if (!m_isUpgrade)
-        qApp->quit();
 }
 
 void Welcome::clearCursor()
@@ -148,87 +96,17 @@ void Welcome::keyPressEvent(QKeyEvent *e)
 #endif
     case Qt::Key_Enter:
     case Qt::Key_Return:
-        if (m_isUpgrade)
-            qApp->quit();
+        qApp->quit();
     default:;
     }
 
     QWidget::keyPressEvent(e);
 }
 
-void Welcome::paintEvent(QPaintEvent *e)
+void Welcome::resizeEvent(QResizeEvent *e)
 {
-    QWidget::paintEvent(e);
-
-    QPainter painter(this);
-    painter.fillRect(rect(), Qt::black);
-
-    // debug
-//    painter.fillRect(QRect(0, 0, 500, 500), Qt::red);
-}
-
-void Welcome::showEvent(QShowEvent *e)
-{
-    QWidget::showEvent(e);
-
-    QTimer::singleShot(1, this, [=] {
-        showFullScreen();
-        activateWindow();
-        grabKeyboard();
-    });
-}
-
-void Welcome::onScreenRectChanged()
-{
-    setFixedSize(qApp->desktop()->size());
+    QWidget::resizeEvent(e);
 
     m_loadingSpinner->move(width() / 2 - m_loadingSpinner->width() / 2,
                            height() / 2 - m_loadingSpinner->height() / 2);
-}
-
-bool Welcome::checkVersion()
-{
-    QString currentVersion = getSystemVersion();
-
-    if (currentVersion.isEmpty())
-        return false;
-
-    // check file exist
-    QSettings welcomeSetting("deepin", "dde-welcome");
-    QString version = welcomeSetting.value("Version").toString();
-    if (version.isEmpty()) {
-        welcomeSetting.setValue("Version", currentVersion);
-        return true;
-    }
-
-    QRegExp re("(^\\d+\\.\\d+)");
-
-    int currentVersionPos = currentVersion.indexOf(re);
-    if (currentVersionPos >= 0)
-        currentVersion = re.cap(0);
-    else
-        return false;
-
-    int versionPos = version.indexOf(re);
-    if (versionPos >= 0)
-        version = re.cap(0);
-    else
-        return false;
-
-    const int result = alpm_pkg_vercmp(currentVersion.toStdString().c_str(), version.toStdString().c_str());
-
-    if (result > 0) {
-        welcomeSetting.setValue("Version", currentVersion);
-        return true;
-    }
-
-    welcomeSetting.setValue("Version", currentVersion);
-
-    return false;
-}
-
-const QString Welcome::getSystemVersion()
-{
-    QSettings lsbSetting("/etc/lsb-release", QSettings::IniFormat);
-    return lsbSetting.value("DISTRIB_RELEASE").toString();
 }

@@ -26,7 +26,7 @@
 #include <DApplication>
 #include <DLog>
 
-#include "welcome.h"
+#include "mainwidget.h"
 #include "welcomeservice.h"
 
 DWIDGET_USE_NAMESPACE
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app.installTranslator(&translator);
 
-    Welcome w;
+    MainWidget w;
     WelcomeService serviceAdaptor(&w);
     Q_UNUSED(serviceAdaptor);
 
