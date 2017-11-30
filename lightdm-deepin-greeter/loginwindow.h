@@ -38,8 +38,12 @@ class LoginWindow : public FullscreenBackground
 public:
     explicit LoginWindow(QWidget *parent = 0);
 
+private slots:
+    void switchUserBackground(const QString &path);
+    void drawUserBackground(const QPixmap &pixmap);
+
 private:
-    std::unique_ptr<LoginManager> m_loginFrame;
+    LoginManager *m_loginFrame;
 };
 
 #endif // LOGINWINDOW_H

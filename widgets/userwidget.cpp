@@ -420,6 +420,12 @@ const QString UserWidget::getDisplayName(const QString &username)
     return user ? user->displayName() : QString();
 }
 
+const QString UserWidget::getUserDesktopBackground(const QString &username)
+{
+    UserButton *user = getUserByName(username);
+    return user ? user->background() : QString();
+}
+
 void UserWidget::setUserKBlayout(const QString &username, const QString &layout)
 {
     UserButton *user = getUserByName(username);

@@ -26,7 +26,6 @@
 #include "mainwidget.h"
 #include "updatecontent.h"
 #include "version.h"
-#include "welcome.h"
 
 #include <QGSettings/QGSettings>
 #include <QVariant>
@@ -58,8 +57,6 @@ MainWidget::MainWidget(QWidget *parent)
         QGSettings *gsettings = new QGSettings("com.deepin.dde.appearance", "", this);
         const QStringList list = gsettings->get("background-uris").toStringList();
         setBackground(list.first());
-    } else {
-        setContent(new Welcome(this));
     }
 
 #ifdef QT_DEBUG
@@ -119,6 +116,9 @@ void MainWidget::dbus_show()
 {
     qDebug() << Q_FUNC_INFO;
 
+    if (!m_isUpgrade)
+        return;
+
     show();
 
     QTimer::singleShot(1, this, [=] {
@@ -149,14 +149,4 @@ void MainWidget::keyPressEvent(QKeyEvent *event)
     }
 
     FullscreenBackground::keyPressEvent(event);
-}
-
-void MainWidget::paintEvent(QPaintEvent *event)
-{
-    FullscreenBackground::paintEvent(event);
-
-    if (!m_isUpgrade) {
-        QPainter painter(this);
-        painter.fillRect(rect(), Qt::black);
-    }
 }

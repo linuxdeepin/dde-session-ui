@@ -41,7 +41,10 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
+    , m_fakeBackground(new FakeBackground(this))
 {
+    setAttribute(Qt::WA_TranslucentBackground);
+
     m_adjustTimer->setSingleShot(true);
 
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
@@ -49,13 +52,17 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     connect(m_adjustTimer, &QTimer::timeout, this, &FullscreenBackground::adjustGeometry);
 
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &FullscreenBackground::onBlurFinished);
+
+    connect(m_fakeBackground, &FakeBackground::finished, this, [=] (const QPixmap &pixmap) {
+        setBackground(pixmap);
+    });
 }
 
-void FullscreenBackground::setBackground(const QString &file)
+void FullscreenBackground::setBackground(const QString &file, FakeBackground::Type type)
 {
     const QUrl url(file);
     if (url.isLocalFile())
-        return setBackground(url.path());
+        return setBackground(url.path(), type);
 
     if (m_bgPath == file)
         return;
@@ -66,16 +73,19 @@ void FullscreenBackground::setBackground(const QString &file)
 
     const QString &p = m_blurImageInter->Get(m_bgPath);
 
-    setBackground(QPixmap(p.isEmpty() ? m_bgPath : p));
+    setBackground(QPixmap(p.isEmpty() ? m_bgPath : p), type);
 }
 
-void FullscreenBackground::setBackground(const QPixmap &pixmap)
+void FullscreenBackground::setBackground(const QPixmap &pixmap, FakeBackground::Type type)
 {
     Q_ASSERT(!pixmap.isNull());
 
-    m_background = pixmap;
-
-    update();
+    if (type == FakeBackground::None) {
+        m_background = pixmap;
+        update();
+    } else {
+        m_fakeBackground->setPixmap(pixmap, type);
+    }
 }
 
 void FullscreenBackground::setContent(QWidget * const w)
@@ -105,6 +115,7 @@ void FullscreenBackground::adjustGeometry()
     }
 
     setGeometry(r);
+    m_fakeBackground->setGeometry(r);
 
     if (m_content.isNull())
         return;
@@ -115,6 +126,7 @@ void FullscreenBackground::adjustGeometry()
     const QRect &pg(qApp->primaryScreen()->geometry());
     const QRect realPg(pg.topLeft() / ratio, pg.size());
     m_content->setGeometry(realPg);
+    m_content->raise();
 }
 
 void FullscreenBackground::onBlurFinished(const QString &source, const QString &blur, bool status)
@@ -143,6 +155,9 @@ void FullscreenBackground::showEvent(QShowEvent *e)
 void FullscreenBackground::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
+
+    if (m_background.isNull())
+        return;
 
     QPainter painter(this);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
@@ -204,4 +219,70 @@ const QScreen *FullscreenBackground::screenForGeometry(const QRect &rect) const
     }
 
     return nullptr;
+}
+
+FakeBackground::FakeBackground(QWidget *parent)
+    : QFrame(parent)
+{
+    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
+    setGraphicsEffect(effect);
+
+    effect->setOpacity(0);
+
+    m_backgroundAnimation = new QPropertyAnimation(effect, "opacity", this);
+    m_backgroundAnimation->setDuration(1000);
+    m_backgroundAnimation->setEasingCurve(QEasingCurve::InOutCubic);
+
+    // NOTE(kirigaya): Draw a real background
+    connect(m_backgroundAnimation, &QVariantAnimation::finished, this, [=] {
+        emit finished(m_pixmap);
+    });
+}
+
+void FakeBackground::setPixmap(const QPixmap &pixmap, Type type)
+{
+    // NOTE(kirigaya): Login type need parent draw new wallpaper,
+    // and fade out
+    switch (type) {
+    case FadeIn: {
+        m_backgroundAnimation->setStartValue(0);
+        m_backgroundAnimation->setEndValue(1);
+        m_pixmap = pixmap;
+        break;
+    }
+    case FadeOut: {
+        m_backgroundAnimation->setStartValue(1);
+        m_backgroundAnimation->setEndValue(0);
+        emit finished(pixmap);
+        break;
+    }
+    default:
+        break;
+    }
+
+    update();
+    m_backgroundAnimation->start();
+}
+
+QPixmap FakeBackground::pixmap() const
+{
+    return m_pixmap;
+}
+
+void FakeBackground::paintEvent(QPaintEvent *event)
+{
+    QFrame::paintEvent(event);
+
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+
+    for (auto *s : qApp->screens())
+    {
+        const QRect &geom = s->geometry();
+        const QRect tr(geom.topLeft() / devicePixelRatioF(), geom.size());
+        const QPixmap pix = m_pixmap.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        const QRect pix_r = QRect((pix.width() - tr.width()) / 2, (pix.height() - tr.height()) / 2, tr.width(), tr.height());
+
+        painter.drawPixmap(tr, pix, pix_r);
+    }
 }
