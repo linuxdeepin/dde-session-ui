@@ -67,7 +67,10 @@ void FullscreenBackground::setBackground(const QString &file, FakeBackground::Ty
     if (m_bgPath == file)
         return;
 
-    m_bgPath = file;
+    if (QFile::exists(file))
+        m_bgPath = file;
+    else
+        m_bgPath = "/usr/share/backgrounds/deepin/desktop.jpg";
 
     Q_ASSERT(QFileInfo(file).isFile());
 
@@ -78,13 +81,14 @@ void FullscreenBackground::setBackground(const QString &file, FakeBackground::Ty
 
 void FullscreenBackground::setBackground(const QPixmap &pixmap, FakeBackground::Type type)
 {
-    Q_ASSERT(!pixmap.isNull());
+    // NOTE(kirigaya): If file is not exist, use default wallpaper
+    QPixmap p = pixmap.isNull() ? QPixmap("/usr/share/backgrounds/deepin/desktop.jpg") : pixmap;
 
     if (type == FakeBackground::None) {
-        m_background = pixmap;
+        m_background = p;
         update();
     } else {
-        m_fakeBackground->setPixmap(pixmap, type);
+        m_fakeBackground->setPixmap(p, type);
     }
 }
 
