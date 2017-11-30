@@ -29,25 +29,49 @@
 #include <QWidget>
 #include <QPointer>
 #include <QTimer>
-
+#include <QFrame>
+#include <QGraphicsOpacityEffect>
 #include <com_deepin_daemon_imageblur.h>
 
 using ImageBlur = com::deepin::daemon::ImageBlur;
 
+class FakeBackground : public QFrame {
+    Q_OBJECT
+public:
+    explicit FakeBackground(QWidget *parent = 0);
+
+    enum Type {
+        None,
+        FadeIn,
+        FadeOut
+    };
+    void setPixmap(const QPixmap &pixmap, Type type);
+
+    QPixmap pixmap() const;
+
+signals:
+    void finished(const QPixmap &pixmap);
+
+protected:
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+
+private:
+    QPropertyAnimation *m_backgroundAnimation;
+    QPixmap m_pixmap;
+};
+
 class FullscreenBackground : public QWidget
 {
     Q_OBJECT
-
 public:
     explicit FullscreenBackground(QWidget *parent = 0);
 
 public slots:
-    void setBackground(const QString &file);
-    void setBackground(const QPixmap &pixmap);
+    void setBackground(const QString &file, FakeBackground::Type = FakeBackground::None);
+    void setBackground(const QPixmap &pixmap, FakeBackground::Type = FakeBackground::None);
 
 protected:
     void setContent(QWidget * const w);
-    void paintEvent(QPaintEvent *e);
     void keyPressEvent(QKeyEvent *e);
 
 private slots:
@@ -57,6 +81,7 @@ private slots:
 private:
     bool eventFilter(QObject *watched, QEvent *event);
     void showEvent(QShowEvent *e);
+    void paintEvent(QPaintEvent *e);
 
     void setGeometry(const QRect &rect);
     const QScreen *screenForGeometry(const QRect &rect) const;
@@ -67,6 +92,7 @@ private:
     QPointer<QWidget> m_content;
     QTimer *m_adjustTimer;
     ImageBlur *m_blurImageInter;
+    FakeBackground *m_fakeBackground;
 };
 
 #endif // FULLSCREENBACKGROUND_H

@@ -123,7 +123,7 @@ LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent),
       m_keyboardMonitor(KeyboardMonitor::instance())
 {
-//    recordPid();
+    setAttribute(Qt::WA_TranslucentBackground);
 
     initUI();
     initData();
@@ -211,11 +211,27 @@ void LoginManager::startSession()
 {
     qDebug() << "start session = " << m_sessionWidget->currentSessionName();
 
-    // save session
-    m_userWidget->saveLastUser();
-    m_sessionWidget->saveUserSession();
+    // NOTE(kirigaya): It is not necessary to display the login animation.
 
-    m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+    hide();
+
+    // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
+    const QString &desktop = m_userWidget->getUserDesktopBackground(m_userWidget->currentUser());
+    QUrl url(desktop);
+    QPixmap pixmap(url.toLocalFile());
+
+    if (pixmap.isNull())
+        pixmap.load(desktop);
+
+    emit requestBackground(pixmap);
+
+    QTimer::singleShot(1000, this, [=] {
+        // NOTE(kirigaya): Login animation duration is 1s.
+        m_userWidget->saveLastUser();
+        m_sessionWidget->saveUserSession();
+
+        m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+    });
 }
 
 void LoginManager::resizeEvent(QResizeEvent *e)

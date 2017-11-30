@@ -42,7 +42,6 @@ public slots:
 
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
 private:
     bool checkVersion();

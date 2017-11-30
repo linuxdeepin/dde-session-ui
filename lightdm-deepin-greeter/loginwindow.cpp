@@ -27,11 +27,25 @@
 #include "app/loginmanager.h"
 
 LoginWindow::LoginWindow(QWidget *parent)
-    : FullscreenBackground(parent),
-
-      m_loginFrame(std::make_unique<LoginManager>(this))
+    : FullscreenBackground(parent)
+    , m_loginFrame( new LoginManager(this))
 {
-    setContent(m_loginFrame.get());
+    setContent(m_loginFrame);
 
-    connect(m_loginFrame.get(), &LoginManager::requestBackground, this, static_cast<void (LoginWindow::*)(const QString &)>(&LoginWindow::setBackground));
+    connect(m_loginFrame, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground),
+            this, &LoginWindow::switchUserBackground);
+
+    connect(m_loginFrame, static_cast<void (LoginManager::*)(const QPixmap &) const>(&LoginManager::requestBackground),
+            this, &LoginWindow::drawUserBackground);
+}
+
+void LoginWindow::switchUserBackground(const QString &path)
+{
+    setBackground(path, FakeBackground::FadeIn);
+}
+
+// NOTE(kirigaya): Setting the animation type
+void LoginWindow::drawUserBackground(const QPixmap &pixmap)
+{
+    setBackground(pixmap, FakeBackground::FadeOut);
 }

@@ -61,6 +61,7 @@ public:
 
 signals:
     void requestBackground(const QString &background) const;
+    void requestBackground(const QPixmap &background) const;
 
 public slots:
     /*Update the position of the widgets after finished the layout of ui*/

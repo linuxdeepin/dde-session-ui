@@ -66,6 +66,7 @@ public:
     const QStringList kbHistory();
     const QString kblayout();
     const QString displayName() const;
+    const QString background() const;
 
 signals:
     void imageClicked(QString nam);

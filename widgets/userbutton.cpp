@@ -258,6 +258,11 @@ const QString UserButton::displayName() const
     return m_user->fullName().isEmpty() ? m_user->userName() : m_user->fullName();
 }
 
+const QString UserButton::background() const
+{
+    return m_user->backgroundFile();
+}
+
 void UserButton::paintEvent(QPaintEvent* event)
 {
     QPushButton::paintEvent(event);
