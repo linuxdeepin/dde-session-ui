@@ -59,9 +59,7 @@ const QString session_standard_icon_name(const QString &realName)
 
 SessionWidget::SessionWidget(QWidget *parent)
     : QFrame(parent),
-
       m_currentSessionIndex(0),
-      m_userSettings(DDESESSIONCC::CONFIG_FILE, QSettings::IniFormat),
       m_sessionModel(new QLightDM::SessionsModel(this))
 {
 //    setStyleSheet("QFrame {"
@@ -78,7 +76,7 @@ SessionWidget::~SessionWidget()
 
 const QString SessionWidget::currentSessionName() const
 {
-    return m_sessionModel->data(m_sessionModel->index(m_currentSessionIndex), Qt::DisplayRole).toString();
+    return m_sessionModel->data(m_sessionModel->index(m_currentSessionIndex), QLightDM::SessionsModel::KeyRole).toString();
 }
 
 const QString SessionWidget::currentSessionKey() const
@@ -133,16 +131,11 @@ int SessionWidget::sessionCount() const
 
 const QString SessionWidget::lastSessionName() const
 {
-    const QString value = m_userSettings.value(QString("%1/last-session").arg(m_currentUser)).toString();
-    return value.isEmpty() ? m_sessionModel->data(m_sessionModel->index(0), Qt::DisplayRole).toString() : value;
-}
+    QSettings setting(DDESESSIONCC::CONFIG_FILE + m_currentUser, QSettings::IniFormat);
+    setting.beginGroup("User");
+    const QString &session = setting.value("XSession").toString();
 
-void SessionWidget::saveUserSession()
-{
-    qDebug() << "save user session: " << m_currentUser << currentSessionName();
-
-    m_userSettings.setValue(QString("%1/last-session").arg(m_currentUser), currentSessionName());
-    m_userSettings.sync();
+    return session.isEmpty() ? m_sessionModel->data(m_sessionModel->index(0), QLightDM::SessionsModel::KeyRole).toString() : session;
 }
 
 void SessionWidget::switchToUser(const QString &userName)
@@ -176,7 +169,7 @@ int SessionWidget::sessionIndex(const QString &sessionName)
     const int count = m_sessionModel->rowCount(QModelIndex());
     Q_ASSERT(count);
     for (int i(0); i != count; ++i)
-        if (!sessionName.compare(m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString(), Qt::CaseInsensitive))
+        if (!sessionName.compare(m_sessionModel->data(m_sessionModel->index(i), QLightDM::SessionsModel::KeyRole).toString(), Qt::CaseInsensitive))
             return i;
 
     Q_UNREACHABLE();
@@ -213,7 +206,7 @@ void SessionWidget::loadSessionList()
     const int count = m_sessionModel->rowCount(QModelIndex());
     for (int i(0); i != count; ++i)
     {
-        const QString &session_name = m_sessionModel->data(m_sessionModel->index(i), Qt::DisplayRole).toString();
+        const QString &session_name = m_sessionModel->data(m_sessionModel->index(i), QLightDM::SessionsModel::KeyRole).toString();
         const QString &session_icon = session_standard_icon_name(session_name);
         const QString normalIcon = QString(":/img/sessions_icon/%1_normal.svg").arg(session_icon);
         const QString hoverIcon = QString(":/img/sessions_icon/%1_hover.svg").arg(session_icon);

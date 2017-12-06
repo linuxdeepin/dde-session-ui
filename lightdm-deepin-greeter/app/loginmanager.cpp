@@ -228,7 +228,6 @@ void LoginManager::startSession()
     QTimer::singleShot(1000, this, [=] {
         // NOTE(kirigaya): Login animation duration is 1s.
         m_userWidget->saveLastUser();
-        m_sessionWidget->saveUserSession();
 
         m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
     });
