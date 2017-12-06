@@ -95,7 +95,7 @@ void Frame::distUpgrade()
         const QDBusPendingReply<QDBusObjectPath> &reply = *watcher;
         if (reply.isError()) {
             qDebug() << reply.error().message();
-            qDebug() << "Quiting the program due to last error.";
+            qDebug() << "Quitting the program due to last error.";
             qApp->quit();
         }
 
