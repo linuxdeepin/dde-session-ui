@@ -36,6 +36,8 @@ int main(int argc, char *argv[])
 {
     DApplication::loadDXcbPlugin();
     DApplication app(argc, argv);
+    app.setOrganizationName("deepin");
+    app.setApplicationName("dde-welcome");
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
