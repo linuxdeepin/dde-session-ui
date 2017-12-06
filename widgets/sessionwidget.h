@@ -52,7 +52,6 @@ signals:
     void sessionChanged(const QString &sessionName);
 
 public slots:
-    void saveUserSession();
     void switchToUser(const QString &userName);
     //    void leftKeySwitch();
     //    void rightKeySwitch();
@@ -70,7 +69,6 @@ private:
 private:
     int m_currentSessionIndex;
     QString m_currentUser;
-    QSettings m_userSettings;
 
     QLightDM::SessionsModel *m_sessionModel;
     QList<RoundItemButton *> m_sessionBtns;
