@@ -287,16 +287,6 @@ void PassWdEdit::hide()
     m_errorTooltip->hide();
 }
 
-bool PassWdEdit::isReadOnly()
-{
-    return m_lineEdit->isReadOnly();
-}
-
-void PassWdEdit::setReadOnly(bool value)
-{
-    m_lineEdit->setReadOnly(value);
-}
-
 void PassWdEdit::setAlert(bool alert, const QString &text)
 {
     if (m_alert == alert) {
@@ -304,7 +294,6 @@ void PassWdEdit::setAlert(bool alert, const QString &text)
     }
 
     m_alert = alert;
-    emit alertChanged(alert);
 
     if (m_alert) {
         m_errorTooltip->setMessage(text);
