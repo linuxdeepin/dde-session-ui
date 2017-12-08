@@ -344,26 +344,7 @@ void LoginManager::initUI()
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/login.qss", this);
 #endif
-//    set_rootwindow_cursor();
-
-    const auto disp = XOpenDisplay(nullptr);
-    Q_ASSERT(disp);
-    const auto window = DefaultRootWindow(disp);
-
-    Cursor invisibleCursor;
-    Pixmap bitmapNoData;
-    XColor black;
-    static char noData[] = { 0,0,0,0,0,0,0,0 };
-    black.red = black.green = black.blue = 0;
-
-    bitmapNoData = XCreateBitmapFromData(disp, window, noData, 8, 8);
-    invisibleCursor = XCreatePixmapCursor(disp, bitmapNoData, bitmapNoData,
-                                          &black, &black, 0, 0);
-    XDefineCursor(disp, window, invisibleCursor);
-    XFixesChangeCursorByName(disp, invisibleCursor, "watch");
-    XFreeCursor(disp, invisibleCursor);
-    XFreePixmap(disp, bitmapNoData);
-    XFlush(disp);
+    set_rootwindow_cursor();
 }
 
 //void LoginManager::recordPid() {
