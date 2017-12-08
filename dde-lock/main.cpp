@@ -30,7 +30,6 @@
 #include "dbus/dbuslockfront.h"
 #include "dbus/dbuscontrolcenter.h"
 
-#include <unistd.h>
 #include <QLabel>
 #include <dapplication.h>
 #include <QDBusInterface>
@@ -48,7 +47,7 @@ int main(int argc, char *argv[])
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
-    if (!app.setSingleInstance(QString("dde-lock_%1").arg(getuid())))
+    if (!app.setSingleInstance(QString("dde-lock"), DApplication::UserScope))
         return -1;
 
     QTranslator translator;
