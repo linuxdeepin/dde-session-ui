@@ -57,17 +57,12 @@ public:
     QMap<QString, QString> keybdLayoutShortDescriptionMap;
 
     QStringList keyboardLayoutList;
-    QTimer *getFocusTimer;
 
 signals:
     void submit();
     void keybdLayoutButtonClicked();
     void updateKeyboardStatus();
     void alertChanged(const int alert);
-    void focusIn();
-
-    void leftKeyPressed();
-    void rightKeyPressed();
 
 public slots:
     QString getText();
@@ -87,15 +82,12 @@ public slots:
 
     void setMessage(const QString &message);
 
-    void lineEditGrabKeyboard();
     void recordUserPassWd(bool isChoose, QString username);
     void updateCapslockStatus(bool on);
     void selectAll() const;
 
 protected:
-    void keyReleaseEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
-    void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;
-    bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;
+    void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 
 private:
     int m_timerCount = 0;

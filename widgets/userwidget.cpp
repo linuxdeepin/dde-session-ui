@@ -270,6 +270,8 @@ void UserWidget::expandWidget()
         }
     }
 
+    setFocus();
+
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
 
@@ -290,11 +292,27 @@ void UserWidget::resizeEvent(QResizeEvent *e)
     }
 }
 
-void UserWidget::chooseButtonChecked() {
-    qDebug() << "Grab Key Release Event";
+void UserWidget::keyReleaseEvent(QKeyEvent *event)
+{
+    QFrame::keyReleaseEvent(event);
 
-    this->grabKeyboard();
-    qDebug() << "Get the Key Return or Enter";
+    switch (event->key()) {
+    case Qt::Key_Left:
+        leftKeySwitchUser();
+        break;
+    case Qt::Key_Right:
+        rightKeySwitchUser();
+        break;
+    case Qt::Key_Return:
+    case Qt::Key_Enter:
+    case Qt::Key_Escape:
+        chooseButtonChecked();
+    default:
+        break;
+    }
+}
+
+void UserWidget::chooseButtonChecked() {
     bool checkedBtsExist = false;
     for (UserButton* user: m_userBtns) {
         if (user->selected()) {

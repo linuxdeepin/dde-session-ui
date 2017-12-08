@@ -52,8 +52,6 @@ LockManager::LockManager(QWidget *parent)
     initConnect();
     initBackend();
     updateUI();
-
-    leaveEvent(nullptr);
 }
 
 void LockManager::initConnect()
@@ -76,9 +74,6 @@ void LockManager::initConnect()
     connect(qApp, &QApplication::aboutToQuit, [this] {
         m_hotZoneInterface->EnableZoneDetected(true);
     });
-
-    connect(m_passwordEdit, &PassWdEdit::leftKeyPressed, this, &LockManager::leftKeyPressed);
-    connect(m_passwordEdit, &PassWdEdit::rightKeyPressed, this, &LockManager::rightKeyPressed);
 
     connect(m_unlockButton, &QPushButton::clicked, this, &LockManager::unlock);
 }
@@ -148,7 +143,7 @@ void LockManager::initUI()
                                      ":/img/action_icons/unlock_hover.svg",
                                      ":/img/action_icons/unlock_press.svg");
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
-    m_passwordEdit->setFocus();
+    m_passwordEdit->show();
     m_passwdEditSize = m_passwordEdit->size();
 
     m_unlockButton = new QPushButton(this);
@@ -315,36 +310,15 @@ void LockManager::resizeEvent(QResizeEvent *event)
     updateWidgetsPosition();
 }
 
-void LockManager::keyPressEvent(QKeyEvent *e)
-{
-    switch (e->key()) {
-    case Qt::Key_Escape:
-        if (!m_requireShutdownWidget->isHidden()) {
-            m_requireShutdownWidget->hide();
-            m_userWidget->show();
-            if (!m_userWidget->isChooseUserMode) {
-                if (m_passwordEdit->size() != ZoreSize) {
-                    m_passwordEdit->show();
-                    m_passwordEdit->setFocus();
-                } else {
-                    m_unlockButton->show();
-                }
-            }
-        }
-#ifdef QT_DEBUG
-//        qApp->quit();   break;
-#endif
-    default:;
-    }
-}
-
 void LockManager::mouseReleaseEvent(QMouseEvent *e)
 {
     qDebug() << "ReleaseEvent";
     m_action = Unlock;
+
     if (!m_userWidget->isChooseUserMode) {
         passwordMode();
     }
+
     if (e->button() == Qt::LeftButton) {
         if (!m_keybdArrowWidget->isHidden()) {
             m_keybdArrowWidget->hide();
@@ -361,13 +335,6 @@ void LockManager::unlock()
 
     if (!m_requireShutdownWidget->isHidden()) {
         m_requireShutdownWidget->shutdownAction();
-        return;
-    }
-
-    if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
-        m_userWidget->chooseButtonChecked();
-        m_passwordEdit->getFocusTimer->start();
-        qDebug() << "lineEditGrabKeyboard";
         return;
     }
 
@@ -539,7 +506,6 @@ void LockManager::passwordMode()
 
     if (m_passwordEdit->size() != ZoreSize) {
         m_passwordEdit->show();
-        m_passwordEdit->setFocus();
     } else {
         m_unlockButton->show();
     }

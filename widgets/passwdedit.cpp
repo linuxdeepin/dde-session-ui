@@ -88,7 +88,7 @@ void PassWdEdit::initUI()
     m_lineEdit->setAttribute(Qt::WA_InputMethodEnabled, false);
     m_lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_lineEdit->setAlignment(Qt::AlignVCenter);
-    m_lineEdit->installEventFilter(this);
+    m_lineEdit->setFocusPolicy(Qt::StrongFocus);
 
     QFont font = m_lineEdit->font();
     font.setWeight(QFont::Normal);
@@ -116,25 +116,10 @@ void PassWdEdit::initUI()
     setLayout(m_Layout);
     setGraphicsEffect(m_opacityEffect);
 
-    getFocusTimer = new QTimer(this);
-    getFocusTimer->setInterval(100);
-    connect(getFocusTimer,  &QTimer::timeout, this, &PassWdEdit::lineEditGrabKeyboard);
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/passwdedit.qss", this);
 #endif
 
-}
-
-void PassWdEdit::lineEditGrabKeyboard()
-{
-    //    qDebug() << "lineEditGrabKeyboard" << m_timerCount;
-    if (m_timerCount == 10) {
-        getFocusTimer->stop();
-        m_timerCount = 0;
-    } else {
-        m_timerCount++;
-        m_lineEdit->grabKeyboard();
-    }
 }
 
 void PassWdEdit::recordUserPassWd(bool isChoose, QString username)
@@ -179,6 +164,20 @@ void PassWdEdit::selectAll() const
     m_lineEdit->selectAll();
 }
 
+void PassWdEdit::keyReleaseEvent(QKeyEvent *event)
+{
+    QFrame::keyReleaseEvent(event);
+
+    switch (event->key()) {
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        emit submit();
+        break;
+    default:
+        break;
+    }
+}
+
 void PassWdEdit::initConnect()
 {
     connect(m_iconButton, &DImageButton::clicked, this, &PassWdEdit::submit);
@@ -193,58 +192,6 @@ void PassWdEdit::initConnect()
 
 void PassWdEdit::initData()
 {
-}
-
-void PassWdEdit::focusInEvent(QFocusEvent *)
-{
-    m_lineEdit->setFocus();
-    if (m_lineEdit->isReadOnly()) {
-        m_lineEdit->setReadOnly(false);
-    }
-}
-
-bool PassWdEdit::eventFilter(QObject *o, QEvent *e)
-{
-    if (!isEnabled()) return false;
-
-    if (o == m_lineEdit && (e->type() == QEvent::MouseButtonRelease ||
-                            e->type() == QEvent::KeyRelease)) {
-
-        if (m_lineEdit->isReadOnly()) {
-            m_lineEdit->setReadOnly(false);
-            setAlert(false);
-            m_lineEdit->setFocusPolicy(Qt::StrongFocus);
-
-            if (e->type() == QEvent::KeyRelease) {
-                QKeyEvent *event = static_cast<QKeyEvent *>(e);
-                qDebug() << "passwdedit:" << event->text();
-                if (event->text().length() == 1 && event->key() != Qt::Key_Escape &&
-                        event->key() != Qt::Key_Tab) {
-                    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
-                        m_lineEdit->setText("");
-                        m_alert_enter = true;
-                    } else if (event->key() == Qt::Key_Backspace) {
-                        m_lineEdit->setText("");
-                        m_alert_enter = m_alert_enter ? !m_alert_enter : m_alert_enter;
-                    } else {
-                        m_errorTooltip->hide();
-                        m_lineEdit->setText(event->text());
-                        m_alert_enter = m_alert_enter ? !m_alert_enter : m_alert_enter;
-                    }
-                    qDebug() << "m_lineEdit:" << m_lineEdit->text() << m_lineEdit->cursorPosition();
-                }
-            }
-        }
-    }
-    if (o == m_lineEdit && e->type() == QEvent::FocusIn) {
-        setAlert(false);
-    }
-
-    if (o == m_lineEdit && e->type() == QEvent::Show) {
-        getFocusTimer->start();
-    }
-
-    return false;
 }
 
 #ifndef SHENWEI_PLATFORM
@@ -263,6 +210,8 @@ void PassWdEdit::show()
     if (isVisible()) {
         return;
     }
+
+    m_lineEdit->setFocus();
 
     m_hideAni->stop();
     m_showAni->stop();
@@ -315,26 +264,6 @@ void PassWdEdit::setMessage(const QString &message)
 {
     m_lineEdit->setText("");
     m_lineEdit->setPlaceholderText(message);
-}
-
-void PassWdEdit::keyReleaseEvent(QKeyEvent *e)
-{
-    emit focusIn();
-
-    //    qDebug() << "PassWordEdit e->key:" << e->key();
-    switch (e->key()) {
-    case Qt::Key_Return:        /* submit */
-    case Qt::Key_Enter:
-        if (m_alert_enter) {
-            m_alert_enter = false;
-        } else {
-            emit submit();
-        }
-        break;
-    case Qt::Key_Left:          emit leftKeyPressed();      break;
-    case Qt::Key_Right:         emit rightKeyPressed();     break;
-    default:;
-    }
 }
 
 QString PassWdEdit::getText()
