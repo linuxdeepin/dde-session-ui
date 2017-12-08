@@ -29,7 +29,6 @@
 #include <QFile>
 #include <QDBusConnection>
 #include <QProcess>
-#include <unistd.h>
 
 #include "manager.h"
 #include "kblayoutindicator.h"
@@ -63,7 +62,7 @@ int main(int argc, char *argv[])
     }
 
     if (!QDBusConnection::sessionBus().registerService("com.deepin.dde.osd")
-            || !a.setSingleInstance(QString("dde-osd_%1").arg(getuid()))) {
+            || !a.setSingleInstance(QString("dde-osd"), DApplication::UserScope)) {
         if (!action.isEmpty()) {
             QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.osd / com.deepin.dde.osd.ShowOSD string:" + action);
         }
