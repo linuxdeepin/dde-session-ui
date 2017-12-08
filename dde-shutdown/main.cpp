@@ -71,7 +71,18 @@ int main(int argc, char* argv[])
     parser.process(app);
 
     QDBusConnection session = QDBusConnection::sessionBus();
-    if(session.registerService(DBUS_NAME)){
+    if(!session.registerService(DBUS_NAME) ||
+            !app.setSingleInstance(QString("dde-shutdown"), DApplication::UserScope)){
+        qWarning() << "dde-shutdown is running...";
+
+        if (!parser.isSet(daemon)) {
+            const char* interface = "com.deepin.dde.shutdownFront";
+            QDBusInterface ifc(DBUS_NAME, DBUS_PATH, interface, session, NULL);
+            ifc.asyncCall("Show");
+        }
+
+        return 0;
+    } else {
         qDebug() << "dbus registration success.";
 
         ShutdownFrame w;
@@ -83,16 +94,6 @@ int main(int argc, char* argv[])
         QDBusConnection::sessionBus().registerObject(DBUS_PATH, &w);
 
         return app.exec();
-    } else {
-        qWarning() << "dde-shutdown is running...";
-
-        if (!parser.isSet(daemon)) {
-            const char* interface = "com.deepin.dde.shutdownFront";
-            QDBusInterface ifc(DBUS_NAME, DBUS_PATH, interface, session, NULL);
-            ifc.asyncCall("Show");
-        }
-
-        return 0;
     }
 
     return app.exec();
