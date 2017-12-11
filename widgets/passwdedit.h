@@ -52,12 +52,6 @@ public:
     PassWdEdit(QWidget *parent = 0);
     ~PassWdEdit();
 
-    QMap<QString, QString> keybdLayoutMap;
-    QStringList keybdLayoutMainDescriptionList;
-    QMap<QString, QString> keybdLayoutShortDescriptionMap;
-
-    QStringList keyboardLayoutList;
-
 signals:
     void submit();
     void keybdLayoutButtonClicked();
