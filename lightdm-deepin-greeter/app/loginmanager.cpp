@@ -703,38 +703,6 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
     }
 }
 
-void LoginManager::leftKeyPressed() {
-    if (!m_userWidget->isHidden() && m_passWdEdit->isHidden()) {
-        m_userWidget->leftKeySwitchUser();
-    }
-//    if (!m_userWidget->isHidden() && !m_passWdEdit->isHidden() &&
-//            m_passWdEdit->getText().isEmpty()) {
-//        m_userWidget->leftKeySwitchUser();
-//    }
-    if (!m_requireShutdownWidget->isHidden()) {
-        m_requireShutdownWidget->leftKeySwitch();
-    }
-    if (!m_sessionWidget->isHidden()) {
-//        m_sessionWidget->leftKeySwitch();
-    }
-}
-
-void LoginManager::rightKeyPressed() {
-    if (!m_userWidget->isHidden() && m_passWdEdit->isHidden()) {
-        m_userWidget->rightKeySwitchUser();
-    }
-//   if (!m_userWidget->isHidden() && !m_passWdEdit->isHidden() &&
-//            m_passWdEdit->getText().isEmpty()) {
-//        m_userWidget->rightKeySwitchUser();
-//    }
-    if (!m_requireShutdownWidget->isHidden()) {
-        m_requireShutdownWidget->rightKeySwitch();
-    }
-    if (!m_sessionWidget->isHidden()) {
-//        m_sessionWidget->rightKeySwitch();
-    }
-}
-
 void LoginManager::saveNumlockStatus(const bool &on)
 {
     qDebug() << "save numlock statuc to " << on;

@@ -81,8 +81,6 @@ public slots:
     void updateBackground(QString username);
 
     void keybdLayoutWidgetPosit();
-    void leftKeyPressed();
-    void rightKeyPressed();
 
     void chooseUserMode();
     void onUnlockFinished(const bool unlocked);

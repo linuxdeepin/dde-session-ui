@@ -103,8 +103,6 @@ private:
     void setCurrentKeybdLayoutList(QString keyboard_value);
 
     void setShutdownAction(const ShutdownWidget::Actions action);
-    void leftKeyPressed();
-    void rightKeyPressed();
 
     void saveNumlockStatus(const bool &on);
     void restoreNumlockStatus();

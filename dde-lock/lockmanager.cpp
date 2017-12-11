@@ -91,42 +91,6 @@ void LockManager::keybdLayoutWidgetPosit()
     m_keybdLayoutWidget->show();
 }
 
-void LockManager::leftKeyPressed()
-{
-    if (!m_userWidget->isHidden() && m_passwordEdit->isHidden()) {
-        m_userWidget->leftKeySwitchUser();
-    }
-//    if (!m_userWidget->isHidden() && !m_passwordEdit->isHidden() &&
-//            m_passwordEdit->getText().isEmpty()) {
-//        m_userWidget->leftKeySwitchUser();
-//    }
-    if (!m_requireShutdownWidget->isHidden()) {
-        m_requireShutdownWidget->leftKeySwitch();
-    }
-}
-
-void LockManager::rightKeyPressed()
-{
-    if (!m_userWidget->isHidden() && m_passwordEdit->isHidden()) {
-        m_userWidget->rightKeySwitchUser();
-    }
-//    if (!m_userWidget->isHidden() && !m_passwordEdit->isHidden() &&
-//            m_passwordEdit->getText().isEmpty()) {
-//        m_userWidget->rightKeySwitchUser();
-//    }
-    if (!m_requireShutdownWidget->isHidden()) {
-        m_requireShutdownWidget->rightKeySwitch();
-    }
-}
-
-//void LockManager::onUserUnlock(const QString &username)
-//{
-//    qDebug()<< "recive message---------------------------";
-//    if (username == m_userWidget->currentUser()) {
-//        qApp->exit();
-//    }
-//}
-
 void LockManager::initUI()
 {
     setFocusPolicy(Qt::NoFocus);
