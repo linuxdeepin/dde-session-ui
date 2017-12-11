@@ -117,8 +117,6 @@ private:
     DBusHotzone* m_hotZoneInterface;
     const QString m_activatedUser;
 
-    QSize m_passwdEditSize;
-
     DBusMediaPlayer2 *m_mprisInter = nullptr;
     bool m_authenticating = false;
     bool m_isThumbAuth = false;

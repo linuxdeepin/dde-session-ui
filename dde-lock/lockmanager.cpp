@@ -41,8 +41,6 @@
 #include "lockframe.h"
 #include "dbus/dbuslockfront.h"
 
-static const QSize ZoreSize = QSize(0, 0);
-
 LockManager::LockManager(QWidget *parent)
     : QFrame(parent),
 
@@ -108,12 +106,13 @@ void LockManager::initUI()
                                      ":/img/action_icons/unlock_press.svg");
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
     m_passwordEdit->show();
-    m_passwdEditSize = m_passwordEdit->size();
 
     m_unlockButton = new QPushButton(this);
     m_unlockButton->setText(tr("Login"));
     m_unlockButton->setFixedSize(160, 36);
     m_unlockButton->hide();
+    m_unlockButton->setFocusPolicy(Qt::StrongFocus);
+    m_unlockButton->setDefault(true);
 
     m_requireShutdownWidget = new ShutdownWidget(this);
     m_requireShutdownWidget->hide();
@@ -386,12 +385,12 @@ void LockManager::checkUserIsNoPWGrp()
         qDebug() << groups;
 
         if (groups.contains("nopasswdlogin")) {
+            m_passwordEdit->hide();
             m_unlockButton->show();
-            m_passwordEdit->setFixedSize(ZoreSize);
         } else {
             m_lockInter->AuthenticateUser(m_activatedUser);
             m_unlockButton->hide();
-            m_passwordEdit->setFixedSize(m_passwdEditSize);
+            m_passwordEdit->show();
         }
 
         return;
@@ -468,11 +467,7 @@ void LockManager::passwordMode()
     m_userWidget->show();
     m_requireShutdownWidget->hide();
 
-    if (m_passwordEdit->size() != ZoreSize) {
-        m_passwordEdit->show();
-    } else {
-        m_unlockButton->show();
-    }
+    checkUserIsNoPWGrp();
 
     if (m_action == Suspend) {
         m_sessionManagerIter->RequestSuspend().waitForFinished();
