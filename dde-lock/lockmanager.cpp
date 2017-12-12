@@ -385,11 +385,11 @@ void LockManager::checkUserIsNoPWGrp()
         qDebug() << groups;
 
         if (groups.contains("nopasswdlogin")) {
-            m_passwordEdit->hide();
+            m_passwordEdit->setVisible(false);
             m_unlockButton->show();
         } else {
             m_lockInter->AuthenticateUser(m_activatedUser);
-            m_unlockButton->hide();
+            m_unlockButton->setVisible(false);
             m_passwordEdit->show();
         }
 

@@ -74,7 +74,6 @@ public slots:
 
 protected:
     void resizeEvent(QResizeEvent *e) override;
-    void keyPressEvent(QKeyEvent* e) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
 
 private:
@@ -126,7 +125,7 @@ private:
 
     QString m_lastUser;
     QPushButton *m_loginButton;
-    QSize m_passwdEditSize;
+
     QHBoxLayout *m_passWdEditLayout;
     bool m_isThumbAuth = false;
 };
