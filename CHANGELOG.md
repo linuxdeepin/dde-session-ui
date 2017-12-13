@@ -1,3 +1,20 @@
+<a name=""></a>
+##  4.2.0 (2017-12-13)
+
+
+#### Features
+
+* **dde-welcome:**  Set the mouse style to wait ([a527669e](https://github.com/linuxdeepin/dde-session-ui/commit/a527669ee745b7c0436c443946b26cba1ae6985e))
+* **welcome:**  support login animation ([6ddff51c](https://github.com/linuxdeepin/dde-session-ui/commit/6ddff51c99a2dc5c3b8a31a18f2fbeea8fc4fad6))
+
+#### Bug Fixes
+
+* **background:**  set default wallpaper when file not exist ([ec91fec9](https://github.com/linuxdeepin/dde-session-ui/commit/ec91fec98aea37d3f0a9ab502c223aeb3fd544f0))
+* **greeter:**  remove save last session ([ede40e91](https://github.com/linuxdeepin/dde-session-ui/commit/ede40e91752f8f86108fdacca0b3b0f1d1a634de))
+* **welcome:**  fit multi screen ([5eb57cc0](https://github.com/linuxdeepin/dde-session-ui/commit/5eb57cc013b7bf21b8a49884529ebd3fcb6d22b9))
+
+
+
 <a name="4.1.7"></a>
 ### 4.1.7 (2017-11-28)
 
