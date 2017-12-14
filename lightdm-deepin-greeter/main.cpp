@@ -25,7 +25,7 @@
 
 #include "loginwindow.h"
 
-#include <QApplication>
+#include <DApplication>
 #include <QtCore/QTranslator>
 #include <QLabel>
 #include <QProcess>
@@ -119,10 +119,12 @@ int main(int argc, char* argv[])
     QSettings settings("/etc/lightdm/lightdm-deepin-greeter.conf", QSettings::IniFormat);
     const auto ratio = settings.value("ScreenScaleFactor", "1").toString();
     setenv("QT_SCALE_FACTOR", const_cast<char *>(ratio.toStdString().c_str()), 1);
+    setenv("XCURSOR_SIZE", const_cast<char *>(QString::number(24.0 * ratio.toFloat()).toStdString().c_str()), 1);
 
     waitMonitorReady();
 
-    QApplication a(argc, argv);
+    DApplication::loadDXcbPlugin();
+    DApplication a(argc, argv);
     qApp->setOrganizationName("deepin");
     qApp->setApplicationName("lightdm-deepin-greeter");
     qApp->setApplicationVersion("2015.1.0");
