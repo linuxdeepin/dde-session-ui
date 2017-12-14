@@ -42,9 +42,9 @@
 #include "dbus/dbuslockfront.h"
 
 LockManager::LockManager(QWidget *parent)
-    : QFrame(parent),
-
-      m_activatedUser(UserWidget::loginUser())
+    : QFrame(parent)
+    , m_activatedUser(UserWidget::loginUser())
+    , m_userState(Passwd)
 {
     initUI();
     initConnect();
@@ -301,14 +301,10 @@ void LockManager::unlock()
         return;
     }
 
-    if (!m_passwordEdit->isVisible() && !m_unlockButton->isVisible())
-        return;
-
-//    qDebug() << "unlock" << m_userWidget->currentUser() << m_passwordEdit->getText();
     const QString &username = m_activatedUser;
     const QString &password = m_passwordEdit->getText();
 
-    if (password.isEmpty() && !m_unlockButton->isVisible())
+    if (password.isEmpty() && m_userState == Passwd)
         return;
 
     if (m_authenticating)
@@ -387,10 +383,12 @@ void LockManager::checkUserIsNoPWGrp()
         if (groups.contains("nopasswdlogin")) {
             m_passwordEdit->setVisible(false);
             m_unlockButton->show();
+            m_userState = NoPasswd;
         } else {
             m_lockInter->AuthenticateUser(m_activatedUser);
             m_unlockButton->setVisible(false);
             m_passwordEdit->show();
+            m_userState = Passwd;
         }
 
         return;
@@ -476,7 +474,7 @@ void LockManager::passwordMode()
     }
 
     if (m_action == Restart) {
-        if (!m_unlockButton->isVisible())
+        if (m_userState == Passwd)
             m_passwordEdit->setAlert(true, tr("Enter your password to reboot"));
         else
             m_unlockButton->setText(QApplication::translate("ShutdownWidget", "Reboot"));
@@ -484,7 +482,7 @@ void LockManager::passwordMode()
                                          ":/img/action_icons/reboot_hover.svg",
                                          ":/img/action_icons/reboot_press.svg");
     } else if (m_action == Shutdown) {
-        if (!m_unlockButton->isVisible())
+        if (m_userState == Passwd)
             m_passwordEdit->setAlert(true, tr("Enter your password to shutdown"));
         else
             m_unlockButton->setText(QApplication::translate("ShutdownWidget", "Shut down"));

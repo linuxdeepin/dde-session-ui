@@ -98,6 +98,12 @@ private:
     void checkUserIsNoPWGrp();
 
 private:
+    enum UserState {
+        Passwd,
+        NoPasswd
+    };
+
+private:
     Actions m_action = Unlock;
 
     ShutdownWidget* m_requireShutdownWidget;
@@ -120,6 +126,8 @@ private:
     DBusMediaPlayer2 *m_mprisInter = nullptr;
     bool m_authenticating = false;
     bool m_isThumbAuth = false;
+
+    UserState m_userState;
 
 };
 

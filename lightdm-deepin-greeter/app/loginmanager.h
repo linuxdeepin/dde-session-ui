@@ -56,6 +56,7 @@
 class LoginManager: public QFrame
 {
     Q_OBJECT
+
 public:
     LoginManager(QWidget* parent=0);
 
@@ -106,6 +107,11 @@ private:
     void saveNumlockStatus(const bool &on);
     void restoreNumlockStatus();
 
+    enum UserState {
+        Password,
+        NoPassword
+    };
+
     LogoWidget* m_logoWidget;
     UserWidget* m_userWidget;
     PassWdEdit* m_passWdEdit;
@@ -128,6 +134,7 @@ private:
 
     QHBoxLayout *m_passWdEditLayout;
     bool m_isThumbAuth = false;
+    UserState m_userState;
 };
 #endif // LoginManager
 

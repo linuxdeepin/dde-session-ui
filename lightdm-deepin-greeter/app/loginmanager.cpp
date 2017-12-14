@@ -193,9 +193,11 @@ void LoginManager::updateUserLoginCondition(QString username)
         if (groups.contains("nopasswdlogin")) {
             m_loginButton->show();
             m_loginButton->setFocus();
+            m_userState = NoPassword;
         } else {
             m_greeter->authenticate(m_userWidget->currentUser());
             m_passWdEdit->show();
+            m_userState = Password;
         }
     }
 }
@@ -478,7 +480,7 @@ void LoginManager::authenticationComplete()
 {
     qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
 
-    if (!m_greeter->isAuthenticated() && m_passWdEdit->isVisible()) {
+    if (!m_greeter->isAuthenticated() && m_userState == Password) {
         m_passWdEdit->selectAll();
         m_passWdEdit->setAlert(true, tr("Wrong Password"));
         return;
@@ -508,12 +510,12 @@ void LoginManager::login()
         return;
     }
 
-    if (!m_passWdEdit->isVisible() && !m_loginButton->isVisible())
+    if (m_passWdEdit->getText().isEmpty() && m_userState == Password)
         return;
 
     if (m_greeter->isAuthenticated())
         startSession();
-    else if (m_greeter->inAuthentication() && !m_loginButton->isVisible())
+    else if (m_greeter->inAuthentication() && m_userState == Password)
         m_greeter->respond(m_passWdEdit->getText());
     else
         authenticate();
