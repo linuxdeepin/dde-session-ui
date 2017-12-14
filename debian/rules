@@ -3,6 +3,7 @@
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
+export QT_SELECT=5
 
 include /usr/share/dpkg/default.mk
 

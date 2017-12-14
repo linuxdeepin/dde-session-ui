@@ -6,4 +6,5 @@ if [ "$1" = "remove" ];then
 	update-alternatives --remove lightdm-greeter /usr/share/xgreeters/lightdm-deepin-greeter.desktop
 fi
 
+#DEBHELPER#
 exit 0
