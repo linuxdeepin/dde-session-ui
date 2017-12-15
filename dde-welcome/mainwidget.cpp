@@ -112,6 +112,8 @@ static int set_rootwindow_cursor() {
 MainWidget::MainWidget(QWidget *parent)
     : FullscreenBackground(parent)
 {
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::SplashScreen);
+
     if (QFile::exists(QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first() + "/autostart/dde-first-run.desktop")) {
         m_isUpgrade = false;
 
@@ -140,8 +142,10 @@ MainWidget::MainWidget(QWidget *parent)
     }
 
 #ifdef QT_DEBUG
-    show();
-    grabKeyboard();
+    showFullScreen();
+    QTimer::singleShot(100, this, [=] {
+        grabKeyboard();
+    });
 #endif
 }
 
@@ -199,9 +203,9 @@ void MainWidget::dbus_show()
     if (!m_isUpgrade)
         return;
 
-    show();
+    showFullScreen();
 
-    QTimer::singleShot(1, this, [=] {
+    QTimer::singleShot(100, this, [=] {
         grabKeyboard();
     });
 }
