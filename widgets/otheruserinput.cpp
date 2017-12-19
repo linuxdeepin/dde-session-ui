@@ -10,8 +10,28 @@ OtherUserInput::OtherUserInput(QWidget *parent)
     initUI();
 }
 
+void OtherUserInput::setAlert(const QString &alert)
+{
+    if (alert.isEmpty()) {
+        m_errorTip->hide();
+    } else {
+        m_errorTip->setMessage(alert);
+
+        QPoint pos = mapTo(m_errorTip->parentWidget(),
+                           QPoint(-20, height() - 10));
+
+        m_errorTip->setCornerPoint(QPoint(30, height() - 13));
+        m_errorTip->moveToPos(pos);
+        m_errorTip->setVisible(true);
+    }
+}
+
 void OtherUserInput::initUI()
 {
+    m_errorTip = new ErrorTooltip("", this->parentWidget());
+
+    m_errorTip->hide();
+
     setAttribute(Qt::WA_TranslucentBackground);
 
     setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2);
@@ -61,5 +81,5 @@ void OtherUserInput::initUI()
 
 void OtherUserInput::initConnect()
 {
-
+    connect(m_submitBtn, &DImageButton::clicked, this, &OtherUserInput::submit);
 }

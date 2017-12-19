@@ -1,6 +1,8 @@
 #ifndef OTHERUSERINPUT_H
 #define OTHERUSERINPUT_H
 
+#include "errortooltip.h"
+
 #include <QFrame>
 #include <QLineEdit>
 #include <dimagebutton.h>
@@ -19,6 +21,9 @@ public:
 signals:
     void submit();
 
+public slots:
+    void setAlert(const QString &alert);
+
 private:
     void initUI();
     void initConnect();
@@ -27,6 +32,7 @@ private:
     QLineEdit *m_accountEdit;
     QLineEdit *m_passwdEdit;
     DImageButton *m_submitBtn;
+    ErrorTooltip *m_errorTip;
 };
 
 #endif // OTHERUSERINPUT_H
