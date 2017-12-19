@@ -65,7 +65,7 @@ public:
     const QStringList getUserKBHistory(const QString &username);
     const QString getUserKBLayout(const QString &username);
     const QString getDisplayName(const QString &username);
-    const QString getUserDesktopBackground(const QString &username);
+    const QStringList getUserDesktopBackground(const QString &username);
 
     void setUserKBlayout(const QString &username, const QString &layout);
 

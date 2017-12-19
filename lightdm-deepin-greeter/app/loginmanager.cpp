@@ -210,15 +210,19 @@ void LoginManager::startSession()
 
     hide();
 
-    // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
-    const QString &desktop = m_userWidget->getUserDesktopBackground(m_userWidget->currentUser());
-    QUrl url(desktop);
-    QPixmap pixmap(url.toLocalFile());
+    const QStringList &wallpaper = m_userWidget->getUserDesktopBackground(m_userWidget->currentUser());
 
-    if (pixmap.isNull())
-        pixmap.load(desktop);
+    if (!wallpaper.isEmpty()) {
+        // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
+        const QString &desktop = wallpaper.first();
+        QUrl url(desktop);
+        QPixmap pixmap(url.toLocalFile());
 
-    emit requestBackground(pixmap);
+        if (pixmap.isNull())
+            pixmap.load(desktop);
+
+        emit requestBackground(pixmap);
+    }
 
     QTimer::singleShot(1000, this, [=] {
         // NOTE(kirigaya): Login animation duration is 1s.
