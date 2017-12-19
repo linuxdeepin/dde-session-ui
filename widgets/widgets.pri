@@ -23,7 +23,8 @@ HEADERS += \
     $$PWD/keyboardmonitor.h \
     $$PWD/mediawidget.h \
     $$PWD/controlwidget.h \
-    $$PWD/fullscreenbackground.h
+    $$PWD/fullscreenbackground.h \
+    $$PWD/otheruserinput.h
 
 
 
@@ -42,7 +43,8 @@ SOURCES += \
     $$PWD/keyboardmonitor.cpp \
     $$PWD/mediawidget.cpp \
     $$PWD/controlwidget.cpp \
-    $$PWD/fullscreenbackground.cpp
+    $$PWD/fullscreenbackground.cpp \
+    $$PWD/otheruserinput.cpp
 
 RESOURCES += \
     $$PWD/widgetstheme.qrc \
