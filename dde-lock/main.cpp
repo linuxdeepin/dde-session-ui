@@ -46,9 +46,6 @@ int main(int argc, char *argv[])
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
-    if (!app.setSingleInstance(QString("dde-lock"), DApplication::UserScope))
-        return -1;
-
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app.installTranslator(&translator);
@@ -72,7 +69,8 @@ int main(int argc, char *argv[])
 
     QDBusConnection conn = QDBusConnection::sessionBus();
     if (!conn.registerService(DBUS_NAME) ||
-        !conn.registerObject("/com/deepin/dde/lockFront", &lockFrame)) {
+            !conn.registerObject("/com/deepin/dde/lockFront", &lockFrame) ||
+            !app.setSingleInstance(QString("dde-lock"), DApplication::UserScope)) {
         qDebug() << "register dbus failed"<< "maybe lockFront is running..." << conn.lastError();
 
         if (!runDaemon) {

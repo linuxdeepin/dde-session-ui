@@ -58,6 +58,8 @@ void UserAvatar::setIcon(const QString &iconPath, const QSize &size)
 
     if (url.isLocalFile())
         m_iconPath = url.path();
+    else
+        m_iconPath = iconPath;
 
     if (size.isEmpty())
         m_iconLabel->setFixedSize(NORMAL_ICON_SIZE, NORMAL_ICON_SIZE);

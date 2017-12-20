@@ -44,7 +44,9 @@ UserButton::UserButton(QWidget *parent)
 }
 
 void UserButton::initConnect() {
-    connect(m_userAvatar, &UserAvatar::clicked, this, &UserButton::sendClicked);
+    connect(m_userAvatar, &UserAvatar::clicked, this, [=] {
+        emit imageClicked(m_username);
+    });
 }
 
 void UserButton::initUI() {
@@ -97,10 +99,6 @@ void UserButton::initUI() {
     m_opacityEffect = new QGraphicsOpacityEffect;
 
     connect(this, &UserButton::opacityChanged, &UserButton::setCustomEffect);
-}
-
-void UserButton::sendClicked() {
-    emit imageClicked(name());
 }
 
 void UserButton::setImageSize(const AvatarSize &avatarsize) {

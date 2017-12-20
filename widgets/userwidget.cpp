@@ -172,8 +172,20 @@ void UserWidget::onUserRemoved(const QString &name)
 
 void UserWidget::onLoginUserListChanged(const QString &value)
 {
-    setCurrentUser(currentUser());
-    updateCurrentUserPos();
+    QTimer::singleShot(100, this, [=] {
+        struct passwd *pws;
+        pws = getpwuid(getuid());
+
+        UserButton *button = getUserByName(pws->pw_name);
+
+        qDebug() << button;
+
+        if (!button)
+            initOtherUser();
+
+        updateCurrentUserPos();
+        setCurrentUser(currentUser());
+    });
 
     QJsonDocument doc = QJsonDocument::fromJson(value.toUtf8());
 
@@ -214,6 +226,30 @@ void UserWidget::updateCurrentUserPos(const int duration) const
         user->move(rect().center() - user->rect().center(), duration);
 }
 
+void UserWidget::initOtherUser()
+{
+    struct passwd *pws;
+    pws = getpwuid(getuid());
+
+    UserButton *user = new UserButton(this);
+    user->updateUserName(pws->pw_name);
+    user->updateDisplayName(pws->pw_name);
+    user->updateGreeterWallpaper("/usr/share/backgrounds/deepin/desktop.jpg");
+    user->updateAutoLogin(false);
+    user->updateAvatar(":/img/dde.svg");
+    user->updateKbHistory(QStringList());
+    user->updateKbLayout("");
+    user->updateBackgrounds(QStringList() << "/usr/share/backgrounds/deepin/desktop.jpg");
+    user->setDBus(nullptr);
+
+    connect(user, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
+
+    m_userBtns << user;
+
+    updateCurrentUserPos();
+    setCurrentUser(currentUser());
+}
+
 void UserWidget::setCurrentUser(const QString &username)
 {
     qDebug() << username << sender();
@@ -229,6 +265,7 @@ void UserWidget::setCurrentUser(const QString &username)
             user->setButtonChecked(false);
             user->setSelected(false);
             user->show();
+            m_currentBtns = user;
         } else
             user->hide(180);
     }

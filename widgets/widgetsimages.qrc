@@ -117,5 +117,6 @@
         <file>img/sessions/unknow_indicator_hover.svg</file>
         <file>img/sessions/unknow_indicator_normal.svg</file>
         <file>img/sessions/unknow_indicator_press.svg</file>
+        <file>img/dde.svg</file>
     </qresource>
 </RCC>

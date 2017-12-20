@@ -73,7 +73,6 @@ signals:
     void opacityChanged();
 
 public slots:
-    void sendClicked();
     void setImageSize(const AvatarSize &avatarsize);
     void setButtonChecked(bool checked);
 
