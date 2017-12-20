@@ -53,6 +53,7 @@
 
 #include "darrowrectangle.h"
 
+class OtherUserInput;
 class LoginManager: public QFrame
 {
     Q_OBJECT
@@ -131,10 +132,12 @@ private:
 
     QString m_lastUser;
     QPushButton *m_loginButton;
-
+    OtherUserInput *m_otherUserInput;
     QHBoxLayout *m_passWdEditLayout;
     bool m_isThumbAuth = false;
     UserState m_userState;
+    QString m_accountStr;
+    QString m_passwdStr;
 };
 #endif // LoginManager
 

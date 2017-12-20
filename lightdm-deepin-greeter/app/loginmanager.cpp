@@ -40,6 +40,7 @@
 #include <X11/Xcursor/Xcursor.h>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
+#include "otheruserinput.h"
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
@@ -299,6 +300,10 @@ void LoginManager::initUI()
     m_Layout->setSpacing(0);
     m_Layout->addStretch();
     m_Layout->addLayout(m_passWdEditLayout);
+
+    m_otherUserInput = new OtherUserInput(this);
+    m_otherUserInput->hide();
+    m_Layout->addWidget(m_otherUserInput, 0, Qt::AlignCenter);
     m_Layout->addStretch();
 
 //    QWidget *centralWidget = new QWidget;
@@ -349,7 +354,11 @@ void LoginManager::initConnect()
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_controlWidget, &ControlWidget::chooseToSession, Qt::QueuedConnection);
 
-    connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::login);
+    connect(m_passWdEdit, &PassWdEdit::submit, this, [=] {
+        m_accountStr = m_userWidget->currentUser();
+        m_passwdStr = m_passWdEdit->getText();
+        login();
+    });
     connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
 
         qDebug()<<"selected user: " << username;
@@ -391,6 +400,12 @@ void LoginManager::initConnect()
     connect(m_loginButton, &QPushButton::clicked, this, &LoginManager::login);
 
     connect(m_keyboardMonitor, &KeyboardMonitor::numlockStatusChanged, this, &LoginManager::saveNumlockStatus);
+
+    connect(m_otherUserInput, &OtherUserInput::submit, this, [=] {
+        m_accountStr = m_otherUserInput->account();
+        m_passwdStr = m_otherUserInput->passwd();
+        login();
+    });
 }
 
 void LoginManager::initDateAndUpdate() {
@@ -514,25 +529,23 @@ void LoginManager::login()
         return;
     }
 
-    if (m_passWdEdit->getText().isEmpty() && m_userState == Password)
+    if (m_passwdStr.isEmpty() && m_userState == Password)
         return;
 
     if (m_greeter->isAuthenticated())
         startSession();
     else if (m_greeter->inAuthentication() && m_userState == Password)
-        m_greeter->respond(m_passWdEdit->getText());
+        m_greeter->respond(m_passwdStr);
     else
         authenticate();
 }
 
 void LoginManager::authenticate()
 {
-    const QString &username = m_userWidget->currentUser();
-
     if (m_greeter->inAuthentication())
         m_greeter->cancelAuthentication();
 
-    m_greeter->authenticate(username);
+    m_greeter->authenticate(m_accountStr);
 
     qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
 }
