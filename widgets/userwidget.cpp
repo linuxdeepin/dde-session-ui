@@ -113,14 +113,33 @@ void UserWidget::onUserAdded(const QString &path)
         return;
 
     DBusUser *user = new DBusUser(ACCOUNT_DBUS_SERVICE, path, QDBusConnection::systemBus(), this);
+    user->setSync(false);
 
     m_userDbus.insert(path, user);
 
-    UserButton *userBtn = new UserButton(user);
+    UserButton *userBtn = new UserButton(this);
     userBtn->setVisible(userBtn->name() == m_currentUser);
     userBtn->setParent(this);
 
     connect(userBtn, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
+    connect(user, &__User::UserNameChanged, userBtn, &UserButton::updateUserName);
+    connect(user, &__User::FullNameChanged, userBtn, &UserButton::updateDisplayName);
+    connect(user, &__User::GreeterBackgroundChanged, userBtn, &UserButton::updateGreeterWallpaper);
+    connect(user, &__User::AutomaticLoginChanged, userBtn, &UserButton::updateAutoLogin);
+    connect(user, &__User::DesktopBackgroundsChanged, userBtn, &UserButton::updateBackgrounds);
+    connect(user, &__User::HistoryLayoutChanged, userBtn, &UserButton::updateKbHistory);
+    connect(user, &__User::LayoutChanged, userBtn, &UserButton::updateKbLayout);
+    connect(user, &__User::IconFileChanged, userBtn, &UserButton::updateAvatar);
+
+    userBtn->updateUserName(user->userName());
+    userBtn->updateDisplayName(user->fullName());
+    userBtn->updateGreeterWallpaper(user->greeterBackground());
+    userBtn->updateAutoLogin(user->automaticLogin());
+    userBtn->updateAvatar(user->iconFile());
+    userBtn->updateKbHistory(user->historyLayout());
+    userBtn->updateKbLayout(user->layout());
+    userBtn->updateBackgrounds(user->desktopBackgrounds());
+    userBtn->setDBus(user);
 
     m_userBtns.append(userBtn);
 
@@ -153,6 +172,9 @@ void UserWidget::onUserRemoved(const QString &name)
 
 void UserWidget::onLoginUserListChanged(const QString &value)
 {
+    setCurrentUser(currentUser());
+    updateCurrentUserPos();
+
     QJsonDocument doc = QJsonDocument::fromJson(value.toUtf8());
 
     QJsonObject obj = doc.object();
@@ -182,8 +204,6 @@ UserButton *UserWidget::getUserByName(const QString &username)
     for (UserButton *button : m_userBtns)
         if (button->name() == username)
             return button;
-
-    Q_UNREACHABLE();
 
     return nullptr;
 }
@@ -447,6 +467,6 @@ const QStringList UserWidget::getUserDesktopBackground(const QString &username)
 void UserWidget::setUserKBlayout(const QString &username, const QString &layout)
 {
     UserButton *user = getUserByName(username);
-    if (user)
-        user->setKbLayout(layout);
+    if (user && user->dbus())
+        user->dbus()->SetLayout(layout);
 }

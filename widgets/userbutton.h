@@ -48,9 +48,8 @@ class UserButton:public QPushButton
     Q_OBJECT
     Q_PROPERTY(double opacity READ opacity WRITE setOpacity NOTIFY opacityChanged)
 public:
-    UserButton(DBusUser *user, QWidget* parent=0);
+    UserButton(QWidget* parent=0);
     ~UserButton();
-
 
     enum AvatarSize {
         AvatarSmallSize = 90,
@@ -67,6 +66,7 @@ public:
     const QString kblayout();
     const QString displayName() const;
     const QStringList backgrounds() const;
+    DBusUser *dbus() const;
 
 signals:
     void imageClicked(QString nam);
@@ -88,7 +88,15 @@ public slots:
     void setCustomEffect();
     void addTextShadowAfter();
 
-    void setKbLayout(const QString &layout);
+    void updateUserName(const QString &username);
+    void updateAvatar(const QString &avatar);
+    void updateBackgrounds(const QStringList &list);
+    void updateGreeterWallpaper(const QString &greeter);
+    void updateDisplayName(const QString &displayname);
+    void updateAutoLogin(bool autologin);
+    void updateKbLayout(const QString &layout);
+    void updateKbHistory(const QStringList &history);
+    void setDBus(DBusUser *dbus);
 
 protected:
     void paintEvent(QPaintEvent* event);
@@ -99,7 +107,16 @@ private:
     void updateUserDisplayName(const QString &name);
 
 private:
-    DBusUser *m_user;
+    QString m_username;
+    QString m_avatar;
+    QStringList m_backgrounds;
+    QString m_greeterWallpaper;
+    QString m_kbLayout;
+    QString m_displayName;
+    bool m_isAutoLogin;
+    QStringList m_kbHistory;
+    DBusUser *m_dbus;
+
     bool m_selected = false;
     UserAvatar* m_userAvatar;
     QLabel* m_textLabel;
