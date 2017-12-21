@@ -147,10 +147,12 @@ LoginManager::LoginManager(QWidget* parent)
     const QString u = m_userWidget->currentUser();
     qDebug() << Q_FUNC_INFO << "current user: " << u;
 
-    m_sessionWidget->switchToUser(u);
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
 
-    QTimer::singleShot(1, this, [=] { updateBackground(u); });
+    QTimer::singleShot(1, this, [=] {
+        const QString &user = m_userWidget->currentUser();
+        updateUserLoginCondition(user);
+    });
 }
 
 void LoginManager::updateWidgetsPosition()
@@ -386,9 +388,9 @@ void LoginManager::initConnect()
             return;
         }
 
-        m_sessionWidget->switchToUser(username);
-
         updateBackground(username);
+
+        m_sessionWidget->switchToUser(username);
     });
 
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
@@ -412,6 +414,19 @@ void LoginManager::initConnect()
         // NOTE(kirigaya): set auth user and respond password need some time!
         QTimer::singleShot(100, this, SLOT(login()));
     });
+
+    connect(m_userWidget, &UserWidget::otherUserLogin, this, [=] {
+        m_otherUserInput->show();
+        m_passWdEdit->hide();
+        m_loginButton->hide();
+        m_sessionWidget->hide();
+        m_userWidget->hide();
+        m_requireShutdownWidget->hide();
+        m_greeter->authenticate("");
+    });
+
+    connect(m_userWidget, &UserWidget::currentUserBackgroundChanged,
+            this, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground));
 }
 
 void LoginManager::initDateAndUpdate() {

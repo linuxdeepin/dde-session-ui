@@ -73,8 +73,11 @@ signals:
     void userChanged(const QString &username);
     void chooseUserModeChanged(bool isChoose, QString curUser);
     void otherUserLogin();
+    void currentUserBackgroundChanged(const QString &background);
+    void currentUserNameChanged(const QString &background);
 
 public slots:
+    void updateCurrentUser(const QString &username);
     void setCurrentUser(const QString &username);
     void expandWidget();
     void saveLastUser();

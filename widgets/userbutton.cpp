@@ -57,7 +57,7 @@ void UserButton::initUI() {
     m_userAvatar->setFixedSize(120, 120);
 
     m_textLabel = new QLabel;
-    m_textLabel->setFixedHeight(30);
+    m_textLabel->setFixedSize(120, 30);
     m_textLabel->setStyleSheet("text-align:center; color: white;");
 
     m_checkedMark = new QLabel;

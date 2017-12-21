@@ -75,6 +75,16 @@ void LockManager::initConnect()
     });
 
     connect(m_unlockButton, &QPushButton::clicked, this, &LockManager::unlock);
+    connect(m_userWidget, &UserWidget::otherUserLogin, this, [=] {
+        QProcess *process = new QProcess;
+        connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
+        process->start("dbus-send --print-reply --system --dest=org.freedesktop.DisplayManager "
+                       "/org/freedesktop/DisplayManager/Seat0 org.freedesktop.DisplayManager.Seat.SwitchToGreeter");
+    });
+
+    connect(m_userWidget, &UserWidget::currentUserBackgroundChanged, this, [=] {
+        updateBackground(m_userWidget->currentUser());
+    });
 }
 
 void LockManager::keybdLayoutWidgetPosit()
@@ -176,11 +186,7 @@ void LockManager::initUI()
         }
 
         checkUserIsNoPWGrp();
-
-        updateBackground(m_activatedUser);
     });
-
-    updateBackground(m_activatedUser);
 }
 
 void LockManager::updateWidgetsPosition()

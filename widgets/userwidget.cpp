@@ -71,11 +71,6 @@ UserWidget::~UserWidget()
 
 void UserWidget::initUI()
 {
-    for (DBusUser *inter : m_userDbus.values()) {
-        if (!inter->locked() && !m_whiteList.contains(inter->userName()))
-            m_whiteList.append(inter->userName());
-    }
-
     setCurrentUser(currentUser());
 
     const int count = m_userBtns.count();
@@ -118,18 +113,28 @@ void UserWidget::onUserAdded(const QString &path)
     m_userDbus.insert(path, user);
 
     UserButton *userBtn = new UserButton(this);
+
+    m_userBtns.append(userBtn);
+
     userBtn->setVisible(userBtn->name() == m_currentUser);
     userBtn->setParent(this);
 
-    connect(userBtn, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
-    connect(user, &__User::UserNameChanged, userBtn, &UserButton::updateUserName);
+    connect(userBtn, &UserButton::imageClicked, this, &UserWidget::updateCurrentUser);
     connect(user, &__User::FullNameChanged, userBtn, &UserButton::updateDisplayName);
-    connect(user, &__User::GreeterBackgroundChanged, userBtn, &UserButton::updateGreeterWallpaper);
     connect(user, &__User::AutomaticLoginChanged, userBtn, &UserButton::updateAutoLogin);
     connect(user, &__User::DesktopBackgroundsChanged, userBtn, &UserButton::updateBackgrounds);
     connect(user, &__User::HistoryLayoutChanged, userBtn, &UserButton::updateKbHistory);
     connect(user, &__User::LayoutChanged, userBtn, &UserButton::updateKbLayout);
     connect(user, &__User::IconFileChanged, userBtn, &UserButton::updateAvatar);
+    connect(user, &__User::UserNameChanged, userBtn, &UserButton::updateUserName);
+    connect(user, &__User::GreeterBackgroundChanged, this, [=] (const QString &background) {
+        userBtn->updateGreeterWallpaper(background);
+        if (userBtn->name() == m_currentUser)
+            emit currentUserBackgroundChanged(background);
+
+        if (m_currentUser.isEmpty())
+            emit currentUserBackgroundChanged(m_userBtns.first()->greeter());
+    });
 
     userBtn->updateUserName(user->userName());
     userBtn->updateDisplayName(user->fullName());
@@ -141,7 +146,6 @@ void UserWidget::onUserAdded(const QString &path)
     userBtn->updateBackgrounds(user->desktopBackgrounds());
     userBtn->setDBus(user);
 
-    m_userBtns.append(userBtn);
 
     onLoginUserListChanged(m_dbusLogined->userList());
 }
@@ -175,7 +179,7 @@ void UserWidget::onLoginUserListChanged(const QString &value)
     // NOTE(kirigaya): check in AD Domain
     QProcess *process = new QProcess(this);
     connect(process, &QProcess::readyReadStandardOutput, this, [=] {
-        QRegularExpression re("Name:\\s+(ADS\\\\\\w+)");
+        QRegularExpression re("Name:\\s");
         QRegularExpressionMatchIterator i = re.globalMatch(process->readAll());
 
         if (i.hasNext()) {
@@ -224,6 +228,11 @@ void UserWidget::onLoginUserListChanged(const QString &value)
         }
     }
 
+    m_whiteList.clear();
+    for (DBusUser *inter : m_userDbus.values()) {
+        if (!inter->locked() && !m_whiteList.contains(inter->userName()))
+            m_whiteList.append(inter->userName());
+    }
 }
 
 UserButton *UserWidget::getUserByName(const QString &username)
@@ -254,7 +263,7 @@ void UserWidget::initOtherUser(const QString &username)
     user->updateBackgrounds(QStringList() << "/usr/share/backgrounds/deepin/desktop.jpg");
     user->setDBus(nullptr);
 
-    connect(user, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
+    connect(user, &UserButton::imageClicked, this, &UserWidget::updateCurrentUser);
 
     m_userBtns << user;
 }
@@ -278,11 +287,21 @@ void UserWidget::initADLogin()
     m_adLoginBtn->setDBus(nullptr);
 
     connect(m_adLoginBtn, &UserButton::imageClicked, this, [=] {
-        setCurrentUser(currentUser());
+        if (m_currentUser != username) {
+            updateCurrentUser(username);
+        }
         emit otherUserLogin();
     });
 
     m_userBtns << m_adLoginBtn;
+}
+
+void UserWidget::updateCurrentUser(const QString &username)
+{
+    qDebug() << username << sender();
+
+    setCurrentUser(username);
+    emit userChanged(m_currentUser);
 }
 
 void UserWidget::setCurrentUser(const QString &username)
@@ -305,7 +324,7 @@ void UserWidget::setCurrentUser(const QString &username)
             user->hide(180);
     }
 
-    emit userChanged(m_currentUser);
+    emit currentUserNameChanged(m_currentUser);
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
 
@@ -408,12 +427,12 @@ void UserWidget::chooseButtonChecked() {
     bool checkedBtsExist = false;
     for (UserButton* user: m_userBtns) {
         if (user->selected()) {
-            setCurrentUser(user->name());
+            updateCurrentUser(user->name());
             checkedBtsExist = true;
         }
     }
     if (!checkedBtsExist) {
-        setCurrentUser(m_currentUser);
+        updateCurrentUser(m_currentUser);
     }
 }
 
