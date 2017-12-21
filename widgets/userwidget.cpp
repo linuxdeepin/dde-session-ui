@@ -176,13 +176,17 @@ void UserWidget::onLoginUserListChanged(const QString &value)
         struct passwd *pws;
         pws = getpwuid(getuid());
 
-        UserButton *button = getUserByName(pws->pw_name);
+        if (QString(pws->pw_name) != "lightdm") {
+            UserButton *button = getUserByName(pws->pw_name);
 
-        qDebug() << button;
+            if (!button)
+                initOtherUser();
+        }
 
-        if (!button)
-            initOtherUser();
+    });
 
+    // NOTE(kirigaya): wait for some time to update the position;
+    QTimer::singleShot(100, this, [=] {
         updateCurrentUserPos();
         setCurrentUser(currentUser());
     });
@@ -209,6 +213,7 @@ void UserWidget::onLoginUserListChanged(const QString &value)
             m_loggedInUsers << user->userName();
         }
     }
+
 }
 
 UserButton *UserWidget::getUserByName(const QString &username)

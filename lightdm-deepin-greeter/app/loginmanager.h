@@ -78,6 +78,9 @@ protected:
     void resizeEvent(QResizeEvent *e) override;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
 
+private slots:
+    void login();
+
 private:
 //    void recordPid();
     void initUI();
@@ -92,7 +95,6 @@ private:
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
 
-    void login();
 
     void chooseUserMode();
     void chooseSessionMode();

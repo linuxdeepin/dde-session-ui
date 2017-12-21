@@ -50,6 +50,11 @@ void ControlWidget::initUI()
     m_switchUserBtn->setHoverPic(":/img/bottom_actions/userswitch_hover.svg");
     m_switchUserBtn->setPressPic(":/img/bottom_actions/userswitch_press.svg");
 
+    m_otherUserBtn = new DImageButton;
+    m_otherUserBtn->setNormalPic(":/img/dde.svg");
+    m_otherUserBtn->setHoverPic(":/img/dde.svg");
+    m_otherUserBtn->setPressPic(":/img/dde.svg");
+
     m_powerBtn = new DImageButton;
     m_powerBtn->setNormalPic(":/img/bottom_actions/shutdown_normal.svg");
     m_powerBtn->setHoverPic(":/img/bottom_actions/shutdown_hover.svg");
@@ -59,6 +64,7 @@ void ControlWidget::initUI()
     m_mainLayout->setSpacing(26);
     m_mainLayout->addWidget(m_switchUserBtn);
     m_mainLayout->setAlignment(m_switchUserBtn, Qt::AlignBottom);
+    m_mainLayout->addWidget(m_otherUserBtn, 0, Qt::AlignBottom);
     m_mainLayout->addWidget(m_powerBtn);
     m_mainLayout->setAlignment(m_powerBtn, Qt::AlignBottom);
     m_mainLayout->addSpacing(28);
@@ -71,6 +77,7 @@ void ControlWidget::initConnect()
 {
     connect(m_switchUserBtn, &DImageButton::clicked, this, &ControlWidget::requestSwitchUser);
     connect(m_powerBtn, &DImageButton::clicked, this, &ControlWidget::requestShutdown);
+    connect(m_otherUserBtn, &DImageButton::clicked, this, &ControlWidget::requestOtherUser);
 }
 
 void ControlWidget::showTips()

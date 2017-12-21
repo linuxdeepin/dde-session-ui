@@ -357,7 +357,10 @@ void LoginManager::initConnect()
     connect(m_passWdEdit, &PassWdEdit::submit, this, [=] {
         m_accountStr = m_userWidget->currentUser();
         m_passwdStr = m_passWdEdit->getText();
-        login();
+        m_greeter->authenticate(m_accountStr);
+
+        // NOTE(kirigaya): set auth user and respond password need some time!
+        QTimer::singleShot(100, this, SLOT(login()));
     });
     connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
 
@@ -404,7 +407,20 @@ void LoginManager::initConnect()
     connect(m_otherUserInput, &OtherUserInput::submit, this, [=] {
         m_accountStr = m_otherUserInput->account();
         m_passwdStr = m_otherUserInput->passwd();
-        login();
+        m_greeter->authenticate(m_accountStr);
+
+        // NOTE(kirigaya): set auth user and respond password need some time!
+        QTimer::singleShot(100, this, SLOT(login()));
+    });
+
+    connect(m_controlWidget, &ControlWidget::requestOtherUser, this, [=] {
+        m_otherUserInput->show();
+        m_passWdEdit->hide();
+        m_loginButton->hide();
+        m_sessionWidget->hide();
+        m_userWidget->hide();
+        m_requireShutdownWidget->hide();
+        m_greeter->authenticate("");
     });
 }
 
@@ -480,8 +496,8 @@ void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
         if (m_isThumbAuth)
             return;
 
-        if (msg.isEmpty() && !m_passWdEdit->getText().isEmpty())
-            m_greeter->respond(m_passWdEdit->getText());
+        if (msg.isEmpty() && !m_passwdStr.isEmpty())
+            m_greeter->respond(m_passwdStr);
 
         if (!msg.isEmpty())
             m_passWdEdit->setMessage(msg);
@@ -532,12 +548,13 @@ void LoginManager::login()
     if (m_passwdStr.isEmpty() && m_userState == Password)
         return;
 
-    if (m_greeter->isAuthenticated())
+    if (m_greeter->isAuthenticated()) {
         startSession();
-    else if (m_greeter->inAuthentication() && m_userState == Password)
+    } else if (m_greeter->inAuthentication() && m_userState == Password) {
         m_greeter->respond(m_passwdStr);
-    else
+    } else {
         authenticate();
+    }
 }
 
 void LoginManager::authenticate()
@@ -557,6 +574,7 @@ void LoginManager::chooseUserMode()
     m_sessionWidget->hide();
     m_userWidget->show();
     m_requireShutdownWidget->hide();
+    m_otherUserInput->hide();
 }
 
 void LoginManager::chooseSessionMode()
@@ -565,6 +583,7 @@ void LoginManager::chooseSessionMode()
     m_userWidget->hide();
     m_passWdEdit->hide();
     m_loginButton->hide();
+    m_otherUserInput->hide();
     m_requireShutdownWidget->hide();
     if (!m_keybdArrowWidget->isHidden()) {
         m_keybdArrowWidget->hide();
@@ -590,6 +609,7 @@ void LoginManager::showShutdownFrame() {
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_requireShutdownWidget->show();
+    m_otherUserInput->hide();
 }
 
 void LoginManager::keyboardLayoutUI() {

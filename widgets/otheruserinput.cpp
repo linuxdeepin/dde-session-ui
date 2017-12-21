@@ -8,6 +8,7 @@ OtherUserInput::OtherUserInput(QWidget *parent)
     : QFrame(parent)
 {
     initUI();
+    initConnect();
 }
 
 void OtherUserInput::setAlert(const QString &alert)
