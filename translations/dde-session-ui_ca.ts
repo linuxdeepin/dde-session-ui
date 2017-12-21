@@ -2,67 +2,131 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="261"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="307"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="337"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="458"/>
         <source>Shut down</source>
-        <translation>Apagar</translation>
+        <translation>Atura</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="263"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="312"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="293"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="342"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="461"/>
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Reinicia</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="308"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
         <source>Are you sure to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Segur que voleu que s&apos;aturi?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Segur que voleu que es reiniciï?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="347"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="470"/>
         <source>Log out</source>
-        <translation>Tancar sessió</translation>
+        <translation>Surt de la sessió</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="318"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="348"/>
         <source>Are you sure to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Segur que voleu sortir de la sessió?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="464"/>
         <source>Suspend</source>
-        <translation>Suspendre</translation>
+        <translation>Suspèn</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="467"/>
         <source>Lock</source>
-        <translation>Bloquejar</translation>
+        <translation>Bloqueja</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="474"/>
         <source>Switch user</source>
-        <translation>Canviar d&apos;usuari</translation>
+        <translation>Canvia d&apos;usuari</translation>
+    </message>
+</context>
+<context>
+    <name>DMemoryWarningDialog</name>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
+        <source>Cancel</source>
+        <translation>Cancel·la</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
+        <source>Release</source>
+        <translation>Versió</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
+        <source>This application will be ended, please make sure your data has been saved!</source>
+        <translation>Aquesta aplicació es tancarà. Si us plau, assegureu-vos que les dades s&apos;hagin desat!</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
+        <source>Please save your document, text and spreadsheet</source>
+        <translation>Si us plau, deseu el document, el text i el full de càlcul.</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
+        <source>Continue</source>
+        <translation>Continuar</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
+        <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
+        <translation>Memòria del sistema insuficient. Si us plau, tanqueu algunes aplicacions per evitar quedar-vos encallat.</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
+        <source>Continue to run %1, %2MB memory is required</source>
+        <translation>Continua executant %1. Calen %2 MB de memòria.</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
+        <source>Continue to open browser tab, %1MB memory is required</source>
+        <translation>Continua obrint la pestanya del navegador. Calen 1% MB de memòria.</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
+        <source>To continue the operation, %1MB memory is required</source>
+        <translation>Per continuar l&apos;operació, calen %1 MB de memòria.</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
+        <source>Your current memory is sufficient enough, continue to run %1?</source>
+        <translation>La memòria actual és suficient. Voleu continuar executant %1?</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
+        <source>Your current memory is sufficient enough, continue to open browser tab?</source>
+        <translation>La memòria actual és suficient. Voleu continuar obrint la pestanya del navegador?</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
+        <source>Your current memory is sufficient enough, continue the operation?</source>
+        <translation>La memòria actual és suficient. Voleu continuar l&apos;operació?</translation>
     </message>
 </context>
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="158"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
         <source>Duplicate</source>
-        <translation>Duplicar</translation>
+        <translation>Duplica</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="160"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
         <source>Extend</source>
-        <translation>Extendre</translation>
+        <translation>Estén</translation>
     </message>
 </context>
 <context>
@@ -78,61 +142,61 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="152"/>
         <source>Add keyboard layout</source>
-        <translation type="unfinished"/>
+        <translation>Afegeix una disposició de teclat</translation>
     </message>
 </context>
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="154"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="153"/>
         <source>Login</source>
-        <translation>Accedir</translation>
+        <translation>Inicia la sessió</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="406"/>
-        <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="258"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
         <source>Wrong Password</source>
         <translation>Contrasenya incorrecta</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="426"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="345"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation>S&apos;ha acabat el temps d&apos;espera de la verificació de l&apos;empremta. Si us plau, escriviu la contrasenya manualment.</translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Ha fallat la coincidència de contrasenyes.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="553"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="570"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Escriviu la contrasenya per reiniciar.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="558"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="578"/>
         <source>Enter your password to shutdown</source>
-        <translation>Entreu la vostra contrassenya per tancar</translation>
+        <translation>Escriviu la contrasenya per aturar.</translation>
     </message>
 </context>
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="297"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="356"/>
         <source>Login</source>
-        <translation>Accedir</translation>
+        <translation>Inicia la sessió</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
-        <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="543"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation>S&apos;ha acabat el temps d&apos;espera de la verificació de l&apos;empremta. Si us plau, escriviu la contrasenya manualment.</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="557"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Ha fallat la coincidència de contrasenyes.</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="601"/>
         <source>Wrong Password</source>
         <translation>Contrasenya incorrecta</translation>
     </message>
@@ -140,32 +204,42 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation type="unfinished"/>
+        <translation>Els usuaris anteriors encara tenen la sessió oberta i totes les dades es perdran a causa de l&apos;aturada. Segur que voleu que s&apos;aturi?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation type="unfinished"/>
+        <translation>Els usuaris anteriors encara tenen la sessió oberta i totes les dades es perdran a causa del reinici. Segur que voleu que es reiniciï?</translation>
+    </message>
+</context>
+<context>
+    <name>ProcessInfoModel</name>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="116"/>
+        <source>End</source>
+        <translation>Acaba</translation>
     </message>
 </context>
 <context>
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="580"/>
         <source>Shut down</source>
-        <translation>Apagar</translation>
+        <translation>Atura</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Reinicia</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="53"/>
         <source>Suspend</source>
-        <translation>Suspendre</translation>
+        <translation>Suspèn</translation>
     </message>
 </context>
 <context>
@@ -173,13 +247,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>S&apos;ha detectat un monitor extern. Se suspèn?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="55"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
@@ -189,7 +263,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Suspend</source>
-        <translation>Suspendre</translation>
+        <translation>Suspèn</translation>
     </message>
 </context>
 <context>
@@ -197,7 +271,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation type="unfinished"/>
+        <translation>Inicia el monitor del sistema</translation>
     </message>
 </context>
 <context>
@@ -216,18 +290,26 @@
 <context>
     <name>UpdateContent</name>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="41"/>
+        <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Us donem la benvinguda. El sistema s&apos;ha actualitzat correctament.</translation>
     </message>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="42"/>
+        <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>Versió actual:</translation>
     </message>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="43"/>
+        <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
+        <translation>Entreu</translation>
+    </message>
+</context>
+<context>
+    <name>UserWidget</name>
+    <message>
+        <location filename="../widgets/userwidget.cpp" line="72"/>
+        <source>Domain account</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -236,27 +318,27 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
         <source>Effect Mode</source>
-        <translation type="unfinished"/>
+        <translation>Mode d&apos;efecte</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
         <source>Common Mode</source>
-        <translation type="unfinished"/>
+        <translation>Mode comú</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Recordatori amistós</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation type="unfinished"/>
+        <translation>El sistema ha detectat que useu una màquina virtual, fet que afectarà el rendiment i l&apos;experiència de funcionament del sistema. Per a una experiència millor, és recomanable que seleccioneu el mode comú.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
-        <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
-        <translation type="unfinished"/>
+        <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
+        <translation>Mode d&apos;efecte: tingueu una experiència delicada i sense problemes. Mode comú: gaudiu d&apos;un rendiment ràpid.</translation>
     </message>
 </context>
 <context>
@@ -264,17 +346,17 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Efectes de finestra habilitats</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="45"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Efectes de finestra inhabilitats</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="47"/>
         <source>Failed to enable window effects</source>
-        <translation>L&apos;activacio dels efectes de finestres ha fallat</translation>
+        <translation>Ha fallat activar els efectes de les finestres.</translation>
     </message>
 </context>
 <context>
@@ -282,12 +364,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Recordatori amable</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="39"/>
         <source>This application can not run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Aquesta aplicació no es pot executar sense efectes de finestra.</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="43"/>
@@ -300,7 +382,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation type="unfinished"/>
+        <translation>Bateria baixa. Endolleu-me, si us plau.</translation>
     </message>
 </context>
 </TS>

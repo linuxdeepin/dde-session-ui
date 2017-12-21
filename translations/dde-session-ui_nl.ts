@@ -2,65 +2,129 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="261"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="307"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="337"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="458"/>
         <source>Shut down</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="263"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="312"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="293"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="342"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="461"/>
         <source>Reboot</source>
         <translation>Herstarten</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="308"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
         <source>Are you sure to shut down?</source>
         <translation>Bent u zeker dat u wil uitschakelen?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Weet u zeker dat u opnieuw wilt opstarten?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="347"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="470"/>
         <source>Log out</source>
         <translation>Afmelden</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="318"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="348"/>
         <source>Are you sure to log out?</source>
         <translation>Ben u zeker dat u wil uitloggen?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="464"/>
         <source>Suspend</source>
         <translation>Onderbreken</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="467"/>
         <source>Lock</source>
         <translation>Vergrendelen</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="474"/>
         <source>Switch user</source>
         <translation>Gebruiker wisselen</translation>
     </message>
 </context>
 <context>
+    <name>DMemoryWarningDialog</name>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
+        <source>Release</source>
+        <translation>Vrijgeven</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
+        <source>This application will be ended, please make sure your data has been saved!</source>
+        <translation>Deze applicatie wordt beëindigd, zorg ervoor dat uw gegevens zijn opgeslagen!</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
+        <source>Please save your document, text and spreadsheet</source>
+        <translation>Sla uw document, tekst en spreadsheet alstublieft op</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
+        <source>Continue</source>
+        <translation>Doorgaan</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
+        <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
+        <translation>Onvoldoende systeemgeheugen, stop een aantal applicaties om vastlopen te voorkomen.</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
+        <source>Continue to run %1, %2MB memory is required</source>
+        <translation>Ga door met het uitvoeren van %1, %2MB geheugen is vereist</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
+        <source>Continue to open browser tab, %1MB memory is required</source>
+        <translation>Ga door met het openen van het browsertabblad, %1MB geheugen is vereist</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
+        <source>To continue the operation, %1MB memory is required</source>
+        <translation>Om door te gaan met de operatie is %1MB geheugen vereist</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
+        <source>Your current memory is sufficient enough, continue to run %1?</source>
+        <translation>Uw huidige geheugen is voldoende, blijft %1 draaien?</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
+        <source>Your current memory is sufficient enough, continue to open browser tab?</source>
+        <translation>Uw huidige geheugen is voldoende, ga door met het openen van het browsertabblad?</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
+        <source>Your current memory is sufficient enough, continue the operation?</source>
+        <translation>Uw huidige geheugen is voldoende, ga door met de operatie?</translation>
+    </message>
+</context>
+<context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="158"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
         <source>Duplicate</source>
         <translation>Dupliceer</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="160"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
         <source>Extend</source>
         <translation>Uitbreiden</translation>
     </message>
@@ -84,32 +148,32 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="154"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="153"/>
         <source>Login</source>
         <translation>Inloggen</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="406"/>
-        <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="258"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
         <source>Wrong Password</source>
         <translation>Het wachtwoord is onjuist</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="426"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="345"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation>Vingerafdrukauthenticatie is verlopen, voer je wachtwoord handmatig in</translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Vingerafdruk komt niet overeen</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="553"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="570"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Voer uw wachtwoord in om de computer opnieuw op te starten</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="558"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="578"/>
         <source>Enter your password to shutdown</source>
         <translation>Voer uw wachtwoord in zodat de computer kan worden afgesloten</translation>
     </message>
@@ -117,22 +181,22 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="297"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="356"/>
         <source>Login</source>
         <translation>Inloggen</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
-        <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation type="unfinished"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="543"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation>Vingerafdrukauthenticatie is verlopen, voer je wachtwoord handmatig in</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="557"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Vingerafdruk komt niet overeen</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="601"/>
         <source>Wrong Password</source>
         <translation>Het wachtwoord is onjuist</translation>
     </message>
@@ -140,25 +204,35 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>De bovenstaande gebruikers zijn nog steeds ingelogd. Niet opgeslagen gegevens zullen verloren gaan als gevolg van het afsluiten. Weet u zeker dat u wilt doorgaan met het afsluiten?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>De bovenstaande gebruikers zijn nog steeds ingelogd. Niet opgeslagen gegevens zullen verloren gaan als gevolg van het opnieuw opstarten. Weet u zeker dat u wilt doorgaan met het opnieuw opstarten?</translation>
+    </message>
+</context>
+<context>
+    <name>ProcessInfoModel</name>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="116"/>
+        <source>End</source>
+        <translation>Beëindigen</translation>
     </message>
 </context>
 <context>
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="580"/>
         <source>Shut down</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
         <source>Reboot</source>
         <translation>Herstarten</translation>
     </message>
@@ -216,18 +290,26 @@
 <context>
     <name>UpdateContent</name>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="41"/>
+        <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Welkom, het systeem is succesvol bijgewerkt</translation>
     </message>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="42"/>
+        <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>Huidige versie:</translation>
     </message>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="43"/>
+        <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
+        <translation>Invoeren</translation>
+    </message>
+</context>
+<context>
+    <name>UserWidget</name>
+    <message>
+        <location filename="../widgets/userwidget.cpp" line="72"/>
+        <source>Domain account</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -255,9 +337,8 @@
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
-        <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
-        <translation>Effect modus: U geniet van een gepolijste, prachtige werkomgeving.
-Algemene modus: U geniet van een razendsnel systeem.</translation>
+        <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
+        <translation>Effect modus: Deze modus zorgt ervoor dat u een vloeiende en delicate ervaring krijgt. Algemene modus: Deze modus zorgt ervoor dat u van snelle prestaties kan genieten</translation>
     </message>
 </context>
 <context>

@@ -2,65 +2,129 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="261"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="307"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="337"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="458"/>
         <source>Shut down</source>
         <translation>Leállítás</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="263"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="312"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="293"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="342"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="461"/>
         <source>Reboot</source>
         <translation>Újraindítás</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="308"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
         <source>Are you sure to shut down?</source>
         <translation>Biztosan leállítja a számítógépet?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="313"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
         <source>Are you sure to reboot?</source>
         <translation>Biztos benne, hogy újraindítja a gépet?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="317"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="347"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="470"/>
         <source>Log out</source>
         <translation>Kijelentkezés</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="318"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="348"/>
         <source>Are you sure to log out?</source>
         <translation>Biztosan kijelentkezik?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="464"/>
         <source>Suspend</source>
         <translation>Felfüggesztés</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="467"/>
         <source>Lock</source>
         <translation>Zárolás</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="474"/>
         <source>Switch user</source>
         <translation>Felhasználóváltás</translation>
     </message>
 </context>
 <context>
+    <name>DMemoryWarningDialog</name>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
+        <source>Cancel</source>
+        <translation>Mégse</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
+        <source>Release</source>
+        <translation>Lecsatolás</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
+        <source>This application will be ended, please make sure your data has been saved!</source>
+        <translation>Ez az alkalmazás lezárásra fog kerülni, kérem bizonyosodjon meg róla, hogy adatait elmentette!</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
+        <source>Please save your document, text and spreadsheet</source>
+        <translation>Kérem mentse el a dokumentumát, szövegét és táblázatát</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
+        <source>Continue</source>
+        <translation>Folytatás</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
+        <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
+        <translation>Nem áll elégséges rendszer memória rendelkezésre, kérem zárjon be néhány alkalmazást a problémák elkerülése végett.</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
+        <source>Continue to run %1, %2MB memory is required</source>
+        <translation>%1 futtatásának a folytatásához, %2MB memória szükséges</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
+        <source>Continue to open browser tab, %1MB memory is required</source>
+        <translation>A böngésző fül megnyitásának folytatásához %1MB memória szükséges</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
+        <source>To continue the operation, %1MB memory is required</source>
+        <translation>A működés folytatásához legalább %1MB memóriára van szükség</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
+        <source>Your current memory is sufficient enough, continue to run %1?</source>
+        <translation>A jelenleg elérhető memória elégséges, folytatja %1 futtatását?</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
+        <source>Your current memory is sufficient enough, continue to open browser tab?</source>
+        <translation>A jelenleg elérhető memória elégséges, folytatja a böngésző fül megnyitását?</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
+        <source>Your current memory is sufficient enough, continue the operation?</source>
+        <translation>A jelenleg elérhető memória elégséges, folytatja a műveletet?</translation>
+    </message>
+</context>
+<context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="158"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
         <source>Duplicate</source>
         <translation>Megkettőzés</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="160"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
         <source>Extend</source>
         <translation>Kiterjeszt</translation>
     </message>
@@ -84,32 +148,32 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="154"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="153"/>
         <source>Login</source>
         <translation>Bejelentkezés</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="406"/>
-        <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation>Kérem írja be az ujjlenyomathoz tartozó jelszót, a jelszó jelárt</translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="258"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
         <source>Wrong Password</source>
         <translation>Helytelen jelszó</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="426"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="345"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation>Az ujjlenyomat azonosítása időtúllépés miatt sikertelen volt. Kérem adja meg a jelszavát</translation>
+    </message>
+    <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
         <source>Failed to match fingerprint</source>
         <translation>Nem egyezik az ujjlenyomat</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="553"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="570"/>
         <source>Enter your password to reboot</source>
         <translation>Adja meg a jelszavát az újraindításhoz.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="558"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="578"/>
         <source>Enter your password to shutdown</source>
         <translation>Adjuk meg a jelszót a leállításhoz</translation>
     </message>
@@ -117,22 +181,22 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="297"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="356"/>
         <source>Login</source>
         <translation>Bejelentkezés</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="473"/>
-        <source>Please enter your password manually if fingerprint password timed out</source>
-        <translation>Kérem írja be az ujjlenyomathoz tartozó jelszót, a jelszó jelárt</translation>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="543"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation>Az ujjlenyomat azonosítása időtúllépés miatt sikertelen volt. Kérem adja meg a jelszavát</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="557"/>
         <source>Failed to match fingerprint</source>
         <translation>Nem egyezik az ujjlenyomat</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="531"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="601"/>
         <source>Wrong Password</source>
         <translation>Helytelen jelszó</translation>
     </message>
@@ -140,25 +204,35 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>A fenti felhasználók továbbra is bejelentkezve vannak és minden adat elfog veszni, biztos hogy kikapcsoljuk a számítógépet?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>A fenti felhasználók továbbra is bejelentkezve vannak és minden adat elfog veszni, biztos hogy újraindítjuk a számítógépet?</translation>
+    </message>
+</context>
+<context>
+    <name>ProcessInfoModel</name>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="116"/>
+        <source>End</source>
+        <translation>Vég</translation>
     </message>
 </context>
 <context>
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="580"/>
         <source>Shut down</source>
         <translation>Leállítás</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
         <source>Reboot</source>
         <translation>Újraindítás</translation>
     </message>
@@ -216,19 +290,27 @@
 <context>
     <name>UpdateContent</name>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="41"/>
+        <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
         <translation>A rendszerfrissítés sikerült.</translation>
     </message>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="42"/>
+        <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
         <translation>Jelenlegi verzió:</translation>
     </message>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="43"/>
+        <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
         <translation>Belépés</translation>
+    </message>
+</context>
+<context>
+    <name>UserWidget</name>
+    <message>
+        <location filename="../widgets/userwidget.cpp" line="72"/>
+        <source>Domain account</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -255,9 +337,8 @@
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
-        <source>Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience</source>
-        <translation>Effektus mód:  Gyönyörű
-Általános mód: Nagyon gyors</translation>
+        <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
+        <translation>Effekt Mód: Legyen egy sima és kellemes élménye. Közönséges Mód: Élvezze a gyors teljesítményt</translation>
     </message>
 </context>
 <context>
