@@ -146,7 +146,6 @@ void UserWidget::onUserAdded(const QString &path)
     userBtn->updateBackgrounds(user->desktopBackgrounds());
     userBtn->setDBus(user);
 
-
     onLoginUserListChanged(m_dbusLogined->userList());
 }
 

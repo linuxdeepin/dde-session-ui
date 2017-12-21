@@ -30,13 +30,12 @@
 #include "userbutton.h"
 
 UserButton::UserButton(QWidget *parent)
-    : QPushButton(parent),
-      m_opacity(0)
+    : QPushButton(parent)
+    , m_opacity(0)
 #ifndef DISABLE_ANIMATIONS
-    ,
-      m_moveAni(new QPropertyAnimation(this, "pos")),
-      m_showAnimation(new QPropertyAnimation(this, "opacity")),
-      m_hideAnimation(new QPropertyAnimation(this, "opacity"))
+    , m_moveAni(new QPropertyAnimation(this, "pos"))
+    , m_showAnimation(new QPropertyAnimation(this, "opacity"))
+    , m_hideAnimation(new QPropertyAnimation(this, "opacity"))
 #endif
 {
     initUI();

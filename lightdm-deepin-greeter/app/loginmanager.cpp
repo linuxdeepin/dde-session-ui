@@ -149,9 +149,11 @@ LoginManager::LoginManager(QWidget* parent)
 
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
 
-    QTimer::singleShot(1, this, [=] {
+    // NOTE(kirigaya): avoid missing settings
+    QTimer::singleShot(1000, this, [=] {
         const QString &user = m_userWidget->currentUser();
         updateUserLoginCondition(user);
+        updateBackground(user);
     });
 }
 
