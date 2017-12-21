@@ -412,16 +412,6 @@ void LoginManager::initConnect()
         // NOTE(kirigaya): set auth user and respond password need some time!
         QTimer::singleShot(100, this, SLOT(login()));
     });
-
-    connect(m_controlWidget, &ControlWidget::requestOtherUser, this, [=] {
-        m_otherUserInput->show();
-        m_passWdEdit->hide();
-        m_loginButton->hide();
-        m_sessionWidget->hide();
-        m_userWidget->hide();
-        m_requireShutdownWidget->hide();
-        m_greeter->authenticate("");
-    });
 }
 
 void LoginManager::initDateAndUpdate() {

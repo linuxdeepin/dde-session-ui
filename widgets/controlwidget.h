@@ -43,7 +43,6 @@ signals:
     void requestSwitchUser();
     void requestShutdown();
     void requestSwitchSession();
-    void requestOtherUser();
 
 public slots:
     void setMPRISEnable(const bool state);
@@ -63,7 +62,6 @@ private:
 private:
     QHBoxLayout *m_mainLayout = nullptr;
     DImageButton *m_switchUserBtn = nullptr;
-    DImageButton *m_otherUserBtn = nullptr;
     DImageButton *m_powerBtn = nullptr;
     MediaWidget *m_mediaWidget = nullptr;
     DImageButton *m_sessionBtn = nullptr;

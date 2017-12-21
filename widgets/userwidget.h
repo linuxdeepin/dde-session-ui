@@ -72,6 +72,7 @@ public:
 signals:
     void userChanged(const QString &username);
     void chooseUserModeChanged(bool isChoose, QString curUser);
+    void otherUserLogin();
 
 public slots:
     void setCurrentUser(const QString &username);
@@ -96,7 +97,8 @@ private slots:
     void onLoginUserListChanged(const QString &value);
     UserButton* getUserByName(const QString &username);
     void updateCurrentUserPos(const int duration = 0) const;
-    void initOtherUser();
+    void initOtherUser(const QString &username = "");
+    void initADLogin();
 
 private:
     int m_currentUserIndex = 0;
@@ -110,6 +112,7 @@ private:
     QMap<QString, DBusUser *> m_userDbus;
     Logined *m_dbusLogined;
     QStringList m_loggedInUsers;
+    UserButton *m_adLoginBtn = nullptr;
 };
 
 #endif // WIDGET_H

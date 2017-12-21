@@ -172,18 +172,28 @@ void UserWidget::onUserRemoved(const QString &name)
 
 void UserWidget::onLoginUserListChanged(const QString &value)
 {
-    QTimer::singleShot(100, this, [=] {
-        struct passwd *pws;
-        pws = getpwuid(getuid());
+    // NOTE(kirigaya): check in AD Domain
+    QProcess *process = new QProcess(this);
+    connect(process, &QProcess::readyReadStandardOutput, this, [=] {
+        QRegularExpression re("Name:\\s+(ADS\\\\\\w+)");
+        QRegularExpressionMatchIterator i = re.globalMatch(process->readAll());
 
-        if (QString(pws->pw_name) != "lightdm") {
-            UserButton *button = getUserByName(pws->pw_name);
+        if (i.hasNext()) {
+            initADLogin();
 
-            if (!button)
-                initOtherUser();
+            struct passwd *pws;
+            pws = getpwuid(getuid());
+
+            if (QString(pws->pw_name) != "lightdm") {
+                UserButton *button = getUserByName(pws->pw_name);
+
+                if (!button)
+                    initOtherUser(pws->pw_name);
+            }
         }
-
     });
+
+    process->start("/opt/pbis/bin/enum-users");
 
     // NOTE(kirigaya): wait for some time to update the position;
     QTimer::singleShot(100, this, [=] {
@@ -231,17 +241,14 @@ void UserWidget::updateCurrentUserPos(const int duration) const
         user->move(rect().center() - user->rect().center(), duration);
 }
 
-void UserWidget::initOtherUser()
+void UserWidget::initOtherUser(const QString &username)
 {
-    struct passwd *pws;
-    pws = getpwuid(getuid());
-
     UserButton *user = new UserButton(this);
-    user->updateUserName(pws->pw_name);
-    user->updateDisplayName(pws->pw_name);
+    user->updateUserName(username);
+    user->updateDisplayName(username);
     user->updateGreeterWallpaper("/usr/share/backgrounds/deepin/desktop.jpg");
     user->updateAutoLogin(false);
-    user->updateAvatar(":/img/dde.svg");
+    user->updateAvatar(":/img/default_avatar.png");
     user->updateKbHistory(QStringList());
     user->updateKbLayout("");
     user->updateBackgrounds(QStringList() << "/usr/share/backgrounds/deepin/desktop.jpg");
@@ -250,9 +257,32 @@ void UserWidget::initOtherUser()
     connect(user, &UserButton::imageClicked, this, &UserWidget::setCurrentUser);
 
     m_userBtns << user;
+}
 
-    updateCurrentUserPos();
-    setCurrentUser(currentUser());
+void UserWidget::initADLogin()
+{
+    if (m_adLoginBtn)
+        return;
+
+    const QString &username = tr("AD Domain");
+
+    m_adLoginBtn = new UserButton(this);
+    m_adLoginBtn->updateUserName(username);
+    m_adLoginBtn->updateDisplayName(username);
+    m_adLoginBtn->updateGreeterWallpaper("/usr/share/backgrounds/deepin/desktop.jpg");
+    m_adLoginBtn->updateAutoLogin(false);
+    m_adLoginBtn->updateAvatar(":/img/default_avatar.png");
+    m_adLoginBtn->updateKbHistory(QStringList());
+    m_adLoginBtn->updateKbLayout("");
+    m_adLoginBtn->updateBackgrounds(QStringList() << "/usr/share/backgrounds/deepin/desktop.jpg");
+    m_adLoginBtn->setDBus(nullptr);
+
+    connect(m_adLoginBtn, &UserButton::imageClicked, this, [=] {
+        setCurrentUser(currentUser());
+        emit otherUserLogin();
+    });
+
+    m_userBtns << m_adLoginBtn;
 }
 
 void UserWidget::setCurrentUser(const QString &username)
