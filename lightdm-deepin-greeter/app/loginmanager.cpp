@@ -149,8 +149,7 @@ LoginManager::LoginManager(QWidget* parent)
 
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
 
-    // NOTE(kirigaya): avoid missing settings
-    QTimer::singleShot(1000, this, [=] {
+    QTimer::singleShot(1, this, [=] {
         const QString &user = m_userWidget->currentUser();
         updateUserLoginCondition(user);
         updateBackground(user);
@@ -200,7 +199,6 @@ void LoginManager::updateUserLoginCondition(QString username)
             m_loginButton->setFocus();
             m_userState = NoPassword;
         } else {
-            m_greeter->authenticate(m_userWidget->currentUser());
             m_passWdEdit->show();
             m_userState = Password;
         }
@@ -319,7 +317,6 @@ void LoginManager::initUI()
     m_passWdEdit->updateKeyboardStatus();
     keyboardLayoutUI();
 
-    m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
     m_controlWidget->setSessionSwitchEnable(m_sessionWidget->sessionCount() > 1);
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/login.qss", this);
@@ -422,13 +419,17 @@ void LoginManager::initConnect()
         m_passWdEdit->hide();
         m_loginButton->hide();
         m_sessionWidget->hide();
-        m_userWidget->hide();
+        m_userWidget->show();
         m_requireShutdownWidget->hide();
         m_greeter->authenticate("");
     });
 
     connect(m_userWidget, &UserWidget::currentUserBackgroundChanged,
             this, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground));
+
+    connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
+        m_controlWidget->setUserSwitchEnable(count > 1);
+    });
 }
 
 void LoginManager::initDateAndUpdate() {

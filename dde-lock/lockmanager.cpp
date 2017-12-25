@@ -85,6 +85,10 @@ void LockManager::initConnect()
     connect(m_userWidget, &UserWidget::currentUserBackgroundChanged, this, [=] {
         updateBackground(m_userWidget->currentUser());
     });
+
+    connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
+        m_controlWidget->setUserSwitchEnable(count > 1);
+    });
 }
 
 void LockManager::keybdLayoutWidgetPosit()
@@ -167,12 +171,13 @@ void LockManager::initUI()
         qDebug() << "current User:" << username << "11 m_activatedUser:" << m_activatedUser;
 
         if (username != m_activatedUser) {
-
-            QFile f("/tmp/lastuser");
-            if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-                f.write(username.toLocal8Bit());
-                f.setPermissions(QFileDevice::Permissions(0x7777));
-                f.close();
+            if (m_userWidget->users().contains(username)) {
+                QFile f("/tmp/lastuser");
+                if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                    f.write(username.toLocal8Bit());
+                    f.setPermissions(QFileDevice::Permissions(0x7777));
+                    f.close();
+                }
             }
 
             // goto greeter
@@ -261,7 +266,6 @@ void LockManager::showEvent(QShowEvent *event)
     // check user is nopassword group
     checkUserIsNoPWGrp();
 
-    m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
     updateBackground(m_activatedUser);
 
     m_passwordEdit->setMessage("");

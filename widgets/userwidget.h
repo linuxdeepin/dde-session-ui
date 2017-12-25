@@ -66,7 +66,7 @@ public:
     const QString getUserKBLayout(const QString &username);
     const QString getDisplayName(const QString &username);
     const QStringList getUserDesktopBackground(const QString &username);
-
+    const QStringList users() const;
     void setUserKBlayout(const QString &username, const QString &layout);
 
 signals:
@@ -75,6 +75,7 @@ signals:
     void otherUserLogin();
     void currentUserBackgroundChanged(const QString &background);
     void currentUserNameChanged(const QString &background);
+    void userCountChanged(int count);
 
 public slots:
     void updateCurrentUser(const QString &username);

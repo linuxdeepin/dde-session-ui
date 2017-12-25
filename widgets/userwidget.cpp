@@ -108,7 +108,7 @@ void UserWidget::onUserAdded(const QString &path)
         return;
 
     DBusUser *user = new DBusUser(ACCOUNT_DBUS_SERVICE, path, QDBusConnection::systemBus(), this);
-    user->setSync(false);
+    user->setSync(true);
 
     m_userDbus.insert(path, user);
 
@@ -127,14 +127,7 @@ void UserWidget::onUserAdded(const QString &path)
     connect(user, &__User::LayoutChanged, userBtn, &UserButton::updateKbLayout);
     connect(user, &__User::IconFileChanged, userBtn, &UserButton::updateAvatar);
     connect(user, &__User::UserNameChanged, userBtn, &UserButton::updateUserName);
-    connect(user, &__User::GreeterBackgroundChanged, this, [=] (const QString &background) {
-        userBtn->updateGreeterWallpaper(background);
-        if (userBtn->name() == m_currentUser)
-            emit currentUserBackgroundChanged(background);
-
-        if (m_currentUser.isEmpty())
-            emit currentUserBackgroundChanged(m_userBtns.first()->greeter());
-    });
+    connect(user, &__User::GreeterBackgroundChanged, userBtn, &UserButton::updateGreeterWallpaper);
 
     userBtn->updateUserName(user->userName());
     userBtn->updateDisplayName(user->fullName());
@@ -145,6 +138,8 @@ void UserWidget::onUserAdded(const QString &path)
     userBtn->updateKbLayout(user->layout());
     userBtn->updateBackgrounds(user->desktopBackgrounds());
     userBtn->setDBus(user);
+
+    emit userCountChanged(m_userBtns.count());
 
     onLoginUserListChanged(m_dbusLogined->userList());
 }
@@ -165,6 +160,7 @@ void UserWidget::onUserRemoved(const QString &name)
             if (button) {
                 m_userBtns.removeOne(button);
                 button->deleteLater();
+                emit userCountChanged(m_userBtns.count());
                 return;
             }
         }
@@ -286,13 +282,15 @@ void UserWidget::initADLogin()
     m_adLoginBtn->setDBus(nullptr);
 
     connect(m_adLoginBtn, &UserButton::imageClicked, this, [=] {
-        if (m_currentUser != username) {
-            updateCurrentUser(username);
-        }
+        updateCurrentUser(username);
         emit otherUserLogin();
     });
 
+    m_whiteList << username;
+
     m_userBtns << m_adLoginBtn;
+
+    emit userCountChanged(m_userBtns.count());
 }
 
 void UserWidget::updateCurrentUser(const QString &username)
@@ -552,6 +550,17 @@ const QStringList UserWidget::getUserDesktopBackground(const QString &username)
 {
     UserButton *user = getUserByName(username);
     return user ? user->backgrounds() : QStringList();
+}
+
+const QStringList UserWidget::users() const
+{
+    QStringList list;
+    for (UserButton *btn : m_userBtns) {
+        if (btn->dbus()) {
+            list << btn->name();
+        }
+    }
+    return list;
 }
 
 void UserWidget::setUserKBlayout(const QString &username, const QString &layout)
