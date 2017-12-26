@@ -27,6 +27,7 @@
 
 #include <QHBoxLayout>
 #include <QDebug>
+#include <QGSettings>
 
 #include "container.h"
 #include "listview.h"
@@ -42,14 +43,14 @@
 #include "wmstateprovider.h"
 
 Manager::Manager(QObject *parent)
-    : QObject(parent),
-      m_container(new Container),
-      m_listview(new ListView),
-      m_delegate(new Delegate),
-      m_model(new Model(this)),
-      m_currentProvider(nullptr),
-      m_kbLayoutProvider(new KBLayoutProvider(this)),
-      m_timer(new QTimer)
+    : QObject(parent)
+    , m_container(new Container)
+    , m_listview(new ListView)
+    , m_delegate(new Delegate)
+    , m_model(new Model(this))
+    , m_currentProvider(nullptr)
+    , m_kbLayoutProvider(new KBLayoutProvider(this))
+    , m_timer(new QTimer(this))
 {
     m_timer->setSingleShot(true);
     m_timer->setInterval(1000);

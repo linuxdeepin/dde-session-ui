@@ -29,16 +29,21 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QDebug>
-
+#include <QTimer>
+#include <QGSettings>
 #include <DPlatformWindowHandle>
 
 Container::Container(QWidget *parent)
-    : DBlurEffectWidget(parent),
-      m_wmHelper(DWindowManagerHelper::instance()),
-      m_supportComposite(m_wmHelper->hasComposite())
+    : DBlurEffectWidget(parent)
+    , m_wmHelper(DWindowManagerHelper::instance())
+    , m_quitTimer(new QTimer(this))
+    , m_supportComposite(m_wmHelper->hasComposite())
 {
     setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_TranslucentBackground);
+
+    m_quitTimer->setSingleShot(true);
+    m_quitTimer->setInterval(60 * 1000);
 
     m_layout = new QHBoxLayout;
     m_layout->setSpacing(0);
@@ -60,6 +65,8 @@ Container::Container(QWidget *parent)
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged,
             this, &Container::windowManagerChanged);
+
+    connect(m_quitTimer, &QTimer::timeout, this, &Container::onDelayQuit);
 }
 
 void Container::setContent(QWidget *content)
@@ -74,6 +81,20 @@ void Container::moveToCenter()
     const QRect primaryRect = desktop->screenGeometry(primary);
 
     move(primaryRect.center() - rect().center());
+}
+
+void Container::showEvent(QShowEvent *event)
+{
+    DBlurEffectWidget::showEvent(event);
+
+    m_quitTimer->stop();
+}
+
+void Container::hideEvent(QHideEvent *event)
+{
+    DBlurEffectWidget::hideEvent(event);
+
+    m_quitTimer->start();
 }
 
 void Container::windowManagerChanged()
@@ -99,3 +120,14 @@ int Container::getWindowRadius()
     return m_supportComposite ? 10 : 0;
 }
 
+void Container::onDelayQuit()
+{
+    const QGSettings gsettings("com.deepin.dde.osd", "/com/deepin/dde/osd/");
+    if (gsettings.keys().contains("autoExit") && gsettings.get("auto-exit").toBool())
+    {
+        if (isVisible())
+            return m_quitTimer->start();
+        qWarning() << "Killer Timeout, now quiiting...";
+        qApp->quit();
+    }
+}
