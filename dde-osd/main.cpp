@@ -60,8 +60,5 @@ int main(int argc, char *argv[])
         m.ShowOSD(action);
     }
 
-    KBLayoutIndicator indicator;
-    indicator.show();
-
     return a.exec();
 }

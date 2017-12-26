@@ -30,6 +30,7 @@ private:
     QList<AbstractOSDProvider*> m_providers;
 
     QTimer *m_timer;
+    QTimer *m_quitTimer;
 
 private slots:
     void updateUI();

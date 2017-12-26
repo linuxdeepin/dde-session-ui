@@ -17,17 +17,21 @@
 #include "wmstateprovider.h"
 
 Manager::Manager(QObject *parent)
-    : QObject(parent),
-      m_container(new Container),
-      m_listview(new ListView),
-      m_delegate(new Delegate),
-      m_model(new Model(this)),
-      m_currentProvider(nullptr),
-      m_kbLayoutProvider(new KBLayoutProvider(this)),
-      m_timer(new QTimer)
+    : QObject(parent)
+    , m_container(new Container)
+    , m_listview(new ListView)
+    , m_delegate(new Delegate)
+    , m_model(new Model(this))
+    , m_currentProvider(nullptr)
+    , m_kbLayoutProvider(new KBLayoutProvider(this))
+    , m_timer(new QTimer(this))
+    , m_quitTimer(new QTimer(this))
 {
     m_timer->setSingleShot(true);
     m_timer->setInterval(2000);
+
+    m_quitTimer->setSingleShot(true);
+    m_quitTimer->setInterval(60 * 1000);
 
     m_listview->setItemDelegate(m_delegate);
     m_listview->setModel(m_model);
@@ -38,11 +42,18 @@ Manager::Manager(QObject *parent)
     m_providers << new IndicatorProvider(this) << new WMStateProvider(this);
 
     connect(m_timer, &QTimer::timeout, this, &Manager::doneSetting);
+    connect(m_quitTimer, &QTimer::timeout, this, [=] {
+        qApp->exit();
+    });
+
+    m_quitTimer->start();
 }
 
 void Manager::ShowOSD(const QString &osd)
 {
     qDebug() << "show osd" << osd;
+
+    m_quitTimer->start();
 
     if (osd == "DirectSwitchLayout") {
         m_kbLayoutProvider->highlightNext();
