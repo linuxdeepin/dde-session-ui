@@ -27,6 +27,11 @@ void OtherUserInput::setAlert(const QString &alert)
     }
 }
 
+void OtherUserInput::setAccount(const QString &username)
+{
+    m_accountEdit->setText(username);
+}
+
 void OtherUserInput::initUI()
 {
     m_errorTip = new ErrorTooltip("", this->parentWidget());

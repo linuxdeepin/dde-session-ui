@@ -110,6 +110,8 @@ private:
     void saveNumlockStatus(const bool &on);
     void restoreNumlockStatus();
 
+    void saveLastUser();
+
     enum UserState {
         Password,
         NoPassword

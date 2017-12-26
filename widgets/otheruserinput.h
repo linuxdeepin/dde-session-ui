@@ -23,6 +23,7 @@ signals:
 
 public slots:
     void setAlert(const QString &alert);
+    void setAccount(const QString &username);
 
 private:
     void initUI();

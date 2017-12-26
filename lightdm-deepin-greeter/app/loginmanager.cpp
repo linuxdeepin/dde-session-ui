@@ -154,6 +154,20 @@ LoginManager::LoginManager(QWidget* parent)
         updateUserLoginCondition(user);
         updateBackground(user);
     });
+
+    // LOAD last user
+    file.setFileName(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER");
+
+    // NOTE(kirigaya): If file is not exist, create it.
+    if (!file.open(QIODevice::ReadOnly)) {
+        return;
+    }
+
+    QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
+    setting.beginGroup("USER");
+    m_otherUserInput->setAccount(setting.value("USERNAME").toString());
+    setting.endGroup();
+    file.close();
 }
 
 void LoginManager::updateWidgetsPosition()
@@ -408,6 +422,9 @@ void LoginManager::initConnect()
     connect(m_otherUserInput, &OtherUserInput::submit, this, [=] {
         m_accountStr = m_otherUserInput->account();
         m_passwdStr = m_otherUserInput->passwd();
+
+        saveLastUser();
+
         m_greeter->authenticate(m_accountStr);
 
         // NOTE(kirigaya): set auth user and respond password need some time!
@@ -702,5 +719,26 @@ void LoginManager::restoreNumlockStatus()
 
     qDebug() << "restore numlock status to " << value;
     m_keyboardMonitor->setNumlockStatus(value);
+}
+
+void LoginManager::saveLastUser()
+{
+    QDir dir(DDESESSIONCC::LAST_USER_CONFIG);
+
+    if (!dir.exists())
+       qDebug() << dir.mkpath(DDESESSIONCC::LAST_USER_CONFIG);
+
+    QFile file(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER");
+
+    // NOTE(kirigaya): If file is not exist, create it.
+    if (!file.open(QIODevice::WriteOnly)) {
+        file.close();
+    }
+
+    QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
+    setting.beginGroup("USER");
+    setting.setValue("USERNAME", m_accountStr);
+    setting.endGroup();
+    setting.sync();
 }
 
