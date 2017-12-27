@@ -24,3 +24,6 @@ override_dh_auto_configure:
 	dh_auto_configure -- SHUTDOWN_NO_QUIT=YES LOCK_NO_QUIT=YES DISABLE_DEMO_VIDEO=YES DISABLE_TEXT_SHADOW=YES DISABLE_ANIMATIONS=YES
 endif
 
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		DISABLE_DB=YES

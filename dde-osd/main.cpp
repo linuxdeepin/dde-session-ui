@@ -14,6 +14,9 @@
 #include <QDBusConnection>
 #include <QProcess>
 
+#include "src/bubblemanager.h"
+#include "src/notifications_dbus_adaptor.h"
+
 #include "manager.h"
 #include "kblayoutindicator.h"
 
@@ -59,6 +62,10 @@ int main(int argc, char *argv[])
     if (!action.isEmpty()) {
         m.ShowOSD(action);
     }
+
+    BubbleManager manager;
+    NotificationsDBusAdaptor adapter(&manager);
+    manager.registerAsService();
 
     return a.exec();
 }
