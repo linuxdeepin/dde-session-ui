@@ -21,3 +21,7 @@ Dtk--Widget--DMPRISControl #NextBtn {
     qproperty-hoverPic: url(:/img/mpris/next_hover.svg);
     qproperty-pressPic: url(:/img/mpris/next_press.svg);
 }
+
+Dtk--Widget--DMPRISControl QLabel {
+    color: white;
+}
