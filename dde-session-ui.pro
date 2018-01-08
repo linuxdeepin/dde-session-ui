@@ -10,7 +10,8 @@ SUBDIRS += dde-shutdown \
            dde-warning-dialog \
            dde-welcome \
            dde-wm-chooser \
-           dde-dman-portal
+           dde-dman-portal \
+           dmemory-warning-dialog
 
 include(common.pri)
 contains(DEFINES, ARCH_MIPSEL) {
