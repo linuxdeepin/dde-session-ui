@@ -9,8 +9,15 @@ ProcessInfoTable::ProcessInfoTable(QWidget *parent)
 {
     horizontalHeader()->setVisible(false);
     verticalHeader()->setVisible(false);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setShowGrid(false);
     setFrameStyle(QFrame::NoFrame);
     setSelectionMode(NoSelection);
+    setStyleSheet("QTableView {"
+                  "border: 1px solid #ccc;"
+                  "border-radius: 5px;"
+                  "}");
 }
 
 void ProcessInfoTable::setModel(QAbstractItemModel *model)

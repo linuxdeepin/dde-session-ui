@@ -56,6 +56,12 @@ QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
         default:;
         }
         break;
+    case TextAlignmentRole:
+        switch (index.column())
+        {
+        case COLUMN_MEM:    return int(Qt::AlignRight | Qt::AlignVCenter);
+        default:            return int(Qt::AlignLeft | Qt::AlignVCenter);
+        }
     case StateRole:
         return m_pressedIndex == index;
     case PidListRole:
