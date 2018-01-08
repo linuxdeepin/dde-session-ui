@@ -12,6 +12,7 @@ public:
     unsigned total_mem_bytes;
     QString cgroup_path;
     QString app_name;
+    QString desktop;
     QStringList pid_list;
 };
 
@@ -32,8 +33,8 @@ private slots:
     void scanProcessInfos();
 
 private:
-    void appendProcess(const int pid);
-    void appendCGroupPath(const QString &path);
+//    void appendProcess(const int pid);
+    void appendCGroupPath(const QString &path, const QString &desktop);
 
 private:
     QList<ProcessInfo> processInfoList;

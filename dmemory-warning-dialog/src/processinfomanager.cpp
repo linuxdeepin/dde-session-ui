@@ -39,7 +39,7 @@ void ProcessInfoManager::scanProcessInfos()
 
     processInfoList.clear();
     for (auto it(reply.cbegin()); it != reply.cend(); ++it)
-        appendCGroupPath(QString("/2@dde/uiapps/%1").arg(it.key()));
+        appendCGroupPath(QString("/2@dde/uiapps/%1").arg(it.key()), it.value());
 
 #if false // using x11 to find windows
     auto *display = QX11Info::display();
@@ -87,24 +87,24 @@ void ProcessInfoManager::scanProcessInfos()
     emit processInfoListChanged();
 }
 
-void ProcessInfoManager::appendProcess(const int pid)
-{
-    QFile cgroupInfo(QString("/proc/%1/cgroup").arg(pid));
-    if (!cgroupInfo.open(QIODevice::ReadOnly))
-        return;
+//void ProcessInfoManager::appendProcess(const int pid)
+//{
+//    QFile cgroupInfo(QString("/proc/%1/cgroup").arg(pid));
+//    if (!cgroupInfo.open(QIODevice::ReadOnly))
+//        return;
 
-    const QString &content = cgroupInfo.readAll();
-    for (const auto &info : content.split('\n'))
-    {
-        const auto &items = info.split(':');
-        if (items.size() != 3 || items[1] != "memory" || !items[2].contains("uiapps"))
-            continue;
+//    const QString &content = cgroupInfo.readAll();
+//    for (const auto &info : content.split('\n'))
+//    {
+//        const auto &items = info.split(':');
+//        if (items.size() != 3 || items[1] != "memory" || !items[2].contains("uiapps"))
+//            continue;
 
-        return appendCGroupPath(items[2]);
-    }
-}
+//        return appendCGroupPath(items[2]);
+//    }
+//}
 
-void ProcessInfoManager::appendCGroupPath(const QString &path)
+void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &desktop)
 {
     const QString basePath = "/sys/fs/cgroup/memory" + path;
 
@@ -135,6 +135,7 @@ void ProcessInfoManager::appendCGroupPath(const QString &path)
     pInfo.total_mem_bytes = mem_num.trimmed().toUInt();
     pInfo.cgroup_path = basePath;
     pInfo.app_name = procCmdline.readAll().split('/').last();
+    pInfo.desktop = desktop;
     for (const auto &id : pidList)
         if (!id.isEmpty())
             pInfo.pid_list << id;
