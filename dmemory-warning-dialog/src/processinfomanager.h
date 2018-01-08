@@ -37,6 +37,7 @@ private:
     void appendCGroupPath(const QString &path, const QString &desktop);
 
 private:
+    QString m_sessionId;
     QList<ProcessInfo> processInfoList;
     QPointer<QTimer> m_refreshTimer;
 };
