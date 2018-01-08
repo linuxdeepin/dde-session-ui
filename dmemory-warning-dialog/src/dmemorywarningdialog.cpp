@@ -9,15 +9,26 @@
 #include <QScreen>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QPushButton>
+
+#include <DTitlebar>
 
 DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
-    : QMainWindow(parent)
+    : DMainWindow(parent)
 {
+    titlebar()->setTitle(QString());
+
     ProcessInfoTable *table = new ProcessInfoTable;
     table->setModel(new ProcessInfoModel);
     table->setItemDelegate(new ProcessInfoDelegate);
     table->setItemDelegateForColumn(3, new ButtonDelegate);
     table->setFixedHeight(300);
+
+    QPushButton *cancel = new QPushButton;
+    cancel->setText(tr("Cancel"));
+
+    QHBoxLayout *btnsLayout = new QHBoxLayout;
+    btnsLayout->addWidget(cancel);
 
     QLabel *icon = new QLabel;
     icon->setAlignment(Qt::AlignCenter);
@@ -36,6 +47,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     vLayout->addWidget(label);
     vLayout->addWidget(table);
     vLayout->addStretch();
+    vLayout->addLayout(btnsLayout);
 
     QWidget *w = new QWidget;
     w->setLayout(vLayout);

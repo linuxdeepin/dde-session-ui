@@ -1,9 +1,10 @@
 #ifndef DMEMORYWARNINGDIALOG_H
 #define DMEMORYWARNINGDIALOG_H
 
-#include <QMainWindow>
+#include <DMainWindow>
 
-class DMemoryWarningDialog : public QMainWindow
+DWIDGET_USE_NAMESPACE
+class DMemoryWarningDialog : public DMainWindow
 {
     Q_OBJECT
 
