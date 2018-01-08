@@ -4,7 +4,7 @@ TARGET = dmemory-warning-dialog
 TEMPLATE = app
 
 CONFIG += c++14 link_pkgconfig
-PKGCONFIG += dtkwidget
+PKGCONFIG += dtkwidget 
 
 HEADERS += \
     src/buttondelegate.h \

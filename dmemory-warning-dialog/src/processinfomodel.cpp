@@ -2,10 +2,22 @@
 
 #include <QDebug>
 #include <QIcon>
+#include <QFile>
 
 inline QString formatMem(const unsigned mem_bytes)
 {
     return QString("%1M").arg(mem_bytes / 1024 / 1024);
+}
+
+inline QString appName(const QString &desktop)
+{
+    if (!desktop.endsWith(".desktop"))
+        return QString();
+
+    const int start = desktop.lastIndexOf('/') + 1;
+    const int end = desktop.lastIndexOf(".desktop");
+
+    return desktop.midRef(start, end - start).toString();
 }
 
 ProcessInfoModel::ProcessInfoModel(QObject *parent)
@@ -47,14 +59,17 @@ QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
         }
         break;
     case IconRole:
+    {
+        const QString icon = appName(m_processInfos->processInfoList[index.row()].desktop);
         switch (index.column())
         {
         case COLUMN_ICON:
-            return QIcon::fromTheme(m_processInfos->processInfoList[index.row()].app_name, QIcon::fromTheme("application-x-desktop")).pixmap(24, 24);
+            return QIcon::fromTheme(icon, QIcon::fromTheme("application-x-desktop")).pixmap(24, 24);
         case COLUMN_FREE_BTN:
-            return QIcon::fromTheme(m_processInfos->processInfoList[index.row()].app_name, QIcon::fromTheme("application-x-desktop")).pixmap(48, 48);
+            return QIcon::fromTheme(icon, QIcon::fromTheme("application-x-desktop")).pixmap(48, 48);
         default:;
         }
+    }
         break;
     case TextAlignmentRole:
         switch (index.column())
