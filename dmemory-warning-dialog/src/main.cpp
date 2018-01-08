@@ -10,6 +10,7 @@ int main(int argc, char *args[])
     DApplication::loadDXcbPlugin();
     DApplication dapp(argc, args);
     dapp.setAttribute(Qt::AA_UseHighDpiPixmaps);
+    dapp.setTheme("dlight");
 
     DMemoryWarningDialog dialog;
     dialog.show();

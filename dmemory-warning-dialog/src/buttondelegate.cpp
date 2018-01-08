@@ -5,10 +5,30 @@
 #include <QProcess>
 #include <QDebug>
 
-void terminate(const QStringList &pidList)
+#include <ddialog.h>
+
+DWIDGET_USE_NAMESPACE
+
+void terminate(const QStringList &pidList, const QPixmap &icon)
 {
-    for (const auto &pid : pidList)
-        QProcess::startDetached("kill", QStringList() << pid);
+    const QStringList btns = QStringList() << QApplication::translate("ButtonDelegate", "Cancel")
+                                           << QApplication::translate("ButtonDelegate", "View")
+                                           << QApplication::translate("ButtonDelegate", "Free");
+
+    DDialog terminateDialog(nullptr);
+    terminateDialog.setMessage(QApplication::translate("ButtonDelegate", "Are you sure to terminate this process?"));
+    terminateDialog.setIconPixmap(icon);
+    terminateDialog.addButtons(btns);
+
+    QObject::connect(&terminateDialog, &DDialog::buttonClicked, [=](const int index) {
+        if (index != 2)
+            return;
+
+        for (const auto &pid : pidList)
+            QProcess::startDetached("kill", QStringList() << pid);
+    });
+
+    terminateDialog.exec();
 }
 
 ButtonDelegate::ButtonDelegate(QObject *parent)
@@ -39,7 +59,7 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
         model->setData(index, QVariant(), ProcessInfoModel::StateRole);
         break;
     case QEvent::MouseButtonRelease:
-        terminate(index.data(ProcessInfoModel::PidListRole).value<QStringList>());
+        terminate(index.data(ProcessInfoModel::PidListRole).value<QStringList>(), index.data(ProcessInfoModel::IconRole).value<QPixmap>());
         break;
     default:;
     }

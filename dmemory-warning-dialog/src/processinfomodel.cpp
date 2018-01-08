@@ -47,8 +47,14 @@ QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
         }
         break;
     case IconRole:
-        if (index.column() == COLUMN_ICON)
+        switch (index.column())
+        {
+        case COLUMN_ICON:
             return QIcon::fromTheme(m_processInfos->processInfoList[index.row()].app_name, QIcon::fromTheme("application-x-desktop")).pixmap(24, 24);
+        case COLUMN_FREE_BTN:
+            return QIcon::fromTheme(m_processInfos->processInfoList[index.row()].app_name, QIcon::fromTheme("application-x-desktop")).pixmap(48, 48);
+        default:;
+        }
         break;
     case StateRole:
         return m_pressedIndex == index;
