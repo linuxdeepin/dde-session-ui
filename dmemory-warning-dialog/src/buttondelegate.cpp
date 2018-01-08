@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QProcess>
 #include <QDebug>
+#include <QPainter>
 
 #include <ddialog.h>
 
@@ -39,6 +40,9 @@ ButtonDelegate::ButtonDelegate(QObject *parent)
 
 void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    if (index.row() % 2)
+        painter->fillRect(option.rect, QColor(0, 0, 0, 255 * 0.05));
+
     QStyleOptionButton button;
     button.rect = option.rect.marginsRemoved(QMargins(6, 6, 6, 6));
     button.text = index.data().toString();

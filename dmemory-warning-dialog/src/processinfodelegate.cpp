@@ -6,15 +6,18 @@
 #include <QPainter>
 
 ProcessInfoDelegate::ProcessInfoDelegate(QObject *parent)
-    : QItemDelegate(parent)
+    : QStyledItemDelegate(parent)
 {
 
 }
 
 void ProcessInfoDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    if (index.row() % 2)
+        painter->fillRect(option.rect, QColor(0, 0, 0, 255 * 0.05));
+
     if (index.column() != COLUMN_ICON)
-        return QItemDelegate::paint(painter, option, index);
+        return QStyledItemDelegate::paint(painter, option, index);
 
     const QPixmap pix = index.data(ProcessInfoModel::IconRole).value<QPixmap>();
     painter->drawPixmap(option.rect.center() - pix.rect().center() / pix.devicePixelRatio(), pix);

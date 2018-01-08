@@ -1,9 +1,9 @@
 #ifndef PROCESSINFODELEGATE_H
 #define PROCESSINFODELEGATE_H
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
-class ProcessInfoDelegate : public QItemDelegate
+class ProcessInfoDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 
