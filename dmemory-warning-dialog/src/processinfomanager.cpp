@@ -23,6 +23,12 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
     m_refreshTimer->setInterval(1000);
     m_refreshTimer->start();
 
+    QFile sessionId("/proc/self/sessionid");
+    if (sessionId.open(QIODevice::ReadOnly))
+        m_sessionId = sessionId.readAll();
+    else
+        m_sessionId = "2";
+
     connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanProcessInfos);
 
     qRegisterMetaType<AppsMap>("AppsMap");
@@ -39,7 +45,7 @@ void ProcessInfoManager::scanProcessInfos()
 
     processInfoList.clear();
     for (auto it(reply.cbegin()); it != reply.cend(); ++it)
-        appendCGroupPath(QString("/2@dde/uiapps/%1").arg(it.key()), it.value());
+        appendCGroupPath(QString("/%1@dde/uiapps/%2").arg(m_sessionId).arg(it.key()), it.value());
 
 #if false // using x11 to find windows
     auto *display = QX11Info::display();
