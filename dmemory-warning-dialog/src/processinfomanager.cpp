@@ -4,11 +4,43 @@
 #include <QDebug>
 #include <QWindow>
 #include <QFile>
+#include <QApplication>
+#include <QRegularExpression>
 #include <QDBusInterface>
 #include <QDBusReply>
 #include <QDBusMetaType>
 
 typedef QMap<quint32, QString> AppsMap;
+
+QString genericAppName(const QString &desktop)
+{
+    do {
+        if (desktop.isEmpty())
+            break;
+
+        QFile f(desktop);
+        if (!f.open(QIODevice::ReadOnly))
+            break;
+
+        const QString output = f.readAll();
+        const QString locale = QLocale().name();
+
+        QRegularExpression regex(QString("Name\\[%1\\]=(.+)$").arg(locale));
+        regex.setPatternOptions(QRegularExpression::MultilineOption);
+        auto match = regex.match(output);
+        if (match.isValid() && match.hasMatch())
+            return match.captured(1);
+
+        regex = QRegularExpression(QString("Name=(.+)$"));
+        regex.setPatternOptions(QRegularExpression::MultilineOption);
+        match = regex.match(output);
+        if (match.isValid() && match.hasMatch())
+            return match.captured(1);
+
+    } while (false);
+
+    return desktop;
+}
 
 ProcessInfoManager::ProcessInfoManager(QObject *parent)
     : QObject(parent)
@@ -82,7 +114,7 @@ void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &de
     ProcessInfo pInfo;
     pInfo.total_mem_bytes = mem_num.trimmed().toUInt();
     pInfo.cgroup_path = basePath;
-    pInfo.app_name = procCmdline.readAll().split('/').last();
+    pInfo.app_name = genericAppName(desktop);
     pInfo.desktop = desktop;
     for (const auto &id : pidList)
         if (!id.isEmpty())
