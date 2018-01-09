@@ -14,7 +14,7 @@ int main(int argc, char *args[])
     DApplication dapp(argc, args);
     dapp.setQuitOnLastWindowClosed(false);
     dapp.setAttribute(Qt::AA_UseHighDpiPixmaps);
-    dapp.setTheme("dlight");
+    dapp.setTheme("light");
 
     if (!dapp.setSingleInstance("dmemory-warning-dialog"))
         return -1;
