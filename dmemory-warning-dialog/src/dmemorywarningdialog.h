@@ -2,6 +2,8 @@
 #define DMEMORYWARNINGDIALOG_H
 
 #include <DMainWindow>
+#include <QPushButton>
+#include <QLabel>
 
 DWIDGET_USE_NAMESPACE
 
@@ -14,6 +16,9 @@ class DMemoryWarningDialog : public DMainWindow
 public:
     explicit DMemoryWarningDialog(QWidget *parent = nullptr);
 
+public slots:
+    void updateAppInfo(const QString &appInfo);
+
 private:
     void keyPressEvent(QKeyEvent *e);
     void showEvent(QShowEvent *e);
@@ -21,6 +26,11 @@ private:
 
 private:
     ProcessInfoModel *m_infoModel;
+    QLabel *m_icon;
+    QLabel *m_appName;
+    QLabel *m_tips;
+    QPushButton *m_cancelButton;
+    QPushButton *m_continueButton;
 };
 
 #endif // DMEMORYWARNINGDIALOG_H

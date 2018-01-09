@@ -15,7 +15,7 @@ public:
     ~DMemoryWarningDialogAdaptor();
 
 public Q_SLOTS:
-    void Show();
+    void Show(const QString &launchInfo);
     void Hide();
 
 private:
