@@ -1,4 +1,4 @@
-QT       += core gui widgets dbus x11extras
+QT       += core gui widgets dbus
 
 TARGET = dmemory-warning-dialog
 TEMPLATE = app

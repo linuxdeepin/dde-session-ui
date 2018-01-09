@@ -33,7 +33,6 @@ private slots:
     void scanProcessInfos();
 
 private:
-//    void appendProcess(const int pid);
     void appendCGroupPath(const QString &path, const QString &desktop);
 
 private:
