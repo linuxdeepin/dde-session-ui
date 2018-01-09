@@ -6,6 +6,10 @@
 #include <QTimer>
 #include <QPointer>
 
+#include <com_deepin_startmanager.h>
+
+using StartManagerInter = com::deepin::StartManager;
+
 class ProcessInfo
 {
 public:
@@ -38,9 +42,10 @@ private:
     void appendCGroupPath(const QString &path, const QString &desktop);
 
 private:
+    QPointer<QTimer> m_refreshTimer;
+    QPointer<StartManagerInter> m_startManagerInter;
     QString m_sessionId;
     QList<ProcessInfo> processInfoList;
-    QPointer<QTimer> m_refreshTimer;
 };
 
 #endif // PROCESSINFOMANAGER_H

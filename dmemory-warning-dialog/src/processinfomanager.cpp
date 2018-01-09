@@ -10,8 +10,6 @@
 #include <QDBusReply>
 #include <QDBusMetaType>
 
-typedef QMap<quint32, QString> AppsMap;
-
 QString genericAppName(const QString &desktop)
 {
     do {
@@ -46,6 +44,7 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
     : QObject(parent)
 
     , m_refreshTimer(new QTimer(this))
+    , m_startManagerInter(new StartManagerInter("com.deepin.SessionManager", "/com/deepin/StartManager", QDBusConnection::sessionBus(), this))
 {
     m_refreshTimer->setSingleShot(false);
     m_refreshTimer->setInterval(1000);
@@ -57,16 +56,11 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
         m_sessionId = "2";
 
     connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanProcessInfos);
-
-    qRegisterMetaType<AppsMap>("AppsMap");
-    qDBusRegisterMetaType<AppsMap>();
 }
 
 void ProcessInfoManager::scanProcessInfos()
 {
-    // using dbus to find windows
-    QDBusInterface appsInter("com.deepin.SessionManager", "/com/deepin/StartManager",  "com.deepin.StartManager");
-    AppsMap reply = QDBusReply<AppsMap>(appsInter.call("GetApps")).value();
+    auto reply = m_startManagerInter->GetApps().value();
 
     processInfoList.clear();
     for (auto it(reply.cbegin()); it != reply.cend(); ++it)

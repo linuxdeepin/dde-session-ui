@@ -1,6 +1,8 @@
 #ifndef DMEMORYWARNINGDIALOG_H
 #define DMEMORYWARNINGDIALOG_H
 
+#include "processinfomodel.h"
+
 #include <DMainWindow>
 #include <QPushButton>
 #include <QLabel>
@@ -15,6 +17,7 @@ class DMemoryWarningDialog : public DMainWindow
 
 public:
     explicit DMemoryWarningDialog(QWidget *parent = nullptr);
+    ~DMemoryWarningDialog();
 
 public slots:
     void updateAppInfo(const QString &appInfo);
@@ -24,11 +27,19 @@ private:
     void showEvent(QShowEvent *e);
     void hideEvent(QHideEvent *e);
 
+private slots:
+    void onNeedMemChanged(const qulonglong needed);
+    void onContinueClicked();
+    void onCancelClicked();
+    void updateTips();
+
 private:
+    int m_needed;
+    QString m_appName;
+    QPointer<StartManagerInter> m_startManagerInter;
     ProcessInfoModel *m_infoModel;
     QLabel *m_icon;
-    QLabel *m_appName;
-    QLabel *m_tips;
+    QLabel *m_memNeeded;
     QPushButton *m_cancelButton;
     QPushButton *m_continueButton;
 };

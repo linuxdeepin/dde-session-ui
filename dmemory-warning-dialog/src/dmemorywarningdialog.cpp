@@ -17,22 +17,22 @@
 DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     : DMainWindow(parent)
 
+    , m_startManagerInter(new StartManagerInter("com.deepin.SessionManager", "/com/deepin/StartManager", QDBusConnection::sessionBus(), this))
     , m_infoModel(new ProcessInfoModel)
 
     , m_icon(new QLabel)
-    , m_appName(new QLabel)
-    , m_tips(new QLabel)
+    , m_memNeeded(new QLabel)
 
     , m_cancelButton(new QPushButton)
     , m_continueButton(new QPushButton)
 {
     titlebar()->setTitle(QString());
+    titlebar()->setVisible(false);
 
     m_cancelButton->setText(tr("Cancel"));
     m_continueButton->setText(tr("Continue"));
     m_icon->setPixmap(QIcon::fromTheme("dde").pixmap(32, 32));
-    m_appName->setText("appname");
-    m_tips->setText("need 100M memory");
+    m_memNeeded->setText("dde need 100M memory");
 
     ProcessInfoTable *table = new ProcessInfoTable;
     table->setModel(m_infoModel);
@@ -59,8 +59,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     QHBoxLayout *tipsLayout = new QHBoxLayout;
     tipsLayout->addStretch();
     tipsLayout->addWidget(m_icon);
-    tipsLayout->addWidget(m_appName);
-    tipsLayout->addWidget(m_tips);
+    tipsLayout->addWidget(m_memNeeded);
     tipsLayout->addStretch();
 
     QVBoxLayout *vLayout = new QVBoxLayout;
@@ -77,12 +76,29 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
 
     setCentralWidget(w);
     setFixedSize(400, 600);
+    setWindowFlags(windowFlags() & ~(Qt::WindowCloseButtonHint | Qt::WindowMinMaxButtonsHint));
     move(qApp->primaryScreen()->geometry().center() - rect().center());
+
+    connect(m_cancelButton, &QPushButton::clicked, this, &DMemoryWarningDialog::onCancelClicked);
+    connect(m_continueButton, &QPushButton::clicked, this, &DMemoryWarningDialog::onContinueClicked);
+    connect(m_startManagerInter, &StartManagerInter::NeededMemoryChanged, this, &DMemoryWarningDialog::onNeedMemChanged);
+    onNeedMemChanged(m_startManagerInter->neededMemory());
+}
+
+DMemoryWarningDialog::~DMemoryWarningDialog()
+{
+    m_startManagerInter->TryAgain(false);
 }
 
 void DMemoryWarningDialog::updateAppInfo(const QString &appInfo)
 {
-    qDebug() << appInfo;
+    const int start = appInfo.lastIndexOf('/');
+    const int end = appInfo.indexOf(".desktop");
+    const QString &appName = appInfo.mid(start + 1, end - start - 1);
+
+    m_icon->setPixmap(QIcon::fromTheme(appInfo.mid(start + 1, end - start - 1)).pixmap(32, 32));
+    m_appName = appName;
+    updateTips();
 }
 
 void DMemoryWarningDialog::keyPressEvent(QKeyEvent *e)
@@ -108,4 +124,28 @@ void DMemoryWarningDialog::hideEvent(QHideEvent *e)
     DMainWindow::hideEvent(e);
 
     m_infoModel->stopRefreshData();
+}
+
+void DMemoryWarningDialog::onNeedMemChanged(const qulonglong needed)
+{
+    m_continueButton->setEnabled(!needed);
+    m_needed = needed;
+    updateTips();
+}
+
+void DMemoryWarningDialog::onContinueClicked()
+{
+    m_startManagerInter->TryAgain(true);
+    hide();
+}
+
+void DMemoryWarningDialog::onCancelClicked()
+{
+    m_startManagerInter->TryAgain(false);
+    hide();
+}
+
+void DMemoryWarningDialog::updateTips()
+{
+    m_memNeeded->setText(QString("%1 need extra %2M to launch").arg(m_appName).arg(m_needed / 1024));
 }
