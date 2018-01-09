@@ -10,6 +10,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QDebug>
 
 #include <DTitlebar>
 
@@ -17,20 +18,31 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     : DMainWindow(parent)
 
     , m_infoModel(new ProcessInfoModel)
+
+    , m_icon(new QLabel)
+    , m_appName(new QLabel)
+    , m_tips(new QLabel)
+
+    , m_cancelButton(new QPushButton)
+    , m_continueButton(new QPushButton)
 {
     titlebar()->setTitle(QString());
+
+    m_cancelButton->setText(tr("Cancel"));
+    m_continueButton->setText(tr("Continue"));
+    m_icon->setPixmap(QIcon::fromTheme("dde").pixmap(32, 32));
+    m_appName->setText("appname");
+    m_tips->setText("need 100M memory");
 
     ProcessInfoTable *table = new ProcessInfoTable;
     table->setModel(m_infoModel);
     table->setItemDelegate(new ProcessInfoDelegate);
     table->setItemDelegateForColumn(3, new ButtonDelegate);
-    table->setFixedHeight(300);
-
-    QPushButton *cancel = new QPushButton;
-    cancel->setText(tr("Cancel"));
+    table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QHBoxLayout *btnsLayout = new QHBoxLayout;
-    btnsLayout->addWidget(cancel);
+    btnsLayout->addWidget(m_cancelButton);
+    btnsLayout->addWidget(m_continueButton);
 
     QLabel *icon = new QLabel;
     icon->setAlignment(Qt::AlignCenter);
@@ -44,19 +56,33 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     f.setPointSize(12);
     label->setFont(f);
 
+    QHBoxLayout *tipsLayout = new QHBoxLayout;
+    tipsLayout->addStretch();
+    tipsLayout->addWidget(m_icon);
+    tipsLayout->addWidget(m_appName);
+    tipsLayout->addWidget(m_tips);
+    tipsLayout->addStretch();
+
     QVBoxLayout *vLayout = new QVBoxLayout;
     vLayout->addWidget(icon);
     vLayout->addWidget(label);
     vLayout->addWidget(table);
-    vLayout->addStretch();
+    vLayout->addSpacing(20);
+    vLayout->addLayout(tipsLayout);
+    vLayout->addSpacing(20);
     vLayout->addLayout(btnsLayout);
 
     QWidget *w = new QWidget;
     w->setLayout(vLayout);
 
     setCentralWidget(w);
-    setFixedSize(400, 500);
+    setFixedSize(400, 600);
     move(qApp->primaryScreen()->geometry().center() - rect().center());
+}
+
+void DMemoryWarningDialog::updateAppInfo(const QString &appInfo)
+{
+    qDebug() << appInfo;
 }
 
 void DMemoryWarningDialog::keyPressEvent(QKeyEvent *e)

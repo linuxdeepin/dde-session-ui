@@ -13,9 +13,10 @@ DMemoryWarningDialogAdaptor::~DMemoryWarningDialogAdaptor()
 
 }
 
-void DMemoryWarningDialogAdaptor::Show()
+void DMemoryWarningDialogAdaptor::Show(const QString &launchInfo)
 {
     dialog->show();
+    dialog->updateAppInfo(launchInfo);
 }
 
 void DMemoryWarningDialogAdaptor::Hide()

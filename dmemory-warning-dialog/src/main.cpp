@@ -27,5 +27,9 @@ int main(int argc, char *args[])
         !connection.registerObject("/com/deepin/dde/MemoryWarningDialog", &dialog))
         return -1;
 
+#ifdef QT_DEBUG
+    dialog.show();
+#endif
+
     return dapp.exec();
 }
