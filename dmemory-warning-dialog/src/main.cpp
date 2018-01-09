@@ -12,6 +12,9 @@ int main(int argc, char *args[])
     dapp.setAttribute(Qt::AA_UseHighDpiPixmaps);
     dapp.setTheme("dlight");
 
+    if (!dapp.setSingleInstance("dmemory-warning-dialog", DApplication::UserScope))
+        return -1;
+
     DMemoryWarningDialog dialog;
     dialog.show();
 
