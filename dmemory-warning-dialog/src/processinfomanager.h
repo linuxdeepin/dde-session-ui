@@ -31,6 +31,8 @@ signals:
 
 private slots:
     void scanProcessInfos();
+    void startRefreshData();
+    void stopRefreshData() { m_refreshTimer->stop(); }
 
 private:
     void appendCGroupPath(const QString &path, const QString &desktop);

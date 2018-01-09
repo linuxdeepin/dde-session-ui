@@ -15,11 +15,13 @@
 
 DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     : DMainWindow(parent)
+
+    , m_infoModel(new ProcessInfoModel)
 {
     titlebar()->setTitle(QString());
 
     ProcessInfoTable *table = new ProcessInfoTable;
-    table->setModel(new ProcessInfoModel);
+    table->setModel(m_infoModel);
     table->setItemDelegate(new ProcessInfoDelegate);
     table->setItemDelegateForColumn(3, new ButtonDelegate);
     table->setFixedHeight(300);
@@ -66,4 +68,18 @@ void DMemoryWarningDialog::keyPressEvent(QKeyEvent *e)
 #endif
     default:;
     }
+}
+
+void DMemoryWarningDialog::showEvent(QShowEvent *e)
+{
+    DMainWindow::showEvent(e);
+
+    m_infoModel->startRefreshData();
+}
+
+void DMemoryWarningDialog::hideEvent(QHideEvent *e)
+{
+    DMainWindow::hideEvent(e);
+
+    m_infoModel->stopRefreshData();
 }

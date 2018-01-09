@@ -49,7 +49,6 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
 {
     m_refreshTimer->setSingleShot(false);
     m_refreshTimer->setInterval(1000);
-    m_refreshTimer->start();
 
     QFile sessionId("/proc/self/sessionid");
     if (sessionId.open(QIODevice::ReadOnly))
@@ -61,8 +60,6 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
 
     qRegisterMetaType<AppsMap>("AppsMap");
     qDBusRegisterMetaType<AppsMap>();
-
-    QTimer::singleShot(1, this, &ProcessInfoManager::scanProcessInfos);
 }
 
 void ProcessInfoManager::scanProcessInfos()
@@ -82,6 +79,12 @@ void ProcessInfoManager::scanProcessInfos()
     });
 
     emit processInfoListChanged();
+}
+
+void ProcessInfoManager::startRefreshData()
+{
+    m_refreshTimer->start();
+    QTimer::singleShot(1, this, &ProcessInfoManager::scanProcessInfos);
 }
 
 void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &desktop)

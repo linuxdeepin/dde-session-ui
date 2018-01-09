@@ -1,7 +1,10 @@
 
 #include "dmemorywarningdialog.h"
+#include "dmemorywarningdialogadaptor.h"
 
 #include <DApplication>
+
+#include <QDBusConnection>
 
 DWIDGET_USE_NAMESPACE
 
@@ -9,6 +12,7 @@ int main(int argc, char *args[])
 {
     DApplication::loadDXcbPlugin();
     DApplication dapp(argc, args);
+    dapp.setQuitOnLastWindowClosed(false);
     dapp.setAttribute(Qt::AA_UseHighDpiPixmaps);
     dapp.setTheme("dlight");
 
@@ -16,7 +20,12 @@ int main(int argc, char *args[])
         return -1;
 
     DMemoryWarningDialog dialog;
-    dialog.show();
+    DMemoryWarningDialogAdaptor dbusAdaptor(&dialog);
+    Q_UNUSED(dbusAdaptor);
+    QDBusConnection connection = QDBusConnection::sessionBus();
+    if (!connection.registerService("com.deepin.dde.MemoryWarningDialog") ||
+        !connection.registerObject("/com/deepin/dde/MemoryWarningDialog", &dialog))
+        return -1;
 
     return dapp.exec();
 }

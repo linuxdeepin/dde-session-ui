@@ -36,6 +36,8 @@ public:
 
 public slots:
     void clearPressed();
+    void startRefreshData() { m_processInfos->startRefreshData(); }
+    void stopRefreshData() { m_processInfos->stopRefreshData(); }
 
 private:
     QPointer<ProcessInfoManager> m_processInfos;
