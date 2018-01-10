@@ -154,7 +154,7 @@ void DMemoryWarningDialog::onCancelClicked()
 void DMemoryWarningDialog::updateTips()
 {
     if (m_appName.isEmpty())
-        m_memNeeded->setText(QString("Need extra %1M to open new tab").arg(m_needed / 1024));
+        m_memNeeded->setText(QString(tr("Need extra %1M to open new tab")).arg(m_needed / 1024));
     else
-        m_memNeeded->setText(QString("%1 need extra %2M to launch").arg(m_appName).arg(m_needed / 1024));
+        m_memNeeded->setText(QString(tr("%1 need extra %2M to launch")).arg(m_appName).arg(m_needed / 1024));
 }

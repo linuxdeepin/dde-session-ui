@@ -36,6 +36,16 @@
         <source>Please free some memory to start new process</source>
         <translation>请释放一些内存以开启新的应用</translation>
     </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="157"/>
+        <source>Need extra %1M to open new tab</source>
+        <translation>需要 %1M 内存来打开新标签页</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="159"/>
+        <source>%1 need extra %2M to launch</source>
+        <translation>启动 %1 还需要 %2M 内存</translation>
+    </message>
 </context>
 <context>
     <name>DisplayModeProvider</name>
