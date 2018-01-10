@@ -88,12 +88,19 @@ DMemoryWarningDialog::~DMemoryWarningDialog()
 
 void DMemoryWarningDialog::updateAppInfo(const QString &appInfo)
 {
-    const int start = appInfo.lastIndexOf('/');
-    const int end = appInfo.indexOf(".desktop");
-    const QString &appName = appInfo.mid(start + 1, end - start - 1);
+    if (appInfo.endsWith(".desktop"))
+    {
+        const int start = appInfo.lastIndexOf('/');
+        const int end = appInfo.indexOf(".desktop");
+        const QString &appName = appInfo.mid(start + 1, end - start - 1);
 
-    m_icon->setPixmap(QIcon::fromTheme(appInfo.mid(start + 1, end - start - 1)).pixmap(32, 32));
-    m_appName = appName;
+        m_icon->setPixmap(QIcon::fromTheme(appInfo.mid(start + 1, end - start - 1)).pixmap(32, 32));
+        m_appName = appName;
+    } else {
+        m_icon->setPixmap(QIcon::fromTheme("google-chrome").pixmap(32, 32));
+        m_appName.clear();
+    }
+
     updateTips();
 }
 
@@ -113,6 +120,7 @@ void DMemoryWarningDialog::showEvent(QShowEvent *e)
     DAbstractDialog::showEvent(e);
 
     QTimer::singleShot(1, this, &DMemoryWarningDialog::raise);
+    QTimer::singleShot(1, this, &DMemoryWarningDialog::activateWindow);
 
     m_infoModel->startRefreshData();
 }
@@ -145,5 +153,8 @@ void DMemoryWarningDialog::onCancelClicked()
 
 void DMemoryWarningDialog::updateTips()
 {
-    m_memNeeded->setText(QString("%1 need extra %2M to launch").arg(m_appName).arg(m_needed / 1024));
+    if (m_appName.isEmpty())
+        m_memNeeded->setText(QString("Need extra %1M to open new tab").arg(m_needed / 1024));
+    else
+        m_memNeeded->setText(QString("%1 need extra %2M to launch").arg(m_appName).arg(m_needed / 1024));
 }
