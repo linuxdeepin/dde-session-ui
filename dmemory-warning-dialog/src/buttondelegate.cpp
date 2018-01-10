@@ -17,7 +17,7 @@ bool confirm(const QPixmap &icon)
                                            << QApplication::translate("ButtonDelegate", "Free");
 
     DDialog terminateDialog(nullptr);
-    terminateDialog.setMessage(QApplication::translate("ButtonDelegate", "Are you sure to terminate this process?"));
+    terminateDialog.setMessage(QApplication::translate("ButtonDelegate", "Are you sure to terminate this process? this operate can not restore."));
     terminateDialog.setIconPixmap(icon);
     terminateDialog.addButtons(btns);
 

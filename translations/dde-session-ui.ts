@@ -15,7 +15,7 @@
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/buttondelegate.cpp" line="20"/>
-        <source>Are you sure to terminate this process?</source>
+        <source>Are you sure to terminate this process? this operate can not restore.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

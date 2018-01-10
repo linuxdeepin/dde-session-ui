@@ -1,4 +1,42 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
+<context>
+    <name>ButtonDelegate</name>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/buttondelegate.cpp" line="15"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/buttondelegate.cpp" line="17"/>
+        <source>Free</source>
+        <translation>释放</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/buttondelegate.cpp" line="20"/>
+        <source>Are you sure to terminate this process? this operate can not restore.</source>
+        <translation>确定要终止当前应用吗？此操作不可恢复。</translation>
+    </message>
+</context>
+<context>
+    <name>DMemoryWarningDialog</name>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="31"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="32"/>
+        <source>Continue</source>
+        <translation>继续</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
+        <source>Please free some memory to start new process</source>
+        <translation>请释放一些内存以开启新的应用</translation>
+    </message>
+</context>
 <context>
     <name>DisplayModeProvider</name>
     <message>
@@ -21,29 +59,37 @@
     </message>
 </context>
 <context>
+    <name>KBLayoutIndicator</name>
+    <message>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="128"/>
+        <source>Add keyboard layout</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="128"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="131"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="235"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="231"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="240"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="236"/>
         <source>Please retry after 10 minutes</source>
         <translation>10分钟后再尝试</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="528"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="593"/>
         <source>Enter your password to restart</source>
         <translation>请输入密码以完成重启</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="531"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="596"/>
         <source>Enter your password to shutdown</source>
         <translation>请输入密码以完成关机</translation>
     </message>
@@ -51,17 +97,17 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="258"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="266"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="423"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="482"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="428"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="487"/>
         <source>Please retry after 10 minutes</source>
         <translation>10分钟后再尝试</translation>
     </message>
@@ -69,39 +115,32 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Control Center</source>
-        <translation>控制中心</translation>
+        <translation type="vanished">控制中心</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>All Windows</source>
-        <translation>所有窗口</translation>
+        <translation type="vanished">所有窗口</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Launcher</source>
-        <translation>启动器</translation>
+        <translation type="vanished">启动器</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Desktop</source>
-        <translation>桌面</translation>
+        <translation type="vanished">桌面</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>None</source>
-        <translation>无</translation>
+        <translation type="vanished">无</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="53"/>
         <source>Fast Screen Off</source>
-        <translation>快速黑屏</translation>
+        <translation type="vanished">快速黑屏</translation>
     </message>
     <message>
-        <location filename="../dde-zone/mainwindow.cpp" line="57"/>
         <source>Close Window</source>
-        <translation>关闭窗口</translation>
+        <translation type="vanished">关闭窗口</translation>
     </message>
 </context>
 <context>
@@ -115,6 +154,14 @@
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="99"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>此电脑还有以上帐户在登录，重启电脑会导致其数据丢失，是否要重启此电脑？</translation>
+    </message>
+</context>
+<context>
+    <name>ProcessInfoModel</name>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="53"/>
+        <source>Free</source>
+        <translation>释放</translation>
     </message>
 </context>
 <context>
