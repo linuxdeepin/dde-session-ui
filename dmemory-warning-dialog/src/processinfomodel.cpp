@@ -81,6 +81,8 @@ QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
         return m_pressedIndex == index;
     case PidListRole:
         return m_processInfos->processInfoList[index.row()].pid_list;
+    case TabIdRole:
+        return m_processInfos->processInfoList[index.row()].id;
     default:;
     }
 

@@ -10,10 +10,10 @@
 
 DWIDGET_USE_NAMESPACE
 
-void terminate(const QStringList &pidList, const QPixmap &icon)
+bool confirm(const QPixmap &icon)
 {
     const QStringList btns = QStringList() << QApplication::translate("ButtonDelegate", "Cancel")
-                                           << QApplication::translate("ButtonDelegate", "View")
+//                                           << QApplication::translate("ButtonDelegate", "View")
                                            << QApplication::translate("ButtonDelegate", "Free");
 
     DDialog terminateDialog(nullptr);
@@ -21,15 +21,29 @@ void terminate(const QStringList &pidList, const QPixmap &icon)
     terminateDialog.setIconPixmap(icon);
     terminateDialog.addButtons(btns);
 
-    QObject::connect(&terminateDialog, &DDialog::buttonClicked, [=](const int index) {
-        if (index != 2)
-            return;
-
-        for (const auto &pid : pidList)
-            QProcess::startDetached("kill", QStringList() << pid);
+    QObject::connect(&terminateDialog, &DDialog::buttonClicked, [&](const int index) {
+        if (index == 1)
+            terminateDialog.accept();
     });
 
-    terminateDialog.exec();
+    if (terminateDialog.exec() == DDialog::Accepted)
+        return true;
+    return false;
+}
+
+void terminate(const QStringList &pidList, const QPixmap &icon)
+{
+    if (confirm(icon))
+        for (const auto &pid : pidList)
+            QProcess::startDetached("kill", QStringList() << pid);
+}
+
+void close_tab(const int id)
+{
+    if (!confirm(QIcon::fromTheme("google-chrome").pixmap(32, 32)))
+        return;
+
+    QProcess::startDetached("qdbus com.deepin.chromeExtension.TabsLimit /com/deepin/chromeExtension/TabsLimit com.deepin.chromeExtension.TabsLimit.CloseTab " + QString::number(id));
 }
 
 ButtonDelegate::ButtonDelegate(QObject *parent)
@@ -63,8 +77,14 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
         model->setData(index, QVariant(), ProcessInfoModel::StateRole);
         break;
     case QEvent::MouseButtonRelease:
-        terminate(index.data(ProcessInfoModel::PidListRole).value<QStringList>(), index.data(ProcessInfoModel::IconRole).value<QPixmap>());
+    {
+        const auto &pidList = index.data(ProcessInfoModel::PidListRole).value<QStringList>();
+        if (!pidList.isEmpty())
+            terminate(pidList, index.data(ProcessInfoModel::IconRole).value<QPixmap>());
+        else
+            close_tab(index.data(ProcessInfoModel::TabIdRole).toInt());
         break;
+    }
     default:;
     }
 

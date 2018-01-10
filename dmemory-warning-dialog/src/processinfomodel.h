@@ -27,6 +27,7 @@ public:
 
         StateRole = Qt::UserRole,
         PidListRole,
+        TabIdRole,
     };
 
     int rowCount(const QModelIndex &parent) const;

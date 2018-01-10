@@ -7,12 +7,15 @@
 #include <QPointer>
 
 #include <com_deepin_startmanager.h>
+#include <com_deepin_chromeextension_tabslimit.h>
 
 using StartManagerInter = com::deepin::StartManager;
+using ChromeTabsInter = com::deepin::chromeextension::TabsLimit;
 
 class ProcessInfo
 {
 public:
+    int id;
     unsigned total_mem_bytes;
     QString cgroup_path;
     QString app_name;
@@ -34,17 +37,24 @@ signals:
     void processInfoListChanged() const;
 
 private slots:
+    void scanChromeTabs();
     void scanProcessInfos();
     void startRefreshData();
     void stopRefreshData() { m_refreshTimer->stop(); }
+    void mergeLists();
+
+    void scanChromeTabsCB(QDBusPendingCallWatcher *watcher);
 
 private:
     void appendCGroupPath(const QString &path, const QString &desktop);
+    void appendChromeTab(const ChromeTabInfo &tabInfo);
 
 private:
     QPointer<QTimer> m_refreshTimer;
     QPointer<StartManagerInter> m_startManagerInter;
+    QPointer<ChromeTabsInter> m_chromeTabsInter;
     QString m_sessionId;
+    QList<ProcessInfo> tabsInfoList;
     QList<ProcessInfo> processInfoList;
 };
 

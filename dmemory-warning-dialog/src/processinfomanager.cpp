@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QApplication>
 #include <QRegularExpression>
+#include <QDBusPendingCallWatcher>
 #include <QDBusInterface>
 #include <QDBusReply>
 #include <QDBusMetaType>
@@ -45,6 +46,7 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
 
     , m_refreshTimer(new QTimer(this))
     , m_startManagerInter(new StartManagerInter("com.deepin.SessionManager", "/com/deepin/StartManager", QDBusConnection::sessionBus(), this))
+    , m_chromeTabsInter(new ChromeTabsInter("com.deepin.chromeExtension.TabsLimit", "/com/deepin/chromeExtension/TabsLimit", QDBusConnection::sessionBus(), this))
 {
     m_refreshTimer->setSingleShot(false);
     m_refreshTimer->setInterval(1000);
@@ -56,15 +58,27 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
         m_sessionId = "2";
 
     connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanProcessInfos);
+    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanChromeTabs);
+}
+
+void ProcessInfoManager::scanChromeTabs()
+{
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(m_chromeTabsInter->GetTabInfoList(), this);
+
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, &ProcessInfoManager::scanChromeTabsCB);
 }
 
 void ProcessInfoManager::scanProcessInfos()
 {
-    auto reply = m_startManagerInter->GetApps().value();
+    const auto &apps = m_startManagerInter->GetApps().value();
 
     processInfoList.clear();
-    for (auto it(reply.cbegin()); it != reply.cend(); ++it)
+
+    // append basic apps
+    for (auto it(apps.cbegin()); it != apps.cend(); ++it)
         appendCGroupPath(QString("/%1@dde/uiapps/%2").arg(m_sessionId).arg(it.key()), it.value());
+
+    mergeLists();
 
     // sort by mem
     std::sort(processInfoList.begin(), processInfoList.end(),
@@ -81,8 +95,31 @@ void ProcessInfoManager::startRefreshData()
     QTimer::singleShot(1, this, &ProcessInfoManager::scanProcessInfos);
 }
 
+void ProcessInfoManager::mergeLists()
+{
+    for (const auto tab : tabsInfoList)
+        processInfoList << tab;
+}
+
+void ProcessInfoManager::scanChromeTabsCB(QDBusPendingCallWatcher *watcher)
+{
+    QDBusPendingReply<ChromeTabList> reply = *watcher;
+
+    tabsInfoList.clear();
+
+    // append chrome tabs
+    const ChromeTabList &tabs = reply.value();
+    for (const auto &tab : tabs)
+        appendChromeTab(tab);
+
+    watcher->deleteLater();
+}
+
 void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &desktop)
 {
+    if (desktop.contains("google-chrome"))
+        return;
+
     const QString basePath = "/sys/fs/cgroup/memory" + path;
 
     const auto idx = std::find_if(processInfoList.begin(), processInfoList.end(),
@@ -118,4 +155,15 @@ void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &de
             pInfo.pid_list << id;
 
     processInfoList << std::move(pInfo);
+}
+
+void ProcessInfoManager::appendChromeTab(const ChromeTabInfo &tabInfo)
+{
+    ProcessInfo pInfo;
+    pInfo.total_mem_bytes = tabInfo.memory;
+    pInfo.app_name = tabInfo.title;
+    pInfo.id = tabInfo.id;
+    pInfo.desktop = "/google-chrome.desktop";
+
+    tabsInfoList << std::move(pInfo);
 }

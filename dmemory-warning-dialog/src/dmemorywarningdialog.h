@@ -3,15 +3,17 @@
 
 #include "processinfomodel.h"
 
-#include <DMainWindow>
+#include <QDialog>
 #include <QPushButton>
 #include <QLabel>
 
-DWIDGET_USE_NAMESPACE
+#include <dabstractdialog.h>
 
 class ProcessInfoModel;
 
-class DMemoryWarningDialog : public DMainWindow
+DWIDGET_USE_NAMESPACE
+
+class DMemoryWarningDialog : public DAbstractDialog
 {
     Q_OBJECT
 
