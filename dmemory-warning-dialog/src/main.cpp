@@ -5,6 +5,7 @@
 #include <DApplication>
 
 #include <QDBusConnection>
+#include <QTranslator>
 
 DWIDGET_USE_NAMESPACE
 
@@ -18,6 +19,10 @@ int main(int argc, char *args[])
 
     if (!dapp.setSingleInstance("dmemory-warning-dialog", DApplication::UserScope))
         return -1;
+
+    QTranslator translator;
+    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
+    dapp.installTranslator(&translator);
 
     DMemoryWarningDialog dialog;
     DMemoryWarningDialogAdaptor dbusAdaptor(&dialog);
