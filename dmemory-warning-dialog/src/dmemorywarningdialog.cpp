@@ -15,7 +15,7 @@
 #include <DTitlebar>
 
 DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
-    : DMainWindow(parent)
+    : DAbstractDialog(parent)
 
     , m_startManagerInter(new StartManagerInter("com.deepin.SessionManager", "/com/deepin/StartManager", QDBusConnection::sessionBus(), this))
     , m_infoModel(new ProcessInfoModel)
@@ -26,8 +26,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     , m_cancelButton(new QPushButton)
     , m_continueButton(new QPushButton)
 {
-    titlebar()->setTitle(QString());
-    titlebar()->setVisible(false);
+    setWindowTitle(" ");
 
     m_cancelButton->setText(tr("Cancel"));
     m_continueButton->setText(tr("Continue"));
@@ -71,12 +70,9 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     vLayout->addSpacing(20);
     vLayout->addLayout(btnsLayout);
 
-    QWidget *w = new QWidget;
-    w->setLayout(vLayout);
-
-    setCentralWidget(w);
+    setLayout(vLayout);
     setFixedSize(400, 600);
-    setWindowFlags(windowFlags() & ~(Qt::WindowCloseButtonHint | Qt::WindowMinMaxButtonsHint));
+    setWindowFlags(windowFlags() & ~(Qt::WindowCloseButtonHint | Qt::WindowMinMaxButtonsHint | Qt::WindowTitleHint));
     move(qApp->primaryScreen()->geometry().center() - rect().center());
 
     connect(m_cancelButton, &QPushButton::clicked, this, &DMemoryWarningDialog::onCancelClicked);
@@ -114,14 +110,16 @@ void DMemoryWarningDialog::keyPressEvent(QKeyEvent *e)
 
 void DMemoryWarningDialog::showEvent(QShowEvent *e)
 {
-    DMainWindow::showEvent(e);
+    DAbstractDialog::showEvent(e);
+
+    QTimer::singleShot(1, this, &DMemoryWarningDialog::raise);
 
     m_infoModel->startRefreshData();
 }
 
 void DMemoryWarningDialog::hideEvent(QHideEvent *e)
 {
-    DMainWindow::hideEvent(e);
+    DAbstractDialog::hideEvent(e);
 
     m_infoModel->stopRefreshData();
 }
