@@ -12,7 +12,33 @@
 #include <QPushButton>
 #include <QDebug>
 
+#include <ddialog.h>
 #include <DTitlebar>
+
+DWIDGET_USE_NAMESPACE
+
+DMemoryWarningDialog *dialog = nullptr;
+
+bool confirm(const QPixmap &icon)
+{
+    const QStringList btns = QStringList() << QApplication::translate("ButtonDelegate", "Cancel")
+//                                           << QApplication::translate("ButtonDelegate", "View")
+                                           << QApplication::translate("ButtonDelegate", "Free");
+
+    DDialog terminateDialog(dialog);
+    terminateDialog.setMessage(QApplication::translate("ButtonDelegate", "Are you sure to terminate this process?"));
+    terminateDialog.setIconPixmap(icon);
+    terminateDialog.addButtons(btns);
+
+    QObject::connect(&terminateDialog, &DDialog::buttonClicked, [&](const int index) {
+        if (index == 1)
+            terminateDialog.accept();
+    });
+
+    if (terminateDialog.exec() == DDialog::Accepted)
+        return true;
+    return false;
+}
 
 DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     : DAbstractDialog(parent)
@@ -27,6 +53,8 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     , m_continueButton(new QPushButton)
 {
     setWindowTitle(" ");
+
+    dialog = this;
 
     m_cancelButton->setText(tr("Cancel"));
     m_continueButton->setText(tr("Continue"));

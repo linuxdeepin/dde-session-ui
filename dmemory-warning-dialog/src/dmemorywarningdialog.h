@@ -13,6 +13,8 @@ class ProcessInfoModel;
 
 DWIDGET_USE_NAMESPACE
 
+bool confirm(const QPixmap &icon);
+
 class DMemoryWarningDialog : public DAbstractDialog
 {
     Q_OBJECT

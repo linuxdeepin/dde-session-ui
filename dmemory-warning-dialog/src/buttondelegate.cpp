@@ -1,5 +1,6 @@
 #include "buttondelegate.h"
 #include "processinfomodel.h"
+#include "dmemorywarningdialog.h"
 
 #include <QApplication>
 #include <QProcess>
@@ -9,27 +10,6 @@
 #include <ddialog.h>
 
 DWIDGET_USE_NAMESPACE
-
-bool confirm(const QPixmap &icon)
-{
-    const QStringList btns = QStringList() << QApplication::translate("ButtonDelegate", "Cancel")
-//                                           << QApplication::translate("ButtonDelegate", "View")
-                                           << QApplication::translate("ButtonDelegate", "Free");
-
-    DDialog terminateDialog(nullptr);
-    terminateDialog.setMessage(QApplication::translate("ButtonDelegate", "Are you sure to terminate this process? this operate can not restore."));
-    terminateDialog.setIconPixmap(icon);
-    terminateDialog.addButtons(btns);
-
-    QObject::connect(&terminateDialog, &DDialog::buttonClicked, [&](const int index) {
-        if (index == 1)
-            terminateDialog.accept();
-    });
-
-    if (terminateDialog.exec() == DDialog::Accepted)
-        return true;
-    return false;
-}
 
 void terminate(const QStringList &pidList, const QPixmap &icon)
 {
