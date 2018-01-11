@@ -72,7 +72,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
 
     setLayout(vLayout);
     setFixedSize(400, 600);
-    setWindowFlags(windowFlags() & ~(Qt::WindowCloseButtonHint | Qt::WindowMinMaxButtonsHint | Qt::WindowTitleHint));
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
     move(qApp->primaryScreen()->geometry().center() - rect().center());
 
     connect(m_cancelButton, &QPushButton::clicked, this, &DMemoryWarningDialog::onCancelClicked);
