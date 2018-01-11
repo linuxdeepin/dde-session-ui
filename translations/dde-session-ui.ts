@@ -37,13 +37,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="157"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="159"/>
         <source>Need extra %1M to open new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="159"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="161"/>
         <source>%1 need extra %2M to launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="164"/>
+        <source>Click continue to open new tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="166"/>
+        <source>CLick continue to open %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
