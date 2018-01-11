@@ -21,12 +21,12 @@ DMemoryWarningDialog *dialog = nullptr;
 
 bool confirm(const QPixmap &icon)
 {
-    const QStringList btns = QStringList() << QApplication::translate("ButtonDelegate", "Cancel")
-//                                           << QApplication::translate("ButtonDelegate", "View")
-                                           << QApplication::translate("ButtonDelegate", "Free");
+    const QStringList btns = QStringList() << QApplication::translate("DMemoryWarningDialog", "Cancel")
+//                                           << QApplication::translate("DMemoryWarningDialog", "View")
+                                           << QApplication::translate("DMemoryWarningDialog", "Free");
 
     DDialog terminateDialog(dialog);
-    terminateDialog.setMessage(QApplication::translate("ButtonDelegate", "Are you sure to terminate this process?"));
+    terminateDialog.setMessage(QApplication::translate("DMemoryWarningDialog", "Are you sure to terminate this process?"));
     terminateDialog.setIconPixmap(icon);
     terminateDialog.addButtons(btns);
 
@@ -124,9 +124,13 @@ void DMemoryWarningDialog::updateAppInfo(const QString &appInfo)
 
         m_icon->setPixmap(QIcon::fromTheme(appInfo.mid(start + 1, end - start - 1)).pixmap(32, 32));
         m_appName = appName;
-    } else {
+        m_tipsType = LaunchApp;
+    } else if (appInfo.contains("TabsLimit.OpenUrl")) {
         m_icon->setPixmap(QIcon::fromTheme("google-chrome").pixmap(32, 32));
-        m_appName.clear();
+        m_tipsType = OpenChromeTab;
+    } else {
+        m_icon->setPixmap(QIcon::fromTheme("terminal").pixmap(32, 32));
+        m_tipsType = ExecuteCommand;
     }
 
     updateTips();
@@ -183,14 +187,30 @@ void DMemoryWarningDialog::updateTips()
 {
     if (m_needed)
     {
-        if (m_appName.isEmpty())
-            m_memNeeded->setText(tr("Need extra %1M to open new tab").arg(m_needed / 1024));
-        else
-            m_memNeeded->setText(tr("%1 need extra %2M to launch").arg(m_appName).arg(m_needed / 1024));
+        const int m_bytes = m_needed / 1024;
+
+        switch (m_tipsType) {
+        case LaunchApp:
+            m_memNeeded->setText(tr("%1 need extra %2M to launch").arg(m_appName).arg(m_bytes));
+            break;
+        case OpenChromeTab:
+            m_memNeeded->setText(tr("Need extra %1M to open new tab").arg(m_bytes));
+            break;
+        case ExecuteCommand:
+            m_memNeeded->setText(tr("Need extra %1M to execute command").arg(m_bytes));
+            break;
+        }
     } else {
-        if (m_appName.isEmpty())
+        switch (m_tipsType) {
+        case LaunchApp:
+            m_memNeeded->setText(tr("Click continue to open %1").arg(m_appName));
+            break;
+        case OpenChromeTab:
             m_memNeeded->setText(tr("Click continue to open new tab"));
-        else
-            m_memNeeded->setText(tr("CLick continue to open %1").arg(m_appName));
+            break;
+        case ExecuteCommand:
+            m_memNeeded->setText(tr("Click continue to execute command"));
+            break;
+        }
     }
 }
