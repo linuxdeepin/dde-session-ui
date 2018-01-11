@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QIcon>
 #include <QFile>
+#include <QRegularExpression>
 
 inline QString formatMem(const unsigned mem_bytes)
 {
@@ -18,6 +19,31 @@ inline QString appName(const QString &desktop)
     const int end = desktop.lastIndexOf(".desktop");
 
     return desktop.midRef(start, end - start).toString();
+}
+
+inline QPixmap appIcon(const int size, const QString &desktop)
+{
+    static QIcon defaultIcon = QIcon::fromTheme("application-x-desktop");
+
+    QFile f(desktop);
+    if (f.open(QIODevice::ReadOnly))
+    {
+        const QString &content = f.readAll();
+
+        QRegularExpression iconRegex("Icon=(.*)$");
+        const auto &match = iconRegex.match(content);
+        if (match.hasMatch())
+        {
+            const QString &icon = match.captured(1);
+
+            if (QFile(icon).exists())
+                return QIcon(icon).pixmap(size, size);
+
+            return QIcon::fromTheme(icon, defaultIcon).pixmap(size, size);
+        }
+    }
+
+    return QIcon::fromTheme(appName(desktop), defaultIcon).pixmap(size, size);
 }
 
 ProcessInfoModel::ProcessInfoModel(QObject *parent)
@@ -60,13 +86,13 @@ QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
         break;
     case IconRole:
     {
-        const QString icon = appName(m_processInfos->processInfoList[index.row()].desktop);
+        const QString &desktop = m_processInfos->processInfoList[index.row()].desktop;
         switch (index.column())
         {
         case COLUMN_ICON:
-            return QIcon::fromTheme(icon, QIcon::fromTheme("application-x-desktop")).pixmap(24, 24);
+            return appIcon(24, desktop);
         case COLUMN_FREE_BTN:
-            return QIcon::fromTheme(icon, QIcon::fromTheme("application-x-desktop")).pixmap(48, 48);
+            return appIcon(48, desktop);
         default:;
         }
     }

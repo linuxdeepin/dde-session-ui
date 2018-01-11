@@ -76,7 +76,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     icon->setPixmap(QIcon::fromTheme("messagebox_warning").pixmap(64, 64));
 
     QLabel *label = new QLabel;
-    label->setText(tr("Insufficient system memory, please release some applications to avoid getting stuck."));
+    label->setText(tr("Insufficient system memory, please end some applications to avoid getting stuck."));
     label->setAlignment(Qt::AlignCenter);
     label->setWordWrap(true);
     QFont f = label->font();
@@ -101,7 +101,6 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     setLayout(vLayout);
     setFixedSize(400, 600);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
-    move(qApp->primaryScreen()->geometry().center() - rect().center());
 
     connect(m_cancelButton, &QPushButton::clicked, this, &DMemoryWarningDialog::onCancelClicked);
     connect(m_continueButton, &QPushButton::clicked, this, &DMemoryWarningDialog::onContinueClicked);
@@ -151,6 +150,8 @@ void DMemoryWarningDialog::showEvent(QShowEvent *e)
 {
     DAbstractDialog::showEvent(e);
 
+    move(qApp->primaryScreen()->geometry().center() - rect().center());
+
     QTimer::singleShot(1, this, &DMemoryWarningDialog::raise);
     QTimer::singleShot(1, this, &DMemoryWarningDialog::activateWindow);
 
@@ -187,7 +188,7 @@ void DMemoryWarningDialog::updateTips()
 {
     if (m_needed)
     {
-        const int m_bytes = m_needed / 1024;
+        const int m_bytes = std::max(10, m_needed / 1024);
 
         switch (m_tipsType) {
         case LaunchApp:
