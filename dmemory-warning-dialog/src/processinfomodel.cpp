@@ -21,7 +21,7 @@ inline QString appName(const QString &desktop)
     return desktop.midRef(start, end - start).toString();
 }
 
-inline QPixmap appIcon(const int size, const QString &desktop)
+QPixmap appIcon(const int size, const QString &desktop)
 {
     static QIcon defaultIcon = QIcon::fromTheme("application-x-desktop");
 
