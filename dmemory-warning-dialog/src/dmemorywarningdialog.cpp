@@ -57,6 +57,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
 
     dialog = this;
 
+    m_memNeeded->setWordWrap(true);
     m_cancelButton->setText(tr("Cancel"));
     m_continueButton->setText(tr("Continue"));
     m_icon->setPixmap(QIcon::fromTheme("dde").pixmap(32, 32));
@@ -117,12 +118,8 @@ void DMemoryWarningDialog::updateAppInfo(const QString &appInfo)
 {
     if (appInfo.endsWith(".desktop"))
     {
-        const int start = appInfo.lastIndexOf('/');
-        const int end = appInfo.indexOf(".desktop");
-        const QString &appName = appInfo.mid(start + 1, end - start - 1);
-
-        m_icon->setPixmap(QIcon::fromTheme(appInfo.mid(start + 1, end - start - 1)).pixmap(32, 32));
-        m_appName = appName;
+        m_icon->setPixmap(appIcon(32, appInfo));
+        m_appName = genericAppName(appInfo);
         m_tipsType = LaunchApp;
     } else if (appInfo.contains("TabsLimit.OpenUrl")) {
         m_icon->setPixmap(QIcon::fromTheme("google-chrome").pixmap(32, 32));

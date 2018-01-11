@@ -12,6 +12,8 @@
 #define COLUMN_FREE_BTN 3
 #define COLUMN_NUMS     4
 
+QPixmap appIcon(const int size, const QString &desktop);
+
 class ProcessInfoModel : public QAbstractTableModel
 {
     Q_OBJECT

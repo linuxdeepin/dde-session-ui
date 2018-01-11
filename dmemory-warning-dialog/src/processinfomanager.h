@@ -9,9 +9,10 @@
 #include <com_deepin_startmanager.h>
 #include <com_deepin_chromeextension_tabslimit.h>
 
+QString genericAppName(const QString &desktop);
+
 using StartManagerInter = com::deepin::StartManager;
 using ChromeTabsInter = com::deepin::chromeextension::TabsLimit;
-
 class ProcessInfo
 {
 public:
