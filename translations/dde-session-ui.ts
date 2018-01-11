@@ -2,58 +2,61 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>ButtonDelegate</name>
+    <name>DMemoryWarningDialog</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/buttondelegate.cpp" line="15"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="24"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="59"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/buttondelegate.cpp" line="17"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="26"/>
         <source>Free</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/buttondelegate.cpp" line="20"/>
-        <source>Are you sure to terminate this process? this operate can not restore.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>DMemoryWarningDialog</name>
-    <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="31"/>
-        <source>Cancel</source>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="29"/>
+        <source>Are you sure to terminate this process?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="32"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="60"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="79"/>
         <source>Please free some memory to start new process</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="159"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="197"/>
         <source>Need extra %1M to open new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="161"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="212"/>
+        <source>Click continue to execute command</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="194"/>
         <source>%1 need extra %2M to launch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="164"/>
-        <source>Click continue to open new tab</source>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="200"/>
+        <source>Need extra %1M to execute command</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="166"/>
-        <source>CLick continue to open %1</source>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="206"/>
+        <source>Click continue to open %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="209"/>
+        <source>Click continue to open new tab</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -23,6 +23,13 @@ public:
     explicit DMemoryWarningDialog(QWidget *parent = nullptr);
     ~DMemoryWarningDialog();
 
+    enum TipsType
+    {
+        LaunchApp,
+        OpenChromeTab,
+        ExecuteCommand,
+    };
+
 public slots:
     void updateAppInfo(const QString &appInfo);
 
@@ -39,6 +46,7 @@ private slots:
 
 private:
     int m_needed;
+    TipsType m_tipsType;
     QString m_appName;
     QPointer<StartManagerInter> m_startManagerInter;
     ProcessInfoModel *m_infoModel;

@@ -4,57 +4,79 @@
 <context>
     <name>ButtonDelegate</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/buttondelegate.cpp" line="15"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation type="vanished">取消</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/buttondelegate.cpp" line="17"/>
         <source>Free</source>
-        <translation>释放</translation>
+        <translation type="vanished">释放</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/buttondelegate.cpp" line="20"/>
         <source>Are you sure to terminate this process? this operate can not restore.</source>
-        <translation>确定要终止当前应用吗？此操作不可恢复。</translation>
+        <translation type="vanished">确定要终止当前应用吗？此操作不可恢复。</translation>
     </message>
 </context>
 <context>
     <name>DMemoryWarningDialog</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="31"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="24"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="59"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="32"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="26"/>
+        <source>Free</source>
+        <translation>释放</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="29"/>
+        <source>Are you sure to terminate this process?</source>
+        <translation>确定要终止当前应用吗？此操作不可恢复。</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="60"/>
         <source>Continue</source>
         <translation>继续</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="79"/>
         <source>Please free some memory to start new process</source>
         <translation>请释放一些内存以开启新的应用</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="159"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="197"/>
         <source>Need extra %1M to open new tab</source>
         <translation>需要 %1M 内存来打开新标签页</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="161"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="212"/>
+        <source>Click continue to execute command</source>
+        <translation>点击继续以执行命令</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="194"/>
         <source>%1 need extra %2M to launch</source>
         <translation>启动 %1 还需要 %2M 内存</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="164"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="200"/>
+        <source>Need extra %1M to execute command</source>
+        <translation>还需要 %1M 内存以执行命令</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="206"/>
+        <source>Click continue to open %1</source>
+        <translation>点击继续以打开 %1</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="209"/>
         <source>Click continue to open new tab</source>
         <translation>点击继续以打开标签页</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="166"/>
         <source>CLick continue to open %1</source>
-        <translation>点击继续以打开 %1</translation>
+        <translation type="vanished">点击继续以打开 %1</translation>
     </message>
 </context>
 <context>

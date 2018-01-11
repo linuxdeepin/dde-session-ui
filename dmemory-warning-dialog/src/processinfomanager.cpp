@@ -11,6 +11,12 @@
 #include <QDBusReply>
 #include <QDBusMetaType>
 
+const QStringList BlackListDesktopSuffix = { "google-chrome.desktop",
+                                             "deepin-activator.desktop",
+                                             "im-launch.desktop",
+                                             "polkit-dde-authentication-agent-1.desktop",
+                                           };
+
 QString genericAppName(const QString &desktop)
 {
     do {
@@ -117,8 +123,11 @@ void ProcessInfoManager::scanChromeTabsCB(QDBusPendingCallWatcher *watcher)
 
 void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &desktop)
 {
-    if (desktop.contains("google-chrome"))
+    if (desktop == "sh")
         return;
+    for (const auto &suffix : BlackListDesktopSuffix)
+        if (desktop.endsWith(suffix))
+            return;
 
     const QString basePath = "/sys/fs/cgroup/memory" + path;
 
