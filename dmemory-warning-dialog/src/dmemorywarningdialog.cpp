@@ -23,10 +23,11 @@ bool confirm(const QPixmap &icon)
 {
     const QStringList btns = QStringList() << QApplication::translate("DMemoryWarningDialog", "Cancel")
 //                                           << QApplication::translate("DMemoryWarningDialog", "View")
-                                           << QApplication::translate("DMemoryWarningDialog", "Free");
+                                           << QApplication::translate("DMemoryWarningDialog", "Release");
 
     DDialog terminateDialog(dialog);
-    terminateDialog.setMessage(QApplication::translate("DMemoryWarningDialog", "Are you sure to terminate this process?"));
+    terminateDialog.setTitle(QApplication::translate("DMemoryWarningDialog", "This application will be ended, please make sure your data has been saved!"));
+    terminateDialog.setMessage(QApplication::translate("DMemoryWarningDialog", "Please save your document, text and spreadsheet"));
     terminateDialog.setIconPixmap(icon);
     terminateDialog.addButtons(btns);
 
@@ -59,7 +60,6 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     m_cancelButton->setText(tr("Cancel"));
     m_continueButton->setText(tr("Continue"));
     m_icon->setPixmap(QIcon::fromTheme("dde").pixmap(32, 32));
-    m_memNeeded->setText("dde need 100M memory");
 
     ProcessInfoTable *table = new ProcessInfoTable;
     table->setModel(m_infoModel);
@@ -76,7 +76,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     icon->setPixmap(QIcon::fromTheme("messagebox_warning").pixmap(64, 64));
 
     QLabel *label = new QLabel;
-    label->setText(tr("Please free some memory to start new process"));
+    label->setText(tr("Insufficient system memory, please release some applications to avoid getting stuck."));
     label->setAlignment(Qt::AlignCenter);
     label->setWordWrap(true);
     QFont f = label->font();
@@ -191,25 +191,25 @@ void DMemoryWarningDialog::updateTips()
 
         switch (m_tipsType) {
         case LaunchApp:
-            m_memNeeded->setText(tr("%1 need extra %2M to launch").arg(m_appName).arg(m_bytes));
+            m_memNeeded->setText(tr("Continue to run %1, %2MB memory is required").arg(m_appName).arg(m_bytes));
             break;
         case OpenChromeTab:
-            m_memNeeded->setText(tr("Need extra %1M to open new tab").arg(m_bytes));
+            m_memNeeded->setText(tr("Continue to open browser tab, %1MB memory is required").arg(m_bytes));
             break;
         case ExecuteCommand:
-            m_memNeeded->setText(tr("Need extra %1M to execute command").arg(m_bytes));
+            m_memNeeded->setText(tr("To execute the command, %1MB memory is required").arg(m_bytes));
             break;
         }
     } else {
         switch (m_tipsType) {
         case LaunchApp:
-            m_memNeeded->setText(tr("Click continue to open %1").arg(m_appName));
+            m_memNeeded->setText(tr("Your current memory is sufficient enough, continue to run %1?").arg(m_appName));
             break;
         case OpenChromeTab:
-            m_memNeeded->setText(tr("Click continue to open new tab"));
+            m_memNeeded->setText(tr("Your current memory is sufficient enough, continue to open browser tab?"));
             break;
         case ExecuteCommand:
-            m_memNeeded->setText(tr("Click continue to execute command"));
+            m_memNeeded->setText(tr("Your current memory is sufficient enough, continue the operation?"));
             break;
         }
     }

@@ -50,7 +50,7 @@ QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
         switch (index.column())
         {
         case COLUMN_FREE_BTN:
-            return QString(tr("Free"));
+            return QString(tr("Release"));
         case COLUMN_MEM:
             return formatMem(m_processInfos->processInfoList[index.row()].total_mem_bytes);
         case COLUMN_NAME:

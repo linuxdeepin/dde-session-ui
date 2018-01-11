@@ -20,59 +20,100 @@
     <name>DMemoryWarningDialog</name>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="24"/>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="59"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="60"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="26"/>
-        <source>Free</source>
+        <source>Release</source>
         <translation>释放</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="29"/>
-        <source>Are you sure to terminate this process?</source>
-        <translation>确定要终止当前应用吗？此操作不可恢复。</translation>
+        <source>This application will be ended, please make sure your data has been saved!</source>
+        <translation>应用内存将被释放，请确认当前数据是否已保存！</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="60"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="30"/>
+        <source>Please save your document, text and spreadsheet</source>
+        <translation>如文档、文本、表单等数据</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="79"/>
+        <source>Insufficient system memory, please release some applications to avoid getting stuck.</source>
+        <translation>当前系统内存不足，避免出现卡死，请释放相关应用内存！</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="194"/>
+        <source>Continue to run %1, %2MB memory is required</source>
+        <translation>如果继续运行 %1 应用，需要内存达到 %2MB！</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="197"/>
+        <source>Continue to open browser tab, %1MB memory is required</source>
+        <translation>如果继续打开浏览器标签，需要内存达到 %1MB！</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="200"/>
+        <source>To execute the command, %1MB memory is required</source>
+        <translation>如果继续执行命令，需要内存达到 %1MB！</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="206"/>
+        <source>Your current memory is sufficient enough, continue to run %1?</source>
+        <translation>您当前内存已满足使用，是否继续运行 %1 应用？</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="209"/>
+        <source>Your current memory is sufficient enough, continue to open browser tab?</source>
+        <translation>您当前内存已满足使用，是否继续打开浏览器标签？</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="212"/>
+        <source>Your current memory is sufficient enough, continue the operation?</source>
+        <translation>Your current memory is sufficient enough, continue the operation?</translation>
+    </message>
+    <message>
+        <source>Free</source>
+        <translation type="vanished">释放</translation>
+    </message>
+    <message>
+        <source>Are you sure to terminate this process?</source>
+        <translation type="vanished">确定要终止当前应用吗？此操作不可恢复。</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="61"/>
         <source>Continue</source>
         <translation>继续</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="79"/>
         <source>Please free some memory to start new process</source>
-        <translation>请释放一些内存以开启新的应用</translation>
+        <translation type="vanished">请释放一些内存以开启新的应用</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="197"/>
         <source>Need extra %1M to open new tab</source>
-        <translation>需要 %1M 内存来打开新标签页</translation>
+        <translation type="vanished">需要 %1M 内存来打开新标签页</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="212"/>
         <source>Click continue to execute command</source>
-        <translation>点击继续以执行命令</translation>
+        <translation type="vanished">点击继续以执行命令</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="194"/>
         <source>%1 need extra %2M to launch</source>
-        <translation>启动 %1 还需要 %2M 内存</translation>
+        <translation type="vanished">启动 %1 还需要 %2M 内存</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="200"/>
         <source>Need extra %1M to execute command</source>
-        <translation>还需要 %1M 内存以执行命令</translation>
+        <translation type="vanished">还需要 %1M 内存以执行命令</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="206"/>
         <source>Click continue to open %1</source>
-        <translation>点击继续以打开 %1</translation>
+        <translation type="vanished">点击继续以打开 %1</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="209"/>
         <source>Click continue to open new tab</source>
-        <translation>点击继续以打开标签页</translation>
+        <translation type="vanished">点击继续以打开标签页</translation>
     </message>
     <message>
         <source>CLick continue to open %1</source>
@@ -201,8 +242,12 @@
 <context>
     <name>ProcessInfoModel</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="53"/>
         <source>Free</source>
+        <translation type="vanished">释放</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="53"/>
+        <source>Release</source>
         <translation>释放</translation>
     </message>
 </context>
