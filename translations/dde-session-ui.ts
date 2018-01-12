@@ -5,7 +5,7 @@
     <name>DMemoryWarningDialog</name>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="24"/>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="60"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="63"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25,8 +25,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="79"/>
-        <source>Insufficient system memory, please release some applications to avoid getting stuck.</source>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="82"/>
+        <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="200"/>
+        <source>To continue the operation, %1MB memory is required</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -37,11 +42,6 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="197"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="200"/>
-        <source>To execute the command, %1MB memory is required</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -60,7 +60,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="61"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="64"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
@@ -156,8 +156,8 @@
 <context>
     <name>ProcessInfoModel</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="53"/>
-        <source>Release</source>
+        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="81"/>
+        <source>End</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
