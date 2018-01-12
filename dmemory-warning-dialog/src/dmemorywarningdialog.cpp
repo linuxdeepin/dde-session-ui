@@ -195,7 +195,7 @@ void DMemoryWarningDialog::updateTips()
             m_memNeeded->setText(tr("Continue to open browser tab, %1MB memory is required").arg(m_bytes));
             break;
         case ExecuteCommand:
-            m_memNeeded->setText(tr("To execute the command, %1MB memory is required").arg(m_bytes));
+            m_memNeeded->setText(tr("To continue the operation, %1MB memory is required").arg(m_bytes));
             break;
         }
     } else {
