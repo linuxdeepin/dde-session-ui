@@ -53,6 +53,8 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     , m_cancelButton(new QPushButton)
     , m_continueButton(new QPushButton)
 {
+    QIcon::setThemeName("deepin");
+
     setWindowTitle(" ");
 
     dialog = this;
@@ -74,7 +76,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
 
     QLabel *icon = new QLabel;
     icon->setAlignment(Qt::AlignCenter);
-    icon->setPixmap(QIcon::fromTheme("messagebox_warning").pixmap(64, 64));
+    icon->setPixmap(QIcon::fromTheme("dialog-warning").pixmap(64, 64));
 
     QLabel *label = new QLabel;
     label->setText(tr("Insufficient system memory, please end some applications to avoid getting stuck."));

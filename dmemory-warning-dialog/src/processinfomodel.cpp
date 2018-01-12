@@ -51,6 +51,8 @@ ProcessInfoModel::ProcessInfoModel(QObject *parent)
 
     , m_processInfos(new ProcessInfoManager)
 {
+    QIcon::setThemeName("deepin");
+
     connect(m_processInfos, &ProcessInfoManager::processInfoListChanged, this, [=] { emit layoutChanged(); });
 }
 
