@@ -16,6 +16,7 @@ const QStringList BlackListDesktopSuffix = { "google-chrome.desktop",
                                              "deepin-activator.desktop",
                                              "im-launch.desktop",
                                              "polkit-dde-authentication-agent-1.desktop",
+                                             "lastore-session-helper.desktop",
                                            };
 
 QString genericAppName(const QString &desktop)
