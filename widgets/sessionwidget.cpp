@@ -172,7 +172,8 @@ int SessionWidget::sessionIndex(const QString &sessionName)
         if (!sessionName.compare(m_sessionModel->data(m_sessionModel->index(i), QLightDM::SessionsModel::KeyRole).toString(), Qt::CaseInsensitive))
             return i;
 
-    Q_UNREACHABLE();
+    // NOTE: The current session does not exist
+    qWarning() << "The session does not exist, using the default value.";
     return 0;
 }
 
