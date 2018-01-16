@@ -54,12 +54,48 @@ QMap<QString, QString> parseValuePairs(const QStringList &valuePairs)
 
     for (const QString &s : valuePairs)
     {
-        const auto &v = s.split(' ');
-        if (v.size() == 2)
+        const auto &v = s.split(QRegularExpression("\\s+"), QString::SkipEmptyParts);
+        if (v.size() > 1)
             ret.insert(v[0], v[1]);
     }
 
     return ret;
+}
+
+unsigned readProcessMemory(const QString &pid)
+{
+    unsigned ret = 0;
+
+    do {
+        const QString &path = QString("/proc/%1/status").arg(pid.trimmed());
+        QFile stat(path);
+        if (!stat.open(QIODevice::ReadOnly))
+            break;
+
+        const QString &statInfo = stat.readAll();
+        const auto values = parseValuePairs(statInfo.split('\n'));
+
+        ret += values.value("RssAnon:").toUInt();
+        ret += values.value("VmPTE:").toUInt();
+        ret += values.value("VmPMD:").toUInt();
+    } while(false);
+
+    return ret;
+}
+
+unsigned totalMemoryBytes(const QList<QByteArray> &processList)
+{
+    unsigned ret(0);
+
+    for (const QString &pid : processList)
+    {
+        if (pid.isEmpty())
+            continue;
+        ret += readProcessMemory(pid);
+    }
+
+    // convert kb to bytes
+    return ret * 1024;
 }
 
 ProcessInfoManager::ProcessInfoManager(QObject *parent)
@@ -153,30 +189,25 @@ void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &de
     if (idx != processInfoList.end())
         return;
 
-    QFile mem_stat(basePath + "/memory.stat");
-    if (!mem_stat.open(QIODevice::ReadOnly))
-        return;
-    const QString &mem_info = mem_stat.readAll();
-    const QMap<QString, QString> &infos = parseValuePairs(mem_info.split('\n'));
-    const unsigned total_mem = infos.value("rss").toUInt() + infos.value("mapped_file").toUInt();
-
-//    QFile mem_usage(basePath + "/memory.usage_in_bytes");
-//    if (!mem_usage.open(QIODevice::ReadOnly))
+//    QFile mem_stat(basePath + "/memory.stat");
+//    if (!mem_stat.open(QIODevice::ReadOnly))
 //        return;
-//    const QString &mem_num = mem_usage.readAll();
+//    const QString &mem_info = mem_stat.readAll();
+//    const QMap<QString, QString> &infos = parseValuePairs(mem_info.split('\n'));
+//    const unsigned total_mem = infos.value("rss").toUInt() + infos.value("mapped_file").toUInt();
 
     QFile procs(basePath + "/cgroup.procs");
     if (!procs.open(QIODevice::ReadOnly))
         return;
     const auto &pidList = procs.readAll().split('\n');
-    const QString &mainProcId = pidList.first();
+//    const QString &mainProcId = pidList.first();
 
-    QFile procCmdline("/proc/" + mainProcId + "/cmdline");
-    if (!procCmdline.open(QIODevice::ReadOnly))
-        return;
+//    QFile procCmdline("/proc/" + mainProcId + "/cmdline");
+//    if (!procCmdline.open(QIODevice::ReadOnly))
+//        return;
 
     ProcessInfo pInfo;
-    pInfo.total_mem_bytes = total_mem;
+    pInfo.total_mem_bytes = totalMemoryBytes(pidList);
     pInfo.cgroup_path = basePath;
     pInfo.app_name = genericAppName(desktop);
     pInfo.desktop = desktop;
