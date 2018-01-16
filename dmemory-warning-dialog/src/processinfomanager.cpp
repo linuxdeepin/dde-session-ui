@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QApplication>
 #include <QRegularExpression>
+#include <QMap>
 #include <QDBusPendingCallWatcher>
 #include <QDBusInterface>
 #include <QDBusReply>
@@ -45,6 +46,20 @@ QString genericAppName(const QString &desktop)
     } while (false);
 
     return desktop;
+}
+
+QMap<QString, QString> parseValuePairs(const QStringList &valuePairs)
+{
+    QMap<QString, QString> ret;
+
+    for (const QString &s : valuePairs)
+    {
+        const auto &v = s.split(' ');
+        if (v.size() == 2)
+            ret.insert(v[0], v[1]);
+    }
+
+    return ret;
 }
 
 ProcessInfoManager::ProcessInfoManager(QObject *parent)
@@ -138,11 +153,17 @@ void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &de
     if (idx != processInfoList.end())
         return;
 
-
-    QFile mem_usage(basePath + "/memory.usage_in_bytes");
-    if (!mem_usage.open(QIODevice::ReadOnly))
+    QFile mem_stat(basePath + "/memory.stat");
+    if (!mem_stat.open(QIODevice::ReadOnly))
         return;
-    const QString &mem_num = mem_usage.readAll();
+    const QString &mem_info = mem_stat.readAll();
+    const QMap<QString, QString> &infos = parseValuePairs(mem_info.split('\n'));
+    const unsigned total_mem = infos.value("rss").toUInt() + infos.value("mapped_file").toUInt();
+
+//    QFile mem_usage(basePath + "/memory.usage_in_bytes");
+//    if (!mem_usage.open(QIODevice::ReadOnly))
+//        return;
+//    const QString &mem_num = mem_usage.readAll();
 
     QFile procs(basePath + "/cgroup.procs");
     if (!procs.open(QIODevice::ReadOnly))
@@ -155,7 +176,7 @@ void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &de
         return;
 
     ProcessInfo pInfo;
-    pInfo.total_mem_bytes = mem_num.trimmed().toUInt();
+    pInfo.total_mem_bytes = total_mem;
     pInfo.cgroup_path = basePath;
     pInfo.app_name = genericAppName(desktop);
     pInfo.desktop = desktop;
