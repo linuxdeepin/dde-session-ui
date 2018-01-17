@@ -28,6 +28,9 @@
 #include <QEvent>
 #include <QLabel>
 #include <QApplication>
+#include <DHiDPIHelper>
+
+DWIDGET_USE_NAMESPACE
 
 UpdateContent::UpdateContent(const QString &version, QWidget *parent) : QWidget(parent)
 {
@@ -36,7 +39,7 @@ UpdateContent::UpdateContent(const QString &version, QWidget *parent) : QWidget(
     mainLayout->setSpacing(0);
 
     QLabel *successIcon = new QLabel;
-    successIcon->setPixmap(QPixmap(":/resources/success.svg"));
+    successIcon->setPixmap(DHiDPIHelper::loadNxPixmap(":/resources/success.svg"));
 
     QLabel *successTip = new QLabel(tr("Welcome, system updated successfully"));
     QLabel *currentVersion = new QLabel(tr("Current Edition:") + " " + version);
