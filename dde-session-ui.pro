@@ -10,7 +10,6 @@ SUBDIRS += dde-shutdown \
            dde-warning-dialog \
            dde-welcome \
            dde-wm-chooser \
-           dde-dman-portal \
            dmemory-warning-dialog
 
 include(common.pri)

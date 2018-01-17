@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=com.deepin.dman
-Exec=/usr/lib/deepin-daemon/dde-dman-portal
