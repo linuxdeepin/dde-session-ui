@@ -47,31 +47,43 @@ QPixmap appIcon(const int size, const QString &desktop)
 }
 
 ProcessInfoModel::ProcessInfoModel(QObject *parent)
-    : QAbstractTableModel(parent)
+    : QAbstractItemModel(parent)
 
     , m_processInfos(new ProcessInfoManager)
 {
-    connect(m_processInfos, &ProcessInfoManager::processInfoListChanged, this, [=] { emit layoutChanged(); });
+    connect(m_processInfos, &ProcessInfoManager::processInfoListChanged, this, [=] { qDebug() << "cca"; emit layoutChanged(); });
 }
 
 int ProcessInfoModel::rowCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
+    if (parent.column() > 0)
+        return 0;
 
-    return m_processInfos->processInfoList.size();
+    if (!parent.isValid())
+        return m_processInfos->processInfoList.size();
+
+    if (!parent.parent().isValid())
+        return m_processInfos->processInfoList[parent.row()].sub_procs.size();
+
+    return 0;
 }
 
 int ProcessInfoModel::columnCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
-
-    return COLUMN_NUMS;
+    if (parent.isValid())
+        return 2;
+    else
+        return COLUMN_NUMS;
 }
 
 QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
 {
     switch (role)
     {
+    case Qt::SizeHintRole:
+        if (index.parent().isValid())
+            return QSize(0, 24);
+        return QSize(0, 40);
     case DisplayRole:
         switch (index.column())
         {
@@ -80,12 +92,22 @@ QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
         case COLUMN_MEM:
             return formatMem(m_processInfos->processInfoList[index.row()].total_mem_bytes);
         case COLUMN_NAME:
-            return m_processInfos->processInfoList[index.row()].app_name;
+            if (!index.parent().isValid())
+            {
+                if (m_processInfos->processInfoList[index.row()].sub_procs.isEmpty())
+                    return m_processInfos->processInfoList[index.row()].app_name;
+                else
+                    return m_processInfos->processInfoList[index.row()].sub_procs.first().app_name;
+            }
+            return m_processInfos->processInfoList[index.parent().row()].sub_procs[index.row()].app_name;
         default:;
         }
         break;
     case IconRole:
     {
+        if (index.parent().isValid())
+            return QIcon::fromTheme("google-chrome").pixmap(24, 24);
+
         const QString &desktop = m_processInfos->processInfoList[index.row()].desktop;
         switch (index.column())
         {
@@ -107,12 +129,63 @@ QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
         return m_pressedIndex == index;
     case PidListRole:
         return m_processInfos->processInfoList[index.row()].pid_list;
-    case TabIdRole:
-        return m_processInfos->processInfoList[index.row()].id;
+    case TabListRole:
+    {
+        QList<int> ret;
+        for (const auto &tab : m_processInfos->processInfoList[index.row()].sub_procs)
+        {
+            ret << tab.id;
+        }
+        return QVariant::fromValue(ret);
+    }
     default:;
     }
 
     return QVariant();
+}
+
+QModelIndex ProcessInfoModel::index(int row, int column, const QModelIndex &parent) const
+{
+    if (!hasIndex(row, column, parent))
+        return QModelIndex();
+
+    if (!parent.isValid())
+        return createIndex(row, column, &m_processInfos->processInfoList[row]);
+
+    if (!parent.parent().isValid())
+        return createIndex(row, column, &m_processInfos->processInfoList[parent.row()].sub_procs[row]);
+
+    return QModelIndex();
+}
+
+QModelIndex ProcessInfoModel::parent(const QModelIndex &child) const
+{
+    if (!child.isValid())
+        return QModelIndex();
+
+    ProcessInfo *info = reinterpret_cast<ProcessInfo *>(child.internalId());
+
+    if (info == nullptr)
+        return QModelIndex();
+
+    for (int i(0); i != m_processInfos->processInfoList.size(); ++i)
+    {
+        if (info->id == m_processInfos->processInfoList[i].id)
+            return QModelIndex();
+
+        for (int j(0); j != m_processInfos->processInfoList[i].sub_procs.size(); ++j)
+        {
+            if (info->id == m_processInfos->processInfoList[i].sub_procs[j].id)
+                return createIndex(i, 0, &m_processInfos->processInfoList[i]);
+        }
+    }
+
+    return QModelIndex();
+}
+
+void ProcessInfoModel::refresh()
+{
+    m_processInfos->refresh();
 }
 
 void ProcessInfoModel::clearPressed()

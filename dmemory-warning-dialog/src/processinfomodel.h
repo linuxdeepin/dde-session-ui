@@ -3,7 +3,7 @@
 
 #include "processinfomanager.h"
 
-#include <QAbstractTableModel>
+#include <QAbstractItemModel>
 #include <QPointer>
 
 #define COLUMN_ICON     0
@@ -14,7 +14,7 @@
 
 QPixmap appIcon(const int size, const QString &desktop);
 
-class ProcessInfoModel : public QAbstractTableModel
+class ProcessInfoModel : public QAbstractItemModel
 {
     Q_OBJECT
 
@@ -29,15 +29,18 @@ public:
 
         StateRole = Qt::UserRole,
         PidListRole,
-        TabIdRole,
+        TabListRole,
     };
 
     int rowCount(const QModelIndex &parent) const;
     int columnCount(const QModelIndex &parent) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     QVariant data(const QModelIndex &index, int role) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const;
+    QModelIndex parent(const QModelIndex &child) const;
 
 public slots:
+    void refresh();
     void clearPressed();
     void startRefreshData() { m_processInfos->startRefreshData(); }
     void stopRefreshData() { m_processInfos->stopRefreshData(); }

@@ -18,12 +18,13 @@ void terminate(const QStringList &pidList, const QPixmap &icon)
             QProcess::startDetached("kill", QStringList() << pid);
 }
 
-void close_tab(const int id)
+void close_tab(const QList<int> &tabs)
 {
     if (!confirm(QIcon::fromTheme("google-chrome").pixmap(32, 32)))
         return;
 
-    QProcess::startDetached("qdbus com.deepin.chromeExtension.TabsLimit /com/deepin/chromeExtension/TabsLimit com.deepin.chromeExtension.TabsLimit.CloseTab " + QString::number(id));
+    for (auto tab : tabs)
+        QProcess::startDetached("qdbus com.deepin.chromeExtension.TabsLimit /com/deepin/chromeExtension/TabsLimit com.deepin.chromeExtension.TabsLimit.CloseTab " + QString::number(tab));
 }
 
 ButtonDelegate::ButtonDelegate(QObject *parent)
@@ -62,7 +63,9 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
         if (!pidList.isEmpty())
             terminate(pidList, index.data(ProcessInfoModel::IconRole).value<QPixmap>());
         else
-            close_tab(index.data(ProcessInfoModel::TabIdRole).toInt());
+            close_tab(index.data(ProcessInfoModel::TabListRole).value<QList<int>>());
+
+        static_cast<ProcessInfoModel *>(model)->refresh();
         break;
     }
     default:;

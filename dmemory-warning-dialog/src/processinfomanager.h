@@ -13,6 +13,7 @@ QString genericAppName(const QString &desktop);
 
 using StartManagerInter = com::deepin::StartManager;
 using ChromeTabsInter = com::deepin::chromeextension::TabsLimit;
+
 class ProcessInfo
 {
 public:
@@ -22,6 +23,7 @@ public:
     QString app_name;
     QString desktop;
     QStringList pid_list;
+    QList<ProcessInfo> sub_procs;
 };
 
 class ProcessInfoModel;
@@ -38,6 +40,7 @@ signals:
     void processInfoListChanged() const;
 
 private slots:
+    void refresh();
     void scanChromeTabs();
     void scanProcessInfos();
     void startRefreshData();
@@ -48,7 +51,7 @@ private slots:
 
 private:
     void appendCGroupPath(const QString &path, const QString &desktop);
-    void appendChromeTab(const ChromeTabInfo &tabInfo);
+//    void appendChromeTab(const ChromeTabInfo &tabInfo);
 
 private:
     QPointer<QTimer> m_refreshTimer;
