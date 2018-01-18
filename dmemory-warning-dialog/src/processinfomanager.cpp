@@ -117,14 +117,11 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
 
 //    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanProcessInfos);
 //    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanChromeTabs);
-    scanProcessInfos();
-    scanChromeTabs();
 }
 
 void ProcessInfoManager::refresh()
 {
-    QTimer::singleShot(1000, this, [=] {
-        qDebug() << "Cacac";
+    QTimer::singleShot(100, this, [=] {
         scanChromeTabs();
         scanProcessInfos();
     });
@@ -135,6 +132,8 @@ void ProcessInfoManager::scanChromeTabs()
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(m_chromeTabsInter->GetProcessInfo(), this);
 
     connect(watcher, &QDBusPendingCallWatcher::finished, this, &ProcessInfoManager::scanChromeTabsCB);
+
+    watcher->waitForFinished();
 }
 
 void ProcessInfoManager::scanProcessInfos()

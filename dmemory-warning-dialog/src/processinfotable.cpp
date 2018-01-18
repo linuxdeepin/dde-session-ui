@@ -9,12 +9,9 @@ ProcessInfoView::ProcessInfoView(QWidget *parent)
     : QTreeView(parent)
 {
     header()->setVisible(false);
-//    horizontalHeader()->setVisible(false);
-//    verticalHeader()->setVisible(false);
 //    setRootIsDecorated(false);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//    setShowGrid(false);
     setFrameStyle(QFrame::NoFrame);
     setSelectionMode(NoSelection);
     setStyleSheet("QTreeView {"
@@ -36,27 +33,15 @@ void ProcessInfoView::setModel(QAbstractItemModel *model)
 {
     QTreeView::setModel(model);
 
-    // adjust section size
-//    QHeaderView *vHeader = verticalHeader();
-//    vHeader->setDefaultSectionSize(40);
+    QHeaderView *header = this->header();
+    header->setSectionsMovable(false);
+    header->setStretchLastSection(false);
+    header->setSectionResizeMode(COLUMN_ICON, QHeaderView::Fixed);
+    header->setSectionResizeMode(COLUMN_NAME, QHeaderView::Stretch);
+    header->setSectionResizeMode(COLUMN_MEM, QHeaderView::ResizeToContents);
 
-//    QHeaderView *hHeader = horizontalHeader();
-//    hHeader->setSectionResizeMode(COLUMN_ICON, QHeaderView::Fixed);
-//    hHeader->setSectionResizeMode(COLUMN_NAME, QHeaderView::Stretch);
-//    hHeader->setSectionResizeMode(COLUMN_MEM, QHeaderView::ResizeToContents);
-
-//    QHeaderView *header = this->header();
-//    header->setSectionResizeMode(COLUMN_ICON, QHeaderView::Fixed);
-//    header->setSectionResizeMode(COLUMN_NAME, QHeaderView::Stretch);
-//    header->setSectionResizeMode(COLUMN_MEM, QHeaderView::ResizeToContents);
-
-    header()->setSectionResizeMode(COLUMN_ICON, QHeaderView::Fixed);
-    header()->setSectionResizeMode(COLUMN_NAME, QHeaderView::Stretch);
-    header()->setSectionResizeMode(COLUMN_MEM, QHeaderView::ResizeToContents);
-//    header()->setSectionResizeMode(COLUMN_FREE_BTN, QHeaderView::Fixed);
-    setColumnWidth(COLUMN_ICON, 24 + 10 + 30);
-    setColumnWidth(COLUMN_FREE_BTN, 10);
-//    setColumnWidth(3, 10);
+    header->resizeSection(COLUMN_ICON, 24 + 10 + 20);
+    header->resizeSection(COLUMN_FREE_BTN, 80);
 }
 
 void ProcessInfoView::mouseReleaseEvent(QMouseEvent *e)
@@ -73,6 +58,7 @@ void ProcessInfoView::drawRow(QPainter *painter, const QStyleOptionViewItem &opt
         const QRect r = options.rect.marginsRemoved(QMargins(40, 0, 0, 0));
         const QPixmap &iconPix = index.data(ProcessInfoModel::IconRole).value<QPixmap>();
 
+        painter->fillRect(r, QColor(0, 0, 0, 255 * .035));
         painter->drawPixmap(r.topLeft(), iconPix);
         painter->drawText(r.marginsRemoved(QMargins(30, 0, 0, 0)),
                           Qt::AlignVCenter | Qt::AlignLeft,

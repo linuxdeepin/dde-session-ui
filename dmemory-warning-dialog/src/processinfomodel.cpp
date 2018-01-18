@@ -53,7 +53,7 @@ ProcessInfoModel::ProcessInfoModel(QObject *parent)
 {
     QIcon::setThemeName("deepin");
 
-    connect(m_processInfos, &ProcessInfoManager::processInfoListChanged, this, [=] { qDebug() << "cca"; emit layoutChanged(); });
+    connect(m_processInfos, &ProcessInfoManager::processInfoListChanged, this, [=] { emit layoutChanged(); });
 }
 
 int ProcessInfoModel::rowCount(const QModelIndex &parent) const
@@ -135,9 +135,7 @@ QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
     {
         QList<int> ret;
         for (const auto &tab : m_processInfos->processInfoList[index.row()].sub_procs)
-        {
             ret << tab.id;
-        }
         return QVariant::fromValue(ret);
     }
     default:;
