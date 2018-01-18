@@ -190,7 +190,7 @@ void ProcessInfoManager::scanChromeTabsCB(QDBusPendingCallWatcher *watcher)
             QString title = tabInfo.value("Title").toString();
             ProcessInfo tabItem;
             tabItem.id = tabInfo.value("ID").toInt();
-            tabItem.app_name = title.remove(0, title.indexOf(' '));
+            tabItem.app_name = title.remove(0, title.indexOf(QRegularExpression("[:：]")) + 1).trimmed();
 
             procInfo.sub_procs << std::move(tabItem);
         }
