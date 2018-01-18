@@ -31,13 +31,13 @@ bool confirm(const QPixmap &icon)
     terminateDialog.setIconPixmap(icon);
     terminateDialog.addButtons(btns);
 
-    QObject::connect(&terminateDialog, &DDialog::buttonClicked, [&](const int index) {
-        if (index == 1)
-            terminateDialog.accept();
-    });
+    const int r = terminateDialog.exec();
+    if (r == 0)
+        return false;
 
-    if (terminateDialog.exec() == DDialog::Accepted)
+    if (r == 1)
         return true;
+
     return false;
 }
 
@@ -64,7 +64,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     m_continueButton->setText(tr("Continue"));
     m_icon->setPixmap(QIcon::fromTheme("dde").pixmap(32, 32));
 
-    ProcessInfoTable *table = new ProcessInfoTable;
+    ProcessInfoView *table = new ProcessInfoView;
     table->setModel(m_infoModel);
     table->setItemDelegate(new ProcessInfoDelegate);
     table->setItemDelegateForColumn(3, new ButtonDelegate);

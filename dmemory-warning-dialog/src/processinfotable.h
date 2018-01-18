@@ -1,19 +1,22 @@
 #ifndef PROCESSINFOTABLE_H
 #define PROCESSINFOTABLE_H
 
-#include <QTableView>
+#include <QTreeView>
 
-class ProcessInfoTable : public QTableView
+class ProcessInfoView : public QTreeView
 {
     Q_OBJECT
 
 public:
-    explicit ProcessInfoTable(QWidget *parent = nullptr);
+    explicit ProcessInfoView(QWidget *parent = nullptr);
 
     void setModel(QAbstractItemModel *model);
 
 protected:
     void mouseReleaseEvent(QMouseEvent *e);
+    void drawRow(QPainter *painter,
+                 const QStyleOptionViewItem &options,
+                 const QModelIndex &index) const;
 };
 
 #endif // PROCESSINFOTABLE_H

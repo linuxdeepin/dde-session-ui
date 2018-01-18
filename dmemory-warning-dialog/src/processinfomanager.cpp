@@ -115,13 +115,24 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
     else
         m_sessionId = "2";
 
-    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanProcessInfos);
-    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanChromeTabs);
+//    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanProcessInfos);
+//    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanChromeTabs);
+    scanProcessInfos();
+    scanChromeTabs();
+}
+
+void ProcessInfoManager::refresh()
+{
+    QTimer::singleShot(1000, this, [=] {
+        qDebug() << "Cacac";
+        scanChromeTabs();
+        scanProcessInfos();
+    });
 }
 
 void ProcessInfoManager::scanChromeTabs()
 {
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(m_chromeTabsInter->GetTabInfoList(), this);
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(m_chromeTabsInter->GetProcessInfo(), this);
 
     connect(watcher, &QDBusPendingCallWatcher::finished, this, &ProcessInfoManager::scanChromeTabsCB);
 }
@@ -161,14 +172,32 @@ void ProcessInfoManager::mergeLists()
 
 void ProcessInfoManager::scanChromeTabsCB(QDBusPendingCallWatcher *watcher)
 {
-    QDBusPendingReply<ChromeTabList> reply = *watcher;
+    QDBusPendingReply<QString> reply = *watcher;
+    const QJsonArray tabGroups = QJsonDocument::fromJson(reply.value().toUtf8()).array();
 
     tabsInfoList.clear();
 
-    // append chrome tabs
-    const ChromeTabList &tabs = reply.value();
-    for (const auto &tab : tabs)
-        appendChromeTab(tab);
+    for (const auto &group : tabGroups)
+    {
+        const QJsonObject &groupInfo = group.toObject();
+        ProcessInfo procInfo;
+        procInfo.total_mem_bytes = groupInfo.value("Mem").toInt();
+        procInfo.id = groupInfo.value("Pid").toInt();
+        procInfo.desktop = "/google-chrome.desktop";
+
+        for (const auto &tab : groupInfo.value("Tabs").toArray())
+        {
+            const QJsonObject &tabInfo = tab.toObject();
+            QString title = tabInfo.value("Title").toString();
+            ProcessInfo tabItem;
+            tabItem.id = tabInfo.value("ID").toInt();
+            tabItem.app_name = title.remove(0, title.indexOf(' '));
+
+            procInfo.sub_procs << std::move(tabItem);
+        }
+
+        tabsInfoList << std::move(procInfo);
+    }
 
     watcher->deleteLater();
 }
@@ -212,6 +241,7 @@ void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &de
     pInfo.cgroup_path = basePath;
     pInfo.app_name = genericAppName(desktop);
     pInfo.desktop = desktop;
+    pInfo.id = pidList.first().toUInt();
     for (const auto &id : pidList)
         if (!id.isEmpty())
             pInfo.pid_list << id;
@@ -219,13 +249,13 @@ void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &de
     processInfoList << std::move(pInfo);
 }
 
-void ProcessInfoManager::appendChromeTab(const ChromeTabInfo &tabInfo)
-{
-    ProcessInfo pInfo;
-    pInfo.total_mem_bytes = tabInfo.memory;
-    pInfo.app_name = tabInfo.title;
-    pInfo.id = tabInfo.id;
-    pInfo.desktop = "/google-chrome.desktop";
+//void ProcessInfoManager::appendChromeTab(const ChromeTabInfo &tabInfo)
+//{
+//    ProcessInfo pInfo;
+//    pInfo.total_mem_bytes = tabInfo.memory;
+//    pInfo.app_name = tabInfo.title;
+//    pInfo.id = tabInfo.id;
+//    pInfo.desktop = "/google-chrome.desktop";
 
-    tabsInfoList << std::move(pInfo);
-}
+//    tabsInfoList << std::move(pInfo);
+//}
