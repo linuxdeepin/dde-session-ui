@@ -38,9 +38,10 @@ void ProcessInfoView::setModel(QAbstractItemModel *model)
     header->setStretchLastSection(false);
     header->setSectionResizeMode(COLUMN_ICON, QHeaderView::Fixed);
     header->setSectionResizeMode(COLUMN_NAME, QHeaderView::Stretch);
-    header->setSectionResizeMode(COLUMN_MEM, QHeaderView::ResizeToContents);
+//    header->setSectionResizeMode(COLUMN_MEM, QHeaderView::ResizeToContents);
 
     header->resizeSection(COLUMN_ICON, 24 + 10 + 20);
+    header->resizeSection(COLUMN_MEM, 50);
     header->resizeSection(COLUMN_FREE_BTN, 80);
 }
 
