@@ -42,7 +42,7 @@ public:
 public slots:
     void refresh();
     void clearPressed();
-    void startRefreshData() { m_processInfos->startRefreshData(); }
+    void startRefreshData() { m_processInfos->startRefreshData(); m_processInfos->refresh(); }
     void stopRefreshData() { m_processInfos->stopRefreshData(); }
 
 private:
