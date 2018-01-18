@@ -115,16 +115,8 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
     else
         m_sessionId = "2";
 
-//    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanProcessInfos);
-//    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanChromeTabs);
-}
-
-void ProcessInfoManager::refresh()
-{
-    QTimer::singleShot(100, this, [=] {
-        scanChromeTabs();
-        scanProcessInfos();
-    });
+    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanProcessInfos);
+    connect(m_refreshTimer, &QTimer::timeout, this, &ProcessInfoManager::scanChromeTabs);
 }
 
 void ProcessInfoManager::scanChromeTabs()

@@ -64,8 +64,6 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             terminate(pidList, index.data(ProcessInfoModel::IconRole).value<QPixmap>());
         else
             close_tab(index.data(ProcessInfoModel::TabListRole).value<QList<int>>());
-
-        static_cast<ProcessInfoModel *>(model)->refresh();
         break;
     }
     default:;

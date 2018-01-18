@@ -181,11 +181,6 @@ QModelIndex ProcessInfoModel::parent(const QModelIndex &child) const
     return QModelIndex();
 }
 
-void ProcessInfoModel::refresh()
-{
-    m_processInfos->refresh();
-}
-
 void ProcessInfoModel::clearPressed()
 {
     const QModelIndex idx = m_pressedIndex;

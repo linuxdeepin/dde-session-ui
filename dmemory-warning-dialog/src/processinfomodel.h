@@ -40,9 +40,8 @@ public:
     QModelIndex parent(const QModelIndex &child) const;
 
 public slots:
-    void refresh();
     void clearPressed();
-    void startRefreshData() { m_processInfos->startRefreshData(); m_processInfos->refresh(); }
+    void startRefreshData() { m_processInfos->startRefreshData(); }
     void stopRefreshData() { m_processInfos->stopRefreshData(); }
 
 private:
