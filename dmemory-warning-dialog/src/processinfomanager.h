@@ -40,7 +40,6 @@ signals:
     void processInfoListChanged() const;
 
 private slots:
-    void refresh();
     void scanChromeTabs();
     void scanProcessInfos();
     void startRefreshData();

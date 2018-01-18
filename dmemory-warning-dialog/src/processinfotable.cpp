@@ -9,7 +9,7 @@ ProcessInfoView::ProcessInfoView(QWidget *parent)
     : QTreeView(parent)
 {
     header()->setVisible(false);
-//    setRootIsDecorated(false);
+    setRootIsDecorated(false);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFrameStyle(QFrame::NoFrame);
@@ -43,6 +43,8 @@ void ProcessInfoView::setModel(QAbstractItemModel *model)
     header->resizeSection(COLUMN_ICON, 24 + 10 + 20);
     header->resizeSection(COLUMN_MEM, 50);
     header->resizeSection(COLUMN_FREE_BTN, 80);
+
+    connect(model, &QAbstractItemModel::layoutChanged, this, [=] { expandAll(); });
 }
 
 void ProcessInfoView::mouseReleaseEvent(QMouseEvent *e)
