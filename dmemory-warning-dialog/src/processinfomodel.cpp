@@ -63,7 +63,7 @@ int ProcessInfoModel::rowCount(const QModelIndex &parent) const
         return m_processInfos->processInfoList.size();
 
     if (!parent.parent().isValid())
-        return m_processInfos->processInfoList[parent.row()].sub_procs.size();
+        return m_processInfos->processInfoList[parent.row()].sub_procs.size() - 1;
 
     return 0;
 }
@@ -99,7 +99,7 @@ QVariant ProcessInfoModel::data(const QModelIndex &index, int role) const
                 else
                     return m_processInfos->processInfoList[index.row()].sub_procs.first().app_name;
             }
-            return m_processInfos->processInfoList[index.parent().row()].sub_procs[index.row()].app_name;
+            return m_processInfos->processInfoList[index.parent().row()].sub_procs[index.row() + 1].app_name;
         default:;
         }
         break;
@@ -151,7 +151,7 @@ QModelIndex ProcessInfoModel::index(int row, int column, const QModelIndex &pare
         return createIndex(row, column, &m_processInfos->processInfoList[row]);
 
     if (!parent.parent().isValid())
-        return createIndex(row, column, &m_processInfos->processInfoList[parent.row()].sub_procs[row]);
+        return createIndex(row, column, &m_processInfos->processInfoList[parent.row()].sub_procs[row + 1]);
 
     return QModelIndex();
 }
