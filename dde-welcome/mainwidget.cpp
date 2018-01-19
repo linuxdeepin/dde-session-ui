@@ -192,8 +192,9 @@ bool MainWidget::checkVersion()
 
 const QString MainWidget::getSystemVersion()
 {
-    QSettings lsbSetting("/etc/lsb-release", QSettings::IniFormat);
-    return lsbSetting.value("DISTRIB_RELEASE").toString();
+    QSettings lsbSetting("/etc/deepin-version", QSettings::IniFormat);
+    lsbSetting.beginGroup("Release");
+    return lsbSetting.value("Version").toString();
 }
 
 void MainWidget::dbus_show()
