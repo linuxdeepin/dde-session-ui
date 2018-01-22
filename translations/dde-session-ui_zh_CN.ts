@@ -42,12 +42,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="82"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>当前系统内存不足，避免出现卡死，请释放相关应用内存！</translation>
+        <translation>为避免出现卡死，请释放相关应用内存！</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="200"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>如果继续执行命令，需要释放 %1MB 内存！</translation>
+        <translation>如果继续执行命令，需要释放约 %1MB 内存！</translation>
     </message>
     <message>
         <source>Insufficient system memory, please release some applications to avoid getting stuck.</source>
@@ -56,12 +56,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="194"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>如果继续运行 %1 应用，需要释放 %2MB 内存！</translation>
+        <translation>如果继续运行 %1 应用，需要释放约 %2MB 内存！</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="197"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>如果继续打开浏览器标签，需要释放 %1MB 内存！</translation>
+        <translation>如果继续打开浏览器标签，需要释放约 %1MB 内存！</translation>
     </message>
     <message>
         <source>To execute the command, %1MB memory is required</source>
