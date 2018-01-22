@@ -123,7 +123,7 @@ void DMemoryWarningDialog::updateAppInfo(const QString &appInfo)
         m_icon->setPixmap(appIcon(32, appInfo));
         m_appName = genericAppName(appInfo);
         m_tipsType = LaunchApp;
-    } else if (appInfo.contains("TabsLimit.OpenUrl")) {
+    } else if (appInfo.startsWith("tabslimit-open-url")) {
         m_icon->setPixmap(QIcon::fromTheme("google-chrome").pixmap(32, 32));
         m_tipsType = OpenChromeTab;
     } else {
