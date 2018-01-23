@@ -58,7 +58,7 @@ void ProcessInfoView::drawRow(QPainter *painter, const QStyleOptionViewItem &opt
 {
     if (index.parent().isValid())
     {
-        const QRect r = options.rect.marginsRemoved(QMargins(40, 0, 0, 0));
+        const QRect r = options.rect.marginsRemoved(QMargins(57, 0, 0, 0));
 
         painter->fillRect(r, QColor(0, 0, 0, 255 * .035));
         painter->drawText(r,
