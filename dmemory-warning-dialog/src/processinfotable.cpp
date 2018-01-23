@@ -58,12 +58,10 @@ void ProcessInfoView::drawRow(QPainter *painter, const QStyleOptionViewItem &opt
 {
     if (index.parent().isValid())
     {
-        const QRect r = options.rect.marginsRemoved(QMargins(40, 0, 0, 0));
-        const QPixmap &iconPix = index.data(ProcessInfoModel::IconRole).value<QPixmap>();
+        const QRect r = options.rect.marginsRemoved(QMargins(57, 0, 0, 0));
 
         painter->fillRect(r, QColor(0, 0, 0, 255 * .035));
-        painter->drawPixmap(r.topLeft(), iconPix);
-        painter->drawText(r.marginsRemoved(QMargins(30, 0, 0, 0)),
+        painter->drawText(r,
                           Qt::AlignVCenter | Qt::AlignLeft,
                           index.sibling(index.row(), 1).data(ProcessInfoModel::DisplayRole).toString());
 
