@@ -17,6 +17,7 @@ const QStringList BlackListDesktopSuffix = { "google-chrome.desktop",
                                              "im-launch.desktop",
                                              "polkit-dde-authentication-agent-1.desktop",
                                              "lastore-session-helper.desktop",
+                                             "wps-office-autostart.desktop",
                                            };
 
 QString genericAppName(const QString &desktop)
@@ -47,6 +48,21 @@ QString genericAppName(const QString &desktop)
     } while (false);
 
     return desktop;
+}
+
+QString processCGroupPath(const uint &procId)
+{
+    QFile file(QString("/proc/%1/cgroup").arg(procId));
+    if (!file.open(QIODevice::ReadOnly))
+        return QString();
+
+    const QString c = file.readAll();
+    QRegularExpression regex("memory:(.+)$", QRegularExpression::MultilineOption);
+    const auto match = regex.match(c);
+    if (match.hasMatch())
+        return match.captured(1);
+
+    return QString();
 }
 
 QMap<QString, QString> parseValuePairs(const QStringList &valuePairs)
@@ -105,6 +121,7 @@ ProcessInfoManager::ProcessInfoManager(QObject *parent)
     , m_refreshTimer(new QTimer(this))
     , m_startManagerInter(new StartManagerInter("com.deepin.SessionManager", "/com/deepin/StartManager", QDBusConnection::sessionBus(), this))
     , m_chromeTabsInter(new ChromeTabsInter("com.deepin.chromeExtension.TabsLimit", "/com/deepin/chromeExtension/TabsLimit", QDBusConnection::sessionBus(), this))
+    , m_bamfMatcherInter(new BAMFMatcherInter("org.ayatana.bamf", "/org/ayatana/bamf/matcher", QDBusConnection::sessionBus(), this))
 {
     m_refreshTimer->setSingleShot(false);
     m_refreshTimer->setInterval(1000);
@@ -137,6 +154,28 @@ void ProcessInfoManager::scanProcessInfos()
     // append basic apps
     for (auto it(apps.cbegin()); it != apps.cend(); ++it)
         appendCGroupPath(QString("/%1@dde/uiapps/%2").arg(m_sessionId).arg(it.key()), it.value());
+
+    const auto &windowList = m_bamfMatcherInter->WindowPaths().value();
+    for (const auto &windowPath : windowList)
+    {
+        BAMFWindowInter windowInter("org.ayatana.bamf", windowPath, QDBusConnection::sessionBus());
+        if (!windowInter.Xprop("WM_COMMAND").value().contains("wps-office"))
+            continue;
+        const QString desktop = QString("/usr/share/applications/wps-office-%1.desktop").arg(windowInter.Xprop("WM_CLASS"));
+        const uint pid = windowInter.GetPid().value();
+
+        QByteArray pidByte;
+        pidByte.append(QString::number(pid));
+
+        ProcessInfo pInfo;
+        pInfo.total_mem_bytes = totalMemoryBytes(QList<QByteArray>() << pidByte);
+        pInfo.app_name = genericAppName(desktop);
+        pInfo.desktop = desktop;
+        pInfo.id = pid;
+        pInfo.pid_list << pidByte;
+
+        processInfoList << std::move(pInfo);
+    }
 
     mergeLists();
 
@@ -210,22 +249,10 @@ void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &de
     if (idx != processInfoList.end())
         return;
 
-//    QFile mem_stat(basePath + "/memory.stat");
-//    if (!mem_stat.open(QIODevice::ReadOnly))
-//        return;
-//    const QString &mem_info = mem_stat.readAll();
-//    const QMap<QString, QString> &infos = parseValuePairs(mem_info.split('\n'));
-//    const unsigned total_mem = infos.value("rss").toUInt() + infos.value("mapped_file").toUInt();
-
     QFile procs(basePath + "/cgroup.procs");
     if (!procs.open(QIODevice::ReadOnly))
         return;
     const auto &pidList = procs.readAll().split('\n');
-//    const QString &mainProcId = pidList.first();
-
-//    QFile procCmdline("/proc/" + mainProcId + "/cmdline");
-//    if (!procCmdline.open(QIODevice::ReadOnly))
-//        return;
 
     ProcessInfo pInfo;
     pInfo.total_mem_bytes = totalMemoryBytes(pidList);
