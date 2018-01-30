@@ -263,6 +263,8 @@ void LockManager::showEvent(QShowEvent *event)
     m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
     m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
 
+    QTimer::singleShot(1, this, &LockManager::activateWindow);
+
     QFrame::showEvent(event);
 }
 

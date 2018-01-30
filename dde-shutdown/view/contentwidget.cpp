@@ -69,6 +69,8 @@ void ContentWidget::showEvent(QShowEvent *event)
     QTimer::singleShot(1, this, [=] {
         grabKeyboard();
     });
+
+    QTimer::singleShot(1, this, &ContentWidget::activateWindow);
 }
 
 void ContentWidget::keyReleaseEvent(QKeyEvent *event)
