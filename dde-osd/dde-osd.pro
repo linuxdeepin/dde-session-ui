@@ -59,6 +59,4 @@ INSTALLS += service_file
 dock_plugin_json.path = /etc/dde-dock/indicator/
 dock_plugin_json.files = keybord_layout.json
 
-autostart_file.path = /etc/xdg/autostart/
-autostart_file.files = dde-osd_autostart.desktop
-INSTALLS += autostart_file dock_plugin_json
+INSTALLS += dock_plugin_json
