@@ -47,7 +47,7 @@ ContentWidget::~ContentWidget()
     m_userWidget->deleteLater();
 }
 
-void ContentWidget::mousePressEvent(QMouseEvent *event)
+void ContentWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
         onCancel();
