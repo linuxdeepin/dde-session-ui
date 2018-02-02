@@ -63,7 +63,6 @@ MultiUsersWarningView::MultiUsersWarningView(UserWidget *userWidget, QWidget *pa
 
     m_warningTip->setStyleSheet("color: white;");
     m_warningTip->setWordWrap(true);
-    m_warningTip->setFixedWidth(500);
     m_warningTip->setAlignment(Qt::AlignHCenter);
 
     m_cancelBtn->setNormalPic(":/img/cancel_normal.svg");
