@@ -49,8 +49,13 @@ ContentWidget::~ContentWidget()
 
 void ContentWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton)
-        onCancel();
+    // NOTE: When the signal is sent after the press,
+    // the other window receives the mouse release event,
+    // causing the program to be started again
+
+    onCancel();
+
+    QFrame::mouseReleaseEvent(event);
 }
 
 void ContentWidget::showEvent(QShowEvent *event)
