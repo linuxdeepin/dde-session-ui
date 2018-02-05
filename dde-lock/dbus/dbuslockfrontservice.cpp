@@ -41,7 +41,7 @@ DBusLockFrontService::~DBusLockFrontService()
 
 void DBusLockFrontService::Show()
 {
-    parent()->show();
+    parent()->showFullScreen();
 }
 
 void DBusLockFrontService::ShowUserList()
