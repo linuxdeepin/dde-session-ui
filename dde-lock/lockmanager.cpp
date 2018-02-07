@@ -40,6 +40,7 @@
 #include "lockmanager.h"
 #include "lockframe.h"
 #include "dbus/dbuslockfront.h"
+#include "dbus/dbuscontrolcenter.h"
 
 LockManager::LockManager(QWidget *parent)
     : QFrame(parent)
@@ -264,6 +265,13 @@ void LockManager::showEvent(QShowEvent *event)
     m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
 
     QTimer::singleShot(300, this, &LockManager::activateWindow);
+
+    // hide dde-control-center
+    DBusControlCenter *DCCInter = new DBusControlCenter;
+    if (DCCInter->isValid()) {
+        DCCInter->HideImmediately();
+    }
+    DCCInter->deleteLater();
 
     QFrame::showEvent(event);
 }

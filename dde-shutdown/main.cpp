@@ -33,7 +33,6 @@
 #include <DLog>
 
 #include "app/shutdownframe.h"
-#include "dbus/dbuscontrolcenter.h"
 
 const QString DBUS_PATH = "/com/deepin/dde/shutdownFront";
 const QString DBUS_NAME = "com.deepin.dde.shutdownFront";
@@ -50,12 +49,6 @@ int main(int argc, char* argv[])
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
-
-    // hide dde-control-center
-    DBusControlCenter *DCCInter = new DBusControlCenter;
-    if (DCCInter->isValid())
-        DCCInter->HideImmediately();
-    DCCInter->deleteLater();
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());

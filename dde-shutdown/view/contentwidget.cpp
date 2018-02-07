@@ -34,6 +34,8 @@
 #include "multiuserswarningview.h"
 #include "inhibitwarnview.h"
 
+#include "dbus/dbuscontrolcenter.h"
+
 ContentWidget::ContentWidget(QWidget *parent)
     : QFrame(parent)
 {
@@ -68,6 +70,12 @@ void ContentWidget::showEvent(QShowEvent *event)
 
     if (m_hotZoneInterface->isValid())
         m_hotZoneInterface->EnableZoneDetected(false);
+
+    // hide dde-control-center
+    DBusControlCenter *DCCInter = new DBusControlCenter;
+    if (DCCInter->isValid())
+        DCCInter->HideImmediately();
+    DCCInter->deleteLater();
 
     checkUsers();
 

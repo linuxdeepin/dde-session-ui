@@ -28,7 +28,6 @@
 #include "lockframe.h"
 #include "dbus/dbuslockfrontservice.h"
 #include "dbus/dbuslockfront.h"
-#include "dbus/dbuscontrolcenter.h"
 
 #include <QLabel>
 #include <dapplication.h>
@@ -53,13 +52,6 @@ int main(int argc, char *argv[])
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app.installTranslator(&translator);
-
-    // hide dde-control-center
-    DBusControlCenter *DCCInter = new DBusControlCenter;
-    if (DCCInter->isValid()) {
-        DCCInter->HideImmediately();
-    }
-    DCCInter->deleteLater();
 
     QCommandLineParser cmdParser;
     cmdParser.addHelpOption();
