@@ -428,7 +428,7 @@ void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
 
     if (text == "Verification timed out") {
         m_isThumbAuth = true;
-        m_passWdEdit->setMessage(tr("Please enter your password manually if fingerprint password timed out"));
+        m_passWdEdit->setMessage(tr("Fingerprint verification timed out, please enter your password manually"));
         return;
     }
 

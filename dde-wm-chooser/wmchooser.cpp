@@ -67,7 +67,7 @@ WMChooser::WMChooser(QWidget *parent)
     QLabel*tip = new QLabel(tr("System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode"));
     tip->setWordWrap(true);
 
-    QLabel *bottomTip = new QLabel(tr("Effect Mode: You can smoothly and gorgeously experience. Common Mode: You can extremely rapidly experience"));
+    QLabel *bottomTip = new QLabel(tr("Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance"));
     tip->setStyleSheet("line-height: 1.43;"
                        "color: #ffffff;"
                        "font-size: 14px;");
