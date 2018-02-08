@@ -130,15 +130,25 @@ MainWidget::MainWidget(QWidget *parent)
         m_isUpgrade = checkVersion();
     }
 
+    QGSettings gsettings("com.deepin.dde.appearance", "", this);
+    const QStringList list = gsettings.get("background-uris").toStringList();
+    QString background = list.first();
+
+    const QUrl url(background);
+    if (url.isLocalFile())
+        background = url.path();
+
     if (m_isUpgrade) {
         UpdateContent *content = new UpdateContent(getSystemVersion(), this);
         setContent(content);
 
-        QGSettings *gsettings = new QGSettings("com.deepin.dde.appearance", "", this);
-        const QStringList list = gsettings->get("background-uris").toStringList();
-        setBackground(list.first());
+        // blur wallpaper
+        setBackground(background);
     } else {
         set_rootwindow_cursor();
+
+        // untreated wallpaper
+        setBackground(QPixmap(background));
     }
 
 #ifdef QT_DEBUG
