@@ -43,6 +43,7 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
                                      QDBusConnection::systemBus(), this))
     , m_fakeBackground(new FakeBackground(this))
 {
+
     setAttribute(Qt::WA_TranslucentBackground);
 
     m_adjustTimer->setSingleShot(true);
@@ -56,6 +57,8 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     connect(m_fakeBackground, &FakeBackground::finished, this, [=] (const QPixmap &pixmap) {
         setBackground(pixmap);
     });
+
+    connect(QApplication::desktop(), &QDesktopWidget::resized, m_adjustTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
 }
 
 void FullscreenBackground::setBackground(const QString &file, FakeBackground::Type type)
