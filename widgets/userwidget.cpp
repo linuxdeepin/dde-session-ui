@@ -379,6 +379,7 @@ void UserWidget::expandWidget()
     }
 
     setFocus();
+    grabKeyboard();
 
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
@@ -431,6 +432,8 @@ void UserWidget::chooseButtonChecked() {
     if (!checkedBtsExist) {
         updateCurrentUser(m_currentUser);
     }
+
+    releaseKeyboard();
 }
 
 void UserWidget::leftKeySwitchUser() {

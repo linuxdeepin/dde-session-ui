@@ -274,8 +274,6 @@ void LockManager::showEvent(QShowEvent *event)
     m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
     m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
 
-    QTimer::singleShot(300, this, &LockManager::activateWindow);
-
     // hide dde-control-center
     DBusControlCenter *DCCInter = new DBusControlCenter;
     if (DCCInter->isValid()) {
@@ -523,6 +521,6 @@ void LockManager::shutdownMode()
     m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
     m_passwordEdit->hide();
-	m_unlockButton->hide();
+    m_unlockButton->hide();
     m_requireShutdownWidget->show();
 }

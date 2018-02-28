@@ -207,11 +207,14 @@ void PassWdEdit::updateKeybdLayoutUI(QStringList keybdList)
 
 void PassWdEdit::show()
 {
+    QTimer::singleShot(200, this, [=] {
+        m_lineEdit->setFocus();
+        m_lineEdit->grabKeyboard();
+    });
+
     if (isVisible()) {
         return;
     }
-
-    m_lineEdit->setFocus();
 
     m_hideAni->stop();
     m_showAni->stop();
@@ -224,6 +227,10 @@ void PassWdEdit::show()
 
 void PassWdEdit::hide()
 {
+    QTimer::singleShot(1, this, [=] {
+        m_lineEdit->releaseKeyboard();
+    });
+
     if (!isVisible()) {
         return;
     }
