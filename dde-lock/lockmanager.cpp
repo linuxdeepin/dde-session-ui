@@ -306,6 +306,8 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
         if (!m_keybdArrowWidget->isHidden()) {
             m_keybdArrowWidget->hide();
         }
+
+        m_passwordEdit->setMessage("");
     }
 }
 
@@ -518,6 +520,7 @@ void LockManager::passwordMode()
 
 void LockManager::shutdownMode()
 {
+    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
     m_passwordEdit->hide();
 	m_unlockButton->hide();
