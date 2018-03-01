@@ -6,7 +6,7 @@
 INCLUDEPATH += $$PWD
 QT += x11extras svg
 
-PKGCONFIG   += liblightdm-qt5-3 dtkwidget x11 xi
+PKGCONFIG   += liblightdm-qt5-3 dtkwidget x11 xi dframeworkdbus
 
 HEADERS += \
     $$PWD/useravatar.h \

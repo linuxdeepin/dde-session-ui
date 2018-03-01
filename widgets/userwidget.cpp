@@ -107,7 +107,7 @@ void UserWidget::onUserAdded(const QString &path)
     if (m_userDbus.contains(path))
         return;
 
-    DBusUser *user = new DBusUser(ACCOUNT_DBUS_SERVICE, path, QDBusConnection::systemBus(), this);
+    UserInter *user = new UserInter(ACCOUNT_DBUS_SERVICE, path, QDBusConnection::systemBus(), this);
     user->setSync(true);
 
     m_userDbus.insert(path, user);
@@ -146,7 +146,7 @@ void UserWidget::onUserAdded(const QString &path)
 
 void UserWidget::onUserRemoved(const QString &name)
 {
-    DBusUser *user;
+    UserInter *user;
     user = m_userDbus.find(name).value();
 
     if (user) {
@@ -209,7 +209,7 @@ void UserWidget::onLoginUserListChanged(const QString &value)
 
     m_loggedInUsers.clear();
 
-    for (DBusUser *user : m_userDbus.values()) {
+    for (UserInter *user : m_userDbus.values()) {
         const QJsonArray &array = obj[user->uid()].toArray();
         if (array.isEmpty())
             continue;
@@ -224,7 +224,7 @@ void UserWidget::onLoginUserListChanged(const QString &value)
     }
 
     m_whiteList.clear();
-    for (DBusUser *inter : m_userDbus.values()) {
+    for (UserInter *inter : m_userDbus.values()) {
         if (!inter->locked() && !m_whiteList.contains(inter->userName()))
             m_whiteList.append(inter->userName());
     }
@@ -516,12 +516,6 @@ const QString UserWidget::currentUser()
         const QString tmpUsername = m_userDbus.first()->userName();
         return tmpUsername;
     }
-
-//    whiteList = QStringList(whiteList.toSet().toList());
-//    if (whiteList.length()!=0) {
-//        updateAvatar(whiteList[0]);
-//        return whiteList[0];
-//    }
 
     qWarning() << "no users !!!";
     return QString();

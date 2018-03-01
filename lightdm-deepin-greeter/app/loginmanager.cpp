@@ -32,20 +32,50 @@
 #include "loginmanager.h"
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbusaccounts.h"
+#include "otheruserinput.h"
 
 #include <com_deepin_daemon_accounts_user.h>
-#include <libintl.h>
+#include <com_deepin_system_systempower.h>
+
 #include <X11/Xlib-xcb.h>
 #include <X11/cursorfont.h>
 #include <X11/Xcursor/Xcursor.h>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
-#include "otheruserinput.h"
+
+#include <libintl.h>
+#include <unistd.h>
+#include <pwd.h>
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 
-using DBusUser = com::deepin::daemon::accounts::User;
+using UserInter = com::deepin::daemon::accounts::User;
+using PowerInter = com::deepin::system::Power;
+
+const QString UserHomeDir(const QString &username)
+{
+    struct passwd *pwd = getpwnam(username.toStdString().c_str());
+
+    return pwd->pw_dir;
+}
+
+class UserNumlockSettings
+{
+public:
+    UserNumlockSettings(const QString &username)
+        : m_username(username)
+        , m_settings(QSettings::SystemScope, "deepin", "greeter")
+    {
+    }
+
+    bool get(const bool defaultValue) { return m_settings.value(m_username, defaultValue).toBool(); }
+    void set(const bool value) { m_settings.setValue(m_username, value); }
+
+private:
+    QString m_username;
+    QSettings m_settings;
+};
 
 //Load the System cursor --begin
 static XcursorImages*
@@ -274,14 +304,12 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
 
 void LoginManager::initUI()
 {
-//    setFixedSize(qApp->desktop()->size());
     setObjectName("LoginManagerTool");
 
     m_controlWidget = new ControlWidget(this);
 
     m_sessionWidget = new SessionWidget(this);
     m_sessionWidget->setFixedHeight(200);
-//    m_sessionWidget->setFixedWidth(qApp->primaryScreen()->geometry().width());
     m_sessionWidget->hide();
     m_logoWidget = new LogoWidget(this);
     m_userWidget = new UserWidget(this);
@@ -323,10 +351,6 @@ void LoginManager::initUI()
     m_Layout->addWidget(m_otherUserInput, 0, Qt::AlignCenter);
     m_Layout->addStretch();
 
-//    QWidget *centralWidget = new QWidget;
-//    centralWidget->setLayout(m_Layout);
-
-//    setContent(centralWidget);
     setLayout(m_Layout);
 
     m_passWdEdit->updateKeyboardStatus();
@@ -338,21 +362,6 @@ void LoginManager::initUI()
 #endif
     set_rootwindow_cursor();
 }
-
-//void LoginManager::recordPid() {
-//    qDebug() << "remember P i D" << qApp->applicationPid();
-
-//    QFile tmpPidFile(QString("%1%2").arg("/tmp/").arg(".dgreeterpid"));
-
-//    if (tmpPidFile.open(QIODevice::WriteOnly|QIODevice::Text)) {
-//        QTextStream pidInfo(&tmpPidFile);
-//        pidInfo << qApp->applicationPid();
-
-//        tmpPidFile.close();
-//    } else {
-//        qDebug() << "file open failed!";
-//    }
-//}
 
 void LoginManager::initData() {
     m_greeter = new QLightDM::Greeter(this);
@@ -697,23 +706,21 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
 
 void LoginManager::saveNumlockStatus(const bool &on)
 {
-    qDebug() << "save numlock statuc to " << on;
-    QSettings settings;
-    settings.beginGroup("NumlockStatus");
-    settings.setValue(m_userWidget->currentUser(), on);
-    settings.endGroup();
+    const QString &username = m_userWidget->currentUser();
+
+    UserNumlockSettings(username).set(on);
 }
 
 void LoginManager::restoreNumlockStatus()
 {
-    bool value = false;
+    const QString &username = m_userWidget->currentUser();
 
-    QSettings settings;
-    settings.beginGroup("NumlockStatus");
-    value = settings.value(m_userWidget->currentUser(), m_keyboardMonitor->isNumlockOn()).toBool();
-    settings.endGroup();
+    PowerInter powerInter("com.deepin.system.Power", "/com/deepin/system/Power", QDBusConnection::systemBus(), this);
 
-    qDebug() << "restore numlock status to " << value;
-    m_keyboardMonitor->setNumlockStatus(value);
+    const bool defaultValue = !powerInter.hasBattery();
+    const bool enabled = UserNumlockSettings(username).get(defaultValue);
+
+    qDebug() << "restore numlock status to " << enabled;
+    m_keyboardMonitor->setNumlockStatus(enabled);
 }
 

@@ -45,7 +45,7 @@
 #define ACCOUNT_DBUS_PATH "/com/deepin/daemon/Accounts"
 
 using Logined = com::deepin::daemon::Logined;
-using DBusUser = com::deepin::daemon::accounts::User;
+using UserInter = com::deepin::daemon::accounts::User;
 
 class UserWidget : public QFrame
 {
@@ -114,7 +114,7 @@ private:
     UserButton* m_currentBtns = nullptr;
     QList<UserButton *> m_userBtns;
     DBusAccounts *m_dbusAccounts;
-    QMap<QString, DBusUser *> m_userDbus;
+    QMap<QString, UserInter *> m_userDbus;
     Logined *m_dbusLogined;
     QStringList m_loggedInUsers;
     UserButton *m_adLoginBtn = nullptr;

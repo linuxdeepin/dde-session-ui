@@ -38,7 +38,7 @@
 
 #include "useravatar.h"
 
-using DBusUser = com::deepin::daemon::accounts::User;
+using UserInter = com::deepin::daemon::accounts::User;
 
 static const int USER_ICON_WIDTH = 180;
 static const int USER_ICON_HEIGHT = 180;
@@ -66,7 +66,7 @@ public:
     const QString kblayout();
     const QString displayName() const;
     const QStringList backgrounds() const;
-    DBusUser *dbus() const;
+    UserInter *dbus() const;
 
 signals:
     void imageClicked(QString nam);
@@ -95,7 +95,7 @@ public slots:
     void updateAutoLogin(bool autologin);
     void updateKbLayout(const QString &layout);
     void updateKbHistory(const QStringList &history);
-    void setDBus(DBusUser *dbus);
+    void setDBus(UserInter *dbus);
 
 protected:
     void paintEvent(QPaintEvent* event);
@@ -114,7 +114,7 @@ private:
     QString m_displayName;
     bool m_isAutoLogin;
     QStringList m_kbHistory;
-    DBusUser *m_dbus;
+    UserInter *m_dbus;
 
     bool m_selected = false;
     UserAvatar* m_userAvatar;

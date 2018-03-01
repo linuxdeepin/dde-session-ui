@@ -175,7 +175,7 @@ void UserButton::updateKbHistory(const QStringList &history)
     m_kbHistory = history;
 }
 
-void UserButton::setDBus(DBusUser *dbus)
+void UserButton::setDBus(UserInter *dbus)
 {
     m_dbus = dbus;
 }
@@ -295,7 +295,7 @@ const QStringList UserButton::backgrounds() const
     return m_backgrounds;
 }
 
-DBusUser *UserButton::dbus() const
+UserInter *UserButton::dbus() const
 {
     return m_dbus;
 }
