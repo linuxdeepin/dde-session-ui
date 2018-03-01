@@ -48,10 +48,18 @@ signals:
     void shutDownWidgetAction(const Actions sd);
     void directLeft();
     void directRight();
+    void abortOperation();
+
 public slots:
     void leftKeySwitch();
     void rightKeySwitch();
     void shutdownAction();
+
+protected:
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+    void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
+    void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+
 private:
     void initUI();
     void initConnect();

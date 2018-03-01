@@ -102,5 +102,44 @@ void ShutdownWidget::shutdownAction() {
     emit m_currentSelectedBtn->clicked();
 }
 
+void ShutdownWidget::showEvent(QShowEvent *event)
+{
+    QFrame::showEvent(event);
+
+    QTimer::singleShot(300, this, &ShutdownWidget::grabKeyboard);
+}
+
+void ShutdownWidget::hideEvent(QHideEvent *event)
+{
+    QFrame::hideEvent(event);
+
+    QTimer::singleShot(1, this, &ShutdownWidget::releaseKeyboard);
+}
+
+void ShutdownWidget::keyReleaseEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Escape:
+        hide();
+        emit abortOperation();
+        break;
+    case Qt::Key_Left:
+        leftKeySwitch();
+        break;
+    case Qt::Key_Right:
+        rightKeySwitch();
+        break;
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        shutdownAction();
+        break;
+    default:
+        break;
+    }
+
+
+    QFrame::keyReleaseEvent(event);
+}
+
 ShutdownWidget::~ShutdownWidget() {
 }

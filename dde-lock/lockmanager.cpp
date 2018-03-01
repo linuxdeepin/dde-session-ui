@@ -70,6 +70,13 @@ void LockManager::initConnect()
 
         passwordMode();
     });
+
+    connect(m_requireShutdownWidget, &ShutdownWidget::abortOperation, this, [=] {
+        m_passwordEdit->setMessage("");
+        m_action = Unlock;
+        passwordMode();
+    });
+
     connect(qApp, &QApplication::aboutToQuit, [this] {
         m_hotZoneInterface->EnableZoneDetected(true);
     });
