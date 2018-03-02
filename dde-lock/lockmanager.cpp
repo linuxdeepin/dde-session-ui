@@ -56,6 +56,37 @@ LockManager::LockManager(QWidget *parent)
 void LockManager::initConnect()
 {
 
+    connect(m_lockInter, &DBusLockService::Event, this, &LockManager::lockServiceEvent);
+
+    connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
+    connect(m_userWidget, &UserWidget::userChanged, this, [=] (const QString & username) {
+        m_passwordEdit->show();
+
+        qDebug() << "current User:" << username << "11 m_activatedUser:" << m_activatedUser;
+
+        if (username != m_activatedUser) {
+            if (m_userWidget->users().contains(username)) {
+                QFile f("/tmp/lastuser");
+                if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                    f.write(username.toLocal8Bit());
+                    f.setPermissions(QFileDevice::Permissions(0x7777));
+                    f.close();
+                }
+            }
+
+            // goto greeter
+            QProcess *process = new QProcess;
+            connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
+            process->start("dde-switchtogreeter " + username);
+
+            m_userWidget->setCurrentUser(m_userWidget->loginUser());
+
+            return;
+        }
+
+        checkUserIsNoPWGrp();
+    });
+
     connect(m_passwordEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LockManager::keybdLayoutWidgetPosit);
     connect(m_controlWidget, &ControlWidget::requestShutdown, this, &LockManager::shutdownMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LockManager::chooseUserMode);
@@ -82,6 +113,7 @@ void LockManager::initConnect()
     });
 
     connect(m_unlockButton, &QPushButton::clicked, this, &LockManager::unlock);
+
     connect(m_userWidget, &UserWidget::otherUserLogin, this, [=] {
         QProcess *process = new QProcess;
         connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
@@ -168,37 +200,6 @@ void LockManager::initUI()
 
     m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH,
                                       QDBusConnection::systemBus(), this);
-
-    connect(m_lockInter, &DBusLockService::Event, this, &LockManager::lockServiceEvent);
-
-    connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
-    connect(m_userWidget, &UserWidget::userChanged, this, [=] (const QString & username) {
-        m_passwordEdit->show();
-
-        qDebug() << "current User:" << username << "11 m_activatedUser:" << m_activatedUser;
-
-        if (username != m_activatedUser) {
-            if (m_userWidget->users().contains(username)) {
-                QFile f("/tmp/lastuser");
-                if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-                    f.write(username.toLocal8Bit());
-                    f.setPermissions(QFileDevice::Permissions(0x7777));
-                    f.close();
-                }
-            }
-
-            // goto greeter
-            QProcess *process = new QProcess;
-            connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
-            process->start("dde-switchtogreeter " + username);
-
-            m_userWidget->setCurrentUser(m_userWidget->loginUser());
-
-            return;
-        }
-
-        checkUserIsNoPWGrp();
-    });
 }
 
 void LockManager::updateWidgetsPosition()

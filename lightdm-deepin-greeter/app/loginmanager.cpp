@@ -369,14 +369,6 @@ void LoginManager::initConnect()
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_controlWidget, &ControlWidget::chooseToSession, Qt::QueuedConnection);
 
-    connect(m_passWdEdit, &PassWdEdit::submit, this, [=] {
-        m_accountStr = m_userWidget->currentUser();
-        m_passwdStr = m_passWdEdit->getText();
-        m_greeter->authenticate(m_accountStr);
-
-        // NOTE(kirigaya): set auth user and respond password need some time!
-        QTimer::singleShot(100, this, SLOT(login()));
-    });
     connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
 
         qDebug()<<"selected user: " << username;
@@ -405,6 +397,12 @@ void LoginManager::initConnect()
 
         m_sessionWidget->switchToUser(username);
     });
+    connect(m_userWidget, &UserWidget::currentUserBackgroundChanged,
+            this, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground));
+
+    connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
+        m_controlWidget->setUserSwitchEnable(count > 1);
+    });
 
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
     connect(m_greeter, &QLightDM::Greeter::showMessage, this, &LoginManager::message);
@@ -412,10 +410,27 @@ void LoginManager::initConnect()
 
     connect(m_passWdEdit, &PassWdEdit::updateKeyboardStatus, this, &LoginManager::keyboardLayoutUI);
     connect(m_passWdEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LoginManager::keybdLayoutWidgetPosit);
+    connect(m_passWdEdit, &PassWdEdit::submit, this, [=] {
+        m_accountStr = m_userWidget->currentUser();
+        m_passwdStr = m_passWdEdit->getText();
+        m_greeter->authenticate(m_accountStr);
+
+        // NOTE(kirigaya): set auth user and respond password need some time!
+        QTimer::singleShot(100, this, SLOT(login()));
+    });
+    connect(m_userWidget, &UserWidget::otherUserLogin, this, [=] {
+        m_otherUserInput->show();
+        m_passWdEdit->hide();
+        m_loginButton->hide();
+        m_sessionWidget->hide();
+        m_userWidget->show();
+        m_requireShutdownWidget->hide();
+        m_greeter->authenticate("");
+    });
+
+    connect(m_loginButton, &QPushButton::clicked, m_passWdEdit, &PassWdEdit::submit);
 
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
-
-    connect(m_loginButton, &QPushButton::clicked, this, &LoginManager::login);
 
     connect(m_keyboardMonitor, &KeyboardMonitor::numlockStatusChanged, this, &LoginManager::saveNumlockStatus);
 
@@ -429,23 +444,6 @@ void LoginManager::initConnect()
 
         // NOTE(kirigaya): set auth user and respond password need some time!
         QTimer::singleShot(100, this, SLOT(login()));
-    });
-
-    connect(m_userWidget, &UserWidget::otherUserLogin, this, [=] {
-        m_otherUserInput->show();
-        m_passWdEdit->hide();
-        m_loginButton->hide();
-        m_sessionWidget->hide();
-        m_userWidget->show();
-        m_requireShutdownWidget->hide();
-        m_greeter->authenticate("");
-    });
-
-    connect(m_userWidget, &UserWidget::currentUserBackgroundChanged,
-            this, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground));
-
-    connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
-        m_controlWidget->setUserSwitchEnable(count > 1);
     });
 }
 
