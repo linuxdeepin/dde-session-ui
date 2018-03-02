@@ -215,6 +215,7 @@ void LoginManager::updateUserLoginCondition(QString username)
         } else {
             m_passWdEdit->show();
             m_userState = Password;
+            m_greeter->authenticate(m_userWidget->currentUser());
         }
     }
 }
