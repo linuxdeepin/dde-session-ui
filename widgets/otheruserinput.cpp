@@ -54,6 +54,12 @@ void OtherUserInput::initUI()
     m_passwdEdit->setEchoMode(QLineEdit::Password);
     m_passwdEdit->setAttribute(Qt::WA_InputMethodEnabled, false);
 
+    m_accountEdit->setContextMenuPolicy(Qt::NoContextMenu);
+    m_passwdEdit->setFocusPolicy(Qt::StrongFocus);
+
+    m_accountEdit->setContextMenuPolicy(Qt::NoContextMenu);
+    m_passwdEdit->setFocusPolicy(Qt::StrongFocus);
+
     QHBoxLayout *accountLayout = new QHBoxLayout;
     accountLayout->setMargin(5);
     accountLayout->setSpacing(0);
