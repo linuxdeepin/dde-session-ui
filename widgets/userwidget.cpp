@@ -389,6 +389,27 @@ void UserWidget::saveLastUser()
     m_lockInter.SwitchToUser(currentUser()).waitForFinished();
 }
 
+void UserWidget::saveADUser(const QString &username)
+{
+    QDir dir(DDESESSIONCC::LAST_USER_CONFIG);
+
+    if (!dir.exists())
+       qDebug() << dir.mkpath(DDESESSIONCC::LAST_USER_CONFIG);
+
+    QFile file(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER");
+
+    // NOTE(kirigaya): If file is not exist, create it.
+    if (!file.open(QIODevice::WriteOnly)) {
+        file.close();
+    }
+
+    QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
+    setting.beginGroup("USER");
+    setting.setValue("USERNAME", username);
+    setting.endGroup();
+    setting.sync();
+}
+
 void UserWidget::resizeEvent(QResizeEvent *e)
 {
     QFrame::resizeEvent(e);

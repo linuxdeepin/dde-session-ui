@@ -82,6 +82,7 @@ public slots:
     void setCurrentUser(const QString &username);
     void expandWidget();
     void saveLastUser();
+    void saveADUser(const QString &username);
 
     void leftKeySwitchUser();
     void rightKeySwitchUser();

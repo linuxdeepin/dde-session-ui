@@ -71,7 +71,6 @@ public slots:
     void updateBackground(QString username);
     void updateUserLoginCondition(QString username);
 
-    void authenticate();
     void startSession();
 
 protected:
@@ -109,8 +108,6 @@ private:
 
     void saveNumlockStatus(const bool &on);
     void restoreNumlockStatus();
-
-    void saveLastUser();
 
     enum UserState {
         Password,

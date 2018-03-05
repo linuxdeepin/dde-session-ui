@@ -439,7 +439,7 @@ void LoginManager::initConnect()
         m_accountStr = m_otherUserInput->account();
         m_passwdStr = m_otherUserInput->passwd();
 
-        saveLastUser();
+        m_userWidget->saveADUser(m_accountStr);
 
         m_greeter->authenticate(m_accountStr);
 
@@ -577,18 +577,13 @@ void LoginManager::login()
     } else if (m_greeter->inAuthentication() && m_userState == Password) {
         m_greeter->respond(m_passwdStr);
     } else {
-        authenticate();
+        if (m_greeter->inAuthentication())
+            m_greeter->cancelAuthentication();
+
+        m_greeter->authenticate(m_accountStr);
+
+        qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
     }
-}
-
-void LoginManager::authenticate()
-{
-    if (m_greeter->inAuthentication())
-        m_greeter->cancelAuthentication();
-
-    m_greeter->authenticate(m_accountStr);
-
-    qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
 }
 
 void LoginManager::chooseUserMode()
@@ -720,26 +715,5 @@ void LoginManager::restoreNumlockStatus()
 
     qDebug() << "restore numlock status to " << value;
     m_keyboardMonitor->setNumlockStatus(value);
-}
-
-void LoginManager::saveLastUser()
-{
-    QDir dir(DDESESSIONCC::LAST_USER_CONFIG);
-
-    if (!dir.exists())
-       qDebug() << dir.mkpath(DDESESSIONCC::LAST_USER_CONFIG);
-
-    QFile file(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER");
-
-    // NOTE(kirigaya): If file is not exist, create it.
-    if (!file.open(QIODevice::WriteOnly)) {
-        file.close();
-    }
-
-    QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
-    setting.beginGroup("USER");
-    setting.setValue("USERNAME", m_accountStr);
-    setting.endGroup();
-    setting.sync();
 }
 
