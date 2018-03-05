@@ -149,6 +149,7 @@ void ProcessInfoManager::scanChromeTabs()
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(m_chromeTabsInter->GetProcessInfo(), this);
 
     connect(watcher, &QDBusPendingCallWatcher::finished, this, &ProcessInfoManager::scanChromeTabsCB);
+    connect(watcher, &QDBusPendingCallWatcher::finished, watcher, &QDBusPendingCallWatcher::deleteLater, Qt::QueuedConnection);
 
     watcher->waitForFinished();
 }
