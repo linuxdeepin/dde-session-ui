@@ -3,11 +3,13 @@
 #include "dmemorywarningdialogadaptor.h"
 
 #include <DApplication>
+#include <DLog>
 
 #include <QDBusConnection>
 #include <QTranslator>
 
 DWIDGET_USE_NAMESPACE
+DUTIL_USE_NAMESPACE
 
 int main(int argc, char *args[])
 {
@@ -23,6 +25,12 @@ int main(int argc, char *args[])
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     dapp.installTranslator(&translator);
+
+#ifdef QT_DEBUG
+    DLogManager::registerConsoleAppender();
+#else
+    DLogManager::registerFileAppender();
+#endif
 
     DMemoryWarningDialog dialog;
     DMemoryWarningDialogAdaptor dbusAdaptor(&dialog);
