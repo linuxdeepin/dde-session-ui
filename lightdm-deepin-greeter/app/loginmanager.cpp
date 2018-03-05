@@ -604,6 +604,7 @@ void LoginManager::chooseUserMode()
 void LoginManager::chooseSessionMode()
 {
     m_sessionWidget->show();
+    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
     m_passWdEdit->hide();
     m_loginButton->hide();
@@ -628,6 +629,7 @@ void LoginManager::choosedSession() {
 
 void LoginManager::showShutdownFrame() {
     qDebug() << "showShutdownFrame!";
+    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
     m_passWdEdit->hide();
     m_loginButton->hide();
