@@ -64,6 +64,8 @@ public:
     const QString name() const { return m_userName; }
 
     virtual UserType type() const = 0;
+    virtual QString avatarPath() const = 0;
+    virtual QString backgroundPath() const = 0;
 
 protected:
     QString m_userName;
@@ -77,6 +79,9 @@ public:
     NativeUser(const QString &path, QObject *parent = nullptr);
 
     UserType type() const { return Native; }
+    QString avatarPath() const;
+    QString backgroundPath() const;
+
     const QString path() const { return m_userPath; }
 
 private:
@@ -92,6 +97,8 @@ public:
     ADDomainUser(QObject *parent);
 
     UserType type() const { return ADDomain; }
+    QString avatarPath() const;
+    QString backgroundPath() const;
 };
 
 class UserWidget : public QFrame

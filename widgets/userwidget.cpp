@@ -615,7 +615,27 @@ NativeUser::NativeUser(const QString &path, QObject *parent)
 {
 }
 
+QString NativeUser::avatarPath() const
+{
+    return QString();
+}
+
+QString NativeUser::backgroundPath() const
+{
+    return QString();
+}
+
 ADDomainUser::ADDomainUser(QObject *parent)
     : User(parent)
 {
+}
+
+QString ADDomainUser::avatarPath() const
+{
+    return QString();
+}
+
+QString ADDomainUser::backgroundPath() const
+{
+    return QString();
 }
