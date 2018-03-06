@@ -74,7 +74,6 @@ signals:
     void chooseUserModeChanged(bool isChoose, QString curUser);
     void otherUserLogin();
     void currentUserBackgroundChanged(const QString &background);
-    void currentUserNameChanged(const QString &background);
     void userCountChanged(int count);
 
 public slots:

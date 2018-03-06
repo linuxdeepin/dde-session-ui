@@ -282,7 +282,9 @@ void UserWidget::initADLogin()
     m_adLoginBtn->setDBus(nullptr);
 
     connect(m_adLoginBtn, &UserButton::imageClicked, this, [=] {
-        updateCurrentUser(username);
+        releaseKeyboard();
+        setCurrentUser(username);
+        updateCurrentUserPos(200);
         emit otherUserLogin();
     });
 
@@ -321,7 +323,6 @@ void UserWidget::setCurrentUser(const QString &username)
             user->hide(180);
     }
 
-    emit currentUserNameChanged(m_currentUser);
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
 
