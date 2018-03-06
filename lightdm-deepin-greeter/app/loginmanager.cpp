@@ -599,6 +599,8 @@ void LoginManager::onCurrentUserChanged(User *user)
     qDebug() << Q_FUNC_INFO << user->name();
     qDebug() << "previous selected user: " << m_sessionWidget->currentSessionOwner();
 
+    // TODO: update current user information
+
     //        updateUserLoginCondition(username);
 
     //        if (username == m_sessionWidget->currentSessionOwner())

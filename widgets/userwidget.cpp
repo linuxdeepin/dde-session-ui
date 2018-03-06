@@ -456,10 +456,10 @@ void UserWidget::keyReleaseEvent(QKeyEvent *event)
 
     switch (event->key()) {
     case Qt::Key_Left:
-        leftKeySwitchUser();
+        switchPreviousUser();
         break;
     case Qt::Key_Right:
-        rightKeySwitchUser();
+        switchNextUser();
         break;
     case Qt::Key_Return:
     case Qt::Key_Enter:
@@ -502,7 +502,7 @@ void UserWidget::appendUser(User *user)
     // TODO: emit changed signals
 }
 
-void UserWidget::leftKeySwitchUser()
+void UserWidget::switchPreviousUser()
 {
     for (int i = 0; i != m_availableUserButtons.size(); ++i) {
         if (m_availableUserButtons[i]->selected()) {
@@ -515,21 +515,9 @@ void UserWidget::leftKeySwitchUser()
             break;
         }
     }
-
-//    if (isChooseUserMode) {
-//        if (!m_currentUserIndex)
-//            m_currentUserIndex = m_userBtns.length() - 1;
-//        else
-//            m_currentUserIndex -= 1;
-
-//        m_currentUser = m_userBtns.at(m_currentUserIndex)->name();
-
-//        for (int i(0); i < m_userBtns.count(); i++)
-//            m_userBtns.at(i)->setSelected(i == m_currentUserIndex);
-//    }
 }
 
-void UserWidget::rightKeySwitchUser()
+void UserWidget::switchNextUser()
 {
     for (int i = 0; i != m_availableUserButtons.size(); ++i) {
         if (m_availableUserButtons[i]->selected()) {
@@ -542,18 +530,6 @@ void UserWidget::rightKeySwitchUser()
             break;
         }
     }
-
-//    if (isChooseUserMode) {
-//        if (m_currentUserIndex ==  m_userBtns.length() - 1)
-//            m_currentUserIndex = 0;
-//        else
-//            m_currentUserIndex = m_currentUserIndex + 1;
-
-//        m_currentUser = m_userBtns.at(m_currentUserIndex)->name();
-
-//        for (int i(0); i < m_userBtns.count(); i++)
-//            m_userBtns.at(i)->setSelected(i == m_currentUserIndex);
-//    }
 }
 
 const QString UserWidget::loginUser()

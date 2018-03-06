@@ -137,8 +137,8 @@ public slots:
     void saveLastUser();
     void saveADUser(const QString &username);
 
-    void leftKeySwitchUser();
-    void rightKeySwitchUser();
+    void switchPreviousUser();
+    void switchNextUser();
 //    void chooseButtonChecked();
 
     void appendUser(User *user);
