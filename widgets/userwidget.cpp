@@ -493,6 +493,8 @@ void UserWidget::appendUser(User *user)
     if (!m_currentUser)
         m_currentUser = user;
 
+    userButton->show();
+
     connect(userButton, &UserButton::clicked, this, &UserWidget::onUserChoosed);
 
     // TODO: emit changed signals
@@ -534,6 +536,37 @@ const QString UserWidget::loginUser()
     pws = getpwuid(getuid());
     return QString(pws->pw_name);
 }
+
+//const QString UserWidget::currentUser()
+//{
+//    return m_availableUserButtons.first()->userInfo()->name();
+
+//    qDebug() << Q_FUNC_INFO << m_currentUser;
+
+//    if (!m_currentUser.isEmpty() && m_whiteList.contains(m_currentUser)) {
+//        return m_currentUser;
+//    }
+
+//    struct passwd *pws;
+//    pws = getpwuid(getuid());
+//    const QString currentLogin(pws->pw_name);
+
+//    //except the current-user named lightdm
+//    if (!currentLogin.isEmpty() && currentLogin!="lightdm")
+//        return currentLogin;
+
+//    if (!m_whiteList.isEmpty())
+//        return m_whiteList.first();
+
+//    // return first user
+////    if (m_userDbus.count() > 0) {
+////        const QString tmpUsername = m_userDbus.first()->userName();
+////        return tmpUsername;
+////    }
+
+//    qWarning() << "no users !!!";
+//    return QString();
+//}
 
 //const QString UserWidget::getUserAvatar(const QString &username)
 //{
@@ -613,6 +646,7 @@ NativeUser::NativeUser(const QString &path, QObject *parent)
 
     , m_userInter(new UserInter(ACCOUNT_DBUS_SERVICE, path, QDBusConnection::systemBus(), this))
 {
+    m_userName = m_userInter->userName();
 }
 
 QString NativeUser::avatarPath() const

@@ -66,7 +66,7 @@ void UserButton::initUI()
     m_userNameLabel->setFixedSize(120, 30);
     m_userNameLabel->setStyleSheet("text-align:center; color: white;");
 
-    m_userNameLabel->setText("aaa");
+    m_userNameLabel->setText(m_user->name());
     m_userAvatar->setIcon("/var/lib/AccountsService/icons/guest.png");
 
     m_checkedMark = new QLabel;

@@ -218,6 +218,8 @@ void LoginManager::updateWidgetsPosition()
     m_requireShutdownWidget->setFixedWidth(w);
     m_requireShutdownWidget->setFixedHeight(300);
     m_requireShutdownWidget->move(0,  (h - m_requireShutdownWidget->height())/2 - 60);
+
+    m_passWdEdit->show();
 }
 
 void LoginManager::updateBackground(QString username)
@@ -323,7 +325,7 @@ void LoginManager::initUI()
                                    ":/img/action_icons/login_hover.svg",
                                    ":/img/action_icons/login_press.svg");
     m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
-    m_passWdEdit->setVisible(false);
+    m_passWdEdit->setVisible(true);
 
     m_loginButton = new QPushButton(this);
     m_loginButton->setText(tr("Login"));
@@ -428,7 +430,7 @@ void LoginManager::initConnect()
 
     connect(m_userWidget, &UserWidget::otherUserLogin, this, [=] {
         m_otherUserInput->show();
-        m_passWdEdit->hide();
+//        m_passWdEdit->hide();
         m_loginButton->hide();
         m_sessionWidget->hide();
         m_userWidget->show();
@@ -593,7 +595,7 @@ void LoginManager::login()
 
 void LoginManager::chooseUserMode()
 {
-    m_passWdEdit->hide();
+//    m_passWdEdit->hide();
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
@@ -606,7 +608,7 @@ void LoginManager::chooseSessionMode()
     m_sessionWidget->show();
 //    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
-    m_passWdEdit->hide();
+//    m_passWdEdit->hide();
     m_loginButton->hide();
     m_otherUserInput->hide();
     m_requireShutdownWidget->hide();
@@ -631,7 +633,7 @@ void LoginManager::showShutdownFrame() {
     qDebug() << "showShutdownFrame!";
 //    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
-    m_passWdEdit->hide();
+//    m_passWdEdit->hide();
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_requireShutdownWidget->show();
