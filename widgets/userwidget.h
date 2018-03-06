@@ -47,6 +47,53 @@
 using Logined = com::deepin::daemon::Logined;
 using UserInter = com::deepin::daemon::accounts::User;
 
+class User : public QObject
+{
+    Q_OBJECT
+
+public:
+    enum UserType
+    {
+        Native,
+        ADDomain,
+    };
+
+    User(QObject *parent);
+
+    bool operator==(const User &user) const;
+    const QString name() const { return m_userName; }
+
+    virtual UserType type() const = 0;
+
+protected:
+    QString m_userName;
+};
+
+class NativeUser : public User
+{
+    Q_OBJECT
+
+public:
+    NativeUser(const QString &path, QObject *parent = nullptr);
+
+    UserType type() const { return Native; }
+    const QString path() const { return m_userPath; }
+
+private:
+    UserInter *m_userInter;
+    QString m_userPath;
+};
+
+class ADDomainUser : public User
+{
+    Q_OBJECT
+
+public:
+    ADDomainUser(QObject *parent);
+
+    UserType type() const { return ADDomain; }
+};
+
 class UserWidget : public QFrame
 {
     Q_OBJECT
@@ -87,6 +134,8 @@ public slots:
     void rightKeySwitchUser();
     void chooseButtonChecked();
 
+    void onNativeUserListChanged();
+
 protected:
     void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
     void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
@@ -96,7 +145,7 @@ private slots:
     void initConnections();
     void removeUser(QString name);
     void onUserListChanged();
-    void onUserAdded(const QString &path);
+    void onNativeUserAdded(const QString &path);
     void onUserRemoved(const QString &name);
     void onLoginUserListChanged(const QString &value);
     UserButton* getUserByName(const QString &username);
@@ -117,6 +166,9 @@ private:
     Logined *m_dbusLogined;
     QStringList m_loggedInUsers;
     UserButton *m_adLoginBtn = nullptr;
+
+    // refactor
+    QList<User *> m_availableUsers;
 };
 
 #endif // WIDGET_H

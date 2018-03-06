@@ -94,7 +94,6 @@ private:
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
 
-
     void chooseUserMode();
     void chooseSessionMode();
     void choosedSession();

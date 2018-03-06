@@ -67,6 +67,7 @@ UserWidget::UserWidget(QWidget* parent)
 UserWidget::~UserWidget()
 {
     qDeleteAll(m_userBtns);
+    qDeleteAll(m_availableUsers);
 }
 
 void UserWidget::initUI()
@@ -87,25 +88,45 @@ void UserWidget::initUI()
 void UserWidget::initConnections()
 {
     connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, &UserWidget::onUserListChanged);
-    connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onUserAdded);
+    connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onNativeUserAdded);
     connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onUserRemoved);
 
     connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged);
     connect(this, &UserWidget::userChanged, this, [=] {
         updateCurrentUserPos(200);
     });
+
+    connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, &UserWidget::onNativeUserListChanged);
 }
 
 void UserWidget::onUserListChanged()
 {
     for (const QString &name : m_dbusAccounts->userList())
-        onUserAdded(name);
+        onNativeUserAdded(name);
 }
 
-void UserWidget::onUserAdded(const QString &path)
+void UserWidget::onNativeUserAdded(const QString &path)
 {
     if (m_userDbus.contains(path))
         return;
+
+    // search for exist user
+    for (User *user : m_availableUsers)
+    {
+        if (user->type() != User::Native)
+            continue;
+
+        // already exist
+        if (static_cast<NativeUser *>(user)->path() == path)
+            return;
+    }
+
+    // append new user
+    NativeUser *nativeUser = new NativeUser(path);
+
+    m_availableUsers << nativeUser;
+
+    // TODO: emit user added signals
 
     UserInter *user = new UserInter(ACCOUNT_DBUS_SERVICE, path, QDBusConnection::systemBus(), this);
     user->setSync(true);
@@ -458,6 +479,12 @@ void UserWidget::chooseButtonChecked() {
     releaseKeyboard();
 }
 
+void UserWidget::onNativeUserListChanged()
+{
+    for (const QString &userPath : m_dbusAccounts->userList())
+        onNativeUserAdded(userPath);
+}
+
 void UserWidget::leftKeySwitchUser() {
     if (isChooseUserMode) {
         if (!m_currentUserIndex)
@@ -587,4 +614,27 @@ void UserWidget::setUserKBlayout(const QString &username, const QString &layout)
     UserButton *user = getUserByName(username);
     if (user && user->dbus())
         user->dbus()->SetLayout(layout);
+}
+
+User::User(QObject *parent) : QObject(parent)
+{
+
+}
+
+bool User::operator==(const User &user) const
+{
+    return type() == user.type() &&
+           m_userName == user.m_userName;
+}
+
+NativeUser::NativeUser(const QString &path, QObject *parent)
+    : User(parent)
+
+    , m_userInter(new UserInter(ACCOUNT_DBUS_SERVICE, path, QDBusConnection::systemBus(), this))
+{
+}
+
+ADDomainUser::ADDomainUser(QObject *parent)
+    : User(parent)
+{
 }
