@@ -192,10 +192,16 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 {
     QJsonObject userList = QJsonDocument::fromJson(loginedUserInfo.toUtf8()).object();
 
-    for (const auto &userId : userList.keys())
+
+    QList<int> list;
+
+    for (const QString &userId : userList.keys())
     {
-        // TODO: add domain user
-        qDebug() << userId;
+          list << userId.toInt();
+    }
+
+    for (UserButton *btn : m_availableUserButtons) {
+        btn->setButtonChecked(list.contains(btn->userInfo()->uid()));
     }
 
     return;
@@ -649,16 +655,22 @@ NativeUser::NativeUser(const QString &path, QObject *parent)
     , m_userInter(new UserInter(ACCOUNT_DBUS_SERVICE, path, QDBusConnection::systemBus(), this))
 {
     m_userName = m_userInter->userName();
+    m_uid = m_userInter->uid().toInt();
 }
 
 QString NativeUser::avatarPath() const
 {
-    return QString();
+    return m_userInter->iconFile();
 }
 
-QString NativeUser::backgroundPath() const
+QString NativeUser::greeterBackgroundPath() const
 {
-    return QString();
+    return m_userInter->greeterBackground();
+}
+
+QStringList NativeUser::desktopBackgroundPaths() const
+{
+    return m_userInter->desktopBackgrounds();
 }
 
 ADDomainUser::ADDomainUser(QObject *parent)
@@ -671,7 +683,12 @@ QString ADDomainUser::avatarPath() const
     return QString();
 }
 
-QString ADDomainUser::backgroundPath() const
+QString ADDomainUser::greeterBackgroundPath() const
 {
     return QString();
+}
+
+QStringList ADDomainUser::desktopBackgroundPaths() const
+{
+    return QStringList();
 }

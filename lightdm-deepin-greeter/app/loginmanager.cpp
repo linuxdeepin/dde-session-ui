@@ -157,6 +157,10 @@ LoginManager::LoginManager(QWidget* parent)
     initConnect();
     initDateAndUpdate();
 
+    QTimer::singleShot(1, this, [=]{
+        onCurrentUserChanged(m_userWidget->currentUser());
+    });
+
 //    QFile file("/tmp/lastuser");
 //    if (file.open(QIODevice::ReadWrite)) {
 //        m_lastUser = file.readAll().trimmed();
@@ -196,10 +200,6 @@ LoginManager::LoginManager(QWidget* parent)
 //    m_otherUserInput->setAccount(setting.value("USERNAME").toString());
 //    setting.endGroup();
 //    file.close();
-
-    setStyleSheet("QFrame {"
-                  "background-color: black;"
-                  "}");
 }
 
 void LoginManager::updateWidgetsPosition()
@@ -600,6 +600,8 @@ void LoginManager::onCurrentUserChanged(User *user)
     qDebug() << "previous selected user: " << m_sessionWidget->currentSessionOwner();
 
     // TODO: update current user information
+
+    emit requestBackground(user->greeterBackgroundPath());
 
     //        updateUserLoginCondition(username);
 

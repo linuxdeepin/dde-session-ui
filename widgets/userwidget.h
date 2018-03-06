@@ -62,12 +62,17 @@ public:
 
     bool operator==(const User &user) const;
     const QString name() const { return m_userName; }
+    bool isLogin() const { return m_isLogind; }
+    uint uid() const { return m_uid; }
 
     virtual UserType type() const = 0;
     virtual QString avatarPath() const = 0;
-    virtual QString backgroundPath() const = 0;
+    virtual QString greeterBackgroundPath() const = 0;
+    virtual QStringList desktopBackgroundPaths() const = 0;
 
 protected:
+    bool m_isLogind;
+    uint m_uid;
     QString m_userName;
 };
 
@@ -80,7 +85,8 @@ public:
 
     UserType type() const { return Native; }
     QString avatarPath() const;
-    QString backgroundPath() const;
+    QString greeterBackgroundPath() const;
+    QStringList desktopBackgroundPaths() const;
 
     const QString path() const { return m_userPath; }
 
@@ -98,7 +104,8 @@ public:
 
     UserType type() const { return ADDomain; }
     QString avatarPath() const;
-    QString backgroundPath() const;
+    QString greeterBackgroundPath() const;
+    QStringList desktopBackgroundPaths() const;
 };
 
 class UserWidget : public QFrame

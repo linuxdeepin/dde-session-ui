@@ -67,7 +67,7 @@ void UserButton::initUI()
     m_userNameLabel->setStyleSheet("text-align:center; color: white;");
 
     m_userNameLabel->setText(m_user->name());
-    m_userAvatar->setIcon("/var/lib/AccountsService/icons/guest.png");
+    m_userAvatar->setIcon(m_user->avatarPath());
 
     m_checkedMark = new QLabel;
     m_checkedMark->setFixedSize(16 + 10, 16);
@@ -103,7 +103,7 @@ void UserButton::initUI()
     m_Layout->addStretch();
 
     setStyleSheet("QPushButton {"
-                  "background-color: blue;"
+                  "background-color: transparent;"
                   "border: none;"
                   "}");
 
