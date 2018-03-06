@@ -95,6 +95,8 @@ void UserWidget::initConnections()
     // init native users
     for (const QString &userPath : m_dbusAccounts->userList())
         onNativeUserAdded(userPath);
+
+    m_availableUserButtons.first()->setSelected(true);
 }
 
 //void UserWidget::onUserListChanged()
@@ -502,6 +504,18 @@ void UserWidget::appendUser(User *user)
 
 void UserWidget::leftKeySwitchUser()
 {
+    for (int i = 0; i != m_availableUserButtons.size(); ++i) {
+        if (m_availableUserButtons[i]->selected()) {
+            m_availableUserButtons[i]->setSelected(false);
+            if (i == 0) {
+                m_availableUserButtons.last()->setSelected(true);
+            } else {
+                m_availableUserButtons[i - 1]->setSelected(true);
+            }
+            break;
+        }
+    }
+
 //    if (isChooseUserMode) {
 //        if (!m_currentUserIndex)
 //            m_currentUserIndex = m_userBtns.length() - 1;
@@ -517,6 +531,18 @@ void UserWidget::leftKeySwitchUser()
 
 void UserWidget::rightKeySwitchUser()
 {
+    for (int i = 0; i != m_availableUserButtons.size(); ++i) {
+        if (m_availableUserButtons[i]->selected()) {
+            m_availableUserButtons[i]->setSelected(false);
+            if (i == (m_availableUserButtons.size() - 1)) {
+                m_availableUserButtons.first()->setSelected(true);
+            } else {
+                m_availableUserButtons[i + 1]->setSelected(true);
+            }
+            break;
+        }
+    }
+
 //    if (isChooseUserMode) {
 //        if (m_currentUserIndex ==  m_userBtns.length() - 1)
 //            m_currentUserIndex = 0;
