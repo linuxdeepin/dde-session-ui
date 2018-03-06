@@ -44,11 +44,13 @@ DWIDGET_USE_NAMESPACE
 
 UserWidget::UserWidget(QWidget* parent)
     : QFrame(parent),
-    m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this),
-    m_dbusLogined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
+
+      m_currentUser(nullptr),
+      m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this),
+      m_dbusLogined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
 {
-    m_currentUser = m_lockInter.CurrentUser();
-    qDebug() << Q_FUNC_INFO << m_currentUser;
+//    m_currentUser = m_lockInter.CurrentUser();
+//    qDebug() << Q_FUNC_INFO << m_currentUser;
 
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     setFixedWidth(qApp->desktop()->width());
@@ -72,7 +74,7 @@ UserWidget::~UserWidget()
 
 void UserWidget::initUI()
 {
-    setCurrentUser(currentUser());
+//    setCurrentUser(currentUser());
 
     const int count = m_availableUserButtons.count();
     const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
@@ -323,7 +325,9 @@ void UserWidget::onUserChoosed()
     UserButton *clickedButton = qobject_cast<UserButton *>(sender());
     Q_ASSERT(clickedButton);
 
-    emit currentUserChanged(clickedButton->userInfo());
+    m_currentUser = clickedButton->userInfo();
+
+    emit currentUserChanged(m_currentUser);
 }
 
 void UserWidget::setCurrentUser(const QString &username)
@@ -406,12 +410,12 @@ void UserWidget::expandWidget()
     setFocus();
     grabKeyboard();
 
-    emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
+//    emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }
 
 void UserWidget::saveLastUser()
 {
-    m_lockInter.SwitchToUser(currentUser()).waitForFinished();
+//    m_lockInter.SwitchToUser(currentUser()).waitForFinished();
 }
 
 void UserWidget::saveADUser(const QString &username)
@@ -495,6 +499,9 @@ void UserWidget::appendUser(User *user)
     m_availableUsers << user;
     m_availableUserButtons << userButton;
 
+    if (!m_currentUser)
+        m_currentUser = user;
+
     connect(userButton, &UserButton::clicked, this, &UserWidget::onUserChoosed);
 
     // TODO: emit changed signals
@@ -533,35 +540,6 @@ const QString UserWidget::loginUser()
     struct passwd *pws;
     pws = getpwuid(getuid());
     return QString(pws->pw_name);
-}
-
-const QString UserWidget::currentUser()
-{
-    qDebug() << Q_FUNC_INFO << m_currentUser;
-
-    if (!m_currentUser.isEmpty() && m_whiteList.contains(m_currentUser)) {
-        return m_currentUser;
-    }
-
-    struct passwd *pws;
-    pws = getpwuid(getuid());
-    const QString currentLogin(pws->pw_name);
-
-    //except the current-user named lightdm
-    if (!currentLogin.isEmpty() && currentLogin!="lightdm")
-        return currentLogin;
-
-    if (!m_whiteList.isEmpty())
-        return m_whiteList.first();
-
-    // return first user
-//    if (m_userDbus.count() > 0) {
-//        const QString tmpUsername = m_userDbus.first()->userName();
-//        return tmpUsername;
-//    }
-
-    qWarning() << "no users !!!";
-    return QString();
 }
 
 //const QString UserWidget::getUserAvatar(const QString &username)

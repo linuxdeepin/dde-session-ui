@@ -102,7 +102,7 @@ public:
     ~UserWidget();
 
     static const QString loginUser();
-    const QString currentUser();
+    User *currentUser() const { return m_currentUser; }
 //    inline int count() const {return m_userBtns.count();}
     bool isChooseUserMode = false;
 //    const QString getUserAvatar(const QString &username);
@@ -160,7 +160,7 @@ private slots:
 private:
     int m_currentUserIndex = 0;
     QSettings m_settings;
-    QString m_currentUser = QString();
+//    QString m_currentUser = QString();
     QStringList m_whiteList;
     DBusLockService m_lockInter;
 //    UserButton* m_currentBtns = nullptr;
@@ -170,6 +170,7 @@ private:
     Logined *m_dbusLogined;
     QStringList m_loggedInUsers;
 //    UserButton *m_adLoginBtn = nullptr;
+    User *m_currentUser;
 
     // refactor
     QList<User *> m_availableUsers;

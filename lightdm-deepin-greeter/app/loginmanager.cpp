@@ -247,7 +247,7 @@ void LoginManager::updateUserLoginCondition(QString username)
         } else {
             m_passWdEdit->show();
             m_userState = Password;
-            m_greeter->authenticate(m_userWidget->currentUser());
+//            m_greeter->authenticate(m_userWidget->currentUser());
         }
     }
 }
@@ -295,7 +295,7 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
         if (!m_requireShutdownWidget->isHidden()) {
             m_requireShutdownWidget->hide();
             m_userWidget->show();
-            updateUserLoginCondition(m_userWidget->currentUser());
+//            updateUserLoginCondition(m_userWidget->currentUser());
         }
 
         if (m_keybdArrowWidget->isHidden()) {
@@ -365,8 +365,10 @@ void LoginManager::initUI()
     set_rootwindow_cursor();
 }
 
-void LoginManager::initData() {
+void LoginManager::initData()
+{
     m_greeter = new QLightDM::Greeter(this);
+
     if (!m_greeter->connectSync())
         qWarning() << "greeter connect fail !!!";
 }
@@ -460,7 +462,7 @@ void LoginManager::initDateAndUpdate() {
     */
 
     //Get the session of current user
-    m_sessionWidget->switchToUser(m_userWidget->currentUser());
+    m_sessionWidget->switchToUser(m_userWidget->currentUser()->name());
     //To control the expanding the widgets of all the user list(m_userWidget)
 
     //The dbus is used to control the power actions
@@ -543,7 +545,7 @@ void LoginManager::authenticationComplete()
 
 void LoginManager::authCurrentUser()
 {
-    m_accountStr = m_userWidget->currentUser();
+    m_accountStr = m_userWidget->currentUser()->name();
     m_passwdStr = m_passWdEdit->getText();
     m_greeter->authenticate(m_accountStr);
 
@@ -618,7 +620,7 @@ void LoginManager::choosedSession() {
     m_sessionWidget->hide();
     m_userWidget->show();
 
-    updateUserLoginCondition(m_userWidget->currentUser());
+//    updateUserLoginCondition(m_userWidget->currentUser());
 
     if (!m_keybdArrowWidget->isHidden()) {
         m_keybdArrowWidget->hide();
@@ -664,7 +666,7 @@ void LoginManager::keyboardLayoutUI() {
 
 void LoginManager::setCurrentKeybdLayoutList(QString keyboard_value)
 {
-    m_userWidget->setUserKBlayout(m_userWidget->currentUser(), keyboard_value);
+//    m_userWidget->setUserKBlayout(m_userWidget->currentUser(), keyboard_value);
 }
 
 void LoginManager::keybdLayoutWidgetPosit() {
@@ -692,7 +694,7 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
             m_requireShutdownWidget->hide();
             m_userWidget->show();
             m_sessionWidget->hide();
-            updateUserLoginCondition(m_userWidget->currentUser());
+//            updateUserLoginCondition(m_userWidget->currentUser());
         break;}
         default:;
     }
@@ -700,21 +702,21 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
 
 void LoginManager::saveNumlockStatus(const bool &on)
 {
-    const QString &username = m_userWidget->currentUser();
+//    const QString &username = m_userWidget->currentUser();
 
-    UserNumlockSettings(username).set(on);
+//    UserNumlockSettings(username).set(on);
 }
 
 void LoginManager::restoreNumlockStatus()
 {
-    const QString &username = m_userWidget->currentUser();
+//    const QString &username = m_userWidget->currentUser();
 
-    PowerInter powerInter("com.deepin.system.Power", "/com/deepin/system/Power", QDBusConnection::systemBus(), this);
+//    PowerInter powerInter("com.deepin.system.Power", "/com/deepin/system/Power", QDBusConnection::systemBus(), this);
 
-    const bool defaultValue = !powerInter.hasBattery();
-    const bool enabled = UserNumlockSettings(username).get(defaultValue);
+//    const bool defaultValue = !powerInter.hasBattery();
+//    const bool enabled = UserNumlockSettings(username).get(defaultValue);
 
-    qDebug() << "restore numlock status to " << enabled;
-    m_keyboardMonitor->setNumlockStatus(enabled);
+//    qDebug() << "restore numlock status to " << enabled;
+//    m_keyboardMonitor->setNumlockStatus(enabled);
 }
 

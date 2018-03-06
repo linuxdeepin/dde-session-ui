@@ -122,7 +122,7 @@ void LockManager::initConnect()
     });
 
     connect(m_userWidget, &UserWidget::currentUserBackgroundChanged, this, [=] {
-        updateBackground(m_userWidget->currentUser());
+//        updateBackground(m_userWidget->currentUser());
     });
 
     connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
@@ -398,29 +398,29 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
 
 void LockManager::checkUserIsNoPWGrp()
 {
-    QProcess p;
-    p.start("groups", QStringList(m_userWidget->currentUser()));
-    p.waitForFinished();
+//    QProcess p;
+//    p.start("groups", QStringList(m_userWidget->currentUser()));
+//    p.waitForFinished();
 
-    QString output = p.readAllStandardOutput().trimmed();
-    QStringList tokens = output.split(":");
-    if (tokens.length() > 1) {
-        QStringList groups = tokens.at(1).split(" ");
-        qDebug() << groups;
+//    QString output = p.readAllStandardOutput().trimmed();
+//    QStringList tokens = output.split(":");
+//    if (tokens.length() > 1) {
+//        QStringList groups = tokens.at(1).split(" ");
+//        qDebug() << groups;
 
-        if (groups.contains("nopasswdlogin")) {
-            m_passwordEdit->setVisible(false);
-            m_unlockButton->show();
-            m_userState = NoPasswd;
-        } else {
-            m_lockInter->AuthenticateUser(m_activatedUser);
-            m_unlockButton->setVisible(false);
-            m_passwordEdit->show();
-            m_userState = Passwd;
-        }
+//        if (groups.contains("nopasswdlogin")) {
+//            m_passwordEdit->setVisible(false);
+//            m_unlockButton->show();
+//            m_userState = NoPasswd;
+//        } else {
+//            m_lockInter->AuthenticateUser(m_activatedUser);
+//            m_unlockButton->setVisible(false);
+//            m_passwordEdit->show();
+//            m_userState = Passwd;
+//        }
 
-        return;
-    }
+//        return;
+//    }
 }
 
 void LockManager::initBackend()
@@ -484,7 +484,7 @@ ControlWidget *LockManager::control()
 
 void LockManager::setCurrentKeyboardLayout(QString keyboard_value)
 {
-    m_userWidget->setUserKBlayout(m_userWidget->currentUser(), keyboard_value);
+//    m_userWidget->setUserKBlayout(m_userWidget->currentUser(), keyboard_value);
 }
 
 void LockManager::passwordMode()
