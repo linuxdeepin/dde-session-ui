@@ -121,7 +121,7 @@ public:
 //    const QStringList getUserDesktopBackground(const QString &username);
 //    const QStringList users() const;
     int availableUserCount() const { return m_availableUsers.size(); }
-    void setUserKBlayout(const QString &username, const QString &layout);
+//    void setUserKBlayout(const QString &username, const QString &layout);
 
 signals:
     void currentUserChanged(User *user);
@@ -132,7 +132,7 @@ signals:
     void userCountChanged(int count);
 
 public slots:
-    void setCurrentUser(const QString &username);
+//    void setCurrentUser(const QString &username);
     void expandWidget();
     void saveLastUser();
     void saveADUser(const QString &username);

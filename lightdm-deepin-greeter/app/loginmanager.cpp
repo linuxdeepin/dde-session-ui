@@ -385,17 +385,18 @@ void LoginManager::initConnect()
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_controlWidget, &ControlWidget::chooseToSession, Qt::QueuedConnection);
 
-    connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
+    connect(m_userWidget, &UserWidget::currentUserChanged, this, &LoginManager::onCurrentUserChanged);
+//    connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
 
-        qDebug()<<"selected user: " << username;
-        qDebug()<<"previous selected user: " << m_sessionWidget->currentSessionOwner();
+//        qDebug()<<"selected user: " << username;
+//        qDebug()<<"previous selected user: " << m_sessionWidget->currentSessionOwner();
 
-        qDebug() << username << m_sessionWidget->currentSessionOwner();
+//        qDebug() << username << m_sessionWidget->currentSessionOwner();
 
-        updateUserLoginCondition(username);
+//        updateUserLoginCondition(username);
 
-        if (username == m_sessionWidget->currentSessionOwner())
-            return;
+//        if (username == m_sessionWidget->currentSessionOwner())
+//            return;
 
         // goto previous lock
 //        if (m_userWidget->getLoggedInUsers().contains(username))
@@ -409,10 +410,10 @@ void LoginManager::initConnect()
 //            return;
 //        }
 
-        updateBackground(username);
+//        updateBackground(username);
 
-        m_sessionWidget->switchToUser(username);
-    });
+//        m_sessionWidget->switchToUser(username);
+//    });
     connect(m_userWidget, &UserWidget::currentUserBackgroundChanged,
             this, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground));
 
@@ -591,6 +592,33 @@ void LoginManager::login()
 
         qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
     }
+}
+
+void LoginManager::onCurrentUserChanged(User *user)
+{
+    qDebug() << Q_FUNC_INFO << user->name();
+    qDebug() << "previous selected user: " << m_sessionWidget->currentSessionOwner();
+
+    //        updateUserLoginCondition(username);
+
+    //        if (username == m_sessionWidget->currentSessionOwner())
+    //            return;
+
+            // goto previous lock
+    //        if (m_userWidget->getLoggedInUsers().contains(username))
+    //        {
+    //            QProcess *process = new QProcess;
+    //            connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
+    //            process->start("dde-switchtogreeter " + username);
+
+    //            m_userWidget->setCurrentUser(m_sessionWidget->currentSessionOwner());
+
+    //            return;
+    //        }
+
+    //        updateBackground(username);
+
+    //        m_sessionWidget->switchToUser(username);
 }
 
 void LoginManager::chooseUserMode()

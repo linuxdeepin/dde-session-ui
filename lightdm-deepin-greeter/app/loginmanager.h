@@ -80,6 +80,8 @@ protected:
 private slots:
     void login();
 
+    void onCurrentUserChanged(User *user);
+
 private:
 //    void recordPid();
     void initUI();

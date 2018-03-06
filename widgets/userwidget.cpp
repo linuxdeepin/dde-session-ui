@@ -329,8 +329,8 @@ void UserWidget::onUserChoosed()
     emit currentUserChanged(m_currentUser);
 }
 
-void UserWidget::setCurrentUser(const QString &username)
-{
+//void UserWidget::setCurrentUser(const QString &username)
+//{
 //    qDebug() << username << sender();
 
 //    m_currentUser = username;
@@ -350,7 +350,7 @@ void UserWidget::setCurrentUser(const QString &username)
 //    }
 
 //    emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
-}
+//}
 
 void UserWidget::removeUser(QString name)
 {
@@ -649,12 +649,12 @@ const QString UserWidget::loginUser()
 //    return list;
 //}
 
-void UserWidget::setUserKBlayout(const QString &username, const QString &layout)
-{
+//void UserWidget::setUserKBlayout(const QString &username, const QString &layout)
+//{
 //    UserButton *user = getUserByName(username);
 //    if (user && user->dbus())
 //        user->dbus()->SetLayout(layout);
-}
+//}
 
 User::User(QObject *parent) : QObject(parent)
 {
