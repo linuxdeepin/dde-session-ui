@@ -603,6 +603,12 @@ void LoginManager::onCurrentUserChanged(User *user)
 
     emit requestBackground(user->greeterBackgroundPath());
 
+    m_sessionWidget->switchToUser(user->name());
+    m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
+    m_userState = Password;
+
+//    updateUserLoginCondition(user->name());
+
     //        updateUserLoginCondition(username);
 
     //        if (username == m_sessionWidget->currentSessionOwner())
