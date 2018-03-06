@@ -134,7 +134,6 @@ public slots:
     void rightKeySwitchUser();
 //    void chooseButtonChecked();
 
-    void onNativeUserListChanged();
     void appendUser(User *user);
 
 protected:

@@ -87,18 +87,14 @@ void UserWidget::initUI()
 
 void UserWidget::initConnections()
 {
-//    connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, &UserWidget::onUserListChanged);
     connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onNativeUserAdded);
     connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onUserRemoved);
 
     connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged);
-//    connect(this, &UserWidget::userChanged, this, [=] {
-//        updateCurrentUserPos(200);
-//    });
 
-    connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, &UserWidget::onNativeUserListChanged);
-
-    onNativeUserListChanged();
+    // init native users
+    for (const QString &userPath : m_dbusAccounts->userList())
+        onNativeUserAdded(userPath);
 }
 
 //void UserWidget::onUserListChanged()
@@ -486,12 +482,6 @@ void UserWidget::keyReleaseEvent(QKeyEvent *event)
 
 //    releaseKeyboard();
 //}
-
-void UserWidget::onNativeUserListChanged()
-{
-    for (const QString &userPath : m_dbusAccounts->userList())
-        onNativeUserAdded(userPath);
-}
 
 void UserWidget::appendUser(User *user)
 {
