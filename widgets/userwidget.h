@@ -117,7 +117,7 @@ public:
     UserWidget(QWidget* parent = 0);
     ~UserWidget();
 
-    static const QString loginUser();
+    static const QString currentContextUser();
     User *currentUser() const { return m_currentUser; }
 //    inline int count() const {return m_userBtns.count();}
     bool isChooseUserMode = false;
@@ -160,7 +160,7 @@ private slots:
     void removeUser(QString name);
 //    void onUserListChanged();
     void onNativeUserAdded(const QString &path);
-    void onUserRemoved(const QString &name);
+    void onNativeUserRemoved(const QString &name);
     void onLoginUserListChanged(const QString &loginedUserInfo);
 //    UserButton* getUserByName(const QString &username);
 //    void initOtherUser(const QString &username = "");
@@ -172,7 +172,7 @@ private slots:
 
 private:
 //    int m_currentUserIndex = 0;
-    QSettings m_settings;
+//    QSettings m_settings;
 //    QString m_currentUser = QString();
 //    QStringList m_whiteList;
     DBusLockService m_lockInter;

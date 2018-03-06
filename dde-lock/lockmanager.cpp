@@ -44,7 +44,7 @@
 
 LockManager::LockManager(QWidget *parent)
     : QFrame(parent)
-    , m_activatedUser(UserWidget::loginUser())
+    , m_activatedUser(UserWidget::currentContextUser())
     , m_userState(Passwd)
 {
     initUI();

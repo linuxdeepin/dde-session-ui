@@ -63,8 +63,12 @@ UserWidget::UserWidget(QWidget* parent)
     initUI();
     initConnections();
 
-    // show first button
+    // init native users
+    for (const QString &userPath : m_dbusAccounts->userList())
+        onNativeUserAdded(userPath);
+
     m_availableUserButtons.first()->show();
+    m_availableUserButtons.first()->setSelected(true);
 }
 
 UserWidget::~UserWidget()
@@ -91,13 +95,8 @@ void UserWidget::initUI()
 void UserWidget::initConnections()
 {
     connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onNativeUserAdded);
-    connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onUserRemoved);
-
+    connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onNativeUserRemoved);
     connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged);
-
-    // init native users
-    for (const QString &userPath : m_dbusAccounts->userList())
-        onNativeUserAdded(userPath);
 }
 
 //void UserWidget::onUserListChanged()
@@ -164,7 +163,7 @@ void UserWidget::onNativeUserAdded(const QString &path)
 //    onLoginUserListChanged(m_dbusLogined->userList());
 }
 
-void UserWidget::onUserRemoved(const QString &name)
+void UserWidget::onNativeUserRemoved(const QString &name)
 {
 //    UserInter *user;
 //    user = m_userDbus.find(name).value();
@@ -554,7 +553,7 @@ void UserWidget::switchNextUser()
     }
 }
 
-const QString UserWidget::loginUser()
+const QString UserWidget::currentContextUser()
 {
     struct passwd *pws;
     pws = getpwuid(getuid());
