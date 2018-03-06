@@ -57,8 +57,6 @@ UserWidget::UserWidget(QWidget* parent)
 
     m_dbusAccounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
 
-    onUserListChanged();
-
     m_dbusLogined->setSync(false);
     m_dbusLogined->userList();
 
@@ -89,7 +87,7 @@ void UserWidget::initUI()
 
 void UserWidget::initConnections()
 {
-    connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, &UserWidget::onUserListChanged);
+//    connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, &UserWidget::onUserListChanged);
     connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onNativeUserAdded);
     connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onUserRemoved);
 
@@ -99,13 +97,15 @@ void UserWidget::initConnections()
 //    });
 
     connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, &UserWidget::onNativeUserListChanged);
+
+    onNativeUserListChanged();
 }
 
-void UserWidget::onUserListChanged()
-{
-    for (const QString &name : m_dbusAccounts->userList())
-        onNativeUserAdded(name);
-}
+//void UserWidget::onUserListChanged()
+//{
+//    for (const QString &name : m_dbusAccounts->userList())
+//        onNativeUserAdded(name);
+//}
 
 void UserWidget::onNativeUserAdded(const QString &path)
 {
@@ -190,8 +190,19 @@ void UserWidget::onUserRemoved(const QString &name)
 //    onLoginUserListChanged(m_dbusLogined->userList());
 }
 
-void UserWidget::onLoginUserListChanged(const QString &value)
+void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 {
+    QJsonObject userList = QJsonDocument::fromJson(loginedUserInfo.toUtf8()).object();
+
+    for (const auto &userId : userList.keys())
+    {
+        // TODO: add domain user
+        qDebug() << userId;
+    }
+
+    return;
+
+
     // NOTE(kirigaya): check in AD Domain
     QProcess *process = new QProcess(this);
     connect(process, &QProcess::readyReadStandardOutput, this, [=] {
@@ -221,15 +232,6 @@ void UserWidget::onLoginUserListChanged(const QString &value)
 //        setCurrentUser(currentUser());
 //    });
 
-    QJsonDocument doc = QJsonDocument::fromJson(value.toUtf8());
-
-    QJsonObject obj = doc.object();
-
-    if (obj.isEmpty())
-        return;
-
-    m_loggedInUsers.clear();
-
 //    for (UserInter *user : m_userDbus.values()) {
 //        const QJsonArray &array = obj[user->uid()].toArray();
 //        if (array.isEmpty())
@@ -244,7 +246,6 @@ void UserWidget::onLoginUserListChanged(const QString &value)
 //        }
 //    }
 
-    m_whiteList.clear();
 //    for (UserInter *inter : m_userDbus.values()) {
 //        if (!inter->locked() && !m_whiteList.contains(inter->userName()))
 //            m_whiteList.append(inter->userName());
@@ -507,7 +508,8 @@ void UserWidget::appendUser(User *user)
     // TODO: emit changed signals
 }
 
-void UserWidget::leftKeySwitchUser() {
+void UserWidget::leftKeySwitchUser()
+{
 //    if (isChooseUserMode) {
 //        if (!m_currentUserIndex)
 //            m_currentUserIndex = m_userBtns.length() - 1;
@@ -521,7 +523,8 @@ void UserWidget::leftKeySwitchUser() {
 //    }
 }
 
-void UserWidget::rightKeySwitchUser() {
+void UserWidget::rightKeySwitchUser()
+{
 //    if (isChooseUserMode) {
 //        if (m_currentUserIndex ==  m_userBtns.length() - 1)
 //            m_currentUserIndex = 0;
@@ -549,11 +552,6 @@ const QString UserWidget::loginUser()
 //        return user->avatar();
 //    return QString();
 //}
-
-const QStringList UserWidget::getLoggedInUsers() const
-{
-    return m_loggedInUsers;
-}
 
 //bool UserWidget::getUserIsAutoLogin(const QString &username)
 //{

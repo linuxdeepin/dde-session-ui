@@ -396,16 +396,16 @@ void LoginManager::initConnect()
             return;
 
         // goto previous lock
-        if (m_userWidget->getLoggedInUsers().contains(username))
-        {
-            QProcess *process = new QProcess;
-            connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
-            process->start("dde-switchtogreeter " + username);
+//        if (m_userWidget->getLoggedInUsers().contains(username))
+//        {
+//            QProcess *process = new QProcess;
+//            connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
+//            process->start("dde-switchtogreeter " + username);
 
-            m_userWidget->setCurrentUser(m_sessionWidget->currentSessionOwner());
+//            m_userWidget->setCurrentUser(m_sessionWidget->currentSessionOwner());
 
-            return;
-        }
+//            return;
+//        }
 
         updateBackground(username);
 
