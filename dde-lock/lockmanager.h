@@ -69,7 +69,7 @@ public:
     ControlWidget *control();
 
 signals:
-    void screenChanged(QRect rect);
+    void requestSetBackground(const QString &background);
 #ifdef LOCK_NO_QUIT
     void checkedHide();
 #endif
@@ -78,7 +78,6 @@ public slots:
     void passwordMode();
     void shutdownMode();
     void updateWidgetsPosition();
-    void updateBackground(QString username);
 
     void keybdLayoutWidgetPosit();
 
@@ -96,6 +95,7 @@ private:
     void unlock();
     void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
     void checkUserIsNoPWGrp();
+    void onCurrentUserChanged(User *user);
 
 private:
     enum UserState {
