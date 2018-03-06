@@ -65,14 +65,14 @@ void LockManager::initConnect()
         qDebug() << "current User:" << username << "11 m_activatedUser:" << m_activatedUser;
 
         if (username != m_activatedUser) {
-            if (m_userWidget->users().contains(username)) {
-                QFile f("/tmp/lastuser");
-                if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-                    f.write(username.toLocal8Bit());
-                    f.setPermissions(QFileDevice::Permissions(0x7777));
-                    f.close();
-                }
-            }
+//            if (m_userWidget->users().contains(username)) {
+//                QFile f("/tmp/lastuser");
+//                if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
+//                    f.write(username.toLocal8Bit());
+//                    f.setPermissions(QFileDevice::Permissions(0x7777));
+//                    f.close();
+//                }
+//            }
 
             // goto greeter
             QProcess *process = new QProcess;
@@ -174,7 +174,7 @@ void LockManager::initUI()
     m_requireShutdownWidget->setFixedHeight(300);
 
     m_controlWidget = new ControlWidget(this);
-    m_controlWidget->setUserSwitchEnable(m_userWidget->count() > 1);
+    m_controlWidget->setUserSwitchEnable(m_userWidget->availableUserCount() > 1);
     m_controlWidget->setMPRISEnable(true);
 
     QHBoxLayout *passwdLayout = new QHBoxLayout;
@@ -261,7 +261,7 @@ void LockManager::onUnlockFinished(const bool unlocked)
 void LockManager::updateBackground(QString username)
 {
     LockFrame *frame = qobject_cast<LockFrame *>(parent());
-    frame->setBackground(m_userWidget->getUserGreeterBackground(username));
+//    frame->setBackground(m_userWidget->getUserGreeterBackground(username));
 }
 
 void LockManager::showEvent(QShowEvent *event)
@@ -278,9 +278,9 @@ void LockManager::showEvent(QShowEvent *event)
 
     m_passwordEdit->setMessage("");
 
-    m_passwordEdit->updateKeybdLayoutUI(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
-    m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
-    m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
+//    m_passwordEdit->updateKeybdLayoutUI(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+//    m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+//    m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
 
     // hide dde-control-center
     DBusControlCenter *DCCInter = new DBusControlCenter;
@@ -526,7 +526,7 @@ void LockManager::passwordMode()
 
 void LockManager::shutdownMode()
 {
-    m_userWidget->chooseButtonChecked();
+//    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
     m_passwordEdit->hide();
     m_unlockButton->hide();

@@ -34,7 +34,6 @@ LoginWindow::LoginWindow(QWidget *parent)
 
     connect(m_loginFrame, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground),
             this, &LoginWindow::switchUserBackground);
-
     connect(m_loginFrame, static_cast<void (LoginManager::*)(const QPixmap &) const>(&LoginManager::requestBackground),
             this, &LoginWindow::drawUserBackground);
 }

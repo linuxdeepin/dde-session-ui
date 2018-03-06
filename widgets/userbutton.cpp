@@ -27,10 +27,14 @@
 #include <QDebug>
 #include <QTimer>
 #include <QSettings>
-#include "userbutton.h"
 
-UserButton::UserButton(QWidget *parent)
+#include "userbutton.h"
+#include "userwidget.h"
+
+UserButton::UserButton(User *user, QWidget *parent)
     : QPushButton(parent)
+
+    , m_user(user)
     , m_opacity(0)
 #ifndef DISABLE_ANIMATIONS
     , m_moveAni(new QPropertyAnimation(this, "pos"))
@@ -38,26 +42,32 @@ UserButton::UserButton(QWidget *parent)
     , m_hideAnimation(new QPropertyAnimation(this, "opacity"))
 #endif
 {
+    setVisible(false);
+
     initUI();
     initConnect();
 }
 
-void UserButton::initConnect() {
-    connect(m_userAvatar, &UserAvatar::clicked, this, [=] {
-        emit imageClicked(m_username);
-    });
+void UserButton::initConnect()
+{
+    connect(m_hideAnimation, &QPropertyAnimation::finished, this, &QPushButton::hide);
 }
 
-void UserButton::initUI() {
+void UserButton::initUI()
+{
     setFixedSize(USER_ICON_WIDTH, USER_ICON_HEIGHT);
     setFocusPolicy(Qt::NoFocus);
+
     m_userAvatar = new UserAvatar;
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
     m_userAvatar->setFixedSize(120, 120);
 
-    m_textLabel = new QLabel;
-    m_textLabel->setFixedSize(120, 30);
-    m_textLabel->setStyleSheet("text-align:center; color: white;");
+    m_userNameLabel = new QLabel;
+    m_userNameLabel->setFixedSize(120, 30);
+    m_userNameLabel->setStyleSheet("text-align:center; color: white;");
+
+    m_userNameLabel->setText("aaa");
+    m_userAvatar->setIcon("/var/lib/AccountsService/icons/guest.png");
 
     m_checkedMark = new QLabel;
     m_checkedMark->setFixedSize(16 + 10, 16);
@@ -65,10 +75,10 @@ void UserButton::initUI() {
     m_checkedMark->setStyleSheet("background: url(\":/img/avatar_checked.png\"); margin-right: 10");
     m_checkedMark->setVisible(false);
 
-    QFont font(m_textLabel->font());
+    QFont font(m_userNameLabel->font());
     font.setPixelSize(16);
-    m_textLabel->setFont(font);
-    m_textLabel->setAlignment(Qt::AlignHCenter);
+    m_userNameLabel->setFont(font);
+    m_userNameLabel->setAlignment(Qt::AlignHCenter);
 
     m_buttonLayout = new QHBoxLayout;
     m_buttonLayout->setMargin(0);
@@ -82,7 +92,7 @@ void UserButton::initUI() {
     m_nameLayout->setMargin(0);
     m_nameLayout->addStretch();
     m_nameLayout->addWidget(m_checkedMark, 0, Qt::AlignVCenter);
-    m_nameLayout->addWidget(m_textLabel, 0, Qt::AlignVCenter);
+    m_nameLayout->addWidget(m_userNameLabel, 0, Qt::AlignVCenter);
     m_nameLayout->addStretch();
 
     m_Layout = new QVBoxLayout;
@@ -91,7 +101,11 @@ void UserButton::initUI() {
     m_Layout->addLayout(m_buttonLayout);
     m_Layout->addLayout(m_nameLayout);
     m_Layout->addStretch();
-    setStyleSheet("border: none;");
+
+    setStyleSheet("QPushButton {"
+                  "background-color: blue;"
+                  "border: none;"
+                  "}");
 
     setLayout(m_Layout);
 
@@ -111,7 +125,7 @@ void UserButton::setImageSize(const AvatarSize &avatarsize) {
     update();
 }
 
-void UserButton::showButton()
+void UserButton::show()
 {
 #ifndef DISABLE_ANIMATIONS
     m_showAnimation->stop();
@@ -120,77 +134,74 @@ void UserButton::showButton()
     m_showAnimation->setDuration(800);
     m_showAnimation->start();
 
-    connect(m_showAnimation, &QPropertyAnimation::finished, [&]{
-        QTimer::singleShot(500, this, SLOT(addTextShadowAfter()));
-    });
+    QPushButton::show();
+
+//    connect(m_showAnimation, &QPropertyAnimation::finished, [&]{
+//        QTimer::singleShot(500, this, SLOT(addTextShadowAfter()));
+//    });
 #endif
 }
 
-void UserButton::addTextShadowAfter()
-{
-    m_opacityEffect->setEnabled(false);
-    addTextShadow(true);
-}
+//void UserButton::addTextShadowAfter()
+//{
+//    m_opacityEffect->setEnabled(false);
+//    addTextShadow(true);
+//}
 
-void UserButton::updateUserName(const QString &username)
-{
-     m_username = username;
-     updateUserDisplayName(m_displayName.isEmpty() ? m_username : m_displayName);
-}
+//void UserButton::updateUserName(const QString &username)
+//{
+//     m_username = username;
+//     updateUserDisplayName(m_displayName.isEmpty() ? m_username : m_displayName);
+//}
 
-void UserButton::updateAvatar(const QString &avatar)
-{
-    m_avatar = avatar;
-    m_userAvatar->setIcon(avatar);
-}
+//void UserButton::updateAvatar(const QString &avatar)
+//{
+//    m_avatar = avatar;
+//    m_userAvatar->setIcon(avatar);
+//}
 
-void UserButton::updateBackgrounds(const QStringList &list)
-{
-    m_backgrounds = list;
-}
+//void UserButton::updateBackgrounds(const QStringList &list)
+//{
+//    m_backgrounds = list;
+//}
 
-void UserButton::updateGreeterWallpaper(const QString &greeter)
-{
-    m_greeterWallpaper = greeter;
-}
+//void UserButton::updateGreeterWallpaper(const QString &greeter)
+//{
+//    m_greeterWallpaper = greeter;
+//}
 
-void UserButton::updateDisplayName(const QString &displayname)
-{
-    m_displayName = displayname;
-    updateUserDisplayName(m_displayName.isEmpty() ? m_username : m_displayName);
-}
+//void UserButton::updateDisplayName(const QString &displayname)
+//{
+//    m_displayName = displayname;
+//    updateUserDisplayName(m_displayName.isEmpty() ? m_username : m_displayName);
+//}
 
-void UserButton::updateAutoLogin(bool autologin)
-{
-    m_isAutoLogin = autologin;
-}
+//void UserButton::updateAutoLogin(bool autologin)
+//{
+//    m_isAutoLogin = autologin;
+//}
 
-void UserButton::updateKbLayout(const QString &layout)
-{
-    m_kbLayout = layout;
-}
+//void UserButton::updateKbLayout(const QString &layout)
+//{
+//    m_kbLayout = layout;
+//}
 
-void UserButton::updateKbHistory(const QStringList &history)
-{
-    m_kbHistory = history;
-}
+//void UserButton::updateKbHistory(const QStringList &history)
+//{
+//    m_kbHistory = history;
+//}
 
-void UserButton::setDBus(UserInter *dbus)
-{
-    m_dbus = dbus;
-}
+//void UserButton::setDBus(UserInter *dbus)
+//{
+//    m_dbus = dbus;
+//}
 
-void UserButton::hide(const int duration)
+void UserButton::hide()
 {
-    Q_UNUSED(duration);
 #ifndef DISABLE_ANIMATIONS
     m_hideAnimation->setStartValue(1);
     m_hideAnimation->setEndValue(0);
     m_hideAnimation->start();
-
-    connect(m_hideAnimation, &QPropertyAnimation::finished, this, [=]{
-        QPushButton::hide();
-    });
 #else
     QPushButton::hide();
 #endif
@@ -228,20 +239,8 @@ void UserButton::addTextShadow(bool isEffective)
     nameShadow->setColor(QColor(0, 0, 0, 85));
     nameShadow->setOffset(0, 4);
     nameShadow->setEnabled(isEffective);
-    m_textLabel->setGraphicsEffect(nameShadow);
+    m_userNameLabel->setGraphicsEffect(nameShadow);
 #endif
-}
-
-void UserButton::updateUserDisplayName(const QString &name)
-{
-    QFontMetrics metrics(m_textLabel->font());
-    if (metrics.width(name) > m_textLabel->width())
-    {
-        const QString elidedText = metrics.elidedText(name, Qt::ElideRight, m_textLabel->width());
-        m_textLabel->setText(elidedText);
-    } else {
-        m_textLabel->setText(name);
-    }
 }
 
 bool UserButton::selected() const
@@ -255,50 +254,50 @@ void UserButton::setSelected(bool selected)
     update();
 }
 
-const QString UserButton::name() const
-{
-    return m_username;
-}
+//const QString UserButton::name() const
+//{
+//    return m_username;
+//}
 
-const QString UserButton::avatar() const
-{
-    return m_avatar;
-}
+//const QString UserButton::avatar() const
+//{
+//    return m_avatar;
+//}
 
-const QString UserButton::greeter() const
-{
-    return m_greeterWallpaper;
-}
+//const QString UserButton::greeter() const
+//{
+//    return m_greeterWallpaper;
+//}
 
-bool UserButton::automaticLogin() const
-{
-    return m_isAutoLogin;
-}
+//bool UserButton::automaticLogin() const
+//{
+//    return m_isAutoLogin;
+//}
 
-const QStringList UserButton::kbHistory()
-{
-    return m_kbHistory;
-}
+//const QStringList UserButton::kbHistory()
+//{
+//    return m_kbHistory;
+//}
 
-const QString UserButton::kblayout()
-{
-    return m_kbLayout;
-}
+//const QString UserButton::kblayout()
+//{
+//    return m_kbLayout;
+//}
 
-const QString UserButton::displayName() const
-{
-    return m_displayName;
-}
+//const QString UserButton::displayName() const
+//{
+//    return m_displayName;
+//}
 
-const QStringList UserButton::backgrounds() const
-{
-    return m_backgrounds;
-}
+//const QStringList UserButton::backgrounds() const
+//{
+//    return m_backgrounds;
+//}
 
-UserInter *UserButton::dbus() const
-{
-    return m_dbus;
-}
+//UserInter *UserButton::dbus() const
+//{
+//    return m_dbus;
+//}
 
 void UserButton::paintEvent(QPaintEvent* event)
 {

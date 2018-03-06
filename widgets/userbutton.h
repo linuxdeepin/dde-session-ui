@@ -43,12 +43,13 @@ using UserInter = com::deepin::daemon::accounts::User;
 static const int USER_ICON_WIDTH = 180;
 static const int USER_ICON_HEIGHT = 180;
 
-class UserButton:public QPushButton
+class User;
+class UserButton : public QPushButton
 {
     Q_OBJECT
     Q_PROPERTY(double opacity READ opacity WRITE setOpacity NOTIFY opacityChanged)
 public:
-    UserButton(QWidget* parent=0);
+    UserButton(User *user, QWidget* parent=0);
     ~UserButton();
 
     enum AvatarSize {
@@ -58,26 +59,28 @@ public:
 
     bool selected() const;
     void setSelected(bool selected);
-    const QString name() const;
-    const QString avatar() const;
-    const QString greeter() const;
-    bool automaticLogin() const;
-    const QStringList kbHistory();
-    const QString kblayout();
-    const QString displayName() const;
-    const QStringList backgrounds() const;
-    UserInter *dbus() const;
+//    const QString name() const;
+//    const QString avatar() const;
+//    const QString greeter() const;
+//    bool automaticLogin() const;
+//    const QStringList kbHistory();
+//    const QString kblayout();
+//    const QString displayName() const;
+//    const QStringList backgrounds() const;
+//    UserInter *dbus() const;
+
+    User *userInfo() const { return m_user; }
 
 signals:
-    void imageClicked(QString nam);
+//    void imageClicked(QString nam);
     void opacityChanged();
 
 public slots:
     void setImageSize(const AvatarSize &avatarsize);
     void setButtonChecked(bool checked);
 
-    void showButton();
-    void hide(const int duration = 0);
+    void show();
+    void hide();
     void move(const QPoint &position, const int duration = 0);
     void stopAnimation();
 
@@ -85,40 +88,42 @@ public slots:
     bool isChecked();
     void setOpacity(double opa);
     void setCustomEffect();
-    void addTextShadowAfter();
+//    void addTextShadowAfter();
 
-    void updateUserName(const QString &username);
-    void updateAvatar(const QString &avatar);
-    void updateBackgrounds(const QStringList &list);
-    void updateGreeterWallpaper(const QString &greeter);
-    void updateDisplayName(const QString &displayname);
-    void updateAutoLogin(bool autologin);
-    void updateKbLayout(const QString &layout);
-    void updateKbHistory(const QStringList &history);
-    void setDBus(UserInter *dbus);
+//    void updateUserName(const QString &username);
+//    void updateAvatar(const QString &avatar);
+//    void updateBackgrounds(const QStringList &list);
+//    void updateGreeterWallpaper(const QString &greeter);
+//    void updateDisplayName(const QString &displayname);
+//    void updateAutoLogin(bool autologin);
+//    void updateKbLayout(const QString &layout);
+//    void updateKbHistory(const QStringList &history);
+//    void setDBus(UserInter *dbus);
 
 protected:
     void paintEvent(QPaintEvent* event);
+
 private:
     void initUI();
     void initConnect();
     void addTextShadow(bool isEffective);
-    void updateUserDisplayName(const QString &name);
 
 private:
-    QString m_username;
-    QString m_avatar;
-    QStringList m_backgrounds;
-    QString m_greeterWallpaper;
-    QString m_kbLayout;
-    QString m_displayName;
+    User *m_user;
+
+//    QString m_username;
+//    QString m_avatar;
+//    QStringList m_backgrounds;
+//    QString m_greeterWallpaper;
+//    QString m_kbLayout;
+//    QString m_displayName;
     bool m_isAutoLogin;
-    QStringList m_kbHistory;
-    UserInter *m_dbus;
+//    QStringList m_kbHistory;
+//    UserInter *m_dbus;
 
     bool m_selected = false;
     UserAvatar* m_userAvatar;
-    QLabel* m_textLabel;
+    QLabel* m_userNameLabel;
     QLabel *m_checkedMark;
     QHBoxLayout* m_buttonLayout;
     QHBoxLayout *m_nameLayout;

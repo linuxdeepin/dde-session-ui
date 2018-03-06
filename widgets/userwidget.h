@@ -103,20 +103,22 @@ public:
 
     static const QString loginUser();
     const QString currentUser();
-    inline int count() const {return m_userBtns.count();}
+//    inline int count() const {return m_userBtns.count();}
     bool isChooseUserMode = false;
-    const QString getUserAvatar(const QString &username);
+//    const QString getUserAvatar(const QString &username);
     const QStringList getLoggedInUsers() const;
     bool getUserIsAutoLogin(const QString &username);
-    const QString getUserGreeterBackground(const QString &username);
-    const QStringList getUserKBHistory(const QString &username);
-    const QString getUserKBLayout(const QString &username);
-    const QString getDisplayName(const QString &username);
-    const QStringList getUserDesktopBackground(const QString &username);
-    const QStringList users() const;
+//    const QString getUserGreeterBackground(const QString &username);
+//    const QStringList getUserKBHistory(const QString &username);
+//    const QString getUserKBLayout(const QString &username);
+//    const QString getDisplayName(const QString &username);
+//    const QStringList getUserDesktopBackground(const QString &username);
+//    const QStringList users() const;
+    int availableUserCount() const { return m_availableUsers.size(); }
     void setUserKBlayout(const QString &username, const QString &layout);
 
 signals:
+    void currentUserChanged(User *user);
     void userChanged(const QString &username);
     void chooseUserModeChanged(bool isChoose, QString curUser);
     void otherUserLogin();
@@ -124,7 +126,6 @@ signals:
     void userCountChanged(int count);
 
 public slots:
-    void updateCurrentUser(const QString &username);
     void setCurrentUser(const QString &username);
     void expandWidget();
     void saveLastUser();
@@ -132,9 +133,10 @@ public slots:
 
     void leftKeySwitchUser();
     void rightKeySwitchUser();
-    void chooseButtonChecked();
+//    void chooseButtonChecked();
 
     void onNativeUserListChanged();
+    void appendUser(User *user);
 
 protected:
     void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
@@ -148,10 +150,12 @@ private slots:
     void onNativeUserAdded(const QString &path);
     void onUserRemoved(const QString &name);
     void onLoginUserListChanged(const QString &value);
-    UserButton* getUserByName(const QString &username);
-    void updateCurrentUserPos(const int duration = 0) const;
-    void initOtherUser(const QString &username = "");
+//    UserButton* getUserByName(const QString &username);
+//    void updateCurrentUserPos(const int duration = 0) const;
+//    void initOtherUser(const QString &username = "");
     void initADLogin();
+
+    void onUserChoosed();
 
 private:
     int m_currentUserIndex = 0;
@@ -159,16 +163,17 @@ private:
     QString m_currentUser = QString();
     QStringList m_whiteList;
     DBusLockService m_lockInter;
-    UserButton* m_currentBtns = nullptr;
-    QList<UserButton *> m_userBtns;
+//    UserButton* m_currentBtns = nullptr;
+//    QList<UserButton *> m_userBtns;
     DBusAccounts *m_dbusAccounts;
-    QMap<QString, UserInter *> m_userDbus;
+//    QMap<QString, UserInter *> m_userDbus;
     Logined *m_dbusLogined;
     QStringList m_loggedInUsers;
-    UserButton *m_adLoginBtn = nullptr;
+//    UserButton *m_adLoginBtn = nullptr;
 
     // refactor
     QList<User *> m_availableUsers;
+    QList<UserButton *> m_availableUserButtons;
 };
 
 #endif // WIDGET_H

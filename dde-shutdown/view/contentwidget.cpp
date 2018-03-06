@@ -369,7 +369,7 @@ void ContentWidget::hideToplevelWindow()
 
 void ContentWidget::checkUsers()
 {
-    if (m_userWidget->count() < 2)
+    if (m_userWidget->availableUserCount() < 2)
         hideBtns(QStringList() << "SwitchUser");
 }
 

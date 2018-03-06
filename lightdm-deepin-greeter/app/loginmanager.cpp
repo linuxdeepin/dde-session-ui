@@ -152,52 +152,54 @@ LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent),
       m_keyboardMonitor(KeyboardMonitor::instance())
 {
-    setAttribute(Qt::WA_TranslucentBackground);
-
     initUI();
     initData();
     initConnect();
     initDateAndUpdate();
 
-    QFile file("/tmp/lastuser");
-    if (file.open(QIODevice::ReadWrite)) {
-        m_lastUser = file.readAll().trimmed();
-        file.resize(0);
-        qDebug() << "file remove: " << int(file.remove());
-    }
+//    QFile file("/tmp/lastuser");
+//    if (file.open(QIODevice::ReadWrite)) {
+//        m_lastUser = file.readAll().trimmed();
+//        file.resize(0);
+//        qDebug() << "file remove: " << int(file.remove());
+//    }
 
-    if (!m_lastUser.isEmpty()) {
-        m_userWidget->setCurrentUser(m_lastUser);
-        m_sessionWidget->switchToUser(m_lastUser);
-    }
+//    if (!m_lastUser.isEmpty()) {
+//        m_userWidget->setCurrentUser(m_lastUser);
+//        m_sessionWidget->switchToUser(m_lastUser);
+//    }
 
-    m_keyboardMonitor->start(QThread::LowestPriority);
-    QTimer::singleShot(0, this, &LoginManager::restoreNumlockStatus);
+//    m_keyboardMonitor->start(QThread::LowestPriority);
+//    QTimer::singleShot(0, this, &LoginManager::restoreNumlockStatus);
 
-    const QString u = m_userWidget->currentUser();
-    qDebug() << Q_FUNC_INFO << "current user: " << u;
+//    const QString u = m_userWidget->currentUser();
+//    qDebug() << Q_FUNC_INFO << "current user: " << u;
 
-    m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
+//    m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
 
-    QTimer::singleShot(1, this, [=] {
-        const QString &user = m_userWidget->currentUser();
-        updateUserLoginCondition(user);
-        updateBackground(user);
-    });
+//    QTimer::singleShot(1, this, [=] {
+//        const QString &user = m_userWidget->currentUser();
+//        updateUserLoginCondition(user);
+//        updateBackground(user);
+//    });
 
-    // LOAD last user
-    file.setFileName(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER");
+//    // LOAD last user
+//    file.setFileName(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER");
 
-    // NOTE(kirigaya): If file is not exist, create it.
-    if (!file.open(QIODevice::ReadOnly)) {
-        return;
-    }
+//    // NOTE(kirigaya): If file is not exist, create it.
+//    if (!file.open(QIODevice::ReadOnly)) {
+//        return;
+//    }
 
-    QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
-    setting.beginGroup("USER");
-    m_otherUserInput->setAccount(setting.value("USERNAME").toString());
-    setting.endGroup();
-    file.close();
+//    QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
+//    setting.beginGroup("USER");
+//    m_otherUserInput->setAccount(setting.value("USERNAME").toString());
+//    setting.endGroup();
+//    file.close();
+
+    setStyleSheet("QFrame {"
+                  "background-color: black;"
+                  "}");
 }
 
 void LoginManager::updateWidgetsPosition()
@@ -220,7 +222,7 @@ void LoginManager::updateWidgetsPosition()
 
 void LoginManager::updateBackground(QString username)
 {
-    emit requestBackground(m_userWidget->getUserGreeterBackground(username));
+//    emit requestBackground(m_userWidget->getUserGreeterBackground(username));
 }
 
 void LoginManager::updateUserLoginCondition(QString username)
@@ -258,19 +260,19 @@ void LoginManager::startSession()
 
     hide();
 
-    const QStringList &wallpaper = m_userWidget->getUserDesktopBackground(m_userWidget->currentUser());
+//    const QStringList &wallpaper = m_userWidget->getUserDesktopBackground(m_userWidget->currentUser());
 
-    if (!wallpaper.isEmpty()) {
-        // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
-        const QString &desktop = wallpaper.first();
-        QUrl url(desktop);
-        QPixmap pixmap(url.toLocalFile());
+//    if (!wallpaper.isEmpty()) {
+//        // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
+//        const QString &desktop = wallpaper.first();
+//        QUrl url(desktop);
+//        QPixmap pixmap(url.toLocalFile());
 
-        if (pixmap.isNull())
-            pixmap.load(desktop);
+//        if (pixmap.isNull())
+//            pixmap.load(desktop);
 
-        emit requestBackground(pixmap);
-    }
+//        emit requestBackground(pixmap);
+//    }
 
     QTimer::singleShot(1000, this, [=] {
         // NOTE(kirigaya): Login animation duration is 1s.
@@ -420,14 +422,8 @@ void LoginManager::initConnect()
 
     connect(m_passWdEdit, &PassWdEdit::updateKeyboardStatus, this, &LoginManager::keyboardLayoutUI);
     connect(m_passWdEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LoginManager::keybdLayoutWidgetPosit);
-    connect(m_passWdEdit, &PassWdEdit::submit, this, [=] {
-        m_accountStr = m_userWidget->currentUser();
-        m_passwdStr = m_passWdEdit->getText();
-        m_greeter->authenticate(m_accountStr);
+    connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::authCurrentUser);
 
-        // NOTE(kirigaya): set auth user and respond password need some time!
-        QTimer::singleShot(100, this, SLOT(login()));
-    });
     connect(m_userWidget, &UserWidget::otherUserLogin, this, [=] {
         m_otherUserInput->show();
         m_passWdEdit->hide();
@@ -466,24 +462,12 @@ void LoginManager::initDateAndUpdate() {
     //Get the session of current user
     m_sessionWidget->switchToUser(m_userWidget->currentUser());
     //To control the expanding the widgets of all the user list(m_userWidget)
-    expandUserWidget();
 
     //The dbus is used to control the power actions
     m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
     if (!m_login1ManagerInterface->isValid()) {
         qDebug() <<"m_login1ManagerInterface:" << m_login1ManagerInterface->lastError().type();
     }
-}
-
-void LoginManager::expandUserWidget() {
-//    int expandState = m_utilFile->getExpandState();
-//    qDebug() << "expandState:" << expandState;
-//    if (expandState == 1) {
-//        qDebug() << "expandState:" << expandState;
-//        QMetaObject::invokeMethod(m_controlWidget, "requestSwitchUser", Qt::QueuedConnection);
-//    }
-
-//    m_utilFile->setExpandState(0);
 }
 
 void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
@@ -557,6 +541,16 @@ void LoginManager::authenticationComplete()
     QTimer::singleShot(100, this, SLOT(startSession()));
 }
 
+void LoginManager::authCurrentUser()
+{
+    m_accountStr = m_userWidget->currentUser();
+    m_passwdStr = m_passWdEdit->getText();
+    m_greeter->authenticate(m_accountStr);
+
+    // NOTE(kirigaya): set auth user and respond password need some time!
+    QTimer::singleShot(100, this, SLOT(login()));
+}
+
 void LoginManager::login()
 {
     m_isThumbAuth = false;
@@ -573,7 +567,7 @@ void LoginManager::login()
         return;
     }
     if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
-        m_userWidget->chooseButtonChecked();
+//        m_userWidget->chooseButtonChecked();
         qDebug() << "lineEditGrabKeyboard";
         return;
     }
@@ -608,7 +602,7 @@ void LoginManager::chooseUserMode()
 void LoginManager::chooseSessionMode()
 {
     m_sessionWidget->show();
-    m_userWidget->chooseButtonChecked();
+//    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
     m_passWdEdit->hide();
     m_loginButton->hide();
@@ -633,7 +627,7 @@ void LoginManager::choosedSession() {
 
 void LoginManager::showShutdownFrame() {
     qDebug() << "showShutdownFrame!";
-    m_userWidget->chooseButtonChecked();
+//    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
     m_passWdEdit->hide();
     m_loginButton->hide();
@@ -643,10 +637,10 @@ void LoginManager::showShutdownFrame() {
 }
 
 void LoginManager::keyboardLayoutUI() {
-    m_passWdEdit->updateKeybdLayoutUI(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+//    m_passWdEdit->updateKeybdLayoutUI(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
     m_keybdLayoutWidget = new KbLayoutWidget;
-    m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
-    m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
+//    m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+//    m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
 
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
     m_keybdArrowWidget->setBackgroundColor(QColor::fromRgbF(1, 1, 1, 0.15));

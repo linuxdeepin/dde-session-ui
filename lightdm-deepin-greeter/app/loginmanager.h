@@ -54,7 +54,7 @@
 #include "darrowrectangle.h"
 
 class OtherUserInput;
-class LoginManager: public QFrame
+class LoginManager : public QFrame
 {
     Q_OBJECT
 
@@ -88,11 +88,11 @@ private:
 
     void initDateAndUpdate();
 
-    void expandUserWidget();
-
     void message(QString text, QLightDM::Greeter::MessageType type);
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
+
+    void authCurrentUser();
 
     void chooseUserMode();
     void chooseSessionMode();

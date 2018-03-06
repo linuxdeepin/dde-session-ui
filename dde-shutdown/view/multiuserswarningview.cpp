@@ -100,8 +100,8 @@ void MultiUsersWarningView::setUsers(QStringList &users)
         QListWidgetItem * item = new QListWidgetItem;
         m_userList->addItem(item);
 
-        QString icon = getUserIcon(m_userWidget->getUserAvatar(user));
-        m_userList->setItemWidget(item, new UserListItem(icon, m_userWidget->getDisplayName(user)));
+//        QString icon = getUserIcon(m_userWidget->getUserAvatar(user));
+//        m_userList->setItemWidget(item, new UserListItem(icon, m_userWidget->getDisplayName(user)));
     }
 }
 
