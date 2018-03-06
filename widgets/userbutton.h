@@ -81,7 +81,7 @@ public slots:
 
     void show();
     void hide();
-    void move(const QPoint &position, const int duration = 0);
+    void move(const QPoint &position);
     void stopAnimation();
 
     double opacity();

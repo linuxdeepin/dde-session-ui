@@ -560,22 +560,22 @@ void LoginManager::login()
 {
     m_isThumbAuth = false;
 
-    if(!m_requireShutdownWidget->isHidden()) {
-        qDebug() << "SHUTDOWN";
-        m_requireShutdownWidget->shutdownAction();
-        return;
-    }
+//    if(!m_requireShutdownWidget->isHidden()) {
+//        qDebug() << "SHUTDOWN";
+//        m_requireShutdownWidget->shutdownAction();
+//        return;
+//    }
 
-    if (!m_sessionWidget->isHidden()) {
-        qDebug() << "SESSIONWIDGET";
-//        m_sessionWidget->chooseSession();
-        return;
-    }
-    if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
-//        m_userWidget->chooseButtonChecked();
-        qDebug() << "lineEditGrabKeyboard";
-        return;
-    }
+//    if (!m_sessionWidget->isHidden()) {
+//        qDebug() << "SESSIONWIDGET";
+////        m_sessionWidget->chooseSession();
+//        return;
+//    }
+//    if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
+////        m_userWidget->chooseButtonChecked();
+//        qDebug() << "lineEditGrabKeyboard";
+//        return;
+//    }
 
     if (m_passwdStr.isEmpty() && m_userState == Password)
         return;

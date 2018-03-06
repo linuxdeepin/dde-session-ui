@@ -163,7 +163,6 @@ private slots:
     void onUserRemoved(const QString &name);
     void onLoginUserListChanged(const QString &loginedUserInfo);
 //    UserButton* getUserByName(const QString &username);
-//    void updateCurrentUserPos(const int duration = 0) const;
 //    void initOtherUser(const QString &username = "");
     void initADLogin();
 

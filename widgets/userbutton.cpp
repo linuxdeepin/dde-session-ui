@@ -51,6 +51,7 @@ UserButton::UserButton(User *user, QWidget *parent)
 void UserButton::initConnect()
 {
     connect(m_hideAnimation, &QPropertyAnimation::finished, this, &QPushButton::hide);
+    connect(m_userAvatar, &UserAvatar::clicked, this, &UserButton::click);
 }
 
 void UserButton::initUI()
@@ -213,14 +214,11 @@ void UserButton::hide()
     m_opacityEffect->setEnabled(true);
 }
 
-void UserButton::move(const QPoint &position, int duration)
+void UserButton::move(const QPoint &position)
 {
 #ifndef DISABLE_ANIMATIONS
-    if (!duration)
-        return QPushButton::move(position);
-
     m_moveAni->stop();
-    m_moveAni->setDuration(duration);
+    m_moveAni->setDuration(200);
     m_moveAni->setStartValue(pos());
     m_moveAni->setEndValue(position);
 

@@ -62,6 +62,9 @@ UserWidget::UserWidget(QWidget* parent)
 
     initUI();
     initConnections();
+
+    // show first button
+    m_availableUserButtons.first()->show();
 }
 
 UserWidget::~UserWidget()
@@ -95,8 +98,6 @@ void UserWidget::initConnections()
     // init native users
     for (const QString &userPath : m_dbusAccounts->userList())
         onNativeUserAdded(userPath);
-
-    m_availableUserButtons.first()->setSelected(true);
 }
 
 //void UserWidget::onUserListChanged()
@@ -265,12 +266,6 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 //    return nullptr;
 //}
 
-//void UserWidget::updateCurrentUserPos(const int duration) const
-//{
-//    for (UserButton *user : m_userBtns)
-//        user->move(rect().center() - user->rect().center(), duration);
-//}
-
 //void UserWidget::initOtherUser(const QString &username)
 //{
 //    UserButton *user = new UserButton(this);
@@ -324,13 +319,20 @@ void UserWidget::initADLogin()
 void UserWidget::onUserChoosed()
 {
     // hide buttons
-    for (UserButton *ub : m_availableUserButtons)
+    for (UserButton *ub : m_availableUserButtons) {
+        ub->move(rect().center() - ub->rect().center());
         ub->hide();
+    }
 
     UserButton *clickedButton = qobject_cast<UserButton *>(sender());
     Q_ASSERT(clickedButton);
 
     m_currentUser = clickedButton->userInfo();
+
+    clickedButton->show();
+    clickedButton->setSelected(false);
+
+    releaseKeyboard();
 
     emit currentUserChanged(m_currentUser);
 }
@@ -405,12 +407,14 @@ void UserWidget::expandWidget()
         userButton->setImageSize(UserButton::AvatarSmallSize);
         if (i + 1 <= maxLineCap) {
             // the first line.
-            userButton->move(QPoint(offset + i * USER_ICON_WIDTH, 0), 200);
+            userButton->move(QPoint(offset + i * USER_ICON_WIDTH, 0));
         } else {
             // the second line.
-            userButton->move(QPoint(offset + (i - maxLineCap) * USER_ICON_WIDTH, USER_ICON_HEIGHT), 200);
+            userButton->move(QPoint(offset + (i - maxLineCap) * USER_ICON_WIDTH, USER_ICON_HEIGHT));
         }
     }
+
+    m_availableUserButtons.first()->setSelected(true);
 
     setFocus();
     grabKeyboard();
@@ -495,13 +499,14 @@ void UserWidget::appendUser(User *user)
 {
     UserButton *userButton = new UserButton(user, this);
 
+    userButton->hide();
+    userButton->move(rect().center() - userButton->rect().center());
+
     m_availableUsers << user;
     m_availableUserButtons << userButton;
 
     if (!m_currentUser)
         m_currentUser = user;
-
-    userButton->show();
 
     connect(userButton, &UserButton::clicked, this, &UserWidget::onUserChoosed);
 
