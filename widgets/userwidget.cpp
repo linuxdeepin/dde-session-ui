@@ -184,6 +184,16 @@ void UserWidget::onNativeUserRemoved(const QString &name)
 //    }
 
 //    onLoginUserListChanged(m_dbusLogined->userList());
+
+    for (int i = 0; i != m_availableUserButtons.size(); ++i) {
+        UserButton *btn = m_availableUserButtons.at(i);
+        if (btn->userInfo()->name() == name) {
+            m_availableUserButtons.removeAt(i);
+            m_availableUsers.removeOne(btn->userInfo());
+            btn->deleteLater();
+            break;
+        }
+    }
 }
 
 void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
