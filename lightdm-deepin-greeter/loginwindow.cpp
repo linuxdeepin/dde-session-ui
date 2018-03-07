@@ -40,11 +40,13 @@ LoginWindow::LoginWindow(QWidget *parent)
 
 void LoginWindow::switchUserBackground(const QString &path)
 {
-    setBackground(path, FakeBackground::FadeIn);
+//    setBackground(path, FakeBackground::FadeIn);
+    updateBackground(path);
 }
 
 // NOTE(kirigaya): Setting the animation type
 void LoginWindow::drawUserBackground(const QPixmap &pixmap)
 {
-    setBackground(pixmap, FakeBackground::FadeOut);
+//    updateBackground(pixmap);
+//    setBackground(pixmap, FakeBackground::FadeOut);
 }

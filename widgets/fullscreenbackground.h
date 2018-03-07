@@ -35,22 +35,18 @@
 
 using ImageBlur = com::deepin::daemon::ImageBlur;
 
-class FakeBackground : public QFrame {
+class FadeoutBackground : public QFrame {
     Q_OBJECT
 public:
-    explicit FakeBackground(QWidget *parent = 0);
+    explicit FadeoutBackground(QWidget *parent = 0);
 
-    enum Type {
-        None,
-        FadeIn,
-        FadeOut
-    };
-    void setPixmap(const QPixmap &pixmap, Type type);
+    void setPixmap(const QPixmap &pixmap) { m_pixmap = pixmap; }
+    void start();
 
     QPixmap pixmap() const;
 
 signals:
-    void finished(const QPixmap &pixmap);
+    void fadeoutFinished(const QPixmap &pixmap);
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
@@ -67,8 +63,11 @@ public:
     explicit FullscreenBackground(QWidget *parent = 0);
 
 public slots:
-    void setBackground(const QString &file, FakeBackground::Type = FakeBackground::None);
-    void setBackground(const QPixmap &pixmap, FakeBackground::Type = FakeBackground::None);
+    void updateBackground(const QPixmap &background);
+    void updateBackground(const QString &file);
+
+//    void setBackground(const QString &file, FakeBackground::Type = FakeBackground::None);
+//    void setBackground(const QPixmap &pixmap, FakeBackground::Type = FakeBackground::None);
 
 protected:
     void setContent(QWidget * const w);
@@ -92,7 +91,7 @@ private:
     QPointer<QWidget> m_content;
     QTimer *m_adjustTimer;
     ImageBlur *m_blurImageInter;
-    FakeBackground *m_fakeBackground;
+    FadeoutBackground *m_fakeBackground;
 };
 
 #endif // FULLSCREENBACKGROUND_H

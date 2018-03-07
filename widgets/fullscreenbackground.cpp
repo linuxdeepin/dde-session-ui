@@ -41,7 +41,7 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
-    , m_fakeBackground(new FakeBackground(this))
+    , m_fakeBackground(new FadeoutBackground(this))
 {
 
     setAttribute(Qt::WA_TranslucentBackground);
@@ -51,21 +51,26 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
     connect(m_adjustTimer, &QTimer::timeout, this, &FullscreenBackground::adjustGeometry);
-
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &FullscreenBackground::onBlurFinished);
-
-    connect(m_fakeBackground, &FakeBackground::finished, this, [=] (const QPixmap &pixmap) {
-        setBackground(pixmap);
-    });
-
+//    connect(m_fakeBackground, &FakeBackground::finished, this, [=] (const QPixmap &pixmap) { setBackground(pixmap); });
     connect(QApplication::desktop(), &QDesktopWidget::resized, m_adjustTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
 }
 
-void FullscreenBackground::setBackground(const QString &file, FakeBackground::Type type)
+void FullscreenBackground::updateBackground(const QPixmap &background)
+{
+    qDebug() << background;
+
+    // TODO: do animation switch background here
+    m_fakeBackground->setPixmap(m_background);
+
+    m_background = background;
+}
+
+void FullscreenBackground::updateBackground(const QString &file)
 {
     const QUrl url(file);
     if (url.isLocalFile())
-        return setBackground(url.path(), type);
+        return updateBackground(url.path());
 
     if (m_bgPath == file)
         return;
@@ -77,23 +82,45 @@ void FullscreenBackground::setBackground(const QString &file, FakeBackground::Ty
 
     Q_ASSERT(QFileInfo(file).isFile());
 
+    // 这里之后要去掉，在 FullscreenBackground 里面就不要做模糊的查找了，在调用前将图片准备好
     const QString &p = m_blurImageInter->Get(m_bgPath);
 
-    setBackground(QPixmap(p.isEmpty() ? m_bgPath : p), type);
+    updateBackground(QPixmap(p.isEmpty() ? m_bgPath : p));
 }
 
-void FullscreenBackground::setBackground(const QPixmap &pixmap, FakeBackground::Type type)
-{
-    // NOTE(kirigaya): If file is not exist, use default wallpaper
-    QPixmap p = pixmap.isNull() ? QPixmap("/usr/share/backgrounds/deepin/desktop.jpg") : pixmap;
+//void FullscreenBackground::setBackground(const QString &file, FakeBackground::Type type)
+//{
+//    const QUrl url(file);
+//    if (url.isLocalFile())
+//        return setBackground(url.path(), type);
 
-    if (type == FakeBackground::None) {
-        m_background = p;
-        update();
-    } else {
-        m_fakeBackground->setPixmap(p, type);
-    }
-}
+//    if (m_bgPath == file)
+//        return;
+
+//    if (QFile::exists(file))
+//        m_bgPath = file;
+//    else
+//        m_bgPath = "/usr/share/backgrounds/deepin/desktop.jpg";
+
+//    Q_ASSERT(QFileInfo(file).isFile());
+
+//    const QString &p = m_blurImageInter->Get(m_bgPath);
+
+//    setBackground(QPixmap(p.isEmpty() ? m_bgPath : p), type);
+//}
+
+//void FullscreenBackground::setBackground(const QPixmap &pixmap, FakeBackground::Type type)
+//{
+//    // NOTE(kirigaya): If file is not exist, use default wallpaper
+//    QPixmap p = pixmap.isNull() ? QPixmap("/usr/share/backgrounds/deepin/desktop.jpg") : pixmap;
+
+//    if (type == FakeBackground::None) {
+//        m_background = p;
+//        update();
+//    } else {
+//        m_fakeBackground->setPixmap(p, type);
+//    }
+//}
 
 void FullscreenBackground::setContent(QWidget * const w)
 {
@@ -141,7 +168,7 @@ void FullscreenBackground::onBlurFinished(const QString &source, const QString &
     const QString &sourcePath = QUrl(source).isLocalFile() ? QUrl(source).toLocalFile() : source;
 
     if (status && m_bgPath == sourcePath)
-        setBackground(QPixmap(blur));
+        updateBackground(blur);
 }
 
 bool FullscreenBackground::eventFilter(QObject *watched, QEvent *event)
@@ -228,7 +255,7 @@ const QScreen *FullscreenBackground::screenForGeometry(const QRect &rect) const
     return nullptr;
 }
 
-FakeBackground::FakeBackground(QWidget *parent)
+FadeoutBackground::FadeoutBackground(QWidget *parent)
     : QFrame(parent)
 {
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
@@ -242,41 +269,21 @@ FakeBackground::FakeBackground(QWidget *parent)
 
     // NOTE(kirigaya): Draw a real background
     connect(m_backgroundAnimation, &QVariantAnimation::finished, this, [=] {
-        emit finished(m_pixmap);
+        emit fadeoutFinished(m_pixmap);
     });
 }
 
-void FakeBackground::setPixmap(const QPixmap &pixmap, Type type)
+void FadeoutBackground::start()
 {
-    // NOTE(kirigaya): Login type need parent draw new wallpaper,
-    // and fade out
-    switch (type) {
-    case FadeIn: {
-        m_backgroundAnimation->setStartValue(0);
-        m_backgroundAnimation->setEndValue(1);
-        m_pixmap = pixmap;
-        break;
-    }
-    case FadeOut: {
-        m_backgroundAnimation->setStartValue(1);
-        m_backgroundAnimation->setEndValue(0);
-        emit finished(pixmap);
-        break;
-    }
-    default:
-        break;
-    }
-
-    update();
     m_backgroundAnimation->start();
 }
 
-QPixmap FakeBackground::pixmap() const
+QPixmap FadeoutBackground::pixmap() const
 {
     return m_pixmap;
 }
 
-void FakeBackground::paintEvent(QPaintEvent *event)
+void FadeoutBackground::paintEvent(QPaintEvent *event)
 {
     QFrame::paintEvent(event);
 

@@ -44,7 +44,7 @@ LockFrame::LockFrame(QWidget* parent)
 #ifdef LOCK_NO_QUIT
     connect(m_lockManager, &LockManager::checkedHide, this, &LockFrame::hideFrame);
 #endif
-    connect(m_lockManager, &LockManager::requestSetBackground, this, [=](const QString &background) { setBackground(background); });
+    connect(m_lockManager, &LockManager::requestSetBackground, this, static_cast<void (LockFrame::*)(const QString &)>(&LockFrame::updateBackground));
 }
 
 void LockFrame::showUserList() {

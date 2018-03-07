@@ -143,12 +143,12 @@ MainWidget::MainWidget(QWidget *parent)
         setContent(content);
 
         // blur wallpaper
-        setBackground(background);
+        updateBackground(background);
     } else {
         set_rootwindow_cursor();
 
         // untreated wallpaper
-        setBackground(QPixmap(background));
+        updateBackground(background);
     }
 
 #ifdef QT_DEBUG

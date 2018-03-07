@@ -58,10 +58,10 @@ void ShutdownFrame::initBackground()
         connect(watcher, &QDBusPendingCallWatcher::finished, [=] {
             if (!call. isError()) {
                 QDBusReply<QString> reply = call.reply();
-                setBackground(reply.value());
+                updateBackground(reply.value());
             } else {
                 qWarning() << "get current workspace background error: " << call.error().message();
-                setBackground("/usr/share/backgrounds/deepin/desktop.jpg");
+                updateBackground("/usr/share/backgrounds/deepin/desktop.jpg");
             }
 
             watcher->deleteLater();
@@ -78,7 +78,7 @@ void ShutdownFrame::initBackground()
 
     connect(m_dbusAppearance, &Appearance::Changed, this, [=](const QString &type, const QString &path){
         if (type == "background") {
-            setBackground(path);
+            updateBackground(path);
         }
     });
 }
