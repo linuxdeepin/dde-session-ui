@@ -394,6 +394,9 @@ void LockManager::checkUserIsNoPWGrp()
 
 void LockManager::onCurrentUserChanged(User *user)
 {
+    m_passwordEdit->show();
+    m_requireShutdownWidget->hide();
+
     emit requestSetBackground(user->desktopBackgroundPaths().first());
 }
 
