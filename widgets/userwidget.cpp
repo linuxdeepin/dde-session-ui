@@ -73,6 +73,7 @@ UserWidget::UserWidget(QWidget* parent)
     if (process.readAll().contains("Name:")) {
         ADDomainUser *user = new ADDomainUser(0);
         user->setUserName(tr("AD Domain"));
+        user->setisLogind(false);
         appendUser(user);
     }
 

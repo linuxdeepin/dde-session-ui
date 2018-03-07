@@ -47,6 +47,9 @@ LockManager::LockManager(QWidget *parent)
     , m_activatedUser(UserWidget::currentContextUser())
     , m_userState(Passwd)
     , m_currentUser(nullptr)
+    , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
+                                     "/com/deepin/daemon/ImageBlur",
+                                     QDBusConnection::systemBus(), this))
 {
     initUI();
     initConnect();
@@ -70,6 +73,7 @@ void LockManager::initConnect()
     connect(m_controlWidget, &ControlWidget::requestShutdown, this, &LockManager::shutdownMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LockManager::chooseUserMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
+    connect(m_blurImageInter, &ImageBlur::BlurDone, this, &LockManager::onBlurWallpaperFinished);
 
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, [this](const ShutdownWidget::Actions action) {
         switch (action) {
@@ -407,7 +411,12 @@ void LockManager::onCurrentUserChanged(User *user)
         return;
     }
 
-    emit requestSetBackground(user->desktopBackgroundPath());
+    const QUrl url(user->desktopBackgroundPath());
+    if (url.isLocalFile()) {
+        emit requestSetBackground(m_blurImageInter->Get(url.path()));
+    } else {
+        emit requestSetBackground(m_blurImageInter->Get(url.url()));
+    }
 }
 
 void LockManager::switchToUser(User *user)
@@ -422,6 +431,14 @@ void LockManager::switchToUser(User *user)
     } else {
         QProcess::startDetached("dde-switchtogreeter");
     }
+}
+
+void LockManager::onBlurWallpaperFinished(const QString &source, const QString &blur, bool status)
+{
+    const QString &sourcePath = QUrl(source).isLocalFile() ? QUrl(source).toLocalFile() : source;
+
+    if (status && m_userWidget->currentUser()->desktopBackgroundPath() == sourcePath)
+        emit requestSetBackground(blur);
 }
 
 void LockManager::initBackend()

@@ -44,11 +44,15 @@
 #include "dbus/dbusmediaplayer2.h"
 #include "xkbparser.h"
 
+#include <com_deepin_daemon_imageblur.h>
+
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 
 #define LOCK_KEYBOARDLAYOUT_PATH "/com/deepin/daemon/InputDevice/Keyboard"
 #define LOCK_KEYBOARDLAYOUT_NAME "com.deepin.daemon.InputDevice"
+
+using ImageBlur = com::deepin::daemon::ImageBlur;
 
 class LockManager : public QFrame
 {
@@ -97,6 +101,7 @@ private:
     void checkUserIsNoPWGrp();
     void onCurrentUserChanged(User *user);
     void switchToUser(User *user);
+    void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
 
 private:
     enum UserState {
@@ -132,6 +137,7 @@ private:
 
     // refactor
     User *m_currentUser;
+    ImageBlur *m_blurImageInter;
 };
 
 #endif // LOCKMANAGER_H

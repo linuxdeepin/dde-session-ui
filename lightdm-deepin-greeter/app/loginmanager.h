@@ -53,6 +53,10 @@
 
 #include "darrowrectangle.h"
 
+#include <com_deepin_daemon_imageblur.h>
+
+using ImageBlur = com::deepin::daemon::ImageBlur;
+
 class OtherUserInput;
 class LoginManager : public QFrame
 {
@@ -63,7 +67,6 @@ public:
 
 signals:
     void requestBackground(const QString &background) const;
-    void requestBackground(const QPixmap &background) const;
 
 public slots:
     /*Update the position of the widgets after finished the layout of ui*/
@@ -112,6 +115,8 @@ private:
     void saveNumlockStatus(const bool &on);
     void restoreNumlockStatus();
 
+    void onWallpaperBlurFinished(const QString &source, const QString &blur, bool status);
+
     enum UserState {
         Password,
         NoPassword
@@ -142,6 +147,7 @@ private:
     UserState m_userState;
     QString m_accountStr;
     QString m_passwdStr;
+    ImageBlur *m_blurImageInter;
 };
 #endif // LoginManager
 

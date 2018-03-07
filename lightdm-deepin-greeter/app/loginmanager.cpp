@@ -149,8 +149,11 @@ static int set_rootwindow_cursor() {
 // Load system cursor --end
 
 LoginManager::LoginManager(QWidget* parent)
-    : QFrame(parent),
-      m_keyboardMonitor(KeyboardMonitor::instance())
+    : QFrame(parent)
+    , m_keyboardMonitor(KeyboardMonitor::instance())
+    , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
+                                     "/com/deepin/daemon/ImageBlur",
+                                     QDBusConnection::systemBus(), this))
 {
     initUI();
     initData();
@@ -276,6 +279,14 @@ void LoginManager::startSession()
 //        emit requestBackground(pixmap);
 //    }
 
+    // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
+    const QUrl url(m_userWidget->currentUser()->desktopBackgroundPath());
+    if (url.isLocalFile()) {
+        emit requestBackground(url.path());
+    } else {
+        emit requestBackground(url.url());
+    }
+
     QTimer::singleShot(1000, this, [=] {
         // NOTE(kirigaya): Login animation duration is 1s.
         m_userWidget->saveLastUser();
@@ -388,6 +399,8 @@ void LoginManager::initConnect()
     connect(m_userWidget, &UserWidget::switchToLogindUser, this, &LoginManager::switchToLogindUser);
     connect(m_userWidget, &UserWidget::userCountChanged, this, &LoginManager::onUserCountChaged);
 
+    connect(m_blurImageInter, &ImageBlur::BlurDone, this, &LoginManager::onWallpaperBlurFinished);
+
 
 //    connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
 
@@ -417,8 +430,8 @@ void LoginManager::initConnect()
 
 //        m_sessionWidget->switchToUser(username);
 //    });
-    connect(m_userWidget, &UserWidget::currentUserBackgroundChanged,
-            this, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground));
+//    connect(m_userWidget, &UserWidget::currentUserBackgroundChanged,
+//            this, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground));
 
 //    connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
 //        m_controlWidget->setUserSwitchEnable(count > 1);
@@ -603,7 +616,12 @@ void LoginManager::onCurrentUserChanged(User *user)
 
     // TODO: update current user information
 
-    emit requestBackground(user->greeterBackgroundPath());
+    const QUrl url(user->desktopBackgroundPath());
+    if (url.isLocalFile()) {
+        emit requestBackground(m_blurImageInter->Get(url.path()));
+    } else {
+        emit requestBackground(m_blurImageInter->Get(url.url()));
+    }
 
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
     m_userState = Password;
@@ -788,6 +806,14 @@ void LoginManager::restoreNumlockStatus()
 //    const bool enabled = UserNumlockSettings(username).get(defaultValue);
 
 //    qDebug() << "restore numlock status to " << enabled;
-//    m_keyboardMonitor->setNumlockStatus(enabled);
+    //    m_keyboardMonitor->setNumlockStatus(enabled);
+}
+
+void LoginManager::onWallpaperBlurFinished(const QString &source, const QString &blur, bool status)
+{
+    const QString &sourcePath = QUrl(source).isLocalFile() ? QUrl(source).toLocalFile() : source;
+
+    if (status && m_userWidget->currentUser()->desktopBackgroundPath() == sourcePath)
+        emit requestBackground(blur);
 }
 

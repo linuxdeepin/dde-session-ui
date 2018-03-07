@@ -32,21 +32,7 @@ LoginWindow::LoginWindow(QWidget *parent)
 {
     setContent(m_loginFrame);
 
-    connect(m_loginFrame, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground),
-            this, &LoginWindow::switchUserBackground);
-    connect(m_loginFrame, static_cast<void (LoginManager::*)(const QPixmap &) const>(&LoginManager::requestBackground),
-            this, &LoginWindow::drawUserBackground);
-}
-
-void LoginWindow::switchUserBackground(const QString &path)
-{
-//    setBackground(path, FakeBackground::FadeIn);
-    updateBackground(path);
-}
-
-// NOTE(kirigaya): Setting the animation type
-void LoginWindow::drawUserBackground(const QPixmap &pixmap)
-{
-//    updateBackground(pixmap);
-//    setBackground(pixmap, FakeBackground::FadeOut);
+    connect(m_loginFrame, &LoginManager::requestBackground, this, [=] (const QString &wallpaper) {
+        updateBackground(wallpaper);
+    });
 }
