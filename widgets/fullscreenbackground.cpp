@@ -52,16 +52,13 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
 
     connect(m_adjustTimer, &QTimer::timeout, this, &FullscreenBackground::adjustGeometry);
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &FullscreenBackground::onBlurFinished);
-//    connect(m_fakeBackground, &FakeBackground::finished, this, [=] (const QPixmap &pixmap) { setBackground(pixmap); });
     connect(QApplication::desktop(), &QDesktopWidget::resized, m_adjustTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
 }
 
 void FullscreenBackground::updateBackground(const QPixmap &background)
 {
-    qDebug() << background;
-
-    // TODO: do animation switch background here
-    m_fakeBackground->setPixmap(m_background);
+    // show old background fade out
+    m_fakeBackground->showFadeOut(m_background);
 
     m_background = background;
 }
@@ -83,44 +80,10 @@ void FullscreenBackground::updateBackground(const QString &file)
     Q_ASSERT(QFileInfo(file).isFile());
 
     // 这里之后要去掉，在 FullscreenBackground 里面就不要做模糊的查找了，在调用前将图片准备好
-    const QString &p = m_blurImageInter->Get(m_bgPath);
-
-    updateBackground(QPixmap(p.isEmpty() ? m_bgPath : p));
-}
-
-//void FullscreenBackground::setBackground(const QString &file, FakeBackground::Type type)
-//{
-//    const QUrl url(file);
-//    if (url.isLocalFile())
-//        return setBackground(url.path(), type);
-
-//    if (m_bgPath == file)
-//        return;
-
-//    if (QFile::exists(file))
-//        m_bgPath = file;
-//    else
-//        m_bgPath = "/usr/share/backgrounds/deepin/desktop.jpg";
-
-//    Q_ASSERT(QFileInfo(file).isFile());
-
 //    const QString &p = m_blurImageInter->Get(m_bgPath);
 
-//    setBackground(QPixmap(p.isEmpty() ? m_bgPath : p), type);
-//}
-
-//void FullscreenBackground::setBackground(const QPixmap &pixmap, FakeBackground::Type type)
-//{
-//    // NOTE(kirigaya): If file is not exist, use default wallpaper
-//    QPixmap p = pixmap.isNull() ? QPixmap("/usr/share/backgrounds/deepin/desktop.jpg") : pixmap;
-
-//    if (type == FakeBackground::None) {
-//        m_background = p;
-//        update();
-//    } else {
-//        m_fakeBackground->setPixmap(p, type);
-//    }
-//}
+    updateBackground(QPixmap(m_bgPath));
+}
 
 void FullscreenBackground::setContent(QWidget * const w)
 {
@@ -266,21 +229,19 @@ FadeoutBackground::FadeoutBackground(QWidget *parent)
     m_backgroundAnimation = new QPropertyAnimation(effect, "opacity", this);
     m_backgroundAnimation->setDuration(1000);
     m_backgroundAnimation->setEasingCurve(QEasingCurve::InOutCubic);
+    m_backgroundAnimation->setStartValue(1.0);
+    m_backgroundAnimation->setEndValue(0.0);
 
     // NOTE(kirigaya): Draw a real background
     connect(m_backgroundAnimation, &QVariantAnimation::finished, this, [=] {
-        emit fadeoutFinished(m_pixmap);
+        emit fadeoutFinished(m_fadeoutPixmap);
     });
 }
 
-void FadeoutBackground::start()
+void FadeoutBackground::showFadeOut(const QPixmap &oldPixmap)
 {
+    m_fadeoutPixmap = oldPixmap;
     m_backgroundAnimation->start();
-}
-
-QPixmap FadeoutBackground::pixmap() const
-{
-    return m_pixmap;
 }
 
 void FadeoutBackground::paintEvent(QPaintEvent *event)
@@ -293,10 +254,10 @@ void FadeoutBackground::paintEvent(QPaintEvent *event)
     for (auto *s : qApp->screens())
     {
         const QRect &geom = s->geometry();
-        const QRect tr(geom.topLeft() / devicePixelRatioF(), geom.size());
-        const QPixmap pix = m_pixmap.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-        const QRect pix_r = QRect((pix.width() - tr.width()) / 2, (pix.height() - tr.height()) / 2, tr.width(), tr.height());
+        const QRect r(geom.topLeft() / devicePixelRatioF(), geom.size());
+        const QPixmap &pix = m_fadeoutPixmap.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        const QRect pix_r = QRect((pix.width() - r.width()) / 2, (pix.height() - r.height()) / 2, r.width(), r.height());
 
-        painter.drawPixmap(tr, pix, pix_r);
+        painter.drawPixmap(r, pix, pix_r);
     }
 }

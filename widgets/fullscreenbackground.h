@@ -40,20 +40,17 @@ class FadeoutBackground : public QFrame {
 public:
     explicit FadeoutBackground(QWidget *parent = 0);
 
-    void setPixmap(const QPixmap &pixmap) { m_pixmap = pixmap; }
-    void start();
-
-    QPixmap pixmap() const;
+    void showFadeOut(const QPixmap &oldPixmap);
 
 signals:
-    void fadeoutFinished(const QPixmap &pixmap);
+    void fadeoutFinished(const QPixmap &oldPixmap);
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
 private:
     QPropertyAnimation *m_backgroundAnimation;
-    QPixmap m_pixmap;
+    QPixmap m_fadeoutPixmap;
 };
 
 class FullscreenBackground : public QWidget
@@ -65,9 +62,6 @@ public:
 public slots:
     void updateBackground(const QPixmap &background);
     void updateBackground(const QString &file);
-
-//    void setBackground(const QString &file, FakeBackground::Type = FakeBackground::None);
-//    void setBackground(const QPixmap &pixmap, FakeBackground::Type = FakeBackground::None);
 
 protected:
     void setContent(QWidget * const w);
