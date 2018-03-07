@@ -473,8 +473,16 @@ void UserWidget::keyReleaseEvent(QKeyEvent *event)
         break;
     case Qt::Key_Return:
     case Qt::Key_Enter:
+        for (UserButton *ub : m_availableUserButtons) {
+            if (ub->selected()) {
+                ub->click();
+                break;
+            }
+        }
+        break;
     case Qt::Key_Escape:
-//        chooseButtonChecked();
+
+        break;
     default:
         break;
     }

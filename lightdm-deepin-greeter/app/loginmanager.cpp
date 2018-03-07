@@ -607,6 +607,8 @@ void LoginManager::onCurrentUserChanged(User *user)
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
     m_userState = Password;
 
+    m_passWdEdit->show();
+
 //    updateUserLoginCondition(user->name());
 
     //        updateUserLoginCondition(username);
@@ -633,7 +635,7 @@ void LoginManager::onCurrentUserChanged(User *user)
 
 void LoginManager::chooseUserMode()
 {
-//    m_passWdEdit->hide();
+    m_passWdEdit->hide();
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
@@ -646,7 +648,7 @@ void LoginManager::chooseSessionMode()
     m_sessionWidget->show();
 //    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
-//    m_passWdEdit->hide();
+    m_passWdEdit->hide();
     m_loginButton->hide();
     m_otherUserInput->hide();
     m_requireShutdownWidget->hide();
@@ -659,6 +661,7 @@ void LoginManager::choosedSession() {
     m_requireShutdownWidget->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
+    m_passWdEdit->show();
 
 //    updateUserLoginCondition(m_userWidget->currentUser());
 

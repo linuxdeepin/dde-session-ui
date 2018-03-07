@@ -144,8 +144,6 @@ public slots:
     void saveLastUser();
     void saveADUser(const QString &username);
 
-    void switchPreviousUser();
-    void switchNextUser();
 //    void chooseButtonChecked();
 
     void appendUser(User *user);
@@ -167,6 +165,8 @@ private slots:
     void initADLogin();
 
     void onUserChoosed();
+    void switchPreviousUser();
+    void switchNextUser();
 
 private:
 //    int m_currentUserIndex = 0;
