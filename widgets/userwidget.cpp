@@ -260,6 +260,8 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
         btn->show();
     }
 
+    emit userCountChanged(m_availableUserButtons.size());
+
     return;
 
 

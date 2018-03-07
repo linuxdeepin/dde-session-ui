@@ -387,6 +387,9 @@ void LoginManager::initConnect()
 
     connect(m_userWidget, &UserWidget::currentUserChanged, this, &LoginManager::onCurrentUserChanged);
     connect(m_userWidget, &UserWidget::switchToLogindUser, this, &LoginManager::switchToLogindUser);
+    connect(m_userWidget, &UserWidget::userCountChanged, this, &LoginManager::onUserCountChaged);
+
+
 //    connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
 
 //        qDebug()<<"selected user: " << username;
@@ -418,9 +421,9 @@ void LoginManager::initConnect()
     connect(m_userWidget, &UserWidget::currentUserBackgroundChanged,
             this, static_cast<void (LoginManager::*)(const QString &) const>(&LoginManager::requestBackground));
 
-    connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
-        m_controlWidget->setUserSwitchEnable(count > 1);
-    });
+//    connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
+//        m_controlWidget->setUserSwitchEnable(count > 1);
+//    });
 
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
     connect(m_greeter, &QLightDM::Greeter::showMessage, this, &LoginManager::message);
@@ -504,7 +507,6 @@ void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
         break;
     }
 }
-
 void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
 {
     qDebug() << "pam prompt: " << text << type;
@@ -640,6 +642,11 @@ void LoginManager::switchToLogindUser(User *user)
     m_requireShutdownWidget->hide();
 
     QProcess::startDetached("dde-switchtogreeter", QStringList() << user->name());
+}
+
+void LoginManager::onUserCountChaged(int count)
+{
+    m_controlWidget->setUserSwitchEnable(count > 1);
 }
 
 void LoginManager::chooseUserMode()
