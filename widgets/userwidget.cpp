@@ -43,11 +43,10 @@
 DWIDGET_USE_NAMESPACE
 
 UserWidget::UserWidget(QWidget* parent)
-    : QFrame(parent),
-
-      m_currentUser(nullptr),
-      m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this),
-      m_dbusLogined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
+    : QFrame(parent)
+    , m_currentUser(nullptr)
+    , m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this)
+    , m_dbusLogined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
 {
 //    m_currentUser = m_lockInter.CurrentUser();
 //    qDebug() << Q_FUNC_INFO << m_currentUser;
@@ -67,8 +66,7 @@ UserWidget::UserWidget(QWidget* parent)
     for (const QString &userPath : m_dbusAccounts->userList())
         onNativeUserAdded(userPath);
 
-    m_availableUserButtons.first()->show();
-    m_availableUserButtons.first()->setSelected(true);
+    onLoginUserListChanged(m_dbusLogined->userList());
 }
 
 UserWidget::~UserWidget()
@@ -204,6 +202,34 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
         btn->userInfo()->setisLogind(list.contains(btn->userInfo()->uid()));
     }
 
+    // If current user is lightdm user, select not logind user at first
+    if (currentContextUser() == "lightdm") {
+        for (UserButton *btn : m_availableUserButtons) {
+            if (!btn->userInfo()->isLogin()) {
+                m_currentUser = btn->userInfo();
+                btn->show();
+                break;
+            }
+        }
+    } else {
+        // select login user
+        const QString &user = currentContextUser();
+        for (UserButton *btn : m_availableUserButtons) {
+            if (btn->userInfo()->name() == user) {
+                m_currentUser = btn->userInfo();
+                btn->show();
+                break;
+            }
+        }
+    }
+
+    // If not select any user
+    if (!m_currentUser) {
+        UserButton *btn = m_availableUserButtons.first();
+        m_currentUser = btn->userInfo();
+        btn->show();
+    }
+
     return;
 
 
@@ -326,15 +352,25 @@ void UserWidget::onUserChoosed()
     UserButton *clickedButton = qobject_cast<UserButton *>(sender());
     Q_ASSERT(clickedButton);
 
-    m_currentUser = clickedButton->userInfo();
-
-    clickedButton->show();
-    clickedButton->setSelected(false);
-    clickedButton->setLoginChecked(false);
-
     releaseKeyboard();
 
-    emit currentUserChanged(m_currentUser);
+    // If user is login, switch to this user
+    if (clickedButton->userInfo()->isLogin()) {
+        emit switchToLogindUser(clickedButton->userInfo());
+    } else {
+        // update current user
+        m_currentUser = clickedButton->userInfo();
+        emit currentUserChanged(m_currentUser);
+    }
+
+    for (UserButton *btn : m_availableUserButtons) {
+        if (btn->userInfo() == m_currentUser) {
+            btn->show();
+            btn->setSelected(false);
+            btn->setLoginChecked(false);
+            break;
+        }
+    }
 }
 
 //void UserWidget::setCurrentUser(const QString &username)
@@ -450,6 +486,20 @@ void UserWidget::saveADUser(const QString &username)
     setting.sync();
 }
 
+void UserWidget::restoreUser(User *user)
+{
+   for (UserButton *btn : m_availableUserButtons) {
+       if (btn->userInfo() == user) {
+           m_currentUser = user;
+           btn->show();
+           btn->setSelected(false);
+           btn->setLoginChecked(false);
+       } else {
+           btn->hide();
+       }
+   }
+}
+
 void UserWidget::resizeEvent(QResizeEvent *e)
 {
     QFrame::resizeEvent(e);
@@ -514,9 +564,6 @@ void UserWidget::appendUser(User *user)
 
     m_availableUsers << user;
     m_availableUserButtons << userButton;
-
-    if (!m_currentUser)
-        m_currentUser = user;
 
     connect(userButton, &UserButton::clicked, this, &UserWidget::onUserChoosed);
 

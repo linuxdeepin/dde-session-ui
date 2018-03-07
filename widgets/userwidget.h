@@ -119,6 +119,7 @@ public:
 
     static const QString currentContextUser();
     User *currentUser() const { return m_currentUser; }
+
 //    inline int count() const {return m_userBtns.count();}
     bool isChooseUserMode = false;
 //    const QString getUserAvatar(const QString &username);
@@ -134,6 +135,7 @@ public:
 
 signals:
     void currentUserChanged(User *user);
+    void switchToLogindUser(User *user);
     void userChanged(const QString &username);
     void chooseUserModeChanged(bool isChoose, QString curUser);
     void otherUserLogin();
@@ -145,6 +147,7 @@ public slots:
     void expandWidget();
     void saveLastUser();
     void saveADUser(const QString &username);
+    void restoreUser(User *user);
 
 //    void chooseButtonChecked();
 

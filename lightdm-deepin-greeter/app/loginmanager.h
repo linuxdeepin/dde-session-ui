@@ -81,6 +81,7 @@ private slots:
     void login();
 
     void onCurrentUserChanged(User *user);
+    void switchToLogindUser(User *user);
 
 private:
 //    void recordPid();

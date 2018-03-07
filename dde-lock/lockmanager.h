@@ -96,6 +96,7 @@ private:
     void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
     void checkUserIsNoPWGrp();
     void onCurrentUserChanged(User *user);
+    void switchToUser(User *user);
 
 private:
     enum UserState {
@@ -129,6 +130,8 @@ private:
 
     UserState m_userState;
 
+    // refactor
+    User *m_currentUser;
 };
 
 #endif // LOCKMANAGER_H

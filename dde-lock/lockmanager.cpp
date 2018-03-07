@@ -46,6 +46,7 @@ LockManager::LockManager(QWidget *parent)
     : QFrame(parent)
     , m_activatedUser(UserWidget::currentContextUser())
     , m_userState(Passwd)
+    , m_currentUser(nullptr)
 {
     initUI();
     initConnect();
@@ -55,6 +56,8 @@ LockManager::LockManager(QWidget *parent)
     QTimer::singleShot(1, this, [=] {
         onCurrentUserChanged(m_userWidget->currentUser());
     });
+
+    m_currentUser = m_userWidget->currentUser();
 }
 
 void LockManager::initConnect()
@@ -62,6 +65,7 @@ void LockManager::initConnect()
     connect(m_lockInter, &DBusLockService::Event, this, &LockManager::lockServiceEvent);
     connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
     connect(m_userWidget, &UserWidget::currentUserChanged, this, &LockManager::onCurrentUserChanged);
+    connect(m_userWidget, &UserWidget::switchToLogindUser, this, &LockManager::switchToUser);
     connect(m_passwordEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LockManager::keybdLayoutWidgetPosit);
     connect(m_controlWidget, &ControlWidget::requestShutdown, this, &LockManager::shutdownMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LockManager::chooseUserMode);
@@ -397,7 +401,22 @@ void LockManager::onCurrentUserChanged(User *user)
     m_passwordEdit->show();
     m_requireShutdownWidget->hide();
 
+    if (user->name() != m_userWidget->currentContextUser()) {
+        switchToUser(user);
+        return;
+    }
+
     emit requestSetBackground(user->desktopBackgroundPaths().first());
+}
+
+void LockManager::switchToUser(User *user)
+{
+    m_passwordEdit->show();
+    m_requireShutdownWidget->hide();
+
+    m_userWidget->restoreUser(m_currentUser);
+
+    QProcess::startDetached("dde-switchtogreeter", QStringList() << user->name());
 }
 
 void LockManager::initBackend()
