@@ -200,16 +200,36 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 {
     QJsonObject userList = QJsonDocument::fromJson(loginedUserInfo.toUtf8()).object();
 
-
-    QList<int> list;
-
-    for (const QString &userId : userList.keys())
-    {
-          list << userId.toInt();
+    // all user list
+    QList<int> availableUidList;
+    for (User *user : m_availableUsers) {
+        availableUidList << user->uid();
     }
 
-    for (UserButton *btn : m_availableUserButtons) {
-        btn->userInfo()->setisLogind(list.contains(btn->userInfo()->uid()));
+    QList<int> logindUidList;
+    for (const QString &userId : userList.keys()) {
+        if (!availableUidList.contains(userId.toInt())) {
+            // Non existing users, created as AD users
+            ADDomainUser *user = new ADDomainUser(userId.toInt());
+            appendUser(user);
+        }
+        logindUidList << userId.toInt();
+    }
+
+    // Remove the nonexistent button from the already-obtained id.
+    for (int i = 0; i != m_availableUserButtons.size(); ++i) {
+        UserButton *btn = m_availableUserButtons.at(i);
+        User *user = btn->userInfo();
+        const bool isListContains = logindUidList.contains(user->uid());
+
+        if (!isListContains && btn->userInfo()->type() == User::ADDomain) {
+            m_availableUserButtons.removeAt(i);
+            m_availableUsers.removeOne(user);
+            user->deleteLater();
+            btn->deleteLater();
+        } else {
+            user->setisLogind(isListContains);
+        }
     }
 
     // If current user is lightdm user, select not logind user at first
@@ -758,9 +778,10 @@ QStringList NativeUser::desktopBackgroundPaths() const
     return m_userInter->desktopBackgrounds();
 }
 
-ADDomainUser::ADDomainUser(QObject *parent)
+ADDomainUser::ADDomainUser(int uid, QObject *parent)
     : User(parent)
 {
+    m_uid = uid;
 }
 
 QString ADDomainUser::avatarPath() const

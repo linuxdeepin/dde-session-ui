@@ -102,7 +102,7 @@ class ADDomainUser : public User
     Q_OBJECT
 
 public:
-    ADDomainUser(QObject *parent);
+    ADDomainUser(int uid, QObject *parent = nullptr);
 
     UserType type() const { return ADDomain; }
     QString avatarPath() const;
