@@ -56,9 +56,6 @@ UserWidget::UserWidget(QWidget* parent)
 
     m_dbusAccounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
 
-    m_dbusLogined->setSync(false);
-    m_dbusLogined->userList();
-
     initUI();
     initConnections();
 
@@ -67,6 +64,46 @@ UserWidget::UserWidget(QWidget* parent)
         onNativeUserAdded(userPath);
 
     onLoginUserListChanged(m_dbusLogined->userList());
+
+    // check AD Domain
+    QProcess process(this);
+    process.start("/opt/pbis/bin/enum-users");
+    process.waitForFinished();
+
+    if (process.readAll().contains("Name:")) {
+        ADDomainUser *user = new ADDomainUser(0);
+        user->setUserName(tr("AD Domain"));
+        appendUser(user);
+    }
+
+    // If current user is lightdm, here is greeter interface
+    // else is dde-lock interface
+    if (currentContextUser() == "lightdm") {
+//        for (UserButton *btn : m_availableUserButtons) {
+//            if (!btn->userInfo()->isLogin()) {
+//                m_currentUser = btn->userInfo();
+//                btn->show();
+//                break;
+//            }
+//        }
+    } else {
+        // select current login user
+        const QString &user = currentContextUser();
+        for (UserButton *btn : m_availableUserButtons) {
+            if (btn->userInfo()->name() == user) {
+                m_currentUser = btn->userInfo();
+                btn->show();
+                break;
+            }
+        }
+    }
+
+    // If not select any user
+    if (!m_currentUser) {
+        UserButton *btn = m_availableUserButtons.first();
+        m_currentUser = btn->userInfo();
+        btn->show();
+    }
 }
 
 UserWidget::~UserWidget()
@@ -198,9 +235,16 @@ void UserWidget::onNativeUserRemoved(const QString &name)
 
 void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 {
+    if (loginedUserInfo.isEmpty()) {
+        return;
+    }
+
     QJsonObject userList = QJsonDocument::fromJson(loginedUserInfo.toUtf8()).object();
 
-    // all user list
+    // All users are in m_availableUsers.
+    // If there are no users in the login list,
+    // they are considered as AD users and need to be added.
+
     QList<int> availableUidList;
     for (User *user : m_availableUsers) {
         availableUidList << user->uid();
@@ -208,21 +252,23 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 
     QList<int> logindUidList;
     for (const QString &userId : userList.keys()) {
-        if (!availableUidList.contains(userId.toInt())) {
+        if (checkHaveDisplay(userList[userId].toArray()) &&
+                !availableUidList.contains(userId.toInt())) {
             // Non existing users, created as AD users
-            ADDomainUser *user = new ADDomainUser(userId.toInt());
-            appendUser(user);
+            addAddomainUser(userId.toInt());
+            availableUidList << userId.toInt();
         }
         logindUidList << userId.toInt();
     }
 
     // Remove the nonexistent button from the already-obtained id.
-    for (int i = 0; i != m_availableUserButtons.size(); ++i) {
+    for (int i = 0; i != availableUidList.size(); ++i) {
         UserButton *btn = m_availableUserButtons.at(i);
         User *user = btn->userInfo();
         const bool isListContains = logindUidList.contains(user->uid());
 
-        if (!isListContains && btn->userInfo()->type() == User::ADDomain) {
+        // skip fake ADDomain login button
+        if (!isListContains && user->type() == User::ADDomain && user->uid() != 0) {
             m_availableUserButtons.removeAt(i);
             m_availableUsers.removeOne(user);
             user->deleteLater();
@@ -232,33 +278,7 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
         }
     }
 
-    // If current user is lightdm user, select not logind user at first
-    if (currentContextUser() == "lightdm") {
-        for (UserButton *btn : m_availableUserButtons) {
-            if (!btn->userInfo()->isLogin()) {
-                m_currentUser = btn->userInfo();
-                btn->show();
-                break;
-            }
-        }
-    } else {
-        // select login user
-        const QString &user = currentContextUser();
-        for (UserButton *btn : m_availableUserButtons) {
-            if (btn->userInfo()->name() == user) {
-                m_currentUser = btn->userInfo();
-                btn->show();
-                break;
-            }
-        }
-    }
-
-    // If not select any user
-    if (!m_currentUser) {
-        UserButton *btn = m_availableUserButtons.first();
-        m_currentUser = btn->userInfo();
-        btn->show();
-    }
+    updateAllADUserInfo();
 
     emit userCountChanged(m_availableUserButtons.size());
 
@@ -266,27 +286,27 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 
 
     // NOTE(kirigaya): check in AD Domain
-    QProcess *process = new QProcess(this);
-    connect(process, &QProcess::readyReadStandardOutput, this, [=] {
-        QRegularExpression re("Name:\\s");
-        QRegularExpressionMatchIterator i = re.globalMatch(process->readAll());
+//    QProcess *process = new QProcess(this);
+//    connect(process, &QProcess::readyReadStandardOutput, this, [=] {
+//        QRegularExpression re("Name:\\s");
+//        QRegularExpressionMatchIterator i = re.globalMatch(process->readAll());
 
-        if (i.hasNext()) {
-            initADLogin();
+//        if (i.hasNext()) {
+//            initADLogin();
 
-            struct passwd *pws;
-            pws = getpwuid(getuid());
+//            struct passwd *pws;
+//            pws = getpwuid(getuid());
 
-            if (QString(pws->pw_name) != "lightdm") {
+//            if (QString(pws->pw_name) != "lightdm") {
 //                UserButton *button = getUserByName(pws->pw_name);
 
 //                if (!button)
 //                    initOtherUser(pws->pw_name);
-            }
-        }
-    });
+//            }
+//        }
+//    });
 
-    process->start("/opt/pbis/bin/enum-users");
+//    process->start("/opt/pbis/bin/enum-users");
 
     // NOTE(kirigaya): wait for some time to update the position;
 //    QTimer::singleShot(100, this, [=] {
@@ -371,6 +391,12 @@ void UserWidget::initADLogin()
 //    m_userBtns << m_adLoginBtn;
 
     //    emit userCountChanged(m_userBtns.count());
+}
+
+void UserWidget::addAddomainUser(int uid)
+{
+    ADDomainUser *user = new ADDomainUser(uid);
+    appendUser(user);
 }
 
 void UserWidget::onUserChoosed()
@@ -593,6 +619,7 @@ void UserWidget::appendUser(User *user)
 
     userButton->hide();
     userButton->move(rect().center() - userButton->rect().center());
+    userButton->setLoginChecked(false);
 
     m_availableUsers << user;
     m_availableUserButtons << userButton;
@@ -628,6 +655,52 @@ void UserWidget::switchNextUser()
                 m_availableUserButtons[i + 1]->setSelected(true);
             }
             break;
+        }
+    }
+}
+
+bool UserWidget::checkHaveDisplay(const QJsonArray &array)
+{
+    for (int i(0); i != array.count(); ++i) {
+        const QJsonObject &obj = array.at(i).toObject();
+
+        // If user without desktop or display, this is system service, need skip.
+        if (!obj["Display"].toString().isEmpty() && !obj["Desktop"].toString().isEmpty()) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void UserWidget::updateAllADUserInfo()
+{
+    // update AD User Info
+    QProcess process(this);
+    process.start("/opt/pbis/bin/enum-users");
+    process.waitForFinished();
+
+    const QString &output = process.readAll();
+
+    QRegularExpression re("Name:\\s+(.+?)\nUid:\\s+(.+?)\n");
+    QRegularExpressionMatchIterator match = re.globalMatch(output, 0, QRegularExpression::NormalMatch);
+
+    QMap<int, QString> adUserList;
+    while (match.hasNext()) {
+        QRegularExpressionMatch m = match.next();
+        if (m.isValid()) {
+            adUserList.insert(m.captured(2).toInt(), m.captured(1));
+        }
+    }
+
+    // update all ad domain type info
+    for (UserButton *btn : m_availableUserButtons) {
+        User *user = btn->userInfo();
+        if (user->type() == User::ADDomain) {
+            ADDomainUser *adUser = qobject_cast<ADDomainUser*>(user);
+            if (adUserList.keys().contains(adUser->uid())) {
+                adUser->setUserName(adUserList[adUser->uid()]);
+            }
         }
     }
 }
@@ -753,7 +826,7 @@ User::User(QObject *parent) : QObject(parent)
 bool User::operator==(const User &user) const
 {
     return type() == user.type() &&
-           m_userName == user.m_userName;
+            m_uid == user.m_uid;
 }
 
 NativeUser::NativeUser(const QString &path, QObject *parent)
@@ -763,6 +836,12 @@ NativeUser::NativeUser(const QString &path, QObject *parent)
 {
     m_userName = m_userInter->userName();
     m_uid = m_userInter->uid().toInt();
+}
+
+QString NativeUser::displayName() const
+{
+    const QString &fullname = m_userInter->fullName();
+    return fullname.isEmpty() ? name() : fullname;
 }
 
 QString NativeUser::avatarPath() const
@@ -775,9 +854,9 @@ QString NativeUser::greeterBackgroundPath() const
     return m_userInter->greeterBackground();
 }
 
-QStringList NativeUser::desktopBackgroundPaths() const
+QString NativeUser::desktopBackgroundPath() const
 {
-    return m_userInter->desktopBackgrounds();
+    return m_userInter->desktopBackgrounds().first();
 }
 
 ADDomainUser::ADDomainUser(int uid, QObject *parent)
@@ -786,17 +865,22 @@ ADDomainUser::ADDomainUser(int uid, QObject *parent)
     m_uid = uid;
 }
 
+void ADDomainUser::setUserName(const QString &name)
+{
+    m_userName = name;
+}
+
 QString ADDomainUser::avatarPath() const
 {
-    return QString();
+    return QString(":/img/default_avatar.png");
 }
 
 QString ADDomainUser::greeterBackgroundPath() const
 {
-    return QString();
+    return QString("/usr/share/backgrounds/deepin/desktop.jpg");
 }
 
-QStringList ADDomainUser::desktopBackgroundPaths() const
+QString ADDomainUser::desktopBackgroundPath() const
 {
-    return QStringList();
+    return QString("/usr/share/backgrounds/deepin/desktop.jpg");
 }

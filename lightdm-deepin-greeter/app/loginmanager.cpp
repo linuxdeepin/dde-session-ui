@@ -606,11 +606,20 @@ void LoginManager::onCurrentUserChanged(User *user)
 
     emit requestBackground(user->greeterBackgroundPath());
 
-    m_sessionWidget->switchToUser(user->name());
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
     m_userState = Password;
 
+    // check is fake addomain button
+    if (user->type() == User::ADDomain && user->uid() == 0) {
+        m_passWdEdit->hide();
+        m_otherUserInput->show();
+        return;
+    }
+
+    m_sessionWidget->switchToUser(user->name());
+
     m_passWdEdit->show();
+
 
 //    updateUserLoginCondition(user->name());
 

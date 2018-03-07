@@ -406,7 +406,7 @@ void LockManager::onCurrentUserChanged(User *user)
         return;
     }
 
-    emit requestSetBackground(user->desktopBackgroundPaths().first());
+    emit requestSetBackground(user->desktopBackgroundPath());
 }
 
 void LockManager::switchToUser(User *user)
@@ -416,7 +416,11 @@ void LockManager::switchToUser(User *user)
 
     m_userWidget->restoreUser(m_currentUser);
 
-    QProcess::startDetached("dde-switchtogreeter", QStringList() << user->name());
+    if (user->isLogin()) {
+        QProcess::startDetached("dde-switchtogreeter", QStringList() << user->name());
+    } else {
+        QProcess::startDetached("dde-switchtogreeter");
+    }
 }
 
 void LockManager::initBackend()

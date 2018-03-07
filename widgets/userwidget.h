@@ -68,9 +68,10 @@ public:
     void setisLogind(bool isLogind) { m_isLogind = isLogind; }
 
     virtual UserType type() const = 0;
+    virtual QString displayName() const { return m_userName; }
     virtual QString avatarPath() const = 0;
     virtual QString greeterBackgroundPath() const = 0;
-    virtual QStringList desktopBackgroundPaths() const = 0;
+    virtual QString desktopBackgroundPath() const = 0;
 
 protected:
     bool m_isLogind;
@@ -86,9 +87,10 @@ public:
     NativeUser(const QString &path, QObject *parent = nullptr);
 
     UserType type() const { return Native; }
+    QString displayName() const;
     QString avatarPath() const;
     QString greeterBackgroundPath() const;
-    QStringList desktopBackgroundPaths() const;
+    QString desktopBackgroundPath() const;
 
     const QString path() const { return m_userPath; }
 
@@ -104,10 +106,12 @@ class ADDomainUser : public User
 public:
     ADDomainUser(int uid, QObject *parent = nullptr);
 
+    void setUserName(const QString &name);
+
     UserType type() const { return ADDomain; }
     QString avatarPath() const;
     QString greeterBackgroundPath() const;
-    QStringList desktopBackgroundPaths() const;
+    QString desktopBackgroundPath() const;
 };
 
 class UserWidget : public QFrame
@@ -170,9 +174,14 @@ private slots:
 //    void initOtherUser(const QString &username = "");
     void initADLogin();
 
+    void addAddomainUser(int uid);
     void onUserChoosed();
     void switchPreviousUser();
     void switchNextUser();
+
+    bool checkHaveDisplay(const QJsonArray &array);
+
+    void updateAllADUserInfo();
 
 private:
 //    int m_currentUserIndex = 0;
