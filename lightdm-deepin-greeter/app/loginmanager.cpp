@@ -65,7 +65,7 @@ class UserNumlockSettings
 public:
     UserNumlockSettings(const QString &username)
         : m_username(username)
-        , m_settings(QSettings::SystemScope, "deepin", "greeter")
+        , m_settings(QSettings::UserScope, "deepin", "greeter")
     {
     }
 
@@ -160,10 +160,9 @@ LoginManager::LoginManager(QWidget* parent)
     initConnect();
     initDateAndUpdate();
 
-    QTimer::singleShot(1, this, &LoginManager::restoreUser);
-
     m_keyboardMonitor->start(QThread::LowestPriority);
-    QTimer::singleShot(0, this, &LoginManager::restoreNumlockStatus);
+
+    QTimer::singleShot(1, this, &LoginManager::restoreUser);
 
 //    const QString u = m_userWidget->currentUser();
 //    qDebug() << Q_FUNC_INFO << "current user: " << u;
@@ -501,6 +500,8 @@ void LoginManager::restoreUser()
     } else {
         onCurrentUserChanged(m_userWidget->currentUser());
     }
+
+    QTimer::singleShot(1, this, &LoginManager::restoreNumlockStatus);
 }
 
 void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
@@ -803,22 +804,22 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
 
 void LoginManager::saveNumlockStatus(const bool &on)
 {
-//    const QString &username = m_userWidget->currentUser();
+    const QString &username = m_userWidget->currentUser()->name();
 
-//    UserNumlockSettings(username).set(on);
+    UserNumlockSettings(username).set(on);
 }
 
 void LoginManager::restoreNumlockStatus()
 {
-//    const QString &username = m_userWidget->currentUser();
+    const QString &username = m_userWidget->currentUser()->name();
 
-//    PowerInter powerInter("com.deepin.system.Power", "/com/deepin/system/Power", QDBusConnection::systemBus(), this);
+    PowerInter powerInter("com.deepin.system.Power", "/com/deepin/system/Power", QDBusConnection::systemBus(), this);
 
-//    const bool defaultValue = !powerInter.hasBattery();
-//    const bool enabled = UserNumlockSettings(username).get(defaultValue);
+    const bool defaultValue = !powerInter.hasBattery();
+    const bool enabled = UserNumlockSettings(username).get(defaultValue);
 
-//    qDebug() << "restore numlock status to " << enabled;
-    //    m_keyboardMonitor->setNumlockStatus(enabled);
+    qDebug() << "restore numlock status to " << enabled;
+    m_keyboardMonitor->setNumlockStatus(enabled);
 }
 
 void LoginManager::onWallpaperBlurFinished(const QString &source, const QString &blur, bool status)
