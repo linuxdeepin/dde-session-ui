@@ -726,6 +726,11 @@ const QList<User *> UserWidget::loginedUsers() const
     return list;
 }
 
+const QList<User *> UserWidget::allUsers() const
+{
+    return m_availableUsers;
+}
+
 //const QString UserWidget::currentUser()
 //{
 //    return m_availableUserButtons.first()->userInfo()->name();

@@ -131,6 +131,7 @@ public:
     static const QString currentContextUser();
     User *currentUser() const { return m_currentUser; }
     const QList<User *> loginedUsers() const;
+    const QList<User *> allUsers() const;
 
 //    inline int count() const {return m_userBtns.count();}
     bool isChooseUserMode = false;

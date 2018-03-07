@@ -160,24 +160,10 @@ LoginManager::LoginManager(QWidget* parent)
     initConnect();
     initDateAndUpdate();
 
-    QTimer::singleShot(1, this, [=]{
-        onCurrentUserChanged(m_userWidget->currentUser());
-    });
+    QTimer::singleShot(1, this, &LoginManager::restoreUser);
 
-//    QFile file("/tmp/lastuser");
-//    if (file.open(QIODevice::ReadWrite)) {
-//        m_lastUser = file.readAll().trimmed();
-//        file.resize(0);
-//        qDebug() << "file remove: " << int(file.remove());
-//    }
-
-//    if (!m_lastUser.isEmpty()) {
-//        m_userWidget->setCurrentUser(m_lastUser);
-//        m_sessionWidget->switchToUser(m_lastUser);
-//    }
-
-//    m_keyboardMonitor->start(QThread::LowestPriority);
-//    QTimer::singleShot(0, this, &LoginManager::restoreNumlockStatus);
+    m_keyboardMonitor->start(QThread::LowestPriority);
+    QTimer::singleShot(0, this, &LoginManager::restoreNumlockStatus);
 
 //    const QString u = m_userWidget->currentUser();
 //    qDebug() << Q_FUNC_INFO << "current user: " << u;
@@ -488,6 +474,32 @@ void LoginManager::initDateAndUpdate() {
     m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
     if (!m_login1ManagerInterface->isValid()) {
         qDebug() <<"m_login1ManagerInterface:" << m_login1ManagerInterface->lastError().type();
+    }
+}
+
+// TODO: FIXME
+void LoginManager::restoreUser()
+{
+    QFile file("/tmp/lastuser");
+    if (file.open(QIODevice::ReadWrite)) {
+        m_lastUser = file.readAll().trimmed();
+        file.resize(0);
+        qDebug() << "file remove: " << int(file.remove());
+    }
+
+    qDebug() << "last user is: " << m_lastUser;
+
+    if (!m_lastUser.isEmpty()) {
+        for (User * user : m_userWidget->allUsers()) {
+            if (user->name() == m_lastUser) {
+                m_userWidget->restoreUser(user);
+                m_sessionWidget->switchToUser(m_lastUser);
+                onCurrentUserChanged(user);
+                break;
+            }
+        }
+    } else {
+        onCurrentUserChanged(m_userWidget->currentUser());
     }
 }
 

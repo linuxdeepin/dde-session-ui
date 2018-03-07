@@ -426,6 +426,9 @@ void LockManager::switchToUser(User *user)
 
     m_userWidget->restoreUser(m_currentUser);
 
+    // TODO: FIXME
+    saveUser(user->name());
+
     if (user->isLogin()) {
         QProcess::startDetached("dde-switchtogreeter", QStringList() << user->name());
     } else {
@@ -439,6 +442,16 @@ void LockManager::onBlurWallpaperFinished(const QString &source, const QString &
 
     if (status && m_userWidget->currentUser()->desktopBackgroundPath() == sourcePath)
         emit requestSetBackground(blur);
+}
+
+void LockManager::saveUser(const QString &username)
+{
+    QFile f("/tmp/lastuser");
+    if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        f.write(username.toLocal8Bit());
+        f.setPermissions(QFileDevice::Permissions(0x7777));
+        f.close();
+    }
 }
 
 void LockManager::initBackend()

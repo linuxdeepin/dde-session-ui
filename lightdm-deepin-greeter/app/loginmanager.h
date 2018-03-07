@@ -95,6 +95,9 @@ private:
 
     void initDateAndUpdate();
 
+    // TODO: FIXME
+    void restoreUser();
+
     void message(QString text, QLightDM::Greeter::MessageType type);
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
