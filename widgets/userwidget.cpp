@@ -202,7 +202,7 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
     }
 
     for (UserButton *btn : m_availableUserButtons) {
-        btn->setButtonChecked(list.contains(btn->userInfo()->uid()));
+        btn->userInfo()->setisLogind(list.contains(btn->userInfo()->uid()));
     }
 
     return;
@@ -331,6 +331,7 @@ void UserWidget::onUserChoosed()
 
     clickedButton->show();
     clickedButton->setSelected(false);
+    clickedButton->setLoginChecked(false);
 
     releaseKeyboard();
 
@@ -400,6 +401,8 @@ void UserWidget::expandWidget()
 //        } else {
 //            userButton->setButtonChecked(false);
 //        }
+
+        userButton->setLoginChecked(userButton->userInfo()->isLogin());
 
         userButton->stopAnimation();
         userButton->show();

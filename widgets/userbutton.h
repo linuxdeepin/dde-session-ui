@@ -77,7 +77,7 @@ signals:
 
 public slots:
     void setImageSize(const AvatarSize &avatarsize);
-    void setButtonChecked(bool checked);
+    void setLoginChecked(bool checked);
 
     void show();
     void hide();

@@ -334,7 +334,7 @@ void UserButton::setCustomEffect() {
     setGraphicsEffect(m_opacityEffect);
 }
 
-void UserButton::setButtonChecked(bool checked) {
+void UserButton::setLoginChecked(bool checked) {
     m_checkedMark->setVisible(checked);
 }
 

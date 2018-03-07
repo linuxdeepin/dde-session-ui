@@ -65,6 +65,8 @@ public:
     bool isLogin() const { return m_isLogind; }
     uint uid() const { return m_uid; }
 
+    void setisLogind(bool isLogind) { m_isLogind = isLogind; }
+
     virtual UserType type() const = 0;
     virtual QString avatarPath() const = 0;
     virtual QString greeterBackgroundPath() const = 0;
