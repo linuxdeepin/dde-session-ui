@@ -45,7 +45,7 @@ public:
     MultiUsersWarningView(UserWidget *userWidget, QWidget *parent = 0);
     ~MultiUsersWarningView();
 
-    void setUsers(QStringList &users);
+    void setUsers(const QList<User *> &users);
 
     Actions action() const;
     void setAction(const Actions action);

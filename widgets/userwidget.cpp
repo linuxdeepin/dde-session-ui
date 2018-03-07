@@ -607,6 +607,19 @@ const QString UserWidget::currentContextUser()
     return QString(pws->pw_name);
 }
 
+const QList<User *> UserWidget::loginedUsers() const
+{
+    QList<User *> list;
+
+    for (User *user : m_availableUsers) {
+        if (user->isLogin()) {
+            list << user;
+        }
+    }
+
+    return list;
+}
+
 //const QString UserWidget::currentUser()
 //{
 //    return m_availableUserButtons.first()->userInfo()->name();

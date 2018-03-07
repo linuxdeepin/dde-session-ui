@@ -91,17 +91,17 @@ MultiUsersWarningView::~MultiUsersWarningView()
 {
 }
 
-void MultiUsersWarningView::setUsers(QStringList &users)
+void MultiUsersWarningView::setUsers(const QList<User *> &users)
 {
     m_userList->setFixedSize(UserListItemSize.width(),
                              UserListItemSize.height() * qMin(users.length(), 4));
 
-    for (QString user : users) {
+    for (User *user : users) {
         QListWidgetItem * item = new QListWidgetItem;
         m_userList->addItem(item);
 
-//        QString icon = getUserIcon(m_userWidget->getUserAvatar(user));
-//        m_userList->setItemWidget(item, new UserListItem(icon, m_userWidget->getDisplayName(user)));
+        QString icon = getUserIcon(user->avatarPath());
+        m_userList->setItemWidget(item, new UserListItem(icon, user->name()));
     }
 }
 

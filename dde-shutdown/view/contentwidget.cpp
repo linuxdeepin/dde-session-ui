@@ -250,107 +250,108 @@ void ContentWidget::disableBtn(const QString &btnName)
 
 void ContentWidget::beforeInvokeAction(const Actions action)
 {
-//    const QString inhibitReason = getInhibitReason();
-//    QStringList loggedInUsers = m_userWidget->getLoggedInUsers();
+    const QString inhibitReason = getInhibitReason();
 
-//    // change ui
-//    if (m_confirm || !inhibitReason.isEmpty() || loggedInUsers.length() > 1)
-//    {
-//        for (RoundItemButton* btn : *m_btnsList) {
-//            btn->hide();
-//        }
+    const QList<User *> &loginUsers = m_userWidget->loginedUsers();
 
-//        if (m_warningView != nullptr) {
-//            m_mainLayout->removeWidget(m_warningView);
-//            m_warningView->deleteLater();
-//            m_warningView = nullptr;
-//        }
-//    }
+    // change ui
+    if (m_confirm || !inhibitReason.isEmpty() || loginUsers.length() > 1)
+    {
+        for (RoundItemButton* btn : *m_btnsList) {
+            btn->hide();
+        }
+
+        if (m_warningView != nullptr) {
+            m_mainLayout->removeWidget(m_warningView);
+            m_warningView->deleteLater();
+            m_warningView = nullptr;
+        }
+    }
 
 
-//    if (!inhibitReason.isEmpty() && action != Logout)
-//    {
-//        InhibitWarnView *view = new InhibitWarnView;
-//        view->setAction(action);
-//        view->setInhibitReason(inhibitReason);
-//        view->setAcceptVisible(false);
-//        if (action == Shutdown)
-//            view->setAcceptReason(tr("Shut down"));
-//        else if (action == Restart)
-//            view->setAcceptReason(tr("Reboot"));
-//        else
-//            Q_UNREACHABLE();
+    if (!inhibitReason.isEmpty() && action != Logout)
+    {
+        InhibitWarnView *view = new InhibitWarnView;
+        view->setAction(action);
+        view->setInhibitReason(inhibitReason);
+        view->setAcceptVisible(false);
+        if (action == Shutdown)
+            view->setAcceptReason(tr("Shut down"));
+        else if (action == Restart)
+            view->setAcceptReason(tr("Reboot"));
+        else
+            Q_UNREACHABLE();
 
-//        m_warningView = view;
-//        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+        m_warningView = view;
+        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
-//        connect(view, &InhibitWarnView::cancelled, this, &ContentWidget::onCancel);
-//        connect(view, &InhibitWarnView::actionInvoked, [this, action] {
-//             shutDownFrameActions(action);
-//        });
+        connect(view, &InhibitWarnView::cancelled, this, &ContentWidget::onCancel);
+        connect(view, &InhibitWarnView::actionInvoked, [this, action] {
+             shutDownFrameActions(action);
+        });
 
-//        m_warningView->show();
-//        m_warningView->raise();
+        m_warningView->show();
+        m_warningView->raise();
 
-//        return;
-//    }
+        return;
+    }
 
-//    if (loggedInUsers.length() > 1 && action != Logout) {
+    if (loginUsers.length() > 1 && action != Logout) {
 
-//        MultiUsersWarningView *view = new MultiUsersWarningView(m_userWidget);
-//        view->setUsers(loggedInUsers);
-//        view->setAction(action);
-//        m_warningView = view;
-//        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+        MultiUsersWarningView *view = new MultiUsersWarningView(m_userWidget);
+        view->setUsers(loginUsers);
+        view->setAction(action);
+        m_warningView = view;
+        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
-//        connect(view, &MultiUsersWarningView::cancelled, this, &ContentWidget::onCancel);
-//        connect(view, &MultiUsersWarningView::actionInvoked, [this, action] {
-//             shutDownFrameActions(action);
-//        });
+        connect(view, &MultiUsersWarningView::cancelled, this, &ContentWidget::onCancel);
+        connect(view, &MultiUsersWarningView::actionInvoked, [this, action] {
+             shutDownFrameActions(action);
+        });
 
-//        m_warningView->show();
+        m_warningView->show();
 
-//        return;
-//    }
+        return;
+    }
 
-//    if (m_confirm)
-//    {
-//        m_confirm = false;
+    if (m_confirm)
+    {
+        m_confirm = false;
 
-//        InhibitWarnView *view = new InhibitWarnView;
-//        view->setAction(action);
-//        if (action == Shutdown)
-//        {
-//            view->setAcceptReason(tr("Shut down"));
-//            view->setInhibitReason(tr("Are you sure to shut down?"));
-//        }
-//        else if (action == Restart)
-//        {
-//            view->setAcceptReason(tr("Reboot"));
-//            view->setInhibitReason(tr("Are you sure to reboot?"));
-//        }
-//        else if (action == Logout)
-//        {
-//            view->setAcceptReason(tr("Log out"));
-//            view->setInhibitReason(tr("Are you sure to log out?"));
-//        }
+        InhibitWarnView *view = new InhibitWarnView;
+        view->setAction(action);
+        if (action == Shutdown)
+        {
+            view->setAcceptReason(tr("Shut down"));
+            view->setInhibitReason(tr("Are you sure to shut down?"));
+        }
+        else if (action == Restart)
+        {
+            view->setAcceptReason(tr("Reboot"));
+            view->setInhibitReason(tr("Are you sure to reboot?"));
+        }
+        else if (action == Logout)
+        {
+            view->setAcceptReason(tr("Log out"));
+            view->setInhibitReason(tr("Are you sure to log out?"));
+        }
 
-//        m_warningView = view;
+        m_warningView = view;
 
-//        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 
-//        connect(view, &InhibitWarnView::cancelled, this, &ContentWidget::onCancel);
-//        connect(view, &InhibitWarnView::actionInvoked, [this, action] {
-//             shutDownFrameActions(action);
-//        });
+        connect(view, &InhibitWarnView::cancelled, this, &ContentWidget::onCancel);
+        connect(view, &InhibitWarnView::actionInvoked, [this, action] {
+             shutDownFrameActions(action);
+        });
 
-//        m_warningView->show();
-//        m_warningView->raise();
+        m_warningView->show();
+        m_warningView->raise();
 
-//        return;
-//    }
+        return;
+    }
 
-//     shutDownFrameActions(action);
+     shutDownFrameActions(action);
 }
 
 void ContentWidget::hideToplevelWindow()
