@@ -72,6 +72,8 @@ public:
     virtual QString avatarPath() const = 0;
     virtual QString greeterBackgroundPath() const = 0;
     virtual QString desktopBackgroundPath() const = 0;
+    virtual QStringList kbLayout() { return QStringList(); }
+    virtual QString layout() { return QString(); }
 
 protected:
     bool m_isLogind;
@@ -91,6 +93,8 @@ public:
     QString avatarPath() const;
     QString greeterBackgroundPath() const;
     QString desktopBackgroundPath() const;
+    QStringList kbLayout();
+    QString layout();
 
     const QString path() const { return m_userPath; }
 

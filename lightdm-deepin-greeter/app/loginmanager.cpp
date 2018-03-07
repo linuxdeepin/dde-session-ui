@@ -357,7 +357,6 @@ void LoginManager::initUI()
 
     setLayout(m_Layout);
 
-    m_passWdEdit->updateKeyboardStatus();
     keyboardLayoutUI();
 
     m_controlWidget->setSessionSwitchEnable(m_sessionWidget->sessionCount() > 1);
@@ -699,7 +698,7 @@ void LoginManager::showShutdownFrame() {
     qDebug() << "showShutdownFrame!";
 //    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
-//    m_passWdEdit->hide();
+    m_passWdEdit->hide();
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_requireShutdownWidget->show();
@@ -707,10 +706,14 @@ void LoginManager::showShutdownFrame() {
 }
 
 void LoginManager::keyboardLayoutUI() {
-//    m_passWdEdit->updateKeybdLayoutUI(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
+
     m_keybdLayoutWidget = new KbLayoutWidget;
-//    m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
-//    m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
+    m_keybdLayoutWidget->setDefault(m_userWidget->currentUser()->layout());
+
+    const QStringList &kblayout = m_userWidget->currentUser()->kbLayout();
+
+    m_keybdLayoutWidget->updateButtonList(kblayout);
+    m_passWdEdit->updateKeybdLayoutUI(kblayout);
 
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
     m_keybdArrowWidget->setBackgroundColor(QColor::fromRgbF(1, 1, 1, 0.15));

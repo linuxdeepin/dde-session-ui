@@ -859,6 +859,16 @@ QString NativeUser::desktopBackgroundPath() const
     return m_userInter->desktopBackgrounds().first();
 }
 
+QStringList NativeUser::kbLayout()
+{
+    return m_userInter->historyLayout();
+}
+
+QString NativeUser::layout()
+{
+    return m_userInter->layout();
+}
+
 ADDomainUser::ADDomainUser(int uid, QObject *parent)
     : User(parent)
 {

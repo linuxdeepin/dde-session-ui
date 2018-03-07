@@ -251,9 +251,10 @@ void LockManager::showEvent(QShowEvent *event)
 
     m_passwordEdit->setMessage("");
 
-//    m_passwordEdit->updateKeybdLayoutUI(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
-//    m_keybdLayoutWidget->updateButtonList(m_userWidget->getUserKBHistory(m_userWidget->currentUser()));
-//    m_keybdLayoutWidget->setDefault(m_userWidget->getUserKBLayout(m_userWidget->currentUser()));
+    const QStringList &kblayout = m_userWidget->currentUser()->kbLayout();
+    m_passwordEdit->updateKeybdLayoutUI(kblayout);
+    m_keybdLayoutWidget->updateButtonList(kblayout);
+    m_keybdLayoutWidget->setDefault(m_userWidget->currentUser()->layout());
 
     // hide dde-control-center
     DBusControlCenter *DCCInter = new DBusControlCenter;
