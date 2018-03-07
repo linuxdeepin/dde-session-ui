@@ -838,6 +838,11 @@ NativeUser::NativeUser(const QString &path, QObject *parent)
     m_uid = m_userInter->uid().toInt();
 }
 
+void NativeUser::setCurrentLayout(const QString &layout)
+{
+    m_userInter->SetLayout(layout);
+}
+
 QString NativeUser::displayName() const
 {
     const QString &fullname = m_userInter->fullName();
@@ -859,12 +864,12 @@ QString NativeUser::desktopBackgroundPath() const
     return m_userInter->desktopBackgrounds().first();
 }
 
-QStringList NativeUser::kbLayout()
+QStringList NativeUser::kbLayoutList()
 {
     return m_userInter->historyLayout();
 }
 
-QString NativeUser::layout()
+QString NativeUser::currentKBLayout()
 {
     return m_userInter->layout();
 }

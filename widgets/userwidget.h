@@ -66,14 +66,15 @@ public:
     uint uid() const { return m_uid; }
 
     void setisLogind(bool isLogind) { m_isLogind = isLogind; }
+    virtual void setCurrentLayout(const QString &layout) { Q_UNUSED(layout); }
 
     virtual UserType type() const = 0;
     virtual QString displayName() const { return m_userName; }
     virtual QString avatarPath() const = 0;
     virtual QString greeterBackgroundPath() const = 0;
     virtual QString desktopBackgroundPath() const = 0;
-    virtual QStringList kbLayout() { return QStringList(); }
-    virtual QString layout() { return QString(); }
+    virtual QStringList kbLayoutList() { return QStringList(); }
+    virtual QString currentKBLayout() { return QString(); }
 
 protected:
     bool m_isLogind;
@@ -88,13 +89,15 @@ class NativeUser : public User
 public:
     NativeUser(const QString &path, QObject *parent = nullptr);
 
+    void setCurrentLayout(const QString &currentKBLayout);
+
     UserType type() const { return Native; }
     QString displayName() const;
     QString avatarPath() const;
     QString greeterBackgroundPath() const;
     QString desktopBackgroundPath() const;
-    QStringList kbLayout();
-    QString layout();
+    QStringList kbLayoutList();
+    QString currentKBLayout();
 
     const QString path() const { return m_userPath; }
 

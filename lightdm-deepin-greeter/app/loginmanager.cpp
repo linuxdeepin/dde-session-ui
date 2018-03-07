@@ -708,9 +708,9 @@ void LoginManager::showShutdownFrame() {
 void LoginManager::keyboardLayoutUI() {
 
     m_keybdLayoutWidget = new KbLayoutWidget;
-    m_keybdLayoutWidget->setDefault(m_userWidget->currentUser()->layout());
+    m_keybdLayoutWidget->setDefault(m_userWidget->currentUser()->currentKBLayout());
 
-    const QStringList &kblayout = m_userWidget->currentUser()->kbLayout();
+    const QStringList &kblayout = m_userWidget->currentUser()->kbLayoutList();
 
     m_keybdLayoutWidget->updateButtonList(kblayout);
     m_passWdEdit->updateKeybdLayoutUI(kblayout);
@@ -737,7 +737,7 @@ void LoginManager::keyboardLayoutUI() {
 
 void LoginManager::setCurrentKeybdLayoutList(QString keyboard_value)
 {
-//    m_userWidget->setUserKBlayout(m_userWidget->currentUser(), keyboard_value);
+    m_userWidget->currentUser()->setCurrentLayout(keyboard_value);
 }
 
 void LoginManager::keybdLayoutWidgetPosit() {
