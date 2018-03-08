@@ -289,14 +289,18 @@ void LoginManager::resizeEvent(QResizeEvent *e)
 void LoginManager::mousePressEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton) {
-        if (!m_requireShutdownWidget->isHidden()) {
-            m_requireShutdownWidget->hide();
-            m_userWidget->show();
-//            updateUserLoginCondition(m_userWidget->currentUser());
-        }
+        m_requireShutdownWidget->hide();
+        m_sessionWidget->hide();
+        m_keybdArrowWidget->hide();
 
-        if (m_keybdArrowWidget->isHidden()) {
-            m_keybdArrowWidget->hide();
+        m_userWidget->show();
+        m_userWidget->restoreUser(m_currentUser);
+
+        // Special processing: AD user login
+        if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
+            m_otherUserInput->show();
+        } else {
+            m_passWdEdit->show();
         }
     }
 }
@@ -794,23 +798,23 @@ void LoginManager::keybdLayoutWidgetPosit() {
 void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
 
     switch (action) {
-        case ShutdownWidget::RequireShutdown: { m_login1ManagerInterface->PowerOff(true); break;}
-        case ShutdownWidget::RequireRestart: { m_login1ManagerInterface->Reboot(true); break;}
-        case ShutdownWidget::RequireSuspend: { m_login1ManagerInterface->Suspend(true);
+    case ShutdownWidget::RequireShutdown: { m_login1ManagerInterface->PowerOff(true); break;}
+    case ShutdownWidget::RequireRestart: { m_login1ManagerInterface->Reboot(true); break;}
+    case ShutdownWidget::RequireSuspend: { m_login1ManagerInterface->Suspend(true);
 
-            m_requireShutdownWidget->hide();
-            m_userWidget->show();
-            m_sessionWidget->hide();
+        m_requireShutdownWidget->hide();
+        m_userWidget->show();
+        m_sessionWidget->hide();
+        m_userWidget->restoreUser(m_currentUser);
 
-            // Special processing: AD user login
-            if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
-                m_otherUserInput->show();
-            } else {
-                m_passWdEdit->show();
-            }
-//            updateUserLoginCondition(m_userWidget->currentUser());
+        // Special processing: AD user login
+        if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
+            m_otherUserInput->show();
+        } else {
+            m_passWdEdit->show();
+        }
         break;}
-        default:;
+    default:;
     }
 }
 

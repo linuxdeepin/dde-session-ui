@@ -284,7 +284,9 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 
     updateAllADUserInfo();
 
-    emit userCountChanged(m_availableUserButtons.size());
+    QTimer::singleShot(1, this, [=] {
+        emit userCountChanged(m_availableUserButtons.size());
+    });
 
     return;
 
