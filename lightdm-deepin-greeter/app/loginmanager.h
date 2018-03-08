@@ -72,7 +72,6 @@ public slots:
     /*Update the position of the widgets after finished the layout of ui*/
     void updateWidgetsPosition();
     void updateBackground(QString username);
-    void updateUserLoginCondition(QString username);
 
     void startSession();
 
@@ -119,10 +118,18 @@ private:
     void restoreNumlockStatus();
 
     void onWallpaperBlurFinished(const QString &source, const QString &blur, bool status);
+    void updatePasswordEditVisible(User *user);
+    bool checkUserIsNoGrp(User *user);
 
     enum UserState {
         Password,
         NoPassword
+    };
+
+    enum LayoutState {
+        LoginState,
+        PowerState,
+        SessionState
     };
 
     LogoWidget* m_logoWidget;
@@ -152,6 +159,7 @@ private:
     QString m_passwdStr;
     ImageBlur *m_blurImageInter;
     User *m_currentUser;
+    LayoutState m_layoutState;
 };
 #endif // LoginManager
 

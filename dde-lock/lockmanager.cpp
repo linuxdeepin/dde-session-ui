@@ -56,6 +56,8 @@ LockManager::LockManager(QWidget *parent)
     initBackend();
     updateUI();
 
+    m_layoutState = UnlockState;
+
     QTimer::singleShot(1, this, [=] {
         onCurrentUserChanged(m_userWidget->currentUser());
     });
@@ -204,6 +206,8 @@ void LockManager::updateWidgetsPosition()
 
 void LockManager::chooseUserMode()
 {
+    m_layoutState = UsersState;
+
     m_passwordEdit->hide();
     m_unlockButton->hide();
     m_userWidget->show();
@@ -250,7 +254,7 @@ void LockManager::showEvent(QShowEvent *event)
     m_keybdArrowWidget->hide();
 
     // check user is nopassword group
-    checkUserIsNoPWGrp();
+    updatePasswordEditVisible(m_currentUser);
 
 //    updateBackground(m_activatedUser);
 
@@ -281,19 +285,20 @@ void LockManager::resizeEvent(QResizeEvent *event)
 void LockManager::mouseReleaseEvent(QMouseEvent *e)
 {
     qDebug() << "ReleaseEvent";
+
     m_action = Unlock;
 
-    if (!m_userWidget->isChooseUserMode) {
+    if (m_layoutState != UnlockState) {
+        m_layoutState = UnlockState;
         passwordMode();
-    }
-
-    if (e->button() == Qt::LeftButton) {
         if (!m_keybdArrowWidget->isHidden()) {
             m_keybdArrowWidget->hide();
         }
 
         m_passwordEdit->setMessage("");
     }
+
+    QFrame::mouseReleaseEvent(e);
 }
 
 void LockManager::unlock()
@@ -375,42 +380,51 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
     }
 }
 
-void LockManager::checkUserIsNoPWGrp()
+bool LockManager::checkUserIsNoPWGrp(User *user)
 {
-//    QProcess p;
-//    p.start("groups", QStringList(m_userWidget->currentUser()));
-//    p.waitForFinished();
+    if (user->type() == User::ADDomain) {
+        return false;
+    }
 
-//    QString output = p.readAllStandardOutput().trimmed();
-//    QStringList tokens = output.split(":");
-//    if (tokens.length() > 1) {
-//        QStringList groups = tokens.at(1).split(" ");
-//        qDebug() << groups;
+    QProcess p;
+    p.start("groups", QStringList() << user->name());
+    p.waitForFinished();
 
-//        if (groups.contains("nopasswdlogin")) {
-//            m_passwordEdit->setVisible(false);
-//            m_unlockButton->show();
-//            m_userState = NoPasswd;
-//        } else {
-//            m_lockInter->AuthenticateUser(m_activatedUser);
-//            m_unlockButton->setVisible(false);
-//            m_passwordEdit->show();
-//            m_userState = Passwd;
-//        }
+    QString output = p.readAllStandardOutput().trimmed();
+    QStringList tokens = output.split(":");
+    if (tokens.length() > 1) {
+        QStringList groups = tokens.at(1).split(" ");
+        qDebug() << groups;
+        return groups.contains("nopasswdlogin");
+    }
 
-//        return;
-    //    }
+    return false;
+}
+
+void LockManager::updatePasswordEditVisible(User *user)
+{
+    if (checkUserIsNoPWGrp(user)) {
+        m_passwordEdit->setVisible(false);
+        m_unlockButton->show();
+        m_userState = NoPasswd;
+    } else {
+        m_lockInter->AuthenticateUser(user->name());
+        m_unlockButton->setVisible(false);
+        m_passwordEdit->show();
+        m_userState = Passwd;
+    }
 }
 
 void LockManager::onCurrentUserChanged(User *user)
 {
-    m_passwordEdit->show();
     m_requireShutdownWidget->hide();
 
     if (user->name() != m_userWidget->currentContextUser()) {
         switchToUser(user);
         return;
     }
+
+    updatePasswordEditVisible(m_currentUser);
 
     const QUrl url(user->desktopBackgroundPath());
     if (url.isLocalFile()) {
@@ -422,7 +436,7 @@ void LockManager::onCurrentUserChanged(User *user)
 
 void LockManager::switchToUser(User *user)
 {
-    m_passwordEdit->show();
+    updatePasswordEditVisible(m_currentUser);
     m_requireShutdownWidget->hide();
 
     m_userWidget->restoreUser(m_currentUser);
@@ -521,11 +535,11 @@ void LockManager::setCurrentKeyboardLayout(QString keyboard_value)
 
 void LockManager::passwordMode()
 {
-//    m_userWidget->setCurrentUser(m_activatedUser);
+    m_userWidget->restoreUser(m_currentUser);
     m_userWidget->show();
     m_requireShutdownWidget->hide();
 
-    checkUserIsNoPWGrp();
+    updatePasswordEditVisible(m_currentUser);
 
     if (m_action == Suspend) {
         m_sessionManagerIter->RequestSuspend().waitForFinished();
@@ -558,7 +572,8 @@ void LockManager::passwordMode()
 
 void LockManager::shutdownMode()
 {
-//    m_userWidget->chooseButtonChecked();
+    m_layoutState = PowerState;
+
     m_userWidget->hide();
     m_passwordEdit->hide();
     m_unlockButton->hide();

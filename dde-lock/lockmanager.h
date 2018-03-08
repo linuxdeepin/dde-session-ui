@@ -98,7 +98,8 @@ private:
     void initBackend();
     void unlock();
     void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
-    void checkUserIsNoPWGrp();
+    bool checkUserIsNoPWGrp(User *user);
+    void updatePasswordEditVisible(User *user);
     void onCurrentUserChanged(User *user);
     void switchToUser(User *user);
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
@@ -110,6 +111,13 @@ private:
     enum UserState {
         Passwd,
         NoPasswd
+    };
+
+
+    enum LayoutState {
+        UnlockState,
+        PowerState,
+        UsersState
     };
 
 private:
@@ -137,6 +145,7 @@ private:
     bool m_isThumbAuth = false;
 
     UserState m_userState;
+    LayoutState m_layoutState;
 
     // refactor
     User *m_currentUser;

@@ -161,6 +161,8 @@ LoginManager::LoginManager(QWidget* parent)
     initConnect();
     initDateAndUpdate();
 
+    m_layoutState = LoginState;
+
     m_keyboardMonitor->start(QThread::LowestPriority);
 
     QTimer::singleShot(1, this, &LoginManager::updateWidgetsPosition);
@@ -214,13 +216,14 @@ void LoginManager::updateBackground(QString username)
 //    emit requestBackground(m_userWidget->getUserGreeterBackground(username));
 }
 
-void LoginManager::updateUserLoginCondition(QString username)
+bool LoginManager::checkUserIsNoGrp(User *user)
 {
-    m_loginButton->setVisible(false);
-    m_passWdEdit->setVisible(false);
+    if (user->type() == User::ADDomain) {
+        return false;
+    }
 
     QProcess p;
-    p.start("groups", QStringList(username));
+    p.start("groups", QStringList() << user->name());
     p.waitForFinished();
 
     QString output = p.readAllStandardOutput().trimmed();
@@ -229,16 +232,10 @@ void LoginManager::updateUserLoginCondition(QString username)
         QStringList groups = tokens.at(1).split(" ");
         qDebug() << groups;
 
-        if (groups.contains("nopasswdlogin")) {
-            m_loginButton->show();
-            m_loginButton->setFocus();
-            m_userState = NoPassword;
-        } else {
-            m_passWdEdit->show();
-            m_userState = Password;
-//            m_greeter->authenticate(m_userWidget->currentUser());
-        }
+        return groups.contains("nopasswdlogin");
     }
+
+    return false;
 }
 
 void LoginManager::startSession()
@@ -288,7 +285,11 @@ void LoginManager::resizeEvent(QResizeEvent *e)
 
 void LoginManager::mousePressEvent(QMouseEvent *e)
 {
-    if (e->button() == Qt::LeftButton) {
+    // Restore All widget visible state
+
+    if (m_layoutState != LoginState) {
+        m_layoutState = LoginState;
+
         m_requireShutdownWidget->hide();
         m_sessionWidget->hide();
         m_keybdArrowWidget->hide();
@@ -300,9 +301,11 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
         if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
             m_otherUserInput->show();
         } else {
-            m_passWdEdit->show();
+            updatePasswordEditVisible(m_currentUser);
         }
     }
+
+    QFrame::mousePressEvent(e);
 }
 
 void LoginManager::initUI()
@@ -631,6 +634,8 @@ void LoginManager::onCurrentUserChanged(User *user)
     // TODO: update current user information
 
     m_currentUser = user;
+    m_requireShutdownWidget->hide();
+    m_keybdArrowWidget->hide();
 
     const QUrl url(user->desktopBackgroundPath());
     if (url.isLocalFile()) {
@@ -649,9 +654,9 @@ void LoginManager::onCurrentUserChanged(User *user)
         return;
     }
 
-    m_sessionWidget->switchToUser(user->name());
+    updatePasswordEditVisible(user);
 
-    m_passWdEdit->show();
+    m_sessionWidget->switchToUser(user->name());
 
 
 //    updateUserLoginCondition(user->name());
@@ -680,7 +685,8 @@ void LoginManager::onCurrentUserChanged(User *user)
 
 void LoginManager::switchToLogindUser(User *user)
 {
-    m_passWdEdit->show();
+    updatePasswordEditVisible(m_currentUser);
+
     m_requireShutdownWidget->hide();
 
     QProcess::startDetached("dde-switchtogreeter", QStringList() << user->name());
@@ -703,8 +709,11 @@ void LoginManager::chooseUserMode()
 
 void LoginManager::chooseSessionMode()
 {
+    qDebug() << "choose Session mode !";
+
+    m_layoutState = SessionState;
+
     m_sessionWidget->show();
-//    m_userWidget->chooseButtonChecked();
     m_userWidget->hide();
     m_passWdEdit->hide();
     m_loginButton->hide();
@@ -719,12 +728,13 @@ void LoginManager::choosedSession() {
     m_requireShutdownWidget->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
+    m_userWidget->restoreUser(m_currentUser);
 
     // Special processing: AD user login
     if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
         m_otherUserInput->show();
     } else {
-        m_passWdEdit->show();
+        updatePasswordEditVisible(m_currentUser);
     }
 //    updateUserLoginCondition(m_userWidget->currentUser());
 
@@ -735,7 +745,9 @@ void LoginManager::choosedSession() {
 
 void LoginManager::showShutdownFrame() {
     qDebug() << "showShutdownFrame!";
-//    m_userWidget->chooseButtonChecked();
+
+    m_layoutState = PowerState;
+
     m_userWidget->hide();
     m_passWdEdit->hide();
     m_loginButton->hide();
@@ -810,7 +822,7 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
         if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
             m_otherUserInput->show();
         } else {
-            m_passWdEdit->show();
+            updatePasswordEditVisible(m_currentUser);
         }
         break;}
     default:;
@@ -843,5 +855,21 @@ void LoginManager::onWallpaperBlurFinished(const QString &source, const QString 
 
     if (status && m_userWidget->currentUser()->desktopBackgroundPath() == sourcePath)
         emit requestBackground(blur);
+}
+
+void LoginManager::updatePasswordEditVisible(User *user)
+{
+    m_loginButton->setVisible(false);
+    m_passWdEdit->setVisible(false);
+
+    if (checkUserIsNoGrp(user)) {
+        m_passWdEdit->hide();
+        m_loginButton->show();
+        m_loginButton->setFocus();
+        m_userState = NoPassword;
+    } else {
+        m_passWdEdit->show();
+        m_userState = Password;
+    }
 }
 
