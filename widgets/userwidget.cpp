@@ -72,7 +72,7 @@ UserWidget::UserWidget(QWidget* parent)
 
     if (process.readAll().contains("Name:")) {
         ADDomainUser *user = new ADDomainUser(0);
-        user->setUserName(tr("AD Domain"));
+        user->setUserDisplayName(tr("AD Domain"));
         user->setisLogind(false);
         appendUser(user);
     }
@@ -705,7 +705,7 @@ void UserWidget::updateAllADUserInfo()
         if (user->type() == User::ADDomain) {
             ADDomainUser *adUser = qobject_cast<ADDomainUser*>(user);
             if (adUserList.keys().contains(adUser->uid())) {
-                adUser->setUserName(adUserList[adUser->uid()]);
+                adUser->setUserDisplayName(adUserList[adUser->uid()]);
             }
         }
     }
@@ -906,9 +906,15 @@ ADDomainUser::ADDomainUser(int uid, QObject *parent)
     m_uid = uid;
 }
 
-void ADDomainUser::setUserName(const QString &name)
+void ADDomainUser::setUserDisplayName(const QString &name)
 {
+    if (m_userName == name) {
+        return;
+    }
+
     m_userName = name;
+
+    emit displayNameChanged(name);
 }
 
 QString ADDomainUser::avatarPath() const

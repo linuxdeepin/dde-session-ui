@@ -9,6 +9,7 @@
 
 DWIDGET_USE_NAMESPACE
 
+class KeyboardMonitor;
 class OtherUserInput : public QFrame
 {
     Q_OBJECT
@@ -25,6 +26,9 @@ public slots:
     void setAlert(const QString &alert);
     void setAccount(const QString &username);
 
+protected:
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+
 private:
     void initUI();
     void initConnect();
@@ -34,6 +38,8 @@ private:
     QLineEdit *m_passwdEdit;
     DImageButton *m_submitBtn;
     ErrorTooltip *m_errorTip;
+    QLabel *m_capslockWarning;
+    KeyboardMonitor *m_capslockMonitor;
 };
 
 #endif // OTHERUSERINPUT_H

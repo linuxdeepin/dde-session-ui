@@ -1,12 +1,17 @@
 #include "otheruserinput.h"
 #include "util_updateui.h"
 #include "constants.h"
+#include "keyboardmonitor.h"
+#include "public_func.h"
 
 #include <QVBoxLayout>
 
 OtherUserInput::OtherUserInput(QWidget *parent)
     : QFrame(parent)
+    , m_capslockMonitor(KeyboardMonitor::instance())
 {
+    m_capslockMonitor->start(QThread::LowestPriority);
+
     initUI();
     initConnect();
 }
@@ -32,6 +37,13 @@ void OtherUserInput::setAccount(const QString &username)
     m_accountEdit->setText(username);
 }
 
+void OtherUserInput::showEvent(QShowEvent *event)
+{
+    QFrame::showEvent(event);
+
+    m_accountEdit->setFocus();
+}
+
 void OtherUserInput::initUI()
 {
     m_errorTip = new ErrorTooltip("", this->parentWidget());
@@ -44,9 +56,9 @@ void OtherUserInput::initUI()
 
     m_accountEdit = new QLineEdit;
     m_passwdEdit = new QLineEdit;
-    m_submitBtn = new DImageButton(":/img/action_icons/unlock_normal.svg",
-                                   ":/img/action_icons/unlock_hover.svg",
-                                   ":/img/action_icons/unlock_press.svg", this);
+    m_submitBtn = new DImageButton(":/img/action_icons/login_normal.svg",
+                                   ":/img/action_icons/login_hover.svg",
+                                   ":/img/action_icons/login_press.svg", this);
 
     m_accountEdit->setObjectName("accountEdit");
     m_passwdEdit->setObjectName("passwdEdit");
@@ -68,10 +80,18 @@ void OtherUserInput::initUI()
     accountWidget->setLayout(accountLayout);
     accountWidget->setObjectName("accountWidget");
 
+    m_capslockWarning = new QLabel(this);
+    m_capslockWarning->setVisible(m_capslockMonitor->isCapslockOn());
+    m_capslockWarning->setFixedSize(DDESESSIONCC::CapslockWarningWidth,
+                                    DDESESSIONCC::CapslockWarningWidth);
+    m_capslockWarning->setPixmap(loadPixmap(":/img/capslock.svg"));
+
     QHBoxLayout *passwdLayout = new QHBoxLayout;
     passwdLayout->setMargin(5);
     passwdLayout->setSpacing(0);
     passwdLayout->addWidget(m_passwdEdit);
+    passwdLayout->addSpacing(1);
+    passwdLayout->addWidget(m_capslockWarning);
     passwdLayout->addSpacing(1);
     passwdLayout->addWidget(m_submitBtn);
 
@@ -94,4 +114,6 @@ void OtherUserInput::initUI()
 void OtherUserInput::initConnect()
 {
     connect(m_submitBtn, &DImageButton::clicked, this, &OtherUserInput::submit);
+    connect(m_passwdEdit, &QLineEdit::returnPressed, this, &OtherUserInput::submit);
+    connect(m_capslockMonitor, &KeyboardMonitor::capslockStatusChanged, m_capslockWarning, &QLabel::setVisible);
 }

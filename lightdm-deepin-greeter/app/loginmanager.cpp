@@ -154,6 +154,7 @@ LoginManager::LoginManager(QWidget* parent)
     , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
+    , m_currentUser(nullptr)
 {
     initUI();
     initData();
@@ -206,8 +207,6 @@ void LoginManager::updateWidgetsPosition()
     m_requireShutdownWidget->setFixedWidth(w);
     m_requireShutdownWidget->setFixedHeight(300);
     m_requireShutdownWidget->move(0,  (h - m_requireShutdownWidget->height())/2 - 60);
-
-    m_passWdEdit->show();
 }
 
 void LoginManager::updateBackground(QString username)
@@ -492,7 +491,6 @@ void LoginManager::restoreUser()
         for (User * user : m_userWidget->allUsers()) {
             if (user->name() == m_lastUser) {
                 m_userWidget->restoreUser(user);
-                m_sessionWidget->switchToUser(m_lastUser);
                 onCurrentUserChanged(user);
                 break;
             }
@@ -629,6 +627,8 @@ void LoginManager::onCurrentUserChanged(User *user)
 
     // TODO: update current user information
 
+    m_currentUser = user;
+
     const QUrl url(user->desktopBackgroundPath());
     if (url.isLocalFile()) {
         emit requestBackground(m_blurImageInter->Get(url.path()));
@@ -716,8 +716,13 @@ void LoginManager::choosedSession() {
     m_requireShutdownWidget->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
-    m_passWdEdit->show();
 
+    // Special processing: AD user login
+    if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
+        m_otherUserInput->show();
+    } else {
+        m_passWdEdit->show();
+    }
 //    updateUserLoginCondition(m_userWidget->currentUser());
 
     if (!m_keybdArrowWidget->isHidden()) {
@@ -796,6 +801,13 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
             m_requireShutdownWidget->hide();
             m_userWidget->show();
             m_sessionWidget->hide();
+
+            // Special processing: AD user login
+            if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
+                m_otherUserInput->show();
+            } else {
+                m_passWdEdit->show();
+            }
 //            updateUserLoginCondition(m_userWidget->currentUser());
         break;}
         default:;

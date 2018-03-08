@@ -119,7 +119,7 @@ class ADDomainUser : public User
 public:
     ADDomainUser(int uid, QObject *parent = nullptr);
 
-    void setUserName(const QString &name);
+    void setUserDisplayName(const QString &name);
 
     UserType type() const { return ADDomain; }
     QString avatarPath() const;

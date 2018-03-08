@@ -151,6 +151,7 @@ private:
     QString m_accountStr;
     QString m_passwdStr;
     ImageBlur *m_blurImageInter;
+    User *m_currentUser;
 };
 #endif // LoginManager
 

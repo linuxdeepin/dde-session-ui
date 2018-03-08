@@ -148,8 +148,6 @@ void SessionWidget::switchToUser(const QString &userName)
     m_currentSessionIndex = sessionIndex(sessionName);
 
     qDebug() << userName << "default session is: " << sessionName << m_currentSessionIndex;
-
-    emit sessionChanged(currentSessionName());
 }
 
 void SessionWidget::onSessionButtonClicked()
