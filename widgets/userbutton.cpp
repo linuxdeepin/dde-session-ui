@@ -70,10 +70,16 @@ void UserButton::initUI()
     m_userAvatar->setFixedSize(120, 120);
 
     m_userNameLabel = new QLabel;
-    m_userNameLabel->setFixedSize(120, 30);
-    m_userNameLabel->setStyleSheet("text-align:center; color: white;");
 
+    QFont font(m_userNameLabel->font());
+    font.setPixelSize(16);
+    m_userNameLabel->setFont(font);
     m_userNameLabel->setText(m_user->displayName());
+    m_userNameLabel->setStyleSheet("QLabel {"
+                                   "text-align:center; "
+                                   "color: white;"
+                                   "}");
+
     m_userAvatar->setIcon(m_user->avatarPath());
 
     m_checkedMark = new QLabel;
@@ -82,39 +88,28 @@ void UserButton::initUI()
     m_checkedMark->setStyleSheet("background: url(\":/img/avatar_checked.png\"); margin-right: 10");
     m_checkedMark->setVisible(false);
 
-    QFont font(m_userNameLabel->font());
-    font.setPixelSize(16);
-    m_userNameLabel->setFont(font);
-    m_userNameLabel->setAlignment(Qt::AlignHCenter);
-
-    m_buttonLayout = new QHBoxLayout;
-    m_buttonLayout->setMargin(0);
-    m_buttonLayout->setSpacing(0);
-    m_buttonLayout->addStretch();
-    m_buttonLayout->addWidget(m_userAvatar);
-    m_buttonLayout->addStretch();
-
     m_nameLayout = new QHBoxLayout;
     m_nameLayout->setSpacing(0);
     m_nameLayout->setMargin(0);
     m_nameLayout->addStretch();
-    m_nameLayout->addWidget(m_checkedMark, 0, Qt::AlignVCenter);
-    m_nameLayout->addWidget(m_userNameLabel, 0, Qt::AlignVCenter);
+    m_nameLayout->addWidget(m_checkedMark);
+    m_nameLayout->addWidget(m_userNameLabel);
     m_nameLayout->addStretch();
 
-    m_Layout = new QVBoxLayout;
-    m_Layout->setMargin(0);
-    m_Layout->setSpacing(0);
-    m_Layout->addLayout(m_buttonLayout);
-    m_Layout->addLayout(m_nameLayout);
-    m_Layout->addStretch();
+    m_centralLayout = new QVBoxLayout;
+    m_centralLayout->setMargin(0);
+    m_centralLayout->setSpacing(0);
+    m_centralLayout->addWidget(m_userAvatar);
+    m_centralLayout->setAlignment(m_userAvatar, Qt::AlignHCenter);
+    m_centralLayout->addLayout(m_nameLayout);
+    m_centralLayout->addStretch();
 
     setStyleSheet("QPushButton {"
                   "background-color: transparent;"
                   "border: none;"
                   "}");
 
-    setLayout(m_Layout);
+    setLayout(m_centralLayout);
 
     m_opacityEffect = new QGraphicsOpacityEffect;
 

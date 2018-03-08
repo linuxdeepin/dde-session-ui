@@ -127,7 +127,7 @@ private:
     QLabel *m_checkedMark;
     QHBoxLayout* m_buttonLayout;
     QHBoxLayout *m_nameLayout;
-    QVBoxLayout* m_Layout;
+    QVBoxLayout* m_centralLayout;
 
     AvatarSize m_avatarsize = AvatarLargerSize;
     int m_borderWidth = 0;
