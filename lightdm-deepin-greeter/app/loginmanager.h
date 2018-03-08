@@ -128,6 +128,7 @@ private:
 
     enum LayoutState {
         LoginState,
+        UsersState,
         PowerState,
         SessionState
     };

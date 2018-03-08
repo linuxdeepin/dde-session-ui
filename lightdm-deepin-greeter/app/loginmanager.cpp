@@ -165,7 +165,7 @@ LoginManager::LoginManager(QWidget* parent)
 
     m_keyboardMonitor->start(QThread::LowestPriority);
 
-    QTimer::singleShot(1, this, &LoginManager::updateWidgetsPosition);
+    QTimer::singleShot(1, this, &LoginManager::restoreUser);
 
 //    const QString u = m_userWidget->currentUser();
 //    qDebug() << Q_FUNC_INFO << "current user: " << u;
@@ -506,6 +506,8 @@ void LoginManager::restoreUser()
     }
 
     QTimer::singleShot(1, this, &LoginManager::restoreNumlockStatus);
+
+    updateWidgetsPosition();
 }
 
 void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
@@ -699,6 +701,7 @@ void LoginManager::onUserCountChaged(int count)
 
 void LoginManager::chooseUserMode()
 {
+    m_layoutState = UsersState;
     m_passWdEdit->hide();
     m_loginButton->hide();
     m_sessionWidget->hide();
