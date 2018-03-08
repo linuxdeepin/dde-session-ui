@@ -253,13 +253,16 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 
     QList<int> logindUidList;
     for (const QString &userId : userList.keys()) {
-        if (checkHaveDisplay(userList[userId].toArray()) &&
-                !availableUidList.contains(userId.toInt())) {
+        const bool haveDisplay = checkHaveDisplay(userList[userId].toArray());
+        if (haveDisplay && !availableUidList.contains(userId.toInt())) {
             // Non existing users, created as AD users
             addAddomainUser(userId.toInt());
             availableUidList << userId.toInt();
         }
-        logindUidList << userId.toInt();
+        // skip not have display users
+        if (haveDisplay) {
+            logindUidList << userId.toInt();
+        }
     }
 
     // Remove the nonexistent button from the already-obtained id.
@@ -405,6 +408,7 @@ void UserWidget::onUserChoosed()
     // hide buttons
     for (UserButton *ub : m_availableUserButtons) {
         ub->move(rect().center() - ub->rect().center());
+        ub->setLoginIconVisible(false);
         ub->hide();
     }
 
@@ -426,7 +430,7 @@ void UserWidget::onUserChoosed()
         if (btn->userInfo() == m_currentUser) {
             btn->show();
             btn->setSelected(false);
-            btn->setLoginChecked(false);
+            btn->setLoginIconVisible(false);
             break;
         }
     }
@@ -496,7 +500,8 @@ void UserWidget::expandWidget()
 //            userButton->setButtonChecked(false);
 //        }
 
-        userButton->setLoginChecked(userButton->userInfo()->isLogin());
+        // Allow user button draw logind icon
+        userButton->setLoginIconVisible(true);
 
         userButton->stopAnimation();
         userButton->show();
@@ -552,7 +557,7 @@ void UserWidget::restoreUser(User *user)
            m_currentUser = user;
            btn->show();
            btn->setSelected(false);
-           btn->setLoginChecked(false);
+           btn->setLoginIconVisible(false);
        } else {
            btn->hide();
        }
@@ -620,7 +625,7 @@ void UserWidget::appendUser(User *user)
 
     userButton->hide();
     userButton->move(rect().center() - userButton->rect().center());
-    userButton->setLoginChecked(false);
+    userButton->setLoginIconVisible(false);
 
     m_availableUsers << user;
     m_availableUserButtons << userButton;
@@ -835,11 +840,26 @@ bool User::operator==(const User &user) const
             m_uid == user.m_uid;
 }
 
+void User::setisLogind(bool isLogind) {
+    if (m_isLogind == isLogind) {
+        return;
+    }
+
+    m_isLogind = isLogind;
+
+    emit logindChanged(isLogind);
+}
+
 NativeUser::NativeUser(const QString &path, QObject *parent)
     : User(parent)
 
     , m_userInter(new UserInter(ACCOUNT_DBUS_SERVICE, path, QDBusConnection::systemBus(), this))
 {
+    connect(m_userInter, &UserInter::IconFileChanged, this, &NativeUser::avatarChanged);
+    connect(m_userInter, &UserInter::FullNameChanged, this, [=] (const QString &fullname) {
+        emit displayNameChanged(fullname.isEmpty() ? m_userName : fullname);
+    });
+
     m_userName = m_userInter->userName();
     m_uid = m_userInter->uid().toInt();
 }

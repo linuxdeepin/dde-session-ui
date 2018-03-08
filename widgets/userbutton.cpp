@@ -41,6 +41,8 @@ UserButton::UserButton(User *user, QWidget *parent)
     , m_showAnimation(new QPropertyAnimation(this, "opacity"))
     , m_hideAnimation(new QPropertyAnimation(this, "opacity"))
 #endif
+    , m_selected(false)
+    , m_loginIconVisible(false)
 {
     setVisible(false);
 
@@ -52,6 +54,10 @@ void UserButton::initConnect()
 {
     connect(m_hideAnimation, &QPropertyAnimation::finished, this, &QPushButton::hide);
     connect(m_userAvatar, &UserAvatar::clicked, this, &UserButton::click);
+    connect(m_user, &User::displayNameChanged, m_userNameLabel, &QLabel::setText);
+    connect(m_user, &User::avatarChanged, this, [=] (const QString avatar) {
+        m_userAvatar->setIcon(avatar);
+    });
 }
 
 void UserButton::initUI()
@@ -67,7 +73,7 @@ void UserButton::initUI()
     m_userNameLabel->setFixedSize(120, 30);
     m_userNameLabel->setStyleSheet("text-align:center; color: white;");
 
-    m_userNameLabel->setText(m_user->name());
+    m_userNameLabel->setText(m_user->displayName());
     m_userAvatar->setIcon(m_user->avatarPath());
 
     m_checkedMark = new QLabel;
@@ -334,12 +340,8 @@ void UserButton::setCustomEffect() {
     setGraphicsEffect(m_opacityEffect);
 }
 
-void UserButton::setLoginChecked(bool checked) {
-    m_checkedMark->setVisible(checked);
-}
-
-bool UserButton::isChecked() {
-    return m_checkedMark->isVisible();
+void UserButton::setLoginIconVisible(bool checked) {
+    m_checkedMark->setVisible(checked && m_user->isLogin());
 }
 
 UserButton::~UserButton()

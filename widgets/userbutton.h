@@ -77,7 +77,7 @@ signals:
 
 public slots:
     void setImageSize(const AvatarSize &avatarsize);
-    void setLoginChecked(bool checked);
+    void setLoginIconVisible(bool checked);
 
     void show();
     void hide();
@@ -85,7 +85,6 @@ public slots:
     void stopAnimation();
 
     double opacity();
-    bool isChecked();
     void setOpacity(double opa);
     void setCustomEffect();
 //    void addTextShadowAfter();
@@ -121,7 +120,8 @@ private:
 //    QStringList m_kbHistory;
 //    UserInter *m_dbus;
 
-    bool m_selected = false;
+    bool m_selected;
+    bool m_loginIconVisible;
     UserAvatar* m_userAvatar;
     QLabel* m_userNameLabel;
     QLabel *m_checkedMark;

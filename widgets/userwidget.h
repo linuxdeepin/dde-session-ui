@@ -60,12 +60,18 @@ public:
 
     User(QObject *parent);
 
+signals:
+    void displayNameChanged(const QString &displayname) const;
+    void logindChanged(bool islogind) const;
+    void avatarChanged(const QString &avatar) const;
+
+public:
     bool operator==(const User &user) const;
     const QString name() const { return m_userName; }
     bool isLogin() const { return m_isLogind; }
     uint uid() const { return m_uid; }
 
-    void setisLogind(bool isLogind) { m_isLogind = isLogind; }
+    void setisLogind(bool isLogind);
     virtual void setCurrentLayout(const QString &layout) { Q_UNUSED(layout); }
 
     virtual UserType type() const = 0;
