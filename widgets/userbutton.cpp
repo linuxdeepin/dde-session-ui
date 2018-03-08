@@ -220,19 +220,26 @@ void UserButton::hide()
     m_opacityEffect->setEnabled(true);
 }
 
-void UserButton::move(const QPoint &position)
+void UserButton::move(const QPoint &position, bool immediately)
 {
 #ifndef DISABLE_ANIMATIONS
-    m_moveAni->stop();
-    m_moveAni->setDuration(200);
-    m_moveAni->setStartValue(pos());
-    m_moveAni->setEndValue(position);
-
-    m_moveAni->start();
+    const bool play_ani = !immediately;
 #else
-    Q_UNUSED(duration);
-    QPushButton::move(position);
+    Q_UNUSED(immediately);
+    const bool play_ani = false;
 #endif
+
+    if (play_ani)
+    {
+        m_moveAni->stop();
+        m_moveAni->setDuration(200);
+        m_moveAni->setStartValue(pos());
+        m_moveAni->setEndValue(position);
+
+        m_moveAni->start();
+    } else {
+        QPushButton::move(position);
+    }
 }
 
 void UserButton::addTextShadow(bool isEffective)

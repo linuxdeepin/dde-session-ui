@@ -48,13 +48,10 @@ UserWidget::UserWidget(QWidget* parent)
     , m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this)
     , m_dbusLogined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
 {
-//    m_currentUser = m_lockInter.CurrentUser();
-//    qDebug() << Q_FUNC_INFO << m_currentUser;
-
-    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    setFixedWidth(qApp->desktop()->width());
-
     m_dbusAccounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
+
+    setFixedWidth(qApp->primaryScreen()->geometry().width());
+//    setStyleSheet("background-color: red;");
 
     initUI();
     initConnections();
@@ -555,6 +552,9 @@ void UserWidget::saveADUser(const QString &username)
 void UserWidget::restoreUser(User *user)
 {
    for (UserButton *btn : m_availableUserButtons) {
+       // move to center
+       btn->move(rect().center() - btn->rect().center());
+
        if (btn->userInfo() == user) {
            m_currentUser = user;
            btn->show();
@@ -570,11 +570,16 @@ void UserWidget::resizeEvent(QResizeEvent *e)
 {
     QFrame::resizeEvent(e);
 
-    if (isChooseUserMode) {
-        // rearrange the user icons.
+    // update buttons position
+    if (isChooseUserMode)
+    {
         expandWidget();
     } else {
-//        updateCurrentUserPos();
+        const QPoint p(rect().center() - m_availableUserButtons.first()->rect().center());
+
+        // move all buttons to center
+        for (UserButton *btn : m_availableUserButtons)
+            btn->move(p, true);
     }
 }
 

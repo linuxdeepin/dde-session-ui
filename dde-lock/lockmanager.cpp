@@ -129,6 +129,7 @@ void LockManager::keybdLayoutWidgetPosit()
 void LockManager::initUI()
 {
     setFocusPolicy(Qt::NoFocus);
+    resize(qApp->primaryScreen()->geometry().size());
 
     m_timeWidget = new TimeWidget(this);
     m_timeWidget->setFixedSize(400, 300);
@@ -187,11 +188,11 @@ void LockManager::initUI()
 
 void LockManager::updateWidgetsPosition()
 {
-    qDebug() << "lockManager: position" << this->width() << this->height();
     const int width = this->width();
     const int height = this->height();
     m_timeWidget->move(48, height - m_timeWidget->height() - 36); // left 48px and bottom 36px
     m_userWidget->setFixedWidth(width);
+
     if (!m_userWidget->isChooseUserMode)
         m_userWidget->move(0, (height - m_userWidget->height()) / 2 - 95);
     m_requireShutdownWidget->setFixedWidth(width);
@@ -274,7 +275,7 @@ void LockManager::resizeEvent(QResizeEvent *event)
 {
     QFrame::resizeEvent(event);
 
-    updateWidgetsPosition();
+    QTimer::singleShot(0, this, &LockManager::updateWidgetsPosition);
 }
 
 void LockManager::mouseReleaseEvent(QMouseEvent *e)
