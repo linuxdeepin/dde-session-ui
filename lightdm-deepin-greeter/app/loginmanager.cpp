@@ -163,7 +163,7 @@ LoginManager::LoginManager(QWidget* parent)
 
     m_keyboardMonitor->start(QThread::LowestPriority);
 
-    QTimer::singleShot(1, this, &LoginManager::restoreUser);
+    QTimer::singleShot(1, this, &LoginManager::updateWidgetsPosition);
 
 //    const QString u = m_userWidget->currentUser();
 //    qDebug() << Q_FUNC_INFO << "current user: " << u;
@@ -316,7 +316,6 @@ void LoginManager::initUI()
     m_sessionWidget->hide();
     m_logoWidget = new LogoWidget(this);
     m_userWidget = new UserWidget(this);
-
     m_userWidget->setObjectName("UserWidget");
 
     m_passWdEdit = new PassWdEdit(this);
