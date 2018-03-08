@@ -150,6 +150,25 @@ void SessionWidget::switchToUser(const QString &userName)
     qDebug() << userName << "default session is: " << sessionName << m_currentSessionIndex;
 }
 
+void SessionWidget::keyReleaseEvent(QKeyEvent *event)
+{
+    QFrame::keyReleaseEvent(event);
+
+    switch (event->key()) {
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        for (RoundItemButton *btn : m_sessionBtns) {
+            if (btn->isChecked()) {
+                btn->clicked();
+                break;
+            }
+        }
+        break;
+    default:
+        break;
+    }
+}
+
 void SessionWidget::onSessionButtonClicked()
 {
     RoundItemButton *btn = qobject_cast<RoundItemButton *>(sender());

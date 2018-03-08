@@ -57,10 +57,11 @@ public slots:
     //    void rightKeySwitch();
     //    void chooseSession();
 
-private slots:
-    void loadSessionList();
+protected:
+    void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
+    void loadSessionList();
     void onSessionButtonClicked();
 
 private:
