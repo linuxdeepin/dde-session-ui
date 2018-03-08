@@ -1,10 +1,10 @@
 {
     "data": {
         "text": {
-            "dbus_service": "com.deepin.daemon.Keybinding",
-            "dbus_path": "/com/deepin/daemon/InputDevice/Keyboard",
-            "dbus_interface": "com.deepin.daemon.InputDevice.Keyboard",
-            "dbus_properties": "CurrentLayout"
+            "dbus_service": "com.deepin.dde.Keyboard",
+            "dbus_path": "/com/deepin/dde/Keyboard",
+            "dbus_interface": "com.deepin.dde.Keyboard",
+            "dbus_properties": "layout"
         }
     }
 }
