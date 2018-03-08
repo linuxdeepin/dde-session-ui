@@ -28,7 +28,11 @@
 
 #include "fullscreenbackground.h"
 
+#include <com_deepin_daemon_imageblur.h>
+
 #include <QWidget>
+
+using ImageBlur = com::deepin::daemon::ImageBlur;
 
 class MainWidget : public FullscreenBackground
 {
@@ -46,9 +50,12 @@ protected:
 private:
     bool checkVersion();
     const QString getSystemVersion();
+    void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
 
 private:
     bool m_isUpgrade;
+    ImageBlur *m_blurImageInter;
+    QString m_wallpaper;
 };
 
 #endif // MAINWIDGET_H

@@ -111,8 +111,13 @@ static int set_rootwindow_cursor() {
 
 MainWidget::MainWidget(QWidget *parent)
     : FullscreenBackground(parent)
+    , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
+                                     "/com/deepin/daemon/ImageBlur",
+                                     QDBusConnection::systemBus(), this))
 {
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::SplashScreen);
+
+    connect(m_blurImageInter, &ImageBlur::BlurDone, this, &MainWidget::onBlurWallpaperFinished);
 
     if (QFile::exists(QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first() + "/autostart/dde-first-run.desktop")) {
         m_isUpgrade = false;
@@ -132,23 +137,17 @@ MainWidget::MainWidget(QWidget *parent)
 
     QGSettings gsettings("com.deepin.dde.appearance", "", this);
     const QStringList list = gsettings.get("background-uris").toStringList();
-    QString background = list.first();
+    m_wallpaper = list.first();
 
-    const QUrl url(background);
-    if (url.isLocalFile())
-        background = url.path();
+    const QUrl url(m_wallpaper);
+    m_wallpaper = url.isLocalFile() ? url.path() : m_wallpaper;
 
     if (m_isUpgrade) {
         UpdateContent *content = new UpdateContent(getSystemVersion(), this);
         setContent(content);
 
         // blur wallpaper
-        updateBackground(background);
-    } else {
-        set_rootwindow_cursor();
-
-        // untreated wallpaper
-        updateBackground(background);
+        updateBackground(m_blurImageInter->Get(m_wallpaper));
     }
 
 #ifdef QT_DEBUG
@@ -205,6 +204,14 @@ const QString MainWidget::getSystemVersion()
     QSettings lsbSetting("/etc/deepin-version", QSettings::IniFormat);
     lsbSetting.beginGroup("Release");
     return lsbSetting.value("Version").toString();
+}
+
+void MainWidget::onBlurWallpaperFinished(const QString &source, const QString &blur, bool status)
+{
+    const QString &sourcePath = QUrl(source).isLocalFile() ? QUrl(source).toLocalFile() : source;
+
+    if (status && m_wallpaper == sourcePath)
+        updateBackground(blur);
 }
 
 void MainWidget::dbus_show()
