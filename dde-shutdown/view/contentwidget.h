@@ -30,6 +30,11 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QPushButton>
 
+
+#include <com_deepin_wm.h>
+#include <com_deepin_daemon_appearance.h>
+#include <com_deepin_daemon_imageblur.h>
+
 #include "userwidget.h"
 #include "rounditembutton.h"
 #include "util_updateui.h"
@@ -39,6 +44,9 @@
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
 #include "systemmonitor.h"
+
+using Appearance = com::deepin::daemon::Appearance;
+using ImageBlur = com::deepin::daemon::ImageBlur;
 
 class MultiUsersWarningView;
 
@@ -53,6 +61,7 @@ signals:
 #ifdef SHUTDOWN_NO_QUIT
     void requestRecoveryLayout();
 #endif
+    void requestBackground(const QString &path) const;
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
@@ -77,6 +86,7 @@ public slots:
 private:
     void initUI();
     void initConnect();
+    void initBackground();
     void initData();
     void enterKeyPushed();
     void hideBtn(const QString &btnName);
@@ -85,6 +95,10 @@ private:
     void hideToplevelWindow();
     void checkUsers();
     void shutDownFrameActions(const Actions action);
+
+    void currentWorkspaceChanged();
+    void updateWallpaper(const QString &path);
+    void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
 
     RoundItemButton *m_currentSelectedBtn = nullptr;
     RoundItemButton *m_shutdownButton;
@@ -108,5 +122,8 @@ private:
     DBusSessionManagerInterface* m_sessionInterface = nullptr;
     DBusHotzone* m_hotZoneInterface = nullptr;
     SystemMonitor *m_systemMonitor;
+    com::deepin::wm *m_wmInter;
+    Appearance *m_dbusAppearance = NULL;
+    ImageBlur *m_blurImageInter;
 };
 #endif // CONTENTVIEWWIDGET

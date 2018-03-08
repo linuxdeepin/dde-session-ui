@@ -38,10 +38,20 @@
 
 ContentWidget::ContentWidget(QWidget *parent)
     : QFrame(parent)
+    , m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
+    , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
+                                     "/com/deepin/daemon/ImageBlur",
+                                     QDBusConnection::systemBus(), this))
+    , m_dbusAppearance(new Appearance("com.deepin.daemon.Appearance",
+                                      "/com/deepin/daemon/Appearance",
+                                      QDBusConnection::sessionBus(),
+                                      this))
+
 {
     initUI();
     initData();
     initConnect();
+    initBackground();
 }
 
 ContentWidget::~ContentWidget()
@@ -169,6 +179,8 @@ void ContentWidget::initConnect() {
     connect(m_lockButton, &RoundItemButton::clicked, [this] { shutDownFrameActions(Lock);});
     connect(m_logoutButton, &RoundItemButton::clicked, [this] {emit beforeInvokeAction(Logout);});
     connect(m_switchUserBtn, &RoundItemButton::clicked, [this] { shutDownFrameActions(SwitchUser);});
+    connect(m_wmInter, &__wm::WorkspaceSwitched, this, &ContentWidget::currentWorkspaceChanged);
+    connect(m_blurImageInter, &ImageBlur::BlurDone, this, &ContentWidget::onBlurWallpaperFinished);
 
     connect(qApp, &QApplication::aboutToQuit, [this]{
         m_hotZoneInterface->EnableZoneDetected(true);
@@ -406,6 +418,41 @@ void ContentWidget::shutDownFrameActions(const Actions action)
     hideToplevelWindow();
 }
 
+void ContentWidget::currentWorkspaceChanged()
+{
+    QDBusPendingCall call = m_wmInter->GetCurrentWorkspaceBackground();
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, [=] {
+        if (!call. isError()) {
+            QDBusReply<QString> reply = call.reply();
+            updateWallpaper(reply.value());
+        } else {
+            qWarning() << "get current workspace background error: " << call.error().message();
+            updateWallpaper("/usr/share/backgrounds/deepin/desktop.jpg");
+        }
+
+        watcher->deleteLater();
+    });
+}
+
+void ContentWidget::updateWallpaper(const QString &path)
+{
+    const QUrl url(path);
+    if (url.isLocalFile()) {
+        emit requestBackground(m_blurImageInter->Get(url.path()));
+    } else {
+        emit requestBackground(m_blurImageInter->Get(path));
+    }
+}
+
+void ContentWidget::onBlurWallpaperFinished(const QString &source, const QString &blur, bool status)
+{
+    const QString &sourcePath = QUrl(source).isLocalFile() ? QUrl(source).toLocalFile() : source;
+
+    if (status && m_userWidget->currentUser()->desktopBackgroundPath() == sourcePath)
+        emit requestBackground(blur);
+}
+
 void ContentWidget::initUI() {
     m_btnsList = new QList<RoundItemButton *>;
     m_shutdownButton = new RoundItemButton(tr("Shut down"));
@@ -483,6 +530,17 @@ void ContentWidget::initUI() {
             view->setAcceptVisible(true);
     });
     checkTooltip->start();
+}
+
+void ContentWidget::initBackground()
+{
+    currentWorkspaceChanged();
+
+    connect(m_dbusAppearance, &Appearance::Changed, this, [=](const QString &type, const QString &path){
+        if (type == "background") {
+            updateWallpaper(path);
+        }
+    });
 }
 
 const QString ContentWidget::getInhibitReason() {

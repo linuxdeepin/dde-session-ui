@@ -28,12 +28,8 @@
 
 #include <QFrame>
 
-#include <com_deepin_wm.h>
-#include <com_deepin_daemon_appearance.h>
 #include "fullscreenbackground.h"
 #include "view/contentwidget.h"
-
-using Appearance = com::deepin::daemon::Appearance;
 
 class ShutdownFrontDBus;
 class ShutdownFrame: public FullscreenBackground
@@ -48,9 +44,6 @@ public slots:
     void setConfirm(const bool confrim);
 
 private:
-    com::deepin::wm *m_wmInter;
-    Appearance *m_dbusAppearance = NULL;
-    void initBackground();
     ContentWidget *m_shutdownFrame;
 };
 
