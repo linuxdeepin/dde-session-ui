@@ -278,7 +278,7 @@ void LoginManager::startSession()
 
 void LoginManager::resizeEvent(QResizeEvent *e)
 {
-    updateWidgetsPosition();
+    QTimer::singleShot(1, this, &LoginManager::updateWidgetsPosition);
 
     QWidget::resizeEvent(e);
 }
@@ -311,6 +311,8 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
 void LoginManager::initUI()
 {
     setObjectName("LoginManagerTool");
+
+    resize(qApp->primaryScreen()->geometry().size());
 
     m_controlWidget = new ControlWidget(this);
 
@@ -572,8 +574,15 @@ void LoginManager::authenticationComplete()
     qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
 
     if (!m_greeter->isAuthenticated() && m_userState == Password) {
-        m_passWdEdit->selectAll();
-        m_passWdEdit->setAlert(true, tr("Wrong Password"));
+        if (m_currentUser->type() == User::Native) {
+            m_passWdEdit->selectAll();
+            m_passWdEdit->setAlert(true, tr("Wrong Password"));
+        }
+
+        if (m_currentUser->type() == User::ADDomain) {
+            m_otherUserInput->setAlert(tr("Wrong Password"));
+        }
+
         return;
     }
 

@@ -26,8 +26,9 @@ void OtherUserInput::setAlert(const QString &alert)
         QPoint pos = mapTo(m_errorTip->parentWidget(),
                            QPoint(-20, height() - 10));
 
-        m_errorTip->setCornerPoint(QPoint(30, height() - 13));
+        m_errorTip->setCornerPoint(QPoint(30, 20));
         m_errorTip->moveToPos(pos);
+
         m_errorTip->setVisible(true);
     }
 }

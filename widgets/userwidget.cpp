@@ -90,6 +90,7 @@ UserWidget::UserWidget(QWidget* parent)
         for (UserButton *btn : m_availableUserButtons) {
             if (btn->userInfo()->name() == user) {
                 m_currentUser = btn->userInfo();
+                btn->move(rect().center() - btn->rect().center());
                 btn->show();
                 break;
             }
@@ -499,6 +500,8 @@ void UserWidget::expandWidget()
 //            userButton->setButtonChecked(false);
 //        }
 
+        userButton->setSelected(userButton->userInfo() == m_currentUser);
+
         // Allow user button draw logind icon
         userButton->setLoginIconVisible(true);
 
@@ -514,8 +517,6 @@ void UserWidget::expandWidget()
             userButton->move(QPoint(offset + (i - maxLineCap) * USER_ICON_WIDTH, USER_ICON_HEIGHT));
         }
     }
-
-    m_availableUserButtons.first()->setSelected(true);
 
     setFocus();
     grabKeyboard();
@@ -554,6 +555,7 @@ void UserWidget::restoreUser(User *user)
    for (UserButton *btn : m_availableUserButtons) {
        // move to center
        btn->move(rect().center() - btn->rect().center());
+       btn->setImageSize(UserButton::AvatarLargerSize);
 
        if (btn->userInfo() == user) {
            m_currentUser = user;
@@ -633,6 +635,7 @@ void UserWidget::appendUser(User *user)
     userButton->hide();
     userButton->move(rect().center() - userButton->rect().center());
     userButton->setLoginIconVisible(false);
+    userButton->setImageSize(UserButton::AvatarLargerSize);
 
     m_availableUsers << user;
     m_availableUserButtons << userButton;
