@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.2.0.1 (2018-03-12)
+
+
+#### Bug Fixes
+
+* **greeter:**  not restore nopasswdlogin button visible ([18a3b98b](https://github.com/linuxdeepin/dde-session-ui/commit/18a3b98b34346a0fe6b7a810449653ffd47324d2))
+
+
+
+<a name=""></a>
 ##  4.2.0 (2017-12-13)
 
 
