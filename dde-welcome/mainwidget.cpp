@@ -31,6 +31,7 @@
 #include <QGSettings/QGSettings>
 #include <QVariant>
 #include <QKeyEvent>
+#include <QApplication>
 
 #include <X11/Xlib-xcb.h>
 #include <X11/cursorfont.h>
@@ -91,7 +92,11 @@ static int set_rootwindow_cursor() {
         return -1;
     }
 
-    Cursor cursor = (Cursor)XcursorFilenameLoadCursor(display, "/usr/share/icons/deepin/cursors/loginspinner");
+    const char *cursorPath = qApp->devicePixelRatio() > 1.7
+        ? "/usr/share/icons/deepin/cursors/loginspinner@2x"
+        : "/usr/share/icons/deepin/cursors/loginspinner";
+
+    Cursor cursor = (Cursor)XcursorFilenameLoadCursor(display, cursorPath);
     if (cursor == 0) {
         cursor = (Cursor)loadCursorHandle(display, "watch", 24);
     }

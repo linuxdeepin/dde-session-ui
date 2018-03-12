@@ -131,7 +131,12 @@ static int set_rootwindow_cursor() {
         return -1;
     }
 
-    Cursor cursor = (Cursor)XcursorFilenameLoadCursor(display, "/usr/share/icons/deepin/cursors/loginspinner");
+
+    const char *cursorPath = qApp->devicePixelRatio() > 1.7
+        ? "/usr/share/icons/deepin/cursors/loginspinner@2x"
+        : "/usr/share/icons/deepin/cursors/loginspinner";
+
+    Cursor cursor = (Cursor)XcursorFilenameLoadCursor(display, cursorPath);
     if (cursor == 0) {
         cursor = (Cursor)loadCursorHandle(display, "watch", 24);
     }
