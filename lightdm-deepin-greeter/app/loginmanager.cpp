@@ -252,7 +252,7 @@ void LoginManager::keyPressEvent(QKeyEvent* e) {
                     m_passWdEdit->show();
                     m_passWdEdit->setFocus();
                 } else {
-//                    m_loginButton->show();
+                    m_loginButton->show();
                 }
             }
         }
@@ -273,7 +273,7 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
                     m_passWdEdit->show();
                     m_passWdEdit->setFocus();
                 } else {
-//                    m_loginButton->show();
+                    m_loginButton->show();
                 }
             }
         }
@@ -389,6 +389,8 @@ void LoginManager::initConnect()
 
         qDebug() << username << m_sessionWidget->currentSessionOwner();
 
+        updateUserLoginCondition(username);
+
         if (username == m_sessionWidget->currentSessionOwner())
             return;
 
@@ -407,7 +409,6 @@ void LoginManager::initConnect()
         m_sessionWidget->switchToUser(username);
 
         updateBackground(username);
-        updateUserLoginCondition(username);
     });
 
     connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LoginManager::prompt);
