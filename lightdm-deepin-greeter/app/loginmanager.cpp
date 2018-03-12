@@ -46,6 +46,7 @@
 #include <libintl.h>
 #include <unistd.h>
 #include <pwd.h>
+#include <grp.h>
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
@@ -222,17 +223,33 @@ bool LoginManager::checkUserIsNoGrp(User *user)
         return false;
     }
 
-    QProcess p;
-    p.start("groups", QStringList() << user->name());
-    p.waitForFinished();
+    // Caution: 32 here is unreliable, and there may be more
+    // than this number of groups that the user joins.
 
-    QString output = p.readAllStandardOutput().trimmed();
-    QStringList tokens = output.split(":");
-    if (tokens.length() > 1) {
-        QStringList groups = tokens.at(1).split(" ");
-        qDebug() << groups;
+    int ngroups = 32;
+    gid_t groups[32];
+    struct passwd pw;
+    struct group gr;
 
-        return groups.contains("nopasswdlogin");
+    /* Fetch passwd structure (contains first group ID for user) */
+
+    pw = *getpwnam(user->name().toUtf8().data());
+
+    /* Retrieve group list */
+
+    if (getgrouplist(user->name().toUtf8().data(), pw.pw_gid, groups, &ngroups) == -1) {
+        fprintf(stderr, "getgrouplist() returned -1; ngroups = %d\n",
+                ngroups);
+        return false;
+    }
+
+    /* Display list of retrieved groups, along with group names */
+
+    for (int i = 0; i < ngroups; i++) {
+        gr = *getgrgid(groups[i]);
+        if (QString(gr.gr_name) == QString("nopasswdlogin")) {
+            return true;
+        }
     }
 
     return false;
