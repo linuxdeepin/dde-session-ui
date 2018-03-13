@@ -893,15 +893,13 @@ void LoginManager::onWallpaperBlurFinished(const QString &source, const QString 
 
 void LoginManager::updatePasswordEditVisible(User *user)
 {
-    m_loginButton->setVisible(false);
-    m_passWdEdit->setVisible(false);
-
     if (checkUserIsNoGrp(user)) {
         m_passWdEdit->hide();
         m_loginButton->show();
         m_loginButton->setFocus();
         m_userState = NoPassword;
     } else {
+        m_loginButton->hide();
         m_passWdEdit->show();
         m_userState = Password;
     }

@@ -18,24 +18,25 @@ OtherUserInput::OtherUserInput(QWidget *parent)
 
 void OtherUserInput::setAlert(const QString &alert)
 {
-    if (alert.isEmpty()) {
-        m_errorTip->hide();
-    } else {
-        m_errorTip->setMessage(alert);
+    m_errorTip->setMessage(alert);
 
-        QPoint pos = mapTo(m_errorTip->parentWidget(),
-                           QPoint(-20, height() - 10));
+    QPoint pos = mapTo(m_errorTip->parentWidget(),
+                       QPoint(-20, height() - 10));
 
-        m_errorTip->setCornerPoint(QPoint(30, 20));
-        m_errorTip->moveToPos(pos);
+    m_errorTip->setCornerPoint(QPoint(30, 20));
+    m_errorTip->moveToPos(pos);
 
-        m_errorTip->setVisible(true);
-    }
+    m_errorTip->setVisible(true);
 }
 
 void OtherUserInput::setAccount(const QString &username)
 {
     m_accountEdit->setText(username);
+}
+
+void OtherUserInput::clearAlert() const
+{
+    m_errorTip->hide();
 }
 
 void OtherUserInput::showEvent(QShowEvent *event)
@@ -116,5 +117,7 @@ void OtherUserInput::initConnect()
 {
     connect(m_submitBtn, &DImageButton::clicked, this, &OtherUserInput::submit);
     connect(m_passwdEdit, &QLineEdit::returnPressed, this, &OtherUserInput::submit);
+    connect(m_accountEdit, &QLineEdit::textEdited, this, &OtherUserInput::clearAlert);
+    connect(m_passwdEdit, &QLineEdit::textEdited, this, &OtherUserInput::clearAlert);
     connect(m_capslockMonitor, &KeyboardMonitor::capslockStatusChanged, m_capslockWarning, &QLabel::setVisible);
 }

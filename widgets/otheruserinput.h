@@ -25,6 +25,7 @@ signals:
 public slots:
     void setAlert(const QString &alert);
     void setAccount(const QString &username);
+    void clearAlert() const;
 
 protected:
     void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;

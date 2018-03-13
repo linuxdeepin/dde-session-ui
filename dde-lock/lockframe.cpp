@@ -48,9 +48,8 @@ LockFrame::LockFrame(QWidget* parent)
 }
 
 void LockFrame::showUserList() {
-    show();
+    showFullScreen();
     emit m_lockManager->control()->requestSwitchUser();
-//    m_lockManager->chooseUserMode();
 }
 
 void LockFrame::tryGrabKeyboard()
