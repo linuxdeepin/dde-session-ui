@@ -55,8 +55,3 @@ INSTALLS   += target
 service_file.path = /usr/share/dbus-1/services/
 service_file.files = com.deepin.dde.osd.service
 INSTALLS += service_file
-
-dock_plugin_json.path = /etc/dde-dock/indicator/
-dock_plugin_json.files = keybord_layout.json
-
-INSTALLS += dock_plugin_json
