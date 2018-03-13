@@ -179,19 +179,19 @@ LoginManager::LoginManager(QWidget* parent)
 //        updateBackground(user);
 //    });
 
-//    // LOAD last user
-//    file.setFileName(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER");
+    // load last AD user
+    QFile file(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER");
 
-//    // NOTE(kirigaya): If file is not exist, create it.
-//    if (!file.open(QIODevice::ReadOnly)) {
-//        return;
-//    }
+    // NOTE(kirigaya): If file is not exist, create it.
+    if (!file.open(QIODevice::ReadOnly)) {
+        return;
+    }
 
-//    QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
-//    setting.beginGroup("USER");
-//    m_otherUserInput->setAccount(setting.value("USERNAME").toString());
-//    setting.endGroup();
-//    file.close();
+    QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
+    setting.beginGroup("ADDOMAIN");
+    m_otherUserInput->setAccount(setting.value("USERNAME").toString());
+    setting.endGroup();
+    file.close();
 }
 
 void LoginManager::updateWidgetsPosition()
@@ -597,7 +597,7 @@ void LoginManager::authenticationComplete()
         }
 
         if (m_currentUser->type() == User::ADDomain) {
-            m_otherUserInput->setAlert(tr("Wrong Password"));
+            m_otherUserInput->setAlert("The domain account or password is not correct. Please enter again.");
         }
 
         return;

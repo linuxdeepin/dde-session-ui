@@ -69,7 +69,7 @@ UserWidget::UserWidget(QWidget* parent)
 
     if (process.readAll().contains("Name:")) {
         ADDomainUser *user = new ADDomainUser(0);
-        user->setUserDisplayName(tr("AD Domain"));
+        user->setUserDisplayName(tr("Domain account"));
         user->setisLogind(false);
         appendUser(user);
     }
@@ -544,7 +544,7 @@ void UserWidget::saveADUser(const QString &username)
     }
 
     QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
-    setting.beginGroup("USER");
+    setting.beginGroup("ADDOMAIN");
     setting.setValue("USERNAME", username);
     setting.endGroup();
     setting.sync();
