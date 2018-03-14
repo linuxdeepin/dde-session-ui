@@ -685,9 +685,9 @@ void LoginManager::onCurrentUserChanged(User *user)
         m_passWdEdit->hide();
         m_otherUserInput->show();
         return;
+    } else {
+        updatePasswordEditVisible(user);
     }
-
-    updatePasswordEditVisible(user);
 
     m_sessionWidget->switchToUser(user->name());
 
@@ -718,7 +718,15 @@ void LoginManager::onCurrentUserChanged(User *user)
 
 void LoginManager::switchToLogindUser(User *user)
 {
-    updatePasswordEditVisible(m_currentUser);
+    // check is fake addomain button
+    if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
+        m_passWdEdit->hide();
+        m_otherUserInput->show();
+    } else {
+        updatePasswordEditVisible(m_currentUser);
+    }
+
+    m_sessionWidget->switchToUser(user->name());
 
     m_requireShutdownWidget->hide();
 

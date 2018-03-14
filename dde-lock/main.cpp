@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
     } else {
         if (!runDaemon) {
             if (showUserList) {
-                lockFrame.showUserList();
+                QMetaObject::invokeMethod(&lockFrame, "showUserList", Qt::QueuedConnection);
             } else {
                 QMetaObject::invokeMethod(&lockFrame, "showFullScreen", Qt::QueuedConnection);
             }

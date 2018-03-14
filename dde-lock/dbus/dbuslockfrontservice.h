@@ -47,11 +47,7 @@ class DBusLockFrontService: public QDBusAbstractAdaptor
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "com.deepin.dde.lockFront")
-    Q_CLASSINFO("D-Bus Introspection", ""
-                                       "  <interface name=\"com.deepin.dde.lockFront\">\n"
-                                       "    <method name=\"Show\"/>\n"
-                                       "  </interface>\n"
-                                       "")
+
 public:
     explicit DBusLockFrontService(LockFrame *parent);
     virtual ~DBusLockFrontService();

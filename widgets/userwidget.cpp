@@ -519,7 +519,7 @@ void UserWidget::expandWidget()
     }
 
     setFocus();
-    grabKeyboard();
+    QTimer::singleShot(100, this, &UserWidget::grabKeyboard);
 
 //    emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
 }

@@ -181,8 +181,6 @@ void LockManager::initUI()
     mainLayout->addStretch();
 
     setLayout(mainLayout);
-    showFullScreen();
-    activateWindow();
     updateWidgetsPosition();
     updateStyle(":/skin/lock.qss", this);
 
@@ -248,7 +246,7 @@ void LockManager::onUnlockFinished(const bool unlocked)
 
 void LockManager::showEvent(QShowEvent *event)
 {
-    disableZone();
+    QTimer::singleShot(100, this, &LockManager::disableZone);
 
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
