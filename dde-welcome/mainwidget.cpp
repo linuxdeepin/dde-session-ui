@@ -152,7 +152,9 @@ MainWidget::MainWidget(QWidget *parent)
         setContent(content);
 
         // blur wallpaper
-        updateBackground(m_blurImageInter->Get(m_wallpaper));
+        const QString &w = m_blurImageInter->Get(m_wallpaper);
+
+        updateBackground(w.isEmpty() ? m_wallpaper : w);
     }
 
 #ifdef QT_DEBUG

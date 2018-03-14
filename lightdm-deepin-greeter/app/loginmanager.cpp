@@ -670,7 +670,9 @@ void LoginManager::onCurrentUserChanged(User *user)
     m_requireShutdownWidget->hide();
     m_keybdArrowWidget->hide();
 
-    emit requestBackground(m_blurImageInter->Get(user->desktopBackgroundPath()));
+    const QString &wallpaper = m_blurImageInter->Get(user->greeterBackgroundPath());
+
+    emit requestBackground(wallpaper.isEmpty() ? user->greeterBackgroundPath() : wallpaper);
 
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
     m_userState = Password;

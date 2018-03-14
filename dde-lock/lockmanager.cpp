@@ -441,7 +441,9 @@ void LockManager::onCurrentUserChanged(User *user)
 
     updatePasswordEditVisible(m_currentUser);
 
-    emit requestSetBackground(m_blurImageInter->Get(user->desktopBackgroundPath()));
+    const QString &wallpaper = m_blurImageInter->Get(user->greeterBackgroundPath());
+
+    emit requestSetBackground(wallpaper.isEmpty() ? user->greeterBackgroundPath() : wallpaper);
 }
 
 void LockManager::switchToUser(User *user)
