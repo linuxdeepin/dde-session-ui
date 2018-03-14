@@ -441,12 +441,7 @@ void LockManager::onCurrentUserChanged(User *user)
 
     updatePasswordEditVisible(m_currentUser);
 
-    const QUrl url(user->desktopBackgroundPath());
-    if (url.isLocalFile()) {
-        emit requestSetBackground(m_blurImageInter->Get(url.path()));
-    } else {
-        emit requestSetBackground(m_blurImageInter->Get(url.url()));
-    }
+    emit requestSetBackground(m_blurImageInter->Get(user->desktopBackgroundPath()));
 }
 
 void LockManager::switchToUser(User *user)

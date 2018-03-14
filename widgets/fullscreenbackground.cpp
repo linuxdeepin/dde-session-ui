@@ -77,7 +77,7 @@ void FullscreenBackground::updateBackground(const QString &file)
     else
         m_bgPath = "/usr/share/backgrounds/deepin/desktop.jpg";
 
-    Q_ASSERT(QFileInfo(file).isFile());
+    Q_ASSERT(QFileInfo(m_bgPath).isFile());
 
     // 这里之后要去掉，在 FullscreenBackground 里面就不要做模糊的查找了，在调用前将图片准备好
 //    const QString &p = m_blurImageInter->Get(m_bgPath);

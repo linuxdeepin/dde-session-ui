@@ -893,11 +893,32 @@ QString NativeUser::avatarPath() const
 QString NativeUser::greeterBackgroundPath() const
 {
     return m_userInter->greeterBackground();
+    QUrl url(m_userInter->greeterBackground());
+
+    if (url.isLocalFile()) {
+        return url.path();
+    }
+
+    return url.url();
 }
 
 QString NativeUser::desktopBackgroundPath() const
 {
-    return m_userInter->desktopBackgrounds().first();
+    const QStringList &list = m_userInter->desktopBackgrounds();
+    QString background;
+
+    if (list.isEmpty()) {
+        background = m_userInter->backgroundFile();
+    } else {
+        background = list.first();
+    }
+
+    QUrl url(background);
+    if (url.isLocalFile()) {
+        return url.path();
+    }
+
+    return url.url();
 }
 
 QStringList NativeUser::kbLayoutList()

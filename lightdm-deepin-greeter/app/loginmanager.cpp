@@ -670,12 +670,7 @@ void LoginManager::onCurrentUserChanged(User *user)
     m_requireShutdownWidget->hide();
     m_keybdArrowWidget->hide();
 
-    const QUrl url(user->desktopBackgroundPath());
-    if (url.isLocalFile()) {
-        emit requestBackground(m_blurImageInter->Get(url.path()));
-    } else {
-        emit requestBackground(m_blurImageInter->Get(url.url()));
-    }
+    emit requestBackground(m_blurImageInter->Get(user->desktopBackgroundPath()));
 
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
     m_userState = Password;
