@@ -437,7 +437,12 @@ void ContentWidget::currentWorkspaceChanged()
 
 void ContentWidget::updateWallpaper(const QString &path)
 {
-    emit requestBackground(m_blurImageInter->Get(path));
+    const QUrl url(path);
+    if (url.isLocalFile()) {
+        emit requestBackground(m_blurImageInter->Get(url.path()));
+    } else {
+        emit requestBackground(m_blurImageInter->Get(path));
+    }
 }
 
 void ContentWidget::onBlurWallpaperFinished(const QString &source, const QString &blur, bool status)

@@ -77,13 +77,13 @@ UserWidget::UserWidget(QWidget* parent)
     // If current user is lightdm, here is greeter interface
     // else is dde-lock interface
     if (currentContextUser() == "lightdm") {
-//        for (UserButton *btn : m_availableUserButtons) {
-//            if (!btn->userInfo()->isLogin()) {
-//                m_currentUser = btn->userInfo();
-//                btn->show();
-//                break;
-//            }
-//        }
+        for (UserButton *btn : m_availableUserButtons) {
+            if (!btn->userInfo()->isLogin()) {
+                m_currentUser = btn->userInfo();
+                btn->show();
+                break;
+            }
+        }
     } else {
         // select current login user
         const QString &user = currentContextUser();
