@@ -62,17 +62,12 @@ UserWidget::UserWidget(QWidget* parent)
 
     onLoginUserListChanged(m_dbusLogined->userList());
 
-    // check AD Domain
-    QProcess process(this);
-    process.start("/opt/pbis/bin/enum-users");
-    process.waitForFinished();
+    m_adCheckStateTimer = new QTimer(this);
+    m_adCheckStateTimer->setInterval(1000);
+    m_adCheckStateTimer->setSingleShot(true);
+    connect(m_adCheckStateTimer, &QTimer::timeout, this, &UserWidget::checkADState);
 
-    if (process.readAll().contains("Name:")) {
-        ADDomainUser *user = new ADDomainUser(0);
-        user->setUserDisplayName(tr("Domain account"));
-        user->setisLogind(false);
-        appendUser(user);
-    }
+    m_adCheckStateTimer->start();
 
     // If current user is lightdm, here is greeter interface
     // else is dde-lock interface
@@ -724,6 +719,25 @@ void UserWidget::updateIconPosition()
             }
         }
     }
+}
+
+void UserWidget::checkADState()
+{
+    // check AD Domain
+    QProcess process(this);
+    process.start("/opt/pbis/bin/enum-users");
+    process.waitForFinished();
+
+    if (process.readAll().contains("Name:")) {
+        ADDomainUser *user = new ADDomainUser(0);
+        user->setUserDisplayName(tr("Domain account"));
+        user->setisLogind(false);
+        appendUser(user);
+        m_adCheckStateTimer->stop();
+        return;
+    }
+    qDebug() << "Checking AD state!!!!";
+    m_adCheckStateTimer->start();
 }
 
 const QString UserWidget::currentContextUser()

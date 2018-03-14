@@ -198,6 +198,8 @@ private slots:
     void updateAllADUserInfo();
     void updateIconPosition();
 
+    void checkADState();
+
 private:
 //    int m_currentUserIndex = 0;
 //    QSettings m_settings;
@@ -216,6 +218,8 @@ private:
     // refactor
     QList<User *> m_availableUsers;
     QList<UserButton *> m_availableUserButtons;
+
+    QTimer *m_adCheckStateTimer;
 };
 
 #endif // WIDGET_H
