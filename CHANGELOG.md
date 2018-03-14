@@ -1,3 +1,74 @@
+<a name=""></a>
+##  4.3.0 (2018-03-14)
+
+
+#### Features
+
+*   remove dman portal, use deepin-manual. ([3bd028cf](https://github.com/linuxdeepin/dde-session-ui/commit/3bd028cf135ad22c784c0146e447ef34a69af768))
+*   add runtime dep ([f4a86d1b](https://github.com/linuxdeepin/dde-session-ui/commit/f4a86d1b9cf82073b0492a67d70a5bd2a7523d7b))
+* **dde-welcome:**  Set the mouse style to wait ([b421fc33](https://github.com/linuxdeepin/dde-session-ui/commit/b421fc33a25f7e111deb722cc4c2f0993d0add6b))
+* **greeter:**
+  *  save last user ([7ffb768e](https://github.com/linuxdeepin/dde-session-ui/commit/7ffb768ef0654d021e5e6fe73c9159584552a64e))
+  *  support other login ([1466f7fd](https://github.com/linuxdeepin/dde-session-ui/commit/1466f7fd95636254b09b1791a44980048fa7f3fe))
+  *  support AD user login ([c70c613a](https://github.com/linuxdeepin/dde-session-ui/commit/c70c613ab1ddc683de09f945dfdfa2a523b9c077))
+* **lock:**
+  *  support switch to other ([e8a8b438](https://github.com/linuxdeepin/dde-session-ui/commit/e8a8b438172b391e6c16a82ab9ce07f4e5ba0685))
+  *  support other login ([8c2d7277](https://github.com/linuxdeepin/dde-session-ui/commit/8c2d72770cd9bb8b5a3948e7d71b485e43550404))
+* **osd:**  use new dock indicator plugin config ([f34edcc7](https://github.com/linuxdeepin/dde-session-ui/commit/f34edcc76eb7a2261b5189fdd319f28a07922a75))
+* **otheruserinput:**
+  *  add alert tip ([d37d7401](https://github.com/linuxdeepin/dde-session-ui/commit/d37d74014ad7b2a7cefe88d5526043c609c8aadf))
+  *  add new widget ([eda373ab](https://github.com/linuxdeepin/dde-session-ui/commit/eda373abffb689acd457e55ecdafba6d43d79559))
+* **userwidget:**  use signal update button ([bc275b31](https://github.com/linuxdeepin/dde-session-ui/commit/bc275b31c2b920671484949e8f585b5ecbadb971))
+* **welcome:**  support login animation ([8d614a71](https://github.com/linuxdeepin/dde-session-ui/commit/8d614a7189dfe7eb63300cb3a4be4fb62c7db48b))
+
+#### Bug Fixes
+
+*   switch to user not grab keyboard ([2b594f1b](https://github.com/linuxdeepin/dde-session-ui/commit/2b594f1b5a67dbed70a657b3de34ac7800d5dd92))
+*   click user icon will refresh password edit ([d19f5831](https://github.com/linuxdeepin/dde-session-ui/commit/d19f583111cbbea557a7adbd5a83bb64018c9ff2))
+*   using new dbus interface ([2df0514e](https://github.com/linuxdeepin/dde-session-ui/commit/2df0514e882c1263e57d73bd960a72d0404f0a30))
+*   widgets position error ([18b2d19e](https://github.com/linuxdeepin/dde-session-ui/commit/18b2d19e9182a96cb5a7e1644f1231924a45bf2b))
+*   session cannot choose one session of enter key ([55e8eda0](https://github.com/linuxdeepin/dde-session-ui/commit/55e8eda0905aee6315d76133fd04a54ebcf642c3))
+*   not update user widget when choosed session ([262b020f](https://github.com/linuxdeepin/dde-session-ui/commit/262b020f7c6a46711e2eb7235a2708607bc6a99e))
+*   fullscreen background geometry error ([d5fa74c6](https://github.com/linuxdeepin/dde-session-ui/commit/d5fa74c6d23afd119b4ec787a4a2b751385a7ab0))
+*   set focus when program startup ([6fe04c6a](https://github.com/linuxdeepin/dde-session-ui/commit/6fe04c6a2f8781e581c0088ef069bd933742ac87))
+*   Adapt lintian ([b32cdb0c](https://github.com/linuxdeepin/dde-session-ui/commit/b32cdb0c3538b3c285d79d4409012430e100f442))
+* **UserWidget:**  update buttons position ([11c5eb1d](https://github.com/linuxdeepin/dde-session-ui/commit/11c5eb1d2e763d06cacb60295f550f03baeab68a))
+* **background:**  set default wallpaper when file not exist ([ec513677](https://github.com/linuxdeepin/dde-session-ui/commit/ec5136778cd497b1ad63356872e2accf4e3ad156))
+* **dde-welcome:**  not save log to .cache/deepin ([430e99d4](https://github.com/linuxdeepin/dde-session-ui/commit/430e99d4be4bbfa6d8a809a8167e6f1403eea8ab))
+* **greeter:**
+  *  widgets position error ([2d829efc](https://github.com/linuxdeepin/dde-session-ui/commit/2d829efcabc65e4f301d381d481e026efc4fe093))
+  *  widgets position error ([18904382](https://github.com/linuxdeepin/dde-session-ui/commit/18904382e6c38446a0ba223c843c937e646d43bb))
+  *  not hide userwidget when choose session and power ([e15195c2](https://github.com/linuxdeepin/dde-session-ui/commit/e15195c29683e370a60940f2d486b4fb9cdb016d))
+  *  not auth user ([9ffe43c8](https://github.com/linuxdeepin/dde-session-ui/commit/9ffe43c89d8a9f6c96ae3aaa502957f00e0dc82e))
+  *  nopasswd user cannot login ([a6fd7ab4](https://github.com/linuxdeepin/dde-session-ui/commit/a6fd7ab4fcbde865b6b841afbd2577e1dea75faf))
+  *  add timeout ([91bf150d](https://github.com/linuxdeepin/dde-session-ui/commit/91bf150d19fdaca93546e7c8b8d6b73107869d42))
+  *  crash when can't find session name ([9efab64e](https://github.com/linuxdeepin/dde-session-ui/commit/9efab64e69ebba804c0ab84d25bc77b04cca9648))
+  *  use new background dbus ([a5157308](https://github.com/linuxdeepin/dde-session-ui/commit/a515730865b5b7b99251e1579249815b74a8e505))
+  *  cursor not apply scale ([943ae919](https://github.com/linuxdeepin/dde-session-ui/commit/943ae9192b92acd78bee3145972fad639d520d4d))
+  *  remove save last session ([dcf12214](https://github.com/linuxdeepin/dde-session-ui/commit/dcf12214519001b9ed79005016a898845becf9a0))
+* **layout:**  fix user name layout ([3d68229c](https://github.com/linuxdeepin/dde-session-ui/commit/3d68229ca0da14061fc8cd775edadc8ba23cd672))
+* **lock:**
+  *  not grab keyboard ([3b20c2c3](https://github.com/linuxdeepin/dde-session-ui/commit/3b20c2c3a0dfb9f2ccb907d6274a14c48a017be0))
+  *  canel shutdown not hide warning tip ([98841fc0](https://github.com/linuxdeepin/dde-session-ui/commit/98841fc096c74aae57261a520df930133733eedb))
+  *  control center not hide ([c465e367](https://github.com/linuxdeepin/dde-session-ui/commit/c465e367aec8b80b9a1ebbb8346ae5fa0a883d51))
+  *  No focus after staring ([8ef1f837](https://github.com/linuxdeepin/dde-session-ui/commit/8ef1f837c578653e86626c9392db0bd88387cc20))
+  *  volume number color is black ([575a8a48](https://github.com/linuxdeepin/dde-session-ui/commit/575a8a48dc8b96ead2cf0b3a714f005eb75e1ca2))
+  *  mpris widget not set style ([a587d21a](https://github.com/linuxdeepin/dde-session-ui/commit/a587d21a0cc3aea22565edfbdb82ad2a286061cd))
+* **shutdown:**
+  *  not check wallpaper is local file ([57839e13](https://github.com/linuxdeepin/dde-session-ui/commit/57839e139da7617721b3b5f371795b78e36161d8))
+  *  remove multi user warning label's fixed width ([223e9fac](https://github.com/linuxdeepin/dde-session-ui/commit/223e9fac5427244165ea4262c5bfa25d4b17134f))
+* **welcome:**
+  *  update success svg not support HiDPI ([7cbe1b22](https://github.com/linuxdeepin/dde-session-ui/commit/7cbe1b2285575fcd04252e056f81d01fdb80cc4c))
+  *  Set the wrong window flag ([05458296](https://github.com/linuxdeepin/dde-session-ui/commit/05458296ff020a2a81c40ac78e059b4c3ed41ced))
+  *  fit multi screen ([09c211cb](https://github.com/linuxdeepin/dde-session-ui/commit/09c211cb5cfc26a87ce2da401a0f5cc656eb73c6))
+* **widgets:**
+  *  use compatibility interface with user background ([6375fde4](https://github.com/linuxdeepin/dde-session-ui/commit/6375fde445ea1bd57ba152ba647e7e0a9949232c))
+  *  AD user cannot login when userwidget not releasekeyboard ([5c1043ea](https://github.com/linuxdeepin/dde-session-ui/commit/5c1043ead4626d3933aed2d74e062ef7cf7adef4))
+  *  setting properties for many times ([c3ba458b](https://github.com/linuxdeepin/dde-session-ui/commit/c3ba458bd45bdb7d0c107f55ff91e616318de0d5))
+  *  other user input set focus type ([03912aa5](https://github.com/linuxdeepin/dde-session-ui/commit/03912aa5ddf105297d6095261ebf9c42f7e18ffe))
+
+
+
 <a name="4.1.7"></a>
 ### 4.1.7 (2017-11-28)
 
