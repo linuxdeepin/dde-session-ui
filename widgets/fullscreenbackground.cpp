@@ -105,7 +105,7 @@ void FullscreenBackground::adjustGeometry()
     {
         const QRect &g(s->geometry());
         const QRect realRect(g.topLeft() / ratio, g.size());
-        if (realRect.contains(cp))
+        if (realRect.contains(cp - realRect.topLeft()))
             pr = realRect;
 
         r = r.united(realRect);
