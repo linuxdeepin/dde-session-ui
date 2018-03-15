@@ -892,7 +892,6 @@ QString NativeUser::avatarPath() const
 
 QString NativeUser::greeterBackgroundPath() const
 {
-    return m_userInter->greeterBackground();
     QUrl url(m_userInter->greeterBackground());
 
     if (url.isLocalFile()) {
