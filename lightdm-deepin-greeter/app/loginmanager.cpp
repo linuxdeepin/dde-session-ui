@@ -602,7 +602,7 @@ void LoginManager::authenticationComplete()
         }
 
         if (m_currentUser->type() == User::ADDomain) {
-            m_otherUserInput->setAlert("The domain account or password is not correct. Please enter again.");
+            m_otherUserInput->setAlert(tr("The domain account or password is not correct. Please enter again."));
         }
 
         return;
