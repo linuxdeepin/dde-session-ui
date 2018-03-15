@@ -196,6 +196,7 @@ private slots:
     bool checkHaveDisplay(const QJsonArray &array);
 
     void updateAllADUserInfo();
+    void updateIconPosition();
 
 private:
 //    int m_currentUserIndex = 0;

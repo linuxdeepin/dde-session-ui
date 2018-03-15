@@ -80,7 +80,6 @@ UserWidget::UserWidget(QWidget* parent)
         for (UserButton *btn : m_availableUserButtons) {
             if (!btn->userInfo()->isLogin()) {
                 m_currentUser = btn->userInfo();
-                btn->show();
                 break;
             }
         }
@@ -90,8 +89,6 @@ UserWidget::UserWidget(QWidget* parent)
         for (UserButton *btn : m_availableUserButtons) {
             if (btn->userInfo()->name() == user) {
                 m_currentUser = btn->userInfo();
-                btn->move(rect().center() - btn->rect().center());
-                btn->show();
                 break;
             }
         }
@@ -101,8 +98,9 @@ UserWidget::UserWidget(QWidget* parent)
     if (!m_currentUser) {
         UserButton *btn = m_availableUserButtons.first();
         m_currentUser = btn->userInfo();
-        btn->show();
     }
+
+    QTimer::singleShot(1, this, &UserWidget::updateIconPosition);
 }
 
 UserWidget::~UserWidget()
@@ -429,6 +427,7 @@ void UserWidget::onUserChoosed()
     for (UserButton *btn : m_availableUserButtons) {
         if (btn->userInfo() == m_currentUser) {
             btn->show();
+            btn->setImageSize(UserButton::AvatarLargerSize);
             btn->setSelected(false);
             btn->setLoginIconVisible(false);
             break;
@@ -572,17 +571,7 @@ void UserWidget::resizeEvent(QResizeEvent *e)
 {
     QFrame::resizeEvent(e);
 
-    // update buttons position
-    if (isChooseUserMode)
-    {
-        expandWidget();
-    } else {
-        const QPoint p(rect().center() - m_availableUserButtons.first()->rect().center());
-
-        // move all buttons to center
-        for (UserButton *btn : m_availableUserButtons)
-            btn->move(p, true);
-    }
+    QTimer::singleShot(100, this, &UserWidget::updateIconPosition);
 }
 
 void UserWidget::keyReleaseEvent(QKeyEvent *event)
@@ -633,7 +622,6 @@ void UserWidget::appendUser(User *user)
     UserButton *userButton = new UserButton(user, this);
 
     userButton->hide();
-    userButton->move(rect().center() - userButton->rect().center());
     userButton->setLoginIconVisible(false);
     userButton->setImageSize(UserButton::AvatarLargerSize);
 
@@ -716,6 +704,23 @@ void UserWidget::updateAllADUserInfo()
             ADDomainUser *adUser = qobject_cast<ADDomainUser*>(user);
             if (adUserList.keys().contains(adUser->uid())) {
                 adUser->setUserDisplayName(adUserList[adUser->uid()]);
+            }
+        }
+    }
+}
+
+void UserWidget::updateIconPosition()
+{
+    // update buttons position
+    if (isChooseUserMode)
+    {
+        expandWidget();
+    } else {
+        // move all buttons to center
+        for (UserButton *btn : m_availableUserButtons) {
+            btn->move(rect().center() - btn->rect().center(), true);
+            if (btn->userInfo() == m_currentUser) {
+                btn->show();
             }
         }
     }
