@@ -1,3 +1,19 @@
+<a name="4.3.1"></a>
+### 4.3.1 (2018-03-16)
+
+
+#### Bug Fixes
+
+*   dde warning dialog not move to center ([f8753511](https://github.com/linuxdeepin/dde-session-ui/commit/f8753511fcecd2b972a8e56a2b10f3849deccd47))
+*   check cursor position error when screens scale ([94b4e4c1](https://github.com/linuxdeepin/dde-session-ui/commit/94b4e4c1a0fcb5b6ed6cc9773aa5fc79993d2c15))
+*   black screen when not have blur image ([1b049645](https://github.com/linuxdeepin/dde-session-ui/commit/1b049645e2833270097df3b8fa369c28f38ec237))
+* **greeter:**  refresh the AD state after staring ([09bd9d69](https://github.com/linuxdeepin/dde-session-ui/commit/09bd9d69e869bcb1236d5c4ad0dfbd6572637072))
+* **lock:**  error return greeter wallpaper ([f34bf490](https://github.com/linuxdeepin/dde-session-ui/commit/f34bf490bc9465a94d53c3e48398f05aeea45d5d))
+* **welcome:**  not disable zone ([0cacd0a9](https://github.com/linuxdeepin/dde-session-ui/commit/0cacd0a979c19554b432c72003bf2f4f4fd54083))
+* **widgets:**  user icon not align center and icon size error ([0c2b4f64](https://github.com/linuxdeepin/dde-session-ui/commit/0c2b4f6482cae797c753d54b67ee5b8609f63ec5))
+
+
+
 <a name=""></a>
 ##  4.3.0 (2018-03-14)
 
