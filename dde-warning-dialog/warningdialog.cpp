@@ -24,7 +24,6 @@
  */
 
 #include "warningdialog.h"
-#include <QDesktopWidget>
 #include <QApplication>
 #include <QIcon>
 
@@ -41,23 +40,8 @@ WarningDialog::WarningDialog(QWidget *parent)
     setMessage(body);
     setIconPixmap(icon);
     addButton(tr("OK"), true);
-
-    const QDesktopWidget *desktop = QApplication::desktop();
-    const QPoint cursorPoint = QCursor::pos();
-    const QRect geom = desktop->screenGeometry(cursorPoint);
-
-    move(geom.width() - width() / 2,
-         geom.height() - height() / 2);
-
 }
 
 WarningDialog::~WarningDialog()
 {
-}
-
-void WarningDialog::RaiseWindow()
-{
-    show();
-    raise();
-    activateWindow();
 }

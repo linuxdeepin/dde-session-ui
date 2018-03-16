@@ -38,9 +38,6 @@ class WarningDialog : public DDialog
 public:
     WarningDialog(QWidget *parent = 0);
     ~WarningDialog();
-
-public slots:
-    void RaiseWindow();
 };
 
 #endif // WARNINGDIALOG_H
