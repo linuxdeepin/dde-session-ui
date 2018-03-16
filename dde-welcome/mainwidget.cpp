@@ -155,6 +155,8 @@ MainWidget::MainWidget(QWidget *parent)
         const QString &w = m_blurImageInter->Get(m_wallpaper);
 
         updateBackground(w.isEmpty() ? m_wallpaper : w);
+
+        QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected false");
     }
 
 #ifdef QT_DEBUG
@@ -239,8 +241,10 @@ void MainWidget::dbus_exit()
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (!m_isUpgrade)
+    if (!m_isUpgrade) {
         qApp->quit();
+        QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected false");
+    }
 }
 
 void MainWidget::keyPressEvent(QKeyEvent *event)
