@@ -153,27 +153,27 @@
         <translation>Вход</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="223"/>
         <source>Wrong Password</source>
         <translation>Неверный Пароль</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="345"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="343"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Время проверки отпечатка пальца вышло, пожалуйста, введите свой пароль вручную</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="363"/>
         <source>Failed to match fingerprint</source>
         <translation>Отпечаток пальца не совпадает</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="570"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="563"/>
         <source>Enter your password to reboot</source>
         <translation>Введите ваш пароль для перезагрузки</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="578"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="571"/>
         <source>Enter your password to shutdown</source>
         <translation>Введите пароль, чтобы выключить</translation>
     </message>
@@ -199,6 +199,11 @@
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="601"/>
         <source>Wrong Password</source>
         <translation>Неверный пароль</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="605"/>
+        <source>The domain account or password is not correct. Please enter again.</source>
+        <translation>Учетная запись домена или пароль неверны. Пожалуйста повторите.</translation>
     </message>
 </context>
 <context>
@@ -226,13 +231,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="580"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="573"/>
         <source>Shut down</source>
         <translation>Выключить</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="565"/>
         <source>Reboot</source>
         <translation>Перезагрузить</translation>
     </message>

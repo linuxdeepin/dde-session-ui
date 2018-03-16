@@ -153,27 +153,27 @@
         <translation>Entrar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="223"/>
         <source>Wrong Password</source>
         <translation>Senha incorreta</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="345"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="343"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>A verificação da impressão digital expirou, digite sua senha manualmente</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="363"/>
         <source>Failed to match fingerprint</source>
         <translation>Falha por digital não identificada</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="570"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="563"/>
         <source>Enter your password to reboot</source>
         <translation>Digite a senha para reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="578"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="571"/>
         <source>Enter your password to shutdown</source>
         <translation>Digite sua senha para desligar</translation>
     </message>
@@ -199,6 +199,11 @@
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="601"/>
         <source>Wrong Password</source>
         <translation>Senha incorreta</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="605"/>
+        <source>The domain account or password is not correct. Please enter again.</source>
+        <translation>A conta de domínio ou senha não está correta. Por favor, digite novamente.</translation>
     </message>
 </context>
 <context>
@@ -226,13 +231,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="580"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="573"/>
         <source>Shut down</source>
         <translation>Desligar</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="565"/>
         <source>Reboot</source>
         <translation>Reiniciar</translation>
     </message>
@@ -310,7 +315,7 @@
     <message>
         <location filename="../widgets/userwidget.cpp" line="72"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Conta de domínio</translation>
     </message>
 </context>
 <context>

@@ -153,27 +153,27 @@
         <translation>Entrar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="223"/>
         <source>Wrong Password</source>
         <translation>Palavra-passe Errada</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="345"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="343"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Verificação de impressão digital expirada, por favor insira a sua palavra-passe manualmente</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="363"/>
         <source>Failed to match fingerprint</source>
         <translation>A correspondência da impressão digital falhou</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="570"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="563"/>
         <source>Enter your password to reboot</source>
         <translation>Insira a sua palavra-passe para reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="578"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="571"/>
         <source>Enter your password to shutdown</source>
         <translation>Insira a sua palavra-passe para encerrar</translation>
     </message>
@@ -199,6 +199,11 @@
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="601"/>
         <source>Wrong Password</source>
         <translation>Palavra-passe Errada</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="605"/>
+        <source>The domain account or password is not correct. Please enter again.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -226,13 +231,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="580"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="573"/>
         <source>Shut down</source>
         <translation>Encerrar</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="565"/>
         <source>Reboot</source>
         <translation>Reiniciar</translation>
     </message>
@@ -310,7 +315,7 @@
     <message>
         <location filename="../widgets/userwidget.cpp" line="72"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Conta de domínio</translation>
     </message>
 </context>
 <context>

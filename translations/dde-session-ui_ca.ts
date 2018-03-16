@@ -153,27 +153,27 @@
         <translation>Inicia la sessió</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="225"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="223"/>
         <source>Wrong Password</source>
         <translation>Contrasenya incorrecta</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="345"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="343"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>S&apos;ha acabat el temps d&apos;espera de la verificació de l&apos;empremta. Si us plau, escriviu la contrasenya manualment.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="365"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="363"/>
         <source>Failed to match fingerprint</source>
         <translation>Ha fallat la coincidència de contrasenyes.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="570"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="563"/>
         <source>Enter your password to reboot</source>
         <translation>Escriviu la contrasenya per reiniciar.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="578"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="571"/>
         <source>Enter your password to shutdown</source>
         <translation>Escriviu la contrasenya per aturar.</translation>
     </message>
@@ -199,6 +199,11 @@
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="601"/>
         <source>Wrong Password</source>
         <translation>Contrasenya incorrecta</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="605"/>
+        <source>The domain account or password is not correct. Please enter again.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -226,13 +231,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="580"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="573"/>
         <source>Shut down</source>
         <translation>Atura</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="572"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="565"/>
         <source>Reboot</source>
         <translation>Reinicia</translation>
     </message>
