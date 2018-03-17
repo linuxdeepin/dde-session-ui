@@ -105,7 +105,11 @@ void FullscreenBackground::adjustGeometry()
     {
         const QRect &g(s->geometry());
         const QRect realRect(g.topLeft() / ratio, g.size());
-        if (realRect.contains(cp - realRect.topLeft()))
+
+        // Without using the processed geometry and mouse coordinates,
+        // the results can be obtained using the original information.
+        // If the original screen contains the original mouse, save the scaled geometry.
+        if (g.contains(cp))
             pr = realRect;
 
         r = r.united(realRect);
