@@ -661,6 +661,10 @@ void LoginManager::login()
 
 void LoginManager::onCurrentUserChanged(User *user)
 {
+    if (m_currentUser == user) {
+        return;
+    }
+
     qDebug() << Q_FUNC_INFO << user->name();
     qDebug() << "previous selected user: " << m_sessionWidget->currentSessionOwner();
 
@@ -674,6 +678,7 @@ void LoginManager::onCurrentUserChanged(User *user)
 
     emit requestBackground(wallpaper.isEmpty() ? user->greeterBackgroundPath() : wallpaper);
 
+    m_sessionWidget->switchToUser(user->name());
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
     m_userState = Password;
 
@@ -685,9 +690,6 @@ void LoginManager::onCurrentUserChanged(User *user)
     } else {
         updatePasswordEditVisible(user);
     }
-
-    m_sessionWidget->switchToUser(user->name());
-
 
 //    updateUserLoginCondition(user->name());
 
