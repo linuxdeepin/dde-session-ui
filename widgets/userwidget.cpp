@@ -42,6 +42,22 @@
 
 DWIDGET_USE_NAMESPACE
 
+bool userSort(UserButton *left, UserButton *right) {
+    User *l = left->userInfo();
+    User *r = right->userInfo();
+
+    // AD Login Button is last of list;
+    if (l->type() == User::ADDomain && l->uid() == 0) {
+        return false;
+    }
+
+    if (l->type() != r->type()) {
+        return l->type() == User::ADDomain;
+    }
+
+    return l->uid() < r->uid();
+}
+
 UserWidget::UserWidget(QWidget* parent)
     : QFrame(parent)
     , m_currentUser(nullptr)
@@ -125,6 +141,9 @@ void UserWidget::initConnections()
     connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onNativeUserRemoved);
     connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, [=] {
         emit userCountChanged(m_availableUserButtons.size());
+
+        // keep order: AD User > Native User > AD Login Button
+        std::sort(m_availableUserButtons.begin(), m_availableUserButtons.end(), userSort);
     });
 
     connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged);
@@ -276,6 +295,9 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
             user->setisLogind(isListContains);
         }
     }
+
+    // keep order: AD User > Native User > AD Login Button
+    std::sort(m_availableUserButtons.begin(), m_availableUserButtons.end(), userSort);
 
     updateAllADUserInfo();
 
@@ -737,6 +759,9 @@ void UserWidget::checkADState()
         appendUser(user);
 
         emit userCountChanged(m_availableUserButtons.size());
+
+        // keep order: AD User > Native User > AD Login Button
+        std::sort(m_availableUserButtons.begin(), m_availableUserButtons.end(), userSort);
 
         m_adCheckStateTimer->stop();
         return;
