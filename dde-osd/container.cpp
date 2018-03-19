@@ -37,7 +37,7 @@ Container::Container(QWidget *parent)
       m_wmHelper(DWindowManagerHelper::instance()),
       m_supportComposite(m_wmHelper->hasComposite())
 {
-    setWindowFlags(Qt::ToolTip);
+    setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_TranslucentBackground);
 
     m_layout = new QHBoxLayout;
@@ -52,8 +52,6 @@ Container::Container(QWidget *parent)
     handle.setTranslucentBackground(true);
 
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
-    setBlurRectXRadius(getWindowRadius());
-    setBlurRectYRadius(getWindowRadius());
     setMaskColor(DBlurEffectWidget::LightColor);
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged,
