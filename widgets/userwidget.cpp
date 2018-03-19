@@ -123,6 +123,10 @@ void UserWidget::initConnections()
 {
     connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onNativeUserAdded);
     connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onNativeUserRemoved);
+    connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, [=] {
+        emit userCountChanged(m_availableUserButtons.size());
+    });
+
     connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged);
 }
 
@@ -624,8 +628,6 @@ void UserWidget::appendUser(User *user)
     m_availableUserButtons << userButton;
 
     connect(userButton, &UserButton::clicked, this, &UserWidget::onUserChoosed);
-
-    // TODO: emit changed signals
 }
 
 void UserWidget::switchPreviousUser()
@@ -733,6 +735,9 @@ void UserWidget::checkADState()
         user->setUserDisplayName(tr("Domain account"));
         user->setisLogind(false);
         appendUser(user);
+
+        emit userCountChanged(m_availableUserButtons.size());
+
         m_adCheckStateTimer->stop();
         return;
     }
