@@ -194,7 +194,7 @@ void FullscreenBackground::setGeometry(const QRect &rect)
     QRect r(rect);
 
     // guess the screen of this window before change the window geometry, so we
-    // can avoid the loop of changing the geometry and chaning the screen(dpr).
+    // can avoid the loop of changing the geometry and changing the screen(dpr).
     const QScreen *screen = screenForGeometry(rect);
     if (screen) {
         const qreal dpr = screen->devicePixelRatio();
