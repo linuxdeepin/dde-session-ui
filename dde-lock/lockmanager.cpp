@@ -221,8 +221,6 @@ void LockManager::onUnlockFinished(const bool unlocked)
 
         m_passwordEdit->selectAll();
         m_passwordEdit->setAlert(true, tr("Wrong Password"));
-
-        m_lockInter->AuthenticateUser(m_activatedUser);
         return;
     }
 

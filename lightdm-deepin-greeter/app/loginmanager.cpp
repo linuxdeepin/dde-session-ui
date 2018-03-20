@@ -746,6 +746,8 @@ void LoginManager::chooseUserMode()
     m_userWidget->show();
     m_requireShutdownWidget->hide();
     m_otherUserInput->hide();
+
+    m_otherUserInput->clearAlert();
 }
 
 void LoginManager::chooseSessionMode()
@@ -763,6 +765,8 @@ void LoginManager::chooseSessionMode()
     if (!m_keybdArrowWidget->isHidden()) {
         m_keybdArrowWidget->hide();
     }
+
+    m_otherUserInput->clearAlert();
 }
 
 void LoginManager::choosedSession() {
