@@ -123,6 +123,9 @@ MainWidget::MainWidget(QWidget *parent)
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::SplashScreen);
 
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &MainWidget::onBlurWallpaperFinished);
+    connect(qApp, &QApplication::aboutToQuit, this, [=] {
+        QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected false");
+    });
 
     if (QFile::exists(QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first() + "/autostart/dde-first-run.desktop")) {
         m_isUpgrade = false;
@@ -243,7 +246,6 @@ void MainWidget::dbus_exit()
 
     if (!m_isUpgrade) {
         qApp->quit();
-        QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected false");
     }
 }
 
