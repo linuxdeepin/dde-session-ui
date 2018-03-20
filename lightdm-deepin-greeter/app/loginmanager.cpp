@@ -466,7 +466,6 @@ void LoginManager::initConnect()
         m_sessionWidget->hide();
         m_userWidget->show();
         m_requireShutdownWidget->hide();
-        m_greeter->authenticate("");
     });
 
     connect(m_loginButton, &QPushButton::clicked, m_passWdEdit, &PassWdEdit::submit);
@@ -615,7 +614,6 @@ void LoginManager::authCurrentUser()
 {
     m_accountStr = m_userWidget->currentUser()->name();
     m_passwdStr = m_passWdEdit->getText();
-    m_greeter->authenticate(m_accountStr);
 
     // NOTE(kirigaya): set auth user and respond password need some time!
     QTimer::singleShot(100, this, SLOT(login()));
@@ -690,6 +688,8 @@ void LoginManager::onCurrentUserChanged(User *user)
     } else {
         updatePasswordEditVisible(user);
     }
+
+    m_greeter->authenticate(user->name());
 
 //    updateUserLoginCondition(user->name());
 
