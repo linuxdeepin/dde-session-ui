@@ -45,12 +45,16 @@ Container::Container(QWidget *parent)
     m_layout->setMargin(0);
     setLayout(m_layout);
 
+    const int radius = getWindowRadius();
+
     DPlatformWindowHandle handle(this);
     handle.setBorderColor(QColor(0, 0, 0, 0.04 * 255));
-    handle.setWindowRadius(getWindowRadius());
     handle.setShadowColor(Qt::transparent);
     handle.setTranslucentBackground(true);
+    handle.setWindowRadius(radius);
 
+    setBlurRectXRadius(radius);
+    setBlurRectYRadius(radius);
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::LightColor);
 
