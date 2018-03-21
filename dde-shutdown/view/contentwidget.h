@@ -44,6 +44,7 @@
 #include "dbus/dbussessionmanager.h"
 #include "dbus/dbushotzone.h"
 #include "systemmonitor.h"
+#include "warningview.h"
 
 using Appearance = com::deepin::daemon::Appearance;
 using ImageBlur = com::deepin::daemon::ImageBlur;
@@ -113,7 +114,7 @@ private:
     QLabel *m_tipsLabel;
     DBusLogin1Manager* m_login1Inter;
 
-    QWidget *m_warningView = nullptr;
+    WarningView *m_warningView = nullptr;
     QVBoxLayout *m_mainLayout;
     UserWidget *m_userWidget;
 

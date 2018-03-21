@@ -61,6 +61,11 @@ public:
     inline const QString text() const {return m_itemText->text();}
     inline void setText(const QString &text) {m_itemText->setText(text);}
     void updateState(const State state);
+
+    void setNormalPic(const QString &path);
+    void setHoverPic(const QString &path);
+    void setPressPic(const QString &path);
+
 signals:
     void stateChanged(const State state);
     void clicked();

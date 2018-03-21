@@ -28,13 +28,11 @@
 #include <QHBoxLayout>
 
 InhibitWarnView::InhibitWarnView(QWidget *parent)
-    : QWidget(parent)
+    : WarningView(parent)
 {
-    m_acceptBtn = new DImageButton;
-    m_cancelBtn = new DImageButton;
+    m_acceptBtn = new RoundItemButton(QString());
+    m_cancelBtn = new RoundItemButton(tr("Cancel"));
     m_reasonLbl = new QLabel;
-    m_acceptLbl = new QLabel;
-    m_acceptLbl->setAlignment(Qt::AlignCenter);
 
     m_cancelBtn->setNormalPic(":/img/cancel_normal.svg");
     m_cancelBtn->setHoverPic(":/img/cancel_hover.svg");
@@ -44,20 +42,11 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
     m_reasonLbl->setAlignment(Qt::AlignCenter);
     m_reasonLbl->setStyleSheet("color:white;");
 
-    QLabel *cancenLbl = new QLabel;
-    cancenLbl->setAlignment(Qt::AlignCenter);
-    cancenLbl->setText(tr("Cancel"));
-    cancenLbl->setStyleSheet("color:white;");
-
-    m_acceptLbl->setStyleSheet("color:white;");
-
     QVBoxLayout *cancelLayout = new QVBoxLayout;
     cancelLayout->addWidget(m_cancelBtn);
-    cancelLayout->addWidget(cancenLbl);
 
     QVBoxLayout *acceptLayout = new QVBoxLayout;
     acceptLayout->addWidget(m_acceptBtn);
-    acceptLayout->addWidget(m_acceptLbl);
 
     QHBoxLayout *btnsLayout = new QHBoxLayout;
     btnsLayout->addStretch();
@@ -76,8 +65,11 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
     setLayout(centeralLayout);
     setFixedSize(500, 300);
 
-    connect(m_cancelBtn, &DImageButton::clicked, this, &InhibitWarnView::cancelled);
-    connect(m_acceptBtn, &DImageButton::clicked, [this] {emit actionInvoked(m_action);});
+    m_acceptBtn->setChecked(true);
+    m_currentBtn = m_acceptBtn;
+
+    connect(m_cancelBtn, &RoundItemButton::clicked, this, &InhibitWarnView::cancelled);
+    connect(m_acceptBtn, &RoundItemButton::clicked, [this] {emit actionInvoked(m_action);});
 }
 
 void InhibitWarnView::setInhibitReason(const QString &reason)
@@ -87,7 +79,7 @@ void InhibitWarnView::setInhibitReason(const QString &reason)
 
 void InhibitWarnView::setAcceptReason(const QString &reason)
 {
-    m_acceptLbl->setText(reason);
+    m_acceptBtn->setText(reason);
 }
 
 void InhibitWarnView::setAction(const Actions action)
@@ -116,5 +108,22 @@ void InhibitWarnView::setAction(const Actions action)
 void InhibitWarnView::setAcceptVisible(const bool acceptable)
 {
     m_acceptBtn->setVisible(acceptable);
-    m_acceptLbl->setVisible(acceptable);
+}
+
+void InhibitWarnView::toggleButtonState()
+{
+    if (m_acceptBtn->isChecked()) {
+        m_acceptBtn->setChecked(false);
+        m_cancelBtn->setChecked(true);
+        m_currentBtn = m_cancelBtn;
+    } else {
+        m_cancelBtn->setChecked(false);
+        m_acceptBtn->setChecked(true);
+        m_currentBtn = m_acceptBtn;
+    }
+}
+
+void InhibitWarnView::buttonClickHandle()
+{
+    emit m_currentBtn->clicked();
 }

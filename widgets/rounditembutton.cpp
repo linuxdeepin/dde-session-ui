@@ -211,3 +211,24 @@ void RoundItemButton::updateState(const RoundItemButton::State state)
     QAbstractButton::setChecked(m_state == Checked);
     return updateIcon();
 }
+
+void RoundItemButton::setNormalPic(const QString &path)
+{
+    m_normalIcon = path;
+
+    updateIcon();
+}
+
+void RoundItemButton::setHoverPic(const QString &path)
+{
+    m_hoverIcon = path;
+
+    updateIcon();
+}
+
+void RoundItemButton::setPressPic(const QString &path)
+{
+    m_pressedIcon = path;
+
+    updateIcon();
+}

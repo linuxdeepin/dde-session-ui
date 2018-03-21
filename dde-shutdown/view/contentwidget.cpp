@@ -95,9 +95,14 @@ void ContentWidget::showEvent(QShowEvent *event)
 
     QTimer::singleShot(1, this, [=] {
         grabKeyboard();
+        activateWindow();
     });
 
-    QTimer::singleShot(1, this, &ContentWidget::activateWindow);
+    QTimer::singleShot(100, this, [=] {
+        if (m_systemMonitor && !m_warningView) {
+            m_systemMonitor->show();
+        }
+    });
 }
 
 void ContentWidget::keyReleaseEvent(QKeyEvent *event)
@@ -107,18 +112,32 @@ void ContentWidget::keyReleaseEvent(QKeyEvent *event)
     case Qt::Key_Return:
     case Qt::Key_Enter: enterKeyPushed(); break;
     case Qt::Key_Left: {
+        if (m_warningView) {
+            m_warningView->toggleButtonState();
+            break;
+        }
+
         if (m_systemMonitor)
             m_systemMonitor->setState(SystemMonitor::Leave);
         setPreviousChildFocus();
         break;
     }
     case Qt::Key_Right: {
+        if (m_warningView) {
+            m_warningView->toggleButtonState();
+            break;
+        }
+
         if (m_systemMonitor)
             m_systemMonitor->setState(SystemMonitor::Leave);
         setNextChildFocus();
         break;
     }
     case Qt::Key_Up: {
+        if (m_warningView) {
+            break;
+        }
+
         if (m_systemMonitor) {
             m_systemMonitor->setState(SystemMonitor::Leave);
         }
@@ -126,6 +145,10 @@ void ContentWidget::keyReleaseEvent(QKeyEvent *event)
         break;
     }
     case Qt::Key_Down: {
+        if (m_warningView) {
+            break;
+        }
+
         if (m_systemMonitor) {
             m_currentSelectedBtn->updateState(RoundItemButton::Normal);
             m_systemMonitor->setState(SystemMonitor::Enter);
@@ -205,6 +228,11 @@ void ContentWidget::initData()
 
 void ContentWidget::enterKeyPushed()
 {
+    if (m_warningView) {
+        m_warningView->buttonClickHandle();
+        return;
+    }
+
     if (m_systemMonitor && m_systemMonitor->state() == SystemMonitor::Enter) {
         runSystemMonitor();
         return;
@@ -285,6 +313,9 @@ void ContentWidget::beforeInvokeAction(const Actions action)
         }
     }
 
+    if (m_systemMonitor) {
+        m_systemMonitor->hide();
+    }
 
     if (!inhibitReason.isEmpty() && action != Logout)
     {
@@ -318,6 +349,10 @@ void ContentWidget::beforeInvokeAction(const Actions action)
         MultiUsersWarningView *view = new MultiUsersWarningView(m_userWidget);
         view->setUsers(loginUsers);
         view->setAction(action);
+        if (action == Shutdown)
+            view->setAcceptReason(tr("Shut down"));
+        else if (action == Restart)
+            view->setAcceptReason(tr("Reboot"));
         m_warningView = view;
         m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
 

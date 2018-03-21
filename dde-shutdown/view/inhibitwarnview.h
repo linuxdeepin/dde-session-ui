@@ -26,15 +26,13 @@
 #ifndef INHIBITWARNVIEW_H
 #define INHIBITWARNVIEW_H
 
+#include "warningview.h"
 #include "common.h"
+#include "rounditembutton.h"
 
 #include <QWidget>
 
-#include <dimagebutton.h>
-
-DWIDGET_USE_NAMESPACE
-
-class InhibitWarnView : public QWidget
+class InhibitWarnView : public WarningView
 {
     Q_OBJECT
 
@@ -46,6 +44,9 @@ public:
     void setAction(const Actions action);
     void setAcceptVisible(const bool acceptable);
 
+    void toggleButtonState() Q_DECL_OVERRIDE;
+    void buttonClickHandle() Q_DECL_OVERRIDE;
+
 signals:
     void cancelled() const;
     void actionInvoked(const Actions action) const;
@@ -54,9 +55,9 @@ private:
     Actions m_action;
 
     QLabel *m_reasonLbl;
-    QLabel *m_acceptLbl;
-    DImageButton *m_acceptBtn;
-    DImageButton *m_cancelBtn;
+    RoundItemButton *m_acceptBtn;
+    RoundItemButton *m_cancelBtn;
+    RoundItemButton *m_currentBtn;
 };
 
 #endif // INHIBITWARNVIEW_H

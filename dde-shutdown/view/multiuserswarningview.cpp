@@ -38,14 +38,15 @@ const static QSize ViewSize = QSize(500, 500);
 const static QSize UserAvatarSize = QSize(64, 64);
 const static QSize UserListItemSize = QSize(180, 80);
 
-MultiUsersWarningView::MultiUsersWarningView(UserWidget *userWidget, QWidget *parent) :
-    QFrame(parent),
-    m_vLayout(new QVBoxLayout(this)),
-    m_userList(new QListWidget),
-    m_warningTip(new QLabel),
-    m_cancelBtn(new DImageButton),
-    m_actionBtn(new DImageButton),
-    m_userWidget(userWidget)
+MultiUsersWarningView::MultiUsersWarningView(UserWidget *userWidget, QWidget *parent)
+    : WarningView(parent)
+    , m_vLayout(new QVBoxLayout(this))
+    , m_userList(new QListWidget)
+    , m_warningTip(new QLabel)
+    , m_cancelBtn(new RoundItemButton(tr("Cancel")))
+    , m_actionBtn(new RoundItemButton(QString()))
+    , m_userWidget(userWidget)
+    , m_currentBtn(nullptr)
 {
     setFixedSize(ViewSize);
 
@@ -83,8 +84,11 @@ MultiUsersWarningView::MultiUsersWarningView(UserWidget *userWidget, QWidget *pa
     m_vLayout->addLayout(btnLayout);
     m_vLayout->addStretch();
 
-    connect(m_cancelBtn, &DImageButton::clicked, this, &MultiUsersWarningView::cancelled);
-    connect(m_actionBtn, &DImageButton::clicked, this, &MultiUsersWarningView::actionInvoked);
+    m_cancelBtn->setChecked(true);
+    m_currentBtn = m_cancelBtn;
+
+    connect(m_cancelBtn, &RoundItemButton::clicked, this, &MultiUsersWarningView::cancelled);
+    connect(m_actionBtn, &RoundItemButton::clicked, this, &MultiUsersWarningView::actionInvoked);
 }
 
 MultiUsersWarningView::~MultiUsersWarningView()
@@ -126,6 +130,29 @@ void MultiUsersWarningView::setAction(const Actions action)
         m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? "));
         break;
     }
+}
+
+void MultiUsersWarningView::toggleButtonState()
+{
+    if (m_actionBtn->isChecked()) {
+        m_actionBtn->setChecked(false);
+        m_cancelBtn->setChecked(true);
+        m_currentBtn = m_cancelBtn;
+    } else {
+        m_cancelBtn->setChecked(false);
+        m_actionBtn->setChecked(true);
+        m_currentBtn = m_actionBtn;
+    }
+}
+
+void MultiUsersWarningView::buttonClickHandle()
+{
+    emit m_currentBtn->clicked();
+}
+
+void MultiUsersWarningView::setAcceptReason(const QString &reason)
+{
+    m_actionBtn->setText(reason);
 }
 
 QString MultiUsersWarningView::getUserIcon(const QString &path)

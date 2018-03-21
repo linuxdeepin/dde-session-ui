@@ -32,7 +32,8 @@ HEADERS  += \
     view/multiuserswarningview.h \
     app/shutdownframe.h \
     view/inhibitwarnview.h \
-    view/systemmonitor.h
+    view/systemmonitor.h \
+    view/warningview.h
 
 RESOURCES += \
     qss.qrc \

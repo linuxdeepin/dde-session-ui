@@ -27,10 +27,11 @@
 #define MULTIUSERSWARNINGVIEW_H
 
 #include <QFrame>
-
+#include "warningview.h"
 #include <dimagebutton.h>
 #include "userwidget.h"
 #include "common.h"
+#include "rounditembutton.h"
 
 class QListWidget;
 class QLabel;
@@ -38,7 +39,7 @@ class QVBoxLayout;
 
 DWIDGET_USE_NAMESPACE
 
-class MultiUsersWarningView : public QFrame
+class MultiUsersWarningView : public WarningView
 {
     Q_OBJECT
 public:
@@ -49,6 +50,10 @@ public:
 
     Actions action() const;
     void setAction(const Actions action);
+
+    void toggleButtonState() Q_DECL_OVERRIDE;
+    void buttonClickHandle() Q_DECL_OVERRIDE;
+    void setAcceptReason(const QString &reason) Q_DECL_OVERRIDE;
 
 signals:
     void actionInvoked();
@@ -61,8 +66,9 @@ private:
     QVBoxLayout * m_vLayout;
     QListWidget * m_userList;
     QLabel * m_warningTip;
-    DImageButton * m_cancelBtn;
-    DImageButton * m_actionBtn;
+    RoundItemButton * m_cancelBtn;
+    RoundItemButton * m_actionBtn;
+    RoundItemButton *m_currentBtn;
     UserWidget *m_userWidget;
     Actions m_action;
 };
