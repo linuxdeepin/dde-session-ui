@@ -804,12 +804,11 @@ void LoginManager::showShutdownFrame() {
 void LoginManager::keyboardLayoutUI() {
 
     m_keybdLayoutWidget = new KbLayoutWidget;
-    m_keybdLayoutWidget->setDefault(m_userWidget->currentUser()->currentKBLayout());
-
     const QStringList &kblayout = m_userWidget->currentUser()->kbLayoutList();
 
     m_keybdLayoutWidget->updateButtonList(kblayout);
     m_passWdEdit->updateKeybdLayoutUI(kblayout);
+    m_keybdLayoutWidget->setDefault(m_userWidget->currentUser()->currentKBLayout());
 
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
     m_keybdArrowWidget->setBackgroundColor(QColor::fromRgbF(1, 1, 1, 0.15));
