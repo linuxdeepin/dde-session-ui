@@ -63,6 +63,7 @@ UserWidget::UserWidget(QWidget* parent)
     , m_currentUser(nullptr)
     , m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this)
     , m_dbusLogined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
+    , m_adLogin(nullptr)
 {
     m_dbusAccounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
 
@@ -83,7 +84,10 @@ UserWidget::UserWidget(QWidget* parent)
     m_adCheckStateTimer->setSingleShot(true);
     connect(m_adCheckStateTimer, &QTimer::timeout, this, &UserWidget::checkADState);
 
-    m_adCheckStateTimer->start();
+    // If pbis-open is not installed, don't need to check the AD domain
+    if (!QProcess::execute("/opt/pbis/bin/enum-users", QStringList() << "--help")) {
+        m_adCheckStateTimer->start();
+    }
 
     // If current user is lightdm, here is greeter interface
     // else is dde-lock interface
@@ -384,36 +388,27 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 //    m_userBtns << user;
 //}
 
-void UserWidget::initADLogin()
+User* UserWidget::initADLogin()
 {
-//    if (m_adLoginBtn)
-//        return;
+    ADDomainUser *user = new ADDomainUser(0);
+    user->setUserDisplayName(tr("Domain account"));
+    user->setisLogind(false);
+    appendUser(user);
 
-//    const QString &username = tr("AD Domain");
+    m_adLogin = user;
 
-//    m_adLoginBtn = new UserButton(this);
-//    m_adLoginBtn->updateUserName(username);
-//    m_adLoginBtn->updateDisplayName(username);
-//    m_adLoginBtn->updateGreeterWallpaper("/usr/share/backgrounds/deepin/desktop.jpg");
-//    m_adLoginBtn->updateAutoLogin(false);
-//    m_adLoginBtn->updateAvatar(":/img/default_avatar.png");
-//    m_adLoginBtn->updateKbHistory(QStringList());
-//    m_adLoginBtn->updateKbLayout("");
-//    m_adLoginBtn->updateBackgrounds(QStringList() << "/usr/share/backgrounds/deepin/desktop.jpg");
-//    m_adLoginBtn->setDBus(nullptr);
+    emit userCountChanged(m_availableUserButtons.size());
 
-//    connect(m_adLoginBtn, &UserButton::imageClicked, this, [=] {
-//        releaseKeyboard();
-//        setCurrentUser(username);
-//        updateCurrentUserPos(200);
-//        emit otherUserLogin();
-//    });
+    // keep order: AD User > Native User > AD Login Button
+    std::sort(m_availableUserButtons.begin(), m_availableUserButtons.end(), userSort);
 
-//    m_whiteList << username;
+    m_adCheckStateTimer->stop();
 
-//    m_userBtns << m_adLoginBtn;
+    if (isChooseUserMode) {
+        updateIconPosition();
+    }
 
-    //    emit userCountChanged(m_userBtns.count());
+    return user;
 }
 
 void UserWidget::addAddomainUser(int uid)
@@ -752,20 +747,15 @@ void UserWidget::checkADState()
     process.start("/opt/pbis/bin/enum-users");
     process.waitForFinished();
 
-    if (process.readAll().contains("Name:")) {
-        ADDomainUser *user = new ADDomainUser(0);
-        user->setUserDisplayName(tr("Domain account"));
-        user->setisLogind(false);
-        appendUser(user);
-
-        emit userCountChanged(m_availableUserButtons.size());
-
-        // keep order: AD User > Native User > AD Login Button
-        std::sort(m_availableUserButtons.begin(), m_availableUserButtons.end(), userSort);
-
+    if (m_adLogin) {
         m_adCheckStateTimer->stop();
+    }
+
+    if (process.readAll().contains("Name:")) {
+        initADLogin();
         return;
     }
+
     qDebug() << "Checking AD state!!!!";
     m_adCheckStateTimer->start();
 }

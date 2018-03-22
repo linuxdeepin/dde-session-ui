@@ -507,23 +507,32 @@ void LoginManager::initDateAndUpdate() {
 // TODO: FIXME
 void LoginManager::restoreUser()
 {
-    QFile file("/tmp/lastuser");
-    if (file.open(QIODevice::ReadWrite)) {
-        m_lastUser = file.readAll().trimmed();
-        file.resize(0);
-        qDebug() << "file remove: " << int(file.remove());
-    }
+    QSettings setting("/tmp/lastuser", QSettings::IniFormat);
+    setting.beginGroup("LASTUSER");
+
+    m_lastUser = setting.value("UserName").toString();
+    const int type = setting.value("Type").toInt();
+
+    setting.clear();
 
     qDebug() << "last user is: " << m_lastUser;
 
     if (!m_lastUser.isEmpty()) {
-        for (User * user : m_userWidget->allUsers()) {
-            if (user->name() == m_lastUser) {
-                m_userWidget->restoreUser(user);
-                onCurrentUserChanged(user);
-                break;
+        // If type is ADDomain of lastuser, init ADLogin button
+        if (type == User::ADDomain) {
+            User *user = m_userWidget->initADLogin();
+            m_userWidget->restoreUser(user);
+            onCurrentUserChanged(user);
+        } else {
+            for (User * user : m_userWidget->allUsers()) {
+                if (user->name() == m_lastUser) {
+                    m_userWidget->restoreUser(user);
+                    onCurrentUserChanged(user);
+                    break;
+                }
             }
         }
+
     } else {
         onCurrentUserChanged(m_userWidget->currentUser());
     }

@@ -181,6 +181,7 @@ void ContentWidget::initConnect() {
     connect(m_switchUserBtn, &RoundItemButton::clicked, [this] { shutDownFrameActions(SwitchUser);});
     connect(m_wmInter, &__wm::WorkspaceSwitched, this, &ContentWidget::currentWorkspaceChanged);
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &ContentWidget::onBlurWallpaperFinished);
+    connect(m_userWidget, &UserWidget::userCountChanged, this, &ContentWidget::checkUsers);
 
     connect(qApp, &QApplication::aboutToQuit, [this]{
         m_hotZoneInterface->EnableZoneDetected(true);
@@ -382,8 +383,7 @@ void ContentWidget::hideToplevelWindow()
 
 void ContentWidget::checkUsers()
 {
-    if (m_userWidget->availableUserCount() < 2)
-        hideBtns(QStringList() << "SwitchUser");
+    m_switchUserBtn->setVisible(m_userWidget->availableUserCount() > 1);
 }
 
 void ContentWidget::shutDownFrameActions(const Actions action)

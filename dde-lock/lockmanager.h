@@ -105,7 +105,7 @@ private:
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
 
     // TODO: FIXME
-    void saveUser(const QString &username);
+    void saveUser(User *user);
 
 private:
     enum UserState {

@@ -453,7 +453,7 @@ void LockManager::switchToUser(User *user)
     updatePasswordEditVisible(user);
 
     // TODO: FIXME
-    saveUser(user->name());
+    saveUser(user);
 
     if (user->isLogin()) {
         QProcess::startDetached("dde-switchtogreeter", QStringList() << user->name());
@@ -470,13 +470,19 @@ void LockManager::onBlurWallpaperFinished(const QString &source, const QString &
         emit requestSetBackground(blur);
 }
 
-void LockManager::saveUser(const QString &username)
+void LockManager::saveUser(User *user)
 {
     QFile f("/tmp/lastuser");
     if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        f.write(username.toLocal8Bit());
         f.setPermissions(QFileDevice::Permissions(0x7777));
         f.close();
+
+        QSettings setting("/tmp/lastuser", QSettings::IniFormat);
+        setting.beginGroup("LASTUSER");
+        setting.setValue("UserName", user->name());
+        setting.setValue("Type", user->type());
+        setting.endGroup();
+        setting.sync();
     }
 }
 

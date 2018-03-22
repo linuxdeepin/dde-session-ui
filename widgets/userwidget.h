@@ -167,6 +167,7 @@ public slots:
     void saveLastUser();
     void saveADUser(const QString &username);
     void restoreUser(User *user);
+    User *initADLogin();
 
 //    void chooseButtonChecked();
 
@@ -186,7 +187,6 @@ private slots:
     void onLoginUserListChanged(const QString &loginedUserInfo);
 //    UserButton* getUserByName(const QString &username);
 //    void initOtherUser(const QString &username = "");
-    void initADLogin();
 
     void addAddomainUser(int uid);
     void onUserChoosed();
@@ -220,6 +220,7 @@ private:
     QList<UserButton *> m_availableUserButtons;
 
     QTimer *m_adCheckStateTimer;
+    User *m_adLogin;
 };
 
 #endif // WIDGET_H
