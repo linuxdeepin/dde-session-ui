@@ -1,3 +1,28 @@
+<a name="4.3.2"></a>
+### 4.3.2 (2018-03-22)
+
+
+#### Features
+
+*   If the last user was not found, initialize the AD login button ([dd5cf0be](https://github.com/linuxdeepin/dde-session-ui/commit/dd5cf0be55638da8d4732b33faf96d56f88e3aa2))
+*   keep user list order ([589c58e1](https://github.com/linuxdeepin/dde-session-ui/commit/589c58e1554f3a9f1fd6f2097f9dcc2629fd377e))
+
+#### Bug Fixes
+
+*   alert tip not hide ([3efa4cf7](https://github.com/linuxdeepin/dde-session-ui/commit/3efa4cf74f56dfa23ff44818e85369b570d023ae))
+*   not emit user list changed when append user ([3f70d9a8](https://github.com/linuxdeepin/dde-session-ui/commit/3f70d9a83945721b62c9dd793c3e0a9de16dc317))
+* **fullscreen:**  Handle multi-screen geometry correctly ([a2dede2b](https://github.com/linuxdeepin/dde-session-ui/commit/a2dede2b1418964a00a521786ae2061076d3a83a))
+* **greeter:**
+  *  not select user kblayout ([6b04a65d](https://github.com/linuxdeepin/dde-session-ui/commit/6b04a65dae86bbf59fa8617ec160f34e3612b9e9))
+  *  not set greeter authenticate user ([a50c9a78](https://github.com/linuxdeepin/dde-session-ui/commit/a50c9a78edc4f69df681e843f30cb523eb941f62))
+  *  Prevent duplicate settings of current user ([c1ab1484](https://github.com/linuxdeepin/dde-session-ui/commit/c1ab1484818011ab76bbe383101b25d33e923ef4))
+* **osd:**  not fillet after startup ([aec60e2e](https://github.com/linuxdeepin/dde-session-ui/commit/aec60e2e7e9970ad5af204cd4f945db86465dda3))
+* **welcome:**
+  *  restore hotzone with welcome quit ([307f1de4](https://github.com/linuxdeepin/dde-session-ui/commit/307f1de41ce2007e39f222849d92f964ac857735))
+  *  error dbus call ([d21d766e](https://github.com/linuxdeepin/dde-session-ui/commit/d21d766ebe561d3619d8f7bb244e9e8728f9bd56))
+
+
+
 <a name="4.3.1"></a>
 ### 4.3.1 (2018-03-16)
 
