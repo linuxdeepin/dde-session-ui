@@ -668,10 +668,6 @@ void LoginManager::login()
 
 void LoginManager::onCurrentUserChanged(User *user)
 {
-    if (m_currentUser == user) {
-        return;
-    }
-
     qDebug() << Q_FUNC_INFO << user->name();
     qDebug() << "previous selected user: " << m_sessionWidget->currentSessionOwner();
 
