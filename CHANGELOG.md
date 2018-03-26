@@ -1,3 +1,13 @@
+<a name="4.3.3"></a>
+### 4.3.3 (2018-03-26)
+
+
+#### Bug Fixes
+
+* **greeter:**  not need check current user ([56c13603](https://github.com/linuxdeepin/dde-session-ui/commit/56c13603848fae82a2fc162d98d6f0d788e904f2))
+
+
+
 <a name="4.3.2"></a>
 ### 4.3.2 (2018-03-22)
 
