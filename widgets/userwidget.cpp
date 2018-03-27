@@ -426,6 +426,8 @@ void UserWidget::onUserChoosed()
         ub->hide();
     }
 
+    isChooseUserMode = false;
+
     UserButton *clickedButton = qobject_cast<UserButton *>(sender());
     Q_ASSERT(clickedButton);
 

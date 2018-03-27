@@ -576,7 +576,7 @@ void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
 
     // Don't show password prompt from standard pam modules since
     // we'll provide our own prompt or just not.
-    const QString msg = text == "Password: " ? "" : text;
+    const QString msg = text.simplified() == "Password:" ? "" : text;
 
     switch (type)
     {

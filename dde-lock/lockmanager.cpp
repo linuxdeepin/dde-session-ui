@@ -332,7 +332,7 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
 
     // Don't show password prompt from standard pam modules since
     // we'll provide our own prompt or just not.
-    const QString msg = message == "Password: " ? "" : message;
+    const QString msg = message.simplified() == "Password:" ? "" : message;
 
     m_authenticating = false;
 
