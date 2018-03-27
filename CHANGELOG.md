@@ -1,3 +1,14 @@
+<a name="4.3.4"></a>
+### 4.3.4 (2018-03-27)
+
+
+#### Bug Fixes
+
+*   remove the blank at the begging and end of the message ([9f0a84a7](https://github.com/linuxdeepin/dde-session-ui/commit/9f0a84a731499343116abeea3ee5a4f2c179ba26))
+* **greeter:**  esc abort operation not restore widget visible ([f8c7b79d](https://github.com/linuxdeepin/dde-session-ui/commit/f8c7b79d041b9d22693e4003f55bcb2c9aece3b8))
+
+
+
 <a name="4.3.3"></a>
 ### 4.3.3 (2018-03-26)
 
