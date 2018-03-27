@@ -684,6 +684,10 @@ void LoginManager::onCurrentUserChanged(User *user)
     m_requireShutdownWidget->hide();
     m_keybdArrowWidget->hide();
 
+    // clean old info
+    m_accountStr.clear();
+    m_passwdStr.clear();
+
     const QString &wallpaper = m_blurImageInter->Get(user->greeterBackgroundPath());
 
     emit requestBackground(wallpaper.isEmpty() ? user->greeterBackgroundPath() : wallpaper);

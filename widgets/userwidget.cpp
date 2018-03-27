@@ -454,6 +454,8 @@ void UserWidget::onUserChoosed()
             break;
         }
     }
+
+    emit chooseUserModeChanged(isChooseUserMode, m_currentUser->name());
 }
 
 //void UserWidget::setCurrentUser(const QString &username)
@@ -541,7 +543,7 @@ void UserWidget::expandWidget()
     setFocus();
     QTimer::singleShot(100, this, &UserWidget::grabKeyboard);
 
-//    emit chooseUserModeChanged(isChooseUserMode, m_currentUser);
+    emit chooseUserModeChanged(isChooseUserMode, m_currentUser->name());
 }
 
 void UserWidget::saveLastUser()
