@@ -121,6 +121,8 @@ private:
     void updatePasswordEditVisible(User *user);
     bool checkUserIsNoGrp(User *user);
 
+    void restoreWidgetVisible();
+
     enum UserState {
         Password,
         NoPassword

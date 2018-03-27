@@ -260,6 +260,30 @@ bool LoginManager::checkUserIsNoGrp(User *user)
     return false;
 }
 
+void LoginManager::restoreWidgetVisible()
+{
+    // Restore All widget visible state
+    if (m_layoutState != LoginState) {
+        m_layoutState = LoginState;
+
+        m_requireShutdownWidget->hide();
+        m_sessionWidget->hide();
+        m_keybdArrowWidget->hide();
+
+        m_otherUserInput->clearAlert();
+
+        m_userWidget->show();
+        m_userWidget->restoreUser(m_currentUser);
+
+        // Special processing: AD user login
+        if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
+            m_otherUserInput->show();
+        } else {
+            updatePasswordEditVisible(m_currentUser);
+        }
+    }
+}
+
 void LoginManager::startSession()
 {
     qDebug() << "start session = " << m_sessionWidget->currentSessionName();
@@ -307,25 +331,7 @@ void LoginManager::resizeEvent(QResizeEvent *e)
 
 void LoginManager::mousePressEvent(QMouseEvent *e)
 {
-    // Restore All widget visible state
-
-    if (m_layoutState != LoginState) {
-        m_layoutState = LoginState;
-
-        m_requireShutdownWidget->hide();
-        m_sessionWidget->hide();
-        m_keybdArrowWidget->hide();
-
-        m_userWidget->show();
-        m_userWidget->restoreUser(m_currentUser);
-
-        // Special processing: AD user login
-        if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
-            m_otherUserInput->show();
-        } else {
-            updatePasswordEditVisible(m_currentUser);
-        }
-    }
+    restoreWidgetVisible();
 
     QFrame::mousePressEvent(e);
 }
@@ -471,6 +477,7 @@ void LoginManager::initConnect()
     connect(m_loginButton, &QPushButton::clicked, m_passWdEdit, &PassWdEdit::submit);
 
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
+    connect(m_requireShutdownWidget, &ShutdownWidget::abortOperation, this, &LoginManager::restoreWidgetVisible);
 
     connect(m_keyboardMonitor, &KeyboardMonitor::numlockStatusChanged, this, &LoginManager::saveNumlockStatus);
 
@@ -687,7 +694,7 @@ void LoginManager::onCurrentUserChanged(User *user)
 
     // check is fake addomain button
     if (user->type() == User::ADDomain && user->uid() == 0) {
-        m_passWdEdit->hide();
+        m_passWdEdit->setVisible(false);
         m_otherUserInput->show();
         return;
     } else {
@@ -724,7 +731,7 @@ void LoginManager::switchToLogindUser(User *user)
 {
     // check is fake addomain button
     if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
-        m_passWdEdit->hide();
+        m_passWdEdit->setVisible(false);
         m_otherUserInput->show();
     } else {
         updatePasswordEditVisible(m_currentUser);
@@ -745,7 +752,7 @@ void LoginManager::onUserCountChaged(int count)
 void LoginManager::chooseUserMode()
 {
     m_layoutState = UsersState;
-    m_passWdEdit->hide();
+    m_passWdEdit->setVisible(false);
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
@@ -763,7 +770,7 @@ void LoginManager::chooseSessionMode()
 
     m_sessionWidget->show();
     m_userWidget->hide();
-    m_passWdEdit->hide();
+    m_passWdEdit->setVisible(false);
     m_loginButton->hide();
     m_otherUserInput->hide();
     m_requireShutdownWidget->hide();
@@ -775,22 +782,11 @@ void LoginManager::chooseSessionMode()
 }
 
 void LoginManager::choosedSession() {
-    m_requireShutdownWidget->hide();
-    m_sessionWidget->hide();
-    m_userWidget->show();
-    m_userWidget->restoreUser(m_currentUser);
-
-    // Special processing: AD user login
-    if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
-        m_otherUserInput->show();
-    } else {
-        updatePasswordEditVisible(m_currentUser);
-    }
-//    updateUserLoginCondition(m_userWidget->currentUser());
-
     if (!m_keybdArrowWidget->isHidden()) {
         m_keybdArrowWidget->hide();
     }
+
+    restoreWidgetVisible();
 }
 
 void LoginManager::showShutdownFrame() {
@@ -799,11 +795,12 @@ void LoginManager::showShutdownFrame() {
     m_layoutState = PowerState;
 
     m_userWidget->hide();
-    m_passWdEdit->hide();
+    m_passWdEdit->setVisible(false);
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_requireShutdownWidget->show();
     m_otherUserInput->hide();
+    m_otherUserInput->clearAlert();
 }
 
 void LoginManager::keyboardLayoutUI() {
@@ -860,20 +857,11 @@ void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
     switch (action) {
     case ShutdownWidget::RequireShutdown: { m_login1ManagerInterface->PowerOff(true); break;}
     case ShutdownWidget::RequireRestart: { m_login1ManagerInterface->Reboot(true); break;}
-    case ShutdownWidget::RequireSuspend: { m_login1ManagerInterface->Suspend(true);
-
-        m_requireShutdownWidget->hide();
-        m_userWidget->show();
-        m_sessionWidget->hide();
-        m_userWidget->restoreUser(m_currentUser);
-
-        // Special processing: AD user login
-        if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
-            m_otherUserInput->show();
-        } else {
-            updatePasswordEditVisible(m_currentUser);
-        }
-        break;}
+    case ShutdownWidget::RequireSuspend: {
+        m_login1ManagerInterface->Suspend(true);
+        restoreWidgetVisible();
+        break;
+    }
     default:;
     }
 }
