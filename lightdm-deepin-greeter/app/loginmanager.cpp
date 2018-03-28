@@ -690,17 +690,21 @@ void LoginManager::onCurrentUserChanged(User *user)
 
     m_sessionWidget->switchToUser(user->name());
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
-    m_userState = Password;
 
     // check is fake addomain button
     if (user->type() == User::ADDomain && user->uid() == 0) {
         m_passWdEdit->setVisible(false);
         m_otherUserInput->show();
-        m_greeter->cancelAuthentication();
         return;
     } else {
         updatePasswordEditVisible(user);
-        m_greeter->authenticate(user->name());
+
+        if (checkUserIsNoGrp(user)) {
+            m_userState = NoPassword;
+        } else {
+            m_userState = Password;
+            m_greeter->authenticate(user->name());
+        }
     }
 
 
@@ -890,11 +894,9 @@ void LoginManager::updatePasswordEditVisible(User *user)
         m_passWdEdit->hide();
         m_loginButton->show();
         m_loginButton->setFocus();
-        m_userState = NoPassword;
     } else {
         m_loginButton->hide();
         m_passWdEdit->show();
-        m_userState = Password;
     }
 }
 
