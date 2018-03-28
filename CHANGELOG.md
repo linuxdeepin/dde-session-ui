@@ -1,3 +1,13 @@
+<a name="4.3.6"></a>
+### 4.3.6 (2018-03-28)
+
+
+#### Bug Fixes
+
+*   AD user login prompt error ([4f7687c8](https://github.com/linuxdeepin/dde-session-ui/commit/4f7687c8c7bc85c90a91bd60ab3c4d6c771d75d1))
+
+
+
 <a name="4.3.5"></a>
 ### 4.3.5 (2018-03-27)
 
