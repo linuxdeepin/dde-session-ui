@@ -696,12 +696,13 @@ void LoginManager::onCurrentUserChanged(User *user)
     if (user->type() == User::ADDomain && user->uid() == 0) {
         m_passWdEdit->setVisible(false);
         m_otherUserInput->show();
+        m_greeter->cancelAuthentication();
         return;
     } else {
         updatePasswordEditVisible(user);
+        m_greeter->authenticate(user->name());
     }
 
-    m_greeter->authenticate(user->name());
 
 //    updateUserLoginCondition(user->name());
 
@@ -729,18 +730,7 @@ void LoginManager::onCurrentUserChanged(User *user)
 
 void LoginManager::switchToLogindUser(User *user)
 {
-    // check is fake addomain button
-    if (m_currentUser->type() == User::ADDomain && m_currentUser->uid() == 0) {
-        m_passWdEdit->setVisible(false);
-        m_otherUserInput->show();
-    } else {
-        updatePasswordEditVisible(m_currentUser);
-    }
-
-    m_sessionWidget->switchToUser(user->name());
-
-    m_requireShutdownWidget->hide();
-
+    restoreWidgetVisible();
     QProcess::startDetached("dde-switchtogreeter", QStringList() << user->name());
 }
 
