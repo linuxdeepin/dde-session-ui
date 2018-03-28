@@ -284,19 +284,22 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
     }
 
     // Remove the nonexistent button from the already-obtained id.
-    for (int i = 0; i != availableUidList.size(); ++i) {
-        UserButton *btn = m_availableUserButtons.at(i);
+    for (auto it(m_availableUserButtons.begin()); it != m_availableUserButtons.end(); /* get next in loop */)
+    {
+        UserButton *btn = *it;
         User *user = btn->userInfo();
         const bool isListContains = logindUidList.contains(user->uid());
 
         // skip fake ADDomain login button
         if (!isListContains && user->type() == User::ADDomain && user->uid() != 0) {
-            m_availableUserButtons.removeAt(i);
-            m_availableUsers.removeOne(user);
             user->deleteLater();
             btn->deleteLater();
+
+            it = m_availableUserButtons.erase(it);
+            m_availableUsers.removeOne(user);
         } else {
             user->setisLogind(isListContains);
+            ++it;
         }
     }
 
