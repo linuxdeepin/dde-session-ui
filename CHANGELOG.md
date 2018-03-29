@@ -1,3 +1,13 @@
+<a name="4.3.7"></a>
+### 4.3.7 (2018-03-29)
+
+
+#### Bug Fixes
+
+* **greeter:**  not check user state ([543c79b6](https://github.com/linuxdeepin/dde-session-ui/commit/543c79b618c0fb5e5b2d61e5ee88791b8f2fc906))
+
+
+
 <a name="4.3.6"></a>
 ### 4.3.6 (2018-03-28)
 
