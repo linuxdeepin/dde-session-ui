@@ -29,6 +29,7 @@
 #include <QCommandLineParser>
 #include <QDebug>
 #include <QDBusAbstractInterface>
+#include <DDBusSender>
 
 #include <DLog>
 
@@ -69,9 +70,12 @@ int main(int argc, char* argv[])
         qWarning() << "dde-shutdown is running...";
 
         if (!parser.isSet(daemon)) {
-            const char* interface = "com.deepin.dde.shutdownFront";
-            QDBusInterface ifc(DBUS_NAME, DBUS_PATH, interface, session, NULL);
-            ifc.asyncCall("Show");
+            DDBusSender()
+                    .service(DBUS_NAME)
+                    .interface(DBUS_NAME)
+                    .path(DBUS_PATH)
+                    .method("Show")
+                    .call();
         }
 
         return 0;

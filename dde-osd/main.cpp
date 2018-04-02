@@ -29,11 +29,14 @@
 #include <QFile>
 #include <QDBusConnection>
 #include <QProcess>
+#include <DDBusSender>
+
 
 #include "manager.h"
 #include "kblayoutindicator.h"
 
 DWIDGET_USE_NAMESPACE
+DCORE_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
@@ -64,7 +67,13 @@ int main(int argc, char *argv[])
     if (!QDBusConnection::sessionBus().registerService("com.deepin.dde.osd")
             || !a.setSingleInstance(QString("dde-osd"), DApplication::UserScope)) {
         if (!action.isEmpty()) {
-            QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.osd / com.deepin.dde.osd.ShowOSD string:" + action);
+            DDBusSender()
+                    .service("com.deepin.dde.osd")
+                    .interface("com.deepin.dde.osd")
+                    .path("/")
+                    .method("ShowOSD")
+                    .arg(QString("action"))
+                    .call();
         }
 
         qWarning() << "failed to register dbus service";

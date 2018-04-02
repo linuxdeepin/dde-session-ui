@@ -26,6 +26,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QLabel>
 #include <QtCore/QObject>
+#include <DDBusSender>
 
 #include <libintl.h>
 
@@ -74,9 +75,12 @@ void ContentWidget::showEvent(QShowEvent *event)
 {
     QFrame::showEvent(event);
 
-    QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.Launcher "
-                            "/com/deepin/dde/Launcher "
-                            "com.deepin.dde.Launcher.Hide");
+    DDBusSender()
+            .service("com.deepin.dde.Launcher")
+            .interface("com.deepin.dde.Launcher")
+            .path("/com/deepin/dde/Launcher")
+            .method("Hide")
+            .call();
 
     if (m_hotZoneInterface->isValid())
         m_hotZoneInterface->EnableZoneDetected(false);
@@ -403,11 +407,12 @@ void ContentWidget::shutDownFrameActions(const Actions action)
     case Logout:         m_sessionInterface->RequestLogout();        break;
     case SwitchUser:
     {
-        QDBusInterface ifc("com.deepin.dde.lockFront",
-                           "/com/deepin/dde/lockFront",
-                           "com.deepin.dde.lockFront",
-                           QDBusConnection::sessionBus(), NULL);
-        ifc.asyncCall("ShowUserList");
+        DDBusSender()
+                .service("com.deepin.dde.lockFront")
+                .interface("com.deepin.dde.lockFront")
+                .path("/com/deepin/dde/lockFront")
+                .method("ShowUserList")
+                .call();
         break;
     }
     default:

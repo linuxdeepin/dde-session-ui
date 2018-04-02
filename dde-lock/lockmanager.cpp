@@ -38,11 +38,14 @@
 #include <libintl.h>
 #include <grp.h>
 #include <pwd.h>
+#include <DDBusSender>
 
 #include "lockmanager.h"
 #include "lockframe.h"
 #include "dbus/dbuslockfront.h"
 #include "dbus/dbuscontrolcenter.h"
+
+DCORE_USE_NAMESPACE
 
 LockManager::LockManager(QWidget *parent)
     : QFrame(parent)
@@ -102,10 +105,12 @@ void LockManager::initConnect()
     connect(m_unlockButton, &QPushButton::clicked, this, &LockManager::unlock);
 
     connect(m_userWidget, &UserWidget::otherUserLogin, this, [=] {
-        QProcess *process = new QProcess;
-        connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
-        process->start("dbus-send --print-reply --system --dest=org.freedesktop.DisplayManager "
-                       "/org/freedesktop/DisplayManager/Seat0 org.freedesktop.DisplayManager.Seat.SwitchToGreeter");
+        DDBusSender()
+                .service("org.freedesktop.DisplayManager")
+                .interface("org.freedesktop.DisplayManager")
+                .path("/org/freedesktop/DisplayManager/Seat0")
+                .method("SwitchToGreeter")
+                .call();
     });
 
     connect(m_userWidget, &UserWidget::currentUserBackgroundChanged, this, [=] {
