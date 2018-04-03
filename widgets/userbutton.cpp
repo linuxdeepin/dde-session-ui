@@ -52,7 +52,9 @@ UserButton::UserButton(User *user, QWidget *parent)
 
 void UserButton::initConnect()
 {
+#ifndef DISABLE_ANIMATIONS
     connect(m_hideAnimation, &QPropertyAnimation::finished, this, &QPushButton::hide);
+#endif
     connect(m_userAvatar, &UserAvatar::clicked, this, &UserButton::click);
     connect(m_user, &User::displayNameChanged, m_userNameLabel, &QLabel::setText);
     connect(m_user, &User::avatarChanged, this, [=] (const QString avatar) {
@@ -219,10 +221,6 @@ void UserButton::move(const QPoint &position, bool immediately)
 {
 #ifndef DISABLE_ANIMATIONS
     const bool play_ani = !immediately;
-#else
-    Q_UNUSED(immediately);
-    const bool play_ani = false;
-#endif
 
     if (play_ani)
     {
@@ -235,6 +233,10 @@ void UserButton::move(const QPoint &position, bool immediately)
     } else {
         QPushButton::move(position);
     }
+#else
+   Q_UNUSED(immediately);
+   QPushButton::move(position);
+#endif
 }
 
 void UserButton::addTextShadow(bool isEffective)
