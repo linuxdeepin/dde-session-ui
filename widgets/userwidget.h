@@ -33,6 +33,7 @@
 #include <QtCore/QPropertyAnimation>
 #include <QtGui/QKeyEvent>
 #include <QFrame>
+#include <QScrollArea>
 
 #include <com_deepin_daemon_logined.h>
 #include <com_deepin_daemon_accounts_user.h>
@@ -129,7 +130,7 @@ public:
     QString desktopBackgroundPath() const;
 };
 
-class UserWidget : public QFrame
+class UserWidget : public QScrollArea
 {
     Q_OBJECT
 public:
@@ -223,6 +224,7 @@ private:
 
     QTimer *m_adCheckStateTimer;
     User *m_adLogin;
+    QFrame *m_bgWidget;
 };
 
 #endif // WIDGET_H

@@ -39,6 +39,8 @@
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
+#define USER_WIDGET_HEIGHT 360
+#define USER_HEIGHT 160
 
 DWIDGET_USE_NAMESPACE
 
@@ -69,11 +71,12 @@ const QString toLocalFile(const QString &path) {
 }
 
 UserWidget::UserWidget(QWidget* parent)
-    : QFrame(parent)
+    : QScrollArea(parent)
     , m_currentUser(nullptr)
     , m_lockInter(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this)
     , m_dbusLogined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
     , m_adLogin(nullptr)
+    , m_bgWidget(new QFrame)
 {
     m_dbusAccounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
 
@@ -138,15 +141,17 @@ void UserWidget::initUI()
 {
 //    setCurrentUser(currentUser());
 
-    const int count = m_availableUserButtons.count();
-    const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
+    setWidget(m_bgWidget);
+    setWidgetResizable(true);
+    setFocusPolicy(Qt::NoFocus);
+    setFrameStyle(QFrame::NoFrame);
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    setContentsMargins(0, 0, 0, 0);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setStyleSheet("background-color:transparent;");
 
-    // Adjust size according to user count.
-    if (maxLineCap < count) {
-        setFixedSize(width(), USER_ICON_HEIGHT * qCeil(count * 1.0 / maxLineCap));
-    } else {
-        setFixedHeight(USER_ICON_HEIGHT);
-    }
+    setFixedHeight(USER_WIDGET_HEIGHT);
 }
 
 void UserWidget::initConnections()
@@ -432,9 +437,11 @@ void UserWidget::addAddomainUser(int uid)
 
 void UserWidget::onUserChoosed()
 {
+    m_bgWidget->setFixedHeight(USER_WIDGET_HEIGHT);
+
     // hide buttons
     for (UserButton *ub : m_availableUserButtons) {
-        ub->move(rect().center() - ub->rect().center());
+        ub->move(mapTo(this, rect().center() - ub->rect().center()));
         ub->setLoginIconVisible(false);
         ub->hide();
     }
@@ -510,27 +517,17 @@ void UserWidget::expandWidget()
     isChooseUserMode = true;
 
     const int count = m_availableUserButtons.size();
-//    const int count = m_userBtns.count();
     const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
     const int offset = (width() - USER_ICON_WIDTH * qMin(count, maxLineCap)) / 2;
 
     // Adjust size according to user count.
-    if (maxLineCap < count) {
-        setFixedSize(width(), USER_ICON_HEIGHT * qCeil(count * 1.0 / maxLineCap));
-    }
+    m_bgWidget->setFixedSize(width(), USER_HEIGHT * qCeil(count * 1.0 / maxLineCap));
 
+    int row = 0;
+    int index = 0;
     for (int i = 0; i != count; ++i)
     {
         UserButton *userButton = m_availableUserButtons.at(i);
-//        const QString username = userButton->name();
-
-//        userButton->setSelected(username == m_currentUser);
-
-//        if (m_loggedInUsers.contains(username)) {
-//            userButton->setButtonChecked(true);
-//        } else {
-//            userButton->setButtonChecked(false);
-//        }
 
         userButton->setSelected(userButton->userInfo() == m_currentUser);
 
@@ -541,13 +538,15 @@ void UserWidget::expandWidget()
         userButton->show();
         userButton->show();
         userButton->setImageSize(UserButton::AvatarSmallSize);
-        if (i + 1 <= maxLineCap) {
-            // the first line.
-            userButton->move(QPoint(offset + i * USER_ICON_WIDTH, 0));
-        } else {
-            // the second line.
-            userButton->move(QPoint(offset + (i - maxLineCap) * USER_ICON_WIDTH, USER_ICON_HEIGHT));
+
+        // If the current value is the maximum, need to change the line.
+        if (index >= maxLineCap) {
+            index = 0;
+            ++row;
         }
+
+        userButton->move(QPoint(offset + index * USER_ICON_WIDTH, USER_HEIGHT * row));
+        index++;
     }
 
     setFocus();
@@ -584,20 +583,22 @@ void UserWidget::saveADUser(const QString &username)
 
 void UserWidget::restoreUser(User *user)
 {
-   for (UserButton *btn : m_availableUserButtons) {
-       // move to center
-       btn->move(rect().center() - btn->rect().center());
-       btn->setImageSize(UserButton::AvatarLargerSize);
+    m_bgWidget->setFixedHeight(USER_WIDGET_HEIGHT);
 
-       if (btn->userInfo() == user) {
-           m_currentUser = user;
-           btn->show();
-           btn->setSelected(false);
-           btn->setLoginIconVisible(false);
-       } else {
-           btn->hide();
-       }
-   }
+    for (UserButton *btn : m_availableUserButtons) {
+        // move to center
+        btn->move(mapTo(this, rect().center() - btn->rect().center()));
+        btn->setImageSize(UserButton::AvatarLargerSize);
+
+        if (btn->userInfo() == user) {
+            m_currentUser = user;
+            btn->show();
+            btn->setSelected(false);
+            btn->setLoginIconVisible(false);
+        } else {
+            btn->hide();
+        }
+    }
 }
 
 void UserWidget::resizeEvent(QResizeEvent *e)
@@ -652,7 +653,7 @@ void UserWidget::keyReleaseEvent(QKeyEvent *event)
 
 void UserWidget::appendUser(User *user)
 {
-    UserButton *userButton = new UserButton(user, this);
+    UserButton *userButton = new UserButton(user, m_bgWidget);
 
     userButton->hide();
     userButton->setLoginIconVisible(false);
@@ -749,7 +750,7 @@ void UserWidget::updateIconPosition()
     } else {
         // move all buttons to center
         for (UserButton *btn : m_availableUserButtons) {
-            btn->move(rect().center() - btn->rect().center(), true);
+            btn->move(mapTo(this, rect().center() - btn->rect().center()), true);
             if (btn->userInfo() == m_currentUser) {
                 btn->show();
             }
