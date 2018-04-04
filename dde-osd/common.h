@@ -46,6 +46,7 @@ public:
     static void DrawProgressBar(QPainter *painter, const QStyleOptionViewItem &option, double progress);
     static void DrawCenterNum(QPainter *painter, const QStyleOptionViewItem &option, const QString &text, const bool isCurrent);
     static void DrawBackground(QPainter *painter, const QStyleOptionViewItem &option);
+    static void DrawVolumeGraduation(QPainter *painter, const QStyleOptionViewItem &option);
 };
 
 #endif // COMMON_H

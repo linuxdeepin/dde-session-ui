@@ -97,3 +97,25 @@ void DrawHelper::DrawBackground(QPainter *painter, const QStyleOptionViewItem &o
 
     painter->fillPath(path, QColor("#2ca7f8"));
 }
+
+void DrawHelper::DrawVolumeGraduation(QPainter *painter, const QStyleOptionViewItem &option)
+{
+    const QRect rect( option.rect );
+    const int progressBarWidth = 80;
+    const int progressBarHeight = 4;
+
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(QColor(0, 0, 0, 255 * 0.5));
+
+    // Max volume is 1.5, here need graduation
+    QRect dest(rect.x() + (rect.width() - progressBarWidth) / 2, rect.y() + 110, progressBarWidth, progressBarHeight);
+    const int w = dest.width() / 1.5;
+
+    // up
+    const QRect upR(dest.x() + w, dest.y() - 8, 1, 5);
+    painter->drawRect(upR);
+
+    // bottom
+    const QRect bottomR(dest.x() + w, dest.y() + dest.height() + 3, 1, 5);
+    painter->drawRect(bottomR);
+}

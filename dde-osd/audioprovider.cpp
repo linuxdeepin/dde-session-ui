@@ -79,8 +79,10 @@ void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option,
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant progressData = index.data(Qt::DisplayRole);
 
+    // NOTE: Max volume is 1.5
     DrawHelper::DrawImage(painter, option, imageData.toString(), false, true);
-    DrawHelper::DrawProgressBar(painter, option, progressData.toDouble());
+    DrawHelper::DrawProgressBar(painter, option, progressData.toDouble() / 1.5);
+    DrawHelper::DrawVolumeGraduation(painter, option);
 }
 
 QSize AudioProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
