@@ -2,52 +2,54 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="337"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="458"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="503"/>
         <source>Shut down</source>
         <translation>Вимкнути</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="293"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="342"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="461"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="329"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="355"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
         <source>Reboot</source>
         <translation>Перезавантажити</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
         <source>Are you sure to shut down?</source>
         <translation>Ви впевнені, що хочете вимкнути компʼютер?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="383"/>
         <source>Are you sure to reboot?</source>
         <translation>Ви впевнені, що хочете перезавантажити?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="347"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="470"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
         <source>Log out</source>
         <translation>Вийти</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="348"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
         <source>Are you sure to log out?</source>
         <translation>Ви впевнені, що хочете вийти з системи?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="464"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
         <source>Suspend</source>
         <translation>Призупинити</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="467"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
         <source>Lock</source>
         <translation>Заблокувати</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="474"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Switch user</source>
         <translation>Змінити користувача</translation>
     </message>
@@ -63,17 +65,17 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation type="unfinished"/>
+        <translation>Звільнити</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation type="unfinished"/>
+        <translation>Роботу цієї програми буде завершено. Будь ласка, переконайтеся, що зберегли усі важливі дані!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation type="unfinished"/>
+        <translation>Будь ласка, збережіть ваш документ, текст і електронну таблицю</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -83,37 +85,37 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation type="unfinished"/>
+        <translation>У системі недостатньо оперативної пам&apos;яті. Будь ласка, заверште роботу програм, щоб уникнути загальної аварії.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Продовжуємо роботу з %1, потрібно %2 МБ пам&apos;яті</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Продовжуємо відкривати вкладку барусзера, потрібно %1 МБ пам&apos;яті</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Щоб продовжити виконання цієї дії, потрібно %1 МБ пам&apos;яті</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation type="unfinished"/>
+        <translation>Зараз у системі недостатньо оперативної пам&apos;яті. Продовжити спробу роботи з %1?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation type="unfinished"/>
+        <translation>Зараз у системі недостатньо оперативної пам&apos;яті. Продовжити спробу відкрити вкладку у браузері?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation type="unfinished"/>
+        <translation>Зараз у системі недостатньо оперативної пам&apos;яті. Продовжити спробу виконати дію?</translation>
     </message>
 </context>
 <context>
@@ -132,7 +134,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="49"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="34"/>
         <source>Cancel</source>
         <translation>Скасувати</translation>
     </message>
@@ -148,32 +150,32 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="153"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="162"/>
         <source>Login</source>
         <translation>Увійти</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="223"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="232"/>
         <source>Wrong Password</source>
         <translation>Неправильний Пароль</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="343"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="350"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Не вдалося вчасно пройти розпізнавання за відбитком. Будь ласка, введіть ваш пароль вручну.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="363"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
         <source>Failed to match fingerprint</source>
         <translation>Не вдалося порівняти відбиток</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="563"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="582"/>
         <source>Enter your password to reboot</source>
         <translation>Введіть ваш пароль для перезавантаження</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="571"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="590"/>
         <source>Enter your password to shutdown</source>
         <translation>Введіть пароль для завершення роботи</translation>
     </message>
@@ -181,40 +183,45 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="356"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="353"/>
         <source>Login</source>
         <translation>Увійти</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="543"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="549"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Не вдалося вчасно пройти розпізнавання за відбитком. Будь ласка, введіть ваш пароль вручну.</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="557"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="563"/>
         <source>Failed to match fingerprint</source>
         <translation>Не вдалося порівняти відбиток</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="601"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="607"/>
         <source>Wrong Password</source>
         <translation>Неправильний Пароль</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="605"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="611"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>Помилкова назва облікового запису домену або пароль. Будь ласка, повторіть спробу ввести їх ще раз.</translation>
     </message>
 </context>
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="46"/>
+        <source>Cancel</source>
+        <translation>Скасувати</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="124"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>Дані вищенаведених користувачів будуть втрачені через вимкнення компʼютера, ви впевнені?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="130"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>Дані вищенаведених користувачів будуть втрачені через перезавантаження компʼютера, ви впевнені?</translation>
     </message>
@@ -222,7 +229,7 @@
 <context>
     <name>ProcessInfoModel</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="116"/>
+        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Кінець</translation>
     </message>
@@ -231,13 +238,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="573"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="592"/>
         <source>Shut down</source>
         <translation>Вимкнути</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="565"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="584"/>
         <source>Reboot</source>
         <translation>Перезавантажити</translation>
     </message>
@@ -313,9 +320,9 @@
 <context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="72"/>
+        <location filename="../widgets/userwidget.cpp" line="416"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Обліковий запис у домені</translation>
     </message>
 </context>
 <context>
@@ -343,7 +350,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation type="unfinished"/>
+        <translation>Режим ефекту: плавна і красива робота. Загальний режим: висока швидкодія</translation>
     </message>
 </context>
 <context>
@@ -367,17 +374,17 @@
 <context>
     <name>WarningDialog</name>
     <message>
-        <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
         <translation>Дружнє нагадування</translation>
     </message>
     <message>
-        <location filename="../dde-warning-dialog/warningdialog.cpp" line="39"/>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application can not run without window effect</source>
         <translation>Ця програма не може працювати без ефекту вікна</translation>
     </message>
     <message>
-        <location filename="../dde-warning-dialog/warningdialog.cpp" line="43"/>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>

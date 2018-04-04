@@ -2,52 +2,54 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="291"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="337"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="458"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="503"/>
         <source>Shut down</source>
         <translation>Kapat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="293"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="342"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="461"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="329"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="355"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
         <source>Reboot</source>
         <translation>Yeniden Başlat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
         <source>Are you sure to shut down?</source>
         <translation>Kapatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="383"/>
         <source>Are you sure to reboot?</source>
         <translation>Yeniden başlatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="347"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="470"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
         <source>Log out</source>
         <translation>Oturumu kapat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="348"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
         <source>Are you sure to log out?</source>
         <translation>Oturumu kapatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="464"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
         <source>Suspend</source>
         <translation>Uyut</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="467"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
         <source>Lock</source>
         <translation>Kilitle</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="474"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Switch user</source>
         <translation>Kullanıcı değiştir</translation>
     </message>
@@ -58,62 +60,62 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
         <source>Cancel</source>
-        <translation>İptal et</translation>
+        <translation>İptal</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation>Yayın</translation>
+        <translation>Yayım</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Bu uygulama sonlandırılacak, lütfen verinizi kaydettiğinizden emin olunuz!</translation>
+        <translation>Bu uygulama sonlandırılacak, lütfen verilerinizin kaydedildiğinden emin olun!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Lütfen belgenizi, metninizi ve hesap tablonuzu kaydediniz</translation>
+        <translation>Lütfen belgenizi, metninizi ve hesap tablonuzu kaydedin</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
         <source>Continue</source>
-        <translation>Devam et</translation>
+        <translation>Devam Et</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Sistem belleği yetersiz, zorlanmamak için lütfen bazı uygulamaları kapatınız</translation>
+        <translation>Sistem belleği yetersiz, Sistemin donmaması için bazı uygulamaları kapatın</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>%1 çalışmasına devamı için, %2MB bellek gereklidir</translation>
+        <translation>%1 çalıştırmaya devam edebilmek için %2MB bellek gereklidir</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Tarayıcı sekmesi açmaya devamı için, %1MB bellek gereklidir</translation>
+        <translation>Tarayıcı sekmesi açmaya devam edebilmek için %1MB bellek gereklidir</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>Çalışmaya devam etmek için, %1MB bellek gereklidir</translation>
+        <translation>Çalışmaya devam edebilmek için %1MB bellek gereklidir</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>Var olan bellek yeterli, %1 çalıştırmaya devam edilsin mi?</translation>
+        <translation>Geçerli bellek yeterli %1 çalıştırılmaya devam edilsin mi?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>Var olan bellek yeterli, tarayıcı sekmesi açmaya devam edilsin mi?</translation>
+        <translation>Geçerli bellek yeterli, tarayıcı sekmesi açılmaya devam edilsin mi?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation>Var olan bellek yeterli, çalışmaya devam edilsin mi?</translation>
+        <translation>Geçerli bellek yeterli, çalışmaya devam edilsin mi?</translation>
     </message>
 </context>
 <context>
@@ -121,7 +123,7 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
         <source>Duplicate</source>
-        <translation>Çoğalt</translation>
+        <translation>Kopyala</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
@@ -132,9 +134,9 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="49"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="34"/>
         <source>Cancel</source>
-        <translation>İptal et</translation>
+        <translation>İptal</translation>
     </message>
 </context>
 <context>
@@ -142,87 +144,92 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="152"/>
         <source>Add keyboard layout</source>
-        <translation>Klavye düzenini ekle</translation>
+        <translation>Tuş takımı düzeni ekle</translation>
     </message>
 </context>
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="153"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="162"/>
         <source>Login</source>
         <translation>Oturum Aç</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="223"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="232"/>
         <source>Wrong Password</source>
-        <translation>Yanlış Şifre</translation>
+        <translation>Parola Yanlış</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="343"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="350"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Parmak izi doğrulaması zaman aşımına uğradı, lütfen parolanızı elle giriniz</translation>
+        <translation>Parmak izi doğrulaması zaman aşımına uğradı, lütfen parolayı el ile yazın</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="363"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
         <source>Failed to match fingerprint</source>
         <translation>Parmak izi eşleştirilemedi</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="563"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="582"/>
         <source>Enter your password to reboot</source>
-        <translation>Yeniden başlatmak için şifrenizi giriniz</translation>
+        <translation>Yeniden başlatmak için parolanızı yazın</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="571"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="590"/>
         <source>Enter your password to shutdown</source>
-        <translation>Kapatmak için şifrenizi giriniz</translation>
+        <translation>Kapatmak için parolanızı yazın</translation>
     </message>
 </context>
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="356"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="353"/>
         <source>Login</source>
         <translation>Oturum Aç</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="543"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="549"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Parmak izi doğrulaması zaman aşımına uğradı, lütfen parolanızı elle giriniz</translation>
+        <translation>Parmak izi doğrulaması zaman aşımına uğradı, lütfen parolayı el ile yazın</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="557"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="563"/>
         <source>Failed to match fingerprint</source>
         <translation>Parmak izi eşleştirilemedi</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="601"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="607"/>
         <source>Wrong Password</source>
-        <translation>Yanlış Şifre</translation>
+        <translation>Parola Yanlış</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="605"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="611"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>Alan adı hesabı veya şifre doğru değil. Lütfen tekrar giriniz.</translation>
+        <translation>Etki alanı hesabı ya da parola yanlış. Lütfen yeniden yazın.</translation>
     </message>
 </context>
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
-        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Yukarıdaki kullanıcılar oturum açmış durumda ve kapanma durumunda veri kayıpları olacak, kapatmak istediğinize emin misiniz?</translation>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="46"/>
+        <source>Cancel</source>
+        <translation>İptal</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="124"/>
+        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
+        <translation>Yukarıdaki kullanıcılar oturum açmış olduğundan bilgisayarı kapatırsanız kaydedilmemiş verileri kaybolabilir. Bilgisayarı kapatmak istediğinize emin misiniz?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="130"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Yukarıdaki kullanıcılar oturum açmış durumda ve tekrar başlatma durumunda veri kayıpları olacak, tekrar başlatmak istediğinize emin misiniz?</translation>
+        <translation>Yukarıdaki kullanıcılar oturum açmış olduğundan bilgisayarı yeniden başlatırsanız kaydedilmemiş verileri kaybolabilir. Bilgisayarı yeniden başlatmak istediğinize emin misiniz?</translation>
     </message>
 </context>
 <context>
     <name>ProcessInfoModel</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="116"/>
+        <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Bitir</translation>
     </message>
@@ -231,15 +238,15 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="573"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="592"/>
         <source>Shut down</source>
         <translation>Kapat</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="565"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="584"/>
         <source>Reboot</source>
-        <translation>Yeniden başlat</translation>
+        <translation>Yeniden Başlat</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="53"/>
@@ -252,7 +259,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <source>External monitor detected, suspend?</source>
-        <translation>Harici monitor saptandı, uyutulsun mu?</translation>
+        <translation>Dış ekran algılandı, uyutulsun mu?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
@@ -263,7 +270,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Cancel</source>
-        <translation>İptal et</translation>
+        <translation>İptal</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
@@ -284,12 +291,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="76"/>
         <source>hh:mm</source>
-        <translation>hh:mm</translation>
+        <translation>ss:dd</translation>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="77"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation>yyyy-AA-gg gggg</translation>
     </message>
 </context>
 <context>
@@ -297,7 +304,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Hoş geldiniz, sistem başarıyla güncellendi</translation>
+        <translation>Hoş geldiniz, sistem güncellendi</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
@@ -313,9 +320,9 @@
 <context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="72"/>
+        <location filename="../widgets/userwidget.cpp" line="416"/>
         <source>Domain account</source>
-        <translation>Alan adı hesabı</translation>
+        <translation>Etki alanı hesabı</translation>
     </message>
 </context>
 <context>
@@ -323,7 +330,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
         <source>Effect Mode</source>
-        <translation>Efekt Kip</translation>
+        <translation>Etki Kipi</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
@@ -333,17 +340,17 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
         <source>Friendly Reminder</source>
-        <translation>Dostça Hatırlatma</translation>
+        <translation>Bir Hatırlatma</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>Sistem, sorunsuz deneyim için, sistem performansını ve işlem deneyimini etkileyecek sanal makine kullanıldığını tespit etti; Ortak Kip&apos;i seçmeniz önerilir</translation>
+        <translation>Başarımı ve kullanım deneyimini olumsuz etkileyecek şekilde bir sanal makine kullandığınız algılandı. Sorunsuz bir deneyim için Ortak Kipi seçmeniz önerilir</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation>Etki Kipi: Pürüzsüz ve hassas bir deneyim yaşayın. Ortak Kip: Hızlı performansın keyfini çıkarın</translation>
+        <translation>Etki Kipi: Sorunsuz ve zevkli bir deneyim yaşayın. Ortak Kip: Hızlı ve yüksek başarımdan yararlanın</translation>
     </message>
 </context>
 <context>
@@ -351,33 +358,33 @@
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation>Pencere efekti etkin</translation>
+        <translation>Pencere etkisi kullanılıyor</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="45"/>
         <source>Window effect disabled</source>
-        <translation>Pencere efekti devre dışı</translation>
+        <translation>Pencere etkisi kullanılmıyor</translation>
     </message>
     <message>
         <location filename="../dde-osd/wmstateprovider.cpp" line="47"/>
         <source>Failed to enable window effects</source>
-        <translation>Pencere efektleri etkinleştirilemedi</translation>
+        <translation>Pencere etkileri etkinleştirilemedi</translation>
     </message>
 </context>
 <context>
     <name>WarningDialog</name>
     <message>
-        <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>Nazik Hatırlatma</translation>
+        <translation>Bir Hatırlatma</translation>
     </message>
     <message>
-        <location filename="../dde-warning-dialog/warningdialog.cpp" line="39"/>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application can not run without window effect</source>
-        <translation>Bu uygulama pencere efekti olmadan çalıştırılamaz</translation>
+        <translation>Bu uygulama pencere etkisi olmadan çalıştırılamaz</translation>
     </message>
     <message>
-        <location filename="../dde-warning-dialog/warningdialog.cpp" line="43"/>
+        <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
         <translation>Tamam</translation>
     </message>
@@ -387,7 +394,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Düşük pil, lütfen prize takınız</translation>
+        <translation>Pil şarjı düşük, lütfen prize takın</translation>
     </message>
 </context>
 </TS>
