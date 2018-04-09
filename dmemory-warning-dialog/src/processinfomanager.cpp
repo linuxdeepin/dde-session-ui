@@ -221,7 +221,7 @@ void ProcessInfoManager::scanChromeTabsCB(QDBusPendingCallWatcher *watcher)
 
 void ProcessInfoManager::appendCGroupPath(const QString &path, const QString &desktop)
 {
-    if (desktop == "sh")
+    if (desktop == "sh" || desktop.startsWith("cmd:"))
         return;
     for (const auto &suffix : BlackListDesktopSuffix)
         if (desktop.endsWith(suffix))
