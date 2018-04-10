@@ -53,7 +53,6 @@ Manager::Manager(QObject *parent)
     , m_timer(new QTimer(this))
 {
     m_timer->setSingleShot(true);
-    m_timer->setInterval(1000);
 
     m_listview->setItemDelegate(m_delegate);
     m_listview->setModel(m_model);
@@ -69,6 +68,9 @@ Manager::Manager(QObject *parent)
 void Manager::ShowOSD(const QString &osd)
 {
     qDebug() << "show osd" << osd;
+
+    // 3D WM need long time, OSD will disappear too fast
+    m_timer->setInterval(osd == "SwitchWM3D" ? 2000 : 1000);
 
     if (osd == "DirectSwitchLayout") {
         m_kbLayoutProvider->highlightNext();
