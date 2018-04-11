@@ -32,7 +32,7 @@
 
 inline QString formatMem(const unsigned mem_bytes)
 {
-    return QString("%1M").arg(mem_bytes / 1024 / 1024);
+    return QString("%1M").arg(std::max(10u, mem_bytes / 1024 / 1024));
 }
 
 inline QString appName(const QString &desktop)
