@@ -1,3 +1,18 @@
+<a name=""></a>
+##  4.3.7.1 (2018-04-11)
+
+
+#### Features
+
+*   Limit proc min memory usage is display to 10MB ([a647b6cf](https://github.com/linuxdeepin/dde-session-ui/commit/a647b6cf05eccf6de79d9798da1bd951e78187a4))
+
+#### Bug Fixes
+
+*   Compile error because of macro ([01f4e686](https://github.com/linuxdeepin/dde-session-ui/commit/01f4e686a403a357453bd4f8a66b975e4daa7341))
+* **memory-warning-dialog:**  deepin-wm is in the free list ([76b44595](https://github.com/linuxdeepin/dde-session-ui/commit/76b445959a724b1c07648e159c46c8ab54bc28cd))
+
+
+
 <a name="4.3.7"></a>
 ### 4.3.7 (2018-03-29)
 
