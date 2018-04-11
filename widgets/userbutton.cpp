@@ -143,6 +143,8 @@ void UserButton::show()
 //    connect(m_showAnimation, &QPropertyAnimation::finished, [&]{
 //        QTimer::singleShot(500, this, SLOT(addTextShadowAfter()));
 //    });
+#else
+    QPushButton::show();
 #endif
 }
 
