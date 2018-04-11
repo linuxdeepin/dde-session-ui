@@ -87,7 +87,7 @@ public slots:
     double opacity();
     void setOpacity(double opa);
     void setCustomEffect();
-//    void addTextShadowAfter();
+    void addTextShadowAfter();
 
 //    void updateUserName(const QString &username);
 //    void updateAvatar(const QString &avatar);

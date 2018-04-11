@@ -138,21 +138,18 @@ void UserButton::show()
     m_showAnimation->setDuration(800);
     m_showAnimation->start();
 
-    QPushButton::show();
-
-//    connect(m_showAnimation, &QPropertyAnimation::finished, [&]{
-//        QTimer::singleShot(500, this, SLOT(addTextShadowAfter()));
-//    });
-#else
-    QPushButton::show();
+    connect(m_showAnimation, &QPropertyAnimation::finished, [&]{
+        QTimer::singleShot(500, this, SLOT(addTextShadowAfter()));
+    });
 #endif
+    QPushButton::show();
 }
 
-//void UserButton::addTextShadowAfter()
-//{
-//    m_opacityEffect->setEnabled(false);
-//    addTextShadow(true);
-//}
+void UserButton::addTextShadowAfter()
+{
+    m_opacityEffect->setEnabled(false);
+    addTextShadow(true);
+}
 
 //void UserButton::updateUserName(const QString &username)
 //{
