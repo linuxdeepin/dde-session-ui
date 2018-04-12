@@ -64,6 +64,8 @@ signals:
     void displayNameChanged(const QString &displayname) const;
     void logindChanged(bool islogind) const;
     void avatarChanged(const QString &avatar) const;
+    void greeterBackgroundPathChanged(const QString &path) const;
+    void desktopBackgroundPathChanged(const QString &path) const;
 
 public:
     bool operator==(const User &user) const;
