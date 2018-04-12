@@ -58,6 +58,16 @@ bool userSort(UserButton *left, UserButton *right) {
     return l->uid() < r->uid();
 }
 
+const QString toLocalFile(const QString &path) {
+    QUrl url(path);
+
+    if (url.isLocalFile()) {
+        return url.path();
+    }
+
+    return url.url();
+}
+
 UserWidget::UserWidget(QWidget* parent)
     : QFrame(parent)
     , m_currentUser(nullptr)
@@ -914,6 +924,14 @@ NativeUser::NativeUser(const QString &path, QObject *parent)
         emit displayNameChanged(fullname.isEmpty() ? m_userName : fullname);
     });
 
+    connect(m_userInter, &UserInter::DesktopBackgroundsChanged, this, [=] {
+        emit desktopBackgroundPathChanged(desktopBackgroundPath());
+    });
+
+    connect(m_userInter, &UserInter::GreeterBackgroundChanged, this, [=] (const QString &path) {
+        emit greeterBackgroundPathChanged(toLocalFile(path));
+    });
+
     m_userName = m_userInter->userName();
     m_uid = m_userInter->uid().toInt();
 }
@@ -936,13 +954,7 @@ QString NativeUser::avatarPath() const
 
 QString NativeUser::greeterBackgroundPath() const
 {
-    QUrl url(m_userInter->greeterBackground());
-
-    if (url.isLocalFile()) {
-        return url.path();
-    }
-
-    return url.url();
+    return toLocalFile(m_userInter->greeterBackground());
 }
 
 QString NativeUser::desktopBackgroundPath() const
@@ -956,12 +968,7 @@ QString NativeUser::desktopBackgroundPath() const
         background = list.first();
     }
 
-    QUrl url(background);
-    if (url.isLocalFile()) {
-        return url.path();
-    }
-
-    return url.url();
+    return toLocalFile(background);
 }
 
 QStringList NativeUser::kbLayoutList()

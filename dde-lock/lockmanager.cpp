@@ -65,6 +65,10 @@ LockManager::LockManager(QWidget *parent)
     });
 
     m_currentUser = m_userWidget->currentUser();
+
+#ifdef LOCK_NO_QUIT
+    connect(m_currentUser, &User::greeterBackgroundPathChanged, this, &LockManager::backgroundChanged);
+#endif
 }
 
 void LockManager::initConnect()
@@ -439,9 +443,7 @@ void LockManager::onCurrentUserChanged(User *user)
 
     updatePasswordEditVisible(m_currentUser);
 
-    const QString &wallpaper = m_blurImageInter->Get(user->greeterBackgroundPath());
-
-    emit requestSetBackground(wallpaper.isEmpty() ? user->greeterBackgroundPath() : wallpaper);
+    backgroundChanged(m_currentUser->greeterBackgroundPath());
 }
 
 void LockManager::switchToUser(User *user)
@@ -468,6 +470,12 @@ void LockManager::onBlurWallpaperFinished(const QString &source, const QString &
 
     if (status && m_userWidget->currentUser()->desktopBackgroundPath() == sourcePath)
         emit requestSetBackground(blur);
+}
+
+void LockManager::backgroundChanged(const QString &path)
+{
+    const QString &wallpaper = m_blurImageInter->Get(path);
+    emit requestSetBackground(wallpaper.isEmpty() ? path : wallpaper);
 }
 
 void LockManager::saveUser(User *user)

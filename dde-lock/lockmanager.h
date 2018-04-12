@@ -103,6 +103,7 @@ private:
     void onCurrentUserChanged(User *user);
     void switchToUser(User *user);
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
+    void backgroundChanged(const QString &path);
 
     // TODO: FIXME
     void saveUser(User *user);
