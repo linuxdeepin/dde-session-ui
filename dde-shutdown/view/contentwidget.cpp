@@ -383,7 +383,9 @@ void ContentWidget::hideToplevelWindow()
 
 void ContentWidget::checkUsers()
 {
-    m_switchUserBtn->setVisible(m_userWidget->availableUserCount() > 1);
+    if (!m_warningView) {
+        m_switchUserBtn->setVisible(m_userWidget->availableUserCount() > 1);
+    }
 }
 
 void ContentWidget::shutDownFrameActions(const Actions action)
