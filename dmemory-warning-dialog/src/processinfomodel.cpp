@@ -50,21 +50,16 @@ QPixmap appIcon(const int size, const QString &desktop)
 {
     static QIcon defaultIcon = QIcon::fromTheme("application-x-desktop");
 
-    QFile f(desktop);
-    if (f.open(QIODevice::ReadOnly))
-    {
-        const QString &content = f.readAll();
+    QFile file(desktop);
 
-        QRegularExpression iconRegex("Icon=(.*)$");
-        const auto &match = iconRegex.match(content);
-        if (match.hasMatch())
-        {
-            const QString &icon = match.captured(1);
-
-            if (QFile(icon).exists())
-                return QIcon(icon).pixmap(size, size);
-
-            return QIcon::fromTheme(icon, defaultIcon).pixmap(size, size);
+    if (file.open(QIODevice::ReadOnly)) {
+        const QString &content = file.readAll();
+        const QStringList &lines = content.split('\n');
+        for (const QString &line : lines) {
+            if (line.split('=').first() == "Icon") {
+                const QString icon = line.split('=').last();
+                return QIcon::fromTheme(icon, defaultIcon).pixmap(size, size);
+            }
         }
     }
 

@@ -126,7 +126,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
 
     setLayout(vLayout);
     setFixedSize(400, 600);
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::Dialog);
 
     connect(m_cancelButton, &QPushButton::clicked, this, &DMemoryWarningDialog::onCancelClicked);
     connect(m_continueButton, &QPushButton::clicked, this, &DMemoryWarningDialog::onContinueClicked);
