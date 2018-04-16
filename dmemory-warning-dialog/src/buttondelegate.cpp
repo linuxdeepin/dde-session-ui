@@ -40,7 +40,7 @@ void terminate(const QStringList &pidList, const QPixmap &icon)
 {
     if (confirm(icon))
         for (const auto &pid : pidList)
-            QProcess::startDetached("kill", QStringList() << pid);
+            QProcess::startDetached("kill", QStringList() << "-9" << pid);
 }
 
 void close_tab(const QList<int> &tabs)
