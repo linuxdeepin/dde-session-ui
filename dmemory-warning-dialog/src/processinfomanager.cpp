@@ -64,7 +64,7 @@ QString genericAppName(const QString &desktop)
         if (match.isValid() && match.hasMatch())
             return match.captured(1);
 
-        regex = QRegularExpression(QString("Name=(.+)$"));
+        regex = QRegularExpression(QString("^Name=(.+)$"));
         regex.setPatternOptions(QRegularExpression::MultilineOption);
         match = regex.match(output);
         if (match.isValid() && match.hasMatch())
