@@ -39,6 +39,7 @@ void MediaWidget::initUI()
 {
     m_dmprisWidget = new DMPRISControl;
     m_dmprisWidget->setFixedWidth(200);
+    m_dmprisWidget->setPictureVisible(false);
 
     m_volumeBtn = new DImageButton;
     m_volumeBtn->setNormalPic(":/img/mpris/volume_normal.svg");
