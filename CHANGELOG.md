@@ -1,3 +1,16 @@
+<a name="4.3.7.2"></a>
+## 4.3.7.2 (2018-04-19)
+
+
+#### Bug Fixes
+
+*   force kill application ([5b9450e4](https://github.com/linuxdeepin/dde-session-ui/commit/5b9450e4dfbc2ff9e210d3b147d41db551f4351e))
+*   not avatar when disable animation ([77c0e17d](https://github.com/linuxdeepin/dde-session-ui/commit/77c0e17debdd6afe97a73adcaa2dfdec4636654b))
+* **dmemory:**  regular expression capture error ([40ed51f9](https://github.com/linuxdeepin/dde-session-ui/commit/40ed51f9a752b8b803abd20ef9849fed350b1167))
+* **shutdown:**  switch user button will show when prompt interface ([5976f883](https://github.com/linuxdeepin/dde-session-ui/commit/5976f8830b91faa706bd32f5b85e0115cc6338c3))
+
+
+
 <a name=""></a>
 ##  4.3.7.1 (2018-04-11)
 
