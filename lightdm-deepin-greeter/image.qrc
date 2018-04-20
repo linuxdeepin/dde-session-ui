@@ -40,9 +40,9 @@
         <file>img/ubuntu_indicator_hover.png</file>
         <file>img/ubuntu_indicator_normal.png</file>
         <file>img/ubuntu_indicator_press.png</file>
-        <file>img/unknow_indicator_hover.png</file>
-        <file>img/unknow_indicator_normal.png</file>
-        <file>img/unknow_indicator_press.png</file>
+        <file>img/unknown_indicator_hover.png</file>
+        <file>img/unknown_indicator_normal.png</file>
+        <file>img/unknown_indicator_press.png</file>
         <file>img/volume_hover.png</file>
         <file>img/volume_normal.png</file>
         <file>img/volume_press.png</file>

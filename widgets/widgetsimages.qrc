@@ -20,9 +20,9 @@
         <file>img/sessions_icon/ubuntu_hover.svg</file>
         <file>img/sessions_icon/ubuntu_normal.svg</file>
         <file>img/sessions_icon/ubuntu_press.svg</file>
-        <file>img/sessions_icon/unknow_hover.svg</file>
-        <file>img/sessions_icon/unknow_normal.svg</file>
-        <file>img/sessions_icon/unknow_press.svg</file>
+        <file>img/sessions_icon/unknown_hover.svg</file>
+        <file>img/sessions_icon/unknown_normal.svg</file>
+        <file>img/sessions_icon/unknown_press.svg</file>
         <file>img/sessions_icon/xfce_hover.svg</file>
         <file>img/sessions_icon/xfce_normal.svg</file>
         <file>img/sessions_icon/xfce_press.svg</file>
@@ -114,9 +114,9 @@
         <file>img/sessions_icon/plasma_hover.svg</file>
         <file>img/sessions_icon/plasma_normal.svg</file>
         <file>img/sessions_icon/plasma_press.svg</file>
-        <file>img/sessions/unknow_indicator_hover.svg</file>
-        <file>img/sessions/unknow_indicator_normal.svg</file>
-        <file>img/sessions/unknow_indicator_press.svg</file>
+        <file>img/sessions/unknown_indicator_hover.svg</file>
+        <file>img/sessions/unknown_indicator_normal.svg</file>
+        <file>img/sessions/unknown_indicator_press.svg</file>
         <file>img/default_avatar.png</file>
     </qresource>
 </RCC>

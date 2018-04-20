@@ -120,9 +120,9 @@ void ControlWidget::setSessionSwitchEnable(const bool visible)
 #ifndef SHENWEI_PLATFORM
         m_sessionBtn->installEventFilter(this);
 #else
-        m_sessionBtn->setProperty("normalIcon", ":/img/sessions/unknow_indicator_normal.svg");
-        m_sessionBtn->setProperty("hoverIcon", ":/img/sessions/unknow_indicator_hover.svg");
-        m_sessionBtn->setProperty("checkedIcon", ":/img/sessions/unknow_indicator_press.svg");
+        m_sessionBtn->setProperty("normalIcon", ":/img/sessions/unknown_indicator_normal.svg");
+        m_sessionBtn->setProperty("hoverIcon", ":/img/sessions/unknown_indicator_hover.svg");
+        m_sessionBtn->setProperty("checkedIcon", ":/img/sessions/unknown_indicator_press.svg");
 
 #endif
 
@@ -197,13 +197,13 @@ void ControlWidget::chooseToSession(const QString &session)
     #endif
         } else {
     #ifndef SHENWEI_PLATFORM
-            m_sessionBtn->setNormalPic(":/img/sessions/unknow_indicator_normal.svg");
-            m_sessionBtn->setHoverPic(":/img/sessions/unknow_indicator_hover.svg");
-            m_sessionBtn->setPressPic(":/img/sessions/unknow_indicator_press.svg");
+            m_sessionBtn->setNormalPic(":/img/sessions/unknown_indicator_normal.svg");
+            m_sessionBtn->setHoverPic(":/img/sessions/unknown_indicator_hover.svg");
+            m_sessionBtn->setPressPic(":/img/sessions/unknown_indicator_press.svg");
     #else
-            m_sessionBtn->setProperty("normalIcon", ":/img/sessions/unknow_indicator_normal.svg");
-            m_sessionBtn->setProperty("hoverIcon", ":/img/sessions/unknow_indicator_hover.svg");
-            m_sessionBtn->setProperty("checkedIcon", ":/img/sessions/unknow_indicator_press.svg");
+            m_sessionBtn->setProperty("normalIcon", ":/img/sessions/unknown_indicator_normal.svg");
+            m_sessionBtn->setProperty("hoverIcon", ":/img/sessions/unknown_indicator_hover.svg");
+            m_sessionBtn->setProperty("checkedIcon", ":/img/sessions/unknown_indicator_press.svg");
     #endif
         }
     }
