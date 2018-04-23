@@ -123,7 +123,7 @@ void WMChooser::saveConfig()
         exit(0);
 
     QJsonObject obj;
-    obj.insert("allow_switch", "true");
+    obj.insert("allow_switch", true);
 
     if (button == m_gorgeousBtn) {
         obj.insert("last_wm", "deepin-wm");
