@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 include(../common.pri)
+load(deepin_qt)
 
 QT       += core gui dbus x11extras
 
@@ -55,3 +56,10 @@ INSTALLS += target desktop_file
 RESOURCES += \
     image.qrc \
     logintheme.qrc
+
+deepin_professional {
+    host_mips64: {
+        DEFINES += DISABLE_LOGIN_ANI
+    }
+}
+

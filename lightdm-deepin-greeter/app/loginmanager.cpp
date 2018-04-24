@@ -288,23 +288,10 @@ void LoginManager::startSession()
 {
     qDebug() << "start session = " << m_sessionWidget->currentSessionName();
 
+#ifndef DISABLE_LOGIN_ANI
     // NOTE(kirigaya): It is not necessary to display the login animation.
 
     hide();
-
-//    const QStringList &wallpaper = m_userWidget->getUserDesktopBackground(m_userWidget->currentUser());
-
-//    if (!wallpaper.isEmpty()) {
-//        // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
-//        const QString &desktop = wallpaper.first();
-//        QUrl url(desktop);
-//        QPixmap pixmap(url.toLocalFile());
-
-//        if (pixmap.isNull())
-//            pixmap.load(desktop);
-
-//        emit requestBackground(pixmap);
-//    }
 
     // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
     const QUrl url(m_userWidget->currentUser()->desktopBackgroundPath());
@@ -320,6 +307,10 @@ void LoginManager::startSession()
 
         m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
     });
+#else
+    m_userWidget->saveLastUser();
+    m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+#endif
 }
 
 void LoginManager::resizeEvent(QResizeEvent *e)
