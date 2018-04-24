@@ -43,9 +43,6 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
                                      QDBusConnection::systemBus(), this))
     , m_fakeBackground(new FadeoutBackground(this))
 {
-
-    setAttribute(Qt::WA_TranslucentBackground);
-
     m_adjustTimer->setSingleShot(true);
 
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
