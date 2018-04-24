@@ -773,7 +773,6 @@ void UserWidget::checkADState()
         return;
     }
 
-    qDebug() << "Checking AD state!!!!";
     m_adCheckStateTimer->start();
 }
 
