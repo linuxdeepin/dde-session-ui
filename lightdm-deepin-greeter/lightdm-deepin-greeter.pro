@@ -59,7 +59,13 @@ RESOURCES += \
 
 deepin_professional {
     host_mips64: {
-        DEFINES += DISABLE_LOGIN_ANI
+        DEFINES += DISABLE_ANIMATIONS
+        DEFINES += SHUTDOWN_NO_QUIT
+        DEFINES += LOCK_NO_QUIT
+        DEFINES += DISABLE_TEXT_SHADOW
+        DEFINES += DISABLE_TEXT_SHADOW
+        DEFINES += DISABLE_ANIMATIONS
+        DEFINES += USE_CURSOR_LOADING_ANI
     }
 }
 

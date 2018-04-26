@@ -7,7 +7,9 @@ Build-Depends: debhelper (>= 8.0.0), pkg-config,
  libxcb-ewmh-dev, libqt5x11extras5-dev, libgsettings-qt-dev,
  libqt5svg5-dev,liblightdm-qt5-3-dev, libglib2.0-dev,
  libdtkwidget-dev,
- qttools5-dev-tools, libpam0g-dev,libsystemd-dev, libdframeworkdbus-dev, deepin-gettext-tools, libxtst-dev, libxcursor-dev
+ qttools5-dev-tools, libpam0g-dev,libsystemd-dev, libdframeworkdbus-dev,
+ deepin-gettext-tools, libxtst-dev, libxcursor-dev,
+ deepin-qt5config
 Standards-Version: 3.9.4
 Homepage: http://www.deepin.org/
 

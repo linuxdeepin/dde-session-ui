@@ -288,11 +288,11 @@ void LoginManager::startSession()
 {
     qDebug() << "start session = " << m_sessionWidget->currentSessionName();
 
-#ifndef DISABLE_LOGIN_ANI
     // NOTE(kirigaya): It is not necessary to display the login animation.
 
     hide();
 
+#ifndef DISABLE_ANIMATIONS
     // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
     const QUrl url(m_userWidget->currentUser()->desktopBackgroundPath());
     if (url.isLocalFile()) {
