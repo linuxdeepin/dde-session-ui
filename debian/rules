@@ -11,18 +11,25 @@ SYSTYPE=$(shell cat /etc/deepin-version | grep Type= | awk -F'=' '{print $$2}')
 %:
 	dh $@ --parallel
 
-ifeq ($(DEB_BUILD_ARCH), mipsel)
+ifeq ($(SYSTYPE), Professional)
+override_dh_gencontrol:
+	dh_gencontrol -- -Vdist:Depends="pbis-open, openssh-server"
+endif
+
+ifeq ($(DEB_BUILD_ARCH), mips64el)
 override_dh_auto_configure:
 	dh_auto_configure -- SHUTDOWN_NO_QUIT=YES LOCK_NO_QUIT=YES DISABLE_DEMO_VIDEO=YES DISABLE_TEXT_SHADOW=YES DISABLE_ANIMATIONS=YES USE_CURSOR_LOADING_ANI=YES
+
+override_dh_gencontrol:
+	dh_gencontrol -- -Vdist:Depends="openssh-server"
 endif
 
 ifeq ($(DEB_BUILD_ARCH), sw_64)
 override_dh_auto_configure:
 	dh_auto_configure -- SHUTDOWN_NO_QUIT=YES LOCK_NO_QUIT=YES DISABLE_DEMO_VIDEO=YES DISABLE_TEXT_SHADOW=YES DISABLE_ANIMATIONS=YES USE_CURSOR_LOADING_ANI=YES
+
+override_dh_gencontrol:
+	dh_gencontrol -- -Vdist:Depends="openssh-server"
 endif
 
-ifeq ($(SYSTYPE), Professional)
-override_dh_gencontrol:
-	dh_gencontrol -- -Vdist:Depends="pbis-open, openssh-server"
-endif
 
