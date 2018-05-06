@@ -4,10 +4,12 @@
  * Author:     sbw <sbw@sbw.so>
  *             kirigaya <kirigaya@mkacg.com>
  *             Hualet <mr.asianwang@gmail.com>
+ *             listenerri <listenerri@gmail.com>
  *
  * Maintainer: sbw <sbw@sbw.so>
  *             kirigaya <kirigaya@mkacg.com>
  *             Hualet <mr.asianwang@gmail.com>
+ *             listenerri <listenerri@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,6 +46,7 @@
 #include "dbus/dbusmediaplayer2.h"
 #include "xkbparser.h"
 
+#include <dpasswdeditanimated.h>
 #include <com_deepin_daemon_imageblur.h>
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
@@ -51,6 +54,8 @@
 
 #define LOCK_KEYBOARDLAYOUT_PATH "/com/deepin/daemon/InputDevice/Keyboard"
 #define LOCK_KEYBOARDLAYOUT_NAME "com.deepin.daemon.InputDevice"
+
+DWIDGET_USE_NAMESPACE
 
 using ImageBlur = com::deepin::daemon::ImageBlur;
 
@@ -128,7 +133,7 @@ private:
     TimeWidget *m_timeWidget;
     UserWidget *m_userWidget;
     ControlWidget *m_controlWidget;
-    PassWdEdit *m_passwordEdit;
+    DPasswdEditAnimated *m_passwdEditAnim;
     QPushButton *m_unlockButton;
     DBusLockService *m_lockInter;
 

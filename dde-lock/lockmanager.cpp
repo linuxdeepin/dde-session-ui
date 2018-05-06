@@ -77,10 +77,10 @@ LockManager::LockManager(QWidget *parent)
 void LockManager::initConnect()
 {
     connect(m_lockInter, &DBusLockService::Event, this, &LockManager::lockServiceEvent);
-    connect(m_passwordEdit, &PassWdEdit::submit, this, &LockManager::unlock);
+    connect(m_passwdEditAnim, &DPasswdEditAnimated::submit, this, &LockManager::unlock);
     connect(m_userWidget, &UserWidget::currentUserChanged, this, &LockManager::onCurrentUserChanged);
     connect(m_userWidget, &UserWidget::switchToLogindUser, this, &LockManager::switchToUser);
-    connect(m_passwordEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LockManager::keybdLayoutWidgetPosit);
+    connect(m_passwdEditAnim, &DPasswdEditAnimated::keyboardButtonClicked, this, &LockManager::keybdLayoutWidgetPosit);
     connect(m_controlWidget, &ControlWidget::requestShutdown, this, &LockManager::shutdownMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LockManager::chooseUserMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
@@ -97,7 +97,7 @@ void LockManager::initConnect()
     });
 
     connect(m_requireShutdownWidget, &ShutdownWidget::abortOperation, this, [=] {
-        m_passwordEdit->setMessage("");
+        m_passwdEditAnim->lineEdit()->setPlaceholderText("");
         m_action = Unlock;
         passwordMode();
     });
@@ -118,7 +118,6 @@ void LockManager::initConnect()
     });
 
     connect(m_userWidget, &UserWidget::currentUserBackgroundChanged, this, [=] {
-//        updateBackground(m_userWidget->currentUser());
     });
 
     connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
@@ -133,9 +132,9 @@ void LockManager::keybdLayoutWidgetPosit()
 
         m_keybdArrowWidget->setCornerPoint(p);
 
-        const int x = m_passwordEdit->x() + m_keybdArrowWidget->width() / 2 - 22;
+    const int x = m_passwdEditAnim->x() + m_keybdArrowWidget->width() / 2 - 22;
 
-        m_keybdArrowWidget->show(x, m_passwordEdit->y() + m_passwordEdit->height() - 15);
+    m_keybdArrowWidget->show(x, m_passwdEditAnim->y() + m_passwdEditAnim->height() - 15);
 
         m_keybdLayoutWidget->show();
     } else {
@@ -156,12 +155,22 @@ void LockManager::initUI()
     m_userWidget->setFixedWidth(width());
     m_userWidget->move(0, (height() - m_userWidget->height()) / 2 - 95);
 
-    m_passwordEdit = new PassWdEdit(this);
-    m_passwordEdit->setEnterBtnStyle(":/img/action_icons/unlock_normal.svg",
+    m_passwdEditAnim = new DPasswdEditAnimated(this);
+    m_passwdEditAnim->setEyeButtonEnable(false);
+    m_passwdEditAnim->setContentsMargins(5, 0, 0, 0);
+#ifndef SHENWEI_PLATFORM
+    m_passwdEditAnim->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2, 34));
+#else
+    m_passwdEditAnim->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 1, 34));
+#endif
+    m_passwdEditAnim->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
                                      ":/img/action_icons/unlock_hover.svg",
                                      ":/img/action_icons/unlock_press.svg");
-    m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
-    m_passwordEdit->show();
+
+    m_passwdEditAnim->setFocusPolicy(Qt::StrongFocus);
+    updateStyle(":/skin/dpasswdeditanimated.qss", m_passwdEditAnim);
+    m_passwdEditAnim->show();
+    m_passwdEditAnim->setFocus();
 
     m_unlockButton = new QPushButton(this);
     m_unlockButton->setText(tr("Login"));
@@ -183,7 +192,7 @@ void LockManager::initUI()
     passwdLayout->setMargin(0);
     passwdLayout->setSpacing(0);
     passwdLayout->addStretch();
-    passwdLayout->addWidget(m_passwordEdit);
+    passwdLayout->addWidget(m_passwdEditAnim);
     passwdLayout->addWidget(m_unlockButton);
     passwdLayout->addStretch();
 
@@ -220,7 +229,7 @@ void LockManager::chooseUserMode()
 {
     m_layoutState = UsersState;
 
-    m_passwordEdit->hide();
+    m_passwdEditAnim->hide();
     m_unlockButton->hide();
     m_userWidget->show();
     m_requireShutdownWidget->hide();
@@ -232,10 +241,10 @@ void LockManager::onUnlockFinished(const bool unlocked)
 {
     if (!unlocked) {
         qDebug() << "Authorization failed!";
+        if (m_keybdArrowWidget->isVisible())
+            keybdLayoutWidgetPosit();
 
-        if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
-        m_passwordEdit->selectAll();
-        m_passwordEdit->setAlert(true, tr("Wrong Password"));
+        m_passwdEditAnim->showAlert(tr("Wrong Password"));
         return;
     }
 
@@ -250,7 +259,7 @@ void LockManager::onUnlockFinished(const bool unlocked)
     m_userWidget->saveLastUser();
 
 #ifdef LOCK_NO_QUIT
-    m_passwordEdit->setMessage("");
+    m_passwdEditAnim->lineEdit()->setPlaceholderText("");
     emit checkedHide();
 #else
     qApp->exit();
@@ -269,10 +278,10 @@ void LockManager::showEvent(QShowEvent *event)
 
 //    updateBackground(m_activatedUser);
 
-    m_passwordEdit->setMessage("");
+    m_passwdEditAnim->lineEdit()->setPlaceholderText("");
 
     const QStringList &kblayout = m_userWidget->currentUser()->kbLayoutList();
-    m_passwordEdit->updateKeybdLayoutUI(kblayout);
+    m_passwdEditAnim->setKeyboardButtonEnable(kblayout.size() > 1 ? true : false);
     m_keybdLayoutWidget->updateButtonList(kblayout);
     m_keybdLayoutWidget->setDefault(m_userWidget->currentUser()->currentKBLayout());
 
@@ -306,7 +315,7 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
             m_keybdArrowWidget->hide();
         }
 
-        m_passwordEdit->setMessage("");
+        m_passwdEditAnim->lineEdit()->setPlaceholderText("");
     }
 
     QFrame::mouseReleaseEvent(e);
@@ -325,7 +334,7 @@ void LockManager::unlock()
     }
 
     const QString &username = m_activatedUser;
-    const QString &password = m_passwordEdit->getText();
+    const QString &password = m_passwdEditAnim->lineEdit()->text();
 
     if (password.isEmpty() && m_userState == Passwd)
         return;
@@ -353,14 +362,14 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
 
     if (msg == "Verification timed out") {
         m_isThumbAuth = true;
-        m_passwordEdit->setMessage(tr("Fingerprint verification timed out, please enter your password manually"));
+        m_passwdEditAnim->lineEdit()->setPlaceholderText("Fingerprint verification timed out, please enter your password manually");
         return;
     }
 
     switch (eventType) {
     case DBusLockService::PromptQuestion:
         qDebug() << "prompt quesiton from pam: " << message;
-        m_passwordEdit->setMessage(message);
+        m_passwdEditAnim->lineEdit()->setPlaceholderText(message);
         break;
     case DBusLockService::PromptSecret:
         qDebug() << "prompt secret from pam: " << message;
@@ -368,18 +377,20 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
             return;
 
         if (!msg.isEmpty())
-            m_passwordEdit->setMessage(msg);
+            m_passwdEditAnim->lineEdit()->setPlaceholderText(msg);
         break;
     case DBusLockService::ErrorMsg:
         qWarning() << "error message from pam: " << message;
         if (msg == "Failed to match fingerprint") {
-            if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
-            m_passwordEdit->setAlert(true, tr("Failed to match fingerprint"));
-            m_passwordEdit->setMessage("");
+            if (m_keybdArrowWidget->isVisible())
+                keybdLayoutWidgetPosit();
+
+            m_passwdEditAnim->showAlert(tr("Failed to match fingerprint"));
+            m_passwdEditAnim->lineEdit()->setPlaceholderText("");
         }
         break;
     case DBusLockService::TextInfo:
-        m_passwordEdit->setMessage(QString(dgettext("fprintd", message.toLatin1())));
+        m_passwdEditAnim->lineEdit()->setPlaceholderText(QString(dgettext("fprintd", message.toLatin1())));
         break;
     case DBusLockService::Failure:
         onUnlockFinished(false);
@@ -433,13 +444,13 @@ bool LockManager::checkUserIsNoPWGrp(User *user)
 void LockManager::updatePasswordEditVisible(User *user)
 {
     if (checkUserIsNoPWGrp(user)) {
-        m_passwordEdit->setVisible(false);
+        m_passwdEditAnim->setVisible(false);
         m_unlockButton->show();
         m_userState = NoPasswd;
     } else {
         m_lockInter->AuthenticateUser(user->name());
         m_unlockButton->setVisible(false);
-        m_passwordEdit->show();
+        m_passwdEditAnim->show();
         m_userState = Passwd;
     }
 }
@@ -543,7 +554,7 @@ void LockManager::updateUI()
     m_keybdArrowWidget->setContent(m_keybdLayoutWidget);
     m_keybdLayoutWidget->setParent(m_keybdArrowWidget);
     m_keybdLayoutWidget->show();
-    m_keybdArrowWidget->move(m_passwordEdit->x() + 123, m_passwordEdit->y() + m_passwordEdit->height() - 15);
+    m_keybdArrowWidget->move(m_passwdEditAnim->x() + 123, m_passwdEditAnim->y() + m_passwdEditAnim->height() - 15);
     m_keybdArrowWidget->hide();
 
     connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &LockManager::setCurrentKeyboardLayout);
@@ -586,24 +597,30 @@ void LockManager::passwordMode()
 
     if (m_action == Restart) {
         if (m_userState == Passwd) {
-            if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
-            m_passwordEdit->setAlert(true, tr("Enter your password to reboot"));
-        } else
+            if (m_keybdArrowWidget->isVisible())
+                keybdLayoutWidgetPosit();
+
+            m_passwdEditAnim->showAlert(tr("Enter your password to reboot"));
+        }
+        else
             m_unlockButton->setText(QApplication::translate("ShutdownWidget", "Reboot"));
-        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/reboot_normal.svg",
-                                         ":/img/action_icons/reboot_hover.svg",
-                                         ":/img/action_icons/reboot_press.svg");
+        m_passwdEditAnim->setSubmitIcon(":/img/action_icons/reboot_normal.svg",
+                                             ":/img/action_icons/reboot_hover.svg",
+                                             ":/img/action_icons/reboot_press.svg");
     } else if (m_action == Shutdown) {
         if (m_userState == Passwd) {
-            if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
-            m_passwordEdit->setAlert(true, tr("Enter your password to shutdown"));
-        } else
+            if (m_keybdArrowWidget->isVisible())
+                keybdLayoutWidgetPosit();
+
+            m_passwdEditAnim->showAlert(tr("Enter your password to shutdown"));
+        }
+        else
             m_unlockButton->setText(QApplication::translate("ShutdownWidget", "Shut down"));
-        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/shutdown_normal.svg",
+        m_passwdEditAnim->setSubmitIcon(":/img/action_icons/shutdown_normal.svg",
                                          ":/img/action_icons/shutdown_hover.svg",
                                          ":/img/action_icons/shutdown_press.svg");
     } else if (m_action == Unlock) {
-        m_passwordEdit->setEnterBtnStyle(":/img/action_icons/unlock_normal.svg",
+        m_passwdEditAnim->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
                                          ":/img/action_icons/unlock_hover.svg",
                                          ":/img/action_icons/unlock_press.svg");
     }
@@ -614,7 +631,7 @@ void LockManager::shutdownMode()
     m_layoutState = PowerState;
 
     m_userWidget->hide();
-    m_passwordEdit->hide();
+    m_passwdEditAnim->hide();
     m_unlockButton->hide();
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
