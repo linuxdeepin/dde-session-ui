@@ -46,6 +46,10 @@ int main(int argc, char *argv[])
     a.setApplicationName("dde-osd");
     a.setApplicationVersion("1.0");
 
+#if DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 9, 0)
+    a.setOOMScoreAdj(500);
+#endif
+
     a.setTheme("light");
 
     QTranslator translator;
