@@ -298,12 +298,16 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
         }
     }
 
+    qDebug() << "Logind Uid List: " << logindUidList;
+
     // Remove the nonexistent button from the already-obtained id.
     for (auto it(m_availableUserButtons.begin()); it != m_availableUserButtons.end(); /* get next in loop */)
     {
         UserButton *btn = *it;
         User *user = btn->userInfo();
         const bool isListContains = logindUidList.contains(user->uid());
+
+        qDebug() << QString("Update %1 login state: %2").arg(user->name()).arg(isListContains);
 
         // skip fake ADDomain login button
         if (!isListContains && user->type() == User::ADDomain && user->uid() != 0) {
