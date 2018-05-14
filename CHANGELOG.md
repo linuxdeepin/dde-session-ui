@@ -1,3 +1,18 @@
+<a name="4.3.7.3"></a>
+## 4.3.7.3 (2018-05-14)
+
+
+#### Features
+
+*   disable login animation for mips ([7a1e9827](https://github.com/linuxdeepin/dde-session-ui/commit/7a1e9827fa84404b4e7f2d6a8042dd90481f8a9f))
+
+#### Bug Fixes
+
+*   remove pbis-open for sw and mips ([1dcd34f2](https://github.com/linuxdeepin/dde-session-ui/commit/1dcd34f25391c9bed604cd64191461732a1d30f6))
+* **wm-chooser:**  json type error ([45a4c063](https://github.com/linuxdeepin/dde-session-ui/commit/45a4c0637b5f06b994058bb884251fc1b8d31282))
+
+
+
 <a name="4.3.7.2"></a>
 ## 4.3.7.2 (2018-04-19)
 
