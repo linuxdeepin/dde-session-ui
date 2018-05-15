@@ -11,7 +11,8 @@ SUBDIRS += dde-shutdown \
     dde-welcome \
     dde-wm-chooser \
     dmemory-warning-dialog \
-    dnetwork-secret-dialog
+    dnetwork-secret-dialog \
+    dde-full-filesystem
 
 include(common.pri)
 contains(DEFINES, ARCH_MIPSEL) {
