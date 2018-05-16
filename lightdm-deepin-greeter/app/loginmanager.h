@@ -53,7 +53,10 @@
 
 #include "darrowrectangle.h"
 
+#include <DPasswdEditAnimated>
 #include <com_deepin_daemon_imageblur.h>
+
+DWIDGET_USE_NAMESPACE
 
 using ImageBlur = com::deepin::daemon::ImageBlur;
 
@@ -138,7 +141,7 @@ private:
 
     LogoWidget* m_logoWidget;
     UserWidget* m_userWidget;
-    PassWdEdit* m_passWdEdit;
+    DPasswdEditAnimated *m_passwdEditAnim;
     SessionWidget *m_sessionWidget;
     QVBoxLayout* m_Layout;
 

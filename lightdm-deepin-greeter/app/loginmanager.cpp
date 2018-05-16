@@ -211,7 +211,7 @@ void LoginManager::updateWidgetsPosition()
     m_sessionWidget->move(0, (h - m_sessionWidget->height()) / 2 - 70); // 中间稍往上的位置
     m_logoWidget->move(48, h - m_logoWidget->height() - 36); // left 48px and bottom 36px
     m_controlWidget->move(w - m_controlWidget->width(), h - m_controlWidget->height() - 36);
-    m_passWdEdit->move((w - m_passWdEdit->width()) / 2, (h - m_passWdEdit->height()) / 2);
+    m_passwdEditAnim->move((w - m_passwdEditAnim->width()) / 2, (h - m_passwdEditAnim->height()) / 2);
     m_requireShutdownWidget->setFixedWidth(w);
     m_requireShutdownWidget->setFixedHeight(300);
     m_requireShutdownWidget->move(0,  (h - m_requireShutdownWidget->height())/2 - 60);
@@ -289,7 +289,7 @@ void LoginManager::onKeyboardLayoutChanged(User *user)
     const QStringList &kblayout = user->kbLayoutList();
 
     m_keybdLayoutWidget->updateButtonList(kblayout);
-    m_passWdEdit->updateKeybdLayoutUI(kblayout);
+    m_passwdEditAnim->setKeyboardButtonEnable(kblayout.size() > 1);
     m_keybdLayoutWidget->setDefault(m_userWidget->currentUser()->currentKBLayout());
 }
 
@@ -351,12 +351,17 @@ void LoginManager::initUI()
     m_userWidget = new UserWidget(this);
     m_userWidget->setObjectName("UserWidget");
 
-    m_passWdEdit = new PassWdEdit(this);
-    m_passWdEdit->setEnterBtnStyle(":/img/action_icons/login_normal.svg",
+    m_passwdEditAnim = new DPasswdEditAnimated(this);
+    m_passwdEditAnim->setEyeButtonEnable(false);
+    m_passwdEditAnim->setContentsMargins(5, 0, 0, 0);
+    m_passwdEditAnim->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 1, 34));
+    m_passwdEditAnim->setSubmitIcon(":/img/action_icons/login_normal.svg",
                                    ":/img/action_icons/login_hover.svg",
                                    ":/img/action_icons/login_press.svg");
-    m_passWdEdit->setFocusPolicy(Qt::StrongFocus);
-    m_passWdEdit->setVisible(true);
+    m_passwdEditAnim->setFocusPolicy(Qt::StrongFocus);
+    updateStyle("://skin/dpasswdeditanimated.qss", m_passwdEditAnim);
+    m_passwdEditAnim->show();
+    m_passwdEditAnim->setFocus();
 
     m_loginButton = new QPushButton(this);
     m_loginButton->setText(tr("Login"));
@@ -371,7 +376,7 @@ void LoginManager::initUI()
     m_passWdEditLayout->setMargin(0);
     m_passWdEditLayout->setSpacing(0);
     m_passWdEditLayout->addStretch();
-    m_passWdEditLayout->addWidget(m_passWdEdit);
+    m_passWdEditLayout->addWidget(m_passwdEditAnim);
     m_passWdEditLayout->addWidget(m_loginButton);
     m_passWdEditLayout->addStretch();
 
@@ -461,19 +466,18 @@ void LoginManager::initConnect()
     connect(m_greeter, &QLightDM::Greeter::showMessage, this, &LoginManager::message);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
 
-    connect(m_passWdEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LoginManager::keybdLayoutWidgetPosit);
-    connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::authCurrentUser);
+    connect(m_passwdEditAnim, &DPasswdEditAnimated::keyboardButtonClicked, this, &LoginManager::keybdLayoutWidgetPosit);
+    connect(m_passwdEditAnim, &DPasswdEditAnimated::submit, this, &LoginManager::authCurrentUser);
 
     connect(m_userWidget, &UserWidget::otherUserLogin, this, [=] {
         m_otherUserInput->show();
-//        m_passWdEdit->hide();
         m_loginButton->hide();
         m_sessionWidget->hide();
         m_userWidget->show();
         m_requireShutdownWidget->hide();
     });
 
-    connect(m_loginButton, &QPushButton::clicked, m_passWdEdit, &PassWdEdit::submit);
+    connect(m_loginButton, &QPushButton::clicked, this, &LoginManager::authCurrentUser);
 
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
     connect(m_requireShutdownWidget, &ShutdownWidget::abortOperation, this, &LoginManager::restoreWidgetVisible);
@@ -494,7 +498,7 @@ void LoginManager::initConnect()
 }
 
 void LoginManager::initDateAndUpdate() {
-    /*Update the m_passWdEdit UI after get the current user
+    /*Update the password Edit UI after get the current user
     *If the current user owns multi-keyboardLayouts,
     *then the button to choose keyboardLayout need show
     */
@@ -594,7 +598,7 @@ void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
 
     if (text == "Verification timed out") {
         m_isThumbAuth = true;
-        m_passWdEdit->setMessage(tr("Fingerprint verification timed out, please enter your password manually"));
+        m_passwdEditAnim->lineEdit()->setPlaceholderText(tr("Fingerprint verification timed out, please enter your password manually"));
         return;
     }
 
@@ -603,14 +607,14 @@ void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
         if (m_isThumbAuth)
             break;
 
-        m_passWdEdit->setMessage(QString(dgettext("fprintd", text.toLatin1())));
+        m_passwdEditAnim->lineEdit()->setPlaceholderText(QString(dgettext("fprintd", text.toLatin1())));
         break;
     case QLightDM::Greeter::MessageTypeError:
         qWarning() << "error message from lightdm: " << text;
         if (text == "Failed to match fingerprint") {
             if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
-            m_passWdEdit->setAlert(true, tr("Failed to match fingerprint"));
-            m_passWdEdit->setMessage("");
+            m_passwdEditAnim->showAlert(tr("Failed to match fingerprint"));
+            m_passwdEditAnim->lineEdit()->setPlaceholderText("");
         }
         break;
     default:
@@ -635,11 +639,11 @@ void LoginManager::prompt(QString text, QLightDM::Greeter::PromptType type)
             m_greeter->respond(m_passwdStr);
 
         if (!msg.isEmpty())
-            m_passWdEdit->setMessage(msg);
+            m_passwdEditAnim->lineEdit()->setPlaceholderText(msg);
         break;
     case QLightDM::Greeter::PromptTypeQuestion:
         // trim the right : in the message if exists.
-        m_passWdEdit->setMessage(text.replace(":", ""));
+        m_passwdEditAnim->lineEdit()->setPlaceholderText(text.replace(":", ""));
         break;
     default:
         break;
@@ -653,8 +657,7 @@ void LoginManager::authenticationComplete()
     if (!m_greeter->isAuthenticated() && m_userState == Password) {
         if (m_currentUser->type() == User::Native) {
             if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
-            m_passWdEdit->selectAll();
-            m_passWdEdit->setAlert(true, tr("Wrong Password"));
+            m_passwdEditAnim->showAlert(tr("Wrong Password"));
         }
 
         if (m_currentUser->type() == User::ADDomain) {
@@ -670,7 +673,7 @@ void LoginManager::authenticationComplete()
 void LoginManager::authCurrentUser()
 {
     m_accountStr = m_userWidget->currentUser()->name();
-    m_passwdStr = m_passWdEdit->getText();
+    m_passwdStr = m_passwdEditAnim->lineEdit()->text();
 
     // NOTE(kirigaya): set auth user and respond password need some time!
     QTimer::singleShot(100, this, SLOT(login()));
@@ -739,7 +742,7 @@ void LoginManager::onCurrentUserChanged(User *user)
 
     // check is fake addomain button
     if (user->type() == User::ADDomain && user->uid() == 0) {
-        m_passWdEdit->setVisible(false);
+        m_passwdEditAnim->hide();
         m_otherUserInput->show();
         return;
     } else {
@@ -792,7 +795,7 @@ void LoginManager::onUserCountChaged(int count)
 void LoginManager::chooseUserMode()
 {
     m_layoutState = UsersState;
-    m_passWdEdit->setVisible(false);
+    m_passwdEditAnim->hide();
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
@@ -811,7 +814,7 @@ void LoginManager::chooseSessionMode()
 
     m_sessionWidget->show();
     m_userWidget->hide();
-    m_passWdEdit->setVisible(false);
+    m_passwdEditAnim->hide();
     m_loginButton->hide();
     m_otherUserInput->hide();
     m_requireShutdownWidget->hide();
@@ -837,7 +840,7 @@ void LoginManager::showShutdownFrame() {
     m_layoutState = PowerState;
 
     m_userWidget->hide();
-    m_passWdEdit->setVisible(false);
+    m_passwdEditAnim->hide();
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_requireShutdownWidget->show();
@@ -861,13 +864,14 @@ void LoginManager::keyboardLayoutUI() {
     m_keybdArrowWidget->setContent(m_keybdLayoutWidget);
     m_keybdLayoutWidget->setParent(m_keybdArrowWidget);
     m_keybdLayoutWidget->show();
-    m_keybdArrowWidget->move(m_passWdEdit->x() + 123, m_passWdEdit->y() + m_passWdEdit->height() - 15);
+    m_keybdArrowWidget->move(m_passwdEditAnim->x() + 123, m_passwdEditAnim->y() + m_passwdEditAnim->height() - 15);
 
     m_keybdArrowWidget->hide();
 
     connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &LoginManager::setCurrentKeybdLayoutList);
     connect(m_keybdLayoutWidget, &KbLayoutWidget::setButtonClicked, m_keybdArrowWidget, &DArrowRectangle::hide);
-    connect(m_userWidget, &UserWidget::chooseUserModeChanged, m_passWdEdit, &PassWdEdit::recordUserPassWd);
+    // TODO: implement recordUserPassWd?
+//    connect(m_userWidget, &UserWidget::chooseUserModeChanged, m_passWdEdit, &PassWdEdit::recordUserPassWd);
 }
 
 void LoginManager::setCurrentKeybdLayoutList(QString keyboard_value)
@@ -881,9 +885,9 @@ void LoginManager::keybdLayoutWidgetPosit() {
 
         m_keybdArrowWidget->setCornerPoint(p);
 
-        const int x = m_passWdEdit->x() + m_keybdArrowWidget->width() / 2 - 22;
+        const int x = m_passwdEditAnim->x() + m_keybdArrowWidget->width() / 2 - 22;
 
-        m_keybdArrowWidget->show(x, m_passWdEdit->y() + m_passWdEdit->height() - 15);
+        m_keybdArrowWidget->show(x, m_passwdEditAnim->y() + m_passwdEditAnim->height() - 15);
 
     } else {
         m_keybdArrowWidget->hide();
@@ -935,12 +939,12 @@ void LoginManager::onWallpaperBlurFinished(const QString &source, const QString 
 void LoginManager::updatePasswordEditVisible(User *user)
 {
     if (checkUserIsNoGrp(user)) {
-        m_passWdEdit->hide();
+        m_passwdEditAnim->hide();
         m_loginButton->show();
         m_loginButton->setFocus();
     } else {
         m_loginButton->hide();
-        m_passWdEdit->show();
+        m_passwdEditAnim->show();
     }
 }
 
