@@ -40,7 +40,7 @@
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 #define USER_WIDGET_HEIGHT 360
-#define USER_HEIGHT 160
+#define USER_HEIGHT 180
 
 DWIDGET_USE_NAMESPACE
 
