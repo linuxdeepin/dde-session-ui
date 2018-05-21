@@ -185,7 +185,8 @@ bool MainWidget::checkVersion()
         return true;
     }
 
-    QRegExp re("(^\\d+(\\.\\d+)?)");
+    // NOTE: Anyway, check the version as long as the version changes.
+    QRegExp re("^\\d+(\\.\\d+)+");
 
     int currentVersionPos = currentVersion.indexOf(re);
     if (currentVersionPos >= 0)
