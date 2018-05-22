@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
     DApplication a(argc, argv);
     a.setApplicationName("dde-warning-dialog");
     a.setApplicationVersion("1.0");
+    a.setQuitOnLastWindowClosed(true);
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
@@ -53,6 +54,10 @@ int main(int argc, char *argv[])
     }
 
     WarningDialog w;
+    QDBusConnection connection = QDBusConnection::sessionBus();
+    connection.registerService(Service);
+    connection.registerObject(Path, &w);
+
     moveToCenter(&w);
     w.show();
 
