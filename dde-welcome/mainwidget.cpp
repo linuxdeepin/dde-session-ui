@@ -120,8 +120,6 @@ MainWidget::MainWidget(QWidget *parent)
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
 {
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::SplashScreen);
-
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &MainWidget::onBlurWallpaperFinished);
     connect(qApp, &QApplication::aboutToQuit, this, [=] {
         QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected true");
