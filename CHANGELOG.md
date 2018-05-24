@@ -1,3 +1,32 @@
+<a name=""></a>
+##  4.4.0 (2018-05-24)
+
+
+#### Features
+
+*   scroll user widget ([cea5cde4](https://github.com/linuxdeepin/dde-session-ui/commit/cea5cde4795f0252e2065eea7c2ed598049b7611))
+*   disable login animation for mips ([f34524a9](https://github.com/linuxdeepin/dde-session-ui/commit/f34524a91b1226e11334fcc9b000cf13df5e37e0))
+*   Limit proc min memory usage is display to 10MB ([9efdc37b](https://github.com/linuxdeepin/dde-session-ui/commit/9efdc37bed50630c5094a72d3cf7886739f693e9))
+* **osd:**
+  *  auto exit for dde-osd ([cd762f62](https://github.com/linuxdeepin/dde-session-ui/commit/cd762f6225415642c37847fc2e6379be02373a99))
+  *  support 150 volume ([a7ce922a](https://github.com/linuxdeepin/dde-session-ui/commit/a7ce922ae980d1365ea951942b714b120ab41de1))
+
+#### Bug Fixes
+
+*   force kill application ([fdfff7a0](https://github.com/linuxdeepin/dde-session-ui/commit/fdfff7a078a1c54a538debf3be63961fad405725))
+*   not avatar when disable animation ([57d836cc](https://github.com/linuxdeepin/dde-session-ui/commit/57d836ccefff5716fb10f63556cfefff2e0b2823))
+*   Compile error because of macro ([2509fcd2](https://github.com/linuxdeepin/dde-session-ui/commit/2509fcd25c60e3017f00f401ef1c2bebf4e76850))
+*   not clean user password ([ac9c7836](https://github.com/linuxdeepin/dde-session-ui/commit/ac9c78363f3c4d538e70b067aa7c2e5084f14da0))
+* **UserWidget:**  error height ([0598602c](https://github.com/linuxdeepin/dde-session-ui/commit/0598602c0a8ce8bb6a58ebb6d335d9962562d611))
+* **dmemory:**  regular expression capture error ([72c9b6a0](https://github.com/linuxdeepin/dde-session-ui/commit/72c9b6a042a2e5e3fbb9c70d86e32677e1c33578))
+* **lock:**  disable DMPRIS widget picture ([e9e34770](https://github.com/linuxdeepin/dde-session-ui/commit/e9e34770e88dbae83fc9113e285da672d4bc1212))
+* **memory-warning-dialog:**  deepin-wm is in the free list ([3e2a3aac](https://github.com/linuxdeepin/dde-session-ui/commit/3e2a3aace3a3f5d3acc369831762ef3f093c1a8a))
+* **shutdown:**  switch user button will show when prompt interface ([ebf65469](https://github.com/linuxdeepin/dde-session-ui/commit/ebf6546974c5665856febb728c0ca76c25efe7b7))
+* **welcome:**  small version of the upgrade will also be prompted ([102b048a](https://github.com/linuxdeepin/dde-session-ui/commit/102b048af70fc7c5e68d742039877281a53b03ee))
+* **wm-chooser:**  json type error ([8b1df153](https://github.com/linuxdeepin/dde-session-ui/commit/8b1df153b7ae3fb9eb22aa5d76f5e3750985f882))
+
+
+
 <a name="4.3.7"></a>
 ### 4.3.7 (2018-03-29)
 
