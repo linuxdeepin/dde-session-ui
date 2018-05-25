@@ -33,8 +33,6 @@
 #include <QPainterPath>
 #include <QVBoxLayout>
 
-const static QSize ViewSize = QSize(500, 500);
-
 const static QSize UserAvatarSize = QSize(64, 64);
 const static QSize UserListItemSize = QSize(180, 80);
 
@@ -48,7 +46,7 @@ MultiUsersWarningView::MultiUsersWarningView(UserWidget *userWidget, QWidget *pa
     , m_userWidget(userWidget)
     , m_currentBtn(nullptr)
 {
-    setFixedSize(ViewSize);
+    setFixedWidth(500);
 
     m_userList->setAttribute(Qt::WA_TranslucentBackground);
 //    m_userList->setSelectionRectVisible(false);
