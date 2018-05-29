@@ -85,37 +85,37 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation type="unfinished"/>
+        <translation>الذاكرة العشوائية للنظام غير كافية ، رجاءً أغلق بعض التطبيقات لتجنب عدم الإستجابة. </translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>إستمرار بالتشغيل %1, % 2MB من الذاكرة العشوائية مطلوبة</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>الإستمرار في فتح تبويب متصفح ، %1MB من الذاكرة العشوائية مطلوب</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>لإكمال العميلة ، %1MB من الذاكرة العشوائية مطلوب</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation type="unfinished"/>
+        <translation>الذاكرة العشوائية الحالية كافية ، أستمرار بالتشغيل %1؟</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation type="unfinished"/>
+        <translation>الذاكرة العشوائية الحالية كافية ، الإستمرار بفتح تبويب متصفح ؟</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation type="unfinished"/>
+        <translation>الذاكرة العشوائية الحالية كافية ، الإستمرار بالعملية ؟</translation>
     </message>
 </context>
 <context>
@@ -162,7 +162,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="350"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>نفذ وقت التحقق من البصمة ، رجاءً أدخل كلمة المرور يدويًا</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="370"/>
@@ -190,7 +190,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="549"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>نفذ وقت التحقق من البصمة ، رجاءً أدخل كلمة المرور يدويًا</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="563"/>
@@ -205,7 +205,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="611"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>الحساب أو كلمة المرور غير صحيحة. رجاءً أعد المحاولة.</translation>
     </message>
 </context>
 <context>
@@ -351,7 +351,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation type="unfinished"/>
+        <translation>الوضع المؤثر: أحصل على تجربة سلسة و حساسة. الوضع العام: أستمتع بأداءه السريع</translation>
     </message>
 </context>
 <context>

@@ -75,7 +75,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Пожалуйста, сохраните документ, текст и таблицу</translation>
+        <translation>Пожалуйста, сохраните ваш документ, текст или таблицу</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>

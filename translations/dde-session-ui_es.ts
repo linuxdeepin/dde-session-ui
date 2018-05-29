@@ -20,12 +20,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
         <source>Are you sure to shut down?</source>
-        <translation>¿Estás seguro de apagar?</translation>
+        <translation>¿Está seguro de apagar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="383"/>
         <source>Are you sure to reboot?</source>
-        <translation>¿Estás seguro de reiniciar?</translation>
+        <translation>¿Está seguro de reiniciar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
         <source>Are you sure to log out?</source>
-        <translation>¿Seguro quiere cerrar sesión?</translation>
+        <translation>¿Seguro de cerrar sesión?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
@@ -75,7 +75,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Por favor, guarde su documento, hoja de cálculo y diapositivas</translation>
+        <translation>Por favor guarde sus documentos, textos y diapositivas</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
