@@ -1,3 +1,15 @@
+<a name="4.4.1"></a>
+### 4.4.1 (2018-05-29)
+
+
+#### Bug Fixes
+
+* **greeter:**  not update user keyboard layout ([a7b95034](https://github.com/linuxdeepin/dde-session-ui/commit/a7b95034d590b9afb75ce0586d3267d95e2c02eb))
+* **lock:**  not hide keyboard widget ([037d27ea](https://github.com/linuxdeepin/dde-session-ui/commit/037d27ea14f24403085debe5f083135ac3d05bb0))
+* **shutdown:**  content is cut off cause high limit ([859a32d0](https://github.com/linuxdeepin/dde-session-ui/commit/859a32d02edee66ab044d14cb756494a8de65b6e))
+
+
+
 <a name=""></a>
 ##  4.4.0 (2018-05-24)
 
