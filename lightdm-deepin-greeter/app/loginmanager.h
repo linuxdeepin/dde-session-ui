@@ -122,6 +122,7 @@ private:
     bool checkUserIsNoGrp(User *user);
 
     void restoreWidgetVisible();
+    void onKeyboardLayoutChanged(User *user);
 
     enum UserState {
         Password,

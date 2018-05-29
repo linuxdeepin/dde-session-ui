@@ -284,6 +284,15 @@ void LoginManager::restoreWidgetVisible()
     }
 }
 
+void LoginManager::onKeyboardLayoutChanged(User *user)
+{
+    const QStringList &kblayout = user->kbLayoutList();
+
+    m_keybdLayoutWidget->updateButtonList(kblayout);
+    m_passWdEdit->updateKeybdLayoutUI(kblayout);
+    m_keybdLayoutWidget->setDefault(m_userWidget->currentUser()->currentKBLayout());
+}
+
 void LoginManager::startSession()
 {
     qDebug() << "start session = " << m_sessionWidget->currentSessionName();
@@ -452,7 +461,6 @@ void LoginManager::initConnect()
     connect(m_greeter, &QLightDM::Greeter::showMessage, this, &LoginManager::message);
     connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LoginManager::authenticationComplete);
 
-    connect(m_passWdEdit, &PassWdEdit::updateKeyboardStatus, this, &LoginManager::keyboardLayoutUI);
     connect(m_passWdEdit, &PassWdEdit::keybdLayoutButtonClicked, this, &LoginManager::keybdLayoutWidgetPosit);
     connect(m_passWdEdit, &PassWdEdit::submit, this, &LoginManager::authCurrentUser);
 
@@ -685,6 +693,7 @@ void LoginManager::onCurrentUserChanged(User *user)
 
     m_sessionWidget->switchToUser(user->name());
     m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
+    onKeyboardLayoutChanged(user);
 
     // check is fake addomain button
     if (user->type() == User::ADDomain && user->uid() == 0) {
@@ -749,6 +758,7 @@ void LoginManager::chooseUserMode()
     m_otherUserInput->hide();
 
     m_otherUserInput->clearAlert();
+    m_keybdLayoutWidget->hide();
 }
 
 void LoginManager::chooseSessionMode()
@@ -768,6 +778,7 @@ void LoginManager::chooseSessionMode()
     }
 
     m_otherUserInput->clearAlert();
+    m_keybdLayoutWidget->hide();
 }
 
 void LoginManager::choosedSession() {
@@ -790,16 +801,12 @@ void LoginManager::showShutdownFrame() {
     m_requireShutdownWidget->show();
     m_otherUserInput->hide();
     m_otherUserInput->clearAlert();
+    m_keybdLayoutWidget->hide();
 }
 
 void LoginManager::keyboardLayoutUI() {
 
     m_keybdLayoutWidget = new KbLayoutWidget;
-    const QStringList &kblayout = m_userWidget->currentUser()->kbLayoutList();
-
-    m_keybdLayoutWidget->updateButtonList(kblayout);
-    m_passWdEdit->updateKeybdLayoutUI(kblayout);
-    m_keybdLayoutWidget->setDefault(m_userWidget->currentUser()->currentKBLayout());
 
     m_keybdArrowWidget = new DArrowRectangle(DArrowRectangle::ArrowTop, this);
     m_keybdArrowWidget->setBackgroundColor(QColor::fromRgbF(1, 1, 1, 0.15));

@@ -55,7 +55,6 @@ public:
 signals:
     void submit();
     void keybdLayoutButtonClicked();
-    void updateKeyboardStatus();
     void alertChanged(const int alert);
 
 public slots:
