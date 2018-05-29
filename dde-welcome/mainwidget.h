@@ -48,7 +48,7 @@ protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 
 private:
-    bool checkVersion();
+    bool checkVersionChanged();
     const QString getSystemVersion();
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
 

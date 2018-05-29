@@ -18,7 +18,6 @@ SOURCES += \
 HEADERS  += \
     welcomeservice.h \
     updatecontent.h \
-    version.h \
     mainwidget.h
 
 RESOURCES += \

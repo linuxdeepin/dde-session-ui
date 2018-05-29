@@ -25,7 +25,6 @@
 
 #include "mainwidget.h"
 #include "updatecontent.h"
-#include "version.h"
 #include "constants.h"
 
 #include <QGSettings/QGSettings>
@@ -138,7 +137,7 @@ MainWidget::MainWidget(QWidget *parent)
             }
         }
     } else {
-        m_isUpgrade = checkVersion();
+        m_isUpgrade = checkVersionChanged();
     }
 
     QGSettings gsettings("com.deepin.dde.appearance", "", this);
@@ -168,46 +167,20 @@ MainWidget::MainWidget(QWidget *parent)
 #endif
 }
 
-bool MainWidget::checkVersion()
+bool MainWidget::checkVersionChanged()
 {
-    QString currentVersion = getSystemVersion();
+    const QString currentVersion = getSystemVersion();
 
     if (currentVersion.isEmpty())
         return false;
 
     // check file exist
     QSettings welcomeSetting("deepin", "dde-welcome");
-    QString version = welcomeSetting.value("Version").toString();
-    if (version.isEmpty()) {
-        welcomeSetting.setValue("Version", currentVersion);
-        return true;
-    }
-
-    // NOTE: Anyway, check the version as long as the version changes.
-    QRegExp re("^\\d+(\\.\\d+)+");
-
-    int currentVersionPos = currentVersion.indexOf(re);
-    if (currentVersionPos >= 0)
-        currentVersion = re.cap(0);
-    else
-        return false;
-
-    int versionPos = version.indexOf(re);
-    if (versionPos >= 0)
-        version = re.cap(0);
-    else
-        return false;
-
-    const int result = alpm_pkg_vercmp(currentVersion.toStdString().c_str(), version.toStdString().c_str());
-
-    if (result > 0) {
-        welcomeSetting.setValue("Version", currentVersion);
-        return true;
-    }
+    const QString version = welcomeSetting.value("Version").toString();
 
     welcomeSetting.setValue("Version", currentVersion);
 
-    return false;
+    return version != currentVersion;
 }
 
 const QString MainWidget::getSystemVersion()
