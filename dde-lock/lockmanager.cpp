@@ -221,6 +221,8 @@ void LockManager::chooseUserMode()
     m_requireShutdownWidget->hide();
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
+    m_keybdLayoutWidget->hide();
+    m_keybdArrowWidget->hide();
 }
 
 void LockManager::onUnlockFinished(const bool unlocked)
@@ -607,5 +609,7 @@ void LockManager::shutdownMode()
     m_userWidget->hide();
     m_passwordEdit->hide();
     m_unlockButton->hide();
+    m_keybdLayoutWidget->hide();
+    m_keybdArrowWidget->hide();
     m_requireShutdownWidget->show();
 }
