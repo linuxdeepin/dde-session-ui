@@ -26,7 +26,7 @@
 #include "suspenddialog.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QScreen>
 
 #include <QDebug>
 
@@ -73,9 +73,9 @@ Manager::Manager()
 
 void Manager::setupDialogs()
 {
-    const QDesktopWidget *desktop = QApplication::desktop();
-    for (int i = 0; i < desktop->screenCount(); i++) {
-        const QRect geom = desktop->screenGeometry(i);
+    QList<QScreen *> screenList = qApp->screens();
+    for (int i = 0; i < screenList.length(); i++) {
+        const QRect geom = screenList[i]->geometry();
 
         SuspendDialog *dialog = new SuspendDialog(geom);
         dialog->show();
