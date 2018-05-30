@@ -25,9 +25,11 @@
 
 #include "kblayoutprovider.h"
 
-KBLayoutProvider::KBLayoutProvider(QObject *parent) :
-    AbstractOSDProvider(parent),
-    m_keyboardInter(new Keyboard("com.deepin.daemon.InputDevices",
+#include <QApplication>
+
+KBLayoutProvider::KBLayoutProvider(QObject *parent)
+    : AbstractOSDProvider(parent)
+    , m_keyboardInter(new Keyboard("com.deepin.daemon.InputDevices",
                                  "/com/deepin/daemon/InputDevice/Keyboard",
                                  QDBusConnection::sessionBus(), this))
 {
@@ -62,7 +64,21 @@ QSize KBLayoutProvider::contentSize() const
 {
     int count = qMin(m_userLayouts.length(), 6);
 
-    return QSize(TextItemWidth + 20, TextItemHeight * count + 20);
+    // Find the langest layout and set max width
+    QStringList list;
+
+    for (const QString &s : m_userLayouts) {
+        list << m_database.value(s, s);
+    }
+
+    std::sort(list.begin(), list.end(), [=] (const QString &s1, const QString &s2) {
+        return s1.length() > s2.length();
+    });
+
+    const QFont appNamefont(qApp->font());
+    const QFontMetrics fm(appNamefont);
+
+    return QSize(qMax(fm.width(list.first()), TextItemWidth) + 30, (fm.height() + 10) * count + 20);
 }
 
 QMargins KBLayoutProvider::contentMargins() const
@@ -116,9 +132,9 @@ void KBLayoutProvider::paint(QPainter *painter, const QStyleOptionViewItem &opti
     }
 }
 
-QSize KBLayoutProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
+QSize KBLayoutProvider::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const
 {
-    return QSize(TextItemWidth, TextItemHeight);
+    return QSize(qMax(TextItemWidth, opt.fontMetrics.width(index.data().toString())), opt.fontMetrics.height() + 10);
 }
 
 QString KBLayoutProvider::describeLayout(const QString &layout) const
