@@ -46,8 +46,6 @@ MultiUsersWarningView::MultiUsersWarningView(UserWidget *userWidget, QWidget *pa
     , m_userWidget(userWidget)
     , m_currentBtn(nullptr)
 {
-    setFixedWidth(500);
-
     m_userList->setAttribute(Qt::WA_TranslucentBackground);
 //    m_userList->setSelectionRectVisible(false);
     m_userList->setSelectionMode(QListView::NoSelection);
@@ -60,9 +58,10 @@ MultiUsersWarningView::MultiUsersWarningView(UserWidget *userWidget, QWidget *pa
     m_userList->setFocusPolicy(Qt::NoFocus);
     m_userList->setStyleSheet("background-color:transparent;");
 
+    m_warningTip->setFixedWidth(300);
     m_warningTip->setStyleSheet("color: white;");
     m_warningTip->setWordWrap(true);
-    m_warningTip->setAlignment(Qt::AlignHCenter);
+    m_warningTip->setAlignment(Qt::AlignCenter);
 
     m_cancelBtn->setNormalPic(":/img/cancel_normal.svg");
     m_cancelBtn->setHoverPic(":/img/cancel_hover.svg");
@@ -77,7 +76,7 @@ MultiUsersWarningView::MultiUsersWarningView(UserWidget *userWidget, QWidget *pa
     m_vLayout->addStretch();
     m_vLayout->addWidget(m_userList, 0, Qt::AlignHCenter);
     m_vLayout->addSpacing(40);
-    m_vLayout->addWidget(m_warningTip, 0, Qt::AlignHCenter);
+    m_vLayout->addWidget(m_warningTip, 0, Qt::AlignCenter);
     m_vLayout->addSpacing(40);
     m_vLayout->addLayout(btnLayout);
     m_vLayout->addStretch();
