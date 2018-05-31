@@ -1,3 +1,15 @@
+<a name="4.4.2"></a>
+### 4.4.2 (2018-05-31)
+
+
+#### Bug Fixes
+
+*   remove old functions to fix build under Qt 5.11+ ([f8cf0703](https://github.com/linuxdeepin/dde-session-ui/commit/f8cf070316f7b197282f42fab83eb9951b00b0ea))
+* **osd:**  display shelter when font size changed ([f0de859e](https://github.com/linuxdeepin/dde-session-ui/commit/f0de859edd5da9255668d4f069a9d0f7597f6366))
+* **shutdown:**  warning label not wrap ([acc1fba6](https://github.com/linuxdeepin/dde-session-ui/commit/acc1fba6a513475ee206668709214c958a793c37))
+
+
+
 <a name="4.4.1"></a>
 ### 4.4.1 (2018-05-29)
 
