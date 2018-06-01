@@ -26,20 +26,23 @@
 #ifndef VMFRAME_H
 #define VMFRAME_H
 
-#include "boxframe.h"
+#include "fullscreenbackground.h"
 #include "wmchooser.h"
 #include <QWidget>
+#include <com_deepin_daemon_imageblur.h>
 
-class WMFrame : public BoxFrame
+using ImageBlur = com::deepin::daemon::ImageBlur;
+
+class WMFrame : public FullscreenBackground
 {
     Q_OBJECT
 public:
     explicit WMFrame(QWidget *parent = 0);
     void setConfigPath(const QString &path);
-    void updateScreenPosition();
 
 private:
     WMChooser *m_wmchooser;
+    ImageBlur *m_blurImageInter;
 };
 
 #endif // VMFRAME_H

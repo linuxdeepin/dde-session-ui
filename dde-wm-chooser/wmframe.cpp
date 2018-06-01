@@ -26,35 +26,32 @@
 #include "wmframe.h"
 
 #include <QScreen>
+#include <QGSettings>
 
-WMFrame::WMFrame(QWidget *parent) : BoxFrame(parent)
+WMFrame::WMFrame(QWidget *parent)
+    : FullscreenBackground(parent)
+    , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
+                                     "/com/deepin/daemon/ImageBlur",
+                                     QDBusConnection::systemBus(), this))
 {
     m_wmchooser = new WMChooser(this);
 
-    updateScreenPosition();
+    setContent(m_wmchooser);
 
-    connect(m_wmchooser, &WMChooser::screenChanged, this, &WMFrame::updateScreenPosition);
+    QGSettings gsettings("com.deepin.dde.appearance", "", this);
+    const QStringList list = gsettings.get("background-uris").toStringList();
+    QString wallpaper = list.first();
+
+    const QUrl url(wallpaper);
+    wallpaper = url.isLocalFile() ? url.path() : url.url();
+
+    // blur wallpaper
+    const QString &w = m_blurImageInter->Get(wallpaper);
+
+    updateBackground(w.isEmpty() ? wallpaper : w);
 }
 
 void WMFrame::setConfigPath(const QString &path)
 {
     m_wmchooser->setConfigPath(path);
-}
-
-void WMFrame::updateScreenPosition()
-{
-    QList<QScreen *> screenList = qApp->screens();
-    QPoint mousePoint = QCursor::pos();
-    for (const QScreen *screen : screenList)
-    {
-        if (screen->geometry().contains(mousePoint))
-        {
-            const QRect &geometry = screen->geometry();
-            m_wmchooser->setFixedSize(geometry.size());
-            m_wmchooser->move(geometry.x(), geometry.y());
-            m_wmchooser->updateGeometry();
-
-            return;
-        }
-    }
 }
