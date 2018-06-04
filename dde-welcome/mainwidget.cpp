@@ -176,7 +176,13 @@ bool MainWidget::checkVersionChanged()
 
     // check file exist
     QSettings welcomeSetting("deepin", "dde-welcome");
-    const QString version = welcomeSetting.value("Version").toString();
+    QString version = welcomeSetting.value("Version").toString();
+    if (version.isEmpty()) {
+        // If the local file does not exist, do not prompt.
+        // In some distributions, the first use prompts an upgrade.
+        welcomeSetting.setValue("Version", currentVersion);
+        return false;
+    }
 
     welcomeSetting.setValue("Version", currentVersion);
 
