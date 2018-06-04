@@ -124,8 +124,10 @@ get_seat_path(gchar *username, struct user_session_dbus *usd)
 
         username_prop_var = g_dbus_proxy_get_cached_property(session_proxy, "UserName");
         if (username_prop_var == NULL) {
-            g_warning("switchtogreeter:get username %s\n", error->message);
-            g_error_free(error);
+            if (error != NULL) {
+                g_warning("switchtogreeter:get username %s\n", error->message);
+                g_error_free(error);
+            }
             g_object_unref(session_proxy);
             continue;
         }
