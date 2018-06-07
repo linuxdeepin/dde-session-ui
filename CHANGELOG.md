@@ -1,3 +1,16 @@
+<a name="4.4.3"></a>
+### 4.4.3 (2018-06-07)
+
+
+#### Bug Fixes
+
+*   null pointer exception ([0eec4ec9](https://github.com/linuxdeepin/dde-session-ui/commit/0eec4ec9cc0861ee766da5b137b9dd6849bf33f5))
+* **greeter:**  content change, unable to delete user ([4fa39ab1](https://github.com/linuxdeepin/dde-session-ui/commit/4fa39ab16c65d3f76c83969188e83dba4f83ce5d))
+* **welcome:**  no tip when file not exist ([dc21d2fb](https://github.com/linuxdeepin/dde-session-ui/commit/dc21d2fb92ac6b785f0a8ea2b6c1526b5e3ed5a2))
+* **wmchooser:**  not use failback wallpaper ([334e0e2f](https://github.com/linuxdeepin/dde-session-ui/commit/334e0e2f219ef8cce6e44922fe041e630afeee3e))
+
+
+
 <a name="4.4.2"></a>
 ### 4.4.2 (2018-05-31)
 
