@@ -85,7 +85,6 @@ void PassWdEdit::initUI()
     m_lineEdit->setContextMenuPolicy(Qt::NoContextMenu);
     m_lineEdit->setObjectName("passwdLineEdit");
     m_lineEdit->setEchoMode(QLineEdit::Password);
-    m_lineEdit->setAttribute(Qt::WA_InputMethodEnabled, false);
     m_lineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_lineEdit->setAlignment(Qt::AlignVCenter);
     m_lineEdit->setFocusPolicy(Qt::StrongFocus);
