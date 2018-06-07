@@ -186,7 +186,7 @@ private slots:
     void removeUser(QString name);
 //    void onUserListChanged();
     void onNativeUserAdded(const QString &path);
-    void onNativeUserRemoved(const QString &name);
+    void onNativeUserRemoved(const QString &path);
     void onLoginUserListChanged(const QString &loginedUserInfo);
 //    UserButton* getUserByName(const QString &username);
 //    void initOtherUser(const QString &username = "");
@@ -202,6 +202,7 @@ private slots:
     void updateIconPosition();
 
     void checkADState();
+    void findFirstNotLogin();
 
 private:
 //    int m_currentUserIndex = 0;

@@ -102,33 +102,7 @@ UserWidget::UserWidget(QWidget* parent)
         m_adCheckStateTimer->start();
     }
 
-    // If current user is lightdm, here is greeter interface
-    // else is dde-lock interface
-    if (currentContextUser() == "lightdm") {
-        for (UserButton *btn : m_availableUserButtons) {
-            if (!btn->userInfo()->isLogin()) {
-                m_currentUser = btn->userInfo();
-                break;
-            }
-        }
-    } else {
-        // select current login user
-        const QString &user = currentContextUser();
-        for (UserButton *btn : m_availableUserButtons) {
-            if (btn->userInfo()->name() == user) {
-                m_currentUser = btn->userInfo();
-                break;
-            }
-        }
-    }
-
-    // If not select any user
-    if (!m_currentUser) {
-        UserButton *btn = m_availableUserButtons.first();
-        m_currentUser = btn->userInfo();
-    }
-
-    QTimer::singleShot(1, this, &UserWidget::updateIconPosition);
+    findFirstNotLogin();
 }
 
 UserWidget::~UserWidget()
@@ -156,16 +130,16 @@ void UserWidget::initUI()
 
 void UserWidget::initConnections()
 {
-    connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onNativeUserAdded);
-    connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onNativeUserRemoved);
+    connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onNativeUserAdded, Qt::QueuedConnection);
+    connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onNativeUserRemoved, Qt::QueuedConnection);
     connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, [=] {
         emit userCountChanged(m_availableUserButtons.size());
 
         // keep order: AD User > Native User > AD Login Button
         std::sort(m_availableUserButtons.begin(), m_availableUserButtons.end(), userSort);
-    });
+    }, Qt::QueuedConnection);
 
-    connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged);
+    connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged, Qt::QueuedConnection);
 }
 
 //void UserWidget::onUserListChanged()
@@ -232,7 +206,7 @@ void UserWidget::onNativeUserAdded(const QString &path)
 //    onLoginUserListChanged(m_dbusLogined->userList());
 }
 
-void UserWidget::onNativeUserRemoved(const QString &name)
+void UserWidget::onNativeUserRemoved(const QString &path)
 {
 //    UserInter *user;
 //    user = m_userDbus.find(name).value();
@@ -258,13 +232,15 @@ void UserWidget::onNativeUserRemoved(const QString &name)
 
     for (int i = 0; i != m_availableUserButtons.size(); ++i) {
         UserButton *btn = m_availableUserButtons.at(i);
-        if (btn->userInfo()->name() == name) {
+        if (static_cast<NativeUser *>(btn->userInfo())->path() == path) {
             m_availableUserButtons.removeAt(i);
             m_availableUsers.removeOne(btn->userInfo());
             btn->deleteLater();
             break;
         }
     }
+
+    findFirstNotLogin();
 }
 
 void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
@@ -781,6 +757,37 @@ void UserWidget::checkADState()
     m_adCheckStateTimer->start();
 }
 
+void UserWidget::findFirstNotLogin()
+{
+    // If current user is lightdm, here is greeter interface
+    // else is dde-lock interface
+    if (currentContextUser() == "lightdm") {
+        for (UserButton *btn : m_availableUserButtons) {
+            if (!btn->userInfo()->isLogin()) {
+                m_currentUser = btn->userInfo();
+                break;
+            }
+        }
+    } else {
+        // select current login user
+        const QString &user = currentContextUser();
+        for (UserButton *btn : m_availableUserButtons) {
+            if (btn->userInfo()->name() == user) {
+                m_currentUser = btn->userInfo();
+                break;
+            }
+        }
+    }
+
+    // If not select any user
+    if (!m_currentUser) {
+        UserButton *btn = m_availableUserButtons.first();
+        m_currentUser = btn->userInfo();
+    }
+
+    QTimer::singleShot(1, this, &UserWidget::updateIconPosition);
+}
+
 const QString UserWidget::currentContextUser()
 {
     struct passwd *pws;
@@ -940,6 +947,7 @@ NativeUser::NativeUser(const QString &path, QObject *parent)
 
     m_userName = m_userInter->userName();
     m_uid = m_userInter->uid().toInt();
+    m_userPath = path;
 }
 
 void NativeUser::setCurrentLayout(const QString &layout)
