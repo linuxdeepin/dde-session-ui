@@ -906,7 +906,9 @@ const QList<User *> UserWidget::allUsers() const
 //        user->dbus()->SetLayout(layout);
 //}
 
-User::User(QObject *parent) : QObject(parent)
+User::User(QObject *parent)
+    : QObject(parent)
+    , m_isLogind(false)
 {
 
 }
