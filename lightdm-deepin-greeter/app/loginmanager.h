@@ -31,6 +31,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QKeyEvent>
+#include <QQuickWidget>
 
 #include <QLightDM/Greeter>
 #include <QLightDM/SessionsModel>
@@ -71,6 +72,7 @@ signals:
 public slots:
     /*Update the position of the widgets after finished the layout of ui*/
     void updateWidgetsPosition();
+    void updateVirtualKeyboardGeometry();
     void updateBackground(QString username);
 
     void startSession();
@@ -152,6 +154,7 @@ private:
     KeyboardMonitor *m_keyboardMonitor;
 
     ControlWidget *m_controlWidget;
+    QQuickWidget *m_virtualkeyboard;
 
     QString m_lastUser;
     QPushButton *m_loginButton;

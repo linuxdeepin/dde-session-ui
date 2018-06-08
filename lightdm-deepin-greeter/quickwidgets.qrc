@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/content">
+        <file>quickwidgets/keyboard.qml</file>
+    </qresource>
+</RCC>

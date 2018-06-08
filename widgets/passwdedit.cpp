@@ -114,6 +114,7 @@ void PassWdEdit::initUI()
 
     setLayout(m_Layout);
     setGraphicsEffect(m_opacityEffect);
+    setFocusProxy(m_lineEdit);
 
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/passwdedit.qss", this);
