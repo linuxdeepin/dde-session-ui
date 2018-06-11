@@ -157,7 +157,6 @@ static int set_rootwindow_cursor() {
 LoginManager::LoginManager(QWidget* parent)
     : QFrame(parent)
     , m_keyboardMonitor(KeyboardMonitor::instance())
-    , m_virtualkeyboard(new QQuickWidget(this))
     , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
@@ -216,21 +215,6 @@ void LoginManager::updateWidgetsPosition()
     m_requireShutdownWidget->setFixedWidth(w);
     m_requireShutdownWidget->setFixedHeight(300);
     m_requireShutdownWidget->move(0,  (h - m_requireShutdownWidget->height())/2 - 60);
-}
-
-void LoginManager::updateVirtualKeyboardGeometry()
-{
-    QRect geo = geometry();
-
-    const int targetHeight = geo.height() * 0.3;
-    const int targetWidth = targetHeight * 2560.0 / 800.0;
-
-    geo.setX((geo.width() - targetWidth) / 2.0);
-    geo.setY(geo.height() - targetHeight);
-    geo.setHeight(targetHeight);
-    geo.setWidth(targetWidth);
-
-    m_virtualkeyboard->setGeometry(geo);
 }
 
 void LoginManager::updateBackground(QString username)
@@ -341,7 +325,6 @@ void LoginManager::startSession()
 void LoginManager::resizeEvent(QResizeEvent *e)
 {
     QTimer::singleShot(1, this, &LoginManager::updateWidgetsPosition);
-    QTimer::singleShot(1, this, &LoginManager::updateVirtualKeyboardGeometry);
 
     QWidget::resizeEvent(e);
 }
@@ -412,13 +395,6 @@ void LoginManager::initUI()
     updateStyle(":/skin/login.qss", this);
 #endif
     set_rootwindow_cursor();
-
-    m_virtualkeyboard->setSource(QUrl("qrc:/content/quickwidgets/keyboard.qml"));
-    m_virtualkeyboard->setResizeMode(QQuickWidget::SizeRootObjectToView);
-    m_virtualkeyboard->setAttribute(Qt::WA_AcceptTouchEvents);
-    m_virtualkeyboard->setAttribute(Qt::WA_AlwaysStackOnTop);
-    m_virtualkeyboard->setAttribute(Qt::WA_TranslucentBackground); // FIXME(hualet): not working
-    m_virtualkeyboard->setFocusProxy(m_passWdEdit);
 }
 
 void LoginManager::initData()

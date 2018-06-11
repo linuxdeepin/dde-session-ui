@@ -6,7 +6,7 @@
 include(../common.pri)
 load(deepin_qt)
 
-QT       += core gui dbus x11extras quickwidgets
+QT       += core gui dbus x11extras
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -55,8 +55,7 @@ INSTALLS += target desktop_file
 
 RESOURCES += \
     image.qrc \
-    logintheme.qrc \
-    quickwidgets.qrc
+    logintheme.qrc
 
 deepin_professional {
     host_mips64: {
