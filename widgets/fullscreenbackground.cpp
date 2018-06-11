@@ -249,6 +249,8 @@ void FadeoutBackground::paintEvent(QPaintEvent *event)
 {
     QFrame::paintEvent(event);
 
+    if (m_fadeoutPixmap.isNull()) return;
+
     QPainter painter(this);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
