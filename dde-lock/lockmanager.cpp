@@ -128,15 +128,20 @@ void LockManager::initConnect()
 
 void LockManager::keybdLayoutWidgetPosit()
 {
-    const QPoint p(m_keybdArrowWidget->rect().x() + 45, m_keybdArrowWidget->rect().y() + 21);
+    if (m_keybdArrowWidget->isHidden()) {
+        const QPoint p(m_keybdArrowWidget->rect().x() + 45, m_keybdArrowWidget->rect().y() + 21);
 
-    m_keybdArrowWidget->setCornerPoint(p);
+        m_keybdArrowWidget->setCornerPoint(p);
 
-    const int x = m_passwordEdit->x() + m_keybdArrowWidget->width() / 2 - 22;
+        const int x = m_passwordEdit->x() + m_keybdArrowWidget->width() / 2 - 22;
 
-    m_keybdArrowWidget->show(x, m_passwordEdit->y() + m_passwordEdit->height() - 15);
+        m_keybdArrowWidget->show(x, m_passwordEdit->y() + m_passwordEdit->height() - 15);
 
-    m_keybdLayoutWidget->show();
+        m_keybdLayoutWidget->show();
+    } else {
+        m_keybdLayoutWidget->hide();
+        m_keybdArrowWidget->hide();
+    }
 }
 
 void LockManager::initUI()
@@ -219,8 +224,6 @@ void LockManager::chooseUserMode()
     m_unlockButton->hide();
     m_userWidget->show();
     m_requireShutdownWidget->hide();
-    m_keybdLayoutWidget->hide();
-    m_keybdArrowWidget->hide();
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
 }

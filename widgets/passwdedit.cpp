@@ -182,6 +182,7 @@ void PassWdEdit::initConnect()
     connect(m_iconButton, &DImageButton::clicked, this, &PassWdEdit::submit);
 #ifndef SHENWEI_PLATFORM
     connect(m_keyboardButton, &DImageButton::clicked, this, &PassWdEdit::keybdLayoutButtonClicked);
+    connect(m_keyboardButton, &DImageButton::clicked, [this] {setAlert(false);});
 #endif
     connect(m_hideAni, &QPropertyAnimation::finished, this, &QFrame::hide);
     connect(m_lineEdit, &QLineEdit::textChanged, [this] {
