@@ -1,3 +1,21 @@
+<a name="4.4.4"></a>
+### 4.4.4 (2018-06-12)
+
+
+#### Features
+
+* **greeter:**  support virtual keyboard ([b1467c18](https://github.com/linuxdeepin/dde-session-ui/commit/b1467c18f86448d46fb6a74808fcf27002770c71))
+* **lock:**  don't disable input method ([04037d1e](https://github.com/linuxdeepin/dde-session-ui/commit/04037d1e11a6c57ffea4543d9ce2c07b364317aa))
+
+#### Bug Fixes
+
+*   update failback background path ([4c092dfe](https://github.com/linuxdeepin/dde-session-ui/commit/4c092dfe6341da6df7ea108127a8e19f41857938))
+* **background:**  null pixmap warning ([b31a01ba](https://github.com/linuxdeepin/dde-session-ui/commit/b31a01ba4316cd5b3581dcb96b202069194ffe47))
+* **greeter:**  Listen to files to switch users ([fd5f5595](https://github.com/linuxdeepin/dde-session-ui/commit/fd5f5595776dc357fbe28aec58c64a8dd35ad154))
+* **userwidget:**  not init islogind value ([e28454ae](https://github.com/linuxdeepin/dde-session-ui/commit/e28454ae4e48ccf72e39afc1652397c162710fcc))
+
+
+
 <a name="4.4.3"></a>
 ### 4.4.3 (2018-06-07)
 
