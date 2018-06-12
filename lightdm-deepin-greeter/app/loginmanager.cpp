@@ -519,8 +519,6 @@ void LoginManager::restoreUser()
     m_lastUser = setting.value("UserName").toString();
     const int type = setting.value("Type").toInt();
 
-    setting.clear();
-
     qDebug() << "last user is: " << m_lastUser;
 
     if (!m_lastUser.isEmpty()) {
@@ -546,6 +544,44 @@ void LoginManager::restoreUser()
     QTimer::singleShot(1, this, &LoginManager::restoreNumlockStatus);
 
     updateWidgetsPosition();
+
+    // warning: wrong usage, please correct later
+    QTimer *timer = new QTimer(this);
+
+    connect(timer, &QTimer::timeout, this, [=] {
+        if (!QFile::exists("/tmp/lastuser")) return;
+
+        QSettings setting("/tmp/lastuser", QSettings::IniFormat);
+        setting.beginGroup("LASTUSER");
+
+        const QString &user = setting.value("UserName").toString();
+        const int type = setting.value("Type").toInt();
+
+        if (user == m_lastUser && user.isEmpty()) return;
+
+        if (m_currentUser->name() == user) return;
+
+        m_lastUser = user;
+
+        qDebug() << "last user is: " << m_lastUser;
+
+        if (type == User::ADDomain) {
+            User *user = m_userWidget->initADLogin();
+            m_userWidget->restoreUser(user);
+            onCurrentUserChanged(user);
+        } else {
+            for (User * user : m_userWidget->allUsers()) {
+                if (user->name() == m_lastUser) {
+                    m_userWidget->restoreUser(user);
+                    onCurrentUserChanged(user);
+                    break;
+                }
+            }
+        }
+    });
+
+    timer->setInterval(1000);
+    timer->start();
 }
 
 void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
