@@ -205,7 +205,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="611"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>Srities paskyra ar slaptažodis yra neteisingas. Įveskite dar kartą.</translation>
     </message>
 </context>
 <context>
@@ -314,7 +314,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Įeiti</translation>
     </message>
 </context>
 <context>

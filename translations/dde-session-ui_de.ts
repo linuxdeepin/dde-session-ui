@@ -395,7 +395,7 @@ Normalmodus: Schnelle Leistung für langsamere Systeme.</translation>
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Akku schwach, bitte anschließen</translation>
+        <translation>Akku schwach, bitte Netzteil anschließen</translation>
     </message>
 </context>
 </TS>

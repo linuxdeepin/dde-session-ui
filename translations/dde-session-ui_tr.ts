@@ -283,7 +283,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>Sistem izleyiciyi başlat</translation>
+        <translation>Sistem İzleyiciyi Başlat</translation>
     </message>
 </context>
 <context>

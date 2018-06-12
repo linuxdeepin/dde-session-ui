@@ -25,7 +25,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="383"/>
         <source>Are you sure to reboot?</source>
-        <translation>Deseja reiniciar agora?</translation>
+        <translation>Deseja reiniciar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
@@ -75,7 +75,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Por favor salve seu documento, texto e planilha</translation>
+        <translation>Por favor salve seus documentos, textos e planilhas</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -85,7 +85,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Memória do sistema insuficiente, encerre algumas aplicações para evitar ficar sem memória.</translation>
+        <translation>Memória do sistema insuficiente, encerre algumas aplicações para evitar travamentos.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>

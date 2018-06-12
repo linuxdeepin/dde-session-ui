@@ -15,7 +15,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation>다시 시작</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
@@ -246,7 +246,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
         <location filename="../dde-lock/lockmanager.cpp" line="584"/>
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation>다시 시작</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="53"/>
