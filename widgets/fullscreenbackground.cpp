@@ -41,7 +41,7 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
-    , m_fakeBackground(new FadeoutBackground(this))
+    , m_fadeOutAni(new QVariantAnimation(this))
 {
     m_adjustTimer->setSingleShot(true);
 
@@ -50,14 +50,22 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     connect(m_adjustTimer, &QTimer::timeout, this, &FullscreenBackground::adjustGeometry);
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &FullscreenBackground::onBlurFinished);
     connect(QApplication::desktop(), &QDesktopWidget::resized, m_adjustTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
+
+    m_fadeOutAni->setEasingCurve(QEasingCurve::InOutCubic);
+    m_fadeOutAni->setDuration(1000);
+    m_fadeOutAni->setStartValue(1.0f);
+    m_fadeOutAni->setEndValue(0.0f);
+
+    connect(m_fadeOutAni, &QVariantAnimation::valueChanged, this, static_cast<void (FullscreenBackground::*)()>(&FullscreenBackground::update));
 }
 
 void FullscreenBackground::updateBackground(const QPixmap &background)
 {
     // show old background fade out
-    m_fakeBackground->showFadeOut(m_background);
-
+    m_fakeBackground = m_background;
     m_background = background;
+
+    m_fadeOutAni->start();
 }
 
 void FullscreenBackground::updateBackground(const QString &file)
@@ -113,7 +121,7 @@ void FullscreenBackground::adjustGeometry()
     }
 
     setGeometry(r);
-    m_fakeBackground->setGeometry(r);
+//    m_fakeBackground->setGeometry(r);
 
     if (m_content.isNull())
         return;
@@ -154,9 +162,6 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
 
-    if (m_background.isNull())
-        return;
-
     QPainter painter(this);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
@@ -165,11 +170,19 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
     {
         const QRect &geom = s->geometry();
         const QRect tr(geom.topLeft() / devicePixelRatioF(), geom.size());
-        const QPixmap pix = m_background.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-        const QRect pix_r = QRect((pix.width() - tr.width()) / 2, (pix.height() - tr.height()) / 2, tr.width(), tr.height());
+        const QPixmap &pix = m_background.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
 
         r = r.united(tr);
-        painter.drawPixmap(tr, pix, pix_r);
+        if (!pix.isNull())
+            painter.drawPixmap(tr, pix, QRect((pix.width() - tr.width()) / 2, (pix.height() - tr.height()) / 2, tr.width(), tr.height()));
+
+        // draw background
+        const QPixmap &fadePixmap = m_fakeBackground.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+
+        painter.setOpacity(m_fadeOutAni->currentValue().toFloat());
+
+        if (!fadePixmap.isNull())
+            painter.drawPixmap(tr, fadePixmap, QRect((fadePixmap.width() - tr.width()) / 2, (fadePixmap.height() - tr.height()) / 2, tr.width(), tr.height()));
     }
 }
 
@@ -217,50 +230,4 @@ const QScreen *FullscreenBackground::screenForGeometry(const QRect &rect) const
     }
 
     return nullptr;
-}
-
-FadeoutBackground::FadeoutBackground(QWidget *parent)
-    : QFrame(parent)
-{
-    QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
-    setGraphicsEffect(effect);
-
-    effect->setOpacity(0);
-
-    m_backgroundAnimation = new QPropertyAnimation(effect, "opacity", this);
-    m_backgroundAnimation->setDuration(1000);
-    m_backgroundAnimation->setEasingCurve(QEasingCurve::InOutCubic);
-    m_backgroundAnimation->setStartValue(1.0);
-    m_backgroundAnimation->setEndValue(0.0);
-
-    // NOTE(kirigaya): Draw a real background
-    connect(m_backgroundAnimation, &QVariantAnimation::finished, this, [=] {
-        emit fadeoutFinished(m_fadeoutPixmap);
-    });
-}
-
-void FadeoutBackground::showFadeOut(const QPixmap &oldPixmap)
-{
-    m_fadeoutPixmap = oldPixmap;
-    m_backgroundAnimation->start();
-}
-
-void FadeoutBackground::paintEvent(QPaintEvent *event)
-{
-    QFrame::paintEvent(event);
-
-    if (m_fadeoutPixmap.isNull()) return;
-
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform);
-
-    for (auto *s : qApp->screens())
-    {
-        const QRect &geom = s->geometry();
-        const QRect r(geom.topLeft() / devicePixelRatioF(), geom.size());
-        const QPixmap &pix = m_fadeoutPixmap.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-        const QRect pix_r = QRect((pix.width() - r.width()) / 2, (pix.height() - r.height()) / 2, r.width(), r.height());
-
-        painter.drawPixmap(r, pix, pix_r);
-    }
 }

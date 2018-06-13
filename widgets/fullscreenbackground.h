@@ -35,24 +35,6 @@
 
 using ImageBlur = com::deepin::daemon::ImageBlur;
 
-class FadeoutBackground : public QFrame {
-    Q_OBJECT
-public:
-    explicit FadeoutBackground(QWidget *parent = 0);
-
-    void showFadeOut(const QPixmap &oldPixmap);
-
-signals:
-    void fadeoutFinished(const QPixmap &oldPixmap);
-
-protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-
-private:
-    QPropertyAnimation *m_backgroundAnimation;
-    QPixmap m_fadeoutPixmap;
-};
-
 class FullscreenBackground : public QWidget
 {
     Q_OBJECT
@@ -82,10 +64,11 @@ private:
 private:
     QString m_bgPath;
     QPixmap m_background;
+    QPixmap m_fakeBackground;
     QPointer<QWidget> m_content;
     QTimer *m_adjustTimer;
     ImageBlur *m_blurImageInter;
-    FadeoutBackground *m_fakeBackground;
+    QVariantAnimation *m_fadeOutAni;
 };
 
 #endif // FULLSCREENBACKGROUND_H
