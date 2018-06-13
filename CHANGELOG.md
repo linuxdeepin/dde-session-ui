@@ -1,3 +1,13 @@
+<a name="4.4.5"></a>
+### 4.4.5 (2018-06-13)
+
+
+#### Bug Fixes
+
+* **greeter:**  not clean lastuser file ([c49b2ab5](https://github.com/linuxdeepin/dde-session-ui/commit/c49b2ab59bdc3ee5187d592eb32a56e5d86d1bd4))
+
+
+
 <a name="4.4.4"></a>
 ### 4.4.4 (2018-06-12)
 
