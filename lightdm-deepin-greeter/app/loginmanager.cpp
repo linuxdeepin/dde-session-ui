@@ -519,6 +519,8 @@ void LoginManager::restoreUser()
     m_lastUser = setting.value("UserName").toString();
     const int type = setting.value("Type").toInt();
 
+    QFile::resize("/tmp/lastuser", 0);
+
     qDebug() << "last user is: " << m_lastUser;
 
     if (!m_lastUser.isEmpty()) {
@@ -562,6 +564,8 @@ void LoginManager::restoreUser()
         if (m_currentUser->name() == user) return;
 
         m_lastUser = user;
+
+        QFile::resize("/tmp/lastuser", 0);
 
         qDebug() << "last user is: " << m_lastUser;
 
