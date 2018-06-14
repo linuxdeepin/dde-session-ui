@@ -233,6 +233,7 @@ void LockManager::onUnlockFinished(const bool unlocked)
     if (!unlocked) {
         qDebug() << "Authorization failed!";
 
+        if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
         m_passwordEdit->selectAll();
         m_passwordEdit->setAlert(true, tr("Wrong Password"));
         return;
@@ -372,6 +373,7 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
     case DBusLockService::ErrorMsg:
         qWarning() << "error message from pam: " << message;
         if (msg == "Failed to match fingerprint") {
+            if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
             m_passwordEdit->setAlert(true, tr("Failed to match fingerprint"));
             m_passwordEdit->setMessage("");
         }
@@ -583,17 +585,19 @@ void LockManager::passwordMode()
     }
 
     if (m_action == Restart) {
-        if (m_userState == Passwd)
+        if (m_userState == Passwd) {
+            if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
             m_passwordEdit->setAlert(true, tr("Enter your password to reboot"));
-        else
+        } else
             m_unlockButton->setText(QApplication::translate("ShutdownWidget", "Reboot"));
         m_passwordEdit->setEnterBtnStyle(":/img/action_icons/reboot_normal.svg",
                                          ":/img/action_icons/reboot_hover.svg",
                                          ":/img/action_icons/reboot_press.svg");
     } else if (m_action == Shutdown) {
-        if (m_userState == Passwd)
+        if (m_userState == Passwd) {
+            if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
             m_passwordEdit->setAlert(true, tr("Enter your password to shutdown"));
-        else
+        } else
             m_unlockButton->setText(QApplication::translate("ShutdownWidget", "Shut down"));
         m_passwordEdit->setEnterBtnStyle(":/img/action_icons/shutdown_normal.svg",
                                          ":/img/action_icons/shutdown_hover.svg",

@@ -608,6 +608,7 @@ void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)
     case QLightDM::Greeter::MessageTypeError:
         qWarning() << "error message from lightdm: " << text;
         if (text == "Failed to match fingerprint") {
+            if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
             m_passWdEdit->setAlert(true, tr("Failed to match fingerprint"));
             m_passWdEdit->setMessage("");
         }
@@ -651,6 +652,7 @@ void LoginManager::authenticationComplete()
 
     if (!m_greeter->isAuthenticated() && m_userState == Password) {
         if (m_currentUser->type() == User::Native) {
+            if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
             m_passWdEdit->selectAll();
             m_passWdEdit->setAlert(true, tr("Wrong Password"));
         }
