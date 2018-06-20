@@ -164,25 +164,24 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
 
     QPainter painter(this);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    const float current_ani_value = m_fadeOutAni->currentValue().toFloat();
 
-    QRect r;
     for (auto *s : qApp->screens())
     {
         const QRect &geom = s->geometry();
         const QRect tr(geom.topLeft() / devicePixelRatioF(), geom.size());
         const QPixmap &pix = m_background.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
 
-        r = r.united(tr);
         if (!pix.isNull())
             painter.drawPixmap(tr, pix, QRect((pix.width() - tr.width()) / 2, (pix.height() - tr.height()) / 2, tr.width(), tr.height()));
 
+        if (!m_fakeBackground.isNull()) {
         // draw background
         const QPixmap &fadePixmap = m_fakeBackground.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-
-        painter.setOpacity(m_fadeOutAni->currentValue().toFloat());
-
-        if (!fadePixmap.isNull())
-            painter.drawPixmap(tr, fadePixmap, QRect((fadePixmap.width() - tr.width()) / 2, (fadePixmap.height() - tr.height()) / 2, tr.width(), tr.height()));
+        painter.setOpacity(current_ani_value);
+        painter.drawPixmap(tr, fadePixmap, QRect((fadePixmap.width() - tr.width()) / 2, (fadePixmap.height() - tr.height()) / 2, tr.width(), tr.height()));
+        painter.setOpacity(1);
+        }
     }
 }
 
