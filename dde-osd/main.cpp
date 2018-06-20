@@ -31,7 +31,8 @@
 #include <QProcess>
 #include <DDBusSender>
 
-
+#include "notification/bubblemanager.h"
+#include "notification/notifications_dbus_adaptor.h"
 #include "manager.h"
 #include "kblayoutindicator.h"
 
@@ -84,12 +85,19 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    // run osd
     Manager m;
     QDBusConnection::sessionBus().registerObject("/", "com.deepin.dde.osd", &m, QDBusConnection::ExportAllSlots);
 
     if (!action.isEmpty()) {
         m.ShowOSD(action);
     }
+
+    // run notification
+    BubbleManager manager;
+
+    DDENotifyDBus ddenotify(&manager);
+    NotificationsDBusAdaptor adapter(&manager);
 
     return a.exec();
 }

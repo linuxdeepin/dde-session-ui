@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui dbus x11extras svg
+QT       += core gui dbus x11extras svg sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -49,9 +49,15 @@ RESOURCES += \
     image.qrc \
     theme.qrc
 
-target.path = /usr/lib/deepin-daemon/
-INSTALLS   += target
+include(notification/notification.pri)
 
-service_file.path = /usr/share/dbus-1/services/
+isEmpty(PREFIX){
+    PREFIX = /usr
+}
+
+target.path = $${PREFIX}/lib/deepin-daemon/
+
+service_file.path = $${PREFIX}/share/dbus-1/services/
 service_file.files = com.deepin.dde.osd.service
-INSTALLS += service_file
+
+INSTALLS += service_file target

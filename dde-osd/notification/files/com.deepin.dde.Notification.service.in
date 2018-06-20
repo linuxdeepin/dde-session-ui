@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=com.deepin.dde.Notification
+Exec=$$PREFIX/lib/deepin-daemon/dde-osd
