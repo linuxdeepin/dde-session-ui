@@ -579,6 +579,8 @@ void UserWidget::restoreUser(User *user)
             btn->hide();
         }
     }
+
+    isChooseUserMode = false;
 }
 
 void UserWidget::resizeEvent(QResizeEvent *e)
