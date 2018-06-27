@@ -49,7 +49,7 @@ protected:
 
 private:
     bool checkVersionChanged();
-    const QString getSystemVersion();
+    const std::pair<QString, QString> getSystemVersion();
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
 
 private:

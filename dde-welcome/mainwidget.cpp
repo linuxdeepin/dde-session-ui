@@ -127,7 +127,7 @@ MainWidget::MainWidget(QWidget *parent)
     if (QFile::exists(QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first() + "/autostart/dde-first-run.desktop")) {
         m_isUpgrade = false;
 
-        QString currentVersion = getSystemVersion();
+        QString currentVersion = getSystemVersion().first;
 
         if (!currentVersion.isEmpty()) {
             QSettings welcomeSetting("deepin", "dde-welcome");
@@ -169,7 +169,7 @@ MainWidget::MainWidget(QWidget *parent)
 
 bool MainWidget::checkVersionChanged()
 {
-    const QString currentVersion = getSystemVersion();
+    const QString currentVersion = getSystemVersion().first;
 
     if (currentVersion.isEmpty())
         return false;
@@ -189,11 +189,17 @@ bool MainWidget::checkVersionChanged()
     return version != currentVersion;
 }
 
-const QString MainWidget::getSystemVersion()
+const std::pair<QString, QString> MainWidget::getSystemVersion()
 {
     QSettings lsbSetting("/etc/deepin-version", QSettings::IniFormat);
+    lsbSetting.setIniCodec("utf-8");
     lsbSetting.beginGroup("Release");
-    return lsbSetting.value("Version").toString();
+    QLocale locale;
+
+    if (locale.language() == QLocale::Chinese)
+        return std::pair<QString, QString> { lsbSetting.value("Version").toString(), lsbSetting.value(QString("Type[%1]").arg(locale.name()), "").toString() };
+
+    return std::pair<QString, QString> { lsbSetting.value("Version").toString(), lsbSetting.value(QString("Type"), "").toString() };
 }
 
 void MainWidget::onBlurWallpaperFinished(const QString &source, const QString &blur, bool status)

@@ -32,7 +32,7 @@
 
 DWIDGET_USE_NAMESPACE
 
-UpdateContent::UpdateContent(const QString &version, QWidget *parent) : QWidget(parent)
+UpdateContent::UpdateContent(const std::pair<QString, QString> &version, QWidget *parent) : QWidget(parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -42,7 +42,7 @@ UpdateContent::UpdateContent(const QString &version, QWidget *parent) : QWidget(
     successIcon->setPixmap(DHiDPIHelper::loadNxPixmap(":/resources/success.svg"));
 
     QLabel *successTip = new QLabel(tr("Welcome, system updated successfully"));
-    QLabel *currentVersion = new QLabel(tr("Current Edition:") + " " + version);
+    QLabel *currentVersion = new QLabel(tr("Current Edition:") + " " + version.first + " " + version.second);
     m_enterBtn = new QPushButton(tr("Enter"), this);
     m_enterBtn->setMinimumWidth(200);
 
