@@ -29,8 +29,10 @@
 
 AudioProvider::AudioProvider(QObject *parent)
     : AbstractOSDProvider(parent),
+      m_initSinkTimer(new QTimer(this)),
       m_volume(0),
       m_mute(false),
+      m_tryLimit(0),
       m_audioInter(new com::deepin::daemon::Audio("com.deepin.daemon.Audio",
                                                   "/com/deepin/daemon/Audio",
                                                   QDBusConnection::sessionBus(), this)),
@@ -41,7 +43,11 @@ AudioProvider::AudioProvider(QObject *parent)
     m_audioInter->setSync(false);
     connect(m_audioInter, &__Audio::DefaultSinkChanged,
             this, &AudioProvider::defaultSinkChanged);
-    defaultSinkChanged(m_audioInter->defaultSink());
+
+    m_initSinkTimer->setInterval(10000);
+    m_initSinkTimer->setSingleShot(true);
+    connect(m_initSinkTimer, &QTimer::timeout, this, &AudioProvider::tryGetDbusData);
+    m_initSinkTimer->start();
 }
 
 void AudioProvider::setVolume(double volume)
@@ -121,4 +127,19 @@ void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)
     }
 }
 
+void AudioProvider::tryGetDbusData()
+{
+    m_tryLimit++;
+    if (m_tryLimit > 10) {
+        qDebug() << "init sink dbus timeout...";
+        return;
+    }
 
+    if (m_sinkInter == nullptr) {
+        defaultSinkChanged(m_audioInter->defaultSink());
+        m_initSinkTimer->start();
+        return;
+    }
+
+    m_initSinkTimer->deleteLater();
+}

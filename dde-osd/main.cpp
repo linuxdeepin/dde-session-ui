@@ -30,6 +30,7 @@
 #include <QDBusConnection>
 #include <QProcess>
 #include <DDBusSender>
+#include <DLog>
 
 #include "notification/bubblemanager.h"
 #include "notification/notifications_dbus_adaptor.h"
@@ -52,6 +53,9 @@ int main(int argc, char *argv[])
 #endif
 
     a.setTheme("light");
+
+    DLogManager::registerConsoleAppender();
+    DLogManager::registerFileAppender();
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());

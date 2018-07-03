@@ -49,8 +49,11 @@ public:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 
 private:
+    QTimer *m_initSinkTimer;
+
     double m_volume;
     bool m_mute;
+    int m_tryLimit;
 
     com::deepin::daemon::Audio *m_audioInter;
     com::deepin::daemon::audio::Sink *m_sinkInter;
@@ -59,6 +62,7 @@ private:
 
 private slots:
     void defaultSinkChanged(const QDBusObjectPath &path);
+    void tryGetDbusData();
 };
 
 #endif // AUDIOPROVIDER_H
