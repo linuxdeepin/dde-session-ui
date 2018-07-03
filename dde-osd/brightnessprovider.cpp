@@ -27,7 +27,9 @@
 
 BrightnessProvider::BrightnessProvider(QObject *parent)
     : AbstractOSDProvider(parent),
+      m_initDisplayTimer(new QTimer(this)),
       m_brightness(0),
+      m_tryLimit(0),
       m_displayInter(new com::deepin::daemon::Display("com.deepin.daemon.Display",
                                                       "/com/deepin/daemon/Display",
                                                       QDBusConnection::sessionBus(), this))
@@ -40,8 +42,10 @@ BrightnessProvider::BrightnessProvider(QObject *parent)
     connect(m_displayInter, &__Display::PrimaryChanged,
             this, &BrightnessProvider::primaryChanged);
 
-    brightnessChanged(m_displayInter->brightness());
-    primaryChanged(m_displayInter->primary());
+    m_initDisplayTimer->setInterval(10000);
+    m_initDisplayTimer->setSingleShot(true);
+    connect(m_initDisplayTimer, &QTimer::timeout, this, &BrightnessProvider::tryGetDbusData);
+    m_initDisplayTimer->start();
 }
 
 int BrightnessProvider::rowCount(const QModelIndex &) const
@@ -81,7 +85,7 @@ void BrightnessProvider::setBrightness(double brightness)
 
 void BrightnessProvider::brightnessChanged(const BrightnessMap &brightness)
 {
-    if (brightness.values().length() == 0) return;
+    if (brightness.size() == 0) return;
 
     m_brightnessMap = brightness;
     setBrightness(brightness.value(m_primaryScreen, 0));
@@ -93,4 +97,22 @@ void BrightnessProvider::primaryChanged(const QString &primary)
 
     m_primaryScreen = primary;
     setBrightness(m_brightnessMap.value(primary, 0));
+}
+
+void BrightnessProvider::tryGetDbusData()
+{
+     m_tryLimit++;
+    if (m_tryLimit > 10) {
+        qDebug() << "init display dbus timeout...";
+        return;
+    }
+
+    if (m_brightnessMap.isEmpty() || m_primaryScreen.isEmpty()) {
+        brightnessChanged(m_displayInter->brightness());
+        primaryChanged(m_displayInter->primary());
+        m_initDisplayTimer->start();
+        return;
+    }
+
+    m_initDisplayTimer->deleteLater();
 }
