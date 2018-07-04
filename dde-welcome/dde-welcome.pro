@@ -11,14 +11,13 @@ include(../global_util/global_util.pri)
 
 SOURCES += \
     main.cpp \
-    welcomeservice.cpp \
     updatecontent.cpp \
     mainwidget.cpp
 
 HEADERS  += \
-    welcomeservice.h \
     updatecontent.h \
-    mainwidget.h
+    mainwidget.h \
+    utils.h
 
 RESOURCES += \
     resources.qrc

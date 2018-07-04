@@ -40,20 +40,13 @@ class MainWidget : public FullscreenBackground
 public:
     explicit MainWidget(QWidget *parent = nullptr);
 
-public slots:
-    void dbus_show();
-    void dbus_exit();
-
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 
 private:
-    bool checkVersionChanged();
-    const std::pair<QString, QString> getSystemVersion();
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
 
 private:
-    bool m_isUpgrade;
     ImageBlur *m_blurImageInter;
     QString m_wallpaper;
 };

@@ -27,37 +27,45 @@
 #include <DLog>
 
 #include "mainwidget.h"
-#include "welcomeservice.h"
+#include "utils.h"
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
-    DApplication::loadDXcbPlugin();
-    DApplication app(argc, argv);
-    app.setOrganizationName("deepin");
-    app.setApplicationName("dde-welcome");
+    if (QFile::exists(QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first() + "/autostart/dde-first-run.desktop")) {
+        QString currentVersion = GetSystemVersion().first;
 
-    DLogManager::registerConsoleAppender();
-    DLogManager::registerFileAppender();
-
-    QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    app.installTranslator(&translator);
-
-    MainWidget w;
-    WelcomeService serviceAdaptor(&w);
-    Q_UNUSED(serviceAdaptor);
-
-    QDBusConnection connection = QDBusConnection::sessionBus();
-    if (!connection.registerService("com.deepin.dde.Welcome") ||
-        !connection.registerObject("/com/deepin/dde/Welcome", &w))
-    {
-        qDebug() << "dbus service already registered!";
-
-        return -1;
+        if (!currentVersion.isEmpty()) {
+            QSettings welcomeSetting("deepin", "dde-welcome");
+            QString version = welcomeSetting.value("Version").toString();
+            if (version.isEmpty()) {
+                welcomeSetting.setValue("Version", currentVersion);
+            }
+        }
+        return 0;
     }
 
-    return app.exec();
+    if (CheckVersionChanged()) {
+        DApplication::loadDXcbPlugin();
+        DApplication app(argc, argv);
+        app.setOrganizationName("deepin");
+        app.setApplicationName("dde-welcome");
+
+        if (!app.setSingleInstance(app.applicationName()))
+            return -1;
+
+        DLogManager::registerConsoleAppender();
+        DLogManager::registerFileAppender();
+
+        QTranslator translator;
+        translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
+        app.installTranslator(&translator);
+
+        MainWidget w;
+
+        return app.exec();
+    }
+    return 0;
 }

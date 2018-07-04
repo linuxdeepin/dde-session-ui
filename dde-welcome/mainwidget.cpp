@@ -26,6 +26,7 @@
 #include "mainwidget.h"
 #include "updatecontent.h"
 #include "constants.h"
+#include "utils.h"
 
 #include <QGSettings/QGSettings>
 #include <QVariant>
@@ -124,22 +125,6 @@ MainWidget::MainWidget(QWidget *parent)
         QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected true");
     });
 
-    if (QFile::exists(QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first() + "/autostart/dde-first-run.desktop")) {
-        m_isUpgrade = false;
-
-        QString currentVersion = getSystemVersion().first;
-
-        if (!currentVersion.isEmpty()) {
-            QSettings welcomeSetting("deepin", "dde-welcome");
-            QString version = welcomeSetting.value("Version").toString();
-            if (version.isEmpty()) {
-                welcomeSetting.setValue("Version", currentVersion);
-            }
-        }
-    } else {
-        m_isUpgrade = checkVersionChanged();
-    }
-
     QGSettings gsettings("com.deepin.dde.appearance", "", this);
     const QStringList list = gsettings.get("background-uris").toStringList();
     m_wallpaper = list.first();
@@ -147,17 +132,15 @@ MainWidget::MainWidget(QWidget *parent)
     const QUrl url(m_wallpaper);
     m_wallpaper = url.isLocalFile() ? url.path() : m_wallpaper;
 
-    if (m_isUpgrade) {
-        UpdateContent *content = new UpdateContent(getSystemVersion(), this);
-        setContent(content);
+    UpdateContent *content = new UpdateContent(GetSystemVersion(), this);
+    setContent(content);
 
-        // blur wallpaper
-        const QString &w = m_blurImageInter->Get(m_wallpaper);
+    // blur wallpaper
+    const QString &w = m_blurImageInter->Get(m_wallpaper);
 
-        updateBackground(w.isEmpty() ? m_wallpaper : w);
+    updateBackground(w.isEmpty() ? m_wallpaper : w);
 
-        QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected false");
-    }
+    QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected false");
 
 #ifdef QT_DEBUG
     showFullScreen();
@@ -167,70 +150,12 @@ MainWidget::MainWidget(QWidget *parent)
 #endif
 }
 
-bool MainWidget::checkVersionChanged()
-{
-    const QString currentVersion = getSystemVersion().first;
-
-    if (currentVersion.isEmpty())
-        return false;
-
-    // check file exist
-    QSettings welcomeSetting("deepin", "dde-welcome");
-    QString version = welcomeSetting.value("Version").toString();
-    if (version.isEmpty()) {
-        // If the local file does not exist, do not prompt.
-        // In some distributions, the first use prompts an upgrade.
-        welcomeSetting.setValue("Version", currentVersion);
-        return false;
-    }
-
-    welcomeSetting.setValue("Version", currentVersion);
-
-    return version != currentVersion;
-}
-
-const std::pair<QString, QString> MainWidget::getSystemVersion()
-{
-    QSettings lsbSetting("/etc/deepin-version", QSettings::IniFormat);
-    lsbSetting.setIniCodec("utf-8");
-    lsbSetting.beginGroup("Release");
-    QLocale locale;
-
-    if (locale.language() == QLocale::Chinese)
-        return std::pair<QString, QString> { lsbSetting.value("Version").toString(), lsbSetting.value(QString("Type[%1]").arg(locale.name()), "").toString() };
-
-    return std::pair<QString, QString> { lsbSetting.value("Version").toString(), lsbSetting.value(QString("Type"), "").toString() };
-}
-
 void MainWidget::onBlurWallpaperFinished(const QString &source, const QString &blur, bool status)
 {
     const QString &sourcePath = QUrl(source).isLocalFile() ? QUrl(source).toLocalFile() : source;
 
     if (status && m_wallpaper == sourcePath)
         updateBackground(blur);
-}
-
-void MainWidget::dbus_show()
-{
-    qDebug() << Q_FUNC_INFO;
-
-    if (!m_isUpgrade)
-        return;
-
-    showFullScreen();
-
-    QTimer::singleShot(100, this, [=] {
-        grabKeyboard();
-    });
-}
-
-void MainWidget::dbus_exit()
-{
-    qDebug() << Q_FUNC_INFO;
-
-    if (!m_isUpgrade) {
-        qApp->quit();
-    }
 }
 
 void MainWidget::keyPressEvent(QKeyEvent *event)
@@ -242,8 +167,7 @@ void MainWidget::keyPressEvent(QKeyEvent *event)
 #endif
     case Qt::Key_Enter:
     case Qt::Key_Return:
-        if (m_isUpgrade)
-            qApp->quit();
+        qApp->quit();
     default:;
     }
 
