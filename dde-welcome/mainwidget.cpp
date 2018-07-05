@@ -141,13 +141,6 @@ MainWidget::MainWidget(QWidget *parent)
     updateBackground(w.isEmpty() ? m_wallpaper : w);
 
     QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected false");
-
-#ifdef QT_DEBUG
-    showFullScreen();
-    QTimer::singleShot(100, this, [=] {
-        grabKeyboard();
-    });
-#endif
 }
 
 void MainWidget::onBlurWallpaperFinished(const QString &source, const QString &blur, bool status)

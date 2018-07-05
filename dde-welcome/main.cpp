@@ -64,6 +64,7 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
 
         MainWidget w;
+        w.show();
 
         return app.exec();
     }
