@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
         app.setOrganizationName("deepin");
         app.setApplicationName("dde-welcome");
 
-        if (!app.setSingleInstance(app.applicationName()))
+        if (!app.setSingleInstance(app.applicationName(), DApplication::UserScope))
             return -1;
 
         DLogManager::registerConsoleAppender();
