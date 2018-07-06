@@ -28,6 +28,8 @@ SOURCES += main.cpp \
     displaymodeprovider.cpp \
     indicatorprovider.cpp \
     wmstateprovider.cpp \
+    micstateprovider.cpp \
+    wifistateprovider.cpp \
     kblayoutindicator.cpp
 
 HEADERS  += container.h \
@@ -43,6 +45,8 @@ HEADERS  += container.h \
     displaymodeprovider.h \
     indicatorprovider.h \
     wmstateprovider.h \
+    micstateprovider.h \
+    wifistateprovider.h \
     kblayoutindicator.h
 
 RESOURCES += \

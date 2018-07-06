@@ -23,5 +23,9 @@
         <file>icons/OSD_wm_2d.svg</file>
         <file>icons/OSD_wm_3d.svg</file>
         <file>icons/OSD_wm_failed.svg</file>
+        <file>icons/OSD_mic_on.svg</file>
+        <file>icons/OSD_mic_off.svg</file>
+        <file>icons/OSD_wifi_on.svg</file>
+        <file>icons/OSD_wifi_off.svg</file>
     </qresource>
 </RCC>
