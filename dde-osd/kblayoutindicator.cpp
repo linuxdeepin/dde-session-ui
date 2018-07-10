@@ -34,17 +34,24 @@ DataWrapper::DataWrapper(KeyboardInterface *kinter, QObject *parent) :
     QObject(parent),
     m_keyboardInter(kinter)
 {
-    m_keyboardInter->setSync(false);
+    m_keyboardInter->setSync(false, false);
 
-    initLayoutListAll();
+    auto keyboardIsValid = [=] (bool isvalid) {
+        if (isvalid) {
+            initLayoutListAll();
+            setLayoutList(m_keyboardInter->userLayoutList());
+            setCurrentLayout(m_keyboardInter->currentLayout());
+        }
+    };
 
     connect(m_keyboardInter, &__Keyboard::UserLayoutListChanged,
             this, &DataWrapper::setLayoutList);
     connect(m_keyboardInter, &__Keyboard::CurrentLayoutChanged,
             this, &DataWrapper::setCurrentLayout);
+    connect(m_keyboardInter, &__Keyboard::serviceValidChanged,
+            this, keyboardIsValid);
 
-    setLayoutList(m_keyboardInter->userLayoutList());
-    setCurrentLayout(m_keyboardInter->currentLayout());
+    keyboardIsValid(m_keyboardInter->isValid());
 }
 
 QString DataWrapper::currentLayout() const

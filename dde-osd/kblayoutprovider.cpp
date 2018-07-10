@@ -35,24 +35,34 @@ KBLayoutProvider::KBLayoutProvider(QObject *parent)
 {
     m_suitableParams << "SwitchLayout";
 
-    m_keyboardInter->setSync(false);
+    m_keyboardInter->setSync(false, false);
+
+    auto keyboardIsValid = [=] (bool isvalid) {
+        if (isvalid) {
+            userLayoutListChanged(m_keyboardInter->userLayoutList());
+            currentLayoutChanged(m_keyboardInter->currentLayout());
+
+            QDBusPendingCall call = m_keyboardInter->LayoutList();
+            QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+            connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
+                if (watcher->isError()) {
+                    qWarning() << "failed to get all layout lists" << watcher->error();
+                } else {
+                    QDBusReply<KeyboardLayoutList> reply = watcher->reply();
+                    m_database = reply.value();
+                }
+            });
+        }
+    };
+
     connect(m_keyboardInter, &__Keyboard::UserLayoutListChanged,
             this, &KBLayoutProvider::userLayoutListChanged);
     connect(m_keyboardInter, &__Keyboard::CurrentLayoutChanged,
             this, &KBLayoutProvider::currentLayoutChanged);
-    userLayoutListChanged(m_keyboardInter->userLayoutList());
-    currentLayoutChanged(m_keyboardInter->currentLayout());
+    connect(m_keyboardInter, &__Keyboard::serviceValidChanged,
+            this, keyboardIsValid);
 
-    QDBusPendingCall call = m_keyboardInter->LayoutList();
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
-        if (watcher->isError()) {
-            qWarning() << "failed to get all layout lists" << watcher->error();
-        } else {
-            QDBusReply<KeyboardLayoutList> reply = watcher->reply();
-            m_database = reply.value();
-        }
-    });
+    keyboardIsValid(m_keyboardInter->isValid());
 }
 
 bool KBLayoutProvider::checkConditions() const
