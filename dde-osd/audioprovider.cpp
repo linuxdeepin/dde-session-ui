@@ -29,10 +29,6 @@
 
 AudioProvider::AudioProvider(QObject *parent)
     : AbstractOSDProvider(parent),
-      m_initSinkTimer(new QTimer(this)),
-      m_volume(0),
-      m_mute(false),
-      m_tryLimit(0),
       m_audioInter(new com::deepin::daemon::Audio("com.deepin.daemon.Audio",
                                                   "/com/deepin/daemon/Audio",
                                                   QDBusConnection::sessionBus(), this)),
@@ -40,30 +36,19 @@ AudioProvider::AudioProvider(QObject *parent)
 {
     m_suitableParams << "AudioUp" << "AudioDown" << "AudioMute";
 
-    m_audioInter->setSync(false);
+    m_audioInter->setSync(true);
     connect(m_audioInter, &__Audio::DefaultSinkChanged,
             this, &AudioProvider::defaultSinkChanged);
 
-    m_initSinkTimer->setInterval(10000);
-    m_initSinkTimer->setSingleShot(true);
-    connect(m_initSinkTimer, &QTimer::timeout, this, &AudioProvider::tryGetDbusData);
-    m_initSinkTimer->start();
-}
+    auto onAudioIsValid = [=] (bool isvalid) {
+        if (isvalid) {
+            defaultSinkChanged(m_audioInter->defaultSink());
+        }
+    };
 
-void AudioProvider::setVolume(double volume)
-{
-    if (volume == m_volume) return;
+    connect(m_audioInter, &__Audio::serviceValidChanged, this, onAudioIsValid);
 
-    m_volume = volume;
-    emit dataChanged();
-}
-
-void AudioProvider::setMute(bool mute)
-{
-    if (mute == m_mute) return;
-
-    m_mute = mute;
-    emit dataChanged();
+    onAudioIsValid(m_audioInter->isValid());
 }
 
 int AudioProvider::rowCount(const QModelIndex &) const
@@ -73,11 +58,17 @@ int AudioProvider::rowCount(const QModelIndex &) const
 
 QVariant AudioProvider::data(const QModelIndex &, int role) const
 {
+
+    if (!m_sinkInter->isValid()) {
+        AudioProvider *provider = const_cast<AudioProvider*>(this);
+        provider->defaultSinkChanged(provider->m_audioInter->defaultSink());
+    }
+
     if (role == Qt::DecorationRole) {
         return pixmapPath();
     }
 
-    return m_mute ? 0 : m_volume;
+    return m_sinkInter->mute() ? 0 : m_sinkInter->volume();
 }
 
 void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -98,11 +89,13 @@ QSize AudioProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &)
 
 QString AudioProvider::pixmapPath() const
 {
-    if (m_mute) {
+    if (m_sinkInter->mute()) {
         return ":/icons/OSD_mute.svg";
     }
 
-    const int level = m_volume > 0.6 ? 3 : m_volume > 0.3 ? 2 : 1;
+    const double volume = m_sinkInter->volume();
+
+    const int level = volume > 0.6 ? 3 : volume > 0.3 ? 2 : 1;
     return QString(":/icons/OSD_volume_%1.svg").arg(level);
 }
 
@@ -118,28 +111,6 @@ void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)
         m_sinkInter = new com::deepin::daemon::audio::Sink("com.deepin.daemon.Audio",
                                                            pathStr,
                                                            QDBusConnection::sessionBus(), this);
-        m_sinkInter->setSync(false);
-
-        connect(m_sinkInter, &__Sink::VolumeChanged, this, &AudioProvider::setVolume);
-        connect(m_sinkInter, &__Sink::MuteChanged, this, &AudioProvider::setMute);
-        setVolume(m_sinkInter->volume());
-        setMute(m_sinkInter->mute());
+        m_sinkInter->setSync(true);
     }
-}
-
-void AudioProvider::tryGetDbusData()
-{
-    m_tryLimit++;
-    if (m_tryLimit > 10) {
-        qDebug() << "init sink dbus timeout...";
-        return;
-    }
-
-    if (m_sinkInter == nullptr) {
-        defaultSinkChanged(m_audioInter->defaultSink());
-        m_initSinkTimer->start();
-        return;
-    }
-
-    m_initSinkTimer->deleteLater();
 }
