@@ -69,7 +69,7 @@ BubbleManager::BubbleManager(QObject *parent)
 
     m_dockDeamonInter = new DockDaemonInter(DockDaemonDBusServie, DockDaemonDBusPath,
                                             QDBusConnection::sessionBus(), this);
-    m_dockDeamonInter->setSync(false);
+    m_dockDeamonInter->setSync(false, false);
 
     connect(m_bubble, SIGNAL(expired(int)), this, SLOT(bubbleExpired(int)));
     connect(m_bubble, SIGNAL(dismissed(int)), this, SLOT(bubbleDismissed(int)));
