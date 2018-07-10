@@ -27,25 +27,13 @@
 
 BrightnessProvider::BrightnessProvider(QObject *parent)
     : AbstractOSDProvider(parent),
-      m_initDisplayTimer(new QTimer(this)),
-      m_brightness(0),
-      m_tryLimit(0),
       m_displayInter(new com::deepin::daemon::Display("com.deepin.daemon.Display",
                                                       "/com/deepin/daemon/Display",
                                                       QDBusConnection::sessionBus(), this))
 {
     m_suitableParams << "BrightnessUp" << "BrightnessDown";
 
-    m_displayInter->setSync(false);
-    connect(m_displayInter, &__Display::BrightnessChanged,
-            this, &BrightnessProvider::brightnessChanged);
-    connect(m_displayInter, &__Display::PrimaryChanged,
-            this, &BrightnessProvider::primaryChanged);
-
-    m_initDisplayTimer->setInterval(10000);
-    m_initDisplayTimer->setSingleShot(true);
-    connect(m_initDisplayTimer, &QTimer::timeout, this, &BrightnessProvider::tryGetDbusData);
-    m_initDisplayTimer->start();
+    m_displayInter->setSync(true);
 }
 
 int BrightnessProvider::rowCount(const QModelIndex &) const
@@ -58,7 +46,8 @@ QVariant BrightnessProvider::data(const QModelIndex &, int role) const
     if (role == Qt::DecorationRole) {
         return ":/icons/OSD_light.svg";
     }
-    return m_brightness;
+
+    return m_displayInter->brightness().value(m_displayInter->primary(), 0);
 }
 
 void BrightnessProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -73,46 +62,4 @@ void BrightnessProvider::paint(QPainter *painter, const QStyleOptionViewItem &op
 QSize BrightnessProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
 {
     return QSize(ImageTextItemWidth, ImageTextItemHeight);
-}
-
-void BrightnessProvider::setBrightness(double brightness)
-{
-    if (brightness == m_brightness) return;
-
-    m_brightness = brightness;
-    emit dataChanged();
-}
-
-void BrightnessProvider::brightnessChanged(const BrightnessMap &brightness)
-{
-    if (brightness.size() == 0) return;
-
-    m_brightnessMap = brightness;
-    setBrightness(brightness.value(m_primaryScreen, 0));
-}
-
-void BrightnessProvider::primaryChanged(const QString &primary)
-{
-    if (primary == m_primaryScreen) return;
-
-    m_primaryScreen = primary;
-    setBrightness(m_brightnessMap.value(primary, 0));
-}
-
-void BrightnessProvider::tryGetDbusData()
-{
-     m_tryLimit++;
-    if (m_tryLimit > 10) {
-        qDebug() << "init display dbus timeout...";
-        return;
-    }
-
-    if (m_brightnessMap.isEmpty() || m_primaryScreen.isEmpty()) {
-        brightnessChanged(m_displayInter->brightness());
-        primaryChanged(m_displayInter->primary());
-        m_initDisplayTimer->start();
-        return;
-    }
-
-    m_initDisplayTimer->deleteLater();
 }

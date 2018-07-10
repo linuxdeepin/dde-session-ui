@@ -46,22 +46,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 
-    void setBrightness(double brightness);
-
-private slots:
-    void brightnessChanged(const BrightnessMap &brightness);
-    void primaryChanged(const QString &primary);
-    void tryGetDbusData();
-
 private:
-    QTimer *m_initDisplayTimer;
-
-    double m_brightness;
-    int m_tryLimit;
-
-    QString m_primaryScreen;
-    BrightnessMap m_brightnessMap;
-
     com::deepin::daemon::Display *m_displayInter;
 };
 
