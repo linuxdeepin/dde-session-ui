@@ -23,16 +23,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef WMSTATEPROVIDER_H
-#define WMSTATEPROVIDER_H
+#ifndef OSDPROVIDER_H
+#define OSDPROVIDER_H
 
 #include "abstractosdprovider.h"
 
-class WMStateProvider : public AbstractOSDProvider
+class OSDProvider : public AbstractOSDProvider
 {
     Q_OBJECT
 public:
-    explicit WMStateProvider(QObject *parent = 0);
+    explicit OSDProvider(QObject *parent = 0);
 
     // model
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
@@ -45,7 +45,8 @@ public:
     bool match(const QString &param) Q_DECL_OVERRIDE;
 
 private:
+    QMap<QString, QStringList> m_suitableParamsMap;
     QString m_param;
 };
 
-#endif // WMSTATEPROVIDER_H
+#endif // OSDPROVIDER_H

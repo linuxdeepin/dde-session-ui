@@ -21,15 +21,13 @@ SOURCES += main.cpp \
     delegate.cpp \
     model.cpp \
     abstractosdprovider.cpp \
+    osdprovider.cpp \
     audioprovider.cpp \
     common.cpp \
     brightnessprovider.cpp \
     kblayoutprovider.cpp \
     displaymodeprovider.cpp \
     indicatorprovider.cpp \
-    wmstateprovider.cpp \
-    micstateprovider.cpp \
-    wifistateprovider.cpp \
     kblayoutindicator.cpp
 
 HEADERS  += container.h \
@@ -39,14 +37,12 @@ HEADERS  += container.h \
     model.h \
     common.h \
     abstractosdprovider.h \
+    osdprovider.h \
     audioprovider.h \
     brightnessprovider.h \
     kblayoutprovider.h \
     displaymodeprovider.h \
     indicatorprovider.h \
-    wmstateprovider.h \
-    micstateprovider.h \
-    wifistateprovider.h \
     kblayoutindicator.h
 
 RESOURCES += \
