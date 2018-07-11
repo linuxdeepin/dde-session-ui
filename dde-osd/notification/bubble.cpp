@@ -175,6 +175,8 @@ void Bubble::hideEvent(QHideEvent *event)
 {
     DBlurEffectWidget::hideEvent(event);
 
+    m_outAnimation->stop();
+
     m_quitTimer->start();
 }
 
@@ -210,7 +212,10 @@ void Bubble::onOutTimerTimeout()
 
 void Bubble::onOutAnimFinished()
 {
-    Q_EMIT expired(m_entity->id().toInt());
+    // FIXME: There should be no empty pointers here
+    if (m_entity) {
+        Q_EMIT expired(m_entity->id().toInt());
+    }
 }
 
 void Bubble::updateContent()
