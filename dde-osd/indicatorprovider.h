@@ -26,7 +26,7 @@
 #ifndef INDICATORPROVIDER_H
 #define INDICATORPROVIDER_H
 
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 class IndicatorProvider : public AbstractOSDProvider
 {

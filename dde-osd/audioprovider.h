@@ -26,7 +26,7 @@
 #ifndef AUDIOPROVIDER_H
 #define AUDIOPROVIDER_H
 
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 #include <com_deepin_daemon_audio.h>
 #include <com_deepin_daemon_audio_sink.h>

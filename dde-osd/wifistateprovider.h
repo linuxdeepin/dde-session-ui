@@ -26,7 +26,7 @@
 #ifndef WIFISTATEPROVIDER_H
 #define WIFIMSTATEPROVIDER_H
 
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 class WifiStateProvider : public AbstractOSDProvider
 {

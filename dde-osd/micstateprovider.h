@@ -26,7 +26,7 @@
 #ifndef MICSTATEPROVIDER_H
 #define MICSTATEPROVIDER_H
 
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 class MicStateProvider : public AbstractOSDProvider
 {

@@ -23,7 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 AbstractOSDProvider::AbstractOSDProvider(QObject *parent)
     : QObject(parent)

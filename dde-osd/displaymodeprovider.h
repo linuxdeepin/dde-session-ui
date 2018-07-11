@@ -26,7 +26,7 @@
 #ifndef DISPLAYMODEPROVIDER_H
 #define DISPLAYMODEPROVIDER_H
 
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 #include <com_deepin_daemon_display.h>
 

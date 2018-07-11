@@ -29,7 +29,7 @@
 #include <QDebug>
 
 #include "common.h"
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 Delegate::Delegate(QWidget *parent)
     : QStyledItemDelegate(parent),

@@ -26,7 +26,7 @@
 #ifndef BRIGHTNESSPROVIDER_H
 #define BRIGHTNESSPROVIDER_H
 
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 #include <com_deepin_daemon_display.h>
 

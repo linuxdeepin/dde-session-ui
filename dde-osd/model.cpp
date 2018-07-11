@@ -27,7 +27,7 @@
 
 #include <QDebug>
 
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 Model::Model(QObject *parent)
     : QAbstractListModel(parent),

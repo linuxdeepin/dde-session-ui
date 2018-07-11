@@ -26,7 +26,7 @@
 #ifndef KBLAYOUTPROVIDER_H
 #define KBLAYOUTPROVIDER_H
 
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 #include <com_deepin_daemon_inputdevice_keyboard.h>
 

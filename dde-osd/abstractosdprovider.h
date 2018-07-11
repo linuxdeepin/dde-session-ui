@@ -23,8 +23,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef OSDPROVIDER_H
-#define OSDPROVIDER_H
+#ifndef ABSTRACTOSDPROVIDER_H
+#define ABSTRACTOSDPROVIDER_H
 
 #include <QObject>
 #include <QSize>
@@ -74,4 +74,4 @@ protected:
     QStringList m_suitableParams;
 };
 
-#endif // OSDPROVIDER_H
+#endif // ABSTRACTOSDPROVIDER_H

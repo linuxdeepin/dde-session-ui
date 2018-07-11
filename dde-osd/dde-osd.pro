@@ -20,7 +20,7 @@ SOURCES += main.cpp \
     listview.cpp \
     delegate.cpp \
     model.cpp \
-    osdprovider.cpp \
+    abstractosdprovider.cpp \
     audioprovider.cpp \
     common.cpp \
     brightnessprovider.cpp \
@@ -38,7 +38,7 @@ HEADERS  += container.h \
     delegate.h \
     model.h \
     common.h \
-    osdprovider.h \
+    abstractosdprovider.h \
     audioprovider.h \
     brightnessprovider.h \
     kblayoutprovider.h \

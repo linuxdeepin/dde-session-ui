@@ -26,7 +26,7 @@
 #ifndef WMSTATEPROVIDER_H
 #define WMSTATEPROVIDER_H
 
-#include "osdprovider.h"
+#include "abstractosdprovider.h"
 
 class WMStateProvider : public AbstractOSDProvider
 {
