@@ -803,7 +803,7 @@ void LoginManager::chooseUserMode()
     m_otherUserInput->hide();
 
     m_otherUserInput->clearAlert();
-    m_keybdLayoutWidget->hide();
+    m_keybdArrowWidget->hide();
 }
 
 void LoginManager::chooseSessionMode()
@@ -818,12 +818,9 @@ void LoginManager::chooseSessionMode()
     m_loginButton->hide();
     m_otherUserInput->hide();
     m_requireShutdownWidget->hide();
-    if (!m_keybdArrowWidget->isHidden()) {
-        m_keybdArrowWidget->hide();
-    }
 
     m_otherUserInput->clearAlert();
-    m_keybdLayoutWidget->hide();
+    m_keybdArrowWidget->hide();
 }
 
 void LoginManager::choosedSession() {
@@ -846,7 +843,7 @@ void LoginManager::showShutdownFrame() {
     m_requireShutdownWidget->show();
     m_otherUserInput->hide();
     m_otherUserInput->clearAlert();
-    m_keybdLayoutWidget->hide();
+    m_keybdArrowWidget->hide();
 }
 
 void LoginManager::keyboardLayoutUI() {
