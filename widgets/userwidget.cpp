@@ -581,6 +581,7 @@ void UserWidget::restoreUser(User *user)
     }
 
     isChooseUserMode = false;
+    releaseKeyboard();
 }
 
 void UserWidget::resizeEvent(QResizeEvent *e)

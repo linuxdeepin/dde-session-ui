@@ -168,6 +168,8 @@ void LockManager::initUI()
                                      ":/img/action_icons/unlock_press.svg");
 
     m_passwdEditAnim->setFocusPolicy(Qt::StrongFocus);
+    // FIXME: do not work in qss
+    m_passwdEditAnim->invalidMessage()->setStyleSheet("Dtk--Widget--DPasswdEditAnimated #InvalidMessage{color: #f9704f;}");
     updateStyle(":/skin/dpasswdeditanimated.qss", m_passwdEditAnim);
     m_passwdEditAnim->show();
     m_passwdEditAnim->setFocus();

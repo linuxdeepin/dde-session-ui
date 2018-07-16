@@ -58,5 +58,5 @@ Dtk--Widget--DPasswdEditAnimated #SubmitButton {
 }
 
 Dtk--Widget--DPasswdEditAnimated #InvalidTip {
-    qproperty-backgroundColor: rgba(255,255,255,.3);
+    qproperty-backgroundColor: white;
 }
