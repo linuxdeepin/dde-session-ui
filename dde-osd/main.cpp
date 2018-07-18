@@ -73,25 +73,17 @@ int main(int argc, char *argv[])
         action = args.at(1);
     }
 
-    if (!QDBusConnection::sessionBus().registerService("com.deepin.dde.osd")
-            || !a.setSingleInstance(QString("dde-osd"), DApplication::UserScope)) {
-        if (!action.isEmpty()) {
-            DDBusSender()
-                    .service("com.deepin.dde.osd")
-                    .interface("com.deepin.dde.osd")
-                    .path("/")
-                    .method("ShowOSD")
-                    .arg(QString("action"))
-                    .call();
-        }
-
-        qWarning() << "failed to register dbus service";
-        return -1;
-    }
-
     // run osd
     Manager m;
-    QDBusConnection::sessionBus().registerObject("/", "com.deepin.dde.osd", &m, QDBusConnection::ExportAllSlots);
+    QDBusConnection connection = QDBusConnection::sessionBus();
+
+    connection.interface()->registerService("com.deepin.dde.osd",
+                                            QDBusConnectionInterface::ReplaceExistingService,
+                                            QDBusConnectionInterface::AllowReplacement);
+
+    connection.registerObject("/", "com.deepin.dde.osd", &m);
+
+    QObject::connect(connection.interface(), &QDBusConnectionInterface::serviceUnregistered, qApp, &QApplication::quit);
 
     if (!action.isEmpty()) {
         m.ShowOSD(action);
