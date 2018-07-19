@@ -36,6 +36,8 @@
 
 #include <cstdlib>
 
+#include <X11/Xlib.h>
+
 DCORE_USE_NAMESPACE
 
 bool setAllMonitorsExtend()
@@ -115,13 +117,48 @@ void waitMonitorReady() {
 
 int main(int argc, char* argv[])
 {
+    waitMonitorReady();
+
+    QList<QScreen *> screens = QApplication::screens();
+
+    Display *display = XOpenDisplay(nullptr);
+
+    const int mirrorCount = ScreenCount(display);
+
+    float scaleRatio = 1;
+    for (int i = 0; i != mirrorCount; i++) {
+        Screen *s = ScreenOfDisplay(display, i);
+        const float ppm = s->width / s->mwidth;
+        scaleRatio = ppm / (1366.0 / 310.0);
+
+        if (scaleRatio > 1 + 2.0 / 3.0) {
+            scaleRatio = 2;
+        }
+        else if (scaleRatio > 1 + 1.0 / 3.0) {
+            scaleRatio = 1.5;
+        }
+        else {
+            scaleRatio = 1;
+        }
+
+        //        if (screen->size().width() >= 1920) {
+        //            scaleRatio = 1.25;
+        //        }
+
+        //        if (screen->size().width() >= 2048) {
+        //            scaleRatio = 1.5;
+        //        }
+
+        //        if (screen->size().width() >= 3840) {
+        //            scaleRatio = 2.0;
+        //        }
+    }
+
     // load dpi settings
     QSettings settings("/etc/lightdm/lightdm-deepin-greeter.conf", QSettings::IniFormat);
-    const auto ratio = settings.value("ScreenScaleFactor", "1").toString();
+    const auto ratio = settings.value("ScreenScaleFactor", scaleRatio).toString();
     setenv("QT_SCALE_FACTOR", const_cast<char *>(ratio.toStdString().c_str()), 1);
     setenv("XCURSOR_SIZE", const_cast<char *>(QString::number(24.0 * ratio.toFloat()).toStdString().c_str()), 1);
-
-    waitMonitorReady();
 
     DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
