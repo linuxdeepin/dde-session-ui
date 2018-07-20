@@ -363,7 +363,7 @@ int BubbleManager::getY()
         return rect.y();
 
     /* TODO: remove */
-    qDebug() << "dock Rect:" << m_dockGeometry << m_dockPosition;
+    qDebug() << "getY dock Geometry Position:" << m_dockGeometry << m_dockPosition;
 
     if (m_dockPosition == DockPosition::Top)
         return m_dockGeometry.bottom();
@@ -384,6 +384,7 @@ QPair<QRect, bool> BubbleManager::screensInfo(const QPoint &point) const
 
 void BubbleManager::onDockRectChanged(const QRect &geometry)
 {
+    qDebug() << "onDockRectChanged" << geometry;
     m_dockGeometry = geometry;
 
     m_bubble->setBasePosition(getX(), getY());
@@ -391,6 +392,7 @@ void BubbleManager::onDockRectChanged(const QRect &geometry)
 
 void BubbleManager::onDockPositionChanged(int position)
 {
+    qDebug() << "onDockPositionChanged" << position;
     m_dockPosition = static_cast<DockPosition>(position);
 }
 
@@ -436,6 +438,7 @@ void BubbleManager::consumeEntities()
 
     if (checkDockExistence()) {
         m_dockGeometry = m_dbusdockinterface->geometry();
+        qDebug() << "consumeEntities dock geometry:" << m_dockGeometry;
     }
 
     if (checkControlCenterExistence())

@@ -113,6 +113,8 @@ void Bubble::setEntity(NotificationEntity *entity)
 
 void Bubble::setBasePosition(int x, int y, QRect rect)
 {
+    /* TODO: remove */
+    qDebug() << "setBasePosition" << x << y << rect;
     x -= Padding;
     y += Padding;
 
