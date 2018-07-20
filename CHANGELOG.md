@@ -1,3 +1,13 @@
+<a name="4.4.7"></a>
+### 4.4.7 (2018-07-20)
+
+
+#### Bug Fixes
+
+* **osd:**  not show ([0cd7cc78](https://github.com/linuxdeepin/dde-session-ui/commit/0cd7cc78094775affcea33633b02930f42ba7dff))
+
+
+
 <a name="4.4.6"></a>
 ### 4.4.6 (2018-07-20)
 
