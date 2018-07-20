@@ -1,3 +1,37 @@
+<a name="4.4.6"></a>
+### 4.4.6 (2018-07-20)
+
+
+#### Performance
+
+* **osd:**  merge deepin-notifications ([3bd9c2df](https://github.com/linuxdeepin/dde-session-ui/commit/3bd9c2dfbf7372aa50163ae33e944a172ca6541c))
+
+#### Features
+
+* **greeter:**  support auto scale ([c09a6862](https://github.com/linuxdeepin/dde-session-ui/commit/c09a6862ab81fbffd78540282fe6cd97b1703418))
+* **osd:**  support replace old process with dbus ([5ed51ad3](https://github.com/linuxdeepin/dde-session-ui/commit/5ed51ad36544b794793b4b9cf4386532225d7d80))
+* **welcome:**
+  *  change single instance to user ([c3036448](https://github.com/linuxdeepin/dde-session-ui/commit/c30364486ae1e5846c36c908ff143f905c185105))
+  *  support display system type ([15a79edb](https://github.com/linuxdeepin/dde-session-ui/commit/15a79edb66857dcb4032419458d40d154d11ef23))
+
+#### Bug Fixes
+
+*   invalid tip ui ([37bb45f9](https://github.com/linuxdeepin/dde-session-ui/commit/37bb45f98878b3bca6533d97d1cf1b91b83db6d8))
+*   keyboard layout visible when show error tip ([9dee1308](https://github.com/linuxdeepin/dde-session-ui/commit/9dee130831042827eaf0117ccc8e80dd3f89963e))
+* **background:**  multi screen rendering error ([68a74d44](https://github.com/linuxdeepin/dde-session-ui/commit/68a74d44eb8d89d3c72ed9c67d0c8877e61f386f))
+* **dde-osd:**
+  *  change the brightness just after starting up ([2a9fddcb](https://github.com/linuxdeepin/dde-session-ui/commit/2a9fddcb0c8a13f9112ff36f2d26a4c89580f6e4))
+  *  change the volume just after starting up ([2cb43667](https://github.com/linuxdeepin/dde-session-ui/commit/2cb43667454aa3b3733de37bad58b9ba03eabbfe))
+* **greeter:**  error hide keyboard widget ([0728e5f2](https://github.com/linuxdeepin/dde-session-ui/commit/0728e5f2e55a0fedd081b1d67b7fbc994c02b9cf))
+* **osd:**
+  *  null pointer exception notify ([cef0d1b3](https://github.com/linuxdeepin/dde-session-ui/commit/cef0d1b3ec03124f7d485d05f080c96fdfe51fc4))
+  *  Calling dbus too early with notification ([9c9c80cf](https://github.com/linuxdeepin/dde-session-ui/commit/9c9c80cfac7cae784777d8efb33e8b4539573353))
+  *  Calling dbus too early with keyboard dbus ([7b763a7f](https://github.com/linuxdeepin/dde-session-ui/commit/7b763a7f72f51c4ddb9b9fb99c5abfa29ac35ff4))
+* **userwidget:**  not restore choose mode state ([9e3b0b34](https://github.com/linuxdeepin/dde-session-ui/commit/9e3b0b344d34d91e355f69d79e38751ee3a7f622))
+* **welcome:**  not call show function ([befa9ffa](https://github.com/linuxdeepin/dde-session-ui/commit/befa9ffa6acaf64974728cceb371ea83e9f80c45))
+
+
+
 <a name="4.4.5"></a>
 ### 4.4.5 (2018-06-13)
 
