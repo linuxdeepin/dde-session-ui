@@ -37,6 +37,7 @@
 #include <cstdlib>
 
 #include <X11/Xlib.h>
+#include <X11/extensions/Xrandr.h>
 
 DCORE_USE_NAMESPACE
 
@@ -119,17 +120,19 @@ int main(int argc, char* argv[])
 {
     waitMonitorReady();
 
-    QList<QScreen *> screens = QApplication::screens();
+    Display *display = XOpenDisplay(NULL);
 
-    Display *display = XOpenDisplay(nullptr);
+    XRRScreenResources *resources = XRRGetScreenResources(display, DefaultRootWindow(display));
+    double scaleRatio = 1.0;
 
-    const int mirrorCount = ScreenCount(display);
+    for (int i = 0; i < resources->noutput; i++) {
+        XRROutputInfo* outputInfo = XRRGetOutputInfo(display, resources, resources->outputs[i]);
+        if (outputInfo->crtc == 0) continue;
 
-    float scaleRatio = 1;
-    for (int i = 0; i != mirrorCount; i++) {
-        Screen *s = ScreenOfDisplay(display, i);
-        const float ppm = s->width / s->mwidth;
-        scaleRatio = ppm / (1366.0 / 310.0);
+        XRRCrtcInfo *crtInfo = XRRGetCrtcInfo(display, resources, outputInfo->crtc);
+        if (crtInfo == nullptr) continue;
+
+        scaleRatio = (double)crtInfo->width / (double)outputInfo->mm_width / (1366.0 / 310.0);
 
         if (scaleRatio > 1 + 2.0 / 3.0) {
             scaleRatio = 2;
@@ -140,19 +143,9 @@ int main(int argc, char* argv[])
         else {
             scaleRatio = 1;
         }
-
-        //        if (screen->size().width() >= 1920) {
-        //            scaleRatio = 1.25;
-        //        }
-
-        //        if (screen->size().width() >= 2048) {
-        //            scaleRatio = 1.5;
-        //        }
-
-        //        if (screen->size().width() >= 3840) {
-        //            scaleRatio = 2.0;
-        //        }
     }
+
+    XRRFreeScreenResources(resources);
 
     // load dpi settings
     QSettings settings("/etc/lightdm/lightdm-deepin-greeter.conf", QSettings::IniFormat);
