@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
                                             QDBusConnectionInterface::ReplaceExistingService,
                                             QDBusConnectionInterface::AllowReplacement);
 
-    connection.registerObject("/", "com.deepin.dde.osd", &m);
+    connection.registerObject("/", "com.deepin.dde.osd", &m, QDBusConnection::ExportAllSlots);
 
     QObject::connect(connection.interface(), &QDBusConnectionInterface::serviceUnregistered, qApp, &QApplication::quit);
 
