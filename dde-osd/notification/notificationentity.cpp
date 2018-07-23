@@ -31,7 +31,7 @@ NotificationEntity::NotificationEntity(const QString &appName, const QString &id
                                        QObject *parent) :
     QObject(parent),
     m_appName(appName),
-    m_id(id),
+    m_id(id.toUInt()),
     m_appIcon(appIcon),
     m_summary(summary),
     m_body(body),
@@ -45,7 +45,7 @@ NotificationEntity::NotificationEntity(const QString &appName, const QString &id
 }
 
 NotificationEntity::NotificationEntity(const NotificationEntity &notify) :
-    NotificationEntity(notify.appName(), notify.id(), notify.appIcon(), notify.summary(),
+    NotificationEntity(notify.appName(), QString::number(notify.id()), notify.appIcon(), notify.summary(),
                        notify.body(), notify.actions(), notify.hints(), notify.ctime(),
                        notify.replacesId(), notify.timeout())
 {
@@ -68,15 +68,17 @@ void NotificationEntity::setAppName(const QString &appName)
     m_appName = appName;
 }
 
-QString NotificationEntity::id() const
+uint NotificationEntity::id() const
 {
     return m_id;
 }
 
+// id is guarrented to be uint by ourselves.
 void NotificationEntity::setId(const QString &id)
 {
-    m_id = id;
+    m_id = id.toUInt();
 }
+
 QString NotificationEntity::appIcon() const
 {
     return m_appIcon;

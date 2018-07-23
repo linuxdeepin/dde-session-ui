@@ -161,7 +161,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
 
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.
     // If replaces_id is not 0, the returned value is the same value as replaces_id.
-    return replacesId == 0 ? notification->id().toUInt() : replacesId;
+    return replacesId == 0 ? notification->id() : replacesId;
 }
 
 QString BubbleManager::GetAllRecords()
@@ -203,7 +203,7 @@ void BubbleManager::onRecordAdded(NotificationEntity *entity)
         {"icon", entity->appIcon()},
         {"summary", entity->summary()},
         {"body", entity->body()},
-        {"id", entity->id()},
+        {"id", QString::number(entity->id())},
         {"time", entity->ctime()}
     };
     QJsonDocument doc(notifyJson);

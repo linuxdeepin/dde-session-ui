@@ -43,7 +43,7 @@ public:
     QString appName() const;
     void setAppName(const QString &appName);
 
-    QString id() const;
+    uint id() const;
     void setId(const QString &id);
 
     QString appIcon() const;
@@ -71,7 +71,7 @@ public:
 
 private:
     QString m_appName;
-    QString m_id;
+    uint m_id;
     QString m_appIcon;
     QString m_summary;
     QString m_body;

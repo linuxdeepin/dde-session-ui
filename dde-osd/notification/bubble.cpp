@@ -150,10 +150,10 @@ void Bubble::compositeChanged()
 void Bubble::mousePressEvent(QMouseEvent *)
 {
     if (!m_defaultAction.isEmpty()) {
-        Q_EMIT actionInvoked(m_entity->id().toUInt(), m_defaultAction);
+        Q_EMIT actionInvoked(m_entity->id(), m_defaultAction);
         m_defaultAction.clear();
     } else {
-        Q_EMIT dismissed(m_entity->id().toInt());
+        Q_EMIT dismissed(m_entity->id());
     }
 
     m_outTimer->stop();
@@ -196,7 +196,7 @@ void Bubble::onActionButtonClicked(const QString &actionId)
     }
 
     m_outTimer->stop();
-    Q_EMIT actionInvoked(m_entity->id().toUInt(), actionId);
+    Q_EMIT actionInvoked(m_entity->id(), actionId);
 }
 
 void Bubble::onOutTimerTimeout()
@@ -213,7 +213,7 @@ void Bubble::onOutAnimFinished()
 {
     // FIXME: There should be no empty pointers here
     if (m_entity) {
-        Q_EMIT expired(m_entity->id().toInt());
+        Q_EMIT expired(m_entity->id());
     }
 }
 
