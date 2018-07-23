@@ -42,6 +42,10 @@ class ActionButton;
 class AppBody;
 class QGraphicsDropShadowEffect;
 
+static const int Padding = 20;
+static const int BubbleWidth = 300;
+static const int BubbleHeight = 70;
+
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
 

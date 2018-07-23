@@ -250,6 +250,12 @@ void BubbleManager::onCCDestRectChanged(const QRect &destRect)
     m_bubble->resetMoveAnim(destRect);
 }
 
+void BubbleManager::onCCRectChanged(const QRect &rect)
+{
+    m_ccGeometry = rect;
+    // do NOT call setBasePosition here
+}
+
 void BubbleManager::bubbleExpired(int id)
 {
     m_bubble->setVisible(false);
@@ -303,33 +309,43 @@ int BubbleManager::getX()
 {
     QPair<QRect, bool> pair = screensInfo(QCursor::pos());
     const QRect &rect = pair.first;
+    const int maxX = rect.x() + rect.width();
 
     // directly show the notify on the screen containing mouse,
     // because dock and control-centor will only be displayed on the primary screen.
     if (!pair.second)
-        return  rect.x() + rect.width();
+        return  maxX;
+
+    const bool isCCDbusValid = m_dbusControlCenter->isValid();
+    const bool isDockDbusValid = m_dbusdockinterface->isValid();
 
     // DBus object is invalid, return screen right
-    if (!m_dbusControlCenter->isValid() && !m_dbusdockinterface->isValid())
-        return rect.x() + rect.width();
+    if (!isCCDbusValid && !isDockDbusValid)
+        return maxX;
 
     // if dock dbus is valid and dock position is right
-    if (m_dbusdockinterface->isValid() && m_dockPosition == DockPosition::Right) {
+    if (isDockDbusValid && m_dockPosition == DockPosition::Right) {
         // check dde-control-center is valid
-        if (m_dbusControlCenter->isValid()) {
+        if (isCCDbusValid) {
             if (m_ccGeometry.x() >  m_dockGeometry.x()) {
-                return (rect.x() + rect.width()) - m_dockGeometry.width();
+                if (((rect.height() - m_dockGeometry.height()) / 2) > (BubbleHeight + Padding)) {
+                    return maxX;
+                } else {
+                    return maxX - m_dockGeometry.width();
+                }
+            } else {
+                return m_ccGeometry.x();
             }
         }
         // dde-control-center is invalid, return dock' x
-        return (rect.x() + rect.width()) - m_dockGeometry.width();
+        return maxX - m_dockGeometry.width();
     }
     //  dock position is not right, and dde-control-center is valid
-    if (m_dbusControlCenter->isValid()) {
-        return m_dbusControlCenter->rect().x();
+    if (isCCDbusValid) {
+        return m_ccGeometry.x();
     }
 
-    return rect.x() + rect.width();
+    return maxX;
 }
 
 int BubbleManager::getY()
@@ -396,6 +412,7 @@ void BubbleManager::bindControlCenterX()
                                                         this);
     }
     connect(m_dbusControlCenter, &DBusControlCenter::destRectChanged, this, &BubbleManager::onCCDestRectChanged);
+    connect(m_dbusControlCenter, &DBusControlCenter::rectChanged, this, &BubbleManager::onCCRectChanged);
 }
 
 void BubbleManager::consumeEntities()

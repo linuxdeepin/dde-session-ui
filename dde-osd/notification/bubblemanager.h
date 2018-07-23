@@ -105,6 +105,7 @@ private Q_SLOTS:
     void onRecordAdded(NotificationEntity *entity);
 
     void onCCDestRectChanged(const QRect &destRect);
+    void onCCRectChanged(const QRect &rect);
     void onDockRectChanged(const QRect &geometry);
     void onDockPositionChanged(int position);
     void onDbusNameOwnerChanged(QString, QString, QString);

@@ -52,9 +52,6 @@ static const QString BubbleStyleSheet = "QFrame#Background { "
                                         "font-size: 11px;"
                                         "color: black;"
                                         "}";
-static const int Padding = 20;
-static const int BubbleWidth = 300;
-static const int BubbleHeight = 70;
 
 Bubble::Bubble(NotificationEntity *entity)
     : DBlurEffectWidget(nullptr)
