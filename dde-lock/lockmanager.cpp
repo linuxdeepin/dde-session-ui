@@ -173,6 +173,7 @@ void LockManager::initUI()
     updateStyle(":/skin/dpasswdeditanimated.qss", m_passwdEditAnim);
     m_passwdEditAnim->show();
     m_passwdEditAnim->setFocus();
+    m_passwdEditAnim->lineEdit()->grabKeyboard();
 
     m_unlockButton = new QPushButton(this);
     m_unlockButton->setText(tr("Login"));
@@ -232,6 +233,7 @@ void LockManager::chooseUserMode()
     m_layoutState = UsersState;
 
     m_passwdEditAnim->hide();
+    m_passwdEditAnim->lineEdit()->releaseKeyboard();
     m_unlockButton->hide();
     m_userWidget->show();
     m_requireShutdownWidget->hide();
@@ -447,12 +449,15 @@ void LockManager::updatePasswordEditVisible(User *user)
 {
     if (checkUserIsNoPWGrp(user)) {
         m_passwdEditAnim->setVisible(false);
+        m_passwdEditAnim->lineEdit()->releaseKeyboard();
         m_unlockButton->show();
         m_userState = NoPasswd;
     } else {
         m_lockInter->AuthenticateUser(user->name());
         m_unlockButton->setVisible(false);
         m_passwdEditAnim->show();
+        m_passwdEditAnim->setFocus();
+        m_passwdEditAnim->lineEdit()->grabKeyboard();
         m_userState = Passwd;
     }
 }
@@ -634,6 +639,7 @@ void LockManager::shutdownMode()
 
     m_userWidget->hide();
     m_passwdEditAnim->hide();
+    m_passwdEditAnim->lineEdit()->releaseKeyboard();
     m_unlockButton->hide();
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
