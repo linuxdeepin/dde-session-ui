@@ -69,7 +69,7 @@ BubbleManager::BubbleManager(QObject *parent)
 
     m_dockDeamonInter = new DockDaemonInter(DockDaemonDBusServie, DockDaemonDBusPath,
                                             QDBusConnection::sessionBus(), this);
-    m_dockDeamonInter->setSync(false, false);
+    m_dockDeamonInter->setSync(true, false);
 
     connect(m_bubble, SIGNAL(expired(int)), this, SLOT(bubbleExpired(int)));
     connect(m_bubble, SIGNAL(dismissed(int)), this, SLOT(bubbleDismissed(int)));
@@ -353,17 +353,11 @@ int BubbleManager::getY()
     QPair<QRect, bool> pair = screensInfo(QCursor::pos());
     const QRect &rect = pair.first;
 
-    /* TODO: remove */
-    qDebug() << "screen Rect:" << rect;
-
     if (!pair.second)
         return  rect.y();
 
     if (!m_dbusdockinterface->isValid())
         return rect.y();
-
-    /* TODO: remove */
-    qDebug() << "getY dock Geometry Position:" << m_dockGeometry << m_dockPosition;
 
     if (m_dockPosition == DockPosition::Top)
         return m_dockGeometry.bottom();
@@ -384,7 +378,6 @@ QPair<QRect, bool> BubbleManager::screensInfo(const QPoint &point) const
 
 void BubbleManager::onDockRectChanged(const QRect &geometry)
 {
-    qDebug() << "onDockRectChanged" << geometry;
     m_dockGeometry = geometry;
 
     m_bubble->setBasePosition(getX(), getY());
@@ -392,7 +385,6 @@ void BubbleManager::onDockRectChanged(const QRect &geometry)
 
 void BubbleManager::onDockPositionChanged(int position)
 {
-    qDebug() << "onDockPositionChanged" << position;
     m_dockPosition = static_cast<DockPosition>(position);
 }
 
@@ -436,10 +428,8 @@ void BubbleManager::consumeEntities()
     int primaryScreen = desktop->primaryScreen();
     QWidget *pScreenWidget = desktop->screen(primaryScreen);
 
-    if (checkDockExistence()) {
+    if (checkDockExistence())
         m_dockGeometry = m_dbusdockinterface->geometry();
-        qDebug() << "consumeEntities dock geometry:" << m_dockGeometry;
-    }
 
     if (checkControlCenterExistence())
         m_ccGeometry = m_dbusControlCenter->rect();
