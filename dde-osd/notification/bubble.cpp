@@ -42,6 +42,10 @@
 #include "actionbutton.h"
 #include "icondata.h"
 
+#include <xcb/xcb.h>
+#include <xcb/xcb_ewmh.h>
+#include <QX11Info>
+
 DWIDGET_USE_NAMESPACE
 
 static const QString BubbleStyleSheet = "QFrame#Background { "
@@ -52,6 +56,17 @@ static const QString BubbleStyleSheet = "QFrame#Background { "
                                         "font-size: 11px;"
                                         "color: black;"
                                         "}";
+
+void register_wm_state(WId winid) {
+    xcb_ewmh_connection_t m_ewmh_connection;
+    xcb_intern_atom_cookie_t *cookie = xcb_ewmh_init_atoms(QX11Info::connection(), &m_ewmh_connection);
+    xcb_ewmh_init_atoms_replies(&m_ewmh_connection, cookie, NULL);
+
+    xcb_atom_t atoms[2];
+    atoms[0] = m_ewmh_connection._NET_WM_WINDOW_TYPE_DOCK;
+    atoms[1] = m_ewmh_connection._NET_WM_STATE_BELOW;
+    xcb_ewmh_set_wm_window_type(&m_ewmh_connection, winid, 1, atoms);
+}
 
 Bubble::Bubble(NotificationEntity *entity)
     : DBlurEffectWidget(nullptr)
@@ -88,6 +103,12 @@ Bubble::Bubble(NotificationEntity *entity)
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &Bubble::compositeChanged);
     connect(m_quitTimer, &QTimer::timeout, this, &Bubble::onDelayQuit);
+
+    QTimer::singleShot(0, this, [=] {
+        // FIXME: 锁屏不允许显示任何通知，而通知又需要禁止窗管进行管理，
+        // 为了避免二者的冲突，将气泡修改为dock，保持在其他程序置顶，又不会显示在锁屏之上。
+        register_wm_state(winId());
+    });
 }
 
 NotificationEntity *Bubble::entity() const
@@ -162,10 +183,6 @@ void Bubble::mousePressEvent(QMouseEvent *)
 void Bubble::showEvent(QShowEvent *event)
 {
     DBlurEffectWidget::showEvent(event);
-
-    QTimer::singleShot(1, this, [=] {
-        raise();
-    });
 
     m_quitTimer->start();
 }
