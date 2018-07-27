@@ -137,6 +137,8 @@ void Manager::ShowOSD(const QString &osd)
         if (m_currentProvider->checkConditions()) {
             m_container->show();
             m_timer->start();
+        } else {
+            doneSetting();
         }
     }
 }
