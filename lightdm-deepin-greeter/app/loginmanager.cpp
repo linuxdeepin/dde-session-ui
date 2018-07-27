@@ -364,6 +364,7 @@ void LoginManager::initUI()
     updateStyle("://skin/dpasswdeditanimated.qss", m_passwdEditAnim);
     m_passwdEditAnim->show();
     m_passwdEditAnim->setFocus();
+    m_passwdEditAnim->lineEdit()->grabKeyboard();
 
     m_loginButton = new QPushButton(this);
     m_loginButton->setText(tr("Login"));
@@ -745,6 +746,7 @@ void LoginManager::onCurrentUserChanged(User *user)
     // check is fake addomain button
     if (user->type() == User::ADDomain && user->uid() == 0) {
         m_passwdEditAnim->hide();
+        m_passwdEditAnim->lineEdit()->releaseKeyboard();
         m_otherUserInput->show();
         return;
     } else {
@@ -798,6 +800,7 @@ void LoginManager::chooseUserMode()
 {
     m_layoutState = UsersState;
     m_passwdEditAnim->hide();
+    m_passwdEditAnim->lineEdit()->releaseKeyboard();
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_userWidget->show();
@@ -817,6 +820,7 @@ void LoginManager::chooseSessionMode()
     m_sessionWidget->show();
     m_userWidget->hide();
     m_passwdEditAnim->hide();
+    m_passwdEditAnim->lineEdit()->releaseKeyboard();
     m_loginButton->hide();
     m_otherUserInput->hide();
     m_requireShutdownWidget->hide();
@@ -840,6 +844,7 @@ void LoginManager::showShutdownFrame() {
 
     m_userWidget->hide();
     m_passwdEditAnim->hide();
+    m_passwdEditAnim->lineEdit()->releaseKeyboard();
     m_loginButton->hide();
     m_sessionWidget->hide();
     m_requireShutdownWidget->show();
@@ -939,11 +944,14 @@ void LoginManager::updatePasswordEditVisible(User *user)
 {
     if (checkUserIsNoGrp(user)) {
         m_passwdEditAnim->hide();
+        m_passwdEditAnim->lineEdit()->releaseKeyboard();
         m_loginButton->show();
         m_loginButton->setFocus();
     } else {
         m_loginButton->hide();
         m_passwdEditAnim->show();
+        m_passwdEditAnim->setFocus();
+        m_passwdEditAnim->lineEdit()->grabKeyboard();
     }
 }
 

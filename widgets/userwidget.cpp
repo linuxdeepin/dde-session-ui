@@ -604,6 +604,7 @@ void UserWidget::keyReleaseEvent(QKeyEvent *event)
         break;
     case Qt::Key_Return:
     case Qt::Key_Enter:
+        if (!isChooseUserMode) break;
         for (UserButton *ub : m_availableUserButtons) {
             if (ub->selected()) {
                 ub->click();
