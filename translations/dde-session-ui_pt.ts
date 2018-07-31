@@ -142,7 +142,7 @@
 <context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="152"/>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
         <translation>Adicionar disposição de teclado</translation>
     </message>
@@ -150,32 +150,32 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="162"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="179"/>
         <source>Login</source>
         <translation>Entrar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="232"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="251"/>
         <source>Wrong Password</source>
         <translation>Palavra-passe Errada</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="350"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="369"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Verificação de impressão digital expirada, por favor insira a sua palavra-passe manualmente</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="392"/>
         <source>Failed to match fingerprint</source>
         <translation>A correspondência da impressão digital falhou</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="582"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Enter your password to reboot</source>
         <translation>Insira a sua palavra-passe para reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="590"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
         <source>Enter your password to shutdown</source>
         <translation>Insira a sua palavra-passe para encerrar</translation>
     </message>
@@ -183,27 +183,27 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="353"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="370"/>
         <source>Login</source>
         <translation>Entrar</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="549"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="604"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Verificação de impressão digital expirada, por favor insira a sua palavra-passe manualmente</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="563"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="619"/>
         <source>Failed to match fingerprint</source>
         <translation>A correspondência da impressão digital falhou</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="607"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="663"/>
         <source>Wrong Password</source>
         <translation>Palavra-passe Errada</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="611"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="667"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>A conta de domínio ou palavra-passe não está correta. Por favor insira novamente.</translation>
     </message>
@@ -211,19 +211,37 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="46"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="124"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="121"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>Os utilizadores acima continuam logados e os dados serão perdidos por causa do encerramento, tem a certeza que deseja encerrar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="127"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>Os utilizadores acima continuam logados e os dados serão perdidos devido ao reinício, tem a certeza que deseja reiniciar?</translation>
+    </message>
+</context>
+<context>
+    <name>OSDProvider</name>
+    <message>
+        <location filename="../dde-osd/osdprovider.cpp" line="43"/>
+        <source>Window effect enabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/osdprovider.cpp" line="44"/>
+        <source>Window effect disabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/osdprovider.cpp" line="45"/>
+        <source>Failed to enable window effects</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -238,13 +256,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="592"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="625"/>
         <source>Shut down</source>
         <translation>Encerrar</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="584"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="613"/>
         <source>Reboot</source>
         <translation>Reiniciar</translation>
     </message>
@@ -320,7 +338,7 @@
 <context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="416"/>
+        <location filename="../widgets/userwidget.cpp" line="392"/>
         <source>Domain account</source>
         <translation>Conta de domínio</translation>
     </message>
@@ -351,24 +369,6 @@
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
         <translation>Modo de Efeito: Tenha uma experiência suave e delicada. Modo Comum: Desfrute da sua rápida performance </translation>
-    </message>
-</context>
-<context>
-    <name>WMStateProvider</name>
-    <message>
-        <location filename="../dde-osd/wmstateprovider.cpp" line="43"/>
-        <source>Window effect enabled</source>
-        <translation>Efeitos visuais ativados</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/wmstateprovider.cpp" line="45"/>
-        <source>Window effect disabled</source>
-        <translation>Efeitos visuais desativados</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/wmstateprovider.cpp" line="47"/>
-        <source>Failed to enable window effects</source>
-        <translation>Falha ao ativar efeitos visuais</translation>
     </message>
 </context>
 <context>

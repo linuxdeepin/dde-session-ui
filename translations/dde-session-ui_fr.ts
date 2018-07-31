@@ -142,7 +142,7 @@
 <context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="152"/>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
         <translation>Ajouter une disposition de clavier</translation>
     </message>
@@ -150,32 +150,32 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="162"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="179"/>
         <source>Login</source>
         <translation>Identifiant</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="232"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="251"/>
         <source>Wrong Password</source>
         <translation>Mauvais mot de passe </translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="350"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="369"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Vérification de l&apos;empreinte digitale terminée sans succès, entrez votre mot de passe manuellement</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="392"/>
         <source>Failed to match fingerprint</source>
         <translation>Impossible de faire correspondre l&apos;empreinte digitale.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="582"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Enter your password to reboot</source>
         <translation>Saisissez votre mot de passe pour redémarrer</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="590"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
         <source>Enter your password to shutdown</source>
         <translation>Entrez votre mot de passe pour arrêter </translation>
     </message>
@@ -183,27 +183,27 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="353"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="370"/>
         <source>Login</source>
         <translation>Identifiant</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="549"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="604"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Vérification de l&apos;empreinte digitale terminée sans succès, entrez votre mot de passe manuellement</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="563"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="619"/>
         <source>Failed to match fingerprint</source>
         <translation>Impossible de faire correspondre l&apos;empreinte digitale.</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="607"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="663"/>
         <source>Wrong Password</source>
         <translation>Mauvais mot de passe </translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="611"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="667"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>Le compte de domaine ou le mot de passe n&apos;est pas correct. Veuillez entrer à nouveau.</translation>
     </message>
@@ -211,19 +211,37 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="46"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="124"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="121"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>Cet utilisateur a sa session encore active et ses données peuvent êtres perdues si vous arrêter, voulez-vous continuer la procédure?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="127"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>Cet utilisateur a sa session encore active et ses données peuvent êtres perdues si vous redémarrer, voulez-vous continuer la procédure?</translation>
+    </message>
+</context>
+<context>
+    <name>OSDProvider</name>
+    <message>
+        <location filename="../dde-osd/osdprovider.cpp" line="43"/>
+        <source>Window effect enabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/osdprovider.cpp" line="44"/>
+        <source>Window effect disabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/osdprovider.cpp" line="45"/>
+        <source>Failed to enable window effects</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -238,13 +256,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="592"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="625"/>
         <source>Shut down</source>
         <translation>Arrêter</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="584"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="613"/>
         <source>Reboot</source>
         <translation>Redémarrer</translation>
     </message>
@@ -320,7 +338,7 @@
 <context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="416"/>
+        <location filename="../widgets/userwidget.cpp" line="392"/>
         <source>Domain account</source>
         <translation>Compte de domaine</translation>
     </message>
@@ -351,24 +369,6 @@
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
         <translation>Mode Effet : Vivez une expérience douce et délicate. Mode classique : Profitez de ses performances rapides</translation>
-    </message>
-</context>
-<context>
-    <name>WMStateProvider</name>
-    <message>
-        <location filename="../dde-osd/wmstateprovider.cpp" line="43"/>
-        <source>Window effect enabled</source>
-        <translation>Effet fenêtre activé</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/wmstateprovider.cpp" line="45"/>
-        <source>Window effect disabled</source>
-        <translation>Effet fenêtre désactivé</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/wmstateprovider.cpp" line="47"/>
-        <source>Failed to enable window effects</source>
-        <translation>Impossible d&apos;activer les effets de fenêtres</translation>
     </message>
 </context>
 <context>
