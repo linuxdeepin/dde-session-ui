@@ -144,7 +144,7 @@
 <context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="152"/>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
         <translation type="unfinished"></translation>
     </message>
@@ -152,32 +152,27 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="162"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="179"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="232"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="251"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="350"/>
-        <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="370"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="392"/>
         <source>Failed to match fingerprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="582"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Enter your password to reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="590"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
         <source>Enter your password to shutdown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -185,27 +180,27 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="353"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="370"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="549"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="604"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="563"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="619"/>
         <source>Failed to match fingerprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="607"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="663"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="611"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="667"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -213,18 +208,36 @@
 <context>
     <name>MultiUsersWarningView</name>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="46"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="124"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="121"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="130"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="127"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OSDProvider</name>
+    <message>
+        <location filename="../dde-osd/osdprovider.cpp" line="43"/>
+        <source>Window effect enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/osdprovider.cpp" line="44"/>
+        <source>Window effect disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/osdprovider.cpp" line="45"/>
+        <source>Failed to enable window effects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -240,13 +253,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="592"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="625"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="584"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="613"/>
         <source>Reboot</source>
         <translation type="unfinished"></translation>
     </message>
@@ -322,7 +335,7 @@
 <context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="416"/>
+        <location filename="../widgets/userwidget.cpp" line="392"/>
         <source>Domain account</source>
         <translation type="unfinished"></translation>
     </message>
@@ -352,24 +365,6 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>WMStateProvider</name>
-    <message>
-        <location filename="../dde-osd/wmstateprovider.cpp" line="43"/>
-        <source>Window effect enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/wmstateprovider.cpp" line="45"/>
-        <source>Window effect disabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/wmstateprovider.cpp" line="47"/>
-        <source>Failed to enable window effects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
