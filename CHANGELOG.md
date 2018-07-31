@@ -1,3 +1,25 @@
+<a name="4.4.8"></a>
+### 4.4.8 (2018-07-31)
+
+
+#### Bug Fixes
+
+*   fix osd crash caused by notifications ([4e7c8dff](https://github.com/linuxdeepin/dde-session-ui/commit/4e7c8dff2a7d8fbdb9d3e091ae42e69e55d6dcfe))
+*   bubble behind the control center ([0274f22d](https://github.com/linuxdeepin/dde-session-ui/commit/0274f22d8583875a680ff6711a63c424ba376e41))
+* **dock:**  bubble position after suspend ([b971886f](https://github.com/linuxdeepin/dde-session-ui/commit/b971886f6c33a6cc184b037994bd2071f63d0c5f))
+* **greeter:**
+  *  Automatic scaling cannot be used in virtual machines ([70e9d3d6](https://github.com/linuxdeepin/dde-session-ui/commit/70e9d3d6b2d38adc47eef7627e6cb8351d5b495a))
+  *  keyboard focus error ([bc200b98](https://github.com/linuxdeepin/dde-session-ui/commit/bc200b989c17bfb94678b190a114a930753fd4e9))
+* **lock:**  keyboard grab ([36a775fb](https://github.com/linuxdeepin/dde-session-ui/commit/36a775fb8b4e6b40823dacbe935e0c470fee4b15))
+* **notify:**  register bubble is dock type and keep bottom ([46a7c1dd](https://github.com/linuxdeepin/dde-session-ui/commit/46a7c1dda93dfb304339992fb00f744b332b996b))
+* **osd:**  hide the container when is not operable ([ce944306](https://github.com/linuxdeepin/dde-session-ui/commit/ce944306d2e8c2342c5f275df3d267aee626b62b))
+
+#### Features
+
+* **greeter:**  update auto scale ([8563e5ab](https://github.com/linuxdeepin/dde-session-ui/commit/8563e5ab30cab111b8ac88ef1b2c72d2f028923c))
+
+
+
 <a name="4.4.7"></a>
 ### 4.4.7 (2018-07-20)
 
