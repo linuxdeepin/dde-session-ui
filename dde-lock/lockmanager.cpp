@@ -366,7 +366,7 @@ void LockManager::lockServiceEvent(quint32 eventType, quint32 pid, const QString
 
     if (msg == "Verification timed out") {
         m_isThumbAuth = true;
-        m_passwdEditAnim->lineEdit()->setPlaceholderText("Fingerprint verification timed out, please enter your password manually");
+        m_passwdEditAnim->lineEdit()->setPlaceholderText(tr("Fingerprint verification timed out, please enter your password manually"));
         return;
     }
 

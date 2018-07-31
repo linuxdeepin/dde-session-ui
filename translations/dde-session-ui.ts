@@ -162,6 +162,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../dde-lock/lockmanager.cpp" line="369"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../dde-lock/lockmanager.cpp" line="392"/>
         <source>Failed to match fingerprint</source>
         <translation type="unfinished"></translation>
