@@ -127,7 +127,7 @@ int main(int argc, char* argv[])
 
     for (int i = 0; i < resources->noutput; i++) {
         XRROutputInfo* outputInfo = XRRGetOutputInfo(display, resources, resources->outputs[i]);
-        if (outputInfo->crtc == 0) continue;
+        if (outputInfo->crtc == 0 || outputInfo->mm_width == 0) continue;
 
         XRRCrtcInfo *crtInfo = XRRGetCrtcInfo(display, resources, outputInfo->crtc);
         if (crtInfo == nullptr) continue;
