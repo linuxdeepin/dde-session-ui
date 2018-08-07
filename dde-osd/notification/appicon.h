@@ -29,7 +29,7 @@ class AppIcon : public QLabel
 public:
     explicit AppIcon(QWidget *parent = 0);
 
-    void setIcon(const QString &iconPath);
+    void setIcon(const QString &iconPath, const QString &fallback = "");
 };
 
 #endif // APPICON_H

@@ -325,10 +325,10 @@ void Bubble::processIconData()
             QDBusArgument argument = m_entity->hints()["icon_data"].value<QDBusArgument>();
             m_icon->setPixmap(converToPixmap(argument));
         } else {
-            m_icon->setIcon(m_entity->appIcon());
+            m_icon->setIcon(m_entity->appIcon(), m_entity->appName());
         }
     } else {
-        m_icon->setIcon(imagePath);
+        m_icon->setIcon(imagePath, m_entity->appName());
     }
 }
 

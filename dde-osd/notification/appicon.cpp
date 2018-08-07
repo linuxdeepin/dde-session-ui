@@ -35,7 +35,7 @@ AppIcon::AppIcon(QWidget *parent) :
     this->setAlignment(Qt::AlignCenter);
 }
 
-void AppIcon::setIcon(const QString &iconPath)
+void AppIcon::setIcon(const QString &iconPath, const QString &fallback)
 {
     const qreal pixelRatio = qApp->primaryScreen()->devicePixelRatio();
     QPixmap pixmap;
@@ -54,7 +54,7 @@ void AppIcon::setIcon(const QString &iconPath)
         const QUrl url(iconPath);
         iconUrl = url.isLocalFile() ? url.toLocalFile() : url.url();
 
-        const QIcon &icon = QIcon::fromTheme(iconPath, QIcon::fromTheme("application-x-desktop"));
+        const QIcon &icon = QIcon::fromTheme(iconPath, QIcon::fromTheme(fallback, QIcon::fromTheme("application-x-desktop")));
         pixmap = icon.pixmap(width() * pixelRatio, height() * pixelRatio);
     }
 
