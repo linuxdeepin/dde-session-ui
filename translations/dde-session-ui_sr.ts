@@ -162,7 +162,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="369"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Време за верификацију отиска прста је истекло, молимо унесите лозинку ручно</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="392"/>
@@ -231,17 +231,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Ефекти прозора укључени</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Ефекти прозора искључени</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation type="unfinished"/>
+        <translation>Неуспело укључивање ефеката</translation>
     </message>
 </context>
 <context>
@@ -363,7 +363,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>Систем је пронашао да имате инсталирану виртуелну машину, која ће утицати на перформансе система и корисничко искуство. За глатко корисничко искуство препоручено је да користите Уобичајени режим.</translation>
+        <translation>Систем је препознао да користите виртуелну машину, што ће утицати на перформансе система и корисничко искуство. За глатко корисничко искуство препоручено је да користите Уобичајени режим.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>

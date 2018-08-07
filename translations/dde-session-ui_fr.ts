@@ -162,7 +162,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="369"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Vérification de l&apos;empreinte digitale terminée sans succès, entrez votre mot de passe manuellement</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="392"/>
@@ -231,17 +231,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Effets de fenêtres activés</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Effets de fenêtres désactivés</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;activer les effets de fenêtres</translation>
     </message>
 </context>
 <context>

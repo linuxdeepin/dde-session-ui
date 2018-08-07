@@ -1,16 +1,16 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="bg" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="hi_IN" version="2.1">
     <context>
         <name>desktop</name>
         <message>
             <location filename="Desktop Entry]GenericName" line="0"/>
             <location filename="Desktop Entry]Name" line="0"/>
             <source>Show Desktop</source>
-            <translation>Покажи работния плот</translation>
+            <translation>डेस्कटॉप दिखाएँ</translation>
         </message>
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Show desktop or show windows</source>
-            <translation>Показване на десктопа или показване на прозорците</translation>
+            <translation>डेस्कटॉप या विंडोज दिखाएँ</translation>
         </message>
     </context>
 </TS>
