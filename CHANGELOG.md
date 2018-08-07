@@ -1,3 +1,18 @@
+<a name="4.4.9"></a>
+### 4.4.9 (2018-08-07)
+
+
+#### Features
+
+* **osd:**  support failback to appname of notify ([372c83a6](https://github.com/linuxdeepin/dde-session-ui/commit/372c83a6bdbb504f06aee26f69ae3e910149c24f))
+
+#### Bug Fixes
+
+* **notify:**  bubble y position when dock in top mode ([c61ff4cd](https://github.com/linuxdeepin/dde-session-ui/commit/c61ff4cd66822a719e537117661b0bfab6756447))
+* **osd:**  empty id of notify cache img ([97a06e15](https://github.com/linuxdeepin/dde-session-ui/commit/97a06e1537a8099e8c5d70657861c30228f81995))
+
+
+
 <a name="4.4.8"></a>
 ### 4.4.8 (2018-07-31)
 
