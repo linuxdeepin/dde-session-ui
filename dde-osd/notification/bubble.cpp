@@ -337,7 +337,7 @@ void Bubble::saveImg(const QImage &image)
     QDir dir;
     dir.mkdir(CachePath);
 
-    image.save(CachePath + m_entity->id() + ".png");
+    image.save(CachePath + QString::number(m_entity->id()) + ".png");
 }
 
 inline void copyLineRGB32(QRgb* dst, const char* src, int width)
