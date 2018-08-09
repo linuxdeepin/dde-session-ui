@@ -146,7 +146,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                               this);
 
     if (!m_currentNotify.isNull() && replacesId != 0 && (m_currentNotify->id() == replacesId
-                                                         || m_currentNotify->replacesId() == replacesId)) {
+                                                         || m_currentNotify->replacesId() == QString::number(replacesId))) {
         m_bubble->setEntity(notification);
 
         m_currentNotify->deleteLater();

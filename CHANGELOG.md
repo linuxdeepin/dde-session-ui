@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.4.9.2 (2018-08-09)
+
+
+#### Bug Fixes
+
+*   wrong type comparison ([737c1a66](https://github.com/linuxdeepin/dde-session-ui/commit/737c1a66dbccf7b773d473f6f1cec85a0e991568))
+
+
+
+<a name=""></a>
 ##  4.4.9.1 (2018-08-09)
 
 
