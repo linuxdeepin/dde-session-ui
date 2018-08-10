@@ -394,9 +394,9 @@ void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newNam
         if (!newName.isEmpty()) {
             bindControlCenterX();
         }
-    } else if (name == DBbsDockDBusServer && !name.isEmpty()) {
+    } else if (name == DBbsDockDBusServer && !newName.isEmpty()) {
         onDockRectChanged(m_dbusdockinterface->geometry());
-    } else if (name == DockDaemonDBusServie && !name.isEmpty()) {
+    } else if (name == DockDaemonDBusServie && !newName.isEmpty()) {
         onDockPositionChanged(m_dockDeamonInter->position());
     }
 }
