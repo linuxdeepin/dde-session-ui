@@ -15,12 +15,12 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
         <source>Reboot</source>
-        <translation>Поновно покретање</translation>
+        <translation>Поново покрени</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
         <source>Are you sure to shut down?</source>
-        <translation>Заиста желите да искључите?</translation>
+        <translation>Заиста желите да угасите?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="383"/>
@@ -218,7 +218,7 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="121"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Наведени корисници су и даље улоговани и њихови не сачувани подаци ће нестати након гашења, да ли сте сигурни да желите да угасите рачунар?</translation>
+        <translation>Наведени корисници су и даље пријављени и њихови несачувани подаци ће нестати након гашења, да ли сигурно желите да угасите рачунар?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="127"/>
@@ -231,12 +231,12 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation>Ефекти прозора укључени</translation>
+        <translation>Ефекти укључени</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation>Ефекти прозора искључени</translation>
+        <translation>Ефекти искључени</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
@@ -264,7 +264,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
         <location filename="../dde-lock/lockmanager.cpp" line="613"/>
         <source>Reboot</source>
-        <translation>Поновно покретање</translation>
+        <translation>Поново покрени</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="53"/>
@@ -322,7 +322,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Добродошли, систем је ажуриран успешно</translation>
+        <translation>Добро дошли, систем је ажуриран успешно</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
@@ -358,7 +358,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
         <source>Friendly Reminder</source>
-        <translation>Пријатељски Подсетник</translation>
+        <translation>Пријатељски подсетник</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
@@ -376,7 +376,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>Љубазно Подсећамо</translation>
+        <translation>Љубазно подсећамо</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
@@ -386,7 +386,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation>У реду</translation>
+        <translation>У РЕДУ</translation>
     </message>
 </context>
 <context>

@@ -162,7 +162,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="369"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Pengesahan cap jari telah tamat masa, sila masukkan kata laluan secara manual</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="392"/>
@@ -231,17 +231,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Kesan tetingkap dibenarkan</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Kesan tetingkap dilumpuhkan</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation type="unfinished"/>
+        <translation>Gagal membenarkan kesan tetingkap</translation>
     </message>
 </context>
 <context>

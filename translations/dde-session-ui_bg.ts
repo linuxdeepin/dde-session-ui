@@ -15,7 +15,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
         <source>Reboot</source>
-        <translation>Рестарт</translation>
+        <translation>Рестартиране</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
@@ -46,7 +46,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
         <source>Lock</source>
-        <translation>3аключвам</translation>
+        <translation>3аключване</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
@@ -70,7 +70,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Това приложение ще се затвори, уверете се, че данните са запомнени!</translation>
+        <translation>Това приложение ще се затвори, уверете се, че данните ви са запомнени!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
@@ -85,17 +85,17 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Недостатъчно памет, моя затворете някой положения, за да избегнете забиване.</translation>
+        <translation>Недостатъчно памет, моля затворете някои положения, за да избегнете забиване.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>Пускане на %1, нужни са %2MB памет</translation>
+        <translation>Продължаване стартирането  на %1, нужни са %2MB памет</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Продължаване в нов раздел, нужни са %1MB памет</translation>
+        <translation>Продължаване отварянето на нов раздел в браузъра, нужни са %1MB памет</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
@@ -105,12 +105,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>Текущата ви памет е достатъчна, ще продължите ли с %1?</translation>
+        <translation>Текущата ви памет е достатъчна, ще продължите ли със стартирането на %1?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>Текущата ви памет е достатъчна, ще продължите ли в нов прозорец?</translation>
+        <translation>Текущата ви памет е достатъчна, ще продължите ли стартирането на нов раздел в браузъра?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
@@ -162,7 +162,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="369"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Изтече времето за проверка на пръстовия отпечатък, моля въведете ръчно паролата</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="392"/>
@@ -172,7 +172,7 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Enter your password to reboot</source>
-        <translation>Въведете паролата си за да рестартирате</translation>
+        <translation>Въведете Вашата парола, за да рестартирате</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="622"/>
@@ -190,7 +190,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="604"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Fingerprint verification timed out, please enter your password manually</translation>
+        <translation>Времето за проверка на пръстовия отпечатък изтече, Моля, въведете Вашата парола ръчно</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="619"/>
@@ -231,17 +231,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Ефектите на прозорците са включени</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Ефектите на прозорците са изключени</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation type="unfinished"/>
+        <translation>Неуспешно активиране на ефектите на прозорците</translation>
     </message>
 </context>
 <context>
@@ -264,7 +264,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
         <location filename="../dde-lock/lockmanager.cpp" line="613"/>
         <source>Reboot</source>
-        <translation>Рестарт</translation>
+        <translation>Рестартиране</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="53"/>
@@ -309,12 +309,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="76"/>
         <source>hh:mm</source>
-        <translation>hh:mm</translation>
+        <translation>чч:мм</translation>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="77"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation>гггг-ММ-дд дддд</translation>
     </message>
 </context>
 <context>
@@ -340,7 +340,7 @@
     <message>
         <location filename="../widgets/userwidget.cpp" line="392"/>
         <source>Domain account</source>
-        <translation>Домейн регистрация</translation>
+        <translation>Домейн акаунт</translation>
     </message>
 </context>
 <context>
@@ -363,7 +363,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>Засечено е използване на виртуална машина, което ще се отрази върху системната производителност и представяне. Препоръчваме  да използвате Обикновен режим.</translation>
+        <translation>Засечено е използване на виртуална машина, което ще се отрази върху системната производителност и представяне. Препоръчваме  Ви да изберете обикновен режим.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
@@ -381,12 +381,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application can not run without window effect</source>
-        <translation>Програмата не тръгва без ефекти на прозорците</translation>
+        <translation>Програмата не може да стартира без ефекти на прозорците</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation>Да</translation>
+        <translation>ОК</translation>
     </message>
 </context>
 <context>
@@ -394,7 +394,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Слаба батерия, включете захранването</translation>
+        <translation>Слаба батерия, Моля, включете захранването</translation>
     </message>
 </context>
 </TS>

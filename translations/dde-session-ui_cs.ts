@@ -231,17 +231,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Okenní efekt povolen</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Okenní efekt zakázán</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se povolit okenní efekty</translation>
     </message>
 </context>
 <context>
