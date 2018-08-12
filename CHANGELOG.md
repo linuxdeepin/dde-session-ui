@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.5.0 (2018-08-12)
+
+
+#### Bug Fixes
+
+* **notify:**  pull dock immediately ([8da7ff6a](https://github.com/linuxdeepin/dde-session-ui/commit/8da7ff6abc899276090a486ac56f7ce74381b518))
+
+
+
+<a name=""></a>
 ##  4.4.9.2 (2018-08-09)
 
 
