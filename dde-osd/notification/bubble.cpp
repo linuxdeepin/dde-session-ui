@@ -57,6 +57,14 @@ static const QString BubbleStyleSheet = "QFrame#Background { "
                                         "color: black;"
                                         "}";
 
+static const QStringList HintsOrder {
+    "desktop-entry",
+    "image-data",
+    "image-path",
+    "image_path",
+    "icon_data"
+};
+
 void register_wm_state(WId winid) {
     xcb_ewmh_connection_t m_ewmh_connection;
     xcb_intern_atom_cookie_t *cookie = xcb_ewmh_init_atoms(QX11Info::connection(), &m_ewmh_connection);
@@ -315,20 +323,29 @@ void Bubble::processActions()
 
 void Bubble::processIconData()
 {
-    const QString imagePath = m_entity->hints().contains("image-path") ? m_entity->hints()["image-path"].toString() : "";
+    const QVariantMap &hints = m_entity->hints();
+    QString imagePath;
+    QPixmap imagePixmap;
 
-    if (imagePath.isEmpty()) {
-        if (m_entity->hints()["image-data"].canConvert<QDBusArgument>()){
-            QDBusArgument argument = m_entity->hints()["image-data"].value<QDBusArgument>();
-            m_icon->setPixmap(converToPixmap(argument));
-        } else if (m_entity->hints()["icon_data"].canConvert<QDBusArgument>()) {
-            QDBusArgument argument = m_entity->hints()["icon_data"].value<QDBusArgument>();
-            m_icon->setPixmap(converToPixmap(argument));
-        } else {
-            m_icon->setIcon(m_entity->appIcon(), m_entity->appName());
+    for (const QString &hint : HintsOrder) {
+        const QVariant &source = hints.contains(hint) ? hints[hint] : QVariant();
+
+        if (source.isNull()) continue;
+
+        if (source.canConvert<QDBusArgument>()) {
+            QDBusArgument argument = source.value<QDBusArgument>();
+            imagePixmap = converToPixmap(argument);
+            break;
         }
-    } else {
-        m_icon->setIcon(imagePath, m_entity->appName());
+
+        imagePath = source.toString();
+    }
+
+    if (!imagePixmap.isNull()) {
+        m_icon->setPixmap(imagePixmap);
+    }
+    else {
+        m_icon->setIcon(imagePath.isEmpty() ? m_entity->appIcon() : imagePath, m_entity->appName());
     }
 }
 
