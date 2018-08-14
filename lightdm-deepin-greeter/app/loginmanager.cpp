@@ -354,6 +354,7 @@ void LoginManager::initUI()
     m_passwdEditAnim = new DPasswdEditAnimated(this);
     m_passwdEditAnim->setEyeButtonEnable(false);
     m_passwdEditAnim->setContentsMargins(5, 0, 0, 0);
+    m_passwdEditAnim->lineEdit()->setContextMenuPolicy(Qt::NoContextMenu);
     m_passwdEditAnim->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 1, 34));
     m_passwdEditAnim->setSubmitIcon(":/img/action_icons/login_normal.svg",
                                    ":/img/action_icons/login_hover.svg",

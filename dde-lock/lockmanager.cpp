@@ -158,6 +158,7 @@ void LockManager::initUI()
     m_passwdEditAnim = new DPasswdEditAnimated(this);
     m_passwdEditAnim->setEyeButtonEnable(false);
     m_passwdEditAnim->setContentsMargins(5, 0, 0, 0);
+    m_passwdEditAnim->lineEdit()->setContextMenuPolicy(Qt::NoContextMenu);
 #ifndef SHENWEI_PLATFORM
     m_passwdEditAnim->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2, 34));
 #else
