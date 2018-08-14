@@ -161,6 +161,7 @@ LoginManager::LoginManager(QWidget* parent)
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
     , m_currentUser(nullptr)
+    , m_logined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
 {
     initUI();
     initData();
@@ -302,8 +303,10 @@ void LoginManager::startSession()
 
     hide();
 
+    User *user = m_userWidget->currentUser();
+
     // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
-    const QUrl url(m_userWidget->currentUser()->desktopBackgroundPath());
+    const QUrl url(user->desktopBackgroundPath());
     if (url.isLocalFile()) {
         emit requestBackground(url.path());
     } else {
@@ -311,9 +314,10 @@ void LoginManager::startSession()
     }
 
     QTimer::singleShot(1000, this, [=] {
-        // NOTE(kirigaya): Login animation duration is 1s.
-        m_userWidget->saveLastUser();
-
+        QJsonObject json;
+        json["Uid"] = static_cast<int>(user->uid());
+        json["Type"] = user->type();
+        m_userWidget->saveLastUser(json);
         m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
     });
 #else
@@ -427,8 +431,24 @@ void LoginManager::initConnect()
     connect(m_userWidget, &UserWidget::currentUserChanged, this, &LoginManager::onCurrentUserChanged);
     connect(m_userWidget, &UserWidget::switchToLogindUser, this, &LoginManager::switchToLogindUser);
     connect(m_userWidget, &UserWidget::userCountChanged, this, &LoginManager::onUserCountChaged);
+    connect(m_userWidget, &UserWidget::userChanged, this, &LoginManager::onCurrentUserChanged);
+    connect(m_userWidget, &UserWidget::userChanged, m_userWidget, &UserWidget::restoreUser);
 
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &LoginManager::onWallpaperBlurFinished);
+
+    connect(m_logined, &Logined::LastLogoutUserChanged, this, [=] (uint  uid) {
+        if (uid != 0) {
+            for (User *user : m_userWidget->allUsers()) {
+                if (user->uid() == uid) {
+                    m_userWidget->restoreUser(user);
+                    onCurrentUserChanged(user);
+                    QTimer::singleShot(1, this, &LoginManager::restoreNumlockStatus);
+                    updateWidgetsPosition();
+                    break;
+                }
+            }
+        }
+    });
 
 
 //    connect(m_userWidget, &UserWidget::userChanged, [&](const QString username) {
@@ -521,79 +541,32 @@ void LoginManager::initDateAndUpdate() {
 // TODO: FIXME
 void LoginManager::restoreUser()
 {
-    QSettings setting("/tmp/lastuser", QSettings::IniFormat);
-    setting.beginGroup("LASTUSER");
+    // lastuser will return User
+    // last logout user > switch to user > first of user list
+    User *user = m_userWidget->lastUser();
 
-    m_lastUser = setting.value("UserName").toString();
-    const int type = setting.value("Type").toInt();
+    if (user == nullptr) {
+        user = m_userWidget->currentUser();
+    }
 
-    QFile::resize("/tmp/lastuser", 0);
-
-    qDebug() << "last user is: " << m_lastUser;
-
-    if (!m_lastUser.isEmpty()) {
-        // If type is ADDomain of lastuser, init ADLogin button
-        if (type == User::ADDomain) {
-            User *user = m_userWidget->initADLogin();
-            m_userWidget->restoreUser(user);
-            onCurrentUserChanged(user);
-        } else {
-            for (User * user : m_userWidget->allUsers()) {
-                if (user->name() == m_lastUser) {
-                    m_userWidget->restoreUser(user);
-                    onCurrentUserChanged(user);
-                    break;
-                }
+    const uint lastLogoutUserUid = m_logined->lastLogoutUser();
+    if (lastLogoutUserUid != 0) {
+        for (User *u : m_userWidget->allUsers()) {
+            if (u->uid() == lastLogoutUserUid && !u->isLogin()) {
+                user = u;
+                break;
             }
         }
-
-    } else {
-        onCurrentUserChanged(m_userWidget->currentUser());
     }
+
+    qDebug() << "last user is: " << user->name();
+
+    m_userWidget->restoreUser(user);
+    onCurrentUserChanged(user);
 
     QTimer::singleShot(1, this, &LoginManager::restoreNumlockStatus);
 
     updateWidgetsPosition();
-
-    // warning: wrong usage, please correct later
-    QTimer *timer = new QTimer(this);
-
-    connect(timer, &QTimer::timeout, this, [=] {
-        if (!QFile::exists("/tmp/lastuser")) return;
-
-        QSettings setting("/tmp/lastuser", QSettings::IniFormat);
-        setting.beginGroup("LASTUSER");
-
-        const QString &user = setting.value("UserName").toString();
-        const int type = setting.value("Type").toInt();
-
-        if (user == m_lastUser && user.isEmpty()) return;
-
-        if (m_currentUser->name() == user) return;
-
-        m_lastUser = user;
-
-        QFile::resize("/tmp/lastuser", 0);
-
-        qDebug() << "last user is: " << m_lastUser;
-
-        if (type == User::ADDomain) {
-            User *user = m_userWidget->initADLogin();
-            m_userWidget->restoreUser(user);
-            onCurrentUserChanged(user);
-        } else {
-            for (User * user : m_userWidget->allUsers()) {
-                if (user->name() == m_lastUser) {
-                    m_userWidget->restoreUser(user);
-                    onCurrentUserChanged(user);
-                    break;
-                }
-            }
-        }
-    });
-
-    timer->setInterval(1000);
-    timer->start();
 }
 
 void LoginManager::message(QString text, QLightDM::Greeter::MessageType type)

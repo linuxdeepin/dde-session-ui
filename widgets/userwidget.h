@@ -146,6 +146,9 @@ public:
     bool isChooseUserMode = false;
 //    const QString getUserAvatar(const QString &username);
     bool getUserIsAutoLogin(const QString &username);
+
+    // return value from LockService
+    User *lastUser();
 //    const QString getUserGreeterBackground(const QString &username);
 //    const QStringList getUserKBHistory(const QString &username);
 //    const QString getUserKBLayout(const QString &username);
@@ -158,7 +161,7 @@ public:
 signals:
     void currentUserChanged(User *user);
     void switchToLogindUser(User *user);
-    void userChanged(const QString &username);
+    void userChanged(User *user); // only lockservice
     void chooseUserModeChanged(bool isChoose, QString curUser);
     void otherUserLogin();
     void currentUserBackgroundChanged(const QString &background);
@@ -167,7 +170,7 @@ signals:
 public slots:
 //    void setCurrentUser(const QString &username);
     void expandWidget();
-    void saveLastUser();
+    void saveLastUser(const QJsonObject &json);
     void saveADUser(const QString &username);
     void restoreUser(User *user);
     User *initADLogin();

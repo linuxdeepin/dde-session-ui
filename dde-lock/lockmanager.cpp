@@ -261,8 +261,6 @@ void LockManager::onUnlockFinished(const bool unlocked)
     default: break;
     }
 
-    m_userWidget->saveLastUser();
-
 #ifdef LOCK_NO_QUIT
     m_passwdEditAnim->lineEdit()->setPlaceholderText("");
     emit checkedHide();
@@ -511,18 +509,11 @@ void LockManager::backgroundChanged(const QString &path)
 
 void LockManager::saveUser(User *user)
 {
-    QFile f("/tmp/lastuser");
-    if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        f.setPermissions(QFileDevice::Permissions(0x7777));
-        f.close();
+    QJsonObject json;
+    json["Uid"] = static_cast<int>(user->uid());
+    json["Type"] = user->type();
 
-        QSettings setting("/tmp/lastuser", QSettings::IniFormat);
-        setting.beginGroup("LASTUSER");
-        setting.setValue("UserName", user->name());
-        setting.setValue("Type", user->type());
-        setting.endGroup();
-        setting.sync();
-    }
+    m_userWidget->saveLastUser(json);
 }
 
 void LockManager::initBackend()

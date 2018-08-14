@@ -55,10 +55,12 @@
 
 #include <DPasswdEditAnimated>
 #include <com_deepin_daemon_imageblur.h>
+#include <com_deepin_daemon_logined.h>
 
 DWIDGET_USE_NAMESPACE
 
 using ImageBlur = com::deepin::daemon::ImageBlur;
+using Logined = com::deepin::daemon::Logined;
 
 class OtherUserInput;
 class LoginManager : public QFrame
@@ -167,6 +169,7 @@ private:
     ImageBlur *m_blurImageInter;
     User *m_currentUser;
     LayoutState m_layoutState;
+    Logined *m_logined;
 };
 #endif // LoginManager
 

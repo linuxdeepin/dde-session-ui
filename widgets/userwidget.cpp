@@ -32,6 +32,7 @@
 #include <QtGui>
 #include <QtCore>
 #include <QSettings>
+#include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
 #include <unistd.h>
@@ -140,6 +141,33 @@ void UserWidget::initConnections()
     }, Qt::QueuedConnection);
 
     connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged, Qt::QueuedConnection);
+    connect(&m_lockInter, &DBusLockService::UserChanged, this, [=] (const QString &value) {
+        const QJsonObject &json = QJsonDocument::fromJson(value.toUtf8()).object();
+        const uint uid = json["Uid"].toInt();
+        const User::UserType type = static_cast<User::UserType>(json["Type"].toInt());
+        User *user = nullptr;
+
+        if (type == User::ADDomain) {
+            if (m_adLogin) {
+                user = m_adLogin;
+            }
+            else {
+                user = initADLogin();
+            }
+        }
+        else {
+            for (User *u : m_availableUsers) {
+                if (u->uid() == uid) {
+                    user = u;
+                    break;
+                }
+            }
+        }
+
+        if (user) {
+            emit userChanged(user);
+        }
+    });
 }
 
 //void UserWidget::onUserListChanged()
@@ -535,9 +563,9 @@ void UserWidget::expandWidget()
     emit chooseUserModeChanged(isChooseUserMode, m_currentUser->name());
 }
 
-void UserWidget::saveLastUser()
+void UserWidget::saveLastUser(const QJsonObject &json)
 {
-//    m_lockInter.SwitchToUser(currentUser()).waitForFinished();
+    m_lockInter.SwitchToUser(QString(QJsonDocument(json).toJson(QJsonDocument::Compact))).waitForFinished();
 }
 
 void UserWidget::saveADUser(const QString &username)
@@ -815,6 +843,31 @@ const QList<User *> UserWidget::loginedUsers() const
 const QList<User *> UserWidget::allUsers() const
 {
     return m_availableUsers;
+}
+
+User *UserWidget::lastUser()
+{
+    const QString &value = m_lockInter.CurrentUser();
+    const QJsonObject &json = QJsonDocument::fromJson(value.toUtf8()).object();
+    const uint uid = json["Uid"].toInt();
+    const User::UserType type = static_cast<User::UserType>(json["Type"].toInt());
+
+    if (type == User::ADDomain) {
+        if (m_adLogin) {
+            return m_adLogin;
+        }
+        else {
+            return initADLogin();
+        }
+    }
+
+    for (User *user : m_availableUsers) {
+        if (user->uid() == uid) {
+            return user;
+        }
+    }
+
+    return nullptr;
 }
 
 //const QString UserWidget::currentUser()
