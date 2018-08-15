@@ -33,7 +33,7 @@ BrightnessProvider::BrightnessProvider(QObject *parent)
 {
     m_suitableParams << "BrightnessUp" << "BrightnessDown";
 
-    m_displayInter->setSync(true);
+    m_displayInter->setSync(true, false);
 }
 
 int BrightnessProvider::rowCount(const QModelIndex &) const

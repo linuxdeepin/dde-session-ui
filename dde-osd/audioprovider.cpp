@@ -36,7 +36,7 @@ AudioProvider::AudioProvider(QObject *parent)
 {
     m_suitableParams << "AudioUp" << "AudioDown" << "AudioMute";
 
-    m_audioInter->setSync(true);
+    m_audioInter->setSync(true, false);
     connect(m_audioInter, &__Audio::DefaultSinkChanged,
             this, &AudioProvider::defaultSinkChanged);
 

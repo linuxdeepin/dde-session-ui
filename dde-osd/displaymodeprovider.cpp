@@ -33,7 +33,7 @@ DisplayModeProvider::DisplayModeProvider(QObject *parent)
 {
     m_suitableParams << "SwitchMonitors";
 
-    m_displayInter->setSync(false);
+    m_displayInter->setSync(false, false);
 
     updateOutputNames();
 
