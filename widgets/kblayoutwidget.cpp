@@ -146,11 +146,26 @@ void KbLayoutWidget::setButtonsChecked(QString text) {
     }
 
     QString kbd = m_buttons[m_kbdParseList.indexOf(text)];
+    QString model {};
 
     QProcess *proc = new QProcess;
-    proc->start("setxkbmap -layout " + kbd.split(";").first());
+    proc->start("setxkbmap -query");
     proc->waitForFinished();
-    qDebug() << proc->exitCode() << proc->readAll()<< "setxkbmap -layout " + kbd.split(";").first();
+    const QString result = proc->readAllStandardOutput();
+    const QStringList &infoList = result.split('\n');
+
+    for (QString info : infoList)
+    {
+        const QStringList list = info.replace(" ", "").split(":");
+        if (list.at(0) == "model") {
+            model = list.at(1);
+            break;
+        }
+    }
+
+    proc->start("setxkbmap", QStringList() << "model" << model << "layout" << kbd.split(";").first());
+    proc->waitForFinished();
+    qDebug() << proc->exitCode() << proc->readAll() << proc->program() << proc->arguments();
 
     emit setButtonClicked(kbd);
 }
