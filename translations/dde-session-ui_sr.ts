@@ -241,7 +241,7 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation>Неуспело укључивање ефеката</translation>
+        <translation>Неуспешно укључивање ефеката</translation>
     </message>
 </context>
 <context>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>Укључи праћење система</translation>
+        <translation>Покрени праћење система</translation>
     </message>
 </context>
 <context>
@@ -386,7 +386,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation>У РЕДУ</translation>
+        <translation>У реду</translation>
     </message>
 </context>
 <context>

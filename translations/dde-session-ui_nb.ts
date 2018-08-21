@@ -20,12 +20,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
         <source>Are you sure to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Er du sikker på at du vil avslutte? </translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="383"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Er du sikker på at du vil starte på nytt? </translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
         <source>Are you sure to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Er du sikker på at du vil logge av? </translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
@@ -65,7 +65,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation type="unfinished"/>
+        <translation>Frigjør</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
@@ -75,7 +75,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation type="unfinished"/>
+        <translation>Vennligst lagre dokumenter, tekst og regneark.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -85,7 +85,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation type="unfinished"/>
+        <translation>Lite systemminne, lukk noen applikasjoner for å hindre stopp.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
@@ -167,12 +167,12 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="392"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Fingeravtrykk stemmer ikke. </translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Skriv inn passord for å starte på nytt. </translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="622"/>
@@ -195,7 +195,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="619"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Fingeravtrykk stemmer ikke. </translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="663"/>
@@ -340,7 +340,7 @@
     <message>
         <location filename="../widgets/userwidget.cpp" line="392"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Domenekonto</translation>
     </message>
 </context>
 <context>
@@ -348,7 +348,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
         <source>Effect Mode</source>
-        <translation type="unfinished"/>
+        <translation>Effektmodus</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
@@ -358,7 +358,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Vennlig påminnelse</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
@@ -381,7 +381,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application can not run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Denne applikasjonen kan ikke kjøre under vinduseffekter.</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>

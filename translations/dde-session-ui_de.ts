@@ -363,13 +363,13 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>Das System hat festgestellt, dass Sie eine virtuelle Maschine verwenden, die die Systemleistung und die das Benutzererlebnis beeinträchtigen wird. Für eine uneingeschränkte Erfahrung empfiehlt es sich, den Normaleffekte-Modus auszuwählen</translation>
+        <translation>Das System hat festgestellt, dass Sie eine virtuelle Maschine verwenden, die die Systemleistung und die das Benutzererlebnis beeinträchtigen wird. Für eine flüssige Systemwiedergabe empfiehlt es sich daher in diesem Fall, den einfachen Modus auszuwählen</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
         <translation>Effektmodus: Schöne und weiche Bedienung.
-Normalmodus: Schnelle Leistung für langsamere Systeme.</translation>
+Einfacher Modus: Schnelle Leistung für langsamere Systeme.</translation>
     </message>
 </context>
 <context>

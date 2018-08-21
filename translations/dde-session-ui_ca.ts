@@ -309,12 +309,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="76"/>
         <source>hh:mm</source>
-        <translation>hh:mm</translation>
+        <translation>hh.mm</translation>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="77"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation>dddd dd-MM-yyyy</translation>
     </message>
 </context>
 <context>

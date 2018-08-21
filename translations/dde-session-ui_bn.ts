@@ -20,38 +20,38 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
         <source>Are you sure to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>আপনি কি বন্ধ করার ব্যাপারে নিশ্চিত?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="383"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>আপনি কি রিস্টার্ট করার ব্যাপারে নিশ্চিত?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
         <source>Log out</source>
-        <translation type="unfinished"/>
+        <translation>লগ আউট করুন</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
         <source>Are you sure to log out?</source>
-        <translation type="unfinished"/>
+        <translation>আপনি কি লগ আউট করার ব্যাপারে নিশ্চিত?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
         <source>Suspend</source>
-        <translation type="unfinished"/>
+        <translation>সাময়িক ভাবে বন্ধ করুন</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
         <source>Lock</source>
-        <translation type="unfinished"/>
+        <translation>লক করুন</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Switch user</source>
-        <translation type="unfinished"/>
+        <translation>ব্যবহারকারী পরিবর্তন করুন</translation>
     </message>
 </context>
 <context>
@@ -65,17 +65,17 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation type="unfinished"/>
+        <translation>মুক্তি</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation type="unfinished"/>
+        <translation>এই অ্যাপ্লিকেশনটি শেষ হবে, দয়া করে নিশ্চিত করুন যে আপনার ডেটা সংরক্ষণ করা হয়েছে!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation type="unfinished"/>
+        <translation>আপনার ডকুমেন্ট, টেক্সট এবং স্প্রেডশীট সংরক্ষণ করুন</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -85,37 +85,37 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation type="unfinished"/>
+        <translation>অপর্যাপ্ত সিস্টেম মেমরি, আটকে থাকা এড়াতে দয়া করে কিছু অ্যাপ্লিকেশন বন্ধ করুন।</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>%1 চালানো চালিয়ে যান, %2MB মেমরি প্রয়োজন</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>ব্রাউজার ট্যাব খোলা চালিয়ে যান, %1MB মেমরি প্রয়োজন</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>অপারেশনটি চালিয়ে যেতে, %1MB মেমরি প্রয়োজন</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation type="unfinished"/>
+        <translation>আপনার বর্তমান মেমরি যথেষ্ট, %1 চালানো চালিয়ে যেতে চান?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation type="unfinished"/>
+        <translation>আপনার বর্তমান মেমরি যথেষ্ট, ব্রাউজার ট্যাব খোলা চালিয়ে যেতে চান?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation type="unfinished"/>
+        <translation>আপনার বর্তমান মেমরি যথেষ্ট, অপারেশানটি চালিয়ে যেতে চান?</translation>
     </message>
 </context>
 <context>
@@ -123,7 +123,7 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
         <source>Duplicate</source>
-        <translation type="unfinished"/>
+        <translation>নকল</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
@@ -144,7 +144,7 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
-        <translation type="unfinished"/>
+        <translation>কীবোর্ড লেআউট যোগ করুন</translation>
     </message>
 </context>
 <context>
@@ -152,32 +152,32 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="179"/>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation>লগইন করুন</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="251"/>
         <source>Wrong Password</source>
-        <translation type="unfinished"/>
+        <translation>ভুল পাসওয়ার্ড</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="369"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>আঙুলের ছাপ যাচাই করার সময় শেষ, দয়াকরে হাত দিয়ে পাসওয়ার্ড প্রবেশ করান।</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="392"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>আঙুলের ছাপ মিলাতে ব্যর্থ হয়েছে</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>রিস্টার্ট করতে আপনার পাসওয়ার্ড প্রবেশ করান</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="622"/>
         <source>Enter your password to shutdown</source>
-        <translation type="unfinished"/>
+        <translation>বন্ধ করতে আপনার পাসওয়ার্ড প্রবেশ করান</translation>
     </message>
 </context>
 <context>
@@ -185,27 +185,27 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="370"/>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation>লগইন করুন</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="604"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>আঙুলের ছাপ যাচাই করার সময় শেষ, দয়া করে হাত দিয়ে পাসওয়ার্ড প্রবেশ করান।</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="619"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>আঙুলের ছাপ মিলাতে ব্যর্থ হয়েছে</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="663"/>
         <source>Wrong Password</source>
-        <translation type="unfinished"/>
+        <translation>ভুল পাসওয়ার্ড</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="667"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>ডোমেন অ্যাকাউন্ট বা পাসওয়ার্ড সঠিক নয়। দয়া করে আবার প্রবেশ করান।</translation>
     </message>
 </context>
 <context>
@@ -218,12 +218,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="121"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation type="unfinished"/>
+        <translation>উপরে থাকা ব্যবহারকারীরা এখনও লগ ইন করে আছেন এবং বন্ধ হওয়ার কারণে ডেটা হারিয়ে যাবে, আপনি কি বন্ধ করার ব্যাপারে নিশ্চিত?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="127"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation type="unfinished"/>
+        <translation>উপরে থাকা ব্যবহারকারীরা এখনও লগ ইন করে আছেন এবং বন্ধ হওয়ার কারণে ডেটা হারিয়ে যাবে, আপনি কি রিস্টার্ট করার ব্যাপারে নিশ্চিত?</translation>
     </message>
 </context>
 <context>
@@ -231,17 +231,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>উইন্ডো ইফেক্ট চালু করা হয়েছে</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>উইন্ডো ইফেক্ট বন্ধ করা হয়েছে</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation type="unfinished"/>
+        <translation>উইন্ডো ইফেক্ট চালু করতে ব্যর্থ হয়েছে</translation>
     </message>
 </context>
 <context>
@@ -269,7 +269,7 @@
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="53"/>
         <source>Suspend</source>
-        <translation type="unfinished"/>
+        <translation>সাময়িক ভাবে বন্ধ করুন</translation>
     </message>
 </context>
 <context>
@@ -277,13 +277,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>বহিরাগত মনিটর সনাক্ত করা হয়েছে, সাময়িকভাবে বন্ধ করবেন?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="55"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
@@ -293,7 +293,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Suspend</source>
-        <translation type="unfinished"/>
+        <translation>সাময়িক ভাবে বন্ধ করুন</translation>
     </message>
 </context>
 <context>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation type="unfinished"/>
+        <translation>সিস্টেম মনিটর চালু করুন</translation>
     </message>
 </context>
 <context>
@@ -322,17 +322,17 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>স্বাগতম, সফলভাবে আপডেট হয়েছে</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>বর্তমান সংস্করণঃ</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>প্রবেশ করুন</translation>
     </message>
 </context>
 <context>
@@ -340,7 +340,7 @@
     <message>
         <location filename="../widgets/userwidget.cpp" line="392"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>ডোমেন অ্যাকাউন্ট</translation>
     </message>
 </context>
 <context>
@@ -348,27 +348,27 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
         <source>Effect Mode</source>
-        <translation type="unfinished"/>
+        <translation>ইফেক্ট মোড</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
         <source>Common Mode</source>
-        <translation type="unfinished"/>
+        <translation>সাধারণ মোড</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>বন্ধুত্বপূর্ণ অনুস্মারক</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation type="unfinished"/>
+        <translation>সিস্টেম সনাক্ত করেছে যে আপনি একটি ভার্চুয়াল মেশিন ব্যবহার করছেন, যা সিস্টেমের পারফরম্যান্স এবং অপারেশন অভিজ্ঞতা প্রভাবিত করবে। একটি মসৃণ অভিজ্ঞতার জন্য, কমন মোড নির্বাচন করার সুপারিশ করা হয়</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation type="unfinished"/>
+        <translation>ইফেক্ট মোড: একটি মসৃণ এবং সূক্ষ্ম অভিজ্ঞতা আছে। সাধারণ মোড: দ্রুত কর্মক্ষমতা উপভোগ করুন</translation>
     </message>
 </context>
 <context>
@@ -376,12 +376,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>সদয় অনুস্মারক</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application can not run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>এই অ্যাপ্লিকেশন উইন্ডো ইফেক্ট ছাড়া চালানো যাবে না</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
@@ -394,7 +394,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation type="unfinished"/>
+        <translation>ব্যাটারি কম, অনুগ্রহ করে চার্জার সংযুক্ত করুন</translation>
     </message>
 </context>
 </TS>
