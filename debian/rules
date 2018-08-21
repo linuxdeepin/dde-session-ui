@@ -32,4 +32,3 @@ override_dh_gencontrol:
 	dh_gencontrol -- -Vdist:Depends="pbis-open, openssh-server"
 endif
 endif
-
