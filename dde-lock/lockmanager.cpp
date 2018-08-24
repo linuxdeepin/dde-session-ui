@@ -265,6 +265,8 @@ void LockManager::onUnlockFinished(const bool unlocked)
 
 #ifdef LOCK_NO_QUIT
     m_passwdEditAnim->lineEdit()->setPlaceholderText("");
+    m_passwdEditAnim->abortAuth();
+    m_passwdEditAnim->lineEdit()->clear();
     emit checkedHide();
 #else
     qApp->exit();
