@@ -42,6 +42,11 @@ DCORE_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
+    if (QString(getenv("XDG_CURRENT_DESKTOP")) != QStringLiteral("Deepin")) {
+        qDebug() << "I only run the Deepin Desktop!";
+        return 0;
+    }
+
     DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
