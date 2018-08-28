@@ -363,9 +363,12 @@ void LoginManager::initUI()
     // FIXME: do not work in qss
     m_passwdEditAnim->invalidMessage()->setStyleSheet("Dtk--Widget--DPasswdEditAnimated #InvalidMessage{color: #f9704f;}");
     updateStyle("://skin/dpasswdeditanimated.qss", m_passwdEditAnim);
-    m_passwdEditAnim->show();
+    m_passwdEditAnim->setVisible(true);
     m_passwdEditAnim->setFocus();
     m_passwdEditAnim->lineEdit()->grabKeyboard();
+#ifdef DISABLE_LOGIN_ANI
+    m_passwdEditAnim->setLoadAnimEnable(false);
+#endif
 
     m_loginButton = new QPushButton(this);
     m_loginButton->setText(tr("Login"));
@@ -746,7 +749,7 @@ void LoginManager::onCurrentUserChanged(User *user)
 
     // check is fake addomain button
     if (user->type() == User::ADDomain && user->uid() == 0) {
-        m_passwdEditAnim->hide();
+        m_passwdEditAnim->setVisible(false);
         m_passwdEditAnim->lineEdit()->releaseKeyboard();
         m_otherUserInput->show();
         return;
@@ -800,7 +803,7 @@ void LoginManager::onUserCountChaged(int count)
 void LoginManager::chooseUserMode()
 {
     m_layoutState = UsersState;
-    m_passwdEditAnim->hide();
+    m_passwdEditAnim->setVisible(false);
     m_passwdEditAnim->lineEdit()->releaseKeyboard();
     m_loginButton->hide();
     m_sessionWidget->hide();
@@ -820,7 +823,7 @@ void LoginManager::chooseSessionMode()
 
     m_sessionWidget->show();
     m_userWidget->hide();
-    m_passwdEditAnim->hide();
+    m_passwdEditAnim->setVisible(false);
     m_passwdEditAnim->lineEdit()->releaseKeyboard();
     m_loginButton->hide();
     m_otherUserInput->hide();
@@ -844,7 +847,8 @@ void LoginManager::showShutdownFrame() {
     m_layoutState = PowerState;
 
     m_userWidget->hide();
-    m_passwdEditAnim->hide();
+    m_passwdEditAnim->setVisible(false);
+    m_passwdEditAnim->hideAlert();
     m_passwdEditAnim->lineEdit()->releaseKeyboard();
     m_loginButton->hide();
     m_sessionWidget->hide();
@@ -944,13 +948,13 @@ void LoginManager::onWallpaperBlurFinished(const QString &source, const QString 
 void LoginManager::updatePasswordEditVisible(User *user)
 {
     if (checkUserIsNoGrp(user)) {
-        m_passwdEditAnim->hide();
+        m_passwdEditAnim->setVisible(false);
         m_passwdEditAnim->lineEdit()->releaseKeyboard();
         m_loginButton->show();
         m_loginButton->setFocus();
     } else {
         m_loginButton->hide();
-        m_passwdEditAnim->show();
+        m_passwdEditAnim->setVisible(true);
         m_passwdEditAnim->setFocus();
         m_passwdEditAnim->lineEdit()->grabKeyboard();
     }
