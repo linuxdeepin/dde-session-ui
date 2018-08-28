@@ -175,7 +175,6 @@ void LockManager::initUI()
     m_passwdEditAnim->setVisible(true);
     m_passwdEditAnim->setFocus();
     m_passwdEditAnim->lineEdit()->setAttribute(Qt::WA_InputMethodEnabled, false);
-    m_passwdEditAnim->lineEdit()->grabKeyboard();
 #ifdef DISABLE_LOGIN_ANI
     m_passwdEditAnim->setLoadAnimEnable(false);
 #endif
@@ -454,7 +453,7 @@ void LockManager::updatePasswordEditVisible(User *user)
 {
     if (checkUserIsNoPWGrp(user)) {
         m_passwdEditAnim->setVisible(false);
-        m_passwdEditAnim->lineEdit()->releaseKeyboard();
+        QTimer::singleShot(100, m_passwdEditAnim->lineEdit(), &QLineEdit::releaseKeyboard);
         m_unlockButton->show();
         m_userState = NoPasswd;
     } else {
@@ -462,7 +461,7 @@ void LockManager::updatePasswordEditVisible(User *user)
         m_unlockButton->setVisible(false);
         m_passwdEditAnim->setVisible(true);
         m_passwdEditAnim->setFocus();
-        m_passwdEditAnim->lineEdit()->grabKeyboard();
+        QTimer::singleShot(100, m_passwdEditAnim->lineEdit(), &QLineEdit::grabKeyboard);
         m_userState = Passwd;
     }
 }
