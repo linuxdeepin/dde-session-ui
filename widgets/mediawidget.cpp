@@ -95,10 +95,22 @@ void MediaWidget::initMediaPlayer()
         service = serv;
         break;
     }
-    if (service.isEmpty())
+    if (service.isEmpty()) {
+        qDebug() << "media player dbus has not started, waiting for signal...";
+        QDBusConnectionInterface *dbusDaemonInterface = QDBusConnection::sessionBus().interface();
+        connect(dbusDaemonInterface, &QDBusConnectionInterface::serviceOwnerChanged, this,
+                [=](const QString &name, const QString &oldOwner, const QString &newOwner) {
+                    Q_UNUSED(oldOwner);
+                    if (name.startsWith("org.mpris.MediaPlayer2.") && !newOwner.isEmpty()) {
+                        initMediaPlayer();
+                        disconnect(dbusDaemonInterface);
+                    }
+                }
+        );
         return;
+    }
 
-    qDebug() << "got service: " << service;
+    qDebug() << "got media player dbus service: " << service;
 
     m_dbusInter = new DBusMediaPlayer2(service, "/org/mpris/MediaPlayer2", QDBusConnection::sessionBus(), this);
 
@@ -141,6 +153,10 @@ void MediaWidget::onVolumeChanged()
 
 void MediaWidget::onMuteSwitchChanged()
 {
+    if (!m_dbusInter) {
+        return;
+    }
+
     const double currentVolume = m_dbusInter->volume();
 
     if (currentVolume) {
@@ -172,6 +188,9 @@ bool MediaWidget::eventFilter(QObject *watched, QEvent *event)
         if (m_lastVolumeNums > 1.0)
             m_lastVolumeNums = 1.0;
 
+        if (!m_dbusInter) {
+            break;
+        }
 
         m_dbusInter->setVolume(m_lastVolumeNums);
         break;
