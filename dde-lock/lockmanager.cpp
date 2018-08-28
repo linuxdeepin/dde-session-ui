@@ -174,6 +174,7 @@ void LockManager::initUI()
     updateStyle(":/skin/dpasswdeditanimated.qss", m_passwdEditAnim);
     m_passwdEditAnim->setVisible(true);
     m_passwdEditAnim->setFocus();
+    m_passwdEditAnim->lineEdit()->setAttribute(Qt::WA_InputMethodEnabled, false);
     m_passwdEditAnim->lineEdit()->grabKeyboard();
 #ifdef DISABLE_LOGIN_ANI
     m_passwdEditAnim->setLoadAnimEnable(false);
