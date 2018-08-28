@@ -172,9 +172,12 @@ void LockManager::initUI()
     // FIXME: do not work in qss
     m_passwdEditAnim->invalidMessage()->setStyleSheet("Dtk--Widget--DPasswdEditAnimated #InvalidMessage{color: #f9704f;}");
     updateStyle(":/skin/dpasswdeditanimated.qss", m_passwdEditAnim);
-    m_passwdEditAnim->show();
+    m_passwdEditAnim->setVisible(true);
     m_passwdEditAnim->setFocus();
     m_passwdEditAnim->lineEdit()->grabKeyboard();
+#ifdef DISABLE_LOGIN_ANI
+    m_passwdEditAnim->setLoadAnimEnable(false);
+#endif
 
     m_unlockButton = new QPushButton(this);
     m_unlockButton->setText(tr("Login"));
@@ -233,7 +236,7 @@ void LockManager::chooseUserMode()
 {
     m_layoutState = UsersState;
 
-    m_passwdEditAnim->hide();
+    m_passwdEditAnim->setVisible(false);
     m_passwdEditAnim->lineEdit()->releaseKeyboard();
     m_unlockButton->hide();
     m_userWidget->show();
@@ -456,7 +459,7 @@ void LockManager::updatePasswordEditVisible(User *user)
     } else {
         m_lockInter->AuthenticateUser(user->name());
         m_unlockButton->setVisible(false);
-        m_passwdEditAnim->show();
+        m_passwdEditAnim->setVisible(true);
         m_passwdEditAnim->setFocus();
         m_passwdEditAnim->lineEdit()->grabKeyboard();
         m_userState = Passwd;
@@ -632,7 +635,8 @@ void LockManager::shutdownMode()
     m_layoutState = PowerState;
 
     m_userWidget->hide();
-    m_passwdEditAnim->hide();
+    m_passwdEditAnim->setVisible(false);
+    m_passwdEditAnim->hideAlert();
     m_passwdEditAnim->lineEdit()->releaseKeyboard();
     m_unlockButton->hide();
     m_keybdLayoutWidget->hide();
