@@ -1,3 +1,20 @@
+<a name=""></a>
+##  4.5.1.1 (2018-08-29)
+
+
+#### Bug Fixes
+
+*   add depend only on amd64 ([229cde3d](https://github.com/linuxdeepin/dde-session-ui/commit/229cde3d54965d767f531c376d01e60e8b53522e))
+* **dde-lock:**  disable input method ([d13ff1a3](https://github.com/linuxdeepin/dde-session-ui/commit/d13ff1a3c2ad75348f00a875b3d3386c93fb8d13))
+* **lock:**
+  *  grab keyboard failure ([9d245a64](https://github.com/linuxdeepin/dde-session-ui/commit/9d245a6442ad475397b13c15031336a90f60d106))
+  *  crash when media player buttons is clicked ([e21594d1](https://github.com/linuxdeepin/dde-session-ui/commit/e21594d17d278cd60ed33c1e84793c7761ab7c34))
+  *  grab keyboard failure ([c5aa591f](https://github.com/linuxdeepin/dde-session-ui/commit/c5aa591f4099f93e9e1f9869d2deb363c4846d8a))
+  *  not stop animation when unlock ([002ee323](https://github.com/linuxdeepin/dde-session-ui/commit/002ee32363fe499da21e09b7531fc9a6c2ff84a7))
+* **lock/lightdm:**  hide alert tooltip when shutdown widgets is displayed ([449ade7d](https://github.com/linuxdeepin/dde-session-ui/commit/449ade7d7f83469cb58d7a0e1beac52353cc401f))
+
+
+
 <a name="4.5.1"></a>
 ### 4.5.1 (2018-08-14)
 
