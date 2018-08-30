@@ -28,8 +28,13 @@
 IndicatorProvider::IndicatorProvider(QObject *parent)
     : AbstractOSDProvider(parent)
 {
-    m_suitableParams << "CapsLockOn" << "CapsLockOff" << "NumLockOn" << "NumLockOff";
-    m_suitableParams << "TouchpadOn" << "TouchpadOff";
+    m_dats["CapsLockOn"] = ":/icons/OSD_caps_lock_on.svg";
+    m_dats["CapsLockOff"] = ":/icons/OSD_caps_lock_off.svg";
+    m_dats["NumLockOn"] = ":/icons/OSD_num_lock_on.svg";
+    m_dats["NumLockOff"] = ":/icons/OSD_num_lock_off.svg";
+    m_dats["TouchpadOn"] = ":/icons/OSD_trackpad_on.svg";
+    m_dats["TouchpadOff"] = ":/icons/OSD_trackpad_off.svg";
+    m_dats["TouchpadToggle"] = ":/icons/OSD_trackpad_toggle.svg";
 }
 
 int IndicatorProvider::rowCount(const QModelIndex &) const
@@ -39,21 +44,7 @@ int IndicatorProvider::rowCount(const QModelIndex &) const
 
 QVariant IndicatorProvider::data(const QModelIndex &, int) const
 {
-    if (m_param == "CapsLockOn") {
-        return ":/icons/OSD_caps_lock_on.svg";
-    } else if (m_param == "CapsLockOff") {
-        return ":/icons/OSD_caps_lock_off.svg";
-    } else if (m_param == "NumLockOn") {
-        return ":/icons/OSD_num_lock_on.svg";
-    } else if (m_param == "NumLockOff") {
-        return ":/icons/OSD_num_lock_off.svg";
-    } else if (m_param == "TouchpadOn") {
-        return ":/icons/OSD_trackpad_on.svg";
-    } else if (m_param == "TouchpadOff") {
-        return ":/icons/OSD_trackpad_off.svg";
-    }
-
-    return "";
+    return m_dats[m_param];
 }
 
 void IndicatorProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -70,5 +61,5 @@ QSize IndicatorProvider::sizeHint(const QStyleOptionViewItem &, const QModelInde
 bool IndicatorProvider::match(const QString &param)
 {
     m_param = param;
-    return m_suitableParams.contains(param);
+    return m_dats.keys().contains(param);
 }
