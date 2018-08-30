@@ -46,6 +46,7 @@ public:
 
 private:
     QString m_param;
+    QMap<QString, QString> m_dats;
 };
 
 #endif // INDICATORPROVIDER_H
