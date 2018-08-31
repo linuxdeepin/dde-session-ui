@@ -1,3 +1,23 @@
+<a name=""></a>
+##  4.5.1.2 (2018-08-31)
+
+
+#### Features
+
+* **OSD:**  add trackpad toggle svg ([20231add](https://github.com/linuxdeepin/dde-session-ui/commit/20231add6ffb5bb5cafb1367a03ce5f1c83cde93))
+
+#### Bug Fixes
+
+*   add depend only on amd64 ([dbcc5a73](https://github.com/linuxdeepin/dde-session-ui/commit/dbcc5a73f6aa22828df2c18f016e0d45608f2c60))
+* **dde-lock:**  disable input method ([c2aa0aed](https://github.com/linuxdeepin/dde-session-ui/commit/c2aa0aedcd34160d085ec3a1e478f3a5ec352ce8))
+* **lock:**
+  *  crash when media player buttons is clicked ([c020391c](https://github.com/linuxdeepin/dde-session-ui/commit/c020391c278922d6ebff4ea1bbb4b3d25d9ef638))
+  *  grab keyboard failure ([a35906a2](https://github.com/linuxdeepin/dde-session-ui/commit/a35906a2e92f624538dbb4b4649e0c2b94d773bb))
+  *  not stop animation when unlock ([9efa0f66](https://github.com/linuxdeepin/dde-session-ui/commit/9efa0f663fa5c2ab12a942972935275289494dbd))
+* **lock/lightdm:**  hide alert tooltip when shutdown widgets is displayed ([5e6ba10c](https://github.com/linuxdeepin/dde-session-ui/commit/5e6ba10c13346cae8555e140eee3c3cd5a076a51))
+
+
+
 <a name="4.5.1"></a>
 ### 4.5.1 (2018-08-14)
 
