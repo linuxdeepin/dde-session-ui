@@ -166,21 +166,35 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     const float current_ani_value = m_fadeOutAni->currentValue().toFloat();
 
-    for (auto *s : qApp->screens())
-    {
+    for (auto *s : qApp->screens()) {
         const QRect &geom = s->geometry();
-        const QRect tr(geom.topLeft() / devicePixelRatioF(), geom.size());
-        const QPixmap &pix = m_background.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        QRect tr(geom.topLeft() / s->devicePixelRatio(), geom.size());
 
-        if (!pix.isNull())
-            painter.drawPixmap(tr, pix, QRect((pix.width() - tr.width()) / 2, (pix.height() - tr.height()) / 2, tr.width(), tr.height()));
+        // Skip if it does not belong to the current screen
+        tr = tr & e->rect();
+        if (tr.isEmpty()) continue;
+
+        if (!m_background.isNull()) {
+            // s->size() is scaled value, Avoid losing information after zooming
+            QPixmap pix = m_background.scaled(s->size() * s->devicePixelRatio(),
+                                              Qt::KeepAspectRatioByExpanding,
+                                              Qt::SmoothTransformation);
+            // draw pix to widget, so pix need set pixel ratio from qwidget devicepixelratioF
+            pix.setDevicePixelRatio(devicePixelRatioF());
+
+            // tr is need redraw rect, sourceRect need correct upper left corner
+            painter.drawPixmap(tr, pix, QRect(tr.topLeft() * s->devicePixelRatio() - geom.topLeft(), tr.size() * pix.devicePixelRatioF()));
+        }
 
         if (!m_fakeBackground.isNull()) {
-        // draw background
-        const QPixmap &fadePixmap = m_fakeBackground.scaled(s->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-        painter.setOpacity(current_ani_value);
-        painter.drawPixmap(tr, fadePixmap, QRect((fadePixmap.width() - tr.width()) / 2, (fadePixmap.height() - tr.height()) / 2, tr.width(), tr.height()));
-        painter.setOpacity(1);
+            // draw background
+            QPixmap fadePixmap = m_fakeBackground.scaled(s->size() * s->devicePixelRatio(),
+                                                         Qt::KeepAspectRatioByExpanding,
+                                                         Qt::SmoothTransformation);
+            fadePixmap.setDevicePixelRatio(devicePixelRatio());
+            painter.setOpacity(current_ani_value);
+            painter.drawPixmap(tr, fadePixmap, QRect(tr.topLeft() * s->devicePixelRatio() - geom.topLeft(), tr.size() * fadePixmap.devicePixelRatioF()));
+            painter.setOpacity(1);
         }
     }
 }
