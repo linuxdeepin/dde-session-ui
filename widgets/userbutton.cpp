@@ -44,8 +44,6 @@ UserButton::UserButton(User *user, QWidget *parent)
     , m_selected(false)
     , m_loginIconVisible(false)
 {
-    setVisible(false);
-
     initUI();
     initConnect();
 }
@@ -85,13 +83,12 @@ void UserButton::initUI()
     m_userAvatar->setIcon(m_user->avatarPath());
 
     m_checkedMark = new QLabel;
-    m_checkedMark->setFixedSize(16 + 10, 16);
-    m_checkedMark->setPixmap(QPixmap(""));
-    m_checkedMark->setStyleSheet("background: url(\":/img/avatar_checked.png\"); margin-right: 10");
-    m_checkedMark->setVisible(false);
+    QPixmap pixmap(":/img/avatar_checked.png");
+    pixmap.setDevicePixelRatio(devicePixelRatioF());
+    m_checkedMark->setPixmap(pixmap);
 
     m_nameLayout = new QHBoxLayout;
-    m_nameLayout->setSpacing(0);
+    m_nameLayout->setSpacing(5);
     m_nameLayout->setMargin(0);
     m_nameLayout->addStretch();
     m_nameLayout->addWidget(m_checkedMark);
