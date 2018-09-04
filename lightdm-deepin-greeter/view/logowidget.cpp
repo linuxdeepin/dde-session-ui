@@ -103,11 +103,7 @@ QString LogoWidget::getVersion() {
 
     qDebug() << "Deepin Version:" << version << type;
 
-    QString versionNumber = version + " " + type + " " + milestone;
-    QFont versionFont; QFontMetrics fm(versionFont);
-    int width=fm.width(versionNumber);
-    setFixedSize(150+width, 40);
-    return versionNumber;
+    return QString("%1 %2 %3").arg(version).arg(type).arg(milestone);
 }
 
 LogoWidget::~LogoWidget()

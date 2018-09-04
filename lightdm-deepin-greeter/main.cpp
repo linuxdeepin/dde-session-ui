@@ -158,6 +158,7 @@ int main(int argc, char* argv[])
     qApp->setOrganizationName("deepin");
     qApp->setApplicationName("lightdm-deepin-greeter");
     qApp->setApplicationVersion("2015.1.0");
+    qApp->setAttribute(Qt::AA_ForceRasterWidgets);
 
     DLogManager::registerConsoleAppender();
 

@@ -347,6 +347,7 @@ void LoginManager::initUI()
     m_sessionWidget = new SessionWidget(this);
     m_sessionWidget->setFixedHeight(200);
     m_sessionWidget->hide();
+
     m_logoWidget = new LogoWidget(this);
     m_userWidget = new UserWidget(this);
     m_userWidget->setObjectName("UserWidget");
@@ -406,7 +407,7 @@ void LoginManager::initUI()
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/login.qss", this);
 #endif
-    set_rootwindow_cursor();
+    QTimer::singleShot(1000, this, set_rootwindow_cursor);
 }
 
 void LoginManager::initData()
