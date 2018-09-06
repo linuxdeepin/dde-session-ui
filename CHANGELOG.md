@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.5.1.3 (2018-09-06)
+
+
+#### Bug Fixes
+
+* **Background:**  background align center for screen ([23cd8d51](https://github.com/linuxdeepin/dde-session-ui/commit/23cd8d51f4324bf88c65c1b1bac324338e679037))
+
+
+
+<a name=""></a>
 ##  4.5.1.2 (2018-08-31)
 
 
