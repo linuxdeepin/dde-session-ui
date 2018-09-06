@@ -498,6 +498,10 @@ void LoginManager::initConnect()
 
         m_userWidget->saveADUser(m_accountStr);
 
+        if (m_greeter->inAuthentication()) {
+            m_greeter->cancelAuthentication();
+        }
+
         m_greeter->authenticate(m_accountStr);
 
         // NOTE(kirigaya): set auth user and respond password need some time!
@@ -675,7 +679,7 @@ void LoginManager::authenticationComplete()
         return;
     }
 
-    QTimer::singleShot(100, this, SLOT(startSession()));
+    startSession();
 }
 
 void LoginManager::authCurrentUser()
@@ -683,45 +687,19 @@ void LoginManager::authCurrentUser()
     m_accountStr = m_userWidget->currentUser()->name();
     m_passwdStr = m_passwdEditAnim->lineEdit()->text();
 
-    // NOTE(kirigaya): set auth user and respond password need some time!
-    QTimer::singleShot(100, this, SLOT(login()));
+    login();
 }
 
 void LoginManager::login()
 {
     m_isThumbAuth = false;
 
-//    if(!m_requireShutdownWidget->isHidden()) {
-//        qDebug() << "SHUTDOWN";
-//        m_requireShutdownWidget->shutdownAction();
-//        return;
-//    }
-
-//    if (!m_sessionWidget->isHidden()) {
-//        qDebug() << "SESSIONWIDGET";
-////        m_sessionWidget->chooseSession();
-//        return;
-//    }
-//    if (m_userWidget->isChooseUserMode && !m_userWidget->isHidden()) {
-////        m_userWidget->chooseButtonChecked();
-//        qDebug() << "lineEditGrabKeyboard";
-//        return;
-//    }
-
     if (m_passwdStr.isEmpty() && m_userState == Password)
         return;
 
-    if (m_greeter->isAuthenticated()) {
-        startSession();
-    } else if (m_greeter->inAuthentication() && m_userState == Password) {
-        m_greeter->respond(m_passwdStr);
-    } else {
-        if (m_greeter->inAuthentication())
-            m_greeter->cancelAuthentication();
-
-        m_greeter->authenticate(m_accountStr);
-
+    if (m_greeter->inAuthentication() && m_userState == Password) {
         qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
+        m_greeter->respond(m_passwdStr);
     }
 }
 
@@ -761,6 +739,11 @@ void LoginManager::onCurrentUserChanged(User *user)
             m_userState = NoPassword;
         } else {
             m_userState = Password;
+            // I think here can skip this step;
+            if (m_greeter->inAuthentication()) {
+                m_greeter->cancelAuthentication();
+            }
+
             m_greeter->authenticate(user->name());
         }
     }
