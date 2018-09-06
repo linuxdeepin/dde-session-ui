@@ -191,7 +191,7 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
             QPixmap fadePixmap = m_fakeBackground.scaled(s->size() * s->devicePixelRatio(),
                                                          Qt::KeepAspectRatioByExpanding,
                                                          Qt::SmoothTransformation);
-            fadePixmap.setDevicePixelRatio(devicePixelRatio());
+            fadePixmap.setDevicePixelRatio(devicePixelRatioF());
             painter.setOpacity(current_ani_value);
             painter.drawPixmap(tr, fadePixmap, QRect(tr.topLeft() * s->devicePixelRatio() - geom.topLeft(), tr.size() * fadePixmap.devicePixelRatioF()));
             painter.setOpacity(1);
