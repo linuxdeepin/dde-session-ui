@@ -60,6 +60,7 @@ private:
 
     void setGeometry(const QRect &rect);
     const QScreen *screenForGeometry(const QRect &rect) const;
+    const QPixmap pixmapHandle(const QPixmap &pixmap, QScreen const *screen);
 
 private:
     QString m_bgPath;

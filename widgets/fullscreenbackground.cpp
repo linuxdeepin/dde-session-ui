@@ -175,12 +175,7 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
         if (tr.isEmpty()) continue;
 
         if (!m_background.isNull()) {
-            // s->size() is scaled value, Avoid losing information after zooming
-            QPixmap pix = m_background.scaled(s->size() * s->devicePixelRatio(),
-                                              Qt::KeepAspectRatioByExpanding,
-                                              Qt::SmoothTransformation);
-            // draw pix to widget, so pix need set pixel ratio from qwidget devicepixelratioF
-            pix.setDevicePixelRatio(devicePixelRatioF());
+            QPixmap pix = std::move(pixmapHandle(m_background, s));
 
             // tr is need redraw rect, sourceRect need correct upper left corner
             painter.drawPixmap(tr, pix, QRect(tr.topLeft() * s->devicePixelRatio() - geom.topLeft(), tr.size() * pix.devicePixelRatioF()));
@@ -188,10 +183,8 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
 
         if (!m_fakeBackground.isNull()) {
             // draw background
-            QPixmap fadePixmap = m_fakeBackground.scaled(s->size() * s->devicePixelRatio(),
-                                                         Qt::KeepAspectRatioByExpanding,
-                                                         Qt::SmoothTransformation);
-            fadePixmap.setDevicePixelRatio(devicePixelRatioF());
+            QPixmap fadePixmap = std::move(pixmapHandle(m_fakeBackground, s));
+
             painter.setOpacity(current_ani_value);
             painter.drawPixmap(tr, fadePixmap, QRect(tr.topLeft() * s->devicePixelRatio() - geom.topLeft(), tr.size() * fadePixmap.devicePixelRatioF()));
             painter.setOpacity(1);
@@ -243,4 +236,26 @@ const QScreen *FullscreenBackground::screenForGeometry(const QRect &rect) const
     }
 
     return nullptr;
+}
+
+const QPixmap FullscreenBackground::pixmapHandle(const QPixmap &pixmap, const QScreen *screen)
+{
+    QPixmap pix = pixmap.scaled(screen->size(),
+                                Qt::KeepAspectRatioByExpanding,
+                                Qt::SmoothTransformation);
+
+    pix = pix.copy(QRect((pix.width() - screen->size().width()) / 2,
+                         (pix.height() - screen->size().height()) / 2,
+                         screen->size().width(),
+                         screen->size().height()));
+
+    // s->size() is scaled value, Avoid losing information after zooming
+    pix = pix.scaled(screen->size() * screen->devicePixelRatio(),
+                     Qt::KeepAspectRatioByExpanding,
+                     Qt::SmoothTransformation);
+
+    // draw pix to widget, so pix need set pixel ratio from qwidget devicepixelratioF
+    pix.setDevicePixelRatio(devicePixelRatioF());
+
+    return pix;
 }
