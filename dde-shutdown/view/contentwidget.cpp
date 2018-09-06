@@ -579,7 +579,14 @@ void ContentWidget::initUI() {
 
 void ContentWidget::initBackground()
 {
-    currentWorkspaceChanged();
+    if (m_wmInter->isValid()) {
+        currentWorkspaceChanged();
+    }
+    else {
+        QTimer::singleShot(0, this, [=] {
+            updateWallpaper(m_dbusAppearance->background());
+        });
+    }
 
     connect(m_dbusAppearance, &Appearance::Changed, this, [=](const QString &type, const QString &path){
         if (type == "background") {
