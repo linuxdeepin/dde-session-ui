@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.5.1.4 (2018-09-07)
+
+
+#### Bug Fixes
+
+*   not set auth user after auth faild ([be048683](https://github.com/linuxdeepin/dde-session-ui/commit/be0486835cbf9de61212ec3a2c0009174234519f))
+
+
+
+<a name=""></a>
 ##  4.5.1.3 (2018-09-06)
 
 
