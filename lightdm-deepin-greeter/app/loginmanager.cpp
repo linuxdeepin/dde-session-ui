@@ -697,9 +697,14 @@ void LoginManager::login()
     if (m_passwdStr.isEmpty() && m_userState == Password)
         return;
 
-    if (m_greeter->inAuthentication() && m_userState == Password) {
-        qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
-        m_greeter->respond(m_passwdStr);
+    if (m_userState == Password) {
+        if (m_greeter->inAuthentication()) {
+            qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
+            m_greeter->respond(m_passwdStr);
+        }
+        else {
+            m_greeter->authenticate(m_currentUser->name());
+        }
     }
 }
 
