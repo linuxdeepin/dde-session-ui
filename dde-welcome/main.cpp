@@ -34,39 +34,23 @@ DCORE_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
-    if (QFile::exists(QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first() + "/autostart/dde-first-run.desktop")) {
-        QString currentVersion = GetSystemVersion().first;
+    DApplication::loadDXcbPlugin();
+    DApplication app(argc, argv);
+    app.setOrganizationName("deepin");
+    app.setApplicationName("dde-welcome");
 
-        if (!currentVersion.isEmpty()) {
-            QSettings welcomeSetting("deepin", "dde-welcome");
-            QString version = welcomeSetting.value("Version").toString();
-            if (version.isEmpty()) {
-                welcomeSetting.setValue("Version", currentVersion);
-            }
-        }
-        return 0;
-    }
+    if (!app.setSingleInstance(app.applicationName(), DApplication::UserScope))
+        return -1;
 
-    if (CheckVersionChanged()) {
-        DApplication::loadDXcbPlugin();
-        DApplication app(argc, argv);
-        app.setOrganizationName("deepin");
-        app.setApplicationName("dde-welcome");
+    DLogManager::registerConsoleAppender();
+    DLogManager::registerFileAppender();
 
-        if (!app.setSingleInstance(app.applicationName(), DApplication::UserScope))
-            return -1;
+    QTranslator translator;
+    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
+    app.installTranslator(&translator);
 
-        DLogManager::registerConsoleAppender();
-        DLogManager::registerFileAppender();
+    MainWidget w;
+    w.show();
 
-        QTranslator translator;
-        translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-        app.installTranslator(&translator);
-
-        MainWidget w;
-        w.show();
-
-        return app.exec();
-    }
-    return 0;
+    return app.exec();
 }
