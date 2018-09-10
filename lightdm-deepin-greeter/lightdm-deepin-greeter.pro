@@ -37,16 +37,6 @@ contains(DEFINES,WITH_SHENWEI_PLATFORM){
     message("SHENWEI_PLATFORM not defined")
 }
 
-isEqual(SHENWEI_PLATFORM, YES) {
-    DEFINES += SHENWEI_PLATFORM
-}　else {
-    DEFINES -= SHENWEI_PLATFORM
-}
-
-isEqual(USE_CURSOR_LOADING_ANI, YES) {
-    DEFINES += USE_CURSOR_LOADING_ANI
-}
-
 target.path = $${PREFIX}/bin/
 desktop_file.files = lightdm-deepin-greeter.desktop
 desktop_file.path = $${PREFIX}/share/xgreeters/
@@ -58,8 +48,13 @@ RESOURCES += \
     logintheme.qrc
 
 deepin_professional {
-    host_mips64: {
+    host_mips64 {
         DEFINES += DISABLE_LOGIN_ANI
+    }
+
+    sw_64 {
+        DEFINES += DISABLE_LOGIN_ANI
+        DEFINES += SHENWEI_PLATFORM
     }
 }
 
