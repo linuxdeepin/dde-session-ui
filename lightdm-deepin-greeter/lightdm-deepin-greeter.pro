@@ -53,14 +53,12 @@ RESOURCES += \
     image.qrc \
     logintheme.qrc
 
-deepin_professional {
-    host_mips64 {
-        DEFINES += DISABLE_LOGIN_ANI
-    }
+host_mips64 {
+    DEFINES += DISABLE_LOGIN_ANI
+}
 
-    sw_64 {
-        DEFINES += DISABLE_LOGIN_ANI
-        DEFINES += SHENWEI_PLATFORM
-    }
+sw_64 {
+    DEFINES += DISABLE_LOGIN_ANI
+    DEFINES += SHENWEI_PLATFORM
 }
 
