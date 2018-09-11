@@ -1,4 +1,15 @@
 <a name=""></a>
+##  4.5.1.5 (2018-09-11)
+
+
+#### Features
+
+*   update judgement rule ([dcbe3949](https://github.com/linuxdeepin/dde-session-ui/commit/dcbe3949bdd5137da0fe653dd4c4a67efe15d26c))
+* **greeter:**  disable login animation for sw64 ([9522ca91](https://github.com/linuxdeepin/dde-session-ui/commit/9522ca913c06a3e0293095bd49c2d6a15dcbf56b))
+
+
+
+<a name=""></a>
 ##  4.5.1.4 (2018-09-07)
 
 
