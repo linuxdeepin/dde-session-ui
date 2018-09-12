@@ -1,4 +1,5 @@
 include(../common.pri)
+load(deepin_qt)
 
 QT       += core gui widgets dbus x11extras
 
@@ -37,6 +38,15 @@ target.path = $${PREFIX}/bin/
 INSTALLS += target services
 
 isEqual(LOCK_NO_QUIT, YES) {
-    DEFINES +=LOCK_NO_QUIT
+DEFINES +=LOCK_NO_QUIT
 }
 
+host_mips64 {
+    DEFINES += DISABLE_LOGIN_ANI
+    DEFINES += LOCK_NO_QUIT
+}
+
+sw_64 {
+    DEFINES += DISABLE_LOGIN_ANI
+    DEFINES += SHENWEI_PLATFORM
+}
