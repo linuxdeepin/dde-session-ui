@@ -20,7 +20,8 @@ Build-Depends: debhelper (>= 8.0.0), pkg-config,
  deepin-gettext-tools,
  libxtst-dev,
  libxcursor-dev,
- libxrandr-dev
+ libxrandr-dev,
+ deepin-qt5config,
 Standards-Version: 3.9.4
 Homepage: http://www.deepin.org/
 
