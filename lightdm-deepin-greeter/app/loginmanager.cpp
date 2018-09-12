@@ -298,12 +298,20 @@ void LoginManager::startSession()
 {
     qDebug() << "start session = " << m_sessionWidget->currentSessionName();
 
+    User *user = m_userWidget->currentUser();
+
+    auto startSessionSync = [=]() {
+        QJsonObject json;
+        json["Uid"] = static_cast<int>(user->uid());
+        json["Type"] = user->type();
+        m_userWidget->saveLastUser(json);
+        m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+    };
+
 #ifndef DISABLE_LOGIN_ANI
     // NOTE(kirigaya): It is not necessary to display the login animation.
 
     hide();
-
-    User *user = m_userWidget->currentUser();
 
     // NOTE(kirigaya): Login animation needs to be transitioned to the user's desktop wallpaper
     const QUrl url(user->desktopBackgroundPath());
@@ -313,16 +321,9 @@ void LoginManager::startSession()
         emit requestBackground(url.url());
     }
 
-    QTimer::singleShot(1000, this, [=] {
-        QJsonObject json;
-        json["Uid"] = static_cast<int>(user->uid());
-        json["Type"] = user->type();
-        m_userWidget->saveLastUser(json);
-        m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
-    });
+    QTimer::singleShot(1000, this, startSessionSync);
 #else
-    m_userWidget->saveLastUser();
-    m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
+    startSessionSync();
 #endif
 }
 
