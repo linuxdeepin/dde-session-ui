@@ -240,19 +240,15 @@ const QScreen *FullscreenBackground::screenForGeometry(const QRect &rect) const
 
 const QPixmap FullscreenBackground::pixmapHandle(const QPixmap &pixmap, const QScreen *screen)
 {
-    QPixmap pix = pixmap.scaled(screen->size(),
+    const QSize trueSize { screen->size() * screen->devicePixelRatio() };
+    QPixmap pix = pixmap.scaled(trueSize,
                                 Qt::KeepAspectRatioByExpanding,
                                 Qt::SmoothTransformation);
 
-    pix = pix.copy(QRect((pix.width() - screen->size().width()) / 2,
-                         (pix.height() - screen->size().height()) / 2,
-                         screen->size().width(),
-                         screen->size().height()));
-
-    // s->size() is scaled value, Avoid losing information after zooming
-    pix = pix.scaled(screen->size() * screen->devicePixelRatio(),
-                     Qt::KeepAspectRatioByExpanding,
-                     Qt::SmoothTransformation);
+    pix = pix.copy(QRect((pix.width() - trueSize.width()) / 2,
+                         (pix.height() - trueSize.height()) / 2,
+                         trueSize.width(),
+                         trueSize.height()));
 
     // draw pix to widget, so pix need set pixel ratio from qwidget devicepixelratioF
     pix.setDevicePixelRatio(devicePixelRatioF());
