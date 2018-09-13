@@ -1,4 +1,20 @@
 <a name=""></a>
+##  4.5.1.6 (2018-09-13)
+
+
+#### Bug Fixes
+
+*   mission build depend ([62ebfdcf](https://github.com/linuxdeepin/dde-session-ui/commit/62ebfdcf8aa80dae67a251f039a30197d0a97db2))
+* **greeter:**  nopasswd user cannot login ([0f4ff307](https://github.com/linuxdeepin/dde-session-ui/commit/0f4ff307015d649ef7df185521876939ba1dc0fa))
+
+#### Features
+
+*   disable unlock animation for mips and sw ([7f226572](https://github.com/linuxdeepin/dde-session-ui/commit/7f226572bc119a3873695df928eeee688c366484))
+* **greeter:**  support run some scripts ([fe5c4e48](https://github.com/linuxdeepin/dde-session-ui/commit/fe5c4e48fa48e28d8fe3851d06917838acd8280e))
+
+
+
+<a name=""></a>
 ##  4.5.1.5 (2018-09-11)
 
 
