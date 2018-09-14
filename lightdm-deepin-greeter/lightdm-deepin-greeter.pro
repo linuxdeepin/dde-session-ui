@@ -37,12 +37,13 @@ contains(DEFINES,WITH_SHENWEI_PLATFORM){
     message("SHENWEI_PLATFORM not defined")
 }
 
-target.path = /etc/deepin/greeters.d/
+target.path = $${PREFIX}/bin/
 desktop_file.files = lightdm-deepin-greeter.desktop
 desktop_file.path = $${PREFIX}/share/xgreeters/
 
 script.path = $${PREFIX}/bin/
 script.files = deepin-greeter
+script.files += lightdm-deepin-greeter
 
 INSTALLS += target desktop_file script
 
