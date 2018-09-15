@@ -1,4 +1,18 @@
 <a name=""></a>
+##  4.5.1.7 (2018-09-15)
+
+
+#### Bug Fixes
+
+*   move elf to /usr/bin/ ([d2c3ff0e](https://github.com/linuxdeepin/dde-session-ui/commit/d2c3ff0eed5a53d08c416d4fc3244dbafe07a226))
+
+#### Features
+
+*   use shell script replace xrandr handle for main.cpp ([5ae10a22](https://github.com/linuxdeepin/dde-session-ui/commit/5ae10a22153635c89921db9a82b7ce550d5cda57))
+
+
+
+<a name=""></a>
 ##  4.5.1.6 (2018-09-13)
 
 
