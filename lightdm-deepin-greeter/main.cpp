@@ -41,85 +41,8 @@
 
 DCORE_USE_NAMESPACE
 
-bool setAllMonitorsExtend()
-{
-    QProcess *checkMons = new QProcess;
-    checkMons->start("xrandr");
-    checkMons->waitForFinished(1000);
-
-    QString primaryMonitor;
-    QStringList otherMonitors;
-
-    const QString result = checkMons->readAllStandardOutput();
-    const QStringList &infoList = result.split('\n');
-    bool foundMonitor = false;
-    for (const QString &info : infoList)
-    {
-        const QStringList details = info.split(' ');
-
-        if (details.count() < 3 || details.at(1) != "connected")
-            continue;
-
-        qDebug() << "info: " << info;
-        qDebug() << "found monitor: " << details.first();
-        foundMonitor = true;
-        if (details.at(2) == "primary")
-            primaryMonitor = details.first();
-        else
-            otherMonitors.append(details.first());
-    }
-
-    if (!foundMonitor) {
-        qCritical() << "can not find any monitor" << "retray in 15 second...";
-        return foundMonitor;
-    }
-
-    // set other monitors
-    QString lastMonitor = primaryMonitor;
-    if (lastMonitor.isEmpty())
-        lastMonitor = otherMonitors.first();
-
-    // call enable xrandr first
-    QProcess enableMonitor;
-    enableMonitor.start("xrandr --auto");
-    bool ret = enableMonitor.waitForFinished(-1);
-    qDebug()<< "enable monitor" <<ret<<enableMonitor.readAll();
-
-    for (const QString &m : otherMonitors)
-    {
-        if (m == lastMonitor)
-            continue;
-
-        QProcess *setting = new QProcess;
-        QString cmd = QString("xrandr --output %1 --right-of %2 --auto").arg(m).arg(lastMonitor);
-
-        qDebug() << "exec: " << cmd;
-
-        setting->start(cmd);
-        bool result = setting->waitForFinished(1000);
-        qDebug() << "finished: " << result;
-        setting->deleteLater();
-    }
-
-    checkMons->deleteLater();
-    return foundMonitor;
-}
-
-// This workaround works when you do not plug in any monitor and
-// power on computer. Then Qt can not draw out anything.
-// You can not quit application because lightdm will quit when greeter quit.
-// Also you can not receive any signal of monitor plugin from kernel.
-// So please detect time by time, :<
-void waitMonitorReady() {
-    while(!setAllMonitorsExtend()) {
-        QThread::sleep(10);
-    }
-}
-
 int main(int argc, char* argv[])
 {
-    waitMonitorReady();
-
     Display *display = XOpenDisplay(NULL);
 
     XRRScreenResources *resources = XRRGetScreenResources(display, DefaultRootWindow(display));
