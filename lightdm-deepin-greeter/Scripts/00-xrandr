@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ $(xrandr | grep -w connected | wc -l) = 2 ];then
+    primary=$(xrandr | grep -w connected | grep -w primary | awk '{print $1}')
+    second=$(xrandr | grep -w connected | grep -v primary | awk '{print $1}')
+    xrandr --output $second --right-of $primary --auto
+fi

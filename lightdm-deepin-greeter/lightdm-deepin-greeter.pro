@@ -43,9 +43,11 @@ desktop_file.path = $${PREFIX}/share/xgreeters/
 
 script.path = $${PREFIX}/bin/
 script.files = deepin-greeter
-script.files += lightdm-deepin-greeter
 
-INSTALLS += target desktop_file script
+hooks.path = /etc/deepin/greeters.d
+hooks.files += Scripts/*
+
+INSTALLS += target desktop_file script hooks
 
 RESOURCES += \
     image.qrc \
