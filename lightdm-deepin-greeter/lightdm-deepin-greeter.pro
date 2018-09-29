@@ -45,7 +45,7 @@ script.path = $${PREFIX}/bin/
 script.files = deepin-greeter
 
 hooks.path = /etc/deepin/greeters.d
-hooks.files += Scripts/*
+hooks.files += scripts/*
 
 INSTALLS += target desktop_file script hooks
 
