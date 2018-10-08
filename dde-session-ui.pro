@@ -1,16 +1,17 @@
 TEMPLATE = subdirs
 SUBDIRS += dde-shutdown \
-           dde-lock \
-           lightdm-deepin-greeter \
-           dde-switchtogreeter \
-           dde-lowpower \
-           dde-osd \
-#           dde-offline-upgrader \
-           dde-suspend-dialog \
-           dde-warning-dialog \
-           dde-welcome \
-           dde-wm-chooser \
-           dmemory-warning-dialog
+    dde-lock \
+    lightdm-deepin-greeter \
+    dde-switchtogreeter \
+    dde-lowpower \
+    dde-osd \
+    #dde-offline-upgrader \
+    dde-suspend-dialog \
+    dde-warning-dialog \
+    dde-welcome \
+    dde-wm-chooser \
+    dmemory-warning-dialog \
+    dnetwork-secret-dialog
 
 include(common.pri)
 contains(DEFINES, ARCH_MIPSEL) {
