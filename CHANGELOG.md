@@ -1,3 +1,13 @@
+<a name=""></a>
+##  4.5.1.9 (2018-10-08)
+
+
+#### Bug Fixes
+
+*   sw_64 missing host_sw_64 ([026883af](https://github.com/linuxdeepin/dde-session-ui/commit/026883afd56981b826fe4877e9a75dbd555ae013))
+
+
+
 ## 4.5.1.8 (2018-09-19)
 
 * fix control build stable

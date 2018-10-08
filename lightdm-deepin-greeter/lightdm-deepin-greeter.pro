@@ -57,7 +57,7 @@ host_mips64 {
     DEFINES += DISABLE_LOGIN_ANI
 }
 
-sw_64 {
+host_sw_64 {
     DEFINES += DISABLE_LOGIN_ANI
     DEFINES += SHENWEI_PLATFORM
 }
