@@ -34,7 +34,6 @@
 #include "shutdownwidget.h"
 #include "userwidget.h"
 #include "controlwidget.h"
-#include "passwdedit.h"
 #include "kblayoutwidget.h"
 
 #include "dbus/dbuslockservice.h"

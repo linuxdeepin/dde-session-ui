@@ -24,7 +24,6 @@
  */
 
 #include "userwidget.h"
-#include "passwdedit.h"
 #include "util_updateui.h"
 #include "dbus/dbusinputdevices.h"
 

@@ -80,7 +80,7 @@ void ControlWidget::showTips()
     m_tipsAni->setEndValue(QPoint());
     m_tipsAni->start();
 #else
-    m_tipsLabel->move(0, 0);
+    m_sessionTip->move(0, 0);
 #endif
 }
 
@@ -91,7 +91,7 @@ void ControlWidget::hideTips()
     m_tipsAni->setStartValue(QPoint());
     m_tipsAni->start();
 #else
-    m_tipsLabel->move(m_tipWidget->width(), 0);
+    m_sessionTip->move(m_tipWidget->width(), 0);
 #endif
 }
 
@@ -164,9 +164,11 @@ void ControlWidget::setSessionSwitchEnable(const bool visible)
         m_sessionTip->move(m_tipWidget->width(), 0);
     }
 
+#ifndef SHENWEI_PLATFORM
     if (!m_tipsAni) {
         m_tipsAni = new QPropertyAnimation(m_sessionTip, "pos", this);
     }
+#endif
 
     m_sessionBtn->setVisible(visible);
 }

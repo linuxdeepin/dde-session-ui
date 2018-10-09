@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.5.1.10 (2018-10-09)
+
+
+#### Bug Fixes
+
+*   compile failed on sw platform ([ed573c3a](https://github.com/linuxdeepin/dde-session-ui/commit/ed573c3ac717bc6041efabcb02c213cc669dfff6))
+
+
+
+<a name=""></a>
 ##  4.5.1.9 (2018-10-08)
 
 

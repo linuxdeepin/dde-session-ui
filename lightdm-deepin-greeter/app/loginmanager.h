@@ -37,7 +37,6 @@
 
 #include "util_updateui.h"
 #include "userwidget.h"
-#include "passwdedit.h"
 #include "view/logowidget.h"
 #include "sessionwidget.h"
 #include "kblayoutwidget.h"
