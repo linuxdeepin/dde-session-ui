@@ -487,7 +487,7 @@ void LockManager::switchToUser(User *user)
 
     m_userWidget->restoreUser(m_currentUser);
 
-    updatePasswordEditVisible(user);
+    updatePasswordEditVisible(m_currentUser);
 
     // TODO: FIXME
     saveUser(user);
