@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.5.1.11 (2018-10-24)
+
+
+#### Bug Fixes
+
+* **shutdown:**  background not split ([2f79d728](https://github.com/linuxdeepin/dde-session-ui/commit/2f79d728ce008c6b2133a2f1b02fa4c073e9906e))
+
+
+
+<a name=""></a>
 ##  4.5.1.10 (2018-10-09)
 
 
