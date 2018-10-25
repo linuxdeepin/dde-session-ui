@@ -150,32 +150,32 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="179"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="182"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="251"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="254"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="369"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>指纹密码验证超时，请手动输入密码！</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="392"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="396"/>
         <source>Failed to match fingerprint</source>
         <translation>指纹解锁失败</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="607"/>
         <source>Enter your password to reboot</source>
         <translation>请输入密码以完成重启</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="619"/>
         <source>Enter your password to shutdown</source>
         <translation>请输入密码以完成关机</translation>
     </message>
@@ -183,27 +183,27 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="370"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="380"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="604"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="587"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>指纹密码验证超时，请手动输入密码！</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="619"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="602"/>
         <source>Failed to match fingerprint</source>
         <translation>指纹解锁失败</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="663"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="646"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="667"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="650"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>域账户或域密码不正确，请重新输入。</translation>
     </message>
@@ -224,6 +224,58 @@
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="127"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>此电脑还有以上帐户在登录，重启电脑会导致其数据丢失，是否要重启此电脑？</translation>
+    </message>
+</context>
+<context>
+    <name>NetworkSecretDialog</name>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="46"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
+        <source>Password</source>
+        <translation>密码</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
+        <source>Key</source>
+        <translation>秘钥</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
+        <source>key</source>
+        <translation>秘钥</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
+        <source>Private Pwd</source>
+        <translation>私钥密码</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
+        <source>Proxy Password</source>
+        <translation>代理密码</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
+        <source>Group Password</source>
+        <translation>组密码</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
+        <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
+        <translation>连接&lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;需要密码</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <source>Connect</source>
+        <translation>连接</translation>
     </message>
 </context>
 <context>
@@ -256,13 +308,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="625"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
         <source>Shut down</source>
         <translation>关机</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="613"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Reboot</source>
         <translation>重启</translation>
     </message>
@@ -338,7 +390,7 @@
 <context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="392"/>
+        <location filename="../widgets/userwidget.cpp" line="420"/>
         <source>Domain account</source>
         <translation>域账户</translation>
     </message>

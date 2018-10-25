@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ja" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fil" version="2.1">
 <context>
     <name>ContentWidget</name>
     <message>
@@ -7,7 +7,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="503"/>
         <source>Shut down</source>
-        <translation>シャットダウン</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="329"/>
@@ -15,43 +15,43 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
         <source>Reboot</source>
-        <translation>再起動</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
         <source>Are you sure to shut down?</source>
-        <translation>シャットダウンしてもよろしいですか？</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="383"/>
         <source>Are you sure to reboot?</source>
-        <translation>再起動してもよろしいですか？</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
         <source>Log out</source>
-        <translation>ログアウト</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
         <source>Are you sure to log out?</source>
-        <translation>ログアウトしてもよろしいですか？</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
         <source>Suspend</source>
-        <translation>サスペンド</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
         <source>Lock</source>
-        <translation>ロック</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Switch user</source>
-        <translation>ユーザー切替</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -60,7 +60,7 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
@@ -80,7 +80,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
         <source>Continue</source>
-        <translation>つづける</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
@@ -123,12 +123,12 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
         <source>Duplicate</source>
-        <translation>複製</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
         <source>Extend</source>
-        <translation>拡張</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -136,7 +136,7 @@
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="34"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -144,7 +144,7 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
-        <translation>キーボードレイアウトの追加</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -152,12 +152,12 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="182"/>
         <source>Login</source>
-        <translation>ロック</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="254"/>
         <source>Wrong Password</source>
-        <translation>パスワードが不正です</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="373"/>
@@ -172,12 +172,12 @@
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="607"/>
         <source>Enter your password to reboot</source>
-        <translation>再起動するにはパスワードを入力してください</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/lockmanager.cpp" line="619"/>
         <source>Enter your password to shutdown</source>
-        <translation>シャットダウンするにはパスワードを入力してください</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -185,7 +185,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="380"/>
         <source>Login</source>
-        <translation>ロック</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="587"/>
@@ -200,7 +200,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="646"/>
         <source>Wrong Password</source>
-        <translation>不正なパスワード</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="650"/>
@@ -213,17 +213,17 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="121"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>現在次のユーザーがまだログインし続けていて、このデータは失われます、シャットダウンを行ってもよろしいですか？</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="127"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>現在次のユーザーがまだログインし続けていて、このデータは失われます。再起動を行ってもよろしいですか？</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -233,14 +233,14 @@
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
         <source>Password</source>
-        <translation>パスワード</translation>
+        <translation>Password</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
         <source>Key</source>
-        <translation>キー</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
@@ -250,7 +250,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
         <source>Private Pwd</source>
-        <translation>プライベートパスワード</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
@@ -270,12 +270,12 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Connect</source>
-        <translation>接続</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -283,17 +283,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation>ウインドウ効果は有効にされた</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation>ウィウンド効果は無効にされた</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation>ウィンドウ効果の有効化に失敗しました</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation>終了</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -310,18 +310,18 @@
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
         <location filename="../dde-lock/lockmanager.cpp" line="622"/>
         <source>Shut down</source>
-        <translation>シャットダウン</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
         <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Reboot</source>
-        <translation>再起動</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="53"/>
         <source>Suspend</source>
-        <translation>サスペンド</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -340,12 +340,12 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Suspend</source>
-        <translation>サスペンド</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -353,7 +353,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>システムモニターをスタート</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -361,12 +361,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="76"/>
         <source>hh:mm</source>
-        <translation>hh:mm</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="77"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -438,7 +438,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -446,7 +446,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>バッテリー少量、電源プラグを差してください</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

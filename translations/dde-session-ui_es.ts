@@ -150,32 +150,32 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="179"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="182"/>
         <source>Login</source>
         <translation>Acceder</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="251"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="254"/>
         <source>Wrong Password</source>
         <translation>Contraseña incorrecta </translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="369"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Tiempo para verificación dactilar finalizada, por favor ingrese la contraseña manualmente</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="392"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="396"/>
         <source>Failed to match fingerprint</source>
         <translation>Falló la coincidencia de huella</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="607"/>
         <source>Enter your password to reboot</source>
         <translation>Ingrese su contraseña para reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="619"/>
         <source>Enter your password to shutdown</source>
         <translation>Ingrese su contraseña para apagar</translation>
     </message>
@@ -183,27 +183,27 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="370"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="380"/>
         <source>Login</source>
         <translation>Iniciar sesión</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="604"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="587"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Tiempo agotado para la verificación de huella, coloque su contraseña manualmente</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="619"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="602"/>
         <source>Failed to match fingerprint</source>
         <translation>Falló la coincidencia de huella</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="663"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="646"/>
         <source>Wrong Password</source>
         <translation>Contraseña incorrecta</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="667"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="650"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>La cuenta de dominio o la contraseña no son correctas. Por favor ingrese nuevamente.</translation>
     </message>
@@ -224,6 +224,58 @@
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="127"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>Los usuarios anteriores aún se encuentran conectados y sus datos podrían perderse a causa del reinicio, ¿Está seguro de reiniciar?</translation>
+    </message>
+</context>
+<context>
+    <name>NetworkSecretDialog</name>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="46"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
+        <source>Password</source>
+        <translation>Contraseña</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
+        <source>Key</source>
+        <translation>Clave</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
+        <source>key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
+        <source>Private Pwd</source>
+        <translation>Contraseña Privada</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
+        <source>Proxy Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
+        <source>Group Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
+        <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <source>Connect</source>
+        <translation>Conectar</translation>
     </message>
 </context>
 <context>
@@ -256,13 +308,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="625"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
         <source>Shut down</source>
         <translation>Apagar</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="613"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Reboot</source>
         <translation>Reiniciar</translation>
     </message>
@@ -338,7 +390,7 @@
 <context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="392"/>
+        <location filename="../widgets/userwidget.cpp" line="420"/>
         <source>Domain account</source>
         <translation>Cuenta de dominio</translation>
     </message>

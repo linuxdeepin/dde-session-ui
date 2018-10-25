@@ -150,32 +150,32 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="179"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="182"/>
         <source>Login</source>
         <translation>መግቢያ</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="251"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="254"/>
         <source>Wrong Password</source>
         <translation>የተሳሳተ የመግቢያ ቃል</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="369"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="392"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="396"/>
         <source>Failed to match fingerprint</source>
         <translation>የ ጣት አሻራ ማመሳሰል አልተቻለም</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="607"/>
         <source>Enter your password to reboot</source>
         <translation>እንደገና ለማስጀመር የ እርስዎን የ መግቢያ ቃል ያስገቡ</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="619"/>
         <source>Enter your password to shutdown</source>
         <translation>ለ ማጥፋት የ እርስዎን የ መግቢያ ቃል ያስገቡ</translation>
     </message>
@@ -183,27 +183,27 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="370"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="380"/>
         <source>Login</source>
         <translation>መግቢያ</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="604"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="587"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="619"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="602"/>
         <source>Failed to match fingerprint</source>
         <translation>የ ጣት አሻራ ማመሳሰል አልተቻለም</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="663"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="646"/>
         <source>Wrong Password</source>
         <translation>የተሳሳተ የመግቢያ ቃል</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="667"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="650"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation type="unfinished"/>
     </message>
@@ -227,21 +227,73 @@
     </message>
 </context>
 <context>
+    <name>NetworkSecretDialog</name>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="46"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
+        <source>Password</source>
+        <translation>የ መግቢያ ቃል</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
+        <source>Key</source>
+        <translation>ቁልፍ</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
+        <source>key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
+        <source>Private Pwd</source>
+        <translation>የ ግል መግቢያ ቃል</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
+        <source>Proxy Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
+        <source>Group Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
+        <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <source>Cancel</source>
+        <translation>መሰረዣ</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <source>Connect</source>
+        <translation>መገናኛ</translation>
+    </message>
+</context>
+<context>
     <name>OSDProvider</name>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>የ መስኮት ውጤት አስችለዋል</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>የ መስኮት ውጤት ተሰናክሏል</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation type="unfinished"/>
+        <translation>የ መስኮት ውጤት ማስቻል አልተቻለም</translation>
     </message>
 </context>
 <context>
@@ -256,13 +308,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="625"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
         <source>Shut down</source>
         <translation>ማጥፊያ</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="613"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Reboot</source>
         <translation>እንደገና ማስነሻ</translation>
     </message>
@@ -338,7 +390,7 @@
 <context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="392"/>
+        <location filename="../widgets/userwidget.cpp" line="420"/>
         <source>Domain account</source>
         <translation type="unfinished"/>
     </message>

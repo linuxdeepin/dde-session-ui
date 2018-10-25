@@ -150,32 +150,32 @@
 <context>
     <name>LockManager</name>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="179"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="182"/>
         <source>Login</source>
         <translation>Bejelentkezés</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="251"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="254"/>
         <source>Wrong Password</source>
         <translation>Helytelen jelszó</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="369"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Ujjlenyomatos hitelesítés időkorlátja lejárt, kérem adja meg jelszavát</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="392"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="396"/>
         <source>Failed to match fingerprint</source>
         <translation>Nem egyezik az ujjlenyomat</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="607"/>
         <source>Enter your password to reboot</source>
         <translation>Adja meg a jelszavát az újraindításhoz.</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="619"/>
         <source>Enter your password to shutdown</source>
         <translation>Adjuk meg a jelszót a leállításhoz</translation>
     </message>
@@ -183,29 +183,29 @@
 <context>
     <name>LoginManager</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="370"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="380"/>
         <source>Login</source>
         <translation>Bejelentkezés</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="604"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="587"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Az ujjlenyomat azonosítása időtúllépés miatt sikertelen volt. Kérem adja meg a jelszavát</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="619"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="602"/>
         <source>Failed to match fingerprint</source>
         <translation>Nem egyezik az ujjlenyomat</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="663"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="646"/>
         <source>Wrong Password</source>
         <translation>Helytelen jelszó</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="667"/>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="650"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>A domain fiók vagy a jelszó helytelen. Kérem adja meg újra</translation>
     </message>
 </context>
 <context>
@@ -227,21 +227,73 @@
     </message>
 </context>
 <context>
+    <name>NetworkSecretDialog</name>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="46"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
+        <source>Password</source>
+        <translation>Jelszó</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
+        <source>Key</source>
+        <translation>Kulcs</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
+        <source>key</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
+        <source>Private Pwd</source>
+        <translation>Privát jelszó</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
+        <source>Proxy Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
+        <source>Group Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
+        <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <source>Cancel</source>
+        <translation>Mégse</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <source>Connect</source>
+        <translation>Csatlakozás</translation>
+    </message>
+</context>
+<context>
     <name>OSDProvider</name>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Effektek engedélyezve</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Effektek letiltva</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation type="unfinished"/>
+        <translation>Effektek engedélyezése sikertelen</translation>
     </message>
 </context>
 <context>
@@ -256,13 +308,13 @@
     <name>ShutdownWidget</name>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="625"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
         <source>Shut down</source>
         <translation>Leállítás</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="613"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
         <source>Reboot</source>
         <translation>Újraindítás</translation>
     </message>
@@ -338,9 +390,9 @@
 <context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="392"/>
+        <location filename="../widgets/userwidget.cpp" line="420"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Domain fiók</translation>
     </message>
 </context>
 <context>
