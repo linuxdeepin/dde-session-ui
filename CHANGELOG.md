@@ -1,3 +1,33 @@
+<a name=""></a>
+##  4.5.1.11 (2018-10-24)
+
+
+#### Bug Fixes
+
+* **shutdown:**  background not split ([2f79d728](https://github.com/linuxdeepin/dde-session-ui/commit/2f79d728ce008c6b2133a2f1b02fa4c073e9906e))
+
+
+
+<a name=""></a>
+##  4.5.1.10 (2018-10-09)
+
+
+#### Bug Fixes
+
+*   compile failed on sw platform ([ed573c3a](https://github.com/linuxdeepin/dde-session-ui/commit/ed573c3ac717bc6041efabcb02c213cc669dfff6))
+
+
+
+<a name=""></a>
+##  4.5.1.9 (2018-10-08)
+
+
+#### Bug Fixes
+
+*   sw_64 missing host_sw_64 ([026883af](https://github.com/linuxdeepin/dde-session-ui/commit/026883afd56981b826fe4877e9a75dbd555ae013))
+
+
+
 ## 4.5.1.8 (2018-09-19)
 
 * fix control build stable

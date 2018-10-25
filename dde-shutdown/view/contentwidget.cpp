@@ -590,7 +590,7 @@ void ContentWidget::initBackground()
 
     connect(m_dbusAppearance, &Appearance::Changed, this, [=](const QString &type, const QString &path){
         if (type == "background") {
-            updateWallpaper(path);
+            updateWallpaper(path.split(";").first());
         }
     });
 }

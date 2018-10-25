@@ -46,7 +46,7 @@ host_mips64 {
     DEFINES += LOCK_NO_QUIT
 }
 
-sw_64 {
+host_sw_64 {
     DEFINES += DISABLE_LOGIN_ANI
     DEFINES += SHENWEI_PLATFORM
 }
