@@ -1,4 +1,50 @@
 <a name=""></a>
+##  4.6.0 (2018-10-25)
+
+
+#### Features
+
+*   disable unlock animation for mips and sw ([39c23818](https://github.com/linuxdeepin/dde-session-ui/commit/39c23818270f84940ec9e32df2fc35355f974980))
+*   update judgement rule ([3783095b](https://github.com/linuxdeepin/dde-session-ui/commit/3783095be9a8f528913df5101f702869c627c3bc))
+*   use shell script replace xrandr handle for main.cpp ([b2d4828c](https://github.com/linuxdeepin/dde-session-ui/commit/b2d4828c89c65e33508fa5be4a7d901251ceb9ef))
+* **OSD:**  add trackpad toggle svg ([24e525cc](https://github.com/linuxdeepin/dde-session-ui/commit/24e525cc019e97ba49bebbbd48acd4bc08ef19aa))
+* **greeter:**
+  *  support run some scripts ([2f3a3e31](https://github.com/linuxdeepin/dde-session-ui/commit/2f3a3e31292f5e3a96a83e3484eb083f9d13e152))
+  *  disable login animation for sw64 ([4c77610a](https://github.com/linuxdeepin/dde-session-ui/commit/4c77610a8d0267d3b690fdb3da7853107cb85255))
+  *  save last login user and restore last logout user after startup ([9bfbbd9a](https://github.com/linuxdeepin/dde-session-ui/commit/9bfbbd9a3f5cc3120b789d4ced7557854609ad5b))
+* **notify:**
+  *  run only under the deepin desktop ([edf83b2a](https://github.com/linuxdeepin/dde-session-ui/commit/edf83b2a7fe7da82e4c70cb435eb541a9740b6ee))
+  *  support desktop entry for notify hints ([1f247e8c](https://github.com/linuxdeepin/dde-session-ui/commit/1f247e8c6bda3d4bc4ed820f48ba8002932c39d6))
+* **welcome:**  remove check system version ([aad78ad2](https://github.com/linuxdeepin/dde-session-ui/commit/aad78ad2530bc1ee827244aacde71573b5fa6352))
+
+#### Bug Fixes
+
+*   00-xrandr ([93d6655f](https://github.com/linuxdeepin/dde-session-ui/commit/93d6655f41e84b36163b0b39225abf5b89f050f6))
+*   mission build depend ([021ab0cc](https://github.com/linuxdeepin/dde-session-ui/commit/021ab0cc439bf263f20d88fbb537414802db44ce))
+*   add depend only on amd64 ([57632e6d](https://github.com/linuxdeepin/dde-session-ui/commit/57632e6d9dc3adda81388274a2318fea36c9dc1b))
+*   move elf to /usr/bin/ ([58964dd1](https://github.com/linuxdeepin/dde-session-ui/commit/58964dd14bdd32c0b9fb9a88c0194a7807bd067e))
+*   not set auth user after auth faild ([d13e46bf](https://github.com/linuxdeepin/dde-session-ui/commit/d13e46bf4c70b97404aa047b63d438099d67cb16))
+*   typo ([af328672](https://github.com/linuxdeepin/dde-session-ui/commit/af328672f9ace5c99cdaa6fb1a7a0fb47148f7ea))
+*   add depend only on amd64 ([ce392422](https://github.com/linuxdeepin/dde-session-ui/commit/ce39242227fa473347bebf99abfa63cde5bb7921))
+*   non-essential service is required ([55cebdbc](https://github.com/linuxdeepin/dde-session-ui/commit/55cebdbc2ff9be06bf4de465050790c5798b8805))
+* **Background:**
+  *  background align center for screen ([9beebf3b](https://github.com/linuxdeepin/dde-session-ui/commit/9beebf3bcbef33031f68b44cb437eff29f7b6ad8))
+  *  Error of precision ([509d2e3c](https://github.com/linuxdeepin/dde-session-ui/commit/509d2e3c9bb25342b0b3ffddc114baa3e5bd60d5))
+* **KBLayout:**  missing setxkbmap model argument ([2cd1a738](https://github.com/linuxdeepin/dde-session-ui/commit/2cd1a7386762914802557cddf99efadd6dd4cb3d))
+* **dde-lock:**  disable input method ([15ae6623](https://github.com/linuxdeepin/dde-session-ui/commit/15ae66230f70338177e264d20636d680e75a1e25))
+* **greeter:**  nopasswd user cannot login ([12201b10](https://github.com/linuxdeepin/dde-session-ui/commit/12201b10526ca913a680a77ec1bd9dc397b829c1))
+* **lock:**
+  *  Error updating user status ([b38e492b](https://github.com/linuxdeepin/dde-session-ui/commit/b38e492b66256a193753e9452cac2827c87e2d0f))
+  *  not hide alert ([a6cbd383](https://github.com/linuxdeepin/dde-session-ui/commit/a6cbd383343a9dfb57c3179687c13a3f74cb82d3))
+  *  grab keyboard failure ([05281e22](https://github.com/linuxdeepin/dde-session-ui/commit/05281e22b39a651af900228b7718a0b12a9d99e8))
+  *  crash when media player buttons is clicked ([a88533d3](https://github.com/linuxdeepin/dde-session-ui/commit/a88533d311bd26c0844ef7f730615c69dc9a3a43))
+  *  not stop animation when unlock ([259f1f60](https://github.com/linuxdeepin/dde-session-ui/commit/259f1f606bb8ebcfa231fd8468259b7c8ce33577))
+* **lock/lightdm:**  hide alert tooltip when shutdown widgets is displayed ([310160fd](https://github.com/linuxdeepin/dde-session-ui/commit/310160fd9f5fc025f36b6fd60a7cdfbc656c6f61))
+* **shutdown:**  add background failback ([15e0c2c4](https://github.com/linuxdeepin/dde-session-ui/commit/15e0c2c4b2a2d9c7558bf18ed02eac77930de41d))
+
+
+
+<a name=""></a>
 ##  4.5.1.11 (2018-10-24)
 
 
