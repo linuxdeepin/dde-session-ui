@@ -305,6 +305,7 @@ void LoginManager::startSession()
         json["Uid"] = static_cast<int>(user->uid());
         json["Type"] = user->type();
         m_userWidget->saveLastUser(json);
+        set_rootwindow_cursor();
         m_greeter->startSessionSync(m_sessionWidget->currentSessionKey());
     };
 
@@ -412,7 +413,6 @@ void LoginManager::initUI()
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/login.qss", this);
 #endif
-    QTimer::singleShot(1000, this, set_rootwindow_cursor);
 }
 
 void LoginManager::initData()
