@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName("deepin");
     app.setApplicationName("dnetwork-secret-dialog");
     app.setTheme("dlight");
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
