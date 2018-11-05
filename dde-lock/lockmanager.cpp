@@ -159,7 +159,7 @@ void LockManager::initUI()
     m_passwdEditAnim->setContentsMargins(5, 0, 0, 0);
     m_passwdEditAnim->lineEdit()->setContextMenuPolicy(Qt::NoContextMenu);
 #ifndef SHENWEI_PLATFORM
-    m_passwdEditAnim->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2, 34));
+    m_passwdEditAnim->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2, 38));
 #else
     m_passwdEditAnim->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 1, 34));
 #endif
@@ -314,8 +314,6 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
 {
     qDebug() << "ReleaseEvent";
 
-    m_action = Unlock;
-
     if (m_layoutState != UnlockState) {
         m_layoutState = UnlockState;
         passwordMode();
@@ -324,7 +322,10 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
         }
 
         m_passwdEditAnim->lineEdit()->setPlaceholderText("");
+        return;
     }
+
+    m_action = Unlock;
 
     QFrame::mouseReleaseEvent(e);
 }
