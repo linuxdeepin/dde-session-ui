@@ -570,6 +570,10 @@ void LoginManager::restoreUser()
 
     qDebug() << "last user is: " << user->name();
 
+    if (m_currentUser == nullptr) {
+        m_currentUser = user;
+    }
+
     m_userWidget->restoreUser(user);
     onCurrentUserChanged(user);
 
@@ -686,6 +690,10 @@ void LoginManager::onCurrentUserChanged(User *user)
     qDebug() << "previous selected user: " << m_sessionWidget->currentSessionOwner();
 
     // TODO: update current user information
+
+    m_recordPasswd[m_currentUser->name()] = m_passwdEditAnim->lineEdit()->text();
+    m_passwdEditAnim->lineEdit()->setText(m_recordPasswd[user->name()]);
+    m_passwdEditAnim->hideAlert();
 
     m_currentUser = user;
     m_requireShutdownWidget->hide();

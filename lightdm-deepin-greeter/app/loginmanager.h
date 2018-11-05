@@ -169,6 +169,7 @@ private:
     User *m_currentUser;
     LayoutState m_layoutState;
     Logined *m_logined;
+    QMap<QString, QString> m_recordPasswd;
 };
 #endif // LoginManager
 
