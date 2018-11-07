@@ -118,5 +118,6 @@
         <file>img/sessions/unknown_indicator_normal.svg</file>
         <file>img/sessions/unknown_indicator_press.svg</file>
         <file>img/default_avatar.png</file>
+        <file>img/select.svg</file>
     </qresource>
 </RCC>

@@ -28,8 +28,11 @@
 #include <QTimer>
 #include <QSettings>
 
+#include "dhidpihelper.h"
 #include "userbutton.h"
 #include "userwidget.h"
+
+DWIDGET_USE_NAMESPACE
 
 UserButton::UserButton(User *user, QWidget *parent)
     : QPushButton(parent)
@@ -83,7 +86,8 @@ void UserButton::initUI()
     m_userAvatar->setIcon(m_user->avatarPath());
 
     m_checkedMark = new QLabel;
-    QPixmap pixmap(":/img/avatar_checked.png");
+
+    QPixmap pixmap = DHiDPIHelper::loadNxPixmap(":img/select.svg");
     pixmap.setDevicePixelRatio(devicePixelRatioF());
     m_checkedMark->setPixmap(pixmap);
 
