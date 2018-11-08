@@ -48,7 +48,8 @@ class RoundItemButton: public QAbstractButton
     Q_PROPERTY(bool disabled READ isDisabled WRITE setDisabled NOTIFY stateChanged)
 
 public:
-    RoundItemButton(const QString &text, QWidget* parent=0);
+    RoundItemButton(QWidget* parent = nullptr);
+    RoundItemButton(const QString &text, QWidget* parent = nullptr);
     ~RoundItemButton();
 
     enum State {Default, Normal, Hover, Checked, Pressed, Disabled};

@@ -25,6 +25,12 @@
 
 #include "shutdownwidget.h"
 
+#if 0 // storage i10n
+QT_TRANSLATE_NOOP("ShutdownWidget", "Shut down"),
+QT_TRANSLATE_NOOP("ShutdownWidget", "Reboot"),
+QT_TRANSLATE_NOOP("ShutdownWidget", "Suspend")
+#endif
+
 ShutdownWidget::ShutdownWidget(QWidget *parent)
     : QFrame(parent)
 {
@@ -41,18 +47,26 @@ void ShutdownWidget::initConnect() {
     connect(this, &ShutdownWidget::directRight, &ShutdownWidget::rightKeySwitch);
 }
 
+void ShutdownWidget::updateTr(RoundItemButton *widget, const QString &tr)
+{
+    m_trList << std::pair<std::function<void (QString)>, QString>(std::bind(&RoundItemButton::setText, widget, std::placeholders::_1), tr);
+}
+
 void ShutdownWidget::initUI() {
-    m_requireShutdownButton = new RoundItemButton(tr("Shut down"), this);
+    m_requireShutdownButton = new RoundItemButton(this);
     m_requireShutdownButton->setObjectName("RequireShutdownButton");
     m_requireShutdownButton->setAutoExclusive(true);
+    updateTr(m_requireShutdownButton, "Shut down");
 
     m_requireRestartButton = new RoundItemButton(tr("Reboot"), this);
     m_requireRestartButton->setObjectName("RequireRestartButton");
     m_requireRestartButton->setAutoExclusive(true);
+    updateTr(m_requireRestartButton, "Reboot");
 
     m_requireSuspendBUtton = new RoundItemButton(tr("Suspend"), this);
     m_requireSuspendBUtton->setObjectName("RequireSuspendButton");
     m_requireSuspendBUtton->setAutoExclusive(true);
+    updateTr(m_requireSuspendBUtton, "Suspend");
 
     m_currentSelectedBtn = m_requireShutdownButton;
     m_currentSelectedBtn->updateState(RoundItemButton::Default);
@@ -139,6 +153,18 @@ void ShutdownWidget::keyReleaseEvent(QKeyEvent *event)
 
 
     QFrame::keyReleaseEvent(event);
+}
+
+bool ShutdownWidget::event(QEvent *e)
+{
+    if (e->type() == QEvent::LanguageChange) {
+        // refresh language
+        for (auto it = m_trList.constBegin(); it != m_trList.constEnd(); ++it) {
+            (*it).first(qApp->translate("ShutdownWidget", (*it).second.toUtf8()));
+        }
+    }
+
+    return QFrame::event(e);
 }
 
 ShutdownWidget::~ShutdownWidget() {

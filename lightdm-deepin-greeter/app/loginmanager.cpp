@@ -51,6 +51,10 @@
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 
+#if 0 // storage i10n
+QT_TRANSLATE_NOOP("LoginManager", "Login")
+#endif
+
 using UserInter = com::deepin::daemon::accounts::User;
 using PowerInter = com::deepin::system::Power;
 
@@ -162,6 +166,7 @@ LoginManager::LoginManager(QWidget* parent)
                                      QDBusConnection::systemBus(), this))
     , m_currentUser(nullptr)
     , m_logined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
+    , m_translator(new QTranslator(this))
 {
     initUI();
     initData();
@@ -342,6 +347,18 @@ void LoginManager::mousePressEvent(QMouseEvent *e)
     QFrame::mousePressEvent(e);
 }
 
+bool LoginManager::event(QEvent *e)
+{
+    if (e->type() == QEvent::LanguageChange) {
+        // refresh language
+        for (auto it = m_trList.constBegin(); it != m_trList.constEnd(); ++it) {
+            (*it).first(qApp->translate("LoginManager", (*it).second.toUtf8()));
+        }
+    }
+
+    return QFrame::event(e);
+}
+
 void LoginManager::initUI()
 {
     setObjectName("LoginManagerTool");
@@ -378,11 +395,13 @@ void LoginManager::initUI()
 #endif
 
     m_loginButton = new QPushButton(this);
-    m_loginButton->setText(tr("Login"));
     m_loginButton->setFixedSize(160, 36);
     m_loginButton->setVisible(false);
     m_loginButton->setFocusPolicy(Qt::StrongFocus);
     m_loginButton->setDefault(true);
+
+    std::function<void (QString)> loginFn = std::bind(&QPushButton::setText, m_loginButton, std::placeholders::_1);
+    m_trList << std::pair<std::function<void (QString)>, QString>(loginFn, "Login");
 
     m_requireShutdownWidget = new ShutdownWidget(this);
     m_requireShutdownWidget->hide();
@@ -702,6 +721,12 @@ void LoginManager::onCurrentUserChanged(User *user)
     // clean old info
     m_accountStr.clear();
     m_passwdStr.clear();
+
+    // set user language
+    qApp->removeTranslator(m_translator);
+    const QString locale { user->locale() };
+    m_translator->load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale(locale.isEmpty() ? "en_US.UTF8" : locale).name());
+    qApp->installTranslator(m_translator);
 
     const QString &wallpaper = m_blurImageInter->Get(user->greeterBackgroundPath());
 

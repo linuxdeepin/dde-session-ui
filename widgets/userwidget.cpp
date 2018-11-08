@@ -976,6 +976,15 @@ bool User::operator==(const User &user) const
             m_uid == user.m_uid;
 }
 
+void User::setLocale(const QString &locale)
+{
+    if (m_locale == locale) return;
+
+    m_locale = locale;
+
+    emit localeChanged(locale);
+}
+
 void User::setisLogind(bool isLogind) {
     if (m_isLogind == isLogind) {
         return;
@@ -1004,9 +1013,12 @@ NativeUser::NativeUser(const QString &path, QObject *parent)
         emit greeterBackgroundPathChanged(toLocalFile(path));
     });
 
+    connect(m_userInter, &UserInter::LocaleChanged, this, &NativeUser::setLocale);
+
     m_userName = m_userInter->userName();
     m_uid = m_userInter->uid().toInt();
     m_userPath = path;
+    m_locale = m_userInter->locale();
 }
 
 void NativeUser::setCurrentLayout(const QString &layout)

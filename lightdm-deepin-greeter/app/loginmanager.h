@@ -56,6 +56,8 @@
 #include <com_deepin_daemon_imageblur.h>
 #include <com_deepin_daemon_logined.h>
 
+#include <functional>
+
 DWIDGET_USE_NAMESPACE
 
 using ImageBlur = com::deepin::daemon::ImageBlur;
@@ -82,6 +84,7 @@ public slots:
 protected:
     void resizeEvent(QResizeEvent *e) override;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
+    bool event(QEvent *e) Q_DECL_OVERRIDE;
 
 private slots:
     void login();
@@ -170,6 +173,8 @@ private:
     LayoutState m_layoutState;
     Logined *m_logined;
     QMap<QString, QString> m_recordPasswd;
+    QList<std::pair<std::function<void (QString)>, QString>> m_trList;
+    QTranslator *m_translator;
 };
 #endif // LoginManager
 

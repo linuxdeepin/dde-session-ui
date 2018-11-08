@@ -85,11 +85,6 @@ int main(int argc, char* argv[])
 
     DLogManager::registerConsoleAppender();
 
-    /* the logmanager is used to output debug log */
-    QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    a.installTranslator(&translator);
-
     LoginWindow lw;
     lw.showFullScreen();
 

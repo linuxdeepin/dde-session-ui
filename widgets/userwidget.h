@@ -67,12 +67,16 @@ signals:
     void avatarChanged(const QString &avatar) const;
     void greeterBackgroundPathChanged(const QString &path) const;
     void desktopBackgroundPathChanged(const QString &path) const;
+    void localeChanged(const QString &locale) const;
 
 public:
     bool operator==(const User &user) const;
     const QString name() const { return m_userName; }
     bool isLogin() const { return m_isLogind; }
     uint uid() const { return m_uid; }
+
+    const QString locale() const { return m_locale; }
+    void setLocale(const QString &locale);
 
     void setisLogind(bool isLogind);
     virtual void setCurrentLayout(const QString &layout) { Q_UNUSED(layout); }
@@ -89,6 +93,7 @@ protected:
     bool m_isLogind;
     uint m_uid;
     QString m_userName;
+    QString m_locale;
 };
 
 class NativeUser : public User

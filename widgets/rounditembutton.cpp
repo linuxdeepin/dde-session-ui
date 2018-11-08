@@ -27,6 +27,12 @@
 #include <QSvgRenderer>
 #include "rounditembutton.h"
 
+RoundItemButton::RoundItemButton(QWidget *parent)
+    : RoundItemButton("", parent)
+{
+
+}
+
 RoundItemButton::RoundItemButton(const QString &text, QWidget* parent)
     : QAbstractButton(parent),
       m_itemIcon(new QLabel(this)),

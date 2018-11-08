@@ -28,6 +28,8 @@
 
 #include <QFrame>
 
+#include <functional>
+
 #include "util_updateui.h"
 #include "rounditembutton.h"
 
@@ -59,10 +61,12 @@ protected:
     void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
     void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
     void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    bool event(QEvent *e) Q_DECL_OVERRIDE;
 
 private:
     void initUI();
     void initConnect();
+    void updateTr(RoundItemButton * widget, const QString &tr);
 
     int m_index = 0;
     QHBoxLayout* m_Layout;
@@ -71,7 +75,7 @@ private:
     RoundItemButton* m_requireShutdownButton;
     RoundItemButton* m_requireRestartButton;
     RoundItemButton* m_requireSuspendBUtton;
-
+    QList<std::pair<std::function<void (QString)>, QString>> m_trList;
 };
 #endif // SHUTDOWNWIDGET
 
