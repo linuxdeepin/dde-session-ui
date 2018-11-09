@@ -2,54 +2,54 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="503"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="364"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="507"/>
         <source>Shut down</source>
         <translation>Vypnout</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="329"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="355"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="340"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="366"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="393"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="510"/>
         <source>Reboot</source>
         <translation>Restartovat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="389"/>
         <source>Are you sure to shut down?</source>
         <translation>Opravdu chcete vypnout počítač?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="383"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="394"/>
         <source>Are you sure to reboot?</source>
         <translation>Opravdu chcete restartovat?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Log out</source>
         <translation>Odhlásit se</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="399"/>
         <source>Are you sure to log out?</source>
         <translation>Opravdu se chcete odhlásit?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
         <source>Suspend</source>
         <translation>Uspat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
         <source>Lock</source>
         <translation>Uzamknout</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="523"/>
         <source>Switch user</source>
         <translation>Přepnout uživatele</translation>
     </message>
@@ -70,12 +70,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Tato aplikace bude ukončena, ujistěte se, že vaše data byla uložena!</translation>
+        <translation>Tato aplikace bude ukončena. Ujistěte se, že vaše data byla uložena!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Uložte si prosím svůj dokument, text a tabulku</translation>
+        <translation>Uložte si, prosím, svůj dokument, text a tabulku</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -85,12 +85,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Nedostatečná paměť systému, ukončete některé aplikace, abyste zabránili zaseknutí systému.</translation>
+        <translation>Nedostatečná paměť systému. Ukončete některé aplikace, abyste zabránili zaseknutí systému.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>Pokračujte v spuštění aplikace %1, %2MB je vyžadována paměť</translation>
+        <translation>Pokračujte v spuštění aplikace %1. Je požadováno %2 MB paměti</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
@@ -100,22 +100,22 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>Chcete-li pokračovat v operaci, je vyžadována paměť %1MB</translation>
+        <translation>Chcete-li pokračovat v operaci, je vyžadována paměť %1 MB</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>Dosavadní paměť je dostačující, chcete pokračovat ve spuštění %1?</translation>
+        <translation>Nynější paměť je dostačující. Chcete pokračovat ve spuštění %1?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>Vaše aktuální paměť je dostačující, chcete pokračovat otevřením karty prohlížeče?</translation>
+        <translation>Vaše nynější paměť je dostačující. Chcete pokračovat otevřením karty prohlížeče?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation type="unfinished"/>
+        <translation>Nynější paměť je dostačující. Chcete pokračovat v operaci?</translation>
     </message>
 </context>
 <context>
@@ -160,52 +160,78 @@
         <translation>Špatné heslo</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="381"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se porovnat otisk prstu. Zadejte, prosím, své heslo ručně</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="396"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="404"/>
         <source>Failed to match fingerprint</source>
         <translation>Nepodařilo se porovnat otisk prstu</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="607"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="615"/>
         <source>Enter your password to reboot</source>
         <translation>Zadejte heslo pro restart</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="619"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="627"/>
         <source>Enter your password to shutdown</source>
         <translation>Zadejte své heslo pro vypnutí</translation>
     </message>
 </context>
 <context>
-    <name>LoginManager</name>
+    <name>LockWorker</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="380"/>
-        <source>Login</source>
-        <translation>Přihlášení</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="587"/>
+        <location filename="../session-widgets/lockworker.cpp" line="327"/>
+        <location filename="../session-widgets/lockworker.cpp" line="424"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Nepodařilo se porovnat otisk prstu. Zadejte, prosím, své heslo ručně</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="602"/>
+        <location filename="../session-widgets/lockworker.cpp" line="345"/>
+        <location filename="../session-widgets/lockworker.cpp" line="439"/>
         <source>Failed to match fingerprint</source>
         <translation>Nepodařilo se porovnat otisk prstu</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="646"/>
+        <location filename="../session-widgets/lockworker.cpp" line="369"/>
+        <location filename="../session-widgets/lockworker.cpp" line="453"/>
         <source>Wrong Password</source>
         <translation>Špatné heslo</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="650"/>
+        <location filename="../session-widgets/lockworker.cpp" line="457"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>Účet domény nebo heslo není správné. Zadejte je, prosím, znovu.</translation>
+    </message>
+</context>
+<context>
+    <name>LoginManager</name>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="48"/>
+        <source>Login</source>
+        <translation>Přihlášení</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="533"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation>Nepodařilo se porovnat otisk prstu. Zadejte, prosím, své heslo ručně</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="548"/>
+        <source>Failed to match fingerprint</source>
+        <translation>Nepodařilo se porovnat otisk prstu</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="592"/>
+        <source>Wrong Password</source>
+        <translation>Špatné heslo</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="596"/>
+        <source>The domain account or password is not correct. Please enter again.</source>
+        <translation>Účet domény nebo heslo není správné. Zadejte je, prosím, znovu.</translation>
     </message>
 </context>
 <context>
@@ -216,12 +242,12 @@
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="121"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>Výše uvedení uživatelé jsou stále přihlášeni a vypnutím budou data ztracena, opravdu chcete vypnout?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="127"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>Výše uvedení uživatelé jsou stále přihlášeni a restartováním budou data ztracena, opravdu chcete restartovat?</translation>
     </message>
@@ -245,7 +271,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>Klíč</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -255,17 +281,17 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>Heslo proxy</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>Heslo skupiny</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Heslo požadované pro připojení &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -307,19 +333,28 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="148"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="29"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="630"/>
         <source>Shut down</source>
         <translation>Vypnout</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="157"/>
+        <source>Login</source>
+        <translation>Přihlášení</translation>
+    </message>
+    <message>
+        <location filename="../session-widgets/userinputwidget.cpp" line="166"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="30"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="84"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="618"/>
         <source>Reboot</source>
         <translation>Restartovat</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="53"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="31"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="90"/>
         <source>Suspend</source>
         <translation>Uspat</translation>
     </message>
@@ -359,12 +394,12 @@
 <context>
     <name>TimeWidget</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="76"/>
+        <location filename="../dde-lock/timewidget.cpp" line="77"/>
         <source>hh:mm</source>
         <translation>hh:mm</translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="77"/>
+        <location filename="../dde-lock/timewidget.cpp" line="78"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>yyyy-MM-dd dddd</translation>
     </message>
@@ -388,11 +423,29 @@
     </message>
 </context>
 <context>
+    <name>UserInputWidget</name>
+    <message>
+        <location filename="../session-widgets/userinputwidget.cpp" line="13"/>
+        <source>Login</source>
+        <translation>Přihlášení</translation>
+    </message>
+    <message>
+        <location filename="../session-widgets/userinputwidget.cpp" line="147"/>
+        <source>Enter your password to shutdown</source>
+        <translation>Zadejte své heslo pro vypnutí</translation>
+    </message>
+    <message>
+        <location filename="../session-widgets/userinputwidget.cpp" line="165"/>
+        <source>Enter your password to reboot</source>
+        <translation>Zadejte heslo pro restart</translation>
+    </message>
+</context>
+<context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="420"/>
+        <location filename="../widgets/userwidget.cpp" line="410"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Účet domény</translation>
     </message>
 </context>
 <context>
@@ -400,7 +453,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
         <source>Effect Mode</source>
-        <translation>Účinný režim</translation>
+        <translation>Efektový režim</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
@@ -420,7 +473,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation type="unfinished"/>
+        <translation>Efektový režim: Zažijete nádherně plynulou zkušenost. Běžný režim: Užijte si vysokou rychlost</translation>
     </message>
 </context>
 <context>

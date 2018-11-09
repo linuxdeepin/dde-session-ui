@@ -2,54 +2,54 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="503"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="364"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="507"/>
         <source>Shut down</source>
         <translation>Encerrar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="329"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="355"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="340"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="366"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="393"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="510"/>
         <source>Reboot</source>
         <translation>Reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="378"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="389"/>
         <source>Are you sure to shut down?</source>
         <translation>Tem a certeza que quer encerrar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="383"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="394"/>
         <source>Are you sure to reboot?</source>
         <translation>Tem a certeza que quer reiniciar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="387"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Log out</source>
         <translation>Terminar sessão</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="399"/>
         <source>Are you sure to log out?</source>
         <translation>Tem a certeza que quer terminar a sessão?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
         <source>Suspend</source>
         <translation>Suspender</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
         <source>Lock</source>
         <translation>Bloquear</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="523"/>
         <source>Switch user</source>
         <translation>Mudar de utilizador</translation>
     </message>
@@ -95,7 +95,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Continuar a abrir separador do navegador, é necessário %1B de memória</translation>
+        <translation>Continuar a abrir separador do navegador, é necessário %1MB de memória</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
@@ -160,50 +160,76 @@
         <translation>Palavra-passe Errada</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="373"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="381"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Expirou o tempo para verificação por impressão digital, por favor insira a sua palavra-passe manualmente</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="396"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="404"/>
         <source>Failed to match fingerprint</source>
         <translation>A correspondência da impressão digital falhou</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="607"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="615"/>
         <source>Enter your password to reboot</source>
         <translation>Insira a sua palavra-passe para reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="619"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="627"/>
         <source>Enter your password to shutdown</source>
         <translation>Insira a sua palavra-passe para encerrar</translation>
     </message>
 </context>
 <context>
-    <name>LoginManager</name>
+    <name>LockWorker</name>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="380"/>
-        <source>Login</source>
-        <translation>Entrar</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="587"/>
+        <location filename="../session-widgets/lockworker.cpp" line="327"/>
+        <location filename="../session-widgets/lockworker.cpp" line="424"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Verificação de impressão digital expirada, por favor insira a sua palavra-passe manualmente</translation>
+        <translation>Expirou o tempo para verificação por impressão digital, por favor insira a sua palavra-passe manualmente</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="602"/>
+        <location filename="../session-widgets/lockworker.cpp" line="345"/>
+        <location filename="../session-widgets/lockworker.cpp" line="439"/>
         <source>Failed to match fingerprint</source>
         <translation>A correspondência da impressão digital falhou</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="646"/>
+        <location filename="../session-widgets/lockworker.cpp" line="369"/>
+        <location filename="../session-widgets/lockworker.cpp" line="453"/>
         <source>Wrong Password</source>
         <translation>Palavra-passe Errada</translation>
     </message>
     <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="650"/>
+        <location filename="../session-widgets/lockworker.cpp" line="457"/>
+        <source>The domain account or password is not correct. Please enter again.</source>
+        <translation>A conta de domínio ou palavra-passe não está correta. Por favor insira novamente.</translation>
+    </message>
+</context>
+<context>
+    <name>LoginManager</name>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="48"/>
+        <source>Login</source>
+        <translation>Entrar</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="533"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation>Verificação de impressão digital expirada, por favor insira a sua palavra-passe manualmente</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="548"/>
+        <source>Failed to match fingerprint</source>
+        <translation>A correspondência da impressão digital falhou</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="592"/>
+        <source>Wrong Password</source>
+        <translation>Palavra-passe Errada</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="596"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>A conta de domínio ou palavra-passe não está correta. Por favor insira novamente.</translation>
     </message>
@@ -216,12 +242,12 @@
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="121"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
         <translation>Os utilizadores acima continuam logados e os dados serão perdidos por causa do encerramento, tem a certeza que deseja encerrar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="127"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
         <translation>Os utilizadores acima continuam logados e os dados serão perdidos devido ao reinício, tem a certeza que deseja reiniciar?</translation>
     </message>
@@ -245,7 +271,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>chave</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -255,17 +281,17 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>Palavra-passe do Proxy</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>Palavra-passe do Grupo</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Necessária palavra-passe para ligar a &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -307,19 +333,28 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="45"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="622"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="148"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="29"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="630"/>
         <source>Shut down</source>
         <translation>Encerrar</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="49"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="610"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="157"/>
+        <source>Login</source>
+        <translation>Entrar</translation>
+    </message>
+    <message>
+        <location filename="../session-widgets/userinputwidget.cpp" line="166"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="30"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="84"/>
+        <location filename="../dde-lock/lockmanager.cpp" line="618"/>
         <source>Reboot</source>
         <translation>Reiniciar</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="53"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="31"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="90"/>
         <source>Suspend</source>
         <translation>Suspender</translation>
     </message>
@@ -359,12 +394,12 @@
 <context>
     <name>TimeWidget</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="76"/>
+        <location filename="../dde-lock/timewidget.cpp" line="77"/>
         <source>hh:mm</source>
         <translation>hh:mm</translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="77"/>
+        <location filename="../dde-lock/timewidget.cpp" line="78"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>yyyy-MM-dd dddd</translation>
     </message>
@@ -388,9 +423,27 @@
     </message>
 </context>
 <context>
+    <name>UserInputWidget</name>
+    <message>
+        <location filename="../session-widgets/userinputwidget.cpp" line="13"/>
+        <source>Login</source>
+        <translation>Entrar</translation>
+    </message>
+    <message>
+        <location filename="../session-widgets/userinputwidget.cpp" line="147"/>
+        <source>Enter your password to shutdown</source>
+        <translation>Insira a sua palavra-passe para encerrar</translation>
+    </message>
+    <message>
+        <location filename="../session-widgets/userinputwidget.cpp" line="165"/>
+        <source>Enter your password to reboot</source>
+        <translation>Insira a sua palavra-passe para reiniciar</translation>
+    </message>
+</context>
+<context>
     <name>UserWidget</name>
     <message>
-        <location filename="../widgets/userwidget.cpp" line="420"/>
+        <location filename="../widgets/userwidget.cpp" line="410"/>
         <source>Domain account</source>
         <translation>Conta de domínio</translation>
     </message>
