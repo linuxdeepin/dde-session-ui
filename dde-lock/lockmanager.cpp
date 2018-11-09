@@ -310,6 +310,13 @@ void LockManager::resizeEvent(QResizeEvent *event)
     QTimer::singleShot(0, this, &LockManager::updateWidgetsPosition);
 }
 
+void LockManager::moveEvent(QMoveEvent *event)
+{
+    m_passwdEditAnim->hideAlert();
+
+    QFrame::moveEvent(event);
+}
+
 void LockManager::mouseReleaseEvent(QMouseEvent *e)
 {
     qDebug() << "ReleaseEvent";

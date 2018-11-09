@@ -83,8 +83,9 @@ public slots:
 
 protected:
     void resizeEvent(QResizeEvent *e) override;
-    void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
-    bool event(QEvent *e) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent* e) override;
+    bool event(QEvent *e) override;
+    void moveEvent(QMoveEvent *e) override;
 
 private slots:
     void login();

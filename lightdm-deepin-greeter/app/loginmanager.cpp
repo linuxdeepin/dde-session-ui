@@ -359,6 +359,13 @@ bool LoginManager::event(QEvent *e)
     return QFrame::event(e);
 }
 
+void LoginManager::moveEvent(QMoveEvent *e)
+{
+    m_passwdEditAnim->hideAlert();
+
+    QFrame::moveEvent(e);
+}
+
 void LoginManager::initUI()
 {
     setObjectName("LoginManagerTool");

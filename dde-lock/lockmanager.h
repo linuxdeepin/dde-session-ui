@@ -94,9 +94,10 @@ public slots:
 //    void onUserUnlock(const QString& username);
 
 protected:
-    void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
-    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QMouseEvent *e) override;
+    void showEvent(QShowEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
+    void moveEvent(QMoveEvent *event) override;
 
 private:
     void initBackend();
