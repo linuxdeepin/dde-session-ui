@@ -1,3 +1,22 @@
+<a name="4.6.1"></a>
+### 4.6.1 (2018-11-09)
+
+
+#### Bug Fixes
+
+*   insufficient button space ([afc977a9](https://github.com/linuxdeepin/dde-session-ui/commit/afc977a9d4ae1ade1219c1422e47e77388e6ff64))
+*   checked Mark support hidpi. ([961dc66f](https://github.com/linuxdeepin/dde-session-ui/commit/961dc66fdf9ad29d2f37ef8ef761681646a86fcf))
+*   not restore user password when user changed ([4aa6e81e](https://github.com/linuxdeepin/dde-session-ui/commit/4aa6e81eeb5e827e77e80888a7afa2fbc765f9cf))
+*   hihdpi icon of lineedit clear button ([f078379e](https://github.com/linuxdeepin/dde-session-ui/commit/f078379eab6bbcdf0e2318d1b8591c826f881693))
+* **greeter:**  not use user's locale language ([42505736](https://github.com/linuxdeepin/dde-session-ui/commit/42505736d83e2ef30dc752d4b08a2001210e78e7))
+* **welcome:**  not have keypress event ([6b1fb901](https://github.com/linuxdeepin/dde-session-ui/commit/6b1fb90146b73d2a414836bd356af842cf5a6a1d))
+
+#### Features
+
+* **greeter:**  changle root cursor when start session ([8c3fa4f2](https://github.com/linuxdeepin/dde-session-ui/commit/8c3fa4f27520258436208de89c1ad817f09a7462))
+
+
+
 <a name=""></a>
 ##  4.6.0 (2018-10-25)
 
