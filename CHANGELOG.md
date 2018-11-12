@@ -1,4 +1,14 @@
 <a name="4.6.1"></a>
+## 4.6.1 (2018-11-12)
+
+
+#### Bug Fixes
+
+*   icon size in hihdpi mode of network secret dialog ([532742f6](https://github.com/linuxdeepin/dde-session-ui/commit/532742f67bd818d16dea9f6a328e2b198ee1af26))
+
+
+
+<a name="4.6.1"></a>
 ### 4.6.1 (2018-11-09)
 
 
