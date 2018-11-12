@@ -99,7 +99,7 @@ void NetworkSecretDialog::initUI()
 
     const auto ratio = qApp->devicePixelRatio();
     QPixmap iconPix = QIcon::fromTheme(
-                ConnTypeIconKeyMap.value(m_connType, "network-wired")).pixmap(QSize(48, 48) * ratio);
+                ConnTypeIconKeyMap.value(m_connType, "network-wired")).pixmap(QSize(64, 64) / ratio);
     iconPix.setDevicePixelRatio(ratio);
     setIconPixmap(iconPix);
 
