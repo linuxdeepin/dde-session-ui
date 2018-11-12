@@ -87,6 +87,11 @@ void ShutdownWidget::initUI() {
     setLayout(m_Layout);
 
     updateStyle(":/skin/requireshutdown.qss", this);
+
+    // refresh language
+    for (auto it = m_trList.constBegin(); it != m_trList.constEnd(); ++it) {
+        it->first(qApp->translate("ShutdownWidget", it->second.toUtf8()));
+    }
 }
 
 void ShutdownWidget::leftKeySwitch() {
@@ -160,7 +165,7 @@ bool ShutdownWidget::event(QEvent *e)
     if (e->type() == QEvent::LanguageChange) {
         // refresh language
         for (auto it = m_trList.constBegin(); it != m_trList.constEnd(); ++it) {
-            (*it).first(qApp->translate("ShutdownWidget", (*it).second.toUtf8()));
+            it->first(qApp->translate("ShutdownWidget", it->second.toUtf8()));
         }
     }
 
