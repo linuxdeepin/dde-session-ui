@@ -53,12 +53,12 @@ signals:
 
 public slots:
     void switchToUser(const QString &userName);
-    //    void leftKeySwitch();
-    //    void rightKeySwitch();
-    //    void chooseSession();
+    void leftKeySwitch();
+    void rightKeySwitch();
+    void chooseSession();
 
 protected:
-    void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    void keyReleaseEvent(QKeyEvent *event) override;
 
 private slots:
     void loadSessionList();

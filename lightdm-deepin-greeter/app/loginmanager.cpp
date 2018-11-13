@@ -816,6 +816,8 @@ void LoginManager::chooseSessionMode()
     m_layoutState = SessionState;
 
     m_sessionWidget->show();
+    // rekols: Do not call releaseKeyboard() m_sessionWidget keyboard events can lead to invalid.
+    m_userWidget->releaseKeyboard();
     m_userWidget->hide();
     m_passwdEditAnim->setVisible(false);
     m_passwdEditAnim->lineEdit()->releaseKeyboard();
@@ -827,7 +829,8 @@ void LoginManager::chooseSessionMode()
     m_keybdArrowWidget->hide();
 }
 
-void LoginManager::choosedSession() {
+void LoginManager::choosedSession()
+{
     if (!m_keybdArrowWidget->isHidden()) {
         m_keybdArrowWidget->hide();
     }

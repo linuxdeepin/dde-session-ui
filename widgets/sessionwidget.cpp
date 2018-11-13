@@ -152,8 +152,6 @@ void SessionWidget::switchToUser(const QString &userName)
 
 void SessionWidget::keyReleaseEvent(QKeyEvent *event)
 {
-    QFrame::keyReleaseEvent(event);
-
     switch (event->key()) {
     case Qt::Key_Enter:
     case Qt::Key_Return:
@@ -163,6 +161,13 @@ void SessionWidget::keyReleaseEvent(QKeyEvent *event)
                 break;
             }
         }
+        break;
+    case Qt::Key_Left:
+        leftKeySwitch();
+        break;
+    case Qt::Key_Right:
+    case Qt::Key_Tab:
+        rightKeySwitch();
         break;
     default:
         break;
@@ -194,29 +199,32 @@ int SessionWidget::sessionIndex(const QString &sessionName)
     return 0;
 }
 
-//void SessionWidget::leftKeySwitch() {
-//    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
-//    if (m_currentSessionIndex == 0) {
-//        m_currentSessionIndex = m_sessionModel->rowCount(QModelIndex()) - 1;
-//    } else {
-//        m_currentSessionIndex  -= 1;
-//    }
-//    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
-//}
+void SessionWidget::leftKeySwitch()
+{
+    if (m_currentSessionIndex == 0) {
+        m_currentSessionIndex = m_sessionBtns.size() - 1;
+    } else {
+        m_currentSessionIndex -= 1;
+    }
 
-//void SessionWidget::rightKeySwitch() {
-//    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Normal);
-//    if (m_currentSessionIndex == m_sessionModel->rowCount(QModelIndex()) - 1) {
-//        m_currentSessionIndex = 0;
-//    } else {
-//        m_currentSessionIndex += 1;
-//    }
-//    m_sessionBtns.at(m_currentSessionIndex)->updateState(RoundItemButton::Checked);
-//}
+    m_sessionBtns.at(m_currentSessionIndex)->setChecked(true);
+}
 
-//void SessionWidget::chooseSession() {
-//    emit m_sessionBtns.at(m_currentSessionIndex)->clicked();
-//}
+void SessionWidget::rightKeySwitch()
+{
+    if (m_currentSessionIndex == m_sessionBtns.size() - 1) {
+        m_currentSessionIndex = 0;
+    } else {
+        m_currentSessionIndex += 1;
+    }
+
+    m_sessionBtns.at(m_currentSessionIndex)->setChecked(true);
+}
+
+void SessionWidget::chooseSession()
+{
+    emit m_sessionBtns.at(m_currentSessionIndex)->clicked();
+}
 
 void SessionWidget::loadSessionList()
 {
