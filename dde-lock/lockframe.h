@@ -37,11 +37,16 @@ const QString DBUS_PATH = "/com/deepin/dde/lockFront";
 const QString DBUS_NAME = "com.deepin.dde.lockFront";
 
 class DBusLockService;
+class SessionBaseModel;
 class LockFrame: public FullscreenBackground
 {
     Q_OBJECT
 public:
-    LockFrame(QWidget* parent=0);
+#ifdef QT_DEBUG
+    LockFrame(SessionBaseModel * const model, QWidget* parent=0);
+#else
+    LockFrame(QWidget* parent = nullptr);
+#endif
     ~LockFrame();
 
 public slots:

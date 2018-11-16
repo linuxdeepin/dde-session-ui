@@ -27,7 +27,10 @@
 
 #include "lockframe.h"
 #include "dbus/dbuslockfrontservice.h"
-#include "dbus/dbuslockfront.h"
+
+#include "lockcontent.h"
+#include "lockworker.h"
+#include "sessionbasemodel.h"
 
 #include <QLabel>
 #include <dapplication.h>
@@ -64,7 +67,13 @@ int main(int argc, char *argv[])
     bool runDaemon = cmdParser.isSet(backend);
     bool showUserList = cmdParser.isSet(switchUser);
 
+#ifdef QT_DEBUG
+    SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LockType);
+    new LockWorker(model); //
+    LockFrame lockFrame(model);
+#else
     LockFrame lockFrame;
+#endif
     DBusLockFrontService service(&lockFrame);
     Q_UNUSED(service);
 

@@ -30,6 +30,8 @@
 
 #include <QFrame>
 
+#include "sessionbasewindow.h"
+
 #include "timewidget.h"
 #include "shutdownwidget.h"
 #include "userwidget.h"

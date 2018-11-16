@@ -29,14 +29,29 @@
 #include <X11/keysym.h>
 #include <X11/extensions/XTest.h>
 #include <QApplication>
+#include "lockcontent.h"
+#include "sessionbasemodel.h"
 
-LockFrame::LockFrame(QWidget* parent)
+#ifdef QT_DEBUG
+LockFrame::LockFrame(SessionBaseModel * const model, QWidget* parent)
     : FullscreenBackground(parent)
 {
     m_display = QX11Info::display();
 
     qDebug() << "LockFrame geometry:" << geometry();
 
+    LockContent *content = new LockContent(model);
+    setContent(content);
+
+    connect(content, &LockContent::requestBackground, this, static_cast<void (LockFrame::*)(const QString &)>(&LockFrame::updateBackground));
+}
+#else
+LockFrame::LockFrame(QWidget* parent)
+    : FullscreenBackground(parent)
+{
+    m_display = QX11Info::display();
+
+    qDebug() << "LockFrame geometry:" << geometry();
     m_lockManager = new LockManager(this);
 
     setContent(m_lockManager);
@@ -45,7 +60,9 @@ LockFrame::LockFrame(QWidget* parent)
     connect(m_lockManager, &LockManager::checkedHide, this, &LockFrame::hideFrame);
 #endif
     connect(m_lockManager, &LockManager::requestSetBackground, this, static_cast<void (LockFrame::*)(const QString &)>(&LockFrame::updateBackground));
+
 }
+#endif
 
 void LockFrame::showUserList() {
     showFullScreen();

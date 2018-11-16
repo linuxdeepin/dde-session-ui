@@ -13,7 +13,6 @@ HEADERS += \
     $$PWD/dbus/displayinterface.h \
     $$PWD/dbus/dbushotzone.h \
     $$PWD/dbus/dbuslockservice.h \
-    $$PWD/dbus/dbusaccounts.h \
     $$PWD/dbus/dbusinputdevices.h \
     $$PWD/dbus/dbuscontrolcenter.h \
     $$PWD/dbus/dbuskeyboard.h \
@@ -31,7 +30,6 @@ SOURCES += \
     $$PWD/dbus/displayinterface.cpp \
     $$PWD/dbus/dbushotzone.cpp \
     $$PWD/dbus/dbuslockservice.cpp \
-    $$PWD/dbus/dbusaccounts.cpp \
     $$PWD/dbus/dbuskeyboard.cpp \
     $$PWD/dbus/dbusinputdevices.cpp \
     $$PWD/dbus/dbuscontrolcenter.cpp \

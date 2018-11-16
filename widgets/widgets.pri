@@ -6,6 +6,8 @@
 INCLUDEPATH += $$PWD
 QT += x11extras svg
 
+include(../session-widgets/session-widgets.pri)
+
 PKGCONFIG   += liblightdm-qt5-3 dtkwidget x11 xi dframeworkdbus
 
 HEADERS += \

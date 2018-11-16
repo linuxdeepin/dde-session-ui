@@ -31,7 +31,6 @@
 
 #include "loginmanager.h"
 #include "dbus/dbuslockservice.h"
-#include "dbus/dbusaccounts.h"
 #include "otheruserinput.h"
 
 #include <com_deepin_daemon_accounts_user.h>

@@ -10,9 +10,10 @@ class SessionBaseWindow : public QFrame
 public:
     explicit SessionBaseWindow(QWidget *parent = nullptr);
 
-    void setLeftBottomWidget(QWidget *const widget);
-    void setRightBottomWidget(QWidget *const widget);
-    void setCenterContent(QWidget *const widget);
+protected:
+    virtual void setLeftBottomWidget(QWidget *const widget) final;
+    virtual void setRightBottomWidget(QWidget *const widget) final;
+    virtual void setCenterContent(QWidget *const widget) final;
 
 private:
     void initUI();

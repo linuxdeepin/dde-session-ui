@@ -1,5 +1,4 @@
 include(../common.pri)
-include(../session-widgets/session-widgets.pri)
 
 load(deepin_qt)
 
@@ -19,13 +18,17 @@ SOURCES += main.cpp \
     timewidget.cpp \
     lockmanager.cpp \
     lockframe.cpp \
-    dbus/dbuslockfrontservice.cpp
+    dbus/dbuslockfrontservice.cpp \
+    lockcontent.cpp \
+    lockworker.cpp
 
 HEADERS  += \
     timewidget.h \
     lockmanager.h \
     lockframe.h \
-    dbus/dbuslockfrontservice.h
+    dbus/dbuslockfrontservice.h \
+    lockcontent.h \
+    lockworker.h
 
 RESOURCES += \
     images.qrc \
