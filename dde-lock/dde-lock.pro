@@ -1,4 +1,6 @@
 include(../common.pri)
+include(../session-widgets/session-widgets.pri)
+
 load(deepin_qt)
 
 QT       += core gui widgets dbus x11extras
