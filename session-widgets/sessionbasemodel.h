@@ -33,6 +33,8 @@ signals:
     void onUserAdded(std::shared_ptr<User> user);
     void onUserRemoved(const uint uid);
     void currentUserChanged(std::shared_ptr<User> user);
+    void authFaildMessage(const QString &message);
+    void authFaildTipsMessage(const QString &message);
 
 private:
     AuthType m_currentType;

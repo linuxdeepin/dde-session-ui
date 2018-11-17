@@ -6,8 +6,11 @@
 #include <unistd.h>
 #include <pwd.h>
 #include <grp.h>
-
+#include <libintl.h>
 #include <QDebug>
+
+#define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
+#define LOCKSERVICE_NAME "com.deepin.dde.LockService"
 
 LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     : QObject(parent)
@@ -19,6 +22,14 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     m_loginedInter->setSync(true);
 
     m_currentUserUid = getuid();
+
+    if (model->currentType() == SessionBaseModel::AuthType::LockType) {
+        m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
+        connect(m_lockInter, &DBusLockService::Event, this, &LockWorker::lockServiceEvent);
+    }
+    else {
+
+    }
 
     connect(m_loginedInter, &LoginedInter::UserListChanged, this, &LockWorker::onLoginUserListChanged);
     connect(m_loginedInter, &LoginedInter::LastLogoutUserChanged, this, &LockWorker::onLastLogoutUserChanged);
@@ -51,6 +62,14 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
 void LockWorker::authUser(std::shared_ptr<User> user, const QString &password)
 {
     // auth interface
+    m_authUser = user;
+
+    m_authenticating = true;
+
+    if (m_model->currentType() == SessionBaseModel::AuthType::LockType) {
+        m_lockInter->AuthenticateUser(user->name());
+        m_lockInter->UnlockCheck(user->name(), password);
+    }
 }
 
 void LockWorker::onUserListChanged(const QStringList &list)
@@ -200,4 +219,82 @@ bool LockWorker::checkUserIsNoPWGrp(std::shared_ptr<User> user)
     }
 
     return false;
+}
+
+void LockWorker::lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message)
+{
+    if (username != m_authUser->name())
+        return;
+
+    qDebug() << eventType << pid << username << message;
+
+    // Don't show password prompt from standard pam modules since
+    // we'll provide our own prompt or just not.
+    const QString msg = message.simplified() == "Password:" ? "" : message;
+
+    m_authenticating = false;
+
+    if (msg == "Verification timed out") {
+        m_isThumbAuth = true;
+        emit m_model->authFaildMessage(tr("Fingerprint verification timed out, please enter your password manually"));
+        return;
+    }
+
+    switch (eventType) {
+    case DBusLockService::PromptQuestion:
+        qDebug() << "prompt quesiton from pam: " << message;
+        emit m_model->authFaildMessage(message);
+        break;
+    case DBusLockService::PromptSecret:
+        qDebug() << "prompt secret from pam: " << message;
+        if (m_isThumbAuth && !msg.isEmpty()) {
+            emit m_model->authFaildMessage(msg);
+        }
+        break;
+    case DBusLockService::ErrorMsg:
+        qWarning() << "error message from pam: " << message;
+        if (msg == "Failed to match fingerprint") {
+            emit m_model->authFaildTipsMessage(tr("Failed to match fingerprint"));
+            emit m_model->authFaildMessage("");
+        }
+        break;
+    case DBusLockService::TextInfo:
+        emit m_model->authFaildMessage(QString(dgettext("fprintd", message.toLatin1())));
+        break;
+    case DBusLockService::Failure:
+        onUnlockFinished(false);
+        break;
+    case DBusLockService::Success:
+        onUnlockFinished(true);
+        break;
+    default:
+        break;
+    }
+}
+
+void LockWorker::onUnlockFinished(bool unlocked)
+{
+    if (!unlocked) {
+        qDebug() << "Authorization failed!";
+        emit m_model->authFaildTipsMessage(tr("Wrong Password"));
+        return;
+    }
+
+    // Auth success
+//    switch (m_action) {
+//    case Restart:       m_sessionManagerIter->RequestReboot();    break;
+//    case Shutdown:      m_sessionManagerIter->RequestShutdown();    break;
+//    case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
+//    default: break;
+//    }
+
+#ifdef LOCK_NO_QUIT
+    m_passwdEditAnim->lineEdit()->setPlaceholderText("");
+    m_passwdEditAnim->abortAuth();
+    m_passwdEditAnim->hideAlert();
+    m_passwdEditAnim->lineEdit()->clear();
+    emit checkedHide();
+#else
+    qApp->exit();
+#endif
 }

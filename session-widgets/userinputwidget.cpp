@@ -80,6 +80,16 @@ void UserInputWidget::setIsNoPasswordGrp(bool isNopassword)
     m_loginBtn->setVisible(isNopassword);
 }
 
+void UserInputWidget::setFaildMessage(const QString &message)
+{
+    m_passwordEdit->lineEdit()->setPlaceholderText(message);
+}
+
+void UserInputWidget::setFaildTipMessage(const QString &message)
+{
+    m_passwordEdit->showAlert(message);
+}
+
 bool UserInputWidget::event(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange) {

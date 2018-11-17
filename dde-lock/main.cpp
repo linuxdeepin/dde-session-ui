@@ -69,8 +69,9 @@ int main(int argc, char *argv[])
 
 #ifdef QT_DEBUG
     SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LockType);
-    new LockWorker(model); //
+    LockWorker *worker = new LockWorker(model); //
     LockFrame lockFrame(model);
+    QObject::connect(&lockFrame, &LockFrame::requestAuthUser, worker, &LockWorker::authUser);
 #else
     LockFrame lockFrame;
 #endif

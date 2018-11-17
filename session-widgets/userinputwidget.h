@@ -19,6 +19,8 @@ public:
 
     void setAvatar(const QString &avatar);
     void setIsNoPasswordGrp(bool isNopassword);
+    void setFaildMessage(const QString &message);
+    void setFaildTipMessage(const QString &message);
 
 signals:
     void requestAuthUser(const QString &password);
