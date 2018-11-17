@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QLabel>
 #include <DPasswdEditAnimated>
+#include <QPushButton>
+#include <functional>
+
 #include "useravatar.h"
 
 DWIDGET_USE_NAMESPACE
@@ -15,10 +18,22 @@ public:
     explicit UserInputWidget(QWidget *parent = nullptr);
 
     void setAvatar(const QString &avatar);
+    void setIsNoPasswordGrp(bool isNopassword);
+
+signals:
+    void requestAuthUser(const QString &password);
+
+protected:
+    bool event(QEvent *event) Q_DECL_OVERRIDE;
+
+private:
+    void refreshLanguage();
 
 private:
     UserAvatar *m_userAvatar;
     DPasswdEditAnimated *m_passwordEdit;
+    QPushButton *m_loginBtn;
+    std::list<std::pair<std::function<void (QString)>, QString>> m_trList;
 };
 
 #endif // USERINPUTWIDGET_H

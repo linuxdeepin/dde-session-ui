@@ -20,6 +20,8 @@ public:
 
     void switchToUser(std::shared_ptr<User> user);
 
+    void authUser(std::shared_ptr<User> user, const QString &password);
+
 private:
     void onUserListChanged(const QStringList &list);
     void onUserAdded(const QString &user);
@@ -28,6 +30,7 @@ private:
     void onLoginUserListChanged(const QString &list);
     bool checkHaveDisplay(const QJsonArray &array);
     bool isLogined(uint uid);
+    bool checkUserIsNoPWGrp(std::shared_ptr<User> user);
 
 private:
     SessionBaseModel *m_model;

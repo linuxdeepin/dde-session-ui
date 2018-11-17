@@ -4,6 +4,9 @@
 #include "userinfo.h"
 
 #include <unistd.h>
+#include <pwd.h>
+#include <grp.h>
+
 #include <QDebug>
 
 LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
@@ -14,7 +17,6 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 {
     m_accountsInter->setSync(false);
     m_loginedInter->setSync(true);
-
 
     m_currentUserUid = getuid();
 
@@ -44,6 +46,11 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
 
     // if type is lock, switch to greeter
 
+}
+
+void LockWorker::authUser(std::shared_ptr<User> user, const QString &password)
+{
+    // auth interface
 }
 
 void LockWorker::onUserListChanged(const QStringList &list)
@@ -80,6 +87,8 @@ void LockWorker::onUserAdded(const QString &user)
     if (user_ptr->uid() == m_lastLogoutUid) {
         m_model->setLastLogoutUser(user_ptr);
     }
+
+    user_ptr->setNoPasswdGrp(checkUserIsNoPWGrp(user_ptr));
 
     m_model->userAdd(user_ptr);
 }
@@ -153,4 +162,42 @@ bool LockWorker::isLogined(uint uid)
     });
 
     return isLogind != m_loginUserList.end();
+}
+
+bool LockWorker::checkUserIsNoPWGrp(std::shared_ptr<User> user)
+{
+    if (user->type() == User::ADDomain) {
+        return false;
+    }
+
+    // Caution: 32 here is unreliable, and there may be more
+    // than this number of groups that the user joins.
+
+    int ngroups = 32;
+    gid_t groups[32];
+    struct passwd pw;
+    struct group gr;
+
+    /* Fetch passwd structure (contains first group ID for user) */
+
+    pw = *getpwnam(user->name().toUtf8().data());
+
+    /* Retrieve group list */
+
+    if (getgrouplist(user->name().toUtf8().data(), pw.pw_gid, groups, &ngroups) == -1) {
+        fprintf(stderr, "getgrouplist() returned -1; ngroups = %d\n",
+                ngroups);
+        return false;
+    }
+
+    /* Display list of retrieved groups, along with group names */
+
+    for (int i = 0; i < ngroups; i++) {
+        gr = *getgrgid(groups[i]);
+        if (QString(gr.gr_name) == QString("nopasswdlogin")) {
+            return true;
+        }
+    }
+
+    return false;
 }

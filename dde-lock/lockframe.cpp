@@ -43,6 +43,7 @@ LockFrame::LockFrame(SessionBaseModel * const model, QWidget* parent)
     LockContent *content = new LockContent(model);
     setContent(content);
 
+    connect(content, &LockContent::requestAuthUser, this, &LockFrame::requestAuthUser);
     connect(content, &LockContent::requestBackground, this, static_cast<void (LockFrame::*)(const QString &)>(&LockFrame::updateBackground));
 }
 #else

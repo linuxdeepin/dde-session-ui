@@ -19,6 +19,7 @@ public:
 
 signals:
     void requestBackground(const QString &path);
+    void requestAuthUser(std::shared_ptr<User> user, const QString &password);
 
 public slots:
     void onCurrentUserChanged(std::shared_ptr<User> user);
@@ -28,6 +29,7 @@ private:
     ControlWidget *m_controlWidget;
     TimeWidget *m_timeWidget;
     UserInputWidget *m_userInputWidget;
+    std::shared_ptr<User> m_user;
 };
 
 #endif // LOCKCONTENT_H

@@ -40,6 +40,9 @@ public:
     const QString locale() const { return m_locale; }
     void setLocale(const QString &locale);
 
+    const bool isNoPasswdGrp() const { return m_isNoPasswdGrp; }
+    void setNoPasswdGrp(bool nopassword);
+
     void setisLogind(bool isLogind);
     virtual void setCurrentLayout(const QString &layout) { Q_UNUSED(layout); }
 
@@ -53,6 +56,7 @@ public:
 
 protected:
     bool m_isLogind;
+    bool m_isNoPasswdGrp;
     uint m_uid;
     QString m_userName;
     QString m_locale;

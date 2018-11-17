@@ -49,6 +49,9 @@ public:
 #endif
     ~LockFrame();
 
+signals:
+    void requestAuthUser(std::shared_ptr<User> user, const QString &password);
+
 public slots:
     void showUserList();
     void tryGrabKeyboard();

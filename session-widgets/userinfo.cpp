@@ -13,12 +13,14 @@ const QString toLocalFile(const QString &path) {
 User::User(QObject *parent)
     : QObject(parent)
     , m_isLogind(false)
+    , m_isNoPasswdGrp(false)
 {
 
 }
 
 User::User(const User &user)
     : m_isLogind(user.m_isLogind)
+    , m_isNoPasswdGrp(user.m_isNoPasswdGrp)
     , m_uid(user.m_uid)
     , m_userName(user.m_userName)
     , m_locale(user.m_locale)
@@ -39,6 +41,11 @@ void User::setLocale(const QString &locale)
     m_locale = locale;
 
     emit localeChanged(locale);
+}
+
+void User::setNoPasswdGrp(bool nopassword)
+{
+    m_isNoPasswdGrp = nopassword;
 }
 
 void User::setisLogind(bool isLogind) {
