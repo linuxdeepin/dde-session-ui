@@ -38,19 +38,17 @@ const QString DBUS_NAME = "com.deepin.dde.lockFront";
 
 class DBusLockService;
 class SessionBaseModel;
+class LockContent;
 class LockFrame: public FullscreenBackground
 {
     Q_OBJECT
 public:
-#ifdef QT_DEBUG
     LockFrame(SessionBaseModel * const model, QWidget* parent=0);
-#else
-    LockFrame(QWidget* parent = nullptr);
-#endif
     ~LockFrame();
 
 signals:
     void requestAuthUser(std::shared_ptr<User> user, const QString &password);
+    void requestSwitchToUser(std::shared_ptr<User> user);
 
 public slots:
     void showUserList();
@@ -62,7 +60,7 @@ protected:
     void keyPressEvent(QKeyEvent *e);
 
 private:
-    LockManager* m_lockManager;
+    LockContent *m_content;
     Display *m_display;
     int m_failures = 0;
 };

@@ -32,7 +32,6 @@
 #include "lockcontent.h"
 #include "sessionbasemodel.h"
 
-#ifdef QT_DEBUG
 LockFrame::LockFrame(SessionBaseModel * const model, QWidget* parent)
     : FullscreenBackground(parent)
 {
@@ -40,34 +39,16 @@ LockFrame::LockFrame(SessionBaseModel * const model, QWidget* parent)
 
     qDebug() << "LockFrame geometry:" << geometry();
 
-    LockContent *content = new LockContent(model);
-    setContent(content);
-
-    connect(content, &LockContent::requestAuthUser, this, &LockFrame::requestAuthUser);
-    connect(content, &LockContent::requestBackground, this, static_cast<void (LockFrame::*)(const QString &)>(&LockFrame::updateBackground));
+    m_content = new LockContent(model);
+    setContent(m_content);
+    connect(m_content, &LockContent::requestSwitchToUser, this, &LockFrame::requestSwitchToUser);
+    connect(m_content, &LockContent::requestAuthUser, this, &LockFrame::requestAuthUser);
+    connect(m_content, &LockContent::requestBackground, this, static_cast<void (LockFrame::*)(const QString &)>(&LockFrame::updateBackground));
 }
-#else
-LockFrame::LockFrame(QWidget* parent)
-    : FullscreenBackground(parent)
-{
-    m_display = QX11Info::display();
-
-    qDebug() << "LockFrame geometry:" << geometry();
-    m_lockManager = new LockManager(this);
-
-    setContent(m_lockManager);
-
-#ifdef LOCK_NO_QUIT
-    connect(m_lockManager, &LockManager::checkedHide, this, &LockFrame::hideFrame);
-#endif
-    connect(m_lockManager, &LockManager::requestSetBackground, this, static_cast<void (LockFrame::*)(const QString &)>(&LockFrame::updateBackground));
-
-}
-#endif
 
 void LockFrame::showUserList() {
     showFullScreen();
-    emit m_lockManager->control()->requestSwitchUser();
+    m_content->pushUserFrame();
 }
 
 void LockFrame::tryGrabKeyboard()

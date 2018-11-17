@@ -67,14 +67,12 @@ int main(int argc, char *argv[])
     bool runDaemon = cmdParser.isSet(backend);
     bool showUserList = cmdParser.isSet(switchUser);
 
-#ifdef QT_DEBUG
     SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LockType);
     LockWorker *worker = new LockWorker(model); //
     LockFrame lockFrame(model);
+    QObject::connect(&lockFrame, &LockFrame::requestSwitchToUser, worker, &LockWorker::switchToUser);
     QObject::connect(&lockFrame, &LockFrame::requestAuthUser, worker, &LockWorker::authUser);
-#else
-    LockFrame lockFrame;
-#endif
+
     DBusLockFrontService service(&lockFrame);
     Q_UNUSED(service);
 

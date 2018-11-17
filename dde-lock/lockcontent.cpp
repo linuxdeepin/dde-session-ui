@@ -30,11 +30,9 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     switch (model->currentType()) {
     case SessionBaseModel::AuthType::LightdmType:
         m_controlWidget->setSessionSwitchEnable(true);
-        m_controlWidget->setUserSwitchEnable(true);
         break;
     case SessionBaseModel::AuthType::LockType:
         m_controlWidget->setMPRISEnable(true);
-        m_controlWidget->setUserSwitchEnable(false);
         break;
     default:
         break;
@@ -45,6 +43,7 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     connect(m_userInputWidget, &UserInputWidget::requestAuthUser, this, [=] (const QString &password) {
         emit requestAuthUser(m_user, password);
     });
+    connect(m_userFrame, &UserFrame::requestSwitchUser, this, &LockContent::requestSwitchToUser);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LockContent::pushUserFrame);
     connect(m_userFrame, &UserFrame::hideFrame, this, &LockContent::restoreCenterContent);
     connect(model, &SessionBaseModel::authFaildMessage, m_userInputWidget, &UserInputWidget::setFaildMessage);

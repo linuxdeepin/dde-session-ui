@@ -46,6 +46,13 @@ void UserFrame::mouseReleaseEvent(QMouseEvent *event)
     return QFrame::mouseReleaseEvent(event);
 }
 
+void UserFrame::hideEvent(QHideEvent *event)
+{
+    releaseKeyboard();
+
+    return QFrame::hideEvent(event);
+}
+
 void UserFrame::userAdded(std::shared_ptr<User> user)
 {
     UserButton *button = new UserButton(user, this);

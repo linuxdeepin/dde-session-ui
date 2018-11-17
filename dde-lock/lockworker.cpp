@@ -48,6 +48,7 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
         // just switch user
         if (user->isLogin()) {
             // switch to user Xorg
+            QProcess::startDetached("dde-switchtogreeter", QStringList() << user->name());
         }
         else {
             m_model->setCurrentUser(user);
@@ -56,7 +57,17 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
     }
 
     // if type is lock, switch to greeter
+    QJsonObject json;
+    json["Uid"] = static_cast<int>(user->uid());
+    json["Type"] = user->type();
 
+    m_lockInter->SwitchToUser(QString(QJsonDocument(json).toJson(QJsonDocument::Compact))).waitForFinished();
+
+    if (user->isLogin()) {
+        QProcess::startDetached("dde-switchtogreeter", QStringList() << user->name());
+    } else {
+        QProcess::startDetached("dde-switchtogreeter");
+    }
 }
 
 void LockWorker::authUser(std::shared_ptr<User> user, const QString &password)

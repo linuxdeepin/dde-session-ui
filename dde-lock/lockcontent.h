@@ -21,6 +21,7 @@ public:
 signals:
     void requestBackground(const QString &path);
     void requestAuthUser(std::shared_ptr<User> user, const QString &password);
+    void requestSwitchToUser(std::shared_ptr<User> user);
 
 public slots:
     void onCurrentUserChanged(std::shared_ptr<User> user);
