@@ -40,7 +40,7 @@ public:
     const QString locale() const { return m_locale; }
     void setLocale(const QString &locale);
 
-    const bool isNoPasswdGrp() const { return m_isNoPasswdGrp; }
+    bool isNoPasswdGrp() const { return m_isNoPasswdGrp; }
     void setNoPasswdGrp(bool nopassword);
 
     void setisLogind(bool isLogind);

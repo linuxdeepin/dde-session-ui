@@ -31,10 +31,11 @@
 #include "dhidpihelper.h"
 #include "userbutton.h"
 #include "userwidget.h"
+#include "userinfo.h"
 
 DWIDGET_USE_NAMESPACE
 
-UserButton::UserButton(User *user, QWidget *parent)
+UserButton::UserButton(std::shared_ptr<User> user, QWidget *parent)
     : QPushButton(parent)
 
     , m_user(user)
@@ -57,8 +58,8 @@ void UserButton::initConnect()
     connect(m_hideAnimation, &QPropertyAnimation::finished, this, &QPushButton::hide);
 #endif
     connect(m_userAvatar, &UserAvatar::clicked, this, &UserButton::click);
-    connect(m_user, &User::displayNameChanged, m_userNameLabel, &QLabel::setText);
-    connect(m_user, &User::avatarChanged, this, [=] (const QString avatar) {
+    connect(m_user.get(), &User::displayNameChanged, m_userNameLabel, &QLabel::setText);
+    connect(m_user.get(), &User::avatarChanged, this, [=] (const QString avatar) {
         m_userAvatar->setIcon(avatar);
     });
 }

@@ -46,19 +46,19 @@
 DWIDGET_USE_NAMESPACE
 
 bool userSort(UserButton *left, UserButton *right) {
-    User *l = left->userInfo();
-    User *r = right->userInfo();
+//    User *l = left->userInfo();
+//    User *r = right->userInfo();
 
-    // AD Login Button is last of list;
-    if (l->type() == User::ADDomain && l->uid() == 0) {
-        return false;
-    }
+//    // AD Login Button is last of list;
+//    if (l->type() == User::ADDomain && l->uid() == 0) {
+//        return false;
+//    }
 
-    if (l->type() != r->type()) {
-        return l->type() == User::ADDomain;
-    }
+//    if (l->type() != r->type()) {
+//        return l->type() == User::ADDomain;
+//    }
 
-    return l->uid() < r->uid();
+//    return l->uid() < r->uid();
 }
 
 UserWidget::UserWidget(QWidget* parent)
@@ -248,82 +248,82 @@ void UserWidget::onNativeUserRemoved(const QString &path)
 
 //    onLoginUserListChanged(m_dbusLogined->userList());
 
-    for (int i = 0; i != m_availableUserButtons.size(); ++i) {
-        UserButton *btn = m_availableUserButtons.at(i);
-        if (static_cast<NativeUser *>(btn->userInfo())->path() == path) {
-            m_availableUserButtons.removeAt(i);
-            m_availableUsers.removeOne(btn->userInfo());
-            btn->deleteLater();
-            break;
-        }
-    }
+//    for (int i = 0; i != m_availableUserButtons.size(); ++i) {
+//        UserButton *btn = m_availableUserButtons.at(i);
+//        if (static_cast<NativeUser *>(btn->userInfo())->path() == path) {
+//            m_availableUserButtons.removeAt(i);
+//            m_availableUsers.removeOne(btn->userInfo());
+//            btn->deleteLater();
+//            break;
+//        }
+//    }
 
-    findFirstNotLogin();
+//    findFirstNotLogin();
 }
 
 void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 {
-    if (loginedUserInfo.isEmpty()) {
-        return;
-    }
+//    if (loginedUserInfo.isEmpty()) {
+//        return;
+//    }
 
-    QJsonObject userList = QJsonDocument::fromJson(loginedUserInfo.toUtf8()).object();
+//    QJsonObject userList = QJsonDocument::fromJson(loginedUserInfo.toUtf8()).object();
 
-    // All users are in m_availableUsers.
-    // If there are no users in the login list,
-    // they are considered as AD users and need to be added.
+//    // All users are in m_availableUsers.
+//    // If there are no users in the login list,
+//    // they are considered as AD users and need to be added.
 
-    QList<int> availableUidList;
-    for (User *user : m_availableUsers) {
-        availableUidList << user->uid();
-    }
+//    QList<int> availableUidList;
+//    for (User *user : m_availableUsers) {
+//        availableUidList << user->uid();
+//    }
 
-    QList<int> logindUidList;
-    for (const QString &userId : userList.keys()) {
-        const bool haveDisplay = checkHaveDisplay(userList[userId].toArray());
-        if (haveDisplay && !availableUidList.contains(userId.toInt())) {
-            // Non existing users, created as AD users
-            addAddomainUser(userId.toInt());
-            availableUidList << userId.toInt();
-        }
-        // skip not have display users
-        if (haveDisplay) {
-            logindUidList << userId.toInt();
-        }
-    }
+//    QList<int> logindUidList;
+//    for (const QString &userId : userList.keys()) {
+//        const bool haveDisplay = checkHaveDisplay(userList[userId].toArray());
+//        if (haveDisplay && !availableUidList.contains(userId.toInt())) {
+//            // Non existing users, created as AD users
+//            addAddomainUser(userId.toInt());
+//            availableUidList << userId.toInt();
+//        }
+//        // skip not have display users
+//        if (haveDisplay) {
+//            logindUidList << userId.toInt();
+//        }
+//    }
 
-    qDebug() << "Logind Uid List: " << logindUidList;
+//    qDebug() << "Logind Uid List: " << logindUidList;
 
-    // Remove the nonexistent button from the already-obtained id.
-    for (auto it(m_availableUserButtons.begin()); it != m_availableUserButtons.end(); /* get next in loop */)
-    {
-        UserButton *btn = *it;
-        User *user = btn->userInfo();
-        const bool isListContains = logindUidList.contains(user->uid());
+//    // Remove the nonexistent button from the already-obtained id.
+//    for (auto it(m_availableUserButtons.begin()); it != m_availableUserButtons.end(); /* get next in loop */)
+//    {
+//        UserButton *btn = *it;
+//        User *user = btn->userInfo();
+//        const bool isListContains = logindUidList.contains(user->uid());
 
-        qDebug() << QString("Update %1 login state: %2").arg(user->name()).arg(isListContains);
+//        qDebug() << QString("Update %1 login state: %2").arg(user->name()).arg(isListContains);
 
-        // skip fake ADDomain login button
-        if (!isListContains && user->type() == User::ADDomain && user->uid() != 0) {
-            user->deleteLater();
-            btn->deleteLater();
+//        // skip fake ADDomain login button
+//        if (!isListContains && user->type() == User::ADDomain && user->uid() != 0) {
+//            user->deleteLater();
+//            btn->deleteLater();
 
-            it = m_availableUserButtons.erase(it);
-            m_availableUsers.removeOne(user);
-        } else {
-            user->setisLogind(isListContains);
-            ++it;
-        }
-    }
+//            it = m_availableUserButtons.erase(it);
+//            m_availableUsers.removeOne(user);
+//        } else {
+//            user->setisLogind(isListContains);
+//            ++it;
+//        }
+//    }
 
-    // keep order: AD User > Native User > AD Login Button
-    std::sort(m_availableUserButtons.begin(), m_availableUserButtons.end(), userSort);
+//    // keep order: AD User > Native User > AD Login Button
+//    std::sort(m_availableUserButtons.begin(), m_availableUserButtons.end(), userSort);
 
-    updateAllADUserInfo();
+//    updateAllADUserInfo();
 
-    QTimer::singleShot(1, this, [=] {
-        emit userCountChanged(m_availableUserButtons.size());
-    });
+//    QTimer::singleShot(1, this, [=] {
+//        emit userCountChanged(m_availableUserButtons.size());
+//    });
 
     return;
 
@@ -435,42 +435,42 @@ void UserWidget::addAddomainUser(int uid)
 
 void UserWidget::onUserChoosed()
 {
-    m_bgWidget->setFixedHeight(USER_WIDGET_HEIGHT);
+//    m_bgWidget->setFixedHeight(USER_WIDGET_HEIGHT);
 
-    // hide buttons
-    for (UserButton *ub : m_availableUserButtons) {
-        ub->move(mapTo(this, rect().center() - ub->rect().center()));
-        ub->setLoginIconVisible(false);
-        ub->hide();
-    }
+//    // hide buttons
+//    for (UserButton *ub : m_availableUserButtons) {
+//        ub->move(mapTo(this, rect().center() - ub->rect().center()));
+//        ub->setLoginIconVisible(false);
+//        ub->hide();
+//    }
 
-    isChooseUserMode = false;
+//    isChooseUserMode = false;
 
-    UserButton *clickedButton = qobject_cast<UserButton *>(sender());
-    Q_ASSERT(clickedButton);
+//    UserButton *clickedButton = qobject_cast<UserButton *>(sender());
+//    Q_ASSERT(clickedButton);
 
-    releaseKeyboard();
+//    releaseKeyboard();
 
-    // If user is login, switch to this user
-    if (clickedButton->userInfo()->isLogin()) {
-        emit switchToLogindUser(clickedButton->userInfo());
-    } else {
-        // update current user
-        m_currentUser = clickedButton->userInfo();
-        emit currentUserChanged(m_currentUser);
-    }
+//    // If user is login, switch to this user
+//    if (clickedButton->userInfo()->isLogin()) {
+//        emit switchToLogindUser(clickedButton->userInfo());
+//    } else {
+//        // update current user
+//        m_currentUser = clickedButton->userInfo();
+//        emit currentUserChanged(m_currentUser);
+//    }
 
-    for (UserButton *btn : m_availableUserButtons) {
-        if (btn->userInfo() == m_currentUser) {
-            btn->show();
-            btn->setImageSize(UserButton::AvatarLargerSize);
-            btn->setSelected(false);
-            btn->setLoginIconVisible(false);
-            break;
-        }
-    }
+//    for (UserButton *btn : m_availableUserButtons) {
+//        if (btn->userInfo() == m_currentUser) {
+//            btn->show();
+//            btn->setImageSize(UserButton::AvatarLargerSize);
+//            btn->setSelected(false);
+//            btn->setLoginIconVisible(false);
+//            break;
+//        }
+//    }
 
-    emit chooseUserModeChanged(isChooseUserMode, m_currentUser->name());
+//    emit chooseUserModeChanged(isChooseUserMode, m_currentUser->name());
 }
 
 //void UserWidget::setCurrentUser(const QString &username)
@@ -512,45 +512,45 @@ void UserWidget::removeUser(QString name)
 
 void UserWidget::expandWidget()
 {
-    isChooseUserMode = true;
+//    isChooseUserMode = true;
 
-    const int count = m_availableUserButtons.size();
-    const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
-    const int offset = (width() - USER_ICON_WIDTH * qMin(count, maxLineCap)) / 2;
+//    const int count = m_availableUserButtons.size();
+//    const int maxLineCap = width() / USER_ICON_WIDTH - 1; // 1 for left-offset and right-offset.
+//    const int offset = (width() - USER_ICON_WIDTH * qMin(count, maxLineCap)) / 2;
 
-    // Adjust size according to user count.
-    m_bgWidget->setFixedSize(width(), USER_HEIGHT * qCeil(count * 1.0 / maxLineCap));
+//    // Adjust size according to user count.
+//    m_bgWidget->setFixedSize(width(), USER_HEIGHT * qCeil(count * 1.0 / maxLineCap));
 
-    int row = 0;
-    int index = 0;
-    for (int i = 0; i != count; ++i)
-    {
-        UserButton *userButton = m_availableUserButtons.at(i);
+//    int row = 0;
+//    int index = 0;
+//    for (int i = 0; i != count; ++i)
+//    {
+//        UserButton *userButton = m_availableUserButtons.at(i);
 
-        userButton->setSelected(userButton->userInfo() == m_currentUser);
+//        userButton->setSelected(userButton->userInfo() == m_currentUser);
 
-        // Allow user button draw logind icon
-        userButton->setLoginIconVisible(true);
+//        // Allow user button draw logind icon
+//        userButton->setLoginIconVisible(true);
 
-        userButton->stopAnimation();
-        userButton->show();
-        userButton->show();
-        userButton->setImageSize(UserButton::AvatarSmallSize);
+//        userButton->stopAnimation();
+//        userButton->show();
+//        userButton->show();
+//        userButton->setImageSize(UserButton::AvatarSmallSize);
 
-        // If the current value is the maximum, need to change the line.
-        if (index >= maxLineCap) {
-            index = 0;
-            ++row;
-        }
+//        // If the current value is the maximum, need to change the line.
+//        if (index >= maxLineCap) {
+//            index = 0;
+//            ++row;
+//        }
 
-        userButton->move(QPoint(offset + index * USER_ICON_WIDTH, USER_HEIGHT * row));
-        index++;
-    }
+//        userButton->move(QPoint(offset + index * USER_ICON_WIDTH, USER_HEIGHT * row));
+//        index++;
+//    }
 
-    setFocus();
-    QTimer::singleShot(100, this, &UserWidget::grabKeyboard);
+//    setFocus();
+//    QTimer::singleShot(100, this, &UserWidget::grabKeyboard);
 
-    emit chooseUserModeChanged(isChooseUserMode, m_currentUser->name());
+//    emit chooseUserModeChanged(isChooseUserMode, m_currentUser->name());
 }
 
 void UserWidget::saveLastUser(const QJsonObject &json)
@@ -581,25 +581,25 @@ void UserWidget::saveADUser(const QString &username)
 
 void UserWidget::restoreUser(User *user)
 {
-    m_bgWidget->setFixedHeight(USER_WIDGET_HEIGHT);
+//    m_bgWidget->setFixedHeight(USER_WIDGET_HEIGHT);
 
-    for (UserButton *btn : m_availableUserButtons) {
-        // move to center
-        btn->move(mapTo(this, rect().center() - btn->rect().center()));
-        btn->setImageSize(UserButton::AvatarLargerSize);
+//    for (UserButton *btn : m_availableUserButtons) {
+//        // move to center
+//        btn->move(mapTo(this, rect().center() - btn->rect().center()));
+//        btn->setImageSize(UserButton::AvatarLargerSize);
 
-        if (btn->userInfo() == user) {
-            m_currentUser = user;
-            btn->show();
-            btn->setSelected(false);
-            btn->setLoginIconVisible(false);
-        } else {
-            btn->hide();
-        }
-    }
+//        if (btn->userInfo() == user) {
+//            m_currentUser = user;
+//            btn->show();
+//            btn->setSelected(false);
+//            btn->setLoginIconVisible(false);
+//        } else {
+//            btn->hide();
+//        }
+//    }
 
-    isChooseUserMode = false;
-    releaseKeyboard();
+//    isChooseUserMode = false;
+//    releaseKeyboard();
 }
 
 void UserWidget::resizeEvent(QResizeEvent *e)
@@ -655,16 +655,16 @@ void UserWidget::keyReleaseEvent(QKeyEvent *event)
 
 void UserWidget::appendUser(User *user)
 {
-    UserButton *userButton = new UserButton(user, m_bgWidget);
+//    UserButton *userButton = new UserButton(user, m_bgWidget);
 
-    userButton->hide();
-    userButton->setLoginIconVisible(false);
-    userButton->setImageSize(UserButton::AvatarLargerSize);
+//    userButton->hide();
+//    userButton->setLoginIconVisible(false);
+//    userButton->setImageSize(UserButton::AvatarLargerSize);
 
-    m_availableUsers << user;
-    m_availableUserButtons << userButton;
+//    m_availableUsers << user;
+//    m_availableUserButtons << userButton;
 
-    connect(userButton, &UserButton::clicked, this, &UserWidget::onUserChoosed);
+//    connect(userButton, &UserButton::clicked, this, &UserWidget::onUserChoosed);
 }
 
 void UserWidget::switchPreviousUser()
@@ -714,33 +714,33 @@ bool UserWidget::checkHaveDisplay(const QJsonArray &array)
 void UserWidget::updateAllADUserInfo()
 {
     // update AD User Info
-    QProcess process(this);
-    process.start("/opt/pbis/bin/enum-users");
-    process.waitForFinished();
+//    QProcess process(this);
+//    process.start("/opt/pbis/bin/enum-users");
+//    process.waitForFinished();
 
-    const QString &output = process.readAll();
+//    const QString &output = process.readAll();
 
-    QRegularExpression re("Name:\\s+(.+?)\nUid:\\s+(.+?)\n");
-    QRegularExpressionMatchIterator match = re.globalMatch(output, 0, QRegularExpression::NormalMatch);
+//    QRegularExpression re("Name:\\s+(.+?)\nUid:\\s+(.+?)\n");
+//    QRegularExpressionMatchIterator match = re.globalMatch(output, 0, QRegularExpression::NormalMatch);
 
-    QMap<int, QString> adUserList;
-    while (match.hasNext()) {
-        QRegularExpressionMatch m = match.next();
-        if (m.isValid()) {
-            adUserList.insert(m.captured(2).toInt(), m.captured(1));
-        }
-    }
+//    QMap<int, QString> adUserList;
+//    while (match.hasNext()) {
+//        QRegularExpressionMatch m = match.next();
+//        if (m.isValid()) {
+//            adUserList.insert(m.captured(2).toInt(), m.captured(1));
+//        }
+//    }
 
-    // update all ad domain type info
-    for (UserButton *btn : m_availableUserButtons) {
-        User *user = btn->userInfo();
-        if (user->type() == User::ADDomain) {
-            ADDomainUser *adUser = qobject_cast<ADDomainUser*>(user);
-            if (adUserList.keys().contains(adUser->uid())) {
-                adUser->setUserDisplayName(adUserList[adUser->uid()]);
-            }
-        }
-    }
+//    // update all ad domain type info
+//    for (UserButton *btn : m_availableUserButtons) {
+//        User *user = btn->userInfo();
+//        if (user->type() == User::ADDomain) {
+//            ADDomainUser *adUser = qobject_cast<ADDomainUser*>(user);
+//            if (adUserList.keys().contains(adUser->uid())) {
+//                adUser->setUserDisplayName(adUserList[adUser->uid()]);
+//            }
+//        }
+//    }
 }
 
 void UserWidget::updateIconPosition()
@@ -753,9 +753,9 @@ void UserWidget::updateIconPosition()
         // move all buttons to center
         for (UserButton *btn : m_availableUserButtons) {
             btn->move(mapTo(this, rect().center() - btn->rect().center()), true);
-            if (btn->userInfo() == m_currentUser) {
-                btn->show();
-            }
+//            if (btn->userInfo() == m_currentUser) {
+//                btn->show();
+//            }
         }
     }
 }
@@ -783,31 +783,31 @@ void UserWidget::findFirstNotLogin()
 {
     // If current user is lightdm, here is greeter interface
     // else is dde-lock interface
-    if (currentContextUser() == "lightdm") {
-        for (UserButton *btn : m_availableUserButtons) {
-            if (!btn->userInfo()->isLogin()) {
-                m_currentUser = btn->userInfo();
-                break;
-            }
-        }
-    } else {
-        // select current login user
-        const QString &user = currentContextUser();
-        for (UserButton *btn : m_availableUserButtons) {
-            if (btn->userInfo()->name() == user) {
-                m_currentUser = btn->userInfo();
-                break;
-            }
-        }
-    }
+//    if (currentContextUser() == "lightdm") {
+//        for (UserButton *btn : m_availableUserButtons) {
+//            if (!btn->userInfo()->isLogin()) {
+//                m_currentUser = btn->userInfo();
+//                break;
+//            }
+//        }
+//    } else {
+//        // select current login user
+//        const QString &user = currentContextUser();
+//        for (UserButton *btn : m_availableUserButtons) {
+//            if (btn->userInfo()->name() == user) {
+//                m_currentUser = btn->userInfo();
+//                break;
+//            }
+//        }
+//    }
 
-    // If not select any user
-    if (!m_currentUser) {
-        UserButton *btn = m_availableUserButtons.first();
-        m_currentUser = btn->userInfo();
-    }
+//    // If not select any user
+//    if (!m_currentUser) {
+//        UserButton *btn = m_availableUserButtons.first();
+//        m_currentUser = btn->userInfo();
+//    }
 
-    QTimer::singleShot(1, this, &UserWidget::updateIconPosition);
+//    QTimer::singleShot(1, this, &UserWidget::updateIconPosition);
 }
 
 const QString UserWidget::currentContextUser()

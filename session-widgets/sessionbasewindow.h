@@ -4,6 +4,7 @@
 #include <QFrame>
 #include <QVBoxLayout>
 
+class QScrollArea;
 class SessionBaseWindow : public QFrame
 {
     Q_OBJECT
@@ -14,18 +15,18 @@ protected:
     virtual void setLeftBottomWidget(QWidget *const widget) final;
     virtual void setRightBottomWidget(QWidget *const widget) final;
     virtual void setCenterContent(QWidget *const widget) final;
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void initUI();
 
 private:
     QVBoxLayout *m_mainLayou;
-    QHBoxLayout *m_centerLayout;
     QHBoxLayout *m_leftBottomLayout;
+    QHBoxLayout *m_centerLayout;
     QHBoxLayout *m_rightBottomLayout;
-
-    QWidget *m_centerContent;
-
+    QScrollArea *m_scrollArea;
+    QWidget *m_centerWidget;
     QWidget *m_leftBottomWidget;
     QWidget *m_rightBottomWidget;
 };

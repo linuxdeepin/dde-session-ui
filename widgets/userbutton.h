@@ -49,7 +49,7 @@ class UserButton : public QPushButton
     Q_OBJECT
     Q_PROPERTY(double opacity READ opacity WRITE setOpacity NOTIFY opacityChanged)
 public:
-    UserButton(User *user, QWidget* parent=0);
+    UserButton(std::shared_ptr<User> user, QWidget* parent=0);
     ~UserButton();
 
     enum AvatarSize {
@@ -69,7 +69,7 @@ public:
 //    const QStringList backgrounds() const;
 //    UserInter *dbus() const;
 
-    User *userInfo() const { return m_user; }
+    std::shared_ptr<User> userInfo() const { return m_user; }
 
 signals:
 //    void imageClicked(QString nam);
@@ -108,7 +108,7 @@ private:
     void addTextShadow(bool isEffective);
 
 private:
-    User *m_user;
+    std::shared_ptr<User> m_user;
 
 //    QString m_username;
 //    QString m_avatar;

@@ -21,6 +21,7 @@ public:
     inline std::shared_ptr<User> currentUser() { return m_currentUser; }
     inline std::shared_ptr<User> lastLogoutUser() const { return m_lastLogoutUser; }
 
+    std::shared_ptr<User> findUserByUid(const uint uid) const;
     const QList<std::shared_ptr<User>> userList() const { return m_userList; }
 
     void userAdd(std::shared_ptr<User> user);

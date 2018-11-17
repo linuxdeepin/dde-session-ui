@@ -9,6 +9,18 @@ SessionBaseModel::SessionBaseModel(AuthType type, QObject *parent)
 
 }
 
+std::shared_ptr<User> SessionBaseModel::findUserByUid(const uint uid) const
+{
+    for (auto user : m_userList) {
+        if (user->uid() == uid) {
+            return user;
+        }
+    }
+
+    qWarning() << "Wrong, you shouldn't be here!";
+    return std::shared_ptr<User>(nullptr);
+}
+
 void SessionBaseModel::userAdd(std::shared_ptr<User> user)
 {
     m_userList << user;
