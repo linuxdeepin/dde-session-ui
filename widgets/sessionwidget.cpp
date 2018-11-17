@@ -25,6 +25,7 @@
 
 #include "sessionwidget.h"
 #include "constants.h"
+#include "sessionbasemodel.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -67,6 +68,11 @@ SessionWidget::SessionWidget(QWidget *parent)
 //                  "}");
 
     loadSessionList();
+}
+
+void SessionWidget::setModel(SessionBaseModel * const model)
+{
+    m_model = model;
 }
 
 SessionWidget::~SessionWidget()
@@ -147,6 +153,8 @@ void SessionWidget::switchToUser(const QString &userName)
     const QString sessionName = lastSessionName();
     m_currentSessionIndex = sessionIndex(sessionName);
 
+    m_model->setSessionKey(currentSessionKey());
+
     qDebug() << userName << "default session is: " << sessionName << m_currentSessionIndex;
 }
 
@@ -174,6 +182,13 @@ void SessionWidget::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+void SessionWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+    emit hideFrame();
+
+    return QFrame::mouseReleaseEvent(event);
+}
+
 void SessionWidget::onSessionButtonClicked()
 {
     RoundItemButton *btn = qobject_cast<RoundItemButton *>(sender());
@@ -183,7 +198,9 @@ void SessionWidget::onSessionButtonClicked()
     btn->setChecked(true);
     m_currentSessionIndex = m_sessionBtns.indexOf(btn);
 
-    emit sessionChanged(currentSessionName());
+    m_model->setSessionKey(currentSessionKey());
+
+//    emit sessionChanged(currentSessionName());
 }
 
 int SessionWidget::sessionIndex(const QString &sessionName)
@@ -224,6 +241,7 @@ void SessionWidget::rightKeySwitch()
 void SessionWidget::chooseSession()
 {
     emit m_sessionBtns.at(m_currentSessionIndex)->clicked();
+    emit hideFrame();
 }
 
 void SessionWidget::loadSessionList()

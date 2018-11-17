@@ -46,3 +46,17 @@ void SessionBaseModel::setLastLogoutUser(const std::shared_ptr<User> &lastLogout
 {
     m_lastLogoutUser = lastLogoutUser;
 }
+
+void SessionBaseModel::setSessionKey(const QString &sessionKey)
+{
+    m_sessionKey = sessionKey;
+}
+
+void SessionBaseModel::setPowerAction(const PowerAction &powerAction)
+{
+    if (powerAction == m_powerAction) return;
+
+    m_powerAction = powerAction;
+
+    emit onPowerActionChanged(powerAction);
+}

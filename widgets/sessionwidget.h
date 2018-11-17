@@ -34,11 +34,13 @@
 
 #include "rounditembutton.h"
 
+class SessionBaseModel;
 class SessionWidget : public QFrame
 {
     Q_OBJECT
 public:
     explicit SessionWidget(QWidget *parent = 0);
+    void setModel(SessionBaseModel * const model);
     ~SessionWidget();
 
     void show();
@@ -50,6 +52,7 @@ public:
 
 signals:
     void sessionChanged(const QString &sessionName);
+    void hideFrame();
 
 public slots:
     void switchToUser(const QString &userName);
@@ -59,6 +62,7 @@ public slots:
 
 protected:
     void keyReleaseEvent(QKeyEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
     void loadSessionList();
@@ -70,6 +74,7 @@ private:
 private:
     int m_currentSessionIndex;
     QString m_currentUser;
+    SessionBaseModel *m_model;
 
     QLightDM::SessionsModel *m_sessionModel;
     QList<RoundItemButton *> m_sessionBtns;

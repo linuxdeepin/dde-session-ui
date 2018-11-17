@@ -85,15 +85,15 @@ void LockManager::initConnect()
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &LockManager::onBlurWallpaperFinished);
 
-    connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, [this](const ShutdownWidget::Actions action) {
-        switch (action) {
-        case ShutdownWidget::RequireRestart:    m_action = Restart;         break;
-        case ShutdownWidget::RequireShutdown:   m_action = Shutdown;        break;
-        case ShutdownWidget::RequireSuspend:    m_action = Suspend;         break;
-        }
+//    connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, [this](const ShutdownWidget::Actions action) {
+//        switch (action) {
+//        case ShutdownWidget::RequireRestart:    m_action = Restart;         break;
+//        case ShutdownWidget::RequireShutdown:   m_action = Shutdown;        break;
+//        case ShutdownWidget::RequireSuspend:    m_action = Suspend;         break;
+//        }
 
-        passwordMode();
-    });
+//        passwordMode();
+//    });
 
     connect(m_requireShutdownWidget, &ShutdownWidget::abortOperation, this, [=] {
         m_passwdEditAnim->lineEdit()->setPlaceholderText("");

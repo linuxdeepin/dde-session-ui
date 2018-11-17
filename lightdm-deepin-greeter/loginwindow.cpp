@@ -24,15 +24,21 @@
  */
 
 #include "loginwindow.h"
-#include "app/loginmanager.h"
+#include "lockcontent.h"
+#include "view/logowidget.h"
 
-LoginWindow::LoginWindow(QWidget *parent)
+LoginWindow::LoginWindow(SessionBaseModel * const model, QWidget *parent)
     : FullscreenBackground(parent)
-    , m_loginFrame( new LoginManager(this))
+    , m_loginFrame( new LockContent(model, this))
 {
+    m_loginFrame->setLeftBottomWidget(new LogoWidget);
     setContent(m_loginFrame);
 
-    connect(m_loginFrame, &LoginManager::requestBackground, this, [=] (const QString &wallpaper) {
+
+    connect(m_loginFrame, &LockContent::requestBackground, this, [=] (const QString &wallpaper) {
         updateBackground(wallpaper);
     });
+
+    connect(m_loginFrame, &LockContent::requestAuthUser, this, &LoginWindow::requestAuthUser);
+    connect(m_loginFrame, &LockContent::requestSwitchToUser, this, &LoginWindow::requestSwitchToUser);
 }

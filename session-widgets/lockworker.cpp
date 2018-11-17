@@ -15,6 +15,8 @@
 LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     : QObject(parent)
     , m_model(model)
+    , m_authenticating(false)
+    , m_isThumbAuth(false)
     , m_accountsInter(new AccountsInter(ACCOUNT_DBUS_SERVICE, ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this))
     , m_loginedInter(new LoginedInter(ACCOUNT_DBUS_SERVICE, "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
 {
@@ -28,7 +30,14 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         connect(m_lockInter, &DBusLockService::Event, this, &LockWorker::lockServiceEvent);
     }
     else {
+        m_greeter = new QLightDM::Greeter(this);
 
+        if (!m_greeter->connectSync())
+            qWarning() << "greeter connect fail !!!";
+
+        connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LockWorker::prompt);
+        connect(m_greeter, &QLightDM::Greeter::showMessage, this, &LockWorker::message);
+        connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LockWorker::authenticationComplete);
     }
 
     connect(m_loginedInter, &LoginedInter::UserListChanged, this, &LockWorker::onLoginUserListChanged);
@@ -75,11 +84,22 @@ void LockWorker::authUser(std::shared_ptr<User> user, const QString &password)
     // auth interface
     m_authUser = user;
 
+    m_password = password;
+
     m_authenticating = true;
 
     if (m_model->currentType() == SessionBaseModel::AuthType::LockType) {
         m_lockInter->AuthenticateUser(user->name());
         m_lockInter->UnlockCheck(user->name(), password);
+    }
+    else {
+        if (m_greeter->inAuthentication()) {
+            qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
+            m_greeter->respond(password);
+        }
+        else {
+            m_greeter->authenticate(user->name());
+        }
     }
 }
 
@@ -112,6 +132,10 @@ void LockWorker::onUserAdded(const QString &user)
 
     if (user_ptr->uid() == m_currentUserUid) {
         m_model->setCurrentUser(user_ptr);
+    }
+
+    if (m_model->currentUser().get() == nullptr && !m_model->userList().isEmpty()) {
+        m_model->setCurrentUser(m_model->userList().first());
     }
 
     if (user_ptr->uid() == m_lastLogoutUid) {
@@ -307,5 +331,98 @@ void LockWorker::onUnlockFinished(bool unlocked)
     emit checkedHide();
 #else
     qApp->exit();
+#endif
+}
+
+void LockWorker::prompt(QString text, QLightDM::Greeter::PromptType type)
+{
+    qDebug() << "pam prompt: " << text << type;
+
+    // Don't show password prompt from standard pam modules since
+    // we'll provide our own prompt or just not.
+    const QString msg = text.simplified() == "Password:" ? "" : text;
+
+    switch (type) {
+    case QLightDM::Greeter::PromptTypeSecret:
+        if (m_isThumbAuth)
+            return;
+
+        if (msg.isEmpty() && !m_password.isEmpty())
+            m_greeter->respond(m_password);
+
+        if (!msg.isEmpty()) {
+            emit m_model->authFaildMessage(msg);
+        }
+        break;
+    case QLightDM::Greeter::PromptTypeQuestion:
+        // trim the right : in the message if exists.
+        emit m_model->authFaildMessage(text.replace(":", ""));
+        break;
+    default:
+        break;
+    }
+}
+
+void LockWorker::message(QString text, QLightDM::Greeter::MessageType type)
+{
+    qDebug() << "pam message: " << text << type;
+
+    if (text == "Verification timed out") {
+        m_isThumbAuth = true;
+        emit m_model->authFaildMessage(tr("Fingerprint verification timed out, please enter your password manually"));
+        return;
+    }
+
+    switch (type) {
+    case QLightDM::Greeter::MessageTypeInfo:
+        if (m_isThumbAuth)
+            break;
+
+        emit m_model->authFaildMessage(QString(dgettext("fprintd", text.toLatin1())));
+        break;
+    case QLightDM::Greeter::MessageTypeError:
+        qWarning() << "error message from lightdm: " << text;
+        if (text == "Failed to match fingerprint") {
+            emit m_model->authFaildMessage("");
+            emit m_model->authFaildTipsMessage(tr("Failed to match fingerprint"));
+        }
+        break;
+    default:
+        break;
+    }
+}
+
+void LockWorker::authenticationComplete()
+{
+    qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
+
+    if (!m_greeter->isAuthenticated()) {
+        if (m_authUser->type() == User::Native) {
+            emit m_model->authFaildTipsMessage(tr("Wrong Password"));
+        }
+
+        if (m_authUser->type() == User::ADDomain) {
+            emit m_model->authFaildTipsMessage(tr("The domain account or password is not correct. Please enter again."));
+        }
+
+        return;
+    }
+
+//    qDebug() << "start session = " << m_sessionWidget->currentSessionName();
+
+    auto startSessionSync = [=]() {
+        QJsonObject json;
+        json["Uid"] = static_cast<int>(m_authUser->uid());
+        json["Type"] = m_authUser->type();
+        m_greeter->startSessionSync(m_model->sessionKey());
+    };
+
+#ifndef DISABLE_LOGIN_ANI
+    // NOTE(kirigaya): It is not necessary to display the login animation.
+
+    emit m_model->authFinished(true);
+    QTimer::singleShot(1000, this, startSessionSync);
+#else
+    startSessionSync();
 #endif
 }

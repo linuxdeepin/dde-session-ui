@@ -39,10 +39,18 @@ ShutdownWidget::ShutdownWidget(QWidget *parent)
 }
 
 void ShutdownWidget::initConnect() {
-
-    connect(m_requireShutdownButton, &RoundItemButton::clicked, [this]{ emit shutDownWidgetAction(RequireShutdown);});
-    connect(m_requireRestartButton, &RoundItemButton::clicked, [this]{ emit shutDownWidgetAction(RequireRestart);});
-    connect(m_requireSuspendBUtton, &RoundItemButton::clicked, [this]{ emit shutDownWidgetAction(RequireSuspend);});
+    connect(m_requireRestartButton, &RoundItemButton::clicked, this, [=] {
+        m_currentSelectedBtn = m_requireRestartButton;
+        shutdownAction();
+    });
+    connect(m_requireShutdownButton, &RoundItemButton::clicked, this, [=] {
+        m_currentSelectedBtn = m_requireShutdownButton;
+        shutdownAction();
+    });
+    connect(m_requireSuspendBUtton, &RoundItemButton::clicked, this, [=] {
+        m_currentSelectedBtn = m_requireSuspendBUtton;
+        shutdownAction();
+    });
     connect(this, &ShutdownWidget::directLeft, &ShutdownWidget::leftKeySwitch);
     connect(this, &ShutdownWidget::directRight, &ShutdownWidget::rightKeySwitch);
 }
@@ -57,16 +65,19 @@ void ShutdownWidget::initUI() {
     m_requireShutdownButton->setObjectName("RequireShutdownButton");
     m_requireShutdownButton->setAutoExclusive(true);
     updateTr(m_requireShutdownButton, "Shut down");
+    m_actionMap[m_requireShutdownButton] = SessionBaseModel::RequireShutdown;
 
     m_requireRestartButton = new RoundItemButton(tr("Reboot"), this);
     m_requireRestartButton->setObjectName("RequireRestartButton");
     m_requireRestartButton->setAutoExclusive(true);
     updateTr(m_requireRestartButton, "Reboot");
+    m_actionMap[m_requireRestartButton] = SessionBaseModel::RequireRestart;
 
     m_requireSuspendBUtton = new RoundItemButton(tr("Suspend"), this);
     m_requireSuspendBUtton->setObjectName("RequireSuspendButton");
     m_requireSuspendBUtton->setAutoExclusive(true);
     updateTr(m_requireSuspendBUtton, "Suspend");
+    m_actionMap[m_requireSuspendBUtton] = SessionBaseModel::RequireSuspend;
 
     m_currentSelectedBtn = m_requireShutdownButton;
     m_currentSelectedBtn->updateState(RoundItemButton::Default);
@@ -118,7 +129,10 @@ void ShutdownWidget::rightKeySwitch() {
 
 void ShutdownWidget::shutdownAction() {
     qDebug() << "emit m_currentSelectedBtn clicked";
-    emit m_currentSelectedBtn->clicked();
+
+    m_model->setPowerAction(m_actionMap[m_currentSelectedBtn]);
+
+    emit abortOperation();
 }
 
 void ShutdownWidget::showEvent(QShowEvent *event)
@@ -173,4 +187,9 @@ bool ShutdownWidget::event(QEvent *e)
 }
 
 ShutdownWidget::~ShutdownWidget() {
+}
+
+void ShutdownWidget::setModel(SessionBaseModel * const model)
+{
+    m_model = model;
 }

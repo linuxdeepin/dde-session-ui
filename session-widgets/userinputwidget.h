@@ -22,6 +22,10 @@ public:
     void setFaildMessage(const QString &message);
     void setFaildTipMessage(const QString &message);
 
+    void shutdownMode();
+    void normalMode();
+    void restartMode();
+
 signals:
     void requestAuthUser(const QString &password);
 

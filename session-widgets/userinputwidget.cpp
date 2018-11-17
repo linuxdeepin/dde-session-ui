@@ -90,6 +90,27 @@ void UserInputWidget::setFaildTipMessage(const QString &message)
     m_passwordEdit->showAlert(message);
 }
 
+void UserInputWidget::shutdownMode()
+{
+    m_passwordEdit->setSubmitIcon(":/img/action_icons/shutdown_normal.svg",
+                                  ":/img/action_icons/shutdown_hover.svg",
+                                  ":/img/action_icons/shutdown_press.svg");
+}
+
+void UserInputWidget::normalMode()
+{
+    m_passwordEdit->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
+                                  ":/img/action_icons/unlock_hover.svg",
+                                  ":/img/action_icons/unlock_press.svg");
+}
+
+void UserInputWidget::restartMode()
+{
+    m_passwordEdit->setSubmitIcon(":/img/action_icons/reboot_normal.svg",
+                                  ":/img/action_icons/reboot_hover.svg",
+                                  ":/img/action_icons/reboot_press.svg");
+}
+
 bool UserInputWidget::event(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange) {

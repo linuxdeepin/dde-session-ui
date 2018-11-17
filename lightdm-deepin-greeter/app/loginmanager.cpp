@@ -533,7 +533,7 @@ void LoginManager::initConnect()
 
     connect(m_loginButton, &QPushButton::clicked, this, &LoginManager::authCurrentUser);
 
-    connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
+//    connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, this, &LoginManager::setShutdownAction);
     connect(m_requireShutdownWidget, &ShutdownWidget::abortOperation, this, &LoginManager::restoreWidgetVisible);
 
     connect(m_keyboardMonitor, &KeyboardMonitor::numlockStatusChanged, this, &LoginManager::saveNumlockStatus);
@@ -903,20 +903,6 @@ void LoginManager::keybdLayoutWidgetPosit() {
 
     } else {
         m_keybdArrowWidget->hide();
-    }
-}
-
-void LoginManager::setShutdownAction(const ShutdownWidget::Actions action) {
-
-    switch (action) {
-    case ShutdownWidget::RequireShutdown: { m_login1ManagerInterface->PowerOff(true); break;}
-    case ShutdownWidget::RequireRestart: { m_login1ManagerInterface->Reboot(true); break;}
-    case ShutdownWidget::RequireSuspend: {
-        m_login1ManagerInterface->Suspend(true);
-        restoreWidgetVisible();
-        break;
-    }
-    default:;
     }
 }
 

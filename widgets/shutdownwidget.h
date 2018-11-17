@@ -32,6 +32,7 @@
 
 #include "util_updateui.h"
 #include "rounditembutton.h"
+#include "sessionbasemodel.h"
 
 class ShutdownWidget: public QFrame
 {
@@ -40,14 +41,9 @@ public:
     ShutdownWidget(QWidget* parent = 0);
     ~ShutdownWidget();
 
-    enum Actions {
-        RequireShutdown,
-        RequireRestart,
-        RequireSuspend,
-    };
+    void setModel(SessionBaseModel * const model);
 
 signals:
-    void shutDownWidgetAction(const Actions sd);
     void directLeft();
     void directRight();
     void abortOperation();
@@ -68,6 +64,7 @@ private:
     void initConnect();
     void updateTr(RoundItemButton * widget, const QString &tr);
 
+    SessionBaseModel *m_model;
     int m_index = 0;
     QHBoxLayout* m_Layout;
     QList<RoundItemButton*>* m_btnList;
@@ -75,6 +72,7 @@ private:
     RoundItemButton* m_requireShutdownButton;
     RoundItemButton* m_requireRestartButton;
     RoundItemButton* m_requireSuspendBUtton;
+    QMap<RoundItemButton*, SessionBaseModel::PowerAction> m_actionMap;
     QList<std::pair<std::function<void (QString)>, QString>> m_trList;
 };
 #endif // SHUTDOWNWIDGET

@@ -120,8 +120,6 @@ private:
     void keybdLayoutWidgetPosit();
     void setCurrentKeybdLayoutList(QString keyboard_value);
 
-    void setShutdownAction(const ShutdownWidget::Actions action);
-
     void saveNumlockStatus(const bool &on);
     void restoreNumlockStatus();
 

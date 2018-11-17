@@ -18,17 +18,13 @@ SOURCES += main.cpp \
     timewidget.cpp \
     lockmanager.cpp \
     lockframe.cpp \
-    dbus/dbuslockfrontservice.cpp \
-    lockcontent.cpp \
-    lockworker.cpp
+    dbus/dbuslockfrontservice.cpp
 
 HEADERS  += \
     timewidget.h \
     lockmanager.h \
     lockframe.h \
-    dbus/dbuslockfrontservice.h \
-    lockcontent.h \
-    lockworker.h
+    dbus/dbuslockfrontservice.h
 
 RESOURCES += \
     images.qrc \

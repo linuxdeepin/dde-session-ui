@@ -31,15 +31,21 @@
 
 #include <memory>
 
+class LockContent;
+class SessionBaseModel;
 class LoginWindow : public FullscreenBackground
 {
     Q_OBJECT
 
 public:
-    explicit LoginWindow(QWidget *parent = 0);
+    explicit LoginWindow(SessionBaseModel * const model, QWidget *parent = 0);
+
+signals:
+    void requestAuthUser(std::shared_ptr<User> user, const QString &password);
+    void requestSwitchToUser(std::shared_ptr<User> user);
 
 private:
-    LoginManager *m_loginFrame;
+    LockContent *m_loginFrame;
 };
 
 #endif // LOGINWINDOW_H

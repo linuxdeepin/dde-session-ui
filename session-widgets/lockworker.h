@@ -6,6 +6,9 @@
 #include <QObject>
 #include <QWidget>
 
+#include <QLightDM/Greeter>
+#include <QLightDM/SessionsModel>
+
 #include <com_deepin_daemon_logined.h>
 #include <com_deepin_daemon_accounts.h>
 
@@ -38,21 +41,28 @@ private:
     void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
     void onUnlockFinished(bool unlocked);
     // greeter
+    void prompt(QString text, QLightDM::Greeter::PromptType type);
+    void message(QString text, QLightDM::Greeter::MessageType type);
+    void authenticationComplete();
 
 private:
     SessionBaseModel *m_model;
     AccountsInter *m_accountsInter;
     LoginedInter *m_loginedInter;
-    DBusLockService *m_lockInter;
 
     // lock
     bool m_authenticating;
     bool m_isThumbAuth;
+    DBusLockService *m_lockInter;
+
+    // greeter
+    QLightDM::Greeter *m_greeter;
 
     uint m_currentUserUid;
     uint m_lastLogoutUid;
     std::shared_ptr<User> m_authUser;
     std::list<uint> m_loginUserList;
+    QString m_password;
 };
 
 #endif // LOCKWORKER_H

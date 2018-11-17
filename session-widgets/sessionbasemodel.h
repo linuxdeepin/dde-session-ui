@@ -15,6 +15,13 @@ public:
         LightdmType
     };
 
+    enum PowerAction {
+        RequireNormal,
+        RequireShutdown,
+        RequireRestart,
+        RequireSuspend,
+    };
+
     explicit SessionBaseModel(AuthType type, QObject *parent = nullptr);
 
     inline AuthType currentType() const { return m_currentType; }
@@ -29,18 +36,28 @@ public:
     void setCurrentUser(std::shared_ptr<User> user);
     void setLastLogoutUser(const std::shared_ptr<User> &lastLogoutUser);
 
+    inline QString sessionKey() const { return m_sessionKey; }
+    void setSessionKey(const QString &sessionKey);
+
+    inline PowerAction powerAction() const { return m_powerAction; }
+    void setPowerAction(const PowerAction &powerAction);
+
 signals:
     void onUserAdded(std::shared_ptr<User> user);
     void onUserRemoved(const uint uid);
     void currentUserChanged(std::shared_ptr<User> user);
     void authFaildMessage(const QString &message);
     void authFaildTipsMessage(const QString &message);
+    void authFinished(bool success);
+    void onPowerActionChanged(PowerAction poweraction);
 
 private:
     AuthType m_currentType;
     QList<std::shared_ptr<User>> m_userList;
     std::shared_ptr<User> m_currentUser;
     std::shared_ptr<User> m_lastLogoutUser;
+    QString m_sessionKey;
+    PowerAction m_powerAction;
 };
 
 #endif // SESSIONBASEMODEL_H

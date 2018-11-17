@@ -7,11 +7,12 @@
 #include "sessionbasewindow.h"
 
 class ControlWidget;
-class TimeWidget;
 class UserInputWidget;
 class SessionBaseModel;
 class User;
 class UserFrame;
+class SessionWidget;
+class ShutdownWidget;
 class LockContent : public SessionBaseWindow
 {
     Q_OBJECT
@@ -26,6 +27,8 @@ signals:
 public slots:
     void onCurrentUserChanged(std::shared_ptr<User> user);
     void pushUserFrame();
+    void pushSessionFrame();
+    void pushShutdownFrame();
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
@@ -36,9 +39,11 @@ private:
 private:
     SessionBaseModel *m_model;
     ControlWidget *m_controlWidget;
-    TimeWidget *m_timeWidget;
     UserInputWidget *m_userInputWidget;
     UserFrame *m_userFrame;
+    SessionWidget *m_sessionFrame;
+    ShutdownWidget *m_shutdownFrame;
+
     std::shared_ptr<User> m_user;
 };
 

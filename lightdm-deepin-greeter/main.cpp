@@ -25,6 +25,8 @@
 
 #include "loginwindow.h"
 
+#include "lockworker.h"
+
 #include <DApplication>
 #include <QtCore/QTranslator>
 #include <QLabel>
@@ -85,8 +87,12 @@ int main(int argc, char* argv[])
 
     DLogManager::registerConsoleAppender();
 
-    LoginWindow lw;
-    lw.showFullScreen();
+    SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LightdmType);
+    LockWorker *worker = new LockWorker(model); //
+    LoginWindow loginFrame(model);
+    QObject::connect(&loginFrame, &LoginWindow::requestSwitchToUser, worker, &LockWorker::switchToUser);
+    QObject::connect(&loginFrame, &LoginWindow::requestAuthUser, worker, &LockWorker::authUser);
 
+    loginFrame.showFullScreen();
     return a.exec();
 }
