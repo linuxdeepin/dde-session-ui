@@ -24,11 +24,18 @@ private:
     void onUserListChanged(const QStringList &list);
     void onUserAdded(const QString &user);
     void onUserRemove(const QString &user);
+    void onLastLogoutUserChanged(uint uid);
+    void onLoginUserListChanged(const QString &list);
+    bool checkHaveDisplay(const QJsonArray &array);
+    bool isLogined(uint uid);
 
 private:
     SessionBaseModel *m_model;
     AccountsInter *m_accountsInter;
+    LoginedInter *m_loginedInter;
     uint m_currentUserUid;
+    uint m_lastLogoutUid;
+    std::list<uint> m_loginUserList;
 };
 
 #endif // LOCKWORKER_H

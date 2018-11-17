@@ -19,12 +19,14 @@ public:
 
     inline AuthType currentType() const { return m_currentType; }
     inline std::shared_ptr<User> currentUser() { return m_currentUser; }
+    inline std::shared_ptr<User> lastLogoutUser() const { return m_lastLogoutUser; }
 
     const QList<std::shared_ptr<User>> userList() const { return m_userList; }
 
     void userAdd(std::shared_ptr<User> user);
     void userRemoved(std::shared_ptr<User> user);
     void setCurrentUser(std::shared_ptr<User> user);
+    void setLastLogoutUser(const std::shared_ptr<User> &lastLogoutUser);
 
 signals:
     void onUserAdded(std::shared_ptr<User> user);
@@ -35,6 +37,7 @@ private:
     AuthType m_currentType;
     QList<std::shared_ptr<User>> m_userList;
     std::shared_ptr<User> m_currentUser;
+    std::shared_ptr<User> m_lastLogoutUser;
 };
 
 #endif // SESSIONBASEMODEL_H

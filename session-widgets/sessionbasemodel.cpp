@@ -29,3 +29,8 @@ void SessionBaseModel::setCurrentUser(std::shared_ptr<User> user)
 
     emit currentUserChanged(user);
 }
+
+void SessionBaseModel::setLastLogoutUser(const std::shared_ptr<User> &lastLogoutUser)
+{
+    m_lastLogoutUser = lastLogoutUser;
+}
