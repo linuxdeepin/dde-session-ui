@@ -62,6 +62,7 @@ protected:
 private:
     LockContent *m_content;
     Display *m_display;
+    SessionBaseModel *m_model;
     int m_failures = 0;
 };
 

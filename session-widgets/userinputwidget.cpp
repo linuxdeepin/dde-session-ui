@@ -128,6 +128,12 @@ bool UserInputWidget::event(QEvent *event)
         refreshLanguage();
     }
 
+    if (event->type() == QEvent::Show) {
+        QTimer::singleShot(400, this, [=] {
+            m_passwordEdit->lineEdit()->setFocus();
+        });
+    }
+
     return QWidget::event(event);
 }
 

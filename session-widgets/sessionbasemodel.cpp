@@ -76,3 +76,12 @@ void SessionBaseModel::setPowerAction(const PowerAction &powerAction)
 
     emit onPowerActionChanged(powerAction);
 }
+
+void SessionBaseModel::setCurrentModeState(const ModeStatus &currentModeState)
+{
+    if (m_currentModeState == currentModeState) return;
+
+    m_currentModeState = currentModeState;
+
+    emit onStatusChanged(currentModeState);
+}

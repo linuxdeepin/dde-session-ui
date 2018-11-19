@@ -22,6 +22,13 @@ public:
         RequireSuspend,
     };
 
+    enum ModeStatus {
+        PasswordMode,
+        UserMode,
+        SessionMode,
+        PowerMode
+    };
+
     explicit SessionBaseModel(AuthType type, QObject *parent = nullptr);
 
     inline AuthType currentType() const { return m_currentType; }
@@ -43,6 +50,9 @@ public:
     inline PowerAction powerAction() const { return m_powerAction; }
     void setPowerAction(const PowerAction &powerAction);
 
+    ModeStatus currentModeState() const { return m_currentModeState; }
+    void setCurrentModeState(const ModeStatus &currentModeState);
+
 signals:
     void onUserAdded(std::shared_ptr<User> user);
     void onUserRemoved(const uint uid);
@@ -55,6 +65,7 @@ signals:
     void onLogindUserChanged();
     void showUserList();
     void show();
+    void onStatusChanged(ModeStatus status);
 
 private:
     AuthType m_currentType;
@@ -63,6 +74,7 @@ private:
     std::shared_ptr<User> m_lastLogoutUser;
     QString m_sessionKey;
     PowerAction m_powerAction;
+    ModeStatus m_currentModeState;
 };
 
 #endif // SESSIONBASEMODEL_H

@@ -22,7 +22,7 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     m_shutdownFrame->setModel(model);
     m_userFrame->setModel(model);
 
-    restoreCenterContent();
+    model->setCurrentModeState(SessionBaseModel::ModeStatus::PasswordMode);
 
     setRightBottomWidget(m_controlWidget);
 
@@ -33,7 +33,9 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         m_sessionFrame->setModel(model);
 
         connect(m_sessionFrame, &SessionWidget::hideFrame, this, &LockContent::restoreCenterContent);
-        connect(m_controlWidget, &ControlWidget::requestSwitchSession, this, &LockContent::pushSessionFrame);
+        connect(m_controlWidget, &ControlWidget::requestSwitchSession, this, [=] {
+            m_model->setCurrentModeState(SessionBaseModel::ModeStatus::SessionMode);
+        });
         connect(m_model, &SessionBaseModel::onSessionKeyChanged, m_controlWidget, &ControlWidget::chooseToSession);
 
         break;
@@ -50,13 +52,17 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         emit requestAuthUser(m_user, password);
     });
     connect(m_userFrame, &UserFrame::requestSwitchUser, this, &LockContent::requestSwitchToUser);
-    connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LockContent::pushUserFrame);
-    connect(m_controlWidget, &ControlWidget::requestShutdown, this, &LockContent::pushShutdownFrame);
+    connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, [=] {
+        m_model->setCurrentModeState(SessionBaseModel::ModeStatus::UserMode);
+    });
+    connect(m_controlWidget, &ControlWidget::requestShutdown, this, [=] {
+        m_model->setCurrentModeState(SessionBaseModel::ModeStatus::PowerMode);
+    });
     connect(m_userFrame, &UserFrame::hideFrame, this, &LockContent::restoreCenterContent);
     connect(m_shutdownFrame, &ShutdownWidget::abortOperation, this, &LockContent::restoreCenterContent);
     connect(model, &SessionBaseModel::authFaildMessage, m_userInputWidget, &UserInputWidget::setFaildMessage);
     connect(model, &SessionBaseModel::authFaildTipsMessage, m_userInputWidget, &UserInputWidget::setFaildTipMessage);
-
+    connect(model, &SessionBaseModel::onStatusChanged, this, &LockContent::onStatusChanged);
     connect(model, &SessionBaseModel::onPowerActionChanged, this, [=] (SessionBaseModel::PowerAction poweraction) {
         switch (poweraction) {
         case SessionBaseModel::RequireNormal:
@@ -96,9 +102,7 @@ void LockContent::pushUserFrame()
     setCenterContent(m_userFrame);
     m_userFrame->expansion(true);
 
-    if (isVisible()) {
-        QTimer::singleShot(300, m_userFrame, &UserFrame::grabKeyboard);
-    }
+    QTimer::singleShot(100, m_userFrame, &UserFrame::grabKeyboard);
 }
 
 void LockContent::pushSessionFrame()
@@ -107,9 +111,7 @@ void LockContent::pushSessionFrame()
     setCenterContent(m_sessionFrame);
     m_sessionFrame->show();
 
-    if (isVisible()) {
-        QTimer::singleShot(300, m_sessionFrame, &SessionWidget::grabKeyboard);
-    }
+    QTimer::singleShot(100, m_sessionFrame, &SessionWidget::grabKeyboard);
 }
 
 void LockContent::pushShutdownFrame()
@@ -117,16 +119,48 @@ void LockContent::pushShutdownFrame()
     releaseAllKeyboard();
     setCenterContent(m_shutdownFrame);
 
-    if (isVisible()) {
-        QTimer::singleShot(300, m_shutdownFrame, &ShutdownWidget::grabKeyboard);
+    QTimer::singleShot(100, m_shutdownFrame, &ShutdownWidget::grabKeyboard);
+}
+
+void LockContent::onStatusChanged(SessionBaseModel::ModeStatus status)
+{
+    switch (status) {
+    case SessionBaseModel::ModeStatus::PasswordMode:
+        restoreCenterContent();
+        break;
+    case SessionBaseModel::ModeStatus::UserMode:
+        pushUserFrame();
+        break;
+    case SessionBaseModel::ModeStatus::SessionMode:
+        pushSessionFrame();
+        break;
+    case SessionBaseModel::ModeStatus::PowerMode:
+        pushShutdownFrame();
+        break;
+    default:
+        break;
     }
 }
 
 void LockContent::mouseReleaseEvent(QMouseEvent *event)
 {
-    restoreCenterContent();
+    m_model->setCurrentModeState(SessionBaseModel::ModeStatus::PasswordMode);
 
     return SessionBaseWindow::mouseReleaseEvent(event);
+}
+
+void LockContent::showEvent(QShowEvent *event)
+{
+    onStatusChanged(m_model->currentModeState());
+
+    return QFrame::showEvent(event);
+}
+
+void LockContent::hideEvent(QHideEvent *event)
+{
+    releaseAllKeyboard();
+
+    return QFrame::hideEvent(event);
 }
 
 void LockContent::releaseAllKeyboard()
@@ -145,9 +179,7 @@ void LockContent::restoreCenterContent()
     releaseAllKeyboard();
     setCenterContent(m_userInputWidget);
 
-    if (isVisible()) {
-        QTimer::singleShot(300, m_userInputWidget, &UserInputWidget::grabKeyboard);
-    }
+    QTimer::singleShot(100, m_userInputWidget, &UserInputWidget::grabKeyboard);
 }
 
 void LockContent::updateBackground(const QString &path)

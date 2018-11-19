@@ -37,6 +37,7 @@ ShutdownFrame::ShutdownFrame(SessionBaseModel * const model, QWidget *parent)
 {
     m_shutdownFrame = new ContentWidget(this);
     m_shutdownFrame->setModel(model);
+    m_shutdownFrame->hide();
 
     connect(m_shutdownFrame, &ContentWidget::requestBackground,
             this, static_cast<void (ShutdownFrame::*)(const QString &)>(&ShutdownFrame::updateBackground));

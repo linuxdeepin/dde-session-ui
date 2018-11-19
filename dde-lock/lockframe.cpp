@@ -34,6 +34,7 @@
 
 LockFrame::LockFrame(SessionBaseModel * const model, QWidget* parent)
     : FullscreenBackground(parent)
+    , m_model(model)
 {
     m_display = QX11Info::display();
 
@@ -50,8 +51,8 @@ LockFrame::LockFrame(SessionBaseModel * const model, QWidget* parent)
 }
 
 void LockFrame::showUserList() {
-    showFullScreen();
-    m_content->pushUserFrame();
+    show();
+    m_model->setCurrentModeState(SessionBaseModel::ModeStatus::UserMode);
 }
 
 void LockFrame::tryGrabKeyboard()

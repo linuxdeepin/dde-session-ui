@@ -7,12 +7,12 @@
 #include <com_deepin_daemon_imageblur.h>
 
 #include "sessionbasewindow.h"
+#include "sessionbasemodel.h"
 
 using ImageBlur = com::deepin::daemon::ImageBlur;
 
 class ControlWidget;
 class UserInputWidget;
-class SessionBaseModel;
 class User;
 class UserFrame;
 class SessionWidget;
@@ -33,9 +33,12 @@ public slots:
     void pushUserFrame();
     void pushSessionFrame();
     void pushShutdownFrame();
+    void onStatusChanged(SessionBaseModel::ModeStatus status);
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+    void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void releaseAllKeyboard();
