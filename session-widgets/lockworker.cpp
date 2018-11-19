@@ -46,9 +46,11 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     connect(m_accountsInter, &AccountsInter::UserAdded, this, &LockWorker::onUserAdded);
     connect(m_accountsInter, &AccountsInter::UserDeleted, this, &LockWorker::onUserRemove);
 
+    connect(m_accountsInter, &AccountsInter::serviceValidChanged, this, &LockWorker::checkDBusServer);
+
     onLastLogoutUserChanged(m_loginedInter->lastLogoutUser());
     onLoginUserListChanged(m_loginedInter->userList());
-    onUserListChanged(m_accountsInter->userList());
+    checkDBusServer(m_accountsInter->isValid());
 }
 
 void LockWorker::switchToUser(std::shared_ptr<User> user)
@@ -100,6 +102,19 @@ void LockWorker::authUser(std::shared_ptr<User> user, const QString &password)
         else {
             m_greeter->authenticate(user->name());
         }
+    }
+}
+
+void LockWorker::checkDBusServer(bool isvalid)
+{
+    if (isvalid) {
+        onUserListChanged(m_accountsInter->userList());
+    }
+    else {
+        QTimer::singleShot(300, this, [=] {
+            qWarning() << "com.deepin.daemon.Accounts is not start, rechecking!";
+            checkDBusServer(m_accountsInter->isValid());
+        });
     }
 }
 

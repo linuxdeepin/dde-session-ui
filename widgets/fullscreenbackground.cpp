@@ -46,6 +46,8 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     m_fadeOutAni->setStartValue(1.0f);
     m_fadeOutAni->setEndValue(0.0f);
 
+    updateBackground("/usr/share/backgrounds/default_background.jpg");
+
     connect(m_fadeOutAni, &QVariantAnimation::valueChanged, this, static_cast<void (FullscreenBackground::*)()>(&FullscreenBackground::update));
 }
 

@@ -31,6 +31,7 @@ signals:
     void requestUpdateBackground(const QString &background); // only for greeter auth successd!
 
 private:
+    void checkDBusServer(bool isvalid);
     void onUserListChanged(const QStringList &list);
     void onUserAdded(const QString &user);
     void onUserRemove(const QString &user);
