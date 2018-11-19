@@ -50,12 +50,13 @@ using Appearance = com::deepin::daemon::Appearance;
 using ImageBlur = com::deepin::daemon::ImageBlur;
 
 class MultiUsersWarningView;
-
+class SessionBaseModel;
 class ContentWidget: public QFrame
 {
     Q_OBJECT
 public:
     ContentWidget(QWidget* parent=0);
+    void setModel(SessionBaseModel * const model);
     ~ContentWidget();
 
 signals:

@@ -26,13 +26,17 @@
 #include <QDebug>
 
 #include "shutdownframe.h"
+#include "sessionbasemodel.h"
+#include "dbusshutdownagent.h"
 
 const QString WallpaperKey = "pictureUri";
 
-ShutdownFrame::ShutdownFrame(QWidget *parent)
+ShutdownFrame::ShutdownFrame(SessionBaseModel * const model, QWidget *parent)
     : FullscreenBackground(parent)
+    , m_model(model)
 {
     m_shutdownFrame = new ContentWidget(this);
+    m_shutdownFrame->setModel(model);
 
     connect(m_shutdownFrame, &ContentWidget::requestBackground,
             this, static_cast<void (ShutdownFrame::*)(const QString &)>(&ShutdownFrame::updateBackground));
@@ -54,7 +58,7 @@ ShutdownFrame::~ShutdownFrame()
 {
 }
 
-ShutdownFrontDBus::ShutdownFrontDBus(ShutdownFrame *parent):
+ShutdownFrontDBus::ShutdownFrontDBus(DBusShutdownAgent *parent):
     QDBusAbstractAdaptor(parent),
     m_parent(parent)
 {
@@ -70,38 +74,30 @@ void ShutdownFrontDBus::Ping()
 
 void ShutdownFrontDBus::Shutdown()
 {
-    m_parent->setConfirm(true);
-    m_parent->powerAction(Actions::Shutdown);
-    m_parent->show();
+    m_parent->Shutdown();
 }
 
 void ShutdownFrontDBus::Restart()
 {
-    m_parent->setConfirm(true);
-    m_parent->powerAction(Actions::Restart);
-    m_parent->show();
+    m_parent->Restart();
 }
 
 void ShutdownFrontDBus::Logout()
 {
-    m_parent->setConfirm(true);
-    m_parent->powerAction(Actions::Logout);
-    m_parent->show();
+    m_parent->Logout();
 }
 
 void ShutdownFrontDBus::Suspend()
 {
-    m_parent->powerAction(Actions::Suspend);
+    m_parent->Suspend();
 }
 
 void ShutdownFrontDBus::SwitchUser()
 {
-    m_parent->powerAction(Actions::SwitchUser);
+    m_parent->SwitchUser();
 }
 
 void ShutdownFrontDBus::Show()
 {
-    if (m_parent) {
-        m_parent->show();
-    }
+    m_parent->Show();
 }

@@ -94,6 +94,7 @@ int main(int argc, char* argv[])
         LoginWindow *loginFrame = new LoginWindow(model);
         loginFrame->createWinId();
         loginFrame->windowHandle()->setScreen(screen);
+        loginFrame->setGeometry(screen->geometry());
         loginFrame->setFixedSize(screen->size());
         QObject::connect(loginFrame, &LoginWindow::requestSwitchToUser, worker, &LockWorker::switchToUser);
         QObject::connect(loginFrame, &LoginWindow::requestAuthUser, worker, &LockWorker::authUser);

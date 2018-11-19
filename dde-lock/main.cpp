@@ -75,6 +75,7 @@ int main(int argc, char *argv[])
         LockFrame *lockFrame = new LockFrame(model);
         lockFrame->createWinId();
         lockFrame->windowHandle()->setScreen(screen);
+        lockFrame->setGeometry(screen->geometry());
         lockFrame->setFixedSize(screen->size());
         QObject::connect(lockFrame, &LockFrame::requestSwitchToUser, worker, &LockWorker::switchToUser);
         QObject::connect(lockFrame, &LockFrame::requestAuthUser, worker, &LockWorker::authUser);

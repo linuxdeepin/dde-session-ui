@@ -95,7 +95,10 @@ void LockContent::pushUserFrame()
     releaseAllKeyboard();
     setCenterContent(m_userFrame);
     m_userFrame->expansion(true);
-    QTimer::singleShot(300, m_userFrame, &UserFrame::grabKeyboard);
+
+    if (isVisible()) {
+        QTimer::singleShot(300, m_userFrame, &UserFrame::grabKeyboard);
+    }
 }
 
 void LockContent::pushSessionFrame()
@@ -103,14 +106,20 @@ void LockContent::pushSessionFrame()
     releaseAllKeyboard();
     setCenterContent(m_sessionFrame);
     m_sessionFrame->show();
-    QTimer::singleShot(300, m_sessionFrame, &SessionWidget::grabKeyboard);
+
+    if (isVisible()) {
+        QTimer::singleShot(300, m_sessionFrame, &SessionWidget::grabKeyboard);
+    }
 }
 
 void LockContent::pushShutdownFrame()
 {
     releaseAllKeyboard();
     setCenterContent(m_shutdownFrame);
-    QTimer::singleShot(300, m_shutdownFrame, &ShutdownWidget::grabKeyboard);
+
+    if (isVisible()) {
+        QTimer::singleShot(300, m_shutdownFrame, &ShutdownWidget::grabKeyboard);
+    }
 }
 
 void LockContent::mouseReleaseEvent(QMouseEvent *event)
@@ -135,7 +144,10 @@ void LockContent::restoreCenterContent()
 {
     releaseAllKeyboard();
     setCenterContent(m_userInputWidget);
-    QTimer::singleShot(300, m_userInputWidget, &UserInputWidget::grabKeyboard);
+
+    if (isVisible()) {
+        QTimer::singleShot(300, m_userInputWidget, &UserInputWidget::grabKeyboard);
+    }
 }
 
 void LockContent::updateBackground(const QString &path)

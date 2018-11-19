@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     view/multiuserswarningview.cpp \
     app/shutdownframe.cpp \
     view/inhibitwarnview.cpp \
-    view/systemmonitor.cpp
+    view/systemmonitor.cpp \
+    dbusshutdownagent.cpp
 
 HEADERS  += \
     common.h \
@@ -33,7 +34,8 @@ HEADERS  += \
     app/shutdownframe.h \
     view/inhibitwarnview.h \
     view/systemmonitor.h \
-    view/warningview.h
+    view/warningview.h \
+    dbusshutdownagent.h
 
 RESOURCES += \
     qss.qrc \

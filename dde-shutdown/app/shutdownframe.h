@@ -32,11 +32,13 @@
 #include "view/contentwidget.h"
 
 class ShutdownFrontDBus;
+class SessionBaseModel;
+class DBusShutdownAgent;
 class ShutdownFrame: public FullscreenBackground
 {
     Q_OBJECT
 public:
-    ShutdownFrame(QWidget* parent = 0);
+    ShutdownFrame(SessionBaseModel * const model, QWidget* parent = nullptr);
     ~ShutdownFrame();
 
 public slots:
@@ -44,6 +46,7 @@ public slots:
     void setConfirm(const bool confrim);
 
 private:
+    SessionBaseModel *m_model;
     ContentWidget *m_shutdownFrame;
 };
 
@@ -52,7 +55,7 @@ class ShutdownFrontDBus : public QDBusAbstractAdaptor {
     Q_CLASSINFO("D-Bus Interface", "com.deepin.dde.shutdownFront")
 
 public:
-    ShutdownFrontDBus(ShutdownFrame* parent);
+    ShutdownFrontDBus(DBusShutdownAgent* parent);
     ~ShutdownFrontDBus();
 
     Q_SLOT void Ping();
@@ -64,7 +67,7 @@ public:
     Q_SLOT void Show();
 
 private:
-    ShutdownFrame* m_parent;
+    DBusShutdownAgent* m_parent;
 };
 #endif // SHUTDOWNFRAME
 

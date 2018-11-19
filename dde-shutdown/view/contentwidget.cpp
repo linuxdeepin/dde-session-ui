@@ -37,6 +37,8 @@
 
 #include "dbus/dbuscontrolcenter.h"
 
+#include "sessionbasemodel.h"
+
 ContentWidget::ContentWidget(QWidget *parent)
     : QFrame(parent)
     , m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
@@ -53,6 +55,16 @@ ContentWidget::ContentWidget(QWidget *parent)
     initData();
     initConnect();
     initBackground();
+}
+
+void ContentWidget::setModel(SessionBaseModel * const model)
+{
+    auto checkUser = [=] () {
+        m_switchUserBtn->setVisible(model->logindUser().size() > 1);
+    };
+
+    connect(model, &SessionBaseModel::onLogindUserChanged, this, checkUser);
+    checkUser();
 }
 
 ContentWidget::~ContentWidget()

@@ -34,6 +34,10 @@
 #include <DLog>
 
 #include "app/shutdownframe.h"
+#include "sessionbasemodel.h"
+#include "lockworker.h"
+
+#include "dbusshutdownagent.h"
 
 const QString DBUS_PATH = "/com/deepin/dde/shutdownFront";
 const QString DBUS_NAME = "com.deepin.dde.shutdownFront";
@@ -82,13 +86,26 @@ int main(int argc, char* argv[])
     } else {
         qDebug() << "dbus registration success.";
 
-        ShutdownFrame w;
+        SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LockType);
+        LockWorker *worker = new LockWorker(model); //
+        DBusShutdownAgent *dbusAgent = new DBusShutdownAgent;
 
-        if (!parser.isSet(daemon))
-            QMetaObject::invokeMethod(&w, "showFullScreen", Qt::QueuedConnection);
+        for (QScreen *screen : app.screens()) {
+            ShutdownFrame *frame = new ShutdownFrame(model);
+            frame->createWinId();
+            frame->windowHandle()->setScreen(screen);
+            frame->setGeometry(screen->geometry());
+            frame->setFixedSize(screen->size());
+            QObject::connect(model, &SessionBaseModel::show, frame, &ShutdownFrame::show);
+            frame->show();
+        }
 
-        ShutdownFrontDBus adaptor(&w); Q_UNUSED(adaptor);
-        QDBusConnection::sessionBus().registerObject(DBUS_PATH, &w);
+        if (!parser.isSet(daemon)) {
+            emit model->show();
+        }
+
+        ShutdownFrontDBus adaptor(dbusAgent); Q_UNUSED(adaptor);
+        QDBusConnection::sessionBus().registerObject(DBUS_PATH, dbusAgent);
 
         return app.exec();
     }

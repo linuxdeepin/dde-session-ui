@@ -21,6 +21,18 @@ std::shared_ptr<User> SessionBaseModel::findUserByUid(const uint uid) const
     return std::shared_ptr<User>(nullptr);
 }
 
+const QList<std::shared_ptr<User> > SessionBaseModel::logindUser()
+{
+    QList<std::shared_ptr<User>> userList;
+    for (auto user : m_userList) {
+        if (user->isLogin()) {
+            userList << user;
+        }
+    }
+
+    return userList;
+}
+
 void SessionBaseModel::userAdd(std::shared_ptr<User> user)
 {
     m_userList << user;

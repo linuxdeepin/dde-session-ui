@@ -30,6 +30,7 @@ public:
 
     std::shared_ptr<User> findUserByUid(const uint uid) const;
     const QList<std::shared_ptr<User>> userList() const { return m_userList; }
+    const QList<std::shared_ptr<User>> logindUser();
 
     void userAdd(std::shared_ptr<User> user);
     void userRemoved(std::shared_ptr<User> user);
@@ -51,6 +52,7 @@ signals:
     void authFinished(bool success);
     void onPowerActionChanged(PowerAction poweraction);
     void onSessionKeyChanged(const QString &sessionKey);
+    void onLogindUserChanged();
     void showUserList();
     void show();
 
