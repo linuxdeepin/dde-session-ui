@@ -39,6 +39,10 @@ LoginWindow::LoginWindow(SessionBaseModel * const model, QWidget *parent)
         updateBackground(wallpaper);
     });
 
+    connect(model, &SessionBaseModel::authFinished, this, [=] (bool successd) {
+        m_loginFrame->setVisible(!successd);
+    });
+
     connect(m_loginFrame, &LockContent::requestAuthUser, this, &LoginWindow::requestAuthUser);
     connect(m_loginFrame, &LockContent::requestSwitchToUser, this, &LoginWindow::requestSwitchToUser);
 }
