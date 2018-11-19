@@ -49,7 +49,11 @@ void SessionBaseModel::setLastLogoutUser(const std::shared_ptr<User> &lastLogout
 
 void SessionBaseModel::setSessionKey(const QString &sessionKey)
 {
+    if (m_sessionKey == sessionKey) return;
+
     m_sessionKey = sessionKey;
+
+    emit onSessionKeyChanged(sessionKey);
 }
 
 void SessionBaseModel::setPowerAction(const PowerAction &powerAction)

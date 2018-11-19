@@ -39,7 +39,7 @@ class SessionWidget : public QFrame
 {
     Q_OBJECT
 public:
-    explicit SessionWidget(QWidget *parent = 0);
+    explicit SessionWidget(QWidget *parent = nullptr);
     void setModel(SessionBaseModel * const model);
     ~SessionWidget();
 
@@ -61,8 +61,9 @@ public slots:
     void chooseSession();
 
 protected:
-    void keyReleaseEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
     void loadSessionList();

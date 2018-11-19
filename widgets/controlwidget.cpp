@@ -127,7 +127,7 @@ void ControlWidget::setSessionSwitchEnable(const bool visible)
 
 #endif
 
-        m_mainLayout->insertWidget(0, m_sessionBtn);
+        m_mainLayout->insertWidget(1, m_sessionBtn);
         m_mainLayout->setAlignment(m_sessionBtn, Qt::AlignBottom);
 
         connect(m_sessionBtn, &DImageButton::clicked, this, &ControlWidget::requestSwitchSession);
@@ -137,9 +137,8 @@ void ControlWidget::setSessionSwitchEnable(const bool visible)
         m_tipWidget = new QWidget;
         m_tipWidget->setFixedSize(80, 40);
 
-        m_mainLayout->insertWidget(0, m_tipWidget);
+        m_mainLayout->insertWidget(1, m_tipWidget);
         m_mainLayout->setAlignment(m_tipWidget, Qt::AlignBottom);
-        m_mainLayout->insertStretch(0);
     }
 
     if (!m_sessionTip) {

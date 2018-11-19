@@ -50,6 +50,7 @@ signals:
     void authFaildTipsMessage(const QString &message);
     void authFinished(bool success);
     void onPowerActionChanged(PowerAction poweraction);
+    void onSessionKeyChanged(const QString &sessionKey);
 
 private:
     AuthType m_currentType;

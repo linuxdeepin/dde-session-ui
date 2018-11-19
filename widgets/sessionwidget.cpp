@@ -66,7 +66,7 @@ SessionWidget::SessionWidget(QWidget *parent)
 //    setStyleSheet("QFrame {"
 //                  "background-color: red;"
 //                  "}");
-
+    setFixedHeight(500);
     loadSessionList();
 }
 
@@ -92,40 +92,35 @@ const QString SessionWidget::currentSessionKey() const
 
 void SessionWidget::show()
 {
-    if (isVisible())
-        return;
-
     const int itemPadding = 20;
     const int itemWidth = m_sessionBtns.first()->width();
-    const int itemHeight = m_sessionBtns.first()->height();
     const int itemTotal = itemPadding + itemWidth;
-    const int count = m_sessionBtns.count();
-    const int maxLineCap = width() / itemTotal - 1; // 1 for left-offset and right-offset.
-    const int offset = (width() - itemTotal * qMin(count, maxLineCap)) / 2;
-
-    // Adjust size according to session count.
-    if (maxLineCap < count) {
-        setFixedSize(width(), qCeil(count * 1.0 / maxLineCap) * SessionButtonHeight);
-    }
-
-    for (int i(0); i != count; ++i) {
-        QPropertyAnimation *ani = new QPropertyAnimation(m_sessionBtns[i], "pos");
-        if (i + 1 <= maxLineCap) {
-            // the first line.
-            ani->setStartValue(QPoint(width(), 0));
-            ani->setEndValue(QPoint(offset + i * itemTotal, 0));
-        } else {
-            // the second line.
-            ani->setStartValue(QPoint(width(), itemHeight));
-            ani->setEndValue(QPoint(offset + (i - maxLineCap) * itemTotal, itemHeight));
-        }
-        ani->start(QAbstractAnimation::DeleteWhenStopped);
-
-        m_sessionBtns.at(i)->show();
-    }
 
     // checked default session button
     m_sessionBtns.at(m_currentSessionIndex)->setChecked(true);
+
+    const int cout = m_sessionBtns.size();
+    const int maxLineCap = width() / itemWidth - 1; // 1 for left-offset and right-offset.
+    const int offset = (width() - itemWidth * std::min(cout, maxLineCap)) / 2;
+
+    int row = 0;
+    int index = 0;
+    for (auto it = m_sessionBtns.constBegin(); it != m_sessionBtns.constEnd(); ++it) {
+        RoundItemButton *button = *it;
+        // If the current value is the maximum, need to change the line.
+        if (index >= maxLineCap) {
+            index = 0;
+            ++row;
+        }
+
+        QPropertyAnimation *ani = new QPropertyAnimation(button, "pos");
+        ani->setStartValue(QPoint(width(), 0));
+        ani->setEndValue(QPoint(QPoint(offset + index * itemWidth, itemTotal * row)));
+        button->show();
+        ani->start(QAbstractAnimation::DeleteWhenStopped);
+
+        index++;
+    }
 
     QWidget::show();
 }
@@ -163,12 +158,7 @@ void SessionWidget::keyReleaseEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Enter:
     case Qt::Key_Return:
-        for (RoundItemButton *btn : m_sessionBtns) {
-            if (btn->isChecked()) {
-                btn->clicked();
-                break;
-            }
-        }
+        chooseSession();
         break;
     case Qt::Key_Left:
         leftKeySwitch();
@@ -189,6 +179,13 @@ void SessionWidget::mouseReleaseEvent(QMouseEvent *event)
     return QFrame::mouseReleaseEvent(event);
 }
 
+void SessionWidget::resizeEvent(QResizeEvent *event)
+{
+    QTimer::singleShot(0, this, &SessionWidget::show);
+
+    return QFrame::resizeEvent(event);
+}
+
 void SessionWidget::onSessionButtonClicked()
 {
     RoundItemButton *btn = qobject_cast<RoundItemButton *>(sender());
@@ -199,6 +196,8 @@ void SessionWidget::onSessionButtonClicked()
     m_currentSessionIndex = m_sessionBtns.indexOf(btn);
 
     m_model->setSessionKey(currentSessionKey());
+
+    emit hideFrame();
 
 //    emit sessionChanged(currentSessionName());
 }

@@ -32,6 +32,8 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
 
         connect(m_sessionFrame, &SessionWidget::hideFrame, this, &LockContent::restoreCenterContent);
         connect(m_controlWidget, &ControlWidget::requestSwitchSession, this, &LockContent::pushSessionFrame);
+        connect(m_model, &SessionBaseModel::onSessionKeyChanged, m_controlWidget, &ControlWidget::chooseToSession);
+
         break;
     case SessionBaseModel::AuthType::LockType:
         m_controlWidget->setMPRISEnable(true);
@@ -95,6 +97,7 @@ void LockContent::pushUserFrame()
 void LockContent::pushSessionFrame()
 {
     setCenterContent(m_sessionFrame);
+    m_sessionFrame->show();
 }
 
 void LockContent::pushShutdownFrame()
