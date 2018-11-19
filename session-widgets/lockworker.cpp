@@ -419,7 +419,7 @@ void LockWorker::authenticationComplete()
 
 #ifndef DISABLE_LOGIN_ANI
     // NOTE(kirigaya): It is not necessary to display the login animation.
-
+    emit requestUpdateBackground(m_authUser->desktopBackgroundPath());
     emit m_model->authFinished(true);
     QTimer::singleShot(1000, this, startSessionSync);
 #else

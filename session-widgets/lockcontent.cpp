@@ -12,6 +12,7 @@
 LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     : SessionBaseWindow(parent)
     , m_model(model)
+    , m_imageBlurInter(new ImageBlur("com.deepin.daemon.Accounts", "/com/deepin/daemon/ImageBlur", QDBusConnection::systemBus(), this))
 {
     m_controlWidget = new ControlWidget;
     m_userInputWidget = new UserInputWidget;
@@ -75,7 +76,7 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 {
     m_user = user;
 
-    connect(user.get(), &User::greeterBackgroundPathChanged, this, &LockContent::requestBackground, Qt::UniqueConnection);
+    connect(user.get(), &User::greeterBackgroundPathChanged, this, &LockContent::updateBackground , Qt::UniqueConnection);
 
     m_userInputWidget->setAvatar(user->avatarPath());
     m_userInputWidget->setIsNoPasswordGrp(user->isNoPasswdGrp());
@@ -85,7 +86,7 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
     }
 
     //TODO: refresh blur image
-    emit requestBackground(user->greeterBackgroundPath());
+    updateBackground(user->greeterBackgroundPath());
 }
 
 void LockContent::pushUserFrame()
@@ -115,4 +116,19 @@ void LockContent::mouseReleaseEvent(QMouseEvent *event)
 void LockContent::restoreCenterContent()
 {
     setCenterContent(m_userInputWidget);
+}
+
+void LockContent::updateBackground(const QString &path)
+{
+    const QString &wallpaper = m_imageBlurInter->Get(path);
+
+    emit requestBackground(wallpaper.isEmpty() ? path : wallpaper);
+}
+
+void LockContent::onBlurDone(const QString &source, const QString &blur, bool status)
+{
+    const QString &sourcePath = QUrl(source).isLocalFile() ? QUrl(source).toLocalFile() : source;
+
+    if (status && m_model->currentUser()->greeterBackgroundPath() == sourcePath)
+        emit requestBackground(blur);
 }

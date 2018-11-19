@@ -27,6 +27,9 @@ public:
 
     void authUser(std::shared_ptr<User> user, const QString &password);
 
+signals:
+    void requestUpdateBackground(const QString &background); // only for greeter auth successd!
+
 private:
     void onUserListChanged(const QStringList &list);
     void onUserAdded(const QString &user);

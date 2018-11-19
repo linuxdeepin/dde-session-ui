@@ -4,7 +4,11 @@
 #include <QWidget>
 #include <memory>
 
+#include <com_deepin_daemon_imageblur.h>
+
 #include "sessionbasewindow.h"
+
+using ImageBlur = com::deepin::daemon::ImageBlur;
 
 class ControlWidget;
 class UserInputWidget;
@@ -35,6 +39,8 @@ protected:
 
 private:
     void restoreCenterContent();
+    void updateBackground(const QString &path);
+    void onBlurDone(const QString &source, const QString &blur, bool status);
 
 private:
     SessionBaseModel *m_model;
@@ -43,7 +49,7 @@ private:
     UserFrame *m_userFrame;
     SessionWidget *m_sessionFrame;
     ShutdownWidget *m_shutdownFrame;
-
+    ImageBlur *m_imageBlurInter;
     std::shared_ptr<User> m_user;
 };
 
