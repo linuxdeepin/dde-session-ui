@@ -38,6 +38,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 private:
+    void releaseAllKeyboard();
     void restoreCenterContent();
     void updateBackground(const QString &path);
     void onBlurDone(const QString &source, const QString &blur, bool status);

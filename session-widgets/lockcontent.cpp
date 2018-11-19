@@ -22,7 +22,8 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     m_shutdownFrame->setModel(model);
     m_userFrame->setModel(model);
 
-    setCenterContent(m_userInputWidget);
+    restoreCenterContent();
+
     setRightBottomWidget(m_controlWidget);
 
     switch (model->currentType()) {
@@ -91,19 +92,25 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 
 void LockContent::pushUserFrame()
 {
+    releaseAllKeyboard();
     setCenterContent(m_userFrame);
     m_userFrame->expansion(true);
+    QTimer::singleShot(300, m_userFrame, &UserFrame::grabKeyboard);
 }
 
 void LockContent::pushSessionFrame()
 {
+    releaseAllKeyboard();
     setCenterContent(m_sessionFrame);
     m_sessionFrame->show();
+    QTimer::singleShot(300, m_sessionFrame, &SessionWidget::grabKeyboard);
 }
 
 void LockContent::pushShutdownFrame()
 {
+    releaseAllKeyboard();
     setCenterContent(m_shutdownFrame);
+    QTimer::singleShot(300, m_shutdownFrame, &ShutdownWidget::grabKeyboard);
 }
 
 void LockContent::mouseReleaseEvent(QMouseEvent *event)
@@ -113,9 +120,22 @@ void LockContent::mouseReleaseEvent(QMouseEvent *event)
     return SessionBaseWindow::mouseReleaseEvent(event);
 }
 
+void LockContent::releaseAllKeyboard()
+{
+    m_userInputWidget->releaseKeyboard();
+    m_userFrame->releaseKeyboard();
+    m_shutdownFrame->releaseKeyboard();
+
+    if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
+        m_sessionFrame->releaseKeyboard();
+    }
+}
+
 void LockContent::restoreCenterContent()
 {
+    releaseAllKeyboard();
     setCenterContent(m_userInputWidget);
+    QTimer::singleShot(300, m_userInputWidget, &UserInputWidget::grabKeyboard);
 }
 
 void LockContent::updateBackground(const QString &path)

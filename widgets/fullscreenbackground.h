@@ -31,15 +31,13 @@
 #include <QTimer>
 #include <QFrame>
 #include <QGraphicsOpacityEffect>
-#include <com_deepin_daemon_imageblur.h>
-
-using ImageBlur = com::deepin::daemon::ImageBlur;
+#include <QVariantAnimation>
 
 class FullscreenBackground : public QWidget
 {
     Q_OBJECT
 public:
-    explicit FullscreenBackground(QWidget *parent = 0);
+    explicit FullscreenBackground(QWidget *parent = nullptr);
 
 public slots:
     void updateBackground(const QPixmap &background);
@@ -47,28 +45,21 @@ public slots:
 
 protected:
     void setContent(QWidget * const w);
-    void keyPressEvent(QKeyEvent *e);
-
-private slots:
-    void adjustGeometry();
-    void onBlurFinished(const QString &source, const QString &blur, bool status);
-
+    void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
 private:
-    bool eventFilter(QObject *watched, QEvent *event);
-    void showEvent(QShowEvent *e);
-    void paintEvent(QPaintEvent *e);
+    void paintEvent(QPaintEvent *e) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
-    void setGeometry(const QRect &rect);
     const QScreen *screenForGeometry(const QRect &rect) const;
-    const QPixmap pixmapHandle(const QPixmap &pixmap, QScreen const *screen);
+    const QPixmap pixmapHandle(const QPixmap &pixmap);
 
 private:
     QString m_bgPath;
     QPixmap m_background;
     QPixmap m_fakeBackground;
     QPointer<QWidget> m_content;
-    QTimer *m_adjustTimer;
-    ImageBlur *m_blurImageInter;
     QVariantAnimation *m_fadeOutAni;
 };
 

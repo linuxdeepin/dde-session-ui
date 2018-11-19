@@ -27,6 +27,7 @@
 
 #include "lockframe.h"
 #include "dbus/dbuslockfrontservice.h"
+#include "dbus/dbuslockagent.h"
 
 #include "lockcontent.h"
 #include "lockworker.h"
@@ -69,16 +70,27 @@ int main(int argc, char *argv[])
 
     SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LockType);
     LockWorker *worker = new LockWorker(model); //
-    LockFrame lockFrame(model);
-    QObject::connect(&lockFrame, &LockFrame::requestSwitchToUser, worker, &LockWorker::switchToUser);
-    QObject::connect(&lockFrame, &LockFrame::requestAuthUser, worker, &LockWorker::authUser);
 
-    DBusLockFrontService service(&lockFrame);
+    for (QScreen *screen : app.screens()) {
+        LockFrame *lockFrame = new LockFrame(model);
+        lockFrame->createWinId();
+        lockFrame->windowHandle()->setScreen(screen);
+        lockFrame->setFixedSize(screen->size());
+        QObject::connect(lockFrame, &LockFrame::requestSwitchToUser, worker, &LockWorker::switchToUser);
+        QObject::connect(lockFrame, &LockFrame::requestAuthUser, worker, &LockWorker::authUser);
+        QObject::connect(model, &SessionBaseModel::show, lockFrame, &LockFrame::show);
+        QObject::connect(model, &SessionBaseModel::showUserList, lockFrame, &LockFrame::showUserList);
+        lockFrame->show();
+    }
+
+    DBusLockAgent agent;
+    agent.setModel(model);
+    DBusLockFrontService service(&agent);
     Q_UNUSED(service);
 
     QDBusConnection conn = QDBusConnection::sessionBus();
     if (!conn.registerService(DBUS_NAME) ||
-            !conn.registerObject("/com/deepin/dde/lockFront", &lockFrame) ||
+            !conn.registerObject("/com/deepin/dde/lockFront", &agent) ||
             !app.setSingleInstance(QString("dde-lock"), DApplication::UserScope)) {
         qDebug() << "register dbus failed"<< "maybe lockFront is running..." << conn.lastError();
 
@@ -94,12 +106,10 @@ int main(int argc, char *argv[])
     } else {
         if (!runDaemon) {
             if (showUserList) {
-                QMetaObject::invokeMethod(&lockFrame, "showUserList", Qt::QueuedConnection);
+                emit model->showUserList();
             } else {
-                QMetaObject::invokeMethod(&lockFrame, "showFullScreen", Qt::QueuedConnection);
+                emit model->show();
             }
-        } else {
-            lockFrame.hide();
         }
         app.exec();
     }

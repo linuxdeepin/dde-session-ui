@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QScrollArea>
 #include <QResizeEvent>
+#include <QApplication>
 
 SessionBaseWindow::SessionBaseWindow(QWidget *parent)
     : QFrame(parent)

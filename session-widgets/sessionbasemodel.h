@@ -51,6 +51,8 @@ signals:
     void authFinished(bool success);
     void onPowerActionChanged(PowerAction poweraction);
     void onSessionKeyChanged(const QString &sessionKey);
+    void showUserList();
+    void show();
 
 private:
     AuthType m_currentType;

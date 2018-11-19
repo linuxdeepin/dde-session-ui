@@ -37,19 +37,9 @@
 
 FullscreenBackground::FullscreenBackground(QWidget *parent)
     : QWidget(parent)
-    , m_adjustTimer(new QTimer(this))
-    , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
-                                     "/com/deepin/daemon/ImageBlur",
-                                     QDBusConnection::systemBus(), this))
     , m_fadeOutAni(new QVariantAnimation(this))
 {
-    m_adjustTimer->setSingleShot(true);
-
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
-
-    connect(m_adjustTimer, &QTimer::timeout, this, &FullscreenBackground::adjustGeometry);
-    connect(m_blurImageInter, &ImageBlur::BlurDone, this, &FullscreenBackground::onBlurFinished);
-    connect(QApplication::desktop(), &QDesktopWidget::resized, m_adjustTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
 
     m_fadeOutAni->setEasingCurve(QEasingCurve::InOutCubic);
     m_fadeOutAni->setDuration(1000);
@@ -84,9 +74,6 @@ void FullscreenBackground::updateBackground(const QString &file)
 
     Q_ASSERT(QFileInfo(m_bgPath).isFile());
 
-    // 这里之后要去掉，在 FullscreenBackground 里面就不要做模糊的查找了，在调用前将图片准备好
-//    const QString &p = m_blurImageInter->Get(m_bgPath);
-
     updateBackground(QPixmap(m_bgPath));
 }
 
@@ -96,66 +83,8 @@ void FullscreenBackground::setContent(QWidget * const w)
 
     m_content = w;
     m_content->setParent(this);
-    m_content->installEventFilter(this);
-
-    m_adjustTimer->start();
-}
-
-void FullscreenBackground::adjustGeometry()
-{
-    const auto ratio = devicePixelRatioF();
-    const QPoint cp(QCursor::pos());
-    QRect r, pr;
-    for (const auto *s : qApp->screens())
-    {
-        const QRect &g(s->geometry());
-        const QRect realRect(g.topLeft() / ratio, g.size());
-
-        // Without using the processed geometry and mouse coordinates,
-        // the results can be obtained using the original information.
-        // If the original screen contains the original mouse, save the scaled geometry.
-        if (g.contains(cp))
-            pr = realRect;
-
-        r = r.united(realRect);
-    }
-
-    setGeometry(r);
-//    m_fakeBackground->setGeometry(r);
-
-    if (m_content.isNull())
-        return;
-
-    if (!pr.isNull())
-        return m_content->setGeometry(pr);
-
-    const QRect &pg(qApp->primaryScreen()->geometry());
-    const QRect realPg(pg.topLeft() / ratio, pg.size());
-    m_content->setGeometry(realPg);
     m_content->raise();
-}
-
-void FullscreenBackground::onBlurFinished(const QString &source, const QString &blur, bool status)
-{
-    const QString &sourcePath = QUrl(source).isLocalFile() ? QUrl(source).toLocalFile() : source;
-
-    if (status && m_bgPath == sourcePath)
-        updateBackground(blur);
-}
-
-bool FullscreenBackground::eventFilter(QObject *watched, QEvent *event)
-{
-    if (watched == m_content && event->type() == QEvent::Leave)
-        m_adjustTimer->start();
-
-    return QWidget::eventFilter(watched, event);
-}
-
-void FullscreenBackground::showEvent(QShowEvent *e)
-{
-    QWidget::showEvent(e);
-
-    m_adjustTimer->start();
+    m_content->move(0, 0);
 }
 
 void FullscreenBackground::paintEvent(QPaintEvent *e)
@@ -166,30 +95,42 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     const float current_ani_value = m_fadeOutAni->currentValue().toFloat();
 
-    for (auto *s : qApp->screens()) {
-        const QRect &geom = s->geometry();
-        QRect tr(geom.topLeft() / s->devicePixelRatio(), geom.size());
+    if (!m_background.isNull()) {
+        const QPixmap &pix = pixmapHandle(m_background);
 
-        // Skip if it does not belong to the current screen
-        tr = tr & e->rect();
-        if (tr.isEmpty()) continue;
-
-        if (!m_background.isNull()) {
-            QPixmap pix = std::move(pixmapHandle(m_background, s));
-
-            // tr is need redraw rect, sourceRect need correct upper left corner
-            painter.drawPixmap(tr, pix, QRect(tr.topLeft() * s->devicePixelRatio() - geom.topLeft(), tr.size() * pix.devicePixelRatioF()));
-        }
-
-        if (!m_fakeBackground.isNull()) {
-            // draw background
-            QPixmap fadePixmap = std::move(pixmapHandle(m_fakeBackground, s));
-
-            painter.setOpacity(current_ani_value);
-            painter.drawPixmap(tr, fadePixmap, QRect(tr.topLeft() * s->devicePixelRatio() - geom.topLeft(), tr.size() * fadePixmap.devicePixelRatioF()));
-            painter.setOpacity(1);
-        }
+        // tr is need redraw rect, sourceRect need correct upper left corner
+        painter.drawPixmap(rect(), pix, rect());
     }
+
+    if (!m_fakeBackground.isNull()) {
+        // draw background
+        const QPixmap &fadePixmap = pixmapHandle(m_fakeBackground);
+
+        painter.setOpacity(current_ani_value);
+        painter.drawPixmap(rect(), fadePixmap, rect());
+        painter.setOpacity(1);
+    }
+}
+
+void FullscreenBackground::enterEvent(QEvent *event)
+{
+    m_content->show();
+
+    return QWidget::enterEvent(event);
+}
+
+void FullscreenBackground::leaveEvent(QEvent *event)
+{
+    m_content->hide();
+
+    return QWidget::leaveEvent(event);
+}
+
+void FullscreenBackground::resizeEvent(QResizeEvent *event)
+{
+    m_content->setFixedSize(event->size());
+
+    return QWidget::resizeEvent(event);
 }
 
 void FullscreenBackground::keyPressEvent(QKeyEvent *e)
@@ -205,42 +146,9 @@ void FullscreenBackground::keyPressEvent(QKeyEvent *e)
     }
 }
 
-void FullscreenBackground::setGeometry(const QRect &rect)
+const QPixmap FullscreenBackground::pixmapHandle(const QPixmap &pixmap)
 {
-    QRect r(rect);
-
-    // guess the screen of this window before change the window geometry, so we
-    // can avoid the loop of changing the geometry and changing the screen(dpr).
-    const QScreen *screen = screenForGeometry(rect);
-    if (screen) {
-        const qreal dpr = screen->devicePixelRatio();
-        const QRect screenGeo = screen->geometry();
-        r.moveTopLeft(screenGeo.topLeft() + (rect.topLeft() - screenGeo.topLeft()) / dpr);
-    }
-
-    QWidget::setGeometry(r);
-}
-
-// implements the basic idea used by Qt to find the associated QScreen of a window.
-const QScreen *FullscreenBackground::screenForGeometry(const QRect &rect) const
-{
-    const qreal ratio = qApp->devicePixelRatio();
-
-    for (const auto *s : qApp->screens())
-    {
-        const QRect &g(s->geometry());
-        const QRect realRect(g.topLeft() / ratio, g.size());
-
-        if (realRect.contains(rect.center()))
-            return s;
-    }
-
-    return nullptr;
-}
-
-const QPixmap FullscreenBackground::pixmapHandle(const QPixmap &pixmap, const QScreen *screen)
-{
-    const QSize trueSize { screen->size() * screen->devicePixelRatio() };
+    const QSize trueSize { size() * devicePixelRatioF() };
     QPixmap pix = pixmap.scaled(trueSize,
                                 Qt::KeepAspectRatioByExpanding,
                                 Qt::SmoothTransformation);

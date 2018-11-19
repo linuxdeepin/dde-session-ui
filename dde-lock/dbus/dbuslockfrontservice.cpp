@@ -29,7 +29,7 @@
  * Implementation of interface class DBusLockFront
  */
 
-DBusLockFrontService::DBusLockFrontService(LockFrame *parent)
+DBusLockFrontService::DBusLockFrontService(DBusLockAgent *parent)
     : QDBusAbstractAdaptor(parent)
 {
     setAutoRelaySignals(true);
@@ -41,10 +41,10 @@ DBusLockFrontService::~DBusLockFrontService()
 
 void DBusLockFrontService::Show()
 {
-    parent()->showFullScreen();
+    parent()->Show();
 }
 
 void DBusLockFrontService::ShowUserList()
 {
-    parent()->showUserList();
+    parent()->ShowUserList();
 }

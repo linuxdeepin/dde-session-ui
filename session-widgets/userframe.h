@@ -23,6 +23,7 @@ protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
+    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 
 public slots:
     void userAdded(std::shared_ptr<User> user);
@@ -31,6 +32,9 @@ public slots:
     void refreshPosition();
     void onUserClicked();
 
+private:
+    void switchNextUser();
+    void switchPreviousUser();
 
 private:
     QMap<UserButton*, uint> m_userBtns;

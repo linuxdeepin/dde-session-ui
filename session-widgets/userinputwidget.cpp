@@ -5,6 +5,7 @@
 
 #include <QVBoxLayout>
 #include <QEvent>
+#include <QKeyEvent>
 
 #if 0
 QT_TRANSLATE_NOOP("UserInputWidget", "Login")
@@ -109,6 +110,16 @@ void UserInputWidget::restartMode()
     m_passwordEdit->setSubmitIcon(":/img/action_icons/reboot_normal.svg",
                                   ":/img/action_icons/reboot_hover.svg",
                                   ":/img/action_icons/reboot_press.svg");
+}
+
+void UserInputWidget::grabKeyboard()
+{
+    m_passwordEdit->lineEdit()->grabKeyboard();
+}
+
+void UserInputWidget::releaseKeyboard()
+{
+    m_passwordEdit->lineEdit()->releaseKeyboard();
 }
 
 bool UserInputWidget::event(QEvent *event)

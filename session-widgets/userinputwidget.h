@@ -26,6 +26,9 @@ public:
     void normalMode();
     void restartMode();
 
+    void grabKeyboard();
+    void releaseKeyboard();
+
 signals:
     void requestAuthUser(const QString &password);
 

@@ -53,6 +53,30 @@ void UserFrame::hideEvent(QHideEvent *event)
     return QFrame::hideEvent(event);
 }
 
+void UserFrame::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Left:
+        switchPreviousUser();
+        break;
+    case Qt::Key_Right:
+        switchNextUser();
+        break;
+    case Qt::Key_Return:
+    case Qt::Key_Enter:
+        for (auto it = m_userBtns.constBegin(); it != m_userBtns.constEnd(); ++it) {
+            if (it.key()->selected()) {
+                emit it.key()->clicked(true);
+                break;
+            }
+        }
+        break;
+    default:
+        break;
+    }
+    return QFrame::keyPressEvent(event);
+}
+
 void UserFrame::userAdded(std::shared_ptr<User> user)
 {
     UserButton *button = new UserButton(user, this);
@@ -105,9 +129,6 @@ void UserFrame::refreshPosition()
             button->move(QPoint(offset + index * USER_ICON_WIDTH, USER_HEIGHT * row));
             index++;
         }
-
-        setFocus();
-        QTimer::singleShot(100, this, &UserFrame::grabKeyboard);
     }
 }
 
@@ -115,10 +136,42 @@ void UserFrame::onUserClicked()
 {
     UserButton *button = static_cast<UserButton*>(sender());
 
-    releaseKeyboard();
-
     expansion(false);
 
     emit requestSwitchUser(m_model->findUserByUid(m_userBtns[button]));
     emit hideFrame();
+}
+
+void UserFrame::switchNextUser()
+{
+    QList<UserButton*> btns = m_userBtns.keys();
+    for (int i = 0; i != btns.size(); ++i) {
+        if (btns[i]->selected()) {
+            btns[i]->setSelected(false);
+            if (i == (btns.size() - 1)) {
+                btns.first()->setSelected(true);
+            }
+            else {
+                btns[i + 1]->setSelected(true);
+            }
+            break;
+        }
+    }
+}
+
+void UserFrame::switchPreviousUser()
+{
+    QList<UserButton*> btns = m_userBtns.keys();
+    for (int i = 0; i != btns.size(); ++i) {
+        if (btns[i]->selected()) {
+            btns[i]->setSelected(false);
+            if (i == 0) {
+                btns.last()->setSelected(true);
+            }
+            else {
+                btns[i - 1]->setSelected(true);
+            }
+            break;
+        }
+    }
 }

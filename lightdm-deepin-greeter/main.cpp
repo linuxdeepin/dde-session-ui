@@ -89,10 +89,17 @@ int main(int argc, char* argv[])
 
     SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LightdmType);
     LockWorker *worker = new LockWorker(model); //
-    LoginWindow loginFrame(model);
-    QObject::connect(&loginFrame, &LoginWindow::requestSwitchToUser, worker, &LockWorker::switchToUser);
-    QObject::connect(&loginFrame, &LoginWindow::requestAuthUser, worker, &LockWorker::authUser);
 
-    loginFrame.showFullScreen();
+    for (QScreen *screen : a.screens()) {
+        LoginWindow *loginFrame = new LoginWindow(model);
+        loginFrame->createWinId();
+        loginFrame->windowHandle()->setScreen(screen);
+        loginFrame->setFixedSize(screen->size());
+        QObject::connect(loginFrame, &LoginWindow::requestSwitchToUser, worker, &LockWorker::switchToUser);
+        QObject::connect(loginFrame, &LoginWindow::requestAuthUser, worker, &LockWorker::authUser);
+        QObject::connect(worker, &LockWorker::requestUpdateBackground, loginFrame, static_cast<void (LoginWindow::*)(const QString &)>(&LoginWindow::updateBackground));
+        loginFrame->show();
+    }
+
     return a.exec();
 }

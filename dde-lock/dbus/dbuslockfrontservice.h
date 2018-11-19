@@ -26,7 +26,7 @@
 #ifndef DBUSLOCKFRONTSERVICE_H
 #define DBUSLOCKFRONTSERVICE_H
 
-#include "lockframe.h"
+#include "dbuslockagent.h"
 #include <QDBusAbstractAdaptor>
 #include <QtCore/QObject>
 #include <QtDBus/QtDBus>
@@ -49,11 +49,11 @@ class DBusLockFrontService: public QDBusAbstractAdaptor
     Q_CLASSINFO("D-Bus Interface", "com.deepin.dde.lockFront")
 
 public:
-    explicit DBusLockFrontService(LockFrame *parent);
+    explicit DBusLockFrontService(DBusLockAgent *parent);
     virtual ~DBusLockFrontService();
 
-    inline LockFrame *parent() const
-    { return static_cast<LockFrame *>(QObject::parent()); }
+    inline DBusLockAgent *parent() const
+    { return static_cast<DBusLockAgent *>(QObject::parent()); }
 
 public:// PROPERTIES
 public Q_SLOTS:// METHODS
