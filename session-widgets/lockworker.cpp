@@ -20,6 +20,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_accountsInter(new AccountsInter(ACCOUNT_DBUS_SERVICE, ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this))
     , m_loginedInter(new LoginedInter(ACCOUNT_DBUS_SERVICE, "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
     , m_sessionManager(new SessionManager("com.deepin.SessionManager", "/com/deepin/SessionManager", QDBusConnection::sessionBus(), this))
+    , m_lockInter(new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this))
 {
     m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
     if (!m_login1ManagerInterface->isValid()) {
@@ -31,11 +32,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
     m_currentUserUid = getuid();
 
-    if (model->currentType() == SessionBaseModel::AuthType::LockType) {
-        m_lockInter = new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this);
-        connect(m_lockInter, &DBusLockService::Event, this, &LockWorker::lockServiceEvent);
-    }
-    else {
+    if (model->currentType() == SessionBaseModel::AuthType::LightdmType) {
         m_greeter = new QLightDM::Greeter(this);
 
         if (!m_greeter->connectSync())
@@ -46,6 +43,8 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LockWorker::authenticationComplete);
     }
 
+    connect(m_lockInter, &DBusLockService::UserChanged, this, &LockWorker::onCurrentUserChanged);
+    connect(m_lockInter, &DBusLockService::Event, this, &LockWorker::lockServiceEvent);
     connect(m_loginedInter, &LoginedInter::UserListChanged, this, &LockWorker::onLoginUserListChanged);
     connect(m_loginedInter, &LoginedInter::LastLogoutUserChanged, this, &LockWorker::onLastLogoutUserChanged);
     connect(m_accountsInter, &AccountsInter::UserListChanged, this, &LockWorker::onUserListChanged);
@@ -54,6 +53,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
     connect(m_accountsInter, &AccountsInter::serviceValidChanged, this, &LockWorker::checkDBusServer);
 
+    onCurrentUserChanged(m_lockInter->CurrentUser());
     onLastLogoutUserChanged(m_loginedInter->lastLogoutUser());
     onLoginUserListChanged(m_loginedInter->userList());
     checkDBusServer(m_accountsInter->isValid());
@@ -276,6 +276,21 @@ bool LockWorker::checkUserIsNoPWGrp(std::shared_ptr<User> user)
     }
 
     return false;
+}
+
+void LockWorker::onCurrentUserChanged(const QString &user)
+{
+    if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
+        const QJsonObject obj = QJsonDocument::fromJson(user.toUtf8()).object();
+        m_currentUserUid = obj["Uid"].toInt();
+
+        for (std::shared_ptr<User> user : m_model->userList()) {
+            if (user->uid() == m_currentUserUid) {
+                m_model->setCurrentUser(user);
+                break;
+            }
+        }
+    }
 }
 
 void LockWorker::lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message)

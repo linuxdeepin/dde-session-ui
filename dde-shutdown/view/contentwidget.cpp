@@ -59,6 +59,8 @@ ContentWidget::ContentWidget(QWidget *parent)
 
 void ContentWidget::setModel(SessionBaseModel * const model)
 {
+    m_model = model;
+
     auto checkUser = [=] () {
         m_switchUserBtn->setVisible(model->logindUser().size() > 1);
     };

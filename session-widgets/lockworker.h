@@ -3,6 +3,7 @@
 
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbuslogin1manager.h"
+#include "userinfo.h"
 
 #include <QObject>
 #include <QWidget>
@@ -19,7 +20,6 @@ using AccountsInter = com::deepin::daemon::Accounts;
 using SessionManager = com::deepin::SessionManager;
 
 class SessionBaseModel;
-class User;
 class LockWorker : public QObject
 {
     Q_OBJECT
@@ -43,6 +43,7 @@ private:
     bool checkHaveDisplay(const QJsonArray &array);
     bool isLogined(uint uid);
     bool checkUserIsNoPWGrp(std::shared_ptr<User> user);
+    void onCurrentUserChanged(const QString &user);
 
     // lock
     void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
@@ -56,21 +57,21 @@ private:
 
 private:
     SessionBaseModel *m_model;
-    AccountsInter *m_accountsInter;
-    LoginedInter *m_loginedInter;
 
-    // lock
     bool m_authenticating;
     bool m_isThumbAuth;
-    DBusLockService *m_lockInter;
 
-    // greeter
-    QLightDM::Greeter *m_greeter;
-    DBusLogin1Manager* m_login1ManagerInterface;
+    AccountsInter *m_accountsInter;
+    LoginedInter *m_loginedInter;
     SessionManager *m_sessionManager;
+    DBusLockService *m_lockInter;
+    DBusLogin1Manager* m_login1ManagerInterface;
+
+    QLightDM::Greeter *m_greeter;
 
     uint m_currentUserUid;
     uint m_lastLogoutUid;
+    User::UserType m_currentUserType;
     std::shared_ptr<User> m_authUser;
     std::list<uint> m_loginUserList;
     QString m_password;
