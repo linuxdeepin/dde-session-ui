@@ -2,6 +2,7 @@
 #define LOCKWORKER_H
 
 #include "dbus/dbuslockservice.h"
+#include "dbus/dbuslogin1manager.h"
 
 #include <QObject>
 #include <QWidget>
@@ -65,7 +66,7 @@ private:
 
     // greeter
     QLightDM::Greeter *m_greeter;
-
+    DBusLogin1Manager* m_login1ManagerInterface;
     SessionManager *m_sessionManager;
 
     uint m_currentUserUid;

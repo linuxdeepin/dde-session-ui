@@ -21,6 +21,11 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_loginedInter(new LoginedInter(ACCOUNT_DBUS_SERVICE, "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
     , m_sessionManager(new SessionManager("com.deepin.SessionManager", "/com/deepin/SessionManager", QDBusConnection::sessionBus(), this))
 {
+    m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
+    if (!m_login1ManagerInterface->isValid()) {
+        qWarning() <<"m_login1ManagerInterface:" << m_login1ManagerInterface->lastError().type();
+    }
+
     m_accountsInter->setSync(false);
     m_loginedInter->setSync(false);
 
@@ -422,10 +427,22 @@ void LockWorker::authenticationComplete()
         return;
     }
 
-    if (m_model->powerAction() != SessionBaseModel::PowerAction::RequireNormal) {
-        doPowerAction();
+    switch (m_model->powerAction()) {
+    case SessionBaseModel::PowerAction::RequireNormal:
+        break;
+    case SessionBaseModel::PowerAction::RequireRestart:
+        m_login1ManagerInterface->Reboot(true);
         return;
+    case SessionBaseModel::PowerAction::RequireShutdown:
+        m_login1ManagerInterface->PowerOff(true);
+        return;
+    case SessionBaseModel::PowerAction::RequireSuspend:
+        m_login1ManagerInterface->Suspend(true);
+        return;
+    default:
+        break;
     }
+    return;
 
     qDebug() << "start session = " << m_model->sessionKey();
 
