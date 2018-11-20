@@ -119,5 +119,8 @@
         <file>img/sessions/unknown_indicator_press.svg</file>
         <file>img/default_avatar.png</file>
         <file>img/select.svg</file>
+        <file>img/screen_keyboard_hover.svg</file>
+        <file>img/screen_keyboard_press.svg</file>
+        <file>img/screen_keyboard_normal.svg</file>
     </qresource>
 </RCC>

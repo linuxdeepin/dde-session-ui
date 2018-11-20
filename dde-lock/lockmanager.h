@@ -108,6 +108,8 @@ private:
     void switchToUser(User *user);
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
     void backgroundChanged(const QString &path);
+    void showVirtualKeyboard();
+    void updateVirtualKeyboardGeometry();
 
     // TODO: FIXME
     void saveUser(User *user);
@@ -155,6 +157,8 @@ private:
     // refactor
     User *m_currentUser;
     ImageBlur *m_blurImageInter;
+
+    QWidget *m_virtualKeyboard;
 };
 
 #endif // LOCKMANAGER_H

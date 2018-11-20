@@ -43,6 +43,7 @@ signals:
     void requestSwitchUser();
     void requestShutdown();
     void requestSwitchSession();
+    void requestShowVirtualKeyboard();
 
 public slots:
     void setMPRISEnable(const bool state);
@@ -65,6 +66,7 @@ private:
     DImageButton *m_powerBtn = nullptr;
     MediaWidget *m_mediaWidget = nullptr;
     DImageButton *m_sessionBtn = nullptr;
+    DImageButton *m_virtualKeyboardBtn = nullptr;
     QLabel *m_sessionTip = nullptr;
     QWidget *m_tipWidget = nullptr;
 #ifndef SHENWEI_PLATFORM

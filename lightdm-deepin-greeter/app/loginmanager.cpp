@@ -167,6 +167,7 @@ LoginManager::LoginManager(QWidget* parent)
     , m_currentUser(nullptr)
     , m_logined(new Logined("com.deepin.daemon.Accounts", "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
     , m_translator(new QTranslator(this))
+    , m_virtualKeyboard(nullptr)
 {
     initUI();
     initData();
@@ -336,6 +337,7 @@ void LoginManager::startSession()
 void LoginManager::resizeEvent(QResizeEvent *e)
 {
     QTimer::singleShot(1, this, &LoginManager::updateWidgetsPosition);
+    QTimer::singleShot(1, this, &LoginManager::updateVirtualKeyboardGeometry);
 
     QWidget::resizeEvent(e);
 }
@@ -448,7 +450,7 @@ void LoginManager::initConnect()
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
     connect(m_controlWidget, &ControlWidget::requestShutdown, this, &LoginManager::showShutdownFrame);
     connect(m_controlWidget, &ControlWidget::requestSwitchSession, this, &LoginManager::chooseSessionMode);
-
+    connect(m_controlWidget, &ControlWidget::requestShowVirtualKeyboard, this, &LoginManager::showVirtualKeyboard);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, this, &LoginManager::choosedSession);
     connect(m_sessionWidget, &SessionWidget::sessionChanged, m_controlWidget, &ControlWidget::chooseToSession, Qt::QueuedConnection);
 
@@ -679,6 +681,45 @@ void LoginManager::authenticationComplete()
     startSession();
 }
 
+void LoginManager::showVirtualKeyboard()
+{
+    if (!m_virtualKeyboard) return;
+
+    m_virtualKeyboard->move((width() - m_virtualKeyboard->width()) / 2, height() - m_virtualKeyboard->height() - 50);
+
+    if (m_virtualKeyboard->isVisible()) {
+        m_virtualKeyboard->hide();
+    }
+    else {
+        m_virtualKeyboard->show();
+    }
+}
+
+void LoginManager::updateVirtualKeyboardGeometry()
+{
+    if (!m_virtualKeyboard) {
+         QProcess * p = new QProcess(this);
+
+         connect(p, &QProcess::readyReadStandardOutput, [this, p] {
+             QByteArray output = p->readAllStandardOutput();
+             int xid = atoi(output.trimmed().toStdString().c_str());
+
+             QWindow * w = QWindow::fromWinId(xid);
+             m_virtualKeyboard = QWidget::createWindowContainer(w, this);
+             m_virtualKeyboard->setFixedSize(600, 200);
+
+             QTimer::singleShot(500, [this] {
+                 if (m_userState != NoPassword) {
+                     m_virtualKeyboard->move((width() - m_virtualKeyboard->width()) / 2, height() - m_virtualKeyboard->height() - 50);
+                 }
+                 m_virtualKeyboard->hide();
+             });
+         });
+
+         p->start("onboard", QStringList() << "-e" << "--layout" << "Small");
+     }
+}
+
 void LoginManager::authCurrentUser()
 {
     m_accountStr = m_userWidget->currentUser()->name();
@@ -807,6 +848,9 @@ void LoginManager::chooseUserMode()
 
     m_otherUserInput->clearAlert();
     m_keybdArrowWidget->hide();
+
+    if (m_virtualKeyboard)
+        m_virtualKeyboard->hide();
 }
 
 void LoginManager::chooseSessionMode()
@@ -825,6 +869,9 @@ void LoginManager::chooseSessionMode()
 
     m_otherUserInput->clearAlert();
     m_keybdArrowWidget->hide();
+
+    if (m_virtualKeyboard)
+        m_virtualKeyboard->hide();
 }
 
 void LoginManager::choosedSession() {
@@ -850,6 +897,9 @@ void LoginManager::showShutdownFrame() {
     m_otherUserInput->hide();
     m_otherUserInput->clearAlert();
     m_keybdArrowWidget->hide();
+
+    if (m_virtualKeyboard)
+        m_virtualKeyboard->hide();
 }
 
 void LoginManager::keyboardLayoutUI() {

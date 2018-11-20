@@ -45,6 +45,11 @@ void ControlWidget::initUI()
 
     m_mainLayout = new QHBoxLayout;
 
+    m_virtualKeyboardBtn = new DImageButton;
+    m_virtualKeyboardBtn->setNormalPic(":/img/screen_keyboard_normal.svg");
+    m_virtualKeyboardBtn->setHoverPic(":/img/screen_keyboard_hover.svg");
+    m_virtualKeyboardBtn->setPressPic(":/img/screen_keyboard_press.svg");
+
     m_switchUserBtn = new DImageButton;
     m_switchUserBtn->setNormalPic(":/img/bottom_actions/userswitch_normal.svg");
     m_switchUserBtn->setHoverPic(":/img/bottom_actions/userswitch_hover.svg");
@@ -57,6 +62,7 @@ void ControlWidget::initUI()
 
     m_mainLayout->setMargin(0);
     m_mainLayout->setSpacing(26);
+    m_mainLayout->addWidget(m_virtualKeyboardBtn, 0, Qt::AlignBottom);
     m_mainLayout->addWidget(m_switchUserBtn);
     m_mainLayout->setAlignment(m_switchUserBtn, Qt::AlignBottom);
     m_mainLayout->addWidget(m_powerBtn);
@@ -71,6 +77,7 @@ void ControlWidget::initConnect()
 {
     connect(m_switchUserBtn, &DImageButton::clicked, this, &ControlWidget::requestSwitchUser);
     connect(m_powerBtn, &DImageButton::clicked, this, &ControlWidget::requestShutdown);
+    connect(m_virtualKeyboardBtn, &DImageButton::clicked, this, &ControlWidget::requestShowVirtualKeyboard);
 }
 
 void ControlWidget::showTips()

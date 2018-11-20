@@ -107,6 +107,8 @@ private:
     void message(QString text, QLightDM::Greeter::MessageType type);
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void authenticationComplete();
+    void showVirtualKeyboard();
+    void updateVirtualKeyboardGeometry();
 
     void authCurrentUser();
 
@@ -175,6 +177,7 @@ private:
     QMap<QString, QString> m_recordPasswd;
     QList<std::pair<std::function<void (QString)>, QString>> m_trList;
     QTranslator *m_translator;
+    QWidget *m_virtualKeyboard;
 };
 #endif // LoginManager
 

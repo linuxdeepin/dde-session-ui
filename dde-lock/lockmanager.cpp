@@ -54,6 +54,7 @@ LockManager::LockManager(QWidget *parent)
     , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
+    , m_virtualKeyboard(nullptr)
 {
     initUI();
     initConnect();
@@ -84,7 +85,7 @@ void LockManager::initConnect()
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, &LockManager::chooseUserMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, m_userWidget, &UserWidget::expandWidget, Qt::QueuedConnection);
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &LockManager::onBlurWallpaperFinished);
-
+    connect(m_controlWidget, &ControlWidget::requestShowVirtualKeyboard, this, &LockManager::showVirtualKeyboard);
     connect(m_requireShutdownWidget, &ShutdownWidget::shutDownWidgetAction, [this](const ShutdownWidget::Actions action) {
         switch (action) {
         case ShutdownWidget::RequireRestart:    m_action = Restart;         break;
@@ -242,6 +243,9 @@ void LockManager::chooseUserMode()
     m_requireShutdownWidget->hide();
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
+
+    if (m_virtualKeyboard)
+        m_virtualKeyboard->hide();
 }
 
 void LockManager::onUnlockFinished(const bool unlocked)
@@ -308,6 +312,7 @@ void LockManager::resizeEvent(QResizeEvent *event)
     QFrame::resizeEvent(event);
 
     QTimer::singleShot(0, this, &LockManager::updateWidgetsPosition);
+    QTimer::singleShot(1, this, &LockManager::updateVirtualKeyboardGeometry);
 }
 
 void LockManager::mouseReleaseEvent(QMouseEvent *e)
@@ -513,6 +518,45 @@ void LockManager::backgroundChanged(const QString &path)
     emit requestSetBackground(wallpaper.isEmpty() ? path : wallpaper);
 }
 
+void LockManager::showVirtualKeyboard()
+{
+    if (!m_virtualKeyboard) return;
+
+    m_virtualKeyboard->move((width() - m_virtualKeyboard->width()) / 2, height() - m_virtualKeyboard->height() - 50);
+
+    if (m_virtualKeyboard->isVisible()) {
+        m_virtualKeyboard->hide();
+    }
+    else {
+        m_virtualKeyboard->show();
+    }
+}
+
+void LockManager::updateVirtualKeyboardGeometry()
+{
+    if (!m_virtualKeyboard) {
+        QProcess * p = new QProcess(this);
+
+        connect(p, &QProcess::readyReadStandardOutput, [this, p] {
+            QByteArray output = p->readAllStandardOutput();
+            int xid = atoi(output.trimmed().toStdString().c_str());
+
+            QWindow * w = QWindow::fromWinId(xid);
+            m_virtualKeyboard = QWidget::createWindowContainer(w, this);
+            m_virtualKeyboard->setFixedSize(600, 200);
+
+            QTimer::singleShot(500, [this] {
+                if (m_userState != NoPasswd) {
+                    m_virtualKeyboard->move((width() - m_virtualKeyboard->width()) / 2, height() - m_virtualKeyboard->height() - 50);
+                }
+                m_virtualKeyboard->hide();
+            });
+        });
+
+        p->start("onboard", QStringList() << "-e" << "--layout" << "Small");
+    }
+}
+
 void LockManager::saveUser(User *user)
 {
     QJsonObject json;
@@ -643,4 +687,7 @@ void LockManager::shutdownMode()
     m_keybdLayoutWidget->hide();
     m_keybdArrowWidget->hide();
     m_requireShutdownWidget->show();
+
+    if (m_virtualKeyboard)
+        m_virtualKeyboard->hide();
 }

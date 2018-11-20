@@ -28,6 +28,7 @@ Package: dde-session-ui
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, deepin-desktop-schemas (>= 2.91.2), dde-daemon, x11-xserver-utils, dbus-x11
 Provides: lightdm-greeter
+Recommends: onboard
 Conflicts: dde-workspace,
  startdde (<< 2.91.1),
  deepin-notifications
