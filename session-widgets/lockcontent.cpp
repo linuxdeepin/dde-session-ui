@@ -95,6 +95,7 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 
     m_userInputWidget->setAvatar(user->avatarPath());
     m_userInputWidget->setIsNoPasswordGrp(user->isNoPasswdGrp());
+    m_userInputWidget->setName(user->displayName());
 
     if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
         m_sessionFrame->switchToUser(user->name());

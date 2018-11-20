@@ -34,7 +34,6 @@ LoginWindow::LoginWindow(SessionBaseModel * const model, QWidget *parent)
     m_loginFrame->setLeftBottomWidget(new LogoWidget);
     setContent(m_loginFrame);
 
-
     connect(m_loginFrame, &LockContent::requestBackground, this, [=] (const QString &wallpaper) {
         updateBackground(wallpaper);
     });

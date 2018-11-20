@@ -20,7 +20,7 @@ void SessionBaseWindow::setLeftBottomWidget(QWidget * const widget)
         m_leftBottomLayout->removeWidget(m_leftBottomWidget);
     }
 
-    m_leftBottomLayout->addWidget(widget);
+    m_leftBottomLayout->addWidget(widget, 0, Qt::AlignBottom);
     m_leftBottomWidget = widget;
 }
 
@@ -30,7 +30,7 @@ void SessionBaseWindow::setRightBottomWidget(QWidget * const widget)
         m_rightBottomLayout->removeWidget(m_rightBottomWidget);
     }
 
-    m_rightBottomLayout->addWidget(widget);
+    m_rightBottomLayout->addWidget(widget, 0, Qt::AlignBottom);
     m_rightBottomWidget = widget;
 }
 

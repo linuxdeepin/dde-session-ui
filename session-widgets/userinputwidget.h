@@ -17,6 +17,7 @@ class UserInputWidget : public QWidget
 public:
     explicit UserInputWidget(QWidget *parent = nullptr);
 
+    void setName(const QString &name);
     void setAvatar(const QString &avatar);
     void setIsNoPasswordGrp(bool isNopassword);
     void setFaildMessage(const QString &message);
@@ -42,6 +43,7 @@ private:
 
 private:
     UserAvatar *m_userAvatar;
+    QLabel *m_nameLbl;
     DPasswdEditAnimated *m_passwordEdit;
     QPushButton *m_loginBtn;
     std::list<std::pair<std::function<void (QString)>, QString>> m_trList;

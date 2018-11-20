@@ -15,14 +15,17 @@ QT_TRANSLATE_NOOP("UserInputWidget", "Login")
 UserInputWidget::UserInputWidget(QWidget *parent)
     : QWidget(parent)
     , m_userAvatar(new UserAvatar)
+    , m_nameLbl(new QLabel)
     , m_passwordEdit(new DPasswdEditAnimated(this))
     , m_loginBtn(new QPushButton(this))
 {
     std::function<void (QString)> loginTr = std::bind(&QPushButton::setText, m_loginBtn, std::placeholders::_1);
     m_trList.push_back(std::pair<std::function<void (QString)>, QString>(loginTr, "Login"));
 
-    m_userAvatar->setAvatarSize(UserAvatar::AvatarNormalSize);
-    m_userAvatar->setFixedSize(180, 180);;
+    m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
+    m_userAvatar->setFixedSize(120, 120);
+
+    m_nameLbl->setStyleSheet("color: white;");
 
     m_passwordEdit->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
                                   ":/img/action_icons/unlock_hover.svg",
@@ -53,6 +56,8 @@ UserInputWidget::UserInputWidget(QWidget *parent)
 
     layout->addStretch();
     layout->addWidget(m_userAvatar, 0, Qt::AlignHCenter);
+    layout->addWidget(m_nameLbl, 0, Qt::AlignHCenter);
+    layout->addSpacing(20);
     layout->addWidget(m_passwordEdit, 0, Qt::AlignHCenter);
     layout->addWidget(m_loginBtn, 0, Qt::AlignHCenter);
     layout->addStretch();
@@ -69,6 +74,11 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     });
 
     refreshLanguage();
+}
+
+void UserInputWidget::setName(const QString &name)
+{
+    m_nameLbl->setText(name);
 }
 
 void UserInputWidget::setAvatar(const QString &avatar)

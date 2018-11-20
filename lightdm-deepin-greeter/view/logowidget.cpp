@@ -30,6 +30,7 @@
 #include <QDebug>
 #include <QSettings>
 #include "public_func.h"
+#include "util_updateui.h"
 
 #include "logowidget.h"
 
@@ -52,7 +53,7 @@ LogoWidget::LogoWidget(QWidget* parent)
 }
 
 void LogoWidget::initUI() {
-    setFixedSize(240, 40);
+//    setFixedSize(240, 40);
 
     m_logoLabel = new QLabel();
     m_logoLabel->setPixmap(systemLogo());
@@ -78,6 +79,7 @@ void LogoWidget::initUI() {
     m_logoLayout = new QHBoxLayout;
     m_logoLayout->setMargin(0);
     m_logoLayout->setSpacing(0);
+    m_logoLayout->addSpacing(20);
     m_logoLayout->addWidget(m_logoLabel);
     m_logoLayout->addLayout(m_logoRightSideLayout);
     m_logoLayout->addStretch();
@@ -85,6 +87,8 @@ void LogoWidget::initUI() {
 
     QString systemVersion = getVersion();
     m_logoVersionLabel->setText(systemVersion);
+
+    updateStyle(":/skin/login.qss", m_logoVersionLabel);
 }
 
 QString LogoWidget::getVersion() {
