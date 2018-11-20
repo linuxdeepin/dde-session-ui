@@ -442,7 +442,6 @@ void LockWorker::authenticationComplete()
     default:
         break;
     }
-    return;
 
     qDebug() << "start session = " << m_model->sessionKey();
 
