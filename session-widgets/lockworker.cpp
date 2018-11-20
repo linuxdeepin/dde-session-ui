@@ -20,7 +20,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_accountsInter(new AccountsInter(ACCOUNT_DBUS_SERVICE, ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this))
     , m_loginedInter(new LoginedInter(ACCOUNT_DBUS_SERVICE, "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
 {
-    m_accountsInter->setSync(false);
+    m_accountsInter->setSync(true);
     m_loginedInter->setSync(true);
 
     m_currentUserUid = getuid();

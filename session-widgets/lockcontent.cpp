@@ -77,6 +77,8 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
             break;
         }
     });
+
+    onCurrentUserChanged(model->currentUser());
 }
 
 void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
@@ -93,7 +95,9 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
     }
 
     //TODO: refresh blur image
-    updateBackground(user->greeterBackgroundPath());
+    QTimer::singleShot(0, this, [=] {
+        updateBackground(user->greeterBackgroundPath());
+    });
 }
 
 void LockContent::pushUserFrame()

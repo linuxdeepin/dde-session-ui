@@ -40,13 +40,12 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     , m_fadeOutAni(new QVariantAnimation(this))
 {
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
+    setAttribute(Qt::WA_TranslucentBackground);
 
     m_fadeOutAni->setEasingCurve(QEasingCurve::InOutCubic);
     m_fadeOutAni->setDuration(1000);
     m_fadeOutAni->setStartValue(1.0f);
     m_fadeOutAni->setEndValue(0.0f);
-
-    updateBackground("/usr/share/backgrounds/default_background.jpg");
 
     connect(m_fadeOutAni, &QVariantAnimation::valueChanged, this, static_cast<void (FullscreenBackground::*)()>(&FullscreenBackground::update));
 }
