@@ -69,7 +69,7 @@ void ContentWidget::setModel(SessionBaseModel * const model)
 
 ContentWidget::~ContentWidget()
 {
-    m_userWidget->deleteLater();
+
 }
 
 void ContentWidget::mouseReleaseEvent(QMouseEvent *event)
@@ -102,8 +102,6 @@ void ContentWidget::showEvent(QShowEvent *event)
     if (DCCInter->isValid())
         DCCInter->HideImmediately();
     DCCInter->deleteLater();
-
-    checkUsers();
 
     QTimer::singleShot(1, this, [=] {
         grabKeyboard();
@@ -220,7 +218,6 @@ void ContentWidget::initConnect() {
     connect(m_switchUserBtn, &RoundItemButton::clicked, [this] { shutDownFrameActions(SwitchUser);});
     connect(m_wmInter, &__wm::WorkspaceSwitched, this, &ContentWidget::currentWorkspaceChanged);
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &ContentWidget::onBlurWallpaperFinished);
-    connect(m_userWidget, &UserWidget::userCountChanged, this, &ContentWidget::checkUsers);
 
     connect(qApp, &QApplication::aboutToQuit, [this]{
         m_hotZoneInterface->EnableZoneDetected(true);
@@ -309,7 +306,7 @@ void ContentWidget::beforeInvokeAction(const Actions action)
 {
     const QString inhibitReason = getInhibitReason();
 
-    const QList<User *> &loginUsers = m_userWidget->loginedUsers();
+    const QList<std::shared_ptr<User>> &loginUsers = m_model->logindUser();
 
     // change ui
     if (m_confirm || !inhibitReason.isEmpty() || loginUsers.length() > 1)
@@ -358,7 +355,7 @@ void ContentWidget::beforeInvokeAction(const Actions action)
 
     if (loginUsers.length() > 1 && action != Logout) {
 
-        MultiUsersWarningView *view = new MultiUsersWarningView(m_userWidget);
+        MultiUsersWarningView *view = new MultiUsersWarningView(this);
         view->setUsers(loginUsers);
         view->setAction(action);
         if (action == Shutdown)
@@ -432,13 +429,6 @@ void ContentWidget::hideToplevelWindow()
 #endif
 }
 
-void ContentWidget::checkUsers()
-{
-    if (!m_warningView) {
-        m_switchUserBtn->setVisible(m_userWidget->availableUserCount() > 1);
-    }
-}
-
 void ContentWidget::shutDownFrameActions(const Actions action)
 {
     // if we don't force this widget to hide, hideEvent will happen after
@@ -506,7 +496,7 @@ void ContentWidget::onBlurWallpaperFinished(const QString &source, const QString
 {
     const QString &sourcePath = QUrl(source).isLocalFile() ? QUrl(source).toLocalFile() : source;
 
-    if (status && m_userWidget->currentUser()->desktopBackgroundPath() == sourcePath)
+    if (status && m_model->currentUser()->desktopBackgroundPath() == sourcePath)
         emit requestBackground(blur);
 }
 
@@ -559,9 +549,6 @@ void ContentWidget::initUI() {
     setLayout(m_mainLayout);
 
     updateStyle(":/skin/shutdown.qss", this);
-
-    m_userWidget = new UserWidget;
-    m_userWidget->hide();
 
     m_btnsList->append(m_shutdownButton);
     m_btnsList->append(m_restartButton);

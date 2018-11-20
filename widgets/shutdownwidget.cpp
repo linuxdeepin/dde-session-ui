@@ -34,8 +34,12 @@ QT_TRANSLATE_NOOP("ShutdownWidget", "Suspend")
 ShutdownWidget::ShutdownWidget(QWidget *parent)
     : QFrame(parent)
 {
+    m_frameDataBind = FrameDataBind::Instance();
     initUI();
     initConnect();
+
+    std::function<void (QVariant)> function = std::bind(&ShutdownWidget::onOtherPageChanged, this, std::placeholders::_1);
+    m_frameDataBind->registerFunction("ShutdownWidget", function);
 }
 
 void ShutdownWidget::initConnect() {
@@ -56,6 +60,18 @@ void ShutdownWidget::initConnect() {
 void ShutdownWidget::updateTr(RoundItemButton *widget, const QString &tr)
 {
     m_trList << std::pair<std::function<void (QString)>, QString>(std::bind(&RoundItemButton::setText, widget, std::placeholders::_1), tr);
+}
+
+void ShutdownWidget::onOtherPageChanged(const QVariant &value)
+{
+    m_index = value.toInt();
+
+    for (auto it = m_btnList->constBegin(); it != m_btnList->constEnd(); ++it) {
+        (*it)->updateState(RoundItemButton::Normal);
+    }
+
+    m_currentSelectedBtn = m_btnList->at(m_index);
+    m_currentSelectedBtn->updateState(RoundItemButton::Checked);
 }
 
 void ShutdownWidget::initUI() {
@@ -112,6 +128,8 @@ void ShutdownWidget::leftKeySwitch() {
     }
     m_currentSelectedBtn = m_btnList->at(m_index);
     m_currentSelectedBtn->updateState(RoundItemButton::Checked);
+
+    m_frameDataBind->updateValue("ShutdownWidget", m_index);
 }
 
 void ShutdownWidget::rightKeySwitch() {
@@ -123,6 +141,8 @@ void ShutdownWidget::rightKeySwitch() {
     }
     m_currentSelectedBtn = m_btnList->at(m_index);
     m_currentSelectedBtn->updateState(RoundItemButton::Checked);
+
+    m_frameDataBind->updateValue("ShutdownWidget", m_index);
 }
 
 void ShutdownWidget::shutdownAction() {
@@ -131,20 +151,6 @@ void ShutdownWidget::shutdownAction() {
     m_model->setPowerAction(m_actionMap[m_currentSelectedBtn]);
 
     emit abortOperation();
-}
-
-void ShutdownWidget::showEvent(QShowEvent *event)
-{
-    QFrame::showEvent(event);
-
-    QTimer::singleShot(300, this, &ShutdownWidget::grabKeyboard);
-}
-
-void ShutdownWidget::hideEvent(QHideEvent *event)
-{
-    QFrame::hideEvent(event);
-
-    QTimer::singleShot(1, this, &ShutdownWidget::releaseKeyboard);
 }
 
 void ShutdownWidget::keyReleaseEvent(QKeyEvent *event)

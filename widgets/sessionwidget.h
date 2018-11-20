@@ -33,6 +33,7 @@
 #include <QLightDM/SessionsModel>
 
 #include "rounditembutton.h"
+#include "framedatabind.h"
 
 class SessionBaseModel;
 class SessionWidget : public QFrame
@@ -71,11 +72,13 @@ private slots:
 
 private:
     int sessionIndex(const QString &sessionName);
+    void onOtherPageChanged(const QVariant &value);
 
 private:
     int m_currentSessionIndex;
     QString m_currentUser;
     SessionBaseModel *m_model;
+    FrameDataBind *m_frameDataBind;
 
     QLightDM::SessionsModel *m_sessionModel;
     QList<RoundItemButton *> m_sessionBtns;

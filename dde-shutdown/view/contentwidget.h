@@ -95,7 +95,6 @@ private:
     void disableBtn(const QString &btnName);
     void beforeInvokeAction(const Actions action);
     void hideToplevelWindow();
-    void checkUsers();
     void shutDownFrameActions(const Actions action);
 
     void currentWorkspaceChanged();
@@ -117,7 +116,6 @@ private:
 
     WarningView *m_warningView = nullptr;
     QVBoxLayout *m_mainLayout;
-    UserWidget *m_userWidget;
 
     bool m_confirm = false;
 
@@ -127,5 +125,6 @@ private:
     com::deepin::wm *m_wmInter;
     Appearance *m_dbusAppearance = NULL;
     ImageBlur *m_blurImageInter;
+    SessionBaseModel *m_model;
 };
 #endif // CONTENTVIEWWIDGET

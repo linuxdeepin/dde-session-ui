@@ -62,12 +62,16 @@ SessionWidget::SessionWidget(QWidget *parent)
     : QFrame(parent),
       m_currentSessionIndex(0),
       m_sessionModel(new QLightDM::SessionsModel(this))
+    , m_frameDataBind(FrameDataBind::Instance())
 {
 //    setStyleSheet("QFrame {"
 //                  "background-color: red;"
 //                  "}");
     setFixedHeight(500);
     loadSessionList();
+
+    std::function<void (QVariant)> function = std::bind(&SessionWidget::onOtherPageChanged, this, std::placeholders::_1);
+    m_frameDataBind->registerFunction("SessionWidget", function);
 }
 
 void SessionWidget::setModel(SessionBaseModel * const model)
@@ -215,6 +219,22 @@ int SessionWidget::sessionIndex(const QString &sessionName)
     return 0;
 }
 
+void SessionWidget::onOtherPageChanged(const QVariant &value)
+{
+    const int index = value.toInt();
+
+    qDebug() << index;
+
+    if (index == m_currentSessionIndex) return;
+
+    for (RoundItemButton *button : m_sessionBtns) {
+        button->setChecked(false);
+    }
+
+    m_sessionBtns.at(index)->setChecked(true);
+    m_currentSessionIndex = index;
+}
+
 void SessionWidget::leftKeySwitch()
 {
     if (m_currentSessionIndex == 0) {
@@ -224,6 +244,7 @@ void SessionWidget::leftKeySwitch()
     }
 
     m_sessionBtns.at(m_currentSessionIndex)->setChecked(true);
+    m_frameDataBind->updateValue("SessionWidget", m_currentSessionIndex);
 }
 
 void SessionWidget::rightKeySwitch()
@@ -235,6 +256,7 @@ void SessionWidget::rightKeySwitch()
     }
 
     m_sessionBtns.at(m_currentSessionIndex)->setChecked(true);
+    m_frameDataBind->updateValue("SessionWidget", m_currentSessionIndex);
 }
 
 void SessionWidget::chooseSession()

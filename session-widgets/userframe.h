@@ -8,6 +8,7 @@
 class UserButton;
 class User;
 class SessionBaseModel;
+class FrameDataBind;
 class UserFrame : public QFrame
 {
     Q_OBJECT
@@ -35,11 +36,13 @@ public slots:
 private:
     void switchNextUser();
     void switchPreviousUser();
+    void onOtherPageChanged(const QVariant &value);
 
 private:
-    QMap<UserButton*, uint> m_userBtns;
+    QMap<uint, UserButton*> m_userBtns;
     SessionBaseModel *m_model;
     bool m_isExpansion;
+    FrameDataBind *m_frameDataBind;
 };
 
 #endif // USERFRAME_H

@@ -3,6 +3,7 @@
 #include "userbutton.h"
 #include "sessionbasemodel.h"
 #include "userinfo.h"
+#include "framedatabind.h"
 
 #define USER_WIDGET_HEIGHT 360
 #define USER_HEIGHT 180
@@ -10,8 +11,12 @@
 UserFrame::UserFrame(QWidget *parent)
     : QFrame(parent)
     , m_isExpansion(false)
+    , m_frameDataBind(FrameDataBind::Instance())
 {
     setFixedHeight(500);
+
+    std::function<void (QVariant)> function = std::bind(&UserFrame::onOtherPageChanged, this, std::placeholders::_1);
+    m_frameDataBind->registerFunction("UserFrame", function);
 }
 
 void UserFrame::setModel(SessionBaseModel *model)
@@ -65,8 +70,8 @@ void UserFrame::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Return:
     case Qt::Key_Enter:
         for (auto it = m_userBtns.constBegin(); it != m_userBtns.constEnd(); ++it) {
-            if (it.key()->selected()) {
-                emit it.key()->clicked(true);
+            if (it.value()->selected()) {
+                emit it.value()->clicked(true);
                 break;
             }
         }
@@ -80,18 +85,25 @@ void UserFrame::keyPressEvent(QKeyEvent *event)
 void UserFrame::userAdded(std::shared_ptr<User> user)
 {
     UserButton *button = new UserButton(user, this);
-    m_userBtns[button] = user->uid();
+    m_userBtns[user->uid()] = button;
     button->setLoginIconVisible(true);
 
     connect(button, &UserButton::clicked, this, &UserFrame::onUserClicked);
+
+//    std::sort(m_userBtns.begin(), m_userBtns.end(), [=] (UserButton *btn1, UserButton *btn2) {
+//        uint user1 = m_userBtns[btn1];
+//        uint user2 = m_userBtns[btn2];
+
+//        return user1 < user2;
+//    });
 
     refreshPosition();
 }
 
 void UserFrame::userRemoved(const uint uid)
 {
-    UserButton * button = m_userBtns.key(uid);
-    m_userBtns.remove(button);
+    UserButton * button = m_userBtns[uid];
+    m_userBtns.remove(uid);
     button->deleteLater();
 
     refreshPosition();
@@ -113,10 +125,9 @@ void UserFrame::refreshPosition()
 
         int row = 0;
         int index = 0;
-        std::shared_ptr<User> currentUser = m_model->currentUser();
+
         for (auto it = m_userBtns.constBegin(); it != m_userBtns.constEnd(); ++it) {
-            UserButton *button = it.key();
-            button->setSelected(it.value() == currentUser->uid());
+            UserButton *button = it.value();
             button->stopAnimation();
             button->show();
             button->setImageSize(UserButton::AvatarSmallSize);
@@ -130,6 +141,12 @@ void UserFrame::refreshPosition()
             index++;
         }
     }
+    else {
+        std::shared_ptr<User> user = m_model->currentUser();
+        for (auto it = m_userBtns.constBegin(); it != m_userBtns.constEnd(); ++it) {
+            it.value()->setSelected(it.key() == user->uid());
+        }
+    }
 }
 
 void UserFrame::onUserClicked()
@@ -138,21 +155,24 @@ void UserFrame::onUserClicked()
 
     expansion(false);
 
-    emit requestSwitchUser(m_model->findUserByUid(m_userBtns[button]));
+    emit requestSwitchUser(m_model->findUserByUid(m_userBtns.key(button)));
     emit hideFrame();
 }
 
 void UserFrame::switchNextUser()
 {
-    QList<UserButton*> btns = m_userBtns.keys();
+    QList<UserButton*> btns = m_userBtns.values();
+
     for (int i = 0; i != btns.size(); ++i) {
         if (btns[i]->selected()) {
             btns[i]->setSelected(false);
             if (i == (btns.size() - 1)) {
                 btns.first()->setSelected(true);
+                m_frameDataBind->updateValue("UserFrame", m_userBtns.key(btns[i]));
             }
             else {
                 btns[i + 1]->setSelected(true);
+                m_frameDataBind->updateValue("UserFrame", m_userBtns.key(btns[i + 1]));
             }
             break;
         }
@@ -161,17 +181,31 @@ void UserFrame::switchNextUser()
 
 void UserFrame::switchPreviousUser()
 {
-    QList<UserButton*> btns = m_userBtns.keys();
+    QList<UserButton*> btns = m_userBtns.values();
+
     for (int i = 0; i != btns.size(); ++i) {
         if (btns[i]->selected()) {
             btns[i]->setSelected(false);
             if (i == 0) {
                 btns.last()->setSelected(true);
+                m_frameDataBind->updateValue("UserFrame", m_userBtns.key(btns[i]));
             }
             else {
                 btns[i - 1]->setSelected(true);
+                m_frameDataBind->updateValue("UserFrame", m_userBtns.key(btns[i - 1]));
             }
             break;
         }
     }
+}
+
+void UserFrame::onOtherPageChanged(const QVariant &value)
+{
+    QList<UserButton*> btns = m_userBtns.values();
+
+    for (UserButton* btn : btns) {
+        btn->setSelected(false);
+    }
+
+    m_userBtns[value.toInt()]->setSelected(true);
 }

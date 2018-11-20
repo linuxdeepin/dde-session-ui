@@ -113,7 +113,7 @@ void LockContent::pushUserFrame()
     setCenterContent(m_userFrame);
     m_userFrame->expansion(true);
 
-    QTimer::singleShot(100, m_userFrame, &UserFrame::grabKeyboard);
+    QTimer::singleShot(300, m_userFrame, &UserFrame::grabKeyboard);
 }
 
 void LockContent::pushSessionFrame()
@@ -122,7 +122,7 @@ void LockContent::pushSessionFrame()
     setCenterContent(m_sessionFrame);
     m_sessionFrame->show();
 
-    QTimer::singleShot(100, m_sessionFrame, &SessionWidget::grabKeyboard);
+    QTimer::singleShot(300, m_sessionFrame, &SessionWidget::grabKeyboard);
 }
 
 void LockContent::pushShutdownFrame()
@@ -130,7 +130,7 @@ void LockContent::pushShutdownFrame()
     releaseAllKeyboard();
     setCenterContent(m_shutdownFrame);
 
-    QTimer::singleShot(100, m_shutdownFrame, &ShutdownWidget::grabKeyboard);
+    QTimer::singleShot(300, m_shutdownFrame, &ShutdownWidget::grabKeyboard);
 }
 
 void LockContent::onStatusChanged(SessionBaseModel::ModeStatus status)
@@ -190,7 +190,7 @@ void LockContent::restoreCenterContent()
     releaseAllKeyboard();
     setCenterContent(m_userInputWidget);
 
-    QTimer::singleShot(100, m_userInputWidget, &UserInputWidget::grabKeyboard);
+    QTimer::singleShot(300, m_userInputWidget, &UserInputWidget::grabKeyboard);
 }
 
 void LockContent::updateBackground(const QString &path)

@@ -36,14 +36,13 @@
 const static QSize UserAvatarSize = QSize(64, 64);
 const static QSize UserListItemSize = QSize(180, 80);
 
-MultiUsersWarningView::MultiUsersWarningView(UserWidget *userWidget, QWidget *parent)
+MultiUsersWarningView::MultiUsersWarningView(QWidget *parent)
     : WarningView(parent)
     , m_vLayout(new QVBoxLayout(this))
     , m_userList(new QListWidget)
     , m_warningTip(new QLabel)
     , m_cancelBtn(new RoundItemButton(tr("Cancel")))
     , m_actionBtn(new RoundItemButton(QString()))
-    , m_userWidget(userWidget)
     , m_currentBtn(nullptr)
 {
     m_userList->setAttribute(Qt::WA_TranslucentBackground);
@@ -92,12 +91,12 @@ MultiUsersWarningView::~MultiUsersWarningView()
 {
 }
 
-void MultiUsersWarningView::setUsers(const QList<User *> &users)
+void MultiUsersWarningView::setUsers(QList<std::shared_ptr<User>> users)
 {
     m_userList->setFixedSize(UserListItemSize.width(),
                              UserListItemSize.height() * qMin(users.length(), 4));
 
-    for (User *user : users) {
+    for (std::shared_ptr<User> user : users) {
         QListWidgetItem * item = new QListWidgetItem;
         m_userList->addItem(item);
 

@@ -7,7 +7,8 @@ HEADERS += \
     $$PWD/userinfo.h \
     $$PWD/userframe.h \
     $$PWD/lockcontent.h \
-    $$PWD/lockworker.h
+    $$PWD/lockworker.h \
+    $$PWD/framedatabind.h
 
 SOURCES += \
     $$PWD/sessionbasewindow.cpp \
@@ -16,4 +17,5 @@ SOURCES += \
     $$PWD/userinfo.cpp \
     $$PWD/userframe.cpp \
     $$PWD/lockcontent.cpp \
-    $$PWD/lockworker.cpp
+    $$PWD/lockworker.cpp \
+    $$PWD/framedatabind.cpp

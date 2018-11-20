@@ -33,6 +33,7 @@
 #include "util_updateui.h"
 #include "rounditembutton.h"
 #include "sessionbasemodel.h"
+#include "framedatabind.h"
 
 class ShutdownWidget: public QFrame
 {
@@ -52,8 +53,6 @@ public slots:
     void shutdownAction();
 
 protected:
-    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
-    void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
     void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
     bool event(QEvent *e) Q_DECL_OVERRIDE;
 
@@ -61,6 +60,7 @@ private:
     void initUI();
     void initConnect();
     void updateTr(RoundItemButton * widget, const QString &tr);
+    void onOtherPageChanged(const QVariant &value);
 
     SessionBaseModel *m_model;
     int m_index = 0;
@@ -72,6 +72,7 @@ private:
     RoundItemButton* m_requireSuspendBUtton;
     QMap<RoundItemButton*, SessionBaseModel::PowerAction> m_actionMap;
     QList<std::pair<std::function<void (QString)>, QString>> m_trList;
+    FrameDataBind *m_frameDataBind;
 };
 #endif // SHUTDOWNWIDGET
 

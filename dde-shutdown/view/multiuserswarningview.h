@@ -29,9 +29,9 @@
 #include <QFrame>
 #include "warningview.h"
 #include <dimagebutton.h>
-#include "userwidget.h"
 #include "common.h"
 #include "rounditembutton.h"
+#include "userinfo.h"
 
 class QListWidget;
 class QLabel;
@@ -43,10 +43,10 @@ class MultiUsersWarningView : public WarningView
 {
     Q_OBJECT
 public:
-    MultiUsersWarningView(UserWidget *userWidget, QWidget *parent = 0);
+    MultiUsersWarningView(QWidget *parent = 0);
     ~MultiUsersWarningView();
 
-    void setUsers(const QList<User *> &users);
+    void setUsers(QList<std::shared_ptr<User>> users);
 
     Actions action() const;
     void setAction(const Actions action);
@@ -69,7 +69,6 @@ private:
     RoundItemButton * m_cancelBtn;
     RoundItemButton * m_actionBtn;
     RoundItemButton *m_currentBtn;
-    UserWidget *m_userWidget;
     Actions m_action;
 };
 
