@@ -149,8 +149,8 @@ void LockWorker::onUserAdded(const QString &user)
         m_model->setCurrentUser(user_ptr);
     }
 
-    if (m_model->currentUser().get() == nullptr && !m_model->userList().isEmpty()) {
-        m_model->setCurrentUser(m_model->userList().first());
+    if (m_model->currentUser().get() == nullptr && m_model->userList().isEmpty()) {
+        m_model->setCurrentUser(user_ptr);
     }
 
     if (user_ptr->uid() == m_lastLogoutUid) {
