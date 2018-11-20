@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QEvent>
 #include <QKeyEvent>
+#include <QApplication>
 
 #if 0
 QT_TRANSLATE_NOOP("UserInputWidget", "Login")
@@ -96,6 +97,8 @@ void UserInputWidget::shutdownMode()
     m_passwordEdit->setSubmitIcon(":/img/action_icons/shutdown_normal.svg",
                                   ":/img/action_icons/shutdown_hover.svg",
                                   ":/img/action_icons/shutdown_press.svg");
+    m_passwordEdit->showAlert(tr("Enter your password to shutdown"));
+    m_loginBtn->setText(QApplication::translate("ShutdownWidget", "Shut down"));
 }
 
 void UserInputWidget::normalMode()
@@ -103,6 +106,8 @@ void UserInputWidget::normalMode()
     m_passwordEdit->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
                                   ":/img/action_icons/unlock_hover.svg",
                                   ":/img/action_icons/unlock_press.svg");
+    m_passwordEdit->hideAlert();
+    m_loginBtn->setText(QApplication::translate("ShutdownWidget", "Login"));
 }
 
 void UserInputWidget::restartMode()
@@ -110,6 +115,8 @@ void UserInputWidget::restartMode()
     m_passwordEdit->setSubmitIcon(":/img/action_icons/reboot_normal.svg",
                                   ":/img/action_icons/reboot_hover.svg",
                                   ":/img/action_icons/reboot_press.svg");
+    m_passwordEdit->showAlert(tr("Enter your password to reboot"));
+    m_loginBtn->setText(QApplication::translate("ShutdownWidget", "Reboot"));
 }
 
 void UserInputWidget::grabKeyboard()
@@ -135,6 +142,15 @@ bool UserInputWidget::event(QEvent *event)
     }
 
     return QWidget::event(event);
+}
+
+void UserInputWidget::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape) {
+        emit abortOperation();
+    }
+
+    return QWidget::keyPressEvent(event);
 }
 
 void UserInputWidget::refreshLanguage()

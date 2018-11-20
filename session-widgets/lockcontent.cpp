@@ -78,11 +78,17 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         }
     });
 
+    connect(m_userInputWidget, &UserInputWidget::abortOperation, this, [=] {
+        model->setPowerAction(SessionBaseModel::PowerAction::RequireNormal);
+    });
+
     onCurrentUserChanged(model->currentUser());
 }
 
 void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 {
+    if (user.get() == nullptr) return; // if dbus is async
+
     m_user = user;
 
     connect(user.get(), &User::greeterBackgroundPathChanged, this, &LockContent::updateBackground , Qt::UniqueConnection);

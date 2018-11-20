@@ -88,6 +88,7 @@ int main(int argc, char* argv[])
 
         SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LockType);
         LockWorker *worker = new LockWorker(model); //
+
         DBusShutdownAgent *dbusAgent = new DBusShutdownAgent;
 
         for (QScreen *screen : app.screens()) {

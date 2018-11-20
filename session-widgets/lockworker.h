@@ -11,9 +11,11 @@
 
 #include <com_deepin_daemon_logined.h>
 #include <com_deepin_daemon_accounts.h>
+#include <com_deepin_sessionmanager.h>
 
 using LoginedInter = com::deepin::daemon::Logined;
 using AccountsInter = com::deepin::daemon::Accounts;
+using SessionManager = com::deepin::SessionManager;
 
 class SessionBaseModel;
 class User;
@@ -49,6 +51,8 @@ private:
     void message(QString text, QLightDM::Greeter::MessageType type);
     void authenticationComplete();
 
+    void doPowerAction();
+
 private:
     SessionBaseModel *m_model;
     AccountsInter *m_accountsInter;
@@ -61,6 +65,8 @@ private:
 
     // greeter
     QLightDM::Greeter *m_greeter;
+
+    SessionManager *m_sessionManager;
 
     uint m_currentUserUid;
     uint m_lastLogoutUid;

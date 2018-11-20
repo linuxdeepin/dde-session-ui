@@ -51,8 +51,6 @@ void ShutdownWidget::initConnect() {
         m_currentSelectedBtn = m_requireSuspendBUtton;
         shutdownAction();
     });
-    connect(this, &ShutdownWidget::directLeft, &ShutdownWidget::leftKeySwitch);
-    connect(this, &ShutdownWidget::directRight, &ShutdownWidget::rightKeySwitch);
 }
 
 void ShutdownWidget::updateTr(RoundItemButton *widget, const QString &tr)

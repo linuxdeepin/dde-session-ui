@@ -19,9 +19,10 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_isThumbAuth(false)
     , m_accountsInter(new AccountsInter(ACCOUNT_DBUS_SERVICE, ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this))
     , m_loginedInter(new LoginedInter(ACCOUNT_DBUS_SERVICE, "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
+    , m_sessionManager(new SessionManager("com.deepin.SessionManager", "/com/deepin/SessionManager", QDBusConnection::sessionBus(), this))
 {
-    m_accountsInter->setSync(true);
-    m_loginedInter->setSync(true);
+    m_accountsInter->setSync(false);
+    m_loginedInter->setSync(false);
 
     m_currentUserUid = getuid();
 
@@ -111,6 +112,7 @@ void LockWorker::checkDBusServer(bool isvalid)
         onUserListChanged(m_accountsInter->userList());
     }
     else {
+        // FIXME: 我不希望这样做，但是QThread::msleep会导致无限递归
         QTimer::singleShot(300, this, [=] {
             qWarning() << "com.deepin.daemon.Accounts is not start, rechecking!";
             checkDBusServer(m_accountsInter->isValid());
@@ -330,13 +332,10 @@ void LockWorker::onUnlockFinished(bool unlocked)
         return;
     }
 
-    // Auth success
-//    switch (m_action) {
-//    case Restart:       m_sessionManagerIter->RequestReboot();    break;
-//    case Shutdown:      m_sessionManagerIter->RequestShutdown();    break;
-//    case Suspend:       m_sessionManagerIter->RequestSuspend();     break;
-//    default: break;
-//    }
+    if (m_model->powerAction() != SessionBaseModel::PowerAction::RequireNormal) {
+        doPowerAction();
+        return;
+    }
 
 #ifdef LOCK_NO_QUIT
     m_passwdEditAnim->lineEdit()->setPlaceholderText("");
@@ -423,7 +422,12 @@ void LockWorker::authenticationComplete()
         return;
     }
 
-//    qDebug() << "start session = " << m_sessionWidget->currentSessionName();
+    if (m_model->powerAction() != SessionBaseModel::PowerAction::RequireNormal) {
+        doPowerAction();
+        return;
+    }
+
+    qDebug() << "start session = " << m_model->sessionKey();
 
     auto startSessionSync = [=]() {
         QJsonObject json;
@@ -440,4 +444,23 @@ void LockWorker::authenticationComplete()
 #else
     startSessionSync();
 #endif
+}
+
+void LockWorker::doPowerAction()
+{
+    switch (m_model->powerAction()) {
+    case SessionBaseModel::PowerAction::RequireNormal:
+        break;
+    case SessionBaseModel::PowerAction::RequireRestart:
+        m_sessionManager->RequestReboot();
+        break;
+    case SessionBaseModel::PowerAction::RequireShutdown:
+        m_sessionManager->RequestShutdown();
+        break;
+    case SessionBaseModel::PowerAction::RequireSuspend:
+        m_sessionManager->RequestSuspend();
+        break;
+    default:
+        break;
+    }
 }

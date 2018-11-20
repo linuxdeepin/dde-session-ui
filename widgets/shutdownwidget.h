@@ -44,8 +44,6 @@ public:
     void setModel(SessionBaseModel * const model);
 
 signals:
-    void directLeft();
-    void directRight();
     void abortOperation();
 
 public slots:

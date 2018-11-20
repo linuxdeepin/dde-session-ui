@@ -6,6 +6,7 @@ SessionBaseModel::SessionBaseModel(AuthType type, QObject *parent)
     : QObject(parent)
     , m_currentType(type)
     , m_currentUser(nullptr)
+    , m_powerAction(PowerAction::RequireNormal)
 {
 
 }
