@@ -61,12 +61,12 @@ void ContentWidget::setModel(SessionBaseModel * const model)
 {
     m_model = model;
 
-    auto checkUser = [=] () {
-        m_switchUserBtn->setVisible(model->logindUser().size() > 1);
+    auto checkUser = [=] (QList<std::shared_ptr<User>> list) {
+        m_switchUserBtn->setVisible(list.size() > 1);
     };
 
-    connect(model, &SessionBaseModel::onLogindUserChanged, this, checkUser);
-    checkUser();
+    connect(model, &SessionBaseModel::onUserListChanged, this, checkUser);
+    checkUser(model->userList());
 }
 
 ContentWidget::~ContentWidget()

@@ -44,6 +44,7 @@ void SessionBaseModel::userAdd(std::shared_ptr<User> user)
     });
 
     emit onUserAdded(user);
+    emit onUserListChanged(m_userList);
 }
 
 void SessionBaseModel::userRemoved(std::shared_ptr<User> user)
@@ -51,6 +52,7 @@ void SessionBaseModel::userRemoved(std::shared_ptr<User> user)
     emit onUserRemoved(user->uid());
 
     m_userList.removeOne(user);
+    emit onUserListChanged(m_userList);
 }
 
 void SessionBaseModel::setCurrentUser(std::shared_ptr<User> user)

@@ -66,6 +66,7 @@ signals:
     void showUserList();
     void show();
     void onStatusChanged(ModeStatus status);
+    void onUserListChanged(QList<std::shared_ptr<User>> list);
 
 private:
     AuthType m_currentType;
