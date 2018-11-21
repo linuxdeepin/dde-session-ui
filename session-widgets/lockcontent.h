@@ -27,6 +27,7 @@ signals:
     void requestBackground(const QString &path);
     void requestAuthUser(std::shared_ptr<User> user, const QString &password);
     void requestSwitchToUser(std::shared_ptr<User> user);
+    void requestSetLayout(std::shared_ptr<User> user, const QString &value);
 
 public slots:
     void onCurrentUserChanged(std::shared_ptr<User> user);
@@ -55,6 +56,7 @@ private:
     ShutdownWidget *m_shutdownFrame;
     ImageBlur *m_imageBlurInter;
     std::shared_ptr<User> m_user;
+    QList<QMetaObject::Connection> m_currentUserConnects;
 };
 
 #endif // LOCKCONTENT_H

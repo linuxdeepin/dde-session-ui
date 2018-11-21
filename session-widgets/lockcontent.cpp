@@ -85,6 +85,10 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         model->setPowerAction(SessionBaseModel::PowerAction::RequireNormal);
     });
 
+    connect(m_userInputWidget, &UserInputWidget::requestUserKBLayoutChanged, this, [=] (const QString &value) {
+        emit requestSetLayout(m_user, value);
+    });
+
     onCurrentUserChanged(model->currentUser());
 }
 
@@ -92,13 +96,23 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 {
     if (user.get() == nullptr) return; // if dbus is async
 
+    for (auto connect : m_currentUserConnects) {
+        m_user.get()->disconnect(connect);
+    }
+
+    m_currentUserConnects.clear();
+
     m_user = user;
 
-    connect(user.get(), &User::greeterBackgroundPathChanged, this, &LockContent::updateBackground , Qt::UniqueConnection);
+    m_currentUserConnects << connect(user.get(), &User::greeterBackgroundPathChanged, this, &LockContent::updateBackground , Qt::UniqueConnection);
+    m_currentUserConnects << connect(user.get(), &User::kbLayoutListChanged, m_userInputWidget, &UserInputWidget::updateKBLayout, Qt::UniqueConnection);
+    m_currentUserConnects << connect(user.get(), &User::currentKBLayoutChanged, m_userInputWidget, &UserInputWidget::setDefaultKBLayout, Qt::UniqueConnection);
 
     m_userInputWidget->setAvatar(user->avatarPath());
     m_userInputWidget->setIsNoPasswordGrp(user->isNoPasswdGrp());
     m_userInputWidget->setName(user->displayName());
+    m_userInputWidget->updateKBLayout(user->kbLayoutList());
+    m_userInputWidget->setDefaultKBLayout(user->currentKBLayout());
 
     if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
         m_sessionFrame->switchToUser(user->name());
@@ -159,6 +173,9 @@ void LockContent::onStatusChanged(SessionBaseModel::ModeStatus status)
 void LockContent::mouseReleaseEvent(QMouseEvent *event)
 {
     m_model->setCurrentModeState(SessionBaseModel::ModeStatus::PasswordMode);
+
+    // hide keyboardlayout widget
+    m_userInputWidget->hideKeyboard();
 
     return SessionBaseWindow::mouseReleaseEvent(event);
 }

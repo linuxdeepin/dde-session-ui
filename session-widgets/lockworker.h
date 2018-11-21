@@ -27,8 +27,8 @@ public:
     explicit LockWorker(SessionBaseModel * const model, QObject *parent = nullptr);
 
     void switchToUser(std::shared_ptr<User> user);
-
     void authUser(std::shared_ptr<User> user, const QString &password);
+    void setLayout(std::shared_ptr<User> user, const QString &layout);
 
 signals:
     void requestUpdateBackground(const QString &background); // only for greeter auth successd!

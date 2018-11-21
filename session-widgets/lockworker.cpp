@@ -111,6 +111,15 @@ void LockWorker::authUser(std::shared_ptr<User> user, const QString &password)
     }
 }
 
+/* NOTE(lxz): Why do this,
+   because the meaning of worker is to do all the setup work,
+   and should not be handled by the interface.
+*/
+void LockWorker::setLayout(std::shared_ptr<User> user, const QString &layout)
+{
+    user->setCurrentLayout(layout);
+}
+
 void LockWorker::checkDBusServer(bool isvalid)
 {
     if (isvalid) {

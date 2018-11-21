@@ -81,6 +81,7 @@ int main(int argc, char *argv[])
         QObject::connect(lockFrame, &LockFrame::requestAuthUser, worker, &LockWorker::authUser);
         QObject::connect(model, &SessionBaseModel::show, lockFrame, &LockFrame::show);
         QObject::connect(model, &SessionBaseModel::showUserList, lockFrame, &LockFrame::showUserList);
+        QObject::connect(lockFrame, &LockFrame::requestSetLayout, worker, &LockWorker::setLayout);
         lockFrame->show();
     }
 

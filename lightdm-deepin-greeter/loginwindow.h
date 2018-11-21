@@ -43,6 +43,7 @@ public:
 signals:
     void requestAuthUser(std::shared_ptr<User> user, const QString &password);
     void requestSwitchToUser(std::shared_ptr<User> user);
+    void requestSetLayout(std::shared_ptr<User> user, const QString &layout);
 
 private:
     LockContent *m_loginFrame;

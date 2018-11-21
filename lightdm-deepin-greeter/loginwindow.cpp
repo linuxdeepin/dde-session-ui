@@ -45,4 +45,5 @@ LoginWindow::LoginWindow(SessionBaseModel * const model, QWidget *parent)
 
     connect(m_loginFrame, &LockContent::requestAuthUser, this, &LoginWindow::requestAuthUser);
     connect(m_loginFrame, &LockContent::requestSwitchToUser, this, &LoginWindow::requestSwitchToUser);
+    connect(m_loginFrame, &LockContent::requestSetLayout, this, &LoginWindow::requestSetLayout);
 }

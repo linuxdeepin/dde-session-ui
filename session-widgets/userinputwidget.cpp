@@ -2,6 +2,7 @@
 
 #include "constants.h"
 #include "util_updateui.h"
+#include "kblayoutwidget.h"
 
 #include <QVBoxLayout>
 #include <QEvent>
@@ -18,9 +19,17 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     , m_nameLbl(new QLabel(this))
     , m_passwordEdit(new DPasswdEditAnimated(this))
     , m_loginBtn(new QPushButton(this))
+    , m_kbLayoutBorder(new DArrowRectangle(DArrowRectangle::ArrowTop, this))
+    , m_kbLayoutWidget(new KbLayoutWidget(QStringList()))
 {
     std::function<void (QString)> loginTr = std::bind(&QPushButton::setText, m_loginBtn, std::placeholders::_1);
     m_trList.push_back(std::pair<std::function<void (QString)>, QString>(loginTr, "Login"));
+
+    std::function<void (QVariant)> passwordChanged = std::bind(&UserInputWidget::onOtherPagePasswordChanged, this, std::placeholders::_1);
+    FrameDataBind::Instance()->registerFunction("Password", passwordChanged);
+
+    std::function<void (QVariant)> kblayoutChanged = std::bind(&UserInputWidget::onOtherPageKBLayoutChanged, this, std::placeholders::_1);
+    FrameDataBind::Instance()->registerFunction("KBLayout", kblayoutChanged);
 
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
     m_userAvatar->setFixedSize(100, 100);
@@ -60,14 +69,34 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     layout->addStretch();
 
     setFixedHeight((m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2 + DDESESSIONCC::PASSWDLINEEDIT_HEIGHT);
-    m_loginBtn->hide();
 
     setLayout(layout);
 
+    m_loginBtn->hide();
+    m_kbLayoutBorder->hide();
+
+    m_kbLayoutBorder->setBackgroundColor(QColor(255, 255, 255, 255 * 0.2));
+    m_kbLayoutBorder->setBorderColor(QColor(0, 0, 0, 0));
+    m_kbLayoutBorder->setBorderWidth(0);
+    m_kbLayoutBorder->setMargin(0);
+
+    m_kbLayoutBorder->setContent(m_kbLayoutWidget);
+
+    m_kbLayoutBorder->setFixedHeight(276);
+    m_kbLayoutBorder->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
+
+    m_kbLayoutWidget->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
+
+    connect(m_passwordEdit, &DPasswdEditAnimated::keyboardButtonClicked, this, &UserInputWidget::toggleKBLayoutWidget);
+    connect(m_passwordEdit->lineEdit(), &QLineEdit::textChanged, this, [=] (const QString &value) {
+        FrameDataBind::Instance()->updateValue("Password", value);
+    });
     connect(m_passwordEdit, &DPasswdEditAnimated::submit, this, &UserInputWidget::requestAuthUser);
     connect(m_loginBtn, &QPushButton::clicked, this, [=] {
         emit requestAuthUser(QString());
     });
+
+    connect(m_kbLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &UserInputWidget::requestUserKBLayoutChanged);
 
     refreshLanguage();
     refreshAvatarPosition();
@@ -97,6 +126,17 @@ void UserInputWidget::setFaildMessage(const QString &message)
 void UserInputWidget::setFaildTipMessage(const QString &message)
 {
     m_passwordEdit->showAlert(message);
+}
+
+void UserInputWidget::updateKBLayout(const QStringList &list)
+{
+    m_kbLayoutWidget->updateButtonList(list);
+    m_kbLayoutBorder->setContent(m_kbLayoutWidget);
+}
+
+void UserInputWidget::setDefaultKBLayout(const QString &layout)
+{
+    m_kbLayoutWidget->setDefault(layout);
 }
 
 void UserInputWidget::shutdownMode()
@@ -136,6 +176,11 @@ void UserInputWidget::releaseKeyboard()
     m_passwordEdit->lineEdit()->releaseKeyboard();
 }
 
+void UserInputWidget::hideKeyboard()
+{
+    m_kbLayoutBorder->hide();
+}
+
 bool UserInputWidget::event(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange) {
@@ -163,6 +208,7 @@ void UserInputWidget::keyPressEvent(QKeyEvent *event)
 void UserInputWidget::resizeEvent(QResizeEvent *event)
 {
     QTimer::singleShot(0, this, &UserInputWidget::refreshAvatarPosition);
+    QTimer::singleShot(0, this, &UserInputWidget::refreshKBLayoutWidgetPosition);
 
     return QWidget::resizeEvent(event);
 }
@@ -178,4 +224,36 @@ void UserInputWidget::refreshAvatarPosition()
 {
     m_userAvatar->move((width() - m_userAvatar->width()) / 2, 0);
     m_nameLbl->move((width() - m_nameLbl->width()) / 2, m_userAvatar->height() + 20);
+}
+
+void UserInputWidget::toggleKBLayoutWidget()
+{
+    if (m_kbLayoutBorder->isVisible()) {
+        m_kbLayoutBorder->hide();
+    }
+    else {
+        m_kbLayoutBorder->setVisible(true);
+        refreshKBLayoutWidgetPosition();
+    }
+
+    FrameDataBind::Instance()->updateValue("KBLayout", m_kbLayoutBorder->isVisible());
+}
+
+void UserInputWidget::refreshKBLayoutWidgetPosition()
+{
+    m_kbLayoutBorder->move(m_passwordEdit->geometry().x() + (m_passwordEdit->width() / 2),
+                           m_passwordEdit->geometry().bottomLeft().y() - 15);
+
+    m_kbLayoutBorder->setArrowX(15);
+}
+
+void UserInputWidget::onOtherPagePasswordChanged(const QVariant &value)
+{
+    m_passwordEdit->lineEdit()->setText(value.toString());
+}
+
+void UserInputWidget::onOtherPageKBLayoutChanged(const QVariant &value)
+{
+    m_kbLayoutBorder->setVisible(value.toBool());
+    refreshKBLayoutWidgetPosition();
 }

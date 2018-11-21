@@ -30,6 +30,8 @@ signals:
     void greeterBackgroundPathChanged(const QString &path) const;
     void desktopBackgroundPathChanged(const QString &path) const;
     void localeChanged(const QString &locale) const;
+    void kbLayoutListChanged(const QStringList &list);
+    void currentKBLayoutChanged(const QString &layout);
 
 public:
     bool operator==(const User &user) const;

@@ -77,6 +77,8 @@ NativeUser::NativeUser(const QString &path, QObject *parent)
     });
 
     connect(m_userInter, &UserInter::LocaleChanged, this, &NativeUser::setLocale);
+    connect(m_userInter, &UserInter::HistoryLayoutChanged, this, &NativeUser::kbLayoutListChanged);
+    connect(m_userInter, &UserInter::LayoutChanged, this, &NativeUser::currentKBLayoutChanged);
 
     m_userName = m_userInter->userName();
     m_uid = m_userInter->uid().toInt();
