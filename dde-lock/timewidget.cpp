@@ -61,6 +61,7 @@ TimeWidget::TimeWidget(QWidget *parent)
     vLayout->setMargin(0);
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->addSpacing(48);
     mainLayout->addLayout(vLayout);
     mainLayout->addStretch();
     mainLayout->setSpacing(0);

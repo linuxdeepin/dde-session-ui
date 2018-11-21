@@ -62,7 +62,7 @@ void ControlWidget::initUI()
     m_mainLayout->setAlignment(m_switchUserBtn, Qt::AlignBottom);
     m_mainLayout->addWidget(m_powerBtn);
     m_mainLayout->setAlignment(m_powerBtn, Qt::AlignBottom);
-    m_mainLayout->addSpacing(28);
+    m_mainLayout->addSpacing(60);
 
     setLayout(m_mainLayout);
     setFixedSize(500, 150);

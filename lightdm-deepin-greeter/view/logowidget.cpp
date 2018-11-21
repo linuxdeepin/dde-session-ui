@@ -79,7 +79,7 @@ void LogoWidget::initUI() {
     m_logoLayout = new QHBoxLayout;
     m_logoLayout->setMargin(0);
     m_logoLayout->setSpacing(0);
-    m_logoLayout->addSpacing(20);
+    m_logoLayout->addSpacing(48);
     m_logoLayout->addWidget(m_logoLabel);
     m_logoLayout->addLayout(m_logoRightSideLayout);
     m_logoLayout->addStretch();

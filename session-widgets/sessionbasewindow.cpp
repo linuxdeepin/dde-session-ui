@@ -88,21 +88,20 @@ void SessionBaseWindow::initUI()
     bottomLayout->setMargin(0);
     bottomLayout->setSpacing(0);
 
-    bottomLayout->addSpacing(20);
     bottomLayout->addLayout(m_leftBottomLayout);
     bottomLayout->addStretch();
     bottomLayout->addLayout(m_rightBottomLayout);
-    bottomLayout->addSpacing(20);
 
     bottomWidget->setLayout(bottomLayout);
 
     m_mainLayou->setMargin(0);
     m_mainLayou->setSpacing(0);
 
+    m_mainLayou->addSpacing(33);
     m_mainLayou->addWidget(topWidget, 0, Qt::AlignTop);
     m_mainLayou->addWidget(m_scrollArea, 0, Qt::AlignVCenter);
     m_mainLayou->addWidget(bottomWidget, 0, Qt::AlignBottom);
-    m_mainLayou->addSpacing(30);
+    m_mainLayou->addSpacing(33);
 
     setLayout(m_mainLayou);
 }

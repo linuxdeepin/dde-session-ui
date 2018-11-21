@@ -14,8 +14,8 @@ QT_TRANSLATE_NOOP("UserInputWidget", "Login")
 
 UserInputWidget::UserInputWidget(QWidget *parent)
     : QWidget(parent)
-    , m_userAvatar(new UserAvatar)
-    , m_nameLbl(new QLabel)
+    , m_userAvatar(new UserAvatar(this))
+    , m_nameLbl(new QLabel(this))
     , m_passwordEdit(new DPasswdEditAnimated(this))
     , m_loginBtn(new QPushButton(this))
 {
@@ -23,7 +23,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     m_trList.push_back(std::pair<std::function<void (QString)>, QString>(loginTr, "Login"));
 
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
-    m_userAvatar->setFixedSize(120, 120);
+    m_userAvatar->setFixedSize(100, 100);
 
     m_nameLbl->setStyleSheet("color: white;");
 
@@ -34,20 +34,20 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     m_passwordEdit->setEyeButtonEnable(false);
     m_passwordEdit->setContentsMargins(5, 0, 0, 0);
     m_passwordEdit->lineEdit()->setContextMenuPolicy(Qt::NoContextMenu);
-#ifndef SHENWEI_PLATFORM
-    m_passwordEdit->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2, 38));
-#else
-    m_passwordEdit->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 1, 34));
-#endif
-
+    m_passwordEdit->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, DDESESSIONCC::PASSWDLINEEDIT_HEIGHT));
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
     // FIXME: do not work in qss
     m_passwordEdit->invalidMessage()->setStyleSheet("#InvalidMessage{color: #f9704f;}");
     updateStyle(":/skin/dpasswdeditanimated.qss", m_passwordEdit);
 
+    m_loginBtn->setFixedHeight(DDESESSIONCC::PASSWDLINEEDIT_HEIGHT);
+
     m_passwordEdit->setVisible(true);
     m_passwordEdit->setFocus();
     m_passwordEdit->lineEdit()->setAttribute(Qt::WA_InputMethodEnabled, false);
+
+    m_nameLbl->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, 25);
+    m_nameLbl->setAlignment(Qt::AlignCenter);
 
     QVBoxLayout *layout = new QVBoxLayout;
 
@@ -55,16 +55,12 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     layout->setSpacing(0);
 
     layout->addStretch();
-    layout->addWidget(m_userAvatar, 0, Qt::AlignHCenter);
-    layout->addWidget(m_nameLbl, 0, Qt::AlignHCenter);
-    layout->addSpacing(20);
     layout->addWidget(m_passwordEdit, 0, Qt::AlignHCenter);
     layout->addWidget(m_loginBtn, 0, Qt::AlignHCenter);
     layout->addStretch();
 
+    setFixedHeight((m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2 + DDESESSIONCC::PASSWDLINEEDIT_HEIGHT);
     m_loginBtn->hide();
-
-    m_passwordEdit->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2, 38));
 
     setLayout(layout);
 
@@ -74,6 +70,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     });
 
     refreshLanguage();
+    refreshAvatarPosition();
 }
 
 void UserInputWidget::setName(const QString &name)
@@ -163,9 +160,22 @@ void UserInputWidget::keyPressEvent(QKeyEvent *event)
     return QWidget::keyPressEvent(event);
 }
 
+void UserInputWidget::resizeEvent(QResizeEvent *event)
+{
+    QTimer::singleShot(0, this, &UserInputWidget::refreshAvatarPosition);
+
+    return QWidget::resizeEvent(event);
+}
+
 void UserInputWidget::refreshLanguage()
 {
     for (auto it = m_trList.begin(); it != m_trList.end(); ++it) {
         it->first(it->second.toUtf8());
     }
+}
+
+void UserInputWidget::refreshAvatarPosition()
+{
+    m_userAvatar->move((width() - m_userAvatar->width()) / 2, 0);
+    m_nameLbl->move((width() - m_nameLbl->width()) / 2, m_userAvatar->height() + 20);
 }
