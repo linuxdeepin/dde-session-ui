@@ -52,6 +52,9 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         emit requestAuthUser(m_user, password);
     });
     connect(m_userFrame, &UserFrame::requestSwitchUser, this, &LockContent::requestSwitchToUser);
+    connect(m_userFrame, &UserFrame::requestSwitchUser, this, [=] {
+        m_model->setCurrentModeState(SessionBaseModel::ModeStatus::PasswordMode); // restore state
+    });
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, [=] {
         m_model->setCurrentModeState(SessionBaseModel::ModeStatus::UserMode);
     });
