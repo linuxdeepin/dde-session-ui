@@ -59,25 +59,14 @@ public:
 
     bool selected() const;
     void setSelected(bool selected);
-//    const QString name() const;
-//    const QString avatar() const;
-//    const QString greeter() const;
-//    bool automaticLogin() const;
-//    const QStringList kbHistory();
-//    const QString kblayout();
-//    const QString displayName() const;
-//    const QStringList backgrounds() const;
-//    UserInter *dbus() const;
 
     std::shared_ptr<User> userInfo() const { return m_user; }
 
 signals:
-//    void imageClicked(QString nam);
     void opacityChanged();
 
 public slots:
     void setImageSize(const AvatarSize &avatarsize);
-    void setLoginIconVisible(bool checked);
 
     void show();
     void hide();
@@ -88,16 +77,6 @@ public slots:
     void setOpacity(double opa);
     void setCustomEffect();
     void addTextShadowAfter();
-
-//    void updateUserName(const QString &username);
-//    void updateAvatar(const QString &avatar);
-//    void updateBackgrounds(const QStringList &list);
-//    void updateGreeterWallpaper(const QString &greeter);
-//    void updateDisplayName(const QString &displayname);
-//    void updateAutoLogin(bool autologin);
-//    void updateKbLayout(const QString &layout);
-//    void updateKbHistory(const QStringList &history);
-//    void setDBus(UserInter *dbus);
 
 protected:
     void paintEvent(QPaintEvent* event);
@@ -110,18 +89,7 @@ private:
 private:
     std::shared_ptr<User> m_user;
 
-//    QString m_username;
-//    QString m_avatar;
-//    QStringList m_backgrounds;
-//    QString m_greeterWallpaper;
-//    QString m_kbLayout;
-//    QString m_displayName;
-    bool m_isAutoLogin;
-//    QStringList m_kbHistory;
-//    UserInter *m_dbus;
-
     bool m_selected;
-    bool m_loginIconVisible;
     UserAvatar* m_userAvatar;
     QLabel* m_userNameLabel;
     QLabel *m_checkedMark;

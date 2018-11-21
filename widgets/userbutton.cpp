@@ -46,7 +46,6 @@ UserButton::UserButton(std::shared_ptr<User> user, QWidget *parent)
     , m_hideAnimation(new QPropertyAnimation(this, "opacity"))
 #endif
     , m_selected(false)
-    , m_loginIconVisible(false)
 {
     initUI();
     initConnect();
@@ -62,6 +61,9 @@ void UserButton::initConnect()
     connect(m_user.get(), &User::avatarChanged, this, [=] (const QString avatar) {
         m_userAvatar->setIcon(avatar);
     });
+    connect(m_user.get(), &User::logindChanged, m_checkedMark, &QLabel::setVisible);
+
+    m_checkedMark->setVisible(m_user.get()->isLogin());
 }
 
 void UserButton::initUI()
@@ -153,54 +155,6 @@ void UserButton::addTextShadowAfter()
     addTextShadow(true);
 }
 
-//void UserButton::updateUserName(const QString &username)
-//{
-//     m_username = username;
-//     updateUserDisplayName(m_displayName.isEmpty() ? m_username : m_displayName);
-//}
-
-//void UserButton::updateAvatar(const QString &avatar)
-//{
-//    m_avatar = avatar;
-//    m_userAvatar->setIcon(avatar);
-//}
-
-//void UserButton::updateBackgrounds(const QStringList &list)
-//{
-//    m_backgrounds = list;
-//}
-
-//void UserButton::updateGreeterWallpaper(const QString &greeter)
-//{
-//    m_greeterWallpaper = greeter;
-//}
-
-//void UserButton::updateDisplayName(const QString &displayname)
-//{
-//    m_displayName = displayname;
-//    updateUserDisplayName(m_displayName.isEmpty() ? m_username : m_displayName);
-//}
-
-//void UserButton::updateAutoLogin(bool autologin)
-//{
-//    m_isAutoLogin = autologin;
-//}
-
-//void UserButton::updateKbLayout(const QString &layout)
-//{
-//    m_kbLayout = layout;
-//}
-
-//void UserButton::updateKbHistory(const QStringList &history)
-//{
-//    m_kbHistory = history;
-//}
-
-//void UserButton::setDBus(UserInter *dbus)
-//{
-//    m_dbus = dbus;
-//}
-
 void UserButton::hide()
 {
 #ifndef DISABLE_ANIMATIONS
@@ -263,51 +217,6 @@ void UserButton::setSelected(bool selected)
     update();
 }
 
-//const QString UserButton::name() const
-//{
-//    return m_username;
-//}
-
-//const QString UserButton::avatar() const
-//{
-//    return m_avatar;
-//}
-
-//const QString UserButton::greeter() const
-//{
-//    return m_greeterWallpaper;
-//}
-
-//bool UserButton::automaticLogin() const
-//{
-//    return m_isAutoLogin;
-//}
-
-//const QStringList UserButton::kbHistory()
-//{
-//    return m_kbHistory;
-//}
-
-//const QString UserButton::kblayout()
-//{
-//    return m_kbLayout;
-//}
-
-//const QString UserButton::displayName() const
-//{
-//    return m_displayName;
-//}
-
-//const QStringList UserButton::backgrounds() const
-//{
-//    return m_backgrounds;
-//}
-
-//UserInter *UserButton::dbus() const
-//{
-//    return m_dbus;
-//}
-
 void UserButton::paintEvent(QPaintEvent* event)
 {
     QPushButton::paintEvent(event);
@@ -343,10 +252,6 @@ void UserButton::setOpacity(double opa) {
 void UserButton::setCustomEffect() {
     m_opacityEffect->setOpacity(m_opacity);
     setGraphicsEffect(m_opacityEffect);
-}
-
-void UserButton::setLoginIconVisible(bool checked) {
-    m_checkedMark->setVisible(checked && m_user->isLogin());
 }
 
 UserButton::~UserButton()

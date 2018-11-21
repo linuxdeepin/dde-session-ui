@@ -86,7 +86,6 @@ void UserFrame::userAdded(std::shared_ptr<User> user)
 {
     UserButton *button = new UserButton(user, this);
     m_userBtns[user->uid()] = button;
-    button->setLoginIconVisible(true);
 
     connect(button, &UserButton::clicked, this, &UserFrame::onUserClicked);
 

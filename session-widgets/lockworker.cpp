@@ -464,6 +464,8 @@ void LockWorker::authenticationComplete()
         QJsonObject json;
         json["Uid"] = static_cast<int>(m_authUser->uid());
         json["Type"] = m_authUser->type();
+        m_lockInter->SwitchToUser(QString(QJsonDocument(json).toJson(QJsonDocument::Compact))).waitForFinished();
+
         m_greeter->startSessionSync(m_model->sessionKey());
     };
 
