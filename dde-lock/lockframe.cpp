@@ -49,6 +49,11 @@ LockFrame::LockFrame(SessionBaseModel * const model, QWidget* parent)
     connect(m_content, &LockContent::requestSetLayout, this, &LockFrame::requestSetLayout);
     connect(m_content, &LockContent::requestBackground, this, static_cast<void (LockFrame::*)(const QString &)>(&LockFrame::updateBackground));
     connect(model, &SessionBaseModel::showUserList, this, &LockFrame::showUserList);
+    connect(model, &SessionBaseModel::authFinished, this, [=] (bool success) {
+        if (success) {
+            Q_EMIT requestEnableHotzone(true);
+        }
+    });
 }
 
 void LockFrame::showUserList() {
@@ -87,6 +92,20 @@ void LockFrame::keyPressEvent(QKeyEvent *e)
     case Qt::Key_Escape:    qApp->quit();       break;
 #endif
     }
+}
+
+void LockFrame::showEvent(QShowEvent *event)
+{
+    emit requestEnableHotzone(false);
+
+    return FullscreenBackground::showEvent(event);
+}
+
+void LockFrame::hideEvent(QHideEvent *event)
+{
+    emit requestEnableHotzone(true);
+
+    return FullscreenBackground::hideEvent(event);
 }
 
 LockFrame::~LockFrame() {

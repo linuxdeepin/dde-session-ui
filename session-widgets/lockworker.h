@@ -3,6 +3,8 @@
 
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbuslogin1manager.h"
+#include "dbus/dbushotzone.h"
+
 #include "userinfo.h"
 
 #include <QObject>
@@ -29,6 +31,8 @@ public:
     void switchToUser(std::shared_ptr<User> user);
     void authUser(std::shared_ptr<User> user, const QString &password);
     void setLayout(std::shared_ptr<User> user, const QString &layout);
+
+    void enableZoneDetected(bool disable);
 
 signals:
     void requestUpdateBackground(const QString &background); // only for greeter auth successd!
@@ -66,6 +70,7 @@ private:
     SessionManager *m_sessionManager;
     DBusLockService *m_lockInter;
     DBusLogin1Manager* m_login1ManagerInterface;
+    DBusHotzone *m_hotZoneInter;
 
     QLightDM::Greeter *m_greeter;
 

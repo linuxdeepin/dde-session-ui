@@ -8,6 +8,7 @@
 #include <grp.h>
 #include <libintl.h>
 #include <QDebug>
+#include <QApplication>
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
@@ -21,6 +22,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_loginedInter(new LoginedInter(ACCOUNT_DBUS_SERVICE, "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
     , m_sessionManager(new SessionManager("com.deepin.SessionManager", "/com/deepin/SessionManager", QDBusConnection::sessionBus(), this))
     , m_lockInter(new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this))
+    , m_hotZoneInter(new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone", QDBusConnection::sessionBus(), this))
 {
     m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
     if (!m_login1ManagerInterface->isValid()) {
@@ -118,6 +120,11 @@ void LockWorker::authUser(std::shared_ptr<User> user, const QString &password)
 void LockWorker::setLayout(std::shared_ptr<User> user, const QString &layout)
 {
     user->setCurrentLayout(layout);
+}
+
+void LockWorker::enableZoneDetected(bool disable)
+{
+    m_hotZoneInter->EnableZoneDetected(disable);
 }
 
 void LockWorker::checkDBusServer(bool isvalid)
@@ -355,6 +362,8 @@ void LockWorker::lockServiceEvent(quint32 eventType, quint32 pid, const QString 
 
 void LockWorker::onUnlockFinished(bool unlocked)
 {
+    emit m_model->authFinished(unlocked);
+
     if (!unlocked) {
         qDebug() << "Authorization failed!";
         emit m_model->authFaildTipsMessage(tr("Wrong Password"));
@@ -373,7 +382,7 @@ void LockWorker::onUnlockFinished(bool unlocked)
     m_passwdEditAnim->lineEdit()->clear();
     emit checkedHide();
 #else
-    qApp->exit();
+    QTimer::singleShot(0, qApp, &QApplication::quit);
 #endif
 }
 

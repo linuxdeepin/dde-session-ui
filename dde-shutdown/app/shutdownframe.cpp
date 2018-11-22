@@ -55,6 +55,20 @@ void ShutdownFrame::setConfirm(const bool confrim)
     m_shutdownFrame->setConfirm(confrim);
 }
 
+void ShutdownFrame::showEvent(QShowEvent *event)
+{
+    Q_EMIT requestEnableHotzone(false);
+
+    return FullscreenBackground::showEvent(event);
+}
+
+void ShutdownFrame::hideEvent(QHideEvent *event)
+{
+    Q_EMIT requestEnableHotzone(true);
+
+    return FullscreenBackground::hideEvent(event);
+}
+
 ShutdownFrame::~ShutdownFrame()
 {
 }

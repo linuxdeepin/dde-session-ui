@@ -76,11 +76,11 @@ private slots:
     void updateIcon();
     inline void setState(const State state) {updateState(state);}
 protected:
-    void paintEvent(QPaintEvent* event);
-    void enterEvent(QEvent* event);
-    void leaveEvent(QEvent* event);
-    void mousePressEvent(QMouseEvent* event);
-    void mouseReleaseEvent(QMouseEvent* e);
+    void paintEvent(QPaintEvent* event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent* event) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent* event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
     bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
 
 private:

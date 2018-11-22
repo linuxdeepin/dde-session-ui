@@ -98,6 +98,7 @@ int main(int argc, char* argv[])
             frame->setGeometry(screen->geometry());
             frame->setFixedSize(screen->size());
             QObject::connect(model, &SessionBaseModel::show, frame, &ShutdownFrame::show);
+            QObject::connect(frame, &ShutdownFrame::requestEnableHotzone, worker, &LockWorker::enableZoneDetected);
             frame->show();
         }
 

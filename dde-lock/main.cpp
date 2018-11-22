@@ -82,6 +82,7 @@ int main(int argc, char *argv[])
         QObject::connect(model, &SessionBaseModel::show, lockFrame, &LockFrame::show);
         QObject::connect(model, &SessionBaseModel::showUserList, lockFrame, &LockFrame::showUserList);
         QObject::connect(lockFrame, &LockFrame::requestSetLayout, worker, &LockWorker::setLayout);
+        QObject::connect(lockFrame, &LockFrame::requestEnableHotzone, worker, &LockWorker::enableZoneDetected, Qt::UniqueConnection);
         lockFrame->show();
     }
 

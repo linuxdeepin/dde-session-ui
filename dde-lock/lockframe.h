@@ -50,6 +50,7 @@ signals:
     void requestAuthUser(std::shared_ptr<User> user, const QString &password);
     void requestSwitchToUser(std::shared_ptr<User> user);
     void requestSetLayout(std::shared_ptr<User> user, const QString &layout);
+    void requestEnableHotzone(bool disable);
 
 public slots:
     void showUserList();
@@ -58,7 +59,9 @@ public slots:
     void hideFrame();
 #endif
 protected:
-    void keyPressEvent(QKeyEvent *e);
+    void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+    void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
 
 private:
     LockContent *m_content;

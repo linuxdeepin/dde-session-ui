@@ -41,9 +41,16 @@ public:
     ShutdownFrame(SessionBaseModel * const model, QWidget* parent = nullptr);
     ~ShutdownFrame();
 
+Q_SIGNALS:
+    void requestEnableHotzone(bool enable);
+
 public slots:
     void powerAction(const Actions action);
     void setConfirm(const bool confrim);
+
+protected:
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+    void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
 
 private:
     SessionBaseModel *m_model;
