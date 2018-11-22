@@ -39,10 +39,6 @@ void SessionBaseModel::userAdd(std::shared_ptr<User> user)
 {
     m_userList << user;
 
-    std::sort(m_userList.begin(), m_userList.end(), [=] (std::shared_ptr<User> user1, std::shared_ptr<User> user2) {
-        return user1->uid() < user->uid();
-    });
-
     emit onUserAdded(user);
     emit onUserListChanged(m_userList);
 }
