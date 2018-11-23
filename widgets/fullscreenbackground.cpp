@@ -96,11 +96,13 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     const float current_ani_value = m_fadeOutAni->currentValue().toFloat();
 
+    const QRect trueRect(QPoint(0, 0), QSize(size() * devicePixelRatioF()));
+
     if (!m_background.isNull()) {
         const QPixmap &pix = pixmapHandle(m_background);
 
         // tr is need redraw rect, sourceRect need correct upper left corner
-        painter.drawPixmap(rect(), pix, rect());
+        painter.drawPixmap(trueRect, pix, QRect(trueRect.topLeft(), trueRect.size() * pix.devicePixelRatioF()));
     }
 
     if (!m_fakeBackground.isNull()) {
@@ -108,7 +110,7 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
         const QPixmap &fadePixmap = pixmapHandle(m_fakeBackground);
 
         painter.setOpacity(current_ani_value);
-        painter.drawPixmap(rect(), fadePixmap, rect());
+        painter.drawPixmap(trueRect, fadePixmap, QRect(trueRect.topLeft(), trueRect.size() * fadePixmap.devicePixelRatioF()));
         painter.setOpacity(1);
     }
 }
