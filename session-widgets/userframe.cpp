@@ -139,6 +139,8 @@ void UserFrame::refreshPosition()
             button->move(QPoint(offset + index * USER_ICON_WIDTH, USER_HEIGHT * row));
             index++;
         }
+
+        setFixedHeight(USER_HEIGHT * (row + 1));
     }
     else {
         std::shared_ptr<User> user = m_model->currentUser();
