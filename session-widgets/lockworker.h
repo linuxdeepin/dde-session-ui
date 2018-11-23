@@ -49,6 +49,9 @@ private:
     bool checkUserIsNoPWGrp(std::shared_ptr<User> user);
     void onCurrentUserChanged(const QString &user);
 
+    void saveNumlockStatus(std::shared_ptr<User> user, const bool &on);
+    void recoveryUserKBState(std::shared_ptr<User> user);
+
     // lock
     void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
     void onUnlockFinished(bool unlocked);

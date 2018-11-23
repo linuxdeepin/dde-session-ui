@@ -2,6 +2,7 @@
 
 #include "sessionbasemodel.h"
 #include "userinfo.h"
+#include "keyboardmonitor.h"
 
 #include <unistd.h>
 #include <pwd.h>
@@ -9,9 +10,29 @@
 #include <libintl.h>
 #include <QDebug>
 #include <QApplication>
+#include <com_deepin_daemon_power.h>
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
+
+using PowerInter = com::deepin::daemon::Power;
+
+class UserNumlockSettings
+{
+public:
+    UserNumlockSettings(const QString &username)
+        : m_username(username)
+        , m_settings(QSettings::UserScope, "deepin", "greeter")
+    {
+    }
+
+    bool get(const bool defaultValue) { return m_settings.value(m_username, defaultValue).toBool(); }
+    void set(const bool value) { m_settings.setValue(m_username, value); }
+
+private:
+    QString m_username;
+    QSettings m_settings;
+};
 
 LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     : QObject(parent)
@@ -43,6 +64,11 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         connect(m_greeter, &QLightDM::Greeter::showPrompt, this, &LockWorker::prompt);
         connect(m_greeter, &QLightDM::Greeter::showMessage, this, &LockWorker::message);
         connect(m_greeter, &QLightDM::Greeter::authenticationComplete, this, &LockWorker::authenticationComplete);
+
+        connect(model, &SessionBaseModel::currentUserChanged, this, &LockWorker::recoveryUserKBState);
+        connect(KeyboardMonitor::instance(), &KeyboardMonitor::numlockStatusChanged, this, [=] (bool on) {
+            saveNumlockStatus(model->currentUser(), on);
+        });
     }
 
     connect(m_lockInter, &DBusLockService::UserChanged, this, &LockWorker::onCurrentUserChanged);
@@ -307,6 +333,21 @@ void LockWorker::onCurrentUserChanged(const QString &user)
             }
         }
     }
+}
+
+void LockWorker::saveNumlockStatus(std::shared_ptr<User> user, const bool &on) {
+    UserNumlockSettings(user->name()).set(on);
+}
+
+void LockWorker::recoveryUserKBState(std::shared_ptr<User> user)
+{
+    PowerInter powerInter("com.deepin.system.Power", "/com/deepin/system/Power", QDBusConnection::systemBus(), this);
+
+    const bool defaultValue = !powerInter.onBattery();
+    const bool enabled = UserNumlockSettings(user->name()).get(defaultValue);
+
+    qDebug() << "restore numlock status to " << enabled;
+    KeyboardMonitor::instance()->setNumlockStatus(enabled);
 }
 
 void LockWorker::lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message)
