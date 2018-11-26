@@ -171,6 +171,9 @@ void SessionWidget::keyReleaseEvent(QKeyEvent *event)
     case Qt::Key_Tab:
         rightKeySwitch();
         break;
+    case Qt::Key_Escape:
+        emit hideFrame();
+        break;
     default:
         break;
     }

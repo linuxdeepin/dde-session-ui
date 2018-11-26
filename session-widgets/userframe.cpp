@@ -76,6 +76,9 @@ void UserFrame::keyPressEvent(QKeyEvent *event)
             }
         }
         break;
+    case Qt::Key_Escape:
+        emit hideFrame();
+        break;
     default:
         break;
     }
@@ -169,7 +172,7 @@ void UserFrame::switchNextUser()
             btns[i]->setSelected(false);
             if (i == (btns.size() - 1)) {
                 btns.first()->setSelected(true);
-                m_frameDataBind->updateValue("UserFrame", m_userBtns.key(btns[i]));
+                m_frameDataBind->updateValue("UserFrame", m_userBtns.key(m_userBtns.first()));
             }
             else {
                 btns[i + 1]->setSelected(true);
@@ -189,7 +192,7 @@ void UserFrame::switchPreviousUser()
             btns[i]->setSelected(false);
             if (i == 0) {
                 btns.last()->setSelected(true);
-                m_frameDataBind->updateValue("UserFrame", m_userBtns.key(btns[i]));
+                m_frameDataBind->updateValue("UserFrame", m_userBtns.key(m_userBtns.last()));
             }
             else {
                 btns[i - 1]->setSelected(true);
