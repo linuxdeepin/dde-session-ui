@@ -34,6 +34,8 @@
 #include "sessionbasemodel.h"
 
 #include <QLabel>
+#include <QScreen>
+#include <QWindow>
 #include <dapplication.h>
 #include <QDBusInterface>
 

@@ -16,14 +16,12 @@ include(../boxframe/boxframe.pri)
 
 SOURCES += main.cpp \
     timewidget.cpp \
-    lockmanager.cpp \
     lockframe.cpp \
     dbus/dbuslockfrontservice.cpp \
     dbus/dbuslockagent.cpp
 
 HEADERS  += \
     timewidget.h \
-    lockmanager.h \
     lockframe.h \
     dbus/dbuslockfrontservice.h \
     dbus/dbuslockagent.h

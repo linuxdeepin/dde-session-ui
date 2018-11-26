@@ -24,20 +24,21 @@
  */
 
 #include "lockframe.h"
+#include "lockcontent.h"
+#include "sessionbasemodel.h"
+#include "userinfo.h"
+#include "timewidget.h"
+
+#include <QApplication>
 #include <QX11Info>
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #include <X11/extensions/XTest.h>
-#include <QApplication>
-#include "lockcontent.h"
-#include "sessionbasemodel.h"
 
 LockFrame::LockFrame(SessionBaseModel * const model, QWidget* parent)
     : FullscreenBackground(parent)
     , m_model(model)
 {
-    m_display = QX11Info::display();
-
     qDebug() << "LockFrame geometry:" << geometry();
 
     m_content = new LockContent(model);
@@ -63,7 +64,7 @@ void LockFrame::showUserList() {
 
 void LockFrame::tryGrabKeyboard()
 {
-    int requestCode = XGrabKeyboard(m_display, winId(), true, GrabModeAsync, GrabModeAsync, CurrentTime);
+    int requestCode = XGrabKeyboard(QX11Info::display(), winId(), true, GrabModeAsync, GrabModeAsync, CurrentTime);
 
     if (requestCode != 0) {
         m_failures++;

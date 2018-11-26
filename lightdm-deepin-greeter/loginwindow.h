@@ -27,12 +27,12 @@
 #define LOGINWINDOW_H
 
 #include "fullscreenbackground.h"
-#include "app/loginmanager.h"
 
 #include <memory>
 
 class LockContent;
 class SessionBaseModel;
+class User;
 class LoginWindow : public FullscreenBackground
 {
     Q_OBJECT

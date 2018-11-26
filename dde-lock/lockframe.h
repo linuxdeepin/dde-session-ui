@@ -29,9 +29,9 @@
 #include <QKeyEvent>
 #include <QDBusConnection>
 #include <QDBusAbstractAdaptor>
+#include <memory>
 
 #include "fullscreenbackground.h"
-#include "lockmanager.h"
 
 const QString DBUS_PATH = "/com/deepin/dde/lockFront";
 const QString DBUS_NAME = "com.deepin.dde.lockFront";
@@ -39,6 +39,7 @@ const QString DBUS_NAME = "com.deepin.dde.lockFront";
 class DBusLockService;
 class SessionBaseModel;
 class LockContent;
+class User;
 class LockFrame: public FullscreenBackground
 {
     Q_OBJECT
@@ -65,7 +66,6 @@ protected:
 
 private:
     LockContent *m_content;
-    Display *m_display;
     SessionBaseModel *m_model;
     int m_failures = 0;
 };

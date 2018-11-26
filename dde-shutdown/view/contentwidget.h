@@ -35,7 +35,6 @@
 #include <com_deepin_daemon_appearance.h>
 #include <com_deepin_daemon_imageblur.h>
 
-#include "userwidget.h"
 #include "rounditembutton.h"
 #include "util_updateui.h"
 #include "dbus/dbusvariant.h"

@@ -24,8 +24,9 @@
  */
 
 #include "loginwindow.h"
-
+#include "constants.h"
 #include "lockworker.h"
+#include "sessionbasemodel.h"
 
 #include <DApplication>
 #include <QtCore/QTranslator>
@@ -33,7 +34,8 @@
 #include <QProcess>
 #include <QThread>
 #include <QSettings>
-
+#include <QWindow>
+#include <QScreen>
 #include <DLog>
 
 #include <cstdlib>
@@ -46,6 +48,7 @@
 #include <X11/extensions/Xfixes.h>
 
 DCORE_USE_NAMESPACE
+DWIDGET_USE_NAMESPACE
 
 //Load the System cursor --begin
 static XcursorImages*
@@ -99,7 +102,6 @@ static int set_rootwindow_cursor() {
         qDebug() << "Open display failed";
         return -1;
     }
-
 
     const char *cursorPath = qApp->devicePixelRatio() > 1.7
         ? "/usr/share/icons/deepin/cursors/loginspinner@2x"

@@ -30,7 +30,6 @@
 
 #include "dhidpihelper.h"
 #include "userbutton.h"
-#include "userwidget.h"
 #include "userinfo.h"
 
 DWIDGET_USE_NAMESPACE

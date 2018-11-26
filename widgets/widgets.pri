@@ -14,7 +14,6 @@ HEADERS += \
     $$PWD/useravatar.h \
     $$PWD/userbutton.h \
     $$PWD/sessionwidget.h \
-    $$PWD/userwidget.h \
     $$PWD/userbreathinglabel.h \
     $$PWD/rounditembutton.h \
     $$PWD/kblayoutwidget.h \
@@ -33,7 +32,6 @@ SOURCES += \
     $$PWD/useravatar.cpp \
     $$PWD/userbutton.cpp \
     $$PWD/sessionwidget.cpp \
-    $$PWD/userwidget.cpp \
     $$PWD/userbreathinglabel.cpp \
     $$PWD/rounditembutton.cpp \
     $$PWD/kblayoutwidget.cpp \
