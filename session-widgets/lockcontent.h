@@ -44,6 +44,7 @@ protected:
 private:
     void releaseAllKeyboard();
     void restoreCenterContent();
+    void restoreMode();
     void updateBackground(const QString &path);
     void onBlurDone(const QString &source, const QString &blur, bool status);
 

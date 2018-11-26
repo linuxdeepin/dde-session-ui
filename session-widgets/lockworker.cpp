@@ -41,7 +41,6 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_isThumbAuth(false)
     , m_accountsInter(new AccountsInter(ACCOUNT_DBUS_SERVICE, ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this))
     , m_loginedInter(new LoginedInter(ACCOUNT_DBUS_SERVICE, "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
-    , m_sessionManager(new SessionManager("com.deepin.SessionManager", "/com/deepin/SessionManager", QDBusConnection::sessionBus(), this))
     , m_lockInter(new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this))
     , m_hotZoneInter(new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone", QDBusConnection::sessionBus(), this))
 {
@@ -70,6 +69,12 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
             saveNumlockStatus(model->currentUser(), on);
         });
     }
+
+    connect(model, &SessionBaseModel::onPowerActionChanged, this, [=] (SessionBaseModel::PowerAction poweraction) {
+        if (poweraction == SessionBaseModel::PowerAction::RequireSuspend) {
+            m_login1ManagerInterface->Suspend(true);
+        }
+    });
 
     connect(m_lockInter, &DBusLockService::UserChanged, this, &LockWorker::onCurrentUserChanged);
     connect(m_lockInter, &DBusLockService::Event, this, &LockWorker::lockServiceEvent);
@@ -411,9 +416,15 @@ void LockWorker::onUnlockFinished(bool unlocked)
         return;
     }
 
-    if (m_model->powerAction() != SessionBaseModel::PowerAction::RequireNormal) {
-        doPowerAction();
+    switch (m_model->powerAction()) {
+    case SessionBaseModel::PowerAction::RequireRestart:
+        m_login1ManagerInterface->Reboot(true);
         return;
+    case SessionBaseModel::PowerAction::RequireShutdown:
+        m_login1ManagerInterface->PowerOff(true);
+        return;
+    default:
+        break;
     }
 
 #ifdef LOCK_NO_QUIT
@@ -502,16 +513,11 @@ void LockWorker::authenticationComplete()
     }
 
     switch (m_model->powerAction()) {
-    case SessionBaseModel::PowerAction::RequireNormal:
-        break;
     case SessionBaseModel::PowerAction::RequireRestart:
         m_login1ManagerInterface->Reboot(true);
         return;
     case SessionBaseModel::PowerAction::RequireShutdown:
         m_login1ManagerInterface->PowerOff(true);
-        return;
-    case SessionBaseModel::PowerAction::RequireSuspend:
-        m_login1ManagerInterface->Suspend(true);
         return;
     default:
         break;
@@ -536,23 +542,4 @@ void LockWorker::authenticationComplete()
 #else
     startSessionSync();
 #endif
-}
-
-void LockWorker::doPowerAction()
-{
-    switch (m_model->powerAction()) {
-    case SessionBaseModel::PowerAction::RequireNormal:
-        break;
-    case SessionBaseModel::PowerAction::RequireRestart:
-        m_sessionManager->RequestReboot();
-        break;
-    case SessionBaseModel::PowerAction::RequireShutdown:
-        m_sessionManager->RequestShutdown();
-        break;
-    case SessionBaseModel::PowerAction::RequireSuspend:
-        m_sessionManager->RequestSuspend();
-        break;
-    default:
-        break;
-    }
 }

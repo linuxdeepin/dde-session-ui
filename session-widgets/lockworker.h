@@ -15,11 +15,9 @@
 
 #include <com_deepin_daemon_logined.h>
 #include <com_deepin_daemon_accounts.h>
-#include <com_deepin_sessionmanager.h>
 
 using LoginedInter = com::deepin::daemon::Logined;
 using AccountsInter = com::deepin::daemon::Accounts;
-using SessionManager = com::deepin::SessionManager;
 
 class SessionBaseModel;
 class LockWorker : public QObject
@@ -70,7 +68,6 @@ private:
 
     AccountsInter *m_accountsInter;
     LoginedInter *m_loginedInter;
-    SessionManager *m_sessionManager;
     DBusLockService *m_lockInter;
     DBusLogin1Manager* m_login1ManagerInterface;
     DBusHotzone *m_hotZoneInter;

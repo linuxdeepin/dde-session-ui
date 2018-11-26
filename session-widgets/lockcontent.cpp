@@ -32,12 +32,13 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         m_sessionFrame = new SessionWidget;
         m_sessionFrame->setModel(model);
 
-        connect(m_sessionFrame, &SessionWidget::hideFrame, this, &LockContent::restoreCenterContent);
+        connect(m_sessionFrame, &SessionWidget::hideFrame, this, &LockContent::restoreMode);
+        connect(m_sessionFrame, &SessionWidget::sessionChanged, this, &LockContent::restoreMode);
         connect(m_controlWidget, &ControlWidget::requestSwitchSession, this, [=] {
             m_model->setCurrentModeState(SessionBaseModel::ModeStatus::SessionMode);
         });
         connect(m_model, &SessionBaseModel::onSessionKeyChanged, m_controlWidget, &ControlWidget::chooseToSession);
-
+        connect(m_model, &SessionBaseModel::onSessionKeyChanged, this, &LockContent::restoreMode);
         break;
     case SessionBaseModel::AuthType::LockType:
         m_controlWidget->setMPRISEnable(true);
@@ -52,17 +53,15 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         emit requestAuthUser(m_user, password);
     });
     connect(m_userFrame, &UserFrame::requestSwitchUser, this, &LockContent::requestSwitchToUser);
-    connect(m_userFrame, &UserFrame::requestSwitchUser, this, [=] {
-        m_model->setCurrentModeState(SessionBaseModel::ModeStatus::PasswordMode); // restore state
-    });
+    connect(m_userFrame, &UserFrame::requestSwitchUser, this, &LockContent::restoreMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, [=] {
         m_model->setCurrentModeState(SessionBaseModel::ModeStatus::UserMode);
     });
     connect(m_controlWidget, &ControlWidget::requestShutdown, this, [=] {
         m_model->setCurrentModeState(SessionBaseModel::ModeStatus::PowerMode);
     });
-    connect(m_userFrame, &UserFrame::hideFrame, this, &LockContent::restoreCenterContent);
-    connect(m_shutdownFrame, &ShutdownWidget::abortOperation, this, &LockContent::restoreCenterContent);
+    connect(m_userFrame, &UserFrame::hideFrame, this, &LockContent::restoreMode);
+    connect(m_shutdownFrame, &ShutdownWidget::abortOperation, this, &LockContent::restoreMode);
     connect(model, &SessionBaseModel::authFaildMessage, m_userInputWidget, &UserInputWidget::setFaildMessage);
     connect(model, &SessionBaseModel::authFaildTipsMessage, m_userInputWidget, &UserInputWidget::setFaildTipMessage);
     connect(model, &SessionBaseModel::onStatusChanged, this, &LockContent::onStatusChanged);
@@ -211,6 +210,11 @@ void LockContent::restoreCenterContent()
     setCenterContent(m_userInputWidget);
 
     QTimer::singleShot(300, m_userInputWidget, &UserInputWidget::grabKeyboard);
+}
+
+void LockContent::restoreMode()
+{
+    m_model->setCurrentModeState(SessionBaseModel::ModeStatus::PasswordMode);
 }
 
 void LockContent::updateBackground(const QString &path)
