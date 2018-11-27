@@ -131,7 +131,7 @@ QString NativeUser::currentKBLayout()
     return m_userInter->layout();
 }
 
-ADDomainUser::ADDomainUser(int uid, QObject *parent)
+ADDomainUser::ADDomainUser(uint uid, QObject *parent)
     : User(parent)
 {
     m_uid = uid;

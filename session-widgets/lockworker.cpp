@@ -83,8 +83,12 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     connect(m_accountsInter, &AccountsInter::UserListChanged, this, &LockWorker::onUserListChanged);
     connect(m_accountsInter, &AccountsInter::UserAdded, this, &LockWorker::onUserAdded);
     connect(m_accountsInter, &AccountsInter::UserDeleted, this, &LockWorker::onUserRemove);
-
     connect(m_accountsInter, &AccountsInter::serviceValidChanged, this, &LockWorker::checkDBusServer);
+
+//    ADDomainUser *addomain_login_user = new ADDomainUser(0);
+//    addomain_login_user->setUserDisplayName(tr("ADDomain"));
+//    std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*addomain_login_user);
+//    m_model->userAdd(user);
 
     onCurrentUserChanged(m_lockInter->CurrentUser());
     onLastLogoutUserChanged(m_loginedInter->lastLogoutUser());
@@ -131,12 +135,15 @@ void LockWorker::authUser(std::shared_ptr<User> user, const QString &password)
     m_authenticating = true;
 
     if (m_model->currentType() == SessionBaseModel::AuthType::LockType) {
+        qDebug() << "start authentication of user: " << user->name();
+
         m_lockInter->AuthenticateUser(user->name());
         m_lockInter->UnlockCheck(user->name(), password);
     }
     else {
+        qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
+
         if (m_greeter->inAuthentication()) {
-            qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
             m_greeter->respond(password);
         }
         else {
@@ -222,7 +229,7 @@ void LockWorker::onUserRemove(const QString &user)
     QList<std::shared_ptr<User>> list = m_model->userList();
 
     for (auto u : list) {
-        if (u->uid() == user.toUInt()) {
+        if (u->uid() == user.toUInt() && u->type() == User::Native) {
             m_model->userRemoved(u);
             break;
         }
@@ -248,6 +255,11 @@ void LockWorker::onLoginUserListChanged(const QString &list)
 {
     m_loginUserList.clear();
 
+    std::list<uint> availableUidList;
+    for (std::shared_ptr<User> user : m_model->userList()) {
+        availableUidList.push_back(user->uid());
+    }
+
     QJsonObject userList = QJsonDocument::fromJson(list.toUtf8()).object();
     for (auto it = userList.constBegin(); it != userList.constEnd(); ++it){
         const bool haveDisplay = checkHaveDisplay(it.value().toArray());
@@ -257,11 +269,45 @@ void LockWorker::onLoginUserListChanged(const QString &list)
         if (haveDisplay) {
             m_loginUserList.push_back(uid);
         }
+
+        auto find_it = std::find_if(availableUidList.begin(), availableUidList.end(), [=] (const uint find_addomain_uid) {
+            return find_addomain_uid == uid;
+        });
+
+        if (haveDisplay && find_it == availableUidList.end()) {
+            // init addoman user
+            std::shared_ptr<User> u(new ADDomainUser(uid));
+            u->setisLogind(true);
+
+            struct passwd *pws;
+            pws = getpwuid(getuid());
+
+            static_cast<ADDomainUser*>(u.get())->setUserDisplayName(pws->pw_name);
+
+            if (uid == m_currentUserUid && m_model->currentUser().get() == nullptr) {
+                m_model->setCurrentUser(u);
+            }
+            m_model->userAdd(u);
+            availableUidList.push_back(uid);
+        }
     }
 
     QList<std::shared_ptr<User>> uList = m_model->userList();
-    for (auto it = uList.constBegin(); it != uList.constEnd(); ++it) {
-        (*it)->setisLogind(isLogined((*it)->uid()));
+    for (auto it = uList.begin(); it != uList.end();) {
+        std::shared_ptr<User> user = *it;
+
+        auto find_it = std::find_if(m_loginUserList.begin(), m_loginUserList.end(), [=] (const uint find_uid) {
+            return find_uid == user->uid();
+        });
+
+        if (find_it == m_loginUserList.end() && (user->type() == User::ADDomain && user->uid() != 0)) {
+            m_model->userRemoved(user);
+            it = uList.erase(it);
+        }
+        else {
+            user->setisLogind(isLogined(user->uid()));
+            ++it;
+        }
     }
 }
 

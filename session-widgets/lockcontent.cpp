@@ -51,9 +51,7 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
 
     // init connect
     connect(model, &SessionBaseModel::currentUserChanged, this, &LockContent::onCurrentUserChanged);
-    connect(m_userInputWidget, &UserInputWidget::requestAuthUser, this, [=] (const QString &password) {
-        emit requestAuthUser(m_user, password);
-    });
+    connect(m_userInputWidget, &UserInputWidget::requestAuthUser, this, &LockContent::requestAuthUser);
     connect(m_userFrame, &UserFrame::requestSwitchUser, this, &LockContent::requestSwitchToUser);
     connect(m_userFrame, &UserFrame::requestSwitchUser, this, &LockContent::restoreMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, [=] {
@@ -121,14 +119,8 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
     m_user = user;
 
     m_currentUserConnects << connect(user.get(), &User::greeterBackgroundPathChanged, this, &LockContent::updateBackground , Qt::UniqueConnection);
-    m_currentUserConnects << connect(user.get(), &User::kbLayoutListChanged, m_userInputWidget, &UserInputWidget::updateKBLayout, Qt::UniqueConnection);
-    m_currentUserConnects << connect(user.get(), &User::currentKBLayoutChanged, m_userInputWidget, &UserInputWidget::setDefaultKBLayout, Qt::UniqueConnection);
 
-    m_userInputWidget->setAvatar(user->avatarPath());
-    m_userInputWidget->setIsNoPasswordGrp(user->isNoPasswdGrp());
-    m_userInputWidget->setName(user->displayName());
-    m_userInputWidget->updateKBLayout(user->kbLayoutList());
-    m_userInputWidget->setDefaultKBLayout(user->currentKBLayout());
+    m_userInputWidget->setUser(user);
 
     if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
         m_sessionFrame->switchToUser(user->name());

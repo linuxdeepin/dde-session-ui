@@ -18,6 +18,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     , m_userAvatar(new UserAvatar(this))
     , m_nameLbl(new QLabel(this))
     , m_passwordEdit(new DPasswdEditAnimated(this))
+    , m_otherUserInput(new OtherUserInput(this))
     , m_loginBtn(new QPushButton(this))
     , m_kbLayoutBorder(new DArrowRectangle(DArrowRectangle::ArrowTop, this))
     , m_kbLayoutWidget(new KbLayoutWidget(QStringList()))
@@ -64,14 +65,17 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     layout->setSpacing(0);
 
     layout->addStretch();
+    layout->addWidget(m_otherUserInput, 0, Qt::AlignHCenter);
     layout->addWidget(m_passwordEdit, 0, Qt::AlignHCenter);
     layout->addWidget(m_loginBtn, 0, Qt::AlignHCenter);
     layout->addStretch();
 
-    setFixedHeight((m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2 + DDESESSIONCC::PASSWDLINEEDIT_HEIGHT);
-
     setLayout(layout);
 
+    m_nameLbl->hide();
+    m_userAvatar->hide();
+    m_passwordEdit->hide();
+    m_otherUserInput->hide();
     m_loginBtn->hide();
     m_kbLayoutBorder->hide();
 
@@ -87,19 +91,67 @@ UserInputWidget::UserInputWidget(QWidget *parent)
 
     m_kbLayoutWidget->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
 
+    m_otherUserInput->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
+    m_otherUserInput->setFixedHeight(DDESESSIONCC::PASSWDLINEEDIT_HEIGHT);
+
     connect(m_passwordEdit, &DPasswdEditAnimated::keyboardButtonClicked, this, &UserInputWidget::toggleKBLayoutWidget);
     connect(m_passwordEdit->lineEdit(), &QLineEdit::textChanged, this, [=] (const QString &value) {
         FrameDataBind::Instance()->updateValue("Password", value);
     });
-    connect(m_passwordEdit, &DPasswdEditAnimated::submit, this, &UserInputWidget::requestAuthUser);
+    connect(m_passwordEdit, &DPasswdEditAnimated::submit, this, [=] (const QString &passwd) {
+        emit requestAuthUser(m_user, passwd);
+    });
     connect(m_loginBtn, &QPushButton::clicked, this, [=] {
-        emit requestAuthUser(QString());
+        emit requestAuthUser(m_user, QString());
+    });
+
+    connect(m_otherUserInput, &OtherUserInput::submit, this, [=] {
+        std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*static_cast<ADDomainUser*>(m_user.get()));
+        static_cast<ADDomainUser*>(user.get())->setUserDisplayName(m_otherUserInput->account());
+        emit requestAuthUser(user, m_otherUserInput->passwd());
     });
 
     connect(m_kbLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &UserInputWidget::requestUserKBLayoutChanged);
 
     refreshLanguage();
     refreshAvatarPosition();
+}
+
+void UserInputWidget::setUser(std::shared_ptr<User> user)
+{
+    for (auto connect : m_currentUserConnects) {
+        m_user->disconnect(connect);
+    }
+
+    m_currentUserConnects.clear();
+
+    m_currentUserConnects << connect(user.get(), &User::kbLayoutListChanged, this, &UserInputWidget::updateKBLayout, Qt::UniqueConnection);
+    m_currentUserConnects << connect(user.get(), &User::currentKBLayoutChanged, this, &UserInputWidget::setDefaultKBLayout, Qt::UniqueConnection);
+
+    m_user = user;
+
+    int frameHeight = (m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2;
+
+    if (user->type() == User::ADDomain && user->uid() == 0) {
+        m_otherUserInput->show();
+        m_passwordEdit->hide();
+        frameHeight += m_otherUserInput->height();
+    }
+    else if (user->type() == User::ADDomain) {
+        m_passwordEdit->show();
+        frameHeight += DDESESSIONCC::PASSWDLINEEDIT_HEIGHT;
+    }
+    else {
+        setIsNoPasswordGrp(user->isNoPasswdGrp());
+        updateKBLayout(user->kbLayoutList());
+        setDefaultKBLayout(user->currentKBLayout());
+        frameHeight += DDESESSIONCC::PASSWDLINEEDIT_HEIGHT;
+    }
+
+    setFixedHeight(frameHeight);
+
+    setName(user->displayName());
+    setAvatar(user->avatarPath());
 }
 
 void UserInputWidget::setName(const QString &name)
@@ -168,7 +220,12 @@ void UserInputWidget::restartMode()
 
 void UserInputWidget::grabKeyboard()
 {
-    m_passwordEdit->lineEdit()->grabKeyboard();
+    if (m_user->type() == User::Native || (m_user->type() == User::ADDomain && m_user->uid() != 0)) {
+        m_passwordEdit->lineEdit()->grabKeyboard();
+    }
+    else {
+        m_otherUserInput->setFocus();
+    }
 }
 
 void UserInputWidget::releaseKeyboard()
@@ -209,6 +266,8 @@ void UserInputWidget::resizeEvent(QResizeEvent *event)
 {
     QTimer::singleShot(0, this, &UserInputWidget::refreshAvatarPosition);
     QTimer::singleShot(0, this, &UserInputWidget::refreshKBLayoutWidgetPosition);
+    QTimer::singleShot(0, m_userAvatar, &UserAvatar::show);
+    QTimer::singleShot(0, m_nameLbl, &QLabel::show);
 
     return QWidget::resizeEvent(event);
 }

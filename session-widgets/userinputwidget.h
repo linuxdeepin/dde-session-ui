@@ -10,6 +10,10 @@
 
 #include "useravatar.h"
 #include "framedatabind.h"
+#include "userinfo.h"
+#include "otheruserinput.h"
+
+#include <memory>
 
 DWIDGET_USE_NAMESPACE
 
@@ -20,8 +24,8 @@ class UserInputWidget : public QWidget
 public:
     explicit UserInputWidget(QWidget *parent = nullptr);
 
-    void setName(const QString &name);
-    void setAvatar(const QString &avatar);
+    void setUser(std::shared_ptr<User> user);
+
     void setIsNoPasswordGrp(bool isNopassword);
     void setFaildMessage(const QString &message);
     void setFaildTipMessage(const QString &message);
@@ -38,7 +42,7 @@ public:
     void hideKeyboard();
 
 signals:
-    void requestAuthUser(const QString &password);
+    void requestAuthUser(std::shared_ptr<User> user, const QString &password);
     void abortOperation();
     void requestUserKBLayoutChanged(const QString &layout);
 
@@ -48,6 +52,8 @@ protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 private:
+    void setName(const QString &name);
+    void setAvatar(const QString &avatar);
     void refreshLanguage();
     void refreshAvatarPosition();
     void toggleKBLayoutWidget();
@@ -59,9 +65,12 @@ private:
     UserAvatar *m_userAvatar;
     QLabel *m_nameLbl;
     DPasswdEditAnimated *m_passwordEdit;
+    OtherUserInput *m_otherUserInput;
     QPushButton *m_loginBtn;
     DArrowRectangle *m_kbLayoutBorder;
     KbLayoutWidget *m_kbLayoutWidget;
+    std::shared_ptr<User> m_user;
+    QList<QMetaObject::Connection> m_currentUserConnects;
     std::list<std::pair<std::function<void (QString)>, QString>> m_trList;
 };
 

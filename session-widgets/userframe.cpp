@@ -92,13 +92,6 @@ void UserFrame::userAdded(std::shared_ptr<User> user)
 
     connect(button, &UserButton::clicked, this, &UserFrame::onUserClicked);
 
-//    std::sort(m_userBtns.begin(), m_userBtns.end(), [=] (UserButton *btn1, UserButton *btn2) {
-//        uint user1 = m_userBtns[btn1];
-//        uint user2 = m_userBtns[btn2];
-
-//        return user1 < user2;
-//    });
-
     refreshPosition();
 }
 
@@ -147,6 +140,8 @@ void UserFrame::refreshPosition()
     }
     else {
         std::shared_ptr<User> user = m_model->currentUser();
+        if (user.get() == nullptr) return;
+
         for (auto it = m_userBtns.constBegin(); it != m_userBtns.constEnd(); ++it) {
             it.value()->setSelected(it.key() == user->uid());
         }

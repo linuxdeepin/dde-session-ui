@@ -54,8 +54,6 @@ void OtherUserInput::initUI()
 
     setAttribute(Qt::WA_TranslucentBackground);
 
-    setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 2);
-
     m_accountEdit = new QLineEdit;
     m_passwdEdit = new QLineEdit;
     m_submitBtn = new DImageButton(":/img/action_icons/login_normal.svg",

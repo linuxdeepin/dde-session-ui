@@ -80,9 +80,9 @@ void SessionBaseWindow::initUI()
     m_scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_scrollArea->setStyleSheet("background: transparent");
+    m_scrollArea->setStyleSheet("background: transparent;");
     m_scrollArea->setWidget(centerWidget);
-    m_scrollArea->setFixedHeight(500);
+    m_scrollArea->setMinimumHeight(500 / devicePixelRatioF());
 
     QHBoxLayout *bottomLayout = new QHBoxLayout;
     bottomLayout->setMargin(0);
@@ -94,14 +94,17 @@ void SessionBaseWindow::initUI()
 
     bottomWidget->setLayout(bottomLayout);
 
+    topWidget->setFixedHeight(132 / devicePixelRatioF());
+    bottomWidget->setFixedHeight(132 / devicePixelRatioF());
+
     m_mainLayou->setMargin(0);
     m_mainLayou->setSpacing(0);
 
-    m_mainLayou->addSpacing(33);
+    m_mainLayou->addSpacing(33 / devicePixelRatioF());
     m_mainLayou->addWidget(topWidget, 0, Qt::AlignTop);
     m_mainLayou->addWidget(m_scrollArea, 0, Qt::AlignVCenter);
     m_mainLayou->addWidget(bottomWidget, 0, Qt::AlignBottom);
-    m_mainLayou->addSpacing(33);
+    m_mainLayou->addSpacing(33 / devicePixelRatioF());
 
     setLayout(m_mainLayou);
 }

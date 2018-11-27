@@ -75,7 +75,6 @@ void ControlWidget::initUI()
     m_mainLayout->addSpacing(60);
 
     setLayout(m_mainLayout);
-    setFixedSize(500, 150);
 }
 
 void ControlWidget::initConnect()

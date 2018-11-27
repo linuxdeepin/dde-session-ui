@@ -93,7 +93,7 @@ class ADDomainUser : public User
     Q_OBJECT
 
 public:
-    ADDomainUser(int uid, QObject *parent = nullptr);
+    ADDomainUser(uint uid, QObject *parent = nullptr);
 
     void setUserDisplayName(const QString &name);
 
