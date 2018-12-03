@@ -94,7 +94,7 @@ void ShutdownWidget::initUI() {
     m_actionMap[m_requireSuspendBUtton] = SessionBaseModel::RequireSuspend;
 
     m_currentSelectedBtn = m_requireShutdownButton;
-    m_currentSelectedBtn->updateState(RoundItemButton::Default);
+    m_currentSelectedBtn->updateState(RoundItemButton::Checked);
 
     m_btnList = new QList<RoundItemButton*>;
     m_btnList->append(m_requireShutdownButton);
