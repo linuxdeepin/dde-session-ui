@@ -43,6 +43,7 @@ private slots:
     void parseJsonData(const QJsonDocument &jsonDoc);
     void initUI();
     void onButtonsClicked(int index, const QString &text);
+    void submit();
     void checkInputValid();
     bool passwordIsValid(const QString &text, const QString &secretKey);
 
