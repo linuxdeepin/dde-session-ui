@@ -104,6 +104,7 @@ void NetworkSecretDialog::initUI()
     setIconPixmap(iconPix);
 
     addButtons(QStringList() << tr("Cancel") << tr("Connect"));
+    setDefaultButton(1);
     getButton(1)->setEnabled(false);
 
     QWidget *widget = new QWidget;
@@ -137,23 +138,30 @@ void NetworkSecretDialog::onButtonsClicked(int index, const QString &text)
     if (index == 0) {
         qApp->exit(1);
     } else {
-        if (m_allInputValid) {
-            QJsonObject resultJsonObj;
-            QJsonArray secretsJsonArray;
-            for (auto lineEdit : m_lineEditList) {
-                secretsJsonArray.append(lineEdit->text());
-            }
-            resultJsonObj.insert("secrets", secretsJsonArray);
+        submit();
+    }
+}
 
-            QFile file;
-            if (!file.open(stdout, QFile::WriteOnly)) {
-                qDebug() << "open STDOUT failed";
-                qApp->exit(-4);
-            }
-            file.write(QJsonDocument(resultJsonObj).toJson());
-            file.flush();
-            file.close();
+void NetworkSecretDialog::submit()
+{
+    if (m_allInputValid) {
+        QJsonObject resultJsonObj;
+        QJsonArray secretsJsonArray;
+        for (auto lineEdit : m_lineEditList) {
+            secretsJsonArray.append(lineEdit->text());
         }
+        resultJsonObj.insert("secrets", secretsJsonArray);
+
+        QFile file;
+        if (!file.open(stdout, QFile::WriteOnly)) {
+            qDebug() << "open STDOUT failed";
+            qApp->exit(-4);
+        }
+        file.write(QJsonDocument(resultJsonObj).toJson());
+        file.flush();
+        file.close();
+    } else {
+        qDebug() << "some input is invalid!";
     }
 }
 
