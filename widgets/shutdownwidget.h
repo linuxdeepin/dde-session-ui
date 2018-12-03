@@ -69,7 +69,8 @@ private:
     RoundItemButton* m_currentSelectedBtn = NULL;
     RoundItemButton* m_requireShutdownButton;
     RoundItemButton* m_requireRestartButton;
-    RoundItemButton* m_requireSuspendBUtton;
+    RoundItemButton* m_requireSuspendButton;
+    RoundItemButton* m_requireHibernateButton;
     QMap<RoundItemButton*, SessionBaseModel::PowerAction> m_actionMap;
     QList<std::pair<std::function<void (QString)>, QString>> m_trList;
     FrameDataBind *m_frameDataBind;

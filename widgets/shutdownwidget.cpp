@@ -28,7 +28,8 @@
 #if 0 // storage i10n
 QT_TRANSLATE_NOOP("ShutdownWidget", "Shut down"),
 QT_TRANSLATE_NOOP("ShutdownWidget", "Reboot"),
-QT_TRANSLATE_NOOP("ShutdownWidget", "Suspend")
+QT_TRANSLATE_NOOP("ShutdownWidget", "Suspend"),
+QT_TRANSLATE_NOOP("ShutdownWidget", "Hibernate")
 #endif
 
 ShutdownWidget::ShutdownWidget(QWidget *parent)
@@ -51,8 +52,8 @@ void ShutdownWidget::initConnect() {
         m_currentSelectedBtn = m_requireShutdownButton;
         shutdownAction();
     });
-    connect(m_requireSuspendBUtton, &RoundItemButton::clicked, this, [=] {
-        m_currentSelectedBtn = m_requireSuspendBUtton;
+    connect(m_requireSuspendButton, &RoundItemButton::clicked, this, [=] {
+        m_currentSelectedBtn = m_requireSuspendButton;
         shutdownAction();
     });
 }
@@ -87,11 +88,17 @@ void ShutdownWidget::initUI() {
     updateTr(m_requireRestartButton, "Reboot");
     m_actionMap[m_requireRestartButton] = SessionBaseModel::RequireRestart;
 
-    m_requireSuspendBUtton = new RoundItemButton(tr("Suspend"), this);
-    m_requireSuspendBUtton->setObjectName("RequireSuspendButton");
-    m_requireSuspendBUtton->setAutoExclusive(true);
-    updateTr(m_requireSuspendBUtton, "Suspend");
-    m_actionMap[m_requireSuspendBUtton] = SessionBaseModel::RequireSuspend;
+    m_requireSuspendButton = new RoundItemButton(tr("Suspend"), this);
+    m_requireSuspendButton->setObjectName("RequireSuspendButton");
+    m_requireSuspendButton->setAutoExclusive(true);
+    updateTr(m_requireSuspendButton, "Suspend");
+    m_actionMap[m_requireSuspendButton] = SessionBaseModel::RequireSuspend;
+
+    m_requireHibernateButton = new RoundItemButton(tr("Hibernate"), this);
+    m_requireHibernateButton->setObjectName("RequireHibernateButton");
+    m_requireHibernateButton->setAutoExclusive(true);
+    updateTr(m_requireHibernateButton, "Hibernate");
+    m_actionMap[m_requireHibernateButton] = SessionBaseModel::RequireHibernate;
 
     m_currentSelectedBtn = m_requireShutdownButton;
     m_currentSelectedBtn->updateState(RoundItemButton::Checked);
@@ -99,7 +106,8 @@ void ShutdownWidget::initUI() {
     m_btnList = new QList<RoundItemButton*>;
     m_btnList->append(m_requireShutdownButton);
     m_btnList->append(m_requireRestartButton);
-    m_btnList->append(m_requireSuspendBUtton);
+    m_btnList->append(m_requireSuspendButton);
+    m_btnList->append(m_requireHibernateButton);
 
     m_Layout = new QHBoxLayout;
     m_Layout->setMargin(0);
@@ -107,7 +115,8 @@ void ShutdownWidget::initUI() {
     m_Layout->addStretch(0);
     m_Layout->addWidget(m_requireShutdownButton);
     m_Layout->addWidget(m_requireRestartButton);
-    m_Layout->addWidget(m_requireSuspendBUtton);
+    m_Layout->addWidget(m_requireSuspendButton);
+    m_Layout->addWidget(m_requireHibernateButton);
     m_Layout->addStretch(0);
     setLayout(m_Layout);
 
@@ -126,7 +135,12 @@ void ShutdownWidget::leftKeySwitch() {
     } else {
         m_index  -= 1;
     }
-    m_currentSelectedBtn = m_btnList->at(m_index);
+    if (m_btnList->at(m_index)->isVisible()) {
+        m_currentSelectedBtn = m_btnList->at(m_index);
+    }
+    else {
+        m_currentSelectedBtn = m_btnList->at(--m_index);
+    }
     m_currentSelectedBtn->updateState(RoundItemButton::Checked);
 
     m_frameDataBind->updateValue("ShutdownWidget", m_index);
@@ -139,7 +153,14 @@ void ShutdownWidget::rightKeySwitch() {
     } else {
         m_index  += 1;
     }
-    m_currentSelectedBtn = m_btnList->at(m_index);
+
+    if (m_btnList->at(m_index)->isVisible()) {
+        m_currentSelectedBtn = m_btnList->at(m_index);
+    }
+    else {
+        m_currentSelectedBtn = m_btnList->at(++m_index);
+    }
+
     m_currentSelectedBtn->updateState(RoundItemButton::Checked);
 
     m_frameDataBind->updateValue("ShutdownWidget", m_index);
@@ -196,4 +217,8 @@ ShutdownWidget::~ShutdownWidget() {
 void ShutdownWidget::setModel(SessionBaseModel * const model)
 {
     m_model = model;
+
+    connect(model, &SessionBaseModel::onHasSwapChanged, m_requireHibernateButton, &RoundItemButton::setVisible);
+
+    m_requireHibernateButton->setVisible(model->hasSwap());
 }

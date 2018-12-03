@@ -60,6 +60,7 @@ private:
 
     void doPowerAction();
     void checkVirtualKB();
+    void checkSwap();
 
 private:
     SessionBaseModel *m_model;

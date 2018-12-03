@@ -20,6 +20,7 @@ public:
         RequireShutdown,
         RequireRestart,
         RequireSuspend,
+        RequireHibernate,
     };
 
     enum ModeStatus {
@@ -56,6 +57,9 @@ public:
     inline bool hasVirtualKB() { return m_hasVirtualKB; }
     void setHasVirtualKB(bool hasVirtualKB);
 
+    void setHasSwap(bool hasSwap);
+    inline bool hasSwap() { return m_hasSwap; }
+
 signals:
     void onUserAdded(std::shared_ptr<User> user);
     void onUserRemoved(const uint uid);
@@ -71,6 +75,7 @@ signals:
     void onStatusChanged(ModeStatus status);
     void onUserListChanged(QList<std::shared_ptr<User>> list);
     void hasVirtualKBChanged(bool hasVirtualKB);
+    void onHasSwapChanged(bool hasSwap);
 
 private:
     AuthType m_currentType;
@@ -81,6 +86,7 @@ private:
     PowerAction m_powerAction;
     ModeStatus m_currentModeState;
     bool m_hasVirtualKB;
+    bool m_hasSwap;
 };
 
 #endif // SESSIONBASEMODEL_H

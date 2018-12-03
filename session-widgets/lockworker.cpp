@@ -10,6 +10,9 @@
 #include <libintl.h>
 #include <QDebug>
 #include <QApplication>
+#include <QProcess>
+#include <QRegularExpression>
+
 #include <com_deepin_daemon_power.h>
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
@@ -95,6 +98,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     onLoginUserListChanged(m_loginedInter->userList());
     checkDBusServer(m_accountsInter->isValid());
     checkVirtualKB();
+    checkSwap();
 }
 
 void LockWorker::switchToUser(std::shared_ptr<User> user)
@@ -594,4 +598,21 @@ void LockWorker::authenticationComplete()
 void LockWorker::checkVirtualKB()
 {
     m_model->setHasVirtualKB(QProcess::execute("which", QStringList() << "onboard") == 0);
+}
+
+void LockWorker::checkSwap()
+{
+    QFile file("/proc/swaps");
+    if (file.open(QIODevice::Text | QIODevice::ReadOnly)) {
+        const QString &body = file.readAll();
+        QRegularExpression re("\\spartition\\s");
+        QRegularExpressionMatch match = re.match(body);
+        m_model->setHasSwap(match.hasMatch());
+        qDebug() << "check using swap partition! " << match.hasMatch();
+        qDebug() << body;
+        file.close();
+    }
+    else {
+        qWarning() << "open /proc/swaps failed! please check permission!!!";
+    }
 }

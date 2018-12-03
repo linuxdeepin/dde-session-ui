@@ -18,3 +18,10 @@ QWidget#RequireSuspendButton {
     qproperty-hoverIcon:":/img/list_actions/suspend_hover.svg";
     qproperty-pressedIcon:":/img/list_actions/suspend_press.svg";
 }
+
+QWidget#RequireHibernateButton {
+    border: 2px solid red;
+    qproperty-normalIcon:":/img/list_actions/sleep_normal.svg";
+    qproperty-hoverIcon:":/img/list_actions/sleep_hover.svg";
+    qproperty-pressedIcon:":/img/list_actions/sleep_press.svg";
+}

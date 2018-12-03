@@ -15,6 +15,7 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     , m_model(model)
     , m_imageBlurInter(new ImageBlur("com.deepin.daemon.Accounts", "/com/deepin/daemon/ImageBlur", QDBusConnection::systemBus(), this))
     , m_virtualKB(nullptr)
+    , m_translator(new QTranslator)
 {
     m_controlWidget = new ControlWidget;
     m_userInputWidget = new UserInputWidget;
@@ -109,6 +110,12 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
 void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 {
     if (user.get() == nullptr) return; // if dbus is async
+
+    // set user language
+    qApp->removeTranslator(m_translator);
+    const QString locale { user->locale() };
+    m_translator->load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale(locale.isEmpty() ? "en_US.UTF8" : locale).name());
+    qApp->installTranslator(m_translator);
 
     for (auto connect : m_currentUserConnects) {
         m_user.get()->disconnect(connect);

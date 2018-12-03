@@ -62,6 +62,7 @@ private:
     QWidget *m_virtualKB;
     std::shared_ptr<User> m_user;
     QList<QMetaObject::Connection> m_currentUserConnects;
+    QTranslator *m_translator;
 };
 
 #endif // LOCKCONTENT_H

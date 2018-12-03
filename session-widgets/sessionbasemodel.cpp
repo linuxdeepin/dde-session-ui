@@ -98,3 +98,11 @@ void SessionBaseModel::setHasVirtualKB(bool hasVirtualKB)
 
     emit hasVirtualKBChanged(hasVirtualKB);
 }
+
+void SessionBaseModel::setHasSwap(bool hasSwap) {
+    if (m_hasSwap == hasSwap) return;
+
+    m_hasSwap = hasSwap;
+
+    emit onHasSwapChanged(hasSwap);
+}
