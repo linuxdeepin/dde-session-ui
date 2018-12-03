@@ -24,7 +24,8 @@ HEADERS += \
     $$PWD/mediawidget.h \
     $$PWD/controlwidget.h \
     $$PWD/fullscreenbackground.h \
-    $$PWD/otheruserinput.h
+    $$PWD/otheruserinput.h \
+    $$PWD/virtualkbinstance.h
 
 
 
@@ -42,7 +43,8 @@ SOURCES += \
     $$PWD/mediawidget.cpp \
     $$PWD/controlwidget.cpp \
     $$PWD/fullscreenbackground.cpp \
-    $$PWD/otheruserinput.cpp
+    $$PWD/otheruserinput.cpp \
+    $$PWD/virtualkbinstance.cpp
 
 RESOURCES += \
     $$PWD/widgetstheme.qrc \

@@ -124,6 +124,11 @@ void FullscreenBackground::enterEvent(QEvent *event)
 
 void FullscreenBackground::leaveEvent(QEvent *event)
 {
+    if (geometry().contains(pos())) {
+        event->accept();
+        return;
+    }
+
     m_content->hide();
 
     return QWidget::leaveEvent(event);

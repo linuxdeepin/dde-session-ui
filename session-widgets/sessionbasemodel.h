@@ -53,6 +53,9 @@ public:
     ModeStatus currentModeState() const { return m_currentModeState; }
     void setCurrentModeState(const ModeStatus &currentModeState);
 
+    inline bool hasVirtualKB() { return m_hasVirtualKB; }
+    void setHasVirtualKB(bool hasVirtualKB);
+
 signals:
     void onUserAdded(std::shared_ptr<User> user);
     void onUserRemoved(const uint uid);
@@ -67,6 +70,7 @@ signals:
     void show();
     void onStatusChanged(ModeStatus status);
     void onUserListChanged(QList<std::shared_ptr<User>> list);
+    void hasVirtualKBChanged(bool hasVirtualKB);
 
 private:
     AuthType m_currentType;
@@ -76,6 +80,7 @@ private:
     QString m_sessionKey;
     PowerAction m_powerAction;
     ModeStatus m_currentModeState;
+    bool m_hasVirtualKB;
 };
 
 #endif // SESSIONBASEMODEL_H

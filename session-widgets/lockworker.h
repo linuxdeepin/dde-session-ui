@@ -59,6 +59,7 @@ private:
     void authenticationComplete();
 
     void doPowerAction();
+    void checkVirtualKB();
 
 private:
     SessionBaseModel *m_model;

@@ -40,6 +40,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
     void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void releaseAllKeyboard();
@@ -47,6 +48,8 @@ private:
     void restoreMode();
     void updateBackground(const QString &path);
     void onBlurDone(const QString &source, const QString &blur, bool status);
+    void toggleVirtualKB();
+    void updateVirtualKBPosition();
 
 private:
     SessionBaseModel *m_model;
@@ -56,6 +59,7 @@ private:
     SessionWidget *m_sessionFrame;
     ShutdownWidget *m_shutdownFrame;
     ImageBlur *m_imageBlurInter;
+    QWidget *m_virtualKB;
     std::shared_ptr<User> m_user;
     QList<QMetaObject::Connection> m_currentUserConnects;
 };

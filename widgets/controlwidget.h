@@ -43,8 +43,10 @@ signals:
     void requestSwitchUser();
     void requestShutdown();
     void requestSwitchSession();
+    void requestSwitchVirtualKB();
 
 public slots:
+    void setVirtualKBVisible(bool visible);
     void setMPRISEnable(const bool state);
     void setUserSwitchEnable(const bool visible);
     void setSessionSwitchEnable(const bool visible);
@@ -61,6 +63,7 @@ private:
 
 private:
     QHBoxLayout *m_mainLayout = nullptr;
+    DImageButton *m_virtualKBBtn = nullptr;
     DImageButton *m_switchUserBtn = nullptr;
     DImageButton *m_powerBtn = nullptr;
     MediaWidget *m_mediaWidget = nullptr;

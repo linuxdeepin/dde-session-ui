@@ -89,3 +89,12 @@ void SessionBaseModel::setCurrentModeState(const ModeStatus &currentModeState)
 
     emit onStatusChanged(currentModeState);
 }
+
+void SessionBaseModel::setHasVirtualKB(bool hasVirtualKB)
+{
+    if (m_hasVirtualKB == hasVirtualKB) return;
+
+    m_hasVirtualKB = hasVirtualKB;
+
+    emit hasVirtualKBChanged(hasVirtualKB);
+}

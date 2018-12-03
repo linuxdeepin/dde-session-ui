@@ -90,6 +90,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     onLastLogoutUserChanged(m_loginedInter->lastLogoutUser());
     onLoginUserListChanged(m_loginedInter->userList());
     checkDBusServer(m_accountsInter->isValid());
+    checkVirtualKB();
 }
 
 void LockWorker::switchToUser(std::shared_ptr<User> user)
@@ -542,4 +543,9 @@ void LockWorker::authenticationComplete()
 #else
     startSessionSync();
 #endif
+}
+
+void LockWorker::checkVirtualKB()
+{
+    m_model->setHasVirtualKB(QProcess::execute("which", QStringList() << "onboard") == 0);
 }

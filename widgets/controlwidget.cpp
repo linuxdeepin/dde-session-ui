@@ -39,11 +39,22 @@ ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
     initConnect();
 }
 
+void ControlWidget::setVirtualKBVisible(bool visible)
+{
+    m_virtualKBBtn->setVisible(visible);
+}
+
 void ControlWidget::initUI()
 {
     m_mediaWidget = nullptr;
 
     m_mainLayout = new QHBoxLayout;
+
+    m_virtualKBBtn = new DImageButton;
+    m_virtualKBBtn->setNormalPic(":/img/screen_keyboard_normal.svg");
+    m_virtualKBBtn->setHoverPic(":/img/screen_keyboard_hover.svg");
+    m_virtualKBBtn->setPressPic(":/img/screen_keyboard_press.svg");
+    m_virtualKBBtn->hide();
 
     m_switchUserBtn = new DImageButton;
     m_switchUserBtn->setNormalPic(":/img/bottom_actions/userswitch_normal.svg");
@@ -58,10 +69,9 @@ void ControlWidget::initUI()
     m_mainLayout->setMargin(0);
     m_mainLayout->setSpacing(26);
     m_mainLayout->addStretch();
-    m_mainLayout->addWidget(m_switchUserBtn);
-    m_mainLayout->setAlignment(m_switchUserBtn, Qt::AlignBottom);
-    m_mainLayout->addWidget(m_powerBtn);
-    m_mainLayout->setAlignment(m_powerBtn, Qt::AlignBottom);
+    m_mainLayout->addWidget(m_virtualKBBtn, 0, Qt::AlignBottom);
+    m_mainLayout->addWidget(m_switchUserBtn, 0, Qt::AlignBottom);
+    m_mainLayout->addWidget(m_powerBtn, 0, Qt::AlignBottom);
     m_mainLayout->addSpacing(60);
 
     setLayout(m_mainLayout);
@@ -72,6 +82,7 @@ void ControlWidget::initConnect()
 {
     connect(m_switchUserBtn, &DImageButton::clicked, this, &ControlWidget::requestSwitchUser);
     connect(m_powerBtn, &DImageButton::clicked, this, &ControlWidget::requestShutdown);
+    connect(m_virtualKBBtn, &DImageButton::clicked, this, &ControlWidget::requestSwitchVirtualKB);
 }
 
 void ControlWidget::showTips()
