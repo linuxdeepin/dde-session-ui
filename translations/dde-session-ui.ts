@@ -150,88 +150,27 @@
     </message>
 </context>
 <context>
-    <name>LockManager</name>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="182"/>
-        <source>Login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="254"/>
-        <source>Wrong Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="381"/>
-        <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="404"/>
-        <source>Failed to match fingerprint</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="615"/>
-        <source>Enter your password to reboot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="627"/>
-        <source>Enter your password to shutdown</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="327"/>
         <location filename="../session-widgets/lockworker.cpp" line="424"/>
+        <location filename="../session-widgets/lockworker.cpp" line="527"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="345"/>
-        <location filename="../session-widgets/lockworker.cpp" line="439"/>
+        <location filename="../session-widgets/lockworker.cpp" line="442"/>
+        <location filename="../session-widgets/lockworker.cpp" line="542"/>
         <source>Failed to match fingerprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="369"/>
-        <location filename="../session-widgets/lockworker.cpp" line="453"/>
+        <location filename="../session-widgets/lockworker.cpp" line="466"/>
+        <location filename="../session-widgets/lockworker.cpp" line="556"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="457"/>
-        <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>LoginManager</name>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="48"/>
-        <source>Login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="533"/>
-        <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="548"/>
-        <source>Failed to match fingerprint</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="592"/>
-        <source>Wrong Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="596"/>
+        <location filename="../session-widgets/lockworker.cpp" line="560"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -335,29 +274,33 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="148"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="200"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="630"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="157"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="209"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="166"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="218"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="84"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="618"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="85"/>
         <source>Reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="90"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="91"/>
         <source>Suspend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/shutdownwidget.cpp" line="32"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="97"/>
+        <source>Hibernate</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -432,21 +375,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="147"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="199"/>
         <source>Enter your password to shutdown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="165"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="217"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>UserWidget</name>
-    <message>
-        <location filename="../widgets/userwidget.cpp" line="410"/>
-        <source>Domain account</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
