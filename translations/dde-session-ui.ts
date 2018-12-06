@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<TS version="2.1" language="en" sourcelanguage="en">
 <context>
     <name>ContentWidget</name>
     <message>
@@ -157,27 +157,35 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="424"/>
-        <location filename="../session-widgets/lockworker.cpp" line="527"/>
+        <location filename="../session-widgets/lockworker.cpp" line="436"/>
+        <location filename="../session-widgets/lockworker.cpp" line="545"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="442"/>
-        <location filename="../session-widgets/lockworker.cpp" line="542"/>
+        <location filename="../session-widgets/lockworker.cpp" line="454"/>
+        <location filename="../session-widgets/lockworker.cpp" line="560"/>
         <source>Failed to match fingerprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="466"/>
-        <location filename="../session-widgets/lockworker.cpp" line="556"/>
+        <location filename="../session-widgets/lockworker.cpp" line="478"/>
+        <location filename="../session-widgets/lockworker.cpp" line="574"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="560"/>
+        <location filename="../session-widgets/lockworker.cpp" line="578"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../session-widgets/lockworker.cpp" line="656"/>
+        <source>Please try again %n minute(s) later</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -279,18 +287,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="200"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="221"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="209"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="230"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="218"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="239"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="85"/>
         <source>Reboot</source>
@@ -380,12 +388,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="199"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="220"/>
         <source>Enter your password to shutdown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="217"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="238"/>
         <source>Enter your password to reboot</source>
         <translation type="unfinished"></translation>
     </message>

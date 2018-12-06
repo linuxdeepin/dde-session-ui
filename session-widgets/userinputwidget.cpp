@@ -22,6 +22,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     , m_loginBtn(new QPushButton(this))
     , m_kbLayoutBorder(new DArrowRectangle(DArrowRectangle::ArrowTop, this))
     , m_kbLayoutWidget(new KbLayoutWidget(QStringList()))
+    , m_lockPasswordWidget(new LockPasswordWidget)
 {
     std::function<void (QString)> loginTr = std::bind(&QPushButton::setText, m_loginBtn, std::placeholders::_1);
     m_trList.push_back(std::pair<std::function<void (QString)>, QString>(loginTr, "Login"));
@@ -59,6 +60,8 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     m_nameLbl->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, 25);
     m_nameLbl->setAlignment(Qt::AlignCenter);
 
+    m_lockPasswordWidget->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, DDESESSIONCC::PASSWDLINEEDIT_HEIGHT));
+
     QVBoxLayout *layout = new QVBoxLayout;
 
     layout->setMargin(0);
@@ -67,6 +70,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     layout->addStretch();
     layout->addWidget(m_otherUserInput, 0, Qt::AlignHCenter);
     layout->addWidget(m_passwordEdit, 0, Qt::AlignHCenter);
+    layout->addWidget(m_lockPasswordWidget, 0, Qt::AlignHCenter);
     layout->addWidget(m_loginBtn, 0, Qt::AlignHCenter);
     layout->addStretch();
 
@@ -78,6 +82,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     m_otherUserInput->hide();
     m_loginBtn->hide();
     m_kbLayoutBorder->hide();
+    m_lockPasswordWidget->hide();
 
     m_kbLayoutBorder->setBackgroundColor(QColor(255, 255, 255, 255 * 0.2));
     m_kbLayoutBorder->setBorderColor(QColor(0, 0, 0, 0));
@@ -172,12 +177,21 @@ void UserInputWidget::setIsNoPasswordGrp(bool isNopassword)
 
 void UserInputWidget::setFaildMessage(const QString &message)
 {
+    if (m_lockPasswordWidget->isVisible()) {
+        m_lockPasswordWidget->setMessage(message);
+        return;
+    }
     m_passwordEdit->lineEdit()->setPlaceholderText(message);
 }
 
 void UserInputWidget::setFaildTipMessage(const QString &message)
 {
-    m_passwordEdit->showAlert(message);
+    if (message.isEmpty()) {
+        m_passwordEdit->hideAlert();
+    }
+    else {
+        m_passwordEdit->showAlert(message);
+    }
 }
 
 void UserInputWidget::updateKBLayout(const QStringList &list)
@@ -189,6 +203,13 @@ void UserInputWidget::updateKBLayout(const QStringList &list)
 void UserInputWidget::setDefaultKBLayout(const QString &layout)
 {
     m_kbLayoutWidget->setDefault(layout);
+}
+
+void UserInputWidget::disablePassword(bool disable)
+{
+    m_passwordEdit->lineEdit()->setDisabled(disable);
+    m_passwordEdit->setVisible(!disable);
+    m_lockPasswordWidget->setVisible(disable);
 }
 
 void UserInputWidget::shutdownMode()

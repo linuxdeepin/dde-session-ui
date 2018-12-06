@@ -61,6 +61,7 @@ private:
     void doPowerAction();
     void checkVirtualKB();
     void checkSwap();
+    void onLockTimerOut();
 
 private:
     SessionBaseModel *m_model;
@@ -82,6 +83,8 @@ private:
     std::shared_ptr<User> m_authUser;
     std::list<uint> m_loginUserList;
     QString m_password;
+    QSettings m_settings;
+    QTimer *m_lockTimer;
 };
 
 #endif // LOCKWORKER_H

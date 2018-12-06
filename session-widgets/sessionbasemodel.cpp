@@ -7,6 +7,8 @@ SessionBaseModel::SessionBaseModel(AuthType type, QObject *parent)
     , m_currentType(type)
     , m_currentUser(nullptr)
     , m_powerAction(PowerAction::RequireNormal)
+    , m_isLockTime(false)
+    , m_lockTime(-1)
 {
 
 }
@@ -105,4 +107,22 @@ void SessionBaseModel::setHasSwap(bool hasSwap) {
     m_hasSwap = hasSwap;
 
     emit onHasSwapChanged(hasSwap);
+}
+
+void SessionBaseModel::setIsLock(bool lock)
+{
+    if (lock == m_isLockTime) return;
+
+    m_isLockTime = lock;
+
+    emit IsLockTimeChanged(lock);
+}
+
+void SessionBaseModel::setLockTime(int time)
+{
+    if (m_lockTime == time) return;
+
+    m_lockTime = time;
+
+    emit onLockTimeChanged(time);
 }

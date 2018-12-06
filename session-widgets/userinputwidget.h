@@ -12,6 +12,7 @@
 #include "framedatabind.h"
 #include "userinfo.h"
 #include "otheruserinput.h"
+#include "lockpasswordwidget.h"
 
 #include <memory>
 
@@ -31,6 +32,7 @@ public:
     void setFaildTipMessage(const QString &message);
     void updateKBLayout(const QStringList &list);
     void setDefaultKBLayout(const QString &layout);
+    void disablePassword(bool disable);
 
     void shutdownMode();
     void normalMode();
@@ -69,6 +71,7 @@ private:
     QPushButton *m_loginBtn;
     DArrowRectangle *m_kbLayoutBorder;
     KbLayoutWidget *m_kbLayoutWidget;
+    LockPasswordWidget *m_lockPasswordWidget;
     std::shared_ptr<User> m_user;
     QList<QMetaObject::Connection> m_currentUserConnects;
     std::list<std::pair<std::function<void (QString)>, QString>> m_trList;

@@ -83,6 +83,8 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         }
     });
 
+    connect(model, &SessionBaseModel::IsLockTimeChanged, m_userInputWidget, &UserInputWidget::disablePassword);
+
     connect(m_userInputWidget, &UserInputWidget::abortOperation, this, [=] {
         model->setPowerAction(SessionBaseModel::PowerAction::RequireNormal);
     });
