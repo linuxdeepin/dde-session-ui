@@ -31,6 +31,7 @@ enum Actions {
     Shutdown,
     Restart,
     Suspend,
+    Hibernate,
     Lock,
     Logout,
     SwitchUser,

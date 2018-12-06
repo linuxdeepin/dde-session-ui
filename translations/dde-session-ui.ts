@@ -4,54 +4,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="364"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="507"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="349"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="375"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="399"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="340"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="366"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="393"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="510"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="389"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
         <source>Are you sure to shut down?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="394"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
         <source>Are you sure to reboot?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="409"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
         <source>Log out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="399"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="410"/>
         <source>Are you sure to log out?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Suspend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <source>Hibernate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
         <source>Lock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="523"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="538"/>
         <source>Switch user</source>
         <translation type="unfinished"></translation>
     </message>

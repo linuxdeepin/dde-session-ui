@@ -33,3 +33,9 @@ QWidget #SwitchUserButton {
     qproperty-hoverIcon:":/img/userswitch_hover.svg";
     qproperty-pressedIcon:":/img/userswitch_press.svg";
 }
+
+QWidget#HibernateButton {
+    qproperty-normalIcon:":/img/list_actions/sleep_normal.svg";
+    qproperty-hoverIcon:":/img/list_actions/sleep_hover.svg";
+    qproperty-pressedIcon:":/img/list_actions/sleep_press.svg";
+}

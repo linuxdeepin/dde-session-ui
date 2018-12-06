@@ -65,8 +65,18 @@ void ContentWidget::setModel(SessionBaseModel * const model)
         m_switchUserBtn->setVisible(list.size() > 1);
     };
 
+    auto hasSwapChanged = [=] (bool hasSwap) {
+        m_hibernateButton->setVisible(hasSwap);
+        if (!hasSwap) {
+            m_btnsList->removeOne(m_hibernateButton);
+        }
+    };
+
     connect(model, &SessionBaseModel::onUserListChanged, this, checkUser);
     checkUser(model->userList());
+
+    connect(model, &SessionBaseModel::onHasSwapChanged, this, hasSwapChanged);
+    hasSwapChanged(model->hasSwap());
 }
 
 ContentWidget::~ContentWidget()
@@ -215,6 +225,7 @@ void ContentWidget::initConnect() {
     connect(m_shutdownButton, &RoundItemButton::clicked, [this] { beforeInvokeAction(Shutdown);});
     connect(m_restartButton, &RoundItemButton::clicked, [this] { beforeInvokeAction(Restart);});
     connect(m_suspendButton, &RoundItemButton::clicked, [this] { shutDownFrameActions(Suspend);});
+    connect(m_hibernateButton, &RoundItemButton::clicked, [=] {shutDownFrameActions(Hibernate);});
     connect(m_lockButton, &RoundItemButton::clicked, [this] { shutDownFrameActions(Lock);});
     connect(m_logoutButton, &RoundItemButton::clicked, [this] {emit beforeInvokeAction(Logout);});
     connect(m_switchUserBtn, &RoundItemButton::clicked, [this] { shutDownFrameActions(SwitchUser);});
@@ -444,6 +455,7 @@ void ContentWidget::shutDownFrameActions(const Actions action)
     case Shutdown:       m_sessionInterface->RequestShutdown();      break;
     case Restart:        m_sessionInterface->RequestReboot();        break;
     case Suspend:        m_sessionInterface->RequestSuspend();       break;
+    case Hibernate:      m_sessionInterface->RequestHibernate();     break;
     case Lock:           m_sessionInterface->RequestLock();          break;
     case Logout:         m_sessionInterface->RequestLogout();        break;
     case SwitchUser:
@@ -513,6 +525,9 @@ void ContentWidget::initUI() {
     m_suspendButton = new RoundItemButton(tr("Suspend"));
     m_suspendButton->setAutoExclusive(true);
     m_suspendButton->setObjectName("SuspendButton");
+    m_hibernateButton = new RoundItemButton(tr("Hibernate"));
+    m_hibernateButton->setAutoExclusive(true);
+    m_hibernateButton->setObjectName("HibernateButton");
     m_lockButton = new RoundItemButton(tr("Lock"));
     m_lockButton->setAutoExclusive(true);
     m_lockButton->setObjectName("LockButton");
@@ -531,6 +546,7 @@ void ContentWidget::initUI() {
     buttonLayout->addWidget(m_shutdownButton);
     buttonLayout->addWidget(m_restartButton);
     buttonLayout->addWidget(m_suspendButton);
+    buttonLayout->addWidget(m_hibernateButton);
     buttonLayout->addWidget(m_lockButton);
     buttonLayout->addWidget(m_switchUserBtn);
     buttonLayout->addWidget(m_logoutButton);
@@ -555,6 +571,7 @@ void ContentWidget::initUI() {
     m_btnsList->append(m_shutdownButton);
     m_btnsList->append(m_restartButton);
     m_btnsList->append(m_suspendButton);
+    m_btnsList->append(m_hibernateButton);
     m_btnsList->append(m_lockButton);
     m_btnsList->append(m_switchUserBtn);
     m_btnsList->append(m_logoutButton);

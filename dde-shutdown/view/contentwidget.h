@@ -104,6 +104,7 @@ private:
     RoundItemButton *m_shutdownButton;
     RoundItemButton *m_restartButton;
     RoundItemButton *m_suspendButton;
+    RoundItemButton *m_hibernateButton;
     RoundItemButton *m_lockButton;
     RoundItemButton *m_logoutButton;
     RoundItemButton *m_switchUserBtn;
