@@ -1,55 +1,60 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ms" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ms" sourcelanguage="en" version="2.1">
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="364"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="388"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="507"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="349"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="375"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="399"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Shut down</source>
         <translation>Matikan</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="340"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="366"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="393"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="510"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Reboot</source>
         <translation>But semula</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="389"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
         <source>Are you sure to shut down?</source>
         <translation>Anda pasti mahu matikan komputer?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="394"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
         <source>Are you sure to reboot?</source>
         <translation>Anda pasti mahu but semula?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="398"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="409"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
         <source>Log out</source>
         <translation>Daftar  keluar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="399"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="410"/>
         <source>Are you sure to log out?</source>
         <translation>Anda pasti mahu mendaftar keluar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Suspend</source>
         <translation>Tangguh</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <source>Hibernate</source>
+        <translation>Hibernasi</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
         <source>Lock</source>
         <translation>Kunci</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="523"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="538"/>
         <source>Switch user</source>
         <translation>Tukar pengguna</translation>
     </message>
@@ -148,90 +153,34 @@
     </message>
 </context>
 <context>
-    <name>LockManager</name>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="182"/>
-        <source>Login</source>
-        <translation>Daftar Masuk</translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="254"/>
-        <source>Wrong Password</source>
-        <translation>Kata Laluan Salah</translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="381"/>
-        <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Pengesahan cap jari telah tamat masa, sila masukkan kata laluan secara manual</translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="404"/>
-        <source>Failed to match fingerprint</source>
-        <translation>Gagal padankan cap jari</translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="615"/>
-        <source>Enter your password to reboot</source>
-        <translation>Masukkan kata laluan anda untuk membut semula</translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockmanager.cpp" line="627"/>
-        <source>Enter your password to shutdown</source>
-        <translation>Masukkan kata laluan anda untuk matikan</translation>
-    </message>
-</context>
-<context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="327"/>
-        <location filename="../session-widgets/lockworker.cpp" line="424"/>
+        <location filename="../session-widgets/lockworker.cpp" line="436"/>
+        <location filename="../session-widgets/lockworker.cpp" line="545"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Pengesahan cap jari telah tamat masa, sila masukkan kata laluan secara manual</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="345"/>
-        <location filename="../session-widgets/lockworker.cpp" line="439"/>
+        <location filename="../session-widgets/lockworker.cpp" line="454"/>
+        <location filename="../session-widgets/lockworker.cpp" line="560"/>
         <source>Failed to match fingerprint</source>
         <translation>Gagal padankan cap jari</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="369"/>
-        <location filename="../session-widgets/lockworker.cpp" line="453"/>
+        <location filename="../session-widgets/lockworker.cpp" line="478"/>
+        <location filename="../session-widgets/lockworker.cpp" line="574"/>
         <source>Wrong Password</source>
         <translation>Kata Laluan Salah</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="457"/>
+        <location filename="../session-widgets/lockworker.cpp" line="578"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>Akaun atau kata laluan domain adalah salah. Sila masukkan sekali lagi.</translation>
     </message>
-</context>
-<context>
-    <name>LoginManager</name>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="48"/>
-        <source>Login</source>
-        <translation>Daftar Masuk</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="533"/>
-        <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Pengesahan cap jari telah tamat masa, sila masukkan kata laluan secara manual</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="548"/>
-        <source>Failed to match fingerprint</source>
-        <translation>Gagal padankan cap jari</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="592"/>
-        <source>Wrong Password</source>
-        <translation>Kata Laluan Salah</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/app/loginmanager.cpp" line="596"/>
-        <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>Akaun atau kata laluan domain adalah salah. Sila masukkan sekali lagi.</translation>
+    <message numerus="yes">
+        <location filename="../session-widgets/lockworker.cpp" line="656"/>
+        <source>Please try again %n minute(s) later</source>
+        <translation type="unfinished"><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
@@ -271,7 +220,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>kunci</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -281,17 +230,17 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>Kata Laluan Proksi</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>Kata Laluan Kumpulan</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Kata laluan diperlukan untuk sambung ke &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -333,30 +282,34 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="148"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="221"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="630"/>
         <source>Shut down</source>
         <translation>Matikan</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="157"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="230"/>
         <source>Login</source>
         <translation>Daftar Masuk</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="166"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="239"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="84"/>
-        <location filename="../dde-lock/lockmanager.cpp" line="618"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="85"/>
         <source>Reboot</source>
         <translation>But semula</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="90"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="91"/>
         <source>Suspend</source>
         <translation>Tangguh</translation>
+    </message>
+    <message>
+        <location filename="../widgets/shutdownwidget.cpp" line="32"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="97"/>
+        <source>Hibernate</source>
+        <translation>Hibernasi</translation>
     </message>
 </context>
 <context>
@@ -430,22 +383,14 @@
         <translation>Daftar Masuk</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="147"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="220"/>
         <source>Enter your password to shutdown</source>
         <translation>Masukkan kata laluan anda untuk matikan</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="165"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="238"/>
         <source>Enter your password to reboot</source>
         <translation>Masukkan kata laluan anda untuk membut semula</translation>
-    </message>
-</context>
-<context>
-    <name>UserWidget</name>
-    <message>
-        <location filename="../widgets/userwidget.cpp" line="410"/>
-        <source>Domain account</source>
-        <translation>Akaun domain</translation>
     </message>
 </context>
 <context>
