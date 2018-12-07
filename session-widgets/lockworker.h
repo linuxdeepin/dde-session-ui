@@ -85,6 +85,7 @@ private:
     QString m_password;
     QSettings m_settings;
     QTimer *m_lockTimer;
+    uint m_authFailedNum;
 };
 
 #endif // LOCKWORKER_H

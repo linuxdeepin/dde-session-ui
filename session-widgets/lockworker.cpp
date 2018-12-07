@@ -17,6 +17,7 @@
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
+#define LOCK_AUTH_NUM 5
 
 using PowerInter = com::deepin::daemon::Power;
 
@@ -48,6 +49,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_hotZoneInter(new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone", QDBusConnection::sessionBus(), this))
     , m_settings("/etc/dde-lock/dde-lock.conf", QSettings::IniFormat)
     , m_lockTimer(new QTimer(this))
+    , m_authFailedNum(LOCK_AUTH_NUM)
 {
     m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
     if (!m_login1ManagerInterface->isValid()) {
@@ -57,10 +59,8 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     m_accountsInter->setSync(false);
     m_loginedInter->setSync(false);
 
-    if (QFile::exists(m_settings.fileName())) {
-        m_lockTimer->setInterval(1000* 5 * m_settings.value("lock_time").toInt());
-        m_lockTimer->setSingleShot(true);
-    }
+    m_lockTimer->setInterval(1000* 60 * m_settings.value("lock_time", 3).toInt());
+    m_lockTimer->setSingleShot(true);
 
     m_currentUserUid = getuid();
 
@@ -480,10 +480,8 @@ void LockWorker::onUnlockFinished(bool unlocked)
         qDebug() << "Authorization failed!";
         emit m_model->authFaildTipsMessage(tr("Wrong Password"));
 
-        if (QFile::exists(m_settings.fileName())) {
-            if (!m_lockTimer->isActive()) {
-                onLockTimerOut();
-            }
+        if (!m_lockTimer->isActive() && --m_authFailedNum == 0) {
+            onLockTimerOut();
         }
         return;
     }
@@ -581,10 +579,8 @@ void LockWorker::authenticationComplete()
             emit m_model->authFaildTipsMessage(tr("The domain account or password is not correct. Please enter again."));
         }
 
-        if (QFile::exists(m_settings.fileName())) {
-            if (!m_lockTimer->isActive()) {
-                onLockTimerOut();
-            }
+        if (!m_lockTimer->isActive() && --m_authFailedNum == 0) {
+            onLockTimerOut();
         }
 
         return;
@@ -647,7 +643,7 @@ void LockWorker::checkSwap()
 void LockWorker::onLockTimerOut()
 {
     if (m_model->lockTime() == -1) {
-        m_model->setLockTime(m_settings.value("lock_time").toInt());
+        m_model->setLockTime(m_settings.value("lock_time", 3).toInt());
     }
     else {
         m_model->setLockTime(m_model->lockTime() -1);
@@ -658,5 +654,8 @@ void LockWorker::onLockTimerOut()
     if (m_model->lockTime() != 0) {
         emit m_model->authFaildMessage(tr("Please try again %n minute(s) later", "", m_model->lockTime()));
         m_lockTimer->start();
+    }
+    else {
+        m_authFailedNum = LOCK_AUTH_NUM;
     }
 }
