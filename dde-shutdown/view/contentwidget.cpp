@@ -277,6 +277,8 @@ void ContentWidget::enterKeyPushed()
         emit beforeInvokeAction(Logout);
     else if (m_currentSelectedBtn == m_switchUserBtn)
          shutDownFrameActions(SwitchUser);
+    else if (m_currentSelectedBtn == m_hibernateButton)
+        shutDownFrameActions(Hibernate);
 }
 
 void ContentWidget::hideBtn(const QString &btnName)
