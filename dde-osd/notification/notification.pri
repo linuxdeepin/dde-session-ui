@@ -1,3 +1,7 @@
+isEmpty(PREFIX){
+    PREFIX = /usr
+}
+
 HEADERS += \
     $$PWD/bubble.h \
     $$PWD/bubblemanager.h \
