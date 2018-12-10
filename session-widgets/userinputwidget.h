@@ -13,6 +13,7 @@
 #include "userinfo.h"
 #include "otheruserinput.h"
 #include "lockpasswordwidget.h"
+#include "sessionbasemodel.h"
 
 #include <memory>
 
@@ -33,6 +34,7 @@ public:
     void updateKBLayout(const QStringList &list);
     void setDefaultKBLayout(const QString &layout);
     void disablePassword(bool disable);
+    void updateAuthType(SessionBaseModel::AuthType type);
 
     void shutdownMode();
     void normalMode();
@@ -75,6 +77,7 @@ private:
     std::shared_ptr<User> m_user;
     QList<QMetaObject::Connection> m_currentUserConnects;
     std::list<std::pair<std::function<void (QString)>, QString>> m_trList;
+    SessionBaseModel::AuthType m_authType;
 };
 
 #endif // USERINPUTWIDGET_H

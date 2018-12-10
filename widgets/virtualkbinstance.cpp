@@ -44,5 +44,5 @@ VirtualKBInstance::VirtualKBInstance(QObject *parent)
         });
     });
 
-    p->start("onboard", QStringList("-e"));
+    p->start("onboard", QStringList() << "-e" << "--layout" << "Small");
 }

@@ -60,12 +60,6 @@ public:
     void setHasSwap(bool hasSwap);
     inline bool hasSwap() { return m_hasSwap; }
 
-    void setIsLock(bool lock);
-    inline bool isLock() { return m_isLockTime; }
-
-    void setLockTime(int time);
-    inline int lockTime() { return m_lockTime; }
-
 signals:
     void onUserAdded(std::shared_ptr<User> user);
     void onUserRemoved(const uint uid);
@@ -82,8 +76,6 @@ signals:
     void onUserListChanged(QList<std::shared_ptr<User>> list);
     void hasVirtualKBChanged(bool hasVirtualKB);
     void onHasSwapChanged(bool hasSwap);
-    void IsLockTimeChanged(bool);
-    void onLockTimeChanged(int time);
 
 private:
     AuthType m_currentType;
@@ -95,8 +87,6 @@ private:
     ModeStatus m_currentModeState;
     bool m_hasVirtualKB;
     bool m_hasSwap;
-    bool m_isLockTime;
-    int m_lockTime;
 };
 
 #endif // SESSIONBASEMODEL_H

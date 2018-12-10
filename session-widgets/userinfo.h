@@ -32,10 +32,12 @@ signals:
     void localeChanged(const QString &locale) const;
     void kbLayoutListChanged(const QStringList &list);
     void currentKBLayoutChanged(const QString &layout);
+    void lockChanged(bool lock);
 
 public:
     bool operator==(const User &user) const;
     const QString name() const { return m_userName; }
+
     bool isLogin() const { return m_isLogind; }
     uint uid() const { return m_uid; }
 
@@ -48,6 +50,11 @@ public:
     void setisLogind(bool isLogind);
     virtual void setCurrentLayout(const QString &layout) { Q_UNUSED(layout); }
 
+    uint lockNum() const { return m_lockNum; }
+    bool isLock() const { return m_isLock; }
+    bool isLockForNum();
+    void startLock();
+
     virtual UserType type() const = 0;
     virtual QString displayName() const { return m_userName; }
     virtual QString avatarPath() const = 0;
@@ -57,11 +64,18 @@ public:
     virtual QString currentKBLayout() { return QString(); }
 
 protected:
+    void onLockTimeOut();
+
+protected:
     bool m_isLogind;
     bool m_isNoPasswdGrp;
+    bool m_isLock;
     uint m_uid;
+    uint m_lockNum; // minute basis
+    uint m_tryNum; // try number
     QString m_userName;
     QString m_locale;
+    std::shared_ptr<QTimer> m_lockTimer;
 };
 
 class NativeUser : public User

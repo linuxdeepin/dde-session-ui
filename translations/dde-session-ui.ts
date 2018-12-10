@@ -4,59 +4,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="349"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="375"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="399"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="379"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="524"/>
         <source>Reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure to shut down?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure to reboot?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="409"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Log out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="410"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure to log out?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Suspend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Hibernate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Lock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="538"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="540"/>
         <source>Switch user</source>
         <translation type="unfinished"></translation>
     </message>
@@ -157,35 +157,27 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="436"/>
-        <location filename="../session-widgets/lockworker.cpp" line="545"/>
+        <location filename="../session-widgets/lockworker.cpp" line="428"/>
+        <location filename="../session-widgets/lockworker.cpp" line="535"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="454"/>
-        <location filename="../session-widgets/lockworker.cpp" line="560"/>
+        <location filename="../session-widgets/lockworker.cpp" line="446"/>
+        <location filename="../session-widgets/lockworker.cpp" line="550"/>
         <source>Failed to match fingerprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="478"/>
-        <location filename="../session-widgets/lockworker.cpp" line="574"/>
+        <location filename="../session-widgets/lockworker.cpp" line="470"/>
+        <location filename="../session-widgets/lockworker.cpp" line="564"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="578"/>
+        <location filename="../session-widgets/lockworker.cpp" line="568"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../session-widgets/lockworker.cpp" line="656"/>
-        <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
     </message>
 </context>
 <context>
@@ -287,18 +279,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="221"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="237"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="230"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="239"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="263"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="85"/>
         <source>Reboot</source>
@@ -387,13 +379,21 @@
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
+    <message numerus="yes">
+        <location filename="../session-widgets/userinputwidget.cpp" line="216"/>
+        <source>Please try again %n minute(s) later</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="220"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="236"/>
         <source>Enter your password to shutdown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="238"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="262"/>
         <source>Enter your password to reboot</source>
         <translation type="unfinished"></translation>
     </message>

@@ -1,5 +1,7 @@
 #include "userinfo.h"
 
+#define LOCK_AUTH_NUM 5
+
 const QString toLocalFile(const QString &path) {
     QUrl url(path);
 
@@ -14,16 +16,26 @@ User::User(QObject *parent)
     : QObject(parent)
     , m_isLogind(false)
     , m_isNoPasswdGrp(false)
+    , m_isLock(false)
+    , m_lockNum(4)
+    , m_tryNum(5)
+    , m_lockTimer(new QTimer)
 {
-
+    m_lockTimer->setInterval(1000 * 60);
+    m_lockTimer->setSingleShot(false);
+    connect(m_lockTimer.get(), &QTimer::timeout, this, &User::onLockTimeOut);
 }
 
 User::User(const User &user)
     : m_isLogind(user.m_isLogind)
     , m_isNoPasswdGrp(user.m_isNoPasswdGrp)
+    , m_isLock(user.m_isLock)
     , m_uid(user.m_uid)
+    , m_lockNum(user.m_lockNum)
+    , m_tryNum(user.m_tryNum)
     , m_userName(user.m_userName)
     , m_locale(user.m_locale)
+    , m_lockTimer(user.m_lockTimer)
 {
 
 }
@@ -56,6 +68,36 @@ void User::setisLogind(bool isLogind) {
     m_isLogind = isLogind;
 
     emit logindChanged(isLogind);
+}
+
+bool User::isLockForNum()
+{
+    return m_isLock || --m_tryNum == 0;
+}
+
+void User::startLock()
+{
+    if (m_lockTimer->isActive()) return;
+
+    m_isLock = true;
+
+    onLockTimeOut();
+}
+
+void User::onLockTimeOut()
+{
+    if (m_lockNum == 1) {
+        m_lockTimer->stop();
+        m_tryNum = 5;
+        m_lockNum = 4;
+        m_isLock = false;
+    }
+    else {
+        m_lockNum--;
+        m_lockTimer->start();
+    }
+
+    emit lockChanged(m_tryNum == 0);
 }
 
 NativeUser::NativeUser(const QString &path, QObject *parent)

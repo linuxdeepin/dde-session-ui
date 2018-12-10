@@ -22,6 +22,8 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     m_userFrame = new UserFrame;
     m_shutdownFrame = new ShutdownWidget;
 
+    m_userInputWidget->updateAuthType(model->currentType());
+
     m_shutdownFrame->setModel(model);
     m_userFrame->setModel(model);
 
@@ -82,8 +84,6 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
             break;
         }
     });
-
-    connect(model, &SessionBaseModel::IsLockTimeChanged, m_userInputWidget, &UserInputWidget::disablePassword);
 
     connect(m_userInputWidget, &UserInputWidget::abortOperation, this, [=] {
         model->setPowerAction(SessionBaseModel::PowerAction::RequireNormal);

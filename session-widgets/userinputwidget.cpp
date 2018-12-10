@@ -132,7 +132,7 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
 
     m_currentUserConnects << connect(user.get(), &User::kbLayoutListChanged, this, &UserInputWidget::updateKBLayout, Qt::UniqueConnection);
     m_currentUserConnects << connect(user.get(), &User::currentKBLayoutChanged, this, &UserInputWidget::setDefaultKBLayout, Qt::UniqueConnection);
-
+    m_currentUserConnects << connect(user.get(), &User::lockChanged, this, &UserInputWidget::disablePassword);
     m_user = user;
 
     int frameHeight = (m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2;
@@ -157,6 +157,7 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
 
     setName(user->displayName());
     setAvatar(user->avatarPath());
+    disablePassword(user.get()->isLock());
 }
 
 void UserInputWidget::setName(const QString &name)
@@ -210,6 +211,21 @@ void UserInputWidget::disablePassword(bool disable)
     m_passwordEdit->lineEdit()->setDisabled(disable);
     m_passwordEdit->setVisible(!disable);
     m_lockPasswordWidget->setVisible(disable);
+
+    if (disable) {
+        setFaildMessage(tr("Please try again %n minute(s) later", "", m_user->lockNum()));
+    }
+}
+
+void UserInputWidget::updateAuthType(SessionBaseModel::AuthType type)
+{
+    m_authType = type;
+
+    if (type == SessionBaseModel::AuthType::LightdmType) {
+        m_passwordEdit->setSubmitIcon(":/img/action_icons/login_normal.svg",
+                                      ":/img/action_icons/login_hover.svg",
+                                      ":/img/action_icons/login_press.svg");
+    }
 }
 
 void UserInputWidget::shutdownMode()
@@ -223,9 +239,17 @@ void UserInputWidget::shutdownMode()
 
 void UserInputWidget::normalMode()
 {
-    m_passwordEdit->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
-                                  ":/img/action_icons/unlock_hover.svg",
-                                  ":/img/action_icons/unlock_press.svg");
+    if (m_authType == SessionBaseModel::AuthType::LightdmType) {
+        m_passwordEdit->setSubmitIcon(":/img/action_icons/login_normal.svg",
+                                      ":/img/action_icons/login_hover.svg",
+                                      ":/img/action_icons/login_press.svg");
+    }
+    else {
+        m_passwordEdit->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
+                                      ":/img/action_icons/unlock_hover.svg",
+                                      ":/img/action_icons/unlock_press.svg");
+    }
+
     m_passwordEdit->hideAlert();
     m_loginBtn->setText(QApplication::translate("ShutdownWidget", "Login"));
 }
