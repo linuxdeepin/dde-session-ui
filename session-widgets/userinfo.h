@@ -4,6 +4,8 @@
 #include <QObject>
 #include <com_deepin_daemon_accounts_user.h>
 
+#include <memory>
+
 #define ACCOUNT_DBUS_SERVICE "com.deepin.daemon.Accounts"
 #define ACCOUNT_DBUS_PATH "/com/deepin/daemon/Accounts"
 
