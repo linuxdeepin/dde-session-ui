@@ -76,7 +76,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
     connect(model, &SessionBaseModel::onPowerActionChanged, this, [=] (SessionBaseModel::PowerAction poweraction) {
         if (poweraction == SessionBaseModel::PowerAction::RequireSuspend) {
-            m_login1ManagerInterface->HybridSleep(true);
+            m_login1ManagerInterface->Suspend(true);
         }
         if (poweraction == SessionBaseModel::PowerAction::RequireHibernate) {
             m_login1ManagerInterface->Hibernate(true);
