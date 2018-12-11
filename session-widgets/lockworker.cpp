@@ -53,8 +53,8 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         qWarning() <<"m_login1ManagerInterface:" << m_login1ManagerInterface->lastError().type();
     }
 
-    m_accountsInter->setSync(false);
-    m_loginedInter->setSync(false);
+    m_accountsInter->setSync(true);
+    m_loginedInter->setSync(true);
 
     m_currentUserUid = getuid();
 
@@ -97,10 +97,10 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 //    std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*addomain_login_user);
 //    m_model->userAdd(user);
 
+    checkDBusServer(m_accountsInter->isValid());
     onCurrentUserChanged(m_lockInter->CurrentUser());
     onLastLogoutUserChanged(m_loginedInter->lastLogoutUser());
     onLoginUserListChanged(m_loginedInter->userList());
-    checkDBusServer(m_accountsInter->isValid());
     checkVirtualKB();
     checkSwap();
 }
