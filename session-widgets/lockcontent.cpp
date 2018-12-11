@@ -190,6 +190,7 @@ void LockContent::onStatusChanged(SessionBaseModel::ModeStatus status)
 void LockContent::mouseReleaseEvent(QMouseEvent *event)
 {
     m_model->setCurrentModeState(SessionBaseModel::ModeStatus::PasswordMode);
+    m_model->setPowerAction(SessionBaseModel::PowerAction::RequireNormal);
 
     // hide keyboardlayout widget
     m_userInputWidget->hideKeyboard();
