@@ -185,10 +185,10 @@ void RoundItemButton::paintEvent(QPaintEvent* event)
         return;
 
     QPainter painter(this);
-    painter.setPen(QPen(QColor(255, 255, 255, 51), 2));
-    painter.setBrush(QColor(0, 0 , 0, 76));
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(QColor(0, 0, 0, 105));
     painter.setRenderHint(QPainter::Antialiasing, true);
-    painter.drawRoundedRect(QRect(2, 2, width() - 4, height() - 4), 10, 10, Qt::RelativeSize);
+    painter.drawRoundedRect(QRect(1, 1, width() - 2, height() - 2), 10, 10, Qt::RelativeSize);
 }
 
 void RoundItemButton::updateIcon()

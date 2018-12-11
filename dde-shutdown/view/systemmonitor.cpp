@@ -134,23 +134,25 @@ void SystemMonitor::paintEvent(QPaintEvent *event)
     Q_UNUSED(event);
 
     QPainter painter(this);
-    QPainterPath path;
-    path.addRoundedRect(rect(), 5, 5);
-    painter.setClipPath(path);
+    painter.setBrush(QColor(0, 0 , 0, 76));
+    painter.setRenderHint(QPainter::Antialiasing, true);
 
     switch(m_state) {
     case Enter:
     case Release:{
-        painter.fillRect(rect(), QColor(255, 255, 255, 0.1 * 255));
+        painter.setPen(Qt::NoPen);
+        painter.setBrush(QColor(0, 0, 0, 105));
+        painter.drawRoundedRect(QRect(1, 1, width() - 2, height() - 2), 10, 10);
         break;
     }
     case Press: {
-        painter.fillRect(rect(), QColor(255, 255, 255, 0.05 * 255));
+        painter.setPen(Qt::NoPen);
+        painter.setBrush(QColor(0, 0, 0, 105));
+        painter.drawRoundedRect(QRect(1, 1, width() - 2, height() - 2), 10, 10);
         break;
     }
     case Leave:
     default:
         break;
     }
-
 }
