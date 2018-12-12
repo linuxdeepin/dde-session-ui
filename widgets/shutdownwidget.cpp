@@ -56,6 +56,10 @@ void ShutdownWidget::initConnect() {
         m_currentSelectedBtn = m_requireSuspendButton;
         shutdownAction();
     });
+    connect(m_requireHibernateButton, &RoundItemButton::clicked, this, [=] {
+        m_currentSelectedBtn = m_requireHibernateButton;
+        shutdownAction();
+    });
 }
 
 void ShutdownWidget::updateTr(RoundItemButton *widget, const QString &tr)
