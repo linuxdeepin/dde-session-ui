@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.6.2.3 (2018-12-13)
+
+
+#### Bug Fixes
+
+*   update default background path ([a0c74161](https://github.com/linuxdeepin/dde-session-ui/commit/a0c7416104cfbb2c9cbbe1280e632cc7467be71c))
+
+
+
+<a name=""></a>
 ##  4.6.2.2 (2018-12-13)
 
 
