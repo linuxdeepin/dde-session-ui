@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.6.2.2 (2018-12-13)
+
+
+#### Bug Fixes
+
+* **greeter:**  ad user cannot login ([10744594](https://github.com/linuxdeepin/dde-session-ui/commit/10744594c0069b91b2b51a0a88f486fb2c7c8bed))
+
+
+
+<a name=""></a>
 ##  4.6.2.1 (2018-12-11)
 
 
