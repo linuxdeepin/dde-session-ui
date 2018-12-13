@@ -68,10 +68,15 @@ void FullscreenBackground::updateBackground(const QString &file)
     if (m_bgPath == file)
         return;
 
-    if (QFile::exists(file))
+    if (QFile::exists(file)) {
         m_bgPath = file;
-    else
-        m_bgPath = "/usr/share/backgrounds/default_background.jpg";
+    }
+    else {
+        m_bgPath = "/usr/share/wallpapers/deepin/desktop.jpg";
+        if (!QFile::exists(m_bgPath)) {
+            m_bgPath = "/usr/share/backgrounds/default_background.jpg";
+        }
+    }
 
     Q_ASSERT(QFileInfo(m_bgPath).isFile());
 
