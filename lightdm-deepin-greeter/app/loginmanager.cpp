@@ -544,10 +544,11 @@ void LoginManager::initConnect()
             m_greeter->cancelAuthentication();
         }
 
-        m_greeter->authenticate(m_accountStr);
-
         // NOTE(kirigaya): set auth user and respond password need some time!
-        QTimer::singleShot(100, this, SLOT(login()));
+        QTimer::singleShot(100, this, [=] {
+            m_greeter->authenticate(m_accountStr);
+            login();
+        });
     });
 }
 
@@ -665,7 +666,7 @@ void LoginManager::authenticationComplete()
 {
     qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
 
-    if (!m_greeter->isAuthenticated() && m_userState == Password) {
+    if (!m_greeter->isAuthenticated()) {
         if (m_currentUser->type() == User::Native) {
             if (m_keybdArrowWidget->isVisible()) keybdLayoutWidgetPosit();
             m_passwdEditAnim->showAlert(tr("Wrong Password"));
