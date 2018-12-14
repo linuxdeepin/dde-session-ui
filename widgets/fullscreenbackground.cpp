@@ -129,7 +129,7 @@ void FullscreenBackground::enterEvent(QEvent *event)
 
 void FullscreenBackground::leaveEvent(QEvent *event)
 {
-    if (geometry().contains(pos())) {
+    if (geometry().contains(QCursor::pos())) {
         event->accept();
         return;
     }
