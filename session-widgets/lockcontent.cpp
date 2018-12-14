@@ -33,9 +33,9 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
 
     switch (model->currentType()) {
     case SessionBaseModel::AuthType::LightdmType:
-        m_controlWidget->setSessionSwitchEnable(true);
         m_sessionFrame = new SessionWidget;
         m_sessionFrame->setModel(model);
+        m_controlWidget->setSessionSwitchEnable(m_sessionFrame->sessionCount() > 1);
 
         connect(m_sessionFrame, &SessionWidget::hideFrame, this, &LockContent::restoreMode);
         connect(m_sessionFrame, &SessionWidget::sessionChanged, this, &LockContent::restoreMode);
