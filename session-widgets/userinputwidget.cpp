@@ -97,7 +97,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     m_kbLayoutWidget->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
 
     m_otherUserInput->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
-    m_otherUserInput->setFixedHeight(DDESESSIONCC::PASSWDLINEEDIT_HEIGHT);
+    m_otherUserInput->setFixedHeight(DDESESSIONCC::PASSWDLINEEDIT_HEIGHT * 2);
 
     connect(m_passwordEdit, &DPasswdEditAnimated::keyboardButtonClicked, this, &UserInputWidget::toggleKBLayoutWidget);
     connect(m_passwordEdit->lineEdit(), &QLineEdit::textChanged, this, [=] (const QString &value) {
@@ -141,16 +141,23 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
     m_currentUserConnects << connect(user.get(), &User::lockChanged, this, &UserInputWidget::disablePassword);
     m_user = user;
 
+    setName(user->displayName());
+    setAvatar(user->avatarPath());
+    disablePassword(user.get()->isLock());
+
     int frameHeight = (m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2;
 
     if (user->type() == User::ADDomain && user->uid() == 0) {
-        m_otherUserInput->show();
+        m_passwordEdit->lineEdit()->releaseKeyboard();
         m_passwordEdit->hide();
+        m_otherUserInput->show();
         frameHeight += m_otherUserInput->height();
+        m_otherUserInput->setFocus();
     }
     else if (user->type() == User::ADDomain) {
         m_passwordEdit->show();
         frameHeight += DDESESSIONCC::PASSWDLINEEDIT_HEIGHT;
+        grabKeyboard();
     }
     else {
         setIsNoPasswordGrp(user->isNoPasswdGrp());
@@ -160,10 +167,6 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
     }
 
     setFixedHeight(frameHeight);
-
-    setName(user->displayName());
-    setAvatar(user->avatarPath());
-    disablePassword(user.get()->isLock());
 }
 
 void UserInputWidget::setName(const QString &name)
@@ -271,11 +274,8 @@ void UserInputWidget::restartMode()
 
 void UserInputWidget::grabKeyboard()
 {
-    if (m_user->type() == User::Native || (m_user->type() == User::ADDomain && m_user->uid() != 0)) {
+    if (m_passwordEdit->isVisible()) {
         m_passwordEdit->lineEdit()->grabKeyboard();
-    }
-    else {
-        m_otherUserInput->setFocus();
     }
 }
 

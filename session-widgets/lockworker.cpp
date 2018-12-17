@@ -46,7 +46,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_loginedInter(new LoginedInter(ACCOUNT_DBUS_SERVICE, "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
     , m_lockInter(new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this))
     , m_hotZoneInter(new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone", QDBusConnection::sessionBus(), this))
-    , m_settings("/etc/dde-lock/dde-lock.conf", QSettings::IniFormat)
+    , m_settings("/etc/deepin/dde-session-ui.conf", QSettings::IniFormat)
 {
     m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
     if (!m_login1ManagerInterface->isValid()) {
@@ -72,6 +72,15 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         connect(KeyboardMonitor::instance(), &KeyboardMonitor::numlockStatusChanged, this, [=] (bool on) {
             saveNumlockStatus(model->currentUser(), on);
         });
+
+        // init ADDomain User
+        m_settings.beginGroup("ADDOMAIN");
+        if (m_settings.value("JOIN").toBool()) {
+            ADDomainUser *addomain_login_user = new ADDomainUser(0);
+            addomain_login_user->setUserDisplayName(tr("ADDomain"));
+            std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*addomain_login_user);
+            m_model->userAdd(user);
+        }
     }
 
     connect(model, &SessionBaseModel::onPowerActionChanged, this, [=] (SessionBaseModel::PowerAction poweraction) {
@@ -91,11 +100,6 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     connect(m_accountsInter, &AccountsInter::UserAdded, this, &LockWorker::onUserAdded);
     connect(m_accountsInter, &AccountsInter::UserDeleted, this, &LockWorker::onUserRemove);
     connect(m_accountsInter, &AccountsInter::serviceValidChanged, this, &LockWorker::checkDBusServer);
-
-//    ADDomainUser *addomain_login_user = new ADDomainUser(0);
-//    addomain_login_user->setUserDisplayName(tr("ADDomain"));
-//    std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*addomain_login_user);
-//    m_model->userAdd(user);
 
     checkDBusServer(m_accountsInter->isValid());
     onCurrentUserChanged(m_lockInter->CurrentUser());
