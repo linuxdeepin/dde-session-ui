@@ -78,6 +78,7 @@ private:
     QList<QMetaObject::Connection> m_currentUserConnects;
     std::list<std::pair<std::function<void (QString)>, QString>> m_trList;
     SessionBaseModel::AuthType m_authType;
+    QMap<uint, QString> m_passwords;
 };
 
 #endif // USERINPUTWIDGET_H

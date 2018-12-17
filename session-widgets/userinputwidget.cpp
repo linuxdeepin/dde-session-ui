@@ -128,6 +128,12 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
         m_user->disconnect(connect);
     }
 
+    if (m_user.get() != nullptr) {
+        m_passwords[m_user->uid()] = m_passwordEdit->lineEdit()->text();
+    }
+
+    m_passwordEdit->lineEdit()->setText(m_passwords[user->uid()]);
+
     m_currentUserConnects.clear();
 
     m_currentUserConnects << connect(user.get(), &User::kbLayoutListChanged, this, &UserInputWidget::updateKBLayout, Qt::UniqueConnection);
