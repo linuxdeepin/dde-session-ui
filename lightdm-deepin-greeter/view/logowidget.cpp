@@ -83,8 +83,7 @@ void LogoWidget::initUI() {
     m_logoLayout->addStretch();
     setLayout(m_logoLayout);
 
-    QString systemVersion = getVersion();
-    m_logoVersionLabel->setText(systemVersion);
+    m_logoVersionLabel->setText(getVersion());
 }
 
 QString LogoWidget::getVersion() {
@@ -108,4 +107,13 @@ QString LogoWidget::getVersion() {
 
 LogoWidget::~LogoWidget()
 {
+}
+
+bool LogoWidget::event(QEvent *e)
+{
+    if (e->type() == QEvent::LanguageChange) {
+        m_logoVersionLabel->setText(getVersion());
+    }
+
+    return QFrame::event(e);
 }

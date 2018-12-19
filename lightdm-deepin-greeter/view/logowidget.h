@@ -36,6 +36,9 @@ class LogoWidget: public QFrame
 public:
     LogoWidget(QWidget* parent=0);
     ~LogoWidget();
+
+    bool event(QEvent *e) override;
+
 private:
     void initUI();
     QString getVersion();
