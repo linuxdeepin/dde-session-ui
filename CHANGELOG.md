@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.6.2.4 (2018-12-19)
+
+
+#### Bug Fixes
+
+*   Click on empty area to cancel the power operation. ([1f32562c](https://github.com/linuxdeepin/dde-session-ui/commit/1f32562c112a8fb114bc57abecc4eb3286396fe1))
+
+
+
+<a name=""></a>
 ##  4.6.2.3 (2018-12-13)
 
 
