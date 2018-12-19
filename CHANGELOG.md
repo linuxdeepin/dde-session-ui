@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.6.2.5 (2018-12-19)
+
+
+#### Bug Fixes
+
+* **greeter:**  update version when language changed ([bf7d4141](https://github.com/linuxdeepin/dde-session-ui/commit/bf7d41419c2bc50f09a39859394360756619598b))
+
+
+
+<a name=""></a>
 ##  4.6.2.4 (2018-12-19)
 
 
