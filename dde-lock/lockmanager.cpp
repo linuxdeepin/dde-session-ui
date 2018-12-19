@@ -92,8 +92,8 @@ void LockManager::initConnect()
         case ShutdownWidget::RequireShutdown:   m_action = Shutdown;        break;
         case ShutdownWidget::RequireSuspend:    m_action = Suspend;         break;
         }
-
         passwordMode();
+        m_action = Unlock;
     });
 
     connect(m_requireShutdownWidget, &ShutdownWidget::abortOperation, this, [=] {
@@ -326,6 +326,7 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
             m_keybdArrowWidget->hide();
         }
 
+        m_passwdEditAnim->hideAlert();
         m_passwdEditAnim->lineEdit()->setPlaceholderText("");
         return;
     }
