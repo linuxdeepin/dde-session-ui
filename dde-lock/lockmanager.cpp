@@ -93,7 +93,6 @@ void LockManager::initConnect()
         case ShutdownWidget::RequireSuspend:    m_action = Suspend;         break;
         }
         passwordMode();
-        m_action = Unlock;
     });
 
     connect(m_requireShutdownWidget, &ShutdownWidget::abortOperation, this, [=] {
@@ -319,6 +318,10 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
 {
     qDebug() << "ReleaseEvent";
 
+    if (m_action != Unlock) {
+        m_action = Unlock;
+    }
+
     if (m_layoutState != UnlockState) {
         m_layoutState = UnlockState;
         passwordMode();
@@ -330,8 +333,6 @@ void LockManager::mouseReleaseEvent(QMouseEvent *e)
         m_passwdEditAnim->lineEdit()->setPlaceholderText("");
         return;
     }
-
-    m_action = Unlock;
 
     QFrame::mouseReleaseEvent(e);
 }
