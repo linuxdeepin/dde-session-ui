@@ -19,12 +19,12 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     , m_nameLbl(new QLabel(this))
     , m_passwordEdit(new DPasswdEditAnimated(this))
     , m_otherUserInput(new OtherUserInput(this))
-    , m_loginBtn(new QPushButton(this))
+    , m_loginBtn(new LoginButton(this))
     , m_kbLayoutBorder(new DArrowRectangle(DArrowRectangle::ArrowTop, this))
     , m_kbLayoutWidget(new KbLayoutWidget(QStringList()))
     , m_lockPasswordWidget(new LockPasswordWidget)
 {
-    std::function<void (QString)> loginTr = std::bind(&QPushButton::setText, m_loginBtn, std::placeholders::_1);
+    std::function<void (QString)> loginTr = std::bind(&LoginButton::setText, m_loginBtn, std::placeholders::_1);
     m_trList.push_back(std::pair<std::function<void (QString)>, QString>(loginTr, "Login"));
 
     std::function<void (QVariant)> passwordChanged = std::bind(&UserInputWidget::onOtherPagePasswordChanged, this, std::placeholders::_1);
@@ -114,7 +114,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     connect(m_passwordEdit, &DPasswdEditAnimated::submit, this, [=] (const QString &passwd) {
         emit requestAuthUser(m_user, passwd);
     });
-    connect(m_loginBtn, &QPushButton::clicked, this, [=] {
+    connect(m_loginBtn, &LoginButton::clicked, this, [=] {
         emit requestAuthUser(m_user, QString());
     });
 

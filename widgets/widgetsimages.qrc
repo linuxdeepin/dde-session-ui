@@ -125,5 +125,8 @@
         <file>img/list_actions/sleep_normal.svg</file>
         <file>img/list_actions/sleep_hover.svg</file>
         <file>img/list_actions/sleep_press.svg</file>
+        <file>img/nopassword_login_press.svg</file>
+        <file>img/nopassword_login_hover.svg</file>
+        <file>img/nopassword_login_normal.svg</file>
     </qresource>
 </RCC>

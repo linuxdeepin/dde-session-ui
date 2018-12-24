@@ -25,7 +25,8 @@ HEADERS += \
     $$PWD/controlwidget.h \
     $$PWD/fullscreenbackground.h \
     $$PWD/otheruserinput.h \
-    $$PWD/virtualkbinstance.h
+    $$PWD/virtualkbinstance.h \
+    $$PWD/loginbutton.h
 
 
 
@@ -44,7 +45,8 @@ SOURCES += \
     $$PWD/controlwidget.cpp \
     $$PWD/fullscreenbackground.cpp \
     $$PWD/otheruserinput.cpp \
-    $$PWD/virtualkbinstance.cpp
+    $$PWD/virtualkbinstance.cpp \
+    $$PWD/loginbutton.cpp
 
 RESOURCES += \
     $$PWD/widgetstheme.qrc \

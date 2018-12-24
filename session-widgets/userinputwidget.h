@@ -14,6 +14,7 @@
 #include "otheruserinput.h"
 #include "lockpasswordwidget.h"
 #include "sessionbasemodel.h"
+#include "loginbutton.h"
 
 #include <memory>
 
@@ -70,7 +71,7 @@ private:
     QLabel *m_nameLbl;
     DPasswdEditAnimated *m_passwordEdit;
     OtherUserInput *m_otherUserInput;
-    QPushButton *m_loginBtn;
+    LoginButton *m_loginBtn;
     DArrowRectangle *m_kbLayoutBorder;
     KbLayoutWidget *m_kbLayoutWidget;
     LockPasswordWidget *m_lockPasswordWidget;
