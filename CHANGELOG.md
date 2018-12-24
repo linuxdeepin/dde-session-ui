@@ -1,4 +1,15 @@
 <a name=""></a>
+##  4.6.2.7 (2018-12-24)
+
+
+#### Bug Fixes
+
+* **greeter:**  version description overlap ([26b80d59](https://github.com/linuxdeepin/dde-session-ui/commit/26b80d5957a7f5e597a20001f247d30defd0e9ea))
+* **lock:**  cannot shutdown ([8f2a1d5f](https://github.com/linuxdeepin/dde-session-ui/commit/8f2a1d5f9f2149403445d77b901b89d0f1e42a48))
+
+
+
+<a name=""></a>
 ##  4.6.2.6 (2018-12-19)
 
 
