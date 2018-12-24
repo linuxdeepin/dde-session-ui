@@ -82,7 +82,14 @@ void UserButton::initUI()
     m_userNameLabel->setText(m_user->displayName());
     m_userNameLabel->setStyleSheet("QLabel {"
                                    "text-align:center; "
-                                   "color: white;"
+                                   "font-size: 16px;"
+                                   "font-weight: normal;"
+                                   "font-style: normal;"
+                                   "font-stretch: normal;"
+                                   "line-height: normal;"
+                                   "letter-spacing: normal;"
+                                   "text-align: center;"
+                                   "color: #ffffff;"
                                    "}");
 
     m_userAvatar->setIcon(m_user->avatarPath());

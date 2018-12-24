@@ -36,7 +36,14 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
     m_userAvatar->setFixedSize(100, 100);
 
-    m_nameLbl->setStyleSheet("color: white;");
+    m_nameLbl->setStyleSheet("font-size: 16px;"
+                             "font-weight: normal;"
+                             "font-style: normal;"
+                             "font-stretch: normal;"
+                             "line-height: normal;"
+                             "letter-spacing: normal;"
+                             "text-align: center;"
+                             "color: #ffffff;");
 
     m_passwordEdit->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
                                   ":/img/action_icons/unlock_hover.svg",
@@ -52,6 +59,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     updateStyle(":/skin/dpasswdeditanimated.qss", m_passwordEdit);
 
     m_loginBtn->setFixedHeight(DDESESSIONCC::PASSWDLINEEDIT_HEIGHT);
+    m_loginBtn->setFixedWidth(128);
 
     m_passwordEdit->setVisible(true);
     m_passwordEdit->setFocus();
