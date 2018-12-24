@@ -161,3 +161,8 @@ void DDENotifyDBus::ClearRecords()
 {
     QMetaObject::invokeMethod(parent(), "ClearRecords");
 }
+
+void DDENotifyDBus::doAction(uint id, const QString &action)
+{
+    QMetaObject::invokeMethod(parent(), "bubbleActionInvoked", Q_ARG(uint, id), Q_ARG(QString, action));
+}
