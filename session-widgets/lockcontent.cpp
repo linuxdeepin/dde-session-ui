@@ -58,6 +58,8 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     connect(m_userFrame, &UserFrame::requestSwitchUser, this, &LockContent::requestSwitchToUser);
     connect(m_userFrame, &UserFrame::requestSwitchUser, this, &LockContent::restoreMode);
     connect(m_controlWidget, &ControlWidget::requestSwitchUser, this, [=] {
+        if (m_model->currentModeState() == SessionBaseModel::ModeStatus::UserMode) return;
+        m_userFrame->setFixedSize(m_userInputWidget->size());
         m_model->setCurrentModeState(SessionBaseModel::ModeStatus::UserMode);
     });
     connect(m_controlWidget, &ControlWidget::requestShutdown, this, [=] {

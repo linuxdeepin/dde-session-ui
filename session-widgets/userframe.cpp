@@ -9,11 +9,19 @@
 #define USER_HEIGHT 180
 
 UserFrame::UserFrame(QWidget *parent)
-    : QFrame(parent)
+    : QScrollArea(parent)
     , m_isExpansion(false)
     , m_frameDataBind(FrameDataBind::Instance())
+    , m_baseFrame(new QWidget)
 {
-    setFixedHeight(500);
+    setWidgetResizable(true);
+    setFocusPolicy(Qt::NoFocus);
+    setFrameStyle(QFrame::NoFrame);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setStyleSheet("background: transparent;");
+    setWidget(m_baseFrame);
 
     std::function<void (QVariant)> function = std::bind(&UserFrame::onOtherPageChanged, this, std::placeholders::_1);
     m_frameDataBind->registerFunction("UserFrame", function);
@@ -54,6 +62,7 @@ void UserFrame::mouseReleaseEvent(QMouseEvent *event)
 void UserFrame::hideEvent(QHideEvent *event)
 {
     releaseKeyboard();
+    expansion(false);
 
     return QFrame::hideEvent(event);
 }
@@ -136,15 +145,19 @@ void UserFrame::refreshPosition()
             index++;
         }
 
-        setFixedHeight(USER_HEIGHT * (row + 1));
+        m_baseFrame->setFixedHeight(USER_HEIGHT * (row + 1));
     }
     else {
-        std::shared_ptr<User> user = m_model->currentUser();
-        if (user.get() == nullptr) return;
-
         for (auto it = m_userBtns.constBegin(); it != m_userBtns.constEnd(); ++it) {
-            it.value()->setSelected(it.key() == user->uid());
+            it.value()->move(QPoint((width() - it.value()->width()) / 2, 0));
         }
+    }
+
+    std::shared_ptr<User> user = m_model->currentUser();
+    if (user.get() == nullptr) return;
+
+    for (auto it = m_userBtns.constBegin(); it != m_userBtns.constEnd(); ++it) {
+        it.value()->setSelected(it.key() == user->uid());
     }
 }
 

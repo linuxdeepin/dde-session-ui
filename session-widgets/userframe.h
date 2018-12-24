@@ -1,6 +1,7 @@
 #ifndef USERFRAME_H
 #define USERFRAME_H
 
+#include <QScrollArea>
 #include <QFrame>
 #include <memory>
 #include <QMap>
@@ -9,7 +10,7 @@ class UserButton;
 class User;
 class SessionBaseModel;
 class FrameDataBind;
-class UserFrame : public QFrame
+class UserFrame : public QScrollArea
 {
     Q_OBJECT
 public:
@@ -39,6 +40,7 @@ private:
     void onOtherPageChanged(const QVariant &value);
 
 private:
+    QWidget *m_baseFrame;
     QMap<uint, UserButton*> m_userBtns;
     SessionBaseModel *m_model;
     bool m_isExpansion;
