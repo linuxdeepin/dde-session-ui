@@ -579,7 +579,7 @@ void ContentWidget::initUI() {
     m_btnsList->append(m_logoutButton);
 
     m_currentSelectedBtn = m_lockButton;
-    m_currentSelectedBtn->updateState(RoundItemButton::Checked);
+    m_currentSelectedBtn->updateState(RoundItemButton::Hover);
 
     //// Inhibit to shutdown
     getInhibitReason();
