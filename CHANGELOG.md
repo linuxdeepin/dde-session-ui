@@ -1,4 +1,59 @@
 <a name=""></a>
+##  4.8.0 (2018-12-25)
+
+
+#### Bug Fixes
+
+*   wrong cursor pos ([81232cef](https://github.com/linuxdeepin/dde-session-ui/commit/81232cef4baadbd22e62d6878969ecd6dd65abcf))
+*   update default background path ([c85ab6cd](https://github.com/linuxdeepin/dde-session-ui/commit/c85ab6cdfe297f744080a8b3429ebc5b2797de87))
+*   wrong init addomain user ([87a70761](https://github.com/linuxdeepin/dde-session-ui/commit/87a70761125a4f4b7ebbaa40a6c271ae1d22f6a7))
+*   hybird-sleep to suspend ([fd32d0ff](https://github.com/linuxdeepin/dde-session-ui/commit/fd32d0ff1be90b0fefdc26cddf3b2c00543a8827))
+*   switch user will reset lock time ([aa72aa24](https://github.com/linuxdeepin/dde-session-ui/commit/aa72aa24c3bc9d6557b363b9ea02e36a0ddda9e5))
+*   cannot switch mode ([30ff00a8](https://github.com/linuxdeepin/dde-session-ui/commit/30ff00a884750d79eed84707eec2a85db5565dec))
+*   remove user list sort ([de1dedd4](https://github.com/linuxdeepin/dde-session-ui/commit/de1dedd421dacf20461bc33c23c85ca5210544b3))
+*   move the screen to another screen to hide invalid tip. ([49bc78fe](https://github.com/linuxdeepin/dde-session-ui/commit/49bc78feb2458ead4d91c97fd5218bf05fed6b70))
+* **DNetworkSecretDialog:**  submit on enter key pressed ([ce56d706](https://github.com/linuxdeepin/dde-session-ui/commit/ce56d7064e2252393bc423205465b2cd00259373))
+* **Lock:**  cannot hibernate ([a2a106cf](https://github.com/linuxdeepin/dde-session-ui/commit/a2a106cfeb4ed5682b42bac809daadf36d2fabb5))
+* **Power:**  use hybrid sleep replace suspend ([f9266a4d](https://github.com/linuxdeepin/dde-session-ui/commit/f9266a4d21fe8ed1d24d5f9aba7a15a0cac74829))
+* **Shutdown:**  not support click hibernate button ([06c353b1](https://github.com/linuxdeepin/dde-session-ui/commit/06c353b161903b044e39bc81bb608fd208a4ea46))
+* **UserFrame:**
+  *  cannot scroll frame ([1502f73d](https://github.com/linuxdeepin/dde-session-ui/commit/1502f73d9bb7cca7bb1349af2861962236137c79))
+  *  not set logind icon ([08cdf3d8](https://github.com/linuxdeepin/dde-session-ui/commit/08cdf3d8ffbc28f924d2aa6747f69bf1d45ce36a))
+  *  cannot push userframe again ([43b8329f](https://github.com/linuxdeepin/dde-session-ui/commit/43b8329fb51030caeef72792d630cdafc546a66c))
+* **background:**  draw background shift when scale ratio ([109603d4](https://github.com/linuxdeepin/dde-session-ui/commit/109603d423600ab54d86caae3f7b8e0fce382f47))
+* **greeter:**
+  *  cannot login ([421e7ce9](https://github.com/linuxdeepin/dde-session-ui/commit/421e7ce9b70953a5b84dbd2b6c442c2c04717c95))
+  *  not set current user when only one user exist ([38ff711d](https://github.com/linuxdeepin/dde-session-ui/commit/38ff711d221c7957a28dccf7ecd89677f17f24a6))
+  *  not set current user ([4f60f513](https://github.com/linuxdeepin/dde-session-ui/commit/4f60f5133f3ef019f4cc3fea7052a0d9e7e3d280))
+* **lock:**  cancel power action for click empty region ([7264f728](https://github.com/linuxdeepin/dde-session-ui/commit/7264f728ac233f69b56392cdf7c3d83169f814bb))
+* **osd:**
+  *  not set prefix ([3122776b](https://github.com/linuxdeepin/dde-session-ui/commit/3122776b2f4a34eacf3d070a40797f9c25a93f58))
+  *  wrong return value ([b69372ad](https://github.com/linuxdeepin/dde-session-ui/commit/b69372adbf37a7a3b2471296358ade951f7b9369))
+* **session:**  hide control when only one session ([db7470b6](https://github.com/linuxdeepin/dde-session-ui/commit/db7470b657518850e6ce6ad97a1fa33e935c0fee))
+* **shutdown:**  switch user not visible ([6fa6b3e3](https://github.com/linuxdeepin/dde-session-ui/commit/6fa6b3e39c46142189ad126e05dd56c75df04130))
+
+#### Features
+
+*   update style for login ([7f81e9d0](https://github.com/linuxdeepin/dde-session-ui/commit/7f81e9d089b9afc2680ee2e985a3d45a273ae7e8))
+*   add doaction dbus interface ([07fe1b7a](https://github.com/linuxdeepin/dde-session-ui/commit/07fe1b7af9c3c3a1344295a0e357293ad4bbd87f))
+*   useless openssh-server ([beab6602](https://github.com/linuxdeepin/dde-session-ui/commit/beab66027a36e05297538cc43c7977f26ee75221))
+*   change default state from hover to checked ([1f1aedad](https://github.com/linuxdeepin/dde-session-ui/commit/1f1aedadb44657f89d01f534a2ae6b478f42f6cf))
+* **Greeter:**  add ad user login ([ca8a9f46](https://github.com/linuxdeepin/dde-session-ui/commit/ca8a9f46fe81b565d45c47eaf0d1c9a77c8cf490))
+* **Lock:**
+  *  restore user password when switch user ([9c8c3bf5](https://github.com/linuxdeepin/dde-session-ui/commit/9c8c3bf546fb4180c174efda35cb5985f70a1435))
+  *  add verification limit ([8425cf66](https://github.com/linuxdeepin/dde-session-ui/commit/8425cf66697817a89fac38eebf811afaedab2c38))
+  *  add hibernate ([5045d861](https://github.com/linuxdeepin/dde-session-ui/commit/5045d8615f40664dfafcf6f7e2ce9148dc6380f3))
+  *  add lock time for auth failed ([0182b0fe](https://github.com/linuxdeepin/dde-session-ui/commit/0182b0fe51c030858a417028abcef97d25ae678c))
+  *  add hibernate ([c506e4a9](https://github.com/linuxdeepin/dde-session-ui/commit/c506e4a959a97dcc93544dfd8f87b93a2b2b4fa2))
+  *  add virtual keyboard ([650f9366](https://github.com/linuxdeepin/dde-session-ui/commit/650f9366681ac9125cc280185d8be088e5f30ee8))
+* **Shutdown:**
+  *  update system monitor button style ([785f9f59](https://github.com/linuxdeepin/dde-session-ui/commit/785f9f59ed1a1b8d0880814be4a1fb1e22d141ac))
+  *  add hibernate ([082bee36](https://github.com/linuxdeepin/dde-session-ui/commit/082bee36455e72e7773991ba2778578c54357a8c))
+* **session:**  support for left & right key selection. ([ef4ca905](https://github.com/linuxdeepin/dde-session-ui/commit/ef4ca905921f1db6684f2a41a50ddf0b46518aba))
+
+
+
+<a name=""></a>
 ##  4.7.0 (2018-12-07)
 
 
