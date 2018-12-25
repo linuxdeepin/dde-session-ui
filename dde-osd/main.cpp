@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 {
     if (QString(getenv("XDG_CURRENT_DESKTOP")) != QStringLiteral("Deepin")) {
         qDebug() << "I only run the Deepin Desktop!";
-        return 0;
+        return -1;
     }
 
     DApplication::loadDXcbPlugin();
