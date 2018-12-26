@@ -52,8 +52,6 @@ LogoWidget::LogoWidget(QWidget* parent)
 }
 
 void LogoWidget::initUI() {
-    setFixedSize(240, 40);
-
     m_logoLabel = new QLabel();
     m_logoLabel->setPixmap(systemLogo());
     m_logoLabel->setObjectName("Logo");
