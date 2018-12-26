@@ -87,6 +87,7 @@ void LogoWidget::initUI() {
 
     QString systemVersion = getVersion();
     m_logoVersionLabel->setText(systemVersion);
+    adjustSize();
 
     updateStyle(":/skin/login.qss", m_logoVersionLabel);
 }
