@@ -1,4 +1,21 @@
 <a name=""></a>
+##  4.6.2.8 (2018-12-26)
+
+
+#### Bug Fixes
+
+*   Click on empty area to cancel the power operation. ([1f32562c](https://github.com/linuxdeepin/dde-session-ui/commit/1f32562c112a8fb114bc57abecc4eb3286396fe1))
+*   update default background path ([a0c74161](https://github.com/linuxdeepin/dde-session-ui/commit/a0c7416104cfbb2c9cbbe1280e632cc7467be71c))
+* **greeter:**
+  *  version description overlap ([26b80d59](https://github.com/linuxdeepin/dde-session-ui/commit/26b80d5957a7f5e597a20001f247d30defd0e9ea))
+  *  update version when language changed ([bf7d4141](https://github.com/linuxdeepin/dde-session-ui/commit/bf7d41419c2bc50f09a39859394360756619598b))
+  *  ad user cannot login ([10744594](https://github.com/linuxdeepin/dde-session-ui/commit/10744594c0069b91b2b51a0a88f486fb2c7c8bed))
+* **lock:**  cannot shutdown ([8f2a1d5f](https://github.com/linuxdeepin/dde-session-ui/commit/8f2a1d5f9f2149403445d77b901b89d0f1e42a48))
+* **osd:**  wrong return value ([eae9af20](https://github.com/linuxdeepin/dde-session-ui/commit/eae9af207842d6ea610d0287dec5b6b459963273))
+
+
+
+<a name=""></a>
 ##  4.6.2.7 (2018-12-24)
 
 
