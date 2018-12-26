@@ -221,10 +221,24 @@ void LockWorker::onUserAdded(const QString &user)
 
     if (user_ptr->uid() == m_currentUserUid) {
         m_model->setCurrentUser(user_ptr);
+
+        if (m_model->currentType() == SessionBaseModel::AuthType::LockType) {
+            m_lockInter->AuthenticateUser(user_ptr->name());
+        }
     }
 
     if (m_model->currentUser().get() == nullptr && m_model->userList().isEmpty()) {
         m_model->setCurrentUser(user_ptr);
+
+        if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
+            if (m_greeter->inAuthentication()) {
+                m_greeter->cancelAuthentication();
+            }
+
+            QTimer::singleShot(100, this, [=] {
+                m_greeter->authenticate(user_ptr->name());
+            });
+        }
     }
 
     if (user_ptr->uid() == m_lastLogoutUid) {
@@ -416,6 +430,8 @@ void LockWorker::recoveryUserKBState(std::shared_ptr<User> user)
 
 void LockWorker::lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message)
 {
+    if (!m_authUser.get()) return;
+
     if (username != m_authUser->name())
         return;
 

@@ -53,6 +53,8 @@ void SessionBaseModel::userRemoved(std::shared_ptr<User> user)
 
 void SessionBaseModel::setCurrentUser(std::shared_ptr<User> user)
 {
+    if (m_currentUser == user) return;
+
     m_currentUser = user;
 
     emit currentUserChanged(user);
