@@ -1,4 +1,14 @@
 <a name=""></a>
+##  4.6.2.9 (2018-12-26)
+
+
+#### Bug Fixes
+
+*   logo widget set fixsize ([4a2bad30](https://github.com/linuxdeepin/dde-session-ui/commit/4a2bad30c407bba647fcd30594fdcb9213384f0b))
+
+
+
+<a name=""></a>
 ##  4.6.2.8 (2018-12-26)
 
 
