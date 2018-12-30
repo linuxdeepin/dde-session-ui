@@ -130,7 +130,6 @@ private:
     // or return false.
     QPair<QRect, bool> screensInfo(const QPoint &point) const;
 
-    void bindControlCenterX();
     void consumeEntities();
 
 private:

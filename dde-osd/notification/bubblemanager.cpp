@@ -57,43 +57,38 @@ BubbleManager::BubbleManager(QObject *parent)
 
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
                                                     QDBusConnection::sessionBus(), this);
-
     m_dbusdockinterface = new DBusDockInterface(DBbsDockDBusServer, DBusDockDBusPath,
                                                 QDBusConnection::sessionBus(), this);
-
-    m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
-                                                          QDBusConnection::systemBus(), this);
-
-    m_dbusControlCenter = new DBusControlCenter(ControlCenterDBusService, ControlCenterDBusPath,
-                                                    QDBusConnection::sessionBus(), this);
-
     m_dockDeamonInter = new DockDaemonInter(DockDaemonDBusServie, DockDaemonDBusPath,
                                             QDBusConnection::sessionBus(), this);
-    m_dockDeamonInter->setSync(true, false);
+    m_dbusControlCenter = new DBusControlCenter(ControlCenterDBusService, ControlCenterDBusPath,
+                                                    QDBusConnection::sessionBus(), this);
+    m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
+                                                          QDBusConnection::systemBus(), this);
 
     connect(m_bubble, SIGNAL(expired(int)), this, SLOT(bubbleExpired(int)));
     connect(m_bubble, SIGNAL(dismissed(int)), this, SLOT(bubbleDismissed(int)));
     connect(m_bubble, SIGNAL(replacedByOther(int)), this, SLOT(bubbleReplacedByOther(int)));
     connect(m_bubble, SIGNAL(actionInvoked(uint, QString)), this, SLOT(bubbleActionInvoked(uint, QString)));
 
-    connect(m_dbusDaemonInterface, SIGNAL(NameOwnerChanged(QString, QString, QString)),
-            this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
-
+    connect(m_persistence, &Persistence::RecordAdded, this, &BubbleManager::onRecordAdded);
     connect(m_login1ManagerInterface, SIGNAL(PrepareForSleep(bool)),
             this, SLOT(onPrepareForSleep(bool)));
 
+    connect(m_dbusDaemonInterface, SIGNAL(NameOwnerChanged(QString, QString, QString)),
+            this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
     connect(m_dbusdockinterface, &DBusDockInterface::geometryChanged, this, &BubbleManager::onDockRectChanged);
-    connect(m_persistence, &Persistence::RecordAdded, this, &BubbleManager::onRecordAdded);
-
     connect(m_dockDeamonInter, &DockDaemonInter::PositionChanged, this, &BubbleManager::onDockPositionChanged);
+    connect(m_dbusControlCenter, &DBusControlCenter::destRectChanged, this, &BubbleManager::onCCDestRectChanged);
+    connect(m_dbusControlCenter, &DBusControlCenter::rectChanged, this, &BubbleManager::onCCRectChanged);
 
     // get correct value for m_dockGeometry, m_dockPosition, m_ccGeometry
     if (m_dbusdockinterface->isValid())
         onDockRectChanged(m_dbusdockinterface->geometry());
     if (m_dockDeamonInter->isValid())
-        m_dockPosition = static_cast<DockPosition>(m_dockDeamonInter->position());
+        onDockPositionChanged(m_dockDeamonInter->position());
     if (m_dbusControlCenter->isValid())
-        onCCDestRectChanged(m_dbusControlCenter->rect());
+        onCCRectChanged(m_dbusControlCenter->rect());
 
     registerAsService();
 }
@@ -390,27 +385,13 @@ void BubbleManager::onDockPositionChanged(int position)
 
 void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newName)
 {
-    if (name == ControlCenterDBusService && screensInfo(m_bubble->pos()).second) {
-        if (!newName.isEmpty()) {
-            bindControlCenterX();
-        }
+    if (name == ControlCenterDBusService && screensInfo(m_bubble->pos()).second && !newName.isEmpty()) {
+        onCCRectChanged(m_dbusControlCenter->rect());
     } else if (name == DBbsDockDBusServer && !newName.isEmpty()) {
         onDockRectChanged(m_dbusdockinterface->geometry());
     } else if (name == DockDaemonDBusServie && !newName.isEmpty()) {
         onDockPositionChanged(m_dockDeamonInter->position());
     }
-}
-
-void BubbleManager::bindControlCenterX()
-{
-    if (!m_dbusControlCenter) {
-        m_dbusControlCenter = new DBusControlCenter(ControlCenterDBusService,
-                                                        ControlCenterDBusPath,
-                                                        QDBusConnection::sessionBus(),
-                                                        this);
-    }
-    connect(m_dbusControlCenter, &DBusControlCenter::destRectChanged, this, &BubbleManager::onCCDestRectChanged);
-    connect(m_dbusControlCenter, &DBusControlCenter::rectChanged, this, &BubbleManager::onCCRectChanged);
 }
 
 void BubbleManager::consumeEntities()
@@ -431,15 +412,6 @@ void BubbleManager::consumeEntities()
     int pointerScreen = desktop->screenNumber(QCursor::pos());
     int primaryScreen = desktop->primaryScreen();
     QWidget *pScreenWidget = desktop->screen(primaryScreen);
-
-    if (checkDockExistence())
-        m_dockGeometry = m_dbusdockinterface->geometry();
-
-    if (checkControlCenterExistence())
-        m_ccGeometry = m_dbusControlCenter->rect();
-
-    if (checkControlCenterExistence() && pointerScreen == primaryScreen)
-        bindControlCenterX();
 
     if (pointerScreen != primaryScreen)
         pScreenWidget = desktop->screen(pointerScreen);
