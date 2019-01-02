@@ -434,6 +434,11 @@ void LoginManager::initUI()
 #ifndef SHENWEI_PLATFORM
     updateStyle(":/skin/login.qss", this);
 #endif
+
+    // refresh language
+    for (auto it = m_trList.constBegin(); it != m_trList.constEnd(); ++it) {
+        (*it).first(qApp->translate("LoginManager", (*it).second.toUtf8()));
+    }
 }
 
 void LoginManager::initData()
