@@ -760,6 +760,8 @@ void LoginManager::onCurrentUserChanged(User *user)
     m_requireShutdownWidget->hide();
     m_keybdArrowWidget->hide();
 
+    m_logoWidget->updateLocale(user->locale().split(".").first());
+
     // clean old info
     m_accountStr.clear();
     m_passwdStr.clear();

@@ -37,7 +37,7 @@ public:
     LogoWidget(QWidget* parent=0);
     ~LogoWidget();
 
-    bool event(QEvent *e) override;
+    void updateLocale(const QString &locale);
 
 private:
     void initUI();
@@ -47,6 +47,7 @@ private:
     QVBoxLayout* m_logoLeftSideLayout;
     QVBoxLayout* m_logoRightSideLayout;
     QHBoxLayout* m_logoLayout;
+    QString m_locale;
 };
 #endif // LOGOFRAME
 
