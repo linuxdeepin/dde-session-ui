@@ -1,3 +1,18 @@
+<a name="4.8.1"></a>
+### 4.8.1 (2019-01-02)
+
+
+#### Bug Fixes
+
+*   version description not follow user ([f468cf1c](https://github.com/linuxdeepin/dde-session-ui/commit/f468cf1c03097136d4b9314e8ff7fb0ae7ec7347))
+
+#### Features
+
+*   start auth user at startup ([1b2503b0](https://github.com/linuxdeepin/dde-session-ui/commit/1b2503b06c0021200dca9304ee6a740233b9b614))
+* **greeter:**  logo widget remove fixed size ([54796afd](https://github.com/linuxdeepin/dde-session-ui/commit/54796afdd237d20e11ede18dbe0d1df7f084cbc8))
+
+
+
 <a name=""></a>
 ##  4.8.0 (2018-12-25)
 
