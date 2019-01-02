@@ -1,4 +1,17 @@
 <a name=""></a>
+##  4.6.2.10 (2019-01-02)
+
+
+#### Bug Fixes
+
+* **DNetworkSecretDialog:**  submit on enter key pressed ([96097006](https://github.com/linuxdeepin/dde-session-ui/commit/96097006e104f5e36db62d6bc3a06047bbe7d218))
+* **greeter:**
+  *  nopassword button is empty text ([c07aaf49](https://github.com/linuxdeepin/dde-session-ui/commit/c07aaf49b65ca2a22ef0d86c0c9e3b4ac813d14c))
+  *  version description does not follow user ([526ee7da](https://github.com/linuxdeepin/dde-session-ui/commit/526ee7da3b74ca1c8afa85fe138045bec3dd89f2))
+
+
+
+<a name=""></a>
 ##  4.6.2.9 (2018-12-26)
 
 
