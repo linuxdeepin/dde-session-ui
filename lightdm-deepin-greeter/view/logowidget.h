@@ -36,6 +36,9 @@ class LogoWidget: public QFrame
 public:
     LogoWidget(QWidget* parent=0);
     ~LogoWidget();
+
+    void updateLocale(const QString &locale);
+
 private:
     void initUI();
     QString getVersion();
@@ -44,6 +47,7 @@ private:
     QVBoxLayout* m_logoLeftSideLayout;
     QVBoxLayout* m_logoRightSideLayout;
     QHBoxLayout* m_logoLayout;
+    QString m_locale;
 };
 #endif // LOGOFRAME
 

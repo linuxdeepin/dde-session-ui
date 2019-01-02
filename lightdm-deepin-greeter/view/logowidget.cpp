@@ -49,6 +49,7 @@ const QPixmap systemLogo()
 LogoWidget::LogoWidget(QWidget* parent)
     : QFrame(parent)
 {
+    m_locale = QLocale::system().name();
     initUI();
 }
 
@@ -99,7 +100,7 @@ QString LogoWidget::getVersion() {
     ///////////system version
     QString version = settings.value(item + "/Version").toString();
     //////////system type
-    QString localKey =QString("%1/Type[%2]").arg(item).arg(QLocale::system().name());
+    QString localKey =QString("%1/Type[%2]").arg(item).arg(m_locale);
     QString finalKey =QString("%1/Type").arg(item);
 
     QString type = settings.value(localKey, settings.value(finalKey)).toString();
@@ -113,4 +114,11 @@ QString LogoWidget::getVersion() {
 
 LogoWidget::~LogoWidget()
 {
+}
+
+void LogoWidget::updateLocale(const QString &locale)
+{
+    m_locale = locale;
+    m_logoVersionLabel->setText(getVersion());
+    adjustSize();
 }
