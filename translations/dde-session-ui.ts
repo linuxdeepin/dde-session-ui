@@ -158,7 +158,7 @@
     <name>LockWorker</name>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="80"/>
-        <source>ADDomain</source>
+        <source>Domain account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

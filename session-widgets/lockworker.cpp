@@ -77,7 +77,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         m_settings.beginGroup("ADDOMAIN");
         if (m_settings.value("JOIN").toBool()) {
             ADDomainUser *addomain_login_user = new ADDomainUser(0);
-            addomain_login_user->setUserDisplayName(tr("ADDomain"));
+            addomain_login_user->setUserDisplayName(tr("Domain account"));
             std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*addomain_login_user);
             m_model->userAdd(user);
         }
