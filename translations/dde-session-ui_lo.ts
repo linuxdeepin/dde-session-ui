@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ro" sourcelanguage="en" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="lo" sourcelanguage="en" version="2.1">
 <context>
     <name>ContentWidget</name>
     <message>
@@ -7,7 +7,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
         <source>Shut down</source>
-        <translation>Închidere</translation>
+        <translation>ປິດ​ເຄື່ອງ</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
@@ -15,48 +15,48 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="524"/>
         <source>Reboot</source>
-        <translation>Repornire</translation>
+        <translation>ເປີດຄືນ</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure to shut down?</source>
-        <translation>Sunteți sigur că doriți să închideți?</translation>
+        <translation>ເຈົ້າພ້ອມລະບໍ່ທີ່ຈະປິດ​ເຄື່ອງ?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure to reboot?</source>
-        <translation>Sunteți sigur că doriți să reporniți?</translation>
+        <translation>ເຈົ້າພ້ອມລະບໍ່ທີ່ຈະເປີດຄືນ?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Log out</source>
-        <translation>Ieșire</translation>
+        <translation>ອອກ​ຈາກ​ລະ​ບົບ</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure to log out?</source>
-        <translation>Sunteți sigur că doriți să vă deautentificați?</translation>
+        <translation>ເຈົ້າພ້ອມລະບໍ່ທີ່ຈະອອກ​ຈາກ​ລະ​ບົບ?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Suspend</source>
-        <translation>Suspendare</translation>
+        <translation>ຢຸດໄວ້</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Hibernate</source>
-        <translation>Hibernare</translation>
+        <translation>ນອນ</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Lock</source>
-        <translation>Blocare</translation>
+        <translation>ລ໊ອກ</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="540"/>
         <source>Switch user</source>
-        <translation>Schimbare utilizator</translation>
+        <translation>ປ່ຽນຜູ້ໃຊ້</translation>
     </message>
 </context>
 <context>
@@ -65,62 +65,62 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
         <source>Cancel</source>
-        <translation>Anulare</translation>
+        <translation>ຍົກເລີກ</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation type="unfinished"/>
+        <translation>ປ່ອຍອອກມາ</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Această aplicație va fi închisă, vă rugăm să vă asigurați că v-ați salvat datele!</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Vă rugăm salvați-vă documentul, textul și foaia de calcule</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
         <source>Continue</source>
-        <translation>Continuă</translation>
+        <translation>ສືບຕໍ່</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Memorie de sistem insuficientă, vă rugăm să închideți câteva aplicații pentru a evita să blocați computer-ul.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>Continuați să rulați %1, sunt necesari %2MB de memorie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Continuați să deschideți fila de browser, sunt necesari %1MB de memorie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>Pentru a continua această operațiune, sunt necesari %1MB de memorie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>Memoria dumneavoastră actuală este suficientă, doriți să continuați rularea %1?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>Memoria dumneavoastră actuală este suficientă, doriți să continuați deschiderea filei de browser?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation>Memoria dumneavoastră actuală este suficientă, doriți să continuați operațiunea?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -128,12 +128,12 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
         <source>Duplicate</source>
-        <translation>Duplicare</translation>
+        <translation>ຊໍ້າ</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
         <source>Extend</source>
-        <translation>Extindere</translation>
+        <translation>ຂະຫຍາຍ</translation>
     </message>
 </context>
 <context>
@@ -141,7 +141,7 @@
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="34"/>
         <source>Cancel</source>
-        <translation>Anulează</translation>
+        <translation>ຍົກເລີກ</translation>
     </message>
 </context>
 <context>
@@ -149,7 +149,7 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
-        <translation>Adăugare aspect  tastatură</translation>
+        <translation>ເພີ່ມຮູບແບບແປ້ນພິມ</translation>
     </message>
 </context>
 <context>
@@ -163,24 +163,24 @@
         <location filename="../session-widgets/lockworker.cpp" line="448"/>
         <location filename="../session-widgets/lockworker.cpp" line="555"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Verificarea prin amprentă a expirat, vă rugăm să vă introduceți parola manual</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="466"/>
         <location filename="../session-widgets/lockworker.cpp" line="570"/>
         <source>Failed to match fingerprint</source>
-        <translation>Nu am reușit să verificăm amprenta</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="490"/>
         <location filename="../session-widgets/lockworker.cpp" line="584"/>
         <source>Wrong Password</source>
-        <translation>Parolă Incorectă</translation>
+        <translation>ລະຫັດພ່ານຜິດ</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="588"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>Contul de domeniu sau parola este incorectă. Vă rugăm, introduceți din nou.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -188,7 +188,7 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
         <source>Cancel</source>
-        <translation>Anulare</translation>
+        <translation>ຍົກເລີກ</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
@@ -208,49 +208,49 @@
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
         <source>Password</source>
-        <translation>Parola</translation>
+        <translation>ລະຫັດພ່ານ</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
         <source>Key</source>
-        <translation>Cheie</translation>
+        <translation>ກະແຈ</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>ກະແຈ</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
         <source>Private Pwd</source>
-        <translation>Parolă privată</translation>
+        <translation>ລະຫັດພ່ານສ່ວນຕົວ</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>ລະຫັດພ່ານພຣອກຊີີ້</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>ລະຫັດພ່ານກຸ່ມ</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>ລະຫັດຜ່ານທີ່ຕ້ອງການເພື່ອເຊື່ອມຕໍ່ &lt;font color=&quot;#faca57&quot;&gt; %1 &lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Cancel</source>
-        <translation>Anulare</translation>
+        <translation>ຍົກເລີກ</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Connect</source>
-        <translation>Conectare</translation>
+        <translation>ເຊື່ອມຕໍ່</translation>
     </message>
 </context>
 <context>
@@ -268,7 +268,7 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation>Activarea efectelor ferestrei a eșuat</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -276,7 +276,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation>Sfârșit</translation>
+        <translation>ສິ້ນສຸດ</translation>
     </message>
 </context>
 <context>
@@ -285,31 +285,31 @@
         <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
-        <translation>Închidere</translation>
+        <translation>ປິດ​ເຄື່ອງ</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="271"/>
         <source>Login</source>
-        <translation>Autentificare</translation>
+        <translation>ເຂົ້າລະບົບ</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="280"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="89"/>
         <source>Reboot</source>
-        <translation>Repornire</translation>
+        <translation>ເປີດຄືນ</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
         <location filename="../widgets/shutdownwidget.cpp" line="95"/>
         <source>Suspend</source>
-        <translation>Suspendare</translation>
+        <translation>ຢຸດໄວ້</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="101"/>
         <source>Hibernate</source>
-        <translation>Hibernare</translation>
+        <translation>ນອນ</translation>
     </message>
 </context>
 <context>
@@ -317,23 +317,23 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>ຈໍສະແດງຜົນພາຍນອກໄດ້ຖືກກວດພົບ, ຢຸດໄວ້?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="55"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Cancel</source>
-        <translation>Anulează</translation>
+        <translation>ຍົກເລີກ</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Suspend</source>
-        <translation>Suspendare</translation>
+        <translation>ຢຸດໄວ້</translation>
     </message>
 </context>
 <context>
@@ -349,12 +349,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="77"/>
         <source>hh:mm</source>
-        <translation>hh:mm</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="78"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation>ປປປປ-ດດ-ວວ  ວວວວ</translation>
     </message>
 </context>
 <context>
@@ -362,17 +362,17 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>ຍິນດີຕ້ອນຮັບ, ລະບົບປັບປຸງສົບຜົນສໍາເລັດ</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>ສະບັບປະຈຸບັນ</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>ເຂົ້າ</translation>
     </message>
 </context>
 <context>
@@ -380,22 +380,22 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="13"/>
         <source>Login</source>
-        <translation>Autentificare</translation>
+        <translation>ເຂົ້ລະບົບ</translation>
     </message>
     <message numerus="yes">
         <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished"><numerusform></numerusform></translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
         <source>Enter your password to shutdown</source>
-        <translation type="unfinished"/>
+        <translation>ປ້ອນລະຫັດພ່ານຂອງເຈົ້າເພື່ອປີດລະບົບ</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>ປ້ອນລະຫັດພ່ານຂອງເຈົ້າເພື່ອເປີດລະບົບຄືນ</translation>
     </message>
 </context>
 <context>
@@ -403,17 +403,17 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
         <source>Effect Mode</source>
-        <translation type="unfinished"/>
+        <translation>ໂຫມດແບບອີແຟກ</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
         <source>Common Mode</source>
-        <translation type="unfinished"/>
+        <translation>ໂຫມດແບບທົ່ວໄປ</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>ການເຕືອນທີ່ເປັນມິດ</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
@@ -431,7 +431,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>ກະລຸນາແຈ້ງເຕືອນ</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
@@ -441,7 +441,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>ຕົກ​ລົງ</translation>
     </message>
 </context>
 <context>
@@ -449,7 +449,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation type="unfinished"/>
+        <translation>ໄຟແບດຕ່ໍ່າ, ກະລຸນາສຽບໃສ່</translation>
     </message>
 </context>
 </TS>

@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="349"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="375"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="399"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
         <source>Shut down</source>
         <translation>Matikan</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="379"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="524"/>
         <source>Reboot</source>
         <translation>Boot ulang</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure to shut down?</source>
         <translation>Apakah Anda yakin ingin mematikan?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Apakah anda yakin akan mulai ulang?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="409"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Log out</source>
         <translation>Keluar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="410"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure to log out?</source>
         <translation>Apakah Anda yakin ingin keluar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Suspend</source>
         <translation>Tangguhkan</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Hibernasi</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Lock</source>
         <translation>Kunci</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="538"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="540"/>
         <source>Switch user</source>
         <translation>Beralih pengguna</translation>
     </message>
@@ -70,17 +70,17 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation type="unfinished"/>
+        <translation>Rilis</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation type="unfinished"/>
+        <translation>Aplikasi ini akan berakhir, mohon untuk pastikan data anda sudah disimpan!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation type="unfinished"/>
+        <translation>Mohon untuk simpan dokumen anda, teks, dan spreadsheet</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -90,37 +90,37 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation type="unfinished"/>
+        <translation>Sistem memory tidak cukup, mohon matikan beberapa aplikasi untuk menghindari macet.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Terus berjalan %1, dibutuhkan memori %2MB </translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Terus berjalan membuka tab peramban, dibutuhkan memori %1MB</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Untuk melanjutkan operasi, dibutuhkan memori %1MB</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation type="unfinished"/>
+        <translation>Memory anda sudah cukup, lanjut untuk menjalankan %1?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation type="unfinished"/>
+        <translation>Memory anda sudah cukup, lanjut untuk buka tab peramban?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation type="unfinished"/>
+        <translation>Memory anda sudah cukup, lanjut untuk operasi?</translation>
     </message>
 </context>
 <context>
@@ -155,32 +155,32 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="436"/>
-        <location filename="../session-widgets/lockworker.cpp" line="545"/>
+        <location filename="../session-widgets/lockworker.cpp" line="80"/>
+        <source>Domain account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../session-widgets/lockworker.cpp" line="448"/>
+        <location filename="../session-widgets/lockworker.cpp" line="555"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Waktu verifikasi sidik jari sudah habis, mohon masukan kata sandi anda secara manual</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="454"/>
-        <location filename="../session-widgets/lockworker.cpp" line="560"/>
+        <location filename="../session-widgets/lockworker.cpp" line="466"/>
+        <location filename="../session-widgets/lockworker.cpp" line="570"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Gagal mencocokan sidik jari</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="478"/>
-        <location filename="../session-widgets/lockworker.cpp" line="574"/>
+        <location filename="../session-widgets/lockworker.cpp" line="490"/>
+        <location filename="../session-widgets/lockworker.cpp" line="584"/>
         <source>Wrong Password</source>
         <translation>Sandi lewat Salah</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="578"/>
+        <location filename="../session-widgets/lockworker.cpp" line="588"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message numerus="yes">
-        <location filename="../session-widgets/lockworker.cpp" line="656"/>
-        <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation>Akun domain atau kata sandi tidak tepat. Mohon masukan kembali.</translation>
     </message>
 </context>
 <context>
@@ -220,7 +220,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>Kunci</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -282,32 +282,32 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="221"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Matikan</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="230"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="271"/>
         <source>Login</source>
         <translation>Masuk</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="239"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="280"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="85"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="89"/>
         <source>Reboot</source>
         <translation>Boot ulang</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="91"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="95"/>
         <source>Suspend</source>
         <translation>Tangguhkan</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="97"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="101"/>
         <source>Hibernate</source>
         <translation type="unfinished"/>
     </message>
@@ -382,13 +382,18 @@
         <source>Login</source>
         <translation>Masuk</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
+        <source>Please try again %n minute(s) later</source>
+        <translation type="unfinished"><numerusform></numerusform></translation>
+    </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="220"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
         <source>Enter your password to shutdown</source>
         <translation>Masukkan sandi lewat Anda untuk mematikan</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="238"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
         <source>Enter your password to reboot</source>
         <translation type="unfinished"/>
     </message>

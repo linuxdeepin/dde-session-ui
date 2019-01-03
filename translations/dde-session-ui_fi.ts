@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="349"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="375"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="399"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
         <source>Shut down</source>
         <translation>Sammuta</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="379"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="524"/>
         <source>Reboot</source>
         <translation>Käynnistä uudelleen</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure to shut down?</source>
         <translation>Haluatko sammuttaa?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure to reboot?</source>
         <translation>Haluatko käynnistää uudelleen?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="409"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Log out</source>
         <translation>Kirjaudu ulos</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="410"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure to log out?</source>
         <translation>Haluatko kirjautua ulos?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Suspend</source>
         <translation>Valmiustila</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Hibernate</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Lock</source>
         <translation>Lukitse</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="538"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="540"/>
         <source>Switch user</source>
         <translation>Vaihda käyttäjää</translation>
     </message>
@@ -155,32 +155,32 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="436"/>
-        <location filename="../session-widgets/lockworker.cpp" line="545"/>
+        <location filename="../session-widgets/lockworker.cpp" line="80"/>
+        <source>Domain account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../session-widgets/lockworker.cpp" line="448"/>
+        <location filename="../session-widgets/lockworker.cpp" line="555"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Sormenjälkitunnistus aikakatkaistiin, ole hyvä ja kirjoita salasanasi manuaalisesti</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="454"/>
-        <location filename="../session-widgets/lockworker.cpp" line="560"/>
+        <location filename="../session-widgets/lockworker.cpp" line="466"/>
+        <location filename="../session-widgets/lockworker.cpp" line="570"/>
         <source>Failed to match fingerprint</source>
         <translation>Sormenjäljen täsmääminen epäonnistui</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="478"/>
-        <location filename="../session-widgets/lockworker.cpp" line="574"/>
+        <location filename="../session-widgets/lockworker.cpp" line="490"/>
+        <location filename="../session-widgets/lockworker.cpp" line="584"/>
         <source>Wrong Password</source>
         <translation>Väärä salasana</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="578"/>
+        <location filename="../session-widgets/lockworker.cpp" line="588"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>Verkkotunnus tai salasana on kelvoton. Ole hyvä ja yritä uudelleen.</translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../session-widgets/lockworker.cpp" line="656"/>
-        <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
@@ -282,32 +282,32 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="221"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Sammuta</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="230"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="271"/>
         <source>Login</source>
         <translation>Kirjaudu</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="239"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="280"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="85"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="89"/>
         <source>Reboot</source>
         <translation>Käynnistä uudelleen</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="91"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="95"/>
         <source>Suspend</source>
         <translation>Valmiustila</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="97"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="101"/>
         <source>Hibernate</source>
         <translation type="unfinished"/>
     </message>
@@ -382,13 +382,18 @@
         <source>Login</source>
         <translation>Kirjaudu</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
+        <source>Please try again %n minute(s) later</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="220"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
         <source>Enter your password to shutdown</source>
         <translation>Anna salasanasi järjestelmän sammuttamiseksi</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="238"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
         <source>Enter your password to reboot</source>
         <translation>Anna salasanasi järjestelmän uudelleenkäynnistämiseksi</translation>
     </message>

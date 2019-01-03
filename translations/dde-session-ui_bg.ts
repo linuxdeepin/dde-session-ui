@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="349"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="375"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="399"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
         <source>Shut down</source>
         <translation>Изключване</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="404"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="379"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="524"/>
         <source>Reboot</source>
         <translation>Рестартиране</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure to shut down?</source>
         <translation>Наистина ли искате да изключите ?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure to reboot?</source>
         <translation>Наистина ли искате да рестартирате?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="409"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Log out</source>
         <translation>Излизане</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="410"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure to log out?</source>
         <translation>Наистина ли искате да излезете?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Suspend</source>
         <translation>Приспиване</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Хибернация</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Lock</source>
         <translation>3аключване</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="538"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="540"/>
         <source>Switch user</source>
         <translation>Cмяна на потребител</translation>
     </message>
@@ -155,32 +155,32 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="436"/>
-        <location filename="../session-widgets/lockworker.cpp" line="545"/>
+        <location filename="../session-widgets/lockworker.cpp" line="80"/>
+        <source>Domain account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../session-widgets/lockworker.cpp" line="448"/>
+        <location filename="../session-widgets/lockworker.cpp" line="555"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Времето за проверка на пръстовия отпечатък изтече, Моля, въведете Вашата парола ръчно</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="454"/>
-        <location filename="../session-widgets/lockworker.cpp" line="560"/>
+        <location filename="../session-widgets/lockworker.cpp" line="466"/>
+        <location filename="../session-widgets/lockworker.cpp" line="570"/>
         <source>Failed to match fingerprint</source>
         <translation>Грешка при съвпадение на пръстов отпечатък</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="478"/>
-        <location filename="../session-widgets/lockworker.cpp" line="574"/>
+        <location filename="../session-widgets/lockworker.cpp" line="490"/>
+        <location filename="../session-widgets/lockworker.cpp" line="584"/>
         <source>Wrong Password</source>
         <translation>Грешна парола</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="578"/>
+        <location filename="../session-widgets/lockworker.cpp" line="588"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>Домейн регистрацията или паролата са неправилни. Моля въведете ги отново.</translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../session-widgets/lockworker.cpp" line="656"/>
-        <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
@@ -220,7 +220,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>ключ</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -230,17 +230,17 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>Прокси парола</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>Групова парола</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Необходима е парола за свързване &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -282,34 +282,34 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="221"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Изключване</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="230"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="271"/>
         <source>Login</source>
         <translation>Влизане</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="239"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="280"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="85"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="89"/>
         <source>Reboot</source>
         <translation>Рестартиране</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="91"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="95"/>
         <source>Suspend</source>
         <translation>Приспиване</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="97"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="101"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Хибернация</translation>
     </message>
 </context>
 <context>
@@ -382,13 +382,18 @@
         <source>Login</source>
         <translation>Влизане</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
+        <source>Please try again %n minute(s) later</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="220"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
         <source>Enter your password to shutdown</source>
         <translation>Въведете Вашата парола, за да изключите</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="238"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
         <source>Enter your password to reboot</source>
         <translation>Въведете Вашата парола, за да рестартирате</translation>
     </message>
