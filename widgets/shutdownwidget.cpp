@@ -43,7 +43,8 @@ ShutdownWidget::ShutdownWidget(QWidget *parent)
     m_frameDataBind->registerFunction("ShutdownWidget", function);
 }
 
-void ShutdownWidget::initConnect() {
+void ShutdownWidget::initConnect()
+{
     connect(m_requireRestartButton, &RoundItemButton::clicked, this, [=] {
         m_currentSelectedBtn = m_requireRestartButton;
         shutdownAction();
@@ -71,15 +72,16 @@ void ShutdownWidget::onOtherPageChanged(const QVariant &value)
 {
     m_index = value.toInt();
 
-    for (auto it = m_btnList->constBegin(); it != m_btnList->constEnd(); ++it) {
+    for (auto it = m_btnList.constBegin(); it != m_btnList.constEnd(); ++it) {
         (*it)->updateState(RoundItemButton::Normal);
     }
 
-    m_currentSelectedBtn = m_btnList->at(m_index);
+    m_currentSelectedBtn = m_btnList.at(m_index);
     m_currentSelectedBtn->updateState(RoundItemButton::Checked);
 }
 
-void ShutdownWidget::initUI() {
+void ShutdownWidget::initUI()
+{
     m_requireShutdownButton = new RoundItemButton(this);
     m_requireShutdownButton->setObjectName("RequireShutdownButton");
     m_requireShutdownButton->setAutoExclusive(true);
@@ -107,11 +109,10 @@ void ShutdownWidget::initUI() {
     m_currentSelectedBtn = m_requireShutdownButton;
     m_currentSelectedBtn->updateState(RoundItemButton::Hover);
 
-    m_btnList = new QList<RoundItemButton*>;
-    m_btnList->append(m_requireShutdownButton);
-    m_btnList->append(m_requireRestartButton);
-    m_btnList->append(m_requireSuspendButton);
-    m_btnList->append(m_requireHibernateButton);
+    m_btnList.append(m_requireShutdownButton);
+    m_btnList.append(m_requireRestartButton);
+    m_btnList.append(m_requireSuspendButton);
+    m_btnList.append(m_requireHibernateButton);
 
     m_Layout = new QHBoxLayout;
     m_Layout->setMargin(0);
@@ -132,45 +133,50 @@ void ShutdownWidget::initUI() {
     }
 }
 
-void ShutdownWidget::leftKeySwitch() {
-    m_btnList->at(m_index)->updateState(RoundItemButton::Normal);
+void ShutdownWidget::leftKeySwitch()
+{
+    m_btnList.at(m_index)->updateState(RoundItemButton::Normal);
     if (m_index == 0) {
-        m_index = m_btnList->length() - 1;
+        m_index = m_btnList.length() - 1;
     } else {
         m_index  -= 1;
     }
-    if (m_btnList->at(m_index)->isVisible()) {
-        m_currentSelectedBtn = m_btnList->at(m_index);
+    if (m_btnList.at(m_index)->isVisible()) {
+        m_currentSelectedBtn = m_btnList.at(m_index);
     }
     else {
-        m_currentSelectedBtn = m_btnList->at(--m_index);
+        m_currentSelectedBtn = m_btnList.at(--m_index);
     }
     m_currentSelectedBtn->updateState(RoundItemButton::Checked);
 
     m_frameDataBind->updateValue("ShutdownWidget", m_index);
 }
 
-void ShutdownWidget::rightKeySwitch() {
-    m_btnList->at(m_index)->updateState(RoundItemButton::Normal);
-    if (m_index == m_btnList->length() - 1) {
-        m_index =  0;
+void ShutdownWidget::rightKeySwitch()
+{
+    m_btnList.at(m_index)->updateState(RoundItemButton::Normal);
+
+    if (m_index == m_btnList.size() - 1) {
+        m_index = 0;
     } else {
-        m_index  += 1;
+        ++m_index;
     }
 
-    if (m_btnList->at(m_index)->isVisible()) {
-        m_currentSelectedBtn = m_btnList->at(m_index);
+    if (!m_btnList.at(m_index)->isVisible()) {
+        if (m_index == m_btnList.size() - 1) {
+            m_index = 0;
+        } else {
+            ++m_index;
+        }
     }
-    else {
-        m_currentSelectedBtn = m_btnList->at(++m_index);
-    }
-
+    m_currentSelectedBtn = m_btnList.at(m_index);
     m_currentSelectedBtn->updateState(RoundItemButton::Checked);
 
     m_frameDataBind->updateValue("ShutdownWidget", m_index);
 }
 
-void ShutdownWidget::shutdownAction() {
+void ShutdownWidget::shutdownAction()
+{
     qDebug() << "emit m_currentSelectedBtn clicked";
 
     m_model->setPowerAction(m_actionMap[m_currentSelectedBtn]);
@@ -215,7 +221,8 @@ bool ShutdownWidget::event(QEvent *e)
     return QFrame::event(e);
 }
 
-ShutdownWidget::~ShutdownWidget() {
+ShutdownWidget::~ShutdownWidget()
+{
 }
 
 void ShutdownWidget::setModel(SessionBaseModel * const model)

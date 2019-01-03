@@ -65,7 +65,7 @@ private:
     SessionBaseModel *m_model;
     int m_index = 0;
     QHBoxLayout* m_Layout;
-    QList<RoundItemButton*>* m_btnList;
+    QList<RoundItemButton *> m_btnList;
     RoundItemButton* m_currentSelectedBtn = NULL;
     RoundItemButton* m_requireShutdownButton;
     RoundItemButton* m_requireRestartButton;
