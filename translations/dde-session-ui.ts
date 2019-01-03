@@ -157,25 +157,30 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="428"/>
-        <location filename="../session-widgets/lockworker.cpp" line="535"/>
+        <location filename="../session-widgets/lockworker.cpp" line="80"/>
+        <source>ADDomain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../session-widgets/lockworker.cpp" line="448"/>
+        <location filename="../session-widgets/lockworker.cpp" line="555"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="446"/>
-        <location filename="../session-widgets/lockworker.cpp" line="550"/>
+        <location filename="../session-widgets/lockworker.cpp" line="466"/>
+        <location filename="../session-widgets/lockworker.cpp" line="570"/>
         <source>Failed to match fingerprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="470"/>
-        <location filename="../session-widgets/lockworker.cpp" line="564"/>
+        <location filename="../session-widgets/lockworker.cpp" line="490"/>
+        <location filename="../session-widgets/lockworker.cpp" line="584"/>
         <source>Wrong Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="568"/>
+        <location filename="../session-widgets/lockworker.cpp" line="588"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -279,32 +284,32 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="237"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="271"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="263"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="280"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="85"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="89"/>
         <source>Reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="91"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="95"/>
         <source>Suspend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="97"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="101"/>
         <source>Hibernate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -380,7 +385,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="216"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
         <source>Please try again %n minute(s) later</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -388,12 +393,12 @@
         </translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="236"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
         <source>Enter your password to shutdown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="262"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
         <source>Enter your password to reboot</source>
         <translation type="unfinished"></translation>
     </message>
