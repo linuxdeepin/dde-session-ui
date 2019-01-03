@@ -266,6 +266,8 @@ void LockContent::onBlurDone(const QString &source, const QString &blur, bool st
 
 void LockContent::toggleVirtualKB()
 {
+    if (!m_virtualKB) return;
+
     m_virtualKB->setParent(this);
     m_virtualKB->setVisible(!m_virtualKB->isVisible());
     m_virtualKB->raise();
