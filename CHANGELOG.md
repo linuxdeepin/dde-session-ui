@@ -1,3 +1,14 @@
+<a name=""></a>
+##  4.8.2 (2019-01-03)
+
+
+#### Bug Fixes
+
+* **Lock:**  crash when init virtual keyboard too slow ([d54fa4b2](https://github.com/linuxdeepin/dde-session-ui/commit/d54fa4b2b1a5c62f98e56075f343636051bdb966))
+* **shutdown:**  switch to the right to crash. ([3c25fee9](https://github.com/linuxdeepin/dde-session-ui/commit/3c25fee9b12eed659a42a559eda8f23af5025210))
+
+
+
 <a name="4.8.1"></a>
 ### 4.8.1 (2019-01-02)
 
