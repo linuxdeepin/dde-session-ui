@@ -1,3 +1,13 @@
+<a name="4.6.2.11"></a>
+## 4.6.2.11 (2019-01-04)
+
+
+#### Bug Fixes
+
+* **greeter:**  the deepin version lable not fully displayed ([ec5d98c9](https://github.com/linuxdeepin/dde-session-ui/commit/ec5d98c9b96e6a9583ca30162ca24aa7eb4f5efe))
+
+
+
 <a name=""></a>
 ##  4.6.2.10 (2019-01-02)
 
