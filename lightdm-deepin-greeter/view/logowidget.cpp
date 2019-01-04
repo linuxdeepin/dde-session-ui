@@ -68,22 +68,15 @@ void LogoWidget::initUI() {
     pe.setColor(QPalette::WindowText,Qt::white);
     m_logoVersionLabel->setPalette(pe);
 #endif
-//    m_logoVersionLabel->setFixedWidth(30);
     this->setObjectName("LogoWidget");
-
-    m_logoRightSideLayout = new QVBoxLayout;
-    m_logoRightSideLayout->setMargin(0);
-    m_logoRightSideLayout->setSpacing(0);
-    m_logoRightSideLayout->addWidget(m_logoVersionLabel);
-    m_logoRightSideLayout->addStretch();
 
     m_logoLayout = new QHBoxLayout;
     m_logoLayout->setMargin(0);
     m_logoLayout->setSpacing(0);
     m_logoLayout->addSpacing(48);
     m_logoLayout->addWidget(m_logoLabel);
-    m_logoLayout->addLayout(m_logoRightSideLayout);
-    m_logoLayout->addStretch();
+    m_logoLayout->addWidget(m_logoVersionLabel, 0, Qt::AlignTop);
+
     setLayout(m_logoLayout);
 
     QString systemVersion = getVersion();
