@@ -52,12 +52,6 @@ NotificationEntity::NotificationEntity(const NotificationEntity &notify) :
 
 }
 
-NotificationEntity &NotificationEntity::operator=(const NotificationEntity &notify)
-{
-    NotificationEntity ent(notify);
-    return ent;
-}
-
 QString NotificationEntity::appName() const
 {
     return m_appName;

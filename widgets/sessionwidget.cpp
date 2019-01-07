@@ -59,10 +59,10 @@ const QString session_standard_icon_name(const QString &realName)
 }
 
 SessionWidget::SessionWidget(QWidget *parent)
-    : QFrame(parent),
-      m_currentSessionIndex(0),
-      m_sessionModel(new QLightDM::SessionsModel(this))
+    : QFrame(parent)
+    , m_currentSessionIndex(0)
     , m_frameDataBind(FrameDataBind::Instance())
+    , m_sessionModel(new QLightDM::SessionsModel(this))
 {
 //    setStyleSheet("QFrame {"
 //                  "background-color: red;"

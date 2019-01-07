@@ -42,13 +42,13 @@
 ContentWidget::ContentWidget(QWidget *parent)
     : QFrame(parent)
     , m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
-    , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
-                                     "/com/deepin/daemon/ImageBlur",
-                                     QDBusConnection::systemBus(), this))
     , m_dbusAppearance(new Appearance("com.deepin.daemon.Appearance",
                                       "/com/deepin/daemon/Appearance",
                                       QDBusConnection::sessionBus(),
                                       this))
+    , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
+                                     "/com/deepin/daemon/ImageBlur",
+                                     QDBusConnection::systemBus(), this))
 
 {
     initUI();

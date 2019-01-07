@@ -40,7 +40,7 @@ public:
     explicit InhibitWarnView(QWidget *parent = 0);
 
     void setInhibitReason(const QString &reason);
-    void setAcceptReason(const QString &reason);
+    void setAcceptReason(const QString &reason) override;
     void setAction(const Actions action);
     void setAcceptVisible(const bool acceptable);
 

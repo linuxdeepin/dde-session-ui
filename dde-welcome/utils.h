@@ -14,20 +14,20 @@ static const std::pair<QString, QString> GetSystemVersion()
     QLocale locale;
 
     if (locale.language() == QLocale::Chinese)
-        return std::move(std::pair<QString, QString> {
-                             lsbSetting.value("Version").toString(),
-                             lsbSetting.value(QString("Type[%1]").arg(locale.name()), "").toString()
-                         });
+        return std::pair<QString, QString> {
+            lsbSetting.value("Version").toString(),
+                    lsbSetting.value(QString("Type[%1]").arg(locale.name()), "").toString()
+        };
 
-    return std::move(std::pair<QString, QString> {
-                         lsbSetting.value("Version").toString(),
-                         lsbSetting.value(QString("Type"), "").toString()
-                     });
+    return std::pair<QString, QString> {
+        lsbSetting.value("Version").toString(),
+                lsbSetting.value(QString("Type"), "").toString()
+    };
 }
 
 static const QString GetLocalVersion() {
     QSettings welcomeSetting("deepin", "dde-welcome");
-    return std::move(welcomeSetting.value("Version").toString());
+    return welcomeSetting.value("Version").toString();
 }
 
 static bool CheckVersionChanged()
