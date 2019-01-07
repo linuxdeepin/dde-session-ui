@@ -134,6 +134,7 @@ MainWidget::MainWidget(QWidget *parent)
 
     UpdateContent *content = new UpdateContent(GetSystemVersion(), this);
     setContent(content);
+    content->hide();
 
     // blur wallpaper
     const QString &w = m_blurImageInter->Get(m_wallpaper);

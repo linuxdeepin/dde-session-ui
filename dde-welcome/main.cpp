@@ -25,6 +25,8 @@
 
 #include <DApplication>
 #include <DLog>
+#include <QScreen>
+#include <QWindow>
 
 #include "mainwidget.h"
 #include "utils.h"
@@ -49,8 +51,15 @@ int main(int argc, char *argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app.installTranslator(&translator);
 
-    MainWidget w;
-    w.showFullScreen();
+    for (QScreen *screen : app.screens()) {
+        MainWidget *w = new MainWidget;
+        w->createWinId();
+        w->windowHandle()->setScreen(screen);
+        w->setGeometry(screen->geometry());
+        w->setFixedSize(screen->size());
+        w->show();
+    }
+
 
     return app.exec();
 }
