@@ -35,6 +35,7 @@
 #include <QLabel>
 #include <QPropertyAnimation>
 #include <com_deepin_daemon_accounts_user.h>
+#include <memory>
 
 #include "useravatar.h"
 

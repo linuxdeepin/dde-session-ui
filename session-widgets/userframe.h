@@ -40,11 +40,11 @@ private:
     void onOtherPageChanged(const QVariant &value);
 
 private:
-    QWidget *m_baseFrame;
     QMap<uint, UserButton*> m_userBtns;
     SessionBaseModel *m_model;
     bool m_isExpansion;
     FrameDataBind *m_frameDataBind;
+    QWidget *m_baseFrame;
 };
 
 #endif // USERFRAME_H
