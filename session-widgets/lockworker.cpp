@@ -90,6 +90,17 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         if (poweraction == SessionBaseModel::PowerAction::RequireHibernate) {
             m_login1ManagerInterface->Hibernate(true);
         }
+        if (model->currentType() == SessionBaseModel::AuthType::LightdmType) {
+            switch (poweraction) {
+            case SessionBaseModel::PowerAction::RequireShutdown:
+                m_login1ManagerInterface->PowerOff(true);
+                break;
+            case SessionBaseModel::PowerAction::RequireRestart:
+                m_login1ManagerInterface->Reboot(true);
+            default:
+                break;
+            }
+        }
     });
 
     connect(m_lockInter, &DBusLockService::UserChanged, this, &LockWorker::onCurrentUserChanged);
