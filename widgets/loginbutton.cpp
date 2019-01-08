@@ -12,6 +12,8 @@ LoginButton::LoginButton(QWidget *parent)
     , m_text(new QLabel)
     , m_icon(new QLabel)
 {
+    m_text->setAlignment(Qt::AlignCenter);
+
     setObjectName("LoginButton");
 
     QHBoxLayout *layout = new QHBoxLayout;
@@ -19,7 +21,7 @@ LoginButton::LoginButton(QWidget *parent)
     layout->setSpacing(0);
 
     layout->addStretch();
-    layout->addWidget(m_text);
+    layout->addWidget(m_text, 0, Qt::AlignVCenter);
     layout->addSpacing(20);
     layout->addWidget(m_icon);
     layout->addStretch();

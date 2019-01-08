@@ -153,14 +153,23 @@ void LockWorker::authUser(std::shared_ptr<User> user, const QString &password)
         m_lockInter->UnlockCheck(user->name(), password);
     }
     else {
-        qDebug() << "start authentication of user: " << m_greeter->authenticationUser();
+        qDebug() << "start authentication of user: " << user->name();
 
-        if (m_greeter->inAuthentication()) {
-            m_greeter->respond(password);
+        if (m_greeter->authenticationUser() != user->name()) {
+            m_greeter->cancelAuthentication();
+            QTimer::singleShot(100, this, [=] {
+                m_greeter->authenticate(user->name());
+            });
         }
         else {
-            m_greeter->authenticate(user->name());
+            if (m_greeter->inAuthentication()) {
+                m_greeter->respond(password);
+            }
+            else {
+                m_greeter->authenticate(user->name());
+            }
         }
+
     }
 }
 

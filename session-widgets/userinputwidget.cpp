@@ -152,6 +152,9 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
     setName(user->displayName());
     setAvatar(user->avatarPath());
     disablePassword(user.get()->isLock());
+    m_loginBtn->hide();
+    m_passwordEdit->hide();
+    m_otherUserInput->hide();
 
     int frameHeight = (m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2;
 
