@@ -240,13 +240,15 @@ void LockWorker::onUserAdded(const QString &user)
         m_model->setCurrentUser(user_ptr);
 
         if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
-            if (m_greeter->inAuthentication()) {
-                m_greeter->cancelAuthentication();
-            }
+            if (!checkUserIsNoPWGrp(user_ptr)) {
+                if (m_greeter->inAuthentication()) {
+                    m_greeter->cancelAuthentication();
+                }
 
-            QTimer::singleShot(100, this, [=] {
-                m_greeter->authenticate(user_ptr->name());
-            });
+                QTimer::singleShot(100, this, [=] {
+                    m_greeter->authenticate(user_ptr->name());
+                });
+            }
         }
     }
 
