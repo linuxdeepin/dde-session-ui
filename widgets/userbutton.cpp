@@ -85,9 +85,7 @@ void UserButton::initUI()
                                    "font-size: 16px;"
                                    "font-weight: normal;"
                                    "font-style: normal;"
-                                   "font-stretch: normal;"
                                    "line-height: normal;"
-                                   "letter-spacing: normal;"
                                    "text-align: center;"
                                    "color: #ffffff;"
                                    "}");
