@@ -29,6 +29,9 @@
 #include <QCommandLineParser>
 #include <QDebug>
 #include <QTranslator>
+#include <DLog>
+#include <QScreen>
+#include <QWindow>
 
 DWIDGET_USE_NAMESPACE
 
@@ -50,10 +53,16 @@ int main(int argc, char *argv[])
     parser.addOption(config);
     parser.process(a);
 
-    WMFrame w;
     if (parser.isSet(config)) {
-        w.setConfigPath(parser.value(config));
-        w.show();
+        for (QScreen *screen : a.screens()) {
+            WMFrame *w = new WMFrame;
+            w->createWinId();
+            w->windowHandle()->setScreen(screen);
+            w->setGeometry(screen->geometry());
+            w->setFixedSize(screen->size());
+            w->setConfigPath(parser.value(config));
+            w->show();
+        }
     } else {
         return 0;
     }
