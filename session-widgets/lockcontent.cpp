@@ -109,6 +109,8 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     onCurrentUserChanged(model->currentUser());
     m_controlWidget->setVirtualKBVisible(model->hasVirtualKB());
     initVirtualKB(model->hasVirtualKB());
+
+    m_controlWidget->setUserSwitchEnable(model->userList().size() > 1);
 }
 
 void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
