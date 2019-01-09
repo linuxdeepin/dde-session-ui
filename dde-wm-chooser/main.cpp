@@ -24,6 +24,8 @@
  */
 
 #include "wmframe.h"
+#include "propertygroup.h"
+
 #include <DApplication>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
@@ -54,12 +56,14 @@ int main(int argc, char *argv[])
     parser.process(a);
 
     if (parser.isSet(config)) {
+        PropertyGroup *pg = new PropertyGroup();
+
+        pg->addProperty("contentVisible");
+
         for (QScreen *screen : a.screens()) {
             WMFrame *w = new WMFrame;
-            w->createWinId();
-            w->windowHandle()->setScreen(screen);
-            w->setGeometry(screen->geometry());
-            w->setFixedSize(screen->size());
+            w->setScreen(screen);
+            pg->addObject(w);
             w->setConfigPath(parser.value(config));
             w->show();
         }

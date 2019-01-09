@@ -54,20 +54,12 @@ TimeWidget::TimeWidget(QWidget *parent)
     m_refreshTimer->start();
 
     QVBoxLayout *vLayout = new QVBoxLayout;
-    vLayout->addStretch();
     vLayout->addWidget(m_timeLabel);
     vLayout->addWidget(m_dateLabel);
     vLayout->setSpacing(0);
-    vLayout->setMargin(0);
+    vLayout->setContentsMargins(48, 0, 0, 0);
 
-    QHBoxLayout *mainLayout = new QHBoxLayout;
-    mainLayout->addSpacing(48);
-    mainLayout->addLayout(vLayout);
-    mainLayout->addStretch();
-    mainLayout->setSpacing(0);
-    mainLayout->setMargin(0);
-
-    setLayout(mainLayout);
+    setLayout(vLayout);
 
     connect(m_refreshTimer, &QTimer::timeout, this, &TimeWidget::refreshTime);
 }

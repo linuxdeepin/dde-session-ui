@@ -9,19 +9,12 @@
 #define USER_HEIGHT 180
 
 UserFrame::UserFrame(QWidget *parent)
-    : QScrollArea(parent)
+    : QWidget(parent)
     , m_isExpansion(false)
     , m_frameDataBind(FrameDataBind::Instance())
-    , m_baseFrame(new QWidget)
 {
-    setWidgetResizable(true);
     setFocusPolicy(Qt::NoFocus);
-    setFrameStyle(QFrame::NoFrame);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setStyleSheet("background: transparent;");
-    setWidget(m_baseFrame);
 
     std::function<void (QVariant)> function = std::bind(&UserFrame::onOtherPageChanged, this, std::placeholders::_1);
     m_frameDataBind->registerFunction("UserFrame", function);
@@ -45,7 +38,7 @@ void UserFrame::resizeEvent(QResizeEvent *event)
 {
     QTimer::singleShot(0, this, &UserFrame::refreshPosition);
 
-    return QFrame::resizeEvent(event);
+    return QWidget::resizeEvent(event);
 }
 
 void UserFrame::mouseReleaseEvent(QMouseEvent *event)
@@ -56,7 +49,7 @@ void UserFrame::mouseReleaseEvent(QMouseEvent *event)
 
     hide();
 
-    return QFrame::mouseReleaseEvent(event);
+    return QWidget::mouseReleaseEvent(event);
 }
 
 void UserFrame::hideEvent(QHideEvent *event)
@@ -64,7 +57,7 @@ void UserFrame::hideEvent(QHideEvent *event)
     releaseKeyboard();
     expansion(false);
 
-    return QFrame::hideEvent(event);
+    return QWidget::hideEvent(event);
 }
 
 void UserFrame::keyPressEvent(QKeyEvent *event)
@@ -91,7 +84,7 @@ void UserFrame::keyPressEvent(QKeyEvent *event)
     default:
         break;
     }
-    return QFrame::keyPressEvent(event);
+    return QWidget::keyPressEvent(event);
 }
 
 void UserFrame::userAdded(std::shared_ptr<User> user)
@@ -145,7 +138,7 @@ void UserFrame::refreshPosition()
             index++;
         }
 
-        m_baseFrame->setFixedHeight(USER_HEIGHT * (row + 1));
+        setFixedHeight(USER_HEIGHT * (row + 1));
     }
     else {
         for (auto it = m_userBtns.constBegin(); it != m_userBtns.constEnd(); ++it) {

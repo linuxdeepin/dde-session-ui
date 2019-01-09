@@ -74,6 +74,8 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     layout->setSpacing(0);
 
     layout->addStretch();
+    // 因为主窗口布局下面的工具栏高度为132，为了输入框在主窗口上看着是垂直居中对齐
+    layout->addSpacing(132);
     layout->addWidget(m_otherUserInput, 0, Qt::AlignHCenter);
     layout->addWidget(m_passwordEdit, 0, Qt::AlignHCenter);
     layout->addWidget(m_lockPasswordWidget, 0, Qt::AlignHCenter);
@@ -82,8 +84,8 @@ UserInputWidget::UserInputWidget(QWidget *parent)
 
     setLayout(layout);
 
-    m_nameLbl->hide();
     m_userAvatar->hide();
+    m_nameLbl->hide();
     m_passwordEdit->hide();
     m_otherUserInput->hide();
     m_loginBtn->hide();
@@ -326,8 +328,8 @@ void UserInputWidget::resizeEvent(QResizeEvent *event)
 {
     QTimer::singleShot(0, this, &UserInputWidget::refreshAvatarPosition);
     QTimer::singleShot(0, this, &UserInputWidget::refreshKBLayoutWidgetPosition);
-    QTimer::singleShot(0, m_userAvatar, &UserAvatar::show);
-    QTimer::singleShot(0, m_nameLbl, &QLabel::show);
+    QTimer::singleShot(0, m_userAvatar, &QWidget::show);
+    QTimer::singleShot(0, m_nameLbl, &QWidget::show);
 
     return QWidget::resizeEvent(event);
 }
@@ -341,8 +343,21 @@ void UserInputWidget::refreshLanguage()
 
 void UserInputWidget::refreshAvatarPosition()
 {
-    m_userAvatar->move((width() - m_userAvatar->width()) / 2, 0);
-    m_nameLbl->move((width() - m_nameLbl->width()) / 2, m_userAvatar->height() + 20);
+    QWidget *first_visible_widget = nullptr;
+
+    for (int i = 0; i < layout()->count(); ++i) {
+        if (QWidget *w = layout()->itemAt(i)->widget()) {
+            if (w->isVisible()) {
+                first_visible_widget = w;
+                break;
+            }
+        }
+    }
+
+    int bottom_y = first_visible_widget ? first_visible_widget->y() : height() / 2;
+
+    m_nameLbl->move((width() - m_nameLbl->width()) / 2, bottom_y - m_nameLbl->height() - 20);
+    m_userAvatar->move((width() - m_userAvatar->width()) / 2, m_nameLbl->y() - m_userAvatar->height());
 }
 
 void UserInputWidget::toggleKBLayoutWidget()

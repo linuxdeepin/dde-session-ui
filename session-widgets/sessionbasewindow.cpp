@@ -41,9 +41,10 @@ void SessionBaseWindow::setCenterContent(QWidget * const widget)
         m_centerWidget->hide();
     }
 
-    widget->show();
     m_centerLayout->addWidget(widget);
     m_centerWidget = widget;
+
+    widget->show();
 }
 
 void SessionBaseWindow::resizeEvent(QResizeEvent *event)
@@ -68,7 +69,6 @@ void SessionBaseWindow::initUI()
     m_rightBottomLayout->setMargin(0);
     m_rightBottomLayout->setSpacing(0);
 
-    QFrame *topWidget = new QFrame;
     QFrame *bottomWidget = new QFrame;
     m_scrollArea = new QScrollArea;
     QWidget *centerWidget = new QWidget;
@@ -82,7 +82,6 @@ void SessionBaseWindow::initUI()
     m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_scrollArea->setStyleSheet("background: transparent;");
     m_scrollArea->setWidget(centerWidget);
-    m_scrollArea->setMinimumHeight(500 / devicePixelRatioF());
 
     QHBoxLayout *bottomLayout = new QHBoxLayout;
     bottomLayout->setMargin(0);
@@ -93,18 +92,13 @@ void SessionBaseWindow::initUI()
     bottomLayout->addLayout(m_rightBottomLayout);
 
     bottomWidget->setLayout(bottomLayout);
+    bottomWidget->setFixedHeight(132);
 
-    topWidget->setFixedHeight(132 / devicePixelRatioF());
-    bottomWidget->setFixedHeight(132 / devicePixelRatioF());
-
-    m_mainLayou->setMargin(0);
+    m_mainLayou->setContentsMargins(0, 33, 0, 33);
     m_mainLayou->setSpacing(0);
 
-    m_mainLayou->addSpacing(33 / devicePixelRatioF());
-    m_mainLayou->addWidget(topWidget, 0, Qt::AlignTop);
-    m_mainLayou->addWidget(m_scrollArea, 0, Qt::AlignVCenter);
+    m_mainLayou->addWidget(m_scrollArea);
     m_mainLayou->addWidget(bottomWidget, 0, Qt::AlignBottom);
-    m_mainLayou->addSpacing(33 / devicePixelRatioF());
 
     setLayout(m_mainLayou);
 }

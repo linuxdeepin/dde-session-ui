@@ -10,7 +10,7 @@ class UserButton;
 class User;
 class SessionBaseModel;
 class FrameDataBind;
-class UserFrame : public QScrollArea
+class UserFrame : public QWidget
 {
     Q_OBJECT
 public:
@@ -44,7 +44,6 @@ private:
     SessionBaseModel *m_model;
     bool m_isExpansion;
     FrameDataBind *m_frameDataBind;
-    QWidget *m_baseFrame;
 };
 
 #endif // USERFRAME_H
