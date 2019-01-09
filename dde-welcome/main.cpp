@@ -30,6 +30,7 @@
 
 #include "mainwidget.h"
 #include "utils.h"
+#include "propertygroup.h"
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
@@ -51,12 +52,14 @@ int main(int argc, char *argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app.installTranslator(&translator);
 
+    PropertyGroup *property_group = new PropertyGroup();
+
+    property_group->addProperty("contentVisible");
+
     for (QScreen *screen : app.screens()) {
         MainWidget *w = new MainWidget;
-        w->createWinId();
-        w->windowHandle()->setScreen(screen);
-        w->setGeometry(screen->geometry());
-        w->setFixedSize(screen->size());
+        w->setScreen(screen);
+        property_group->addObject(w);
         w->show();
     }
 

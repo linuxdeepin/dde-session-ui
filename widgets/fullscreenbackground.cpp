@@ -34,13 +34,13 @@
 #include <QFileInfo>
 #include <QKeyEvent>
 #include <QCryptographicHash>
+#include <QWindow>
 
 FullscreenBackground::FullscreenBackground(QWidget *parent)
     : QWidget(parent)
     , m_fadeOutAni(new QVariantAnimation(this))
 {
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
-    setAttribute(Qt::WA_TranslucentBackground);
 
     m_fadeOutAni->setEasingCurve(QEasingCurve::InOutCubic);
     m_fadeOutAni->setDuration(1000);
@@ -48,6 +48,11 @@ FullscreenBackground::FullscreenBackground(QWidget *parent)
     m_fadeOutAni->setEndValue(0.0f);
 
     connect(m_fadeOutAni, &QVariantAnimation::valueChanged, this, static_cast<void (FullscreenBackground::*)()>(&FullscreenBackground::update));
+}
+
+bool FullscreenBackground::contentVisible() const
+{
+    return m_content && m_content->isVisible();
 }
 
 void FullscreenBackground::updateBackground(const QPixmap &background)
@@ -81,6 +86,27 @@ void FullscreenBackground::updateBackground(const QString &file)
     Q_ASSERT(QFileInfo(m_bgPath).isFile());
 
     updateBackground(QPixmap(m_bgPath));
+}
+
+void FullscreenBackground::setScreen(QScreen *screen)
+{
+    updateScreen(screen);
+}
+
+void FullscreenBackground::setContentVisible(bool contentVisible)
+{
+    if (this->contentVisible() == contentVisible)
+        return;
+
+    if (!m_content)
+        return;
+
+    if (!isVisible() && !contentVisible)
+        return;
+
+    m_content->setVisible(contentVisible);
+
+    emit contentVisibleChanged(contentVisible);
 }
 
 void FullscreenBackground::setContent(QWidget * const w)
@@ -123,25 +149,19 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
 void FullscreenBackground::enterEvent(QEvent *event)
 {
     m_content->show();
+    emit contentVisibleChanged(true);
 
     return QWidget::enterEvent(event);
 }
 
 void FullscreenBackground::leaveEvent(QEvent *event)
 {
-    if (geometry().contains(QCursor::pos())) {
-        event->accept();
-        return;
-    }
-
-    m_content->hide();
-
     return QWidget::leaveEvent(event);
 }
 
 void FullscreenBackground::resizeEvent(QResizeEvent *event)
 {
-    m_content->setFixedSize(event->size());
+    m_content->resize(size());
 
     return QWidget::resizeEvent(event);
 }
@@ -157,6 +177,26 @@ void FullscreenBackground::keyPressEvent(QKeyEvent *e)
 #endif
     default:;
     }
+}
+
+void FullscreenBackground::showEvent(QShowEvent *event)
+{
+    if (QWindow *w = windowHandle()) {
+        if (m_screen) {
+            if (w->screen() != m_screen) {
+                w->setScreen(m_screen);
+            }
+
+            // 更新窗口位置和大小
+            updateGeometry();
+        } else {
+            updateScreen(w->screen());
+        }
+
+        connect(w, &QWindow::screenChanged, this, &FullscreenBackground::updateScreen);
+    }
+
+    return QWidget::showEvent(event);
 }
 
 const QPixmap FullscreenBackground::pixmapHandle(const QPixmap &pixmap)
@@ -175,4 +215,26 @@ const QPixmap FullscreenBackground::pixmapHandle(const QPixmap &pixmap)
     pix.setDevicePixelRatio(devicePixelRatioF());
 
     return pix;
+}
+
+void FullscreenBackground::updateScreen(QScreen *screen)
+{
+    if (screen == m_screen)
+        return;
+
+    if (m_screen) {
+        disconnect(m_screen, &QScreen::geometryChanged, this, &FullscreenBackground::updateGeometry);
+    } else if (screen) {
+        connect(screen, &QScreen::geometryChanged, this, &FullscreenBackground::updateGeometry);
+    }
+
+    m_screen = screen;
+
+    if (m_screen)
+        updateGeometry();
+}
+
+void FullscreenBackground::updateGeometry()
+{
+    setGeometry(m_screen->geometry());
 }

@@ -36,6 +36,7 @@
 #include "app/shutdownframe.h"
 #include "sessionbasemodel.h"
 #include "lockworker.h"
+#include "propertygroup.h"
 
 #include "dbusshutdownagent.h"
 
@@ -90,13 +91,14 @@ int main(int argc, char* argv[])
         LockWorker *worker = new LockWorker(model); //
 
         DBusShutdownAgent *dbusAgent = new DBusShutdownAgent;
+        PropertyGroup *property_group = new PropertyGroup(worker);
+
+        property_group->addProperty("contentVisible");
 
         for (QScreen *screen : app.screens()) {
             ShutdownFrame *frame = new ShutdownFrame(model);
-            frame->createWinId();
-            frame->windowHandle()->setScreen(screen);
-            frame->setGeometry(screen->geometry());
-            frame->setFixedSize(screen->size());
+            frame->setScreen(screen);
+            property_group->addObject(frame);
             QObject::connect(model, &SessionBaseModel::show, frame, &ShutdownFrame::show);
             QObject::connect(frame, &ShutdownFrame::requestEnableHotzone, worker, &LockWorker::enableZoneDetected);
             frame->show();

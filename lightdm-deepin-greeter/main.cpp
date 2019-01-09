@@ -27,6 +27,7 @@
 #include "constants.h"
 #include "lockworker.h"
 #include "sessionbasemodel.h"
+#include "propertygroup.h"
 
 #include <DApplication>
 #include <QtCore/QTranslator>
@@ -176,12 +177,14 @@ int main(int argc, char* argv[])
         set_rootwindow_cursor();
     });
 
+    PropertyGroup *property_group = new PropertyGroup(worker);
+
+    property_group->addProperty("contentVisible");
+
     for (QScreen *screen : a.screens()) {
         LoginWindow *loginFrame = new LoginWindow(model);
-        loginFrame->createWinId();
-        loginFrame->windowHandle()->setScreen(screen);
-        loginFrame->setGeometry(screen->geometry());
-        loginFrame->setFixedSize(screen->size());
+        loginFrame->setScreen(screen);
+        property_group->addObject(loginFrame);
         QObject::connect(loginFrame, &LoginWindow::requestSwitchToUser, worker, &LockWorker::switchToUser);
         QObject::connect(loginFrame, &LoginWindow::requestAuthUser, worker, &LockWorker::authUser);
         QObject::connect(loginFrame, &LoginWindow::requestSetLayout, worker, &LockWorker::setLayout);

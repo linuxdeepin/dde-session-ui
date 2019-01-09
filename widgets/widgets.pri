@@ -26,7 +26,8 @@ HEADERS += \
     $$PWD/fullscreenbackground.h \
     $$PWD/otheruserinput.h \
     $$PWD/virtualkbinstance.h \
-    $$PWD/loginbutton.h
+    $$PWD/loginbutton.h \
+    $$PWD/propertygroup.h
 
 
 
@@ -46,7 +47,8 @@ SOURCES += \
     $$PWD/fullscreenbackground.cpp \
     $$PWD/otheruserinput.cpp \
     $$PWD/virtualkbinstance.cpp \
-    $$PWD/loginbutton.cpp
+    $$PWD/loginbutton.cpp \
+    $$PWD/propertygroup.cpp
 
 RESOURCES += \
     $$PWD/widgetstheme.qrc \

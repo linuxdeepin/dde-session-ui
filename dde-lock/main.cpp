@@ -32,6 +32,7 @@
 #include "lockcontent.h"
 #include "lockworker.h"
 #include "sessionbasemodel.h"
+#include "propertygroup.h"
 
 #include <QLabel>
 #include <QScreen>
@@ -72,13 +73,14 @@ int main(int argc, char *argv[])
 
     SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LockType);
     LockWorker *worker = new LockWorker(model); //
+    PropertyGroup *property_group = new PropertyGroup(worker);
+
+    property_group->addProperty("contentVisible");
 
     for (QScreen *screen : app.screens()) {
         LockFrame *lockFrame = new LockFrame(model);
-        lockFrame->createWinId();
-        lockFrame->windowHandle()->setScreen(screen);
-        lockFrame->setGeometry(screen->geometry());
-        lockFrame->setFixedSize(screen->size());
+        lockFrame->setScreen(screen);
+        property_group->addObject(lockFrame);
         QObject::connect(lockFrame, &LockFrame::requestSwitchToUser, worker, &LockWorker::switchToUser);
         QObject::connect(lockFrame, &LockFrame::requestAuthUser, worker, &LockWorker::authUser);
         QObject::connect(model, &SessionBaseModel::show, lockFrame, &LockFrame::show);
@@ -121,4 +123,3 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
