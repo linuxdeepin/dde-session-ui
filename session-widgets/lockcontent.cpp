@@ -78,10 +78,14 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
             m_userInputWidget->normalMode();
             break;
         case SessionBaseModel::RequireRestart:
-            m_userInputWidget->restartMode();
+            if (model->currentType() == SessionBaseModel::AuthType::LockType) {
+                m_userInputWidget->restartMode();
+            }
             break;
         case SessionBaseModel::RequireShutdown:
-            m_userInputWidget->shutdownMode();
+            if (model->currentType() == SessionBaseModel::AuthType::LockType) {
+                m_userInputWidget->shutdownMode();
+            }
         default:
             break;
         }
