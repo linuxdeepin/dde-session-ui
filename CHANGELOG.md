@@ -1,3 +1,19 @@
+<a name="4.8.3"></a>
+## 4.8.3 (2019-01-09)
+
+
+#### Bug Fixes
+
+* **dde-welcome:**  geometry error ([cea5d637](https://github.com/linuxdeepin/dde-session-ui/commit/cea5d6379acd3714f0fa1f26b8aec7d087cea0eb))
+* **greeter:**
+  *  shutdown and reboot don't auth user ([ed486330](https://github.com/linuxdeepin/dde-session-ui/commit/ed486330ad5d38651ad3a4f2019cc334580a71cd))
+  *  check user is nopasswordgrp ([f0d2278b](https://github.com/linuxdeepin/dde-session-ui/commit/f0d2278b46cacadd9d0f5d6221992c03c9bd137b))
+  *  not auth current user ([71786180](https://github.com/linuxdeepin/dde-session-ui/commit/71786180717ecc9a7dba26e6efbeebf0bcc6ce14))
+  *  cannot show virtualKB ([f0aafb63](https://github.com/linuxdeepin/dde-session-ui/commit/f0aafb634db0a5b0d6ffa103e2089a11cfbe29be))
+  *  the deepin version lable not fully displayed ([c191e738](https://github.com/linuxdeepin/dde-session-ui/commit/c191e73828b680c99173b182cdd522b431b3a979))
+
+
+
 <a name=""></a>
 ##  4.8.2 (2019-01-03)
 
