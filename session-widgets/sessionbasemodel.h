@@ -11,6 +11,7 @@ class SessionBaseModel : public QObject
     Q_OBJECT
 public:
     enum AuthType {
+        UnknowAuthType,
         LockType,
         LightdmType
     };

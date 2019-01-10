@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
     } else {
         qDebug() << "dbus registration success.";
 
-        SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LockType);
+        SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::UnknowAuthType);
         LockWorker *worker = new LockWorker(model); //
 
         DBusShutdownAgent *dbusAgent = new DBusShutdownAgent;
