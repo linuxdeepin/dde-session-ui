@@ -157,7 +157,7 @@
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="80"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Akun Domain</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="448"/>
@@ -230,17 +230,17 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>Kata Sandi Proxy</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>Kata Sandi Grup</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Kata sandi dibutuhkan untuk terhubung &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -309,7 +309,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="101"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Hibernasi</translation>
     </message>
 </context>
 <context>
@@ -362,17 +362,17 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Selamat, pembaharuan sistem berhasil</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>Edisi saat ini:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Masuk</translation>
     </message>
 </context>
 <context>
@@ -385,7 +385,7 @@
     <message numerus="yes">
         <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>Mohon coba lagi %n menit kemudian</numerusform></translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
@@ -395,7 +395,7 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>Masukkan sandi lewat Anda untuk muat ulang</translation>
     </message>
 </context>
 <context>
@@ -423,7 +423,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation type="unfinished"/>
+        <translation>Mode Efek: Mempunyai pergerakan mulus dan halus. Mode Umum: Nikmati kinerja cepat</translation>
     </message>
 </context>
 <context>

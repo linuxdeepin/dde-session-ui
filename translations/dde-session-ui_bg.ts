@@ -157,7 +157,7 @@
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="80"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Домейн акаунт</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="448"/>
@@ -385,7 +385,7 @@
     <message numerus="yes">
         <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Моля опитайте след %n минутa()</numerusform><numerusform>Моля опитайте след %n минути()</numerusform></translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
