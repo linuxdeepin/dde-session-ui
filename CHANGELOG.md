@@ -1,3 +1,21 @@
+<a name="4.8.4"></a>
+### 4.8.4 (2019-01-10)
+
+
+#### Bug Fixes
+
+*   no messages when using fingerprint verification ([c2b5a782](https://github.com/linuxdeepin/dde-session-ui/commit/c2b5a782fa951f63c7d24df9875ded9fe4d0b5dd))
+*   do not start user auth on the dde-shutdown application ([f246b1d1](https://github.com/linuxdeepin/dde-session-ui/commit/f246b1d15ef9d69766525e366a09574541b297e2))
+*   the keyboard list widget can not fully display ([f76cdd18](https://github.com/linuxdeepin/dde-session-ui/commit/f76cdd1881b08c5961775ff6586fc7ea29bca3ea))
+*   the widgets can not fully display on the hi-DPI screen ([b56d624d](https://github.com/linuxdeepin/dde-session-ui/commit/b56d624d35a5fb9ce88231f06061e8deb7c33bf1))
+*   hide the user switch icon if only have one user ([3d6c915d](https://github.com/linuxdeepin/dde-session-ui/commit/3d6c915d4b5e59dddec8736b7e6dde922bbdde49))
+*   wm mode chooser window size ([3e218a07](https://github.com/linuxdeepin/dde-session-ui/commit/3e218a074733f0f5c98e0dade56863c98c5ea54e))
+*   the lock contents widget is hidden when move cursor to the screen corners ([7db08a83](https://github.com/linuxdeepin/dde-session-ui/commit/7db08a831e1ad3a470cb46796ad302c7f593625e))
+*   warning "Unknow property font-stretch" ([6f407b2f](https://github.com/linuxdeepin/dde-session-ui/commit/6f407b2f9a207b11a82f38c8566f62440ad24af9))
+* **greeter:**  no need to verify password ([e739c7dd](https://github.com/linuxdeepin/dde-session-ui/commit/e739c7dd6f791a483ffba98dedd12240ccc2573f))
+
+
+
 <a name="4.8.3"></a>
 ## 4.8.3 (2019-01-09)
 
