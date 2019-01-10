@@ -15,9 +15,6 @@ public:
     virtual void setRightBottomWidget(QWidget *const widget) final;
     virtual void setCenterContent(QWidget *const widget) final;
 
-protected:
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
-
 private:
     void initUI();
 

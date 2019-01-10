@@ -47,11 +47,6 @@ void SessionBaseWindow::setCenterContent(QWidget * const widget)
     widget->show();
 }
 
-void SessionBaseWindow::resizeEvent(QResizeEvent *event)
-{
-    return QFrame::resizeEvent(event);
-}
-
 void SessionBaseWindow::initUI()
 {
     m_mainLayou = new QVBoxLayout;

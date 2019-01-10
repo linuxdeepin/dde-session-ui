@@ -26,6 +26,7 @@ class UserInputWidget : public QWidget
     Q_OBJECT
 public:
     explicit UserInputWidget(QWidget *parent = nullptr);
+    ~UserInputWidget();
 
     void setUser(std::shared_ptr<User> user);
 

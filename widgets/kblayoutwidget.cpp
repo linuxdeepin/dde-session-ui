@@ -24,6 +24,7 @@
  */
 
 #include <QDebug>
+
 #include "kblayoutwidget.h"
 #include "public_func.h"
 
@@ -32,6 +33,7 @@ LayoutButton::LayoutButton(QString text, QWidget *parent)
 {
     setObjectName("LayoutButton");
     setCheckable(true);
+    setFocusPolicy(Qt::NoFocus);
 
     m_text = text;
     m_iconLabel = new QLabel(this);
@@ -117,7 +119,7 @@ KbLayoutWidget::KbLayoutWidget(QStringList buttons, QWidget *parent)
     initUI();
     updateButtonList(buttons);
     updateUI();
-
+    setFocusPolicy(Qt::StrongFocus);
 }
 
 void KbLayoutWidget::initUI() {
@@ -130,7 +132,7 @@ void KbLayoutWidget::initUI() {
     for (int i = 0; i < m_buttons.length(); i++) {
         addButton(m_buttons[i]);
     }
-    this->setFixedHeight(DDESESSIONCC::LAYOUTBUTTON_HEIGHT * std::min(3, m_buttons.length()));
+    this->setMaximumHeight(DDESESSIONCC::LAYOUTBUTTON_HEIGHT * 3);
 
     updateStyle(":/skin/keybdlayoutwidget.qss", this);
 }
@@ -209,8 +211,8 @@ void KbLayoutWidget::updateButtonList(const QStringList &buttons)
     for (int i = 0; i < m_kbdParseList.length(); i++) {
         addButton(m_kbdParseList[i]);
     }
-    this->setFixedHeight(DDESESSIONCC::LAYOUTBUTTON_HEIGHT * std::min(3, m_buttons.length()));
 
+    resize(width(), DDESESSIONCC::LAYOUTBUTTON_HEIGHT * m_kbdParseList.count());
     updateStyle(":/skin/keybdlayoutwidget.qss", this);
 }
 
@@ -244,11 +246,17 @@ void KbLayoutWidget::addButton(const QString &button)
     setItemWidget(item,  borderFrame);
     m_layoutItemList.insert(item, borderFrame);
     this->setGridSize(QSize(widget_width, DDESESSIONCC::LAYOUTBUTTON_HEIGHT));
-    this->setFixedWidth(widget_width);
     updateStyle(":/skin/layoutbutton.qss", this);
 
     connect(itemButton, &LayoutButton::clicked, itemButton, &LayoutButton::OnlyMeChecked, Qt::UniqueConnection);
     connect(itemButton, &LayoutButton::onlyOneChecked, this, &KbLayoutWidget::setButtonsChecked, Qt::UniqueConnection);
+}
+
+void KbLayoutWidget::focusOutEvent(QFocusEvent *event)
+{
+    emit focusOuted();
+
+    return QListWidget::focusOutEvent(event);
 }
 
 void KbLayoutWidget::updateUI() {

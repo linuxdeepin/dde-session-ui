@@ -73,6 +73,8 @@ public:
     void updateUI();
 signals:
     void setButtonClicked(QString text);
+    void focusOuted();
+
 public slots:
     void setButtonsChecked(QString text);
     void setListItemChecked(int itemIndex);
@@ -81,6 +83,7 @@ public slots:
 
 private:
     void addButton(const QString &button);
+    void focusOutEvent(QFocusEvent *event) override;
 
 private:
     const int widget_width = DDESESSIONCC::PASSWDLINEEIDT_WIDTH - 3;

@@ -20,7 +20,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     , m_passwordEdit(new DPasswdEditAnimated(this))
     , m_otherUserInput(new OtherUserInput(this))
     , m_loginBtn(new LoginButton(this))
-    , m_kbLayoutBorder(new DArrowRectangle(DArrowRectangle::ArrowTop, this))
+    , m_kbLayoutBorder(new DArrowRectangle(DArrowRectangle::ArrowTop))
     , m_kbLayoutWidget(new KbLayoutWidget(QStringList()))
     , m_lockPasswordWidget(new LockPasswordWidget)
 {
@@ -98,8 +98,6 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     m_kbLayoutBorder->setMargin(0);
 
     m_kbLayoutBorder->setContent(m_kbLayoutWidget);
-
-    m_kbLayoutBorder->setFixedHeight(276);
     m_kbLayoutBorder->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
 
     m_kbLayoutWidget->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
@@ -125,9 +123,17 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     });
 
     connect(m_kbLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &UserInputWidget::requestUserKBLayoutChanged);
+    connect(m_kbLayoutWidget, &KbLayoutWidget::focusOuted, m_kbLayoutBorder, &DArrowRectangle::hide);
 
     refreshLanguage();
     refreshAvatarPosition();
+}
+
+UserInputWidget::~UserInputWidget()
+{
+    // 因为键盘布局控件和UserInputWidget没有父子关系
+    // 此处需要手动销毁对象
+    m_kbLayoutBorder->deleteLater();
 }
 
 void UserInputWidget::setUser(std::shared_ptr<User> user)
@@ -217,6 +223,7 @@ void UserInputWidget::setFaildTipMessage(const QString &message)
 
 void UserInputWidget::updateKBLayout(const QStringList &list)
 {
+    m_passwordEdit->setKeyboardButtonEnable(list.size() > 1);
     m_kbLayoutWidget->updateButtonList(list);
     m_kbLayoutBorder->setContent(m_kbLayoutWidget);
 }
@@ -366,7 +373,11 @@ void UserInputWidget::toggleKBLayoutWidget()
         m_kbLayoutBorder->hide();
     }
     else {
+        // 保证布局选择控件不会被其它控件遮挡
+        // 必须要将它作为主窗口的子控件
+        m_kbLayoutBorder->setParent(window());
         m_kbLayoutBorder->setVisible(true);
+        m_kbLayoutBorder->raise();
         refreshKBLayoutWidgetPosition();
     }
 
@@ -375,9 +386,9 @@ void UserInputWidget::toggleKBLayoutWidget()
 
 void UserInputWidget::refreshKBLayoutWidgetPosition()
 {
-    m_kbLayoutBorder->move(m_passwordEdit->geometry().x() + (m_passwordEdit->width() / 2),
-                           m_passwordEdit->geometry().bottomLeft().y() - 15);
-
+    const QPoint &point = mapTo(m_kbLayoutBorder->parentWidget(), QPoint(m_passwordEdit->geometry().x() + (m_passwordEdit->width() / 2),
+                                                                         m_passwordEdit->geometry().bottomLeft().y() - 15));
+    m_kbLayoutBorder->move(point.x(), point.y());
     m_kbLayoutBorder->setArrowX(15);
 }
 
@@ -388,6 +399,14 @@ void UserInputWidget::onOtherPagePasswordChanged(const QVariant &value)
 
 void UserInputWidget::onOtherPageKBLayoutChanged(const QVariant &value)
 {
+    if (value.toBool()) {
+        m_kbLayoutBorder->setParent(window());
+    }
+
     m_kbLayoutBorder->setVisible(value.toBool());
+
+    if (m_kbLayoutBorder->isVisible())
+        m_kbLayoutBorder->raise();
+
     refreshKBLayoutWidgetPosition();
 }
