@@ -315,6 +315,9 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
 
         // skip fake ADDomain login button
         if (!isListContains && user->type() == User::ADDomain && user->uid() != 0) {
+            if (user == m_currentUser) {
+                QTimer::singleShot(0, this, &UserWidget::findFirstNotLogin);
+            }
             user->deleteLater();
             btn->deleteLater();
 
@@ -817,6 +820,7 @@ void UserWidget::findFirstNotLogin()
         m_currentUser = btn->userInfo();
     }
 
+    emit currentUserChanged(m_currentUser);
     QTimer::singleShot(1, this, &UserWidget::updateIconPosition);
 }
 
