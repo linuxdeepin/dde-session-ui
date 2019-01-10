@@ -452,9 +452,9 @@ void LockWorker::recoveryUserKBState(std::shared_ptr<User> user)
 
 void LockWorker::lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message)
 {
-    if (!m_authUser.get()) return;
+    if (!m_model->currentUser()) return;
 
-    if (username != m_authUser->name())
+    if (username != m_model->currentUser()->name())
         return;
 
     qDebug() << eventType << pid << username << message;
