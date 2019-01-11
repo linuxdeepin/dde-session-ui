@@ -97,6 +97,7 @@ int main(int argc, char* argv[])
 
         for (QScreen *screen : app.screens()) {
             ShutdownFrame *frame = new ShutdownFrame(model);
+            dbusAgent->addFrame(frame);
             frame->setScreen(screen);
             property_group->addObject(frame);
             QObject::connect(model, &SessionBaseModel::show, frame, &ShutdownFrame::show);
