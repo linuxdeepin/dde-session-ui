@@ -243,7 +243,9 @@ void LockWorker::onUserAdded(const QString &user)
         m_model->setCurrentUser(user_ptr);
 
         if (m_model->currentType() == SessionBaseModel::AuthType::LockType) {
-            m_lockInter->AuthenticateUser(user_ptr->name());
+            if (!checkUserIsNoPWGrp(user_ptr)) {
+                m_lockInter->AuthenticateUser(user_ptr->name());
+            }
         }
     }
 
