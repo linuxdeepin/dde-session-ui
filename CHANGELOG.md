@@ -1,3 +1,18 @@
+<a name="4.8.5"></a>
+### 4.8.5 (2019-01-14)
+
+
+#### Bug Fixes
+
+*   libnotify freeze when calling dbus notify ([e49fb176](https://github.com/linuxdeepin/dde-session-ui/commit/e49fb17663dfadbcd292bbd1cbb7955a36cbfe90))
+* **Lock:**  nopassword user cannot switchToUser ([e2219d3b](https://github.com/linuxdeepin/dde-session-ui/commit/e2219d3b6ee2b404178e1e85e649a3ac727bc4d0))
+* **Shutdown:**  confirm page not show ([07df6e41](https://github.com/linuxdeepin/dde-session-ui/commit/07df6e41e39ce1acf519235df7ca414f0ca45520))
+* **greeter:**
+  *  wrong num lock state when laptop not use battery ([78971b15](https://github.com/linuxdeepin/dde-session-ui/commit/78971b15e46b87581721a0dd49d2769f7c307bf1))
+  *  unlock with fingerprint will crash ([a824c8e7](https://github.com/linuxdeepin/dde-session-ui/commit/a824c8e77c6cdbfbce541fcb06939b245970975f))
+
+
+
 <a name="4.8.4"></a>
 ### 4.8.4 (2019-01-10)
 
