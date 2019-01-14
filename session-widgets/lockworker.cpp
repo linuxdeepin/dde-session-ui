@@ -443,10 +443,11 @@ void LockWorker::saveNumlockStatus(std::shared_ptr<User> user, const bool &on) {
 
 void LockWorker::recoveryUserKBState(std::shared_ptr<User> user)
 {
-    PowerInter powerInter("com.deepin.system.Power", "/com/deepin/system/Power", QDBusConnection::systemBus(), this);
-
-    const bool defaultValue = !powerInter.onBattery();
-    const bool enabled = UserNumlockSettings(user->name()).get(defaultValue);
+    //FIXME(lxz)
+//    PowerInter powerInter("com.deepin.system.Power", "/com/deepin/system/Power", QDBusConnection::systemBus(), this);
+//    const BatteryPresentInfo info = powerInter.batteryIsPresent();
+//    const bool defaultValue = !info.values().first();
+    const bool enabled = UserNumlockSettings(user->name()).get(false);
 
     qDebug() << "restore numlock status to " << enabled;
     KeyboardMonitor::instance()->setNumlockStatus(enabled);
