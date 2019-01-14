@@ -110,16 +110,16 @@ UserInputWidget::UserInputWidget(QWidget *parent)
         FrameDataBind::Instance()->updateValue("Password", value);
     });
     connect(m_passwordEdit, &DPasswdEditAnimated::submit, this, [=] (const QString &passwd) {
-        emit requestAuthUser(m_user, passwd);
+        emit requestAuthUser(passwd);
     });
     connect(m_loginBtn, &LoginButton::clicked, this, [=] {
-        emit requestAuthUser(m_user, QString());
+        emit requestAuthUser(QString());
     });
 
     connect(m_otherUserInput, &OtherUserInput::submit, this, [=] {
         std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*static_cast<ADDomainUser*>(m_user.get()));
         static_cast<ADDomainUser*>(user.get())->setUserDisplayName(m_otherUserInput->account());
-        emit requestAuthUser(user, m_otherUserInput->passwd());
+        emit requestAuthUser(m_otherUserInput->passwd());
     });
 
     connect(m_kbLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &UserInputWidget::requestUserKBLayoutChanged);

@@ -48,7 +48,7 @@ public:
     void hideKeyboard();
 
 signals:
-    void requestAuthUser(std::shared_ptr<User> user, const QString &password);
+    void requestAuthUser(const QString &password);
     void abortOperation();
     void requestUserKBLayoutChanged(const QString &layout);
 

@@ -148,10 +148,10 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
     }
 }
 
-void LockWorker::authUser(std::shared_ptr<User> user, const QString &password)
+void LockWorker::authUser(const QString &password)
 {
     // auth interface
-    m_authUser = user;
+    std::shared_ptr<User> user = m_model->currentUser();
 
     m_password = password;
 
@@ -511,8 +511,8 @@ void LockWorker::onUnlockFinished(bool unlocked)
         qDebug() << "Authorization failed!";
         emit m_model->authFaildTipsMessage(tr("Wrong Password"));
 
-        if (m_authUser->isLockForNum()) {
-            m_authUser->startLock();
+        if (m_model->currentUser()->isLockForNum()) {
+            m_model->currentUser()->startLock();
         }
         return;
     }
@@ -602,16 +602,16 @@ void LockWorker::authenticationComplete()
     qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
 
     if (!m_greeter->isAuthenticated()) {
-        if (m_authUser->type() == User::Native) {
+        if (m_model->currentUser()->type() == User::Native) {
             emit m_model->authFaildTipsMessage(tr("Wrong Password"));
         }
 
-        if (m_authUser->type() == User::ADDomain) {
+        if (m_model->currentUser()->type() == User::ADDomain) {
             emit m_model->authFaildTipsMessage(tr("The domain account or password is not correct. Please enter again."));
         }
 
-        if (m_authUser->isLockForNum()) {
-            m_authUser->startLock();
+        if (m_model->currentUser()->isLockForNum()) {
+            m_model->currentUser()->startLock();
         }
 
         return;
@@ -632,8 +632,8 @@ void LockWorker::authenticationComplete()
 
     auto startSessionSync = [=]() {
         QJsonObject json;
-        json["Uid"] = static_cast<int>(m_authUser->uid());
-        json["Type"] = m_authUser->type();
+        json["Uid"] = static_cast<int>(m_model->currentUser()->uid());
+        json["Type"] = m_model->currentUser()->type();
         m_lockInter->SwitchToUser(QString(QJsonDocument(json).toJson(QJsonDocument::Compact))).waitForFinished();
 
         m_greeter->startSessionSync(m_model->sessionKey());
@@ -641,7 +641,7 @@ void LockWorker::authenticationComplete()
 
 #ifndef DISABLE_LOGIN_ANI
     // NOTE(kirigaya): It is not necessary to display the login animation.
-    emit requestUpdateBackground(m_authUser->desktopBackgroundPath());
+    emit requestUpdateBackground(m_model->currentUser()->desktopBackgroundPath());
     emit m_model->authFinished(true);
     QTimer::singleShot(1000, this, startSessionSync);
 #else

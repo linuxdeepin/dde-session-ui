@@ -25,7 +25,7 @@ public:
 
 signals:
     void requestBackground(const QString &path);
-    void requestAuthUser(std::shared_ptr<User> user, const QString &password);
+    void requestAuthUser(const QString &password);
     void requestSwitchToUser(std::shared_ptr<User> user);
     void requestSetLayout(std::shared_ptr<User> user, const QString &value);
 

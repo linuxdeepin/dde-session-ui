@@ -27,7 +27,7 @@ public:
     explicit LockWorker(SessionBaseModel * const model, QObject *parent = nullptr);
 
     void switchToUser(std::shared_ptr<User> user);
-    void authUser(std::shared_ptr<User> user, const QString &password);
+    void authUser(const QString &password);
     void setLayout(std::shared_ptr<User> user, const QString &layout);
 
     void enableZoneDetected(bool disable);
@@ -79,7 +79,6 @@ private:
     uint m_currentUserUid;
     uint m_lastLogoutUid;
     User::UserType m_currentUserType;
-    std::shared_ptr<User> m_authUser;
     std::list<uint> m_loginUserList;
     QString m_password;
     QSettings m_settings;
