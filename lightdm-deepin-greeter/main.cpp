@@ -124,42 +124,61 @@ static int set_rootwindow_cursor() {
 
     return 0;
 }
+
+static double get_scale_ratio() {
+    Display *display = XOpenDisplay(NULL);
+
+    XRRScreenResources *resources = XRRGetScreenResourcesCurrent(display, DefaultRootWindow(display));
+    double scaleRatio = 1.0;
+
+    if (!resources) {
+        resources = XRRGetScreenResources(display, DefaultRootWindow(display));
+    }
+
+    if (resources) {
+        for (int i = 0; i < resources->noutput; i++) {
+            XRROutputInfo* outputInfo = XRRGetOutputInfo(display, resources, resources->outputs[i]);
+            if (outputInfo->crtc == 0 || outputInfo->mm_width == 0) continue;
+
+            XRRCrtcInfo *crtInfo = XRRGetCrtcInfo(display, resources, outputInfo->crtc);
+            if (crtInfo == nullptr) continue;
+
+            scaleRatio = (double)crtInfo->width / (double)outputInfo->mm_width / (1366.0 / 310.0);
+
+            if (scaleRatio > 1 + 2.0 / 3.0) {
+                scaleRatio = 2;
+            }
+            else if (scaleRatio > 1 + 1.0 / 3.0) {
+                scaleRatio = 1.5;
+            }
+            else {
+                scaleRatio = 1;
+            }
+        }
+    }
+
+    return scaleRatio;
+}
 // Load system cursor --end
 
 int main(int argc, char* argv[])
 {
-    Display *display = XOpenDisplay(NULL);
-
-    XRRScreenResources *resources = XRRGetScreenResources(display, DefaultRootWindow(display));
-    double scaleRatio = 1.0;
-
-    for (int i = 0; i < resources->noutput; i++) {
-        XRROutputInfo* outputInfo = XRRGetOutputInfo(display, resources, resources->outputs[i]);
-        if (outputInfo->crtc == 0 || outputInfo->mm_width == 0) continue;
-
-        XRRCrtcInfo *crtInfo = XRRGetCrtcInfo(display, resources, outputInfo->crtc);
-        if (crtInfo == nullptr) continue;
-
-        scaleRatio = (double)crtInfo->width / (double)outputInfo->mm_width / (1366.0 / 310.0);
-
-        if (scaleRatio > 1 + 2.0 / 3.0) {
-            scaleRatio = 2;
-        }
-        else if (scaleRatio > 1 + 1.0 / 3.0) {
-            scaleRatio = 1.5;
-        }
-        else {
-            scaleRatio = 1;
+    // load dpi settings
+    QSettings settings("/etc/lightdm/lightdm-deepin-greeter.conf", QSettings::IniFormat);
+    QVariant ratio = settings.value("ScreenScaleFactor");
+    if (ratio.isValid()) {
+        bool ok = false;
+        const double r = ratio.toDouble(&ok);
+        if (ok) {
+            setenv("QT_SCALE_FACTOR", QByteArray::number(r).constData(), 1);
         }
     }
 
-    XRRFreeScreenResources(resources);
+    if (!qEnvironmentVariableIsSet("QT_SCALE_FACTOR")) {
+        setenv("QT_AUTO_SCREEN_SCALE_FACTOR", "1", 1);
+    }
 
-    // load dpi settings
-    QSettings settings("/etc/lightdm/lightdm-deepin-greeter.conf", QSettings::IniFormat);
-    const auto ratio = settings.value("ScreenScaleFactor", scaleRatio).toString();
-    setenv("QT_SCALE_FACTOR", const_cast<char *>(ratio.toStdString().c_str()), 1);
-    setenv("XCURSOR_SIZE", const_cast<char *>(QString::number(24.0 * ratio.toFloat()).toStdString().c_str()), 1);
+    setenv("XCURSOR_SIZE", QByteArray::number(24.0 * ratio.toFloat()).constData(), 1);
 
     DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
