@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <DHiDPIHelper>
 #include <QPainter>
+#include <QKeyEvent>
 
 DWIDGET_USE_NAMESPACE
 
@@ -79,4 +80,13 @@ void LoginButton::paintEvent(QPaintEvent *event)
     painter.setPen(Qt::NoPen);
     painter.setBrush(QColor(255, 255, 255, 0.1 * 255));
     painter.drawRoundedRect(rect(), 5, 5);
+}
+
+void LoginButton::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) {
+        emit clicked();
+    }
+
+    return QWidget::keyPressEvent(event);
 }

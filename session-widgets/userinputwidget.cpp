@@ -58,6 +58,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
 
     m_loginBtn->setFixedHeight(DDESESSIONCC::PASSWDLINEEDIT_HEIGHT);
     m_loginBtn->setFixedWidth(128);
+    m_loginBtn->setFocusPolicy(Qt::StrongFocus);
 
     m_passwordEdit->setVisible(true);
     m_passwordEdit->setFocus();
@@ -295,11 +296,17 @@ void UserInputWidget::grabKeyboard()
     if (m_passwordEdit->isVisible()) {
         m_passwordEdit->lineEdit()->grabKeyboard();
     }
+
+    if (m_loginBtn->isVisible()) {
+        m_loginBtn->grabKeyboard();
+        m_loginBtn->setFocus();
+    }
 }
 
 void UserInputWidget::releaseKeyboard()
 {
     m_passwordEdit->lineEdit()->releaseKeyboard();
+    m_loginBtn->releaseKeyboard();
 }
 
 void UserInputWidget::hideKeyboard()
