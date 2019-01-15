@@ -70,6 +70,7 @@ public:
     Q_SLOT void Restart();
     Q_SLOT void Logout();
     Q_SLOT void Suspend();
+    Q_SLOT void Hibernate();
     Q_SLOT void SwitchUser();
     Q_SLOT void Show();
 

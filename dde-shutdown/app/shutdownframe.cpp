@@ -107,6 +107,11 @@ void ShutdownFrontDBus::Suspend()
     m_parent->Suspend();
 }
 
+void ShutdownFrontDBus::Hibernate()
+{
+    m_parent->Hibernate();
+}
+
 void ShutdownFrontDBus::SwitchUser()
 {
     m_parent->SwitchUser();

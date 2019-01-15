@@ -17,6 +17,7 @@ public:
     void Restart();
     void Logout();
     void Suspend();
+    void Hibernate();
     void SwitchUser();
     void Show();
 

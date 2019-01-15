@@ -44,11 +44,12 @@ void DBusShutdownAgent::Logout()
 
 void DBusShutdownAgent::Suspend()
 {
-    for (ShutdownFrame *frame : m_frames) {
-        frame->setConfirm(true);
-        frame->powerAction(Actions::Suspend);
-        frame->show();
-    }
+    m_frames.first()->powerAction(Actions::Suspend);
+}
+
+void DBusShutdownAgent::Hibernate()
+{
+    m_frames.first()->powerAction(Actions::Hibernate);
 }
 
 void DBusShutdownAgent::SwitchUser()
