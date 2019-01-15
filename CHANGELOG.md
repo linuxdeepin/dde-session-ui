@@ -1,3 +1,13 @@
+<a name="4.8.6"></a>
+### 4.8.6 (2019-01-15)
+
+
+#### Features
+
+* **Lock:**  support enter key to login system ([bc4e2823](https://github.com/linuxdeepin/dde-session-ui/commit/bc4e282336ef84c212346a5bc826f98f34252085))
+
+
+
 <a name="4.8.5"></a>
 ### 4.8.5 (2019-01-14)
 
