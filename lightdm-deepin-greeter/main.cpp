@@ -124,15 +124,17 @@ static int set_rootwindow_cursor() {
 
     return 0;
 }
+// Load system cursor --end
 
 static double get_scale_ratio() {
     Display *display = XOpenDisplay(NULL);
 
     XRRScreenResources *resources = XRRGetScreenResourcesCurrent(display, DefaultRootWindow(display));
-    double scaleRatio = 1.0;
+    double scaleRatio = 0.0;
 
     if (!resources) {
         resources = XRRGetScreenResources(display, DefaultRootWindow(display));
+        qWarning() << "get XRRGetScreenResourcesCurrent failed, use XRRGetScreenResources.";
     }
 
     if (resources) {
@@ -156,10 +158,23 @@ static double get_scale_ratio() {
             }
         }
     }
+    else {
+        qWarning() << "get scale radio failed, please check X11 Extension.";
+    }
 
     return scaleRatio;
 }
-// Load system cursor --end
+
+static void set_auto_QT_SCALE_FACTOR() {
+    const double ratio = get_scale_ratio();
+    if (ratio > 0.0) {
+        setenv("QT_SCALE_FACTOR", QByteArray::number(ratio).constData(), 1);
+    }
+
+    if (!qEnvironmentVariableIsSet("QT_SCALE_FACTOR")) {
+        setenv("QT_AUTO_SCREEN_SCALE_FACTOR", "1", 1);
+    }
+}
 
 int main(int argc, char* argv[])
 {
@@ -175,7 +190,7 @@ int main(int argc, char* argv[])
     }
 
     if (!qEnvironmentVariableIsSet("QT_SCALE_FACTOR")) {
-        setenv("QT_AUTO_SCREEN_SCALE_FACTOR", "1", 1);
+        set_auto_QT_SCALE_FACTOR();
     }
 
     setenv("XCURSOR_SIZE", QByteArray::number(24.0 * ratio.toFloat()).constData(), 1);
