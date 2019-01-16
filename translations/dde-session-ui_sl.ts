@@ -157,7 +157,7 @@
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="80"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Domenski račun</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="448"/>

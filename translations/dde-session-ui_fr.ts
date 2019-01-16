@@ -157,7 +157,7 @@
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="80"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Compte de domaine</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="448"/>
@@ -362,7 +362,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Bienvenue, système mis à jour avec succès</translation>
+        <translation>Mise à jour du système réussie </translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
@@ -385,7 +385,7 @@
     <message numerus="yes">
         <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Veuillez réessayer dans %n minute(s)</numerusform><numerusform>Veuillez réessayer dans %n minute(s)</numerusform></translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
@@ -423,7 +423,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation>Mode Effet : Vivez une expérience douce et délicate. Mode classique : Profitez de ses performances rapides</translation>
+        <translation>Mode Effets visuels : Pour une expérience esthétique. Mode classique : Pour des performances rapides</translation>
     </message>
 </context>
 <context>

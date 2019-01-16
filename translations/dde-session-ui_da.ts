@@ -436,7 +436,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application can not run without window effect</source>
-        <translation>Dette program kan ikke køre uden vindueseffekt</translation>
+        <translation>Programmet kan ikke køre uden vindueseffekt</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>

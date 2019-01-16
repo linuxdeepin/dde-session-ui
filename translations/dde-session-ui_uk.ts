@@ -46,7 +46,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Приспати</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
@@ -157,7 +157,7 @@
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="80"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Обліковий запис у домені</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="448"/>
@@ -309,7 +309,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="101"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Приспати</translation>
     </message>
 </context>
 <context>
@@ -385,7 +385,7 @@
     <message numerus="yes">
         <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Будь ласка, спробуйте знову за %n хвилину</numerusform><numerusform>Будь ласка, спробуйте знову за %n хвилини</numerusform><numerusform>Будь ласка, спробуйте знову за %n хвилин</numerusform><numerusform>Будь ласка, спробуйте знову за %n хвилину</numerusform></translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="253"/>

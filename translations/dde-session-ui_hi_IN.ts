@@ -46,7 +46,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>हाइबरनेट</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
@@ -157,7 +157,7 @@
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="80"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>डोमेन अकाउंट</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="448"/>
@@ -220,7 +220,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>की</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -230,17 +230,17 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>प्रॉक्सी पासवर्ड</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation> ग्रूप पासवर्ड</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;को कनेक्ट करने के लिए पासवर्ड डालिए</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -309,7 +309,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="101"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>हाइबरनेट</translation>
     </message>
 </context>
 <context>

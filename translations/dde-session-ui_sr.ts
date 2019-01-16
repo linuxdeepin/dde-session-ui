@@ -385,7 +385,7 @@
     <message numerus="yes">
         <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
         <source>Please try again %n minute(s) later</source>
-        <translation><numerusform>Покушајте поново након %n минут(а)</numerusform><numerusform>Покушајте поново након %n минут(а)</numerusform><numerusform>Покушајте поново након %n минут(а)</numerusform></translation>
+        <translation><numerusform>Покушајте поново за %n минут</numerusform><numerusform>Покушајте поново за %n минута</numerusform><numerusform>Покушајте поново за %n минута</numerusform></translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="253"/>

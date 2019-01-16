@@ -80,7 +80,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation type="unfinished"/>
+        <translation>Įrašykite savo dokumentus, tekstus ir skaičiuokles</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -157,19 +157,19 @@
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="80"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Srities paskyra</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="448"/>
         <location filename="../session-widgets/lockworker.cpp" line="555"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Pasibaigė piršto atspaudo patvirtinimui skirtas laikas, įveskite slaptažodį rankiniu būdu</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="466"/>
         <location filename="../session-widgets/lockworker.cpp" line="570"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko sutapatinti piršto atspaudo</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="490"/>
@@ -240,7 +240,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Norint prisijungti prie &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;, reikalingas slaptažodis</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>

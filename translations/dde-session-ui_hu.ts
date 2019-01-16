@@ -20,12 +20,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure to shut down?</source>
-        <translation>Biztosan leállítja a számítógépet?</translation>
+        <translation>Biztosan leállítod a számítógépet?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure to reboot?</source>
-        <translation>Biztos benne, hogy újraindítja a gépet?</translation>
+        <translation>Biztos vagy benne, hogy újraindítod a számítógépet?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure to log out?</source>
-        <translation>Biztosan kijelentkezik?</translation>
+        <translation>Biztosan kijelentkezel?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
@@ -46,7 +46,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Hibernálás</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
@@ -75,12 +75,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Ez az alkalmazás lezárásra fog kerülni, kérem bizonyosodjon meg róla, hogy adatait elmentette!</translation>
+        <translation>Ez az alkalmazás bezáródik, kérlek bizonyosodj meg róla, hogy elmentetted az adataidat!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Kérem mentse el a dokumentumát, szövegét és táblázatát</translation>
+        <translation>Kérlek mentsd el a dokumentumodat, táblázatodat.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -90,7 +90,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Nem áll elégséges rendszer memória rendelkezésre, kérem zárjon be néhány alkalmazást a problémák elkerülése végett.</translation>
+        <translation>Nincs elég rendszermemória, ezért kérlek zárj be néhány alkalmazást a problémák elkerülése miatt.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
@@ -100,7 +100,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>A böngésző fül megnyitásának folytatásához %1MB memória szükséges</translation>
+        <translation>A böngészés folytatásához legalább %1MB memória szükséges</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
@@ -110,17 +110,17 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>A jelenleg elérhető memória elégséges, folytatja %1 futtatását?</translation>
+        <translation>Kevés az elérhető memória, folytatod a %1 futtatását?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>A jelenleg elérhető memória elégséges, folytatja a böngésző fül megnyitását?</translation>
+        <translation>Kevés az  elérhető memória, folytatod a böngészést?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation>A jelenleg elérhető memória elégséges, folytatja a műveletet?</translation>
+        <translation>Kevés az elérhető memória, folytatod a műveletet?</translation>
     </message>
 </context>
 <context>
@@ -157,13 +157,13 @@
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="80"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Domain fiók</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="448"/>
         <location filename="../session-widgets/lockworker.cpp" line="555"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Ujjlenyomatos hitelesítés időkorlátja lejárt, kérem adja meg jelszavát</translation>
+        <translation>Az ujjlenyomatos hitelesítés időkorlátja lejárt, kérlek írd be a jelszavadat.</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="466"/>
@@ -175,12 +175,12 @@
         <location filename="../session-widgets/lockworker.cpp" line="490"/>
         <location filename="../session-widgets/lockworker.cpp" line="584"/>
         <source>Wrong Password</source>
-        <translation>Helytelen jelszó</translation>
+        <translation>Nem megfelelő jelszó</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="588"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>A domain fiók vagy a jelszó helytelen. Kérem adja meg újra</translation>
+        <translation>A domain fiók vagy a jelszó helytelen. Kérlek add meg újra</translation>
     </message>
 </context>
 <context>
@@ -193,12 +193,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
         <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>A fenti felhasználók továbbra is bejelentkezve vannak és minden adat elfog veszni, biztos hogy kikapcsoljuk a számítógépet?</translation>
+        <translation>A fenti felhasználók továbbra is be vannak jelentkezve, ezek adatai elvesznek. Biztos hogy kikapcsolod a számítógépet?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
         <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>A fenti felhasználók továbbra is bejelentkezve vannak és minden adat elfog veszni, biztos hogy újraindítjuk a számítógépet?</translation>
+        <translation>A fenti felhasználók továbbra is be vannak jelentkezve, ezek adatai elvesznek. Biztos hogy újraindítod a számítógépet?</translation>
     </message>
 </context>
 <context>
@@ -276,7 +276,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation>Vég</translation>
+        <translation>Vége</translation>
     </message>
 </context>
 <context>
@@ -309,7 +309,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="101"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Hibernálás</translation>
     </message>
 </context>
 <context>
@@ -390,12 +390,12 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
         <source>Enter your password to shutdown</source>
-        <translation>Adjuk meg a jelszót a leállításhoz</translation>
+        <translation>Kérlek add meg a jelszavad a leállításhoz</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
         <source>Enter your password to reboot</source>
-        <translation>Adja meg a jelszavát az újraindításhoz.</translation>
+        <translation>Kérlek add meg a jelszavad az újraindításhoz.</translation>
     </message>
 </context>
 <context>
@@ -418,12 +418,12 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
         <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>A rendszer érzékeli hogy virtuális számítógépet használ, ami befolyásolhatja a rendszer sebességét és stabilitását. A jobb felhasználó élmény érdekében ajánljuk hogy válassza az Általános módot</translation>
+        <translation>A rendszer érzékeli hogy virtuális számítógépet használsz, ami befolyásolhatja a rendszer sebességét és stabilitását. A jobb felhasználó élmény érdekében válaszd az Általános módot.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
         <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation>Effekt Mód: Legyen egy sima és kellemes élménye. Közönséges Mód: Élvezze a gyors teljesítményt</translation>
+        <translation>Effekt Mód: Kinézetre optimalizálva. Általános mód: Sebességre optimalizálva.</translation>
     </message>
 </context>
 <context>
@@ -436,7 +436,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application can not run without window effect</source>
-        <translation>Az alkalmazást nem lehet futtatni, csak ha be van kapcsolva az ablak effektusok.</translation>
+        <translation>Ezt az alkalmazást nem lehet futtatni, csak ha be van kapcsolva az effekt mód.</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
@@ -449,7 +449,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Alacsony akkumulátor töltés, csatlakoztassuk</translation>
+        <translation>Alacsony akkumulátor szint, kérlek csatlakoztasd a gépet a töltőre.</translation>
     </message>
 </context>
 </TS>

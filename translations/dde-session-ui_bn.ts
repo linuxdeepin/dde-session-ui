@@ -46,7 +46,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>হায়বারনেট</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
@@ -157,7 +157,7 @@
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="80"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>ডোমেন অ্যাকাউন্ট</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="448"/>
@@ -309,7 +309,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="101"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>হায়বারনেট</translation>
     </message>
 </context>
 <context>
