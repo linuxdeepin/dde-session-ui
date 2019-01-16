@@ -61,6 +61,9 @@ void FullscreenBackground::updateBackground(const QPixmap &background)
     m_fakeBackground = m_background;
     m_background = background;
 
+    m_backgroundCache = pixmapHandle(m_background);
+    m_fakeBackgroundCache = pixmapHandle(m_fakeBackground);
+
     m_fadeOutAni->start();
 }
 
@@ -130,18 +133,18 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
     const QRect trueRect(QPoint(0, 0), QSize(size() * devicePixelRatioF()));
 
     if (!m_background.isNull()) {
-        const QPixmap &pix = pixmapHandle(m_background);
-
         // tr is need redraw rect, sourceRect need correct upper left corner
-        painter.drawPixmap(trueRect, pix, QRect(trueRect.topLeft(), trueRect.size() * pix.devicePixelRatioF()));
+        painter.drawPixmap(trueRect,
+                           m_backgroundCache,
+                           QRect(trueRect.topLeft(), trueRect.size() * m_backgroundCache.devicePixelRatioF()));
     }
 
     if (!m_fakeBackground.isNull()) {
         // draw background
-        const QPixmap &fadePixmap = pixmapHandle(m_fakeBackground);
-
         painter.setOpacity(current_ani_value);
-        painter.drawPixmap(trueRect, fadePixmap, QRect(trueRect.topLeft(), trueRect.size() * fadePixmap.devicePixelRatioF()));
+        painter.drawPixmap(trueRect,
+                           m_fakeBackgroundCache,
+                           QRect(trueRect.topLeft(), trueRect.size() * m_fakeBackgroundCache.devicePixelRatioF()));
         painter.setOpacity(1);
     }
 }
@@ -162,6 +165,9 @@ void FullscreenBackground::leaveEvent(QEvent *event)
 void FullscreenBackground::resizeEvent(QResizeEvent *event)
 {
     m_content->resize(size());
+
+    m_backgroundCache = pixmapHandle(m_background);
+    m_fakeBackgroundCache = pixmapHandle(m_fakeBackground);
 
     return QWidget::resizeEvent(event);
 }

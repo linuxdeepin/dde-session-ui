@@ -75,6 +75,8 @@ private:
     QString m_bgPath;
     QPixmap m_background;
     QPixmap m_fakeBackground;
+    QPixmap m_backgroundCache;
+    QPixmap m_fakeBackgroundCache;
     QPointer<QWidget> m_content;
     QVariantAnimation *m_fadeOutAni;
     QScreen *m_screen = nullptr;
