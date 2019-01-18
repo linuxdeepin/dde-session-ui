@@ -27,10 +27,12 @@
 #include <DLog>
 #include <QScreen>
 #include <QWindow>
+#include <QDesktopWidget>
 
 #include "mainwidget.h"
 #include "utils.h"
 #include "propertygroup.h"
+#include "multiscreenmanager.h"
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
@@ -56,13 +58,17 @@ int main(int argc, char *argv[])
 
     property_group->addProperty("contentVisible");
 
-    for (QScreen *screen : app.screens()) {
+    auto createFrame = [&] (QScreen *screen) -> QWidget* {
         MainWidget *w = new MainWidget;
         w->setScreen(screen);
         property_group->addObject(w);
+        QObject::connect(w, &MainWidget::destroyed, property_group, &PropertyGroup::removeObject);
         w->show();
-    }
+        return w;
+    };
 
+    MultiScreenManager multi_screen_manager;
+    multi_screen_manager.register_for_mutil_screen(createFrame);
 
     return app.exec();
 }

@@ -230,7 +230,9 @@ void FullscreenBackground::updateScreen(QScreen *screen)
 
     if (m_screen) {
         disconnect(m_screen, &QScreen::geometryChanged, this, &FullscreenBackground::updateGeometry);
-    } else if (screen) {
+    }
+
+    if (screen) {
         connect(screen, &QScreen::geometryChanged, this, &FullscreenBackground::updateGeometry);
     }
 

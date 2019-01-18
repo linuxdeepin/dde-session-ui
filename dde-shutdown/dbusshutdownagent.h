@@ -11,6 +11,7 @@ public:
     explicit DBusShutdownAgent(QObject *parent = nullptr);
 
     void addFrame(ShutdownFrame *frame);
+    void removeFrame(ShutdownFrame *frame);
 
     void Ping();
     void Shutdown();

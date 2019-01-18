@@ -28,6 +28,7 @@
 #include "lockworker.h"
 #include "sessionbasemodel.h"
 #include "propertygroup.h"
+#include "multiscreenmanager.h"
 
 #include <DApplication>
 #include <QtCore/QTranslator>
@@ -38,6 +39,7 @@
 #include <QWindow>
 #include <QScreen>
 #include <DLog>
+#include <QDesktopWidget>
 
 #include <cstdlib>
 
@@ -215,7 +217,7 @@ int main(int argc, char* argv[])
 
     property_group->addProperty("contentVisible");
 
-    for (QScreen *screen : a.screens()) {
+    auto createFrame = [&] (QScreen *screen) -> QWidget* {
         LoginWindow *loginFrame = new LoginWindow(model);
         loginFrame->setScreen(screen);
         property_group->addObject(loginFrame);
@@ -223,8 +225,12 @@ int main(int argc, char* argv[])
         QObject::connect(loginFrame, &LoginWindow::requestAuthUser, worker, &LockWorker::authUser);
         QObject::connect(loginFrame, &LoginWindow::requestSetLayout, worker, &LockWorker::setLayout);
         QObject::connect(worker, &LockWorker::requestUpdateBackground, loginFrame, static_cast<void (LoginWindow::*)(const QString &)>(&LoginWindow::updateBackground));
+        QObject::connect(loginFrame, &LoginWindow::destroyed, property_group, &PropertyGroup::removeObject);
         loginFrame->show();
-    }
+    };
+
+    MultiScreenManager multi_screen_manager;
+    multi_screen_manager.register_for_mutil_screen(createFrame);
 
     return a.exec();
 }

@@ -10,6 +10,11 @@ void DBusShutdownAgent::addFrame(ShutdownFrame *frame)
     m_frames << frame;
 }
 
+void DBusShutdownAgent::removeFrame(ShutdownFrame *frame)
+{
+    m_frames.removeOne(frame);
+}
+
 void DBusShutdownAgent::Ping()
 {
 

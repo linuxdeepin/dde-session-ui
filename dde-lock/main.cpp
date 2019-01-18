@@ -28,6 +28,7 @@
 #include "lockframe.h"
 #include "dbus/dbuslockfrontservice.h"
 #include "dbus/dbuslockagent.h"
+#include "multiscreenmanager.h"
 
 #include "lockcontent.h"
 #include "lockworker.h"
@@ -39,6 +40,7 @@
 #include <QWindow>
 #include <dapplication.h>
 #include <QDBusInterface>
+#include <QDesktopWidget>
 
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -77,7 +79,7 @@ int main(int argc, char *argv[])
 
     property_group->addProperty("contentVisible");
 
-    for (QScreen *screen : app.screens()) {
+    auto createFrame = [&] (QScreen *screen) -> QWidget* {
         LockFrame *lockFrame = new LockFrame(model);
         lockFrame->setScreen(screen);
         property_group->addObject(lockFrame);
@@ -87,8 +89,13 @@ int main(int argc, char *argv[])
         QObject::connect(model, &SessionBaseModel::showUserList, lockFrame, &LockFrame::showUserList);
         QObject::connect(lockFrame, &LockFrame::requestSetLayout, worker, &LockWorker::setLayout);
         QObject::connect(lockFrame, &LockFrame::requestEnableHotzone, worker, &LockWorker::enableZoneDetected, Qt::UniqueConnection);
+        QObject::connect(lockFrame, &LockFrame::destroyed, property_group, &PropertyGroup::removeObject);
         lockFrame->show();
-    }
+        return lockFrame;
+    };
+
+    MultiScreenManager multi_screen_manager;
+    multi_screen_manager.register_for_mutil_screen(createFrame);
 
     DBusLockAgent agent;
     agent.setModel(model);

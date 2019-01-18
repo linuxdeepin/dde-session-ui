@@ -37,6 +37,7 @@
 #include "sessionbasemodel.h"
 #include "lockworker.h"
 #include "propertygroup.h"
+#include "multiscreenmanager.h"
 
 #include "dbusshutdownagent.h"
 
@@ -95,15 +96,23 @@ int main(int argc, char* argv[])
 
         property_group->addProperty("contentVisible");
 
-        for (QScreen *screen : app.screens()) {
+        auto createFrame = [&] (QScreen *screen) -> QWidget* {
             ShutdownFrame *frame = new ShutdownFrame(model);
             dbusAgent->addFrame(frame);
             frame->setScreen(screen);
             property_group->addObject(frame);
             QObject::connect(model, &SessionBaseModel::show, frame, &ShutdownFrame::show);
             QObject::connect(frame, &ShutdownFrame::requestEnableHotzone, worker, &LockWorker::enableZoneDetected);
+            QObject::connect(frame, &ShutdownFrame::destroyed, property_group, &PropertyGroup::removeObject);
+            QObject::connect(frame, &ShutdownFrame::destroyed, frame, [=] (QObject *obj) {
+                dbusAgent->removeFrame(qobject_cast<ShutdownFrame*>(obj));
+            });
             frame->show();
-        }
+            return frame;
+        };
+
+        MultiScreenManager multi_screen_manager;
+        multi_screen_manager.register_for_mutil_screen(createFrame);
 
         if (!parser.isSet(daemon)) {
             emit model->show();

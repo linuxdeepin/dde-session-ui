@@ -25,6 +25,7 @@
 
 #include "wmframe.h"
 #include "propertygroup.h"
+#include "multiscreenmanager.h"
 
 #include <DApplication>
 #include <QCommandLineOption>
@@ -34,6 +35,7 @@
 #include <DLog>
 #include <QScreen>
 #include <QWindow>
+#include <QDesktopWidget>
 
 DWIDGET_USE_NAMESPACE
 
@@ -60,13 +62,18 @@ int main(int argc, char *argv[])
 
         pg->addProperty("contentVisible");
 
-        for (QScreen *screen : a.screens()) {
+        auto createFrame = [&] (QScreen *screen) -> QWidget* {
             WMFrame *w = new WMFrame;
             w->setScreen(screen);
             pg->addObject(w);
             w->setConfigPath(parser.value(config));
+            QObject::connect(w, &WMFrame::destroyed, pg, &PropertyGroup::removeObject);
             w->show();
-        }
+            return w;
+        };
+
+        MultiScreenManager multi_screen_manager;
+        multi_screen_manager.register_for_mutil_screen(createFrame);
     } else {
         return 0;
     }
