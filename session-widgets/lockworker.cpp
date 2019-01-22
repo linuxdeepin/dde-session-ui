@@ -20,6 +20,34 @@
 
 using PowerInter = com::deepin::daemon::Power;
 
+static std::pair<bool, qint64> checkIsPartitionType(const QStringList &list) {
+    std::pair<bool, qint64> result { false, -1 };
+
+    if (list.length() != 5) {
+        return result;
+    }
+
+    const QString type { list[1] };
+    const QString size { list[2] };
+
+    result.first = type == "partition";
+    result.second = size.toLongLong() * 1024.0f;
+
+    return result;
+}
+
+static qint64 get_power_image_size() {
+    qint64 size { 0 };
+    QFile file("/sys/power/image_size");
+
+    if (file.open(QIODevice::Text | QIODevice::ReadOnly)) {
+        size = file.readAll().trimmed().toLongLong();
+        file.close();
+    }
+
+    return size;
+}
+
 class UserNumlockSettings
 {
 public:
@@ -661,12 +689,31 @@ void LockWorker::checkSwap()
 {
     QFile file("/proc/swaps");
     if (file.open(QIODevice::Text | QIODevice::ReadOnly)) {
+        bool hasSwap { false };
         const QString &body = file.readAll();
-        QRegularExpression re("\\spartition\\s");
-        QRegularExpressionMatch match = re.match(body);
-        m_model->setHasSwap(match.hasMatch());
-        qDebug() << "check using swap partition! " << match.hasMatch();
-        qDebug() << body;
+        QTextStream stream(body.toUtf8());
+        while(!stream.atEnd()) {
+            const std::pair<bool, qint64> result = checkIsPartitionType(stream.readLine().
+                                                                     simplified().
+                                                                     split(" ",
+                                                                           QString::SplitBehavior::SkipEmptyParts));
+            qint64 image_size { get_power_image_size() };
+
+            if (result.first) {
+                hasSwap = image_size < result.second;
+            }
+
+            qDebug() << "check using swap partition!";
+            qDebug() << QString("image_size: %1, swap partition size: %2").
+                        arg(QString::number(image_size)).
+                        arg(QString::number(result.second));
+
+            if (hasSwap) {
+                break;
+            }
+        }
+
+        m_model->setHasSwap(hasSwap);
         file.close();
     }
     else {
