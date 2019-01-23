@@ -17,7 +17,11 @@ UserFrame::UserFrame(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     std::function<void (QVariant)> function = std::bind(&UserFrame::onOtherPageChanged, this, std::placeholders::_1);
-    m_frameDataBind->registerFunction("UserFrame", function);
+    int index = m_frameDataBind->registerFunction("UserFrame", function);
+
+    connect(this, &UserFrame::destroyed, this, [=] {
+        m_frameDataBind->unRegisterFunction("UserFrame", index);
+    });
 }
 
 void UserFrame::setModel(SessionBaseModel *model)

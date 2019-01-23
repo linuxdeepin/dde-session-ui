@@ -71,7 +71,15 @@ SessionWidget::SessionWidget(QWidget *parent)
     loadSessionList();
 
     std::function<void (QVariant)> function = std::bind(&SessionWidget::onOtherPageChanged, this, std::placeholders::_1);
-    m_frameDataBind->registerFunction("SessionWidget", function);
+    int index = m_frameDataBind->registerFunction("SessionWidget", function);
+
+    connect(this, &SessionWidget::destroyed, this, [=] {
+        m_frameDataBind->unRegisterFunction("SessionWidget", index);
+    });
+
+    QTimer::singleShot(0, this, [=] {
+        m_frameDataBind->refreshData("SessionWidget");
+    });
 }
 
 void SessionWidget::setModel(SessionBaseModel * const model)

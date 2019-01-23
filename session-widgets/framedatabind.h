@@ -11,9 +11,12 @@ class FrameDataBind : public QObject
 public:
     static FrameDataBind *Instance();
 
-    void registerFunction(const QString &flag, std::function<void (QVariant)> function);
+    int registerFunction(const QString &flag, std::function<void (QVariant)> function);
+    void unRegisterFunction(const QString &flag, int index);
 
     void updateValue(const QString &flag, const QVariant &value);
+
+    void refreshData(const QString &flag);
 
 private:
     FrameDataBind();
@@ -21,7 +24,8 @@ private:
     FrameDataBind(const FrameDataBind &) = delete;
 
 private:
-    QMap<QString, QList<std::function<void (QVariant)>>> m_registerList;
+    QMap<QString, QMap<int, std::function<void (QVariant)>>> m_registerList;
+    QMap<QString, QVariant> m_datas;
 };
 
 #endif // FRAMEDATABIND_H

@@ -40,7 +40,15 @@ ShutdownWidget::ShutdownWidget(QWidget *parent)
     initConnect();
 
     std::function<void (QVariant)> function = std::bind(&ShutdownWidget::onOtherPageChanged, this, std::placeholders::_1);
-    m_frameDataBind->registerFunction("ShutdownWidget", function);
+    int index = m_frameDataBind->registerFunction("ShutdownWidget", function);
+
+    connect(this, &ShutdownWidget::destroyed, this, [=] {
+        m_frameDataBind->unRegisterFunction("ShutdownWidget", index);
+    });
+
+    QTimer::singleShot(0, this, [=] {
+        m_frameDataBind->refreshData("ShutdownWidget");
+    });
 }
 
 void ShutdownWidget::initConnect()

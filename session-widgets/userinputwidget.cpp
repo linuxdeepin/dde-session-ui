@@ -27,11 +27,23 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     std::function<void (QString)> loginTr = std::bind(&LoginButton::setText, m_loginBtn, std::placeholders::_1);
     m_trList.push_back(std::pair<std::function<void (QString)>, QString>(loginTr, "Login"));
 
+    QMap<QString, int> registerFunctionIndexs;
     std::function<void (QVariant)> passwordChanged = std::bind(&UserInputWidget::onOtherPagePasswordChanged, this, std::placeholders::_1);
-    FrameDataBind::Instance()->registerFunction("Password", passwordChanged);
+    registerFunctionIndexs["Password"] = FrameDataBind::Instance()->registerFunction("Password", passwordChanged);
 
     std::function<void (QVariant)> kblayoutChanged = std::bind(&UserInputWidget::onOtherPageKBLayoutChanged, this, std::placeholders::_1);
-    FrameDataBind::Instance()->registerFunction("KBLayout", kblayoutChanged);
+    registerFunctionIndexs["KBLayout"] = FrameDataBind::Instance()->registerFunction("KBLayout", kblayoutChanged);
+
+    connect(this, &UserInputWidget::destroyed, this, [=] {
+        for (auto it = registerFunctionIndexs.constBegin(); it != registerFunctionIndexs.constEnd(); ++it) {
+            FrameDataBind::Instance()->unRegisterFunction(it.key(), it.value());
+        }
+    });
+
+    QTimer::singleShot(0, this, [=] {
+        FrameDataBind::Instance()->refreshData("Password");
+        FrameDataBind::Instance()->refreshData("KBLayout");
+    });
 
     m_userAvatar->setAvatarSize(UserAvatar::AvatarLargeSize);
     m_userAvatar->setFixedSize(100, 100);
