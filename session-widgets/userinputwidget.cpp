@@ -363,7 +363,7 @@ void UserInputWidget::resizeEvent(QResizeEvent *event)
 void UserInputWidget::refreshLanguage()
 {
     for (auto it = m_trList.begin(); it != m_trList.end(); ++it) {
-        it->first(tr(it->second.toUtf8()));
+        it->first(qApp->translate("UserInputWidget", it->second.toUtf8()));
     }
 }
 
