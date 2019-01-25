@@ -227,6 +227,7 @@ int main(int argc, char* argv[])
         QObject::connect(worker, &LockWorker::requestUpdateBackground, loginFrame, static_cast<void (LoginWindow::*)(const QString &)>(&LoginWindow::updateBackground));
         QObject::connect(loginFrame, &LoginWindow::destroyed, property_group, &PropertyGroup::removeObject);
         loginFrame->show();
+        return loginFrame;
     };
 
     MultiScreenManager multi_screen_manager;
