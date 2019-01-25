@@ -1,3 +1,18 @@
+<a name="4.8.7"></a>
+### 4.8.7 (2019-01-25)
+
+
+#### Bug Fixes
+
+*   keep the same amount as the screen ([fb5868b8](https://github.com/linuxdeepin/dde-session-ui/commit/fb5868b81dabb23e4b8395caaf85b1d892692b02))
+* **lock:**  not load translate for login button ([50d59da7](https://github.com/linuxdeepin/dde-session-ui/commit/50d59da76cb43d9cda53f2e966ddbae3cbec996d))
+
+#### Features
+
+* **Shutdown:**  add Hibernate for dbus interface ([6ae3014d](https://github.com/linuxdeepin/dde-session-ui/commit/6ae3014d12006d82306a6d1d267d9b1f9b40d5a7))
+
+
+
 <a name="4.8.6"></a>
 ### 4.8.6 (2019-01-15)
 
