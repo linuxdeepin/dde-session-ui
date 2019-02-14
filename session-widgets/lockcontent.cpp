@@ -69,6 +69,12 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     connect(model, &SessionBaseModel::hasVirtualKBChanged, m_controlWidget, &ControlWidget::setVirtualKBVisible);
     connect(m_userFrame, &UserFrame::hideFrame, this, &LockContent::restoreMode);
     connect(m_shutdownFrame, &ShutdownWidget::abortOperation, this, &LockContent::restoreMode);
+
+    connect(model, &SessionBaseModel::authFinished, this, [=] (bool success) {
+        if (success) {
+            m_userInputWidget->resetAllState();
+        }
+    });
     connect(model, &SessionBaseModel::authFaildMessage, m_userInputWidget, &UserInputWidget::setFaildMessage);
     connect(model, &SessionBaseModel::authFaildTipsMessage, m_userInputWidget, &UserInputWidget::setFaildTipMessage);
     connect(model, &SessionBaseModel::onStatusChanged, this, &LockContent::onStatusChanged);

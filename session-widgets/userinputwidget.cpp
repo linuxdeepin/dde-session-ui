@@ -268,6 +268,13 @@ void UserInputWidget::updateAuthType(SessionBaseModel::AuthType type)
     }
 }
 
+void UserInputWidget::resetAllState()
+{
+    m_passwordEdit->lineEdit()->clear();
+    normalMode();
+    m_passwordEdit->abortAuth();
+}
+
 void UserInputWidget::shutdownMode()
 {
     m_passwordEdit->setSubmitIcon(":/img/action_icons/shutdown_normal.svg",

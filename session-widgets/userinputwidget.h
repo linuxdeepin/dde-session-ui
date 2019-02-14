@@ -38,6 +38,8 @@ public:
     void disablePassword(bool disable);
     void updateAuthType(SessionBaseModel::AuthType type);
 
+    void resetAllState();
+
     void shutdownMode();
     void normalMode();
     void restartMode();
