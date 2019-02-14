@@ -558,16 +558,6 @@ void LockWorker::onUnlockFinished(bool unlocked)
     default:
         break;
     }
-
-#ifdef LOCK_NO_QUIT
-    m_passwdEditAnim->lineEdit()->setPlaceholderText("");
-    m_passwdEditAnim->abortAuth();
-    m_passwdEditAnim->hideAlert();
-    m_passwdEditAnim->lineEdit()->clear();
-    emit checkedHide();
-#else
-    QTimer::singleShot(0, qApp, &QApplication::quit);
-#endif
 }
 
 void LockWorker::prompt(QString text, QLightDM::Greeter::PromptType type)

@@ -38,13 +38,8 @@ services.files = com.deepin.dde.lockFront.service
 target.path = $${PREFIX}/bin/
 INSTALLS += target services
 
-isEqual(LOCK_NO_QUIT, YES) {
-DEFINES +=LOCK_NO_QUIT
-}
-
 host_mips64 {
     DEFINES += DISABLE_LOGIN_ANI
-    DEFINES += LOCK_NO_QUIT
 }
 
 host_sw_64 {

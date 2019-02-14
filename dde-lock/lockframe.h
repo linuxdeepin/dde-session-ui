@@ -56,9 +56,7 @@ signals:
 public slots:
     void showUserList();
     void tryGrabKeyboard();
-#ifdef LOCK_NO_QUIT
-    void hideFrame();
-#endif
+
 protected:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
