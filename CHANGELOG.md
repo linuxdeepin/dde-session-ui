@@ -1,3 +1,13 @@
+<a name="4.8.8"></a>
+### 4.8.8 (2019-02-15)
+
+
+#### Bug Fixes
+
+*   crash when running lightdm-deepin-greeter ([f20ad3ec](https://github.com/linuxdeepin/dde-session-ui/commit/f20ad3ec8222ffa5168eae8931edcc3f0ac87d08))
+
+
+
 <a name="4.8.7"></a>
 ### 4.8.7 (2019-01-25)
 
