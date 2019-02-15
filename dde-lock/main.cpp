@@ -85,12 +85,12 @@ int main(int argc, char *argv[])
         property_group->addObject(lockFrame);
         QObject::connect(lockFrame, &LockFrame::requestSwitchToUser, worker, &LockWorker::switchToUser);
         QObject::connect(lockFrame, &LockFrame::requestAuthUser, worker, &LockWorker::authUser);
-        QObject::connect(model, &SessionBaseModel::show, lockFrame, &LockFrame::show);
+        QObject::connect(model, &SessionBaseModel::visibleChanged, lockFrame, &LockFrame::setVisible);
         QObject::connect(model, &SessionBaseModel::showUserList, lockFrame, &LockFrame::showUserList);
         QObject::connect(lockFrame, &LockFrame::requestSetLayout, worker, &LockWorker::setLayout);
         QObject::connect(lockFrame, &LockFrame::requestEnableHotzone, worker, &LockWorker::enableZoneDetected, Qt::UniqueConnection);
         QObject::connect(lockFrame, &LockFrame::destroyed, property_group, &PropertyGroup::removeObject);
-        lockFrame->show();
+        lockFrame->setVisible(model->isShow());
         return lockFrame;
     };
 
@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
             if (showUserList) {
                 emit model->showUserList();
             } else {
-                emit model->show();
+                model->setIsShow(true);
             }
         }
         app.exec();

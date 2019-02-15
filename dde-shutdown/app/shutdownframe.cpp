@@ -59,12 +59,16 @@ void ShutdownFrame::showEvent(QShowEvent *event)
 {
     Q_EMIT requestEnableHotzone(false);
 
+    m_model->setIsShow(true);
+
     return FullscreenBackground::showEvent(event);
 }
 
 void ShutdownFrame::hideEvent(QHideEvent *event)
 {
     Q_EMIT requestEnableHotzone(true);
+
+    m_model->setIsShow(false);
 
     return FullscreenBackground::hideEvent(event);
 }

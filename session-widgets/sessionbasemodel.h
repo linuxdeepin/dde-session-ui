@@ -61,6 +61,9 @@ public:
     void setHasSwap(bool hasSwap);
     inline bool hasSwap() { return m_hasSwap; }
 
+    inline bool isShow() const { return m_isShow; }
+    void setIsShow(bool isShow);
+
 signals:
     void onUserAdded(std::shared_ptr<User> user);
     void onUserRemoved(const uint uid);
@@ -72,13 +75,16 @@ signals:
     void onSessionKeyChanged(const QString &sessionKey);
     void onLogindUserChanged();
     void showUserList();
-    void show();
+    void visibleChanged(bool visible);
     void onStatusChanged(ModeStatus status);
     void onUserListChanged(QList<std::shared_ptr<User>> list);
     void hasVirtualKBChanged(bool hasVirtualKB);
     void onHasSwapChanged(bool hasSwap);
 
 private:
+    bool m_hasVirtualKB;
+    bool m_hasSwap;
+    bool m_isShow;
     AuthType m_currentType;
     QList<std::shared_ptr<User>> m_userList;
     std::shared_ptr<User> m_currentUser;
@@ -86,8 +92,6 @@ private:
     QString m_sessionKey;
     PowerAction m_powerAction;
     ModeStatus m_currentModeState;
-    bool m_hasVirtualKB;
-    bool m_hasSwap;
 };
 
 #endif // SESSIONBASEMODEL_H

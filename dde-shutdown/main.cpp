@@ -101,22 +101,20 @@ int main(int argc, char* argv[])
             dbusAgent->addFrame(frame);
             frame->setScreen(screen);
             property_group->addObject(frame);
-            QObject::connect(model, &SessionBaseModel::show, frame, &ShutdownFrame::show);
+            QObject::connect(model, &SessionBaseModel::visibleChanged, frame, &ShutdownFrame::setVisible);
             QObject::connect(frame, &ShutdownFrame::requestEnableHotzone, worker, &LockWorker::enableZoneDetected);
             QObject::connect(frame, &ShutdownFrame::destroyed, property_group, &PropertyGroup::removeObject);
-            QObject::connect(frame, &ShutdownFrame::destroyed, frame, [=] (QObject *obj) {
-                dbusAgent->removeFrame(qobject_cast<ShutdownFrame*>(obj));
+            QObject::connect(frame, &ShutdownFrame::destroyed, frame, [=] {
+                dbusAgent->removeFrame(frame);
             });
-            frame->show();
+            frame->setVisible(model->isShow());
             return frame;
         };
 
         MultiScreenManager multi_screen_manager;
         multi_screen_manager.register_for_mutil_screen(createFrame);
 
-        if (!parser.isSet(daemon)) {
-            emit model->show();
-        }
+        model->setIsShow(true);
 
         ShutdownFrontDBus adaptor(dbusAgent); Q_UNUSED(adaptor);
         QDBusConnection::sessionBus().registerObject(DBUS_PATH, dbusAgent);

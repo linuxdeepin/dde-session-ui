@@ -93,12 +93,16 @@ void LockFrame::showEvent(QShowEvent *event)
 {
     emit requestEnableHotzone(false);
 
+    m_model->setIsShow(true);
+
     return FullscreenBackground::showEvent(event);
 }
 
 void LockFrame::hideEvent(QHideEvent *event)
 {
     emit requestEnableHotzone(true);
+
+    m_model->setIsShow(false);
 
     return FullscreenBackground::hideEvent(event);
 }

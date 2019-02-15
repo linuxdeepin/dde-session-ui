@@ -8,8 +8,8 @@ MultiScreenManager::MultiScreenManager(QObject *parent)
     : QObject(parent)
     , m_registerFunction(nullptr)
 {
-    connect(qApp, &QGuiApplication::screenAdded, this, &MultiScreenManager::onScreenAdded);
-    connect(qApp, &QGuiApplication::screenRemoved, this, &MultiScreenManager::onScreenRemoved);
+    connect(qApp, &QGuiApplication::screenAdded, this, &MultiScreenManager::onScreenAdded, Qt::QueuedConnection);
+    connect(qApp, &QGuiApplication::screenRemoved, this, &MultiScreenManager::onScreenRemoved, Qt::QueuedConnection);
 }
 
 void MultiScreenManager::register_for_mutil_screen(std::function<QWidget *(QScreen *)> function)

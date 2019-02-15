@@ -4,6 +4,7 @@
 
 SessionBaseModel::SessionBaseModel(AuthType type, QObject *parent)
     : QObject(parent)
+    , m_isShow(false)
     , m_currentType(type)
     , m_currentUser(nullptr)
     , m_powerAction(PowerAction::RequireNormal)
@@ -107,4 +108,13 @@ void SessionBaseModel::setHasSwap(bool hasSwap) {
     m_hasSwap = hasSwap;
 
     emit onHasSwapChanged(hasSwap);
+}
+
+void SessionBaseModel::setIsShow(bool isShow)
+{
+    if (m_isShow == isShow) return;
+
+    m_isShow = isShow;
+
+    emit visibleChanged(isShow);
 }
