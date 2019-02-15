@@ -232,10 +232,6 @@ void ContentWidget::initConnect() {
     connect(m_wmInter, &__wm::WorkspaceSwitched, this, &ContentWidget::currentWorkspaceChanged);
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &ContentWidget::onBlurWallpaperFinished);
 
-    connect(qApp, &QApplication::aboutToQuit, [this]{
-        m_hotZoneInterface->EnableZoneDetected(true);
-    });
-
     if (m_systemMonitor)
         connect(m_systemMonitor, &SystemMonitor::clicked, this, &ContentWidget::runSystemMonitor);
 }
@@ -432,16 +428,12 @@ void ContentWidget::beforeInvokeAction(const Actions action)
 
 void ContentWidget::hideToplevelWindow()
 {
-#ifdef SHUTDOWN_NO_QUIT
     QWidgetList widgets = qApp->topLevelWidgets();
     for (QWidget *widget : widgets) {
         if (widget->isVisible()) {
             widget->hide();
         }
     }
-#else
-    qApp->quit();
-#endif
 }
 
 void ContentWidget::shutDownFrameActions(const Actions action)
@@ -449,9 +441,6 @@ void ContentWidget::shutDownFrameActions(const Actions action)
     // if we don't force this widget to hide, hideEvent will happen after
     // dde-lock showing, since hideEvent enables hot zone, hot zone will
     // take effect while dde-lock is showing.
-#ifndef SHUTDOWN_NO_QUIT
-    this->hide();
-#endif
 
     switch (action) {
     case Shutdown:       m_sessionInterface->RequestShutdown();      break;
@@ -672,17 +661,13 @@ void ContentWidget::runSystemMonitor()
 {
     QProcess::startDetached("/usr/bin/deepin-system-monitor");
 
-
-#ifdef SHUTDOWN_NO_QUIT
     if (m_systemMonitor) {
         m_systemMonitor->clearFocus();
         m_systemMonitor->setState(SystemMonitor::Leave);
     }
+
     hideToplevelWindow();
     recoveryLayout();
-#else
-    qApp->quit();
-#endif
 }
 
 void ContentWidget::setPreviousChildFocus()
@@ -754,10 +739,6 @@ void ContentWidget::disableBtns(const QStringList &btnsName)
 
 void ContentWidget::onCancel()
 {
-#ifdef SHUTDOWN_NO_QUIT
     hideToplevelWindow();
     recoveryLayout();
-#else
-    qApp->quit();
-#endif
 }

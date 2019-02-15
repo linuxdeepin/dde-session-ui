@@ -59,9 +59,6 @@ public:
     ~ContentWidget();
 
 signals:
-#ifdef SHUTDOWN_NO_QUIT
-    void requestRecoveryLayout();
-#endif
     void requestBackground(const QString &path) const;
 
 protected:

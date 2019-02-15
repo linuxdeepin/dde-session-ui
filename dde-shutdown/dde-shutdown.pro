@@ -48,7 +48,3 @@ INSTALLS += target
 service_file.path = /usr/share/dbus-1/services/
 service_file.files = com.deepin.dde.shutdownFront.service
 INSTALLS += service_file
-
-isEqual(SHUTDOWN_NO_QUIT, YES){
-    DEFINES += SHUTDOWN_NO_QUIT
-}
