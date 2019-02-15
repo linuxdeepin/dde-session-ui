@@ -114,7 +114,9 @@ int main(int argc, char* argv[])
         MultiScreenManager multi_screen_manager;
         multi_screen_manager.register_for_mutil_screen(createFrame);
 
-        model->setIsShow(true);
+        if (!parser.isSet(daemon)) {
+            model->setIsShow(true);
+        }
 
         ShutdownFrontDBus adaptor(dbusAgent); Q_UNUSED(adaptor);
         QDBusConnection::sessionBus().registerObject(DBUS_PATH, dbusAgent);
