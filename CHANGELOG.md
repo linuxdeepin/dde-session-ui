@@ -1,3 +1,13 @@
+<a name="4.8.10"></a>
+### 4.8.10 (2019-02-18)
+
+
+#### Bug Fixes
+
+* **shutdown:**  missing daemon option ([fb5d5ee1](https://github.com/linuxdeepin/dde-session-ui/commit/fb5d5ee1cb4aaceb455198b2f3778ee35a88e7b6))
+
+
+
 <a name="4.8.9"></a>
 ### 4.8.9 (2019-02-15)
 
