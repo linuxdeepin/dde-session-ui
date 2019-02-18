@@ -105,12 +105,12 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         emit requestSetLayout(m_user, value);
     });
 
-    auto initVirtualKB = [=] (bool hasvirtualkb) {
+    auto initVirtualKB = [&] (bool hasvirtualkb) {
         if (hasvirtualkb && !m_virtualKB) {
-            VirtualKBInstance::Instance();
-            QTimer::singleShot(500, this, [=] {
+            connect(&VirtualKBInstance::Instance(), &VirtualKBInstance::initFinished, this, [&] {
                 m_virtualKB = VirtualKBInstance::Instance().virtualKBWidget();
-            });
+            }, Qt::QueuedConnection);
+            VirtualKBInstance::Instance().init();
         }
     };
 

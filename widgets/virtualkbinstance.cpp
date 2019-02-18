@@ -16,16 +16,13 @@ QWidget *VirtualKBInstance::virtualKBWidget() {
     return m_virtualKBWidget;
 }
 
-bool VirtualKBInstance::eventFilter(QObject *watched, QEvent *event)
+void VirtualKBInstance::init()
 {
+    if (m_virtualKBWidget) {
+        emit initFinished();
+        return;
+    }
 
-    return QObject::eventFilter(watched, event);
-}
-
-VirtualKBInstance::VirtualKBInstance(QObject *parent)
-    : QObject(parent)
-    , m_virtualKBWidget(nullptr)
-{
     QProcess * p = new QProcess(this);
 
     connect(p, &QProcess::readyReadStandardOutput, [this, p] {
@@ -42,7 +39,20 @@ VirtualKBInstance::VirtualKBInstance(QObject *parent)
         QTimer::singleShot(500, [=] {
             m_virtualKBWidget->hide();
         });
+
+        emit initFinished();
     });
 
     p->start("onboard", QStringList() << "-e" << "--layout" << "Small");
+}
+
+bool VirtualKBInstance::eventFilter(QObject *watched, QEvent *event)
+{
+    return QObject::eventFilter(watched, event);
+}
+
+VirtualKBInstance::VirtualKBInstance(QObject *parent)
+    : QObject(parent)
+    , m_virtualKBWidget(nullptr)
+{
 }

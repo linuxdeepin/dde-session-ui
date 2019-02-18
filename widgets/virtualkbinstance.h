@@ -10,6 +10,11 @@ public:
     static VirtualKBInstance &Instance();
     QWidget *virtualKBWidget();
 
+    void init();
+
+signals:
+    void initFinished();
+
 protected:
     bool eventFilter(QObject *watched, QEvent *event) override;
 
