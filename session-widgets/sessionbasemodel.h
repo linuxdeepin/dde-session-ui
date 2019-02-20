@@ -6,6 +6,8 @@
 #include <QObject>
 #include <memory>
 
+#include <com_deepin_sessionmanager.h>
+
 class SessionBaseModel : public QObject
 {
     Q_OBJECT
@@ -82,6 +84,8 @@ signals:
     void onHasSwapChanged(bool hasSwap);
 
 private:
+    com::deepin::SessionManager *m_sessionManagerInter;
+
     bool m_hasVirtualKB;
     bool m_hasSwap;
     bool m_isShow;

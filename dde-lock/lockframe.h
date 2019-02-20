@@ -26,12 +26,12 @@
 #ifndef LOCKFRAME
 #define LOCKFRAME
 
+#include "fullscreenbackground.h"
+
 #include <QKeyEvent>
 #include <QDBusConnection>
 #include <QDBusAbstractAdaptor>
 #include <memory>
-
-#include "fullscreenbackground.h"
 
 const QString DBUS_PATH = "/com/deepin/dde/lockFront";
 const QString DBUS_NAME = "com.deepin.dde.lockFront";
