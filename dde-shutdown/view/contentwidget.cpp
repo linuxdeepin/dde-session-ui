@@ -365,9 +365,11 @@ void ContentWidget::beforeInvokeAction(const Actions action)
     }
 
     if (loginUsers.length() > 1 && action != Logout) {
+        QList<std::shared_ptr<User>> tmpList = loginUsers;
+        tmpList.removeOne(m_model->currentUser());
 
         MultiUsersWarningView *view = new MultiUsersWarningView(this);
-        view->setUsers(loginUsers);
+        view->setUsers(tmpList);
         view->setAction(action);
         if (action == Shutdown)
             view->setAcceptReason(tr("Shut down"));
