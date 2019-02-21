@@ -93,6 +93,8 @@ MultiUsersWarningView::~MultiUsersWarningView()
 
 void MultiUsersWarningView::setUsers(QList<std::shared_ptr<User>> users)
 {
+    m_userList->clear();
+
     m_userList->setFixedSize(UserListItemSize.width(),
                              UserListItemSize.height() * qMin(users.length(), 4));
 
