@@ -34,6 +34,12 @@
 
 #include <ddialog.h>
 
+#if (DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 8, 0))
+#include <DDBusSender>
+#else
+#include <QProcess>
+#endif
+
 DWIDGET_USE_NAMESPACE
 
 void terminate(const QStringList &pidList, const QPixmap &icon)
@@ -49,7 +55,17 @@ void close_tab(const QList<int> &tabs)
         return;
 
     for (auto tab : tabs)
-        QProcess::startDetached("qdbus com.deepin.chromeExtension.TabsLimit /com/deepin/chromeExtension/TabsLimit com.deepin.chromeExtension.TabsLimit.CloseTab " + QString::number(tab));
+#if (DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 8, 0))
+        DDBusSender()
+            .service("com.deepin.chromeExtension.TabsLimit")
+            .interface("com.deepin.chromeExtension.TabsLimit")
+            .path("/com/deepin/chromeExtension/TabsLimit")
+            .method("CloseTab")
+            .arg(QString::number(tab))
+            .call();
+#else
+        QProcess::startDetached("dbus-send --type=method_call --dest=com.deepin.chromeExtension.TabsLimit /com/deepin/chromeExtension/TabsLimit com.deepin.chromeExtension.TabsLimit.CloseTab string:" + QString::number(tab));
+#endif
 }
 
 ButtonDelegate::ButtonDelegate(QObject *parent)

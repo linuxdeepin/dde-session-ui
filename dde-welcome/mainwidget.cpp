@@ -39,6 +39,13 @@
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
 
+#include "dtkcore_global.h"
+#if (DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 8, 0))
+#include <DDBusSender>
+#else
+#include <QProcess>
+#endif
+
 //Load the System cursor --begin
 static XcursorImages*
 xcLoadImages(const char *image, int size)
@@ -122,7 +129,17 @@ MainWidget::MainWidget(QWidget *parent)
 {
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &MainWidget::onBlurWallpaperFinished);
     connect(qApp, &QApplication::aboutToQuit, this, [=] {
-        QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected true");
+#if (DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 8, 0))
+        DDBusSender()
+            .service("com.deepin.daemon.Zone")
+            .interface("com.deepin.daemon.Zone")
+            .path("/com/deepin/daemon/Zone")
+            .method("EnableZoneDetected")
+            .arg(true)
+            .call();
+#else
+        QProcess::startDetached("dbus-send --type=method_call --dest=com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected boolean:true");
+#endif
     });
 
     QGSettings gsettings("com.deepin.dde.appearance", "", this);
@@ -141,7 +158,17 @@ MainWidget::MainWidget(QWidget *parent)
 
     updateBackground(w.isEmpty() ? m_wallpaper : w);
 
-    QProcess::startDetached("qdbus --literal com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected false");
+#if (DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 8, 0))
+    DDBusSender()
+        .service("com.deepin.daemon.Zone")
+        .interface("com.deepin.daemon.Zone")
+        .path("/com/deepin/daemon/Zone")
+        .method("EnableZoneDetected")
+        .arg(false)
+        .call();
+#else
+    QProcess::startDetached("dbus-send --type=method_call --dest=com.deepin.daemon.Zone /com/deepin/daemon/Zone com.deepin.daemon.Zone.EnableZoneDetected boolean:false");
+#endif
 }
 
 void MainWidget::onBlurWallpaperFinished(const QString &source, const QString &blur, bool status)
