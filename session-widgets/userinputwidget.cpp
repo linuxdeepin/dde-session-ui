@@ -166,6 +166,9 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
     m_currentUserConnects << connect(user.get(), &User::kbLayoutListChanged, this, &UserInputWidget::updateKBLayout, Qt::UniqueConnection);
     m_currentUserConnects << connect(user.get(), &User::currentKBLayoutChanged, this, &UserInputWidget::setDefaultKBLayout, Qt::UniqueConnection);
     m_currentUserConnects << connect(user.get(), &User::lockChanged, this, &UserInputWidget::disablePassword);
+    m_currentUserConnects << connect(user.get(), &User::avatarChanged, this, &UserInputWidget::setAvatar);
+    m_currentUserConnects << connect(user.get(), &User::displayNameChanged, this, &UserInputWidget::setName);
+
     m_user = user;
 
     setName(user->displayName());
