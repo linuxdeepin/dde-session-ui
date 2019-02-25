@@ -1,3 +1,19 @@
+<a name="4.8.11"></a>
+### 4.8.11 (2019-02-25)
+
+
+#### Bug Fixes
+
+* **Shutdown:**  don't show self in multiUserWarning when poweroff ([3762c144](https://github.com/linuxdeepin/dde-session-ui/commit/3762c144d109b08445b40c7184afb616e303fb22))
+* **greeter:**  password veification when using a fingerprint that interface will always running verification animation ([45962694](https://github.com/linuxdeepin/dde-session-ui/commit/4596269481ee9cdc60f2d850f96e4826aad0e8c5))
+* **lock:**
+  *  not delete nonexistent user ([adf47c8d](https://github.com/linuxdeepin/dde-session-ui/commit/adf47c8dfccdcd930084661f66f3320de7c2242a))
+  *  wrong user list check ([564e0c88](https://github.com/linuxdeepin/dde-session-ui/commit/564e0c88070a077ac3518595b69d321bda6ae3bb))
+  *  not refresh avatar and display name when change user info ([b056b7d1](https://github.com/linuxdeepin/dde-session-ui/commit/b056b7d1824e52d9882e0b6d9549375bfded3f5d))
+* **shutdown:**  multiuser warning view not refresh user list ([5c80a9d2](https://github.com/linuxdeepin/dde-session-ui/commit/5c80a9d2317661aa5eaaa56fe1ff53c6c9fa6d2f))
+
+
+
 <a name="4.8.10"></a>
 ### 4.8.10 (2019-02-18)
 
