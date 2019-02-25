@@ -307,7 +307,7 @@ void LockWorker::onUserRemove(const QString &user)
     QList<std::shared_ptr<User>> list = m_model->userList();
 
     for (auto u : list) {
-        if (u->uid() == user.toUInt() && u->type() == User::Native) {
+        if (u->path() == user && u->type() == User::Native) {
             m_model->userRemoved(u);
             break;
         }

@@ -70,6 +70,13 @@ void User::setisLogind(bool isLogind) {
     emit logindChanged(isLogind);
 }
 
+void User::setPath(const QString &path)
+{
+    if (m_path == path) return;
+
+    m_path = path;
+}
+
 bool User::isLockForNum()
 {
     return m_isLock || --m_tryNum == 0;
@@ -124,8 +131,9 @@ NativeUser::NativeUser(const QString &path, QObject *parent)
 
     m_userName = m_userInter->userName();
     m_uid = m_userInter->uid().toInt();
-    m_userPath = path;
     m_locale = m_userInter->locale();
+
+    setPath(path);
 }
 
 void NativeUser::setCurrentLayout(const QString &layout)

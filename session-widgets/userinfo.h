@@ -52,6 +52,9 @@ public:
     void setisLogind(bool isLogind);
     virtual void setCurrentLayout(const QString &layout) { Q_UNUSED(layout); }
 
+    void setPath(const QString &path);
+    const QString path() const { return m_path; }
+
     uint lockNum() const { return m_lockNum; }
     bool isLock() const { return m_isLock; }
     bool isLockForNum();
@@ -77,6 +80,7 @@ protected:
     uint m_tryNum; // try number
     QString m_userName;
     QString m_locale;
+    QString m_path;
     std::shared_ptr<QTimer> m_lockTimer;
 };
 
@@ -97,11 +101,8 @@ public:
     QStringList kbLayoutList();
     QString currentKBLayout();
 
-    const QString path() const { return m_userPath; }
-
 private:
     UserInter *m_userInter;
-    QString m_userPath;
 };
 
 class ADDomainUser : public User
