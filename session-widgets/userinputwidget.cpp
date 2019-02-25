@@ -214,12 +214,14 @@ void UserInputWidget::setAvatar(const QString &avatar)
 
 void UserInputWidget::setIsNoPasswordGrp(bool isNopassword)
 {
+    m_passwordEdit->abortAuth();
     m_passwordEdit->setVisible(!isNopassword);
     m_loginBtn->setVisible(isNopassword);
 }
 
 void UserInputWidget::setFaildMessage(const QString &message)
 {
+    m_passwordEdit->abortAuth();
     if (m_lockPasswordWidget->isVisible()) {
         m_lockPasswordWidget->setMessage(message);
         return;
