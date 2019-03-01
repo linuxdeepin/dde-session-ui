@@ -56,7 +56,7 @@ WMChooser::WMChooser(QWidget *parent)
     m_gorgeousBtn = new QPushButton(tr("Effect Mode"));
     m_gorgeousBtn->setFixedSize(300, 50);
     m_gorgeousBtn->setStyleSheet(btnStyle);
-    m_topSpeedBtn = new QPushButton(tr("Common Mode"));
+    m_topSpeedBtn = new QPushButton(tr("Normal Modee"));
     m_topSpeedBtn->setFixedSize(m_gorgeousBtn->size());
     m_topSpeedBtn->setStyleSheet(btnStyle);
 
@@ -64,10 +64,10 @@ WMChooser::WMChooser(QWidget *parent)
     titleTip->setStyleSheet("font-size: 40px;"
                             "color: #ffffff;");
 
-    QLabel*tip = new QLabel(tr("System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode"));
+    QLabel*tip = new QLabel(tr("It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended"));
     tip->setWordWrap(true);
 
-    QLabel *bottomTip = new QLabel(tr("Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance"));
+    QLabel *bottomTip = new QLabel(tr("Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance"));
     tip->setStyleSheet("line-height: 1.43;"
                        "color: #ffffff;"
                        "font-size: 14px;");
