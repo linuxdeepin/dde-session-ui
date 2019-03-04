@@ -56,7 +56,7 @@ WMChooser::WMChooser(QWidget *parent)
     m_gorgeousBtn = new QPushButton(tr("Effect Mode"));
     m_gorgeousBtn->setFixedSize(300, 50);
     m_gorgeousBtn->setStyleSheet(btnStyle);
-    m_topSpeedBtn = new QPushButton(tr("Normal Modee"));
+    m_topSpeedBtn = new QPushButton(tr("Normal Mode"));
     m_topSpeedBtn->setFixedSize(m_gorgeousBtn->size());
     m_topSpeedBtn->setStyleSheet(btnStyle);
 

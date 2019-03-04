@@ -412,7 +412,7 @@
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
-        <source>Normal Modee</source>
+        <source>Normal Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
