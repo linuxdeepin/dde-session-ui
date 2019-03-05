@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="371"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
         <source>Shut down</source>
         <translation>關機</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="379"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="524"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="345"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="373"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
         <source>Reboot</source>
         <translation>重新開機</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
         <source>Are you sure to shut down?</source>
         <translation>確定關機？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <source>Are you sure to reboot?</source>
         <translation>確定要重新開機？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
         <source>Log out</source>
         <translation>登出</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
         <source>Are you sure to log out?</source>
         <translation>確定登出？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Suspend</source>
         <translation>待機</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Hibernate</source>
         <translation>休眠</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Lock</source>
         <translation>鎖定</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="540"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="532"/>
         <source>Switch user</source>
         <translation>切換使用者</translation>
     </message>
@@ -155,30 +155,30 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="80"/>
+        <location filename="../session-widgets/lockworker.cpp" line="108"/>
         <source>Domain account</source>
         <translation>網域帳號</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="448"/>
-        <location filename="../session-widgets/lockworker.cpp" line="555"/>
+        <location filename="../session-widgets/lockworker.cpp" line="503"/>
+        <location filename="../session-widgets/lockworker.cpp" line="600"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>指紋驗證逾時，請手動輸入密碼</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="466"/>
-        <location filename="../session-widgets/lockworker.cpp" line="570"/>
+        <location filename="../session-widgets/lockworker.cpp" line="521"/>
+        <location filename="../session-widgets/lockworker.cpp" line="615"/>
         <source>Failed to match fingerprint</source>
         <translation>配對指紋失敗</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="490"/>
-        <location filename="../session-widgets/lockworker.cpp" line="584"/>
+        <location filename="../session-widgets/lockworker.cpp" line="545"/>
+        <location filename="../session-widgets/lockworker.cpp" line="629"/>
         <source>Wrong Password</source>
         <translation>密碼錯誤</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="588"/>
+        <location filename="../session-widgets/lockworker.cpp" line="633"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>網域帳號或密碼錯誤，請重新輸入。</translation>
     </message>
@@ -191,14 +191,14 @@
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
-        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>下方的使用者們尚未登出，且他們的資料可能會因為關機而遺失。確定關機？</translation>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
+        <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
+        <translation>以上的使用者仍在登入，且重開機後這些使用者的資料將會遺失。確定重啟？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
-        <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>下方的使用者們尚未登出，且他們的資料可能會因為重新開機而遺失。確定重新開機？</translation>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
+        <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
+        <translation>以上的使用者仍在登入，且關機後這些使用者的資料將會遺失。確定關機？</translation>
     </message>
 </context>
 <context>
@@ -282,32 +282,32 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="289"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>關機</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="271"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="306"/>
         <source>Login</source>
         <translation>登入</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="280"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="315"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="89"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
         <translation>重新開機</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="95"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="105"/>
         <source>Suspend</source>
         <translation>待機</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="101"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
         <translation>休眠</translation>
     </message>
@@ -347,12 +347,12 @@
 <context>
     <name>TimeWidget</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="77"/>
+        <location filename="../dde-lock/timewidget.cpp" line="69"/>
         <source>hh:mm</source>
         <translation>hh:mm</translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="78"/>
+        <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>yyyy 年 MM 月 dd 日 dddd</translation>
     </message>
@@ -383,17 +383,17 @@
         <translation>登入</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="261"/>
         <source>Please try again %n minute(s) later</source>
         <translation><numerusform>請在 %n 分鐘後重新嘗試</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
         <source>Enter your password to shutdown</source>
         <translation>輸入密碼以關機</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
         <source>Enter your password to reboot</source>
         <translation>輸入密碼以重新開機</translation>
     </message>
@@ -401,29 +401,29 @@
 <context>
     <name>WMChooser</name>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
         <translation>特效模式</translation>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
-        <source>Common Mode</source>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
+        <source>Normal Mode</source>
         <translation>一般模式</translation>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
+        <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
+        <translation>已偵測到您正在使用虛擬機器，其可能會影響系統效能與操作體驗。為了更流暢的體驗，建議使用「一般模式」。</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
+        <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
+        <translation>效能模式：提供較精緻的體驗。一般模式：體驗較快速的效能</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
         <translation>友善提醒</translation>
-    </message>
-    <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
-        <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>系統已偵測到您正使用虛擬機，它將會影響系統效能與操作體驗，為了有更好的操作體驗，建議選擇一般模式</translation>
-    </message>
-    <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
-        <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation>特效模式：給予滑順和精美的體驗；普通模式：享受其高效能</translation>
     </message>
 </context>
 <context>

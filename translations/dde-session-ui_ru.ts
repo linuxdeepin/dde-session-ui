@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="371"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
         <source>Shut down</source>
         <translation>Выключить</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="379"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="524"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="345"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="373"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
         <source>Reboot</source>
         <translation>Перезагрузить</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
         <source>Are you sure to shut down?</source>
         <translation>Вы уверены, что хотите выключить?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <source>Are you sure to reboot?</source>
         <translation>Вы уверены, что хотите перезагрузить?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
         <source>Log out</source>
         <translation>Выйти</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
         <source>Are you sure to log out?</source>
         <translation>Вы уверены, что хотите выйти?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Suspend</source>
         <translation>Приостановить</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Hibernate</source>
         <translation>Спящий Режим</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Lock</source>
         <translation>Блокировать</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="540"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="532"/>
         <source>Switch user</source>
         <translation>Сменить пользователя</translation>
     </message>
@@ -155,30 +155,30 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="80"/>
+        <location filename="../session-widgets/lockworker.cpp" line="108"/>
         <source>Domain account</source>
         <translation>Учетная запись в домене</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="448"/>
-        <location filename="../session-widgets/lockworker.cpp" line="555"/>
+        <location filename="../session-widgets/lockworker.cpp" line="503"/>
+        <location filename="../session-widgets/lockworker.cpp" line="600"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Время проверки отпечатка пальца вышло, пожалуйста, введите свой пароль вручную</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="466"/>
-        <location filename="../session-widgets/lockworker.cpp" line="570"/>
+        <location filename="../session-widgets/lockworker.cpp" line="521"/>
+        <location filename="../session-widgets/lockworker.cpp" line="615"/>
         <source>Failed to match fingerprint</source>
         <translation>Отпечаток пальца не совпадает</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="490"/>
-        <location filename="../session-widgets/lockworker.cpp" line="584"/>
+        <location filename="../session-widgets/lockworker.cpp" line="545"/>
+        <location filename="../session-widgets/lockworker.cpp" line="629"/>
         <source>Wrong Password</source>
         <translation>Неверный Пароль</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="588"/>
+        <location filename="../session-widgets/lockworker.cpp" line="633"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>Учетная запись домена или пароль неверны. Пожалуйста повторите.</translation>
     </message>
@@ -191,14 +191,14 @@
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
-        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Некоторые пользователи по-прежнему находятся в системе и данные будут потеряны из-за отключения, вы уверены, что хотите выключить?</translation>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
+        <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
+        <translation>Некоторые пользователи по-прежнему находятся в системе и данные будут потеряны после перезагрузки, вы уверены, что хотите перезагрузить?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
-        <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Некоторые пользователи по-прежнему находятся в системе и данные будут потеряны после перезагрузки, вы уверены, что хотите перезагрузить?</translation>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
+        <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
+        <translation>Некоторые пользователи по-прежнему находятся в системе и данные будут потеряны после выключения, вы уверены, что хотите выключить?</translation>
     </message>
 </context>
 <context>
@@ -282,32 +282,32 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="289"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Выключить</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="271"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="306"/>
         <source>Login</source>
         <translation>Вход</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="280"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="315"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="89"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
         <translation>Перезагрузить</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="95"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="105"/>
         <source>Suspend</source>
         <translation>Приостановить</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="101"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
         <translation>Спящий Режим</translation>
     </message>
@@ -347,12 +347,12 @@
 <context>
     <name>TimeWidget</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="77"/>
+        <location filename="../dde-lock/timewidget.cpp" line="69"/>
         <source>hh:mm</source>
         <translation>hh:mm</translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="78"/>
+        <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>yyyy-MM-dd dddd</translation>
     </message>
@@ -383,17 +383,17 @@
         <translation>Вход</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="261"/>
         <source>Please try again %n minute(s) later</source>
         <translation><numerusform>Пожалуйста повторите через %n минут(ы)</numerusform><numerusform>Пожалуйста повторите через %n минут(ы)</numerusform><numerusform>Пожалуйста повторите через %n минут(ы)</numerusform><numerusform>Пожалуйста повторите через %n минут(ы)</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
         <source>Enter your password to shutdown</source>
         <translation>Введите пароль, чтобы выключить</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
         <source>Enter your password to reboot</source>
         <translation>Введите ваш пароль для перезагрузки</translation>
     </message>
@@ -401,29 +401,29 @@
 <context>
     <name>WMChooser</name>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
         <translation>Режим Эффектов</translation>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
-        <source>Common Mode</source>
-        <translation>Обычный Режим</translation>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
+        <source>Normal Mode</source>
+        <translation>Нормальный Режим</translation>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
+        <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
+        <translation>Было обнаружено, что вы используете виртуальную машину, которая будет влиять на производительность системы и ощущения от работы. Для плавной работы рекомендован Нормальный Режим</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
+        <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
+        <translation>Режим Эффектов: Испытайте полноту ощущений. Нормальный Режим: наслаждайтесь быстродействием</translation>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
         <translation>Вежливое Напоминание</translation>
-    </message>
-    <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
-        <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>Система обнаружила, что вы используете виртуальную машину, которая будет влиять на производительность системы и работу режима сглаживания, рекомендуется выбрать Обычный Режим</translation>
-    </message>
-    <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
-        <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation>Эффективный режим: имеет гладкий и деликатный вид. Обычный режим: наслаждайтесь быстрой работой</translation>
     </message>
 </context>
 <context>

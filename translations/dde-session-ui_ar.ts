@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="371"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
         <source>Shut down</source>
         <translation>إيقاف التشغيل</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="379"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="524"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="345"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="373"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
         <source>Reboot</source>
         <translation>إعادة التشغيل</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
         <source>Are you sure to shut down?</source>
         <translation>هل أنت متأكد من إيقاف التشغيل؟</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <source>Are you sure to reboot?</source>
         <translation>هل أنت متأكد من إعادة التشغيل؟</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
         <source>Log out</source>
         <translation>تسجيل الخروج</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
         <source>Are you sure to log out?</source>
         <translation>هل أنت متأكد من تسجيل الخروج؟</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Suspend</source>
         <translation>إسبات</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Hibernate</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Lock</source>
         <translation>قفل</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="540"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="532"/>
         <source>Switch user</source>
         <translation>تبديل المستخدم</translation>
     </message>
@@ -155,30 +155,30 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="80"/>
+        <location filename="../session-widgets/lockworker.cpp" line="108"/>
         <source>Domain account</source>
         <translation>حساب النطاق</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="448"/>
-        <location filename="../session-widgets/lockworker.cpp" line="555"/>
+        <location filename="../session-widgets/lockworker.cpp" line="503"/>
+        <location filename="../session-widgets/lockworker.cpp" line="600"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>نفذ وقت التحقق من البصمة ، رجاءً أدخل كلمة المرور يدويًا</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="466"/>
-        <location filename="../session-widgets/lockworker.cpp" line="570"/>
+        <location filename="../session-widgets/lockworker.cpp" line="521"/>
+        <location filename="../session-widgets/lockworker.cpp" line="615"/>
         <source>Failed to match fingerprint</source>
         <translation>فشل في مطابقة البصمة</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="490"/>
-        <location filename="../session-widgets/lockworker.cpp" line="584"/>
+        <location filename="../session-widgets/lockworker.cpp" line="545"/>
+        <location filename="../session-widgets/lockworker.cpp" line="629"/>
         <source>Wrong Password</source>
         <translation>كلمة المرور غير صحيحة</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="588"/>
+        <location filename="../session-widgets/lockworker.cpp" line="633"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>الحساب أو كلمة المرور غير صحيحة. رجاءً أعد المحاولة.</translation>
     </message>
@@ -191,14 +191,14 @@
         <translation>إلغاء</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
-        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>المستخدمون أعلاه لا يزالون قيد تسجيل الدخول وسيتم فقدان البيانات بسبب إيقاف التشغيل ، هل أنت متأكد من مواصلة إيقاف التشغيل ؟</translation>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
+        <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
-        <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>المستخدمون أعلاه لا يزالون قيد تسجيل الدخول وسيتم فقدان البيانات بسبب إعادة التشغيل ، هل أنت متأكد من مواصلة إعادة التشغيل ؟</translation>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
+        <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -282,32 +282,32 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="289"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>إيقاف التشغيل</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="271"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="306"/>
         <source>Login</source>
         <translation>تسجيل دخول</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="280"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="315"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="89"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
         <translation>إعادة التشغيل</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="95"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="105"/>
         <source>Suspend</source>
         <translation>إسبات</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="101"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
         <translation type="unfinished"/>
     </message>
@@ -348,12 +348,12 @@
 <context>
     <name>TimeWidget</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="77"/>
+        <location filename="../dde-lock/timewidget.cpp" line="69"/>
         <source>hh:mm</source>
         <translation>hh:mm</translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="78"/>
+        <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>yyyy-MM-dd dddd</translation>
     </message>
@@ -384,17 +384,17 @@
         <translation>تسجيل دخول</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="261"/>
         <source>Please try again %n minute(s) later</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
         <source>Enter your password to shutdown</source>
         <translation>أدخل كلمة المرور ﻹيقاف التشغيل.</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
         <source>Enter your password to reboot</source>
         <translation>ادخل كلمة مرورك لإعادة التشغيل</translation>
     </message>
@@ -402,29 +402,29 @@
 <context>
     <name>WMChooser</name>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
         <translation>وضع التأثيرات</translation>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
-        <source>Common Mode</source>
-        <translation>الوضع المشترك</translation>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
+        <source>Normal Mode</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
+        <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
+        <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
         <translation>تذكير ودي</translation>
-    </message>
-    <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
-        <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>لقد اكتشف النظام أنك تستخدم جهازاً وهمياً ،والذي سوف يؤثر على أداء النظام والتجربة العملية ، لذا للحصول على تجربة سلسة ، من المستحسن تحديد الوضع المشترك</translation>
-    </message>
-    <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
-        <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation>الوضع المؤثر: أحصل على تجربة سلسة و حساسة. الوضع العام: أستمتع بأداءه السريع</translation>
     </message>
 </context>
 <context>

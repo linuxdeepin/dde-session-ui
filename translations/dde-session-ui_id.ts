@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="377"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="371"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
         <source>Shut down</source>
         <translation>Matikan</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="379"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="524"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="345"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="373"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
         <source>Reboot</source>
         <translation>Boot ulang</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
         <source>Are you sure to shut down?</source>
         <translation>Apakah Anda yakin ingin mematikan?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <source>Are you sure to reboot?</source>
         <translation>Apakah anda yakin akan mulai ulang?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
         <source>Log out</source>
         <translation>Keluar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
         <source>Are you sure to log out?</source>
         <translation>Apakah Anda yakin ingin keluar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
         <source>Suspend</source>
         <translation>Tangguhkan</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Hibernate</source>
         <translation>Hibernasi</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Lock</source>
         <translation>Kunci</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="540"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="532"/>
         <source>Switch user</source>
         <translation>Beralih pengguna</translation>
     </message>
@@ -155,30 +155,30 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="80"/>
+        <location filename="../session-widgets/lockworker.cpp" line="108"/>
         <source>Domain account</source>
         <translation>Akun Domain</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="448"/>
-        <location filename="../session-widgets/lockworker.cpp" line="555"/>
+        <location filename="../session-widgets/lockworker.cpp" line="503"/>
+        <location filename="../session-widgets/lockworker.cpp" line="600"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Waktu verifikasi sidik jari sudah habis, mohon masukan kata sandi anda secara manual</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="466"/>
-        <location filename="../session-widgets/lockworker.cpp" line="570"/>
+        <location filename="../session-widgets/lockworker.cpp" line="521"/>
+        <location filename="../session-widgets/lockworker.cpp" line="615"/>
         <source>Failed to match fingerprint</source>
         <translation>Gagal mencocokan sidik jari</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="490"/>
-        <location filename="../session-widgets/lockworker.cpp" line="584"/>
+        <location filename="../session-widgets/lockworker.cpp" line="545"/>
+        <location filename="../session-widgets/lockworker.cpp" line="629"/>
         <source>Wrong Password</source>
         <translation>Sandi lewat Salah</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="588"/>
+        <location filename="../session-widgets/lockworker.cpp" line="633"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>Akun domain atau kata sandi tidak tepat. Mohon masukan kembali.</translation>
     </message>
@@ -191,14 +191,14 @@
         <translation>Batal</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="120"/>
-        <source>The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? </source>
-        <translation>Pengguna di atas tetap masuk dan data akan hilang ketika dimatikan, apakah Anda yakin untuk mematikan?</translation>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
+        <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="126"/>
-        <source>The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? </source>
-        <translation>Pengguna di tas tetap masuk dan data akan hilang ketika boot ulang, apakah Anda yakin ingin boot ulang?</translation>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
+        <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -282,32 +282,32 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="254"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="289"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Matikan</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="271"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="306"/>
         <source>Login</source>
         <translation>Masuk</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="280"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="315"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="89"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
         <translation>Boot ulang</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="95"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="105"/>
         <source>Suspend</source>
         <translation>Tangguhkan</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="101"/>
+        <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
         <translation>Hibernasi</translation>
     </message>
@@ -347,12 +347,12 @@
 <context>
     <name>TimeWidget</name>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="77"/>
+        <location filename="../dde-lock/timewidget.cpp" line="69"/>
         <source>hh:mm</source>
         <translation>hh:mm</translation>
     </message>
     <message>
-        <location filename="../dde-lock/timewidget.cpp" line="78"/>
+        <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>yyyy-MM-dd dddd</translation>
     </message>
@@ -383,17 +383,17 @@
         <translation>Masuk</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="233"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="261"/>
         <source>Please try again %n minute(s) later</source>
         <translation><numerusform>Mohon coba lagi %n menit kemudian</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="253"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
         <source>Enter your password to shutdown</source>
         <translation>Masukkan sandi lewat Anda untuk mematikan</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="279"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
         <source>Enter your password to reboot</source>
         <translation>Masukkan sandi lewat Anda untuk muat ulang</translation>
     </message>
@@ -401,29 +401,29 @@
 <context>
     <name>WMChooser</name>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="56"/>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
         <translation>Mode Efek</translation>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="59"/>
-        <source>Common Mode</source>
-        <translation>Mode Biasa</translation>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
+        <source>Normal Mode</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="63"/>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
+        <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
+        <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
         <translation>Pengingat Ramah</translation>
-    </message>
-    <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="67"/>
-        <source>System has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, it is recommended to select Common Mode</source>
-        <translation>Sistem telah mendeteksi Anda menggunakan mesin virtual, yang mana akan mempengaruhi performa dan pengalaman operasi, untuk pengalaman lebih nyaman, direkomendasikan untuk memilih Mode Biasa.</translation>
-    </message>
-    <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="70"/>
-        <source>Effect Mode: Have a smooth and delicate experience. Common Mode: Enjoy its fast performance</source>
-        <translation>Mode Efek: Mempunyai pergerakan mulus dan halus. Mode Umum: Nikmati kinerja cepat</translation>
     </message>
 </context>
 <context>
