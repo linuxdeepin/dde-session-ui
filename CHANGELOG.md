@@ -1,3 +1,17 @@
+<a name="4.8.12"></a>
+### 4.8.12 (2019-03-06)
+
+
+#### Bug Fixes
+
+* **greeter:**  when have addoman login, cannot use fprintd login ([f1721cf5](https://github.com/linuxdeepin/dde-session-ui/commit/f1721cf58be424870ca073d72c286cb29542406f))
+* **lock:**
+  *  virtualKeyboard show need twice click ([5db3a08e](https://github.com/linuxdeepin/dde-session-ui/commit/5db3a08e146980fbfa28fc67c01cd8a38112fcae))
+  *  switch user button not change when user list changed ([b037b013](https://github.com/linuxdeepin/dde-session-ui/commit/b037b013ee85e86926a623818a826774dc6fe395))
+* **shutdown:**  switch user do not need to display ([e04d743c](https://github.com/linuxdeepin/dde-session-ui/commit/e04d743c041ee69c39707c89a5089cc695012d04))
+
+
+
 <a name="4.8.11"></a>
 ### 4.8.11 (2019-02-25)
 
