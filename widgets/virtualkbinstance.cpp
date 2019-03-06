@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QTimer>
 #include <QDebug>
+#include <QResizeEvent>
 
 VirtualKBInstance &VirtualKBInstance::Instance()
 {
@@ -36,11 +37,10 @@ void VirtualKBInstance::init()
         m_virtualKBWidget = QWidget::createWindowContainer(w);
         m_virtualKBWidget->setFixedSize(600, 200);
 
-        QTimer::singleShot(500, [=] {
+        QTimer::singleShot(300, [=] {
             m_virtualKBWidget->hide();
+            emit initFinished();
         });
-
-        emit initFinished();
     });
 
     p->start("onboard", QStringList() << "-e" << "--layout" << "Small");
@@ -48,6 +48,11 @@ void VirtualKBInstance::init()
 
 bool VirtualKBInstance::eventFilter(QObject *watched, QEvent *event)
 {
+    if (watched == m_virtualKBWidget && event->type() == QEvent::Resize) {
+        QResizeEvent *e = static_cast<QResizeEvent*>(event);
+        return e->size() != QSize(600, 200);
+    }
+
     return QObject::eventFilter(watched, event);
 }
 

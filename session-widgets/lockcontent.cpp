@@ -66,7 +66,6 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         m_model->setCurrentModeState(SessionBaseModel::ModeStatus::PowerMode);
     });
     connect(m_controlWidget, &ControlWidget::requestSwitchVirtualKB, this, &LockContent::toggleVirtualKB);
-    connect(model, &SessionBaseModel::hasVirtualKBChanged, m_controlWidget, &ControlWidget::setVirtualKBVisible);
     connect(m_userFrame, &UserFrame::hideFrame, this, &LockContent::restoreMode);
     connect(m_shutdownFrame, &ShutdownWidget::abortOperation, this, &LockContent::restoreMode);
 
@@ -109,6 +108,7 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
         if (hasvirtualkb && !m_virtualKB) {
             connect(&VirtualKBInstance::Instance(), &VirtualKBInstance::initFinished, this, [&] {
                 m_virtualKB = VirtualKBInstance::Instance().virtualKBWidget();
+                m_controlWidget->setVirtualKBVisible(true);
             }, Qt::QueuedConnection);
             VirtualKBInstance::Instance().init();
         }
@@ -118,7 +118,6 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     connect(model, &SessionBaseModel::onUserListChanged, this, &LockContent::onUserListChanged);
 
     onCurrentUserChanged(model->currentUser());
-    m_controlWidget->setVirtualKBVisible(model->hasVirtualKB());
     initVirtualKB(model->hasVirtualKB());
 
     onUserListChanged(model->userList());
@@ -298,7 +297,7 @@ void LockContent::toggleVirtualKB()
 
 void LockContent::updateVirtualKBPosition()
 {
-    const QPoint point = geometry().topLeft() + mapToGlobal(QPoint((width() - m_virtualKB->width()) / 2, height() - m_virtualKB->height() - 50));
+    const QPoint point = mapToParent(QPoint((width() - m_virtualKB->width()) / 2, height() - m_virtualKB->height() - 50));
     m_virtualKB->move(point);
 }
 
