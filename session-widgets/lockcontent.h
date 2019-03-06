@@ -50,6 +50,7 @@ private:
     void onBlurDone(const QString &source, const QString &blur, bool status);
     void toggleVirtualKB();
     void updateVirtualKBPosition();
+    void onUserListChanged(QList<std::shared_ptr<User>> list);
 
 private:
     SessionBaseModel *m_model;

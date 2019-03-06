@@ -115,12 +115,13 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     };
 
     connect(model, &SessionBaseModel::hasVirtualKBChanged, this, initVirtualKB);
+    connect(model, &SessionBaseModel::onUserListChanged, this, &LockContent::onUserListChanged);
 
     onCurrentUserChanged(model->currentUser());
     m_controlWidget->setVirtualKBVisible(model->hasVirtualKB());
     initVirtualKB(model->hasVirtualKB());
 
-    m_controlWidget->setUserSwitchEnable(model->userList().size() > 1);
+    onUserListChanged(model->userList());
 }
 
 void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
@@ -299,4 +300,9 @@ void LockContent::updateVirtualKBPosition()
 {
     const QPoint point = geometry().topLeft() + mapToGlobal(QPoint((width() - m_virtualKB->width()) / 2, height() - m_virtualKB->height() - 50));
     m_virtualKB->move(point);
+}
+
+void LockContent::onUserListChanged(QList<std::shared_ptr<User> > list)
+{
+    m_controlWidget->setUserSwitchEnable(list.size() > 1);
 }
