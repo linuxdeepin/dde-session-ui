@@ -277,18 +277,20 @@ void LockWorker::onUserAdded(const QString &user)
         }
     }
 
-    if (m_model->currentUser().get() == nullptr && m_model->userList().isEmpty()) {
-        m_model->setCurrentUser(user_ptr);
+    if (m_model->currentUser().get() == nullptr) {
+        if (m_model->userList().isEmpty() || m_model->userList().first()->type() == User::ADDomain) {
+            m_model->setCurrentUser(user_ptr);
 
-        if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
-            if (!checkUserIsNoPWGrp(user_ptr)) {
-                if (m_greeter->inAuthentication()) {
-                    m_greeter->cancelAuthentication();
+            if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
+                if (!checkUserIsNoPWGrp(user_ptr)) {
+                    if (m_greeter->inAuthentication()) {
+                        m_greeter->cancelAuthentication();
+                    }
+
+                    QTimer::singleShot(100, this, [=] {
+                        m_greeter->authenticate(user_ptr->name());
+                    });
                 }
-
-                QTimer::singleShot(100, this, [=] {
-                    m_greeter->authenticate(user_ptr->name());
-                });
             }
         }
     }
