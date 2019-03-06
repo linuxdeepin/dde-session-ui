@@ -62,7 +62,6 @@ void DBusShutdownAgent::SwitchUser()
     for (ShutdownFrame *frame : m_frames) {
         frame->setConfirm(true);
         frame->powerAction(Actions::SwitchUser);
-        frame->show();
     }
 }
 
