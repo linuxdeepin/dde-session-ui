@@ -8,7 +8,7 @@ class QLabel;
 class LoginButton : public QWidget
 {
     Q_OBJECT
-    Q_PROPERTY(QString icon WRITE setIcon NOTIFY iconChanged)
+    Q_PROPERTY(QString icon READ icon WRITE setIcon NOTIFY iconChanged)
 public:
     explicit LoginButton(QWidget *parent = nullptr);
 
@@ -17,6 +17,8 @@ public:
         Hover,
         Press
     };
+
+    inline const QString icon() { return m_iconPath; }
 
 public slots:
     void setText(const QString &text);
@@ -37,6 +39,7 @@ protected:
 private:
     QLabel *m_text;
     QLabel *m_icon;
+    QString m_iconPath;
     State m_state;
 };
 

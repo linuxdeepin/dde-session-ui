@@ -42,6 +42,7 @@ void LoginButton::setText(const QString &text)
 
 void LoginButton::setIcon(const QString &icon)
 {
+    m_iconPath = icon;
     m_icon->setPixmap(DHiDPIHelper::loadNxPixmap(icon));
     emit iconChanged(icon);
 }

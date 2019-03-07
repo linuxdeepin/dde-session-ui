@@ -12,7 +12,8 @@ include(../global_util/global_util.pri)
 SOURCES += \
     main.cpp \
     updatecontent.cpp \
-    mainwidget.cpp
+    mainwidget.cpp \
+    utils.cpp
 
 HEADERS  += \
     updatecontent.h \

@@ -33,6 +33,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QDebug>
+#include <QLabel>
 
 WMChooser::WMChooser(QWidget *parent)
     : QWidget(parent)

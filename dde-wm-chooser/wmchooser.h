@@ -26,8 +26,6 @@
 #ifndef WMCHOOSER_H
 #define WMCHOOSER_H
 
-#include "../boxframe/boxframe.h"
-
 #include <QWidget>
 #include <QPushButton>
 

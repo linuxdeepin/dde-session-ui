@@ -18,7 +18,6 @@ CONFIG += c++14 link_pkgconfig
 
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
-include(../boxframe/boxframe.pri)
 
 HEADERS  += \
     view/logowidget.h \

@@ -27,7 +27,8 @@ User::User(QObject *parent)
 }
 
 User::User(const User &user)
-    : m_isLogind(user.m_isLogind)
+    : QObject(user.parent())
+    , m_isLogind(user.m_isLogind)
     , m_isNoPasswdGrp(user.m_isNoPasswdGrp)
     , m_isLock(user.m_isLock)
     , m_uid(user.m_uid)

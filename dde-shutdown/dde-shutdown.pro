@@ -17,7 +17,6 @@ CONFIG += c++11 link_pkgconfig
 
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
-include(../boxframe/boxframe.pri)
 
 SOURCES += main.cpp \
     view/contentwidget.cpp \
