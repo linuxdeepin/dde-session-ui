@@ -40,10 +40,6 @@ Guardien::Guardien(QObject *parent) :
     m_lock->setProgram("dde-lock");
     m_lock->setArguments(QStringList("--daemon"));
 
-    QDesktopWidget *desktop = QApplication::desktop();
-    connect(desktop, &QDesktopWidget::resized, this, &Guardien::restart);
-    connect(desktop, &QDesktopWidget::workAreaResized, this, &Guardien::restart);
-
     connect(m_shutdown, SIGNAL(finished(int)), this, SLOT(handleFinished(int)));
     connect(m_lock, SIGNAL(finished(int)), this, SLOT(handleFinished(int)));
 }
