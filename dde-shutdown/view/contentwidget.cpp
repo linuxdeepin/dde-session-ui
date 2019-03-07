@@ -61,10 +61,6 @@ void ContentWidget::setModel(SessionBaseModel * const model)
 {
     m_model = model;
 
-    auto checkUser = [=] (QList<std::shared_ptr<User>> list) {
-        m_switchUserBtn->setVisible(list.size() > 1);
-    };
-
     auto hasSwapChanged = [=] (bool hasSwap) {
         m_hibernateButton->setVisible(hasSwap);
         if (!hasSwap) {
@@ -72,8 +68,8 @@ void ContentWidget::setModel(SessionBaseModel * const model)
         }
     };
 
-    connect(model, &SessionBaseModel::onUserListChanged, this, checkUser);
-    checkUser(model->userList());
+    connect(model, &SessionBaseModel::onUserListChanged, this, &ContentWidget::onUserListChanged);
+    onUserListChanged(model->userList());
 
     connect(model, &SessionBaseModel::onHasSwapChanged, this, hasSwapChanged);
     hasSwapChanged(model->hasSwap());
@@ -507,6 +503,11 @@ void ContentWidget::onBlurWallpaperFinished(const QString &source, const QString
         emit requestBackground(blur);
 }
 
+void ContentWidget::onUserListChanged(QList<std::shared_ptr<User> > list)
+{
+    m_switchUserBtn->setVisible(list.size() > 1);
+}
+
 void ContentWidget::initUI() {
     m_btnsList = new QList<RoundItemButton *>;
     m_shutdownButton = new RoundItemButton(tr("Shut down"));
@@ -650,6 +651,9 @@ void ContentWidget::recoveryLayout()
 {
     for (RoundItemButton* btn : *m_btnsList) {
         btn->show();
+
+        // check user switch button
+        onUserListChanged(m_model->userList());
     }
 
     if (m_warningView != nullptr) {

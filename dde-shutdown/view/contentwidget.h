@@ -50,6 +50,7 @@ using ImageBlur = com::deepin::daemon::ImageBlur;
 
 class MultiUsersWarningView;
 class SessionBaseModel;
+class User;
 class ContentWidget: public QFrame
 {
     Q_OBJECT
@@ -96,6 +97,7 @@ private:
     void currentWorkspaceChanged();
     void updateWallpaper(const QString &path);
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
+    void onUserListChanged(QList<std::shared_ptr<User>> list);
 
     RoundItemButton *m_currentSelectedBtn = nullptr;
     RoundItemButton *m_shutdownButton;
