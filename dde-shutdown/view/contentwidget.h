@@ -30,6 +30,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QPushButton>
 
+#include <memory>
 
 #include <com_deepin_wm.h>
 #include <com_deepin_daemon_appearance.h>
