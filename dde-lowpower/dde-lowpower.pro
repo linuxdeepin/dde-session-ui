@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = dde-lowpower
 TEMPLATE = app
-
+CONFIG += c++11
 
 SOURCES += main.cpp \
         window.cpp
