@@ -1,3 +1,14 @@
+<a name="4.8.13"></a>
+### 4.8.13 (2019-03-08)
+
+
+#### Bug Fixes
+
+*   not need restart the process when workareachanged ([06a662cc](https://github.com/linuxdeepin/dde-session-ui/commit/06a662cc4f7bf1546cef04350bdac215e3b14568))
+* **shutdown:**  switch user button will show when show frame again ([6276ebd6](https://github.com/linuxdeepin/dde-session-ui/commit/6276ebd622a790b0be2c3dd24d8b1faa3cf951c8))
+
+
+
 <a name="4.8.12"></a>
 ### 4.8.12 (2019-03-06)
 
