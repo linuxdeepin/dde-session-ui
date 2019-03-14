@@ -46,6 +46,30 @@ void OtherUserInput::showEvent(QShowEvent *event)
     m_accountEdit->setFocus();
 }
 
+bool OtherUserInput::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == this && event->type() == QEvent::KeyPress) {
+        if (QKeyEvent *tmpE = dynamic_cast<QKeyEvent*>(event)) {
+            QKeyEvent *ev =
+                    new QKeyEvent(tmpE->type(), tmpE->key(), tmpE->modifiers(), tmpE->nativeScanCode(),
+                                  tmpE->nativeVirtualKey(), tmpE->nativeModifiers(),
+                                  tmpE->text(), tmpE->isAutoRepeat(), tmpE->count());
+
+            if (tmpE->key() == Qt::Key_Return || tmpE->key() == Qt::Key_Enter) {
+                qApp->postEvent(m_submitBtn, ev);
+                return true;
+            }
+
+            if (QLineEdit *edit = qobject_cast<QLineEdit*>(QWidget::focusWidget())) {
+                qApp->postEvent(edit, ev);
+                return true;
+            }
+        }
+    }
+
+    return QFrame::eventFilter(watched, event);
+}
+
 void OtherUserInput::initUI()
 {
     m_errorTip = new ErrorTooltip("", this->parentWidget());
@@ -59,6 +83,10 @@ void OtherUserInput::initUI()
     m_submitBtn = new DImageButton(":/img/action_icons/login_normal.svg",
                                    ":/img/action_icons/login_hover.svg",
                                    ":/img/action_icons/login_press.svg", this);
+
+    m_accountEdit->setFocus();
+
+    installEventFilter(this);
 
     m_accountEdit->setObjectName("accountEdit");
     m_passwdEdit->setObjectName("passwdEdit");

@@ -113,11 +113,16 @@ public:
     ADDomainUser(uint uid, QObject *parent = nullptr);
 
     void setUserDisplayName(const QString &name);
+    void setUserName(const QString &name);
 
+    QString displayName() const;
     UserType type() const { return ADDomain; }
     QString avatarPath() const;
     QString greeterBackgroundPath() const;
     QString desktopBackgroundPath() const;
+
+private:
+    QString m_displayName;
 };
 
 #endif // USERINFO_H

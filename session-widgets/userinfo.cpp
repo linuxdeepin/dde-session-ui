@@ -190,13 +190,27 @@ ADDomainUser::ADDomainUser(uint uid, QObject *parent)
 
 void ADDomainUser::setUserDisplayName(const QString &name)
 {
+    if (m_displayName == name) {
+        return;
+    }
+
+    m_displayName = name;
+
+    emit displayNameChanged(name);
+}
+
+void ADDomainUser::setUserName(const QString &name)
+{
     if (m_userName == name) {
         return;
     }
 
     m_userName = name;
+}
 
-    emit displayNameChanged(name);
+QString ADDomainUser::displayName() const
+{
+    return m_displayName.isEmpty() ? m_userName : m_displayName;
 }
 
 QString ADDomainUser::avatarPath() const

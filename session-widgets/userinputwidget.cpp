@@ -130,9 +130,13 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     });
 
     connect(m_otherUserInput, &OtherUserInput::submit, this, [=] {
-        std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*static_cast<ADDomainUser*>(m_user.get()));
-        static_cast<ADDomainUser*>(user.get())->setUserDisplayName(m_otherUserInput->account());
-        emit requestAuthUser(m_otherUserInput->passwd());
+        if (ADDomainUser *user = dynamic_cast<ADDomainUser*>(m_user.get())) {
+           user->setUserName(m_otherUserInput->account());
+           emit requestAuthUser(m_otherUserInput->passwd());
+        }
+        else {
+            qWarning() << "unknow error, check dynamic_cast<ADDomainUser>.";
+        }
     });
 
     connect(m_kbLayoutWidget, &KbLayoutWidget::setButtonClicked, this, &UserInputWidget::requestUserKBLayoutChanged);
@@ -181,7 +185,6 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
     int frameHeight = (m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2;
 
     if (user->type() == User::ADDomain && user->uid() == 0) {
-        m_passwordEdit->lineEdit()->releaseKeyboard();
         m_passwordEdit->hide();
         m_otherUserInput->show();
         frameHeight += m_otherUserInput->height();
@@ -319,11 +322,20 @@ void UserInputWidget::grabKeyboard()
 {
     if (m_passwordEdit->isVisible()) {
         m_passwordEdit->lineEdit()->grabKeyboard();
+        return;
     }
 
     if (m_loginBtn->isVisible()) {
         m_loginBtn->grabKeyboard();
         m_loginBtn->setFocus();
+        return;
+    }
+
+    // other input
+    if (m_otherUserInput->isVisible()) {
+        m_passwordEdit->lineEdit()->releaseKeyboard();
+        m_otherUserInput->grabKeyboard();
+        return;
     }
 }
 
@@ -331,6 +343,7 @@ void UserInputWidget::releaseKeyboard()
 {
     m_passwordEdit->lineEdit()->releaseKeyboard();
     m_loginBtn->releaseKeyboard();
+    m_otherUserInput->releaseKeyboard();
 }
 
 void UserInputWidget::hideKeyboard()
