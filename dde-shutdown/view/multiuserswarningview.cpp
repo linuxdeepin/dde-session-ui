@@ -119,13 +119,13 @@ void MultiUsersWarningView::setAction(const Actions action)
         m_actionBtn->setNormalPic(":/img/poweroff_warning_normal.svg");
         m_actionBtn->setHoverPic(":/img/poweroff_warning_hover.svg");
         m_actionBtn->setPressPic(":/img/poweroff_warning_press.svg");
-        m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to shutdown, are you sure to shut down? "));
+        m_warningTip->setText(tr("The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?"));
         break;
     default:
         m_actionBtn->setNormalPic(":/img/reboot_warning_normal.svg");
         m_actionBtn->setHoverPic(":/img/reboot_warning_hover.svg");
         m_actionBtn->setPressPic(":/img/reboot_warning_press.svg");
-        m_warningTip->setText(tr("The above users still keep logged in and the data will be lost due to reboot, are you sure to reboot? "));
+        m_warningTip->setText(tr("The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?"));
         break;
     }
 }
