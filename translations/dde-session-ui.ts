@@ -193,12 +193,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
         <translation type="unfinished"></translation>
     </message>
