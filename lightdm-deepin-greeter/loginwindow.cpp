@@ -54,4 +54,6 @@ LoginWindow::LoginWindow(SessionBaseModel * const model, QWidget *parent)
             logoWidget->updateLocale(user->locale().split(".").first());
         }
     });
+
+    updateBackground(m_loginFrame->wallpaper());
 }

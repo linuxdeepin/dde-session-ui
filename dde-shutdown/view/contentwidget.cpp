@@ -80,6 +80,14 @@ ContentWidget::~ContentWidget()
 
 }
 
+const QString ContentWidget::wallpaper()
+{
+    const QString &path = getWallpaper();
+    const QString &w = m_blurImageInter->Get(path);
+
+    return w.isEmpty() ? path : w;
+}
+
 void ContentWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     // NOTE: When the signal is sent after the press,
@@ -467,19 +475,13 @@ void ContentWidget::shutDownFrameActions(const Actions action)
 
 void ContentWidget::currentWorkspaceChanged()
 {
-    QDBusPendingCall call = m_wmInter->GetCurrentWorkspaceBackground();
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [=] {
-        if (!call. isError()) {
-            QDBusReply<QString> reply = call.reply();
-            updateWallpaper(reply.value());
-        } else {
-            qWarning() << "get current workspace background error: " << call.error().message();
-            updateWallpaper("/usr/share/backgrounds/deepin/desktop.jpg");
-        }
+    QString path { "/usr/share/backgrounds/deepin/desktop.jpg" };
 
-        watcher->deleteLater();
-    });
+    if (m_wmInter->isValid()) {
+        path = m_wmInter->GetCurrentWorkspaceBackground();
+    }
+
+    updateWallpaper(path);
 }
 
 void ContentWidget::updateWallpaper(const QString &path)
@@ -506,6 +508,24 @@ void ContentWidget::onBlurWallpaperFinished(const QString &source, const QString
 void ContentWidget::onUserListChanged(QList<std::shared_ptr<User> > list)
 {
     m_switchUserBtn->setVisible(list.size() > 1);
+}
+
+const QString ContentWidget::getWallpaper()
+{
+    QString path { "/usr/share/backgrounds/deepin/desktop.jpg" };
+
+    if (m_wmInter->isValid()) {
+        path = m_wmInter->GetCurrentWorkspaceBackground();
+        const QUrl url(path);
+        if (url.isLocalFile()) {
+            path = url.path();
+        }
+    }
+    else {
+        path = m_dbusAppearance->background();
+    }
+
+    return path;
 }
 
 void ContentWidget::initUI() {
@@ -591,14 +611,9 @@ void ContentWidget::initUI() {
 
 void ContentWidget::initBackground()
 {
-    if (m_wmInter->isValid()) {
-        currentWorkspaceChanged();
-    }
-    else {
-        QTimer::singleShot(0, this, [=] {
-            updateWallpaper(m_dbusAppearance->background());
-        });
-    }
+    QTimer::singleShot(0, this, [=] {
+        updateWallpaper(getWallpaper());
+    });
 
     connect(m_dbusAppearance, &Appearance::Changed, this, [=](const QString &type, const QString &path){
         if (type == "background") {

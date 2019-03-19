@@ -60,6 +60,8 @@ public:
     void setModel(SessionBaseModel * const model);
     ~ContentWidget();
 
+    const QString wallpaper();
+
 signals:
     void requestBackground(const QString &path) const;
 
@@ -99,6 +101,8 @@ private:
     void updateWallpaper(const QString &path);
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
     void onUserListChanged(QList<std::shared_ptr<User>> list);
+
+    const QString getWallpaper();
 
     RoundItemButton *m_currentSelectedBtn = nullptr;
     RoundItemButton *m_shutdownButton;

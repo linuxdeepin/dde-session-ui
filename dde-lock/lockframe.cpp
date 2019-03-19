@@ -56,6 +56,8 @@ LockFrame::LockFrame(SessionBaseModel * const model, QWidget* parent)
             hide();
         }
     });
+
+    updateBackground(m_content->wallpaper());
 }
 
 void LockFrame::showUserList() {

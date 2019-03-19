@@ -23,6 +23,8 @@ class LockContent : public SessionBaseWindow
 public:
     explicit LockContent(SessionBaseModel * const model, QWidget *parent = nullptr);
 
+    const QString wallpaper();
+
 signals:
     void requestBackground(const QString &path);
     void requestAuthUser(const QString &password);
@@ -51,6 +53,7 @@ private:
     void toggleVirtualKB();
     void updateVirtualKBPosition();
     void onUserListChanged(QList<std::shared_ptr<User>> list);
+    const QString getWallpaper();
 
 private:
     SessionBaseModel *m_model;

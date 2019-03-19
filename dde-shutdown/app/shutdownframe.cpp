@@ -43,6 +43,7 @@ ShutdownFrame::ShutdownFrame(SessionBaseModel * const model, QWidget *parent)
     connect(m_shutdownFrame, &ContentWidget::requestBackground,
             this, static_cast<void (ShutdownFrame::*)(const QString &)>(&ShutdownFrame::updateBackground));
 
+    updateBackground(m_shutdownFrame->wallpaper());
 }
 
 void ShutdownFrame::powerAction(const Actions action)

@@ -123,6 +123,14 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
     onUserListChanged(model->userList());
 }
 
+const QString LockContent::wallpaper()
+{
+    const QString &path = getWallpaper();
+    const QString &w = m_imageBlurInter->Get(path);
+
+    return w.isEmpty() ? path : w;
+}
+
 void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 {
     if (user.get() == nullptr) return; // if dbus is async
@@ -151,7 +159,7 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 
     //TODO: refresh blur image
     QTimer::singleShot(0, this, [=] {
-        updateBackground(user->greeterBackgroundPath());
+        updateBackground(getWallpaper());
     });
 }
 
@@ -304,4 +312,18 @@ void LockContent::updateVirtualKBPosition()
 void LockContent::onUserListChanged(QList<std::shared_ptr<User> > list)
 {
     m_controlWidget->setUserSwitchEnable(list.size() > 1);
+}
+
+const QString LockContent::getWallpaper()
+{
+    QString path { "/usr/share/backgrounds/deepin/desktop.jpg" };
+
+    if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
+        path = m_model->currentUser()->greeterBackgroundPath();
+    }
+    else {
+        path = m_model->currentUser()->desktopBackgroundPath();
+    }
+
+    return path;
 }
