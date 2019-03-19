@@ -144,8 +144,9 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     onCurrentUserChanged(m_lockInter->CurrentUser());
     onLastLogoutUserChanged(m_loginedInter->lastLogoutUser());
     onLoginUserListChanged(m_loginedInter->userList());
-    checkVirtualKB();
-    checkSwap();
+
+    QTimer::singleShot(0, this, &LockWorker::checkVirtualKB);
+    QTimer::singleShot(0, this, &LockWorker::checkSwap);
 }
 
 void LockWorker::switchToUser(std::shared_ptr<User> user)

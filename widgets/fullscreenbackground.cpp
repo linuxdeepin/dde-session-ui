@@ -60,11 +60,12 @@ void FullscreenBackground::updateBackground(const QPixmap &background)
     // show old background fade out
     m_fakeBackground = m_background;
     m_background = background;
-
     m_backgroundCache = pixmapHandle(m_background);
-    m_fakeBackgroundCache = pixmapHandle(m_fakeBackground);
 
-    m_fadeOutAni->start();
+    if (!m_background.isNull() && !m_fakeBackground.isNull()) {
+        m_fakeBackgroundCache = pixmapHandle(m_fakeBackground);
+        m_fadeOutAni->start();
+    }
 }
 
 void FullscreenBackground::updateBackground(const QString &file)
@@ -128,7 +129,6 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
 
     QPainter painter(this);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
-    const float current_ani_value = m_fadeOutAni->currentValue().toFloat();
 
     const QRect trueRect(QPoint(0, 0), QSize(size() * devicePixelRatioF()));
 
@@ -140,6 +140,7 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
     }
 
     if (!m_fakeBackground.isNull()) {
+        const float current_ani_value = m_fadeOutAni->currentValue().toFloat();
         // draw background
         painter.setOpacity(current_ani_value);
         painter.drawPixmap(trueRect,
@@ -166,8 +167,18 @@ void FullscreenBackground::resizeEvent(QResizeEvent *event)
 {
     m_content->resize(size());
 
-    m_backgroundCache = pixmapHandle(m_background);
-    m_fakeBackgroundCache = pixmapHandle(m_fakeBackground);
+    // 启动时会导致一些启动时间的浪费，而且延迟一下不影响显示
+    QTimer::singleShot(0, this, [=] {
+        if (!m_background.isNull()) {
+            m_backgroundCache = pixmapHandle(m_background);
+        }
+
+        if (!m_fakeBackground.isNull()) {
+            m_fakeBackgroundCache = pixmapHandle(m_fakeBackground);
+        }
+
+        update();
+    });
 
     return QWidget::resizeEvent(event);
 }

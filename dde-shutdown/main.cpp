@@ -50,16 +50,6 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char* argv[])
 {
     DApplication app(argc, argv);
-    app.setOrganizationName("deepin");
-    app.setApplicationName("dde-shutdown");
-    app.setTheme("light");
-
-    DLogManager::registerConsoleAppender();
-    DLogManager::registerFileAppender();
-
-    QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    app.installTranslator(&translator);
 
     // NOTE: it's better to be -h/--show, but some apps may have used the binary to show
     // the shutdown frame directly, we need to keep the default behavier to that.
@@ -86,7 +76,18 @@ int main(int argc, char* argv[])
 
         return 0;
     } else {
+        app.setOrganizationName("deepin");
+        app.setApplicationName("dde-shutdown");
+        app.setTheme("light");
+
+        DLogManager::registerConsoleAppender();
+        DLogManager::registerFileAppender();
+
         qDebug() << "dbus registration success.";
+
+        QTranslator translator;
+        translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
+        app.installTranslator(&translator);
 
         SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::UnknowAuthType);
         LockWorker *worker = new LockWorker(model); //
