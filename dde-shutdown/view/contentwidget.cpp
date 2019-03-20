@@ -121,6 +121,11 @@ void ContentWidget::showEvent(QShowEvent *event)
             m_systemMonitor->show();
         }
     });
+
+    if (m_warningView) {
+        m_warningView->show();
+        m_warningView->raise();
+    }
 }
 
 void ContentWidget::keyReleaseEvent(QKeyEvent *event)

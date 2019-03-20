@@ -52,6 +52,9 @@ signals:
     void actionInvoked(const Actions action) const;
 
 private:
+    void onOtherPageDataChanged(const QVariant &value);
+
+private:
     Actions m_action;
 
     QLabel *m_reasonLbl;

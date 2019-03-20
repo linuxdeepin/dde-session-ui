@@ -24,6 +24,7 @@
  */
 
 #include "inhibitwarnview.h"
+#include "framedatabind.h"
 
 #include <QHBoxLayout>
 
@@ -32,7 +33,12 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
 {
     m_acceptBtn = new RoundItemButton(QString());
     m_cancelBtn = new RoundItemButton(tr("Cancel"));
+    m_acceptBtn->setObjectName("AcceptButton");
+    m_cancelBtn->setObjectName("CancelButton");
     m_reasonLbl = new QLabel;
+
+    std::function<void (QVariant)> buttonChanged = std::bind(&InhibitWarnView::onOtherPageDataChanged, this, std::placeholders::_1);
+    FrameDataBind::Instance()->registerFunction("InhibitWarnView", buttonChanged);
 
     m_cancelBtn->setNormalPic(":/img/cancel_normal.svg");
     m_cancelBtn->setHoverPic(":/img/cancel_hover.svg");
@@ -121,9 +127,27 @@ void InhibitWarnView::toggleButtonState()
         m_acceptBtn->setChecked(true);
         m_currentBtn = m_acceptBtn;
     }
+
+    FrameDataBind::Instance()->updateValue("InhibitWarnView", m_currentBtn->objectName());
 }
 
 void InhibitWarnView::buttonClickHandle()
 {
     emit m_currentBtn->clicked();
+}
+
+void InhibitWarnView::onOtherPageDataChanged(const QVariant &value)
+{
+    const QString objectName { value.toString() };
+
+    if (objectName == "AcceptButton") {
+        m_cancelBtn->setChecked(false);
+        m_acceptBtn->setChecked(true);
+        m_currentBtn = m_acceptBtn;
+    }
+    else {
+        m_acceptBtn->setChecked(false);
+        m_cancelBtn->setChecked(true);
+        m_currentBtn = m_cancelBtn;
+    }
 }
