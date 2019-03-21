@@ -220,10 +220,10 @@ QString ADDomainUser::avatarPath() const
 
 QString ADDomainUser::greeterBackgroundPath() const
 {
-    return QString("/usr/share/backgrounds/deepin/desktop.jpg");
+    return QString("/usr/share/wallpapers/deepin/desktop.jpg");
 }
 
 QString ADDomainUser::desktopBackgroundPath() const
 {
-    return QString("/usr/share/backgrounds/deepin/desktop.jpg");
+    return QString("/usr/share/wallpapers/deepin/desktop.jpg");
 }
