@@ -150,6 +150,9 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
 void LockWorker::switchToUser(std::shared_ptr<User> user)
 {
+    // clear old password
+    m_password.clear();
+
     if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
         // just switch user
         if (user->isLogin()) {
@@ -158,6 +161,7 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
         }
         else {
             m_model->setCurrentUser(user);
+            userAuthForLightdm(user);
         }
         return;
     }
@@ -266,6 +270,7 @@ void LockWorker::onUserAdded(const QString &user)
     std::shared_ptr<User> user_ptr(new NativeUser(user));
 
     user_ptr->setisLogind(isLogined(user_ptr->uid()));
+    user_ptr->setNoPasswdGrp(checkUserIsNoPWGrp(user_ptr));
 
     if (user_ptr->uid() == m_currentUserUid) {
         m_model->setCurrentUser(user_ptr);
@@ -282,15 +287,7 @@ void LockWorker::onUserAdded(const QString &user)
             m_model->setCurrentUser(user_ptr);
 
             if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
-                if (!checkUserIsNoPWGrp(user_ptr)) {
-                    if (m_greeter->inAuthentication()) {
-                        m_greeter->cancelAuthentication();
-                    }
-
-                    QTimer::singleShot(100, this, [=] {
-                        m_greeter->authenticate(user_ptr->name());
-                    });
-                }
+                userAuthForLightdm(user_ptr);
             }
         }
     }
@@ -298,8 +295,6 @@ void LockWorker::onUserAdded(const QString &user)
     if (user_ptr->uid() == m_lastLogoutUid) {
         m_model->setLastLogoutUser(user_ptr);
     }
-
-    user_ptr->setNoPasswdGrp(checkUserIsNoPWGrp(user_ptr));
 
     m_model->userAdd(user_ptr);
 }
@@ -461,6 +456,7 @@ void LockWorker::onCurrentUserChanged(const QString &user)
         for (std::shared_ptr<User> user : m_model->userList()) {
             if (user->uid() == m_currentUserUid) {
                 m_model->setCurrentUser(user);
+                userAuthForLightdm(user);
                 break;
             }
         }
@@ -562,6 +558,20 @@ void LockWorker::onUnlockFinished(bool unlocked)
     }
 }
 
+void LockWorker::userAuthForLightdm(std::shared_ptr<User> user)
+{
+    if (!checkUserIsNoPWGrp(user)) {
+        if (m_greeter->inAuthentication()) {
+            m_greeter->cancelAuthentication();
+        }
+
+        QTimer::singleShot(100, this, [=] {
+            m_greeter->authenticate(user->name());
+            m_greeter->respond(m_password);
+        });
+    }
+}
+
 void LockWorker::prompt(QString text, QLightDM::Greeter::PromptType type)
 {
     qDebug() << "pam prompt: " << text << type;
@@ -591,6 +601,7 @@ void LockWorker::prompt(QString text, QLightDM::Greeter::PromptType type)
     }
 }
 
+// TODO(justforlxz): 错误信息应该存放在User类中, 切换用户后其他控件读取错误信息，而不是在这里分发。
 void LockWorker::message(QString text, QLightDM::Greeter::MessageType type)
 {
     qDebug() << "pam message: " << text << type;
