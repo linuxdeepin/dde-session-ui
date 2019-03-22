@@ -54,6 +54,7 @@ private:
     void lockServiceEvent(quint32 eventType, quint32 pid, const QString &username, const QString &message);
     void onUnlockFinished(bool unlocked);
     // greeter
+    void userAuthForLightdm(std::shared_ptr<User> user);
     void prompt(QString text, QLightDM::Greeter::PromptType type);
     void message(QString text, QLightDM::Greeter::MessageType type);
     void authenticationComplete();
