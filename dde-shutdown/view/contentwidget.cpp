@@ -68,11 +68,20 @@ void ContentWidget::setModel(SessionBaseModel * const model)
         }
     };
 
+    auto canSleepChanged = [=] (bool canSleep) {
+        if (!canSleep) {
+            hideBtn("Suspend");
+        }
+    };
+
     connect(model, &SessionBaseModel::onUserListChanged, this, &ContentWidget::onUserListChanged);
     onUserListChanged(model->userList());
 
     connect(model, &SessionBaseModel::onHasSwapChanged, this, hasSwapChanged);
     hasSwapChanged(model->hasSwap());
+
+    connect(model, &SessionBaseModel::canSleepChanged, this, canSleepChanged);
+    canSleepChanged(model->canSleep());
 }
 
 ContentWidget::~ContentWidget()
