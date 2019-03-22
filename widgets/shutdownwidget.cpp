@@ -149,12 +149,17 @@ void ShutdownWidget::leftKeySwitch()
     } else {
         m_index  -= 1;
     }
-    if (m_btnList.at(m_index)->isVisible()) {
-        m_currentSelectedBtn = m_btnList.at(m_index);
+
+    for (int i = m_btnList.size(); i != 0; --i) {
+        int index = (m_index + i) % m_btnList.size();
+
+        if (m_btnList[index]->isVisible()) {
+            m_index = index;
+            break;
+        }
     }
-    else {
-        m_currentSelectedBtn = m_btnList.at(--m_index);
-    }
+
+    m_currentSelectedBtn = m_btnList.at(m_index);
     m_currentSelectedBtn->updateState(RoundItemButton::Checked);
 
     m_frameDataBind->updateValue("ShutdownWidget", m_index);
@@ -170,15 +175,12 @@ void ShutdownWidget::rightKeySwitch()
         ++m_index;
     }
 
-    // Find the next visible button
-    while(true) {
-        if (m_btnList.at(m_index)->isVisible()) break;
+    for (int i = 0; i < m_btnList.size(); ++i) {
+        int index = (m_index + i) % m_btnList.size();
 
-        if (m_index == m_btnList.size() - 1) {
-            m_index = 0;
-        }
-        else {
-            ++m_index;
+        if (m_btnList[index]->isVisible()) {
+            m_index = index;
+            break;
         }
     }
 
