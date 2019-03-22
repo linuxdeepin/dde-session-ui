@@ -39,5 +39,31 @@ toogle_desktop_icon_96x96.files = misc/icons/96x96/deepin-toggle-desktop.png
 toogle_desktop_icon_scalable.path = /usr/share/icons/hicolor/scalable/apps/
 toogle_desktop_icon_scalable.files = misc/icons/scalable/deepin-toggle-desktop.svg
 
-INSTALLS += qm_files toggle_desktop toogle_desktop_icon_48x48 toogle_desktop_icon_64x64 toogle_desktop_icon_96x96 toogle_desktop_icon_scalable
+
+# set config default value
+ENABLE_SLEEP=true
+ENABLE_HIBERNATE=true
+# end config default value
+
+host_aarch64 {
+    ENABLE_SLEEP=false
+    ENABLE_HIBERNATE=false
+}
+
+config_file_tmp.input = $$PWD/files/dde-session-ui.conf.in
+config_file_tmp.output = $$OUT_PWD/files/dde-session-ui.conf
+
+QMAKE_SUBSTITUTES += config_file_tmp
+QMAKE_CLEAN       += $${config_file_tmp.output}
+
+config_file.path = /etc/deepin/
+config_file.files += $$OUT_PWD/files/dde-session-ui.conf
+
+INSTALLS += qm_files \
+            toggle_desktop \
+            toogle_desktop_icon_48x48 \
+            toogle_desktop_icon_64x64 \
+            toogle_desktop_icon_96x96 \
+            toogle_desktop_icon_scalable \
+            config_file
 
