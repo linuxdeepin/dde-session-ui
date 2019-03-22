@@ -144,8 +144,17 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     onCurrentUserChanged(m_lockInter->CurrentUser());
     onLastLogoutUserChanged(m_loginedInter->lastLogoutUser());
     onLoginUserListChanged(m_loginedInter->userList());
+
+    m_settings.beginGroup("POWER");
+    m_model->setCanSleep(m_settings.value("sleep", true).toBool());
+
+    if (m_settings.value("hibernate", false).toBool()) {
+        checkSwap();
+    }
+
+    m_settings.endGroup();
+
     checkVirtualKB();
-    checkSwap();
 }
 
 void LockWorker::switchToUser(std::shared_ptr<User> user)

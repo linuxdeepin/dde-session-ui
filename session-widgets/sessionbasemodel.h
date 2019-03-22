@@ -66,6 +66,9 @@ public:
     inline bool isShow() const { return m_isShow; }
     void setIsShow(bool isShow);
 
+    inline bool canSleep() const { return m_canSleep; }
+    void setCanSleep(bool canSleep);
+
 signals:
     void onUserAdded(std::shared_ptr<User> user);
     void onUserRemoved(const uint uid);
@@ -82,6 +85,7 @@ signals:
     void onUserListChanged(QList<std::shared_ptr<User>> list);
     void hasVirtualKBChanged(bool hasVirtualKB);
     void onHasSwapChanged(bool hasSwap);
+    void canSleepChanged(bool canSleep);
 
 private:
     com::deepin::SessionManager *m_sessionManagerInter;
@@ -89,6 +93,7 @@ private:
     bool m_hasVirtualKB;
     bool m_hasSwap;
     bool m_isShow;
+    bool m_canSleep;
     AuthType m_currentType;
     QList<std::shared_ptr<User>> m_userList;
     std::shared_ptr<User> m_currentUser;

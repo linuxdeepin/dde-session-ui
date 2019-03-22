@@ -170,13 +170,18 @@ void ShutdownWidget::rightKeySwitch()
         ++m_index;
     }
 
-    if (!m_btnList.at(m_index)->isVisible()) {
+    // Find the next visible button
+    while(true) {
+        if (m_btnList.at(m_index)->isVisible()) break;
+
         if (m_index == m_btnList.size() - 1) {
             m_index = 0;
-        } else {
+        }
+        else {
             ++m_index;
         }
     }
+
     m_currentSelectedBtn = m_btnList.at(m_index);
     m_currentSelectedBtn->updateState(RoundItemButton::Checked);
 
@@ -238,6 +243,8 @@ void ShutdownWidget::setModel(SessionBaseModel * const model)
     m_model = model;
 
     connect(model, &SessionBaseModel::onHasSwapChanged, m_requireHibernateButton, &RoundItemButton::setVisible);
+    connect(model, &SessionBaseModel::canSleepChanged, m_requireSuspendButton, &RoundItemButton::setVisible);
 
     m_requireHibernateButton->setVisible(model->hasSwap());
+    m_requireSuspendButton->setVisible(model->canSleep());
 }

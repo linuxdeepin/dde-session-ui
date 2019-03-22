@@ -10,7 +10,9 @@ using namespace com::deepin;
 SessionBaseModel::SessionBaseModel(AuthType type, QObject *parent)
     : QObject(parent)
     , m_sessionManagerInter(nullptr)
+    , m_hasSwap(false)
     , m_isShow(false)
+    , m_canSleep(false)
     , m_currentType(type)
     , m_currentUser(nullptr)
     , m_powerAction(PowerAction::RequireNormal)
@@ -129,4 +131,13 @@ void SessionBaseModel::setIsShow(bool isShow)
     }
 
     emit visibleChanged(isShow);
+}
+
+void SessionBaseModel::setCanSleep(bool canSleep)
+{
+    if (m_canSleep == canSleep) return;
+
+    m_canSleep = canSleep;
+
+    emit canSleepChanged(canSleep);
 }
