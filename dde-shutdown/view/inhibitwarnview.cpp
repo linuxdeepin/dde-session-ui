@@ -69,7 +69,6 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
     centeralLayout->addStretch();
 
     setLayout(centeralLayout);
-    setFixedSize(500, 300);
 
     m_acceptBtn->setChecked(true);
     m_currentBtn = m_acceptBtn;

@@ -361,15 +361,13 @@ void ContentWidget::beforeInvokeAction(const Actions action)
             Q_UNREACHABLE();
 
         m_warningView = view;
-        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+        m_mainLayout->addWidget(m_warningView);
+        m_mainLayout->setCurrentWidget(m_warningView);
 
         connect(view, &InhibitWarnView::cancelled, this, &ContentWidget::onCancel);
         connect(view, &InhibitWarnView::actionInvoked, [this, action] {
              shutDownFrameActions(action);
         });
-
-        m_warningView->show();
-        m_warningView->raise();
 
         return;
     }
@@ -385,15 +383,15 @@ void ContentWidget::beforeInvokeAction(const Actions action)
             view->setAcceptReason(tr("Shut down"));
         else if (action == Restart)
             view->setAcceptReason(tr("Reboot"));
+
         m_warningView = view;
-        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+        m_mainLayout->addWidget(m_warningView);
+        m_mainLayout->setCurrentWidget(m_warningView);
 
         connect(view, &MultiUsersWarningView::cancelled, this, &ContentWidget::onCancel);
         connect(view, &MultiUsersWarningView::actionInvoked, [this, action] {
              shutDownFrameActions(action);
         });
-
-        m_warningView->show();
 
         return;
     }
@@ -422,15 +420,13 @@ void ContentWidget::beforeInvokeAction(const Actions action)
 
         m_warningView = view;
 
-        m_mainLayout->addWidget(m_warningView, 0, Qt::AlignCenter);
+        m_mainLayout->addWidget(m_warningView);
+        m_mainLayout->setCurrentWidget(m_warningView);
 
         connect(view, &InhibitWarnView::cancelled, this, &ContentWidget::onCancel);
         connect(view, &InhibitWarnView::actionInvoked, [this, action] {
              shutDownFrameActions(action);
         });
-
-        m_warningView->show();
-        m_warningView->raise();
 
         return;
     }
@@ -547,6 +543,8 @@ void ContentWidget::initUI() {
     m_switchUserBtn->setAutoExclusive(true);
     m_switchUserBtn->setObjectName("SwitchUserButton");
 
+    m_normalView = new QWidget(this);
+
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->setMargin(0);
     buttonLayout->setSpacing(10);
@@ -560,10 +558,12 @@ void ContentWidget::initUI() {
     buttonLayout->addWidget(m_logoutButton);
     buttonLayout->addStretch(0);
 
-    m_mainLayout = new QVBoxLayout;
+    m_normalView->setLayout(buttonLayout);
+
+    m_mainLayout = new QStackedLayout;
     m_mainLayout->setMargin(0);
     m_mainLayout->setSpacing(0);
-    m_mainLayout->addLayout(buttonLayout);
+    m_mainLayout->addWidget(m_normalView);
 
     QFile file("/usr/bin/deepin-system-monitor");
     if (file.exists())
@@ -675,6 +675,8 @@ void ContentWidget::recoveryLayout()
         m_warningView->deleteLater();
         m_warningView = nullptr;
     }
+
+    m_mainLayout->setCurrentWidget(m_normalView);
 }
 
 void ContentWidget::runSystemMonitor()

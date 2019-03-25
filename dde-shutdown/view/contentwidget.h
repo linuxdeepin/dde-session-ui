@@ -115,7 +115,8 @@ private:
     DBusLogin1Manager* m_login1Inter;
 
     WarningView *m_warningView = nullptr;
-    QVBoxLayout *m_mainLayout;
+    QWidget *m_normalView = nullptr;
+    QStackedLayout *m_mainLayout;
 
     bool m_confirm = false;
 
