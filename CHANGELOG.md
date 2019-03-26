@@ -1,3 +1,27 @@
+<a name=""></a>
+##  4.9.0 (2019-03-26)
+
+
+#### Bug Fixes
+
+*   screen copy mode will empty page ([697db101](https://github.com/linuxdeepin/dde-session-ui/commit/697db1012258b54f3a312bdc35789861a47943e3))
+*   missing memory header ([1c987fb7](https://github.com/linuxdeepin/dde-session-ui/commit/1c987fb73e043ca7c8e117690f5ed355a5c7a7ce))
+* **dde-lowpower:**  missing c++11 cxxflags ([f7f23b23](https://github.com/linuxdeepin/dde-session-ui/commit/f7f23b2384cedd8ffcb2cb28552c3c643f99ec82))
+* **greeter:**  mulit-user fingerprint login ([cc15f58c](https://github.com/linuxdeepin/dde-session-ui/commit/cc15f58cce0c61091446f1600bc0713f5f3f905f))
+* **shutdown:**
+  *  multi-screen data sync ([4178fd5f](https://github.com/linuxdeepin/dde-session-ui/commit/4178fd5fcc68535aa31796d463321685b9e8577d))
+  *  translation error ([bcc49bc9](https://github.com/linuxdeepin/dde-session-ui/commit/bcc49bc973e54dd49b1eb9ee22be304123e44e8b))
+
+#### Features
+
+*   lock and greeter support disable sleep button for shutdownpage ([46d77627](https://github.com/linuxdeepin/dde-session-ui/commit/46d77627fbc6f15675cda9a41456e52679533e80))
+*   support config file to control function ([b2d41855](https://github.com/linuxdeepin/dde-session-ui/commit/b2d41855a2a1b6ea2ef3459bd1661170e53100fa))
+* **shutdown:**
+  *  support use config value to control sleep button ([40c124c4](https://github.com/linuxdeepin/dde-session-ui/commit/40c124c474dc51188230e4711a9f45ae3c1b9d6e))
+  *  inhibitwarning support data sync ([a15388da](https://github.com/linuxdeepin/dde-session-ui/commit/a15388da3e2b818ed1a086f2ac95cd209fa222d8))
+
+
+
 <a name="4.8.13"></a>
 ### 4.8.13 (2019-03-08)
 
