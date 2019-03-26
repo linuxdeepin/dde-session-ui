@@ -114,6 +114,8 @@ int main(int argc, char* argv[])
         MultiScreenManager multi_screen_manager;
         multi_screen_manager.register_for_mutil_screen(createFrame);
 
+        QObject::connect(model, &SessionBaseModel::visibleChanged, &multi_screen_manager, &MultiScreenManager::startRaiseContentFrame);
+
         if (!parser.isSet(daemon)) {
             model->setIsShow(true);
         }

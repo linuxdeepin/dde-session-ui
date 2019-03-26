@@ -132,8 +132,7 @@ void ContentWidget::showEvent(QShowEvent *event)
     });
 
     if (m_warningView) {
-        m_warningView->show();
-        m_warningView->raise();
+        m_mainLayout->setCurrentWidget(m_warningView);
     }
 }
 
