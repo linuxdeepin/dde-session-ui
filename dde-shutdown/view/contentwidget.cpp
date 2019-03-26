@@ -688,7 +688,6 @@ void ContentWidget::runSystemMonitor()
     }
 
     hideToplevelWindow();
-    recoveryLayout();
 }
 
 void ContentWidget::setPreviousChildFocus()
@@ -761,5 +760,4 @@ void ContentWidget::disableBtns(const QStringList &btnsName)
 void ContentWidget::onCancel()
 {
     hideToplevelWindow();
-    recoveryLayout();
 }
