@@ -136,7 +136,7 @@ void ContentWidget::showEvent(QShowEvent *event)
     }
 }
 
-void ContentWidget::keyReleaseEvent(QKeyEvent *event)
+void ContentWidget::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Escape: onCancel(); break;
