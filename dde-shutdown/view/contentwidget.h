@@ -52,6 +52,7 @@ using ImageBlur = com::deepin::daemon::ImageBlur;
 class MultiUsersWarningView;
 class SessionBaseModel;
 class User;
+class DBusControlCenter;
 class ContentWidget: public QFrame
 {
     Q_OBJECT
@@ -113,6 +114,7 @@ private:
     QWidget *m_tipsWidget;
     QLabel *m_tipsLabel;
     DBusLogin1Manager* m_login1Inter;
+    DBusControlCenter* m_controlCenterInter;
 
     WarningView *m_warningView = nullptr;
     QWidget *m_normalView = nullptr;

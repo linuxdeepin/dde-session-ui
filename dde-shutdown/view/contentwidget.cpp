@@ -41,6 +41,8 @@
 
 ContentWidget::ContentWidget(QWidget *parent)
     : QFrame(parent)
+    , m_login1Inter(new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this))
+    , m_controlCenterInter(new DBusControlCenter(this))
     , m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
     , m_dbusAppearance(new Appearance("com.deepin.daemon.Appearance",
                                       "/com/deepin/daemon/Appearance",
@@ -115,10 +117,8 @@ void ContentWidget::showEvent(QShowEvent *event)
         m_hotZoneInterface->EnableZoneDetected(false);
 
     // hide dde-control-center
-    DBusControlCenter *DCCInter = new DBusControlCenter;
-    if (DCCInter->isValid())
-        DCCInter->HideImmediately();
-    DCCInter->deleteLater();
+    if (m_controlCenterInter->isValid())
+        m_controlCenterInter->HideImmediately();
 
     QTimer::singleShot(1, this, [=] {
         grabKeyboard();
@@ -621,7 +621,6 @@ void ContentWidget::initBackground()
 }
 
 const QString ContentWidget::getInhibitReason() {
-    m_login1Inter = new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
     QString reminder_tooltip  = QString();
 
     if (m_login1Inter->isValid()) {
