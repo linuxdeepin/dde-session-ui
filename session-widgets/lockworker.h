@@ -59,6 +59,7 @@ private:
     void message(QString text, QLightDM::Greeter::MessageType type);
     void authenticationComplete();
 
+    void checkPowerInfo();
     void doPowerAction();
     void checkVirtualKB();
     void checkSwap();

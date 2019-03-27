@@ -139,21 +139,18 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     connect(m_accountsInter, &AccountsInter::UserAdded, this, &LockWorker::onUserAdded);
     connect(m_accountsInter, &AccountsInter::UserDeleted, this, &LockWorker::onUserRemove);
     connect(m_accountsInter, &AccountsInter::serviceValidChanged, this, &LockWorker::checkDBusServer);
+    connect(model, &SessionBaseModel::onStatusChanged, this, [=] (SessionBaseModel::ModeStatus status) {
+        if (status == SessionBaseModel::ModeStatus::PowerMode) {
+            checkPowerInfo();
+        }
+    });
 
     checkDBusServer(m_accountsInter->isValid());
     onCurrentUserChanged(m_lockInter->CurrentUser());
     onLastLogoutUserChanged(m_loginedInter->lastLogoutUser());
     onLoginUserListChanged(m_loginedInter->userList());
 
-    m_settings.beginGroup("POWER");
-    m_model->setCanSleep(m_settings.value("sleep", true).toBool());
-
-    if (m_settings.value("hibernate", false).toBool()) {
-        checkSwap();
-    }
-
-    m_settings.endGroup();
-
+    checkPowerInfo();
     checkVirtualKB();
 }
 
@@ -690,6 +687,18 @@ void LockWorker::authenticationComplete()
 #else
     startSessionSync();
 #endif
+}
+
+void LockWorker::checkPowerInfo()
+{
+    m_settings.beginGroup("POWER");
+    m_model->setCanSleep(m_settings.value("sleep", true).toBool());
+
+    if (m_settings.value("hibernate", false).toBool()) {
+        checkSwap();
+    }
+
+    m_settings.endGroup();
 }
 
 void LockWorker::checkVirtualKB()

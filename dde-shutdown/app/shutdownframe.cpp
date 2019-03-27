@@ -43,6 +43,13 @@ ShutdownFrame::ShutdownFrame(SessionBaseModel * const model, QWidget *parent)
     connect(m_shutdownFrame, &ContentWidget::requestBackground,
             this, static_cast<void (ShutdownFrame::*)(const QString &)>(&ShutdownFrame::updateBackground));
 
+
+    connect(model, &SessionBaseModel::visibleChanged, this, [=] (bool visible) {
+        if (visible) {
+            // refresh hibernate and sleep function.
+            emit model->onStatusChanged(SessionBaseModel::PowerMode);
+        }
+    });
 }
 
 void ShutdownFrame::powerAction(const Actions action)
