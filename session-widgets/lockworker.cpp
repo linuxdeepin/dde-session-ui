@@ -76,6 +76,8 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_hotZoneInter(new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone", QDBusConnection::sessionBus(), this))
     , m_settings("/etc/deepin/dde-session-ui.conf", QSettings::IniFormat)
 {
+    m_authFramework = new DeepinAuthFramework(this, this);
+
     m_login1ManagerInterface =new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this);
     if (!m_login1ManagerInterface->isValid()) {
         qWarning() <<"m_login1ManagerInterface:" << m_login1ManagerInterface->lastError().type();
@@ -102,8 +104,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         });
 
         // init ADDomain User
-        m_settings.beginGroup("ADDOMAIN");
-        if (m_settings.value("JOIN").toBool()) {
+        if (valueByQSettings<bool>("ADDOMAIN", "JOIN", false)) {
             ADDomainUser *addomain_login_user = new ADDomainUser(0);
             addomain_login_user->setUserDisplayName(tr("Domain account"));
             std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*addomain_login_user);
@@ -156,6 +157,8 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
 void LockWorker::switchToUser(std::shared_ptr<User> user)
 {
+    qDebug() << "switch user from" << m_model->currentUser()->name() << " to " << user->name();
+
     // clear old password
     m_password.clear();
 
@@ -167,7 +170,22 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
         }
         else {
             m_model->setCurrentUser(user);
-            userAuthForLightdm(user);
+
+            if (isDeepin()) {
+                // reset fprintd
+                m_greeter->cancelAuthentication();
+                m_authFramework->Clear();
+
+                m_authFramework->SetUser(user->name());
+
+                if (!checkUserIsNoPWGrp(user)) {
+                    m_greeter->authenticate(user->name());
+                    m_authFramework->Authenticate();
+                }
+            }
+            else {
+                userAuthForLightdm(user);
+            }
         }
         return;
     }
@@ -192,6 +210,29 @@ void LockWorker::authUser(const QString &password)
     std::shared_ptr<User> user = m_model->currentUser();
 
     m_password = password;
+
+    if (isDeepin()) {
+        if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
+            if (m_greeter->authenticationUser() != user->name()) {
+                m_greeter->cancelAuthentication();
+                QTimer::singleShot(100, this, [=] {
+                    // greeter reauth need time!
+                    m_greeter->authenticate(user->name());
+                });
+                m_authFramework->Clear();
+                m_authFramework->SetUser(user->name());
+                m_authFramework->setPassword(password);
+                m_authFramework->Authenticate();
+                return;
+            }
+        }
+
+        m_authFramework->Clear();
+        m_authFramework->SetUser(user->name());
+        m_authFramework->setPassword(password);
+        m_authFramework->Authenticate();
+        return;
+    }
 
     m_authenticating = true;
 
@@ -236,6 +277,49 @@ void LockWorker::enableZoneDetected(bool disable)
     m_hotZoneInter->EnableZoneDetected(disable);
 }
 
+void LockWorker::onDisplayErrorMsg(const QString &msg)
+{
+    emit m_model->authFaildTipsMessage(msg);
+}
+
+void LockWorker::onDisplayTextInfo(const QString &msg)
+{
+    emit m_model->authFaildMessage(msg);
+}
+
+void LockWorker::onPasswordResult(const QString &msg)
+{
+    m_password = msg;
+    std::shared_ptr<User> user = m_model->currentUser();
+
+    switch (m_model->currentType()) {
+        case SessionBaseModel::AuthType::LockType: {
+            if (msg.isEmpty()) {
+                //FIXME(lxz): 不知道为什么收不到错误
+                onUnlockFinished(false);
+            }
+            else {
+                m_lockInter->AuthenticateUser(user->name());
+                m_lockInter->UnlockCheck(user->name(), m_password);
+            }
+        } break;
+        case SessionBaseModel::AuthType::LightdmType: {
+            if (m_greeter->inAuthentication()) {
+                m_greeter->respond(m_password);
+            }
+            else {
+                if (m_greeter->inAuthentication()) {
+                    m_greeter->cancelAuthentication();
+                }
+
+                m_greeter->authenticate(user->name());
+                m_greeter->respond(m_password);
+            }
+        } break;
+        default: break;
+    }
+}
+
 void LockWorker::checkDBusServer(bool isvalid)
 {
     if (isvalid) {
@@ -278,12 +362,17 @@ void LockWorker::onUserAdded(const QString &user)
     user_ptr->setisLogind(isLogined(user_ptr->uid()));
     user_ptr->setNoPasswdGrp(checkUserIsNoPWGrp(user_ptr));
 
-    if (user_ptr->uid() == m_currentUserUid) {
-        m_model->setCurrentUser(user_ptr);
-
-        if (m_model->currentType() == SessionBaseModel::AuthType::LockType) {
+    if (m_model->currentType() == SessionBaseModel::AuthType::LockType) {
+        if (user_ptr->uid() == m_currentUserUid) {
+            m_model->setCurrentUser(user_ptr);
             if (!checkUserIsNoPWGrp(user_ptr)) {
-                m_lockInter->AuthenticateUser(user_ptr->name());
+                if (isDeepin()) {
+                    m_authFramework->SetUser(user_ptr->name());
+                    m_authFramework->Authenticate();
+                }
+                else {
+                    m_lockInter->AuthenticateUser(user_ptr->name());
+                }
             }
         }
     }
@@ -293,7 +382,16 @@ void LockWorker::onUserAdded(const QString &user)
             m_model->setCurrentUser(user_ptr);
 
             if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
-                userAuthForLightdm(user_ptr);
+                if (isDeepin()) {
+                    m_authFramework->SetUser(user_ptr->name());
+
+                    if (!checkUserIsNoPWGrp(user_ptr)) {
+                        m_authFramework->Authenticate();
+                    }
+                }
+                else {
+                    userAuthForLightdm(user_ptr);
+                }
             }
         }
     }
@@ -540,6 +638,10 @@ void LockWorker::lockServiceEvent(quint32 eventType, quint32 pid, const QString 
 
 void LockWorker::onUnlockFinished(bool unlocked)
 {
+    if (isDeepin()) {
+        m_authFramework->Clear();
+    }
+
     emit m_model->authFinished(unlocked);
 
     if (!unlocked) {
@@ -570,7 +672,6 @@ void LockWorker::userAuthForLightdm(std::shared_ptr<User> user)
         if (m_greeter->inAuthentication()) {
             m_greeter->cancelAuthentication();
         }
-
         QTimer::singleShot(100, this, [=] {
             m_greeter->authenticate(user->name());
             m_greeter->respond(m_password);
@@ -641,6 +742,10 @@ void LockWorker::authenticationComplete()
 {
     qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
 
+    if (isDeepin()) {
+        m_authFramework->Clear();
+    }
+
     if (!m_greeter->isAuthenticated()) {
         if (m_model->currentUser()->type() == User::Native) {
             emit m_model->authFaildTipsMessage(tr("Wrong Password"));
@@ -691,14 +796,11 @@ void LockWorker::authenticationComplete()
 
 void LockWorker::checkPowerInfo()
 {
-    m_settings.beginGroup("POWER");
-    m_model->setCanSleep(m_settings.value("sleep", true).toBool());
+    m_model->setCanSleep(valueByQSettings<bool>("POWER", "sleep", true));
 
-    if (m_settings.value("hibernate", false).toBool()) {
+    if (valueByQSettings<bool>("POWER", "hibernate", false)) {
         checkSwap();
     }
-
-    m_settings.endGroup();
 }
 
 void LockWorker::checkVirtualKB()
@@ -740,4 +842,28 @@ void LockWorker::checkSwap()
     else {
         qWarning() << "open /proc/swaps failed! please check permission!!!";
     }
+}
+
+bool LockWorker::isDeepin()
+{
+    // 这是临时的选项，只在Deepin下启用同步认证功能，其他发行版下禁用。
+#ifdef QT_DEBUG
+    return true;
+#else
+    // Disable for greeter
+    if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
+        return false;
+    }
+    return valueByQSettings<bool>("OS", "isDeepin", false);
+#endif
+}
+
+template<typename T>
+T LockWorker::valueByQSettings(const QString &group, const QString &key, const QVariant &failback)
+{
+    m_settings.beginGroup(group);
+    T t = m_settings.value(key, failback).value<T>();
+    m_settings.endGroup();
+
+    return t;
 }

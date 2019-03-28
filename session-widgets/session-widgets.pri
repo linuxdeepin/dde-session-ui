@@ -1,3 +1,5 @@
+include(../libdde-auth/libdde-auth.pri)
+
 INCLUDEPATH += $$PWD
 
 HEADERS += \

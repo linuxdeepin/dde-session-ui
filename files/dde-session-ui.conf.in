@@ -5,3 +5,6 @@ IS_FIRST=false
 [POWER]
 sleep=$$ENABLE_SLEEP
 hibernate=$$ENABLE_HIBERNATE
+
+[OS]
+isDeepin=$$ISDEEPIN

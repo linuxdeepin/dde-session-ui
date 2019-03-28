@@ -4,9 +4,9 @@
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbuslogin1manager.h"
 #include "dbus/dbushotzone.h"
-
 #include "userinfo.h"
-
+#include "../libdde-auth/interface/deepinauthinterface.h"
+#include "../libdde-auth/deepinauthframework.h"
 #include <QObject>
 #include <QWidget>
 
@@ -20,7 +20,7 @@ using LoginedInter = com::deepin::daemon::Logined;
 using AccountsInter = com::deepin::daemon::Accounts;
 
 class SessionBaseModel;
-class LockWorker : public QObject
+class LockWorker : public QObject, public DeepinAuthInterface
 {
     Q_OBJECT
 public:
@@ -31,6 +31,10 @@ public:
     void setLayout(std::shared_ptr<User> user, const QString &layout);
 
     void enableZoneDetected(bool disable);
+
+    virtual void onDisplayErrorMsg(const QString &msg) override;
+    virtual void onDisplayTextInfo(const QString &msg) override;
+    virtual void onPasswordResult(const QString &msg) override;
 
 signals:
     void requestUpdateBackground(const QString &background); // only for greeter auth successd!
@@ -64,6 +68,11 @@ private:
     void checkVirtualKB();
     void checkSwap();
 
+    Q_DECL_DEPRECATED bool isDeepin();
+
+    template<typename T>
+    T valueByQSettings(const QString &group, const QString &key, const QVariant &failback);
+
 private:
     SessionBaseModel *m_model;
 
@@ -75,6 +84,7 @@ private:
     DBusLockService *m_lockInter;
     DBusLogin1Manager* m_login1ManagerInterface;
     DBusHotzone *m_hotZoneInter;
+    DeepinAuthFramework *m_authFramework;
 
     QLightDM::Greeter *m_greeter;
 

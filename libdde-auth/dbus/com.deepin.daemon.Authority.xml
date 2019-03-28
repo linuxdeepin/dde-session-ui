@@ -1,0 +1,13 @@
+  <interface name="com.deepin.daemon.Authority">
+    <method name="CheckCookie">
+      <arg name="user" type="s" direction="in"/>
+      <arg name="cookie" type="s" direction="in"/>
+      <arg name="result" type="b" direction="out"/>
+    </method>
+    <method name="Start">
+      <arg name="authType" type="s" direction="in"/>
+      <arg name="user" type="s" direction="in"/>
+      <arg name="agentObj" type="o" direction="in"/>
+      <arg name="transactionObj" type="o" direction="out"/>
+    </method>
+  </interface>

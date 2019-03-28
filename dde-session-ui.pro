@@ -16,6 +16,7 @@ SUBDIRS += dde-shutdown \
 
 load(deepin_qt)
 include(common.pri)
+load(deepin_qt)
 contains(DEFINES, ARCH_MIPSEL) {
     SUBDIRS += session-ui-guardien
 }
@@ -49,6 +50,11 @@ ENABLE_HIBERNATE=true
 host_aarch64 {
     ENABLE_SLEEP=false
     ENABLE_HIBERNATE=false
+}
+
+ISDEEPIN=false
+deepin {
+    ISDEEPIN=true
 }
 
 config_file_tmp.input = $$PWD/files/dde-session-ui.conf.in
