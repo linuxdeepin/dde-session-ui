@@ -1,3 +1,5 @@
+load(deepin-qt)
+
 TEMPLATE = subdirs
 SUBDIRS += dde-shutdown \
     dde-lock \
