@@ -1,5 +1,3 @@
-load(deepin-qt)
-
 TEMPLATE = subdirs
 SUBDIRS += dde-shutdown \
     dde-lock \
@@ -16,6 +14,7 @@ SUBDIRS += dde-shutdown \
     dnetwork-secret-dialog \
     dde-full-filesystem
 
+load(deepin_qt)
 include(common.pri)
 contains(DEFINES, ARCH_MIPSEL) {
     SUBDIRS += session-ui-guardien
