@@ -12,7 +12,6 @@ PKGCONFIG += gsettings-qt xtst xext x11
 
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
-include(../boxframe/boxframe.pri)
 
 SOURCES += \
         main.cpp \
