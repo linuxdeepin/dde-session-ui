@@ -182,20 +182,27 @@ int main(int argc, char* argv[])
 {
     // load dpi settings
     QSettings settings("/etc/lightdm/lightdm-deepin-greeter.conf", QSettings::IniFormat);
-    QVariant ratio = settings.value("ScreenScaleFactor");
-    if (ratio.isValid()) {
-        bool ok = false;
-        const double r = ratio.toDouble(&ok);
-        if (ok) {
-            setenv("QT_SCALE_FACTOR", QByteArray::number(r).constData(), 1);
+    QVariant value = settings.value("ScreenScaleFactors");
+    if (value.isValid()) {
+        if (value.toString().split(";").size() > 0) {
+            setenv("QT_SCREEN_SCALE_FACTORS", value.toByteArray().constData(), 1);
+        }
+    }
+
+    if (!qEnvironmentVariableIsSet("QT_SCREEN_SCALE_FACTORS")) {
+        QVariant ratio = settings.value("ScreenScaleFactor");
+        if (ratio.isValid()) {
+            bool ok = false;
+            const double r = ratio.toDouble(&ok);
+            if (ok) {
+                setenv("QT_SCALE_FACTOR", QByteArray::number(r).constData(), 1);
+            }
         }
     }
 
     if (!qEnvironmentVariableIsSet("QT_SCALE_FACTOR")) {
         set_auto_QT_SCALE_FACTOR();
     }
-
-    setenv("XCURSOR_SIZE", QByteArray::number(24.0 * ratio.toFloat()).constData(), 1);
 
     DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
