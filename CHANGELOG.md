@@ -1,3 +1,14 @@
+<a name="4.9.1"></a>
+### 4.9.1 (2019-04-02)
+
+
+#### Bug Fixes
+
+*   missing deepin-qtconfig ([f13795b0](https://github.com/linuxdeepin/dde-session-ui/commit/f13795b016554a024fe297bdeb9fe5af9578ba45))
+*   not check swap again ([e7b5865c](https://github.com/linuxdeepin/dde-session-ui/commit/e7b5865cc6ada519cf3e9c6956c7f8490f2d5470))
+
+
+
 <a name=""></a>
 ##  4.9.0 (2019-03-26)
 
