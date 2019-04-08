@@ -35,7 +35,7 @@ WarningDialog::WarningDialog(QWidget *parent)
     icon.setDevicePixelRatio(ratio);
 
     const QString title = tr("Kindly Reminder");
-    const QString body = tr("This application can not run without window effect");
+    const QString body = tr("This application cannot run without window effect");
     setTitle(title);
     setMessage(body);
     setIconPixmap(icon);

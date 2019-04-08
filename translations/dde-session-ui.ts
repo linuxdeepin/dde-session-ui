@@ -126,29 +126,6 @@
     </message>
 </context>
 <context>
-    <name>Dialog</name>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
-        <source>Updates downloaded, restart to update?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
-        <source>Remind Later</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
-        <source>Not Now</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
-        <source>Update Now</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
@@ -158,19 +135,6 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
         <source>Extend</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Frame</name>
-    <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
-        <source>Please don&apos;t power off or unplug your machine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
-        <source>Installing updates %1%, please wait...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -476,7 +440,7 @@
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
-        <source>This application can not run without window effect</source>
+        <source>This application cannot run without window effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
