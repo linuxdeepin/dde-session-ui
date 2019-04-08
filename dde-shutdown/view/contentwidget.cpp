@@ -404,17 +404,17 @@ void ContentWidget::beforeInvokeAction(const Actions action)
         if (action == Shutdown)
         {
             view->setAcceptReason(tr("Shut down"));
-            view->setInhibitReason(tr("Are you sure to shut down?"));
+            view->setInhibitReason(tr("Are you sure you want to shut down?"));
         }
         else if (action == Restart)
         {
             view->setAcceptReason(tr("Reboot"));
-            view->setInhibitReason(tr("Are you sure to reboot?"));
+            view->setInhibitReason(tr("Are you sure you want to reboot?"));
         }
         else if (action == Logout)
         {
             view->setAcceptReason(tr("Log out"));
-            view->setInhibitReason(tr("Are you sure to log out?"));
+            view->setInhibitReason(tr("Are you sure you want to log out?"));
         }
 
         m_warningView = view;
