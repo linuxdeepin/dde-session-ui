@@ -20,24 +20,24 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <source>Are you sure you want to shut down?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="537"/>
         <source>Log out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
-        <source>Are you sure you want to shut down?</source>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
+        <source>Are you sure you want to log out?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
-        <source>Are you sure you want to log out?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -394,7 +394,7 @@
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
-        <source>Enter your password to shut down</source>
+        <source>Enter your password to shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

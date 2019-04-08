@@ -288,7 +288,7 @@ void UserInputWidget::shutdownMode()
     m_passwordEdit->setSubmitIcon(":/img/action_icons/shutdown_normal.svg",
                                   ":/img/action_icons/shutdown_hover.svg",
                                   ":/img/action_icons/shutdown_press.svg");
-    m_passwordEdit->showAlert(tr("Enter your password to shut down"));
+    m_passwordEdit->showAlert(tr("Enter your password to shut down"));
     m_loginBtn->setText(QApplication::translate("ShutdownWidget", "Shut down"));
 }
 
