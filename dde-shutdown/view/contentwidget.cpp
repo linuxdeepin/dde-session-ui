@@ -409,7 +409,7 @@ void ContentWidget::beforeInvokeAction(const Actions action)
         else if (action == Restart)
         {
             view->setAcceptReason(tr("Reboot"));
-            view->setInhibitReason(tr("Are you sure you want to reboot?"));
+            view->setInhibitReason(tr("Are you sure you want to reboot?"));
         }
         else if (action == Logout)
         {

@@ -25,6 +25,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <source>Are you sure you want to reboot?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="537"/>
         <source>Log out</source>
@@ -33,11 +38,6 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
-        <source>Are you sure you want to reboot?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
