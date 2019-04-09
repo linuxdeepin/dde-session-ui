@@ -1,3 +1,14 @@
+<a name="4.9.2"></a>
+### 4.9.2 (2019-04-09)
+
+
+#### Features
+
+*   support deepin-auth ([07a3f29f](https://github.com/linuxdeepin/dde-session-ui/commit/07a3f29f830d8a242221574b90fc3022a20bb408))
+* **greeter:**  support multi screen scale ratio ([8e8136e0](https://github.com/linuxdeepin/dde-session-ui/commit/8e8136e0215a236deeebdd235ed3fd1d081f758e))
+
+
+
 <a name="4.9.1"></a>
 ### 4.9.1 (2019-04-02)
 
