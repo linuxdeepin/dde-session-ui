@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="371"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="356"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Shut down</source>
         <translation>Slå av</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="345"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="373"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="358"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Reboot</source>
         <translation>Omstart</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
-        <source>Are you sure to shut down?</source>
-        <translation>Er du sikker på at du vil avslutte? </translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <source>Are you sure you want to shut down?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <source>Are you sure to reboot?</source>
-        <translation>Er du sikker på at du vil starte på nytt? </translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <source>Are you sure you want to reboot?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="537"/>
         <source>Log out</source>
         <translation>Logg ut</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <source>Are you sure to log out?</source>
-        <translation>Er du sikker på at du vil logge av? </translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
+        <source>Are you sure you want to log out?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
         <source>Suspend</source>
         <translation>Suspendere </translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Dvalemodus</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
         <source>Lock</source>
         <translation>Lås</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="532"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="541"/>
         <source>Switch user</source>
         <translation>Bytt bruker</translation>
     </message>
@@ -75,7 +75,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation type="unfinished"/>
+        <translation>Programmet vil bli avsluttet. Vennligst påse at du har lagret dine data!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
@@ -139,7 +139,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="34"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="35"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
@@ -149,36 +149,36 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
-        <translation type="unfinished"/>
+        <translation>Legg til tastaturlayout</translation>
     </message>
 </context>
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="108"/>
+        <location filename="../session-widgets/lockworker.cpp" line="109"/>
         <source>Domain account</source>
         <translation>Domenekonto</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="503"/>
-        <location filename="../session-widgets/lockworker.cpp" line="600"/>
+        <location filename="../session-widgets/lockworker.cpp" line="603"/>
+        <location filename="../session-widgets/lockworker.cpp" line="718"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="521"/>
-        <location filename="../session-widgets/lockworker.cpp" line="615"/>
+        <location filename="../session-widgets/lockworker.cpp" line="621"/>
+        <location filename="../session-widgets/lockworker.cpp" line="733"/>
         <source>Failed to match fingerprint</source>
         <translation>Fingeravtrykk stemmer ikke. </translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="545"/>
-        <location filename="../session-widgets/lockworker.cpp" line="629"/>
+        <location filename="../session-widgets/lockworker.cpp" line="649"/>
+        <location filename="../session-widgets/lockworker.cpp" line="751"/>
         <source>Wrong Password</source>
         <translation>Feil passord</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="633"/>
+        <location filename="../session-widgets/lockworker.cpp" line="755"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation type="unfinished"/>
     </message>
@@ -282,18 +282,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="289"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="292"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Slå av</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="306"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
         <source>Login</source>
         <translation>Logg inn</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="315"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="318"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
@@ -309,7 +309,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Dvale</translation>
     </message>
 </context>
 <context>
@@ -362,7 +362,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Velkommen, systemoppdatering vellykket</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
@@ -372,7 +372,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Tast inn</translation>
     </message>
 </context>
 <context>
@@ -383,17 +383,17 @@
         <translation>Logg inn</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="261"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="264"/>
         <source>Please try again %n minute(s) later</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
-        <source>Enter your password to shutdown</source>
-        <translation>Oppgi passordet ditt for å skru av</translation>
+        <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
+        <source>Enter your password to shut down</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
         <source>Enter your password to reboot</source>
         <translation>Skriv inn passord for å starte på nytt. </translation>
     </message>
@@ -408,7 +408,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation type="unfinished"/>
+        <translation>Normal modus</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
@@ -431,12 +431,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Vennlig påminnelse</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
-        <source>This application can not run without window effect</source>
-        <translation>Denne applikasjonen kan ikke kjøre under vinduseffekter.</translation>
+        <source>This application cannot run without window effect</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
@@ -449,7 +449,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Lavt batterinivå, vennligst koble til</translation>
+        <translation>Lavt batterinivå, vennligst koble til strøm</translation>
     </message>
 </context>
 </TS>
