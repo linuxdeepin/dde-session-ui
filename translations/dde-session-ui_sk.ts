@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="371"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="356"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Shut down</source>
         <translation>Vypnúť</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="345"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="373"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="358"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Reboot</source>
         <translation>Reštart</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
-        <source>Are you sure to shut down?</source>
-        <translation>Určite chcete vypnúť?</translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <source>Are you sure you want to shut down?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <source>Are you sure to reboot?</source>
-        <translation>Naozaj chcete reštartovať?</translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <source>Are you sure you want to reboot?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="537"/>
         <source>Log out</source>
         <translation>Odhlásiť</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <source>Are you sure to log out?</source>
-        <translation>Určite sa chcete odhlásiť?</translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
+        <source>Are you sure you want to log out?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
         <source>Suspend</source>
         <translation>Uspať</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
         <source>Hibernate</source>
         <translation>Hibernácia</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
         <source>Lock</source>
         <translation>Zamknúť</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="532"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="541"/>
         <source>Switch user</source>
         <translation>Prepnúť užívateľa</translation>
     </message>
@@ -139,7 +139,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="34"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="35"/>
         <source>Cancel</source>
         <translation>Zrušiť</translation>
     </message>
@@ -155,30 +155,30 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="108"/>
+        <location filename="../session-widgets/lockworker.cpp" line="109"/>
         <source>Domain account</source>
         <translation>Doménový používateľ</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="503"/>
-        <location filename="../session-widgets/lockworker.cpp" line="600"/>
+        <location filename="../session-widgets/lockworker.cpp" line="603"/>
+        <location filename="../session-widgets/lockworker.cpp" line="718"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Overenie odtlačkov prstov vypršalo, prosím zadajte svoje heslo ručne</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="521"/>
-        <location filename="../session-widgets/lockworker.cpp" line="615"/>
+        <location filename="../session-widgets/lockworker.cpp" line="621"/>
+        <location filename="../session-widgets/lockworker.cpp" line="733"/>
         <source>Failed to match fingerprint</source>
         <translation>Nepodarilo sa overiť odtlačok prsta</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="545"/>
-        <location filename="../session-widgets/lockworker.cpp" line="629"/>
+        <location filename="../session-widgets/lockworker.cpp" line="649"/>
+        <location filename="../session-widgets/lockworker.cpp" line="751"/>
         <source>Wrong Password</source>
         <translation>Chybné heslo</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="633"/>
+        <location filename="../session-widgets/lockworker.cpp" line="755"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>Doménové konto alebo heslo nie sú správne. Zadajte ich prosím znova.</translation>
     </message>
@@ -282,18 +282,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="289"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="292"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Vypnúť</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="306"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
         <source>Login</source>
         <translation>Prihlásiť</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="315"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="318"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
@@ -383,17 +383,17 @@
         <translation>Prihlásiť</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="261"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="264"/>
         <source>Please try again %n minute(s) later</source>
         <translation><numerusform>Skúste to znova o %n minút(u)</numerusform><numerusform>Skúste to znova o %n minút(u)</numerusform><numerusform>Skúste to znova o %n minút(u)</numerusform><numerusform>Skúste to znova o %n minút(u)</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
-        <source>Enter your password to shutdown</source>
-        <translation>Zadajte svoje heslo pre vypnutie</translation>
+        <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
+        <source>Enter your password to shut down</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
         <source>Enter your password to reboot</source>
         <translation>Zadajte svoje heslo na reštartovanie</translation>
     </message>
@@ -408,7 +408,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation type="unfinished"/>
+        <translation>Normálny režim</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
@@ -435,8 +435,8 @@
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
-        <source>This application can not run without window effect</source>
-        <translation>Táto aplikácia sa nemôže spustiť bez efektu okna</translation>
+        <source>This application cannot run without window effect</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>

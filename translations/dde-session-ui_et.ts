@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="mr" sourcelanguage="en" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="et" sourcelanguage="en" version="2.1">
 <context>
     <name>ContentWidget</name>
     <message>
@@ -7,7 +7,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Shut down</source>
-        <translation type="unfinished"/>
+        <translation>Sule arvuti</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="358"/>
@@ -15,7 +15,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Taaskäivita</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
@@ -65,7 +65,7 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Tühista</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
@@ -141,7 +141,7 @@
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="35"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Tühista</translation>
     </message>
 </context>
 <context>
@@ -188,7 +188,7 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Tühista</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
@@ -245,7 +245,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Tühista</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -285,7 +285,7 @@
         <location filename="../session-widgets/userinputwidget.cpp" line="292"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
-        <translation type="unfinished"/>
+        <translation>Sule arvuti</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
@@ -297,7 +297,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Taaskäivita</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
@@ -328,7 +328,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Tühista</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
@@ -349,12 +349,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="69"/>
         <source>hh:mm</source>
-        <translation>hh:mm</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

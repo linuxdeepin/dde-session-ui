@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="371"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="356"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Shut down</source>
         <translation>종료</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="345"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="373"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="358"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Reboot</source>
         <translation>다시 시작</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
-        <source>Are you sure to shut down?</source>
-        <translation>정말로 종료하시겠습니까?</translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <source>Are you sure you want to shut down?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <source>Are you sure to reboot?</source>
-        <translation>정말로 재부팅하시겠습니까?</translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <source>Are you sure you want to reboot?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="537"/>
         <source>Log out</source>
         <translation>로그아웃</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <source>Are you sure to log out?</source>
-        <translation>정말로 로그아웃하시겠습니까?</translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
+        <source>Are you sure you want to log out?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
         <source>Suspend</source>
         <translation>일시 정지</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
         <source>Hibernate</source>
         <translation>최대 절전 모드</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
         <source>Lock</source>
         <translation>잠그기</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="532"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="541"/>
         <source>Switch user</source>
         <translation>사용자 전환</translation>
     </message>
@@ -139,7 +139,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="34"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="35"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
@@ -155,30 +155,30 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="108"/>
+        <location filename="../session-widgets/lockworker.cpp" line="109"/>
         <source>Domain account</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="503"/>
-        <location filename="../session-widgets/lockworker.cpp" line="600"/>
+        <location filename="../session-widgets/lockworker.cpp" line="603"/>
+        <location filename="../session-widgets/lockworker.cpp" line="718"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>지문 인증 시간이 만료되었으니, 비밀번호를 직접 입력하여 주십시오</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="521"/>
-        <location filename="../session-widgets/lockworker.cpp" line="615"/>
+        <location filename="../session-widgets/lockworker.cpp" line="621"/>
+        <location filename="../session-widgets/lockworker.cpp" line="733"/>
         <source>Failed to match fingerprint</source>
         <translation>지문 대조 실패</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="545"/>
-        <location filename="../session-widgets/lockworker.cpp" line="629"/>
+        <location filename="../session-widgets/lockworker.cpp" line="649"/>
+        <location filename="../session-widgets/lockworker.cpp" line="751"/>
         <source>Wrong Password</source>
         <translation>잘못된 비밀번호입니다</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="633"/>
+        <location filename="../session-widgets/lockworker.cpp" line="755"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>이 도매인 계정이나 비밀번호가 잘못되었습니다. 다시 시도하여 주십시오</translation>
     </message>
@@ -282,18 +282,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="289"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="292"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>종료하기</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="306"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
         <source>Login</source>
         <translation>로그인</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="315"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="318"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
@@ -354,7 +354,7 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>연-월-일 요일</translation>
+        <translation>yyyy년 MM월 dd일 dddd</translation>
     </message>
 </context>
 <context>
@@ -383,17 +383,17 @@
         <translation>로그인</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="261"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="264"/>
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>%n 분() 후에 다시 시도하십시오</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
-        <source>Enter your password to shutdown</source>
-        <translation>종료하려면 비밀번호를 입력하세요</translation>
+        <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
+        <source>Enter your password to shut down</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
         <source>Enter your password to reboot</source>
         <translation>다시 시작하려면 비밀번호를 입력하세요</translation>
     </message>
@@ -408,7 +408,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation type="unfinished"/>
+        <translation>일반 모드</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
@@ -435,8 +435,8 @@
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
-        <source>This application can not run without window effect</source>
-        <translation>이 앱은 윈도우 효과 없이는 실행될 수 없습니다.</translation>
+        <source>This application cannot run without window effect</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>

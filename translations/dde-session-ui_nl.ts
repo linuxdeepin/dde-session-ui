@@ -2,59 +2,59 @@
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="343"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="371"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="513"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="356"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
         <source>Shut down</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="345"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="373"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="400"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="516"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="358"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Reboot</source>
         <translation>Herstarten</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
-        <source>Are you sure to shut down?</source>
-        <translation>Bent u zeker dat u wil uitschakelen?</translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <source>Are you sure you want to shut down?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <source>Are you sure to reboot?</source>
-        <translation>Weet u zeker dat u opnieuw wilt opstarten?</translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <source>Are you sure you want to reboot?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="405"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="537"/>
         <source>Log out</source>
         <translation>Afmelden</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <source>Are you sure to log out?</source>
-        <translation>Ben u zeker dat u wil uitloggen?</translation>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
+        <source>Are you sure you want to log out?</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="519"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
         <source>Suspend</source>
         <translation>Onderbreken</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Slaapstand</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
         <source>Lock</source>
         <translation>Vergrendelen</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="532"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="541"/>
         <source>Switch user</source>
         <translation>Gebruiker wisselen</translation>
     </message>
@@ -75,12 +75,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Deze applicatie wordt beëindigd, zorg ervoor dat uw gegevens zijn opgeslagen!</translation>
+        <translation>Deze toepassing wordt beëindigd, zorg ervoor dat uw gegevens zijn opgeslagen!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Sla uw document, tekst en spreadsheet alstublieft op</translation>
+        <translation>Sla uw document, tekst en rekenblad alstublieft op</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -90,7 +90,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Onvoldoende systeemgeheugen, stop een aantal applicaties om vastlopen te voorkomen.</translation>
+        <translation>Onvoldoende systeemgeheugen, stop een aantal toepassingen om vastlopen te voorkomen.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
@@ -139,7 +139,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="34"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="35"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
@@ -155,32 +155,32 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="108"/>
+        <location filename="../session-widgets/lockworker.cpp" line="109"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Domein account</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="503"/>
-        <location filename="../session-widgets/lockworker.cpp" line="600"/>
+        <location filename="../session-widgets/lockworker.cpp" line="603"/>
+        <location filename="../session-widgets/lockworker.cpp" line="718"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Vingerafdrukauthenticatie is verlopen, voer je wachtwoord handmatig in</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="521"/>
-        <location filename="../session-widgets/lockworker.cpp" line="615"/>
+        <location filename="../session-widgets/lockworker.cpp" line="621"/>
+        <location filename="../session-widgets/lockworker.cpp" line="733"/>
         <source>Failed to match fingerprint</source>
         <translation>Vingerafdruk komt niet overeen</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="545"/>
-        <location filename="../session-widgets/lockworker.cpp" line="629"/>
+        <location filename="../session-widgets/lockworker.cpp" line="649"/>
+        <location filename="../session-widgets/lockworker.cpp" line="751"/>
         <source>Wrong Password</source>
         <translation>Het wachtwoord is onjuist</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="633"/>
+        <location filename="../session-widgets/lockworker.cpp" line="755"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>Het domein account of wachtwoord is niet juist. Probeer opnieuw.</translation>
     </message>
 </context>
 <context>
@@ -220,7 +220,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>sleutel</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -230,17 +230,17 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>Proxy wachtwoord</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>Groepswachtwoord</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Wachtwoord vereist om te verbinden met &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -282,18 +282,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="289"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="292"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="306"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
         <source>Login</source>
         <translation>Inloggen</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="315"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="318"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
@@ -309,7 +309,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Slaapstand</translation>
     </message>
 </context>
 <context>
@@ -333,7 +333,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Suspend</source>
-        <translation>Slaapstand</translation>
+        <translation>Pauzestand</translation>
     </message>
 </context>
 <context>
@@ -383,17 +383,17 @@
         <translation>Inloggen</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="261"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="264"/>
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Gelieve binnen %n minuut opnieuw te proberen</numerusform><numerusform>Gelieve binnen %n minuten opnieuw te proberen</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
-        <source>Enter your password to shutdown</source>
-        <translation>Voer uw wachtwoord in zodat de computer kan worden afgesloten</translation>
+        <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
+        <source>Enter your password to shut down</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
         <source>Enter your password to reboot</source>
         <translation>Voer uw wachtwoord in om de computer opnieuw op te starten</translation>
     </message>
@@ -408,7 +408,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation type="unfinished"/>
+        <translation>Normale modus</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
@@ -435,8 +435,8 @@
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
-        <source>This application can not run without window effect</source>
-        <translation>Deze applicatie kan niet lopen zonder venstereffect</translation>
+        <source>This application cannot run without window effect</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
