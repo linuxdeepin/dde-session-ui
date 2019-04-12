@@ -31,12 +31,7 @@ void DeepinAuthFramework::Authenticate()
     m_fprint->SetUser(USERNAME);
 
     // It takes time to auth again after cancel!
-    QTimer::singleShot(100, this, [=] {
-        if (!PASSWORD.isEmpty()) {
-            m_keyboard->Authenticate();
-        }
-    });
-
+    QTimer::singleShot(100, m_keyboard, &AuthAgent::Authenticate);
     QTimer::singleShot(500, m_fprint, &AuthAgent::Authenticate);
 }
 
