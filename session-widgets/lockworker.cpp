@@ -178,7 +178,7 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
 
                 m_authFramework->SetUser(user->name());
 
-                if (!checkUserIsNoPWGrp(user)) {
+                if (!user->isNoPasswdGrp()) {
                     m_greeter->authenticate(user->name());
                     m_authFramework->Authenticate();
                 }
@@ -360,12 +360,11 @@ void LockWorker::onUserAdded(const QString &user)
     std::shared_ptr<User> user_ptr(new NativeUser(user));
 
     user_ptr->setisLogind(isLogined(user_ptr->uid()));
-    user_ptr->setNoPasswdGrp(checkUserIsNoPWGrp(user_ptr));
 
     if (m_model->currentType() == SessionBaseModel::AuthType::LockType) {
         if (user_ptr->uid() == m_currentUserUid) {
             m_model->setCurrentUser(user_ptr);
-            if (!checkUserIsNoPWGrp(user_ptr)) {
+            if (!user_ptr->isNoPasswdGrp()) {
                 if (isDeepin()) {
                     m_authFramework->SetUser(user_ptr->name());
                     m_authFramework->Authenticate();
@@ -385,7 +384,7 @@ void LockWorker::onUserAdded(const QString &user)
                 if (isDeepin()) {
                     m_authFramework->SetUser(user_ptr->name());
 
-                    if (!checkUserIsNoPWGrp(user_ptr)) {
+                    if (!user_ptr->isNoPasswdGrp()) {
                         m_authFramework->Authenticate();
                     }
                 }
@@ -513,44 +512,6 @@ bool LockWorker::isLogined(uint uid)
     return isLogind != m_loginUserList.end();
 }
 
-bool LockWorker::checkUserIsNoPWGrp(std::shared_ptr<User> user)
-{
-    if (user->type() == User::ADDomain) {
-        return false;
-    }
-
-    // Caution: 32 here is unreliable, and there may be more
-    // than this number of groups that the user joins.
-
-    int ngroups = 32;
-    gid_t groups[32];
-    struct passwd pw;
-    struct group gr;
-
-    /* Fetch passwd structure (contains first group ID for user) */
-
-    pw = *getpwnam(user->name().toUtf8().data());
-
-    /* Retrieve group list */
-
-    if (getgrouplist(user->name().toUtf8().data(), pw.pw_gid, groups, &ngroups) == -1) {
-        fprintf(stderr, "getgrouplist() returned -1; ngroups = %d\n",
-                ngroups);
-        return false;
-    }
-
-    /* Display list of retrieved groups, along with group names */
-
-    for (int i = 0; i < ngroups; i++) {
-        gr = *getgrgid(groups[i]);
-        if (QString(gr.gr_name) == QString("nopasswdlogin")) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 void LockWorker::onCurrentUserChanged(const QString &user)
 {
     if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
@@ -668,7 +629,7 @@ void LockWorker::onUnlockFinished(bool unlocked)
 
 void LockWorker::userAuthForLightdm(std::shared_ptr<User> user)
 {
-    if (!checkUserIsNoPWGrp(user)) {
+    if (!user->isNoPasswdGrp()) {
         if (m_greeter->inAuthentication()) {
             m_greeter->cancelAuthentication();
         }

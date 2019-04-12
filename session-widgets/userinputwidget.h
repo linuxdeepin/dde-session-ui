@@ -58,6 +58,7 @@ protected:
     bool event(QEvent *event) Q_DECL_OVERRIDE;
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void setName(const QString &name);
@@ -66,6 +67,7 @@ private:
     void refreshAvatarPosition();
     void toggleKBLayoutWidget();
     void refreshKBLayoutWidgetPosition();
+    void refreshInputState();
     void onOtherPagePasswordChanged(const QVariant &value);
     void onOtherPageKBLayoutChanged(const QVariant &value);
 

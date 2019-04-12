@@ -46,8 +46,7 @@ public:
     const QString locale() const { return m_locale; }
     void setLocale(const QString &locale);
 
-    bool isNoPasswdGrp() const { return m_isNoPasswdGrp; }
-    void setNoPasswdGrp(bool nopassword);
+    bool isNoPasswdGrp() const;
 
     void setisLogind(bool isLogind);
     virtual void setCurrentLayout(const QString &layout) { Q_UNUSED(layout); }
@@ -73,7 +72,6 @@ protected:
 
 protected:
     bool m_isLogind;
-    bool m_isNoPasswdGrp;
     bool m_isLock;
     uint m_uid;
     uint m_lockNum; // minute basis

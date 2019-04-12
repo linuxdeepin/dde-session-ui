@@ -182,27 +182,7 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
     m_passwordEdit->hide();
     m_otherUserInput->hide();
 
-    int frameHeight = (m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2;
-
-    if (user->type() == User::ADDomain && user->uid() == 0) {
-        m_passwordEdit->hide();
-        m_otherUserInput->show();
-        frameHeight += m_otherUserInput->height();
-        m_otherUserInput->setFocus();
-    }
-    else if (user->type() == User::ADDomain) {
-        m_passwordEdit->show();
-        frameHeight += DDESESSIONCC::PASSWDLINEEDIT_HEIGHT;
-        grabKeyboard();
-    }
-    else {
-        setIsNoPasswordGrp(user->isNoPasswdGrp());
-        updateKBLayout(user->kbLayoutList());
-        setDefaultKBLayout(user->currentKBLayout());
-        frameHeight += DDESESSIONCC::PASSWDLINEEDIT_HEIGHT;
-    }
-
-    setFixedHeight(frameHeight);
+    refreshInputState();
 }
 
 void UserInputWidget::setName(const QString &name)
@@ -385,6 +365,13 @@ void UserInputWidget::resizeEvent(QResizeEvent *event)
     return QWidget::resizeEvent(event);
 }
 
+void UserInputWidget::showEvent(QShowEvent *event)
+{
+    refreshInputState();
+
+    return QWidget::showEvent(event);
+}
+
 void UserInputWidget::refreshLanguage()
 {
     for (auto it = m_trList.begin(); it != m_trList.end(); ++it) {
@@ -434,6 +421,31 @@ void UserInputWidget::refreshKBLayoutWidgetPosition()
                                                                          m_passwordEdit->geometry().bottomLeft().y() - 15));
     m_kbLayoutBorder->move(point.x(), point.y());
     m_kbLayoutBorder->setArrowX(15);
+}
+
+void UserInputWidget::refreshInputState()
+{
+    int frameHeight = (m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2;
+
+    if (m_user->type() == User::ADDomain && m_user->uid() == 0) {
+        m_passwordEdit->hide();
+        m_otherUserInput->show();
+        frameHeight += m_otherUserInput->height();
+        m_otherUserInput->setFocus();
+    }
+    else if (m_user->type() == User::ADDomain) {
+        m_passwordEdit->show();
+        frameHeight += DDESESSIONCC::PASSWDLINEEDIT_HEIGHT;
+        grabKeyboard();
+    }
+    else {
+        setIsNoPasswordGrp(m_user->isNoPasswdGrp());
+        updateKBLayout(m_user->kbLayoutList());
+        setDefaultKBLayout(m_user->currentKBLayout());
+        frameHeight += DDESESSIONCC::PASSWDLINEEDIT_HEIGHT;
+    }
+
+    setFixedHeight(frameHeight);
 }
 
 void UserInputWidget::onOtherPagePasswordChanged(const QVariant &value)

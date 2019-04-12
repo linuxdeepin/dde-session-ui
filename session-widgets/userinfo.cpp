@@ -1,8 +1,50 @@
 #include "userinfo.h"
 
+#include <unistd.h>
+#include <pwd.h>
+#include <grp.h>
+
 #define LOCK_AUTH_NUM 5
 
-const QString toLocalFile(const QString &path) {
+static bool checkUserIsNoPWGrp(User const * user)
+{
+    if (user->type() == User::ADDomain) {
+        return false;
+    }
+
+    // Caution: 32 here is unreliable, and there may be more
+    // than this number of groups that the user joins.
+
+    int ngroups = 32;
+    gid_t groups[32];
+    struct passwd pw;
+    struct group gr;
+
+    /* Fetch passwd structure (contains first group ID for user) */
+
+    pw = *getpwnam(user->name().toUtf8().data());
+
+    /* Retrieve group list */
+
+    if (getgrouplist(user->name().toUtf8().data(), pw.pw_gid, groups, &ngroups) == -1) {
+        fprintf(stderr, "getgrouplist() returned -1; ngroups = %d\n",
+                ngroups);
+        return false;
+    }
+
+    /* Display list of retrieved groups, along with group names */
+
+    for (int i = 0; i < ngroups; i++) {
+        gr = *getgrgid(groups[i]);
+        if (QString(gr.gr_name) == QString("nopasswdlogin")) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+static const QString toLocalFile(const QString &path) {
     QUrl url(path);
 
     if (url.isLocalFile()) {
@@ -15,7 +57,6 @@ const QString toLocalFile(const QString &path) {
 User::User(QObject *parent)
     : QObject(parent)
     , m_isLogind(false)
-    , m_isNoPasswdGrp(false)
     , m_isLock(false)
     , m_lockNum(4)
     , m_tryNum(5)
@@ -29,7 +70,6 @@ User::User(QObject *parent)
 User::User(const User &user)
     : QObject(user.parent())
     , m_isLogind(user.m_isLogind)
-    , m_isNoPasswdGrp(user.m_isNoPasswdGrp)
     , m_isLock(user.m_isLock)
     , m_uid(user.m_uid)
     , m_lockNum(user.m_lockNum)
@@ -56,9 +96,9 @@ void User::setLocale(const QString &locale)
     emit localeChanged(locale);
 }
 
-void User::setNoPasswdGrp(bool nopassword)
+bool User::isNoPasswdGrp() const
 {
-    m_isNoPasswdGrp = nopassword;
+    return checkUserIsNoPWGrp(this);
 }
 
 void User::setisLogind(bool isLogind) {

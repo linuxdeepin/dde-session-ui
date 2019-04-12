@@ -48,7 +48,6 @@ private:
     void onLoginUserListChanged(const QString &list);
     bool checkHaveDisplay(const QJsonArray &array);
     bool isLogined(uint uid);
-    bool checkUserIsNoPWGrp(std::shared_ptr<User> user);
     void onCurrentUserChanged(const QString &user);
 
     void saveNumlockStatus(std::shared_ptr<User> user, const bool &on);
