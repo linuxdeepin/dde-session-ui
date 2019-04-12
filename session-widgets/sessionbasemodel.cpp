@@ -126,9 +126,11 @@ void SessionBaseModel::setIsShow(bool isShow)
 
     m_isShow = isShow;
 
+#ifndef QT_DEBUG
     if (m_sessionManagerInter && m_currentType == LockType) {
         m_sessionManagerInter->SetLocked(m_isShow);
     }
+#endif
 
     emit visibleChanged(isShow);
 }
