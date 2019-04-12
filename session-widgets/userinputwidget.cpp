@@ -123,6 +123,8 @@ UserInputWidget::UserInputWidget(QWidget *parent)
         FrameDataBind::Instance()->updateValue("Password", value);
     });
     connect(m_passwordEdit, &DPasswdEditAnimated::submit, this, [=] (const QString &passwd) {
+        if (passwd.isEmpty()) return;
+
         emit requestAuthUser(passwd);
     });
     connect(m_loginBtn, &LoginButton::clicked, this, [=] {
