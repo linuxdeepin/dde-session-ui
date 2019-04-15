@@ -181,27 +181,11 @@ static void set_auto_QT_SCALE_FACTOR() {
 int main(int argc, char* argv[])
 {
     // load dpi settings
-    QSettings settings("/etc/lightdm/lightdm-deepin-greeter.conf", QSettings::IniFormat);
-    QVariant value = settings.value("ScreenScaleFactors");
-    if (value.isValid()) {
-        if (value.toString().split(";").size() > 0) {
-            setenv("QT_SCREEN_SCALE_FACTORS", value.toByteArray().constData(), 1);
-        }
-    }
-
-    if (!qEnvironmentVariableIsSet("QT_SCREEN_SCALE_FACTORS")) {
-        QVariant ratio = settings.value("ScreenScaleFactor");
-        if (ratio.isValid()) {
-            bool ok = false;
-            const double r = ratio.toDouble(&ok);
-            if (ok) {
-                setenv("QT_SCALE_FACTOR", QByteArray::number(r).constData(), 1);
-            }
-        }
-    }
-
-    if (!qEnvironmentVariableIsSet("QT_SCALE_FACTOR")) {
+    if (!QFile::exists("/etc/lightdm/deepin/qt-theme.ini")) {
         set_auto_QT_SCALE_FACTOR();
+    }
+    else {
+        DApplication::customQtThemeConfigPath("/etc/lightdm/");
     }
 
     DApplication::loadDXcbPlugin();
