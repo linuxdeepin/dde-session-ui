@@ -294,7 +294,7 @@ void LockWorker::onPasswordResult(const QString &msg)
 
     switch (m_model->currentType()) {
         case SessionBaseModel::AuthType::LockType: {
-            if (msg.isEmpty()) {
+            if (!user->isNoPasswdGrp() && msg.isEmpty()) {
                 //FIXME(lxz): 不知道为什么收不到错误
                 onUnlockFinished(false);
             }
