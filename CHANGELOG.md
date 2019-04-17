@@ -1,3 +1,19 @@
+<a name="4.9.3"></a>
+### 4.9.3 (2019-04-17)
+
+
+#### Features
+
+* **greeter:**  use new dpi scale ratio config ([f4ca6a82](https://github.com/linuxdeepin/dde-session-ui/commit/f4ca6a8220a9c9e94565af242c506b0549694f7a))
+
+#### Bug Fixes
+
+* **lock:**
+  *  nopasswdlogin cannot unlock ([4568763f](https://github.com/linuxdeepin/dde-session-ui/commit/4568763fa9d79ac995bac09531fe6b80355a8424))
+  *  not refresh nopasswordlogin when show again ([029157ed](https://github.com/linuxdeepin/dde-session-ui/commit/029157ed7b3ea163d43d4d29bc67e54054ac043d))
+
+
+
 <a name="4.9.2"></a>
 ### 4.9.2 (2019-04-09)
 
