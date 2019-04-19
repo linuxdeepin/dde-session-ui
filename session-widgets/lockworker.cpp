@@ -599,7 +599,8 @@ void LockWorker::lockServiceEvent(quint32 eventType, quint32 pid, const QString 
 
 void LockWorker::onUnlockFinished(bool unlocked)
 {
-    if (isDeepin()) {
+    // only unlock succeed will close fprint device
+    if (unlocked && isDeepin()) {
         m_authFramework->Clear();
     }
 
