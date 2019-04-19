@@ -206,6 +206,10 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
 
 void LockWorker::authUser(const QString &password)
 {
+    if (m_authenticating) return;
+
+    m_authenticating = true;
+
     // auth interface
     std::shared_ptr<User> user = m_model->currentUser();
 
@@ -233,8 +237,6 @@ void LockWorker::authUser(const QString &password)
         m_authFramework->Authenticate();
         return;
     }
-
-    m_authenticating = true;
 
     if (m_model->currentType() == SessionBaseModel::AuthType::LockType) {
         qDebug() << "start authentication of user: " << user->name();
@@ -605,6 +607,8 @@ void LockWorker::onUnlockFinished(bool unlocked)
     }
 
     emit m_model->authFinished(unlocked);
+
+    m_authenticating = false;
 
     if (!unlocked) {
         qDebug() << "Authorization failed!";
