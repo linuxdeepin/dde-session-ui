@@ -180,9 +180,6 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
     setName(user->displayName());
     setAvatar(user->avatarPath());
     disablePassword(user.get()->isLock());
-    m_loginBtn->hide();
-    m_passwordEdit->hide();
-    m_otherUserInput->hide();
 
     refreshInputState();
 }
@@ -200,17 +197,21 @@ void UserInputWidget::setAvatar(const QString &avatar)
 void UserInputWidget::setIsNoPasswordGrp(bool isNopassword)
 {
     m_passwordEdit->abortAuth();
-    m_passwordEdit->setVisible(!isNopassword);
+
+    m_passwordEdit->setVisible(!isNopassword && !m_user->isLock());
+    m_lockPasswordWidget->setVisible(m_user->isLock());
     m_loginBtn->setVisible(isNopassword);
 }
 
 void UserInputWidget::setFaildMessage(const QString &message)
 {
     m_passwordEdit->abortAuth();
-    if (m_lockPasswordWidget->isVisible()) {
+
+    if (m_user->isLock()) {
         m_lockPasswordWidget->setMessage(message);
         return;
     }
+
     m_passwordEdit->lineEdit()->setPlaceholderText(message);
 }
 
@@ -427,6 +428,11 @@ void UserInputWidget::refreshKBLayoutWidgetPosition()
 
 void UserInputWidget::refreshInputState()
 {
+    m_loginBtn->hide();
+    m_passwordEdit->hide();
+    m_otherUserInput->hide();
+    m_lockPasswordWidget->hide();
+
     int frameHeight = (m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2;
 
     if (m_user->type() == User::ADDomain && m_user->uid() == 0) {
