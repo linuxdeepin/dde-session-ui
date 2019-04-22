@@ -1,3 +1,18 @@
+<a name="4.9.4"></a>
+### 4.9.4 (2019-04-22)
+
+
+#### Bug Fixes
+
+* **greeter:**  missing unlock mutex ([6730d29f](https://github.com/linuxdeepin/dde-session-ui/commit/6730d29f615f423e3b3d25eaf3f4c9e49585f347))
+* **lock:**
+  *  not sync multi-screen user lock info ([df0e04a7](https://github.com/linuxdeepin/dde-session-ui/commit/df0e04a7cd630456a98fd920ad8dada7d235a461))
+  *  can always auth user ([e72070fe](https://github.com/linuxdeepin/dde-session-ui/commit/e72070fedb4a0c7ad8150d9f3247fdd484f27788))
+  *  show error at first time ([d9eab194](https://github.com/linuxdeepin/dde-session-ui/commit/d9eab1942f9b0e3c414218620d0bcb38537c5d9d))
+  *  shutdown fprintd device for the first time ([45140c17](https://github.com/linuxdeepin/dde-session-ui/commit/45140c170371b26341d199a61190847923445c39))
+
+
+
 <a name="4.9.3"></a>
 ### 4.9.3 (2019-04-17)
 
