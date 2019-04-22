@@ -708,6 +708,8 @@ void LockWorker::authenticationComplete()
 {
     qDebug() << "authentication complete, authenticated " << m_greeter->isAuthenticated();
 
+    m_authenticating = false;
+
     if (isDeepin()) {
         m_authFramework->Clear();
     }
