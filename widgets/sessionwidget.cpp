@@ -67,7 +67,7 @@ SessionWidget::SessionWidget(QWidget *parent)
 //    setStyleSheet("QFrame {"
 //                  "background-color: red;"
 //                  "}");
-    setFixedHeight(500);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     loadSessionList();
 
     std::function<void (QVariant)> function = std::bind(&SessionWidget::onOtherPageChanged, this, std::placeholders::_1);
@@ -133,6 +133,8 @@ void SessionWidget::show()
 
         index++;
     }
+
+    setFixedHeight(itemWidth * (row + 1));
 
     QWidget::show();
 }
