@@ -1,3 +1,17 @@
+<a name="4.9.5"></a>
+### 4.9.5 (2019-04-24)
+
+
+#### Bug Fixes
+
+* **greeter:**  session list position not align center ([480c1b7c](https://github.com/linuxdeepin/dde-session-ui/commit/480c1b7c7e0d46b6cfbff442b6d98f7b466026fd))
+* **lock:**
+  *  No focus after closing login lock ([058269dd](https://github.com/linuxdeepin/dde-session-ui/commit/058269ddc0fdd31209df3ccb5e148f448c5c9996))
+  *  not auth user when show again ([bc377453](https://github.com/linuxdeepin/dde-session-ui/commit/bc377453b026351de86027cc587e5bacc65f3cc4))
+* **shutdown:**  crash when show inhibitwarnview again ([00efa492](https://github.com/linuxdeepin/dde-session-ui/commit/00efa492e92c59bce69b61d16e8377093a46a1d7))
+
+
+
 <a name="4.9.4"></a>
 ### 4.9.4 (2019-04-22)
 
