@@ -246,6 +246,11 @@ void UserInputWidget::disablePassword(bool disable)
     if (disable) {
         setFaildMessage(tr("Please try again %n minute(s) later", "", m_user->lockNum()));
     }
+    else {
+        if (isVisible()) {
+            grabKeyboard();
+        }
+    }
 }
 
 void UserInputWidget::updateAuthType(SessionBaseModel::AuthType type)
