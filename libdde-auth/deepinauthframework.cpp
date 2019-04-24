@@ -54,6 +54,11 @@ DeepinAuthFramework::~DeepinAuthFramework()
 {
 }
 
+bool DeepinAuthFramework::isAuthenticate() const
+{
+    return !m_keyboard.isNull() || !m_fprint.isNull();
+}
+
 void DeepinAuthFramework::SetUser(const QString &username)
 {
     USERNAME = username;

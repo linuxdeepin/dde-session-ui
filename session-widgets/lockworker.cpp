@@ -132,6 +132,23 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         }
     });
 
+    connect(model, &SessionBaseModel::visibleChanged, this, [=] (bool isVisible) {
+        if (!isVisible || model->currentType() != SessionBaseModel::AuthType::LockType || m_authFramework->isAuthenticate()) return;
+
+        std::shared_ptr<User> user_ptr = model->currentUser();
+        if (!user_ptr.get()) return;
+
+        if (!user_ptr->isNoPasswdGrp()) {
+            if (isDeepin()) {
+                m_authFramework->SetUser(user_ptr->name());
+                m_authFramework->Authenticate();
+            }
+            else {
+                m_lockInter->AuthenticateUser(user_ptr->name());
+            }
+        }
+    });
+
     connect(m_lockInter, &DBusLockService::UserChanged, this, &LockWorker::onCurrentUserChanged);
     connect(m_lockInter, &DBusLockService::Event, this, &LockWorker::lockServiceEvent);
     connect(m_loginedInter, &LoginedInter::UserListChanged, this, &LockWorker::onLoginUserListChanged);

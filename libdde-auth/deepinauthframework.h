@@ -16,6 +16,8 @@ public:
 
     friend class AuthAgent;
 
+    bool isAuthenticate() const;
+
 public slots:
     void SetUser(const QString &username);
     void Authenticate();
