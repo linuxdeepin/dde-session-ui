@@ -38,7 +38,7 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
     m_reasonLbl = new QLabel;
 
     std::function<void (QVariant)> buttonChanged = std::bind(&InhibitWarnView::onOtherPageDataChanged, this, std::placeholders::_1);
-    FrameDataBind::Instance()->registerFunction("InhibitWarnView", buttonChanged);
+    m_dataBindIndex = FrameDataBind::Instance()->registerFunction("InhibitWarnView", buttonChanged);
 
     m_cancelBtn->setNormalPic(":/img/cancel_normal.svg");
     m_cancelBtn->setHoverPic(":/img/cancel_hover.svg");
@@ -75,6 +75,11 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
 
     connect(m_cancelBtn, &RoundItemButton::clicked, this, &InhibitWarnView::cancelled);
     connect(m_acceptBtn, &RoundItemButton::clicked, [this] {emit actionInvoked(m_action);});
+}
+
+InhibitWarnView::~InhibitWarnView()
+{
+    FrameDataBind::Instance()->unRegisterFunction("InhibitWarnView", m_dataBindIndex);
 }
 
 void InhibitWarnView::setInhibitReason(const QString &reason)

@@ -38,6 +38,7 @@ class InhibitWarnView : public WarningView
 
 public:
     explicit InhibitWarnView(QWidget *parent = 0);
+    ~InhibitWarnView();
 
     void setInhibitReason(const QString &reason);
     void setAcceptReason(const QString &reason) override;
@@ -61,6 +62,7 @@ private:
     RoundItemButton *m_acceptBtn;
     RoundItemButton *m_cancelBtn;
     RoundItemButton *m_currentBtn;
+    int m_dataBindIndex;
 };
 
 #endif // INHIBITWARNVIEW_H
