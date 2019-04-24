@@ -20,12 +20,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Ви впевнені, що хочете вимкнути компʼютер?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Ви впевнені, що хочете перезавантажити?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Ви впевнені, що хочете вийти?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
@@ -175,7 +175,7 @@
         <location filename="../session-widgets/lockworker.cpp" line="649"/>
         <location filename="../session-widgets/lockworker.cpp" line="751"/>
         <source>Wrong Password</source>
-        <translation>Неправильний Пароль</translation>
+        <translation>Невірний Пароль</translation>
     </message>
     <message>
         <location filename="../session-widgets/lockworker.cpp" line="755"/>
@@ -385,12 +385,12 @@
     <message numerus="yes">
         <location filename="../session-widgets/userinputwidget.cpp" line="264"/>
         <source>Please try again %n minute(s) later</source>
-        <translation><numerusform>Будь ласка, спробуйте знову за %n хвилину</numerusform><numerusform>Будь ласка, спробуйте знову за %n хвилини</numerusform><numerusform>Будь ласка, спробуйте знову за %n хвилин</numerusform><numerusform>Будь ласка, спробуйте знову за %n хвилину</numerusform></translation>
+        <translation><numerusform>Будь ласка, спробуйте знову за %n хвилин(у)</numerusform><numerusform>Будь ласка, спробуйте знову за %n хвилин(у)</numerusform><numerusform>Будь ласка, спробуйте знову за %n хвилин(у)</numerusform><numerusform>Будь ласка, спробуйте знову за %n хвилин(у)</numerusform></translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation>Введіть пароль для завершення роботи</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
@@ -436,12 +436,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Ця програма не може працювати без ефекту вікна</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation>ОК</translation>
+        <translation>Гаразд</translation>
     </message>
 </context>
 <context>

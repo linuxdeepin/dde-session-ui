@@ -20,12 +20,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Bent u zeker dat u wil uitschakelen?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Weet u zeker dat u opnieuw wilt opstarten?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Ben u zeker dat u wil uitloggen?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
@@ -193,12 +193,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>De bovenstaande gebruikers zijn nog steeds ingelogd. Niet opgeslagen gegevens zullen verloren gaan als gevolg van het opnieuw opstarten. Weet u zeker dat u wilt doorgaan met het opnieuw opstarten?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>De bovenstaande gebruikers zijn nog steeds ingelogd. Niet opgeslagen gegevens zullen verloren gaan als gevolg van het afsluiten. Weet u zeker dat u wilt doorgaan met het afsluiten?</translation>
     </message>
 </context>
 <context>
@@ -390,7 +390,7 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation>Voer uw wachtwoord in zodat de computer kan worden afgesloten</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
@@ -413,12 +413,12 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation type="unfinished"/>
+        <translation>Het systeem heeft gedetecteerd dat u een virtuele machine gebruikt, wat invloed heeft op de systeemprestaties en uw gebruikerservaring. Algemene modus wordt aanbevolen voor een vlotte ervaring.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation type="unfinished"/>
+        <translation>Effect modus: Deze modus zorgt ervoor dat u een vloeiende en delicate ervaring krijgt. Algemene modus: Deze modus zorgt ervoor dat u van snelle prestaties kan genieten</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
@@ -436,7 +436,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Deze applicatie kan niet lopen zonder venstereffect</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>

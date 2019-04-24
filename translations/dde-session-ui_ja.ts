@@ -46,7 +46,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>ハイバーネート</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
@@ -85,7 +85,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
         <source>Continue</source>
-        <translation>続け</translation>
+        <translation>続ける</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
@@ -240,7 +240,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt; への接続にはパスワードが必要です</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -309,7 +309,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>ハイバーネート</translation>
     </message>
 </context>
 <context>
@@ -380,7 +380,7 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="13"/>
         <source>Login</source>
-        <translation>ロック</translation>
+        <translation>ログイン</translation>
     </message>
     <message numerus="yes">
         <location filename="../session-widgets/userinputwidget.cpp" line="264"/>

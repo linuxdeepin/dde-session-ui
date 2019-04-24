@@ -20,12 +20,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Segur que voleu que m&apos;aturi?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Segur que voleu reiniciar-me?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Segur que voleu sortir de la sessió?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
@@ -193,12 +193,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>Els usuaris anteriors encara tenen la sessió oberta i se&apos;n perdran les dades a causa del reinici. Segur que voleu que es reiniciï?</translation>
+        <translation>Els usuaris anteriors encara tenen la sessió oberta i se&apos;n perdran les dades a causa del reinici. Segur que voleu reiniciar-me?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation>Els usuaris anteriors encara tenen la sessió oberta i se&apos;n perdran les dades a causa de l&apos;aturada. Segur que voleu que s&apos;aturi?</translation>
+        <translation>Els usuaris anteriors encara tenen la sessió oberta i se&apos;n perdran les dades a causa de l&apos;aturada. Segur que voleu que m&apos;aturi?</translation>
     </message>
 </context>
 <context>
@@ -390,7 +390,7 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation>Escriviu la contrasenya per aturar-me.</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
@@ -436,7 +436,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Aquesta aplicació no es pot executar sense efectes de finestra.</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
