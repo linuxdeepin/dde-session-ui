@@ -25,7 +25,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Biztosan újra akarod indítani?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>

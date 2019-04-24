@@ -5,12 +5,12 @@
             <location filename="Desktop Entry]GenericName" line="0"/>
             <location filename="Desktop Entry]Name" line="0"/>
             <source>Show Desktop</source>
-            <translation>Показати робочий стіл</translation>
+            <translation>Показати Стільницю</translation>
         </message>
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Show desktop or show windows</source>
-            <translation>Показати робочий стіл або вікна</translation>
+            <translation>Показати стільницю або вікна</translation>
         </message>
     </context>
 </TS>

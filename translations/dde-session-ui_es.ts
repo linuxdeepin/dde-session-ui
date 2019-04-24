@@ -20,12 +20,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>¿Está seguro de apagar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>¿Está seguro de reiniciar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>¿Está seguro de cerrar sesión?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
@@ -390,7 +390,7 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation>Ingrese su contraseña para apagar</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
@@ -437,7 +437,7 @@ Modo normal: disfruta de un mayor rendimiento</translation>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Esta aplicación no puede ser ejecutada sin efectos de ventanas</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>

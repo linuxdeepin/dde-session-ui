@@ -20,12 +20,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Určite chcete vypnúť?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Naozaj chcete reštartovať?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Určite sa chcete odhlásiť?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
@@ -193,12 +193,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Vyššie uvedení užívatelia sú stále prihlásení a údaje sa stratia v dôsledku reštartu, ste si istí, že chcete reštartovať?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Vyššie uvedení užívatelia sú stále prihlásení a údaje sa stratia v dôsledku vypnutia, ste si istí, že ich chcete vypnúť?</translation>
     </message>
 </context>
 <context>
@@ -390,7 +390,7 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation>Zadajte svoje heslo pre vypnutie</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
@@ -413,12 +413,12 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation type="unfinished"/>
+        <translation>Systém zistil, že používate virtuálny stroj, ktorý ovplyvní jeho výkon a vašu skúsenosť. Pre hladké fungovanie odporúčame bežný režim</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation type="unfinished"/>
+        <translation>Režim s efektmi: Hladký a nádherný zážitok. Bežný režim: Vychutnajte si jeho rýchly výkon</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
@@ -436,7 +436,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Táto aplikácia sa nemôže spustiť bez efektu okna</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>

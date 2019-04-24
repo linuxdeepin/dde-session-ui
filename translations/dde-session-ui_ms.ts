@@ -20,12 +20,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Anda pasti mahu matikan komputer?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Anda pasti mahu but semula komputer?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Anda pasti mahu mendaftar keluar komputer?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
@@ -193,12 +193,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Pengguna di atas masih boleh mendaftar masuk dan data tidak akan hilang disebabkan proses but semula komputer, anda pasti mahu but semula komputer?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Pengguna di atas masih boleh mendaftar masuk dan data akan hilang disebabkan proses penutupan komputer, anda pasti mahu matikan komputer?</translation>
     </message>
 </context>
 <context>
@@ -390,7 +390,7 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation>Masukkan kata laluan anda untuk matikan komputer</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
@@ -436,7 +436,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Aplikasi ini tidak dapat dijalankan tanpa kesan tetingkap</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>

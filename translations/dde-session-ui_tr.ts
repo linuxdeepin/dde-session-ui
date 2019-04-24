@@ -20,12 +20,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Kapatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Yeniden başlatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Oturumu kapatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
@@ -390,7 +390,7 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation>Kapatmak için parolanızı yazın</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
@@ -436,7 +436,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Bu uygulama pencere etkisi olmadan çalıştırılamaz</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
