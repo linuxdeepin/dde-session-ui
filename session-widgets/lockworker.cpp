@@ -672,13 +672,13 @@ void LockWorker::prompt(QString text, QLightDM::Greeter::PromptType type)
 
     switch (type) {
     case QLightDM::Greeter::PromptTypeSecret:
-        if (m_isThumbAuth)
-            return;
+        if (m_isThumbAuth || m_password.isEmpty())
+            break;
 
-        if (msg.isEmpty() && !m_password.isEmpty())
+        if (msg.isEmpty()) {
             m_greeter->respond(m_password);
-
-        if (!msg.isEmpty()) {
+        }
+        else {
             emit m_model->authFaildMessage(msg);
         }
         break;
@@ -704,7 +704,7 @@ void LockWorker::message(QString text, QLightDM::Greeter::MessageType type)
 
     switch (type) {
     case QLightDM::Greeter::MessageTypeInfo:
-        if (m_isThumbAuth)
+        if (m_isThumbAuth || m_password.isEmpty())
             break;
 
         emit m_model->authFaildMessage(QString(dgettext("fprintd", text.toLatin1())));
@@ -732,6 +732,10 @@ void LockWorker::authenticationComplete()
     }
 
     if (!m_greeter->isAuthenticated()) {
+        if (m_password.isEmpty()) {
+            return;
+        }
+
         if (m_model->currentUser()->type() == User::Native) {
             emit m_model->authFaildTipsMessage(tr("Wrong Password"));
         }
