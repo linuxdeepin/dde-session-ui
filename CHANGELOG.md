@@ -1,3 +1,13 @@
+<a name="4.9.6"></a>
+### 4.9.6 (2019-04-26)
+
+
+#### Bug Fixes
+
+* **greeter:**  Prevent failures caused by authentication at startup ([20483a28](https://github.com/linuxdeepin/dde-session-ui/commit/20483a28724fdb8825dec314a054e7daf4fb00d9))
+
+
+
 <a name="4.9.5"></a>
 ### 4.9.5 (2019-04-24)
 
