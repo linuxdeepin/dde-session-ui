@@ -79,7 +79,7 @@ void DrawHelper::DrawCenterNum(QPainter *painter, const QStyleOptionViewItem &op
 
     QFont f(painter->font());
     f.setPointSize(17);
-    f.setWeight(440);
+    f.setWeight(44);
 
     painter->setPen(isCurrent ? QColor("#2ca7f8") : Qt::black);
 
