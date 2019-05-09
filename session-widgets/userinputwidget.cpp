@@ -440,6 +440,8 @@ void UserInputWidget::refreshInputState()
 
     int frameHeight = (m_userAvatar->height() + 20 + m_nameLbl->height() + 18) * 2;
 
+    if (!m_user) return;
+
     if (m_user->type() == User::ADDomain && m_user->uid() == 0) {
         m_passwordEdit->hide();
         m_otherUserInput->show();
