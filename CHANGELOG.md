@@ -1,3 +1,14 @@
+<a name="4.9.7"></a>
+### 4.9.7 (2019-05-10)
+
+
+#### Bug Fixes
+
+*   crash in refreshInputState when m_user is null (#98) ([aa52dc67](https://github.com/linuxdeepin/dde-session-ui/commit/aa52dc67cc4d99061e41c30ecc04c8d45025f2aa))
+* **greeter:**  not select user last use session ([971ce9ac](https://github.com/linuxdeepin/dde-session-ui/commit/971ce9ac2d1f11609a846de798ada1c3018a915a))
+
+
+
 <a name="4.9.6"></a>
 ### 4.9.6 (2019-04-26)
 
