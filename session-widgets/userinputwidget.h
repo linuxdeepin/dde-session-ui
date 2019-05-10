@@ -86,6 +86,7 @@ private:
     std::list<std::pair<std::function<void (QString)>, QString>> m_trList;
     SessionBaseModel::AuthType m_authType;
     QMap<uint, QString> m_passwords;
+    bool m_allowUserAvatarShow;
 };
 
 #endif // USERINPUTWIDGET_H

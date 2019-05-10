@@ -128,10 +128,6 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 {
     if (user.get() == nullptr) return; // if dbus is async
 
-    if (user->type() == User::ADDomain && user->uid() == 0) {
-        m_userInputWidget->setUserAvatarVisible(m_model->allowShowIconForADUser());
-    }
-
     // set user language
     qApp->removeTranslator(m_translator);
     const QString locale { user->locale().split(".").first() };
@@ -149,6 +145,10 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
     m_currentUserConnects << connect(user.get(), &User::greeterBackgroundPathChanged, this, &LockContent::updateBackground , Qt::UniqueConnection);
 
     m_userInputWidget->setUser(user);
+
+    if (user->type() == User::ADDomain && user->uid() == 0) {
+        m_userInputWidget->setUserAvatarVisible(m_model->allowShowIconForADUser());
+    }
 
     if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
         m_sessionFrame->switchToUser(user->name());

@@ -9,7 +9,7 @@ hibernate=$$ENABLE_HIBERNATE
 isDeepin=$$ISDEEPIN
 
 [General]
-LoginPromptAvatar = false
+LoginPromptAvatar = true
 LoginPromptInput = false
 
 [Lock]

@@ -23,6 +23,7 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     , m_kbLayoutBorder(new DArrowRectangle(DArrowRectangle::ArrowTop))
     , m_kbLayoutWidget(new KbLayoutWidget(QStringList()))
     , m_lockPasswordWidget(new LockPasswordWidget)
+    , m_allowUserAvatarShow(true)
 {
     std::function<void (QString)> loginTr = std::bind(&LoginButton::setText, m_loginBtn, std::placeholders::_1);
     m_trList.push_back(std::pair<std::function<void (QString)>, QString>(loginTr, "Login"));
@@ -157,7 +158,13 @@ UserInputWidget::~UserInputWidget()
 
 void UserInputWidget::setUserAvatarVisible(bool visible)
 {
-    m_userAvatar->setVisible(visible);
+    m_allowUserAvatarShow = visible;
+
+    if (m_user && m_user->type() == User::ADDomain && m_user->uid() == 0) {
+        return m_userAvatar->setVisible(visible);
+    }
+
+    return m_userAvatar->show();
 }
 
 void UserInputWidget::setUser(std::shared_ptr<User> user)
@@ -372,8 +379,11 @@ void UserInputWidget::resizeEvent(QResizeEvent *event)
 {
     QTimer::singleShot(0, this, &UserInputWidget::refreshAvatarPosition);
     QTimer::singleShot(0, this, &UserInputWidget::refreshKBLayoutWidgetPosition);
-    QTimer::singleShot(0, m_userAvatar, &QWidget::show);
     QTimer::singleShot(0, m_nameLbl, &QWidget::show);
+
+    if (m_allowUserAvatarShow) {
+        QTimer::singleShot(0, m_userAvatar, &QWidget::show);
+    }
 
     return QWidget::resizeEvent(event);
 }
