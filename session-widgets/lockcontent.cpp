@@ -310,5 +310,8 @@ void LockContent::updateVirtualKBPosition()
 
 void LockContent::onUserListChanged(QList<std::shared_ptr<User> > list)
 {
-    m_controlWidget->setUserSwitchEnable(list.size() > 1);
+    const bool allowShowUserSwitchButton = m_model->allowShowUserSwitchButton();
+    const bool alwaysShowUserSwitchButton = m_model->alwaysShowUserSwitchButton();
+
+    m_controlWidget->setUserSwitchEnable(alwaysShowUserSwitchButton || (allowShowUserSwitchButton && list.size() > 1));
 }

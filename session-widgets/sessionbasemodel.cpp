@@ -149,3 +149,17 @@ void SessionBaseModel::setAllowShowIconForADUser(bool allowShowIconForADUser)
 {
     m_allowShowIconForADUser = allowShowIconForADUser;
 }
+
+void SessionBaseModel::setAllowShowUserSwitchButton(bool allowShowUserSwitchButton)
+{
+    if (m_allowShowUserSwitchButton == allowShowUserSwitchButton) return;
+
+    m_allowShowUserSwitchButton = allowShowUserSwitchButton;
+
+    emit allowShowUserSwitchButtonChanged(allowShowUserSwitchButton);
+}
+
+void SessionBaseModel::setAlwaysShowUserSwitchButton(bool alwaysShowUserSwitchButton)
+{
+    m_alwaysShowUserSwitchButton = alwaysShowUserSwitchButton;
+}

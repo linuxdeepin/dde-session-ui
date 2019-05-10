@@ -172,6 +172,16 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     checkVirtualKB();
 
     m_model->setAllowShowIconForADUser(valueByQSettings<bool>("General", "LoginPromptAvatar", false));
+
+    m_model->setAlwaysShowUserSwitchButton([=]() -> bool {
+        const QString & result = valueByQSettings<QString>("Lock", "ShowSwitchUserButton", "ondemand");
+        return result == "always";
+    }());
+
+    m_model->setAllowShowUserSwitchButton([=]() -> bool {
+        const QString & result = valueByQSettings<QString>("Lock", "ShowSwitchUserButton", "ondemand");
+        return result == "ondemand";
+    }());
 }
 
 void LockWorker::switchToUser(std::shared_ptr<User> user)

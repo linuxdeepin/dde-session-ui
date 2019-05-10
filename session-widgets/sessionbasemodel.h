@@ -72,6 +72,12 @@ public:
     inline bool allowShowIconForADUser() const { return m_allowShowIconForADUser; }
     void setAllowShowIconForADUser(bool allowShowIconForADUser);
 
+    inline bool allowShowUserSwitchButton() const { return m_allowShowUserSwitchButton; }
+    void setAllowShowUserSwitchButton(bool allowShowUserSwitchButton);
+
+    inline bool alwaysShowUserSwitchButton() const { return m_alwaysShowUserSwitchButton; }
+    void setAlwaysShowUserSwitchButton(bool alwaysShowUserSwitchButton);
+
 signals:
     void onUserAdded(std::shared_ptr<User> user);
     void onUserRemoved(const uint uid);
@@ -89,6 +95,7 @@ signals:
     void hasVirtualKBChanged(bool hasVirtualKB);
     void onHasSwapChanged(bool hasSwap);
     void canSleepChanged(bool canSleep);
+    void allowShowUserSwitchButtonChanged(bool allowShowUserSwitchButton);
 
 private:
     com::deepin::SessionManager *m_sessionManagerInter;
@@ -98,6 +105,8 @@ private:
     bool m_isShow;
     bool m_canSleep;
     bool m_allowShowIconForADUser;
+    bool m_allowShowUserSwitchButton;
+    bool m_alwaysShowUserSwitchButton;
     AuthType m_currentType;
     QList<std::shared_ptr<User>> m_userList;
     std::shared_ptr<User> m_currentUser;
