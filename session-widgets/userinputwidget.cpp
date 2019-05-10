@@ -155,6 +155,11 @@ UserInputWidget::~UserInputWidget()
     m_kbLayoutBorder->deleteLater();
 }
 
+void UserInputWidget::setUserAvatarVisible(bool visible)
+{
+    m_userAvatar->setVisible(visible);
+}
+
 void UserInputWidget::setUser(std::shared_ptr<User> user)
 {
     for (auto connect : m_currentUserConnects) {

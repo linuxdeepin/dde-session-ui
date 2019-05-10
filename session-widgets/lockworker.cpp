@@ -74,7 +74,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_loginedInter(new LoginedInter(ACCOUNT_DBUS_SERVICE, "/com/deepin/daemon/Logined", QDBusConnection::systemBus(), this))
     , m_lockInter(new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this))
     , m_hotZoneInter(new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone", QDBusConnection::sessionBus(), this))
-    , m_settings("/etc/deepin/dde-session-ui.conf", QSettings::IniFormat)
+    , m_settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat)
 {
     m_authFramework = new DeepinAuthFramework(this, this);
 
@@ -170,6 +170,8 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
     checkPowerInfo();
     checkVirtualKB();
+
+    m_model->setAllowShowIconForADUser(valueByQSettings<bool>("General", "LoginPromptAvatar", false));
 }
 
 void LockWorker::switchToUser(std::shared_ptr<User> user)

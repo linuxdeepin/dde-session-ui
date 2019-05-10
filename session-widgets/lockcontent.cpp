@@ -128,6 +128,10 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 {
     if (user.get() == nullptr) return; // if dbus is async
 
+    if (user->type() == User::ADDomain && user->uid() == 0) {
+        m_userInputWidget->setUserAvatarVisible(m_model->allowShowIconForADUser());
+    }
+
     // set user language
     qApp->removeTranslator(m_translator);
     const QString locale { user->locale().split(".").first() };

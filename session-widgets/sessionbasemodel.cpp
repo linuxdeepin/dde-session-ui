@@ -13,6 +13,7 @@ SessionBaseModel::SessionBaseModel(AuthType type, QObject *parent)
     , m_hasSwap(false)
     , m_isShow(false)
     , m_canSleep(false)
+    , m_allowShowIconForADUser(false)
     , m_currentType(type)
     , m_currentUser(nullptr)
     , m_powerAction(PowerAction::RequireNormal)
@@ -142,4 +143,9 @@ void SessionBaseModel::setCanSleep(bool canSleep)
     m_canSleep = canSleep;
 
     emit canSleepChanged(canSleep);
+}
+
+void SessionBaseModel::setAllowShowIconForADUser(bool allowShowIconForADUser)
+{
+    m_allowShowIconForADUser = allowShowIconForADUser;
 }

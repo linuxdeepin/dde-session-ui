@@ -28,6 +28,7 @@ public:
     explicit UserInputWidget(QWidget *parent = nullptr);
     ~UserInputWidget();
 
+    void setUserAvatarVisible(bool visible);
     void setUser(std::shared_ptr<User> user);
 
     void setIsNoPasswordGrp(bool isNopassword);

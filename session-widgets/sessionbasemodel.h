@@ -69,6 +69,9 @@ public:
     inline bool canSleep() const { return m_canSleep; }
     void setCanSleep(bool canSleep);
 
+    inline bool allowShowIconForADUser() const { return m_allowShowIconForADUser; }
+    void setAllowShowIconForADUser(bool allowShowIconForADUser);
+
 signals:
     void onUserAdded(std::shared_ptr<User> user);
     void onUserRemoved(const uint uid);
@@ -94,6 +97,7 @@ private:
     bool m_hasSwap;
     bool m_isShow;
     bool m_canSleep;
+    bool m_allowShowIconForADUser;
     AuthType m_currentType;
     QList<std::shared_ptr<User>> m_userList;
     std::shared_ptr<User> m_currentUser;
