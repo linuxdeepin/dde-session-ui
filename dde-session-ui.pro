@@ -20,6 +20,10 @@ contains(DEFINES, ARCH_MIPSEL) {
     SUBDIRS += session-ui-guardien
 }
 
+isEmpty(PREFIX){
+    PREFIX = /usr
+}
+
 !system($$PWD/translate_desktop.sh): error("Failed to generate translation")
 
 # Automating generation .qm files from .ts files
@@ -62,7 +66,7 @@ config_file_tmp.output = $$OUT_PWD/files/dde-session-ui.conf
 QMAKE_SUBSTITUTES += config_file_tmp
 QMAKE_CLEAN       += $${config_file_tmp.output}
 
-config_file.path = /etc/deepin/
+config_file.path = $$PREFIX/share/dde-session-ui/
 config_file.files += $$OUT_PWD/files/dde-session-ui.conf
 
 INSTALLS += qm_files \
