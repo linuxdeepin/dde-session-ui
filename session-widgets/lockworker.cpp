@@ -102,14 +102,6 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         connect(KeyboardMonitor::instance(), &KeyboardMonitor::numlockStatusChanged, this, [=] (bool on) {
             saveNumlockStatus(model->currentUser(), on);
         });
-
-        // init ADDomain User
-        if (valueByQSettings<bool>("ADDOMAIN", "JOIN", false)) {
-            ADDomainUser *addomain_login_user = new ADDomainUser(0);
-            addomain_login_user->setUserDisplayName(tr("Domain account"));
-            std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*addomain_login_user);
-            m_model->userAdd(user);
-        }
     }
 
     connect(model, &SessionBaseModel::onPowerActionChanged, this, [=] (SessionBaseModel::PowerAction poweraction) {
@@ -182,6 +174,14 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         const QString & result = valueByQSettings<QString>("Lock", "ShowSwitchUserButton", "ondemand");
         return result == "ondemand";
     }());
+
+    // init ADDomain User
+    if (valueByQSettings<bool>("General", "LoginPromptInput", false)) {
+        ADDomainUser *addomain_login_user = new ADDomainUser(0);
+        addomain_login_user->setUserDisplayName(tr("Domain account"));
+        std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*addomain_login_user);
+        m_model->userAdd(user);
+    }
 }
 
 void LockWorker::switchToUser(std::shared_ptr<User> user)
@@ -199,6 +199,11 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
         }
         else {
             m_model->setCurrentUser(user);
+
+            // Skip LDAP login inputbox
+            if (user->type() == User::ADDomain && user->uid() == 0) {
+                return;
+            }
 
             if (isDeepin()) {
                 // reset fprintd
