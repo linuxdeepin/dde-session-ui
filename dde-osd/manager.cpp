@@ -28,6 +28,7 @@
 #include <QHBoxLayout>
 #include <QDebug>
 #include <QGSettings>
+#include <QGuiApplication>
 
 #include "container.h"
 #include "listview.h"
@@ -159,7 +160,10 @@ void Manager::updateUI()
 
 void Manager::doneSetting()
 {
-    m_timer->stop();
+    if (qApp->queryKeyboardModifiers().testFlag(Qt::MetaModifier)) {
+        return m_timer->start();
+    }
+
     m_container->hide();
     if (m_currentProvider) {
         m_currentProvider->sync();
