@@ -67,6 +67,8 @@ private:
     void checkVirtualKB();
     void checkSwap();
 
+    const QString showSwitchUserButtonValue();
+
     Q_DECL_DEPRECATED bool isDeepin();
 
     template<typename T>

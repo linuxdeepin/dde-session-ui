@@ -165,15 +165,9 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
     m_model->setAllowShowIconForADUser(valueByQSettings<bool>("General", "LoginPromptAvatar", true));
 
-    m_model->setAlwaysShowUserSwitchButton([=]() -> bool {
-        const QString & result = valueByQSettings<QString>("Lock", "ShowSwitchUserButton", "ondemand");
-        return result == "always";
-    }());
-
-    m_model->setAllowShowUserSwitchButton([=]() -> bool {
-        const QString & result = valueByQSettings<QString>("Lock", "ShowSwitchUserButton", "ondemand");
-        return result == "ondemand";
-    }());
+    const QString &switchUserButtonValue = showSwitchUserButtonValue();
+    m_model->setAlwaysShowUserSwitchButton(switchUserButtonValue == "always");
+    m_model->setAllowShowUserSwitchButton(switchUserButtonValue == "ondemand");
 
     // init ADDomain User
     if (valueByQSettings<bool>("General", "LoginPromptInput", false)) {
@@ -848,6 +842,11 @@ void LockWorker::checkSwap()
     else {
         qWarning() << "open /proc/swaps failed! please check permission!!!";
     }
+}
+
+const QString LockWorker::showSwitchUserButtonValue()
+{
+    return valueByQSettings<QString>("Lock", "ShowSwitchUserButton", "ondemand");
 }
 
 bool LockWorker::isDeepin()
