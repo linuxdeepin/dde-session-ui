@@ -170,11 +170,13 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     m_model->setAllowShowUserSwitchButton(switchUserButtonValue == "ondemand");
 
     // init ADDomain User
-    if (valueByQSettings<bool>("General", "LoginPromptInput", false)) {
-        ADDomainUser *addomain_login_user = new ADDomainUser(0);
-        addomain_login_user->setUserDisplayName(tr("Domain account"));
-        std::shared_ptr<User> user = std::make_shared<ADDomainUser>(*addomain_login_user);
+    if (valueByQSettings<bool>("", "LoginPromptInput", false)) {
+        std::shared_ptr<User> user = std::make_shared<ADDomainUser>(0);
+        static_cast<ADDomainUser*>(user.get())->setUserDisplayName(tr("Domain account"));
         m_model->userAdd(user);
+        if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
+            m_model->setCurrentUser(user);
+        }
     }
 }
 
@@ -866,6 +868,10 @@ bool LockWorker::isDeepin()
 template<typename T>
 T LockWorker::valueByQSettings(const QString &group, const QString &key, const QVariant &failback)
 {
+    if (group.isEmpty()) {
+        return T(m_settings.value(key,failback).value<T>());
+    }
+
     m_settings.beginGroup(group);
     T t = m_settings.value(key, failback).value<T>();
     m_settings.endGroup();

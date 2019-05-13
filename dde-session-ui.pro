@@ -60,6 +60,8 @@ deepin {
     ISDEEPIN=true
 }
 
+ENABLE_INPUT_LOGIN=false
+
 config_file_tmp.input = $$PWD/files/dde-session-ui.conf.in
 config_file_tmp.output = $$OUT_PWD/files/dde-session-ui.conf
 

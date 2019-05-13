@@ -10,7 +10,7 @@ isDeepin=$$ISDEEPIN
 
 [General]
 LoginPromptAvatar = true
-LoginPromptInput = false
+LoginPromptInput = $$ENABLE_INPUT_LOGIN
 
 [Lock]
 #[always | ondemand | disabled]
