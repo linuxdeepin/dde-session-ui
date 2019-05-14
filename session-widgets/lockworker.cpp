@@ -130,6 +130,8 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
         std::shared_ptr<User> user_ptr = model->currentUser();
         if (!user_ptr.get()) return;
 
+        if (user_ptr->type() == User::ADDomain && user_ptr->uid() == 0) return;
+
         if (!user_ptr->isNoPasswdGrp()) {
             if (isDeepin()) {
                 m_authFramework->SetUser(user_ptr->name());
@@ -143,27 +145,30 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
     connect(m_lockInter, &DBusLockService::UserChanged, this, &LockWorker::onCurrentUserChanged);
     connect(m_lockInter, &DBusLockService::Event, this, &LockWorker::lockServiceEvent);
-    connect(m_loginedInter, &LoginedInter::UserListChanged, this, &LockWorker::onLoginUserListChanged);
-    connect(m_loginedInter, &LoginedInter::LastLogoutUserChanged, this, &LockWorker::onLastLogoutUserChanged);
-    connect(m_accountsInter, &AccountsInter::UserListChanged, this, &LockWorker::onUserListChanged);
-    connect(m_accountsInter, &AccountsInter::UserAdded, this, &LockWorker::onUserAdded);
-    connect(m_accountsInter, &AccountsInter::UserDeleted, this, &LockWorker::onUserRemove);
-    connect(m_accountsInter, &AccountsInter::serviceValidChanged, this, &LockWorker::checkDBusServer);
     connect(model, &SessionBaseModel::onStatusChanged, this, [=] (SessionBaseModel::ModeStatus status) {
         if (status == SessionBaseModel::ModeStatus::PowerMode) {
             checkPowerInfo();
         }
     });
 
-    checkDBusServer(m_accountsInter->isValid());
-    onCurrentUserChanged(m_lockInter->CurrentUser());
-    onLastLogoutUserChanged(m_loginedInter->lastLogoutUser());
+    connect(m_loginedInter, &LoginedInter::LastLogoutUserChanged, this, &LockWorker::onLastLogoutUserChanged);
+    connect(m_loginedInter, &LoginedInter::UserListChanged, this, &LockWorker::onLoginUserListChanged);
+
+    if (valueByQSettings<bool>("", "LoginPromptAvatar", true)) {
+        connect(m_accountsInter, &AccountsInter::UserListChanged, this, &LockWorker::onUserListChanged);
+        connect(m_accountsInter, &AccountsInter::UserAdded, this, &LockWorker::onUserAdded);
+        connect(m_accountsInter, &AccountsInter::UserDeleted, this, &LockWorker::onUserRemove);
+        connect(m_accountsInter, &AccountsInter::serviceValidChanged, this, &LockWorker::checkDBusServer);
+
+        checkDBusServer(m_accountsInter->isValid());
+        onCurrentUserChanged(m_lockInter->CurrentUser());
+    }
+
     onLoginUserListChanged(m_loginedInter->userList());
+    onLastLogoutUserChanged(m_loginedInter->lastLogoutUser());
 
     checkPowerInfo();
     checkVirtualKB();
-
-    m_model->setAllowShowIconForADUser(valueByQSettings<bool>("General", "LoginPromptAvatar", true));
 
     const QString &switchUserButtonValue = showSwitchUserButtonValue();
     m_model->setAlwaysShowUserSwitchButton(switchUserButtonValue == "always");
@@ -490,9 +495,10 @@ void LockWorker::onLoginUserListChanged(const QString &list)
             u->setisLogind(true);
 
             struct passwd *pws;
-            pws = getpwuid(getuid());
+            pws = getpwuid(uid);
 
             static_cast<ADDomainUser*>(u.get())->setUserDisplayName(pws->pw_name);
+            static_cast<ADDomainUser*>(u.get())->setUserName(pws->pw_name);
 
             if (uid == m_currentUserUid && m_model->currentUser().get() == nullptr) {
                 m_model->setCurrentUser(u);

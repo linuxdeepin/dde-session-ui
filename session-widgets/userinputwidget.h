@@ -28,7 +28,6 @@ public:
     explicit UserInputWidget(QWidget *parent = nullptr);
     ~UserInputWidget();
 
-    void setUserAvatarVisible(bool visible);
     void setUser(std::shared_ptr<User> user);
 
     void setIsNoPasswordGrp(bool isNopassword);
@@ -86,7 +85,6 @@ private:
     std::list<std::pair<std::function<void (QString)>, QString>> m_trList;
     SessionBaseModel::AuthType m_authType;
     QMap<uint, QString> m_passwords;
-    bool m_allowUserAvatarShow;
 };
 
 #endif // USERINPUTWIDGET_H

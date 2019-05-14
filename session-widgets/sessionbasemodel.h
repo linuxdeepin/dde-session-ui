@@ -69,9 +69,6 @@ public:
     inline bool canSleep() const { return m_canSleep; }
     void setCanSleep(bool canSleep);
 
-    inline bool allowShowIconForADUser() const { return m_allowShowIconForADUser; }
-    void setAllowShowIconForADUser(bool allowShowIconForADUser);
-
     inline bool allowShowUserSwitchButton() const { return m_allowShowUserSwitchButton; }
     void setAllowShowUserSwitchButton(bool allowShowUserSwitchButton);
 
@@ -104,7 +101,6 @@ private:
     bool m_hasSwap;
     bool m_isShow;
     bool m_canSleep;
-    bool m_allowShowIconForADUser;
     bool m_allowShowUserSwitchButton;
     bool m_alwaysShowUserSwitchButton;
     AuthType m_currentType;

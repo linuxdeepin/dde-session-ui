@@ -146,10 +146,6 @@ void LockContent::onCurrentUserChanged(std::shared_ptr<User> user)
 
     m_userInputWidget->setUser(user);
 
-    if (user->type() == User::ADDomain && user->uid() == 0) {
-        m_userInputWidget->setUserAvatarVisible(m_model->allowShowIconForADUser());
-    }
-
     if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
         m_sessionFrame->switchToUser(user->name());
     }
