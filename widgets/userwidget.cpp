@@ -807,6 +807,8 @@ void UserWidget::checkADState()
 
 void UserWidget::findFirstNotLogin()
 {
+    if (m_availableUserButtons.isEmpty()) return;
+
     // If current user is lightdm, here is greeter interface
     // else is dde-lock interface
     if (currentContextUser() == "lightdm") {

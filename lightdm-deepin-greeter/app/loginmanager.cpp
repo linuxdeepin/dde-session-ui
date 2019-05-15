@@ -178,32 +178,41 @@ LoginManager::LoginManager(QWidget* parent)
 
     m_keyboardMonitor->start(QThread::LowestPriority);
 
-    QTimer::singleShot(1, this, &LoginManager::restoreUser);
+    QSettings settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat);
 
-//    const QString u = m_userWidget->currentUser();
-//    qDebug() << Q_FUNC_INFO << "current user: " << u;
+    if (settings.value("LoginPromptInput", false).toBool()) {
+        User *user = m_userWidget->initADLogin();
+        m_currentUser = user;
+        m_userWidget->restoreUser(user);
 
-//    m_controlWidget->chooseToSession(m_sessionWidget->currentSessionName());
+        QTimer::singleShot(0, this, [=] {
+            onCurrentUserChanged(user);
+        });
 
-//    QTimer::singleShot(1, this, [=] {
-//        const QString &user = m_userWidget->currentUser();
-//        updateUserLoginCondition(user);
-//        updateBackground(user);
-//    });
+        QTimer::singleShot(1, this, &LoginManager::restoreNumlockStatus);
 
-    // load last AD user
-    QFile file(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER");
+        updateWidgetsPosition();
+    }
+    else {
+        QTimer::singleShot(1, this, &LoginManager::restoreUser);
 
-    // NOTE(kirigaya): If file is not exist, create it.
-    if (!file.open(QIODevice::ReadOnly)) {
-        return;
+        // load last AD user
+        QFile file(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER");
+
+        // NOTE(kirigaya): If file is not exist, create it.
+        if (!file.open(QIODevice::ReadOnly)) {
+            return;
+        }
+
+        QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
+        setting.beginGroup("ADDOMAIN");
+        m_otherUserInput->setAccount(setting.value("USERNAME").toString());
+        setting.endGroup();
+        file.close();
     }
 
-    QSettings setting(DDESESSIONCC::LAST_USER_CONFIG + QDir::separator() + "LAST_USER", QSettings::IniFormat);
-    setting.beginGroup("ADDOMAIN");
-    m_otherUserInput->setAccount(setting.value("USERNAME").toString());
-    setting.endGroup();
-    file.close();
+    //Get the session of current user
+    m_sessionWidget->switchToUser(m_userWidget->currentUser()->name());
 }
 
 void LoginManager::updateWidgetsPosition()
@@ -563,8 +572,6 @@ void LoginManager::initDateAndUpdate() {
     *then the button to choose keyboardLayout need show
     */
 
-    //Get the session of current user
-    m_sessionWidget->switchToUser(m_userWidget->currentUser()->name());
     //To control the expanding the widgets of all the user list(m_userWidget)
 
     //The dbus is used to control the power actions
@@ -840,7 +847,13 @@ void LoginManager::switchToLogindUser(User *user)
 
 void LoginManager::onUserCountChaged(int count)
 {
-    m_controlWidget->setUserSwitchEnable(count > 1);
+    QSettings settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat);
+    settings.beginGroup("Lock");
+    const QString value = settings.value("ShowSwitchUserButton", "ondemand").toString();
+    const bool alwaysShow = value == "always";
+    const bool ondemandShow = value == "ondemand";
+    settings.endGroup();
+    m_controlWidget->setUserSwitchEnable(alwaysShow || (ondemandShow && count > 1));
 }
 
 void LoginManager::chooseUserMode()

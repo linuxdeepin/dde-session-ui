@@ -12,6 +12,9 @@ OtherUserInput::OtherUserInput(QWidget *parent)
 {
     m_capslockMonitor->start(QThread::LowestPriority);
 
+    setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
+    setFixedHeight(DDESESSIONCC::PASSWDLINEEDIT_HEIGHT * 2);
+
     initUI();
     initConnect();
 }
