@@ -37,6 +37,7 @@
 #include <QJsonValue>
 #include <unistd.h>
 #include <pwd.h>
+#include <QSettings>
 
 #define LOCKSERVICE_PATH "/com/deepin/dde/LockService"
 #define LOCKSERVICE_NAME "com.deepin.dde.LockService"
@@ -79,6 +80,8 @@ UserWidget::UserWidget(QWidget* parent)
     , m_adLogin(nullptr)
     , m_bgWidget(new QFrame)
 {
+    m_settings = new QSettings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat, this);
+
     m_dbusAccounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
 
     setFixedWidth(qApp->primaryScreen()->geometry().width());
@@ -87,9 +90,12 @@ UserWidget::UserWidget(QWidget* parent)
     initUI();
     initConnections();
 
-    // init native users
-    for (const QString &userPath : m_dbusAccounts->userList())
-        onNativeUserAdded(userPath);
+    if (m_settings->value("LoginPromptAvatar", true).toBool()) {
+        // init native users
+        for (const QString &userPath : m_dbusAccounts->userList()) {
+            onNativeUserAdded(userPath);
+        }
+    }
 
     onLoginUserListChanged(m_dbusLogined->userList());
 
@@ -131,14 +137,16 @@ void UserWidget::initUI()
 
 void UserWidget::initConnections()
 {
-    connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onNativeUserAdded, Qt::QueuedConnection);
-    connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onNativeUserRemoved, Qt::QueuedConnection);
-    connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, [=] {
-        emit userCountChanged(m_availableUserButtons.size());
+     if (m_settings->value("LoginPromptAvatar", true).toBool()) {
+         connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onNativeUserAdded, Qt::QueuedConnection);
+         connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onNativeUserRemoved, Qt::QueuedConnection);
+         connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, [=] {
+             emit userCountChanged(m_availableUserButtons.size());
 
-        // keep order: AD User > Native User > AD Login Button
-        std::sort(m_availableUserButtons.begin(), m_availableUserButtons.end(), userSort);
-    }, Qt::QueuedConnection);
+             // keep order: AD User > Native User > AD Login Button
+             std::sort(m_availableUserButtons.begin(), m_availableUserButtons.end(), userSort);
+         }, Qt::QueuedConnection);
+     }
 
     connect(m_dbusLogined, &Logined::UserListChanged, this, &UserWidget::onLoginUserListChanged, Qt::QueuedConnection);
     connect(&m_lockInter, &DBusLockService::UserChanged, this, [=] (const QString &value) {
@@ -301,7 +309,6 @@ void UserWidget::onLoginUserListChanged(const QString &loginedUserInfo)
             logindUidList << userId.toInt();
         }
     }
-
     qDebug() << "Logind Uid List: " << logindUidList;
 
     // Remove the nonexistent button from the already-obtained id.
@@ -443,6 +450,12 @@ User* UserWidget::initADLogin()
 void UserWidget::addAddomainUser(int uid)
 {
     ADDomainUser *user = new ADDomainUser(uid);
+
+    struct passwd* pws = getpwuid(uid);
+
+    user->setUserDisplayName(pws->pw_name);
+    user->setUserName(pws->pw_name);
+
     appendUser(user);
 }
 
@@ -1087,6 +1100,11 @@ void ADDomainUser::setUserDisplayName(const QString &name)
     emit displayNameChanged(name);
 }
 
+void ADDomainUser::setUserName(const QString &name)
+{
+    m_userName = name;
+}
+
 QString ADDomainUser::avatarPath() const
 {
     return QString(":/img/default_avatar.png");
@@ -1094,10 +1112,10 @@ QString ADDomainUser::avatarPath() const
 
 QString ADDomainUser::greeterBackgroundPath() const
 {
-    return QString("/usr/share/backgrounds/deepin/desktop.jpg");
+    return QString("/usr/share/wallpapers/deepin/desktop.jpg");
 }
 
 QString ADDomainUser::desktopBackgroundPath() const
 {
-    return QString("/usr/share/backgrounds/deepin/desktop.jpg");
+    return QString("/usr/share/wallpapers/deepin/desktop.jpg");
 }
