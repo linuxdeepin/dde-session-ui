@@ -67,6 +67,12 @@ LockManager::LockManager(QWidget *parent)
         onCurrentUserChanged(m_userWidget->currentUser());
     });
 
+    QSettings settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat);
+
+    if (settings.value("LoginPromptInput", false).toBool()) {
+        m_userWidget->initADLogin();
+    }
+
     m_currentUser = m_userWidget->currentUser();
 
 #ifdef LOCK_NO_QUIT
@@ -120,7 +126,13 @@ void LockManager::initConnect()
     });
 
     connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
-        m_controlWidget->setUserSwitchEnable(count > 1);
+        QSettings settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat);
+        settings.beginGroup("Lock");
+        const QString value = settings.value("ShowSwitchUserButton", "ondemand").toString();
+        const bool alwaysShow = value == "always";
+        const bool ondemandShow = value == "ondemand";
+        settings.endGroup();
+        m_controlWidget->setUserSwitchEnable(alwaysShow || (ondemandShow && count > 1));
     });
 }
 
@@ -191,7 +203,13 @@ void LockManager::initUI()
     m_requireShutdownWidget->setFixedHeight(300);
 
     m_controlWidget = new ControlWidget(this);
-    m_controlWidget->setUserSwitchEnable(m_userWidget->availableUserCount() > 1);
+    QSettings settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat);
+    settings.beginGroup("Lock");
+    const QString value = settings.value("ShowSwitchUserButton", "ondemand").toString();
+    const bool alwaysShow = value == "always";
+    const bool ondemandShow = value == "ondemand";
+    settings.endGroup();
+    m_controlWidget->setUserSwitchEnable(alwaysShow || (ondemandShow && m_userWidget->availableUserCount() > 1));
     m_controlWidget->setMPRISEnable(true);
 
     QHBoxLayout *passwdLayout = new QHBoxLayout;

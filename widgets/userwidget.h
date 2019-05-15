@@ -128,6 +128,7 @@ public:
     ADDomainUser(int uid, QObject *parent = nullptr);
 
     void setUserDisplayName(const QString &name);
+    void setUserName(const QString &name);
 
     UserType type() const { return ADDomain; }
     QString avatarPath() const;
@@ -234,6 +235,7 @@ private:
     QTimer *m_adCheckStateTimer;
     User *m_adLogin;
     QFrame *m_bgWidget;
+    QSettings *m_settings;
 };
 
 #endif // WIDGET_H
