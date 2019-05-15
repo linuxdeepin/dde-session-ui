@@ -35,6 +35,7 @@ const QString CONFIG_FILE("/var/lib/AccountsService/users/");
 const QString DEFAULT_CURSOR_THEME("/usr/share/icons/default/index.theme");
 const QString LAST_USER_CONFIG("/var/lib/lightdm/lightdm-deepin-greeter");
 const int PASSWDLINEEIDT_WIDTH = 250;
+static const int PASSWDLINEEDIT_HEIGHT = 36;
 const int LAYOUTBUTTON_HEIGHT =  36;
 
 const int CapslockWarningWidth = 23;
