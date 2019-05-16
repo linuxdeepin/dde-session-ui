@@ -34,6 +34,8 @@
 #include "contentwidget.h"
 #include "multiuserswarningview.h"
 #include "inhibitwarnview.h"
+#include "public_func.h"
+#include "constants.h"
 
 #include "dbus/dbuscontrolcenter.h"
 
@@ -47,6 +49,7 @@ ContentWidget::ContentWidget(QWidget *parent)
                                       "/com/deepin/daemon/Appearance",
                                       QDBusConnection::sessionBus(),
                                       this))
+    , m_systemMonitor(nullptr)
 
 {
     initUI();
@@ -537,11 +540,12 @@ void ContentWidget::initUI() {
     m_mainLayout->setSpacing(0);
     m_mainLayout->addLayout(buttonLayout);
 
-    QFile file("/usr/bin/deepin-system-monitor");
-    if (file.exists())
-        m_systemMonitor = new SystemMonitor(this);
-    else
-        m_systemMonitor = nullptr;
+    if (findValueByQSettings<bool>(DDESESSIONCC::session_ui_configs, "Shutdown", "ENABLE_SYSTEM_MONITOR", true)) {
+        QFile file("/usr/bin/deepin-system-monitor");
+        if (file.exists()) {
+            m_systemMonitor = new SystemMonitor(this);
+        }
+    }
 
     setFocusPolicy(Qt::StrongFocus);
     setLayout(m_mainLayout);
