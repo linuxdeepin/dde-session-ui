@@ -33,6 +33,8 @@
 #include "dbus/dbuslockservice.h"
 #include "dbus/dbusaccounts.h"
 #include "otheruserinput.h"
+#include "public_func.h"
+#include "constants.h"
 
 #include <com_deepin_daemon_accounts_user.h>
 #include <com_deepin_system_systempower.h>
@@ -178,9 +180,7 @@ LoginManager::LoginManager(QWidget* parent)
 
     m_keyboardMonitor->start(QThread::LowestPriority);
 
-    QSettings settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat);
-
-    if (settings.value("LoginPromptInput", false).toBool()) {
+    if (findValueByQSettings<bool>(DDESESSIONCC::session_ui_configs, "", "LoginPromptInput", false)) {
         User *user = m_userWidget->initADLogin();
         m_currentUser = user;
         m_userWidget->restoreUser(user);
@@ -847,12 +847,9 @@ void LoginManager::switchToLogindUser(User *user)
 
 void LoginManager::onUserCountChaged(int count)
 {
-    QSettings settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat);
-    settings.beginGroup("Lock");
-    const QString value = settings.value("ShowSwitchUserButton", "ondemand").toString();
+    const QString value = findValueByQSettings<QString>(DDESESSIONCC::session_ui_configs, "Lock", "ShowSwitchUserButton", "ondemand");
     const bool alwaysShow = value == "always";
     const bool ondemandShow = value == "ondemand";
-    settings.endGroup();
     m_controlWidget->setUserSwitchEnable(alwaysShow || (ondemandShow && count > 1));
 }
 

@@ -27,6 +27,7 @@
 #define CONSTANTS_H
 
 #include <QString>
+#include <QStringList>
 
 namespace DDESESSIONCC
 {
@@ -40,6 +41,11 @@ const int LAYOUTBUTTON_HEIGHT =  36;
 
 const int CapslockWarningWidth = 23;
 const int CapslockWarningRightMargin = 8;
+
+const QStringList session_ui_configs {
+    "/etc/lightdm/lightdm-deepin-greeter.conf",
+    "/usr/share/dde-session-ui/dde-session-ui.conf"
+};
 }
 
 

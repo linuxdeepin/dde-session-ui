@@ -26,6 +26,7 @@
 #include "userwidget.h"
 #include "constants.h"
 #include "dbus/dbuslockservice.h"
+#include "public_func.h"
 
 #include <QApplication>
 #include <QtWidgets>
@@ -80,8 +81,6 @@ UserWidget::UserWidget(QWidget* parent)
     , m_adLogin(nullptr)
     , m_bgWidget(new QFrame)
 {
-    m_settings = new QSettings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat, this);
-
     m_dbusAccounts = new DBusAccounts(ACCOUNT_DBUS_SERVICE,  ACCOUNT_DBUS_PATH, QDBusConnection::systemBus(), this);
 
     setFixedWidth(qApp->primaryScreen()->geometry().width());
@@ -90,7 +89,7 @@ UserWidget::UserWidget(QWidget* parent)
     initUI();
     initConnections();
 
-    if (m_settings->value("LoginPromptAvatar", true).toBool()) {
+    if (findValueByQSettings<bool>(DDESESSIONCC::session_ui_configs, "", "LoginPromptAvatar", true)) {
         // init native users
         for (const QString &userPath : m_dbusAccounts->userList()) {
             onNativeUserAdded(userPath);
@@ -137,7 +136,7 @@ void UserWidget::initUI()
 
 void UserWidget::initConnections()
 {
-     if (m_settings->value("LoginPromptAvatar", true).toBool()) {
+     if (findValueByQSettings<bool>(DDESESSIONCC::session_ui_configs, "", "LoginPromptAvatar", true)) {
          connect(m_dbusAccounts, &DBusAccounts::UserAdded, this, &UserWidget::onNativeUserAdded, Qt::QueuedConnection);
          connect(m_dbusAccounts, &DBusAccounts::UserDeleted, this, &UserWidget::onNativeUserRemoved, Qt::QueuedConnection);
          connect(m_dbusAccounts, &DBusAccounts::UserListChanged, this, [=] {
