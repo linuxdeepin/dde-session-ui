@@ -235,7 +235,6 @@ private:
     QTimer *m_adCheckStateTimer;
     User *m_adLogin;
     QFrame *m_bgWidget;
-    QSettings *m_settings;
 };
 
 #endif // WIDGET_H

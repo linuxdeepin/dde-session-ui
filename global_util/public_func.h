@@ -30,7 +30,27 @@
 #include <QApplication>
 #include <QIcon>
 #include <QImageReader>
+#include <QSettings>
 
 QPixmap loadPixmap(const QString &file);
+
+template <typename T>
+T findValueByQSettings(const QStringList &configFiles, const QString &group, const QString &key, const QVariant &failback) {
+    for (const QString &path : configFiles) {
+        QSettings settings(path, QSettings::IniFormat);
+        if (!group.isEmpty()) {
+            settings.beginGroup(group);
+        }
+
+        const QVariant v = settings.value(key);
+        if (v.isValid()) {
+            settings.endGroup();
+            T t = v.value<T>();
+            return t;
+        }
+    }
+
+    return failback.value<T>();
+}
 
 #endif // PUBLIC_FUNC_H

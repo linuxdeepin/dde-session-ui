@@ -26,6 +26,8 @@
 #include "userwidget.h"
 #include "util_updateui.h"
 #include "dbus/dbusinputdevices.h"
+#include "public_func.h"
+#include "constants.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -67,9 +69,7 @@ LockManager::LockManager(QWidget *parent)
         onCurrentUserChanged(m_userWidget->currentUser());
     });
 
-    QSettings settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat);
-
-    if (settings.value("LoginPromptInput", false).toBool()) {
+    if (findValueByQSettings<bool>(DDESESSIONCC::session_ui_configs, "", "LoginPromptInput", false)) {
         m_userWidget->initADLogin();
     }
 
@@ -126,12 +126,9 @@ void LockManager::initConnect()
     });
 
     connect(m_userWidget, &UserWidget::userCountChanged, this, [=] (int count) {
-        QSettings settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat);
-        settings.beginGroup("Lock");
-        const QString value = settings.value("ShowSwitchUserButton", "ondemand").toString();
+        const QString value = findValueByQSettings<QString>(DDESESSIONCC::session_ui_configs, "Lock", "ShowSwitchUserButton", "ondemand");
         const bool alwaysShow = value == "always";
         const bool ondemandShow = value == "ondemand";
-        settings.endGroup();
         m_controlWidget->setUserSwitchEnable(alwaysShow || (ondemandShow && count > 1));
     });
 }
@@ -203,12 +200,10 @@ void LockManager::initUI()
     m_requireShutdownWidget->setFixedHeight(300);
 
     m_controlWidget = new ControlWidget(this);
-    QSettings settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat);
-    settings.beginGroup("Lock");
-    const QString value = settings.value("ShowSwitchUserButton", "ondemand").toString();
+
+    const QString value = findValueByQSettings<QString>(DDESESSIONCC::session_ui_configs, "Lock", "ShowSwitchUserButton", "ondemand");
     const bool alwaysShow = value == "always";
     const bool ondemandShow = value == "ondemand";
-    settings.endGroup();
     m_controlWidget->setUserSwitchEnable(alwaysShow || (ondemandShow && m_userWidget->availableUserCount() > 1));
     m_controlWidget->setMPRISEnable(true);
 
