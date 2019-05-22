@@ -663,6 +663,20 @@ void UserWidget::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+bool UserWidget::event(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        for (User* user : m_availableUsers) {
+            if (user->type() == User::ADDomain && user->uid() == 0) {
+                static_cast<ADDomainUser*>(user)->setUserDisplayName(tr("Domain account"));
+                break;
+            }
+        }
+    }
+
+    return QScrollArea::event(event);
+}
+
 //void UserWidget::chooseButtonChecked() {
 //    bool checkedBtsExist = false;
 //    for (UserButton* user: m_userBtns) {
@@ -688,7 +702,6 @@ void UserWidget::appendUser(User *user)
 
     m_availableUsers << user;
     m_availableUserButtons << userButton;
-
     connect(userButton, &UserButton::clicked, this, &UserWidget::onUserChoosed);
 }
 

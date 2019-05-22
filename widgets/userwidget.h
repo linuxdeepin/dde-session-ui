@@ -188,6 +188,7 @@ public slots:
 protected:
     void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
     void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    bool event(QEvent* event) override;
 
 private slots:
     void initUI();

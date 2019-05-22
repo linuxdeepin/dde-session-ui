@@ -781,7 +781,7 @@ void LoginManager::onCurrentUserChanged(User *user)
     // set user language
     qApp->removeTranslator(m_translator);
     const QString locale { user->locale() };
-    m_translator->load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale(locale.isEmpty() ? "en_US.UTF8" : locale).name());
+    m_translator->load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale(locale.isEmpty() ? QLocale::system() : locale).name());
     qApp->installTranslator(m_translator);
 
     const QString &wallpaper = m_blurImageInter->Get(user->greeterBackgroundPath());
