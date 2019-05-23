@@ -16,6 +16,7 @@ SUBDIRS += dde-shutdown \
 
 load(dtk_qmake)
 include(common.pri)
+
 contains(DEFINES, ARCH_MIPSEL) {
     SUBDIRS += session-ui-guardien
 }
@@ -48,6 +49,10 @@ toogle_desktop_icon_scalable.files = misc/icons/scalable/deepin-toggle-desktop.s
 # set config default value
 ENABLE_SLEEP=true
 ENABLE_HIBERNATE=true
+ENABLE_SYSTEM_MONITOR=true
+ShowSwitchUserButton=ondemand
+LoginPromptAvatar=true
+ENABLE_INPUT_LOGIN=false
 # end config default value
 
 host_aarch64 {

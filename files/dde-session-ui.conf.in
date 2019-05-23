@@ -1,6 +1,3 @@
-[ADDOMAIN]
-IS_FIRST=false
-
 [POWER]
 sleep=$$ENABLE_SLEEP
 hibernate=$$ENABLE_HIBERNATE
@@ -9,9 +6,12 @@ hibernate=$$ENABLE_HIBERNATE
 isDeepin=$$ISDEEPIN
 
 [General]
-LoginPromptAvatar = true
-LoginPromptInput = $$ENABLE_INPUT_LOGIN
+LoginPromptAvatar=$$LoginPromptAvatar
+LoginPromptInput=$$ENABLE_INPUT_LOGIN
 
 [Lock]
 #[always | ondemand | disabled]
-ShowSwitchUserButton = ondemand
+ShowSwitchUserButton=$$ShowSwitchUserButton
+
+[Shutdown]
+ENABLE_SYSTEM_MONITOR=$$ENABLE_SYSTEM_MONITOR

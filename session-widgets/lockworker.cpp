@@ -3,6 +3,8 @@
 #include "sessionbasemodel.h"
 #include "userinfo.h"
 #include "keyboardmonitor.h"
+#include "constants.h"
+#include "public_func.h"
 
 #include <unistd.h>
 #include <pwd.h>
@@ -874,13 +876,5 @@ bool LockWorker::isDeepin()
 template<typename T>
 T LockWorker::valueByQSettings(const QString &group, const QString &key, const QVariant &failback)
 {
-    if (group.isEmpty()) {
-        return T(m_settings.value(key,failback).value<T>());
-    }
-
-    m_settings.beginGroup(group);
-    T t = m_settings.value(key, failback).value<T>();
-    m_settings.endGroup();
-
-    return t;
+    return findValueByQSettings<T>(DDESESSIONCC::session_ui_configs, group, key, failback);
 }

@@ -38,11 +38,14 @@
 #include "dbus/dbuscontrolcenter.h"
 
 #include "sessionbasemodel.h"
+#include "public_func.h"
+#include "constants.h"
 
 ContentWidget::ContentWidget(QWidget *parent)
     : QFrame(parent)
     , m_login1Inter(new DBusLogin1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this))
     , m_controlCenterInter(new DBusControlCenter(this))
+    , m_systemMonitor(nullptr)
     , m_wmInter(new com::deepin::wm("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
     , m_dbusAppearance(new Appearance("com.deepin.daemon.Appearance",
                                       "/com/deepin/daemon/Appearance",
@@ -555,11 +558,12 @@ void ContentWidget::initUI() {
     m_mainLayout->setSpacing(0);
     m_mainLayout->addWidget(m_normalView);
 
-    QFile file("/usr/bin/deepin-system-monitor");
-    if (file.exists())
-        m_systemMonitor = new SystemMonitor(m_normalView);
-    else
-        m_systemMonitor = nullptr;
+    if (findValueByQSettings<bool>(DDESESSIONCC::session_ui_configs, "Shutdown", "ENABLE_SYSTEM_MONITOR", true)) {
+        QFile file("/usr/bin/deepin-system-monitor");
+        if (file.exists()) {
+            m_systemMonitor = new SystemMonitor(this);
+        }
+    }
 
     setFocusPolicy(Qt::StrongFocus);
     setLayout(m_mainLayout);
