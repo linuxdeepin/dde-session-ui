@@ -61,6 +61,7 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent)
     m_warningTip->setStyleSheet("color: white;");
     m_warningTip->setWordWrap(true);
     m_warningTip->setAlignment(Qt::AlignCenter);
+    m_warningTip->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     m_cancelBtn->setNormalPic(":/img/cancel_normal.svg");
     m_cancelBtn->setHoverPic(":/img/cancel_hover.svg");
@@ -75,7 +76,7 @@ MultiUsersWarningView::MultiUsersWarningView(QWidget *parent)
     m_vLayout->addStretch();
     m_vLayout->addWidget(m_userList, 0, Qt::AlignHCenter);
     m_vLayout->addSpacing(40);
-    m_vLayout->addWidget(m_warningTip, 0, Qt::AlignCenter);
+    m_vLayout->addWidget(m_warningTip, 1, Qt::AlignHCenter);
     m_vLayout->addSpacing(40);
     m_vLayout->addLayout(btnLayout);
     m_vLayout->addStretch();
