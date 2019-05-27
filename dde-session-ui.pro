@@ -50,9 +50,9 @@ toogle_desktop_icon_scalable.files = misc/icons/scalable/deepin-toggle-desktop.s
 ENABLE_SLEEP=true
 ENABLE_HIBERNATE=true
 ENABLE_SYSTEM_MONITOR=true
-ShowSwitchUserButton=ondemand
-LoginPromptAvatar=true
-ENABLE_INPUT_LOGIN=false
+SHOW_SWITCH_USER_BUTTON=ondemand
+LOGIN_PROMPT_AVATAR=true
+LOGIN_PROMPT_INPUT=false
 # end config default value
 
 host_aarch64 {
@@ -60,12 +60,10 @@ host_aarch64 {
     ENABLE_HIBERNATE=false
 }
 
-ISDEEPIN=false
+IS_DEEPIN=false
 deepin {
-    ISDEEPIN=true
+    IS_DEEPIN=true
 }
-
-ENABLE_INPUT_LOGIN=false
 
 config_file_tmp.input = $$PWD/files/dde-session-ui.conf.in
 config_file_tmp.output = $$OUT_PWD/files/dde-session-ui.conf

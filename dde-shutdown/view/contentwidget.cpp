@@ -558,7 +558,7 @@ void ContentWidget::initUI() {
     m_mainLayout->setSpacing(0);
     m_mainLayout->addWidget(m_normalView);
 
-    if (findValueByQSettings<bool>(DDESESSIONCC::session_ui_configs, "Shutdown", "ENABLE_SYSTEM_MONITOR", true)) {
+    if (findValueByQSettings<bool>(DDESESSIONCC::session_ui_configs, "Shutdown", "enableSystemMonitor", true)) {
         QFile file("/usr/bin/deepin-system-monitor");
         if (file.exists()) {
             m_systemMonitor = new SystemMonitor(this);

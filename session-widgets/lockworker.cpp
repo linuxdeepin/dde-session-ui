@@ -156,7 +156,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     connect(m_loginedInter, &LoginedInter::LastLogoutUserChanged, this, &LockWorker::onLastLogoutUserChanged);
     connect(m_loginedInter, &LoginedInter::UserListChanged, this, &LockWorker::onLoginUserListChanged);
 
-    if (valueByQSettings<bool>("", "LoginPromptAvatar", true)) {
+    if (valueByQSettings<bool>("", "loginPromptAvatar", true)) {
         connect(m_accountsInter, &AccountsInter::UserListChanged, this, &LockWorker::onUserListChanged);
         connect(m_accountsInter, &AccountsInter::UserAdded, this, &LockWorker::onUserAdded);
         connect(m_accountsInter, &AccountsInter::UserDeleted, this, &LockWorker::onUserRemove);
@@ -177,7 +177,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     m_model->setAllowShowUserSwitchButton(switchUserButtonValue == "ondemand");
 
     // init ADDomain User
-    if (valueByQSettings<bool>("", "LoginPromptInput", false)) {
+    if (valueByQSettings<bool>("", "loginPromptInput", false)) {
         std::shared_ptr<User> user = std::make_shared<ADDomainUser>(0);
         static_cast<ADDomainUser*>(user.get())->setUserDisplayName(tr("Domain account"));
         m_model->userAdd(user);
@@ -856,7 +856,7 @@ void LockWorker::checkSwap()
 
 const QString LockWorker::showSwitchUserButtonValue()
 {
-    return valueByQSettings<QString>("Lock", "ShowSwitchUserButton", "ondemand");
+    return valueByQSettings<QString>("Lock", "showSwitchUserButton", "ondemand");
 }
 
 bool LockWorker::isDeepin()

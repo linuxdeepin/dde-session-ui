@@ -3,15 +3,15 @@ sleep=$$ENABLE_SLEEP
 hibernate=$$ENABLE_HIBERNATE
 
 [OS]
-isDeepin=$$ISDEEPIN
+isDeepin=$$IS_DEEPIN
 
 [General]
-LoginPromptAvatar=$$LoginPromptAvatar
-LoginPromptInput=$$ENABLE_INPUT_LOGIN
+loginPromptAvatar=$$LOGIN_PROMPT_AVATAR
+loginPromptInput=$$LOGIN_PROMPT_INPUT
 
 [Lock]
 #[always | ondemand | disabled]
-ShowSwitchUserButton=$$ShowSwitchUserButton
+showSwitchUserButton=$$SHOW_SWITCH_USER_BUTTON
 
 [Shutdown]
-ENABLE_SYSTEM_MONITOR=$$ENABLE_SYSTEM_MONITOR
+enableSystemMonitor=$$ENABLE_SYSTEM_MONITOR
