@@ -704,7 +704,7 @@ void LockWorker::message(QString text, QLightDM::Greeter::MessageType type)
 
     switch (type) {
     case QLightDM::Greeter::MessageTypeInfo:
-        if (m_isThumbAuth || m_password.isEmpty())
+        if (m_isThumbAuth)
             break;
 
         emit m_model->authFaildMessage(QString(dgettext("fprintd", text.toLatin1())));
