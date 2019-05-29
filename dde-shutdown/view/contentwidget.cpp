@@ -125,12 +125,6 @@ void ContentWidget::showEvent(QShowEvent *event)
         activateWindow();
     });
 
-    QTimer::singleShot(100, this, [=] {
-        if (m_systemMonitor && !m_warningView) {
-            m_systemMonitor->show();
-        }
-    });
-
     if (m_warningView) {
         m_mainLayout->setCurrentWidget(m_warningView);
     }
@@ -241,8 +235,9 @@ void ContentWidget::initConnect() {
     connect(m_wmInter, &__wm::WorkspaceSwitched, this, &ContentWidget::currentWorkspaceChanged);
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &ContentWidget::onBlurWallpaperFinished);
 
-    if (m_systemMonitor)
+    if (m_systemMonitor) {
         connect(m_systemMonitor, &SystemMonitor::clicked, this, &ContentWidget::runSystemMonitor);
+    }
 }
 
 void ContentWidget::initData()
@@ -340,10 +335,6 @@ void ContentWidget::beforeInvokeAction(const Actions action)
             m_warningView->deleteLater();
             m_warningView = nullptr;
         }
-    }
-
-    if (m_systemMonitor) {
-        m_systemMonitor->hide();
     }
 
     if (!inhibitReason.isEmpty() && action != Logout)
@@ -566,7 +557,7 @@ void ContentWidget::initUI() {
 
     QFile file("/usr/bin/deepin-system-monitor");
     if (file.exists())
-        m_systemMonitor = new SystemMonitor(this);
+        m_systemMonitor = new SystemMonitor(m_normalView);
     else
         m_systemMonitor = nullptr;
 

@@ -14,9 +14,8 @@ SUBDIRS += dde-shutdown \
     dnetwork-secret-dialog \
     dde-full-filesystem
 
-load(deepin_qt)
+load(dtk_qmake)
 include(common.pri)
-load(deepin_qt)
 contains(DEFINES, ARCH_MIPSEL) {
     SUBDIRS += session-ui-guardien
 }
