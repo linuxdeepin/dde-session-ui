@@ -165,7 +165,7 @@ void KbLayoutWidget::setButtonsChecked(QString text) {
         }
     }
 
-    proc->start("setxkbmap", QStringList() << "model" << model << "layout" << kbd.split(";").first());
+    proc->start("setxkbmap", QStringList() << "-model" << model << "-layout" << kbd.split(";").first());
     proc->waitForFinished();
     qDebug() << proc->exitCode() << proc->readAll() << proc->program() << proc->arguments();
 
