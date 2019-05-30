@@ -116,6 +116,7 @@ LockContent::LockContent(SessionBaseModel * const model, QWidget *parent)
 
     connect(model, &SessionBaseModel::hasVirtualKBChanged, this, initVirtualKB);
     connect(model, &SessionBaseModel::onUserListChanged, this, &LockContent::onUserListChanged);
+    connect(m_imageBlurInter, &ImageBlur::BlurDone, this, &LockContent::onBlurDone);
 
     onCurrentUserChanged(model->currentUser());
     initVirtualKB(model->hasVirtualKB());
