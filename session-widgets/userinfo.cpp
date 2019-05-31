@@ -132,6 +132,11 @@ void User::startLock()
     onLockTimeOut();
 }
 
+void User::resetLock()
+{
+    m_tryNum = 5;
+}
+
 void User::onLockTimeOut()
 {
     if (m_lockNum == 1) {
