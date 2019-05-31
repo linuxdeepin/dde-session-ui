@@ -58,6 +58,7 @@ public:
     bool isLock() const { return m_isLock; }
     bool isLockForNum();
     void startLock();
+    void resetLock();
 
     virtual UserType type() const = 0;
     virtual QString displayName() const { return m_userName; }

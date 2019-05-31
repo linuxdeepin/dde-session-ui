@@ -646,6 +646,10 @@ void LockWorker::onUnlockFinished(bool unlocked)
 
     emit m_model->authFinished(unlocked);
 
+    if (unlocked) {
+        m_model->currentUser()->resetLock();
+    }
+
     m_authenticating = false;
 
     if (!unlocked) {
