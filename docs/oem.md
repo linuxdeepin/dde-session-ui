@@ -17,9 +17,9 @@
 
 * `General/loginPromptAvatar` 设置是否启用本地用户列表，默认为true。
 * `General/loginPromptInput` 设置是否启用LDAP登录，默认为false。
-* `General/showSwitchUserButton` 设置是否显示用户切换按钮，值固定三项： `[always | ondemand | disabled]`，默认为ondemand。
-* `Power/sleep` 设置是否启用锁屏、登录界面和关机界面的休眠按钮。
-* `Power/hibernate` 设置是否启用锁屏、登录界面和关机界面的待机按钮。
+* `Lock/showSwitchUserButton` 设置是否显示用户切换按钮，值固定三项： `[always | ondemand | disabled]`，默认为ondemand。
+* `Power/sleep` 设置是否启用锁屏、登录界面和关机界面的待机按钮。
+* `Power/hibernate` 设置是否启用锁屏、登录界面和关机界面的休眠按钮。
 * `OS/isDeepin` 设置是否启用锁屏的指纹和密码同步验证机制，在Deepin发行版为true，其他发行版为false。
 
 ## dde-shutdown
