@@ -806,9 +806,9 @@ void LockWorker::authenticationComplete()
 
 void LockWorker::checkPowerInfo()
 {
-    m_model->setCanSleep(valueByQSettings<bool>("POWER", "sleep", true));
+    m_model->setCanSleep(valueByQSettings<bool>("Power", "sleep", true));
 
-    if (valueByQSettings<bool>("POWER", "hibernate", false)) {
+    if (valueByQSettings<bool>("Power", "hibernate", false)) {
         checkSwap();
     }
 }

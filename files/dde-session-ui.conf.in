@@ -1,4 +1,4 @@
-[POWER]
+[Power]
 sleep=$$ENABLE_SLEEP
 hibernate=$$ENABLE_HIBERNATE
 
@@ -12,6 +12,3 @@ loginPromptInput=$$LOGIN_PROMPT_INPUT
 [Lock]
 #[always | ondemand | disabled]
 showSwitchUserButton=$$SHOW_SWITCH_USER_BUTTON
-
-[Shutdown]
-enableSystemMonitor=$$ENABLE_SYSTEM_MONITOR

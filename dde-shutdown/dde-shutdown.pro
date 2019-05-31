@@ -42,8 +42,19 @@ RESOURCES += \
 
 DISTFILES += com.deepin.dde.shutdownFront.service
 
+ENABLE_SYSTEM_MONITOR=true
+
+config_file_tmp.input = $$PWD/../files/dde-shutdown.conf.in
+config_file_tmp.output = $$OUT_PWD/../files/dde-shutdown.conf
+
+QMAKE_SUBSTITUTES += config_file_tmp
+QMAKE_CLEAN       += $${config_file_tmp.output}
+
+config_file.path = $$PREFIX/share/dde-session-ui/
+config_file.files += $$OUT_PWD/../files/dde-shutdown.conf
+
 target.path = $${PREFIX}/bin/
 INSTALLS += target
 service_file.path = /usr/share/dbus-1/services/
 service_file.files = com.deepin.dde.shutdownFront.service
-INSTALLS += service_file
+INSTALLS += service_file config_file

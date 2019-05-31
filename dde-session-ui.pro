@@ -49,7 +49,6 @@ toogle_desktop_icon_scalable.files = misc/icons/scalable/deepin-toggle-desktop.s
 # set config default value
 ENABLE_SLEEP=true
 ENABLE_HIBERNATE=true
-ENABLE_SYSTEM_MONITOR=true
 SHOW_SWITCH_USER_BUTTON=ondemand
 LOGIN_PROMPT_AVATAR=true
 LOGIN_PROMPT_INPUT=false
