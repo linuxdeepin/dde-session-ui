@@ -1,3 +1,35 @@
+<a name="4.9.8"></a>
+### 4.9.8 (2019-06-01)
+
+
+#### Bug Fixes
+
+*   user avatar not show ([1013622f](https://github.com/linuxdeepin/dde-session-ui/commit/1013622ffd8f9f4fb3c7215904c55921cb99b6f6))
+* **greeter:**
+  *  missing blurdone signal ([5e3e9a6d](https://github.com/linuxdeepin/dde-session-ui/commit/5e3e9a6d408839787f1e28fb954fe1339f3d2554))
+  *  wrong set user keyboard layout ([d2e00af5](https://github.com/linuxdeepin/dde-session-ui/commit/d2e00af5a7e3ee52b365528333efbe9267d272e4))
+  *  not show fprint pam info ([731be30b](https://github.com/linuxdeepin/dde-session-ui/commit/731be30b2a46f642deb32b375b76aa9238c6633a))
+* **lock:**
+  *  when user unlock not reset checkpasswd num ([ae17a8a0](https://github.com/linuxdeepin/dde-session-ui/commit/ae17a8a0e783efde4a760f86f5a679c1c31a2222))
+  *  cannot reboot system ([93350745](https://github.com/linuxdeepin/dde-session-ui/commit/933507456e9bc52932fbadf5243001e729217c74))
+* **shutdown:**
+  *  when inhibitwarningview show after system monitor button cannot enter hover state ([5f45073d](https://github.com/linuxdeepin/dde-session-ui/commit/5f45073d78d4e9cafada85b4e6961958e9731d34))
+  *  multiuser warning tips are truncated ([ca312cde](https://github.com/linuxdeepin/dde-session-ui/commit/ca312cde8128a8dda567f80f37e96a8a6137155c))
+
+#### Features
+
+*   create document ([9f788c9b](https://github.com/linuxdeepin/dde-session-ui/commit/9f788c9b8fb8b645974b085032af8096fa159d2c))
+*   split config files ([19a679db](https://github.com/linuxdeepin/dde-session-ui/commit/19a679db2dfa75072b1ce2fed49b3cb6c0764235))
+* **greeter:**
+  *  support not init native user ([a4e4cb59](https://github.com/linuxdeepin/dde-session-ui/commit/a4e4cb5945f26eaf321a9ca20f11037cd33d54c1))
+  *  init LDAP user is first ([2c7d8456](https://github.com/linuxdeepin/dde-session-ui/commit/2c7d8456ec1c4b4a750ced06de127195f03b64c5))
+  *  Add ShowSwitchUserButton by [always|ondemand|disabled] ([f8b23bae](https://github.com/linuxdeepin/dde-session-ui/commit/f8b23bae53a3a6174ae703cf0ddecea6596f2bd5))
+  *  Add login box does not display avatar ([bf2ff638](https://github.com/linuxdeepin/dde-session-ui/commit/bf2ff638ed4164db9aeef355bb4651324c815a79))
+* **lock:**  add LDAP login switch button ([4912e8dc](https://github.com/linuxdeepin/dde-session-ui/commit/4912e8dcf6a4e66dc628df2d9a6be4aaa461a57f))
+* **osd:**  support set monitor config when release meta key ([4ba7e2b1](https://github.com/linuxdeepin/dde-session-ui/commit/4ba7e2b16db54559bc587b830d44782e259aba1d))
+
+
+
 <a name="4.9.7"></a>
 ### 4.9.7 (2019-05-10)
 
