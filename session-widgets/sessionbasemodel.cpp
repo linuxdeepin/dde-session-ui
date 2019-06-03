@@ -52,6 +52,20 @@ void SessionBaseModel::userAdd(std::shared_ptr<User> user)
 
     emit onUserAdded(user);
     emit onUserListChanged(m_userList);
+
+    // NOTE(justforlxz): If all users are login and new users
+    // are added at this time, switch to the user
+    bool isNeed = true;
+    for (auto it = m_userList.cbegin(); it != m_userList.cend(); ++it) {
+        if (!(*it)->isLogin()) {
+            isNeed = false;
+            break;
+        }
+    }
+
+    if (isNeed) {
+        setCurrentUser(user);
+    }
 }
 
 void SessionBaseModel::userRemoved(std::shared_ptr<User> user)
@@ -60,6 +74,30 @@ void SessionBaseModel::userRemoved(std::shared_ptr<User> user)
 
     m_userList.removeOne(user);
     emit onUserListChanged(m_userList);
+
+    // NOTE(justforlxz): If the current user is deleted, switch to the
+    // first unlogin user. If it does not exist, switch to the first login user.
+    if (user == m_currentUser) {
+        QList<std::shared_ptr<User>> logindUserList;
+        QList<std::shared_ptr<User>> unloginUserList;
+        for (auto it = m_userList.cbegin(); it != m_userList.cend(); ++it) {
+            if ((*it)->isLogin()) {
+                logindUserList << (*it);
+            }
+            else {
+                unloginUserList << (*it);
+            }
+        }
+
+        if (unloginUserList.isEmpty()) {
+            if (!logindUserList.isEmpty()) {
+                setCurrentUser(logindUserList.first());
+            }
+        }
+        else {
+            setCurrentUser(unloginUserList.first());
+        }
+    }
 }
 
 void SessionBaseModel::setCurrentUser(std::shared_ptr<User> user)
