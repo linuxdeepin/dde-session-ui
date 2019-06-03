@@ -45,7 +45,6 @@ void DrawHelper::DrawText(QPainter *painter, const QStyleOptionViewItem &option,
 
     QTextOption opt;
     opt.setAlignment(Qt::AlignCenter);
-    opt.setWrapMode(QTextOption::NoWrap);
 
     painter->setPen(color);
     painter->drawText(rect, text, opt);
