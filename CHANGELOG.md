@@ -1,3 +1,14 @@
+<a name="4.9.9"></a>
+### 4.9.9 (2019-06-04)
+
+
+#### Bug Fixes
+
+* **greeter:**  update user list ([fd4c40de](https://github.com/linuxdeepin/dde-session-ui/commit/fd4c40de0540b6aa734aff21d8f204c73245818c))
+* **shutdown:**  solve the problem caused by rebase again ([6fd6c2df](https://github.com/linuxdeepin/dde-session-ui/commit/6fd6c2df81a82938124b2c43da5cdbd5ebe5db84))
+
+
+
 <a name="4.9.8"></a>
 ### 4.9.8 (2019-06-01)
 
