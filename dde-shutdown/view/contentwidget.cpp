@@ -116,9 +116,6 @@ void ContentWidget::showEvent(QShowEvent *event)
             .method("Hide")
             .call();
 
-    if (m_hotZoneInterface->isValid())
-        m_hotZoneInterface->EnableZoneDetected(false);
-
     // hide dde-control-center
     if (m_controlCenterInter->isValid())
         m_controlCenterInter->HideImmediately();
@@ -202,9 +199,6 @@ void ContentWidget::hideEvent(QHideEvent *event)
 {
     QFrame::hideEvent(event);
 
-    if (m_hotZoneInterface->isValid())
-        m_hotZoneInterface->EnableZoneDetected(true);
-
     releaseKeyboard();
 }
 
@@ -247,8 +241,6 @@ void ContentWidget::initData()
 {
     m_sessionInterface = new DBusSessionManagerInterface("com.deepin.SessionManager", "/com/deepin/SessionManager",
             QDBusConnection::sessionBus(), this);
-    m_hotZoneInterface = new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone",
-                                         QDBusConnection::sessionBus(), this);
 }
 
 void ContentWidget::enterKeyPushed()

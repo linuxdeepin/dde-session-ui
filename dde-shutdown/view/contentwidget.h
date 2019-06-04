@@ -42,7 +42,6 @@
 #include "dbus/dbuslogin1manager.h"
 #include "common.h"
 #include "dbus/dbussessionmanager.h"
-#include "dbus/dbushotzone.h"
 #include "systemmonitor.h"
 #include "warningview.h"
 
@@ -123,7 +122,6 @@ private:
     bool m_confirm = false;
 
     DBusSessionManagerInterface* m_sessionInterface = nullptr;
-    DBusHotzone* m_hotZoneInterface = nullptr;
     SystemMonitor *m_systemMonitor;
     com::deepin::wm *m_wmInter;
     Appearance *m_dbusAppearance = NULL;
