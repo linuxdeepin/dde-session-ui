@@ -48,7 +48,7 @@ SystemMonitor::SystemMonitor(QWidget *parent) : QWidget(parent)
 
     m_text->adjustSize();
     setFixedHeight(40);
-    setFixedWidth(24 + 10 + 60 + m_text->width());
+    setFixedWidth(24 + 10 + 60 + m_text->sizeHint().width());
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setMargin(0);
