@@ -553,7 +553,7 @@ void ContentWidget::initUI() {
     if (findValueByQSettings<bool>(DDESESSIONCC::SHUTDOWN_CONFIGS, "Shutdown", "enableSystemMonitor", true)) {
         QFile file("/usr/bin/deepin-system-monitor");
         if (file.exists()) {
-            m_systemMonitor = new SystemMonitor(this);
+            m_systemMonitor = new SystemMonitor(m_normalView);
         }
     }
 
