@@ -212,6 +212,8 @@ void LockContent::mouseReleaseEvent(QMouseEvent *event)
     // hide keyboardlayout widget
     m_userInputWidget->hideKeyboard();
 
+    restoreCenterContent();
+
     return SessionBaseWindow::mouseReleaseEvent(event);
 }
 
