@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 include(../common.pri)
-load(deepin_qt)
+load(dtk_qmake)
 
 QT       += core gui dbus x11extras
 
