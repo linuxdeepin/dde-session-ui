@@ -68,6 +68,9 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     m_passwordEdit->invalidMessage()->setStyleSheet("#InvalidMessage{color: #f9704f;}");
     updateStyle(":/skin/dpasswdeditanimated.qss", m_passwordEdit);
 
+    m_passwordEdit->lineEdit()->installEventFilter(this);
+    m_otherUserInput->installEventFilter(this);
+
     m_loginBtn->setFixedHeight(DDESESSIONCC::PASSWDLINEEDIT_HEIGHT);
     m_loginBtn->setFixedWidth(128);
     m_loginBtn->setFocusPolicy(Qt::StrongFocus);
@@ -378,6 +381,15 @@ void UserInputWidget::showEvent(QShowEvent *event)
     refreshInputState();
 
     return QWidget::showEvent(event);
+}
+
+bool UserInputWidget::eventFilter(QObject *watched, QEvent *event)
+{
+    if (qobject_cast<QLineEdit*>(watched) && event->type() == QEvent::MouseButtonPress) {
+        grabKeyboard();
+    }
+
+    return QWidget::eventFilter(watched, event);
 }
 
 void UserInputWidget::refreshLanguage()
