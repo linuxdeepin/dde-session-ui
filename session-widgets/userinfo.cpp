@@ -205,16 +205,7 @@ QString NativeUser::greeterBackgroundPath() const
 
 QString NativeUser::desktopBackgroundPath() const
 {
-    const QStringList &list = m_userInter->desktopBackgrounds();
-    QString background;
-
-    if (list.isEmpty()) {
-        background = m_userInter->backgroundFile();
-    } else {
-        background = list.first();
-    }
-
-    return toLocalFile(background);
+    return toLocalFile(m_userInter->desktopBackgrounds().first());
 }
 
 QStringList NativeUser::kbLayoutList()
