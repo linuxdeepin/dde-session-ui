@@ -32,6 +32,9 @@
 #include <X11/XKBlib.h>
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XInput2.h>
+#include <X11/Xlib.h>
+#include <X11/keysym.h>
+#include <X11/extensions/XTest.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -195,10 +198,26 @@ bool KeyboardMonitor::setNumlockStatus(const bool &on)
 {
     Display* d = QX11Info::display();
 
-    bool result = XkbLockModifiers(d, XkbUseCoreKbd, Mod2Mask, on ? Mod2Mask : 0);
+    XKeyboardState x;
+    XGetKeyboardControl(d, &x);
+    const bool numLockEnabled = x.led_mask & 2;
+
+    if (numLockEnabled == on) {
+        return true;
+    }
+
+    // Get the keycode for XK_Caps_Lock keysymbol
+    unsigned int keycode = XKeysymToKeycode(d, XK_Num_Lock);
+
+    // Simulate Press
+    int pressExit = XTestFakeKeyEvent(d, keycode, True, CurrentTime);
     XFlush(d);
 
-    return result;
+    // Simulate Release
+    int releseExit = XTestFakeKeyEvent(d, keycode, False, CurrentTime);
+    XFlush(d);
+
+    return pressExit == 0 && releseExit == 0;
 }
 
 void KeyboardMonitor::run()
