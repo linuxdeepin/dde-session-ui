@@ -46,7 +46,7 @@ public:
     const QString locale() const { return m_locale; }
     void setLocale(const QString &locale);
 
-    bool isNoPasswdGrp() const;
+    virtual bool isNoPasswdGrp() const;
 
     void setisLogind(bool isLogind);
     virtual void setCurrentLayout(const QString &layout) { Q_UNUSED(layout); }
@@ -99,6 +99,7 @@ public:
     QString desktopBackgroundPath() const;
     QStringList kbLayoutList();
     QString currentKBLayout();
+    bool isNoPasswdGrp() const;
 
 private:
     UserInter *m_userInter;

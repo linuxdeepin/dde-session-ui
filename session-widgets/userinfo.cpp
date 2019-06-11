@@ -218,6 +218,11 @@ QString NativeUser::currentKBLayout()
     return m_userInter->layout();
 }
 
+bool NativeUser::isNoPasswdGrp() const
+{
+    return (m_userInter->passwordStatus() == "NP" || checkUserIsNoPWGrp(this));
+}
+
 ADDomainUser::ADDomainUser(uint uid, QObject *parent)
     : User(parent)
 {
