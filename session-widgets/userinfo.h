@@ -90,16 +90,16 @@ class NativeUser : public User
 public:
     NativeUser(const QString &path, QObject *parent = nullptr);
 
-    void setCurrentLayout(const QString &currentKBLayout);
+    void setCurrentLayout(const QString &currentKBLayout) override;
 
-    UserType type() const { return Native; }
-    QString displayName() const;
-    QString avatarPath() const;
-    QString greeterBackgroundPath() const;
-    QString desktopBackgroundPath() const;
-    QStringList kbLayoutList();
-    QString currentKBLayout();
-    bool isNoPasswdGrp() const;
+    UserType type() const override { return Native; }
+    QString displayName() const override;
+    QString avatarPath() const override;
+    QString greeterBackgroundPath() const override;
+    QString desktopBackgroundPath() const override;
+    QStringList kbLayoutList() override;
+    QString currentKBLayout() override;
+    bool isNoPasswdGrp() const override;
 
 private:
     UserInter *m_userInter;
@@ -115,11 +115,11 @@ public:
     void setUserDisplayName(const QString &name);
     void setUserName(const QString &name);
 
-    QString displayName() const;
-    UserType type() const { return ADDomain; }
-    QString avatarPath() const;
-    QString greeterBackgroundPath() const;
-    QString desktopBackgroundPath() const;
+    QString displayName() const override;
+    UserType type() const override { return ADDomain; }
+    QString avatarPath() const override;
+    QString greeterBackgroundPath() const override;
+    QString desktopBackgroundPath() const override;
 
 private:
     QString m_displayName;
