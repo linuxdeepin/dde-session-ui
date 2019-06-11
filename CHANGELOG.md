@@ -1,3 +1,14 @@
+<a name="4.9.10"></a>
+### 4.9.10 (2019-06-11)
+
+
+#### Bug Fixes
+
+*   replace deepin_qt to dtk_qmake ([97ecea1f](https://github.com/linuxdeepin/dde-session-ui/commit/97ecea1f2f49b7fbba5752b02dc8bc64631f6739))
+* **lock:**  fake nopassword user when user not have password ([11f49929](https://github.com/linuxdeepin/dde-session-ui/commit/11f499295e82c18d06b2655728c986c31abe7948))
+
+
+
 <a name="4.9.9"></a>
 ### 4.9.9 (2019-06-04)
 
