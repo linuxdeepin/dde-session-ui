@@ -136,7 +136,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
         if (!user_ptr->isNoPasswdGrp()) {
             if (isDeepin()) {
-                m_authFramework->SetUser(user_ptr->name());
+                m_authFramework->SetUser(user_ptr);
                 m_authFramework->Authenticate();
             }
             else {
@@ -213,7 +213,7 @@ void LockWorker::switchToUser(std::shared_ptr<User> user)
                 m_greeter->cancelAuthentication();
                 m_authFramework->Clear();
 
-                m_authFramework->SetUser(user->name());
+                m_authFramework->SetUser(user);
 
                 if (!user->isNoPasswdGrp()) {
                     m_greeter->authenticate(user->name());
@@ -261,7 +261,7 @@ void LockWorker::authUser(const QString &password)
                     m_greeter->authenticate(user->name());
                 });
                 m_authFramework->Clear();
-                m_authFramework->SetUser(user->name());
+                m_authFramework->SetUser(user);
                 m_authFramework->setPassword(password);
                 m_authFramework->Authenticate();
                 return;
@@ -269,7 +269,7 @@ void LockWorker::authUser(const QString &password)
         }
 
         m_authFramework->Clear();
-        m_authFramework->SetUser(user->name());
+        m_authFramework->SetUser(user);
         m_authFramework->setPassword(password);
         m_authFramework->Authenticate();
         return;
@@ -405,7 +405,7 @@ void LockWorker::onUserAdded(const QString &user)
             m_model->setCurrentUser(user_ptr);
             if (!user_ptr->isNoPasswdGrp()) {
                 if (isDeepin()) {
-                    m_authFramework->SetUser(user_ptr->name());
+                    m_authFramework->SetUser(user_ptr);
                     m_authFramework->Authenticate();
                 }
                 else {
@@ -421,7 +421,7 @@ void LockWorker::onUserAdded(const QString &user)
 
             if (m_model->currentType() == SessionBaseModel::AuthType::LightdmType) {
                 if (isDeepin()) {
-                    m_authFramework->SetUser(user_ptr->name());
+                    m_authFramework->SetUser(user_ptr);
 
                     if (!user_ptr->isNoPasswdGrp()) {
                         m_authFramework->Authenticate();

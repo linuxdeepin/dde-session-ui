@@ -5,8 +5,10 @@
 
 #include <QObject>
 #include <QPointer>
+#include <memory>
 
 class DeepinAuthInterface;
+class User;
 class DeepinAuthFramework : public QObject
 {
     Q_OBJECT
@@ -19,7 +21,7 @@ public:
     bool isAuthenticate() const;
 
 public slots:
-    void SetUser(const QString &username);
+    void SetUser(std::shared_ptr<User> user);
     void Authenticate();
     void Clear();
     void setPassword(const QString &password);

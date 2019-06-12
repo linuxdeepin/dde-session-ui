@@ -1,5 +1,6 @@
 #include "deepinauthframework.h"
 #include "interface/deepinauthinterface.h"
+#include "userinfo.h"
 
 #include <QTimer>
 #include <QVariant>
@@ -7,42 +8,8 @@
 #include <pwd.h>
 #include <grp.h>
 
-static QString USERNAME;
+static std::shared_ptr<User> USER;
 static QString PASSWORD;
-
-static bool checkUserIsNoPWGrp(const QString &username)
-{
-    // Caution: 32 here is unreliable, and there may be more
-    // than this number of groups that the user joins.
-
-    int ngroups = 32;
-    gid_t groups[32];
-    struct passwd pw;
-    struct group gr;
-
-    /* Fetch passwd structure (contains first group ID for user) */
-
-    pw = *getpwnam(username.toUtf8().data());
-
-    /* Retrieve group list */
-
-    if (getgrouplist(username.toUtf8().data(), pw.pw_gid, groups, &ngroups) == -1) {
-        fprintf(stderr, "getgrouplist() returned -1; ngroups = %d\n",
-                ngroups);
-        return false;
-    }
-
-    /* Display list of retrieved groups, along with group names */
-
-    for (int i = 0; i < ngroups; i++) {
-        gr = *getgrgid(groups[i]);
-        if (QString(gr.gr_name) == QString("nopasswdlogin")) {
-            return true;
-        }
-    }
-
-    return false;
-}
 
 DeepinAuthFramework::DeepinAuthFramework(DeepinAuthInterface *inter, QObject *parent)
     : QObject(parent)
@@ -59,9 +26,9 @@ bool DeepinAuthFramework::isAuthenticate() const
     return !m_keyboard.isNull() || !m_fprint.isNull();
 }
 
-void DeepinAuthFramework::SetUser(const QString &username)
+void DeepinAuthFramework::SetUser(std::shared_ptr<User> user)
 {
-    USERNAME = username;
+    USER = user;
 }
 
 void DeepinAuthFramework::Authenticate()
@@ -69,10 +36,10 @@ void DeepinAuthFramework::Authenticate()
     m_keyboard = new AuthAgent(AuthAgent::Keyboard, this);
     m_fprint = new AuthAgent(AuthAgent::Fprint, this);
 
-    m_keyboard->SetUser(USERNAME);
-    m_fprint->SetUser(USERNAME);
+    m_keyboard->SetUser(USER->name());
+    m_fprint->SetUser(USER->name());
 
-    if (checkUserIsNoPWGrp(USERNAME) || !PASSWORD.isEmpty()) {
+    if (USER->isNoPasswdGrp() || (!USER->isNoPasswdGrp() && !PASSWORD.isEmpty())) {
         QTimer::singleShot(100, m_keyboard, &AuthAgent::Authenticate);
     }
 
