@@ -1,3 +1,13 @@
+<a name="4.9.11"></a>
+### 4.9.11 (2019-06-13)
+
+
+#### Bug Fixes
+
+* **lock:**  unlock when fake nopassword user ([b4ef5413](https://github.com/linuxdeepin/dde-session-ui/commit/b4ef5413a0a0b577fe174d73715abb18958e250b))
+
+
+
 <a name="4.9.10"></a>
 ### 4.9.10 (2019-06-11)
 
