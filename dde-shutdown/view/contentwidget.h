@@ -117,6 +117,7 @@ private:
 
     WarningView *m_warningView = nullptr;
     QWidget *m_normalView = nullptr;
+    QSpacerItem *m_buttonSpacer = nullptr;
     QStackedLayout *m_mainLayout;
 
     bool m_confirm = false;

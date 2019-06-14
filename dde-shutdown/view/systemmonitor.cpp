@@ -46,10 +46,6 @@ SystemMonitor::SystemMonitor(QWidget *parent) : QWidget(parent)
     m_text->setStyleSheet("color: white;"
                           "font-weight: 400;");
 
-    m_text->adjustSize();
-    setFixedHeight(40);
-    setFixedWidth(24 + 10 + 60 + m_text->sizeHint().width());
-
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
@@ -60,6 +56,7 @@ SystemMonitor::SystemMonitor(QWidget *parent) : QWidget(parent)
     layout->addWidget(m_text, 0, Qt::AlignVCenter);
 
     setLayout(layout);
+    setMinimumHeight(40);
 }
 
 void SystemMonitor::setState(SystemMonitor::State state)

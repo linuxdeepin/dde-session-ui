@@ -188,11 +188,7 @@ void ContentWidget::resizeEvent(QResizeEvent *event)
 {
     QFrame::resizeEvent(event);
 
-    if (m_systemMonitor) {
-        const QRect &re = rect();
-        m_systemMonitor->move((re.width() - m_systemMonitor->width()) / 2,
-                              re.height() - m_systemMonitor->height() - 40);
-    }
+    m_buttonSpacer->changeSize(0, (height() - m_shutdownButton->height()) / 2);
 }
 
 void ContentWidget::hideEvent(QHideEvent *event)
@@ -531,6 +527,7 @@ void ContentWidget::initUI() {
     m_normalView = new QWidget(this);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
+    QVBoxLayout *defaultpageLayout = new QVBoxLayout;
     buttonLayout->setMargin(0);
     buttonLayout->setSpacing(10);
     buttonLayout->addStretch();
@@ -543,7 +540,11 @@ void ContentWidget::initUI() {
     buttonLayout->addWidget(m_logoutButton);
     buttonLayout->addStretch(0);
 
-    m_normalView->setLayout(buttonLayout);
+    defaultpageLayout->setMargin(0);
+    defaultpageLayout->addSpacerItem(m_buttonSpacer = new QSpacerItem(0, 0));
+    defaultpageLayout->addLayout(buttonLayout);
+    defaultpageLayout->addStretch();
+    m_normalView->setLayout(defaultpageLayout);
 
     m_mainLayout = new QStackedLayout;
     m_mainLayout->setMargin(0);
@@ -554,6 +555,9 @@ void ContentWidget::initUI() {
         QFile file("/usr/bin/deepin-system-monitor");
         if (file.exists()) {
             m_systemMonitor = new SystemMonitor(m_normalView);
+            defaultpageLayout->addWidget(m_systemMonitor);
+            defaultpageLayout->setAlignment(m_systemMonitor, Qt::AlignCenter);
+            defaultpageLayout->addSpacing(40);
         }
     }
 
