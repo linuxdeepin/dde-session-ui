@@ -19,6 +19,7 @@ include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 
 SOURCES += main.cpp \
+    shutdownworker.cpp \
     view/contentwidget.cpp \
     view/multiuserswarningview.cpp \
     app/shutdownframe.cpp \
@@ -28,6 +29,7 @@ SOURCES += main.cpp \
 
 HEADERS  += \
     common.h \
+    shutdownworker.h \
     view/contentwidget.h \
     view/multiuserswarningview.h \
     app/shutdownframe.h \

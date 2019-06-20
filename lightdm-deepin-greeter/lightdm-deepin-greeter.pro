@@ -20,10 +20,12 @@ include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 
 HEADERS  += \
+    greeterworkek.h \
     view/logowidget.h \
     loginwindow.h
 
 SOURCES += main.cpp \
+    greeterworkek.cpp \
     view/logowidget.cpp \
     loginwindow.cpp
 

@@ -25,7 +25,7 @@
 
 #include "loginwindow.h"
 #include "constants.h"
-#include "lockworker.h"
+#include "greeterworkek.h"
 #include "sessionbasemodel.h"
 #include "propertygroup.h"
 #include "multiscreenmanager.h"
@@ -198,7 +198,7 @@ int main(int argc, char* argv[])
     DLogManager::registerConsoleAppender();
 
     SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::LightdmType);
-    LockWorker *worker = new LockWorker(model); //
+    GreeterWorkek *worker = new GreeterWorkek(model); //
 
     QObject::connect(model, &SessionBaseModel::authFinished, model, [=] {
         set_rootwindow_cursor();
@@ -212,10 +212,10 @@ int main(int argc, char* argv[])
         LoginWindow *loginFrame = new LoginWindow(model);
         loginFrame->setScreen(screen);
         property_group->addObject(loginFrame);
-        QObject::connect(loginFrame, &LoginWindow::requestSwitchToUser, worker, &LockWorker::switchToUser);
-        QObject::connect(loginFrame, &LoginWindow::requestAuthUser, worker, &LockWorker::authUser);
-        QObject::connect(loginFrame, &LoginWindow::requestSetLayout, worker, &LockWorker::setLayout);
-        QObject::connect(worker, &LockWorker::requestUpdateBackground, loginFrame, static_cast<void (LoginWindow::*)(const QString &)>(&LoginWindow::updateBackground));
+        QObject::connect(loginFrame, &LoginWindow::requestSwitchToUser, worker, &GreeterWorkek::switchToUser);
+        QObject::connect(loginFrame, &LoginWindow::requestAuthUser, worker, &GreeterWorkek::authUser);
+        QObject::connect(loginFrame, &LoginWindow::requestSetLayout, worker, &GreeterWorkek::setLayout);
+        QObject::connect(worker, &GreeterWorkek::requestUpdateBackground, loginFrame, static_cast<void (LoginWindow::*)(const QString &)>(&LoginWindow::updateBackground));
         QObject::connect(loginFrame, &LoginWindow::destroyed, property_group, &PropertyGroup::removeObject);
         loginFrame->show();
         return loginFrame;

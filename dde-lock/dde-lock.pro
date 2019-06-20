@@ -16,12 +16,14 @@ include(../global_util/global_util.pri)
 SOURCES += main.cpp \
     timewidget.cpp \
     lockframe.cpp \
+    lockworker.cpp \
     dbus/dbuslockfrontservice.cpp \
     dbus/dbuslockagent.cpp
 
 HEADERS  += \
     timewidget.h \
     lockframe.h \
+    lockworker.h \
     dbus/dbuslockfrontservice.h \
     dbus/dbuslockagent.h
 

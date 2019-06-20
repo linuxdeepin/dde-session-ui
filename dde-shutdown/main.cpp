@@ -35,7 +35,7 @@
 
 #include "app/shutdownframe.h"
 #include "sessionbasemodel.h"
-#include "lockworker.h"
+#include "shutdownworker.h"
 #include "propertygroup.h"
 #include "multiscreenmanager.h"
 
@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
         qDebug() << "dbus registration success.";
 
         SessionBaseModel *model = new SessionBaseModel(SessionBaseModel::AuthType::UnknowAuthType);
-        LockWorker *worker = new LockWorker(model); //
+        ShutdownWorker *worker = new ShutdownWorker(model); //
 
         DBusShutdownAgent *dbusAgent = new DBusShutdownAgent;
         PropertyGroup *property_group = new PropertyGroup(worker);
@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
             frame->setScreen(screen);
             property_group->addObject(frame);
             QObject::connect(model, &SessionBaseModel::visibleChanged, frame, &ShutdownFrame::setVisible);
-            QObject::connect(frame, &ShutdownFrame::requestEnableHotzone, worker, &LockWorker::enableZoneDetected);
+            QObject::connect(frame, &ShutdownFrame::requestEnableHotzone, worker, &ShutdownWorker::enableZoneDetected);
             QObject::connect(frame, &ShutdownFrame::destroyed, property_group, &PropertyGroup::removeObject);
             QObject::connect(frame, &ShutdownFrame::destroyed, frame, [=] {
                 dbusAgent->removeFrame(frame);

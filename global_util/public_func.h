@@ -31,6 +31,7 @@
 #include <QIcon>
 #include <QImageReader>
 #include <QSettings>
+#include <QString>
 
 QPixmap loadPixmap(const QString &file);
 
