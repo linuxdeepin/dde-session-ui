@@ -99,6 +99,8 @@ private:
     void updateWallpaper(const QString &path);
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
     void onUserListChanged(QList<std::shared_ptr<User>> list);
+    void enableHibernateBtn(bool enable);
+    void enableSleepBtn(bool enable);
 
     RoundItemButton *m_currentSelectedBtn = nullptr;
     RoundItemButton *m_shutdownButton;

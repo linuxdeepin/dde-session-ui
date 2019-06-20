@@ -66,27 +66,14 @@ void ContentWidget::setModel(SessionBaseModel * const model)
 {
     m_model = model;
 
-    auto hasSwapChanged = [=] (bool hasSwap) {
-        m_hibernateButton->setVisible(hasSwap);
-        if (!hasSwap) {
-            m_btnsList->removeOne(m_hibernateButton);
-        }
-    };
-
-    auto canSleepChanged = [=] (bool canSleep) {
-        if (!canSleep) {
-            hideBtn("Suspend");
-        }
-    };
-
     connect(model, &SessionBaseModel::onUserListChanged, this, &ContentWidget::onUserListChanged);
     onUserListChanged(model->userList());
 
-    connect(model, &SessionBaseModel::onHasSwapChanged, this, hasSwapChanged);
-    hasSwapChanged(model->hasSwap());
+    connect(model, &SessionBaseModel::onHasSwapChanged, this, &ContentWidget::enableHibernateBtn);
+    enableHibernateBtn(model->hasSwap());
 
-    connect(model, &SessionBaseModel::canSleepChanged, this, canSleepChanged);
-    canSleepChanged(model->canSleep());
+    connect(model, &SessionBaseModel::canSleepChanged, this, &ContentWidget::enableSleepBtn);
+    enableSleepBtn(model->canSleep());
 }
 
 ContentWidget::~ContentWidget()
@@ -499,6 +486,21 @@ void ContentWidget::onUserListChanged(QList<std::shared_ptr<User> > list)
     m_switchUserBtn->setVisible(list.size() > 1);
 }
 
+void ContentWidget::enableHibernateBtn(bool enable)
+{
+    m_hibernateButton->setVisible(enable);
+    if (!enable) {
+        m_btnsList->removeOne(m_hibernateButton);
+    }
+}
+
+void ContentWidget::enableSleepBtn(bool enable)
+{
+    if (!enable) {
+        hideBtn("Suspend");
+    }
+}
+
 void ContentWidget::initUI() {
     m_btnsList = new QList<RoundItemButton *>;
     m_shutdownButton = new RoundItemButton(tr("Shut down"));
@@ -658,6 +660,8 @@ void ContentWidget::recoveryLayout()
         // check user switch button
         onUserListChanged(m_model->userList());
     }
+
+
 
     if (m_warningView != nullptr) {
         m_mainLayout->removeWidget(m_warningView);
