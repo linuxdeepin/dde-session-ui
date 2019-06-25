@@ -1,3 +1,13 @@
+<a name="4.9.12"></a>
+### 4.9.12 (2019-06-25)
+
+
+#### Bug Fixes
+
+* **shutdown:**  not hide hibernate button when show again ([56ecf7ec](https://github.com/linuxdeepin/dde-session-ui/commit/56ecf7ec5d1f8dc2f3008f04aa29b557bd50a898))
+
+
+
 <a name="4.9.11"></a>
 ### 4.9.11 (2019-06-13)
 
