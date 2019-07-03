@@ -798,10 +798,11 @@ void LockWorker::authenticationComplete()
         m_greeter->startSessionSync(m_model->sessionKey());
     };
 
-#ifndef DISABLE_LOGIN_ANI
     // NOTE(kirigaya): It is not necessary to display the login animation.
     emit requestUpdateBackground(m_model->currentUser()->desktopBackgroundPath());
     emit m_model->authFinished(true);
+
+#ifndef DISABLE_LOGIN_ANI
     QTimer::singleShot(1000, this, startSessionSync);
 #else
     startSessionSync();
