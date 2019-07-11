@@ -1,60 +1,73 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="el" sourcelanguage="en" version="2.1">
 <context>
+    <name>Content</name>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="25"/>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="26"/>
+        <source>Confirm</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="356"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="325"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="375"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
         <source>Shut down</source>
         <translation>Τερματισμός λειτουργίας</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="358"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="380"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
         <source>Reboot</source>
         <translation>Επανεκκίνηση</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="376"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Σίγουρα θέλετε να πραγματοποιήσετε απενεργοποίηση;</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Σίγουρα θέλετε επανεκίνηση;</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="537"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="385"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
         <source>Log out</source>
         <translation>Αποσύνδεση</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="386"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Σίγουρα θέλετε αποσύνδεση;</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
         <source>Suspend</source>
         <translation>Αναστολή</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Αδράνεια</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="518"/>
         <source>Lock</source>
         <translation>Κλείδωμα</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="541"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Switch user</source>
         <translation>Εναλλαγή χρήστη</translation>
     </message>
@@ -80,7 +93,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation type="unfinished"/>
+        <translation>Παρακαλώ αποθηκεύστε το έγγραφό σας, κείμενο και υπολογιστικό φύλλο</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -90,37 +103,37 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation type="unfinished"/>
+        <translation>Ανεπαρκής μνήμη συστήματος, τερματίστε ορισμένες εφαρμογές για να αποφύγετε τη κατάρρευση.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Συνεχίστε να τρέχετε το %1, απαιτείται μνήμη %2MB</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Συνεχίστε να ανοίγει την καρτέλα του προγράμματος περιήγησης, απαιτείται μνήμη %1MB</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Για να συνεχίσετε τη λειτουργία, απαιτείται μνήμη %1MB</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation type="unfinished"/>
+        <translation>Η τρέχουσα μνήμη σας επαρκεί, συνεχεία για εκτέλεση του %1;</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation type="unfinished"/>
+        <translation>Η τρέχουσα μνήμη σας επαρκεί, συνεχεία στο να ανοίξετε την καρτέλα του προγράμματος περιήγησης;</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation type="unfinished"/>
+        <translation>Η τρέχουσα μνήμη σας επαρκεί, συνεχεία της λειτουργίας;</translation>
     </message>
 </context>
 <context>
@@ -155,32 +168,32 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="109"/>
+        <location filename="../session-widgets/lockworker.cpp" line="182"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Λογαριασμός Domain</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="603"/>
-        <location filename="../session-widgets/lockworker.cpp" line="718"/>
+        <location filename="../session-widgets/lockworker.cpp" line="604"/>
+        <location filename="../session-widgets/lockworker.cpp" line="726"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Τέλος χρόνου επαλήθευσης δακτυλικού αποτυπώματος, παρακαλώ εισάγετε τον κωδικό πρόσβασης, χειροκίνητα.</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="621"/>
-        <location filename="../session-widgets/lockworker.cpp" line="733"/>
+        <location filename="../session-widgets/lockworker.cpp" line="622"/>
+        <location filename="../session-widgets/lockworker.cpp" line="741"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Αποτυχία αντιστοίχισης δακτυλικού αποτυπώματος.</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="649"/>
-        <location filename="../session-widgets/lockworker.cpp" line="751"/>
+        <location filename="../session-widgets/lockworker.cpp" line="657"/>
+        <location filename="../session-widgets/lockworker.cpp" line="765"/>
         <source>Wrong Password</source>
         <translation>Λάθος Κωδικός Πρόσβασης</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="755"/>
+        <location filename="../session-widgets/lockworker.cpp" line="769"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>Ο λογαρισμός τομέα (domain) ή ο κωδικός είναι εσφαλμένος. Παρακαλώ εισάγετε ξανά.</translation>
     </message>
 </context>
 <context>
@@ -191,14 +204,14 @@
         <translation>Ακύρωση</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Οι παραπάνω χρήστες εξακολουθούν να είναι συνδεδεμένοι και τα δεδομένα θα χαθούν λόγω επανεκκίνησης, είστε βέβαιοι ότι θέλετε να επανεκκινήσετε;</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Οι παραπάνω χρήστες εξακολουθούν να είναι συνδεδεμένοι και τα δεδομένα θα χαθούν λόγω τερματισμού λειτουργίας, είστε βέβαιοι ότι θέλετε να τερματίσετε τη λειτουργία;</translation>
     </message>
 </context>
 <context>
@@ -220,7 +233,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>κλειδί</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -230,17 +243,17 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>Kωδικό πρόσβασης μεσολαβητή (proxy)</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>Κωδικός ομάδας.</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation> Απαιτείται κωδικός πρόσβασης για να συνδεθείτε &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -258,12 +271,12 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>Το εφέ παράθυρου είναι ενεργοποιημένο</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>Το εφέ παράθυρου είναι απενεργοποιημένο</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
@@ -282,18 +295,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="292"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="283"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Τερματισμός λειτουργίας</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="300"/>
         <source>Login</source>
         <translation>Είσοδος</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="318"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
@@ -309,7 +322,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Αδρανοποίηση</translation>
     </message>
 </context>
 <context>
@@ -317,7 +330,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>Έχει εντοπιστεί εξωτερική οθόνη, αναστολή;</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
@@ -362,7 +375,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Καλώς ορίσατε, το σύστημα ενημερώθηκε με επιτυχία</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
@@ -383,17 +396,17 @@
         <translation>Είσοδος</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="264"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="250"/>
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Δοκιμάστε ξανά %n λεπτά αργότερα</numerusform><numerusform>Δοκιμάστε ξανά %n λεπτά αργότερα</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="282"/>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation>Eισαγάγετε τον κωδικό πρόσβασης για τερματισμό λειτουργίας</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="308"/>
         <source>Enter your password to reboot</source>
         <translation>Εισάγετε τον κωδικό πρόσβασης για επανεκκίνηση</translation>
     </message>
@@ -403,7 +416,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation type="unfinished"/>
+        <translation>Λειτουργία Εφέ</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
@@ -413,17 +426,17 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation type="unfinished"/>
+        <translation>Έχει εντοπίστει ότι χρησιμοποιείτε μια εικονική μηχανή, η οποία θα επηρεάσει την απόδοση του συστήματος και την εμπειρία λειτουργίας, για μια ομαλή εμπειρία, συνιστάται Κανονική Λειτουργία (Normal Mode)</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation type="unfinished"/>
+        <translation>Λειτουργία Eφέ: Έχετε μια λεπτή εμπειρία. Κανονική λειτουργία: Απολαύστε τη γρήγορη απόδοση</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Φιλική Υπενθύμιση </translation>
     </message>
 </context>
 <context>
@@ -431,12 +444,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Ευγενική Υπενθύμιση</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Αυτή η εφαρμογή δεν μπορεί να εκτελεστεί χωρίς εφέ παραθύρου</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
@@ -449,7 +462,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation type="unfinished"/>
+        <translation>Χαμηλή μπαταρία, παρακαλώ συνδέστε</translation>
     </message>
 </context>
 </TS>

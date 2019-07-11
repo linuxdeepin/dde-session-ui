@@ -1,60 +1,73 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="tr" sourcelanguage="en" version="2.1">
 <context>
+    <name>Content</name>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="25"/>
+        <source>Cancel</source>
+        <translation>İptal</translation>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="26"/>
+        <source>Confirm</source>
+        <translation>Onayla</translation>
+    </message>
+</context>
+<context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="356"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="325"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="375"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
         <source>Shut down</source>
         <translation>Kapat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="358"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="380"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
         <source>Reboot</source>
-        <translation>Yeniden Başlat</translation>
+        <translation>Yeniden başlat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="376"/>
         <source>Are you sure you want to shut down?</source>
         <translation>Kapatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
         <source>Are you sure you want to reboot?</source>
         <translation>Yeniden başlatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="537"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="385"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
         <source>Log out</source>
         <translation>Oturumu kapat</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="386"/>
         <source>Are you sure you want to log out?</source>
         <translation>Oturumu kapatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
         <source>Suspend</source>
-        <translation>Uyut</translation>
+        <translation>Askıya al</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
         <source>Hibernate</source>
         <translation>Uyut</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="518"/>
         <source>Lock</source>
         <translation>Kilitle</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="541"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Switch user</source>
         <translation>Kullanıcı değiştir</translation>
     </message>
@@ -85,12 +98,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
         <source>Continue</source>
-        <translation>Devam Et</translation>
+        <translation>Devam</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Sistem belleği yetersiz, Sistemin donmaması için bazı uygulamaları kapatın</translation>
+        <translation>Sistem belleği yetersiz, zorlanmamak için lütfen bazı uygulamaları kapatınız.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
@@ -128,7 +141,7 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
         <source>Duplicate</source>
-        <translation>Kopyala</translation>
+        <translation>Çoğalt</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
@@ -149,36 +162,36 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
-        <translation>Tuş takımı düzeni ekle</translation>
+        <translation>Klavye düzeni ekle</translation>
     </message>
 </context>
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="109"/>
+        <location filename="../session-widgets/lockworker.cpp" line="182"/>
         <source>Domain account</source>
         <translation>Etki alanı hesabı</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="603"/>
-        <location filename="../session-widgets/lockworker.cpp" line="718"/>
+        <location filename="../session-widgets/lockworker.cpp" line="604"/>
+        <location filename="../session-widgets/lockworker.cpp" line="726"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Parmak izi doğrulaması zaman aşımına uğradı, lütfen parolayı el ile yazın</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="621"/>
-        <location filename="../session-widgets/lockworker.cpp" line="733"/>
+        <location filename="../session-widgets/lockworker.cpp" line="622"/>
+        <location filename="../session-widgets/lockworker.cpp" line="741"/>
         <source>Failed to match fingerprint</source>
         <translation>Eşleşen bir parmak izi bulunamadı</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="649"/>
-        <location filename="../session-widgets/lockworker.cpp" line="751"/>
+        <location filename="../session-widgets/lockworker.cpp" line="657"/>
+        <location filename="../session-widgets/lockworker.cpp" line="765"/>
         <source>Wrong Password</source>
-        <translation>Parola Yanlış</translation>
+        <translation>Yanlış Parola</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="755"/>
+        <location filename="../session-widgets/lockworker.cpp" line="769"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>Etki alanı hesabı ya da parola yanlış. Lütfen yeniden yazın.</translation>
     </message>
@@ -191,14 +204,14 @@
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>Yukarıdaki kullanıcılar oturum açmış olduğundan bilgisayarı yeniden başlatırsanız kaydedilmemiş verileri kaybolabilir. Bilgisayarı yeniden başlatmak istediğinize emin misiniz?</translation>
+        <translation>Yukarıdaki kullanıcılar oturum açmış ve yeniden başlatma nedeniyle veriler kaybolacak, yeniden başlatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation>Yukarıdaki kullanıcılar oturum açmış olduğundan bilgisayarı kapatırsanız kaydedilmemiş verileri kaybolabilir. Bilgisayarı kapatmak istediğinize emin misiniz?</translation>
+        <translation>Yukarıdaki kullanıcılar oturum açmış durumda ve kapatma nedeniyle veriler kaybedilecek, kapatmak istediğinizden emin misiniz?</translation>
     </message>
 </context>
 <context>
@@ -282,28 +295,28 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="292"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="283"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Kapat</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="300"/>
         <source>Login</source>
-        <translation>Oturum Aç</translation>
+        <translation>Oturum aç</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="318"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
-        <translation>Yeniden Başlat</translation>
+        <translation>Yeniden başlat</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="31"/>
         <location filename="../widgets/shutdownwidget.cpp" line="105"/>
         <source>Suspend</source>
-        <translation>Uyut</translation>
+        <translation>Askıya al</translation>
     </message>
     <message>
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
@@ -317,7 +330,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <source>External monitor detected, suspend?</source>
-        <translation>Dış ekran algılandı, uyutulsun mu?</translation>
+        <translation>Dış ekran algılandı, askıya alınsın mı?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
@@ -333,7 +346,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Suspend</source>
-        <translation>Uyut</translation>
+        <translation>Askıya al</translation>
     </message>
 </context>
 <context>
@@ -341,7 +354,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>Sistem İzleyiciyi Başlat</translation>
+        <translation>Sistem izleyiciyi başlat</translation>
     </message>
 </context>
 <context>
@@ -362,7 +375,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Hoş geldiniz, sistem güncellendi</translation>
+        <translation>Hoş geldiniz, sistem başarıyla güncellendi</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
@@ -380,20 +393,20 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="13"/>
         <source>Login</source>
-        <translation>Oturum Aç</translation>
+        <translation>Oturum aç</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="264"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="250"/>
         <source>Please try again %n minute(s) later</source>
         <translation><numerusform>Lütfen %n dakika sonra yeniden deneyin</numerusform><numerusform>Lütfen %n dakika sonra yeniden deneyin</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="282"/>
         <source>Enter your password to shut down</source>
         <translation>Kapatmak için parolanızı yazın</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="308"/>
         <source>Enter your password to reboot</source>
         <translation>Yeniden başlatmak için parolanızı yazın</translation>
     </message>
@@ -403,7 +416,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>Zengin Kip</translation>
+        <translation>Verimli Kip</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
@@ -418,12 +431,12 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Zengin Kip: Görsel olarak zevkli bir deneyim. Normal Kip: Hızlı ve yüksek başarım deneyimi</translation>
+        <translation>Verimli Kip: Görsel olarak zevkli bir deneyim. Normal Kip: Hızlı ve yüksek başarım deneyimi</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>Bir Hatırlatma</translation>
+        <translation>Arkadaşça Hatırlat</translation>
     </message>
 </context>
 <context>
@@ -431,7 +444,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>Bir Hatırlatma</translation>
+        <translation>Nazikçe Hatırlat</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
@@ -449,7 +462,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Pil şarjı düşük, lütfen prize takın</translation>
+        <translation>Düşük pil, lütfen prize takın</translation>
     </message>
 </context>
 </TS>
