@@ -1,60 +1,73 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="pt" sourcelanguage="en" version="2.1">
 <context>
+    <name>Content</name>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="25"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="26"/>
+        <source>Confirm</source>
+        <translation>Confirmar</translation>
+    </message>
+</context>
+<context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="356"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="325"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="375"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
         <source>Shut down</source>
         <translation>Encerrar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="358"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="380"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
         <source>Reboot</source>
         <translation>Reiniciar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="376"/>
         <source>Are you sure you want to shut down?</source>
         <translation>Tem a certeza que quer encerrar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
         <source>Are you sure you want to reboot?</source>
         <translation>Tem a certeza que quer reiniciar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="537"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="385"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
         <source>Log out</source>
         <translation>Terminar sessão</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="386"/>
         <source>Are you sure you want to log out?</source>
         <translation>Tem a certeza que deseja terminar a sessão?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
         <source>Suspend</source>
         <translation>Suspender</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
         <source>Hibernate</source>
         <translation>Hibernar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="518"/>
         <source>Lock</source>
         <translation>Bloquear</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="541"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
         <source>Switch user</source>
         <translation>Mudar de utilizador</translation>
     </message>
@@ -95,7 +108,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>Continuar a correr %1, é necessário %2MB de memória</translation>
+        <translation>Continuar a executar %1, é necessário %2MB de memória</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
@@ -155,30 +168,30 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="109"/>
+        <location filename="../session-widgets/lockworker.cpp" line="182"/>
         <source>Domain account</source>
-        <translation>Conta do Domínio</translation>
+        <translation>Conta do domínio</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="603"/>
-        <location filename="../session-widgets/lockworker.cpp" line="718"/>
+        <location filename="../session-widgets/lockworker.cpp" line="604"/>
+        <location filename="../session-widgets/lockworker.cpp" line="726"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Expirou o tempo para verificação por impressão digital, por favor insira a sua palavra-passe manualmente</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="621"/>
-        <location filename="../session-widgets/lockworker.cpp" line="733"/>
+        <location filename="../session-widgets/lockworker.cpp" line="622"/>
+        <location filename="../session-widgets/lockworker.cpp" line="741"/>
         <source>Failed to match fingerprint</source>
         <translation>A correspondência da impressão digital falhou</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="649"/>
-        <location filename="../session-widgets/lockworker.cpp" line="751"/>
+        <location filename="../session-widgets/lockworker.cpp" line="657"/>
+        <location filename="../session-widgets/lockworker.cpp" line="765"/>
         <source>Wrong Password</source>
-        <translation>Palavra-passe Errada</translation>
+        <translation>Palavra-passe errada</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="755"/>
+        <location filename="../session-widgets/lockworker.cpp" line="769"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>A conta de domínio ou palavra-passe não está correta. Por favor insira novamente.</translation>
     </message>
@@ -191,12 +204,12 @@
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
         <translation>Os utilizadores acima estão ainda com sessão iniciada e dados serão perdidos devido ao reinício, tem a certeza que quer reiniciar?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
         <translation>Os utilizadores acima estão ainda com sessão iniciada e dados serão perdidos devido ao encerramento, tem a certeza que quer encerrar?</translation>
     </message>
@@ -282,18 +295,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="292"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="283"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Encerrar</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="300"/>
         <source>Login</source>
         <translation>Entrar</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="318"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
@@ -380,20 +393,20 @@
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="13"/>
         <source>Login</source>
-        <translation>Entrar</translation>
+        <translation>Iniciar sessão</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="264"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="250"/>
         <source>Please try again %n minute(s) later</source>
         <translation><numerusform>Por favor tente novamente depois de %n minuto(s)</numerusform><numerusform>Por favor tente novamente depois de %n minuto(s)</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="282"/>
         <source>Enter your password to shut down</source>
         <translation>Insira a sua palavra-passe para encerrar</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="308"/>
         <source>Enter your password to reboot</source>
         <translation>Insira a sua palavra-passe para reiniciar</translation>
     </message>
@@ -403,7 +416,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>Modo Efeitos</translation>
+        <translation>Modo de Efeitos</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
@@ -418,12 +431,12 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Modo de Efeito. Tenha uma experiência delicada. Modo Normal: Desfrute de uma rápida performance</translation>
+        <translation>Modo de Efeitos. Tenha uma experiência delicada. Modo Normal: Desfrute de uma rápida performance</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>Aviso</translation>
+        <translation>Lembrete amigável</translation>
     </message>
 </context>
 <context>
@@ -431,7 +444,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>Aviso</translation>
+        <translation>Lembrete gentil</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
@@ -449,7 +462,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Bateria em baixo, por favor ligue à corrente</translation>
+        <translation>Bateria fraca, por favor ligue à corrente</translation>
     </message>
 </context>
 </TS>
