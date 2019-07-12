@@ -1,6 +1,7 @@
 #include "shutdownworker.h"
 #include "userinfo.h"
 #include "sessionbasemodel.h"
+#include <unistd.h>
 
 using namespace Auth;
 
@@ -11,6 +12,7 @@ ShutdownWorker::ShutdownWorker(SessionBaseModel * const model, QObject *parent)
     if (valueByQSettings<bool>("", "loginPromptAvatar", true)) {
         initDBus();
         initData();
+        model->setCurrentUser(model->findUserByUid(getuid()));
     }
 }
 
