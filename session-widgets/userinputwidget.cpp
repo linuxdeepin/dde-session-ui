@@ -199,6 +199,11 @@ void UserInputWidget::setAvatar(const QString &avatar)
 
 void UserInputWidget::setIsNoPasswordGrp(bool isNopassword)
 {
+    // 针对锁屏应用，不应该受用户是否为nopassgroup影响
+    if (m_authType == SessionBaseModel::LockType) {
+        isNopassword = false;
+    }
+
     m_passwordEdit->abortAuth();
 
     m_passwordEdit->setVisible(!isNopassword && !m_user->isLock());

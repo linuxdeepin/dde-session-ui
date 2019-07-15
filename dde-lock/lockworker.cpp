@@ -57,14 +57,12 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
         if (user_ptr->type() == User::ADDomain && user_ptr->uid() == 0) return;
 
-        if (!user_ptr->isNoPasswdGrp()) {
-            if (isDeepin()) {
-                m_authFramework->SetUser(user_ptr);
-                m_authFramework->Authenticate();
-            }
-            else {
-                m_lockInter->AuthenticateUser(user_ptr->name());
-            }
+        if (isDeepin()) {
+            m_authFramework->SetUser(user_ptr);
+            m_authFramework->Authenticate();
+        }
+        else {
+            m_lockInter->AuthenticateUser(user_ptr->name());
         }
     });
 
@@ -179,14 +177,13 @@ void LockWorker::onUserAdded(const QString &user)
 
     if (user_ptr->uid() == m_currentUserUid) {
         m_model->setCurrentUser(user_ptr);
-        if (!user_ptr->isNoPasswdGrp()) {
-            if (isDeepin()) {
-                m_authFramework->SetUser(user_ptr);
-                m_authFramework->Authenticate();
-            }
-            else {
-                m_lockInter->AuthenticateUser(user_ptr->name());
-            }
+
+        if (isDeepin()) {
+            m_authFramework->SetUser(user_ptr);
+            m_authFramework->Authenticate();
+        }
+        else {
+            m_lockInter->AuthenticateUser(user_ptr->name());
         }
     }
 
