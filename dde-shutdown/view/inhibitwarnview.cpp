@@ -28,6 +28,24 @@
 
 #include <QHBoxLayout>
 
+InhibitorRow::InhibitorRow(QString who, QString why)
+{
+    QHBoxLayout *layout = new QHBoxLayout;
+    QLabel *whoLabel = new QLabel(who);
+    QLabel *whyLabel = new QLabel(why);
+    whoLabel->setStyleSheet("color: white");
+    whyLabel->setStyleSheet("color: white");
+    layout->addWidget(whoLabel);
+    layout->setAlignment(whoLabel, Qt::AlignRight);
+    layout->addWidget(whyLabel);
+    this->setLayout(layout);
+}
+
+InhibitorRow::~InhibitorRow()
+{
+
+}
+
 InhibitWarnView::InhibitWarnView(QWidget *parent)
     : WarningView(parent)
 {
@@ -35,7 +53,9 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
     m_cancelBtn = new RoundItemButton(tr("Cancel"));
     m_acceptBtn->setObjectName("AcceptButton");
     m_cancelBtn->setObjectName("CancelButton");
-    m_reasonLbl = new QLabel;
+    m_confirmTextLabel = new QLabel;
+
+    m_inhibitorListLayout = new QVBoxLayout;
 
     std::function<void (QVariant)> buttonChanged = std::bind(&InhibitWarnView::onOtherPageDataChanged, this, std::placeholders::_1);
     m_dataBindIndex = FrameDataBind::Instance()->registerFunction("InhibitWarnView", buttonChanged);
@@ -44,9 +64,9 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
     m_cancelBtn->setHoverPic(":/img/cancel_hover.svg");
     m_cancelBtn->setPressPic(":/img/cancel_press.svg");
 
-    m_reasonLbl->setText("The reason of inhibit.");
-    m_reasonLbl->setAlignment(Qt::AlignCenter);
-    m_reasonLbl->setStyleSheet("color:white;");
+    m_confirmTextLabel->setText("The reason of inhibit.");
+    m_confirmTextLabel->setAlignment(Qt::AlignCenter);
+    m_confirmTextLabel->setStyleSheet("color:white;");
 
     QVBoxLayout *cancelLayout = new QVBoxLayout;
     cancelLayout->addWidget(m_cancelBtn);
@@ -55,20 +75,23 @@ InhibitWarnView::InhibitWarnView(QWidget *parent)
     acceptLayout->addWidget(m_acceptBtn);
 
     QHBoxLayout *btnsLayout = new QHBoxLayout;
+    btnsLayout->setSpacing(20);
+    btnsLayout->setObjectName("ButtonLayout");
     btnsLayout->addStretch();
     btnsLayout->addLayout(cancelLayout);
-    btnsLayout->addSpacing(20);
     btnsLayout->addLayout(acceptLayout);
     btnsLayout->addStretch();
 
-    QVBoxLayout *centeralLayout = new QVBoxLayout;
-    centeralLayout->addStretch();
-    centeralLayout->addWidget(m_reasonLbl);
-    centeralLayout->addSpacing(20);
-    centeralLayout->addLayout(btnsLayout);
-    centeralLayout->addStretch();
+    QVBoxLayout *centralLayout = new QVBoxLayout;
+    centralLayout->addStretch();
+    centralLayout->addLayout(m_inhibitorListLayout);
+    centralLayout->addSpacing(20);
+    centralLayout->addWidget(m_confirmTextLabel);
+    centralLayout->addSpacing(20);
+    centralLayout->addLayout(btnsLayout);
+    centralLayout->addStretch();
 
-    setLayout(centeralLayout);
+    setLayout(centralLayout);
 
     m_acceptBtn->setChecked(true);
     m_currentBtn = m_acceptBtn;
@@ -82,9 +105,24 @@ InhibitWarnView::~InhibitWarnView()
     FrameDataBind::Instance()->unRegisterFunction("InhibitWarnView", m_dataBindIndex);
 }
 
-void InhibitWarnView::setInhibitReason(const QString &reason)
+void InhibitWarnView::setInhibitorList(const QList<QPair<QString, QString> > &list)
 {
-    m_reasonLbl->setText(reason);
+    for (QWidget* widget : m_inhibitorPtrList) {
+        m_inhibitorListLayout->removeWidget(widget);
+        widget->deleteLater();
+    };
+    m_inhibitorPtrList.clear();
+
+    for (const QPair<QString, QString> &inhibitor : list) {
+        QWidget * inhibitorWidget = new InhibitorRow(inhibitor);
+        m_inhibitorPtrList.append(inhibitorWidget);
+        m_inhibitorListLayout->addWidget(inhibitorWidget);
+    }
+}
+
+void InhibitWarnView::setInhibitConfirmMessage(const QString &text)
+{
+    m_confirmTextLabel->setText(text);
 }
 
 void InhibitWarnView::setAcceptReason(const QString &reason)
