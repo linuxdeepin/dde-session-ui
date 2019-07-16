@@ -4,12 +4,12 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="25"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>إلغاء</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="26"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>تأكيد</translation>
     </message>
 </context>
 <context>
@@ -33,12 +33,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="376"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>هل أنت متأكد من إيقاف التشغيل؟</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>هل أنت متأكد من إعادة التشغيل؟</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="385"/>
@@ -49,7 +49,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="386"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>هل أنت متأكد من تسجيل الخروج؟</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
@@ -59,7 +59,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>وضع السكون</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="518"/>
@@ -150,6 +150,34 @@
     </message>
 </context>
 <context>
+    <name>GreeterWorkek</name>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
+        <source>Domain account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
+        <source>Failed to match fingerprint</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
+        <source>Wrong Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
+        <source>The domain account or password is not correct. Please enter again.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>InhibitWarnView</name>
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="35"/>
@@ -168,32 +196,24 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="182"/>
+        <location filename="../dde-lock/lockworker.cpp" line="91"/>
         <source>Domain account</source>
         <translation>حساب النطاق</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="604"/>
-        <location filename="../session-widgets/lockworker.cpp" line="726"/>
+        <location filename="../dde-lock/lockworker.cpp" line="214"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>نفذ وقت التحقق من البصمة ، رجاءً أدخل كلمة المرور يدويًا</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="622"/>
-        <location filename="../session-widgets/lockworker.cpp" line="741"/>
+        <location filename="../dde-lock/lockworker.cpp" line="232"/>
         <source>Failed to match fingerprint</source>
         <translation>فشل في مطابقة البصمة</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="657"/>
-        <location filename="../session-widgets/lockworker.cpp" line="765"/>
+        <location filename="../dde-lock/lockworker.cpp" line="267"/>
         <source>Wrong Password</source>
         <translation>كلمة المرور غير صحيحة</translation>
-    </message>
-    <message>
-        <location filename="../session-widgets/lockworker.cpp" line="769"/>
-        <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>الحساب أو كلمة المرور غير صحيحة. رجاءً أعد المحاولة.</translation>
     </message>
 </context>
 <context>
@@ -206,12 +226,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>المستخدمون أعلاه لا يزالون قيد تسجيل الدخول وسيتم فقدان البيانات بسبب إعادة التشغيل ، هل أنت متأكد من مواصلة إعادة التشغيل ؟</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>المستخدمون أعلاه لا يزالون قيد تسجيل الدخول وسيتم فقدان البيانات بسبب إيقاف التشغيل ، هل أنت متأكد من مواصلة إيقاف التشغيل ؟</translation>
     </message>
 </context>
 <context>
@@ -233,7 +253,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>المفتاح</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -243,17 +263,17 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>كلمة مرور proxy</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>كلمة المرور الجماعية</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>كلمة السر مطلوبة للاتصال بـ  &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -295,18 +315,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="283"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>إيقاف التشغيل</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="300"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="305"/>
         <source>Login</source>
         <translation>تسجيل دخول</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
@@ -322,7 +342,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>وضع السكون</translation>
     </message>
 </context>
 <context>
@@ -397,17 +417,17 @@
         <translation>تسجيل دخول</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="250"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="255"/>
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>الرجاء إعادة المحاولة بعد n% دقيقة(ائق)</numerusform><numerusform>الرجاء إعادة المحاولة بعد n% دقيقة(ائق)</numerusform><numerusform>الرجاء إعادة المحاولة بعد n% دقيقة(ائق)</numerusform><numerusform>الرجاء إعادة المحاولة بعد n% دقيقة(ائق)</numerusform><numerusform>الرجاء إعادة المحاولة بعد n% دقيقة(ائق)</numerusform><numerusform>الرجاء إعادة المحاولة بعد n% دقيقة(ائق)</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="282"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="287"/>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation>أدخل كلمة المرور ﻹيقاف التشغيل</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="308"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="313"/>
         <source>Enter your password to reboot</source>
         <translation>ادخل كلمة مرورك لإعادة التشغيل</translation>
     </message>
@@ -427,12 +447,12 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation type="unfinished"/>
+        <translation>لقد اكتشف النظام أنك تستخدم جهازاً وهمياً ،والذي سوف يؤثر على أداء النظام والتجربة العملية ، لذا للحصول على تجربة سلسة ، من المستحسن تحديد الوضع العادي</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation type="unfinished"/>
+        <translation>الوضع المؤثر: أحصل على تجربة سلسة و حساسة. الوضع العادي: أستمتع بأداءه السريع</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
@@ -450,7 +470,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>لا يمكن تشغيل هذا التطبيق دون تأثير النافذة</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
