@@ -25,10 +25,10 @@
 
 #ifndef CONTENTVIEWWIDGET
 #define CONTENTVIEWWIDGET
-#include <QtWidgets/QFrame>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QPushButton>
+#include <QFrame>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
 
 #include <memory>
 
@@ -56,9 +56,9 @@ class ContentWidget: public QFrame
 {
     Q_OBJECT
 public:
-    ContentWidget(QWidget* parent=0);
+    ContentWidget(QWidget* parent = nullptr);
     void setModel(SessionBaseModel * const model);
-    ~ContentWidget();
+    ~ContentWidget() override;
 
 signals:
     void requestBackground(const QString &path) const;
@@ -79,7 +79,7 @@ public slots:
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
     void onCancel();
-    const QString getInhibitReason();
+    QList<QPair<QString, QString> > listInhibitors();
     void recoveryLayout();
     void runSystemMonitor();
 
@@ -127,7 +127,7 @@ private:
     DBusSessionManagerInterface* m_sessionInterface = nullptr;
     SystemMonitor *m_systemMonitor;
     com::deepin::wm *m_wmInter;
-    Appearance *m_dbusAppearance = NULL;
+    Appearance *m_dbusAppearance = nullptr;
     ImageBlur *m_blurImageInter;
     SessionBaseModel *m_model;
 };

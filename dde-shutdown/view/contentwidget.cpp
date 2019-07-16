@@ -297,12 +297,12 @@ void ContentWidget::disableBtn(const QString &btnName)
 
 void ContentWidget::beforeInvokeAction(const Actions action)
 {
-    const QString inhibitReason = getInhibitReason();
+    const QList<QPair<QString, QString> > inhibitors = listInhibitors();
 
     const QList<std::shared_ptr<User>> &loginUsers = m_model->logindUser();
 
     // change ui
-    if (m_confirm || !inhibitReason.isEmpty() || loginUsers.length() > 1)
+    if (m_confirm || !inhibitors.isEmpty() || loginUsers.length() > 1)
     {
         for (RoundItemButton* btn : *m_btnsList) {
             btn->hide();
@@ -315,11 +315,13 @@ void ContentWidget::beforeInvokeAction(const Actions action)
         }
     }
 
-    if (!inhibitReason.isEmpty() && action != Logout)
+    if (!inhibitors.isEmpty() && action != Logout)
     {
         InhibitWarnView *view = new InhibitWarnView;
         view->setAction(action);
-        view->setInhibitReason(inhibitReason);
+        view->setInhibitorList(inhibitors);
+        view->setInhibitConfirmMessage(tr("The programs are preventing the computer from shutting down/hibernation, and forcing shut down / hibernate may cause data loss.") + "\n" +
+                                       tr("To close the program, Click Cancel, and then close the program."));
         view->setAcceptVisible(false);
         if (action == Shutdown)
             view->setAcceptReason(tr("Shut down"));
@@ -373,17 +375,17 @@ void ContentWidget::beforeInvokeAction(const Actions action)
         if (action == Shutdown)
         {
             view->setAcceptReason(tr("Shut down"));
-            view->setInhibitReason(tr("Are you sure you want to shut down?"));
+            view->setInhibitConfirmMessage(tr("Are you sure you want to shut down?"));
         }
         else if (action == Restart)
         {
             view->setAcceptReason(tr("Reboot"));
-            view->setInhibitReason(tr("Are you sure you want to reboot?"));
+            view->setInhibitConfirmMessage(tr("Are you sure you want to reboot?"));
         }
         else if (action == Logout)
         {
             view->setAcceptReason(tr("Log out"));
-            view->setInhibitReason(tr("Are you sure you want to log out?"));
+            view->setInhibitConfirmMessage(tr("Are you sure you want to log out?"));
         }
 
         m_warningView = view;
@@ -414,6 +416,9 @@ void ContentWidget::hideToplevelWindow()
 
 void ContentWidget::shutDownFrameActions(const Actions action)
 {
+#ifdef QT_DEBUG
+    return;
+#endif // QT_DEBUG
     // if we don't force this widget to hide, hideEvent will happen after
     // dde-lock showing, since hideEvent enables hot zone, hot zone will
     // take effect while dde-lock is showing.
@@ -543,6 +548,12 @@ void ContentWidget::initUI() {
     buttonLayout->addStretch(0);
 
     defaultpageLayout->setMargin(0);
+#ifdef QT_DEBUG
+    QLabel * m_debugHint = new QLabel("!!! DEBUG MODE !!!", this);
+    m_debugHint->setStyleSheet("color: #FFF;");
+    defaultpageLayout->addWidget(m_debugHint);
+    defaultpageLayout->setAlignment(m_debugHint, Qt::AlignCenter);
+#endif // QT_DEBUG
     defaultpageLayout->addSpacerItem(m_buttonSpacer = new QSpacerItem(0, 0));
     defaultpageLayout->addLayout(buttonLayout);
     defaultpageLayout->addStretch();
@@ -580,7 +591,8 @@ void ContentWidget::initUI() {
     m_currentSelectedBtn->updateState(RoundItemButton::Hover);
 
     //// Inhibit to shutdown
-    getInhibitReason();
+    // blumia: seems this call is useless..
+//    listInhibitors();
 
     QTimer* checkTooltip = new QTimer(this);
     checkTooltip->setInterval(10000);
@@ -589,8 +601,13 @@ void ContentWidget::initUI() {
         InhibitWarnView *view = qobject_cast<InhibitWarnView *>(m_warningView);
         if (!view)
             return;
-        if (getInhibitReason().isEmpty())
+
+        QList<QPair<QString, QString> > list = listInhibitors();
+        if (list.isEmpty()) {
             view->setAcceptVisible(true);
+        } else {
+            view->setInhibitorList(list);
+        }
     });
     checkTooltip->start();
 }
@@ -613,8 +630,9 @@ void ContentWidget::initBackground()
     });
 }
 
-const QString ContentWidget::getInhibitReason() {
-    QString reminder_tooltip  = QString();
+QList<QPair<QString, QString> > ContentWidget::listInhibitors()
+{
+    QList<QPair<QString, QString> > inhibitorList;
 
     if (m_login1Inter->isValid()) {
         qDebug() <<  "m_login1Inter is valid!";
@@ -628,28 +646,23 @@ const QString ContentWidget::getInhibitReason() {
 
             for(int i = 0; i < inhibitList.count();i++) {
                 // Just take care of DStore's inhibition, ignore others'.
-                if (inhibitList.at(i).what == "shutdown"
-                        && inhibitList.at(i).dosome == "block"
-                        && inhibitList.at(i).who == "Deepin Store")
+                const Inhibit &inhibitor = inhibitList.at(i);
+                if (inhibitor.what.split(':', QString::SkipEmptyParts).contains("shutdown")
+                        && inhibitor.dosome == "block")
                 {
-                    setlocale(LC_ALL, "");
-                    reminder_tooltip = dgettext("lastore-daemon", inhibitList.at(i).why.toUtf8());
-                    break;
+                    inhibitorList.append({inhibitor.who, inhibitor.why});
                 }
             }
-            qDebug() << "shutdown Reason!" << reminder_tooltip;
 //            showTips(reminder_tooltip);
-            return reminder_tooltip;
+            qDebug() << "List of valid 'shutdown' inhibitors:" << inhibitorList;
         } else {
-            reminder_tooltip = "";
-            qDebug() << reply.error().message();
+            qWarning() << "D-Bus request reply error:" << reply.error().message();
         }
     } else {
-        qDebug() << "shutdown login1Manager error!";
-        reminder_tooltip = "";
+        qWarning() << "shutdown login1Manager error!";
     }
 
-    return reminder_tooltip;
+    return inhibitorList;
 }
 
 void ContentWidget::recoveryLayout()
