@@ -4,12 +4,12 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="25"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="26"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Confirmar</translation>
     </message>
 </context>
 <context>
@@ -150,6 +150,34 @@
     </message>
 </context>
 <context>
+    <name>GreeterWorkek</name>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
+        <source>Domain account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
+        <source>Failed to match fingerprint</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
+        <source>Wrong Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
+        <source>The domain account or password is not correct. Please enter again.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>InhibitWarnView</name>
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="35"/>
@@ -168,32 +196,24 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="182"/>
+        <location filename="../dde-lock/lockworker.cpp" line="91"/>
         <source>Domain account</source>
         <translation>Conta do domínio</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="604"/>
-        <location filename="../session-widgets/lockworker.cpp" line="726"/>
+        <location filename="../dde-lock/lockworker.cpp" line="214"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>A verificação da impressão digital expirou, por favor digite sua senha manualmente</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="622"/>
-        <location filename="../session-widgets/lockworker.cpp" line="741"/>
+        <location filename="../dde-lock/lockworker.cpp" line="232"/>
         <source>Failed to match fingerprint</source>
         <translation>Falha por digital não identificada</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="657"/>
-        <location filename="../session-widgets/lockworker.cpp" line="765"/>
+        <location filename="../dde-lock/lockworker.cpp" line="267"/>
         <source>Wrong Password</source>
         <translation>Senha Incorreta</translation>
-    </message>
-    <message>
-        <location filename="../session-widgets/lockworker.cpp" line="769"/>
-        <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>A conta de domínio ou senha não está correta. Por favor, digite novamente.</translation>
     </message>
 </context>
 <context>
@@ -295,18 +315,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="283"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Desligar</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="300"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="305"/>
         <source>Login</source>
         <translation>Login</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
@@ -396,17 +416,17 @@
         <translation>Entrar</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="250"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="255"/>
         <source>Please try again %n minute(s) later</source>
         <translation><numerusform>Repetir em %n minuto</numerusform><numerusform>Tente novamente em %n minuto(s)</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="282"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="287"/>
         <source>Enter your password to shut down</source>
         <translation>Digite a senha para desligar</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="308"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="313"/>
         <source>Enter your password to reboot</source>
         <translation>Digite a senha para reiniciar</translation>
     </message>

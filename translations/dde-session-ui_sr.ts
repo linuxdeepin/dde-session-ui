@@ -150,6 +150,34 @@
     </message>
 </context>
 <context>
+    <name>GreeterWorkek</name>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
+        <source>Domain account</source>
+        <translation>Доменски налог</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
+        <source>Fingerprint verification timed out, please enter your password manually</source>
+        <translation>Време за верификацију отиска прста је истекло, унесите лозинку ручно</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
+        <source>Failed to match fingerprint</source>
+        <translation>Неподударање отиска прста</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
+        <source>Wrong Password</source>
+        <translation>Погрешна лозинка</translation>
+    </message>
+    <message>
+        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
+        <source>The domain account or password is not correct. Please enter again.</source>
+        <translation>Доменски налог или лозинка су нетачни. Молимо поново унесите.</translation>
+    </message>
+</context>
+<context>
     <name>InhibitWarnView</name>
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="35"/>
@@ -168,32 +196,24 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="182"/>
+        <location filename="../dde-lock/lockworker.cpp" line="91"/>
         <source>Domain account</source>
         <translation>Доменски налог</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="604"/>
-        <location filename="../session-widgets/lockworker.cpp" line="726"/>
+        <location filename="../dde-lock/lockworker.cpp" line="214"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Време за верификацију отиска прста је истекло, молимо унесите лозинку ручно</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="622"/>
-        <location filename="../session-widgets/lockworker.cpp" line="741"/>
+        <location filename="../dde-lock/lockworker.cpp" line="232"/>
         <source>Failed to match fingerprint</source>
         <translation>Отисак прста се не поклапа</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="657"/>
-        <location filename="../session-widgets/lockworker.cpp" line="765"/>
+        <location filename="../dde-lock/lockworker.cpp" line="267"/>
         <source>Wrong Password</source>
         <translation>Погрешна лозинка</translation>
-    </message>
-    <message>
-        <location filename="../session-widgets/lockworker.cpp" line="769"/>
-        <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>Налог домена или лозинка су нетачни. Молимо поново унесите.</translation>
     </message>
 </context>
 <context>
@@ -295,18 +315,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="283"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>Искључи</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="300"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="305"/>
         <source>Login</source>
         <translation>Пријави се</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
@@ -396,17 +416,17 @@
         <translation>Пријави се</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="250"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="255"/>
         <source>Please try again %n minute(s) later</source>
         <translation><numerusform>Покушајте поново за %n минут</numerusform><numerusform>Покушајте поново за %n минута</numerusform><numerusform>Покушајте поново за %n минута</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="282"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="287"/>
         <source>Enter your password to shut down</source>
         <translation>Унесите лозинку да искључите</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="308"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="313"/>
         <source>Enter your password to reboot</source>
         <translation>Унесите вашу лозинку да поново покренете</translation>
     </message>
