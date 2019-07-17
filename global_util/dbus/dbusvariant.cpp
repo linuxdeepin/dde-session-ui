@@ -40,7 +40,7 @@ void Inhibit::registerMetaType()
 QDBusArgument &operator<<(QDBusArgument &argument, const Inhibit &obj)
 {
     argument.beginStructure();
-    argument << obj.what << obj.who << obj.why << obj.dosome<< obj.mode << obj.fd;
+    argument << obj.what << obj.who << obj.why << obj.mode<< obj.uid << obj.pid;
     argument.endStructure();
     return argument;
 }
@@ -49,7 +49,7 @@ QDBusArgument &operator<<(QDBusArgument &argument, const Inhibit &obj)
 const QDBusArgument &operator>>(const QDBusArgument &argument, Inhibit &obj)
 {
     argument.beginStructure();
-    argument >> obj.what >> obj.who >> obj.why >> obj.dosome >> obj.mode >> obj.fd;
+    argument >> obj.what >> obj.who >> obj.why >> obj.mode >> obj.uid >> obj.pid;
     argument.endStructure();
     return argument;
 }
