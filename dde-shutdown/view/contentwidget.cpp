@@ -335,7 +335,7 @@ bool ContentWidget::beforeInvokeAction(const Actions action)
         else if (action == Hibernate)
             view->setAcceptReason(tr("Hibernate"));
         else if (action == Logout)
-            view->setAcceptReason(tr("Logout"));
+            view->setAcceptReason(tr("Log out"));
 
         m_warningView = view;
         m_mainLayout->addWidget(m_warningView);
