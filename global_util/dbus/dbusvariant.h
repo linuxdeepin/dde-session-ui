@@ -35,9 +35,9 @@ public:
     QString what;
     QString who;
     QString why;
-    QString dosome;
-    quint32 mode;
-    quint32 fd;
+    QString mode;
+    quint32 uid;
+    quint32 pid;
 
     Inhibit();
     ~Inhibit();

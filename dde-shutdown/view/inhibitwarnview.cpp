@@ -28,16 +28,28 @@
 
 #include <QHBoxLayout>
 
-InhibitorRow::InhibitorRow(QString who, QString why)
+InhibitorRow::InhibitorRow(QString who, QString why, const QIcon &icon, QWidget *parent)
+    : QWidget(parent)
 {
     QHBoxLayout *layout = new QHBoxLayout;
     QLabel *whoLabel = new QLabel(who);
-    QLabel *whyLabel = new QLabel(why);
-    whoLabel->setStyleSheet("color: white");
-    whyLabel->setStyleSheet("color: white");
+    QLabel *whyLabel = new QLabel("-" + why);
+    whoLabel->setStyleSheet("color: white; font: bold 12px;");
+    whyLabel->setStyleSheet("color: white;");
+
+    layout->addStretch();
+
+    if (!icon.isNull()) {
+        QLabel *iconLabel = new QLabel(this);
+        QPixmap pixmap = icon.pixmap(topLevelWidget()->windowHandle(), QSize(48, 48));
+        iconLabel->setPixmap(pixmap);
+        iconLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        layout->addWidget(iconLabel);
+    }
+
     layout->addWidget(whoLabel);
-    layout->setAlignment(whoLabel, Qt::AlignRight);
     layout->addWidget(whyLabel);
+    layout->addStretch();
     this->setLayout(layout);
 }
 
@@ -46,8 +58,9 @@ InhibitorRow::~InhibitorRow()
 
 }
 
-InhibitWarnView::InhibitWarnView(QWidget *parent)
+InhibitWarnView::InhibitWarnView(Actions inhibitType, QWidget *parent)
     : WarningView(parent)
+    , m_inhibitType(inhibitType)
 {
     m_acceptBtn = new RoundItemButton(QString());
     m_cancelBtn = new RoundItemButton(tr("Cancel"));
@@ -105,7 +118,7 @@ InhibitWarnView::~InhibitWarnView()
     FrameDataBind::Instance()->unRegisterFunction("InhibitWarnView", m_dataBindIndex);
 }
 
-void InhibitWarnView::setInhibitorList(const QList<QPair<QString, QString> > &list)
+void InhibitWarnView::setInhibitorList(const QList<InhibitorData> &list)
 {
     for (QWidget* widget : m_inhibitorPtrList) {
         m_inhibitorListLayout->removeWidget(widget);
@@ -113,8 +126,22 @@ void InhibitWarnView::setInhibitorList(const QList<QPair<QString, QString> > &li
     };
     m_inhibitorPtrList.clear();
 
-    for (const QPair<QString, QString> &inhibitor : list) {
-        QWidget * inhibitorWidget = new InhibitorRow(inhibitor);
+    for (const InhibitorData &inhibitor : list) {
+        QIcon icon;
+
+        if (inhibitor.pid) {
+            QFileInfo executable_info(QFile::readLink(QString("/proc/%1/exe").arg(inhibitor.pid)));
+
+            if (executable_info.exists()) {
+                icon = QIcon::fromTheme(executable_info.fileName());
+            }
+        }
+
+        if (icon.isNull()) {
+            icon = QIcon::fromTheme("application-x-desktop");
+        }
+
+        QWidget * inhibitorWidget = new InhibitorRow(inhibitor.who, inhibitor.why, icon, this);
         m_inhibitorPtrList.append(inhibitorWidget);
         m_inhibitorListLayout->addWidget(inhibitorWidget);
     }
@@ -176,6 +203,11 @@ void InhibitWarnView::toggleButtonState()
 void InhibitWarnView::buttonClickHandle()
 {
     emit m_currentBtn->clicked();
+}
+
+Actions InhibitWarnView::inhibitType() const
+{
+    return m_inhibitType;
 }
 
 void InhibitWarnView::onOtherPageDataChanged(const QVariant &value)

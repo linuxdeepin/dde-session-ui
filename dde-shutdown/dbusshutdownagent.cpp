@@ -49,12 +49,22 @@ void DBusShutdownAgent::Logout()
 
 void DBusShutdownAgent::Suspend()
 {
-    m_frames.first()->powerAction(Actions::Suspend);
+    // action未成功执行时，可能是被其它应用程序阻塞，此时应当确保主窗口显示，将阻塞程序的列表显示出来
+    if (!m_frames.first()->powerAction(Actions::Suspend)) {
+        for (ShutdownFrame *frame : m_frames) {
+            frame->show();
+        }
+    }
 }
 
 void DBusShutdownAgent::Hibernate()
 {
-    m_frames.first()->powerAction(Actions::Hibernate);
+    // action未成功执行时，可能是被其它应用程序阻塞，此时应当确保主窗口显示，将阻塞程序的列表显示出来
+    if (!m_frames.first()->powerAction(Actions::Hibernate)) {
+        for (ShutdownFrame *frame : m_frames) {
+            frame->show();
+        }
+    }
 }
 
 void DBusShutdownAgent::SwitchUser()

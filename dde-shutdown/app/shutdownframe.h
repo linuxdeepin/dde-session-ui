@@ -45,7 +45,7 @@ Q_SIGNALS:
     void requestEnableHotzone(bool enable);
 
 public slots:
-    void powerAction(const Actions action);
+    bool powerAction(const Actions action);
     void setConfirm(const bool confrim);
 
 protected:
