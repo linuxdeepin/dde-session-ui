@@ -1,60 +1,75 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" sourcelanguage="en" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN" sourcelanguage="en">
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="356"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="382"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="406"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="522"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="360"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="520"/>
         <source>Shut down</source>
         <translation>关机</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="358"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="384"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="411"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="332"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="362"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="389"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="523"/>
         <source>Reboot</source>
         <translation>重启</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="407"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="385"/>
         <source>Are you sure you want to shut down?</source>
         <translation>您确定要关机吗？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="412"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="390"/>
         <source>Are you sure you want to reboot?</source>
         <translation>您确定要重启吗？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="416"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="537"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="394"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="535"/>
         <source>Log out</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="417"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="395"/>
         <source>Are you sure you want to log out?</source>
         <translation>您确定要注销吗？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="528"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="526"/>
         <source>Suspend</source>
         <translation>待机</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="531"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
+        <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
+        <translation>以上程序阻止关机，强制关机可能会导致其数据丢失。</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <source>To close the program, Click Cancel, and then close the program.</source>
+        <translation>您可以点击取消然后关闭这些程序。</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="529"/>
         <source>Hibernate</source>
         <translation>休眠</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="534"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="532"/>
         <source>Lock</source>
         <translation>锁定</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="541"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
         <source>Switch user</source>
         <translation>切换用户</translation>
     </message>
@@ -139,7 +154,7 @@
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="35"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="66"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -155,30 +170,30 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="109"/>
+        <location filename="../session-widgets/lockworker.cpp" line="182"/>
         <source>Domain account</source>
         <translation>域账户</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="603"/>
-        <location filename="../session-widgets/lockworker.cpp" line="718"/>
+        <location filename="../session-widgets/lockworker.cpp" line="604"/>
+        <location filename="../session-widgets/lockworker.cpp" line="726"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>指纹密码验证超时，请手动输入密码！</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="621"/>
-        <location filename="../session-widgets/lockworker.cpp" line="733"/>
+        <location filename="../session-widgets/lockworker.cpp" line="622"/>
+        <location filename="../session-widgets/lockworker.cpp" line="741"/>
         <source>Failed to match fingerprint</source>
         <translation>指纹解锁失败</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="649"/>
-        <location filename="../session-widgets/lockworker.cpp" line="751"/>
+        <location filename="../session-widgets/lockworker.cpp" line="657"/>
+        <location filename="../session-widgets/lockworker.cpp" line="765"/>
         <source>Wrong Password</source>
         <translation>密码错误</translation>
     </message>
     <message>
-        <location filename="../session-widgets/lockworker.cpp" line="755"/>
+        <location filename="../session-widgets/lockworker.cpp" line="769"/>
         <source>The domain account or password is not correct. Please enter again.</source>
         <translation>域账户或域密码不正确，请重新输入。</translation>
     </message>
@@ -191,12 +206,12 @@
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="128"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
         <translation>此电脑还有以上帐户在登录，重启电脑会导致其数据丢失，是否要重启此电脑？</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="122"/>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
         <translation>此电脑还有以上帐户在登录，关闭电脑会导致其数据丢失，是否要关闭此电脑？</translation>
     </message>
@@ -282,18 +297,18 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="292"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="283"/>
         <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
         <translation>关机</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="300"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="318"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="309"/>
         <location filename="../widgets/shutdownwidget.cpp" line="30"/>
         <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
@@ -383,17 +398,19 @@
         <translation>登录</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="264"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="250"/>
         <source>Please try again %n minute(s) later</source>
-        <translation><numerusform>请%n分钟后再试</numerusform></translation>
+        <translation>
+            <numerusform>请%n分钟后再试</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="291"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="282"/>
         <source>Enter your password to shut down</source>
         <translation>请输入密码以完成关机</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="317"/>
+        <location filename="../session-widgets/userinputwidget.cpp" line="308"/>
         <source>Enter your password to reboot</source>
         <translation>请输入密码以完成重启</translation>
     </message>
