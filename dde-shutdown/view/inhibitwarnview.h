@@ -36,8 +36,7 @@ class InhibitorRow : public QWidget
 {
     Q_OBJECT
 public:
-    InhibitorRow(QString who, QString why);
-    InhibitorRow(const QPair<QString, QString> data) : InhibitorRow(data.first, data.second) {}
+    InhibitorRow(QString who, QString why, const QIcon &icon = QIcon(), QWidget *parent = nullptr);
     ~InhibitorRow() override;
 };
 
@@ -46,10 +45,16 @@ class InhibitWarnView : public WarningView
     Q_OBJECT
 
 public:
-    explicit InhibitWarnView(QWidget *parent = nullptr);
+    explicit InhibitWarnView(Actions inhibitType, QWidget *parent = nullptr);
     ~InhibitWarnView() override;
 
-    void setInhibitorList(const QList<QPair<QString, QString> > & list);
+    struct InhibitorData {
+        QString who;
+        QString why;
+        quint32 pid;
+    };
+
+    void setInhibitorList(const QList<InhibitorData> & list);
     void setInhibitConfirmMessage(const QString &text);
     void setAcceptReason(const QString &reason) override;
     void setAction(const Actions action);
@@ -57,6 +62,8 @@ public:
 
     void toggleButtonState() Q_DECL_OVERRIDE;
     void buttonClickHandle() Q_DECL_OVERRIDE;
+
+    Actions inhibitType() const;
 
 signals:
     void cancelled() const;
@@ -75,6 +82,7 @@ private:
     RoundItemButton *m_cancelBtn;
     RoundItemButton *m_currentBtn;
     int m_dataBindIndex;
+    Actions m_inhibitType;
 };
 
 #endif // INHIBITWARNVIEW_H

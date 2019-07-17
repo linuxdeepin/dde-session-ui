@@ -44,6 +44,7 @@
 #include "dbus/dbussessionmanager.h"
 #include "systemmonitor.h"
 #include "warningview.h"
+#include "inhibitwarnview.h"
 
 using Appearance = com::deepin::daemon::Appearance;
 using ImageBlur = com::deepin::daemon::ImageBlur;
@@ -72,14 +73,14 @@ protected:
 
 public slots:
     void setConfirm(const bool confirm);
-    void powerAction(const Actions action);
+    bool powerAction(const Actions action);
     void setPreviousChildFocus();
     void setNextChildFocus();
     void showTips(const QString &tips);
     void hideBtns(const QStringList &btnsName);
     void disableBtns(const QStringList &btnsName);
     void onCancel();
-    QList<QPair<QString, QString> > listInhibitors();
+    QList<InhibitWarnView::InhibitorData> listInhibitors(const Actions action);
     void recoveryLayout();
     void runSystemMonitor();
 
@@ -91,7 +92,7 @@ private:
     void enterKeyPushed();
     void hideBtn(const QString &btnName);
     void disableBtn(const QString &btnName);
-    void beforeInvokeAction(const Actions action);
+    bool beforeInvokeAction(const Actions action);
     void hideToplevelWindow();
     void shutDownFrameActions(const Actions action);
 

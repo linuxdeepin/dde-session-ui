@@ -190,25 +190,28 @@ void ContentWidget::setConfirm(const bool confirm)
     m_confirm = confirm;
 }
 
-void ContentWidget::powerAction(const Actions action)
+bool ContentWidget::powerAction(const Actions action)
 {
     switch (action)
     {
     case Shutdown:
     case Restart:
+    case Suspend:
+    case Hibernate:
     case Logout:
-        beforeInvokeAction(action);
-        break;
+        return beforeInvokeAction(action);
     default:
         shutDownFrameActions(action);
     }
+
+    return true;
 }
 
 void ContentWidget::initConnect() {
     connect(m_shutdownButton, &RoundItemButton::clicked, [this] { beforeInvokeAction(Shutdown);});
     connect(m_restartButton, &RoundItemButton::clicked, [this] { beforeInvokeAction(Restart);});
-    connect(m_suspendButton, &RoundItemButton::clicked, [this] { shutDownFrameActions(Suspend);});
-    connect(m_hibernateButton, &RoundItemButton::clicked, [=] {shutDownFrameActions(Hibernate);});
+    connect(m_suspendButton, &RoundItemButton::clicked, [this] { beforeInvokeAction(Suspend);});
+    connect(m_hibernateButton, &RoundItemButton::clicked, [=] {beforeInvokeAction(Hibernate);});
     connect(m_lockButton, &RoundItemButton::clicked, [this] { shutDownFrameActions(Lock);});
     connect(m_logoutButton, &RoundItemButton::clicked, [this] {emit beforeInvokeAction(Logout);});
     connect(m_switchUserBtn, &RoundItemButton::clicked, [this] { shutDownFrameActions(SwitchUser);});
@@ -248,7 +251,7 @@ void ContentWidget::enterKeyPushed()
     else if (m_currentSelectedBtn == m_restartButton)
         beforeInvokeAction(Restart);
     else if (m_currentSelectedBtn == m_suspendButton)
-         shutDownFrameActions(Suspend);
+         beforeInvokeAction(Suspend);
     else if (m_currentSelectedBtn == m_lockButton)
          shutDownFrameActions(Lock);
     else if (m_currentSelectedBtn == m_logoutButton)
@@ -256,7 +259,7 @@ void ContentWidget::enterKeyPushed()
     else if (m_currentSelectedBtn == m_switchUserBtn)
          shutDownFrameActions(SwitchUser);
     else if (m_currentSelectedBtn == m_hibernateButton)
-        shutDownFrameActions(Hibernate);
+        beforeInvokeAction(Hibernate);
 }
 
 void ContentWidget::hideBtn(const QString &btnName)
@@ -295,9 +298,9 @@ void ContentWidget::disableBtn(const QString &btnName)
         return;
 }
 
-void ContentWidget::beforeInvokeAction(const Actions action)
+bool ContentWidget::beforeInvokeAction(const Actions action)
 {
-    const QList<QPair<QString, QString> > inhibitors = listInhibitors();
+    const QList<InhibitWarnView::InhibitorData> inhibitors = listInhibitors(action);
 
     const QList<std::shared_ptr<User>> &loginUsers = m_model->logindUser();
 
@@ -315,20 +318,24 @@ void ContentWidget::beforeInvokeAction(const Actions action)
         }
     }
 
-    if (!inhibitors.isEmpty() && action != Logout)
+    if (!inhibitors.isEmpty())
     {
-        InhibitWarnView *view = new InhibitWarnView;
+        InhibitWarnView *view = new InhibitWarnView(action, this);
         view->setAction(action);
         view->setInhibitorList(inhibitors);
-        view->setInhibitConfirmMessage(tr("The programs are preventing the computer from shutting down/hibernation, and forcing shut down / hibernate may cause data loss.") + "\n" +
+        view->setInhibitConfirmMessage(tr("The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.") + "\n" +
                                        tr("To close the program, Click Cancel, and then close the program."));
         view->setAcceptVisible(false);
         if (action == Shutdown)
             view->setAcceptReason(tr("Shut down"));
         else if (action == Restart)
             view->setAcceptReason(tr("Reboot"));
-        else
-            Q_UNREACHABLE();
+        else if (action == Suspend)
+            view->setAcceptReason(tr("Suspend"));
+        else if (action == Hibernate)
+            view->setAcceptReason(tr("Hibernate"));
+        else if (action == Logout)
+            view->setAcceptReason(tr("Logout"));
 
         m_warningView = view;
         m_mainLayout->addWidget(m_warningView);
@@ -339,10 +346,10 @@ void ContentWidget::beforeInvokeAction(const Actions action)
              shutDownFrameActions(action);
         });
 
-        return;
+        return false;
     }
 
-    if (loginUsers.length() > 1 && action != Logout) {
+    if (loginUsers.length() > 1 && (action == Shutdown || action == Restart)) {
         QList<std::shared_ptr<User>> tmpList = loginUsers;
 
         for (auto it = tmpList.begin(); it != tmpList.end();) {
@@ -370,14 +377,14 @@ void ContentWidget::beforeInvokeAction(const Actions action)
              shutDownFrameActions(action);
         });
 
-        return;
+        return false;
     }
 
-    if (m_confirm)
+    if (m_confirm && (action == Shutdown || action == Restart || action == Logout))
     {
         m_confirm = false;
 
-        InhibitWarnView *view = new InhibitWarnView;
+        InhibitWarnView *view = new InhibitWarnView(action, this);
         view->setAction(action);
         if (action == Shutdown)
         {
@@ -405,10 +412,12 @@ void ContentWidget::beforeInvokeAction(const Actions action)
              shutDownFrameActions(action);
         });
 
-        return;
+        return false;
     }
 
      shutDownFrameActions(action);
+
+     return true;
 }
 
 void ContentWidget::hideToplevelWindow()
@@ -609,11 +618,13 @@ void ContentWidget::initUI() {
         if (!view)
             return;
 
-        QList<QPair<QString, QString> > list = listInhibitors();
+        QList<InhibitWarnView::InhibitorData> list = listInhibitors(view->inhibitType());
+        view->setInhibitorList(list);
+
         if (list.isEmpty()) {
+            // 清空提示的内容
+            view->setInhibitConfirmMessage(QString());
             view->setAcceptVisible(true);
-        } else {
-            view->setInhibitorList(list);
         }
     });
     checkTooltip->start();
@@ -637,9 +648,9 @@ void ContentWidget::initBackground()
     });
 }
 
-QList<QPair<QString, QString> > ContentWidget::listInhibitors()
+QList<InhibitWarnView::InhibitorData> ContentWidget::listInhibitors(const Actions action)
 {
-    QList<QPair<QString, QString> > inhibitorList;
+    QList<InhibitWarnView::InhibitorData> inhibitorList;
 
     if (m_login1Inter->isValid()) {
         qDebug() <<  "m_login1Inter is valid!";
@@ -651,17 +662,41 @@ QList<QPair<QString, QString> > ContentWidget::listInhibitors()
             InhibitorsList inhibitList = qdbus_cast<InhibitorsList>(reply.argumentAt(0));
             qDebug() << "inhibitList:" << inhibitList.count();
 
+            QString type;
+
+            switch (action) {
+            case Actions::Shutdown:
+            case Actions::Restart:
+            case Actions::Logout:
+                type = "shutdown";
+                break;
+            case Actions::Suspend:
+            case Actions::Hibernate:
+                type = "sleep";
+                break;
+            default:
+                return {};
+            }
+
             for(int i = 0; i < inhibitList.count();i++) {
                 // Just take care of DStore's inhibition, ignore others'.
                 const Inhibit &inhibitor = inhibitList.at(i);
-                if (inhibitor.what.split(':', QString::SkipEmptyParts).contains("shutdown")
-                        && inhibitor.dosome == "block")
+                if (inhibitor.what.split(':', QString::SkipEmptyParts).contains(type)
+                        && inhibitor.mode == "block")
                 {
-                    inhibitorList.append({inhibitor.who, inhibitor.why});
+                    inhibitorList.append({inhibitor.who, inhibitor.why, inhibitor.pid});
                 }
             }
 //            showTips(reminder_tooltip);
-            qDebug() << "List of valid 'shutdown' inhibitors:" << inhibitorList;
+            qDebug() << "List of valid '" << type << "' inhibitors:";
+
+            for (const InhibitWarnView::InhibitorData &data : inhibitorList) {
+                qDebug() << "who:" << data.who;
+                qDebug() << "why:" << data.why;
+                qDebug() << "pid:" << data.pid;
+            }
+
+            qDebug() << "End list inhibitor";
         } else {
             qWarning() << "D-Bus request reply error:" << reply.error().message();
         }

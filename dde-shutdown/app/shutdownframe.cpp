@@ -52,9 +52,9 @@ ShutdownFrame::ShutdownFrame(SessionBaseModel * const model, QWidget *parent)
     });
 }
 
-void ShutdownFrame::powerAction(const Actions action)
+bool ShutdownFrame::powerAction(const Actions action)
 {
-    m_shutdownFrame->powerAction(action);
+    return m_shutdownFrame->powerAction(action);
 }
 
 void ShutdownFrame::setConfirm(const bool confrim)
