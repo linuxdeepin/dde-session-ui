@@ -351,7 +351,14 @@ bool ContentWidget::beforeInvokeAction(const Actions action)
 
     if (loginUsers.length() > 1 && (action == Shutdown || action == Restart)) {
         QList<std::shared_ptr<User>> tmpList = loginUsers;
-        tmpList.removeOne(m_model->currentUser());
+
+        for (auto it = tmpList.begin(); it != tmpList.end();) {
+            if ((*it)->uid() == m_model->currentUser()->uid()) {
+                it = tmpList.erase(it);
+                continue;
+            }
+            ++it;
+        }
 
         MultiUsersWarningView *view = new MultiUsersWarningView(this);
         view->setUsers(tmpList);
