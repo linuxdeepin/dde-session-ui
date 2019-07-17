@@ -32,15 +32,25 @@
 
 #include <QWidget>
 
+class InhibitorRow : public QWidget
+{
+    Q_OBJECT
+public:
+    InhibitorRow(QString who, QString why);
+    InhibitorRow(const QPair<QString, QString> data) : InhibitorRow(data.first, data.second) {}
+    ~InhibitorRow() override;
+};
+
 class InhibitWarnView : public WarningView
 {
     Q_OBJECT
 
 public:
-    explicit InhibitWarnView(QWidget *parent = 0);
-    ~InhibitWarnView();
+    explicit InhibitWarnView(QWidget *parent = nullptr);
+    ~InhibitWarnView() override;
 
-    void setInhibitReason(const QString &reason);
+    void setInhibitorList(const QList<QPair<QString, QString> > & list);
+    void setInhibitConfirmMessage(const QString &text);
     void setAcceptReason(const QString &reason) override;
     void setAction(const Actions action);
     void setAcceptVisible(const bool acceptable);
@@ -58,7 +68,9 @@ private:
 private:
     Actions m_action;
 
-    QLabel *m_reasonLbl;
+    QList<QWidget*> m_inhibitorPtrList;
+    QVBoxLayout *m_inhibitorListLayout = nullptr;
+    QLabel *m_confirmTextLabel = nullptr;
     RoundItemButton *m_acceptBtn;
     RoundItemButton *m_cancelBtn;
     RoundItemButton *m_currentBtn;
