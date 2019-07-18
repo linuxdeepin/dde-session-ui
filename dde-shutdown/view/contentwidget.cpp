@@ -433,8 +433,15 @@ void ContentWidget::shutDownFrameActions(const Actions action)
     // take effect while dde-lock is showing.
 
     switch (action) {
-    case Shutdown:       m_sessionInterface->RequestShutdown();      break;
-    case Restart:        m_sessionInterface->RequestReboot();        break;
+    // startdde中，调用重启或关机时，会直接关闭屏幕显示。而dde-shutdown窗口会再此之后隐藏
+    // 这将导致关闭的屏幕会被再次点亮，因此此处添加延时调用reboot/shutdown，将窗口的隐藏
+    // 或其它因素（如当前键盘可能已经被按下）导致屏幕被点亮
+    case Shutdown:
+        QTimer::singleShot(100, m_sessionInterface, &DBusSessionManagerInterface::RequestShutdown);
+        break;
+    case Restart:
+        QTimer::singleShot(100, m_sessionInterface, &DBusSessionManagerInterface::RequestReboot);
+        break;
     case Suspend:        m_sessionInterface->RequestSuspend();       break;
     case Hibernate:      m_sessionInterface->RequestHibernate();     break;
     case Lock:           m_sessionInterface->RequestLock();          break;
