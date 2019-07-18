@@ -77,6 +77,7 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
     , m_lockInter(new DBusLockService(LOCKSERVICE_NAME, LOCKSERVICE_PATH, QDBusConnection::systemBus(), this))
     , m_hotZoneInter(new DBusHotzone("com.deepin.daemon.Zone", "/com/deepin/daemon/Zone", QDBusConnection::sessionBus(), this))
     , m_settings("/usr/share/dde-session-ui/dde-session-ui.conf", QSettings::IniFormat)
+    , m_sessionManager(new SessionManager("com.deepin.SessionManager", "/com/deepin/SessionManager", QDBusConnection::sessionBus(), this))
 {
     m_authFramework = new DeepinAuthFramework(this, this);
 
@@ -155,6 +156,12 @@ LockWorker::LockWorker(SessionBaseModel * const model, QObject *parent)
 
     connect(m_loginedInter, &LoginedInter::LastLogoutUserChanged, this, &LockWorker::onLastLogoutUserChanged);
     connect(m_loginedInter, &LoginedInter::UserListChanged, this, &LockWorker::onLoginUserListChanged);
+
+    connect(m_sessionManager, &SessionManager::Unlock, this, [=] {
+        m_authenticating = false;
+        m_password.clear();
+        emit m_model->authFinished(true);
+    });
 
     if (valueByQSettings<bool>("", "loginPromptAvatar", true)) {
         connect(m_accountsInter, &AccountsInter::UserListChanged, this, &LockWorker::onUserListChanged);
