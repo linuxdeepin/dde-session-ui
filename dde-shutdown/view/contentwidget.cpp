@@ -624,7 +624,9 @@ void ContentWidget::initUI() {
         if (list.isEmpty()) {
             // 清空提示的内容
             view->setInhibitConfirmMessage(QString());
-            view->setAcceptVisible(true);
+//            view->setAcceptVisible(true);
+            // 直接继续之前的操作
+            shutDownFrameActions(view->inhibitType());
         }
     });
     checkTooltip->start();
