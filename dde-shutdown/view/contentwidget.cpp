@@ -442,8 +442,12 @@ void ContentWidget::shutDownFrameActions(const Actions action)
     case Restart:
         QTimer::singleShot(100, m_sessionInterface, &DBusSessionManagerInterface::RequestReboot);
         break;
-    case Suspend:        m_sessionInterface->RequestSuspend();       break;
-    case Hibernate:      m_sessionInterface->RequestHibernate();     break;
+    case Suspend:
+        QTimer::singleShot(100, m_sessionInterface, &DBusSessionManagerInterface::RequestSuspend);
+        break;
+    case Hibernate:
+        QTimer::singleShot(100, m_sessionInterface, &DBusSessionManagerInterface::RequestHibernate);
+        break;
     case Lock:           m_sessionInterface->RequestLock();          break;
     case Logout:         m_sessionInterface->RequestLogout();        break;
     case SwitchUser:
