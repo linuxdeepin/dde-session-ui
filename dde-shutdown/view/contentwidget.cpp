@@ -437,16 +437,16 @@ void ContentWidget::shutDownFrameActions(const Actions action)
     // 这将导致关闭的屏幕会被再次点亮，因此此处添加延时调用reboot/shutdown，将窗口的隐藏
     // 或其它因素（如当前键盘可能已经被按下）导致屏幕被点亮
     case Shutdown:
-        QTimer::singleShot(100, m_sessionInterface, &DBusSessionManagerInterface::RequestShutdown);
+        QTimer::singleShot(500, m_sessionInterface, &DBusSessionManagerInterface::RequestShutdown);
         break;
     case Restart:
-        QTimer::singleShot(100, m_sessionInterface, &DBusSessionManagerInterface::RequestReboot);
+        QTimer::singleShot(500, m_sessionInterface, &DBusSessionManagerInterface::RequestReboot);
         break;
     case Suspend:
-        QTimer::singleShot(100, m_sessionInterface, &DBusSessionManagerInterface::RequestSuspend);
+        QTimer::singleShot(500, m_sessionInterface, &DBusSessionManagerInterface::RequestSuspend);
         break;
     case Hibernate:
-        QTimer::singleShot(100, m_sessionInterface, &DBusSessionManagerInterface::RequestHibernate);
+        QTimer::singleShot(500, m_sessionInterface, &DBusSessionManagerInterface::RequestHibernate);
         break;
     case Lock:           m_sessionInterface->RequestLock();          break;
     case Logout:         m_sessionInterface->RequestLogout();        break;
