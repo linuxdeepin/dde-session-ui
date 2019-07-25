@@ -465,7 +465,10 @@ void ContentWidget::shutDownFrameActions(const Actions action)
         break;
     }
 
-    hideToplevelWindow();
+    // Delay hide window to wait dpms off in startdde.
+    // The purpose is to hide the bug of  showing
+    // confusion(flower screen) on huawei kelvin laptop.
+    QTimer::singleShot(600, this, &ContentWidget::hideToplevelWindow);
 }
 
 void ContentWidget::currentWorkspaceChanged()
