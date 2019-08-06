@@ -37,7 +37,6 @@ public:
     void start();
 
 private:
-    QProcess *m_shutdown;
     QProcess *m_lock;
 
     void restart();
