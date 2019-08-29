@@ -33,6 +33,8 @@
 #include <QGSettings>
 #include <DPlatformWindowHandle>
 
+DGUI_USE_NAMESPACE
+
 Container::Container(QWidget *parent)
     : DBlurEffectWidget(parent)
     , m_wmHelper(DWindowManagerHelper::instance())
