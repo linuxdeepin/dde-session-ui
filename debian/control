@@ -20,7 +20,7 @@ Build-Depends: debhelper (>= 8.0.0), pkg-config,
  libxtst-dev,
  libxcursor-dev,
  libxrandr-dev,
- libdtkcore-bin
+ libdtkcore5-bin
 Standards-Version: 3.9.4
 Homepage: http://www.deepin.org/
 

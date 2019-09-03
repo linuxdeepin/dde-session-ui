@@ -1,8 +1,8 @@
 TEMPLATE = subdirs
-SUBDIRS += dde-shutdown \
-    dde-license-dialog \
-    dde-lock \
-    lightdm-deepin-greeter \
+SUBDIRS += dde-license-dialog \
+    #dde-shutdown \
+    #dde-lock \
+    #lightdm-deepin-greeter \
     dde-switchtogreeter \
     dde-lowpower \
     dde-osd \
