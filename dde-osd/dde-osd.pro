@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui dbus x11extras svg sql
+QT       += core gui dbus x11extras svg sql dtkwidget
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,7 +12,7 @@ LIBS += -lX11 -lXext
 TARGET = dde-osd
 TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dframeworkdbus dtkwidget dtkgui gsettings-qt xcb-ewmh
+PKGCONFIG += dframeworkdbus dtkgui gsettings-qt xcb-ewmh
 
 SOURCES += main.cpp \
     container.cpp \

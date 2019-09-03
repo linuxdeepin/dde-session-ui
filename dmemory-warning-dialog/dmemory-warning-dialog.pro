@@ -1,10 +1,10 @@
-QT       += core gui widgets dbus
+QT       += core gui widgets dbus dtkwidget
 
 TARGET = dmemory-warning-dialog
 TEMPLATE = app
 
 CONFIG += c++14 link_pkgconfig
-PKGCONFIG += dtkwidget dframeworkdbus
+PKGCONFIG += dframeworkdbus
 
 HEADERS += \
     src/buttondelegate.h \

@@ -4,14 +4,13 @@
 #
 #-------------------------------------------------
 
-QT       += core gui dbus
+QT       += core gui dbus dtkwidget
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = dde-offline-upgrader
 TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dtkwidget
 
 SOURCES += main.cpp\
         frame.cpp \

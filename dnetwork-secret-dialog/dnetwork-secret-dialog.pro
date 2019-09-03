@@ -1,4 +1,4 @@
-QT       += core gui widgets
+QT       += core gui widgets dtkwidget
 
 TARGET = dnetwork-secret-dialog
 TEMPLATE = app
@@ -6,7 +6,6 @@ TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dtkwidget
 
 SOURCES += \
         main.cpp \

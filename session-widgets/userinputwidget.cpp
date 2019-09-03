@@ -17,7 +17,8 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     : QWidget(parent)
     , m_userAvatar(new UserAvatar(this))
     , m_nameLbl(new QLabel(this))
-    , m_passwordEdit(new DPasswdEditAnimated(this))
+//    , m_passwordEdit(new DPasswdEditAnimated(this))
+    , m_passwordEdit(new DPasswordEdit(this))
     , m_otherUserInput(new OtherUserInput(this))
     , m_loginBtn(new LoginButton(this))
     , m_kbLayoutBorder(new DArrowRectangle(DArrowRectangle::ArrowTop))
@@ -34,13 +35,14 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     std::function<void (QVariant)> kblayoutChanged = std::bind(&UserInputWidget::onOtherPageKBLayoutChanged, this, std::placeholders::_1);
     registerFunctionIndexs["KBLayout"] = FrameDataBind::Instance()->registerFunction("KBLayout", kblayoutChanged);
 
-    connect(this, &UserInputWidget::destroyed, this, [=] {
-        for (auto it = registerFunctionIndexs.constBegin(); it != registerFunctionIndexs.constEnd(); ++it) {
+    connect(this, &UserInputWidget::destroyed, this, [ = ] {
+        for (auto it = registerFunctionIndexs.constBegin(); it != registerFunctionIndexs.constEnd(); ++it)
+        {
             FrameDataBind::Instance()->unRegisterFunction(it.key(), it.value());
         }
     });
 
-    QTimer::singleShot(0, this, [=] {
+    QTimer::singleShot(0, this, [ = ] {
         FrameDataBind::Instance()->refreshData("Password");
         FrameDataBind::Instance()->refreshData("KBLayout");
     });
@@ -55,20 +57,22 @@ UserInputWidget::UserInputWidget(QWidget *parent)
                              "text-align: center;"
                              "color: #ffffff;");
 
-    m_passwordEdit->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
-                                  ":/img/action_icons/unlock_hover.svg",
-                                  ":/img/action_icons/unlock_press.svg");
+//    m_passwordEdit->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
+//                                  ":/img/action_icons/unlock_hover.svg",
+//                                  ":/img/action_icons/unlock_press.svg");
 
-    m_passwordEdit->setEyeButtonEnable(false);
+//    m_passwordEdit->setEyeButtonEnable(false);
     m_passwordEdit->setContentsMargins(5, 0, 0, 0);
-    m_passwordEdit->lineEdit()->setContextMenuPolicy(Qt::NoContextMenu);
+//    m_passwordEdit->lineEdit()->setContextMenuPolicy(Qt::NoContextMenu);
+    m_passwordEdit->setContextMenuPolicy(Qt::NoContextMenu);
     m_passwordEdit->setFixedSize(QSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, DDESESSIONCC::PASSWDLINEEDIT_HEIGHT));
     m_passwordEdit->setFocusPolicy(Qt::StrongFocus);
     // FIXME: do not work in qss
-    m_passwordEdit->invalidMessage()->setStyleSheet("#InvalidMessage{color: #f9704f;}");
+//    m_passwordEdit->invalidMessage()->setStyleSheet("#InvalidMessage{color: #f9704f;}");
     updateStyle(":/skin/dpasswdeditanimated.qss", m_passwordEdit);
 
-    m_passwordEdit->lineEdit()->installEventFilter(this);
+//    m_passwordEdit->lineEdit()->installEventFilter(this);
+    m_passwordEdit->installEventFilter(this);
     m_otherUserInput->installEventFilter(this);
 
     m_loginBtn->setFixedHeight(DDESESSIONCC::PASSWDLINEEDIT_HEIGHT);
@@ -77,7 +81,8 @@ UserInputWidget::UserInputWidget(QWidget *parent)
 
     m_passwordEdit->setVisible(true);
     m_passwordEdit->setFocus();
-    m_passwordEdit->lineEdit()->setAttribute(Qt::WA_InputMethodEnabled, false);
+//    m_passwordEdit->lineEdit()->setAttribute(Qt::WA_InputMethodEnabled, false);
+    m_passwordEdit->setAttribute(Qt::WA_InputMethodEnabled, false);
 
     m_nameLbl->setFixedSize(DDESESSIONCC::PASSWDLINEEIDT_WIDTH, 25);
     m_nameLbl->setAlignment(Qt::AlignCenter);
@@ -121,25 +126,35 @@ UserInputWidget::UserInputWidget(QWidget *parent)
     m_otherUserInput->setFixedWidth(DDESESSIONCC::PASSWDLINEEIDT_WIDTH);
     m_otherUserInput->setFixedHeight(DDESESSIONCC::PASSWDLINEEDIT_HEIGHT * 2);
 
-    connect(m_passwordEdit, &DPasswdEditAnimated::keyboardButtonClicked, this, &UserInputWidget::toggleKBLayoutWidget);
-    connect(m_passwordEdit->lineEdit(), &QLineEdit::textChanged, this, [=] (const QString &value) {
+//    connect(m_passwordEdit, &DPasswdEditAnimated::keyboardButtonClicked, this, &UserInputWidget::toggleKBLayoutWidget);
+//    connect(m_passwordEdit->lineEdit(), &QLineEdit::textChanged, this, [=] (const QString &value) {
+//        FrameDataBind::Instance()->updateValue("Password", value);
+//    });
+//    connect(m_passwordEdit, &DPasswdEditAnimated::submit, this, [=] (const QString &passwd) {
+//        if (passwd.isEmpty()) return;
+
+//        emit requestAuthUser(passwd);
+//    });
+    connect(m_passwordEdit, &QLineEdit::textChanged, this, [ = ](const QString & value) {
         FrameDataBind::Instance()->updateValue("Password", value);
     });
-    connect(m_passwordEdit, &DPasswdEditAnimated::submit, this, [=] (const QString &passwd) {
+    connect(m_passwordEdit, &DPasswordEdit::returnPressed, this, [ = ]() {
+        const QString &passwd = m_passwordEdit->text();
         if (passwd.isEmpty()) return;
 
         emit requestAuthUser(passwd);
     });
-    connect(m_loginBtn, &LoginButton::clicked, this, [=] {
+    connect(m_loginBtn, &LoginButton::clicked, this, [ = ] {
         emit requestAuthUser(QString());
     });
 
-    connect(m_otherUserInput, &OtherUserInput::submit, this, [=] {
-        if (ADDomainUser *user = dynamic_cast<ADDomainUser*>(m_user.get())) {
-           user->setUserName(m_otherUserInput->account());
-           emit requestAuthUser(m_otherUserInput->passwd());
-        }
-        else {
+    connect(m_otherUserInput, &OtherUserInput::submit, this, [ = ] {
+        if (ADDomainUser *user = dynamic_cast<ADDomainUser *>(m_user.get()))
+        {
+            user->setUserName(m_otherUserInput->account());
+            emit requestAuthUser(m_otherUserInput->passwd());
+        } else
+        {
             qWarning() << "unknow error, check dynamic_cast<ADDomainUser>.";
         }
     });
@@ -164,11 +179,15 @@ void UserInputWidget::setUser(std::shared_ptr<User> user)
         m_user->disconnect(connect);
     }
 
+//    if (m_user.get() != nullptr) {
+//        m_passwords[m_user->uid()] = m_passwordEdit->lineEdit()->text();
+//    }
     if (m_user.get() != nullptr) {
-        m_passwords[m_user->uid()] = m_passwordEdit->lineEdit()->text();
+        m_passwords[m_user->uid()] = m_passwordEdit->text();
     }
 
-    m_passwordEdit->lineEdit()->setText(m_passwords[user->uid()]);
+//    m_passwordEdit->lineEdit()->setText(m_passwords[user->uid()]);
+    m_passwordEdit->setText(m_passwords[user->uid()]);
 
     m_currentUserConnects.clear();
 
@@ -204,7 +223,7 @@ void UserInputWidget::setIsNoPasswordGrp(bool isNopassword)
         isNopassword = false;
     }
 
-    m_passwordEdit->abortAuth();
+//    m_passwordEdit->abortAuth();
 
     m_passwordEdit->setVisible(!isNopassword && !m_user->isLock());
     m_lockPasswordWidget->setVisible(m_user->isLock());
@@ -213,29 +232,29 @@ void UserInputWidget::setIsNoPasswordGrp(bool isNopassword)
 
 void UserInputWidget::setFaildMessage(const QString &message)
 {
-    m_passwordEdit->abortAuth();
+//    m_passwordEdit->abortAuth();
 
     if (m_user->isLock()) {
         m_lockPasswordWidget->setMessage(message);
         return;
     }
 
-    m_passwordEdit->lineEdit()->setPlaceholderText(message);
+//    m_passwordEdit->lineEdit()->setPlaceholderText(message);
+    m_passwordEdit->setPlaceholderText(message);
 }
 
 void UserInputWidget::setFaildTipMessage(const QString &message)
 {
     if (message.isEmpty()) {
-        m_passwordEdit->hideAlert();
-    }
-    else {
-        m_passwordEdit->showAlert(message);
+        m_passwordEdit->hideAlertMessage();
+    } else {
+        m_passwordEdit->showAlertMessage(message);
     }
 }
 
 void UserInputWidget::updateKBLayout(const QStringList &list)
 {
-    m_passwordEdit->setKeyboardButtonEnable(list.size() > 1);
+//    m_passwordEdit->setKeyboardButtonEnable(list.size() > 1);
     m_kbLayoutWidget->updateButtonList(list);
     m_kbLayoutBorder->setContent(m_kbLayoutWidget);
 }
@@ -247,14 +266,14 @@ void UserInputWidget::setDefaultKBLayout(const QString &layout)
 
 void UserInputWidget::disablePassword(bool disable)
 {
-    m_passwordEdit->lineEdit()->setDisabled(disable);
+//    m_passwordEdit->lineEdit()->setDisabled(disable);
+    m_passwordEdit->setDisabled(disable);
     m_passwordEdit->setVisible(!disable);
     m_lockPasswordWidget->setVisible(disable);
 
     if (disable) {
         setFaildMessage(tr("Please try again %n minute(s) later", "", m_user->lockNum()));
-    }
-    else {
+    } else {
         if (isVisible()) {
             grabKeyboard();
         }
@@ -265,59 +284,64 @@ void UserInputWidget::updateAuthType(SessionBaseModel::AuthType type)
 {
     m_authType = type;
 
-    if (type == SessionBaseModel::AuthType::LightdmType) {
-        m_passwordEdit->setSubmitIcon(":/img/action_icons/login_normal.svg",
-                                      ":/img/action_icons/login_hover.svg",
-                                      ":/img/action_icons/login_press.svg");
-    }
+//    if (type == SessionBaseModel::AuthType::LightdmType) {
+//        m_passwordEdit->setSubmitIcon(":/img/action_icons/login_normal.svg",
+//                                      ":/img/action_icons/login_hover.svg",
+//                                      ":/img/action_icons/login_press.svg");
+//    }
 }
 
 void UserInputWidget::resetAllState()
 {
-    m_passwordEdit->lineEdit()->clear();
+//    m_passwordEdit->lineEdit()->clear();
+    m_passwordEdit->clear();
     normalMode();
-    m_passwordEdit->abortAuth();
+//    m_passwordEdit->abortAuth();
 }
 
 void UserInputWidget::shutdownMode()
 {
-    m_passwordEdit->setSubmitIcon(":/img/action_icons/shutdown_normal.svg",
-                                  ":/img/action_icons/shutdown_hover.svg",
-                                  ":/img/action_icons/shutdown_press.svg");
-    m_passwordEdit->showAlert(tr("Enter your password to shut down"));
+//    m_passwordEdit->setSubmitIcon(":/img/action_icons/shutdown_normal.svg",
+//                                  ":/img/action_icons/shutdown_hover.svg",
+//                                  ":/img/action_icons/shutdown_press.svg");
+//    m_passwordEdit->showAlert(tr("Enter your password to shut down"));
+    m_passwordEdit->showAlertMessage(tr("Enter your password to shut down"));
     m_loginBtn->setText(QApplication::translate("ShutdownWidget", "Shut down"));
 }
 
 void UserInputWidget::normalMode()
 {
-    if (m_authType == SessionBaseModel::AuthType::LightdmType) {
-        m_passwordEdit->setSubmitIcon(":/img/action_icons/login_normal.svg",
-                                      ":/img/action_icons/login_hover.svg",
-                                      ":/img/action_icons/login_press.svg");
-    }
-    else {
-        m_passwordEdit->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
-                                      ":/img/action_icons/unlock_hover.svg",
-                                      ":/img/action_icons/unlock_press.svg");
-    }
+//    if (m_authType == SessionBaseModel::AuthType::LightdmType) {
+//        m_passwordEdit->setSubmitIcon(":/img/action_icons/login_normal.svg",
+//                                      ":/img/action_icons/login_hover.svg",
+//                                      ":/img/action_icons/login_press.svg");
+//    }
+//    else {
+//        m_passwordEdit->setSubmitIcon(":/img/action_icons/unlock_normal.svg",
+//                                      ":/img/action_icons/unlock_hover.svg",
+//                                      ":/img/action_icons/unlock_press.svg");
+//    }
 
-    m_passwordEdit->hideAlert();
+//    m_passwordEdit->hideAlert();
+    m_passwordEdit->hideAlertMessage();
     m_loginBtn->setText(QApplication::translate("ShutdownWidget", "Login"));
 }
 
 void UserInputWidget::restartMode()
 {
-    m_passwordEdit->setSubmitIcon(":/img/action_icons/reboot_normal.svg",
-                                  ":/img/action_icons/reboot_hover.svg",
-                                  ":/img/action_icons/reboot_press.svg");
-    m_passwordEdit->showAlert(tr("Enter your password to reboot"));
+//    m_passwordEdit->setSubmitIcon(":/img/action_icons/reboot_normal.svg",
+//                                  ":/img/action_icons/reboot_hover.svg",
+//                                  ":/img/action_icons/reboot_press.svg");
+//    m_passwordEdit->showAlert(tr("Enter your password to reboot"));
+    m_passwordEdit->showAlertMessage(tr("Enter your password to reboot"));
     m_loginBtn->setText(QApplication::translate("ShutdownWidget", "Reboot"));
 }
 
 void UserInputWidget::grabKeyboard()
 {
     if (m_passwordEdit->isVisible()) {
-        m_passwordEdit->lineEdit()->grabKeyboard();
+//        m_passwordEdit->lineEdit()->grabKeyboard();
+        m_passwordEdit->grabKeyboard();
         return;
     }
 
@@ -329,7 +353,8 @@ void UserInputWidget::grabKeyboard()
 
     // other input
     if (m_otherUserInput->isVisible()) {
-        m_passwordEdit->lineEdit()->releaseKeyboard();
+//        m_passwordEdit->lineEdit()->releaseKeyboard();
+        m_passwordEdit->releaseKeyboard();
         m_otherUserInput->grabKeyboard();
         return;
     }
@@ -337,7 +362,8 @@ void UserInputWidget::grabKeyboard()
 
 void UserInputWidget::releaseKeyboard()
 {
-    m_passwordEdit->lineEdit()->releaseKeyboard();
+//    m_passwordEdit->lineEdit()->releaseKeyboard();
+    m_passwordEdit->releaseKeyboard();
     m_loginBtn->releaseKeyboard();
     m_otherUserInput->releaseKeyboard();
 }
@@ -354,8 +380,9 @@ bool UserInputWidget::event(QEvent *event)
     }
 
     if (event->type() == QEvent::Show) {
-        QTimer::singleShot(400, this, [=] {
-            m_passwordEdit->lineEdit()->setFocus();
+        QTimer::singleShot(400, this, [ = ] {
+//            m_passwordEdit->lineEdit()->setFocus();
+            m_passwordEdit->setFocus();
         });
     }
 
@@ -390,7 +417,7 @@ void UserInputWidget::showEvent(QShowEvent *event)
 
 bool UserInputWidget::eventFilter(QObject *watched, QEvent *event)
 {
-    if (qobject_cast<QLineEdit*>(watched) && event->type() == QEvent::MouseButtonPress) {
+    if (qobject_cast<QLineEdit *>(watched) && event->type() == QEvent::MouseButtonPress) {
         grabKeyboard();
     }
 
@@ -427,8 +454,7 @@ void UserInputWidget::toggleKBLayoutWidget()
 {
     if (m_kbLayoutBorder->isVisible()) {
         m_kbLayoutBorder->hide();
-    }
-    else {
+    } else {
         // 保证布局选择控件不会被其它控件遮挡
         // 必须要将它作为主窗口的子控件
         m_kbLayoutBorder->setParent(window());
@@ -464,13 +490,11 @@ void UserInputWidget::refreshInputState()
         m_otherUserInput->show();
         frameHeight += m_otherUserInput->height();
         m_otherUserInput->setFocus();
-    }
-    else if (m_user->type() == User::ADDomain) {
+    } else if (m_user->type() == User::ADDomain) {
         m_passwordEdit->show();
         frameHeight += DDESESSIONCC::PASSWDLINEEDIT_HEIGHT;
         grabKeyboard();
-    }
-    else {
+    } else {
         setIsNoPasswordGrp(m_user->isNoPasswdGrp());
         updateKBLayout(m_user->kbLayoutList());
         setDefaultKBLayout(m_user->currentKBLayout());
@@ -482,7 +506,8 @@ void UserInputWidget::refreshInputState()
 
 void UserInputWidget::onOtherPagePasswordChanged(const QVariant &value)
 {
-    m_passwordEdit->lineEdit()->setText(value.toString());
+//    m_passwordEdit->lineEdit()->setText(value.toString());
+    m_passwordEdit->setText(value.toString());
 }
 
 void UserInputWidget::onOtherPageKBLayoutChanged(const QVariant &value)
