@@ -26,7 +26,7 @@ Homepage: http://www.deepin.org/
 
 Package: dde-session-ui
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, deepin-desktop-schemas (>= 2.91.2), dde-daemon, x11-xserver-utils, dbus-x11
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, deepin-desktop-schemas (>= 2.91.2), dde-daemon, x11-xserver-utils, dbus-x11, dde-session-shell
 Provides: lightdm-greeter
 Recommends: onboard
 Conflicts: dde-workspace,
