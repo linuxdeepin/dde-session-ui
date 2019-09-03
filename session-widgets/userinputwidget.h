@@ -3,7 +3,8 @@
 
 #include <QWidget>
 #include <QLabel>
-#include <DPasswdEditAnimated>
+//#include <DPasswdEditAnimated>
+#include <dpasswordedit.h>
 #include <QPushButton>
 #include <functional>
 #include <darrowrectangle.h>
@@ -75,7 +76,8 @@ private:
 private:
     UserAvatar *m_userAvatar;
     QLabel *m_nameLbl;
-    DPasswdEditAnimated *m_passwordEdit;
+//    DPasswdEditAnimated *m_passwordEdit;
+    DPasswordEdit *m_passwordEdit;
     OtherUserInput *m_otherUserInput;
     LoginButton *m_loginBtn;
     DArrowRectangle *m_kbLayoutBorder;
