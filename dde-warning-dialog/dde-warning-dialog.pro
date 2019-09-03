@@ -6,7 +6,7 @@
 
 include(../common.pri)
 
-QT       += core gui widgets dbus
+QT       += core gui widgets dbus dtkwidget
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,7 +14,6 @@ TARGET = dde-warning-dialog
 TEMPLATE = app
 
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dtkwidget
 
 SOURCES += main.cpp \
     warningdialog.cpp

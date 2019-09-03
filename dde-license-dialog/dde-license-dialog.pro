@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui dtkwidget
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,7 +13,6 @@ TEMPLATE = app
 
 CONFIG += link_pkgconfig
 CONFIG += c++14
-PKGCONFIG += dtkwidget
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings

@@ -4,11 +4,11 @@
 #
 #-------------------------------------------------
 INCLUDEPATH += $$PWD
-QT += x11extras svg
+QT += x11extras svg dtkwidget
 
 include(../session-widgets/session-widgets.pri)
 
-PKGCONFIG   += liblightdm-qt5-3 dtkwidget x11 xi xtst dframeworkdbus
+PKGCONFIG   += liblightdm-qt5-3 x11 xi xtst dframeworkdbus
 
 HEADERS += \
     $$PWD/useravatar.h \

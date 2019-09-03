@@ -6,14 +6,14 @@
 include(../common.pri)
 load(dtk_qmake)
 
-QT       += core gui dbus x11extras
+QT       += core gui dbus x11extras dtkwidget
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = lightdm-deepin-greeter
 TEMPLATE = app
 
-PKGCONFIG += gsettings-qt liblightdm-qt5-3 x11 xext xfixes xcursor dtkwidget xrandr
+PKGCONFIG += gsettings-qt liblightdm-qt5-3 x11 xext xfixes xcursor xrandr
 CONFIG += c++14 link_pkgconfig
 
 include(../widgets/widgets.pri)

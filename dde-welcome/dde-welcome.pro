@@ -1,10 +1,10 @@
 include(../common.pri)
-QT       += core gui dbus svg widgets x11extras
+QT       += core gui dbus svg widgets x11extras dtkwidget
 
 TARGET = dde-welcome
 TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
-PKGCONFIG += dtkwidget dframeworkdbus gsettings-qt x11 xext xfixes xcursor
+PKGCONFIG += dframeworkdbus gsettings-qt x11 xext xfixes xcursor
 
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
