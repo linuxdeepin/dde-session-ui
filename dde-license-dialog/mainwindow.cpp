@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     setLayout(layout);
 
     m_title->setStyleSheet("#TitleLabel {"
-        "font-size: 12px;"
+        "font-size: 25px;"
         "font-weight: bold;"
         "color: #303030;"
         "}");
@@ -40,9 +40,14 @@ void MainWindow::setTitle(const QString &title)
     m_title->setText(title);
 }
 
-void MainWindow::setSource(const QString &source)
+void MainWindow::setCnSource(const QString &source)
 {
-    m_content->setSource(source);
+    m_content->setCnSource(source);
+}
+
+void MainWindow::setEnSource(const QString &source)
+{
+    m_content->setEnSource(source);
 }
 
 void MainWindow::setAllowCheckBoxText(const QString &text)
