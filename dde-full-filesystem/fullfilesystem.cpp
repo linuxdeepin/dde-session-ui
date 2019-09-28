@@ -46,7 +46,7 @@ void FullFilesystem::setCurrentUser(User *currentUser)
 {
     m_currentUser = currentUser;
 
-    setBackground(m_currentUser->greeterBackgroundPath());
+    setBackground(m_currentUser->greeterBackground());
 }
 
 void FullFilesystem::onRecoveryButtonClicked()

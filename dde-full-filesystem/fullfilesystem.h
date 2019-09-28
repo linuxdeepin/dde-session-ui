@@ -22,17 +22,17 @@
 #ifndef FULLFILESYSTEM_H
 #define FULLFILESYSTEM_H
 
-#include "userinfo.h"
-
 #include <QLabel>
 #include <QPushButton>
 #include <com_deepin_daemon_accounts.h>
 #include <com_deepin_daemon_accounts_user.h>
 #include <com_deepin_daemon_imageblur.h>
+#include <com_deepin_daemon_accounts_user.h>
 
 using Accounts = com::deepin::daemon::Accounts;
 using AccountsUser = com::deepin::daemon::accounts::User;
 using ImageBlur = com::deepin::daemon::ImageBlur;
+using User = com::deepin::daemon::accounts::User;
 
 class FullFilesystem : public QWidget
 {

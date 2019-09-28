@@ -1,9 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>skin/passwdedit.qss</file>
-        <file>skin/layoutbutton.qss</file>
-        <file>skin/keybdlayoutwidget.qss</file>
-        <file>skin/requireshutdown.qss</file>
-        <file>skin/mediawidget.qss</file>
-    </qresource>
-</RCC>
