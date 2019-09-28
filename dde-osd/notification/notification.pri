@@ -12,7 +12,6 @@ HEADERS += \
     $$PWD/actionbutton.h \
     $$PWD/appicon.h\
     $$PWD/dbusdock_interface.h \
-    $$PWD/dbuscontrol.h \
     $$PWD/persistence.h \
     $$PWD/appbody.h \
     $$PWD/icondata.h \
@@ -28,7 +27,6 @@ SOURCES += \
     $$PWD/actionbutton.cpp \
     $$PWD/appicon.cpp\
     $$PWD/dbusdock_interface.cpp \
-    $$PWD/dbuscontrol.cpp \
     $$PWD/persistence.cpp \
     $$PWD/appbody.cpp \
     $$PWD/icondata.cpp \

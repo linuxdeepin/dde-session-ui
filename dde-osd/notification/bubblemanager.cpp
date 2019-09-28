@@ -25,7 +25,6 @@
 #include <QVariantMap>
 #include <QTimer>
 #include "bubble.h"
-#include "dbuscontrol.h"
 #include "dbus_daemon_interface.h"
 #include "dbuslogin1manager.h"
 #include "notificationentity.h"
@@ -61,8 +60,6 @@ BubbleManager::BubbleManager(QObject *parent)
                                                 QDBusConnection::sessionBus(), this);
     m_dockDeamonInter = new DockDaemonInter(DockDaemonDBusServie, DockDaemonDBusPath,
                                             QDBusConnection::sessionBus(), this);
-    m_dbusControlCenter = new DBusControlCenter(ControlCenterDBusService, ControlCenterDBusPath,
-                                                    QDBusConnection::sessionBus(), this);
     m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this);
 
@@ -79,16 +76,12 @@ BubbleManager::BubbleManager(QObject *parent)
             this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
     connect(m_dbusdockinterface, &DBusDockInterface::geometryChanged, this, &BubbleManager::onDockRectChanged);
     connect(m_dockDeamonInter, &DockDaemonInter::PositionChanged, this, &BubbleManager::onDockPositionChanged);
-    connect(m_dbusControlCenter, &DBusControlCenter::destRectChanged, this, &BubbleManager::onCCDestRectChanged);
-    connect(m_dbusControlCenter, &DBusControlCenter::rectChanged, this, &BubbleManager::onCCRectChanged);
 
     // get correct value for m_dockGeometry, m_dockPosition, m_ccGeometry
     if (m_dbusdockinterface->isValid())
         onDockRectChanged(m_dbusdockinterface->geometry());
     if (m_dockDeamonInter->isValid())
         onDockPositionChanged(m_dockDeamonInter->position());
-    if (m_dbusControlCenter->isValid())
-        onCCRectChanged(m_dbusControlCenter->rect());
 
     registerAsService();
 }
@@ -222,34 +215,6 @@ void BubbleManager::registerAsService()
     ddenotifyConnect.registerObject(DDENotifyDBusPath, this);
 }
 
-void BubbleManager::onCCDestRectChanged(const QRect &destRect)
-{
-    // get the current rect of control-center
-    m_ccGeometry = m_dbusControlCenter->rect();
-    // use the current rect of control-center to setup position of bubble
-    // to avoid a move-anim bug
-    m_bubble->setBasePosition(getX(), getY());
-
-    // use destination rect of control-center to setup move-anim
-    if (destRect.width() == 0) { // closing the control-center
-        if (m_dockPosition == DockPosition::Right) {
-            const QRect &screenRect = screensInfo(QCursor::pos()).first;
-            if ((screenRect.height() - m_dockGeometry.height()) / 2.0 < m_bubble->height()) {
-                QRect mRect = destRect;
-                mRect.setX((screenRect.right()) - m_dockGeometry.width());
-                m_bubble->resetMoveAnim(mRect);
-                return;
-            }
-        }
-    }
-    m_bubble->resetMoveAnim(destRect);
-}
-
-void BubbleManager::onCCRectChanged(const QRect &rect)
-{
-    m_ccGeometry = rect;
-    // do NOT call setBasePosition here
-}
 
 void BubbleManager::bubbleExpired(int id)
 {
@@ -295,11 +260,6 @@ bool BubbleManager::checkDockExistence()
     return m_dbusDaemonInterface->NameHasOwner(DBbsDockDBusServer).value();
 }
 
-bool BubbleManager::checkControlCenterExistence()
-{
-    return m_dbusDaemonInterface->NameHasOwner(ControlCenterDBusService).value();
-}
-
 int BubbleManager::getX()
 {
     QPair<QRect, bool> pair = screensInfo(QCursor::pos());
@@ -307,37 +267,19 @@ int BubbleManager::getX()
     const int maxX = rect.x() + rect.width();
 
     // directly show the notify on the screen containing mouse,
-    // because dock and control-centor will only be displayed on the primary screen.
+    // because dock  will only be displayed on the primary screen.
     if (!pair.second)
         return  maxX;
 
-    const bool isCCDbusValid = m_dbusControlCenter->isValid();
     const bool isDockDbusValid = m_dbusdockinterface->isValid();
 
     // DBus object is invalid, return screen right
-    if (!isCCDbusValid && !isDockDbusValid)
+    if (!isDockDbusValid)
         return maxX;
 
     // if dock dbus is valid and dock position is right
     if (isDockDbusValid && m_dockPosition == DockPosition::Right) {
-        // check dde-control-center is valid
-        if (isCCDbusValid) {
-            if (m_ccGeometry.x() >  m_dockGeometry.x()) {
-                if (((rect.height() - m_dockGeometry.height()) / 2) > (BubbleHeight + Padding)) {
-                    return maxX;
-                } else {
-                    return maxX - m_dockGeometry.width();
-                }
-            } else {
-                return m_ccGeometry.x();
-            }
-        }
-        // dde-control-center is invalid, return dock' x
         return maxX - m_dockGeometry.width();
-    }
-    //  dock position is not right, and dde-control-center is valid
-    if (isCCDbusValid) {
-        return m_ccGeometry.x();
     }
 
     return maxX;
@@ -385,9 +327,7 @@ void BubbleManager::onDockPositionChanged(int position)
 
 void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newName)
 {
-    if (name == ControlCenterDBusService && screensInfo(m_bubble->pos()).second && !newName.isEmpty()) {
-        onCCRectChanged(m_dbusControlCenter->rect());
-    } else if (name == DBbsDockDBusServer && !newName.isEmpty()) {
+    if (name == DBbsDockDBusServer && !newName.isEmpty()) {
         onDockRectChanged(m_dbusdockinterface->geometry());
     } else if (name == DockDaemonDBusServie && !newName.isEmpty()) {
         onDockPositionChanged(m_dockDeamonInter->position());

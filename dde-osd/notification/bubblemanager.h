@@ -36,8 +36,6 @@
 
 using DockDaemonInter =  com::deepin::dde::daemon::Dock;
 
-static const QString ControlCenterDBusService = "com.deepin.dde.ControlCenter";
-static const QString ControlCenterDBusPath = "/com/deepin/dde/ControlCenter";
 static const QString DBbsDockDBusServer = "com.deepin.dde.Dock";
 static const QString DBusDockDBusPath = "/com/deepin/dde/Dock";
 static const QString DBusDaemonDBusService = "org.freedesktop.DBus";
@@ -104,8 +102,6 @@ public Q_SLOTS:
 private Q_SLOTS:
     void onRecordAdded(NotificationEntity *entity);
 
-    void onCCDestRectChanged(const QRect &destRect);
-    void onCCRectChanged(const QRect &rect);
     void onDockRectChanged(const QRect &geometry);
     void onDockPositionChanged(int position);
     void onDbusNameOwnerChanged(QString, QString, QString);
@@ -144,7 +140,6 @@ private:
     QQueue<NotificationEntity*> m_entities;
     QPointer<NotificationEntity> m_currentNotify;
 
-    QRect m_ccGeometry;
     QRect m_dockGeometry;
 
     DockPosition m_dockPosition;
