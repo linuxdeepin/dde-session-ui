@@ -122,7 +122,7 @@ void NetworkSecretDialog::initUI()
         m_lineEditList.append(lineEdit);
 
         if (row == 0) {
-            lineEdit->setFocus();
+            lineEdit->lineEdit()->setFocus();
         }
 
         connect(lineEdit, &DLineEdit::textChanged, this, &NetworkSecretDialog::checkInputValid);
