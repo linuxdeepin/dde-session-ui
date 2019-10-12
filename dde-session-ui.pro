@@ -35,7 +35,6 @@ qm_files.path = /usr/share/dde-session-ui/translations/
 qm_files.files = translations/*.qm
 
 toggle_desktop.path = /usr/share/applications/
-toggle_desktop.files = misc/applications/deepin-toggle-desktop.desktop
 
 toogle_desktop_icon_48x48.path = /usr/share/icons/hicolor/48x48/apps/
 toogle_desktop_icon_48x48.files = misc/icons/48x48/deepin-toggle-desktop.png
