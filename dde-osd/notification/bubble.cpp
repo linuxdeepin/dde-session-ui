@@ -136,6 +136,13 @@ void Bubble::setEntity(NotificationEntity *entity)
 
     show();
 
+    if (m_offScreen) {
+        m_offScreen = false;
+        m_inAnimation->start();
+    }
+
+    int timeout = entity->timeout().toInt();
+    m_outTimer->setInterval(timeout == 0 ? 5000 : timeout);
     m_outTimer->start();
 }
 
@@ -145,15 +152,19 @@ void Bubble::setBasePosition(int x, int y, QRect rect)
     x -= Padding;
     y += Padding;
 
-    const QPoint dPos(x - BubbleWidth, y);
+    const QPoint dPos((x - BubbleWidth) / 2, y);
     const QSize dSize(BubbleWidth, BubbleHeight);
 
-    move(dPos);
-    resize(dSize);
+    if (m_inAnimation->state() != QPropertyAnimation::Running) {
+        const int baseX = x - BubbleWidth;
+
+        m_inAnimation->setStartValue(QPoint(baseX / 2, y - BubbleHeight));
+        m_inAnimation->setEndValue(QPoint(baseX / 2, y));
+    }
 
     if (m_outAnimation->state() != QPropertyAnimation::Running) {
-        const QRect normalGeo( dPos, dSize );
-        QRect outGeo( normalGeo.right(), normalGeo.y(), 0, normalGeo.height());
+        const QRect normalGeo(dPos, dSize);
+        QRect outGeo(normalGeo.right(), normalGeo.y(), 0, normalGeo.height());
 
         m_outAnimation->setStartValue(normalGeo);
         m_outAnimation->setEndValue(outGeo);
@@ -183,7 +194,20 @@ void Bubble::mousePressEvent(QMouseEvent *)
         Q_EMIT dismissed(m_entity->id());
     }
 
+    m_offScreen = true;
     m_outTimer->stop();
+}
+
+void Bubble::moveEvent(QMoveEvent *event)
+{
+    // don't show this bubble on unrelated screens while sliding in.
+    if (m_inAnimation->state() == QPropertyAnimation::Running) {
+        const bool visible = m_screenGeometry.contains(event->pos());
+        resize(visible ? QSize(BubbleWidth, BubbleHeight) : QSize(1, 1));
+        //setVisible(visible);
+    }
+
+    DBlurEffectWidget::moveEvent(event);
 }
 
 void Bubble::showEvent(QShowEvent *event)
@@ -228,6 +252,7 @@ void Bubble::onOutTimerTimeout()
         m_outTimer->stop();
         m_outTimer->start();
     } else {
+        m_offScreen = true;
         m_outAnimation->start();
     }
 }
@@ -268,6 +293,10 @@ void Bubble::initUI()
 
 void Bubble::initAnimations()
 {
+    m_inAnimation = new QPropertyAnimation(this, "pos", this);
+    m_inAnimation->setDuration(300);
+    m_inAnimation->setEasingCurve(QEasingCurve::OutCubic);
+
     m_outAnimation = new QPropertyAnimation(this, "geometry", this);
     m_outAnimation->setDuration(300);
     m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
