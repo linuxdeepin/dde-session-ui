@@ -51,10 +51,10 @@ ActionButton::ActionButton(QWidget *parent) :
 bool ActionButton::addButtons(const QStringList &list)
 {
     if (list.isEmpty()) {
-        m_closeButton->show();
+        m_canClose = true;
         return true;
     }
-
+    m_canClose = false;
     // Each even element in the list (starting at index 0) represents the
     // identifier for the action. Each odd element in the list is the
     // localized string that will be displayed to the user.
@@ -74,7 +74,7 @@ bool ActionButton::addButtons(const QStringList &list)
                 m_layout->addWidget(button);
 
                 connect(button, &Button::clicked, this, [ = ] {
-                    emit buttonClicked(id);
+                    Q_EMIT buttonClicked(id);
                 });
 
                 m_buttons << button;
@@ -85,7 +85,7 @@ bool ActionButton::addButtons(const QStringList &list)
                 QAction *action = new QAction(list[i]);
 
                 connect(action, &QAction::triggered, this, [ = ] {
-                    emit buttonClicked(id);
+                    Q_EMIT buttonClicked(id);
                 });
 
                 m_menuButton->addAction(action);
@@ -120,9 +120,15 @@ void ActionButton::clear()
     m_closeButton->hide();
 }
 
+void ActionButton::onFocusChanged(bool has)
+{
+    if (m_canClose)
+        m_closeButton->setVisible(has);
+}
+
 void ActionButton::initUI()
 {
-    setObjectName("ActionButton");
+//    setObjectName("ActionButton");
     m_closeButton->setFixedSize(CLOSEBTNSIZE);
     m_closeButton->setRadius(99);
     m_closeButton->setText("X");

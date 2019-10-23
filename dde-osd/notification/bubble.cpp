@@ -217,6 +217,20 @@ void Bubble::hideEvent(QHideEvent *event)
     m_quitTimer->start();
 }
 
+void Bubble::enterEvent(QEvent *event)
+{
+    Q_EMIT focusChanged(true);
+
+    return DBlurEffectWidget::enterEvent(event);
+}
+
+void Bubble::leaveEvent(QEvent *event)
+{
+    Q_EMIT focusChanged(false);
+
+    return DBlurEffectWidget::leaveEvent(event);
+}
+
 void Bubble::onActionButtonClicked(const QString &actionId)
 {
     QMap<QString, QVariant> hints = m_entity->hints();
@@ -301,6 +315,7 @@ void Bubble::initConnections()
     connect(this, &Bubble::expired, m_actionButton, &ActionButton::expired);
     connect(this, &Bubble::dismissed, m_actionButton, &ActionButton::dismissed);
     connect(this, &Bubble::replacedByOther, m_actionButton, &ActionButton::replacedByOther);
+    connect(this, &Bubble::focusChanged, m_actionButton, &ActionButton::onFocusChanged);
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &Bubble::compositeChanged);
     connect(m_quitTimer, &QTimer::timeout, this, &Bubble::onDelayQuit);

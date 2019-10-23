@@ -105,8 +105,8 @@ void Button::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton) {
 
         if (m_contentRect.contains(mapFromGlobal(QCursor::pos()))) {
-            emit clicked();
-            emit toggled(m_id);
+            Q_EMIT clicked();
+            Q_EMIT toggled(m_id);
         } else if (m_hasMenu && m_menuRect.contains(mapFromGlobal(QCursor::pos()))) {
             QWidget *w = qobject_cast<QWidget *>(m_menu->parent());
             if (w) {

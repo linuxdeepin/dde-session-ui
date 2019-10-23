@@ -66,6 +66,7 @@ Q_SIGNALS:
     void dismissed(int);
     void replacedByOther(int);
     void actionInvoked(uint, QString);
+    void focusChanged(bool);
 
 public Q_SLOTS:
     void compositeChanged();
@@ -76,6 +77,8 @@ protected:
     void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
     void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
     void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
     void onActionButtonClicked(const QString &actionId);

@@ -53,11 +53,14 @@ public:
     bool isEmpty();
     void clear();
 
+public Q_SLOTS:
+    void onFocusChanged(bool has);
+
 private:
     void initUI();
     void initConnections();
 
-signals:
+Q_SIGNALS:
     void closeButtonClicked();
     void buttonClicked(const QString &id);
     void expired(int);
@@ -65,6 +68,7 @@ signals:
     void replacedByOther(int);
 
 private:
+    bool m_canClose = false;
     QHBoxLayout *m_layout = nullptr;
     QList<Button *> m_buttons;
     Button *m_closeButton = nullptr;

@@ -76,9 +76,9 @@ private:
     QRectF m_menuRect;
 
 protected:
-    virtual void mousePressEvent(QMouseEvent *event) override;
-    virtual void paintEvent(QPaintEvent *event) override;
-    virtual void enterEvent(QEvent *event) override;
-    virtual void leaveEvent(QEvent *event) override;
+    virtual void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    virtual void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    virtual void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
 };
 #endif // BUTTON_H
