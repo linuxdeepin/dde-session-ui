@@ -5,6 +5,7 @@
  *             listenerri <listenerri@gmail.com>
  *
  * Maintainer: listenerri <listenerri@gmail.com>
+ *             fanpengcheng <fanpengcheng_cm@deepin.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +36,8 @@
 #include <QDBusArgument>
 #include <QMoveEvent>
 #include <QGSettings>
+#include <QSpacerItem>
+#include <QGridLayout>
 
 #include "notificationentity.h"
 #include "appicon.h"
@@ -65,7 +68,8 @@ static const QStringList HintsOrder {
     "icon_data"
 };
 
-void register_wm_state(WId winid) {
+void register_wm_state(WId winid)
+{
     xcb_ewmh_connection_t m_ewmh_connection;
     xcb_intern_atom_cookie_t *cookie = xcb_ewmh_init_atoms(QX11Info::connection(), &m_ewmh_connection);
     xcb_ewmh_init_atoms_replies(&m_ewmh_connection, cookie, NULL);
@@ -95,24 +99,23 @@ Bubble::Bubble(NotificationEntity *entity)
 
     m_handle = new DPlatformWindowHandle(this);
     m_handle->setTranslucentBackground(true);
-    m_handle->setShadowRadius(14);
+    m_handle->setShadowRadius(18);
     m_handle->setShadowOffset(QPoint(0, 4));
 
     compositeChanged();
 
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::LightColor);
+    setMouseTracking(true);
 
     initUI();
+    initConnections();
     initAnimations();
     initTimers();
 
     setEntity(entity);
 
-    connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &Bubble::compositeChanged);
-    connect(m_quitTimer, &QTimer::timeout, this, &Bubble::onDelayQuit);
-
-    QTimer::singleShot(0, this, [=] {
+    QTimer::singleShot(0, this, [ = ] {
         // FIXME: 锁屏不允许显示任何通知，而通知又需要禁止窗管进行管理，
         // 为了避免二者的冲突，将气泡修改为dock，保持在其他程序置顶，又不会显示在锁屏之上。
         register_wm_state(winId());
@@ -136,13 +139,6 @@ void Bubble::setEntity(NotificationEntity *entity)
 
     show();
 
-    if (m_offScreen) {
-        m_offScreen = false;
-        m_inAnimation->start();
-    }
-
-    int timeout = entity->timeout().toInt();
-    m_outTimer->setInterval(timeout == 0 ? 5000 : timeout);
     m_outTimer->start();
 }
 
@@ -152,15 +148,11 @@ void Bubble::setBasePosition(int x, int y, QRect rect)
     x -= Padding;
     y += Padding;
 
-    const QPoint dPos((x - BubbleWidth) / 2, y);
+    const QPoint dPos(x - BubbleWidth, y);
     const QSize dSize(BubbleWidth, BubbleHeight);
 
-    if (m_inAnimation->state() != QPropertyAnimation::Running) {
-        const int baseX = x - BubbleWidth;
-
-        m_inAnimation->setStartValue(QPoint(baseX / 2, y - BubbleHeight));
-        m_inAnimation->setEndValue(QPoint(baseX / 2, y));
-    }
+    move(dPos);
+    resize(dSize);
 
     if (m_outAnimation->state() != QPropertyAnimation::Running) {
         const QRect normalGeo(dPos, dSize);
@@ -168,6 +160,14 @@ void Bubble::setBasePosition(int x, int y, QRect rect)
 
         m_outAnimation->setStartValue(normalGeo);
         m_outAnimation->setEndValue(outGeo);
+    }
+
+    if (m_dismissAnimation->state() != QPropertyAnimation::Running) {
+        const QRect normalGeo(dPos, dSize);
+        QRect outGeo(normalGeo.right(), normalGeo.y(), 0, normalGeo.height());
+
+        m_dismissAnimation->setStartValue(normalGeo);
+        m_dismissAnimation->setEndValue(outGeo);
     }
 
     if (!rect.isEmpty())
@@ -185,29 +185,19 @@ void Bubble::compositeChanged()
     }
 }
 
-void Bubble::mousePressEvent(QMouseEvent *)
+void Bubble::mousePressEvent(QMouseEvent *event)
 {
-    if (!m_defaultAction.isEmpty()) {
-        Q_EMIT actionInvoked(m_entity->id(), m_defaultAction);
-        m_defaultAction.clear();
-    } else {
-        Q_EMIT dismissed(m_entity->id());
+    if (event->button() == Qt::LeftButton) {
+        if (!m_defaultAction.isEmpty()) {
+            Q_EMIT actionInvoked(m_entity->id(), m_defaultAction);
+            m_defaultAction.clear();
+        } else {
+            //采用动画的方式退出并隐藏，不会丢失窗体‘焦点’，造成控件不响应鼠标进入和离开事件
+            m_dismissAnimation->start();
+        }
     }
 
-    m_offScreen = true;
     m_outTimer->stop();
-}
-
-void Bubble::moveEvent(QMoveEvent *event)
-{
-    // don't show this bubble on unrelated screens while sliding in.
-    if (m_inAnimation->state() == QPropertyAnimation::Running) {
-        const bool visible = m_screenGeometry.contains(event->pos());
-        resize(visible ? QSize(BubbleWidth, BubbleHeight) : QSize(1, 1));
-        //setVisible(visible);
-    }
-
-    DBlurEffectWidget::moveEvent(event);
 }
 
 void Bubble::showEvent(QShowEvent *event)
@@ -222,6 +212,7 @@ void Bubble::hideEvent(QHideEvent *event)
     DBlurEffectWidget::hideEvent(event);
 
     m_outAnimation->stop();
+    m_dismissAnimation->stop();
 
     m_quitTimer->start();
 }
@@ -252,7 +243,6 @@ void Bubble::onOutTimerTimeout()
         m_outTimer->stop();
         m_outTimer->start();
     } else {
-        m_offScreen = true;
         m_outAnimation->start();
     }
 }
@@ -262,6 +252,14 @@ void Bubble::onOutAnimFinished()
     // FIXME: There should be no empty pointers here
     if (m_entity) {
         Q_EMIT expired(m_entity->id());
+    }
+}
+
+void Bubble::onDismissAnimFinished()
+{
+    // FIXME: There should be no empty pointers here
+    if (m_entity) {
+        Q_EMIT dismissed(m_entity->id());
     }
 }
 
@@ -276,32 +274,49 @@ void Bubble::updateContent()
 
 void Bubble::initUI()
 {
-    resize(BubbleWidth, BubbleHeight);
-
-    m_icon->setFixedSize(48, 48);
-    m_icon->move(11, 11);
-
+    setFixedSize(BubbleWidth, BubbleHeight);
+    m_icon->setFixedSize(64, 64);
     m_body->setObjectName("Body");
-    m_body->move(70, 0);
 
-    m_actionButton->move(BubbleWidth - m_actionButton->width(), 0);
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->setSpacing(10);
+    layout->setMargin(PADDING);
+    layout->addWidget(m_icon);
+    layout->addWidget(m_body);
+    layout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Expanding));
+    layout->addWidget(m_actionButton);
+
+    m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    setLayout(layout);
 
     setStyleSheet(BubbleStyleSheet);
+}
 
+void Bubble::initConnections()
+{
     connect(m_actionButton, &ActionButton::buttonClicked, this, &Bubble::onActionButtonClicked);
+    connect(m_actionButton, &ActionButton::closeButtonClicked, this, &Bubble::hide);
+
+    connect(this, &Bubble::expired, m_actionButton, &ActionButton::expired);
+    connect(this, &Bubble::dismissed, m_actionButton, &ActionButton::dismissed);
+    connect(this, &Bubble::replacedByOther, m_actionButton, &ActionButton::replacedByOther);
+
+    connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &Bubble::compositeChanged);
+    connect(m_quitTimer, &QTimer::timeout, this, &Bubble::onDelayQuit);
 }
 
 void Bubble::initAnimations()
 {
-    m_inAnimation = new QPropertyAnimation(this, "pos", this);
-    m_inAnimation->setDuration(300);
-    m_inAnimation->setEasingCurve(QEasingCurve::OutCubic);
-
     m_outAnimation = new QPropertyAnimation(this, "geometry", this);
     m_outAnimation->setDuration(300);
     m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
-
     connect(m_outAnimation, &QPropertyAnimation::finished, this, &Bubble::onOutAnimFinished);
+
+    m_dismissAnimation = new QPropertyAnimation(this, "geometry", this);
+    m_dismissAnimation->setDuration(200);
+    m_dismissAnimation->setEasingCurve(QEasingCurve::OutCubic);
+    connect(m_dismissAnimation, &QPropertyAnimation::finished, this, &Bubble::onDismissAnimFinished);
 
     m_moveAnimation = new QPropertyAnimation(this, "pos", this);
     m_moveAnimation->setEasingCurve(QEasingCurve::OutCubic);
@@ -339,15 +354,6 @@ void Bubble::processActions()
     }
 
     m_actionButton->addButtons(list);
-
-    if (m_actionButton->isEmpty()) {
-        m_actionButton->hide();
-        m_body->setFixedSize(220, BubbleHeight);
-    } else {
-        m_actionButton->show();
-        m_body->setFixedSize(150, BubbleHeight);
-    }
-
 }
 
 void Bubble::processIconData()
@@ -372,8 +378,7 @@ void Bubble::processIconData()
 
     if (!imagePixmap.isNull()) {
         m_icon->setPixmap(imagePixmap);
-    }
-    else {
+    } else {
         m_icon->setIcon(imagePath.isEmpty() ? m_entity->appIcon() : imagePath, m_entity->appName());
     }
 }
@@ -386,35 +391,35 @@ void Bubble::saveImg(const QImage &image)
     image.save(CachePath + QString::number(m_entity->id()) + ".png");
 }
 
-inline void copyLineRGB32(QRgb* dst, const char* src, int width)
+inline void copyLineRGB32(QRgb *dst, const char *src, int width)
 {
-    const char* end = src + width * 3;
-    for (; src != end; ++dst, src+=3) {
+    const char *end = src + width * 3;
+    for (; src != end; ++dst, src += 3) {
         *dst = qRgb(src[0], src[1], src[2]);
     }
 }
 
-inline void copyLineARGB32(QRgb* dst, const char* src, int width)
+inline void copyLineARGB32(QRgb *dst, const char *src, int width)
 {
-    const char* end = src + width * 4;
-    for (; src != end; ++dst, src+=4) {
+    const char *end = src + width * 4;
+    for (; src != end; ++dst, src += 4) {
         *dst = qRgba(src[0], src[1], src[2], src[3]);
     }
 }
 
-static QImage decodeNotificationSpecImageHint(const QDBusArgument& arg)
+static QImage decodeNotificationSpecImageHint(const QDBusArgument &arg)
 {
     int width, height, rowStride, hasAlpha, bitsPerSample, channels;
     QByteArray pixels;
-    char* ptr;
-    char* end;
+    char *ptr;
+    char *end;
 
     arg.beginStructure();
     arg >> width >> height >> rowStride >> hasAlpha >> bitsPerSample >> channels >> pixels;
     arg.endStructure();
     //qDebug() << width << height << rowStride << hasAlpha << bitsPerSample << channels;
 
-    #define SANITY_CHECK(condition) \
+#define SANITY_CHECK(condition) \
     if (!(condition)) { \
         qWarning() << "Sanity check failed on" << #condition; \
         return QImage(); \
@@ -426,10 +431,10 @@ static QImage decodeNotificationSpecImageHint(const QDBusArgument& arg)
     SANITY_CHECK(height < 2048);
     SANITY_CHECK(rowStride > 0);
 
-    #undef SANITY_CHECK
+#undef SANITY_CHECK
 
     QImage::Format format = QImage::Format_Invalid;
-    void (*fcn)(QRgb*, const char*, int) = 0;
+    void (*fcn)(QRgb *, const char *, int) = 0;
     if (bitsPerSample == 8) {
         if (channels == 4) {
             format = QImage::Format_ARGB32;
@@ -447,12 +452,12 @@ static QImage decodeNotificationSpecImageHint(const QDBusArgument& arg)
     QImage image(width, height, format);
     ptr = pixels.data();
     end = ptr + pixels.length();
-    for (int y=0; y<height; ++y, ptr += rowStride) {
+    for (int y = 0; y < height; ++y, ptr += rowStride) {
         if (ptr + channels * width > end) {
             qWarning() << "Image data is incomplete. y:" << y << "height:" << height;
             break;
         }
-        fcn((QRgb*)image.scanLine(y), ptr, width);
+        fcn((QRgb *)image.scanLine(y), ptr, width);
     }
 
     return image;

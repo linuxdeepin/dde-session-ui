@@ -1,6 +1,7 @@
 isEmpty(PREFIX){
     PREFIX = /usr
 }
+QT += svg
 
 HEADERS += \
     $$PWD/bubble.h \
@@ -15,7 +16,8 @@ HEADERS += \
     $$PWD/persistence.h \
     $$PWD/appbody.h \
     $$PWD/icondata.h \
-    $$PWD/appbodylabel.h
+    $$PWD/appbodylabel.h \
+    $$PWD/button.h
 
 SOURCES += \
     $$PWD/bubble.cpp \
@@ -30,7 +32,8 @@ SOURCES += \
     $$PWD/persistence.cpp \
     $$PWD/appbody.cpp \
     $$PWD/icondata.cpp \
-    $$PWD/appbodylabel.cpp
+    $$PWD/appbodylabel.cpp \
+    $$PWD/button.cpp
 
 orgDBus.input = $$PWD/files/com.deepin.dde.freedesktop.Notification.service.in
 orgDBus.output = $$OUT_PWD/files/com.deepin.dde.freedesktop.Notification.service

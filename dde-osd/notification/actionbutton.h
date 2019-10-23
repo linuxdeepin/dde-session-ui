@@ -3,6 +3,8 @@
  *
  * Author:     kirigaya <kirigaya@mkacg.com>
  *
+ * Maintainer: fanpengcheng <fanpengcheng_cm@deepin.com>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -23,40 +25,50 @@
 #include <QFrame>
 #include <QPainter>
 #include <QPushButton>
-#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QMap>
 
-class Button : public QPushButton {
-    Q_OBJECT
-    Q_PROPERTY(bool isHead READ isHead DESIGNABLE true SCRIPTABLE true)
+#include <QComboBox>
 
-public:
-    Button(const QString &text, QWidget *parent = 0);
+#include <DPushButton>
 
-    bool isHead() const { return m_isHead; }
-    void setIsHead(bool head = true);
+DWIDGET_USE_NAMESPACE
 
-private:
-    bool m_isHead;
-};
+#define BUTTONWIDTH (70)
+#define BUTTONHEIGHT (60)
+#define PADDING (10)
+#define CLOSEBTNSIZE (QSize(30,30))
 
+class Button;
+class MenuButton;
+class CloseButton;
 class ActionButton : public QFrame
 {
     Q_OBJECT
 
 public:
-    ActionButton(QWidget * parent = 0);
+    ActionButton(QWidget *parent = nullptr);
 
     bool addButtons(const QStringList &list);
     bool isEmpty();
     void clear();
 
+private:
+    void initUI();
+    void initConnections();
+
 signals:
+    void closeButtonClicked();
     void buttonClicked(const QString &id);
+    void expired(int);
+    void dismissed(int);
+    void replacedByOther(int);
 
 private:
-    QVBoxLayout *m_layout;
-    QList<Button*> m_buttons;
+    QHBoxLayout *m_layout = nullptr;
+    QList<Button *> m_buttons;
+    Button *m_closeButton = nullptr;
+    Button *m_menuButton = nullptr;
 };
 
 #endif // ACTIONBUTTON_H

@@ -28,5 +28,7 @@
         <file>icons/OSD_wifi_on.svg</file>
         <file>icons/OSD_wifi_off.svg</file>
         <file>icons/OSD_trackpad_toggle.svg</file>
+        <file>icons/OSD_menu_up.svg</file>
+        <file>icons/OSD_menu_down.svg</file>
     </qresource>
 </RCC>

@@ -3,6 +3,8 @@
  *
  * Author:     kirigaya <kirigaya@mkacg.com>
  *
+ * Maintainer: fanpengcheng <fanpengcheng_cm@deepin.com>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -24,8 +26,14 @@
 #include <QtMath>
 #include <QDebug>
 #include <QStyle>
+#include <QMenu>
+#include <QAction>
+#include <QGridLayout>
 
 #include "actionbutton.h"
+#include "button.h"
+
+//#include <DPushButton>
 
 static const QColor BorderColor = QColor::fromRgbF(0, 0, 0, 0.1);
 static const QColor TextColor = QColor(0, 135, 255);
@@ -33,70 +41,61 @@ static const QColor TextHover = Qt::white;
 
 ActionButton::ActionButton(QWidget *parent) :
     QFrame(parent)
+    , m_closeButton(new Button(this))
+    , m_menuButton(new Button())
 {
-    setObjectName("ActionButton");
-    setFixedSize(70, 70);
-
-    m_layout = new QVBoxLayout;
-    m_layout->setMargin(0);
-    m_layout->setSpacing(0);
-
-    setLayout(m_layout);
-
-    setStyleSheet("#ActionButton {"
-                  "border: solid rgba(0, 0, 0, 0.1);"
-                  "border-left-width: 1px;"
-                  "}"
-                  "#ActionButton > QPushButton[isHead=true] {"
-                  "margin: 0;"
-                  "border: none;"
-                  "color: rgb(0, 135, 255);"
-                  "}"
-                  "#ActionButton > QPushButton {"
-                  "margin: 0;"
-                  "border: solid rgba(0, 0, 0, 0.1);"
-                  "border-top-width: 1px;"
-                  "color: rgb(0, 135, 255);"
-                  "}"
-                  "#ActionButton > QPushButton:hover {"
-                  "margin: 0;"
-                  "border: none;"
-                  "color: white;"
-                  "background: rgb(0, 135, 255);"
-                  "}");
+    initUI();
+    initConnections();
 }
 
 bool ActionButton::addButtons(const QStringList &list)
 {
-    if (list.isEmpty()) return false;
-
-    const int buttonHeight = ((double)height() / (double)list.size()) * 2;
-
-    QString id;
+    if (list.isEmpty()) {
+        m_closeButton->show();
+        return true;
+    }
 
     // Each even element in the list (starting at index 0) represents the
     // identifier for the action. Each odd element in the list is the
     // localized string that will be displayed to the user.
+    QString id;
+
     for (int i = 0; i != list.size(); ++i) {
+        //先获取action ID
         if (i % 2 == 0) {
             id = list[i];
         } else {
-            Button *button = new Button(list[i]);
-            m_buttons << button;
+            if (i == 1) {
+                Button *button = new Button();
+                button->setText(list[i]);
+                button->setRadius(15);
+                button->setFixedSize(BUTTONWIDTH, BUTTONHEIGHT);
 
-            button->setFixedHeight(buttonHeight);
+                m_layout->addWidget(button);
 
-            connect(button, &Button::clicked, this, [=] {
-                emit buttonClicked(id);
-            });
+                connect(button, &Button::clicked, this, [ = ] {
+                    emit buttonClicked(id);
+                });
 
-            button->setIsHead(false);
+                m_buttons << button;
+            } else if (i == 3) {
+                m_menuButton->setText(list[i]);
+                m_menuButton->setId(id);
+            } else {
+                QAction *action = new QAction(list[i]);
 
-            m_layout->addWidget(button);
+                connect(action, &QAction::triggered, this, [ = ] {
+                    emit buttonClicked(id);
+                });
+
+                m_menuButton->addAction(action);
+            }
         }
     }
 
-    m_buttons.first()->setIsHead(true);
+    if (list.size() > 2) {
+        m_menuButton->show();
+    }
 
     return true;
 }
@@ -114,20 +113,44 @@ void ActionButton::clear()
     }
 
     m_buttons.clear();
+
+    m_menuButton->clear();
+    m_menuButton->hide();
+
+    m_closeButton->hide();
 }
 
-void Button::setIsHead(bool head)
+void ActionButton::initUI()
 {
-    if (m_isHead == head) return;
+    setObjectName("ActionButton");
+    m_closeButton->setFixedSize(CLOSEBTNSIZE);
+    m_closeButton->setRadius(99);
+    m_closeButton->setText("X");
+    m_menuButton->setFixedSize(BUTTONWIDTH, BUTTONHEIGHT);
+    m_menuButton->setRadius(20);
 
-    m_isHead = head;
+    m_layout = new QHBoxLayout;
+    m_layout->setMargin(0);
+    m_layout->setSpacing(10);
+    m_layout->setAlignment(Qt::AlignRight);
 
-    style()->unpolish(this);
-    style()->polish(this);
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->setSpacing(10);
+    layout->setMargin(0);
+    layout->addLayout(m_layout);
+    layout->addWidget(m_menuButton);
+    layout->addWidget(m_closeButton);
+
+    setLayout(layout);
+
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 }
 
-Button::Button(const QString &text, QWidget *parent)
-    : QPushButton(text, parent)
+void ActionButton::initConnections()
 {
-    setIsHead(false);
+    connect(this, &ActionButton::expired, m_menuButton, &Button::hideMenu);
+    connect(this, &ActionButton::dismissed, m_menuButton, &Button::hideMenu);
+    connect(this, &ActionButton::replacedByOther, m_menuButton, &Button::hideMenu);
+    connect(m_closeButton, &Button::clicked, this, &ActionButton::closeButtonClicked);
+    connect(m_menuButton, &Button::toggled, this, &ActionButton::buttonClicked);
 }

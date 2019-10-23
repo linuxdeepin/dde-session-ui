@@ -5,6 +5,7 @@
  *             listenerri <listenerri@gmail.com>
  *
  * Maintainer: listenerri <listenerri@gmail.com>
+ *             fanpengcheng <fanpengcheng_cm@deepin.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,8 +24,10 @@
 #ifndef BUBBLE_H
 #define BUBBLE_H
 
-#include <QFrame>
 #include <DBlurEffectWidget>
+#include <DIconButton>
+
+#include <QFrame>
 #include <QStandardPaths>
 #include <QDir>
 #include <DPlatformWindowHandle>
@@ -42,11 +45,9 @@ class ActionButton;
 class AppBody;
 class QGraphicsDropShadowEffect;
 
-static const int Padding = 46;
-static const int BubbleMargin = 20;
+static const int Padding = 10;
 static const int BubbleWidth = 600;
 static const int BubbleHeight = 80;
-
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
 
@@ -54,10 +55,10 @@ class Bubble : public DBlurEffectWidget
 {
     Q_OBJECT
 public:
-    Bubble(NotificationEntity *entity=0);
+    Bubble(NotificationEntity *entity = nullptr);
 
     NotificationEntity *entity() const;
-    void setBasePosition(int,int, QRect = QRect());
+    void setBasePosition(int, int, QRect = QRect());
     void setEntity(NotificationEntity *entity);
 
 Q_SIGNALS:
@@ -73,7 +74,6 @@ public Q_SLOTS:
 
 protected:
     void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
-    void moveEvent(QMoveEvent *) Q_DECL_OVERRIDE;
     void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
     void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
 
@@ -81,9 +81,11 @@ private Q_SLOTS:
     void onActionButtonClicked(const QString &actionId);
     void onOutTimerTimeout();
     void onOutAnimFinished();
+    void onDismissAnimFinished();
 
 private:
     void initUI();
+    void initConnections();
     void initAnimations();
     void initTimers();
     void updateContent();
@@ -101,8 +103,8 @@ private:
     AppBody *m_body = nullptr;
     ActionButton *m_actionButton = nullptr;
 
-    QPropertyAnimation *m_inAnimation = nullptr;
     QPropertyAnimation *m_outAnimation = nullptr;
+    QPropertyAnimation *m_dismissAnimation = nullptr;
     QPropertyAnimation *m_moveAnimation = nullptr;
     QTimer *m_outTimer = nullptr;
     QTimer *m_quitTimer;
