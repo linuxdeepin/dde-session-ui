@@ -25,16 +25,17 @@
 #include <QObject>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <memory>
 
 class NotificationEntity;
 class Persistence : public QObject
 {
     Q_OBJECT
 public:
-    explicit Persistence(QObject *parent = 0);
+    explicit Persistence(QObject *parent = nullptr);
 
-    void addOne(NotificationEntity *entity);
-    void addAll(QList<NotificationEntity*> entities);
+    void addOne(std::shared_ptr<NotificationEntity> entity);
+    void addAll(QList<std::shared_ptr<NotificationEntity>> entities);
     void removeOne(const QString &id);
     void removeAll();
 
@@ -46,7 +47,7 @@ public:
     QString getFrom(int rowCount, const QString &offsetId);
 
 signals:
-    void RecordAdded(NotificationEntity *entify);
+    void RecordAdded(std::shared_ptr<NotificationEntity> entify);
 
 private:
     void attemptCreateTable();

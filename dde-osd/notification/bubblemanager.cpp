@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2014 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     kirigaya <kirigaya@mkacg.com>
@@ -24,6 +24,7 @@
 #include <QStringList>
 #include <QVariantMap>
 #include <QTimer>
+#include <algorithm>
 #include "bubble.h"
 #include "dbus_daemon_interface.h"
 #include "dbuslogin1manager.h"
@@ -50,7 +51,6 @@ static QString removeHTML(const QString &source) {
 BubbleManager::BubbleManager(QObject *parent)
     : QObject(parent)
 {
-    m_bubble = new Bubble;
     m_persistence = new Persistence;
     m_dockPosition = DockPosition::Bottom;
 
@@ -62,11 +62,6 @@ BubbleManager::BubbleManager(QObject *parent)
                                             QDBusConnection::sessionBus(), this);
     m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this);
-
-    connect(m_bubble, SIGNAL(expired(int)), this, SLOT(bubbleExpired(int)));
-    connect(m_bubble, SIGNAL(dismissed(int)), this, SLOT(bubbleDismissed(int)));
-    connect(m_bubble, SIGNAL(replacedByOther(int)), this, SLOT(bubbleReplacedByOther(int)));
-    connect(m_bubble, SIGNAL(actionInvoked(uint, QString)), this, SLOT(bubbleActionInvoked(uint, QString)));
 
     connect(m_persistence, &Persistence::RecordAdded, this, &BubbleManager::onRecordAdded);
     connect(m_login1ManagerInterface, SIGNAL(PrepareForSleep(bool)),
@@ -93,8 +88,6 @@ BubbleManager::~BubbleManager()
 
 void BubbleManager::CloseNotification(uint id)
 {
-    bubbleDismissed(id);
-
     return;
 }
 
@@ -126,30 +119,86 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
              << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 #endif
 
-    NotificationEntity *notification = new NotificationEntity(appName, QString(), appIcon,
+    std::shared_ptr<NotificationEntity> notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
                                                               summary, removeHTML(body), actions, hints,
                                                               QString::number(QDateTime::currentMSecsSinceEpoch()),
                                                               QString::number(replacesId),
                                                               QString::number(expireTimeout),
                                                               this);
-
-    if (!m_currentNotify.isNull() && replacesId != 0 && (m_currentNotify->id() == replacesId
-                                                         || m_currentNotify->replacesId() == QString::number(replacesId))) {
-        m_bubble->setEntity(notification);
-
-        m_currentNotify->deleteLater();
-        m_currentNotify = notification;
-    } else {
-        m_entities.enqueue(notification);
-    }
-
     m_persistence->addOne(notification);
-
-    if (!m_bubble->isVisible()) { consumeEntities(); }
+    pushBubble(notification);
 
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.
     // If replaces_id is not 0, the returned value is the same value as replaces_id.
     return replacesId == 0 ? notification->id() : replacesId;
+}
+
+void BubbleManager::pushBubble(std::shared_ptr<NotificationEntity> notify)
+{
+    if(notify == nullptr) return;
+
+    Bubble* bubble = createBubble(notify);
+    if(m_bubbleList.size() == BubbleEntities) {
+        m_oldEntities.push_front(m_bubbleList.last()->entity());
+        m_bubbleList.last()->setVisible(false);
+        m_bubbleList.last()->deleteLater();
+        m_bubbleList.removeLast();
+    }
+
+    m_bubbleList.push_front(bubble);
+    pushAnimation(bubble);
+}
+
+void BubbleManager::popBubble(Bubble* bubble)
+{
+    bubble->setVisible(false);
+
+    refreshBubble();
+    popAnimation(bubble);
+
+    bubble->deleteLater();
+    m_bubbleList.removeOne(bubble);
+}
+
+void BubbleManager::refreshBubble()
+{
+    if(m_bubbleList.size() < BubbleEntities + 1 && !m_oldEntities.isEmpty()) {
+        auto notify = m_oldEntities.takeFirst();
+        Bubble* bubble = createBubble(notify);
+        bubble->setPostion(QPoint(bubble->x(), bubble->y() +
+                                  BubbleHeight * BubbleEntities +
+                                  BubbleMargin * BubbleEntities));
+        m_bubbleList.push_back(bubble);
+    }
+}
+
+void BubbleManager::pushAnimation(Bubble* bubble)
+{
+    QPoint move_point(bubble->postion());
+    int index = m_bubbleList.indexOf(bubble);
+    if(index == -1)  return;
+
+    while (index < m_bubbleList.size() - 1) {
+        index ++;
+        move_point.setY(move_point.y() + BubbleHeight + BubbleMargin);
+        QPointer<Bubble> item = m_bubbleList.at(index);
+        if(bubble != nullptr) item->resetMoveAnim(move_point);
+    }
+}
+
+void BubbleManager::popAnimation(Bubble* bubble)
+{
+    QPoint move_point(bubble->postion());
+    int index = m_bubbleList.indexOf(bubble);
+    if(index == -1)  return;
+
+    while (index < m_bubbleList.size() - 1) {
+        index ++;
+        QPointer<Bubble> item = m_bubbleList.at(index);
+        int position = item->postion().y();
+        if(bubble != nullptr) item->resetMoveAnim(move_point);
+        move_point.setY(position);
+    }
 }
 
 QString BubbleManager::GetAllRecords()
@@ -183,7 +232,7 @@ void BubbleManager::ClearRecords()
     dir.removeRecursively();
 }
 
-void BubbleManager::onRecordAdded(NotificationEntity *entity)
+void BubbleManager::onRecordAdded(std::shared_ptr<NotificationEntity> entity)
 {
     QJsonObject notifyJson
     {
@@ -216,33 +265,27 @@ void BubbleManager::registerAsService()
 }
 
 
-void BubbleManager::bubbleExpired(int id)
+void BubbleManager::bubbleExpired(Bubble* bubble)
 {
-    m_bubble->setVisible(false);
-    Q_EMIT NotificationClosed(id, BubbleManager::Expired);
-
-    consumeEntities();
+    popBubble(bubble);
+    Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Expired);
 }
 
-void BubbleManager::bubbleDismissed(int id)
+void BubbleManager::bubbleDismissed(Bubble* bubble)
 {
-    m_bubble->setVisible(false);
-    Q_EMIT NotificationClosed(id, BubbleManager::Dismissed);
-
-    consumeEntities();
+    popBubble(bubble);
+    Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Dismissed);
 }
 
-void BubbleManager::bubbleReplacedByOther(int id)
+void BubbleManager::bubbleReplacedByOther(Bubble* bubble)
 {
-    Q_EMIT NotificationClosed(id, BubbleManager::Unknown);
+    Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Unknown);
 }
 
-void BubbleManager::bubbleActionInvoked(uint id, QString actionId)
+void BubbleManager::bubbleActionInvoked(Bubble* bubble, QString actionId)
 {
-    m_bubble->setVisible(false);
-    Q_EMIT ActionInvoked(id, actionId);
-    Q_EMIT NotificationClosed(id, BubbleManager::Closed);
-    consumeEntities();
+    Q_EMIT ActionInvoked(bubble->entity()->id(), actionId);
+    Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Closed);
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
@@ -317,7 +360,7 @@ void BubbleManager::onDockRectChanged(const QRect &geometry)
 {
     m_dockGeometry = geometry;
 
-    m_bubble->setBasePosition(getX(), getY());
+    //m_bubble->setBasePosition(getX(), getY());
 }
 
 void BubbleManager::onDockPositionChanged(int position)
@@ -334,19 +377,13 @@ void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newNam
     }
 }
 
-void BubbleManager::consumeEntities()
+Bubble* BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify)
 {
-    if (!m_currentNotify.isNull()) {
-        m_currentNotify->deleteLater();
-        m_currentNotify = nullptr;
-    }
-
-    if (m_entities.isEmpty()) {
-        m_currentNotify = nullptr;
-        return;
-    }
-
-    m_currentNotify = m_entities.dequeue();
+    Bubble* bubble = new Bubble(notify);
+    connect(bubble, &Bubble::expired, this, &BubbleManager::bubbleExpired);
+    connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);
+    connect(bubble, &Bubble::replacedByOther, this, &BubbleManager::bubbleReplacedByOther);
+    connect(bubble, &Bubble::actionInvoked, this, &BubbleManager::bubbleActionInvoked);
 
     QDesktopWidget *desktop = QApplication::desktop();
     int pointerScreen = desktop->screenNumber(QCursor::pos());
@@ -356,6 +393,6 @@ void BubbleManager::consumeEntities()
     if (pointerScreen != primaryScreen)
         pScreenWidget = desktop->screen(pointerScreen);
 
-    m_bubble->setBasePosition(getX(), getY(), pScreenWidget->geometry());
-    m_bubble->setEntity(m_currentNotify);
+    bubble->setBasePosition(getX(), getY(), pScreenWidget->geometry());
+    return bubble;
 }

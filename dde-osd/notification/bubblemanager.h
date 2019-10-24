@@ -55,11 +55,14 @@ class DBusDaemonInterface;
 class Login1ManagerInterface;
 class DBusDockInterface;
 class Persistence;
+
+static const int BubbleEntities = 3;
+
 class BubbleManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit BubbleManager(QObject *parent = 0);
+    explicit BubbleManager(QObject *parent = nullptr);
     ~BubbleManager();
 
     enum ClosedReason {
@@ -74,6 +77,11 @@ public:
         Right = 1,
         Bottom = 2,
         Left = 3
+    };
+
+    enum AnimationPath {
+        Down = 0,
+        Up = 1
     };
 
 Q_SIGNALS:
@@ -100,17 +108,17 @@ public Q_SLOTS:
     void ClearRecords();
 
 private Q_SLOTS:
-    void onRecordAdded(NotificationEntity *entity);
+    void onRecordAdded(std::shared_ptr<NotificationEntity> entity);
 
     void onDockRectChanged(const QRect &geometry);
     void onDockPositionChanged(int position);
     void onDbusNameOwnerChanged(QString, QString, QString);
     void onPrepareForSleep(bool);
 
-    void bubbleExpired(int);
-    void bubbleDismissed(int);
-    void bubbleReplacedByOther(int);
-    void bubbleActionInvoked(uint, QString);
+    void bubbleExpired(Bubble*);
+    void bubbleDismissed(Bubble*);
+    void bubbleReplacedByOther(Bubble*);
+    void bubbleActionInvoked(Bubble*, QString);
 
 private:
     void registerAsService();
@@ -126,10 +134,15 @@ private:
     // or return false.
     QPair<QRect, bool> screensInfo(const QPoint &point) const;
 
-    void consumeEntities();
+    Bubble* createBubble(std::shared_ptr<NotificationEntity> notify);
+    void pushBubble(std::shared_ptr<NotificationEntity> notify);
+    void popBubble(Bubble*);
+    void refreshBubble();
+
+    void pushAnimation(Bubble* bubble);
+    void popAnimation(Bubble* bubble);
 
 private:
-    Bubble *m_bubble;
     Persistence *m_persistence;
     DBusControlCenter *m_dbusControlCenter;
     DBusDaemonInterface *m_dbusDaemonInterface;
@@ -137,11 +150,10 @@ private:
     DBusDockInterface *m_dbusdockinterface;
     DockDaemonInter *m_dockDeamonInter;
 
-    QQueue<NotificationEntity*> m_entities;
-    QPointer<NotificationEntity> m_currentNotify;
+    QList<std::shared_ptr<NotificationEntity>> m_oldEntities;
+    QList<QPointer<Bubble>> m_bubbleList;
 
     QRect m_dockGeometry;
-
     DockPosition m_dockPosition;
 };
 

@@ -33,6 +33,7 @@
 #include <DPlatformWindowHandle>
 #include <DWindowManagerHelper>
 #include <QDBusArgument>
+#include <memory>
 
 DWIDGET_USE_NAMESPACE
 
@@ -45,9 +46,11 @@ class ActionButton;
 class AppBody;
 class QGraphicsDropShadowEffect;
 
-static const int Padding = 10;
+static const int Padding = 46;
+static const int BubbleMargin = 20;
 static const int BubbleWidth = 600;
 static const int BubbleHeight = 80;
+
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
 
@@ -55,26 +58,32 @@ class Bubble : public DBlurEffectWidget
 {
     Q_OBJECT
 public:
-    Bubble(NotificationEntity *entity = nullptr);
+    Bubble(std::shared_ptr<NotificationEntity> entity = nullptr);
 
-    NotificationEntity *entity() const;
-    void setBasePosition(int, int, QRect = QRect());
-    void setEntity(NotificationEntity *entity);
+    std::shared_ptr<NotificationEntity> entity() const;
+    void setBasePosition(int,int, QRect = QRect());
+    void setEntity(std::shared_ptr<NotificationEntity> entity);
+    QPoint postion() { return dPos; }
+    void setPostion(const QPoint& point) {
+        dPos = point;
+        move(dPos);
+    }
 
 Q_SIGNALS:
-    void expired(int);
-    void dismissed(int);
-    void replacedByOther(int);
-    void actionInvoked(uint, QString);
+    void expired(Bubble*);
+    void dismissed(Bubble*);
+    void replacedByOther(Bubble*);
+    void actionInvoked(Bubble*, QString);
     void focusChanged(bool);
 
 public Q_SLOTS:
     void compositeChanged();
     void onDelayQuit();
-    void resetMoveAnim(const QRect &rect);
+    void resetMoveAnim(const QPoint &rect);
 
 protected:
     void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+    void moveEvent(QMoveEvent *) Q_DECL_OVERRIDE;
     void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
     void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
     void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
@@ -100,12 +109,13 @@ private:
     const QPixmap converToPixmap(const QDBusArgument &value);
 
 private:
-    NotificationEntity *m_entity;
+    std::shared_ptr<NotificationEntity> m_entity;
 
     AppIcon *m_icon = nullptr;
     AppBody *m_body = nullptr;
     ActionButton *m_actionButton = nullptr;
 
+    QPropertyAnimation *m_inAnimation = nullptr;
     QPropertyAnimation *m_outAnimation = nullptr;
     QPropertyAnimation *m_dismissAnimation = nullptr;
     QPropertyAnimation *m_moveAnimation = nullptr;
@@ -116,6 +126,7 @@ private:
 
     QRect m_screenGeometry;
     QString m_defaultAction;
+    QPoint dPos;
 
     bool m_offScreen = true;
 };

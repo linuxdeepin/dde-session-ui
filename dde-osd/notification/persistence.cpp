@@ -69,7 +69,7 @@ Persistence::Persistence(QObject *parent)
     attemptCreateTable();
 }
 
-void Persistence::addOne(NotificationEntity *entity)
+void Persistence::addOne(std::shared_ptr<NotificationEntity> entity)
 {
     m_query.prepare(QString("INSERT INTO %1 (%2, %3, %4, %5, %6, %7, %8)"
                             "VALUES (:icon, :summary, :body, :appname, :ctime, :replacesid, :timeout)") \
@@ -106,9 +106,9 @@ void Persistence::addOne(NotificationEntity *entity)
     }
 }
 
-void Persistence::addAll(QList<NotificationEntity *> entities)
+void Persistence::addAll(QList<std::shared_ptr<NotificationEntity>> entities)
 {
-    for (NotificationEntity *entity : entities) {
+    for (std::shared_ptr<NotificationEntity> entity : entities) {
         addOne(entity);
     }
 }
