@@ -32,7 +32,6 @@ DWIDGET_USE_NAMESPACE
 class QMouseEvent;
 class QMenu;
 class QPaintEvent;
-class QContextMenuEvent;
 class QAction;
 class ButtonContent : public DWidget
 {

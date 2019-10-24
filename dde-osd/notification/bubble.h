@@ -50,6 +50,7 @@ static const int Padding = 46;
 static const int BubbleMargin = 20;
 static const int BubbleWidth = 320;
 static const int BubbleHeight = 80;
+static const int BubbleTimeout = 5000;//msec
 
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
@@ -61,19 +62,20 @@ public:
     Bubble(std::shared_ptr<NotificationEntity> entity = nullptr);
 
     std::shared_ptr<NotificationEntity> entity() const;
-    void setBasePosition(int,int, QRect = QRect());
+    void setBasePosition(int, int, QRect = QRect());
     void setEntity(std::shared_ptr<NotificationEntity> entity);
     QPoint postion() { return dPos; }
-    void setPostion(const QPoint& point) {
+    void setPostion(const QPoint &point)
+    {
         dPos = point;
         move(dPos);
     }
 
 Q_SIGNALS:
-    void expired(Bubble*);
-    void dismissed(Bubble*);
-    void replacedByOther(Bubble*);
-    void actionInvoked(Bubble*, QString);
+    void expired(Bubble *);
+    void dismissed(Bubble *);
+    void replacedByOther(Bubble *);
+    void actionInvoked(Bubble *, QString);
     void focusChanged(bool);
 
 public Q_SLOTS:

@@ -91,6 +91,11 @@ Bubble::Bubble(std::shared_ptr<NotificationEntity> entity)
     m_handle->setShadowRadius(18);
     m_handle->setShadowOffset(QPoint(0, 4));
 
+    DStyleHelper dstyle(style());
+    int radius = dstyle.pixelMetric(DStyle::PM_TopLevelWindowRadius);
+    setBlurRectXRadius(radius);
+    setBlurRectYRadius(radius);
+
     compositeChanged();
 
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
@@ -143,7 +148,7 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     int timeout = entity->timeout().toInt();
     //  0: never times out
     // -1: default 5s
-    m_outTimer->setInterval(timeout == -1 ? 5000 : (timeout == 0 ? -1 : timeout));
+    m_outTimer->setInterval(timeout == -1 ? BubbleTimeout : (timeout == 0 ? -1 : timeout));
     m_outTimer->start();
 }
 
@@ -372,7 +377,7 @@ void Bubble::initAnimations()
 void Bubble::initTimers()
 {
     m_outTimer = new QTimer(this);
-    m_outTimer->setInterval(5000);
+    m_outTimer->setInterval(BubbleTimeout);
     m_outTimer->setSingleShot(true);
     connect(m_outTimer, &QTimer::timeout, this, &Bubble::onOutTimerTimeout);
 }
