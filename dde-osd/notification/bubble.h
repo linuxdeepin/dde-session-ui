@@ -64,6 +64,7 @@ public:
     std::shared_ptr<NotificationEntity> entity() const;
     void setBasePosition(int, int, QRect = QRect());
     void setEntity(std::shared_ptr<NotificationEntity> entity);
+
     QPoint postion() { return dPos; }
     void setPostion(const QPoint &point)
     {

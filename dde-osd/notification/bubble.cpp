@@ -125,13 +125,6 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
 {
     if (!entity) return;
 
-#if 0
-    QStringList list;
-    for (int i = 0; i < 10; ++i)
-        list.push_back("1");
-    entity->setActions(list);
-#endif
-
     m_entity = entity;
 
     m_outTimer->stop();
@@ -152,7 +145,6 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     m_outTimer->start();
 }
 
-
 void Bubble::setBasePosition(int x, int y, QRect rect)
 {
     x -= Padding;
@@ -160,7 +152,7 @@ void Bubble::setBasePosition(int x, int y, QRect rect)
 
     dPos.setX((x - BubbleWidth) / 2);
     dPos.setY(y);
-    const QSize dSize(BubbleWidth, BubbleHeight);
+//    const QSize dSize(BubbleWidth, BubbleHeight);
 
     if (m_inAnimation->state() == QPropertyAnimation::Running) {
         const int baseX = x - BubbleWidth;
@@ -170,19 +162,13 @@ void Bubble::setBasePosition(int x, int y, QRect rect)
     }
 
     if (m_outAnimation->state() != QPropertyAnimation::Running) {
-        const QRect normalGeo(dPos, dSize);
-        QRect outGeo(normalGeo.right(), normalGeo.y(), 0, normalGeo.height());
-
-        m_outAnimation->setStartValue(normalGeo);
-        m_outAnimation->setEndValue(outGeo);
+        m_outAnimation->setStartValue(1);
+        m_outAnimation->setEndValue(0);
     }
 
     if (m_dismissAnimation->state() != QPropertyAnimation::Running) {
-        const QRect normalGeo(dPos, dSize);
-        QRect outGeo(normalGeo.right(), normalGeo.y(), 0, normalGeo.height());
-
-        m_dismissAnimation->setStartValue(normalGeo);
-        m_dismissAnimation->setEndValue(outGeo);
+        m_dismissAnimation->setStartValue(1);
+        m_dismissAnimation->setEndValue(0);
     }
 
     if (!rect.isEmpty())
@@ -337,7 +323,9 @@ void Bubble::initUI()
 void Bubble::initConnections()
 {
     connect(m_actionButton, &ActionButton::buttonClicked, this, &Bubble::onActionButtonClicked);
-    connect(m_actionButton, &ActionButton::closeButtonClicked, this, &Bubble::hide);
+    connect(m_actionButton, &ActionButton::closeButtonClicked, this, [ = ] {
+        m_dismissAnimation->start();
+    });
 
     connect(this, &Bubble::expired, m_actionButton, [ = ]() {
         m_actionButton->expired(int(m_entity->id()));
@@ -360,13 +348,13 @@ void Bubble::initAnimations()
     m_inAnimation->setDuration(300);
     m_inAnimation->setEasingCurve(QEasingCurve::OutCubic);
 
-    m_outAnimation = new QPropertyAnimation(this, "geometry", this);
-    m_outAnimation->setDuration(300);
+    m_outAnimation = new QPropertyAnimation(this, "windowOpacity", this);
+    m_outAnimation->setDuration(500);
     m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
     connect(m_outAnimation, &QPropertyAnimation::finished, this, &Bubble::onOutAnimFinished);
 
-    m_dismissAnimation = new QPropertyAnimation(this, "geometry", this);
-    m_dismissAnimation->setDuration(200);
+    m_dismissAnimation = new QPropertyAnimation(this, "windowOpacity", this);
+    m_dismissAnimation->setDuration(300);
     m_dismissAnimation->setEasingCurve(QEasingCurve::OutCubic);
     connect(m_dismissAnimation, &QPropertyAnimation::finished, this, &Bubble::onDismissAnimFinished);
 
@@ -384,9 +372,7 @@ void Bubble::initTimers()
 
 bool Bubble::containsMouse() const
 {
-    QRect rectToGlobal = QRect(mapToGlobal(rect().topLeft()),
-                               mapToGlobal(rect().bottomRight()));
-    return rectToGlobal.contains(QCursor::pos());
+    return geometry().contains(QCursor::pos());
 }
 
 // Each even element in the list (starting at index 0) represents the identifier for the action.
