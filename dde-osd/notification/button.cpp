@@ -282,22 +282,11 @@ void Button::drawBackground(QPainter *painter)
     painter->restore();
 }
 
-void Button::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton) {
-
-        if (geometry().contains(mapFromGlobal(QCursor::pos()))) {
-            Q_EMIT clicked();
-            Q_EMIT toggled(id());
-        }
-    }
-
-    return QWidget::mousePressEvent(event);
-}
-
 void Button::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
     drawBackground(&painter);
 

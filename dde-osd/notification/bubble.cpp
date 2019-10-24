@@ -22,6 +22,11 @@
  */
 
 #include "bubble.h"
+#include "notificationentity.h"
+#include "appicon.h"
+#include "appbody.h"
+#include "actionbutton.h"
+#include "icondata.h"
 
 #include <QLabel>
 #include <QDebug>
@@ -38,16 +43,10 @@
 #include <QGSettings>
 #include <QSpacerItem>
 #include <QGridLayout>
-
-#include "notificationentity.h"
-#include "appicon.h"
-#include "appbody.h"
-#include "actionbutton.h"
-#include "icondata.h"
+#include <QX11Info>
 
 #include <xcb/xcb.h>
 #include <xcb/xcb_ewmh.h>
-#include <QX11Info>
 
 DWIDGET_USE_NAMESPACE
 
@@ -87,7 +86,6 @@ Bubble::Bubble(std::shared_ptr<NotificationEntity> entity)
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this))
     , m_quitTimer(new QTimer(this))
-
 {
     m_quitTimer->setInterval(60 * 1000);
     m_quitTimer->setSingleShot(true);
@@ -147,7 +145,7 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     int timeout = entity->timeout().toInt();
     //  0: never times out
     // -1: default 5s
-    m_outTimer->setInterval(timeout == -1 ? 5000 : ( timeout == 0 ? -1 : timeout));
+    m_outTimer->setInterval(timeout == -1 ? 5000 : (timeout == 0 ? -1 : timeout));
     m_outTimer->start();
 }
 
@@ -339,14 +337,14 @@ void Bubble::initConnections()
     connect(m_actionButton, &ActionButton::buttonClicked, this, &Bubble::onActionButtonClicked);
     connect(m_actionButton, &ActionButton::closeButtonClicked, this, &Bubble::hide);
 
-    connect(this, &Bubble::expired, m_actionButton, [=](){
-        m_actionButton->expired(m_entity->id());
+    connect(this, &Bubble::expired, m_actionButton, [ = ]() {
+        m_actionButton->expired(int(m_entity->id()));
     });
-    connect(this, &Bubble::dismissed, m_actionButton,  [=](){
-        m_actionButton->dismissed(m_entity->id());
+    connect(this, &Bubble::dismissed, m_actionButton,  [ = ]() {
+        m_actionButton->dismissed(int(m_entity->id()));
     });
-    connect(this, &Bubble::replacedByOther, m_actionButton, [=](){
-        m_actionButton->replacedByOther(m_entity->id());
+    connect(this, &Bubble::replacedByOther, m_actionButton, [ = ]() {
+        m_actionButton->replacedByOther(int(m_entity->id()));
     });
     connect(this, &Bubble::focusChanged, m_actionButton, &ActionButton::onFocusChanged);
 
@@ -406,14 +404,6 @@ void Bubble::processActions()
     }
 
     m_actionButton->addButtons(list);
-
-    if (m_actionButton->isEmpty()) {
-        m_actionButton->hide();
-        m_body->setFixedSize(220, BubbleHeight);
-    } else {
-        m_actionButton->show();
-        m_body->setFixedSize(150, BubbleHeight);
-    }
 }
 
 void Bubble::processIconData()
@@ -494,7 +484,7 @@ static QImage decodeNotificationSpecImageHint(const QDBusArgument &arg)
 #undef SANITY_CHECK
 
     QImage::Format format = QImage::Format_Invalid;
-    void (*fcn)(QRgb*, const char*, int) = nullptr;
+    void (*fcn)(QRgb *, const char *, int) = nullptr;
     if (bitsPerSample == 8) {
         if (channels == 4) {
             format = QImage::Format_ARGB32;

@@ -36,11 +36,12 @@
 #include <QDebug>
 #include <QXmlStreamReader>
 
-static QString removeHTML(const QString &source) {
+static QString removeHTML(const QString &source)
+{
     QXmlStreamReader xml(source);
     QString textString;
     while (!xml.atEnd()) {
-        if ( xml.readNext() == QXmlStreamReader::Characters ) {
+        if (xml.readNext() == QXmlStreamReader::Characters) {
             textString += xml.text();
         }
     }
@@ -120,11 +121,11 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
 #endif
 
     std::shared_ptr<NotificationEntity> notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
-                                                              summary, removeHTML(body), actions, hints,
-                                                              QString::number(QDateTime::currentMSecsSinceEpoch()),
-                                                              QString::number(replacesId),
-                                                              QString::number(expireTimeout),
-                                                              this);
+                                                                                            summary, removeHTML(body), actions, hints,
+                                                                                            QString::number(QDateTime::currentMSecsSinceEpoch()),
+                                                                                            QString::number(replacesId),
+                                                                                            QString::number(expireTimeout),
+                                                                                            this);
     m_persistence->addOne(notification);
     pushBubble(notification);
 
@@ -135,10 +136,10 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
 
 void BubbleManager::pushBubble(std::shared_ptr<NotificationEntity> notify)
 {
-    if(notify == nullptr) return;
+    if (notify == nullptr) return;
 
-    Bubble* bubble = createBubble(notify);
-    if(m_bubbleList.size() == BubbleEntities) {
+    Bubble *bubble = createBubble(notify);
+    if (m_bubbleList.size() == BubbleEntities) {
         m_oldEntities.push_front(m_bubbleList.last()->entity());
         m_bubbleList.last()->setVisible(false);
         m_bubbleList.last()->deleteLater();
@@ -149,7 +150,7 @@ void BubbleManager::pushBubble(std::shared_ptr<NotificationEntity> notify)
     pushAnimation(bubble);
 }
 
-void BubbleManager::popBubble(Bubble* bubble)
+void BubbleManager::popBubble(Bubble *bubble)
 {
     bubble->setVisible(false);
 
@@ -162,9 +163,9 @@ void BubbleManager::popBubble(Bubble* bubble)
 
 void BubbleManager::refreshBubble()
 {
-    if(m_bubbleList.size() < BubbleEntities + 1 && !m_oldEntities.isEmpty()) {
+    if (m_bubbleList.size() < BubbleEntities + 1 && !m_oldEntities.isEmpty()) {
         auto notify = m_oldEntities.takeFirst();
-        Bubble* bubble = createBubble(notify);
+        Bubble *bubble = createBubble(notify);
         bubble->setPostion(QPoint(bubble->x(), bubble->y() +
                                   BubbleHeight * BubbleEntities +
                                   BubbleMargin * BubbleEntities));
@@ -172,31 +173,31 @@ void BubbleManager::refreshBubble()
     }
 }
 
-void BubbleManager::pushAnimation(Bubble* bubble)
+void BubbleManager::pushAnimation(Bubble *bubble)
 {
     QPoint move_point(bubble->postion());
     int index = m_bubbleList.indexOf(bubble);
-    if(index == -1)  return;
+    if (index == -1)  return;
 
     while (index < m_bubbleList.size() - 1) {
         index ++;
         move_point.setY(move_point.y() + BubbleHeight + BubbleMargin);
         QPointer<Bubble> item = m_bubbleList.at(index);
-        if(bubble != nullptr) item->resetMoveAnim(move_point);
+        if (bubble != nullptr) item->resetMoveAnim(move_point);
     }
 }
 
-void BubbleManager::popAnimation(Bubble* bubble)
+void BubbleManager::popAnimation(Bubble *bubble)
 {
     QPoint move_point(bubble->postion());
     int index = m_bubbleList.indexOf(bubble);
-    if(index == -1)  return;
+    if (index == -1)  return;
 
     while (index < m_bubbleList.size() - 1) {
         index ++;
         QPointer<Bubble> item = m_bubbleList.at(index);
         int position = item->postion().y();
-        if(bubble != nullptr) item->resetMoveAnim(move_point);
+        if (bubble != nullptr) item->resetMoveAnim(move_point);
         move_point.setY(position);
     }
 }
@@ -239,8 +240,7 @@ void BubbleManager::Toggle()
 
 void BubbleManager::onRecordAdded(std::shared_ptr<NotificationEntity> entity)
 {
-    QJsonObject notifyJson
-    {
+    QJsonObject notifyJson {
         {"name", entity->appName()},
         {"icon", entity->appIcon()},
         {"summary", entity->summary()},
@@ -258,8 +258,8 @@ void BubbleManager::registerAsService()
 {
     QDBusConnection connection = QDBusConnection::sessionBus();
     connection.interface()->registerService(NotificationsDBusService,
-                                                  QDBusConnectionInterface::ReplaceExistingService,
-                                                  QDBusConnectionInterface::AllowReplacement);
+                                            QDBusConnectionInterface::ReplaceExistingService,
+                                            QDBusConnectionInterface::AllowReplacement);
     connection.registerObject(NotificationsDBusPath, this);
 
     QDBusConnection ddenotifyConnect = QDBusConnection::sessionBus();
@@ -270,24 +270,24 @@ void BubbleManager::registerAsService()
 }
 
 
-void BubbleManager::bubbleExpired(Bubble* bubble)
+void BubbleManager::bubbleExpired(Bubble *bubble)
 {
     popBubble(bubble);
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Expired);
 }
 
-void BubbleManager::bubbleDismissed(Bubble* bubble)
+void BubbleManager::bubbleDismissed(Bubble *bubble)
 {
     popBubble(bubble);
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Dismissed);
 }
 
-void BubbleManager::bubbleReplacedByOther(Bubble* bubble)
+void BubbleManager::bubbleReplacedByOther(Bubble *bubble)
 {
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Unknown);
 }
 
-void BubbleManager::bubbleActionInvoked(Bubble* bubble, QString actionId)
+void BubbleManager::bubbleActionInvoked(Bubble *bubble, QString actionId)
 {
     Q_EMIT ActionInvoked(bubble->entity()->id(), actionId);
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Closed);
@@ -382,9 +382,9 @@ void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newNam
     }
 }
 
-Bubble* BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify)
+Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify)
 {
-    Bubble* bubble = new Bubble(notify);
+    Bubble *bubble = new Bubble(notify);
     connect(bubble, &Bubble::expired, this, &BubbleManager::bubbleExpired);
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);
     connect(bubble, &Bubble::replacedByOther, this, &BubbleManager::bubbleReplacedByOther);
