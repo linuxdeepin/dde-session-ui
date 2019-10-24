@@ -145,7 +145,9 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     }
 
     int timeout = entity->timeout().toInt();
-    m_outTimer->setInterval(timeout == 0 ? 5000 : timeout);
+    //  0: never times out
+    // -1: default 5s
+    m_outTimer->setInterval(timeout == -1 ? 5000 : ( timeout == 0 ? -1 : timeout));
     m_outTimer->start();
 }
 
