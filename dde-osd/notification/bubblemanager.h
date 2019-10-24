@@ -106,6 +106,7 @@ public Q_SLOTS:
     QString GetRecordsFromId(int rowCount, const QString &offsetId);
     void RemoveRecord(const QString &id);
     void ClearRecords();
+    void Toggle();
 
 private Q_SLOTS:
     void onRecordAdded(std::shared_ptr<NotificationEntity> entity);

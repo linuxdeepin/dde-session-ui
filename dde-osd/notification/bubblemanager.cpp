@@ -232,6 +232,11 @@ void BubbleManager::ClearRecords()
     dir.removeRecursively();
 }
 
+void BubbleManager::Toggle()
+{
+
+}
+
 void BubbleManager::onRecordAdded(std::shared_ptr<NotificationEntity> entity)
 {
     QJsonObject notifyJson
