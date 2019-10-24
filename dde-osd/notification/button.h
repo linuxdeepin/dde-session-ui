@@ -20,8 +20,11 @@
  */
 #ifndef BUTTON_H
 #define BUTTON_H
-#include <QWidget>
 #include <QIcon>
+
+#include <DWidget>
+
+DWIDGET_USE_NAMESPACE
 
 //#define MAX(a,b) ((a)<(b)?(b):(a))
 #define MIN(a,b) ((a)>(b)?(b):(a))
@@ -31,11 +34,12 @@ class QMenu;
 class QPaintEvent;
 class QContextMenuEvent;
 class QAction;
-class Button : public QWidget
+class ButtonContent : public DWidget
 {
+    friend class Button;
     Q_OBJECT
-public:
-    Button(QWidget *parent = nullptr);
+private:
+    explicit ButtonContent(QWidget *parent = nullptr);
 
     const QPixmap &pixmap() {return m_pixmap;}
     void setPixmap(const QPixmap &pixmap);
@@ -49,16 +53,10 @@ public:
     const Qt::Alignment textAlignment() {return m_align;}
     void setTextAlignment(Qt::Alignment align);
 
-    int radius() {return m_radius;}
-    void setRadius(int radius);
+    virtual QSize sizeHint() const Q_DECL_OVERRIDE;
+    virtual QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 
-    void addAction(QAction *action);
-    void clear();
-
-public slots:
-    void hideMenu();
-
-signals:
+Q_SIGNALS:
     void clicked();
     void toggled(const QString &id);
 
@@ -66,14 +64,81 @@ private:
     QPixmap m_pixmap;
     QString m_text;
     QString m_id;
-    int m_radius;
-    bool m_in;
-    bool m_hasMenu;
     Qt::Alignment m_align;
-    QMenu *m_menu = nullptr;
 
-    QRectF m_contentRect;
-    QRectF m_menuRect;
+private:
+    void drawBackground(QPainter *painter);
+    void drawPixmap(QPainter *painter);
+    void drawContent(QPainter *painter);
+
+protected:
+    virtual void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+};
+
+class ButtonMenu : public DWidget
+{
+    friend class Button;
+    Q_OBJECT
+private:
+    explicit ButtonMenu(QWidget *parent = nullptr);
+
+Q_SIGNALS:
+    void menuToggled();
+
+protected:
+    virtual void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+};
+
+class Button : public DWidget
+{
+    Q_OBJECT
+public:
+    explicit Button(QWidget *parent = nullptr);
+
+    const QPixmap &pixmap() {return m_button->pixmap();}
+    void setPixmap(const QPixmap &pixmap);
+
+    const QString &text() {return m_button->text();}
+    void setText(const QString &text);
+
+    const QString &id() {return m_button->id();}
+    void setId(const QString &id);
+
+    const Qt::Alignment textAlignment() {return m_button->textAlignment();}
+    void setTextAlignment(Qt::Alignment align);
+
+    int radius() {return m_radius;}
+    void setRadius(int radius);
+
+    void addAction(QAction *action);
+    void clear();
+
+    bool boverState() const {return m_hover;}
+    void setHoverState(bool state);
+
+    virtual QSize sizeHint() const Q_DECL_OVERRIDE;
+    virtual QSize minimumSizeHint() const Q_DECL_OVERRIDE;
+
+Q_SIGNALS:
+    void clicked();
+    void toggled(const QString &id);
+
+public Q_SLOTS:
+    void hideMenu();
+    void onMenuToggled();
+
+private:
+    ButtonContent *m_button = nullptr;
+    ButtonMenu *m_menuArea = nullptr;
+    DMenu *m_menu = nullptr;
+
+    int m_radius;
+    bool m_hover;
+
+private:
+    void drawBackground(QPainter *painter);
 
 protected:
     virtual void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;

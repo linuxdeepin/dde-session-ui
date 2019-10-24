@@ -28,8 +28,6 @@
 #include <QHBoxLayout>
 #include <QMap>
 
-#include <QComboBox>
-
 #include <DPushButton>
 
 DWIDGET_USE_NAMESPACE
@@ -45,7 +43,6 @@ class CloseButton;
 class ActionButton : public QFrame
 {
     Q_OBJECT
-
 public:
     ActionButton(QWidget *parent = nullptr);
 

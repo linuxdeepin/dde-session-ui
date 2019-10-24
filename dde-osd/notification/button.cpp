@@ -32,44 +32,182 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QSvgRenderer>
+#include <QStyleOption>
 #include <QVBoxLayout>
 
-Button::Button(QWidget *parent)
-    : QWidget(parent)
-    , m_text("Button")
-    , m_radius(0)
-    , m_in(false)
-    , m_hasMenu(false)
+ButtonContent::ButtonContent(QWidget *parent)
+    : DWidget(parent)
+    , m_text("")
     , m_align(Qt::AlignCenter)
-    , m_menu(new QMenu(this))
 {
 
 }
 
-void Button::setPixmap(const QPixmap &pixmap)
+void ButtonContent::setPixmap(const QPixmap &pixmap)
 {
     m_pixmap = pixmap;
 
     update();
 }
 
-void Button::setText(const QString &text)
+void ButtonContent::setText(const QString &text)
 {
     m_text = text;
 
     update();
 }
 
-void Button::setId(const QString &id)
+void ButtonContent::setId(const QString &id)
 {
     m_id = id;
 }
 
-void Button::setTextAlignment(Qt::Alignment align)
+void ButtonContent::setTextAlignment(Qt::Alignment align)
 {
     m_align = align;
 
     update();
+}
+
+QSize ButtonContent::sizeHint() const
+{
+    return QSize(60, 50);
+}
+
+QSize ButtonContent::minimumSizeHint() const
+{
+    return QSize(30, 25);
+}
+
+void ButtonContent::drawBackground(QPainter *painter)
+{
+    painter->save();
+
+    QColor brushColor(Qt::transparent);
+    painter->setBrush(brushColor);
+
+    QPen borderPen;
+    borderPen.setColor(Qt::transparent);
+    painter->setPen(borderPen);
+    painter->drawRect(QRectF(0, 0, width(), height()));
+
+    painter->restore();
+}
+
+void ButtonContent::drawPixmap(QPainter *painter)
+{
+    painter->save();
+
+    painter->drawPixmap(geometry(), m_pixmap, QRectF());
+
+    painter->restore();
+}
+
+void ButtonContent::drawContent(QPainter *painter)
+{
+    painter->save();
+
+    QTextOption option;
+    option.setAlignment(textAlignment());
+    QPen pen;
+    pen.setColor(Qt::black);
+    painter->setPen(pen);
+    painter->drawText(geometry(), text(), option);
+
+    painter->restore();
+}
+
+void ButtonContent::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+
+        if (geometry().contains(mapFromGlobal(QCursor::pos()))) {
+            Q_EMIT clicked();
+            Q_EMIT toggled(m_id);
+        }
+    }
+
+    return QWidget::mousePressEvent(event);
+}
+
+void ButtonContent::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+
+    drawBackground(&painter);
+    drawPixmap(&painter);
+    drawContent(&painter);
+
+    return QWidget::paintEvent(event);
+}
+
+ButtonMenu::ButtonMenu(QWidget *parent)
+    : DWidget(parent)
+{
+
+}
+
+void ButtonMenu::mousePressEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+
+    Q_EMIT menuToggled();
+}
+
+void ButtonMenu::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+
+    QPainter painter(this);
+
+    QStyleOption opt;
+    opt.init(this);
+    style()->drawPrimitive(QStyle::PE_IndicatorArrowDown, &opt, &painter, this);
+}
+
+Button::Button(QWidget *parent)
+    : DWidget(parent)
+    , m_button(new ButtonContent(this))
+    , m_menuArea(new ButtonMenu(this))
+    , m_menu(new DMenu(this))
+    , m_radius(0)
+    , m_hover(false)
+{
+    m_menuArea->setFixedWidth(MIN(15, width() / 3));
+    m_menuArea->hide();
+
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->setSpacing(0);
+    layout->setMargin(0);
+    layout->addWidget(m_button);
+    layout->addWidget(m_menuArea);
+    setLayout(layout);
+
+    connect(m_button, &ButtonContent::clicked, this, &Button::clicked);
+    connect(m_button, &ButtonContent::toggled, this, &Button::toggled);
+    connect(m_menuArea, &ButtonMenu::menuToggled, this, &Button::onMenuToggled);
+}
+
+void Button::setPixmap(const QPixmap &pixmap)
+{
+    m_button->setPixmap(pixmap);
+}
+
+void Button::setText(const QString &text)
+{
+    m_button->setText(text);
+}
+
+void Button::setId(const QString &id)
+{
+    m_button->setId(id);
+}
+
+void Button::setTextAlignment(Qt::Alignment align)
+{
+    m_button->setTextAlignment(align);
 }
 
 void Button::setRadius(int radius)
@@ -83,16 +221,31 @@ void Button::addAction(QAction *action)
 {
     m_menu->addAction(action);
 
-    if (!m_hasMenu) {
-        m_hasMenu = true;
-    }
+    m_menuArea->show();
 }
 
 void Button::clear()
 {
     m_menu->clear();
 
-    m_hasMenu = false;
+    m_menuArea->hide();
+}
+
+void Button::setHoverState(bool state)
+{
+    m_hover = state;
+
+    update();
+}
+
+QSize Button::sizeHint() const
+{
+    return QSize(60, 50);
+}
+
+QSize Button::minimumSizeHint() const
+{
+    return QSize(30, 25);
 }
 
 void Button::hideMenu()
@@ -100,116 +253,67 @@ void Button::hideMenu()
     m_menu->hide();
 }
 
+void Button::onMenuToggled()
+{
+    QWidget *w = qobject_cast<QWidget *>(m_menu->parent());
+    if (w) {
+        //unable to determine QMenu's size before it is displayed.
+        m_menu->show();
+        QPoint p;
+        p.setX(w->geometry().x() + w->geometry().width() - m_menu->width());
+        p.setY(w->geometry().y() + w->geometry().height());
+        m_menu->exec(mapToGlobal(p));
+    }
+}
+
+void Button::drawBackground(QPainter *painter)
+{
+    painter->save();
+
+    QColor brushColor(Qt::white);
+    brushColor.setAlpha(m_hover ? 120 : 60);
+    painter->setBrush(brushColor);
+
+    QPen borderPen;
+    borderPen.setColor(Qt::transparent);
+    painter->setPen(borderPen);
+    painter->drawRoundRect(QRectF(0, 0, width(), height()), m_radius, m_radius);
+
+    painter->restore();
+}
+
 void Button::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
 
-        if (m_contentRect.contains(mapFromGlobal(QCursor::pos()))) {
+        if (geometry().contains(mapFromGlobal(QCursor::pos()))) {
             Q_EMIT clicked();
-            Q_EMIT toggled(m_id);
-        } else if (m_hasMenu && m_menuRect.contains(mapFromGlobal(QCursor::pos()))) {
-            QWidget *w = qobject_cast<QWidget *>(m_menu->parent());
-            if (w) {
-                //unable to determine QMenu's size before it is displayed.
-                m_menu->show();
-                QPoint p;
-                p.setX(w->geometry().x() + w->geometry().width() - m_menu->width());
-                p.setY(w->geometry().y() + w->geometry().height());
-                m_menu->exec(mapToGlobal(p));
-            }
+            Q_EMIT toggled(id());
         }
     }
 
-//    return QWidget::mousePressEvent(event);
+    return QWidget::mousePressEvent(event);
 }
 
 void Button::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
-    QRectF rect(0, 0, width(), height());
-    if (m_hasMenu) {
-        m_contentRect.setX(rect.x());
-        m_contentRect.setY(rect.y());
-        m_contentRect.setWidth(MIN(rect.width() * 2 / 3, rect.width() - 10));
-        m_contentRect.setHeight(rect.height());
-
-        m_menuRect.setX(rect.x() + m_contentRect.width());
-        m_menuRect.setY(rect.y());
-        m_menuRect.setWidth(rect.width() - m_contentRect.width());
-        m_menuRect.setHeight(rect.height());
-    } else {
-        m_contentRect = rect;
-    }
-
-    //先画矩形
-    painter.save();
-    QColor brushColor(Qt::white);
-    brushColor.setAlpha(m_in ? 120 : 60);
-    painter.setBrush(brushColor);
-
-    QPen borderPen;
-    borderPen.setColor(Qt::transparent);
-    painter.setPen(borderPen);
-    painter.drawRoundRect(rect, m_radius, m_radius);
-    painter.restore();
-
-    //绘制图标
-    painter.save();
-
-    painter.drawPixmap(m_contentRect, m_pixmap, QRectF());
-
-    painter.restore();
-
-    //绘制文本
-    painter.save();
-
-    QTextOption option;
-    option.setAlignment(m_align);
-    QPen pen;
-    pen.setColor(Qt::black);
-    painter.setPen(pen);
-    painter.drawText(m_contentRect, m_text, option);
-    painter.restore();
-
-    //绘制菜单图标
-    painter.save();
-    if (m_hasMenu) {
-        QSvgRenderer svgRender;
-        svgRender.load(QString(":/icons/OSD_menu_down.svg"));
-
-        int xPadding = 5;
-        int yPadding = 25;
-
-        QRectF viewRect(m_menuRect.x() + xPadding
-                        , m_menuRect.y() + yPadding
-                        , m_menuRect.width() - 2 * xPadding,
-                        m_menuRect.height() - 2 * yPadding);
-
-        svgRender.render(&painter, viewRect);
-    }
-    painter.restore();
+    drawBackground(&painter);
 
     return QWidget::paintEvent(event);
 }
 
 void Button::enterEvent(QEvent *event)
 {
-    m_in = true;
+    setHoverState(true);
 
-    update();
-
-    return QWidget::enterEvent(event);
+    return DWidget::enterEvent(event);
 }
 
 void Button::leaveEvent(QEvent *event)
 {
-    m_in = false;
+    setHoverState(false);
 
-    update();
-
-    return QWidget::leaveEvent(event);
+    return DWidget::leaveEvent(event);
 }
-

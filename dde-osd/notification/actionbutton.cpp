@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#include <QAction>
 #include <QPainter>
 #include <QPainterPath>
 #include <QMouseEvent>
@@ -27,13 +27,10 @@
 #include <QDebug>
 #include <QStyle>
 #include <QMenu>
-#include <QAction>
 #include <QGridLayout>
 
 #include "actionbutton.h"
 #include "button.h"
-
-//#include <DPushButton>
 
 static const QColor BorderColor = QColor::fromRgbF(0, 0, 0, 0.1);
 static const QColor TextColor = QColor(0, 135, 255);
@@ -128,7 +125,6 @@ void ActionButton::onFocusChanged(bool has)
 
 void ActionButton::initUI()
 {
-//    setObjectName("ActionButton");
     m_closeButton->setFixedSize(CLOSEBTNSIZE);
     m_closeButton->setRadius(99);
     m_closeButton->setText("X");
