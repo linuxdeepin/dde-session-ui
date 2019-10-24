@@ -50,6 +50,7 @@ RESOURCES += \
     theme.qrc
 
 include(notification/notification.pri)
+include(notification-center/notification-center.pri)
 
 isEmpty(PREFIX){
     PREFIX = /usr

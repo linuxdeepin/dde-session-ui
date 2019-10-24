@@ -55,6 +55,7 @@ class DBusDaemonInterface;
 class Login1ManagerInterface;
 class DBusDockInterface;
 class Persistence;
+class NotifyCenterWidget;
 
 static const int BubbleEntities = 3;
 
@@ -156,6 +157,7 @@ private:
 
     QRect m_dockGeometry;
     DockPosition m_dockPosition;
+    NotifyCenterWidget* m_notifyCenter;
 };
 
 #endif // BUBBLEMANAGER_H

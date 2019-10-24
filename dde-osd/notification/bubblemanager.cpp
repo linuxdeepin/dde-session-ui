@@ -29,6 +29,7 @@
 #include "dbus_daemon_interface.h"
 #include "dbuslogin1manager.h"
 #include "notificationentity.h"
+#include "notification-center/notifycenterwidget.h"
 
 #include "persistence.h"
 
@@ -78,6 +79,9 @@ BubbleManager::BubbleManager(QObject *parent)
         onDockRectChanged(m_dbusdockinterface->geometry());
     if (m_dockDeamonInter->isValid())
         onDockPositionChanged(m_dockDeamonInter->position());
+
+    m_notifyCenter = new NotifyCenterWidget;
+    m_notifyCenter->hide();
 
     registerAsService();
 }
@@ -235,7 +239,8 @@ void BubbleManager::ClearRecords()
 
 void BubbleManager::Toggle()
 {
-
+    if(m_notifyCenter->isHidden())
+        m_notifyCenter->show();
 }
 
 void BubbleManager::onRecordAdded(std::shared_ptr<NotificationEntity> entity)
