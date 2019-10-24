@@ -27,8 +27,7 @@ AppBody::AppBody(QWidget *parent)
     m_titleLbl = new appBodyLabel;
     m_bodyLbl = new appBodyLabel;
 
-    m_titleLbl->setStyleSheet("QLabel { font-weight: 460; color: #303030; }");
-    m_bodyLbl->setStyleSheet("QLabel { color: rgba(0,0,0,0.9); }");
+    m_titleLbl->setWindowOpacity(0.5);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);

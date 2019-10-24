@@ -50,15 +50,6 @@
 
 DWIDGET_USE_NAMESPACE
 
-static const QString BubbleStyleSheet = "QFrame#Background { "
-                                        "background-color: rgba(0, 0, 0, 60);"
-                                        "border-radius: 8px;"
-                                        "}"
-                                        "QLabel#Title {"
-                                        "font-size: 11px;"
-                                        "color: black;"
-                                        "}";
-
 static const QStringList HintsOrder {
     "desktop-entry",
     "image-data",
@@ -128,6 +119,13 @@ std::shared_ptr<NotificationEntity> Bubble::entity() const
 void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
 {
     if (!entity) return;
+
+#if 0
+    QStringList list;
+    for (int i = 0; i < 10; ++i)
+        list.push_back("1");
+    entity->setActions(list);
+#endif
 
     m_entity = entity;
 
@@ -271,6 +269,7 @@ void Bubble::onActionButtonClicked(const QString &actionId)
         ++i;
     }
 
+    m_dismissAnimation->start();
     m_outTimer->stop();
     Q_EMIT actionInvoked(this, actionId);
 }
@@ -328,8 +327,6 @@ void Bubble::initUI()
     m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     setLayout(layout);
-
-    setStyleSheet(BubbleStyleSheet);
 }
 
 void Bubble::initConnections()
