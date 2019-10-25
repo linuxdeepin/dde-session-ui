@@ -171,3 +171,10 @@ void DDENotifyDBus::Toggle()
 {
     QMetaObject::invokeMethod(parent(), "Toggle");
 }
+
+uint DDENotifyDBus::recordCount()
+{
+    uint out0;
+    QMetaObject::invokeMethod(parent(), "recordCount", Q_RETURN_ARG(uint, out0));
+    return out0;
+}

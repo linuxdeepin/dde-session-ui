@@ -84,6 +84,8 @@ public Q_SLOTS:
     void ClearRecords();
     void doAction(uint id, const QString& action);
     void Toggle();
+    uint recordCount();
+
 Q_SIGNALS: // SIGNALS
     void ActionInvoked(uint in0, const QString &in1);
     void NotificationClosed(uint in0, uint in1);

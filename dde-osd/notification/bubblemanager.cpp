@@ -243,6 +243,11 @@ void BubbleManager::Toggle()
         m_notifyCenter->show();
 }
 
+uint BubbleManager::recordCount()
+{
+    return 10;
+}
+
 void BubbleManager::onRecordAdded(std::shared_ptr<NotificationEntity> entity)
 {
     QJsonObject notifyJson {
