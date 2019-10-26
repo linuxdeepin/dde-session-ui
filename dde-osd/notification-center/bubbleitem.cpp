@@ -4,4 +4,5 @@
 BubbleItem::BubbleItem(std::shared_ptr<NotificationEntity> entity)
     : Bubble (entity)
 {
+    setFixedSize(BubbleItemWidth, BubbleItemHeight);
 }

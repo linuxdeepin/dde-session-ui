@@ -48,7 +48,7 @@ class QGraphicsDropShadowEffect;
 
 static const int Padding = 46;
 static const int BubbleMargin = 20;
-static const int BubbleWidth = 600;
+static const int BubbleWidth = 320;
 static const int BubbleHeight = 80;
 
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);

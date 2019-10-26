@@ -53,7 +53,7 @@ void NotifyWidget::initUI()
     mainVBLayout->addWidget(scroll_area);
     mainVBLayout->addWidget(m_noNotify);
 
-    mainVBLayout->setSpacing(1);
+    mainVBLayout->setSpacing(10);
     mainVBLayout->setMargin(0);
     mainVBLayout->setContentsMargins(0, 0, 0, 0);
 

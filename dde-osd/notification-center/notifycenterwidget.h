@@ -33,6 +33,7 @@ DWIDGET_USE_NAMESPACE
 
 static const int CenterWidth = 400;
 static const int CenterMargin = 10;
+static const int CenterTitleHeight = 32;
 
 class Persistence;
 class QDBusInterface;
@@ -57,7 +58,7 @@ private:
     void updateGeometry();
 
 private:
-    QTimer *m_timeRefersh;
+    QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
     QDBusInterface *m_dockSizeInter;
 

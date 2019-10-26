@@ -28,7 +28,6 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QBoxLayout>
-#include <QTimer>
 #include <QDBusInterface>
 #include <QPropertyAnimation>
 #include <diconbutton.h>
@@ -37,8 +36,7 @@
 DWIDGET_USE_NAMESPACE
 
 NotifyCenterWidget::NotifyCenterWidget(Persistence* database)
-    : m_timeRefersh(new QTimer(this)),
-      m_notifyWidget(new NotifyWidget(this, database))
+    : m_notifyWidget(new NotifyWidget(this, database))
 {
     initUI();
     initAnimations();
@@ -52,31 +50,45 @@ void NotifyCenterWidget::initUI()
     setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_TranslucentBackground);
 
-    m_timeRefersh->setInterval(1000);
-    m_timeRefersh->setSingleShot(false);
-    m_timeRefersh->start();
+    m_headWidget = new QWidget;
+    m_headWidget->setFixedSize(CenterWidth - 2*CenterMargin, 32);
 
-    DIconButton *bell_notify = new DIconButton(this);
-    bell_notify->setIcon(QIcon("://icons/notifications.svg"));
+    DIconButton *bell_notify = new DIconButton(m_headWidget);
+    bell_notify->setFlat(true);
+    bell_notify->setIconSize(QSize(CenterTitleHeight, CenterTitleHeight));
+    bell_notify->setFixedSize(CenterTitleHeight, CenterTitleHeight);
+    const auto ratio = devicePixelRatioF();
+    QIcon icon_pix = QIcon::fromTheme("://icons/notifications.svg").pixmap(bell_notify->iconSize() * ratio);
+    bell_notify->setIcon(icon_pix);
 
-    DLabel *title_label = new DLabel(this);
+    QFont font;
+    font.setPointSize(14);
+    font.setBold(true);
+
+    DLabel *title_label = new DLabel(m_headWidget);
     title_label->setText(tr("Notification Center"));
+    title_label->setFont(font);
     title_label->setAlignment(Qt::AlignCenter);
 
     DIconButton *close_btn = new DIconButton(DStyle::SP_CloseButton);
+    close_btn->setFlat(true);
+    close_btn->setIconSize(QSize(CenterTitleHeight, CenterTitleHeight));
+    close_btn->setFixedSize(CenterTitleHeight, CenterTitleHeight);
     connect(close_btn, &DIconButton::clicked, this, [=] (){
         m_outAnimation->start();
     });
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
     head_Layout->addWidget(bell_notify, Qt::AlignLeft);
+    head_Layout->setMargin(0);
     head_Layout->addStretch();
     head_Layout->addWidget(title_label, Qt::AlignCenter);
     head_Layout->addStretch();
     head_Layout->addWidget(close_btn, Qt::AlignRight);
+    m_headWidget->setLayout(head_Layout);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(head_Layout);
+    mainLayout->addWidget(m_headWidget);
     mainLayout->addWidget(m_notifyWidget);
 
     setLayout(mainLayout);

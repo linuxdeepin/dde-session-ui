@@ -47,6 +47,7 @@ NotifyView::NotifyView(QWidget *parent, Persistence* database)
 
     connect(m_database, &Persistence::RecordAdded, this, &NotifyView::addNotify);
 
+    mainLayout->setMargin(0);
     setLayout(mainLayout);
 }
 

@@ -24,6 +24,9 @@
 
 #include "notification/bubble.h"
 
+static const int BubbleItemWidth = 380;
+static const int BubbleItemHeight = 90;
+
 class NotificationEntity;
 class BubbleItem : public Bubble
 {

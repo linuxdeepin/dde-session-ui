@@ -22,10 +22,16 @@
 #ifndef BUBBLEGROUP_H
 #define BUBBLEGROUP_H
 
+#include <DIconButton>
 #include <QPointer>
 #include <QWidget>
 #include <QBoxLayout>
 #include <memory>
+
+DWIDGET_USE_NAMESPACE
+
+static const int GroupTitleHeight = 32;
+static const int GroupButtonSize = 24;
 
 class BubbleItem;
 class NotificationEntity;
@@ -40,10 +46,15 @@ public:
     void popBubble();
     void closeGroup();
 
+protected:
+    void enterEvent(QEvent* event) override;
+    void leaveEvent(QEvent* event) override;
+
 private:
     QList<QPointer<BubbleItem>> m_bubbleList;
     QWidget *m_titleWidget = nullptr;
     QVBoxLayout *mainLayout = nullptr;
+    DIconButton *title_close = nullptr;
 };
 
 #endif // BUBBLEGROUP_H
