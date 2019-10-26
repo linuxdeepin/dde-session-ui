@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2011 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2011 ~ 2019 Deepin Technology Co., Ltd.
  *
- * Author:     listenerri <190771752ri@gmail.com>
+ * Author:     zorowk <near.kingzero@gmail.com>
  *
- * Maintainer: listenerri <190771752ri@gmail.com>
+ * Maintainer: zorowk <near.kingzero@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,26 +19,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NOTIFYWIDGET_H
-#define NOTIFYWIDGET_H
+#ifndef BUBBLEGROUP_H
+#define BUBBLEGROUP_H
 
-#include "notifyview.h"
+#include <QPointer>
 #include <QWidget>
-#include <QLabel>
+#include <QBoxLayout>
+#include <memory>
 
-class Persistence;
-class NotifyWidget : public QWidget
+class BubbleItem;
+class NotificationEntity;
+
+class BubbleGroup : public QWidget
 {
     Q_OBJECT
 public:
-    explicit NotifyWidget(QWidget *parent = nullptr, Persistence* database = nullptr);
+    explicit BubbleGroup(QWidget* parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
+
+    void pushBubble(std::shared_ptr<NotificationEntity> entity);
+    void popBubble();
+    void closeGroup();
 
 private:
-    void initUI();
-
-private:
-    NotifyView *m_notifyView;
-    QLabel *m_noNotify;
+    QList<QPointer<BubbleItem>> m_bubbleList;
+    QWidget *m_titleWidget = nullptr;
+    QVBoxLayout *mainLayout = nullptr;
 };
 
-#endif // NOTIFYWIDGET_H
+#endif // BUBBLEGROUP_H

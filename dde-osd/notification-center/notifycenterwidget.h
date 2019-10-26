@@ -34,12 +34,18 @@ DWIDGET_USE_NAMESPACE
 static const int CenterWidth = 400;
 static const int CenterMargin = 10;
 
-class QStackedLayout;
+class Persistence;
+class QDBusInterface;
+class QPropertyAnimation;
+
 class NotifyCenterWidget : public DBlurEffectWidget
 {
     Q_OBJECT
 public:
-    explicit NotifyCenterWidget(QWidget *parent = nullptr);
+    explicit NotifyCenterWidget(Persistence* database = nullptr);
+
+Q_SIGNALS:
+    void notify();
 
 protected:
     void showEvent(QShowEvent *event) override;
@@ -52,7 +58,6 @@ private:
 
 private:
     QTimer *m_timeRefersh;
-    QStackedLayout *m_contentLayout;
     NotifyWidget *m_notifyWidget;
     QDBusInterface *m_dockSizeInter;
 

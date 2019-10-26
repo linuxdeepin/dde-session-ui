@@ -65,10 +65,8 @@ BubbleManager::BubbleManager(QObject *parent)
     m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this);
 
-    connect(m_persistence, &Persistence::RecordAdded, this, &BubbleManager::onRecordAdded);
     connect(m_login1ManagerInterface, SIGNAL(PrepareForSleep(bool)),
             this, SLOT(onPrepareForSleep(bool)));
-
     connect(m_dbusDaemonInterface, SIGNAL(NameOwnerChanged(QString, QString, QString)),
             this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
     connect(m_dbusdockinterface, &DBusDockInterface::geometryChanged, this, &BubbleManager::onDockRectChanged);
@@ -80,7 +78,7 @@ BubbleManager::BubbleManager(QObject *parent)
     if (m_dockDeamonInter->isValid())
         onDockPositionChanged(m_dockDeamonInter->position());
 
-    m_notifyCenter = new NotifyCenterWidget;
+    m_notifyCenter = new NotifyCenterWidget(m_persistence);
     m_notifyCenter->hide();
 
     registerAsService();
@@ -93,6 +91,7 @@ BubbleManager::~BubbleManager()
 
 void BubbleManager::CloseNotification(uint id)
 {
+    Q_UNUSED(id);
     return;
 }
 
@@ -239,29 +238,12 @@ void BubbleManager::ClearRecords()
 
 void BubbleManager::Toggle()
 {
-    if(m_notifyCenter->isHidden())
-        m_notifyCenter->show();
+    m_notifyCenter->setVisible(!m_notifyCenter->isVisible());
 }
 
 uint BubbleManager::recordCount()
 {
     return 10;
-}
-
-void BubbleManager::onRecordAdded(std::shared_ptr<NotificationEntity> entity)
-{
-    QJsonObject notifyJson {
-        {"name", entity->appName()},
-        {"icon", entity->appIcon()},
-        {"summary", entity->summary()},
-        {"body", entity->body()},
-        {"id", QString::number(entity->id())},
-        {"time", entity->ctime()}
-    };
-    QJsonDocument doc(notifyJson);
-    QString notify(doc.toJson(QJsonDocument::Compact));
-
-    Q_EMIT RecordAdded(notify);
 }
 
 void BubbleManager::registerAsService()

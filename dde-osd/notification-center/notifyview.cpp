@@ -20,69 +20,59 @@
  */
 
 #include "notifyview.h"
-#include "notifymodel.h"
+#include "notification/persistence.h"
+#include "notification/notificationentity.h"
+#include "bubblegroup.h"
 
 #include <QScroller>
+#include <QFrame>
 
-NotifyView::NotifyView(QWidget *parent) : QListView(parent)
+NotifyView::NotifyView(QWidget *parent, Persistence* database)
+    : QWidget(parent),
+      m_database(database),
+      m_content(new QWidget),
+      mainLayout(new QVBoxLayout)
 {
-    setFrameStyle(QFrame::NoFrame);
-    setMouseTracking(true);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollMode(QListView::ScrollPerPixel);
-    setSpacing(0);
+    Q_ASSERT(database);
+    initData();
+
     setContentsMargins(0, 0, 0, 0);
     setUpdatesEnabled(true);
-    setStyleSheet("background-color: rgba(255, 255, 255, 7.65);");
-
-    connect(this, &NotifyView::currentHoverChanged, this, &NotifyView::onCurrentHoverChanged);
-    connect(this, &NotifyView::entered, this, &NotifyView::onItemEntered);
 
     QScroller::grabGesture(this, QScroller::LeftMouseButtonGesture);
     QScroller *scroller = QScroller::scroller(this);
     QScrollerProperties sp;
     sp.setScrollMetric(QScrollerProperties::VerticalOvershootPolicy, QScrollerProperties::OvershootAlwaysOff);
     scroller->setScrollerProperties(sp);
+
+    connect(m_database, &Persistence::RecordAdded, this, &NotifyView::addNotify);
+
+    setLayout(mainLayout);
 }
 
-const QModelIndex &NotifyView::currentHoverIndex() const
+void NotifyView::initData()
 {
-    return m_indexCurrent;
-}
+    if(m_database == nullptr)  return;
+    QList<std::shared_ptr<NotificationEntity>> notifications = m_database->getAllNotify();
 
-void NotifyView::enterEvent(QEvent *event)
-{
-    if (m_indexCurrent.isValid()) {
-        openPersistentEditor(m_indexCurrent);
+    foreach (auto notify, notifications) {
+        pushGroup(notify);
     }
-
-    QWidget::enterEvent(event);
 }
 
-void NotifyView::leaveEvent(QEvent *event)
+void NotifyView::addNotify(std::shared_ptr<NotificationEntity> entity)
 {
-    if (m_indexCurrent.isValid()) {
-        closePersistentEditor(m_indexCurrent);
-        static_cast<NotifyModel *>(model())->setHoverIndex(QModelIndex());
-    }
-    QWidget::leaveEvent(event);
+    pushGroup(entity);
 }
 
-void NotifyView::onCurrentHoverChanged(const QModelIndex &previous, const QModelIndex &current)
+void NotifyView::pushGroup(std::shared_ptr<NotificationEntity> entity)
 {
-    if (previous.isValid()) {
-        closePersistentEditor(previous);
-    }
-    openPersistentEditor(current);
-}
-
-void NotifyView::onItemEntered(const QModelIndex &index)
-{
-    m_indexCurrent = index;
-    static_cast<NotifyModel *>(model())->setHoverIndex(m_indexCurrent);
-    if (m_indexPrevious != m_indexCurrent) {
-        Q_EMIT currentHoverChanged(m_indexPrevious, m_indexCurrent);
-        m_indexPrevious = m_indexCurrent;
+    if(m_applications.contains(entity->appName())) {
+        m_applications[entity->appName()]->pushBubble(entity);
+    } else {
+        BubbleGroup* bubble_group = new BubbleGroup(this, entity);
+        bubble_group->pushBubble(entity);
+        m_applications.insert(entity->appName(), bubble_group);
+        mainLayout->addWidget(bubble_group, Qt::AlignTop);
     }
 }

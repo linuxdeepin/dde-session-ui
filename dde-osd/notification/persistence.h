@@ -39,6 +39,7 @@ public:
     void removeOne(const QString &id);
     void removeAll();
 
+    QList<std::shared_ptr<NotificationEntity>> getAllNotify();
     QString getAll();
     QString getById(const QString &id);
 
@@ -47,7 +48,7 @@ public:
     QString getFrom(int rowCount, const QString &offsetId);
 
 signals:
-    void RecordAdded(std::shared_ptr<NotificationEntity> entify);
+    void RecordAdded(std::shared_ptr<NotificationEntity> entity);
 
 private:
     void attemptCreateTable();

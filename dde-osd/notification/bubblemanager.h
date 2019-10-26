@@ -111,8 +111,6 @@ public Q_SLOTS:
     uint recordCount();
 
 private Q_SLOTS:
-    void onRecordAdded(std::shared_ptr<NotificationEntity> entity);
-
     void onDockRectChanged(const QRect &geometry);
     void onDockPositionChanged(int position);
     void onDbusNameOwnerChanged(QString, QString, QString);

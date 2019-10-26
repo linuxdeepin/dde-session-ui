@@ -24,19 +24,21 @@
  */
 
 #include "notifycenterwidget.h"
-#include <QApplication>
+#include "notification/persistence.h"
 #include <QDesktopWidget>
-#include <QStackedLayout>
+#include <QApplication>
+#include <QBoxLayout>
+#include <QTimer>
+#include <QDBusInterface>
+#include <QPropertyAnimation>
 #include <diconbutton.h>
 #include <DLabel>
 
 DWIDGET_USE_NAMESPACE
 
-NotifyCenterWidget::NotifyCenterWidget(QWidget *parent)
-    : DBlurEffectWidget(parent)
-    , m_timeRefersh(new QTimer(this))
-    , m_contentLayout(new QStackedLayout)
-    , m_notifyWidget(new NotifyWidget(this))
+NotifyCenterWidget::NotifyCenterWidget(Persistence* database)
+    : m_timeRefersh(new QTimer(this)),
+      m_notifyWidget(new NotifyWidget(this, database))
 {
     initUI();
     initAnimations();
@@ -50,14 +52,9 @@ void NotifyCenterWidget::initUI()
     setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_TranslucentBackground);
 
-    m_contentLayout->setMargin(0);
-    m_contentLayout->setSpacing(0);
-    m_contentLayout->addWidget(m_notifyWidget);
-
     m_timeRefersh->setInterval(1000);
     m_timeRefersh->setSingleShot(false);
     m_timeRefersh->start();
-
 
     DIconButton *bell_notify = new DIconButton(this);
     bell_notify->setIcon(QIcon("://icons/notifications.svg"));
@@ -80,7 +77,7 @@ void NotifyCenterWidget::initUI()
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(head_Layout);
-    mainLayout->addLayout(m_contentLayout);
+    mainLayout->addWidget(m_notifyWidget);
 
     setLayout(mainLayout);
 }

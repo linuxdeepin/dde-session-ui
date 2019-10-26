@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2011 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2011 ~ 2019 Deepin Technology Co., Ltd.
  *
- * Author:     listenerri <190771752ri@gmail.com>
+ * Author:     zorowk <near.kingzero@gmail.com>
  *
- * Maintainer: listenerri <190771752ri@gmail.com>
+ * Maintainer: zorowk <near.kingzero@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,26 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NOTIFYWIDGET_H
-#define NOTIFYWIDGET_H
+#ifndef BUBBLEITEM_H
+#define BUBBLEITEM_H
 
-#include "notifyview.h"
-#include <QWidget>
-#include <QLabel>
+#include "notification/bubble.h"
 
-class Persistence;
-class NotifyWidget : public QWidget
+class NotificationEntity;
+class BubbleItem : public Bubble
 {
     Q_OBJECT
 public:
-    explicit NotifyWidget(QWidget *parent = nullptr, Persistence* database = nullptr);
-
-private:
-    void initUI();
-
-private:
-    NotifyView *m_notifyView;
-    QLabel *m_noNotify;
+    BubbleItem(std::shared_ptr<NotificationEntity> entity = nullptr);
 };
 
-#endif // NOTIFYWIDGET_H
+#endif // BUBBLEITEM_H

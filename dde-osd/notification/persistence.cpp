@@ -184,6 +184,31 @@ QString Persistence::getAll()
     return QJsonDocument(array1).toJson();
 }
 
+#include <QFile>
+QList<std::shared_ptr<NotificationEntity>> Persistence::getAllNotify()
+{
+    QList<std::shared_ptr<NotificationEntity>> db_notification;
+    QString json = getAll();
+    QFile  file("~/time.json");
+    file.open(QFile::WriteOnly);
+    file.write(json.toLocal8Bit());
+    file.close();
+    QJsonArray notify_array = QJsonDocument::fromJson(json.toLocal8Bit().data()).array();
+
+    foreach (auto notify, notify_array) {
+        QJsonObject obj = notify.toObject();
+        auto notification = std::make_shared<NotificationEntity>(obj.value("name").toString(),
+                                                                QString(), obj.value("icon").toString(),
+                                                                obj.value("summary").toString(),
+                                                                obj.value("body").toString(),
+                                                                QStringList(), QVariantMap(),
+                                                                obj.value("time").toString(),
+                                                                QString(), QString(), this);
+        db_notification.append(notification);
+    }
+    return db_notification;
+}
+
 QString Persistence::getById(const QString &id)
 {
     m_query.prepare(QString("SELECT %1, %2, %3, %4, %5, %6 FROM %7 WHERE ID = (:id)")

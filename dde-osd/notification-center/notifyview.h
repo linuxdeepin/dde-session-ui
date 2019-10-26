@@ -22,31 +22,31 @@
 #ifndef NOTIFYVIEW_H
 #define NOTIFYVIEW_H
 
-#include <QListView>
+#include <QWidget>
+#include <QMap>
+#include <memory>
+#include <QVBoxLayout>
 
-class NotifyView : public QListView
+class Persistence;
+class BubbleGroup;
+class NotificationEntity;
+
+class NotifyView : public QWidget
 {
     Q_OBJECT
-
 public:
-    NotifyView(QWidget *parent = Q_NULLPTR);
-
-    const QModelIndex &currentHoverIndex() const;
-
-Q_SIGNALS:
-    void currentHoverChanged(const QModelIndex &previous, const QModelIndex &current);
-
-protected:
-    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
-
-private Q_SLOTS:
-    void onCurrentHoverChanged(const QModelIndex &previous, const QModelIndex &current);
-    void onItemEntered(const QModelIndex &index);
+    NotifyView(QWidget *parent = nullptr, Persistence* database = nullptr);
 
 private:
-    QModelIndex m_indexPrevious;
-    QModelIndex m_indexCurrent;
+    void initData();
+    void addNotify(std::shared_ptr<NotificationEntity> entity);
+    void pushGroup(std::shared_ptr<NotificationEntity> entity);
+
+private:
+    Persistence *m_database = nullptr;
+    QWidget *m_content = nullptr;
+    QVBoxLayout *mainLayout = nullptr;
+    QMap<QString, BubbleGroup*> m_applications;
 };
 
 #endif // NOTIFYVIEW_H

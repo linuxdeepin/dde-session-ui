@@ -4,15 +4,15 @@ isEmpty(PREFIX){
 QT += svg
 
 HEADERS += \
-    $$PWD/notifydelegate.h \
-    $$PWD/notifymodel.h \
-    $$PWD/notifyview.h \
     $$PWD/notifywidget.h \
-    $$PWD/notifycenterwidget.h
+    $$PWD/notifyview.h \
+    $$PWD/notifycenterwidget.h \
+    $$PWD/bubbleitem.h \
+    $$PWD/bubblegroup.h
 
 SOURCES += \
-    $$PWD/notifydelegate.cpp \
-    $$PWD/notifymodel.cpp \
-    $$PWD/notifyview.cpp \
     $$PWD/notifywidget.cpp \
-    $$PWD/notifycenterwidget.cpp
+    $$PWD/notifyview.cpp \
+    $$PWD/notifycenterwidget.cpp \
+    $$PWD/bubbleitem.cpp \
+    $$PWD/bubblegroup.cpp

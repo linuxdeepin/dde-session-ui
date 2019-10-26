@@ -20,74 +20,46 @@
  */
 
 #include "notifywidget.h"
+#include "notification/persistence.h"
 
 #include <QVBoxLayout>
+#include <QScrollArea>
+#include <QScrollBar>
 
-NotifyWidget::NotifyWidget(QWidget *parent) : QWidget(parent)
+NotifyWidget::NotifyWidget(QWidget *parent, Persistence* database)
+    : QWidget(parent),
+      m_notifyView(new NotifyView(this, database))
 {
-    QVBoxLayout *mainVBLayout = new QVBoxLayout;
-    m_notifyView = new NotifyView;
-    m_notifyModel = new NotifyModel;
-    m_notifyDelegate = new NotifyDelegate;
-    m_noNotify = new QLabel(tr("No system notifications"));
+    initUI();
+}
 
-    m_notifyView->setModel(m_notifyModel);
-    m_notifyView->setItemDelegate(m_notifyDelegate);
-    m_notifyView->setEditTriggers(QListView::NoEditTriggers);
+void NotifyWidget::initUI()
+{
+    QScrollArea *scroll_area = new QScrollArea(this);
+    scroll_area->setWidgetResizable(true);
+    scroll_area->horizontalScrollBar()->setEnabled(false);
+    scroll_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scroll_area->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scroll_area->setWidget(m_notifyView);
+    scroll_area->viewport()->setAutoFillBackground(false);
+    m_notifyView->setAutoFillBackground(false);
+
+    QVBoxLayout *mainVBLayout = new QVBoxLayout;
+    m_noNotify = new QLabel(tr("No system notifications"));
 
     m_noNotify->setAlignment(Qt::AlignCenter);
     m_noNotify->setVisible(false);
 
-    mainVBLayout->addWidget(m_notifyView);
+    mainVBLayout->addWidget(scroll_area);
     mainVBLayout->addWidget(m_noNotify);
 
     mainVBLayout->setSpacing(1);
     mainVBLayout->setMargin(0);
     mainVBLayout->setContentsMargins(0, 0, 0, 0);
 
-    setStyleSheet("background-color: rgba(255, 255, 255, 7.65);");
     setContentsMargins(0, 0, 0, 0);
     setLayout(mainVBLayout);
-
-    connect(m_notifyDelegate, &NotifyDelegate::removeBtnClicked, this, &NotifyWidget::onRemoveBtnClicked);
-    connect(m_notifyModel, &NotifyModel::removeAnimFinished, m_notifyModel, &NotifyModel::removeNotify);
-    connect(m_notifyModel, &NotifyModel::removeAnimFinished, this, &NotifyWidget::onRemoveAnimFinished);
-    connect(m_notifyModel, &NotifyModel::clearAllAnimFinished, m_notifyModel, &NotifyModel::clearAllNotify);
-    connect(m_notifyModel, &NotifyModel::notifyClearStateChanged, this, &NotifyWidget::onNotifyClearStateChanged);
 }
 
-void NotifyWidget::showRemoveAnim(const QModelIndex &index)
-{
-    m_notifyView->closePersistentEditor(index);
-    m_notifyModel->showRemoveAnim(index, m_notifyView->width());
-}
 
-void NotifyWidget::showClearAllAnim()
-{
-    m_notifyModel->showClearAllAnim(m_notifyView->width());
-}
 
-void NotifyWidget::onNotifyClearStateChanged(bool isClear)
-{
-    if (isClear) {
-        m_notifyView->setVisible(false);
-        m_noNotify->setVisible(true);
-    } else {
-        m_notifyView->setVisible(true);
-        m_noNotify->setVisible(false);
-    }
-}
-
-void NotifyWidget::onRemoveBtnClicked()
-{
-    showRemoveAnim(m_notifyView->currentHoverIndex());
-}
-
-void NotifyWidget::onRemoveAnimFinished(const QModelIndex &index)
-{
-    // to avoid the remove button appearing at an has removed notification
-    if (m_notifyModel->rowCount(QModelIndex()) <= index.row()) {
-        return;
-    }
-    m_notifyView->openPersistentEditor(m_notifyView->currentHoverIndex());
-}
