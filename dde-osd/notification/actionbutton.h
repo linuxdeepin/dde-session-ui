@@ -68,7 +68,6 @@ private:
     QList<Button *> m_buttons;
     Button *m_menuButton = nullptr;
 
-
     QSize m_buttonSize = QSize(70, 60);
 };
 

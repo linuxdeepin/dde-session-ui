@@ -75,6 +75,7 @@ void register_wm_state(WId winid)
 Bubble::Bubble(std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
     : DBlurEffectWidget(nullptr)
     , m_entity(entity)
+    , m_bgWidget(new BubbleWidget_Bg(this))
     , m_titleWidget(new BubbleWidget_Bg(this))
     , m_bodyWidget(new BubbleWidget_Bg(this))
     , m_appNameLabel(new DLabel(this))
@@ -83,6 +84,7 @@ Bubble::Bubble(std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this, style))
     , m_closeButton(new Button(this))
+    , m_outTimer(new QTimer(this))
     , m_quitTimer(new QTimer(this))
     , m_showStyle(style)
 {
@@ -133,8 +135,14 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
 
 void Bubble::setPostion(const QPoint &point)
 {
-    dPos = point;
-    move(dPos);
+    m_pos = point;
+    move(m_pos);
+}
+
+void Bubble::setAppName(const QString &name)
+{
+    if (m_appNameLabel)
+        m_appNameLabel->setText(name);
 }
 
 void Bubble::setBasePosition(int x, int y, QRect rect)
@@ -142,14 +150,14 @@ void Bubble::setBasePosition(int x, int y, QRect rect)
     x -= Padding;
     y += Padding;
 
-    dPos.setX((x - BubbleWidth) / 2);
-    dPos.setY(y);
+    m_pos.setX((x - OSD::BubbleWidth(m_showStyle)) / 2);
+    m_pos.setY(y);
 //    const QSize dSize(BubbleWidth, BubbleHeight);
 
     if (m_inAnimation->state() == QPropertyAnimation::Running) {
-        const int baseX = x - BubbleWidth;
+        const int baseX = x - OSD::BubbleWidth(m_showStyle);
 
-        m_inAnimation->setStartValue(QPoint(baseX / 2, y - BubbleHeight));
+        m_inAnimation->setStartValue(QPoint(baseX / 2, y - OSD::BubbleHeight(m_showStyle)));
         m_inAnimation->setEndValue(QPoint(baseX / 2, y));
     }
 
@@ -181,17 +189,40 @@ void Bubble::compositeChanged()
 void Bubble::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
-        if (!m_defaultAction.isEmpty()) {
-            Q_EMIT actionInvoked(this, m_defaultAction);
-            m_defaultAction.clear();
-        } else {
-            //采用动画的方式退出并隐藏，不会丢失窗体‘焦点’，造成控件不响应鼠标进入和离开事件
-            m_dismissAnimation->start();
-        }
+        m_clickPos = event->pos();
+        m_pressed = true;
     }
 
     m_offScreen = true;
     m_outTimer->stop();
+}
+
+void Bubble::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (m_pressed && m_clickPos == event->pos()) {
+        if (!m_defaultAction.isEmpty()) {
+            Q_EMIT actionInvoked(this, m_defaultAction);
+            m_defaultAction.clear();
+        } else {
+            // FIX ME:采用动画的方式退出并隐藏，不会丢失窗体‘焦点’，造成控件不响应鼠标进入和离开事件
+            m_dismissAnimation->start();
+        }
+    }
+
+    m_pressed = false;
+
+    return DBlurEffectWidget::mouseReleaseEvent(event);
+}
+
+void Bubble::mouseMoveEvent(QMouseEvent *event)
+{
+    if (m_pressed && event->pos().y() < 10) {
+        Q_EMIT ignored(this);
+
+        //TODO:add ignored animation
+    }
+
+    return DBlurEffectWidget::mouseMoveEvent(event);
 }
 
 void Bubble::moveEvent(QMoveEvent *event)
@@ -199,7 +230,7 @@ void Bubble::moveEvent(QMoveEvent *event)
     // don't show this bubble on unrelated screens while sliding in.
     if (m_inAnimation->state() == QPropertyAnimation::Running) {
         const bool visible = m_screenGeometry.contains(event->pos());
-        //setVisible(visible);
+//        setVisible(visible);
     }
 
     DBlurEffectWidget::moveEvent(event);
@@ -397,13 +428,20 @@ void Bubble::initUI()
 
         mainLayout->addWidget(m_bodyWidget);
 
-        m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        m_bgWidget->setLayout(mainLayout);
+
+        m_titleWidget->setAlpha(20);
+        m_bodyWidget->setAlpha(0);
+        m_bgWidget->setHoverAlpha(80);
+        m_bgWidget->setUnHoverAlpha(60);
 
         QHBoxLayout *l = new QHBoxLayout;
         l->setSpacing(0);
         l->setMargin(0);
+        l->addWidget(m_bgWidget);
+        setLayout(l);
 
-        setLayout(mainLayout);
+        m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     }
 }
 
@@ -452,21 +490,9 @@ void Bubble::initAnimations()
 
 void Bubble::initTimers()
 {
-    m_outTimer = new QTimer(this);
     m_outTimer->setInterval(BubbleTimeout);
     m_outTimer->setSingleShot(true);
     connect(m_outTimer, &QTimer::timeout, this, &Bubble::onOutTimerTimeout);
-}
-
-bool Bubble::containsMouse() const
-{
-    return geometry().contains(QCursor::pos());
-}
-
-void Bubble::setAppName(const QString &name)
-{
-    if (m_appNameLabel)
-        m_appNameLabel->setText(name);
 }
 
 void Bubble::setAppTime(const QString &time)
@@ -519,6 +545,11 @@ void Bubble::processIconData()
     } else {
         m_icon->setIcon(imagePath.isEmpty() ? m_entity->appIcon() : imagePath, m_entity->appName());
     }
+}
+
+bool Bubble::containsMouse() const
+{
+    return geometry().contains(QCursor::pos());
 }
 
 void Bubble::saveImg(const QImage &image)
@@ -655,13 +686,13 @@ void Bubble::onDelayQuit()
 void Bubble::resetMoveAnim(const QPoint &point)
 {
     if (isVisible() && m_outAnimation->state() != QPropertyAnimation::Running) {
-        dPos = QPoint(x(), point.y());
+        m_pos = QPoint(x(), point.y());
         m_moveAnimation->setStartValue(QPoint(x(), y()));
-        m_moveAnimation->setEndValue(dPos);
+        m_moveAnimation->setEndValue(m_pos);
 
-        const QRect &startRect = QRect(dPos, QSize(BubbleWidth, BubbleHeight));
+        const QRect &startRect = QRect(m_pos, QSize(OSD::BubbleWidth(m_showStyle), OSD::BubbleHeight(m_showStyle)));
         m_outAnimation->setStartValue(startRect);
-        m_outAnimation->setEndValue(QRect(startRect.right(), startRect.y(), 0, BubbleHeight));
+        m_outAnimation->setEndValue(QRect(startRect.right(), startRect.y(), 0, OSD::BubbleHeight(m_showStyle)));
 
         m_moveAnimation->start();
     }
@@ -712,9 +743,9 @@ void BubbleTemplate::initSizeMap(SizeMap &map)
 {
     map.clear();
 
-    map.insert(ShowLevel::NORMAL, QSize(BubbleWidth, BubbleHeight));
-    map.insert(ShowLevel::LEVEL0, QSize((BubbleWidth / 6) * 5, (BubbleHeight / 8) * 7));
-    map.insert(ShowLevel::LEVEL1, QSize((BubbleWidth / 6) * 4, (BubbleHeight / 8) * 6));
+    map.insert(ShowLevel::NORMAL, QSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWINDOW), OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWINDOW)));
+    map.insert(ShowLevel::LEVEL0, QSize((OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWINDOW) / 6) * 5, (OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWINDOW) / 8) * 7));
+    map.insert(ShowLevel::LEVEL1, QSize((OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWINDOW) / 6) * 4, (OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWINDOW) / 8) * 6));
 }
 
 BubbleWidget_Bg::BubbleWidget_Bg(QWidget *parent)

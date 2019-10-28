@@ -27,6 +27,10 @@
 #include <QSqlQuery>
 #include <memory>
 
+#define ACTION_SEGMENT ("|")
+#define HINT_SEGMENT ("|")
+#define KEYVALUE_SEGMENT ("!!!")
+
 class NotificationEntity;
 class Persistence : public QObject
 {
@@ -52,6 +56,11 @@ signals:
 
 private:
     void attemptCreateTable();
+    QString ConvertMapToString(const QVariantMap &map);
+    QVariantMap ConvertStringToMap(const QString &text);
+
+    bool IsAttributeValid(const QString &tableName, const QString &attributeName);
+    bool AddAttributeToTable(const QString &tableName, const QString &attributeName);
 
 private:
     QSqlDatabase m_dbConnection;

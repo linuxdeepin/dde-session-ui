@@ -168,9 +168,10 @@ void BubbleManager::refreshBubble()
 {
     if (m_bubbleList.size() < BubbleEntities + 1 && !m_oldEntities.isEmpty()) {
         auto notify = m_oldEntities.takeFirst();
+
         Bubble *bubble = createBubble(notify);
         bubble->setPostion(QPoint(bubble->x(), bubble->y() +
-                                  BubbleHeight * BubbleEntities +
+                                  OSD::BubbleHeight(bubble->showStyle()) * BubbleEntities +
                                   BubbleMargin * BubbleEntities));
         m_bubbleList.push_back(bubble);
     }
@@ -184,7 +185,7 @@ void BubbleManager::pushAnimation(Bubble *bubble)
 
     while (index < m_bubbleList.size() - 1) {
         index ++;
-        move_point.setY(move_point.y() + BubbleHeight + BubbleMargin);
+        move_point.setY(move_point.y() + OSD::BubbleHeight(bubble->showStyle()) + BubbleMargin);
         QPointer<Bubble> item = m_bubbleList.at(index);
         if (bubble != nullptr) item->resetMoveAnim(move_point);
     }

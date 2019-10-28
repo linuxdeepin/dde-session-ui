@@ -41,14 +41,6 @@
 
 DWIDGET_USE_NAMESPACE
 
-static const int Padding = 46;
-static const int BubbleMargin = 20;
-static const int BubbleWidth = 320;
-static const int BubbleHeight = 80;
-static const int BubbleTimeout = 5000;//msec
-static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
-static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
-
 typedef enum {
     NORMAL,
     LEVEL0,
@@ -77,12 +69,25 @@ public:
     void setBasePosition(int, int, QRect = QRect());
     void setEntity(std::shared_ptr<NotificationEntity> entity);
 
-    QPoint postion() { return dPos; }
+    QPoint postion() { return m_pos; }
     void setPostion(const QPoint &point);
+
+    const QString &appName() {return m_appName;}
+    void setAppName(const QString &name);
+
+    const QString &appTime() {return m_appTime;}
+    void setAppTime(const QString &time);
+
+    void saveImg(const QImage &image);
+    const QPixmap converToPixmap(const QDBusArgument &value);
+    QString CreateTimeString(const QString &time);
+
+    OSD::ShowStyle showStyle() {return m_showStyle;}
 
 Q_SIGNALS:
     void expired(Bubble *);
     void dismissed(Bubble *);
+    void ignored(Bubble *);//暂不处理
     void replacedByOther(Bubble *);
     void actionInvoked(Bubble *, QString);
     void havorStateChanged(bool);
@@ -95,6 +100,9 @@ public Q_SLOTS:
 
 protected:
     void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+
     void moveEvent(QMoveEvent *) Q_DECL_OVERRIDE;
     void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
     void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
@@ -117,49 +125,44 @@ private:
     void processIconData();
     bool containsMouse() const;
 
-    const QString &appName() {return m_appName;}
-    void setAppName(const QString &name);
-
-    const QString &appTime() {return m_appTime;}
-    void setAppTime(const QString &time);
-
-    void saveImg(const QImage &image);
-    const QPixmap converToPixmap(const QDBusArgument &value);
-    QString CreateTimeString(const QString &time);
-
 private:
     std::shared_ptr<NotificationEntity> m_entity;
 
+    //controls
+    BubbleWidget_Bg *m_bgWidget = nullptr;
     BubbleWidget_Bg *m_titleWidget = nullptr;
     BubbleWidget_Bg *m_bodyWidget = nullptr;
     DLabel *m_appNameLabel = nullptr;
     DLabel *m_appTimeLabel = nullptr;
-
     AppIcon *m_icon = nullptr;
     AppBody *m_body = nullptr;
     ActionButton *m_actionButton = nullptr;
     Button *m_closeButton = nullptr;
 
+    //animation
     QPropertyAnimation *m_inAnimation = nullptr;
     QPropertyAnimation *m_outAnimation = nullptr;
     QPropertyAnimation *m_dismissAnimation = nullptr;
     QPropertyAnimation *m_moveAnimation = nullptr;
-    QTimer *m_outTimer = nullptr;
-    QTimer *m_quitTimer;
-    DPlatformWindowHandle *m_handle;
-    DWindowManagerHelper *m_wmHelper;
 
+    QTimer *m_outTimer = nullptr;
+    QTimer *m_quitTimer = nullptr;
+    DPlatformWindowHandle *m_handle = nullptr;
+    DWindowManagerHelper *m_wmHelper = nullptr;
+    QString m_appName;
+    QString m_appTime;
+
+    //---very private ,no get method
     QRect m_screenGeometry;
     QString m_defaultAction;
-    QPoint dPos;
-
+    QPoint m_pos;
+    QPoint m_clickPos;
+    bool m_pressed = false;
     bool m_offScreen = true;
     bool m_canClose = false;
     bool m_havor = false;
 
     OSD::ShowStyle m_showStyle;
-    QString m_appName;
-    QString m_appTime;
 };
 
 class BubbleTemplate : public DBlurEffectWidget
@@ -184,6 +187,8 @@ class BubbleWidget_Bg : public DWidget
     friend class Bubble;
 private:
     BubbleWidget_Bg(QWidget *parent = nullptr);
+
+    void setAlpha(int alpha) {m_hoverAlpha = alpha; m_unHoverAlpha = alpha; update();}
 
     int hoverAlpha() {return m_hoverAlpha;}
     void setHoverAlpha(int alpha) {m_hoverAlpha = alpha; update();}
