@@ -17,7 +17,8 @@ HEADERS += \
     $$PWD/appbody.h \
     $$PWD/icondata.h \
     $$PWD/appbodylabel.h \
-    $$PWD/button.h
+    $$PWD/button.h \
+    $$PWD/define.h
 
 SOURCES += \
     $$PWD/bubble.cpp \

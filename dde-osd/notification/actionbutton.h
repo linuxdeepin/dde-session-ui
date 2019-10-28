@@ -28,9 +28,7 @@
 #include <QHBoxLayout>
 #include <QMap>
 
-#include <DPushButton>
-
-DWIDGET_USE_NAMESPACE
+#include "define.h"
 
 #define BUTTONWIDTH (70)
 #define BUTTONHEIGHT (60)
@@ -44,21 +42,20 @@ class ActionButton : public QFrame
 {
     Q_OBJECT
 public:
-    ActionButton(QWidget *parent = nullptr);
+    ActionButton(QWidget *parent = nullptr, OSD::ShowStyle style = OSD::ShowStyle::BUBBLEWINDOW);
 
     bool addButtons(const QStringList &list);
     bool isEmpty();
     void clear();
 
-public Q_SLOTS:
-    void onFocusChanged(bool has);
+    QSize buttonSize() const {return m_buttonSize;}
+    void setButtonSize(const QSize &size);
 
 private:
     void initUI();
     void initConnections();
 
 Q_SIGNALS:
-    void closeButtonClicked();
     void buttonClicked(const QString &id);
     void expired(int);
     void dismissed(int);
@@ -66,10 +63,13 @@ Q_SIGNALS:
 
 private:
     bool m_canClose = false;
+    OSD::ShowStyle m_showStyle;
     QHBoxLayout *m_layout = nullptr;
     QList<Button *> m_buttons;
-    Button *m_closeButton = nullptr;
     Button *m_menuButton = nullptr;
+
+
+    QSize m_buttonSize = QSize(70, 60);
 };
 
 #endif // ACTIONBUTTON_H

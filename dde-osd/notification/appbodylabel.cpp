@@ -57,10 +57,12 @@ static int drawText(QPainter *painter, const QRectF &rect, int lineHeight, QText
     int lineCount = 0;
     qreal height = 0;
     QString text = layout->text();
-    QTextOption &text_option = *const_cast<QTextOption*>(&layout->textOption());
+    QTextOption &text_option = *const_cast<QTextOption *>(&layout->textOption());
 
-    if (painter)
+    if (painter) {
         text_option.setTextDirection(painter->layoutDirection());
+        painter->setPen(QPen(Qt::black));
+    }
 
     layout->beginLayout();
 
@@ -141,8 +143,7 @@ const QString appBodyLabel::holdTextInRect(const QFontMetrics &fm, const QString
 
     QString str(text + "...");
 
-    while (true)
-    {
+    while (true) {
         if (str.size() < 4)
             break;
 

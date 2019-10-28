@@ -154,8 +154,6 @@ void ButtonMenu::mousePressEvent(QMouseEvent *event)
     Q_UNUSED(event);
 
     Q_EMIT menuToggled();
-
-    DWidget::mousePressEvent(event);
 }
 
 void ButtonMenu::paintEvent(QPaintEvent *event)
@@ -282,11 +280,6 @@ void Button::drawBackground(QPainter *painter)
     painter->drawRoundRect(QRectF(0, 0, width(), height()), m_radius, m_radius);
 
     painter->restore();
-}
-
-void Button::mousePressEvent(QMouseEvent *event)
-{
-    Q_UNUSED(event);
 }
 
 void Button::paintEvent(QPaintEvent *event)

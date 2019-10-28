@@ -36,9 +36,9 @@ static const QColor BorderColor = QColor::fromRgbF(0, 0, 0, 0.1);
 static const QColor TextColor = QColor(0, 135, 255);
 static const QColor TextHover = Qt::white;
 
-ActionButton::ActionButton(QWidget *parent) :
+ActionButton::ActionButton(QWidget *parent, OSD::ShowStyle style) :
     QFrame(parent)
-    , m_closeButton(new Button(this))
+    , m_showStyle(style)
     , m_menuButton(new Button())
 {
     initUI();
@@ -66,7 +66,9 @@ bool ActionButton::addButtons(const QStringList &list)
                 Button *button = new Button();
                 button->setText(list[i]);
                 button->setRadius(15);
-                button->setFixedSize(BUTTONWIDTH, BUTTONHEIGHT);
+
+                button->setFixedSize(OSD::ButtonSize(m_showStyle));
+                qDebug() << OSD::ButtonSize(m_showStyle);
 
                 m_layout->addWidget(button);
 
@@ -113,22 +115,17 @@ void ActionButton::clear()
 
     m_menuButton->clear();
     m_menuButton->hide();
-
-    m_closeButton->hide();
 }
 
-void ActionButton::onFocusChanged(bool has)
+void ActionButton::setButtonSize(const QSize &size)
 {
-    if (m_canClose)
-        m_closeButton->setVisible(has);
+    m_buttonSize = size;
+    m_menuButton->setFixedSize(size);
 }
 
 void ActionButton::initUI()
 {
-    m_closeButton->setFixedSize(CLOSEBTNSIZE);
-    m_closeButton->setRadius(99);
-    m_closeButton->setText("X");
-    m_menuButton->setFixedSize(BUTTONWIDTH, BUTTONHEIGHT);
+    m_menuButton->setFixedSize(OSD::ButtonSize(m_showStyle));
     m_menuButton->setRadius(20);
 
     m_layout = new QHBoxLayout;
@@ -141,7 +138,6 @@ void ActionButton::initUI()
     layout->setMargin(0);
     layout->addLayout(m_layout);
     layout->addWidget(m_menuButton);
-    layout->addWidget(m_closeButton);
 
     setLayout(layout);
 
@@ -153,6 +149,5 @@ void ActionButton::initConnections()
     connect(this, &ActionButton::expired, m_menuButton, &Button::hideMenu);
     connect(this, &ActionButton::dismissed, m_menuButton, &Button::hideMenu);
     connect(this, &ActionButton::replacedByOther, m_menuButton, &Button::hideMenu);
-    connect(m_closeButton, &Button::clicked, this, &ActionButton::closeButtonClicked);
     connect(m_menuButton, &Button::toggled, this, &ActionButton::buttonClicked);
 }

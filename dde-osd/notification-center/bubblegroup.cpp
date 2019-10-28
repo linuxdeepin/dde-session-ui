@@ -7,8 +7,8 @@
 
 DWIDGET_USE_NAMESPACE
 
-BubbleGroup::BubbleGroup(QWidget* parent, std::shared_ptr<NotificationEntity> entity)
-    : QWidget (parent)
+BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotificationEntity> entity)
+    : QWidget(parent)
 {
     m_titleWidget = new QWidget();
     m_titleWidget->setFixedSize(BubbleItemWidth, GroupTitleHeight);
@@ -46,7 +46,7 @@ BubbleGroup::BubbleGroup(QWidget* parent, std::shared_ptr<NotificationEntity> en
 
 void BubbleGroup::pushBubble(std::shared_ptr<NotificationEntity> entity)
 {
-    BubbleItem* bubble = new BubbleItem(entity);
+    BubbleItem *bubble = new BubbleItem(entity);
     m_bubbleList.push_front(bubble);
     mainLayout->addWidget(bubble, Qt::AlignTop | Qt::AlignVCenter);
 }

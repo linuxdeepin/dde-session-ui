@@ -26,6 +26,7 @@
 #include "appicon.h"
 #include "appbody.h"
 #include "actionbutton.h"
+#include "button.h"
 #include "icondata.h"
 
 #include <QLabel>
@@ -44,11 +45,12 @@
 #include <QSpacerItem>
 #include <QGridLayout>
 #include <QX11Info>
+#include <QDateTime>
+
+#include <DLabel>
 
 #include <xcb/xcb.h>
 #include <xcb/xcb_ewmh.h>
-
-DWIDGET_USE_NAMESPACE
 
 static const QStringList HintsOrder {
     "desktop-entry",
@@ -70,38 +72,20 @@ void register_wm_state(WId winid)
     xcb_ewmh_set_wm_window_type(&m_ewmh_connection, winid, 1, atoms);
 }
 
-Bubble::Bubble(std::shared_ptr<NotificationEntity> entity)
+Bubble::Bubble(std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
     : DBlurEffectWidget(nullptr)
     , m_entity(entity)
+    , m_titleWidget(new BubbleWidget_Bg(this))
+    , m_bodyWidget(new BubbleWidget_Bg(this))
+    , m_appNameLabel(new DLabel(this))
+    , m_appTimeLabel(new DLabel(this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
-    , m_actionButton(new ActionButton(this))
+    , m_actionButton(new ActionButton(this, style))
+    , m_closeButton(new Button(this))
     , m_quitTimer(new QTimer(this))
+    , m_showStyle(style)
 {
-    m_quitTimer->setInterval(60 * 1000);
-    m_quitTimer->setSingleShot(true);
-
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
-    setAttribute(Qt::WA_TranslucentBackground);
-
-    m_wmHelper = DWindowManagerHelper::instance();
-
-    m_handle = new DPlatformWindowHandle(this);
-    m_handle->setTranslucentBackground(true);
-    m_handle->setShadowRadius(18);
-    m_handle->setShadowOffset(QPoint(0, 4));
-
-    DStyleHelper dstyle(style());
-    int radius = dstyle.pixelMetric(DStyle::PM_TopLevelWindowRadius);
-    setBlurRectXRadius(radius);
-    setBlurRectYRadius(radius);
-
-    compositeChanged();
-
-    setBlendMode(DBlurEffectWidget::BehindWindowBlend);
-    setMaskColor(DBlurEffectWidget::LightColor);
-    setMouseTracking(true);
-
     initUI();
     initConnections();
     initAnimations();
@@ -125,6 +109,8 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
 {
     if (!entity) return;
 
+    m_canClose = entity->actions().isEmpty() ? true : false;
+
     m_entity = entity;
 
     m_outTimer->stop();
@@ -143,6 +129,12 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     // -1: default 5s
     m_outTimer->setInterval(timeout == -1 ? BubbleTimeout : (timeout == 0 ? -1 : timeout));
     m_outTimer->start();
+}
+
+void Bubble::setPostion(const QPoint &point)
+{
+    dPos = point;
+    move(dPos);
 }
 
 void Bubble::setBasePosition(int x, int y, QRect rect)
@@ -232,14 +224,14 @@ void Bubble::hideEvent(QHideEvent *event)
 
 void Bubble::enterEvent(QEvent *event)
 {
-    Q_EMIT focusChanged(true);
+    Q_EMIT havorStateChanged(true);
 
     return DBlurEffectWidget::enterEvent(event);
 }
 
 void Bubble::leaveEvent(QEvent *event)
 {
-    Q_EMIT focusChanged(false);
+    Q_EMIT havorStateChanged(false);
 
     return DBlurEffectWidget::leaveEvent(event);
 }
@@ -297,33 +289,129 @@ void Bubble::updateContent()
     m_body->setTitle(m_entity->summary());
     m_body->setText(m_entity->body());
 
+    if (m_showStyle == OSD::ShowStyle::BUBBLEWIDGET) {
+        setAppName(m_entity->appName());
+        setAppTime(m_entity->ctime());
+    }
+
     processIconData();
     processActions();
 }
 
 void Bubble::initUI()
 {
-    setFixedSize(BubbleWidth, BubbleHeight);
-    m_icon->setFixedSize(64, 64);
-    m_body->setObjectName("Body");
+    m_quitTimer->setInterval(60 * 1000);
+    m_quitTimer->setSingleShot(true);
 
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->setSpacing(10);
-    layout->setMargin(PADDING);
-    layout->addWidget(m_icon);
-    layout->addWidget(m_body);
-    layout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Expanding));
-    layout->addWidget(m_actionButton);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
+    setAttribute(Qt::WA_TranslucentBackground);
 
-    m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    DStyleHelper dstyle(style());
+    int radius = dstyle.pixelMetric(DStyle::PM_TopLevelWindowRadius);
+    if (m_showStyle == OSD::ShowStyle::BUBBLEWIDGET) {
+        radius = 8;
+    }
+    setBlurRectXRadius(radius);
+    setBlurRectYRadius(radius);
 
-    setLayout(layout);
+    m_wmHelper = DWindowManagerHelper::instance();
+
+    m_handle = new DPlatformWindowHandle(this);
+    m_handle->setTranslucentBackground(true);
+    m_handle->setShadowRadius(radius);
+    m_handle->setShadowOffset(QPoint(0, 4));
+
+    compositeChanged();
+
+    setBlendMode(DBlurEffectWidget::BehindWindowBlend);
+    setMaskColor(DBlurEffectWidget::LightColor);
+    setMouseTracking(true);
+
+    setFixedSize(OSD::BubbleSize(m_showStyle));
+    m_icon->setFixedSize(OSD::IconSize(m_showStyle));
+    m_closeButton->setFixedSize(OSD::CloseButtonSize(m_showStyle));
+
+    //controls
+    m_appNameLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_appTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+    //layout
+    if (m_showStyle == OSD::ShowStyle::BUBBLEWINDOW) {
+        m_appNameLabel->setVisible(false);
+        m_appTimeLabel->setVisible(false);
+
+        m_body->setObjectName("Body");
+
+        QHBoxLayout *layout = new QHBoxLayout;
+        layout->setSpacing(10);
+        layout->setMargin(PADDING);
+        layout->addWidget(m_icon);
+        layout->addWidget(m_body);
+        layout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Expanding));
+
+        m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        layout->addWidget(m_actionButton);
+
+        m_closeButton->setFixedSize(CLOSEBTNSIZE);
+        m_closeButton->setRadius(99);
+        m_closeButton->setText("X");
+        m_closeButton->setVisible(false);
+        layout->addWidget(m_closeButton);
+
+        setLayout(layout);
+    } else if (m_showStyle == OSD::ShowStyle::BUBBLEWIDGET) {
+
+        m_titleWidget->setFixedHeight(37);
+
+        QVBoxLayout *mainLayout = new QVBoxLayout;
+        mainLayout->setSpacing(0);
+        mainLayout->setMargin(0);
+
+        QHBoxLayout *titleLayout = new QHBoxLayout;
+        titleLayout->setSpacing(10);
+        titleLayout->setContentsMargins(10, 0, 10, 0);
+        titleLayout->addWidget(m_icon);
+        titleLayout->addWidget(m_appNameLabel);
+        titleLayout->addWidget(m_appTimeLabel);
+        m_appNameLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        m_appTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+        m_closeButton->setRadius(99);
+        m_closeButton->setText("X");
+        m_closeButton->setVisible(false);
+        titleLayout->addWidget(m_closeButton);
+
+        m_titleWidget->setLayout(titleLayout);
+        m_titleWidget->setHoverAlpha(0);
+        m_titleWidget->setUnHoverAlpha(0);
+
+        mainLayout->addWidget(m_titleWidget);
+
+        QHBoxLayout *bodyLayout = new QHBoxLayout;
+        bodyLayout->setSpacing(0);
+        bodyLayout->setContentsMargins(10, 0, 10, 0);
+        bodyLayout->addWidget(m_body);
+        bodyLayout->addWidget(m_actionButton);
+
+        m_bodyWidget->setLayout(bodyLayout);
+
+        mainLayout->addWidget(m_bodyWidget);
+
+        m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+        QHBoxLayout *l = new QHBoxLayout;
+        l->setSpacing(0);
+        l->setMargin(0);
+
+        setLayout(mainLayout);
+    }
 }
 
 void Bubble::initConnections()
 {
     connect(m_actionButton, &ActionButton::buttonClicked, this, &Bubble::onActionButtonClicked);
-    connect(m_actionButton, &ActionButton::closeButtonClicked, this, [ = ] {
+
+    connect(m_closeButton, &Button::clicked, this, [ = ] {
         m_dismissAnimation->start();
     });
 
@@ -336,7 +424,7 @@ void Bubble::initConnections()
     connect(this, &Bubble::replacedByOther, m_actionButton, [ = ]() {
         m_actionButton->replacedByOther(int(m_entity->id()));
     });
-    connect(this, &Bubble::focusChanged, m_actionButton, &ActionButton::onFocusChanged);
+    connect(this, &Bubble::havorStateChanged, this, &Bubble::onHavorStateChanged);
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &Bubble::compositeChanged);
     connect(m_quitTimer, &QTimer::timeout, this, &Bubble::onDelayQuit);
@@ -373,6 +461,18 @@ void Bubble::initTimers()
 bool Bubble::containsMouse() const
 {
     return geometry().contains(QCursor::pos());
+}
+
+void Bubble::setAppName(const QString &name)
+{
+    if (m_appNameLabel)
+        m_appNameLabel->setText(name);
+}
+
+void Bubble::setAppTime(const QString &time)
+{
+    if (m_appTimeLabel)
+        m_appTimeLabel->setText(CreateTimeString(time));
 }
 
 // Each even element in the list (starting at index 0) represents the identifier for the action.
@@ -511,6 +611,38 @@ const QPixmap Bubble::converToPixmap(const QDBusArgument &value)
                                           Qt::SmoothTransformation);
 }
 
+QString Bubble::CreateTimeString(const QString &time)
+{
+    qint64 msec = QDateTime::currentMSecsSinceEpoch() - time.toLongLong();
+    if (msec < 0) {
+        return QString("time error");
+    }
+
+    QString text;
+
+    QDateTime bubbleDateTime = QDateTime::fromMSecsSinceEpoch(time.toLongLong());
+    QDateTime currentDateTime = QDateTime::currentDateTime();
+    int elapsedDay = int(bubbleDateTime.daysTo(currentDateTime));
+    int minute = int(msec / 1000 / 60);
+
+//    qDebug() << elapsedDay << minute;
+
+    if (elapsedDay == 0) {
+        if (minute == 0) {
+            text =  tr("Just Now");
+        } else if (minute > 0 && minute < 60) {
+            text = QString::number(minute) + tr(" Minute Ago");
+        } else {
+            text = QString::number(minute / 60) + tr(" Hour Ago");
+        }
+    } else if (elapsedDay == 1) {
+        text = tr("Yesterday ") + currentDateTime.toString("hh:mm");
+    } else {
+        text = QString::number(elapsedDay) + tr(" Day Ago");
+    }
+    return text;
+}
+
 void Bubble::onDelayQuit()
 {
     const QGSettings gsettings("com.deepin.dde.notification", "/com/deepin/dde/notification/");
@@ -533,4 +665,95 @@ void Bubble::resetMoveAnim(const QPoint &point)
 
         m_moveAnimation->start();
     }
+}
+
+void Bubble::onHavorStateChanged(bool hover)
+{
+    m_havor = hover;
+
+    if (m_canClose || (m_showStyle == OSD::ShowStyle::BUBBLEWIDGET)) {
+        m_closeButton->setVisible(hover);
+    }
+
+    if (m_showStyle == OSD::ShowStyle::BUBBLEWIDGET) {
+        m_appTimeLabel->setVisible(!hover);
+    }
+}
+
+BubbleTemplate::BubbleTemplate()
+    : DBlurEffectWidget(nullptr)
+{
+    initUI();
+}
+
+void BubbleTemplate::setLevel(ShowLevel level)
+{
+    m_level = level;
+
+    resize(m_sizeMap.value(level));
+}
+
+void BubbleTemplate::initUI()
+{
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
+    setAttribute(Qt::WA_TranslucentBackground);
+
+    DStyleHelper dstyle(style());
+    int radius = dstyle.pixelMetric(DStyle::PM_TopLevelWindowRadius);
+    setBlurRectXRadius(radius);
+    setBlurRectYRadius(radius);
+
+    initSizeMap(m_sizeMap);
+
+    setLevel(NORMAL);
+}
+
+void BubbleTemplate::initSizeMap(SizeMap &map)
+{
+    map.clear();
+
+    map.insert(ShowLevel::NORMAL, QSize(BubbleWidth, BubbleHeight));
+    map.insert(ShowLevel::LEVEL0, QSize((BubbleWidth / 6) * 5, (BubbleHeight / 8) * 7));
+    map.insert(ShowLevel::LEVEL1, QSize((BubbleWidth / 6) * 4, (BubbleHeight / 8) * 6));
+}
+
+BubbleWidget_Bg::BubbleWidget_Bg(QWidget *parent)
+    : DWidget(parent)
+{
+
+}
+
+void BubbleWidget_Bg::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+
+    QColor brushColor(Qt::white);
+    brushColor.setAlpha(m_hover ? m_hoverAlpha : m_unHoverAlpha);
+    painter.setBrush(brushColor);
+
+    QPen borderPen;
+    borderPen.setColor(Qt::transparent);
+    painter.setPen(borderPen);
+    painter.drawRect(QRectF(0, 0, width(), height())/*, m_radius, m_radius*/);
+
+    return DWidget::paintEvent(event);
+
+}
+
+void BubbleWidget_Bg::enterEvent(QEvent *event)
+{
+    m_hover = true;
+
+    update();
+
+    return DWidget::enterEvent(event);
+}
+
+void BubbleWidget_Bg::leaveEvent(QEvent *event)
+{
+    m_hover = false;
+
+    update();
+
+    return DWidget::leaveEvent(event);
 }
