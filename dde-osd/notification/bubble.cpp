@@ -72,8 +72,8 @@ void register_wm_state(WId winid)
     xcb_ewmh_set_wm_window_type(&m_ewmh_connection, winid, 1, atoms);
 }
 
-Bubble::Bubble(std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
-    : DBlurEffectWidget(nullptr)
+Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
+    : DBlurEffectWidget(parent)
     , m_entity(entity)
     , m_bgWidget(new BubbleWidget_Bg(this))
     , m_titleWidget(new BubbleWidget_Bg(this))

@@ -25,6 +25,8 @@
 
 #include "notifycenterwidget.h"
 #include "notification/persistence.h"
+#include "notifycommon.h"
+
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QBoxLayout>
@@ -35,7 +37,7 @@
 
 DWIDGET_USE_NAMESPACE
 
-NotifyCenterWidget::NotifyCenterWidget(Persistence* database)
+NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     : m_notifyWidget(new NotifyWidget(this, database))
 {
     initUI();
@@ -51,12 +53,12 @@ void NotifyCenterWidget::initUI()
     setAttribute(Qt::WA_TranslucentBackground);
 
     m_headWidget = new QWidget;
-    m_headWidget->setFixedSize(CenterWidth - 2*CenterMargin, 32);
+    m_headWidget->setFixedSize(Notify::CenterWidth - 2 * Notify::CenterMargin, 32);
 
     DIconButton *bell_notify = new DIconButton(m_headWidget);
     bell_notify->setFlat(true);
-    bell_notify->setIconSize(QSize(CenterTitleHeight, CenterTitleHeight));
-    bell_notify->setFixedSize(CenterTitleHeight, CenterTitleHeight);
+    bell_notify->setIconSize(QSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight));
+    bell_notify->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
     const auto ratio = devicePixelRatioF();
     QIcon icon_pix = QIcon::fromTheme("://icons/notifications.svg").pixmap(bell_notify->iconSize() * ratio);
     bell_notify->setIcon(icon_pix);
@@ -72,9 +74,9 @@ void NotifyCenterWidget::initUI()
 
     DIconButton *close_btn = new DIconButton(DStyle::SP_CloseButton);
     close_btn->setFlat(true);
-    close_btn->setIconSize(QSize(CenterTitleHeight, CenterTitleHeight));
-    close_btn->setFixedSize(CenterTitleHeight, CenterTitleHeight);
-    connect(close_btn, &DIconButton::clicked, this, [=] (){
+    close_btn->setIconSize(QSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight));
+    close_btn->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
+    connect(close_btn, &DIconButton::clicked, this, [ = ]() {
         m_outAnimation->start();
     });
 
@@ -103,7 +105,7 @@ void NotifyCenterWidget::initAnimations()
     m_outAnimation = new QPropertyAnimation(this, "pos", this);
     m_outAnimation->setDuration(300);
     m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
-    connect(m_outAnimation, &QPropertyAnimation::finished, this , &NotifyCenterWidget::hide);
+    connect(m_outAnimation, &QPropertyAnimation::finished, this, &NotifyCenterWidget::hide);
 }
 
 void NotifyCenterWidget::updateGeometry()
@@ -112,17 +114,17 @@ void NotifyCenterWidget::updateGeometry()
     QRect rect = desktop->screenGeometry();
     int dock_size =  m_dockSizeInter->property("WindowSize").toInt();
 
-    int height = rect.height() - CenterMargin * 2 - dock_size;
-    int width = CenterWidth;
-    int x = rect.width() - (CenterWidth + CenterMargin);
-    int y = rect.y() + CenterMargin;
+    int height = rect.height() - Notify::CenterMargin * 2 - dock_size;
+    int width = Notify::CenterWidth;
+    int x = rect.width() - (Notify::CenterWidth + Notify::CenterMargin);
+    int y = rect.y() + Notify::CenterMargin;
 
-    if(m_inAnimation->state() != QPropertyAnimation::Running) {
+    if (m_inAnimation->state() != QPropertyAnimation::Running) {
         m_inAnimation->setStartValue(QPoint(rect.width(), y));
         m_inAnimation->setStartValue(QPoint(x, y));
     }
 
-    if(m_outAnimation->state() != QPropertyAnimation::Running) {
+    if (m_outAnimation->state() != QPropertyAnimation::Running) {
         m_outAnimation->setStartValue(QPoint(x, y));
         m_outAnimation->setEndValue(QPoint(rect.width(), y));
     }

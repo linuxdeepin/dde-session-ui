@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2011 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     zorowk <near.kingzero@gmail.com>
  *
@@ -19,17 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BUBBLEITEM_H
-#define BUBBLEITEM_H
+#ifndef NOTIFYCOMMON_H
+#define NOTIFYCOMMON_H
 
-#include "notification/bubble.h"
+namespace Notify {
+static const int CenterWidth = 400;
+static const int CenterMargin = 10;
+static const int CenterTitleHeight = 32;
 
-class NotificationEntity;
-class BubbleItem : public Bubble
-{
-    Q_OBJECT
-public:
-    BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
-};
+static const int GroupTitleHeight = 32;
+static const int GroupButtonSize = 24;
+static const int BubbleItemWidth = 380;
+static const int BubbleItemHeight = 90;
+}
 
-#endif // BUBBLEITEM_H
+#endif // NOTIFYCOMMON_H

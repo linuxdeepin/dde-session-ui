@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2011 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     zorowk <near.kingzero@gmail.com>
  *
@@ -19,17 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BUBBLEITEM_H
-#define BUBBLEITEM_H
+#ifndef APPGROUPDELEGATE_H
+#define APPGROUPDELEGATE_H
 
-#include "notification/bubble.h"
+#include <QStyledItemDelegate>
 
-class NotificationEntity;
-class BubbleItem : public Bubble
+class AppGroupDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
+
 public:
-    BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
+    AppGroupDelegate(QObject *parent = Q_NULLPTR);
+
+public:
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 };
 
-#endif // BUBBLEITEM_H
+#endif // APPGROUPDELEGATE_H

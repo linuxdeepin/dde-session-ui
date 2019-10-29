@@ -5,14 +5,21 @@ QT += svg
 
 HEADERS += \
     $$PWD/notifywidget.h \
-    $$PWD/notifyview.h \
+    $$PWD/notifymodel.h \
     $$PWD/notifycenterwidget.h \
     $$PWD/bubbleitem.h \
-    $$PWD/bubblegroup.h
+    $$PWD/bubblegroup.h \
+    $$PWD/appgroupmodel.h \
+    $$PWD/appgroupdelegate.h \
+    $$PWD/bubbledelegate.h \
+    $$PWD/notifycommon.h
 
 SOURCES += \
     $$PWD/notifywidget.cpp \
-    $$PWD/notifyview.cpp \
+    $$PWD/notifymodel.cpp \
     $$PWD/notifycenterwidget.cpp \
     $$PWD/bubbleitem.cpp \
-    $$PWD/bubblegroup.cpp
+    $$PWD/bubblegroup.cpp \
+    $$PWD/appgroupmodel.cpp \
+    $$PWD/appgroupdelegate.cpp \
+    $$PWD/bubbledelegate.cpp

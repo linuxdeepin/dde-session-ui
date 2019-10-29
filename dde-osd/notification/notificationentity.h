@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QStringList>
 #include <QVariantMap>
+#include <memory>
 
 class NotificationEntity : public QObject
 {
@@ -80,5 +81,7 @@ private:
     QString m_replacesId;
     QString m_timeout;
 };
+
+Q_DECLARE_METATYPE(std::shared_ptr<NotificationEntity>);
 
 #endif // NOTIFICATIONENTITY_H

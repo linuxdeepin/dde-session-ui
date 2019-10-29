@@ -20,29 +20,19 @@
  */
 
 #include "notifywidget.h"
+#include "appgroupmodel.h"
+#include "appgroupdelegate.h"
 #include "notification/persistence.h"
 
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QScrollBar>
+#include <QLabel>
 
-NotifyWidget::NotifyWidget(QWidget *parent, Persistence* database)
-    : QWidget(parent),
-      m_notifyView(new NotifyView(this, database))
+NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
+    : QWidget(parent)
 {
-    initUI();
-}
-
-void NotifyWidget::initUI()
-{
-    QScrollArea *scroll_area = new QScrollArea(this);
-    scroll_area->setWidgetResizable(true);
-    scroll_area->horizontalScrollBar()->setEnabled(false);
-    scroll_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scroll_area->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scroll_area->setWidget(m_notifyView);
-    scroll_area->viewport()->setAutoFillBackground(false);
-    m_notifyView->setAutoFillBackground(false);
+    initView(database);
 
     QVBoxLayout *mainVBLayout = new QVBoxLayout;
     m_noNotify = new QLabel(tr("No system notifications"));
@@ -50,7 +40,7 @@ void NotifyWidget::initUI()
     m_noNotify->setAlignment(Qt::AlignCenter);
     m_noNotify->setVisible(false);
 
-    mainVBLayout->addWidget(scroll_area);
+    mainVBLayout->addWidget(m_notifyView);
     mainVBLayout->addWidget(m_noNotify);
 
     mainVBLayout->setSpacing(10);
@@ -61,5 +51,26 @@ void NotifyWidget::initUI()
     setLayout(mainVBLayout);
 }
 
+void NotifyWidget::initView(Persistence *database)
+{
+    m_groupModel = new AppGroupModel(this, database);
+    m_groupDelegate = new AppGroupDelegate;
+    m_notifyView = new QListView;
 
+    m_groupModel->setView(m_notifyView);
+    m_notifyView->setModel(m_groupModel);
+    m_notifyView->setItemDelegate(m_groupDelegate);
+    m_notifyView->setAutoFillBackground(true);
+
+    m_notifyView->setFrameStyle(QFrame::NoFrame);
+    m_notifyView->setMouseTracking(true);
+    m_notifyView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_notifyView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_notifyView->setVerticalScrollMode(QListView::ScrollPerPixel);
+    m_notifyView->setSpacing(0);
+    m_notifyView->setContentsMargins(0, 0, 0, 0);
+    m_notifyView->setUpdatesEnabled(true);
+    m_notifyView->setContentsMargins(0, 0, 0, 0);
+    m_notifyView->setUpdatesEnabled(true);
+}
 

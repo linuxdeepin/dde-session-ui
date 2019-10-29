@@ -81,7 +81,6 @@ void Persistence::addOne(std::shared_ptr<NotificationEntity> entity)
     sqlCmd += "VALUES (:icon, :summary, :body, :appname, :ctime, :action, :hint, :replacesid, :timeout)";
 
     m_query.prepare(sqlCmd);
-
     m_query.bindValue(":icon", entity->appIcon());
     m_query.bindValue(":summary", entity->summary());
     m_query.bindValue(":body", entity->body());
@@ -207,15 +206,10 @@ QString Persistence::getAll()
     return QJsonDocument(array1).toJson();
 }
 
-#include <QFile>
 QList<std::shared_ptr<NotificationEntity>> Persistence::getAllNotify()
 {
     QList<std::shared_ptr<NotificationEntity>> db_notification;
     QString json = getAll();
-    QFile  file("~/time.json");
-    file.open(QFile::WriteOnly);
-    file.write(json.toLocal8Bit());
-    file.close();
     QJsonArray notify_array = QJsonDocument::fromJson(json.toLocal8Bit().data()).array();
 
     foreach (auto notify, notify_array) {
@@ -227,8 +221,7 @@ QList<std::shared_ptr<NotificationEntity>> Persistence::getAllNotify()
                                                                  QString(), obj.value("icon").toString(),
                                                                  obj.value("summary").toString(),
                                                                  obj.value("body").toString(),
-                                                                 actions,
-                                                                 ConvertStringToMap(obj.value("hint").toString()),
+                                                                 actions, ConvertStringToMap(obj.value("hint").toString()),
                                                                  obj.value("time").toString(),
                                                                  QString(), QString(), this);
         db_notification.append(notification);
@@ -238,7 +231,7 @@ QList<std::shared_ptr<NotificationEntity>> Persistence::getAllNotify()
 
 QString Persistence::getById(const QString &id)
 {
-    m_query.prepare(QString("SELECT %1, %2, %3, %4, %5, %6, %7 FROM %8 WHERE ID = (:id)")
+    m_query.prepare(QString("SELECT %1, %2, %3, %4, %5, %6 ,%7 ,%8 FROM %9 WHERE ID = (:id)")
                     .arg(ColumnId, ColumnIcon, ColumnSummary, ColumnBody, ColumnAppName,
                          ColumnCTime, ColumnAction, ColumnHint, TableName_v2));
     m_query.bindValue(":id", id);
@@ -302,7 +295,7 @@ QString Persistence::getFrom(int rowCount, const QString &offsetId)
     }
 
     // get data from rowNum+1
-    m_query.prepare(QString("SELECT %1, %2, %3, %4, %5, %6 FROM %7 LIMIT (:rowCount) OFFSET (:offset)")
+    m_query.prepare(QString("SELECT %1, %2, %3, %4, %5, %6 ,%7 ,%8 FROM %9 LIMIT (:rowCount) OFFSET (:offset)")
                     .arg(ColumnId, ColumnIcon, ColumnSummary, ColumnBody, ColumnAppName,
                          ColumnCTime, ColumnAction, ColumnHint, TableName_v2));
     m_query.bindValue(":rowCount", rowCount);
@@ -354,6 +347,7 @@ void Persistence::attemptCreateTable()
                               ColumnReplacesId, ColumnTimeout);
 
     m_query.prepare(text);
+
 
     if (!m_query.exec()) {
         qWarning() << "create table failed" << m_query.lastError().text();

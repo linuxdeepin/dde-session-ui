@@ -22,23 +22,28 @@
 #ifndef NOTIFYWIDGET_H
 #define NOTIFYWIDGET_H
 
-#include "notifyview.h"
 #include <QWidget>
-#include <QLabel>
+#include <QListView>
 
 class Persistence;
+class AppGroupModel;
+class AppGroupDelegate;
+class QLabel;
+
 class NotifyWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit NotifyWidget(QWidget *parent = nullptr, Persistence* database = nullptr);
+    explicit NotifyWidget(QWidget *parent = nullptr, Persistence *database = nullptr);
 
 private:
-    void initUI();
+    void initView(Persistence *database);
 
 private:
-    NotifyView *m_notifyView;
-    QLabel *m_noNotify;
+    AppGroupDelegate *m_groupDelegate = nullptr;
+    AppGroupModel *m_groupModel = nullptr;
+    QListView *m_notifyView = nullptr;
+    QLabel *m_noNotify = nullptr;
 };
 
 #endif // NOTIFYWIDGET_H

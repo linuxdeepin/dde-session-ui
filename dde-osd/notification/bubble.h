@@ -55,7 +55,8 @@ class Bubble : public DBlurEffectWidget
 {
     Q_OBJECT
 public:
-    Bubble(std::shared_ptr<NotificationEntity> entity = nullptr, OSD::ShowStyle style = OSD::ShowStyle::BUBBLEWINDOW);
+    Bubble(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr,
+           OSD::ShowStyle style = OSD::ShowStyle::BUBBLEWINDOW);
 
     std::shared_ptr<NotificationEntity> entity() const;
     void setBasePosition(int, int, QRect = QRect());

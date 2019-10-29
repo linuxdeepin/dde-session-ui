@@ -31,10 +31,6 @@
 
 DWIDGET_USE_NAMESPACE
 
-static const int CenterWidth = 400;
-static const int CenterMargin = 10;
-static const int CenterTitleHeight = 32;
-
 class Persistence;
 class QDBusInterface;
 class QPropertyAnimation;
@@ -43,7 +39,7 @@ class NotifyCenterWidget : public DBlurEffectWidget
 {
     Q_OBJECT
 public:
-    explicit NotifyCenterWidget(Persistence* database = nullptr);
+    explicit NotifyCenterWidget(Persistence *database = nullptr);
 
 Q_SIGNALS:
     void notify();
