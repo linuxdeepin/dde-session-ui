@@ -135,14 +135,17 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
 
 void Bubble::setPostion(const QPoint &point)
 {
-    m_pos = point;
-    move(m_pos);
+    m_bubblePos = point;
+    move(m_bubblePos);
 }
 
 void Bubble::setAppName(const QString &name)
 {
-    if (m_appNameLabel)
+    if (m_appNameLabel) {
+        m_appName = name;
+
         m_appNameLabel->setText(name);
+    }
 }
 
 void Bubble::setBasePosition(int x, int y, QRect rect)
@@ -150,9 +153,8 @@ void Bubble::setBasePosition(int x, int y, QRect rect)
     x -= Padding;
     y += Padding;
 
-    m_pos.setX((x - OSD::BubbleWidth(m_showStyle)) / 2);
-    m_pos.setY(y);
-//    const QSize dSize(BubbleWidth, BubbleHeight);
+    m_bubblePos.setX((x - OSD::BubbleWidth(m_showStyle)) / 2);
+    m_bubblePos.setY(y);
 
     if (m_inAnimation->state() == QPropertyAnimation::Running) {
         const int baseX = x - OSD::BubbleWidth(m_showStyle);
@@ -497,8 +499,10 @@ void Bubble::initTimers()
 
 void Bubble::setAppTime(const QString &time)
 {
-    if (m_appTimeLabel)
+    if (m_appTimeLabel) {
+        m_appTime = time;
         m_appTimeLabel->setText(CreateTimeString(time));
+    }
 }
 
 // Each even element in the list (starting at index 0) represents the identifier for the action.
@@ -656,8 +660,6 @@ QString Bubble::CreateTimeString(const QString &time)
     int elapsedDay = int(bubbleDateTime.daysTo(currentDateTime));
     int minute = int(msec / 1000 / 60);
 
-//    qDebug() << elapsedDay << minute;
-
     if (elapsedDay == 0) {
         if (minute == 0) {
             text =  tr("Just Now");
@@ -667,7 +669,7 @@ QString Bubble::CreateTimeString(const QString &time)
             text = QString::number(minute / 60) + tr(" Hour Ago");
         }
     } else if (elapsedDay == 1) {
-        text = tr("Yesterday ") + currentDateTime.toString("hh:mm");
+        text = tr("Yesterday ") + bubbleDateTime.toString("hh:mm");
     } else {
         text = QString::number(elapsedDay) + tr(" Day Ago");
     }
@@ -683,17 +685,12 @@ void Bubble::onDelayQuit()
     }
 }
 
-void Bubble::resetMoveAnim(const QPoint &point)
+void Bubble::startMoveAnimation(const QPoint &point)
 {
     if (isVisible() && m_outAnimation->state() != QPropertyAnimation::Running) {
-        m_pos = QPoint(x(), point.y());
+        m_bubblePos = QPoint(x(), point.y());
         m_moveAnimation->setStartValue(QPoint(x(), y()));
-        m_moveAnimation->setEndValue(m_pos);
-
-        const QRect &startRect = QRect(m_pos, QSize(OSD::BubbleWidth(m_showStyle), OSD::BubbleHeight(m_showStyle)));
-        m_outAnimation->setStartValue(startRect);
-        m_outAnimation->setEndValue(QRect(startRect.right(), startRect.y(), 0, OSD::BubbleHeight(m_showStyle)));
-
+        m_moveAnimation->setEndValue(m_bubblePos);
         m_moveAnimation->start();
     }
 }
@@ -717,13 +714,6 @@ BubbleTemplate::BubbleTemplate()
     initUI();
 }
 
-void BubbleTemplate::setLevel(ShowLevel level)
-{
-    m_level = level;
-
-    resize(m_sizeMap.value(level));
-}
-
 void BubbleTemplate::initUI()
 {
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
@@ -733,19 +723,11 @@ void BubbleTemplate::initUI()
     int radius = dstyle.pixelMetric(DStyle::PM_TopLevelWindowRadius);
     setBlurRectXRadius(radius);
     setBlurRectYRadius(radius);
-
-    initSizeMap(m_sizeMap);
-
-    setLevel(NORMAL);
 }
 
-void BubbleTemplate::initSizeMap(SizeMap &map)
+void BubbleTemplate::mousePressEvent(QMouseEvent *event)
 {
-    map.clear();
-
-    map.insert(ShowLevel::NORMAL, QSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWINDOW), OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWINDOW)));
-    map.insert(ShowLevel::LEVEL0, QSize((OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWINDOW) / 6) * 5, (OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWINDOW) / 8) * 7));
-    map.insert(ShowLevel::LEVEL1, QSize((OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWINDOW) / 6) * 4, (OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWINDOW) / 8) * 6));
+    Q_UNUSED(event);
 }
 
 BubbleWidget_Bg::BubbleWidget_Bg(QWidget *parent)

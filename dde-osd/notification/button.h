@@ -26,7 +26,6 @@
 
 DWIDGET_USE_NAMESPACE
 
-//#define MAX(a,b) ((a)<(b)?(b):(a))
 #define MIN(a,b) ((a)>(b)?(b):(a))
 
 class QMouseEvent;

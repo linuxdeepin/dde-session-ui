@@ -56,6 +56,7 @@ class Login1ManagerInterface;
 class DBusDockInterface;
 class Persistence;
 class NotifyCenterWidget;
+class BubbleTemplate;
 
 static const int BubbleEntities = 3;
 
@@ -116,10 +117,10 @@ private Q_SLOTS:
     void onDbusNameOwnerChanged(QString, QString, QString);
     void onPrepareForSleep(bool);
 
-    void bubbleExpired(Bubble*);
-    void bubbleDismissed(Bubble*);
-    void bubbleReplacedByOther(Bubble*);
-    void bubbleActionInvoked(Bubble*, QString);
+    void bubbleExpired(Bubble *);
+    void bubbleDismissed(Bubble *);
+    void bubbleReplacedByOther(Bubble *);
+    void bubbleActionInvoked(Bubble *, QString);
 
 private:
     void registerAsService();
@@ -135,13 +136,13 @@ private:
     // or return false.
     QPair<QRect, bool> screensInfo(const QPoint &point) const;
 
-    Bubble* createBubble(std::shared_ptr<NotificationEntity> notify);
+    Bubble *createBubble(std::shared_ptr<NotificationEntity> notify);
     void pushBubble(std::shared_ptr<NotificationEntity> notify);
-    void popBubble(Bubble*);
+    void popBubble(Bubble *);
     void refreshBubble();
 
-    void pushAnimation(Bubble* bubble);
-    void popAnimation(Bubble* bubble);
+    void pushAnimation(Bubble *bubble);
+    void popAnimation(Bubble *bubble);
 
 private:
     Persistence *m_persistence;
@@ -156,7 +157,9 @@ private:
 
     QRect m_dockGeometry;
     DockPosition m_dockPosition;
-    NotifyCenterWidget* m_notifyCenter;
+    NotifyCenterWidget *m_notifyCenter;
+
+    QList<BubbleTemplate *> TempList;
 };
 
 #endif // BUBBLEMANAGER_H

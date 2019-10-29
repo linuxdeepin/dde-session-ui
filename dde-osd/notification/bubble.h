@@ -41,14 +41,6 @@
 
 DWIDGET_USE_NAMESPACE
 
-typedef enum {
-    NORMAL,
-    LEVEL0,
-    LEVEL1
-} ShowLevel;
-
-typedef QMap<ShowLevel, QSize> SizeMap;
-
 class QLabel;
 class AppIcon;
 class QPropertyAnimation;
@@ -69,7 +61,7 @@ public:
     void setBasePosition(int, int, QRect = QRect());
     void setEntity(std::shared_ptr<NotificationEntity> entity);
 
-    QPoint postion() { return m_pos; }
+    QPoint postion() { return m_bubblePos; }
     void setPostion(const QPoint &point);
 
     const QString &appName() {return m_appName;}
@@ -87,7 +79,7 @@ public:
 Q_SIGNALS:
     void expired(Bubble *);
     void dismissed(Bubble *);
-    void ignored(Bubble *);//暂不处理
+    void ignored(Bubble *);     //暂不处理信号
     void replacedByOther(Bubble *);
     void actionInvoked(Bubble *, QString);
     void havorStateChanged(bool);
@@ -95,7 +87,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void compositeChanged();
     void onDelayQuit();
-    void resetMoveAnim(const QPoint &rect);
+    void startMoveAnimation(const QPoint &rect);
     void onHavorStateChanged(bool hover);
 
 protected:
@@ -155,7 +147,7 @@ private:
     //---very private ,no get method
     QRect m_screenGeometry;
     QString m_defaultAction;
-    QPoint m_pos;
+    QPoint m_bubblePos;
     QPoint m_clickPos;
     bool m_pressed = false;
     bool m_offScreen = true;
@@ -171,15 +163,11 @@ class BubbleTemplate : public DBlurEffectWidget
 public:
     BubbleTemplate();
 
-    ShowLevel level() const {return m_level;}
-    void setLevel(ShowLevel level) ;
-
 private:
-    ShowLevel m_level = NORMAL;
-    SizeMap m_sizeMap;
-
     void initUI();
-    void initSizeMap(SizeMap &map);
+
+protected:
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 };
 
 class BubbleWidget_Bg : public DWidget

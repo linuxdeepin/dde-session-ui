@@ -82,6 +82,9 @@ BubbleManager::BubbleManager(QObject *parent)
     m_notifyCenter->hide();
 
     registerAsService();
+
+    TempList.push_back(new BubbleTemplate);
+    TempList.push_back(new BubbleTemplate);
 }
 
 BubbleManager::~BubbleManager()
@@ -150,25 +153,58 @@ void BubbleManager::pushBubble(std::shared_ptr<NotificationEntity> notify)
     }
 
     m_bubbleList.push_front(bubble);
+
     pushAnimation(bubble);
+
+    //last one needs 'tail'
+    if (m_bubbleList.size() == 3 && !m_oldEntities.isEmpty()) {
+        Bubble *b = m_bubbleList.last();
+        TempList[0]->setFixedSize(QSize(b->size().width() / 20 * 18, b->size().height() / 20 * 18));
+
+        QPoint p = QPoint(b->postion().x() + OSD::BubbleWidth(b->showStyle()) / 20,
+                          b->postion().y() + OSD::BubbleHeight(b->showStyle()) / 3);
+
+        TempList[0]->move(p);
+        TempList[0]->setVisible(true);
+
+        if (m_oldEntities.size() > 1) {
+            TempList[1]->setFixedSize(QSize(TempList[0]->size().width() / 20 * 18, TempList[0]->size().height() / 20 * 18));
+            TempList[1]->move(QPoint(p.x() + TempList[0]->width() / 20,
+                                     p.y() + TempList[0]->height() / 3));
+            TempList[1]->setVisible(true);
+            //先隐藏后显示，可重新确定其相对同级窗口的z序
+            TempList[0]->setVisible(false);
+            TempList[0]->setVisible(true);
+        }
+    }
+
+    for (int i = 0; i < m_bubbleList.size(); ++i) {
+        m_bubbleList[i]->setVisible(false);
+        m_bubbleList[i]->setVisible(true);
+    }
 }
 
 void BubbleManager::popBubble(Bubble *bubble)
 {
-    bubble->setVisible(false);
-
     refreshBubble();
+
     popAnimation(bubble);
 
     bubble->deleteLater();
     m_bubbleList.removeOne(bubble);
+
+    if (m_oldEntities.isEmpty()) {
+        TempList[0]->setVisible(false);
+        TempList[1]->setVisible(false);
+    } else if (m_oldEntities.size() == 1) {
+        TempList[1]->setVisible(false);
+    }
 }
 
 void BubbleManager::refreshBubble()
 {
     if (m_bubbleList.size() < BubbleEntities + 1 && !m_oldEntities.isEmpty()) {
         auto notify = m_oldEntities.takeFirst();
-
         Bubble *bubble = createBubble(notify);
         bubble->setPostion(QPoint(bubble->x(), bubble->y() +
                                   OSD::BubbleHeight(bubble->showStyle()) * BubbleEntities +
@@ -187,7 +223,7 @@ void BubbleManager::pushAnimation(Bubble *bubble)
         index ++;
         move_point.setY(move_point.y() + OSD::BubbleHeight(bubble->showStyle()) + BubbleMargin);
         QPointer<Bubble> item = m_bubbleList.at(index);
-        if (bubble != nullptr) item->resetMoveAnim(move_point);
+        if (bubble != nullptr) item->startMoveAnimation(move_point);
     }
 }
 
@@ -201,7 +237,7 @@ void BubbleManager::popAnimation(Bubble *bubble)
         index ++;
         QPointer<Bubble> item = m_bubbleList.at(index);
         int position = item->postion().y();
-        if (bubble != nullptr) item->resetMoveAnim(move_point);
+        if (bubble != nullptr) item->startMoveAnimation(move_point);
         move_point.setY(position);
     }
 }
