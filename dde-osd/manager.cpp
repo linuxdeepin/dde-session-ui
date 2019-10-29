@@ -56,6 +56,8 @@ Manager::Manager(QObject *parent)
     m_timer->setSingleShot(true);
 
     m_listview->setItemDelegate(m_delegate);
+    m_listview->setAutoFillBackground(false);
+    m_listview->viewport()->setAutoFillBackground(false);
     m_listview->setModel(m_model);
     m_container->setContent(m_listview);
 
@@ -77,7 +79,7 @@ void Manager::ShowOSD(const QString &osd)
         m_kbLayoutProvider->highlightNext();
         m_kbLayoutProvider->sync();
 
-        KBLayoutProvider *provide = qobject_cast<KBLayoutProvider*>(m_kbLayoutProvider);
+        KBLayoutProvider *provide = qobject_cast<KBLayoutProvider *>(m_kbLayoutProvider);
         if (provide) {
             QModelIndex currentIndex;
             currentIndex = m_listview->model()->index(0, 0).sibling(provide->currentIndex(), 0);
@@ -122,7 +124,7 @@ void Manager::ShowOSD(const QString &osd)
             m_listview->scrollTo(targetIndex);
             m_currentProvider->highlightNext();
         } else {
-            KBLayoutProvider *provide = qobject_cast<KBLayoutProvider*>(m_kbLayoutProvider);
+            KBLayoutProvider *provide = qobject_cast<KBLayoutProvider *>(m_kbLayoutProvider);
             if (provide) {
                 QModelIndex currentIndex = m_listview->currentIndex();
 

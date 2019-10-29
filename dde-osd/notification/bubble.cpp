@@ -355,7 +355,7 @@ void Bubble::initUI()
     compositeChanged();
 
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
-    setMaskColor(DBlurEffectWidget::LightColor);
+    setMaskColor(DBlurEffectWidget::AutoColor);
     setMouseTracking(true);
 
     setFixedSize(OSD::BubbleSize(m_showStyle));

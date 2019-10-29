@@ -57,20 +57,12 @@ int main(int argc, char *argv[])
     a.setOOMScoreAdj(500);
 #endif
 
-    a.setTheme("light");
-
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
-
-    QFile file(":/themes/light.qss");
-    if (file.open(QFile::ReadOnly | QFile::Text)) {
-        a.setStyleSheet(file.readAll());
-        file.close();
-    }
 
     QStringList args = a.arguments();
     QString action;

@@ -63,7 +63,7 @@ Container::Container(QWidget *parent)
     setBlurRectXRadius(radius);
     setBlurRectYRadius(radius);
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
-    setMaskColor(DBlurEffectWidget::LightColor);
+    setMaskColor(DBlurEffectWidget::AutoColor);
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged,
             this, &Container::windowManagerChanged);
@@ -125,8 +125,7 @@ int Container::getWindowRadius()
 void Container::onDelayQuit()
 {
     const QGSettings gsettings("com.deepin.dde.osd", "/com/deepin/dde/osd/");
-    if (gsettings.keys().contains("autoExit") && gsettings.get("auto-exit").toBool())
-    {
+    if (gsettings.keys().contains("autoExit") && gsettings.get("auto-exit").toBool()) {
         if (isVisible())
             return m_quitTimer->start();
         qWarning() << "Killer Timeout, now quiiting...";
