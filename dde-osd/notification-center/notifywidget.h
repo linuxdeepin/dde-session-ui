@@ -42,7 +42,7 @@ private:
 private:
     AppGroupDelegate *m_groupDelegate = nullptr;
     AppGroupModel *m_groupModel = nullptr;
-    QListView *m_notifyView = nullptr;
+    QListView *m_mainList = nullptr;
     QLabel *m_noNotify = nullptr;
 };
 

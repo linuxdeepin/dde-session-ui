@@ -52,3 +52,12 @@ QSize BubbleDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelI
     Q_UNUSED(option);
     return QSize(Notify::BubbleItemWidth,  Notify::BubbleItemHeight);
 }
+
+void BubbleDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    Q_UNUSED(index)
+
+    QRect rect = option.rect;
+    QSize size = sizeHint(option, index);
+    editor->setGeometry(rect.x(), rect.y(), size.width(), size.height());
+}

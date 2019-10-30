@@ -40,14 +40,9 @@ NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
     m_noNotify->setAlignment(Qt::AlignCenter);
     m_noNotify->setVisible(false);
 
-    mainVBLayout->addWidget(m_notifyView);
+    mainVBLayout->addWidget(m_mainList);
     mainVBLayout->addWidget(m_noNotify);
-
-    mainVBLayout->setSpacing(10);
     mainVBLayout->setMargin(0);
-    mainVBLayout->setContentsMargins(0, 0, 0, 0);
-
-    setContentsMargins(0, 0, 0, 0);
     setLayout(mainVBLayout);
 }
 
@@ -55,22 +50,20 @@ void NotifyWidget::initView(Persistence *database)
 {
     m_groupModel = new AppGroupModel(this, database);
     m_groupDelegate = new AppGroupDelegate;
-    m_notifyView = new QListView;
+    m_mainList = new QListView(this);
 
-    m_groupModel->setView(m_notifyView);
-    m_notifyView->setModel(m_groupModel);
-    m_notifyView->setItemDelegate(m_groupDelegate);
-    m_notifyView->setAutoFillBackground(true);
-
-    m_notifyView->setFrameStyle(QFrame::NoFrame);
-    m_notifyView->setMouseTracking(true);
-    m_notifyView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_notifyView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_notifyView->setVerticalScrollMode(QListView::ScrollPerPixel);
-    m_notifyView->setSpacing(0);
-    m_notifyView->setContentsMargins(0, 0, 0, 0);
-    m_notifyView->setUpdatesEnabled(true);
-    m_notifyView->setContentsMargins(0, 0, 0, 0);
-    m_notifyView->setUpdatesEnabled(true);
+    m_groupModel->setView(m_mainList);
+    m_mainList->setModel(m_groupModel);
+    m_mainList->setItemDelegate(m_groupDelegate);
+    m_mainList->setAutoFillBackground(false);
+    m_mainList->viewport()->setAutoFillBackground(false);
+    m_mainList->setFrameStyle(QFrame::NoFrame);
+    m_mainList->setMouseTracking(true);
+    m_mainList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_mainList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_mainList->setVerticalScrollMode(QListView::ScrollPerPixel);
+    m_mainList->setContentsMargins(0, 0, 0, 0);
+    m_mainList->setUpdatesEnabled(true);
+    m_mainList->setSelectionMode(QListView::NoSelection);
 }
 

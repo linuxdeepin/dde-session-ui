@@ -90,8 +90,19 @@ void NotifyCenterWidget::initUI()
     m_headWidget->setLayout(head_Layout);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(m_headWidget);
-    mainLayout->addWidget(m_notifyWidget);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+
+    QVBoxLayout *headLayout = new QVBoxLayout;
+    headLayout->setContentsMargins(10, 10, 10, 10);
+
+    QVBoxLayout *notifyLayout = new QVBoxLayout;
+    notifyLayout->setContentsMargins(5, 0, 5, 5);
+
+    mainLayout->addLayout(headLayout);
+    mainLayout->addLayout(notifyLayout);
+
+    headLayout->addWidget(m_headWidget);
+    notifyLayout->addWidget(m_notifyWidget);
 
     setLayout(mainLayout);
 }

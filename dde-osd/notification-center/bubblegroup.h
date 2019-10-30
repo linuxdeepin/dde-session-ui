@@ -49,7 +49,7 @@ protected:
 private:
     QList<QPointer<BubbleItem>> m_bubbleList;
     QWidget *m_titleWidget = nullptr;
-    QListView *m_notifyView = nullptr;
+    QListView *m_groupList = nullptr;
     BubbleDelegate *m_notifyDelegate = nullptr;
     DIconButton *title_close = nullptr;
     DLabel *group_title = nullptr;

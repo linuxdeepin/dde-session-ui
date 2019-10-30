@@ -94,12 +94,6 @@ Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD:
     initTimers();
 
     setEntity(entity);
-
-    QTimer::singleShot(0, this, [ = ] {
-        // FIXME: 锁屏不允许显示任何通知，而通知又需要禁止窗管进行管理，
-        // 为了避免二者的冲突，将气泡修改为dock，保持在其他程序置顶，又不会显示在锁屏之上。
-        register_wm_state(winId());
-    });
 }
 
 std::shared_ptr<NotificationEntity> Bubble::entity() const
@@ -392,6 +386,12 @@ void Bubble::initUI()
         layout->addWidget(m_closeButton);
 
         setLayout(layout);
+
+        QTimer::singleShot(0, this, [ = ] {
+            // FIXME: 锁屏不允许显示任何通知，而通知又需要禁止窗管进行管理，
+            // 为了避免二者的冲突，将气泡修改为dock，保持在其他程序置顶，又不会显示在锁屏之上。
+            register_wm_state(winId());
+        });
     } else if (m_showStyle == OSD::ShowStyle::BUBBLEWIDGET) {
 
         m_titleWidget->setFixedHeight(37);

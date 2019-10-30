@@ -22,6 +22,7 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
 
     group_title = new DLabel;
     group_title->setFont(font);
+    group_title->setFocusPolicy(Qt::NoFocus);
 
     title_close = new DIconButton(DStyle::SP_CloseButton);
     title_close->setFlat(true);
@@ -30,36 +31,34 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     title_close->setVisible(false);
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
-    head_Layout->setContentsMargins(10, 0, 10, 0);
+    head_Layout->setContentsMargins(10, 0, 0, 0);
     head_Layout->addWidget(group_title, Qt::AlignLeft);
     head_Layout->addStretch();
     head_Layout->addWidget(title_close, Qt::AlignRight);
     m_titleWidget->setLayout(head_Layout);
 
-    m_notifyView = new QListView(this);
+    m_groupList = new QListView(this);
     m_notifyDelegate = new BubbleDelegate(this);
-    model->setView(m_notifyView);
-    m_notifyView->setModel(model.get());
-    m_notifyView->setItemDelegate(m_notifyDelegate);
+    model->setView(m_groupList);
+    m_groupList->setModel(model.get());
+    m_groupList->setItemDelegate(m_notifyDelegate);
 
-    m_notifyView->setFrameStyle(QFrame::NoFrame);
-    m_notifyView->setMouseTracking(true);
-    m_notifyView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_notifyView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_notifyView->setVerticalScrollMode(QListView::ScrollPerPixel);
-    m_notifyView->setSpacing(0);
-    m_notifyView->setContentsMargins(0, 0, 0, 0);
-    m_notifyView->setUpdatesEnabled(true);
-    m_notifyView->setContentsMargins(0, 0, 0, 0);
-    m_notifyView->setUpdatesEnabled(true);
-    m_notifyView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_notifyView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+    m_groupList->setAutoFillBackground(false);
+    m_groupList->viewport()->setAutoFillBackground(false);
+    m_groupList->setFrameStyle(QFrame::NoFrame);
+    m_groupList->setMouseTracking(true);
+    m_groupList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_groupList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_groupList->setVerticalScrollMode(QListView::ScrollPerPixel);
+    m_groupList->setSpacing(5);
+    m_groupList->setContentsMargins(0, 0, 0, 0);
+    m_groupList->setUpdatesEnabled(true);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSpacing(10);
-    mainLayout->setMargin(0);
-    mainLayout->addWidget(m_titleWidget, 0, Qt::AlignTop);
-    mainLayout->addWidget(m_notifyView, 1);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->addWidget(m_titleWidget);
+    mainLayout->addWidget(m_groupList);
 
     setLayout(mainLayout);
 }
