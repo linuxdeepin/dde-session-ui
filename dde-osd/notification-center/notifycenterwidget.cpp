@@ -34,6 +34,7 @@
 #include <QPropertyAnimation>
 #include <diconbutton.h>
 #include <DLabel>
+#include <QPalette>
 
 DWIDGET_USE_NAMESPACE
 
@@ -70,6 +71,10 @@ void NotifyCenterWidget::initUI()
     DLabel *title_label = new DLabel(m_headWidget);
     title_label->setText(tr("Notification Center"));
     title_label->setFont(font);
+
+    QPalette pa;
+    pa.setBrush(QPalette::WindowText, pa.brightText());
+    title_label->setPalette(pa);
     title_label->setAlignment(Qt::AlignCenter);
 
     DIconButton *close_btn = new DIconButton(DStyle::SP_CloseButton);

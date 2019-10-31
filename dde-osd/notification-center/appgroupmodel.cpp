@@ -22,11 +22,12 @@
 #include "appgroupmodel.h"
 #include "notification/persistence.h"
 
-ApplicationGroup::ApplicationGroup(std::shared_ptr<NotificationEntity> entity)
+ApplicationGroup::ApplicationGroup(std::shared_ptr<NotificationEntity> entity, Persistence *database)
 {
     m_appName = entity->appName();
     m_timeStamp = entity->ctime();
     m_notifyModel = std::make_shared<NotifyModel>(this, entity);
+    m_notifyModel->setPersistence(database);
 }
 
 AppGroupModel::AppGroupModel(QObject *parent, Persistence *database)
@@ -106,9 +107,24 @@ void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
     if (app_group != nullptr) {
         auto notify_model = app_group->notifyModel().value<std::shared_ptr<NotifyModel>>();
         notify_model->addNotify(entity);
+
+        if (m_applications.first() != app_group) {
+            m_applications.removeOne(app_group);
+            m_applications.push_front(app_group);
+        }
     } else {
-        ApplicationGroup *bubble_group = new ApplicationGroup(entity);
+        ApplicationGroup *bubble_group = new ApplicationGroup(entity, m_database);
         m_applications.push_front(bubble_group);
     }
     endResetModel();
+}
+
+void AppGroupModel::removeGroup(const QModelIndex &index)
+{
+    beginRemoveRows(QModelIndex(), index.row(), index.row());
+    auto app = m_applications.takeAt(index.row());
+    endRemoveRows();
+
+    //clear database content
+    if (m_database != nullptr) m_database->removeApp(app->appName());
 }

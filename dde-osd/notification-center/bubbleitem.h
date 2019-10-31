@@ -30,6 +30,15 @@ class BubbleItem : public Bubble
     Q_OBJECT
 public:
     BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
+
+signals:
+    void closeBubble();
+
+private:
+    void onRefreshTime();
+
+private:
+    QTimer *m_refreshTimer = nullptr;
 };
 
 #endif // BUBBLEITEM_H

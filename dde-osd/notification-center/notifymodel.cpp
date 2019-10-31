@@ -20,7 +20,9 @@
  */
 
 #include "notifymodel.h"
+#include "notifycommon.h"
 #include "notification/notificationentity.h"
+#include "notification/persistence.h"
 
 NotifyModel::NotifyModel(QObject *parent, std::shared_ptr<NotificationEntity> notify)
     : QAbstractListModel(parent)
@@ -31,16 +33,16 @@ NotifyModel::NotifyModel(QObject *parent, std::shared_ptr<NotificationEntity> no
 int NotifyModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
-    return m_notfications.size();
+    return m_displays.size();
 }
 
 QVariant NotifyModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() && m_notfications.size() <= 0 && index.row() > m_notfications.size()) {
+    if (!index.isValid() && m_displays.size() <= 0 && index.row() > m_displays.size()) {
         return QVariant();
     }
 
-    std::shared_ptr<NotificationEntity> notify = m_notfications.at(index.row());
+    std::shared_ptr<NotificationEntity> notify = m_displays.at(index.row());
 
     switch (role) {
     case NotifyIdRole:
@@ -74,9 +76,7 @@ QVariant NotifyModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags NotifyModel::flags(const QModelIndex &index) const
 {
     if (index.isValid()) {
-        if (m_view != nullptr) {
-            m_view->openPersistentEditor(index);
-        }
+        if (m_view != nullptr) m_view->openPersistentEditor(index);
         return QAbstractListModel::flags(index) | Qt::ItemIsEditable;
     }
     return QAbstractListModel::flags(index);
@@ -84,7 +84,28 @@ Qt::ItemFlags NotifyModel::flags(const QModelIndex &index) const
 
 void NotifyModel::addNotify(std::shared_ptr<NotificationEntity> entity)
 {
+    beginInsertRows(QModelIndex(), 0, 0);
+    if (m_displays.size() < Notify::BubbleEntities) {
+        m_displays.push_front(entity);
+    } else {
+        m_displays.push_front(entity);
+        m_notfications.push_front(m_displays.last());
+        m_displays.removeLast();
+    }
+    endInsertRows();
+}
+
+void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
+{
+    m_notfications.removeOne(entity);
+
     beginResetModel();
-    m_notfications.push_front(entity);
+    m_displays.removeOne(entity);
+    if (!m_notfications.isEmpty()) m_displays.push_back(m_notfications.takeFirst());
     endResetModel();
+
+    // need remove database
+    if (m_database != nullptr) {
+        m_database->removeOne(QString::number(entity->id()));
+    }
 }

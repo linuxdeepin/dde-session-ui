@@ -37,6 +37,8 @@ QWidget *AppGroupDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 
     std::shared_ptr<NotifyModel> model = index.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
     QString title = index.data(AppGroupModel::ApplicationNameRole).toString();
+    AppGroupModel *grpup_model = const_cast<AppGroupModel *>(dynamic_cast<const AppGroupModel *>(index.model()));
+    Q_ASSERT(grpup_model);
 
     if (model == nullptr) {
         return nullptr;
@@ -44,6 +46,9 @@ QWidget *AppGroupDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 
     BubbleGroup *group = new BubbleGroup(parent, model);
     group->setGroupTitle(title);
+    connect(group, &BubbleGroup::closeGroup, grpup_model, [grpup_model, index]() {
+        grpup_model->removeGroup(index);
+    });
     return group;
 }
 

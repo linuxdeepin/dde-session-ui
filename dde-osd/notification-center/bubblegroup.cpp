@@ -24,6 +24,10 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     group_title->setFont(font);
     group_title->setFocusPolicy(Qt::NoFocus);
 
+    QPalette pa;
+    pa.setBrush(QPalette::WindowText, pa.brightText());
+    group_title->setPalette(pa);
+
     title_close = new DIconButton(DStyle::SP_CloseButton);
     title_close->setFlat(true);
     title_close->setIconSize(QSize(Notify::GroupButtonSize, Notify::GroupButtonSize));
@@ -61,6 +65,8 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     mainLayout->addWidget(m_groupList);
 
     setLayout(mainLayout);
+
+    connect(title_close, &DIconButton::clicked, this, &BubbleGroup::closeGroup);
 }
 
 void BubbleGroup::enterEvent(QEvent *)

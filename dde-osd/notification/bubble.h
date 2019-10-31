@@ -68,13 +68,8 @@ public:
     const QString &appName() {return m_appName;}
     void setAppName(const QString &name);
 
-    const QString &appTime() {return m_appTime;}
-    void setAppTime(const QString &time);
-
     void saveImg(const QImage &image);
     const QPixmap converToPixmap(const QDBusArgument &value);
-    QString CreateTimeString(const QString &time);
-
     OSD::ShowStyle showStyle() {return m_showStyle;}
 
 Q_SIGNALS:
@@ -118,7 +113,7 @@ private:
     void processIconData();
     bool containsMouse() const;
 
-private:
+protected:
     std::shared_ptr<NotificationEntity> m_entity;
 
     //controls

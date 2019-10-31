@@ -134,6 +134,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                                             this);
     m_persistence->addOne(notification);
     pushBubble(notification);
+    m_messageCount++;
 
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.
     // If replaces_id is not 0, the returned value is the same value as replaces_id.
@@ -280,7 +281,7 @@ void BubbleManager::Toggle()
 
 uint BubbleManager::recordCount()
 {
-    return 10;
+    return m_messageCount;
 }
 
 void BubbleManager::registerAsService()

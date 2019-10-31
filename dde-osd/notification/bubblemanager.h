@@ -160,6 +160,7 @@ private:
     NotifyCenterWidget *m_notifyCenter;
 
     QList<BubbleTemplate *> TempList;
+    quint32 m_messageCount = 0;
 };
 
 #endif // BUBBLEMANAGER_H

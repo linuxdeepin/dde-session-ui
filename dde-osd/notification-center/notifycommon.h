@@ -23,6 +23,8 @@
 #define NOTIFYCOMMON_H
 
 namespace Notify {
+static const int BubbleEntities = 3;
+
 static const int CenterWidth = 400;
 static const int CenterMargin = 10;
 static const int CenterTitleHeight = 32;

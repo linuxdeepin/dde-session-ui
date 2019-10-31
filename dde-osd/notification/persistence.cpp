@@ -148,6 +148,21 @@ void Persistence::removeOne(const QString &id)
     }
 }
 
+void Persistence::removeApp(const QString &app_name)
+{
+    m_query.prepare(QString("DELETE FROM %1 WHERE AppName = (:app)").arg(TableName_v2));
+    m_query.bindValue(":app", app_name);
+
+    if (!m_query.exec()) {
+        qWarning() << "remove value:" << app_name << "from database failed: " << m_query.lastError().text();
+        return;
+    } else {
+#ifdef QT_DEBUG
+        qDebug() << "remove value:" << app_name;
+#endif
+    }
+}
+
 void Persistence::removeAll()
 {
     m_query.prepare(QString("DELETE FROM %1").arg(TableName_v2));
@@ -218,7 +233,7 @@ QList<std::shared_ptr<NotificationEntity>> Persistence::getAllNotify()
         QStringList actions = obj.value("action").toString().split(ACTION_SEGMENT);
 
         auto notification = std::make_shared<NotificationEntity>(obj.value("name").toString(),
-                                                                 QString(), obj.value("icon").toString(),
+                                                                 obj.value("id").toString(), obj.value("icon").toString(),
                                                                  obj.value("summary").toString(),
                                                                  obj.value("body").toString(),
                                                                  actions, ConvertStringToMap(obj.value("hint").toString()),

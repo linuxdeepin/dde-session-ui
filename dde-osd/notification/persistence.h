@@ -41,6 +41,7 @@ public:
     void addOne(std::shared_ptr<NotificationEntity> entity);
     void addAll(QList<std::shared_ptr<NotificationEntity>> entities);
     void removeOne(const QString &id);
+    void removeApp(const QString &app_name);
     void removeAll();
 
     QList<std::shared_ptr<NotificationEntity>> getAllNotify();

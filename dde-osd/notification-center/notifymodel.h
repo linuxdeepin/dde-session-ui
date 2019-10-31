@@ -29,6 +29,7 @@
 #include <memory>
 
 class NotificationEntity;
+class Persistence;
 
 class NotifyModel : public QAbstractListModel
 {
@@ -47,7 +48,9 @@ public:
     NotifyModel(QObject *parent = nullptr, std::shared_ptr<NotificationEntity> notify = nullptr);
     void addNotify(std::shared_ptr<NotificationEntity> entity);
     void setView(QListView *view) { m_view = view; }
-    int rowCount() { return m_notfications.size(); }
+    int rowCount() { return m_displays.size(); }
+    void removeNotify(std::shared_ptr<NotificationEntity> entity);
+    void setPersistence(Persistence *db) { m_database = db; }
 
 public:
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
@@ -55,8 +58,10 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
 
 private:
-    QListView *m_view;
+    QListView *m_view = nullptr;
+    Persistence *m_database = nullptr;
     QList<std::shared_ptr<NotificationEntity>> m_notfications;
+    QList<std::shared_ptr<NotificationEntity>> m_displays;
 };
 
 Q_DECLARE_METATYPE(std::shared_ptr<NotifyModel>);

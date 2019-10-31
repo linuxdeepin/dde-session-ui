@@ -37,7 +37,7 @@ class ApplicationGroup : public QObject
 {
     Q_OBJECT
 public:
-    ApplicationGroup(std::shared_ptr<NotificationEntity> entity);
+    ApplicationGroup(std::shared_ptr<NotificationEntity> entity, Persistence *database);
 
     QVariant notifyModel() { return QVariant::fromValue(m_notifyModel); }
     QString appName() { return m_appName; }
@@ -61,6 +61,7 @@ public:
 
     AppGroupModel(QObject *parent = nullptr, Persistence *database = nullptr);
     void setView(QListView *view) { m_view = view; }
+    void removeGroup(const QModelIndex &index);
 
 public:
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;

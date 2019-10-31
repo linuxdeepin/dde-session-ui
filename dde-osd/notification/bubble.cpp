@@ -45,7 +45,6 @@
 #include <QSpacerItem>
 #include <QGridLayout>
 #include <QX11Info>
-#include <QDateTime>
 
 #include <DLabel>
 
@@ -318,7 +317,6 @@ void Bubble::updateContent()
 
     if (m_showStyle == OSD::ShowStyle::BUBBLEWIDGET) {
         setAppName(m_entity->appName());
-        setAppTime(m_entity->ctime());
     }
 
     processIconData();
@@ -497,14 +495,6 @@ void Bubble::initTimers()
     connect(m_outTimer, &QTimer::timeout, this, &Bubble::onOutTimerTimeout);
 }
 
-void Bubble::setAppTime(const QString &time)
-{
-    if (m_appTimeLabel) {
-        m_appTime = time;
-        m_appTimeLabel->setText(CreateTimeString(time));
-    }
-}
-
 // Each even element in the list (starting at index 0) represents the identifier for the action.
 // Each odd element in the list is the localized string that will be displayed to the user.
 void Bubble::processActions()
@@ -644,36 +634,6 @@ const QPixmap Bubble::converToPixmap(const QDBusArgument &value)
     return QPixmap::fromImage(img).scaled(m_icon->width(), m_icon->height(),
                                           Qt::KeepAspectRatioByExpanding,
                                           Qt::SmoothTransformation);
-}
-
-QString Bubble::CreateTimeString(const QString &time)
-{
-    qint64 msec = QDateTime::currentMSecsSinceEpoch() - time.toLongLong();
-    if (msec < 0) {
-        return QString("time error");
-    }
-
-    QString text;
-
-    QDateTime bubbleDateTime = QDateTime::fromMSecsSinceEpoch(time.toLongLong());
-    QDateTime currentDateTime = QDateTime::currentDateTime();
-    int elapsedDay = int(bubbleDateTime.daysTo(currentDateTime));
-    int minute = int(msec / 1000 / 60);
-
-    if (elapsedDay == 0) {
-        if (minute == 0) {
-            text =  tr("Just Now");
-        } else if (minute > 0 && minute < 60) {
-            text = QString::number(minute) + tr(" Minute Ago");
-        } else {
-            text = QString::number(minute / 60) + tr(" Hour Ago");
-        }
-    } else if (elapsedDay == 1) {
-        text = tr("Yesterday ") + bubbleDateTime.toString("hh:mm");
-    } else {
-        text = QString::number(elapsedDay) + tr(" Day Ago");
-    }
-    return text;
 }
 
 void Bubble::onDelayQuit()
