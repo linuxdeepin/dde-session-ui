@@ -5,6 +5,7 @@ QT += svg
 
 HEADERS += \
     $$PWD/bubble.h \
+    $$PWD/bubbleabstract.h \
     $$PWD/bubblemanager.h \
     $$PWD/notifications_dbus_adaptor.h \
     $$PWD/dbus_daemon_interface.h \
@@ -22,6 +23,7 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/bubble.cpp \
+    $$PWD/bubbleabstract.cpp \
     $$PWD/bubblemanager.cpp \
     $$PWD/notifications_dbus_adaptor.cpp \
     $$PWD/dbus_daemon_interface.cpp \

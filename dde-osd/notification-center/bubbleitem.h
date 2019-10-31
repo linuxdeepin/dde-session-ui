@@ -22,23 +22,39 @@
 #ifndef BUBBLEITEM_H
 #define BUBBLEITEM_H
 
-#include "notification/bubble.h"
+#include "notification/bubbleabstract.h"
 
 class NotificationEntity;
-class BubbleItem : public Bubble
+class QPropertyAnimation;
+
+class BubbleItem : public BubbleAbStract
 {
     Q_OBJECT
 public:
     BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
 
-signals:
+Q_SIGNALS:
     void closeBubble();
+    void clicked();
+    void havorStateChanged(bool);
+
+public Q_SLOTS:
+    void onHavorStateChanged(bool hover);
+    void moveAnimation(const QPoint &point);
+
+protected:
+    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void onRefreshTime();
+    void initUI();
 
 private:
     QTimer *m_refreshTimer = nullptr;
+    bool m_canClose = false;
+    QPropertyAnimation *m_moveAnimation = nullptr;
 };
 
 #endif // BUBBLEITEM_H
