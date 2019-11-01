@@ -137,6 +137,16 @@ void BubbleAbStract::updateContent()
 
     processIconData();
     processActions();
+
+    QStringList list = m_entity->actions();
+    if (list.contains("default")) {
+        const int index = list.indexOf("default");
+        m_defaultAction = list[index];
+        list.removeAt(index + 1);
+        list.removeAt(index);
+    }
+
+    m_canClose = list.isEmpty();
 }
 
 inline void copyLineRGB32(QRgb *dst, const char *src, int width)
@@ -278,4 +288,22 @@ void BubbleAbStract::processIconData()
 bool BubbleAbStract::containsMouse() const
 {
     return geometry().contains(QCursor::pos());
+}
+
+void BubbleAbStract::enterEvent(QEvent *event)
+{
+    if (m_canClose) {
+        m_closeButton->setVisible(true);
+    }
+
+    return DBlurEffectWidget::enterEvent(event);
+}
+
+void BubbleAbStract::leaveEvent(QEvent *event)
+{
+    if (m_canClose) {
+        m_closeButton->setVisible(false);
+    }
+
+    return DBlurEffectWidget::leaveEvent(event);
 }

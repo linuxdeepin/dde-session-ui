@@ -81,8 +81,11 @@ class ButtonMenu : public DWidget
 private:
     explicit ButtonMenu(QWidget *parent = nullptr);
 
+    virtual QSize sizeHint() const Q_DECL_OVERRIDE;
+    virtual QSize minimumSizeHint() const Q_DECL_OVERRIDE;
+
 Q_SIGNALS:
-    void menuToggled();
+    void clicked();
 
 protected:
     virtual void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
@@ -125,7 +128,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void hideMenu();
-    void onMenuToggled();
+    void onMenuClicked();
 
 private:
     ButtonContent *m_button = nullptr;

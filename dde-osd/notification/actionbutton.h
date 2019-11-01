@@ -30,10 +30,7 @@
 
 #include "define.h"
 
-#define BUTTONWIDTH (70)
-#define BUTTONHEIGHT (60)
 #define PADDING (10)
-#define CLOSEBTNSIZE (QSize(30,30))
 
 class Button;
 class MenuButton;
@@ -62,7 +59,6 @@ Q_SIGNALS:
     void replacedByOther(int);
 
 private:
-    bool m_canClose = false;
     OSD::ShowStyle m_showStyle;
     QHBoxLayout *m_layout = nullptr;
     QList<Button *> m_buttons;

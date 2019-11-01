@@ -35,6 +35,9 @@
 #include <QStyleOption>
 #include <QVBoxLayout>
 
+static int MenuPadding = 2;
+static int MenuWidth = 15;
+
 ButtonContent::ButtonContent(QWidget *parent)
     : DWidget(parent)
     , m_text("")
@@ -149,11 +152,21 @@ ButtonMenu::ButtonMenu(QWidget *parent)
 
 }
 
+QSize ButtonMenu::sizeHint() const
+{
+    return QSize(10, 5);
+}
+
+QSize ButtonMenu::minimumSizeHint() const
+{
+    return QSize(10, 5);
+}
+
 void ButtonMenu::mousePressEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
 
-    Q_EMIT menuToggled();
+    Q_EMIT clicked();
 }
 
 void ButtonMenu::paintEvent(QPaintEvent *event)
@@ -164,6 +177,11 @@ void ButtonMenu::paintEvent(QPaintEvent *event)
 
     QStyleOption opt;
     opt.init(this);
+    opt.rect.setX(MenuPadding);
+    opt.rect.setY((height() - MenuWidth) / 2 + MenuPadding);
+    opt.rect.setWidth(MenuWidth - MenuPadding * 2);
+    opt.rect.setHeight(MenuWidth - MenuPadding * 2);
+
     style()->drawPrimitive(QStyle::PE_IndicatorArrowDown, &opt, &painter, this);
 }
 
@@ -187,7 +205,7 @@ Button::Button(QWidget *parent)
 
     connect(m_button, &ButtonContent::clicked, this, &Button::clicked);
     connect(m_button, &ButtonContent::toggled, this, &Button::toggled);
-    connect(m_menuArea, &ButtonMenu::menuToggled, this, &Button::onMenuToggled);
+    connect(m_menuArea, &ButtonMenu::clicked, this, &Button::onMenuClicked);
 }
 
 void Button::setPixmap(const QPixmap &pixmap)
@@ -253,7 +271,7 @@ void Button::hideMenu()
     m_menu->hide();
 }
 
-void Button::onMenuToggled()
+void Button::onMenuClicked()
 {
     QWidget *w = qobject_cast<QWidget *>(m_menu->parent());
     if (w) {

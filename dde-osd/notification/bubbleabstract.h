@@ -97,6 +97,11 @@ protected:
     DWindowManagerHelper *m_wmHelper = nullptr;
 
     QString m_defaultAction;
+    bool m_canClose = false;
+
+protected:
+    virtual void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    virtual void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
 };
 
 #endif // BUBBLEABSTRACT_H

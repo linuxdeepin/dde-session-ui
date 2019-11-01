@@ -264,7 +264,11 @@ void Bubble::initUI()
 
     setFixedSize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWINDOW));
+
     m_closeButton->setFixedSize(OSD::CloseButtonSize(OSD::BUBBLEWINDOW));
+    m_closeButton->setRadius(99);
+    m_closeButton->setText("X");
+    m_closeButton->setVisible(false);
 
     //layout
     m_appNameLabel->setVisible(false);
@@ -281,11 +285,6 @@ void Bubble::initUI()
 
     m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     layout->addWidget(m_actionButton);
-
-    m_closeButton->setFixedSize(CLOSEBTNSIZE);
-    m_closeButton->setRadius(99);
-    m_closeButton->setText("X");
-    m_closeButton->setVisible(false);
     layout->addWidget(m_closeButton);
 
     setLayout(layout);

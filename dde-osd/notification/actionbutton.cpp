@@ -48,10 +48,8 @@ ActionButton::ActionButton(QWidget *parent, OSD::ShowStyle style) :
 bool ActionButton::addButtons(const QStringList &list)
 {
     if (list.isEmpty()) {
-        m_canClose = true;
         return true;
     }
-    m_canClose = false;
     // Each even element in the list (starting at index 0) represents the
     // identifier for the action. Each odd element in the list is the
     // localized string that will be displayed to the user.
