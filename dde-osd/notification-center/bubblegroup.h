@@ -27,6 +27,8 @@
 #include <memory>
 #include <DLabel>
 #include <DIconButton>
+#include <DListView>
+#include "expandanimation.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -34,6 +36,7 @@ class QListView;
 class BubbleItem;
 class NotifyModel;
 class BubbleDelegate;
+class NotificationEntity;
 
 class BubbleGroup : public QWidget
 {
@@ -41,6 +44,7 @@ class BubbleGroup : public QWidget
 public:
     explicit BubbleGroup(QWidget *parent = nullptr, std::shared_ptr<NotifyModel> model = nullptr);
     void setGroupTitle(const QString &title) { group_title->setText(title); }
+    void expandAnimation();
 
 signals:
     void closeGroup();
@@ -52,10 +56,12 @@ protected:
 private:
     QList<QPointer<BubbleItem>> m_bubbleList;
     QWidget *m_titleWidget = nullptr;
-    QListView *m_groupList = nullptr;
+    DListView *m_groupList = nullptr;
     BubbleDelegate *m_notifyDelegate = nullptr;
     DIconButton *title_close = nullptr;
     DLabel *group_title = nullptr;
+    std::shared_ptr<NotifyModel> m_notifyModel = nullptr;
+    QPointer<ExpandAnimation> m_expandAnimation = nullptr;
 };
 
 #endif // BUBBLEGROUP_H

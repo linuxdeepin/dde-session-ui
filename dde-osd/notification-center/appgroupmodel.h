@@ -43,6 +43,9 @@ public:
     QString appName() { return m_appName; }
     QString timeStamp() { return m_timeStamp; }
 
+signals:
+    void layoutGroup();
+
 private:
     std::shared_ptr<NotifyModel> m_notifyModel;
     QString m_appName;

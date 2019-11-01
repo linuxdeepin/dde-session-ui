@@ -28,6 +28,7 @@ ApplicationGroup::ApplicationGroup(std::shared_ptr<NotificationEntity> entity, P
     m_timeStamp = entity->ctime();
     m_notifyModel = std::make_shared<NotifyModel>(this, entity);
     m_notifyModel->setPersistence(database);
+    connect(m_notifyModel.get(), &NotifyModel::layoutGroup, this, &ApplicationGroup::layoutGroup);
 }
 
 AppGroupModel::AppGroupModel(QObject *parent, Persistence *database)
@@ -115,6 +116,9 @@ void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
     } else {
         ApplicationGroup *bubble_group = new ApplicationGroup(entity, m_database);
         m_applications.push_front(bubble_group);
+        connect(bubble_group, &ApplicationGroup::layoutGroup, this, [ = ]() {
+            this->layoutChanged();
+        });
     }
     endResetModel();
 }

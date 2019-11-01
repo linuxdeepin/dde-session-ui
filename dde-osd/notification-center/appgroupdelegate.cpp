@@ -58,7 +58,8 @@ QSize AppGroupDelegate::sizeHint(const QStyleOptionViewItem &option, const QMode
     std::shared_ptr<NotifyModel> model = index.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
 
     int row = model->rowCount();
-    return QSize(Notify::BubbleItemWidth,  row * Notify::BubbleItemHeight + Notify::GroupTitleHeight + Notify::CenterMargin * (row + 1));
+    int group_height = row * Notify::BubbleItemHeight + Notify::GroupTitleHeight + Notify::CenterMargin * row;
+    return QSize(Notify::BubbleItemWidth, group_height + Notify::GroupMargin);
 }
 
 void AppGroupDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const

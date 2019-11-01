@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2011 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     zorowk <near.kingzero@gmail.com>
  *
@@ -19,39 +19,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BUBBLEITEM_H
-#define BUBBLEITEM_H
+#ifndef EXPANDANIMATION_H
+#define EXPANDANIMATION_H
 
-#include "notification/bubbleabstract.h"
+#include <QFrame>
+#include <QPointer>
+#include <memory>
 
+class QSequen;
 class NotificationEntity;
+class BubbleItem;
+class QSequentialAnimationGroup;
 
-class BubbleItem : public BubbleAbStract
+class ExpandAnimation : public QFrame
 {
     Q_OBJECT
 public:
-    BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
+    ExpandAnimation(QWidget *parent = nullptr);
+    ~ExpandAnimation();
+    void addData(std::shared_ptr<NotificationEntity> entity);
 
-Q_SIGNALS:
-    void closeBubble();
-    void clicked();
-    void havorStateChanged(bool);
-
-public Q_SLOTS:
-    void onHavorStateChanged(bool hover);
-
-protected:
-    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+signals:
+    void finished();
 
 private:
-    void onRefreshTime();
-    void initUI();
-
-private:
-    QTimer *m_refreshTimer = nullptr;
-    bool m_canClose = false;
+    QList<QPointer<BubbleItem>> m_bubbleList;
+    QSequentialAnimationGroup *m_animationGroup = nullptr;
 };
 
-#endif // BUBBLEITEM_H
+#endif // EXPANDANIMATION_H

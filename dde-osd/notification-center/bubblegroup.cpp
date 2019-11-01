@@ -12,6 +12,7 @@ DWIDGET_USE_NAMESPACE
 
 BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     : QWidget(parent)
+    , m_notifyModel(model)
 {
     m_titleWidget = new QWidget();
     m_titleWidget->setFixedSize(Notify::BubbleItemWidth, Notify::GroupTitleHeight);
@@ -41,10 +42,10 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     head_Layout->addWidget(title_close, Qt::AlignRight);
     m_titleWidget->setLayout(head_Layout);
 
-    m_groupList = new QListView(this);
+    m_groupList = new DListView(this);
     m_notifyDelegate = new BubbleDelegate(this);
-    model->setView(m_groupList);
-    m_groupList->setModel(model.get());
+    m_notifyModel->setView(m_groupList);
+    m_groupList->setModel(m_notifyModel.get());
     m_groupList->setItemDelegate(m_notifyDelegate);
 
     m_groupList->setAutoFillBackground(false);
@@ -54,19 +55,20 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     m_groupList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_groupList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_groupList->setVerticalScrollMode(QListView::ScrollPerPixel);
-    m_groupList->setSpacing(5);
     m_groupList->setContentsMargins(0, 0, 0, 0);
     m_groupList->setUpdatesEnabled(true);
+    m_groupList->setSelectionMode(QListView::NoSelection);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSpacing(10);
-    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setMargin(0);
     mainLayout->addWidget(m_titleWidget);
     mainLayout->addWidget(m_groupList);
 
     setLayout(mainLayout);
 
     connect(title_close, &DIconButton::clicked, this, &BubbleGroup::closeGroup);
+    connect(m_notifyModel.get(), &NotifyModel::expandNotify, this, &BubbleGroup::expandAnimation);
 }
 
 void BubbleGroup::enterEvent(QEvent *)
@@ -77,4 +79,34 @@ void BubbleGroup::enterEvent(QEvent *)
 void BubbleGroup::leaveEvent(QEvent *)
 {
     title_close->setVisible(false);
+}
+
+void BubbleGroup::expandAnimation()
+{
+    if (m_expandAnimation.isNull()) {
+        m_expandAnimation = new ExpandAnimation(m_groupList);
+
+        connect(m_expandAnimation, &ExpandAnimation::finished, [ = ]() {
+            m_expandAnimation->hide();
+            m_expandAnimation->deleteLater();
+            m_notifyModel->refreshContent();
+        });
+    }
+
+    int bubble_count = m_notifyModel->rowCount();
+    int need_bubble =  parentWidget()->height() / Notify::BubbleItemHeight;
+    need_bubble = bubble_count < need_bubble ? bubble_count : need_bubble;
+    int expand_height = need_bubble * Notify::BubbleItemHeight;
+    m_expandAnimation->setFixedSize(Notify::BubbleItemWidth, expand_height);
+    int limit_index = Notify::BubbleEntities;
+    int y = limit_index * Notify::BubbleItemHeight + Notify::CenterMargin * (limit_index - 1);
+    m_expandAnimation->move(0, y);
+    m_expandAnimation->raise();
+    m_expandAnimation->show();
+
+    auto notifications = m_notifyModel->allNotifys();
+    while (limit_index < need_bubble) {
+        m_expandAnimation->addData(notifications.at(limit_index));
+        limit_index++;
+    }
 }

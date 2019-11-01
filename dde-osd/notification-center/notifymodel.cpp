@@ -108,4 +108,21 @@ void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
     if (m_database != nullptr) {
         m_database->removeOne(QString::number(entity->id()));
     }
+
+    layoutGroup();
+}
+
+void NotifyModel::expandData()
+{
+    if (!m_notfications.isEmpty()) {
+        m_displays.append(m_notfications);
+        m_notfications.clear();
+    }
+    layoutGroup();
+    expandNotify();
+}
+
+void NotifyModel::refreshContent()
+{
+    dataChanged(index(0), index(m_displays.size() - 1));
 }

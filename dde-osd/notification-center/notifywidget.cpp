@@ -27,6 +27,7 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QScrollBar>
+#include <QScroller>
 #include <QLabel>
 
 NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
@@ -50,7 +51,7 @@ void NotifyWidget::initView(Persistence *database)
 {
     m_groupModel = new AppGroupModel(this, database);
     m_groupDelegate = new AppGroupDelegate;
-    m_mainList = new QListView(this);
+    m_mainList = new DListView(this);
 
     m_groupModel->setView(m_mainList);
     m_mainList->setModel(m_groupModel);
@@ -65,5 +66,11 @@ void NotifyWidget::initView(Persistence *database)
     m_mainList->setContentsMargins(0, 0, 0, 0);
     m_mainList->setUpdatesEnabled(true);
     m_mainList->setSelectionMode(QListView::NoSelection);
+
+    QScroller::grabGesture(m_mainList, QScroller::LeftMouseButtonGesture);
+    QScroller *scroller = QScroller::scroller(m_mainList);
+    QScrollerProperties sp;
+    sp.setScrollMetric(QScrollerProperties::VerticalOvershootPolicy, QScrollerProperties::OvershootAlwaysOff);
+    scroller->setScrollerProperties(sp);
 }
 

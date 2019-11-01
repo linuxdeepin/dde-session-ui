@@ -10,7 +10,6 @@
 #include <QTimer>
 #include <QDateTime>
 #include <DStyleHelper>
-#include <QPropertyAnimation>
 
 BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> entity)
     : BubbleAbStract(parent, entity)
@@ -148,14 +147,14 @@ void BubbleItem::enterEvent(QEvent *event)
 {
     Q_EMIT havorStateChanged(true);
 
-    return DBlurEffectWidget::enterEvent(event);
+    return BubbleAbStract::enterEvent(event);
 }
 
 void BubbleItem::leaveEvent(QEvent *event)
 {
     Q_EMIT havorStateChanged(false);
 
-    return DBlurEffectWidget::leaveEvent(event);
+    return BubbleAbStract::leaveEvent(event);
 }
 
 void BubbleItem::onHavorStateChanged(bool hover)
@@ -163,13 +162,3 @@ void BubbleItem::onHavorStateChanged(bool hover)
     m_closeButton->setVisible(hover);
     m_appTimeLabel->setVisible(!hover);
 }
-
-void BubbleItem::moveAnimation(const QPoint &point)
-{
-    if (isVisible()) {
-        m_moveAnimation->setStartValue(QPoint(x(), y()));
-        m_moveAnimation->setEndValue(point);
-        m_moveAnimation->start();
-    }
-}
-

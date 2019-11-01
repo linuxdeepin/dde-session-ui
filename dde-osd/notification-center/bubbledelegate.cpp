@@ -45,9 +45,15 @@ QWidget *BubbleDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
     }
 
     BubbleItem *bubble = new BubbleItem(parent, notify);
-    connect(bubble, &BubbleItem::closeBubble, model, [model, notify]() {
+    connect(bubble, &BubbleItem::closeBubble, model, [bubble, model, notify]() {
         model->removeNotify(notify);
+        disconnect(bubble, &BubbleItem::clicked, model, &NotifyModel::expandData);
     });
+
+    int limit_count = Notify::BubbleEntities - 1;
+    if (index.row() == limit_count) {
+        connect(bubble, &BubbleItem::clicked, model, &NotifyModel::expandData);
+    }
     return bubble;
 }
 
@@ -64,5 +70,6 @@ void BubbleDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionVie
 
     QRect rect = option.rect;
     QSize size = sizeHint(option, index);
+    if (index.row() > 0) rect.setY(rect.y() + Notify::CenterMargin * index.row());
     editor->setGeometry(rect.x(), rect.y(), size.width(), size.height());
 }

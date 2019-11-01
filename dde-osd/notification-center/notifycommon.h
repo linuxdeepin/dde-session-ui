@@ -31,6 +31,7 @@ static const int CenterTitleHeight = 32;
 
 static const int GroupTitleHeight = 32;
 static const int GroupButtonSize = 24;
+static const int GroupMargin = 30;
 static const int BubbleItemWidth = 380;
 static const int BubbleItemHeight = 90;
 }

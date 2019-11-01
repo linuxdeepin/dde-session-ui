@@ -12,7 +12,8 @@ HEADERS += \
     $$PWD/appgroupmodel.h \
     $$PWD/appgroupdelegate.h \
     $$PWD/bubbledelegate.h \
-    $$PWD/notifycommon.h
+    $$PWD/notifycommon.h \
+    $$PWD/expandanimation.h
 
 SOURCES += \
     $$PWD/notifywidget.cpp \
@@ -22,4 +23,5 @@ SOURCES += \
     $$PWD/bubblegroup.cpp \
     $$PWD/appgroupmodel.cpp \
     $$PWD/appgroupdelegate.cpp \
-    $$PWD/bubbledelegate.cpp
+    $$PWD/bubbledelegate.cpp \
+    $$PWD/expandanimation.cpp
