@@ -24,10 +24,14 @@
 AppBody::AppBody(QWidget *parent)
     : QFrame(parent)
 {
-    m_titleLbl = new appBodyLabel;
-    m_bodyLbl = new appBodyLabel;
+    m_titleLbl = new DLabel;
+    m_bodyLbl = new DLabel;
 
-    m_titleLbl->setWindowOpacity(0.5);
+    QPalette pe;
+    pe.setColor(QPalette::WindowText, Qt::black);
+    m_titleLbl->setPalette(pe);
+    m_bodyLbl->setPalette(pe);
+    m_bodyLbl->setPalette(pe);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);

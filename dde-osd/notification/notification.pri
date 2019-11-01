@@ -17,7 +17,6 @@ HEADERS += \
     $$PWD/persistence.h \
     $$PWD/appbody.h \
     $$PWD/icondata.h \
-    $$PWD/appbodylabel.h \
     $$PWD/button.h \
     $$PWD/define.h
 
@@ -35,7 +34,6 @@ SOURCES += \
     $$PWD/persistence.cpp \
     $$PWD/appbody.cpp \
     $$PWD/icondata.cpp \
-    $$PWD/appbodylabel.cpp \
     $$PWD/button.cpp
 
 orgDBus.input = $$PWD/files/com.deepin.dde.freedesktop.Notification.service.in

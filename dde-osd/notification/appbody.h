@@ -20,9 +20,10 @@
 #ifndef APPBODY_H
 #define APPBODY_H
 
-#include "appbodylabel.h"
-
 #include <QWidget>
+#include <DLabel>
+
+DWIDGET_USE_NAMESPACE
 
 class AppBody : public QFrame
 {
@@ -30,14 +31,14 @@ class AppBody : public QFrame
 public:
     explicit AppBody(QWidget *parent = 0);
     void setTitle(const QString &title);
-    void setText(const QString & text);
+    void setText(const QString &text);
 
 private:
     void updateAlignment();
 
 private:
-    appBodyLabel *m_titleLbl;
-    appBodyLabel *m_bodyLbl;
+    DLabel *m_titleLbl;
+    DLabel *m_bodyLbl;
 };
 
 #endif // APPBODY_H
