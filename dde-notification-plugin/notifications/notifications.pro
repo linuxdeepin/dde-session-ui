@@ -1,0 +1,30 @@
+PREFIX = /usr
+QT += core widgets dbus svg
+TEMPLATE = lib
+CONFIG += plugin c++11 link_pkgconfig
+PKGCONFIG       += dtkwidget
+
+INCLUDEPATH += /usr/include/dde-dock
+
+TARGET = $$qtLibraryTarget($$TARGET)
+
+# Input
+SOURCES += \
+    notificationsplugin.cpp \
+    notificationswidget.cpp
+
+HEADERS += \
+    notificationsplugin.h \
+    notificationswidget.h
+
+
+DISTFILES       += notifications.json
+
+RESOURCES += \
+    resources.qrc
+
+translations.path = /usr/share/dde-session-ui/translations/
+translations.files = translations/*.qm
+
+target.path = /usr/lib/dde-dock/plugins/system-trays/
+INSTALLS += target translations
