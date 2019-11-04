@@ -85,7 +85,7 @@ Qt::ItemFlags NotifyModel::flags(const QModelIndex &index) const
 void NotifyModel::addNotify(std::shared_ptr<NotificationEntity> entity)
 {
     beginInsertRows(QModelIndex(), 0, 0);
-    if (m_displays.size() < Notify::BubbleEntities) {
+    if (m_displays.size() < BubbleEntities) {
         m_displays.push_front(entity);
     } else {
         m_displays.push_front(entity);
@@ -115,7 +115,7 @@ void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
 void NotifyModel::expandData(std::shared_ptr<NotificationEntity> entity)
 {
     int index = m_displays.indexOf(entity);
-    if (index == Notify::BubbleEntities - 1) {
+    if (index == BubbleEntities - 1) {
         if (!m_notfications.isEmpty()) {
             m_displays.append(m_notfications);
             m_notfications.clear();

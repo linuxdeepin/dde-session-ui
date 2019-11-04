@@ -57,9 +57,6 @@ class DBusDockInterface;
 class Persistence;
 class NotifyCenterWidget;
 class BubbleTemplate;
-
-static const int BubbleEntities = 3;
-
 class BubbleManager : public QObject
 {
     Q_OBJECT

@@ -10,12 +10,11 @@ static const int BubbleMargin = 12;     //桌面消息通知间隔
 static const int BubblePadding = 10;    //消息通知内部Padding
 static const int BubbleSpacing = 10;    //消息通知内部Space
 static const int BubbleTimeout = 5000;  //通知默认超时时间(毫秒)
+static const int BubbleEntities = 3;
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
 
 namespace Notify {
-static const int BubbleEntities = 3;
-
 static const int CenterWidth = 400;
 static const int CenterMargin = 10;
 static const int CenterTitleHeight = 32;

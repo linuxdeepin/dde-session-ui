@@ -91,15 +91,15 @@ void BubbleGroup::expandAnimation()
     int expand_height = need_bubble * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET);
     m_expandAnimation->setFixedSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), expand_height);
 
-    int y = Notify::BubbleEntities * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::CenterMargin * Notify::BubbleEntities;
+    int y = BubbleEntities * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::CenterMargin * BubbleEntities;
     m_expandAnimation->move(0, y);
     m_expandAnimation->raise();
     m_expandAnimation->show();
 
     auto notifications = m_notifyModel->allNotifys();
 
-    need_bubble -= Notify::BubbleEntities;
-    m_expandAnimation->addData(notifications.mid(Notify::BubbleEntities, need_bubble));
+    need_bubble -= BubbleEntities;
+    m_expandAnimation->addData(notifications.mid(BubbleEntities, need_bubble));
     m_expandAnimation->start();
 }
 
