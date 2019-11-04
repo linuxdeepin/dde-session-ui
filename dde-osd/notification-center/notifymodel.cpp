@@ -112,14 +112,17 @@ void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
     layoutGroup();
 }
 
-void NotifyModel::expandData()
+void NotifyModel::expandData(std::shared_ptr<NotificationEntity> entity)
 {
-    if (!m_notfications.isEmpty()) {
-        m_displays.append(m_notfications);
-        m_notfications.clear();
+    int index = m_displays.indexOf(entity);
+    if (index == Notify::BubbleEntities - 1) {
+        if (!m_notfications.isEmpty()) {
+            m_displays.append(m_notfications);
+            m_notfications.clear();
+        }
+        layoutGroup();
+        expandNotify();
     }
-    layoutGroup();
-    expandNotify();
 }
 
 void NotifyModel::refreshContent()

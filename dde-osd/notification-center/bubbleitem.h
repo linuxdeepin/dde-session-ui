@@ -25,20 +25,22 @@
 #include "notification/bubbleabstract.h"
 
 class NotificationEntity;
+class QPropertyAnimation;
+class NotifyModel;
 
 class BubbleItem : public BubbleAbStract
 {
     Q_OBJECT
 public:
     BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
+    void setModel(NotifyModel *model) { m_notifyModel = model; }
 
 Q_SIGNALS:
-    void closeBubble();
-    void clicked();
     void havorStateChanged(bool);
 
 public Q_SLOTS:
     void onHavorStateChanged(bool hover);
+    void onCloseBubble();
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
@@ -48,10 +50,12 @@ protected:
 private:
     void onRefreshTime();
     void initUI();
+    void refreshTheme();
 
 private:
+    NotifyModel *m_notifyModel = nullptr;
     QTimer *m_refreshTimer = nullptr;
-    bool m_canClose = false;
+    QPropertyAnimation *m_closeAnimation = nullptr;
 };
 
 #endif // BUBBLEITEM_H

@@ -45,15 +45,7 @@ QWidget *BubbleDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
     }
 
     BubbleItem *bubble = new BubbleItem(parent, notify);
-    connect(bubble, &BubbleItem::closeBubble, model, [bubble, model, notify]() {
-        model->removeNotify(notify);
-        disconnect(bubble, &BubbleItem::clicked, model, &NotifyModel::expandData);
-    });
-
-    int limit_count = Notify::BubbleEntities - 1;
-    if (index.row() == limit_count) {
-        connect(bubble, &BubbleItem::clicked, model, &NotifyModel::expandData);
-    }
+    bubble->setModel(model);
     return bubble;
 }
 

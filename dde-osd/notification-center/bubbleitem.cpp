@@ -1,4 +1,4 @@
-#include "bubbleitem.h"
+﻿#include "bubbleitem.h"
 #include "notification/notificationentity.h"
 #include "notification/appicon.h"
 #include "notification/appbody.h"
@@ -6,10 +6,14 @@
 #include "notification/button.h"
 #include "notification/icondata.h"
 #include "notifycommon.h"
+#include "notifymodel.h"
 
 #include <QTimer>
 #include <QDateTime>
 #include <DStyleHelper>
+#include <QPropertyAnimation>
+#include <DGuiApplicationHelper>
+#include <DFontSizeManager>
 
 BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> entity)
     : BubbleAbStract(parent, entity)
@@ -22,9 +26,17 @@ BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> enti
     connect(m_refreshTimer, &QTimer::timeout, this, &BubbleItem::onRefreshTime);
     onRefreshTime();
 
-    m_canClose = entity->actions().isEmpty() ? true : false;
     updateContent();
     connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
+
+    m_closeAnimation = new QPropertyAnimation(this, "opacity", this);
+    m_closeAnimation->setEasingCurve(QEasingCurve::OutCubic);
+    m_closeAnimation->setDuration(500);
+    m_closeAnimation->setStartValue(1);
+    m_closeAnimation->setEndValue(0);
+    connect(m_closeAnimation, &QPropertyAnimation::finished, this, [ = ]() {
+        if (m_notifyModel != nullptr) m_notifyModel->removeNotify(m_entity);
+    });
 }
 
 void BubbleItem::initUI()
@@ -53,16 +65,9 @@ void BubbleItem::initUI()
     titleLayout->addWidget(m_icon);
     titleLayout->addWidget(m_appNameLabel);
     titleLayout->addWidget(m_appTimeLabel);
+
     m_appNameLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_appTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
-
-    QFont font;
-    font.setPointSize(10);
-    m_appTimeLabel->setFont(font);
-
-    QPalette pa;
-    pa.setBrush(QPalette::WindowText, pa.brightText());
-    m_appNameLabel->setPalette(pa);
 
     m_closeButton->setRadius(99);
     m_closeButton->setText("X");
@@ -74,6 +79,7 @@ void BubbleItem::initUI()
     m_titleWidget->setUnHoverAlpha(0);
 
     mainLayout->addWidget(m_titleWidget);
+    m_body->setStyle(OSD::BUBBLEWIDGET);
 
     QHBoxLayout *bodyLayout = new QHBoxLayout;
     bodyLayout->setSpacing(0);
@@ -82,9 +88,7 @@ void BubbleItem::initUI()
     bodyLayout->addWidget(m_actionButton);
 
     m_bodyWidget->setLayout(bodyLayout);
-
     mainLayout->addWidget(m_bodyWidget);
-
     m_bgWidget->setLayout(mainLayout);
 
     m_titleWidget->setAlpha(20);
@@ -99,8 +103,11 @@ void BubbleItem::initUI()
     setLayout(l);
 
     m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    connect(m_closeButton, &Button::clicked, this, &BubbleItem::closeBubble);
+    connect(m_closeButton, &Button::clicked, this, &BubbleItem::onCloseBubble);
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleItem::refreshTheme);
+    refreshTheme();
 }
+
 void BubbleItem::onRefreshTime()
 {
     qint64 msec = QDateTime::currentMSecsSinceEpoch() - m_entity->ctime().toLongLong();
@@ -139,7 +146,9 @@ void BubbleItem::onRefreshTime()
 
 void BubbleItem::mouseReleaseEvent(QMouseEvent *event)
 {
-    emit clicked();
+    if (m_notifyModel != nullptr && m_entity != nullptr)
+        m_notifyModel->expandData(m_entity);
+
     BubbleAbStract::mouseReleaseEvent(event);
 }
 
@@ -161,4 +170,17 @@ void BubbleItem::onHavorStateChanged(bool hover)
 {
     m_closeButton->setVisible(hover);
     m_appTimeLabel->setVisible(!hover);
+}
+
+void BubbleItem::onCloseBubble()
+{
+    m_closeAnimation->start();
+}
+
+void BubbleItem::refreshTheme()
+{
+    QPalette pa = m_appNameLabel->palette();
+    pa.setBrush(QPalette::WindowText, pa.brightText());
+    m_appNameLabel->setPalette(pa);
+    m_appTimeLabel->setFont(DFontSizeManager::instance()->t8());
 }

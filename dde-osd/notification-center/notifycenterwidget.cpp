@@ -33,8 +33,8 @@
 #include <QDBusInterface>
 #include <QPropertyAnimation>
 #include <diconbutton.h>
-#include <DLabel>
 #include <QPalette>
+#include <DGuiApplicationHelper>
 
 DWIDGET_USE_NAMESPACE
 
@@ -64,26 +64,14 @@ void NotifyCenterWidget::initUI()
     QIcon icon_pix = QIcon::fromTheme("://icons/notifications.svg").pixmap(bell_notify->iconSize() * ratio);
     bell_notify->setIcon(icon_pix);
 
-    QFont font;
-    font.setPointSize(14);
-    font.setBold(true);
-
-    DLabel *title_label = new DLabel(m_headWidget);
+    title_label = new DLabel(m_headWidget);
     title_label->setText(tr("Notification Center"));
-    title_label->setFont(font);
-
-    QPalette pa;
-    pa.setBrush(QPalette::WindowText, pa.brightText());
-    title_label->setPalette(pa);
     title_label->setAlignment(Qt::AlignCenter);
 
     DIconButton *close_btn = new DIconButton(DStyle::SP_CloseButton);
     close_btn->setFlat(true);
     close_btn->setIconSize(QSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight));
     close_btn->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
-    connect(close_btn, &DIconButton::clicked, this, [ = ]() {
-        m_outAnimation->start();
-    });
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
     head_Layout->addWidget(bell_notify, Qt::AlignLeft);
@@ -100,6 +88,12 @@ void NotifyCenterWidget::initUI()
     mainLayout->addWidget(m_notifyWidget);
 
     setLayout(mainLayout);
+
+    connect(close_btn, &DIconButton::clicked, this, [ = ]() {
+        m_outAnimation->start();
+    });
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotifyCenterWidget::refreshTheme);
+    refreshTheme();
 }
 
 void NotifyCenterWidget::initAnimations()
@@ -149,4 +143,15 @@ void NotifyCenterWidget::hideEvent(QHideEvent *event)
 {
     m_outAnimation->stop();
     DBlurEffectWidget::hideEvent(event);
+}
+
+void NotifyCenterWidget::refreshTheme()
+{
+    QPalette pa = title_label->palette();
+    pa.setBrush(QPalette::WindowText, pa.brightText());
+    title_label->setPalette(pa);
+
+    QFont font;
+    font.setBold(true);
+    title_label->setFont(DFontSizeManager::instance()->t4(font));
 }

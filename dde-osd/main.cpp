@@ -36,6 +36,7 @@
 #include "notification/notifications_dbus_adaptor.h"
 #include "manager.h"
 #include "kblayoutindicator.h"
+#include <DGuiApplicationHelper>
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
@@ -48,6 +49,8 @@ int main(int argc, char *argv[])
     }
 
     DApplication::loadDXcbPlugin();
+    DGuiApplicationHelper::setUseInactiveColorGroup(false);
+    DGuiApplicationHelper::setColorCompositingEnabled(true);
     DApplication a(argc, argv);
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
     a.setApplicationName("dde-osd");

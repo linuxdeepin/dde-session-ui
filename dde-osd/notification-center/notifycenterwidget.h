@@ -28,6 +28,7 @@
 
 #include "notifywidget.h"
 #include <DBlurEffectWidget>
+#include <DLabel>
 
 DWIDGET_USE_NAMESPACE
 
@@ -52,11 +53,13 @@ private:
     void initUI();
     void initAnimations();
     void updateGeometry();
+    void refreshTheme();
 
 private:
     QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
     QDBusInterface *m_dockSizeInter;
+    DLabel *title_label = nullptr;
 
     QPropertyAnimation *m_inAnimation = nullptr;
     QPropertyAnimation *m_outAnimation = nullptr;

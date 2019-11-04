@@ -51,7 +51,7 @@ public:
     int rowCount() { return m_displays.size(); }
     void removeNotify(std::shared_ptr<NotificationEntity> entity);
     void setPersistence(Persistence *db) { m_database = db; }
-    void expandData();
+    void expandData(std::shared_ptr<NotificationEntity> entity);
     void refreshContent();
     QList<std::shared_ptr<NotificationEntity>> allNotifys() { return m_displays; }
 

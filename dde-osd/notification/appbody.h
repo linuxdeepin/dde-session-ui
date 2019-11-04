@@ -20,6 +20,7 @@
 #ifndef APPBODY_H
 #define APPBODY_H
 
+#include "define.h"
 #include <QWidget>
 #include <DLabel>
 
@@ -30,16 +31,19 @@ class AppBody : public QFrame
 {
     Q_OBJECT
 public:
-    explicit AppBody(QWidget *parent = 0);
+    explicit AppBody(QWidget *parent = nullptr);
     void setTitle(const QString &title);
     void setText(const QString &text);
+    void setStyle(OSD::ShowStyle style);
 
 private:
     void updateAlignment();
+    void refreshTheme();
 
 private:
     AppBodyLabel *m_titleLbl;
     AppBodyLabel *m_bodyLbl;
+    OSD::ShowStyle m_showStyle;
 };
 
 #endif // APPBODY_H

@@ -24,19 +24,17 @@
 #include <QPainter>
 #include <QDebug>
 #include <QVBoxLayout>
+#include <DGuiApplicationHelper>
+#include <DFontSizeManager>
+
+DGUI_USE_NAMESPACE
 
 AppBody::AppBody(QWidget *parent)
     : QFrame(parent)
+    , m_showStyle(OSD::BUBBLEWINDOW)
 {
     m_titleLbl = new AppBodyLabel;
     m_bodyLbl = new AppBodyLabel;
-
-    QPalette pe = m_titleLbl->palette();
-    pe.setColor(QPalette::Text, Qt::black);
-    m_bodyLbl->setPalette(pe);
-
-    pe.setColor(QPalette::Text, QColor("#414d68"));
-    m_titleLbl->setPalette(pe);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -48,6 +46,9 @@ AppBody::AppBody(QWidget *parent)
 
     setLayout(layout);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &AppBody::refreshTheme);
+    refreshTheme();
 }
 
 void AppBody::setTitle(const QString &title)
@@ -66,6 +67,12 @@ void AppBody::setText(const QString &text)
     updateAlignment();
 }
 
+void AppBody::setStyle(OSD::ShowStyle style)
+{
+    m_showStyle = style;
+    refreshTheme();
+}
+
 void AppBody::updateAlignment()
 {
     if (!m_titleLbl->isVisible())
@@ -77,4 +84,28 @@ void AppBody::updateAlignment()
         m_titleLbl->setAlignment(Qt::AlignVCenter);
     else
         m_titleLbl->setAlignment(Qt::AlignBottom);
+}
+
+void AppBody::refreshTheme()
+{
+    QPalette pa = m_titleLbl->palette();
+
+    if (m_showStyle == OSD::BUBBLEWIDGET) {
+        pa.setBrush(QPalette::WindowText, pa.brightText());
+        m_titleLbl->setPalette(pa);
+
+        pa = m_bodyLbl->palette();
+        pa.setBrush(QPalette::WindowText, pa.text());
+        m_bodyLbl->setPalette(pa);
+
+        m_titleLbl->setFont(DFontSizeManager::instance()->t6());
+        m_bodyLbl->setFont(DFontSizeManager::instance()->t7());
+    } else {
+        pa.setBrush(QPalette::WindowText, pa.text());
+        m_titleLbl->setPalette(pa);
+
+        pa = m_bodyLbl->palette();
+        pa.setBrush(QPalette::WindowText, pa.brightText());
+        m_bodyLbl->setPalette(pa);
+    }
 }
