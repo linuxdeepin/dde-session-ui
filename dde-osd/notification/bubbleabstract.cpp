@@ -29,7 +29,7 @@
 #include "actionbutton.h"
 #include "button.h"
 #include "icondata.h"
-#include "define.h"
+#include "constants.h"
 
 #include <QDebug>
 #include <QDir>

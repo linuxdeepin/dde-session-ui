@@ -22,8 +22,8 @@
 #include "bubbledelegate.h"
 #include "notifymodel.h"
 #include "bubbleitem.h"
-#include "notifycommon.h"
 #include "notification/notificationentity.h"
+#include "notification/constants.h"
 
 #include <QDebug>
 
@@ -53,7 +53,7 @@ QSize BubbleDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelI
 {
     Q_UNUSED(index);
     Q_UNUSED(option);
-    return QSize(Notify::BubbleItemWidth,  Notify::BubbleItemHeight);
+    return OSD::BubbleSize(OSD::ShowStyle::BUBBLEWIDGET);
 }
 
 void BubbleDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const

@@ -28,7 +28,7 @@
 #include <QHBoxLayout>
 #include <QMap>
 
-#include "define.h"
+#include "constants.h"
 
 class Button;
 class MenuButton;

@@ -12,7 +12,6 @@ HEADERS += \
     $$PWD/appgroupmodel.h \
     $$PWD/appgroupdelegate.h \
     $$PWD/bubbledelegate.h \
-    $$PWD/notifycommon.h \
     $$PWD/expandanimation.h
 
 SOURCES += \

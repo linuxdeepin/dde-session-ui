@@ -19,7 +19,7 @@
 
 #include "appbody.h"
 #include "appbodylabel.h"
-#include "define.h"
+#include "constants.h"
 
 #include <QPainter>
 #include <QDebug>

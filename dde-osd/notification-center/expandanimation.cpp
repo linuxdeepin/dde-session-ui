@@ -22,7 +22,7 @@
 #include "expandanimation.h"
 #include "bubbleitem.h"
 #include "notification/notificationentity.h"
-#include  "notifycommon.h"
+#include "notification/constants.h"
 
 #include <QPropertyAnimation>
 
@@ -53,8 +53,8 @@ void ExpandAnimation::addData(const QList<std::shared_ptr<NotificationEntity>> &
         bubble->show();
         m_bubbleList.push_front(bubble);
 
-        QPoint end(0, index * Notify::BubbleItemHeight + Notify::CenterMargin * index);
-        QPoint start(0, end.y() - Notify::BubbleItemHeight - Notify::CenterMargin * index);
+        QPoint end(0, index * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::CenterMargin * index);
+        QPoint start(0, end.y() - OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) - Notify::CenterMargin * index);
         QPropertyAnimation *move_ani = new QPropertyAnimation(bubble, "pos", this);
         move_ani->setEasingCurve(QEasingCurve::OutCubic);
         move_ani->setDuration(500);

@@ -25,7 +25,7 @@
 
 #include "notifycenterwidget.h"
 #include "notification/persistence.h"
-#include "notifycommon.h"
+#include "notification/constants.h"
 
 #include <QDesktopWidget>
 #include <QApplication>

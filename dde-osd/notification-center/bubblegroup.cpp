@@ -2,8 +2,8 @@
 #include "bubbleitem.h"
 #include "notifymodel.h"
 #include "bubbledelegate.h"
-#include "notifycommon.h"
 #include "notification/notificationentity.h"
+#include "notification/constants.h"
 
 #include <QListView>
 #include <QBoxLayout>
@@ -16,7 +16,7 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     , m_notifyModel(model)
 {
     m_titleWidget = new QWidget();
-    m_titleWidget->setFixedSize(Notify::BubbleItemWidth, Notify::GroupTitleHeight);
+    m_titleWidget->setFixedSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), Notify::GroupTitleHeight);
 
     group_title = new DLabel;
     title_close = new DIconButton(DStyle::SP_CloseButton);
@@ -86,12 +86,12 @@ void BubbleGroup::expandAnimation()
     }
 
     int bubble_count = m_notifyModel->rowCount();
-    int need_bubble =  parentWidget()->height() / Notify::BubbleItemHeight;
+    int need_bubble =  parentWidget()->height() / OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET);
     need_bubble = bubble_count < need_bubble ? bubble_count : need_bubble;
-    int expand_height = need_bubble * Notify::BubbleItemHeight;
-    m_expandAnimation->setFixedSize(Notify::BubbleItemWidth, expand_height);
+    int expand_height = need_bubble * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET);
+    m_expandAnimation->setFixedSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), expand_height);
 
-    int y = Notify::BubbleEntities * Notify::BubbleItemHeight + Notify::CenterMargin * Notify::BubbleEntities;
+    int y = Notify::BubbleEntities * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::CenterMargin * Notify::BubbleEntities;
     m_expandAnimation->move(0, y);
     m_expandAnimation->raise();
     m_expandAnimation->show();

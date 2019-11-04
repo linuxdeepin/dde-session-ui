@@ -13,6 +13,18 @@ static const int BubbleTimeout = 5000;  //通知默认超时时间(毫秒)
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
 
+namespace Notify {
+static const int BubbleEntities = 3;
+
+static const int CenterWidth = 400;
+static const int CenterMargin = 10;
+static const int CenterTitleHeight = 32;
+
+static const int GroupTitleHeight = 32;
+static const int GroupButtonSize = 24;
+static const int GroupMargin = 30;
+}
+
 class OSD
 {
 public:

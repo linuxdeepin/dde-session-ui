@@ -20,9 +20,9 @@
  */
 
 #include "notifymodel.h"
-#include "notifycommon.h"
 #include "notification/notificationentity.h"
 #include "notification/persistence.h"
+#include "notification/constants.h"
 
 NotifyModel::NotifyModel(QObject *parent, std::shared_ptr<NotificationEntity> notify)
     : QAbstractListModel(parent)

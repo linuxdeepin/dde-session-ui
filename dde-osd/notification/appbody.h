@@ -20,7 +20,7 @@
 #ifndef APPBODY_H
 #define APPBODY_H
 
-#include "define.h"
+#include "constants.h"
 #include <QWidget>
 #include <DLabel>
 

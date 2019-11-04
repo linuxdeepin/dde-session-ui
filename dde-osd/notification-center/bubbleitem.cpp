@@ -5,7 +5,6 @@
 #include "notification/actionbutton.h"
 #include "notification/button.h"
 #include "notification/icondata.h"
-#include "notifycommon.h"
 #include "notifymodel.h"
 
 #include <QTimer>
@@ -42,7 +41,7 @@ BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> enti
 void BubbleItem::initUI()
 {
     setWindowFlags(Qt::Widget);
-    setFixedSize(Notify::BubbleItemWidth, Notify::BubbleItemHeight);
+    setFixedSize(OSD::BubbleSize(OSD::ShowStyle::BUBBLEWIDGET));
 
     DStyleHelper dstyle(style());
     int radius = dstyle.pixelMetric(DStyle::PM_FrameRadius);

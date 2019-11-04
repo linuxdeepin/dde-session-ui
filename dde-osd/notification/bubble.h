@@ -27,7 +27,7 @@
 #include "bubbleabstract.h"
 #include <memory>
 
-#include "define.h"
+#include "constants.h"
 
 DWIDGET_USE_NAMESPACE
 

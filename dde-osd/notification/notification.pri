@@ -18,8 +18,8 @@ HEADERS += \
     $$PWD/appbody.h \
     $$PWD/icondata.h \
     $$PWD/button.h \
-    $$PWD/define.h \
-    $$PWD/appbodylabel.h
+    $$PWD/appbodylabel.h \
+    $$PWD/constants.h
 
 SOURCES += \
     $$PWD/bubble.cpp \

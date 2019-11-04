@@ -22,7 +22,7 @@
 #include "appgroupdelegate.h"
 #include "appgroupmodel.h"
 #include "bubblegroup.h"
-#include "notifycommon.h"
+#include "notification/constants.h"
 
 #include <QDebug>
 
@@ -58,8 +58,8 @@ QSize AppGroupDelegate::sizeHint(const QStyleOptionViewItem &option, const QMode
     std::shared_ptr<NotifyModel> model = index.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
 
     int row = model->rowCount();
-    int group_height = row * Notify::BubbleItemHeight + Notify::GroupTitleHeight + Notify::CenterMargin * row;
-    return QSize(Notify::BubbleItemWidth, group_height + Notify::GroupMargin);
+    int group_height = row * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::GroupTitleHeight + Notify::CenterMargin * row;
+    return QSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), group_height + Notify::GroupMargin);
 }
 
 void AppGroupDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
