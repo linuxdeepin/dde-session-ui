@@ -32,10 +32,6 @@
 #include "actionbutton.h"
 #include "button.h"
 
-static const QColor BorderColor = QColor::fromRgbF(0, 0, 0, 0.1);
-static const QColor TextColor = QColor(0, 135, 255);
-static const QColor TextHover = Qt::white;
-
 ActionButton::ActionButton(QWidget *parent, OSD::ShowStyle style) :
     QFrame(parent)
     , m_showStyle(style)
@@ -64,9 +60,7 @@ bool ActionButton::addButtons(const QStringList &list)
                 Button *button = new Button();
                 button->setText(list[i]);
                 button->setRadius(15);
-
                 button->setFixedSize(OSD::ButtonSize(m_showStyle));
-                qDebug() << OSD::ButtonSize(m_showStyle);
 
                 m_layout->addWidget(button);
 

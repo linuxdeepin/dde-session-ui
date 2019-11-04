@@ -54,7 +54,10 @@ void BubbleWidget_Bg::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
 
-    QColor brushColor(Qt::white);
+    QPalette pe = this->palette();
+    QColor c = pe.color(QPalette::Base);
+
+    QColor brushColor(c);
     brushColor.setAlpha(m_hover ? m_hoverAlpha : m_unHoverAlpha);
     painter.setBrush(brushColor);
 

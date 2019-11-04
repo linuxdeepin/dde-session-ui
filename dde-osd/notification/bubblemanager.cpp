@@ -414,8 +414,6 @@ void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newNam
 
 Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify)
 {
-    qDebug() << notify->body();
-
     Bubble *bubble = new Bubble(nullptr, notify);
     connect(bubble, &Bubble::expired, this, &BubbleManager::bubbleExpired);
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);

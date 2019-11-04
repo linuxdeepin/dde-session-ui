@@ -288,7 +288,8 @@ void Button::drawBackground(QPainter *painter)
 {
     painter->save();
 
-    QColor brushColor(Qt::white);
+    QPalette pe = this->palette();
+    QColor brushColor(pe.color(QPalette::Base));
     brushColor.setAlpha(m_hover ? 120 : 60);
     painter->setBrush(brushColor);
 
