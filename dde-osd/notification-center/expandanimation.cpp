@@ -25,7 +25,6 @@
 #include  "notifycommon.h"
 
 #include <QPropertyAnimation>
-#include <QSequentialAnimationGroup>
 
 ExpandAnimation::ExpandAnimation(QWidget *parent)
     : QFrame(parent)
@@ -46,27 +45,22 @@ ExpandAnimation::~ExpandAnimation()
     }
 }
 
-void ExpandAnimation::addData(std::shared_ptr<NotificationEntity> entity)
+void ExpandAnimation::addData(const QList<std::shared_ptr<NotificationEntity>> &notifications)
 {
-    BubbleItem *bubble = new BubbleItem(this, entity);
-    bubble->show();
-    m_bubbleList.push_front(bubble);
-
     int index = 0;
-    while (index < m_bubbleList.size()) {
+    foreach (auto entity, notifications) {
+        BubbleItem *bubble = new BubbleItem(this, entity);
+        bubble->show();
+        m_bubbleList.push_front(bubble);
+
         QPoint end(0, index * Notify::BubbleItemHeight + Notify::CenterMargin * index);
         QPoint start(0, end.y() - Notify::BubbleItemHeight - Notify::CenterMargin * index);
-        QPointer<BubbleItem> bubble = m_bubbleList.at(index);
-        if (bubble != nullptr) {
-            QPropertyAnimation *move_ani = new QPropertyAnimation(bubble, "pos", this);
-            move_ani->setEasingCurve(QEasingCurve::OutCubic);
-            move_ani->setDuration(200);
-            move_ani->setStartValue(start);
-            move_ani->setEndValue(end);
-            m_animationGroup->addAnimation(move_ani);
-        }
+        QPropertyAnimation *move_ani = new QPropertyAnimation(bubble, "pos", this);
+        move_ani->setEasingCurve(QEasingCurve::OutCubic);
+        move_ani->setDuration(500);
+        move_ani->setStartValue(start);
+        move_ani->setEndValue(end);
+        m_animationGroup->addAnimation(move_ani);
         index ++;
     }
-
-    m_animationGroup->start();
 }

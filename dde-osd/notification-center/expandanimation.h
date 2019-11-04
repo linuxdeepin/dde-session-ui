@@ -25,11 +25,11 @@
 #include <QFrame>
 #include <QPointer>
 #include <memory>
+#include <QSequentialAnimationGroup>
 
 class QSequen;
 class NotificationEntity;
 class BubbleItem;
-class QSequentialAnimationGroup;
 
 class ExpandAnimation : public QFrame
 {
@@ -37,7 +37,8 @@ class ExpandAnimation : public QFrame
 public:
     ExpandAnimation(QWidget *parent = nullptr);
     ~ExpandAnimation();
-    void addData(std::shared_ptr<NotificationEntity> entity);
+    void addData(const QList<std::shared_ptr<NotificationEntity>> &);
+    void start() { m_animationGroup->start(); }
 
 signals:
     void finished();

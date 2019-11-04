@@ -98,15 +98,15 @@ void BubbleGroup::expandAnimation()
     need_bubble = bubble_count < need_bubble ? bubble_count : need_bubble;
     int expand_height = need_bubble * Notify::BubbleItemHeight;
     m_expandAnimation->setFixedSize(Notify::BubbleItemWidth, expand_height);
-    int limit_index = Notify::BubbleEntities;
-    int y = limit_index * Notify::BubbleItemHeight + Notify::CenterMargin * (limit_index - 1);
+
+    int y = Notify::BubbleEntities * Notify::BubbleItemHeight + Notify::CenterMargin * Notify::BubbleEntities;
     m_expandAnimation->move(0, y);
     m_expandAnimation->raise();
     m_expandAnimation->show();
 
     auto notifications = m_notifyModel->allNotifys();
-    while (limit_index < need_bubble) {
-        m_expandAnimation->addData(notifications.at(limit_index));
-        limit_index++;
-    }
+
+    need_bubble -= Notify::BubbleEntities;
+    m_expandAnimation->addData(notifications.mid(Notify::BubbleEntities, need_bubble));
+    m_expandAnimation->start();
 }
