@@ -68,6 +68,8 @@ Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD:
     initTimers();
 
     setEntity(entity);
+
+    installEventFilter(this);
 }
 
 std::shared_ptr<NotificationEntity> Bubble::entity() const
@@ -167,7 +169,17 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
 
     return DBlurEffectWidget::mouseReleaseEvent(event);
 }
-
+bool Bubble::eventFilter(QObject *obj, QEvent *event)
+{
+    //FIX ME:过滤掉这两个事件，否则窗体上鼠标点击后，在界面之外进行mouseRlease,窗体接收不到mouseReleaseEvent
+    if (obj) {
+        if (event->type() == QEvent::MouseMove
+                || event->type() == QEvent::Move) {
+            return true;
+        }
+    }
+    return false;
+}
 void Bubble::showEvent(QShowEvent *event)
 {
     DBlurEffectWidget::showEvent(event);

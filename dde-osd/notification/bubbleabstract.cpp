@@ -52,6 +52,7 @@ BubbleWidget_Bg::BubbleWidget_Bg(QWidget *parent)
 
 bool BubbleWidget_Bg::eventFilter(QObject *obj, QEvent *event)
 {
+    // 这里只是为了让界面不被拖动
     if (obj) {
         if (event->type() == QEvent::MouseMove
                 || event->type() == QEvent::Move) {
@@ -75,7 +76,7 @@ void BubbleWidget_Bg::paintEvent(QPaintEvent *event)
     QPen borderPen;
     borderPen.setColor(Qt::transparent);
     painter.setPen(borderPen);
-    painter.drawRect(QRectF(0, 0, width(), height())/*, m_radius, m_radius*/);
+    painter.drawRect(QRectF(0, 0, width(), height()));
 
     return DWidget::paintEvent(event);
 
