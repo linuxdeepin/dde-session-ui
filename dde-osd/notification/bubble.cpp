@@ -155,33 +155,17 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
             // FIX ME:采用动画的方式退出并隐藏，不会丢失窗体‘焦点’，造成控件不响应鼠标进入和离开事件
             m_dismissAnimation->start();
         }
+    } else if (m_pressed && event->pos().y() < 10) {
+        Q_EMIT ignored(this);
+
+        //TODO:add ignored animation
+    } else {
+        m_outTimer->start();
     }
 
     m_pressed = false;
 
     return DBlurEffectWidget::mouseReleaseEvent(event);
-}
-
-void Bubble::mouseMoveEvent(QMouseEvent *event)
-{
-    if (m_pressed && event->pos().y() < 10) {
-        Q_EMIT ignored(this);
-
-        //TODO:add ignored animation
-    }
-
-    return DBlurEffectWidget::mouseMoveEvent(event);
-}
-
-void Bubble::moveEvent(QMoveEvent *event)
-{
-    // don't show this bubble on unrelated screens while sliding in.
-    if (m_inAnimation->state() == QPropertyAnimation::Running) {
-        const bool visible = m_screenGeometry.contains(event->pos());
-//        setVisible(visible);
-    }
-
-    DBlurEffectWidget::moveEvent(event);
 }
 
 void Bubble::showEvent(QShowEvent *event)

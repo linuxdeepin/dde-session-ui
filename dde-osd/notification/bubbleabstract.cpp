@@ -47,7 +47,18 @@ static const QStringList HintsOrder {
 BubbleWidget_Bg::BubbleWidget_Bg(QWidget *parent)
     : DWidget(parent)
 {
+    installEventFilter(this);
+}
 
+bool BubbleWidget_Bg::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj) {
+        if (event->type() == QEvent::MouseMove
+                || event->type() == QEvent::Move) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void BubbleWidget_Bg::paintEvent(QPaintEvent *event)
