@@ -61,7 +61,6 @@ static int drawText(QPainter *painter, const QRectF &rect, int lineHeight, QText
 
     if (painter) {
         text_option.setTextDirection(painter->layoutDirection());
-        painter->setPen(QPen(Qt::black));
     }
 
     layout->beginLayout();
@@ -171,7 +170,6 @@ void AppBodyLabel::resizeEvent(QResizeEvent *e)
 
 void AppBodyLabel::paintEvent(QPaintEvent *event)
 {
-    qDebug() << this->width();
     if (m_text.isEmpty())
         return;
 
@@ -195,6 +193,8 @@ void AppBodyLabel::paintEvent(QPaintEvent *event)
 
     rect.setHeight(lineCount * lineHeight);
     rect = QStyle::alignedRect(layoutDirection(), m_alignment, rect.size(), this->rect());
+
+    pa.setPen(QPen(this->palette().color(QPalette::Text)));
 
     drawText(&pa, rect, lineHeight, &layout, Qt::ElideRight);
 }

@@ -32,10 +32,11 @@ AppBody::AppBody(QWidget *parent)
     m_bodyLbl = new AppBodyLabel;
 
     QPalette pe = m_titleLbl->palette();
-    pe.setColor(QPalette::WindowText, Qt::black);
+    pe.setColor(QPalette::Text, Qt::black);
+    m_bodyLbl->setPalette(pe);
+
+    pe.setColor(QPalette::Text, QColor("#414d68"));
     m_titleLbl->setPalette(pe);
-    m_bodyLbl->setPalette(pe);
-    m_bodyLbl->setPalette(pe);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
