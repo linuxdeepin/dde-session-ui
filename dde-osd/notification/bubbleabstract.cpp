@@ -137,16 +137,6 @@ void BubbleAbStract::updateContent()
 
     processIconData();
     processActions();
-
-    QStringList list = m_entity->actions();
-    if (list.contains("default")) {
-        const int index = list.indexOf("default");
-        m_defaultAction = list[index];
-        list.removeAt(index + 1);
-        list.removeAt(index);
-    }
-
-    m_canClose = list.isEmpty();
 }
 
 inline void copyLineRGB32(QRgb *dst, const char *src, int width)
@@ -256,6 +246,8 @@ void BubbleAbStract::processActions()
     }
 
     m_actionButton->addButtons(list);
+
+    m_canClose = list.isEmpty();
 }
 
 void BubbleAbStract::processIconData()

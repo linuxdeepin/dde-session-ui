@@ -30,8 +30,6 @@
 
 #include "define.h"
 
-#define PADDING (10)
-
 class Button;
 class MenuButton;
 class CloseButton;

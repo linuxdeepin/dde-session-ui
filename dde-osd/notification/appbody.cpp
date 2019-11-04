@@ -18,16 +18,20 @@
  */
 
 #include "appbody.h"
+#include "appbodylabel.h"
+#include "define.h"
+
 #include <QPainter>
+#include <QDebug>
 #include <QVBoxLayout>
 
 AppBody::AppBody(QWidget *parent)
     : QFrame(parent)
 {
-    m_titleLbl = new DLabel;
-    m_bodyLbl = new DLabel;
+    m_titleLbl = new AppBodyLabel;
+    m_bodyLbl = new AppBodyLabel;
 
-    QPalette pe;
+    QPalette pe = m_titleLbl->palette();
     pe.setColor(QPalette::WindowText, Qt::black);
     m_titleLbl->setPalette(pe);
     m_bodyLbl->setPalette(pe);

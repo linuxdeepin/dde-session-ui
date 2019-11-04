@@ -107,8 +107,8 @@ void Bubble::setPostion(const QPoint &point)
 
 void Bubble::setBasePosition(int x, int y, QRect rect)
 {
-    x -= Padding;
-    y += Padding;
+    x -= ScreenPadding;
+    y += ScreenPadding;
 
     m_bubblePos.setX((x - OSD::BubbleWidth(m_showStyle)) / 2);
     m_bubblePos.setY(y);
@@ -277,8 +277,8 @@ void Bubble::initUI()
     m_body->setObjectName("Body");
 
     QHBoxLayout *layout = new QHBoxLayout;
-    layout->setSpacing(10);
-    layout->setMargin(PADDING);
+    layout->setSpacing(BubbleSpacing);
+    layout->setMargin(BubblePadding);
     layout->addWidget(m_icon);
     layout->addWidget(m_body);
     layout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Expanding));
@@ -367,6 +367,8 @@ BubbleTemplate::BubbleTemplate()
     : DBlurEffectWidget(nullptr)
 {
     initUI();
+
+    this->installEventFilter(this);
 }
 
 void BubbleTemplate::initUI()
@@ -380,7 +382,17 @@ void BubbleTemplate::initUI()
     setBlurRectYRadius(radius);
 }
 
-void BubbleTemplate::mousePressEvent(QMouseEvent *event)
+bool BubbleTemplate::eventFilter(QObject *object, QEvent *event)
 {
-    Q_UNUSED(event);
+    if (object) {
+        if (event->type() == QEvent::Type::MouseButtonPress
+                || event->type() == QEvent::Type::MouseButtonRelease
+                || event->type() == QEvent::Type::MouseButtonDblClick
+                || event->type() == QEvent::Type::MouseMove
+                || event->type() == QEvent::Type::Move) {
+            return true;
+        }
+    }
+
+    return false;
 }

@@ -5,9 +5,11 @@
 #include <QStringList>
 #include <QStandardPaths>
 
-static const int Padding = 46;
-static const int BubbleMargin = 20;
-static const int BubbleTimeout = 5000;//msec
+static const int ScreenPadding = 46;    //最上方通知距屏幕上方间隔
+static const int BubbleMargin = 12;     //桌面消息通知间隔
+static const int BubblePadding = 10;    //消息通知内部Padding
+static const int BubbleSpacing = 10;    //消息通知内部Space
+static const int BubbleTimeout = 5000;  //通知默认超时时间(毫秒)
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
 
@@ -23,7 +25,7 @@ public:
     {
         QSize size;
         if (style == BUBBLEWINDOW) {
-            size = QSize(600, 80);
+            size = QSize(600, 60);
         } else if (style == BUBBLEWIDGET) {
             size = QSize(380, 90);
         }
@@ -44,7 +46,7 @@ public:
     {
         QSize size;
         if (style == BUBBLEWINDOW) {
-            size = QSize(70, 60);
+            size = QSize(70, 40);
         } else if (style == BUBBLEWIDGET) {
             size = QSize(60, 36);
         }
@@ -55,7 +57,7 @@ public:
     {
         QSize size;
         if (style == BUBBLEWINDOW) {
-            size = QSize(64, 64);
+            size = QSize(40, 40);
         } else if (style == BUBBLEWIDGET) {
             size = QSize(20, 20);
         }

@@ -163,15 +163,15 @@ void BubbleManager::pushBubble(std::shared_ptr<NotificationEntity> notify)
         TempList[0]->setFixedSize(QSize(b->size().width() / 20 * 18, b->size().height() / 20 * 18));
 
         QPoint p = QPoint(b->postion().x() + OSD::BubbleWidth(b->showStyle()) / 20,
-                          b->postion().y() + OSD::BubbleHeight(b->showStyle()) / 3);
+                          b->postion().y() + b->height() - OSD::BubbleHeight(b->showStyle()) * 2 / 3);
 
         TempList[0]->move(p);
         TempList[0]->setVisible(true);
 
         if (m_oldEntities.size() > 1) {
             TempList[1]->setFixedSize(QSize(TempList[0]->size().width() / 20 * 18, TempList[0]->size().height() / 20 * 18));
-            TempList[1]->move(QPoint(p.x() + TempList[0]->width() / 20,
-                                     p.y() + TempList[0]->height() / 3));
+            TempList[1]->move(QPoint(TempList[0]->x() + TempList[0]->width() / 20,
+                                     TempList[0]->y() + TempList[0]->height()  - TempList[1]->height() * 2 / 3));
             TempList[1]->setVisible(true);
             //先隐藏后显示，可重新确定其相对同级窗口的z序
             TempList[0]->setVisible(false);
@@ -414,6 +414,8 @@ void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newNam
 
 Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify)
 {
+    qDebug() << notify->body();
+
     Bubble *bubble = new Bubble(nullptr, notify);
     connect(bubble, &Bubble::expired, this, &BubbleManager::bubbleExpired);
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);

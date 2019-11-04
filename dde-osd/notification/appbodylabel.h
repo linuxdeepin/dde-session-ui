@@ -2,7 +2,6 @@
  * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     kirigaya <kirigaya@mkacg.com>
- *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -17,29 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef APPBODY_H
-#define APPBODY_H
+#ifndef APPBODYLABEL_H
+#define APPBODYLABEL_H
 
-#include <QWidget>
+#include <QFrame>
 #include <DLabel>
 
 DWIDGET_USE_NAMESPACE
 
-class AppBodyLabel;
-class AppBody : public QFrame
+class AppBodyLabel : public DLabel
 {
     Q_OBJECT
 public:
-    explicit AppBody(QWidget *parent = 0);
-    void setTitle(const QString &title);
+    explicit AppBodyLabel(QWidget *parent = nullptr);
     void setText(const QString &text);
+    QSize sizeHint() const override;
+    QSize minimumSizeHint() const override;
+    void setAlignment(Qt::Alignment alignment);
 
 private:
-    void updateAlignment();
+    const QString holdTextInRect(const QFontMetrics &fm, const QString &text, const QRect &rect) const;
+    void resizeEvent(QResizeEvent *e) override;
+    void paintEvent(QPaintEvent *event) override;
 
 private:
-    AppBodyLabel *m_titleLbl;
-    AppBodyLabel *m_bodyLbl;
+    void updateLineCount();
+
+    QString m_text;
+    int m_lineCount = 0;
+    Qt::Alignment m_alignment;
 };
 
-#endif // APPBODY_H
+#endif // APPBODYLABEL_H

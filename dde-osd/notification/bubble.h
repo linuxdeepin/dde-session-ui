@@ -93,8 +93,6 @@ protected:
 
     QTimer *m_outTimer = nullptr;
     QTimer *m_quitTimer = nullptr;
-    QString m_appName;
-    QString m_appTime;
 
     //---very private ,no get method
     QRect m_screenGeometry;
@@ -115,7 +113,7 @@ private:
     void initUI();
 
 protected:
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *object, QEvent *event) Q_DECL_OVERRIDE;
 };
 
 #endif // BUBBLE_H
