@@ -64,6 +64,17 @@ public:
         return size;
     }
 
+    static QSize IconButtonSize(ShowStyle style)
+    {
+        QSize size;
+        if (style == BUBBLEWINDOW) {
+            size = QSize(36, 36);
+        } else if (style == BUBBLEWIDGET) {
+            size = QSize(36, 36);
+        }
+        return size;
+    }
+
     static QSize IconSize(ShowStyle style)
     {
         QSize size;
