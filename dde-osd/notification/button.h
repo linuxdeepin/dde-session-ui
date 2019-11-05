@@ -65,7 +65,6 @@ private:
     Qt::Alignment m_align;
 
 private:
-    void drawBackground(QPainter *painter);
     void drawPixmap(QPainter *painter);
     void drawContent(QPainter *painter);
 

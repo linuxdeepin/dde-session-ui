@@ -82,21 +82,6 @@ QSize ButtonContent::minimumSizeHint() const
     return QSize(30, 25);
 }
 
-void ButtonContent::drawBackground(QPainter *painter)
-{
-    painter->save();
-
-    QColor brushColor(Qt::transparent);
-    painter->setBrush(brushColor);
-
-    QPen borderPen;
-    borderPen.setColor(Qt::transparent);
-    painter->setPen(borderPen);
-    painter->drawRect(QRectF(0, 0, width(), height()));
-
-    painter->restore();
-}
-
 void ButtonContent::drawPixmap(QPainter *painter)
 {
     painter->save();
@@ -139,7 +124,6 @@ void ButtonContent::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
-    drawBackground(&painter);
     drawPixmap(&painter);
     drawContent(&painter);
 

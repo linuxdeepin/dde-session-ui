@@ -27,7 +27,6 @@
 #include <QUrl>
 #include "appicon.h"
 
-
 AppIcon::AppIcon(QWidget *parent) :
     QLabel(parent)
 {
@@ -40,7 +39,7 @@ void AppIcon::setIcon(const QString &iconPath, const QString &fallback)
     const qreal pixelRatio = qApp->primaryScreen()->devicePixelRatio();
     QPixmap pixmap;
 
-    if (iconPath.startsWith("data:image/")){
+    if (iconPath.startsWith("data:image/")) {
         // iconPath is a string representing an inline image.
         QStringList strs = iconPath.split("base64,");
         if (strs.length() == 2) {
