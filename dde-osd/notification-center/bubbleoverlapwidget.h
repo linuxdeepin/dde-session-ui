@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2011 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     zorowk <near.kingzero@gmail.com>
  *
@@ -19,44 +19,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BUBBLEITEM_H
-#define BUBBLEITEM_H
+#ifndef BUBBLEOVERLAPWIDGET_H
+#define BUBBLEOVERLAPWIDGET_H
 
-#include "notification/bubbleabstract.h"
+#include "bubbleitem.h"
+#include <QPointer>
+#include <QFrame>
+#include <memory>
 
 class NotificationEntity;
-class QPropertyAnimation;
+class BubbleItem;
 class NotifyModel;
 
-class BubbleItem : public BubbleAbStract
+class BubbleOverlapWidget : public QFrame
 {
     Q_OBJECT
 public:
-    BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
+    BubbleOverlapWidget(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr,
+                        NotifyModel *model = nullptr);
     void setModel(NotifyModel *model);
 
-Q_SIGNALS:
-    void havorStateChanged(bool);
-
-public Q_SLOTS:
-    void onHavorStateChanged(bool hover);
-    void onCloseBubble();
-
-protected:
-    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+private:
+    void initOverlap();
 
 private:
-    void initUI();
-    void initContent();
-    void onRefreshTime();
-    void refreshTheme();
-
-private:
+    std::shared_ptr<NotificationEntity> m_notify;
     NotifyModel *m_notifyModel = nullptr;
-    QTimer *m_refreshTimer = nullptr;
-    QPropertyAnimation *m_closeAnimation = nullptr;
+    QPointer<BubbleItem> m_topBubble = nullptr;
+    QPointer<BubbleItem> m_firstOverlap = nullptr;
+    QPointer<BubbleItem> m_secondOverlap = nullptr;
 };
 
-#endif // BUBBLEITEM_H
+#endif // NOTIFYWIDGET_H

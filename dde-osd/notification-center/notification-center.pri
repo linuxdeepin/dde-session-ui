@@ -12,6 +12,7 @@ HEADERS += \
     $$PWD/appgroupmodel.h \
     $$PWD/appgroupdelegate.h \
     $$PWD/bubbledelegate.h \
+    $$PWD/bubbleoverlapwidget.h \
     $$PWD/expandanimation.h
 
 SOURCES += \
@@ -23,4 +24,5 @@ SOURCES += \
     $$PWD/appgroupmodel.cpp \
     $$PWD/appgroupdelegate.cpp \
     $$PWD/bubbledelegate.cpp \
+    $$PWD/bubbleoverlapwidget.cpp \
     $$PWD/expandanimation.cpp

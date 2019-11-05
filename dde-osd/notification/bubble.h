@@ -35,7 +35,6 @@ class QPropertyAnimation;
 class QParallelAnimationGroup;
 class NotificationEntity;
 class QGraphicsDropShadowEffect;
-class BubbleWidget_Bg;
 
 class Bubble : public BubbleAbStract
 {

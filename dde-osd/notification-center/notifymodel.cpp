@@ -114,6 +114,8 @@ void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
 
 void NotifyModel::expandData(std::shared_ptr<NotificationEntity> entity)
 {
+    if (m_notfications.isEmpty()) return;
+
     int index = m_displays.indexOf(entity);
     if (index == BubbleEntities - 1) {
         if (!m_notfications.isEmpty()) {
@@ -128,4 +130,14 @@ void NotifyModel::expandData(std::shared_ptr<NotificationEntity> entity)
 void NotifyModel::refreshContent()
 {
     dataChanged(index(0), index(m_displays.size() - 1));
+}
+
+bool NotifyModel::isShowOverlap() const
+{
+    int notify_count = m_displays.size() + m_notfications.size();
+    if (notify_count > BubbleEntities) {
+        return true;
+    }
+
+    return false;
 }

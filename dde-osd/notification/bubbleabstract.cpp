@@ -129,6 +129,7 @@ BubbleAbStract::BubbleAbStract(QWidget *parent, std::shared_ptr<NotificationEnti
     //controls
     m_appNameLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_appTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+    m_actionButton->clear();
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &BubbleAbStract::compositeChanged);
 }

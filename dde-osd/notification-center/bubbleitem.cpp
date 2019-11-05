@@ -19,23 +19,7 @@ BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> enti
     , m_refreshTimer(new QTimer)
 {
     initUI();
-
-    m_refreshTimer->setSingleShot(false);
-    m_refreshTimer->start();
-    connect(m_refreshTimer, &QTimer::timeout, this, &BubbleItem::onRefreshTime);
-    onRefreshTime();
-
-    updateContent();
-    connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
-
-    m_closeAnimation = new QPropertyAnimation(this, "opacity", this);
-    m_closeAnimation->setEasingCurve(QEasingCurve::OutCubic);
-    m_closeAnimation->setDuration(500);
-    m_closeAnimation->setStartValue(1);
-    m_closeAnimation->setEndValue(0);
-    connect(m_closeAnimation, &QPropertyAnimation::finished, this, [ = ]() {
-        if (m_notifyModel != nullptr) m_notifyModel->removeNotify(m_entity);
-    });
+    initContent();
 }
 
 void BubbleItem::initUI()
@@ -107,6 +91,28 @@ void BubbleItem::initUI()
     refreshTheme();
 }
 
+void BubbleItem::initContent()
+{
+    if (m_entity == nullptr) return;
+
+    m_refreshTimer->setSingleShot(false);
+    m_refreshTimer->start();
+    connect(m_refreshTimer, &QTimer::timeout, this, &BubbleItem::onRefreshTime);
+    onRefreshTime();
+
+    updateContent();
+    connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
+
+    m_closeAnimation = new QPropertyAnimation(this, "opacity", this);
+    m_closeAnimation->setEasingCurve(QEasingCurve::OutCubic);
+    m_closeAnimation->setDuration(500);
+    m_closeAnimation->setStartValue(1);
+    m_closeAnimation->setEndValue(0);
+    connect(m_closeAnimation, &QPropertyAnimation::finished, this, [ = ]() {
+        if (m_notifyModel != nullptr) m_notifyModel->removeNotify(m_entity);
+    });
+}
+
 void BubbleItem::onRefreshTime()
 {
     qint64 msec = QDateTime::currentMSecsSinceEpoch() - m_entity->ctime().toLongLong();
@@ -174,6 +180,12 @@ void BubbleItem::onHavorStateChanged(bool hover)
 void BubbleItem::onCloseBubble()
 {
     m_closeAnimation->start();
+}
+
+void BubbleItem::setModel(NotifyModel *model)
+{
+    Q_ASSERT(model);
+    m_notifyModel = model;
 }
 
 void BubbleItem::refreshTheme()

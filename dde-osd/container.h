@@ -37,7 +37,7 @@ class Container : public DBlurEffectWidget
 {
     Q_OBJECT
 public:
-    explicit Container(QWidget *parent = 0);
+    explicit Container(QWidget *parent = nullptr);
 
     void setContent(QWidget *content);
     void moveToCenter();

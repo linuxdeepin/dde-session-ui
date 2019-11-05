@@ -22,6 +22,7 @@
 #include "bubbledelegate.h"
 #include "notifymodel.h"
 #include "bubbleitem.h"
+#include "bubbleoverlapwidget.h"
 #include "notification/notificationentity.h"
 #include "notification/constants.h"
 
@@ -44,16 +45,24 @@ QWidget *BubbleDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         return nullptr;
     }
 
-    BubbleItem *bubble = new BubbleItem(parent, notify);
-    bubble->setModel(model);
-    return bubble;
+    if (model->isShowOverlap() && index.row() == BubbleEntities - 1) {
+        BubbleOverlapWidget *overlap_widget = new BubbleOverlapWidget(parent, notify, model);
+        return overlap_widget;
+    } else {
+        BubbleItem *bubble = new BubbleItem(parent, notify);
+        bubble->setModel(model);
+        return bubble;
+    }
 }
 
 QSize BubbleDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    Q_UNUSED(index);
     Q_UNUSED(option);
-    return OSD::BubbleSize(OSD::ShowStyle::BUBBLEWIDGET);
+
+    NotifyModel *model = const_cast<NotifyModel *>(dynamic_cast<const NotifyModel *>(index.model()));
+    QSize size = OSD::BubbleSize(OSD::ShowStyle::BUBBLEWIDGET);
+    if (model->isShowOverlap() && index.row() == BubbleEntities - 1) size.setHeight(size.height() + 20);
+    return size;
 }
 
 void BubbleDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
