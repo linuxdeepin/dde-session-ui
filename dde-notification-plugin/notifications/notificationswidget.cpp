@@ -54,8 +54,7 @@ void NotificationsWidget::paintEvent(QPaintEvent *e)
     QPainter painter(this);
     const auto ratio = devicePixelRatioF();
 
-    QPixmap pixmap = QIcon::fromTheme(iconName, QIcon::fromTheme(QString(":/icons/resources/icons/%1").arg(iconName))).pixmap(QSize(iconSize, iconSize) * ratio);
-    pixmap.setDevicePixelRatio(ratio);
+    QPixmap pixmap = loadSvg(iconName, ":/icons/resources/icons/", iconSize, ratio);
 
     const QRectF &rf = QRectF(rect());
     const QRectF &rfp = QRectF(pixmap.rect());
@@ -67,3 +66,27 @@ void NotificationsWidget::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
 }
+
+const QPixmap NotificationsWidget::loadSvg(const QString &iconName, const QString &localPath, const int size, const qreal ratio)
+{
+    QIcon icon = QIcon::fromTheme(iconName);
+    if (!icon.isNull()) {
+        QPixmap pixmap = icon.pixmap(int(size * ratio), int(size * ratio));
+        pixmap.setDevicePixelRatio(ratio);
+        return pixmap;
+    }
+
+    QPixmap pixmap(int(size * ratio), int(size * ratio));
+    QString localIcon = QString("%1%2%3").arg(localPath).arg(iconName).arg(iconName.contains(".svg") ? "" : ".svg");
+    QSvgRenderer renderer(localIcon);
+    pixmap.fill(Qt::transparent);
+
+    QPainter painter;
+    painter.begin(&pixmap);
+    renderer.render(&painter);
+    painter.end();
+    pixmap.setDevicePixelRatio(ratio);
+
+    return pixmap;
+}
+

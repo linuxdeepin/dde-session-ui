@@ -37,6 +37,7 @@ public:
 protected:
     void paintEvent(QPaintEvent *e) override;
     void resizeEvent(QResizeEvent *event) override;
+    const QPixmap loadSvg(const QString &iconName, const QString &localPath, const int size, const qreal ratio);
 };
 
 #endif // NOTIFICATIONSWIDGET_H
