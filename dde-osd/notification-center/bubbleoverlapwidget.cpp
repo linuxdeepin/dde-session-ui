@@ -40,8 +40,12 @@ void BubbleOverlapWidget::initOverlap()
     qreal scal_ratio = 1;
     int  point_extra = 12;
     QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWIDGET);
+    int index = 0;
     foreach (auto notify, m_notifications) {
         BubbleItem *bubble = new BubbleItem(this, notify);
+
+        //Set the middle layer alpha
+        if (index % 2 == 1) bubble->setAlpha(25);
 
         if (m_notifyModel != nullptr)
             bubble->setModel(m_notifyModel);
@@ -60,5 +64,6 @@ void BubbleOverlapWidget::initOverlap()
         }
 
         scal_ratio = (scal_ratio * 19) / 20;
+        index ++;
     }
 }

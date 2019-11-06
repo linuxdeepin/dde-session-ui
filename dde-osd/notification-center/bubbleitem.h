@@ -25,7 +25,6 @@
 #include "notification/bubbleabstract.h"
 
 class NotificationEntity;
-class QPropertyAnimation;
 class NotifyModel;
 
 class BubbleItem : public BubbleAbStract
@@ -35,6 +34,7 @@ public:
     BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
     void setModel(NotifyModel *model);
     void clearContent();
+    void setAlpha(int alpha);
 
 Q_SIGNALS:
     void havorStateChanged(bool);
@@ -57,7 +57,6 @@ private:
 private:
     NotifyModel *m_notifyModel = nullptr;
     QTimer *m_refreshTimer = nullptr;
-    QPropertyAnimation *m_closeAnimation = nullptr;
 };
 
 #endif // BUBBLEITEM_H

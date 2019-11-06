@@ -101,7 +101,7 @@ void BubbleWidget_Bg::leaveEvent(QEvent *event)
 }
 
 BubbleAbStract::BubbleAbStract(QWidget *parent, std::shared_ptr<NotificationEntity> entity)
-    :  DBlurEffectWidget(parent)
+    : DBlurEffectWidget(parent)
     , m_entity(entity)
     , m_bgWidget(new BubbleWidget_Bg(this))
     , m_titleWidget(new BubbleWidget_Bg(this))

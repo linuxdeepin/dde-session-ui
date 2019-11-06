@@ -55,12 +55,9 @@ void BubbleItem::initUI()
     m_closeButton->setRadius(99);
     m_closeButton->setText("X");
     m_closeButton->setVisible(false);
+    setAlpha(20);
     titleLayout->addWidget(m_closeButton);
-
     m_titleWidget->setLayout(titleLayout);
-    m_titleWidget->setHoverAlpha(0);
-    m_titleWidget->setUnHoverAlpha(0);
-
     mainLayout->addWidget(m_titleWidget);
     m_body->setStyle(OSD::BUBBLEWIDGET);
 
@@ -73,11 +70,6 @@ void BubbleItem::initUI()
     m_bodyWidget->setLayout(bodyLayout);
     mainLayout->addWidget(m_bodyWidget);
     m_bgWidget->setLayout(mainLayout);
-
-    m_titleWidget->setAlpha(20);
-    m_bodyWidget->setAlpha(0);
-    m_bgWidget->setHoverAlpha(80);
-    m_bgWidget->setUnHoverAlpha(60);
 
     QHBoxLayout *l = new QHBoxLayout;
     l->setSpacing(0);
@@ -102,15 +94,16 @@ void BubbleItem::initContent()
 
     updateContent();
     connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
+}
 
-    m_closeAnimation = new QPropertyAnimation(this, "opacity", this);
-    m_closeAnimation->setEasingCurve(QEasingCurve::OutCubic);
-    m_closeAnimation->setDuration(500);
-    m_closeAnimation->setStartValue(1);
-    m_closeAnimation->setEndValue(0);
-    connect(m_closeAnimation, &QPropertyAnimation::finished, this, [ = ]() {
-        if (m_notifyModel != nullptr) m_notifyModel->removeNotify(m_entity);
-    });
+void BubbleItem::setAlpha(int alpha)
+{
+    m_titleWidget->setAlpha(alpha);
+    m_titleWidget->setHoverAlpha(0);
+    m_titleWidget->setUnHoverAlpha(0);
+    m_bodyWidget->setAlpha(0);
+    m_bgWidget->setHoverAlpha(alpha * 4);
+    m_bgWidget->setUnHoverAlpha(alpha * 3);
 }
 
 void BubbleItem::onRefreshTime()
@@ -179,7 +172,8 @@ void BubbleItem::onHavorStateChanged(bool hover)
 
 void BubbleItem::onCloseBubble()
 {
-    m_closeAnimation->start();
+    if (m_notifyModel != nullptr)
+        m_notifyModel->removeNotify(m_entity);
 }
 
 void BubbleItem::setModel(NotifyModel *model)

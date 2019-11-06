@@ -99,19 +99,20 @@ void NotifyCenterWidget::initUI()
 void NotifyCenterWidget::initAnimations()
 {
     m_inAnimation = new QPropertyAnimation(this, "pos", this);
-    m_inAnimation->setDuration(300);
+    m_inAnimation->setDuration(500);
     m_inAnimation->setEasingCurve(QEasingCurve::OutCirc);
 
     m_outAnimation = new QPropertyAnimation(this, "pos", this);
-    m_outAnimation->setDuration(300);
+    m_outAnimation->setDuration(500);
     m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
-    connect(m_outAnimation, &QPropertyAnimation::finished, this, &NotifyCenterWidget::hide);
 }
 
 void NotifyCenterWidget::updateGeometry()
 {
     QDesktopWidget *desktop = QApplication::desktop();
     QRect rect = desktop->screenGeometry();
+    m_screenGeometry = rect;
+
     int dock_size =  m_dockSizeInter->property("WindowSize").toInt();
 
     int height = rect.height() - Notify::CenterMargin * 2 - dock_size;
@@ -121,7 +122,7 @@ void NotifyCenterWidget::updateGeometry()
 
     if (m_inAnimation->state() != QPropertyAnimation::Running) {
         m_inAnimation->setStartValue(QPoint(rect.width(), y));
-        m_inAnimation->setStartValue(QPoint(x, y));
+        m_inAnimation->setEndValue(QPoint(x, y));
     }
 
     if (m_outAnimation->state() != QPropertyAnimation::Running) {
@@ -129,7 +130,7 @@ void NotifyCenterWidget::updateGeometry()
         m_outAnimation->setEndValue(QPoint(rect.width(), y));
     }
 
-    setGeometry(x, y, width, height);
+    setGeometry(rect.width(), y, width, height);
 }
 
 void NotifyCenterWidget::showEvent(QShowEvent *event)
@@ -139,11 +140,6 @@ void NotifyCenterWidget::showEvent(QShowEvent *event)
     DBlurEffectWidget::showEvent(event);
 }
 
-void NotifyCenterWidget::hideEvent(QHideEvent *event)
-{
-    m_outAnimation->stop();
-    DBlurEffectWidget::hideEvent(event);
-}
 
 void NotifyCenterWidget::refreshTheme()
 {
@@ -154,4 +150,16 @@ void NotifyCenterWidget::refreshTheme()
     QFont font;
     font.setBold(true);
     title_label->setFont(DFontSizeManager::instance()->t4(font));
+}
+
+void NotifyCenterWidget::showWidget()
+{
+    if (!isVisible()) {
+        show();
+    } else {
+        if (m_screenGeometry.contains(pos()))
+            m_outAnimation->start();
+        else
+            m_inAnimation->start();
+    }
 }

@@ -50,6 +50,7 @@ void ExpandAnimation::addData(const QList<std::shared_ptr<NotificationEntity>> &
     int index = 0;
     foreach (auto entity, notifications) {
         BubbleItem *bubble = new BubbleItem(this, entity);
+        bubble->lower();
         bubble->show();
         m_bubbleList.push_front(bubble);
 

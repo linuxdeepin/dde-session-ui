@@ -41,13 +41,13 @@ class NotifyCenterWidget : public DBlurEffectWidget
     Q_OBJECT
 public:
     explicit NotifyCenterWidget(Persistence *database = nullptr);
+    void showWidget();
 
 Q_SIGNALS:
     void notify();
 
 protected:
     void showEvent(QShowEvent *event) override;
-    void hideEvent(QHideEvent *event) override;
 
 private:
     void initUI();
@@ -60,6 +60,7 @@ private:
     NotifyWidget *m_notifyWidget;
     QDBusInterface *m_dockSizeInter;
     DLabel *title_label = nullptr;
+    QRect m_screenGeometry;
 
     QPropertyAnimation *m_inAnimation = nullptr;
     QPropertyAnimation *m_outAnimation = nullptr;

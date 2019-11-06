@@ -276,7 +276,7 @@ void BubbleManager::ClearRecords()
 
 void BubbleManager::Toggle()
 {
-    m_notifyCenter->setVisible(!m_notifyCenter->isVisible());
+    m_notifyCenter->showWidget();
 }
 
 uint BubbleManager::recordCount()
