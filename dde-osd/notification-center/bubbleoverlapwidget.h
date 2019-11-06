@@ -23,31 +23,26 @@
 #define BUBBLEOVERLAPWIDGET_H
 
 #include "bubbleitem.h"
-#include <QPointer>
 #include <QFrame>
 #include <memory>
 
 class NotificationEntity;
-class BubbleItem;
 class NotifyModel;
 
 class BubbleOverlapWidget : public QFrame
 {
     Q_OBJECT
 public:
-    BubbleOverlapWidget(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr,
-                        NotifyModel *model = nullptr);
+    BubbleOverlapWidget(const QList<std::shared_ptr<NotificationEntity>> &entitys,
+                        QWidget *parent = nullptr, NotifyModel *model = nullptr);
     void setModel(NotifyModel *model);
 
 private:
     void initOverlap();
 
 private:
-    std::shared_ptr<NotificationEntity> m_notify;
+    QList<std::shared_ptr<NotificationEntity>> m_notifications;
     NotifyModel *m_notifyModel = nullptr;
-    QPointer<BubbleItem> m_topBubble = nullptr;
-    QPointer<BubbleItem> m_firstOverlap = nullptr;
-    QPointer<BubbleItem> m_secondOverlap = nullptr;
 };
 
 #endif // NOTIFYWIDGET_H

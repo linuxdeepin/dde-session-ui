@@ -34,6 +34,7 @@ class BubbleItem : public BubbleAbStract
 public:
     BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
     void setModel(NotifyModel *model);
+    void clearContent();
 
 Q_SIGNALS:
     void havorStateChanged(bool);

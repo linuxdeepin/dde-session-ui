@@ -188,6 +188,13 @@ void BubbleItem::setModel(NotifyModel *model)
     m_notifyModel = model;
 }
 
+void BubbleItem::clearContent()
+{
+    m_body->setTitle("");
+    m_body->setText("");
+    m_appNameLabel->setText("");
+}
+
 void BubbleItem::refreshTheme()
 {
     QPalette pa = m_appNameLabel->palette();

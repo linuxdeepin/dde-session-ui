@@ -22,12 +22,13 @@
 #include "bubbleoverlapwidget.h"
 #include "notification/notificationentity.h"
 #include "notification/constants.h"
+#include <QPointer>
 
 
-BubbleOverlapWidget::BubbleOverlapWidget(QWidget *parent, std::shared_ptr<NotificationEntity> entity,
-                                         NotifyModel *model)
+BubbleOverlapWidget::BubbleOverlapWidget(const QList<std::shared_ptr<NotificationEntity>> &entitys,
+                                         QWidget *parent, NotifyModel *model)
     : QFrame(parent)
-    , m_notify(entity)
+    , m_notifications(entitys)
     , m_notifyModel(model)
 {
     setAttribute(Qt::WA_TranslucentBackground);
@@ -36,23 +37,28 @@ BubbleOverlapWidget::BubbleOverlapWidget(QWidget *parent, std::shared_ptr<Notifi
 
 void BubbleOverlapWidget::initOverlap()
 {
-    if (m_notify == nullptr) return;
+    qreal scal_ratio = 1;
+    int  point_extra = 12;
+    QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWIDGET);
+    foreach (auto notify, m_notifications) {
+        BubbleItem *bubble = new BubbleItem(this, notify);
 
-    m_topBubble = new BubbleItem(this, m_notify);
-    m_topBubble->setModel(m_notifyModel);
-    m_firstOverlap = new BubbleItem(this);
-    m_secondOverlap = new BubbleItem(this);
+        if (m_notifyModel != nullptr)
+            bubble->setModel(m_notifyModel);
 
-    m_firstOverlap->setFixedSize(QSize(m_topBubble->width() / 20 * 18, m_topBubble->height() / 20 * 18));
+        QSize size = QSize(bubble->width() * scal_ratio, bubble->height() * scal_ratio);
+        bubble->setFixedSize(size);
+        int tb_margin = (standard_size.height() - bubble->height()) / 2;
+        int lr_margin = (standard_size.width() - bubble->width()) / 2;
+        if (lr_margin != 0 && tb_margin != 0) {
+            QPoint point(lr_margin, 2 * tb_margin  + point_extra);
+            bubble->clearContent();
+            bubble->move(point);
+            bubble->lower();
 
-    QPoint p = QPoint(x() + OSD::BubbleWidth(OSD::BUBBLEWIDGET) / 20,
-                      y() + m_topBubble->height() - OSD::BubbleHeight(OSD::BUBBLEWIDGET) * 2 / 3);
+            point_extra = point_extra + 10;
+        }
 
-    m_firstOverlap->move(p);
-    m_firstOverlap->lower();
-
-    m_secondOverlap->setFixedSize(QSize(m_firstOverlap->width() / 20 * 18, m_firstOverlap->height() / 20 * 18));
-    m_secondOverlap->move(QPoint(m_firstOverlap->x() + m_firstOverlap->width() / 20,
-                                 m_firstOverlap->y() + m_firstOverlap->height()  - m_secondOverlap->height() * 2 / 3));
-    m_secondOverlap->lower();
+        scal_ratio = (scal_ratio * 19) / 20;
+    }
 }

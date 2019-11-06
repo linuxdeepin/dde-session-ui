@@ -55,6 +55,7 @@ public:
     void refreshContent();
     bool isShowOverlap() const;
     QList<std::shared_ptr<NotificationEntity>> allNotifys() { return m_displays; }
+    QList<std::shared_ptr<NotificationEntity>> overlapNotifys();
 
 signals:
     void expandNotify();

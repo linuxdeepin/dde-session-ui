@@ -135,9 +135,26 @@ void NotifyModel::refreshContent()
 bool NotifyModel::isShowOverlap() const
 {
     int notify_count = m_displays.size() + m_notfications.size();
-    if (notify_count > BubbleEntities) {
+    if (notify_count > BubbleEntities && !m_notfications.isEmpty()) {
         return true;
     }
 
     return false;
+}
+
+QList<std::shared_ptr<NotificationEntity>> NotifyModel::overlapNotifys()
+{
+    QList<std::shared_ptr<NotificationEntity>> notifys;
+    if (isShowOverlap()) {
+        notifys.push_front(m_displays.last());
+
+        int index = 0;
+        while (index < BubbleEntities - 1) {
+            if (index < m_notfications.size())
+                notifys.push_back(m_notfications.at(index));
+
+            index ++;
+        }
+    }
+    return notifys;
 }
