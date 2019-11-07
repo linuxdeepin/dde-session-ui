@@ -99,7 +99,8 @@ void ButtonContent::drawContent(QPainter *painter)
     QTextOption option;
     option.setAlignment(textAlignment());
     QPen pen;
-    pen.setColor(Qt::black);
+
+    pen.setColor(palette().color(QPalette::BrightText));
     painter->setPen(pen);
     painter->drawText(geometry(), text(), option);
 
@@ -123,7 +124,6 @@ void ButtonContent::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
     drawPixmap(&painter);
     drawContent(&painter);
@@ -159,7 +159,7 @@ void ButtonMenu::paintEvent(QPaintEvent *event)
     Q_UNUSED(event);
 
     QPainter painter(this);
-    painter.setRenderHints(QPainter::Antialiasing | QPainter::HighQualityAntialiasing);
+    painter.setRenderHint(QPainter::Antialiasing);
     QStyleOption opt;
     opt.init(this);
 
@@ -169,7 +169,7 @@ void ButtonMenu::paintEvent(QPaintEvent *event)
     opt.rect.setHeight(MenuHeight);
 
     QPen pen;
-    painter.setPen(QPen(Qt::black, 1.2));
+    painter.setPen(QPen(palette().color(QPalette::BrightText), 1.2));
 
     QPointF p0(opt.rect.topLeft());
     QPointF p1(opt.rect.topLeft().x() + opt.rect.width() / 2 * 1.0, opt.rect.bottomRight().y());
@@ -297,7 +297,6 @@ void Button::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
     drawBackground(&painter);
 
