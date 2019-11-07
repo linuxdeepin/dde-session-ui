@@ -127,6 +127,8 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void hideMenu();
+
+private Q_SLOTS:
     void onMenuClicked();
 
 private:

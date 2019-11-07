@@ -22,8 +22,8 @@
 
 #include <QDBusArgument>
 
-class IconData {
-
+class IconData
+{
 public:
     friend QDebug operator<<(QDebug arg, const IconData &data);
     friend QDBusArgument &operator<<(QDBusArgument &arg, const IconData &data);

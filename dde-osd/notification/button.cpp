@@ -35,8 +35,9 @@
 #include <QStyleOption>
 #include <QVBoxLayout>
 
-static int MenuPadding = 2;
-static int MenuWidth = 15;
+static int MenuPadding = 4;
+static int MenuWidth = 14;
+static int MenuHeight = 7;
 
 ButtonContent::ButtonContent(QWidget *parent)
     : DWidget(parent)
@@ -138,12 +139,12 @@ ButtonMenu::ButtonMenu(QWidget *parent)
 
 QSize ButtonMenu::sizeHint() const
 {
-    return QSize(10, 5);
+    return QSize(MenuWidth + 2 * MenuPadding, MenuHeight + 2 * MenuPadding);
 }
 
 QSize ButtonMenu::minimumSizeHint() const
 {
-    return QSize(10, 5);
+    return QSize(MenuWidth + 2 * MenuPadding, MenuHeight + 2 * MenuPadding);
 }
 
 void ButtonMenu::mousePressEvent(QMouseEvent *event)
@@ -158,15 +159,25 @@ void ButtonMenu::paintEvent(QPaintEvent *event)
     Q_UNUSED(event);
 
     QPainter painter(this);
-
+    painter.setRenderHints(QPainter::Antialiasing | QPainter::HighQualityAntialiasing);
     QStyleOption opt;
     opt.init(this);
-    opt.rect.setX(MenuPadding);
-    opt.rect.setY((height() - MenuWidth) / 2 + MenuPadding);
-    opt.rect.setWidth(MenuWidth - MenuPadding * 2);
-    opt.rect.setHeight(MenuWidth - MenuPadding * 2);
 
-    style()->drawPrimitive(QStyle::PE_IndicatorArrowDown, &opt, &painter, this);
+    opt.rect.setX(MenuPadding);
+    opt.rect.setY((height() - MenuHeight) / 2);
+    opt.rect.setWidth(MenuWidth);
+    opt.rect.setHeight(MenuHeight);
+
+    QPen pen;
+    painter.setPen(QPen(Qt::black, 1.2));
+
+    QPointF p0(opt.rect.topLeft());
+    QPointF p1(opt.rect.topLeft().x() + opt.rect.width() / 2 * 1.0, opt.rect.bottomRight().y());
+    QPointF p2(opt.rect.topRight());
+
+    painter.drawLine(p0, p1);
+    painter.drawLine(p1, p2);
+//    style()->drawPrimitive(QStyle::PE_IndicatorArrowDown, &opt, &painter, this);
 }
 
 Button::Button(QWidget *parent)
@@ -177,7 +188,7 @@ Button::Button(QWidget *parent)
     , m_radius(0)
     , m_hover(false)
 {
-    m_menuArea->setFixedWidth(MIN(15, width() / 3));
+    m_menuArea->setFixedWidth(MIN(MenuWidth + 2 * MenuPadding, width() / 3));
     m_menuArea->hide();
 
     QHBoxLayout *layout = new QHBoxLayout;
@@ -257,15 +268,12 @@ void Button::hideMenu()
 
 void Button::onMenuClicked()
 {
-    QWidget *w = qobject_cast<QWidget *>(m_menu->parent());
-    if (w) {
-        //unable to determine QMenu's size before it is displayed.
-        m_menu->show();
-        QPoint p;
-        p.setX(w->geometry().x() + w->geometry().width() - m_menu->width());
-        p.setY(w->geometry().y() + w->geometry().height());
-        m_menu->exec(mapToGlobal(p));
-    }
+    //unable to determine QMenu's size before it is displayed.
+    m_menu->show();
+    QPoint p;
+    p.setX(geometry().x() - m_menu->width());
+    p.setY(geometry().y() + geometry().height());
+    m_menu->exec(mapToGlobal(p));
 }
 
 void Button::drawBackground(QPainter *painter)

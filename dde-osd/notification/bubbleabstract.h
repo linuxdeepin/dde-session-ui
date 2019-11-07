@@ -38,7 +38,6 @@ class AppIcon;
 class AppBody;
 class Button;
 class ActionButton;
-
 class BubbleWidget_Bg : public DWidget
 {
 public:
