@@ -83,6 +83,20 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
 
     m_entity = entity;
 
+#ifdef QT_DEBUG
+    //模拟通知消息带菜单的情况
+    QStringList actions;
+    actions << "default";
+    actions << "default";
+    actions << "查看";
+    actions << "查看";
+    actions << "删除";
+    actions << "删除";
+    actions << "取消";
+    actions << "取消";
+    entity->setActions(actions);
+#endif
+
     m_outTimer->stop();
 
     updateContent();
@@ -152,11 +166,11 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
     if (m_pressed && m_clickPos == event->pos()) {
         if (!m_defaultAction.isEmpty()) {
             Q_EMIT actionInvoked(this, m_defaultAction);
+            qDebug() << "actionId:" << m_defaultAction;
             m_defaultAction.clear();
-        } else {
-            // FIX ME:采用动画的方式退出并隐藏，不会丢失窗体‘焦点’，造成控件不响应鼠标进入和离开事件
-            m_dismissAnimation->start();
         }
+        // FIX ME:采用动画的方式退出并隐藏，不会丢失窗体‘焦点’，造成控件不响应鼠标进入和离开事件
+        m_dismissAnimation->start();
     } else if (m_pressed && event->pos().y() < 10) {
         Q_EMIT ignored(this);
 
@@ -199,6 +213,7 @@ void Bubble::hideEvent(QHideEvent *event)
 
 void Bubble::onActionButtonClicked(const QString &actionId)
 {
+    qDebug() << "actionId:" << actionId;
     QMap<QString, QVariant> hints = m_entity->hints();
     QMap<QString, QVariant>::const_iterator i = hints.constBegin();
     while (i != hints.constEnd()) {
