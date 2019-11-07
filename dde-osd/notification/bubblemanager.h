@@ -155,8 +155,6 @@ private:
     QRect m_dockGeometry;
     DockPosition m_dockPosition;
     NotifyCenterWidget *m_notifyCenter;
-
-    QList<BubbleTemplate *> TempList;
     quint32 m_messageCount = 0;
 };
 

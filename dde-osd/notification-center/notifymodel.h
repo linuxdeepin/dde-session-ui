@@ -59,6 +59,7 @@ public:
 
 signals:
     void expandNotify();
+    void deleteNotify();
     void layoutGroup();
 
 public:

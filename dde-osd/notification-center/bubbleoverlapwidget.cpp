@@ -39,8 +39,9 @@ void BubbleOverlapWidget::initOverlap()
 {
     qreal scal_ratio = 1;
     int  point_extra = 12;
-    QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWIDGET);
     int index = 0;
+    QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWIDGET);
+
     foreach (auto notify, m_notifications) {
         BubbleItem *bubble = new BubbleItem(this, notify);
 
@@ -50,7 +51,7 @@ void BubbleOverlapWidget::initOverlap()
         if (m_notifyModel != nullptr)
             bubble->setModel(m_notifyModel);
 
-        QSize size = QSize(bubble->width() * scal_ratio, bubble->height() * scal_ratio);
+        QSize size = standard_size * scal_ratio;
         bubble->setFixedSize(size);
         int tb_margin = (standard_size.height() - bubble->height()) / 2;
         int lr_margin = (standard_size.width() - bubble->width()) / 2;

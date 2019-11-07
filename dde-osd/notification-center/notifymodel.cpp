@@ -109,6 +109,7 @@ void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
         m_database->removeOne(QString::number(entity->id()));
     }
 
+    deleteNotify();
     layoutGroup();
 }
 

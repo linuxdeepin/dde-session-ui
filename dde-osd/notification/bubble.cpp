@@ -367,7 +367,7 @@ void Bubble::onDelayQuit()
 void Bubble::startMoveAnimation(const QPoint &point)
 {
     if (isVisible() && m_outAnimation->state() != QPropertyAnimation::Running) {
-        m_bubblePos = QPoint(x(), point.y());
+        m_bubblePos = point;
         m_moveAnimation->setStartValue(QPoint(x(), y()));
         m_moveAnimation->setEndValue(m_bubblePos);
         m_moveAnimation->start();
