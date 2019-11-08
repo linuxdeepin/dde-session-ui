@@ -31,7 +31,7 @@
 #include <QApplication>
 #include <QGuiApplication>
 #include "bubble.h"
-#include "dbusdock_interface.h"
+#include "constants.h"
 #include <com_deepin_dde_daemon_dock.h>
 
 using DockDaemonInter =  com::deepin::dde::daemon::Dock;
@@ -71,13 +71,6 @@ public:
         Unknown = 4
     };
 
-    enum DockPosition {
-        Top = 0,
-        Right = 1,
-        Bottom = 2,
-        Left = 3
-    };
-
     enum AnimationPath {
         Down = 0,
         Up = 1
@@ -109,8 +102,8 @@ public Q_SLOTS:
     uint recordCount();
 
 private Q_SLOTS:
-    void onDockRectChanged(const QRect &geometry);
     void onDockPositionChanged(int position);
+    void onDockSizeChanged(uint size);
     void onDbusNameOwnerChanged(QString, QString, QString);
     void onPrepareForSleep(bool);
 
@@ -146,14 +139,13 @@ private:
     DBusControlCenter *m_dbusControlCenter;
     DBusDaemonInterface *m_dbusDaemonInterface;
     Login1ManagerInterface *m_login1ManagerInterface;
-    DBusDockInterface *m_dbusdockinterface;
     DockDaemonInter *m_dockDeamonInter;
 
     QList<std::shared_ptr<NotificationEntity>> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;
 
-    QRect m_dockGeometry;
-    DockPosition m_dockPosition;
+    OSD::DockPosition m_dockPosition;
+    uint m_dockSize;
     NotifyCenterWidget *m_notifyCenter;
     quint32 m_messageCount = 0;
 };

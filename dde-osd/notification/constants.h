@@ -32,6 +32,13 @@ public:
         BUBBLEWIDGET
     } ShowStyle;
 
+    enum DockPosition {
+        Top = 0,
+        Right = 1,
+        Bottom = 2,
+        Left = 3
+    };
+
     static QSize BubbleSize(ShowStyle style)
     {
         QSize size;

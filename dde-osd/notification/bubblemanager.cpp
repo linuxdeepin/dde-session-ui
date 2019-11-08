@@ -52,14 +52,13 @@ static QString removeHTML(const QString &source)
 
 BubbleManager::BubbleManager(QObject *parent)
     : QObject(parent)
+    , m_persistence(new Persistence)
+    , m_notifyCenter(new NotifyCenterWidget(m_persistence))
 {
-    m_persistence = new Persistence;
-    m_dockPosition = DockPosition::Bottom;
+    m_dockPosition = OSD::DockPosition::Bottom;
 
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
                                                     QDBusConnection::sessionBus(), this);
-    m_dbusdockinterface = new DBusDockInterface(DBbsDockDBusServer, DBusDockDBusPath,
-                                                QDBusConnection::sessionBus(), this);
     m_dockDeamonInter = new DockDaemonInter(DockDaemonDBusServie, DockDaemonDBusPath,
                                             QDBusConnection::sessionBus(), this);
     m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
@@ -69,18 +68,16 @@ BubbleManager::BubbleManager(QObject *parent)
             this, SLOT(onPrepareForSleep(bool)));
     connect(m_dbusDaemonInterface, SIGNAL(NameOwnerChanged(QString, QString, QString)),
             this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
-    connect(m_dbusdockinterface, &DBusDockInterface::geometryChanged, this, &BubbleManager::onDockRectChanged);
     connect(m_dockDeamonInter, &DockDaemonInter::PositionChanged, this, &BubbleManager::onDockPositionChanged);
+    connect(m_dockDeamonInter, &DockDaemonInter::WindowSizeChanged, this, &BubbleManager::onDockSizeChanged);
 
     // get correct value for m_dockGeometry, m_dockPosition, m_ccGeometry
-    if (m_dbusdockinterface->isValid())
-        onDockRectChanged(m_dbusdockinterface->geometry());
-    if (m_dockDeamonInter->isValid())
+    if (m_dockDeamonInter->isValid()) {
         onDockPositionChanged(m_dockDeamonInter->position());
+        onDockSizeChanged(m_dockDeamonInter->windowSize());
+    }
 
-    m_notifyCenter = new NotifyCenterWidget(m_persistence);
     m_notifyCenter->hide();
-
     registerAsService();
 }
 
@@ -342,17 +339,6 @@ int BubbleManager::getX()
     if (!pair.second)
         return  maxX;
 
-    const bool isDockDbusValid = m_dbusdockinterface->isValid();
-
-    // DBus object is invalid, return screen right
-    if (!isDockDbusValid)
-        return maxX;
-
-    // if dock dbus is valid and dock position is right
-    if (isDockDbusValid && m_dockPosition == DockPosition::Right) {
-        return maxX - m_dockGeometry.width();
-    }
-
     return maxX;
 }
 
@@ -363,12 +349,6 @@ int BubbleManager::getY()
 
     if (!pair.second)
         return  rect.y();
-
-    if (!m_dbusdockinterface->isValid())
-        return rect.y();
-
-    if (m_dockPosition == DockPosition::Top)
-        return m_dockGeometry.bottom();
 
     return rect.y();
 }
@@ -384,23 +364,21 @@ QPair<QRect, bool> BubbleManager::screensInfo(const QPoint &point) const
     return QPair<QRect, bool>(rect, (pointScreen == primaryScreen));
 }
 
-void BubbleManager::onDockRectChanged(const QRect &geometry)
-{
-    m_dockGeometry = geometry;
-
-    //m_bubble->setBasePosition(getX(), getY());
-}
-
 void BubbleManager::onDockPositionChanged(int position)
 {
-    m_dockPosition = static_cast<DockPosition>(position);
+    m_dockPosition = static_cast<OSD::DockPosition>(position);
+    m_notifyCenter->updateGeometry(m_dockPosition, m_dockSize);
+}
+
+void BubbleManager::onDockSizeChanged(uint size)
+{
+    m_dockSize = size;
+    m_notifyCenter->updateGeometry(m_dockPosition, size);
 }
 
 void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newName)
 {
-    if (name == DBbsDockDBusServer && !newName.isEmpty()) {
-        onDockRectChanged(m_dbusdockinterface->geometry());
-    } else if (name == DockDaemonDBusServie && !newName.isEmpty()) {
+    if (name == DockDaemonDBusServie && !newName.isEmpty()) {
         onDockPositionChanged(m_dockDeamonInter->position());
     }
 }

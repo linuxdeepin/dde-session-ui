@@ -43,9 +43,6 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
 {
     initUI();
     initAnimations();
-
-    m_dockSizeInter =  new QDBusInterface("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock",
-                                          "com.deepin.dde.daemon.Dock", QDBusConnection::sessionBus(), this);
 }
 
 void NotifyCenterWidget::initUI()
@@ -107,35 +104,50 @@ void NotifyCenterWidget::initAnimations()
     m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
 }
 
-void NotifyCenterWidget::updateGeometry()
+void NotifyCenterWidget::updateGeometry(OSD::DockPosition pos, int dock_size)
 {
     QDesktopWidget *desktop = QApplication::desktop();
     QRect rect = desktop->screenGeometry();
     m_screenGeometry = rect;
 
-    int dock_size =  m_dockSizeInter->property("WindowSize").toInt();
-
-    int height = rect.height() - Notify::CenterMargin * 2 - dock_size;
     int width = Notify::CenterWidth;
+    int height = rect.height() - Notify::CenterMargin * 2;
+    if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom)
+        height = rect.height() - Notify::CenterMargin * 2 - dock_size;
+
     int x = rect.width() - (Notify::CenterWidth + Notify::CenterMargin);
+    if (pos == OSD::DockPosition::Right)
+        x = Notify::CenterMargin;
+
     int y = rect.y() + Notify::CenterMargin;
+    if (pos == OSD::DockPosition::Top)
+        y = rect.y() + Notify::CenterMargin + dock_size;
 
     if (m_inAnimation->state() != QPropertyAnimation::Running) {
-        m_inAnimation->setStartValue(QPoint(rect.width(), y));
-        m_inAnimation->setEndValue(QPoint(x, y));
+        if (pos == OSD::DockPosition::Right) {
+            m_inAnimation->setStartValue(QPoint(-Notify::CenterWidth, y));
+            m_inAnimation->setEndValue(QPoint(x, y));
+        } else {
+            m_inAnimation->setStartValue(QPoint(rect.width(), y));
+            m_inAnimation->setEndValue(QPoint(x, y));
+        }
     }
 
     if (m_outAnimation->state() != QPropertyAnimation::Running) {
-        m_outAnimation->setStartValue(QPoint(x, y));
-        m_outAnimation->setEndValue(QPoint(rect.width(), y));
+        if (pos == OSD::DockPosition::Right) {
+            m_outAnimation->setStartValue(QPoint(x, y));
+            m_outAnimation->setEndValue(QPoint(-Notify::CenterWidth, y));
+        } else {
+            m_outAnimation->setStartValue(QPoint(x, y));
+            m_outAnimation->setEndValue(QPoint(rect.width(), y));
+        }
     }
 
-    setGeometry(rect.width(), y, width, height);
+    setGeometry(x, y, width, height);
 }
 
 void NotifyCenterWidget::showEvent(QShowEvent *event)
 {
-    updateGeometry();
     m_inAnimation->start();
     DBlurEffectWidget::showEvent(event);
 }

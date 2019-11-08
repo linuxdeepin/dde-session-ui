@@ -29,11 +29,11 @@
 #include "notifywidget.h"
 #include <DBlurEffectWidget>
 #include <DLabel>
+#include "notification/constants.h"
 
 DWIDGET_USE_NAMESPACE
 
 class Persistence;
-class QDBusInterface;
 class QPropertyAnimation;
 
 class NotifyCenterWidget : public DBlurEffectWidget
@@ -42,6 +42,7 @@ class NotifyCenterWidget : public DBlurEffectWidget
 public:
     explicit NotifyCenterWidget(Persistence *database = nullptr);
     void showWidget();
+    void updateGeometry(OSD::DockPosition pos, int dock_size);
 
 Q_SIGNALS:
     void notify();
@@ -52,13 +53,11 @@ protected:
 private:
     void initUI();
     void initAnimations();
-    void updateGeometry();
     void refreshTheme();
 
 private:
     QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
-    QDBusInterface *m_dockSizeInter;
     DLabel *title_label = nullptr;
     QRect m_screenGeometry;
 
