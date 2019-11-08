@@ -269,8 +269,6 @@ void Bubble::initUI()
 
     DStyleHelper dstyle(style());
     int radius = dstyle.pixelMetric(DStyle::PM_TopLevelWindowRadius);
-    setBlurRectXRadius(radius);
-    setBlurRectYRadius(radius);
     m_handle->setShadowRadius(radius);
 
     setFixedSize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
