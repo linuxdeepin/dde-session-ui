@@ -4,70 +4,83 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="25"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>لغو</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="26"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>تایید</translation>
     </message>
 </context>
 <context>
     <name>ContentWidget</name>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="325"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="351"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="375"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="506"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="367"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="391"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Shut down</source>
         <translation>خاموش شدن</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="353"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="380"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="509"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="332"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="369"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Reboot</source>
         <translation>راه اندازی مجدد</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="376"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>آیا از خاموشی مطمئن هستید ؟</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="381"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>آیا از  راه اندازی مجدد مطمئن هستید ؟</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="385"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="521"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
         <source>Log out</source>
         <translation>خارج شدن از حساب کاربری</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="386"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>آیا از خارج شدن مطمئن هستید ؟</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="512"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Suspend</source>
         <translation>معلق کردن</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="515"/>
-        <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
+        <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
+        <translation>این برنامه‌ها مانع از خاموش شدن کامپیوتر و هایبرنت شدن  می‌شوند و مجبور کردن به هایبرنت یا خاموش کردن ممکن است باعث از دست رفتن داده‌ها شود .</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="518"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <source>To close the program, Click Cancel, and then close the program.</source>
+        <translation>برای بستن برنامه ، روی لغو کلیک کرده و سپس برنامه را ببندید.</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
+        <source>Hibernate</source>
+        <translation>هایبرنت</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
         <source>Lock</source>
         <translation>قفل کردن</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="525"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="546"/>
         <source>Switch user</source>
         <translation>تغییر حساب کاربری</translation>
     </message>
@@ -83,17 +96,17 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation type="unfinished"/>
+        <translation>انتشار</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation type="unfinished"/>
+        <translation>این برنامه به پایان خواهد رسید , لطفا ً مطمئن شوید که داده‌هایتان ذخیره شده‌است !</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation type="unfinished"/>
+        <translation>لطفاً سند ، متن و صفحه گسترده خود را ذخیره کنید</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -103,37 +116,37 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation type="unfinished"/>
+        <translation>حافظه سیستم ناکافی است، لطفا ً به برخی برنامه‌ها پایان دهید تا از گیر  کردن جلوگیری کنید .</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>برای  اجرای %1 ادامه دهید ،   %2MB حافظه لازم است</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>برای ادامه ی باز کردن تب مرورگر  %1MB حافظه نیاز است</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>برای ادامه انجام عملیات به %1MB حافظه نیاز است </translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation type="unfinished"/>
+        <translation>حافظه فعلی شما به اندازه کافی است،  آیا می خواهید تا %1 اجرا شود؟</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation type="unfinished"/>
+        <translation>حافظه فعلی شما به اندازه کافی است،  آیا می خواهید تب مرورگر باز شود؟</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation type="unfinished"/>
+        <translation>حافظه فعلی شما به اندازه کافی است،  آیا می خواهید  ادامه عملیات اجرا شود؟</translation>
     </message>
 </context>
 <context>
@@ -154,33 +167,33 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>حساب دامنه</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>تایید اثر انگشت منقضی شد , لطفا ً گذرواژه خود را دستی وارد کنید</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>تطابق اثر انگشت ناموفق بود.</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
         <source>Wrong Password</source>
-        <translation type="unfinished"/>
+        <translation>پسوورد اشتباه</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>حساب دامنه یا رمز عبور صحیح نیست. لطفا دوباره وارد کنید</translation>
     </message>
 </context>
 <context>
     <name>InhibitWarnView</name>
     <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="35"/>
+        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="66"/>
         <source>Cancel</source>
         <translation>انصراف</translation>
     </message>
@@ -190,7 +203,7 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
-        <translation type="unfinished"/>
+        <translation>اضافه کردن طرح بندی صفحه کلید</translation>
     </message>
 </context>
 <context>
@@ -198,17 +211,17 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="91"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>حساب دامنه</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="214"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>تایید اثر انگشت منقضی شد , لطفا ً گذرواژه خود را دستی وارد کنید</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="232"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>تطابق اثر انگشت ناموفق بود.</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="267"/>
@@ -226,12 +239,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>کاربران بالا هنوز  داخل  سیستم هستند و داده‌ها به دلیل راه اندازی مجدد از دست خواهند رفت , آیا مطمئنید که می‌خواهید سیستم راه اندازی مجدد شود ؟</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>کاربران بالا هنوز  داخل  سیستم هستند و داده‌ها به دلیل خاموش شدن از دست خواهند رفت , آیا مطمئنید که می‌خواهید سیستم خاموش شود ؟</translation>
     </message>
 </context>
 <context>
@@ -253,7 +266,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>کلید</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -263,17 +276,17 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>رمز عبور پروکسی</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>پسورد گروه</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation> برای اتصال  نیاز به رمز عبور دارید &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -291,12 +304,12 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>جلوه های پنجره فعال شد</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>جلوه های پنجره غیرفعال شد</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
@@ -342,7 +355,7 @@
         <location filename="../widgets/shutdownwidget.cpp" line="32"/>
         <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>هایبرنت</translation>
     </message>
 </context>
 <context>
@@ -350,13 +363,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>مانیتور خارجی شناسایی شد ، تعلیق شود؟</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="55"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
@@ -374,7 +387,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation type="unfinished"/>
+        <translation>آغاز پایش سیستم</translation>
     </message>
 </context>
 <context>
@@ -395,17 +408,17 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>خوش آمدید ، سیستم با موفقیت به روز شد</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>نسخه جاری</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>وارد شدن</translation>
     </message>
 </context>
 <context>
@@ -418,17 +431,17 @@
     <message numerus="yes">
         <location filename="../session-widgets/userinputwidget.cpp" line="255"/>
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>لطفاً٪ n دقیقه بعد دوباره امتحان کنید</numerusform><numerusform>لطفاً٪ n دقیقه بعد دوباره امتحان کنید</numerusform></translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="287"/>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation>پسورد خود را برای خاموش کردن  وارد کنید</translation>
     </message>
     <message>
         <location filename="../session-widgets/userinputwidget.cpp" line="313"/>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation>پسورد خود را برای راه اندازی مجدد وارد کنید</translation>
     </message>
 </context>
 <context>
@@ -436,27 +449,27 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation type="unfinished"/>
+        <translation>حالت افکت</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation type="unfinished"/>
+        <translation>حالت معمولی</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation type="unfinished"/>
+        <translation>مشخص شده‌است که شما از یک ماشین مجازی استفاده می‌کنید که بر عملکرد سیستم و تجربه عملیات تاثیر می‌گذارد , برای یک تجربه روان , حالت عادی توصیه می‌شود .</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation type="unfinished"/>
+        <translation>حالت افکت: یک تجربه ظریف داشته باشید. حالت عادی: از عملکرد سریع لذت ببرید</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>یادآور دوستانه</translation>
     </message>
 </context>
 <context>
@@ -464,12 +477,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>یادآور مهربان</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>این برنامه بدون افکت پنجره قابل اجرا نیست</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
@@ -482,7 +495,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation type="unfinished"/>
+        <translation>باتری شما کم است ، دستگاه را برق وصل کنید</translation>
     </message>
 </context>
 </TS>
