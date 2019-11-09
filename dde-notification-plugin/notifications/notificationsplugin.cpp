@@ -66,7 +66,7 @@ const QString NotificationsPlugin::pluginName() const
 
 const QString NotificationsPlugin::pluginDisplayName() const
 {
-    return tr("Notifications");
+    return tr("Notification Center");
 }
 
 QWidget *NotificationsPlugin::itemWidget(const QString &itemKey)
@@ -89,7 +89,7 @@ QWidget *NotificationsPlugin::itemTipsWidget(const QString &itemKey)
     if (recordCount)
         m_tipsLabel->setText(QString(tr("%1 Notifications")).arg(recordCount));
     else
-        m_tipsLabel->setText(tr("Notifications"));
+        m_tipsLabel->setText(tr("Notification Center"));
 
     return m_tipsLabel;
 }

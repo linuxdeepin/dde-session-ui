@@ -4,28 +4,23 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="125"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
         <source>Just Now</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="129"/>
-        <source> Minute Ago</source>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
+        <source>%1 minutes ago</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="132"/>
-        <source> Hour Ago</source>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
+        <source>%1 hours ago</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="136"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
         <source>Yesterday </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="139"/>
-        <source> Day Ago</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -380,7 +375,7 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
-        <source>Notifications</source>
+        <source>Notification Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -392,7 +387,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="68"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
         <source>Notification Center</source>
         <translation type="unfinished"></translation>
     </message>
