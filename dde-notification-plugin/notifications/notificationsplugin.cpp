@@ -26,8 +26,10 @@
 #include <QSettings>
 
 #include <DGuiApplicationHelper>
+#include <DApplication>
 
 DGUI_USE_NAMESPACE
+DWIDGET_USE_NAMESPACE
 
 #define PLUGIN_STATE_KEY    "enable"
 
@@ -96,6 +98,9 @@ QWidget *NotificationsPlugin::itemTipsWidget(const QString &itemKey)
 
 void NotificationsPlugin::init(PluginProxyInterface *proxyInter)
 {
+    qApp->setApplicationName("dde-session-ui");
+    qApp->loadTranslator();
+
     m_proxyInter = proxyInter;
 
     if (!pluginIsDisable()) {

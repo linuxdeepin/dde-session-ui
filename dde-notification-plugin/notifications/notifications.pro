@@ -23,8 +23,5 @@ DISTFILES       += notifications.json
 RESOURCES += \
     resources.qrc
 
-translations.path = /usr/share/dde-session-ui/translations/
-translations.files = translations/*.qm
-
 target.path = /usr/lib/dde-dock/plugins/system-trays/
-INSTALLS += target translations
+INSTALLS += target
