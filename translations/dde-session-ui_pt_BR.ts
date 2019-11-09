@@ -1,15 +1,48 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="pt_BR" sourcelanguage="en" version="2.1">
 <context>
+    <name>BubbleItem</name>
+    <message>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
+        <source>Just Now</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
+        <source>%1 minutes ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
+        <source>%1 hours ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
+        <source>Yesterday </source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="25"/>
+        <location filename="../dde-license-dialog/content.cpp" line="33"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="26"/>
+        <location filename="../dde-license-dialog/content.cpp" line="34"/>
         <source>Confirm</source>
         <translation>Confirmar</translation>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="151"/>
+        <source>View in English</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="154"/>
+        <source>View in Chinese</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -150,6 +183,29 @@
     </message>
 </context>
 <context>
+    <name>Dialog</name>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
+        <source>Updates downloaded, restart to update?</source>
+        <translation>Atualizações baixadas, reiniciar para atualizar?</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
+        <source>Remind Later</source>
+        <translation>Lembrar mais tarde</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
+        <source>Not Now</source>
+        <translation>Agora não</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
+        <source>Update Now</source>
+        <translation>Atualizar agora</translation>
+    </message>
+</context>
+<context>
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
@@ -160,6 +216,19 @@
         <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
         <source>Extend</source>
         <translation>Estender</translation>
+    </message>
+</context>
+<context>
+    <name>Frame</name>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
+        <source>Please don&apos;t power off or unplug your machine</source>
+        <translation>Por favor não desligue ou desconecte o computador</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
+        <source>Installing updates %1%, please wait...</source>
+        <translation>Instalando atualizações %1%, por favor aguarde...</translation>
     </message>
 </context>
 <context>
@@ -209,22 +278,22 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../dde-lock/lockworker.cpp" line="91"/>
+        <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
         <translation>Conta do domínio</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockworker.cpp" line="214"/>
+        <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>A verificação da impressão digital expirou, por favor digite sua senha manualmente</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockworker.cpp" line="232"/>
+        <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
         <translation>Falha por digital não identificada</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockworker.cpp" line="267"/>
+        <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
         <translation>Senha Incorreta</translation>
     </message>
@@ -300,6 +369,36 @@
     </message>
 </context>
 <context>
+    <name>NotificationsPlugin</name>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
+        <source>Notification Center</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
+        <source>%1 Notifications</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>NotifyCenterWidget</name>
+    <message>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
+        <source>Notification Center</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>NotifyWidget</name>
+    <message>
+        <location filename="../dde-osd/notification-center/notifywidget.cpp" line="39"/>
+        <source>No system notifications</source>
+        <translation>Nenhuma Notificação</translation>
+    </message>
+</context>
+<context>
     <name>OSDProvider</name>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
@@ -328,34 +427,24 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
-        <translation>Desligar</translation>
+        <translation type="vanished">Desligar</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="305"/>
         <source>Login</source>
-        <translation>Login</translation>
+        <translation type="vanished">Login</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
-        <translation>Reiniciar</translation>
+        <translation type="vanished">Reiniciar</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="105"/>
         <source>Suspend</source>
-        <translation>Suspender</translation>
+        <translation type="vanished">Suspender</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="32"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
-        <translation>Hibernar</translation>
+        <translation type="vanished">Hibernar</translation>
     </message>
 </context>
 <context>
@@ -424,24 +513,20 @@
 <context>
     <name>UserInputWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="13"/>
         <source>Login</source>
-        <translation>Entrar</translation>
+        <translation type="vanished">Entrar</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="255"/>
         <source>Please try again %n minute(s) later</source>
-        <translation><numerusform>Repetir em %n minuto</numerusform><numerusform>Tente novamente em %n minuto(s)</numerusform></translation>
+        <translation type="vanished"><numerusform>Repetir em %n minuto</numerusform><numerusform>Tente novamente em %n minuto(s)</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="287"/>
         <source>Enter your password to shut down</source>
-        <translation>Digite a senha para desligar</translation>
+        <translation type="vanished">Digite a senha para desligar</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="313"/>
         <source>Enter your password to reboot</source>
-        <translation>Digite a senha para reiniciar</translation>
+        <translation type="vanished">Digite a senha para reiniciar</translation>
     </message>
 </context>
 <context>

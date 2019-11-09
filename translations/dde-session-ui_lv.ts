@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sw" sourcelanguage="en" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="lv" sourcelanguage="en" version="2.1">
 <context>
     <name>BubbleItem</name>
     <message>
@@ -53,7 +53,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="391"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Shut down</source>
-        <translation>Zima</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="332"/>
@@ -61,35 +61,35 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Reboot</source>
-        <translation>Washa upya</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation>Ni kweli unataka kuzima?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation>Ni kweli unataka kuwasha upya?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
         <source>Log out</source>
-        <translation>Aga</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
-        <translation>Ni kweli unataka kuaga?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Suspend</source>
-        <translation>Ahirisha</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
@@ -105,17 +105,17 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Hibernate</source>
-        <translation>Sinzia fofofo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
         <source>Lock</source>
-        <translation>Funga skrini</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="546"/>
         <source>Switch user</source>
-        <translation>Badili mtumiaji</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -124,12 +124,12 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
         <source>Cancel</source>
-        <translation>Katisha</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation>Toleo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
@@ -144,7 +144,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
         <source>Continue</source>
-        <translation>Endelea</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
@@ -210,12 +210,12 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
         <source>Duplicate</source>
-        <translation>Nakili</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
         <source>Extend</source>
-        <translation>Tanda</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -264,7 +264,7 @@
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="66"/>
         <source>Cancel</source>
-        <translation>Katisha</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -272,7 +272,7 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
-        <translation>Ongeza mpangilio ya kibodi</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -285,17 +285,17 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Kuthbitisha alama ya kidole imengoja zaidi, tafadhali tumia nywila</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
-        <translation>Alama ya kidole hailingana</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
-        <translation>Nywila si Sahihi</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -303,7 +303,7 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
         <source>Cancel</source>
-        <translation>Katisha</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
@@ -323,19 +323,19 @@
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
         <source>Password</source>
-        <translation>Nywila</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
         <source>Key</source>
-        <translation>Funguo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation>funguo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -345,27 +345,27 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation>Nywila ya anwani</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation>Nywila ya kikundi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation>Nywila inahaji kuanganisha &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Cancel</source>
-        <translation>Katisha</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Connect</source>
-        <translation>Muungana</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -395,7 +395,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifywidget.cpp" line="39"/>
         <source>No system notifications</source>
-        <translation>Taarifa wa mfumo</translation>
+        <translation>Nav sistēmas paziņojumu</translation>
     </message>
 </context>
 <context>
@@ -421,30 +421,30 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation>Maliza</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ShutdownWidget</name>
     <message>
         <source>Shut down</source>
-        <translation type="vanished">Zima</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Login</source>
-        <translation type="vanished">Fungua</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reboot</source>
-        <translation type="vanished">Washa upya</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Suspend</source>
-        <translation type="vanished">Ahirisha</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Hibernate</source>
-        <translation type="vanished">Sinzia fofofo</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -452,23 +452,23 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <source>External monitor detected, suspend?</source>
-        <translation>Skrini ya nje imepatikana, ahirisha?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="55"/>
         <source>%1s</source>
-        <translation>nukta %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Cancel</source>
-        <translation>Katisha</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
         <source>Suspend</source>
-        <translation>Ahirisha</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -476,7 +476,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>Anza kichunguzi ya mfumo</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -484,12 +484,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="69"/>
         <source>hh:mm</source>
-        <translation>ss:dd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>mmmm-MM-ss</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -497,7 +497,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Karibu, mfumo imesasishiwa sahihi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
@@ -507,26 +507,26 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation>Ingia</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>UserInputWidget</name>
     <message>
         <source>Login</source>
-        <translation type="vanished">Fungua</translation>
+        <translation type="unfinished"/>
     </message>
     <message numerus="yes">
         <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>Tafadhali jaribu badaa ya dakika %n</numerusform><numerusform>Tafadhali jaribu badaa ya dakika %n</numerusform></translation>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <source>Enter your password to shut down</source>
-        <translation type="vanished">Piga chapa nywila kuzima</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter your password to reboot</source>
-        <translation type="vanished">Piga chapa nywila kuwasha mpya</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -534,12 +534,12 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>Hali ya maridadi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>Hali ya kawaida</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
@@ -554,7 +554,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>Kikumbusho bashasha</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -562,7 +562,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>Kikumbusho njema</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
@@ -572,7 +572,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation>Sawa</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -580,7 +580,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Kiwango cha betri iko ndogo, tafadhali tumia umeme</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

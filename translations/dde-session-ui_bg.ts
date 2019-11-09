@@ -1,15 +1,48 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="bg" sourcelanguage="en" version="2.1">
 <context>
+    <name>BubbleItem</name>
+    <message>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
+        <source>Just Now</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
+        <source>%1 minutes ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
+        <source>%1 hours ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
+        <source>Yesterday </source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="25"/>
+        <location filename="../dde-license-dialog/content.cpp" line="33"/>
         <source>Cancel</source>
         <translation>Отказ</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="26"/>
+        <location filename="../dde-license-dialog/content.cpp" line="34"/>
         <source>Confirm</source>
         <translation>Потвърждение</translation>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="151"/>
+        <source>View in English</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="154"/>
+        <source>View in Chinese</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -150,6 +183,29 @@
     </message>
 </context>
 <context>
+    <name>Dialog</name>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
+        <source>Updates downloaded, restart to update?</source>
+        <translation>Обновяванията са свалени, рестарт за обновяване?</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
+        <source>Remind Later</source>
+        <translation>Напомни по-късно</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
+        <source>Not Now</source>
+        <translation>Не сега</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
+        <source>Update Now</source>
+        <translation>Актуализирайте сега</translation>
+    </message>
+</context>
+<context>
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
@@ -160,6 +216,19 @@
         <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
         <source>Extend</source>
         <translation>Разпростиране</translation>
+    </message>
+</context>
+<context>
+    <name>Frame</name>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
+        <source>Please don&apos;t power off or unplug your machine</source>
+        <translation>Моля не изключвайте нашето устройство</translation>
+    </message>
+    <message>
+        <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
+        <source>Installing updates %1%, please wait...</source>
+        <translation>Инсталиране на обновяване %1%, моля изчакайте...</translation>
     </message>
 </context>
 <context>
@@ -209,22 +278,22 @@
 <context>
     <name>LockWorker</name>
     <message>
-        <location filename="../dde-lock/lockworker.cpp" line="91"/>
+        <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
         <translation>Домейн акаунт</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockworker.cpp" line="214"/>
+        <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
         <translation>Времето за проверка на пръстовия отпечатък изтече, Моля, въведете Вашата парола ръчно</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockworker.cpp" line="232"/>
+        <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
         <translation>Грешка при съвпадение на пръстов отпечатък</translation>
     </message>
     <message>
-        <location filename="../dde-lock/lockworker.cpp" line="267"/>
+        <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
         <translation>Грешна парола</translation>
     </message>
@@ -300,6 +369,36 @@
     </message>
 </context>
 <context>
+    <name>NotificationsPlugin</name>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
+        <source>Notification Center</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
+        <source>%1 Notifications</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>NotifyCenterWidget</name>
+    <message>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
+        <source>Notification Center</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>NotifyWidget</name>
+    <message>
+        <location filename="../dde-osd/notification-center/notifywidget.cpp" line="39"/>
+        <source>No system notifications</source>
+        <translation>Няма системни съобщения</translation>
+    </message>
+</context>
+<context>
     <name>OSDProvider</name>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
@@ -328,34 +427,24 @@
 <context>
     <name>ShutdownWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="288"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="29"/>
         <source>Shut down</source>
-        <translation>Изключване</translation>
+        <translation type="vanished">Изключване</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="305"/>
         <source>Login</source>
-        <translation>Влизане</translation>
+        <translation type="vanished">Влизане</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="314"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="30"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="99"/>
         <source>Reboot</source>
-        <translation>Рестартиране</translation>
+        <translation type="vanished">Рестартиране</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="31"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="105"/>
         <source>Suspend</source>
-        <translation>Приспиване</translation>
+        <translation type="vanished">Приспиване</translation>
     </message>
     <message>
-        <location filename="../widgets/shutdownwidget.cpp" line="32"/>
-        <location filename="../widgets/shutdownwidget.cpp" line="111"/>
         <source>Hibernate</source>
-        <translation>Хибернация</translation>
+        <translation type="vanished">Хибернация</translation>
     </message>
 </context>
 <context>
@@ -424,24 +513,20 @@
 <context>
     <name>UserInputWidget</name>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="13"/>
         <source>Login</source>
-        <translation>Влизане</translation>
+        <translation type="vanished">Влизане</translation>
     </message>
     <message numerus="yes">
-        <location filename="../session-widgets/userinputwidget.cpp" line="255"/>
         <source>Please try again %n minute(s) later</source>
-        <translation><numerusform>Моля опитайте след %n минутa()</numerusform><numerusform>Моля опитайте след %n минути()</numerusform></translation>
+        <translation type="vanished"><numerusform>Моля опитайте след %n минутa()</numerusform><numerusform>Моля опитайте след %n минути()</numerusform></translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="287"/>
         <source>Enter your password to shut down</source>
-        <translation>Въведете Вашата парола, за да изключите</translation>
+        <translation type="vanished">Въведете Вашата парола, за да изключите</translation>
     </message>
     <message>
-        <location filename="../session-widgets/userinputwidget.cpp" line="313"/>
         <source>Enter your password to reboot</source>
-        <translation>Въведете Вашата парола, за да рестартирате</translation>
+        <translation type="vanished">Въведете Вашата парола, за да рестартирате</translation>
     </message>
 </context>
 <context>
