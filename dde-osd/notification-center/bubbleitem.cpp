@@ -124,17 +124,19 @@ void BubbleItem::onRefreshTime()
             m_refreshTimer->setInterval(1000 * 3);
         } else if (minute > 0 && minute < 60) {
             m_refreshTimer->setInterval(1000 * 59);
-            text = QString::number(minute) + tr(" Minute Ago");
+            text = tr("%1 minutes ago").arg(minute);
         } else {
             m_refreshTimer->setInterval(1000 * 60 * 59);
-            text = QString::number(minute / 60) + tr(" Hour Ago");
+            text = tr("%1 hours ago").arg(minute / 60);
         }
     } else if (elapsedDay == 1) {
         m_refreshTimer->setInterval(1000 * 59);
         text = tr("Yesterday ") + bubbleDateTime.toString("hh:mm");
-    } else {
+    } else if (elapsedDay >= 1 && elapsedDay < 7) {
         m_refreshTimer->setInterval(1000 * 60 * 60 * 24);
-        text = QString::number(elapsedDay) + tr(" Day Ago");
+        text = bubbleDateTime.toString("dddd hh:mm");
+    } else {
+        text = bubbleDateTime.toString("yyyy/MM/dd");
     }
 
     m_appTimeLabel->setText(text);
