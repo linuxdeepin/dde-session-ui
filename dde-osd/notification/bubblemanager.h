@@ -126,13 +126,16 @@ private:
     // or return false.
     QPair<QRect, bool> screensInfo(const QPoint &point) const;
 
-    Bubble *createBubble(std::shared_ptr<NotificationEntity> notify);
+    Bubble *createBubble(std::shared_ptr<NotificationEntity> notify, int index = 0);
     void pushBubble(std::shared_ptr<NotificationEntity> notify);
     void popBubble(Bubble *);
     void refreshBubble();
 
     void pushAnimation(Bubble *bubble);
     void popAnimation(Bubble *bubble);
+
+    QRect GetBubbleGeometry(int index/*0-4*/);
+    void PrepareAnimation(Bubble *bubble, int index/*0-4*/, const QRect &endRect);
 
 private:
     Persistence *m_persistence;
@@ -147,6 +150,7 @@ private:
     OSD::DockPosition m_dockPosition;
     uint m_dockSize;
     NotifyCenterWidget *m_notifyCenter;
+
     quint32 m_messageCount = 0;
 };
 

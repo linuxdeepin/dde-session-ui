@@ -300,7 +300,7 @@ bool BubbleAbStract::containsMouse() const
 
 void BubbleAbStract::enterEvent(QEvent *event)
 {
-    if (m_canClose) {
+    if (m_canClose && m_enabled) {
         m_closeButton->setVisible(true);
     }
 

@@ -94,7 +94,8 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "删除";
     actions << "取消";
     actions << "取消";
-    entity->setActions(actions);
+//    entity->setActions(actions);
+    entity->setTimeout("0");
 #endif
 
     m_outTimer->stop();
@@ -103,11 +104,6 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
 
     show();
 
-    if (m_offScreen) {
-        m_offScreen = false;
-        m_inAnimation->start();
-    }
-
     int timeout = entity->timeout().toInt();
     //  0: never times out
     // -1: default 5s
@@ -115,54 +111,64 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     m_outTimer->start();
 }
 
-void Bubble::setPostion(const QPoint &point)
+void Bubble::setEnabled(bool enable)
 {
-    m_bubblePos = point;
-    move(m_bubblePos);
+    m_enabled = enable;
+
+    if (!enable) {
+        m_actionButton->hide();
+        m_closeButton->hide();
+        m_icon->hide();
+        m_body->hide();
+    } else {
+        m_actionButton->show();
+//        m_closeButton->setVisible(m_canClose);
+        m_icon->show();
+        m_body->show();
+    }
 }
 
-void Bubble::setBasePosition(int x, int y, QRect rect)
+void Bubble::StartMoveIn(int x, int y)
 {
-    x -= ScreenPadding;
-    y += ScreenPadding;
-
-    m_bubblePos.setX((x - OSD::BubbleWidth(m_showStyle)) / 2);
-    m_bubblePos.setY(y);
-
-    if (m_inAnimation->state() == QPropertyAnimation::Running) {
-        const int baseX = x - OSD::BubbleWidth(m_showStyle);
-
-        m_inAnimation->setStartValue(QPoint(baseX / 2, y - OSD::BubbleHeight(m_showStyle)));
-        m_inAnimation->setEndValue(QPoint(baseX / 2, y));
+    if (m_moveAnimation->state() != QPropertyAnimation::Running) {
+        m_moveAnimation->setStartValue(QRect((x - OSD::BubbleWidth(m_showStyle)) / 2, 0,
+                                             OSD::BubbleWidth(OSD::BUBBLEWINDOW),
+                                             OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
+        m_moveAnimation->setEndValue(QRect((x - OSD::BubbleWidth(m_showStyle)) / 2,
+                                           y,
+                                           OSD::BubbleWidth(OSD::BUBBLEWINDOW),
+                                           OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
+        m_moveAnimation->start();
     }
+}
 
-    if (m_outAnimation->state() != QPropertyAnimation::Running) {
-        m_outAnimation->setStartValue(1);
-        m_outAnimation->setEndValue(0);
+void Bubble::StartMoveIn(const QRect &startRect, const QRect &endRect)
+{
+    if (m_moveAnimation->state() != QPropertyAnimation::Running) {
+        m_moveAnimation->setStartValue(startRect);
+        m_moveAnimation->setEndValue(endRect);
+        m_moveAnimation->start();
     }
-
-    if (m_dismissAnimation->state() != QPropertyAnimation::Running) {
-        m_dismissAnimation->setStartValue(1);
-        m_dismissAnimation->setEndValue(0);
-    }
-
-    if (!rect.isEmpty())
-        m_screenGeometry = rect;
 }
 
 void Bubble::mousePressEvent(QMouseEvent *event)
 {
+    if (!m_enabled)
+        return;
+
     if (event->button() == Qt::LeftButton) {
         m_clickPos = event->pos();
         m_pressed = true;
     }
 
-    m_offScreen = true;
     m_outTimer->stop();
 }
 
 void Bubble::mouseReleaseEvent(QMouseEvent *event)
 {
+    if (!m_enabled)
+        return;
+
     if (m_pressed && m_clickPos == event->pos()) {
         if (!m_defaultAction.isEmpty()) {
             Q_EMIT actionInvoked(this, m_defaultAction);
@@ -173,8 +179,7 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
         m_dismissAnimation->start();
     } else if (m_pressed && event->pos().y() < 10) {
         Q_EMIT ignored(this);
-
-        //TODO:add ignored animation
+        m_dismissAnimation->start();
     } else {
         m_outTimer->start();
     }
@@ -239,7 +244,6 @@ void Bubble::onOutTimerTimeout()
         m_outTimer->stop();
         m_outTimer->start();
     } else {
-        m_offScreen = true;
         m_outAnimation->start();
     }
 }
@@ -328,21 +332,25 @@ void Bubble::initConnections()
 
 void Bubble::initAnimations()
 {
-    m_inAnimation = new QPropertyAnimation(this, "pos", this);
-    m_inAnimation->setDuration(300);
-    m_inAnimation->setEasingCurve(QEasingCurve::OutCubic);
-
     m_outAnimation = new QPropertyAnimation(this, "windowOpacity", this);
     m_outAnimation->setDuration(500);
     m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
+    if (m_outAnimation->state() != QPropertyAnimation::Running) {
+        m_outAnimation->setStartValue(1);
+        m_outAnimation->setEndValue(0);
+    }
     connect(m_outAnimation, &QPropertyAnimation::finished, this, &Bubble::onOutAnimFinished);
 
     m_dismissAnimation = new QPropertyAnimation(this, "windowOpacity", this);
     m_dismissAnimation->setDuration(300);
     m_dismissAnimation->setEasingCurve(QEasingCurve::OutCubic);
+    if (m_dismissAnimation->state() != QPropertyAnimation::Running) {
+        m_dismissAnimation->setStartValue(1);
+        m_dismissAnimation->setEndValue(0);
+    }
     connect(m_dismissAnimation, &QPropertyAnimation::finished, this, &Bubble::onDismissAnimFinished);
 
-    m_moveAnimation = new QPropertyAnimation(this, "pos", this);
+    m_moveAnimation = new QPropertyAnimation(this, "geometry", this);
     m_moveAnimation->setEasingCurve(QEasingCurve::OutCubic);
 }
 
@@ -362,12 +370,11 @@ void Bubble::onDelayQuit()
     }
 }
 
-void Bubble::startMoveAnimation(const QPoint &point)
+void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect)
 {
-    if (isVisible() && m_outAnimation->state() != QPropertyAnimation::Running) {
-        m_bubblePos = point;
-        m_moveAnimation->setStartValue(QPoint(x(), y()));
-        m_moveAnimation->setEndValue(m_bubblePos);
+    if (m_moveAnimation->state() != QPropertyAnimation::Running) {
+        m_moveAnimation->setStartValue(startRect);
+        m_moveAnimation->setEndValue(endRect);
         m_moveAnimation->start();
     }
 }

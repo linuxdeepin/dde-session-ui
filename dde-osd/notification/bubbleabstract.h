@@ -98,6 +98,7 @@ protected:
 
     QString m_defaultAction;
     bool m_canClose = false;
+    bool m_enabled = true;
 
 protected:
     virtual void enterEvent(QEvent *event) Q_DECL_OVERRIDE;

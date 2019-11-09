@@ -43,12 +43,13 @@ public:
            OSD::ShowStyle style = OSD::ShowStyle::BUBBLEWINDOW);
 
     std::shared_ptr<NotificationEntity> entity() const;
-    void setBasePosition(int, int, QRect = QRect());
+    void StartMoveIn(int x, int y);
+    void StartMoveIn(const QRect &startRect, const QRect &endRect);
     void setEntity(std::shared_ptr<NotificationEntity> entity);
 
-    QPoint postion() { return m_bubblePos; }
-    void setPostion(const QPoint &point);
     OSD::ShowStyle showStyle() {return m_showStyle;}
+
+    void setEnabled(bool enable);
 
 Q_SIGNALS:
     void expired(Bubble *);
@@ -59,7 +60,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onDelayQuit();
-    void startMoveAnimation(const QPoint &point);
+    void startMoveAnimation(const QRect &startRect, const QRect &endRect);
 
 protected:
     virtual void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
@@ -82,20 +83,16 @@ private:
 
 protected:
     //animation
-    QPropertyAnimation *m_inAnimation = nullptr;
     QPropertyAnimation *m_outAnimation = nullptr;
     QPropertyAnimation *m_dismissAnimation = nullptr;
-    QPropertyAnimation *m_moveAnimation = nullptr;
+    QPropertyAnimation *m_moveAnimation = nullptr;//负责移入和变更位置
 
     QTimer *m_outTimer = nullptr;
     QTimer *m_quitTimer = nullptr;
 
     //---very private ,no get method
-    QRect m_screenGeometry;
-    QPoint m_bubblePos;
     QPoint m_clickPos;
     bool m_pressed = false;
-    bool m_offScreen = true;
     OSD::ShowStyle m_showStyle;
 };
 

@@ -141,7 +141,7 @@ void BubbleManager::pushBubble(std::shared_ptr<NotificationEntity> notify)
 
     Bubble *bubble = createBubble(notify);
 
-    if (m_bubbleList.size() == BubbleEntities + 2) {
+    if (m_bubbleList.size() == BubbleEntities + BubbleOverLap) {
         m_oldEntities.push_front(m_bubbleList.last()->entity());
         m_bubbleList.last()->setVisible(false);
         m_bubbleList.last()->deleteLater();
@@ -156,80 +156,98 @@ void BubbleManager::popBubble(Bubble *bubble)
 {
     refreshBubble();
     popAnimation(bubble);
-
     bubble->deleteLater();
     m_bubbleList.removeOne(bubble);
 }
 
 void BubbleManager::refreshBubble()
 {
-    if (m_bubbleList.size() < BubbleEntities + 3 && !m_oldEntities.isEmpty()) {
+    if (m_bubbleList.size() < BubbleEntities + BubbleOverLap + 1 && !m_oldEntities.isEmpty()) {
         auto notify = m_oldEntities.takeFirst();
-        Bubble *bubble = createBubble(notify);
-        bubble->setPostion(QPoint(bubble->x(), bubble->y() +
-                                  OSD::BubbleHeight(bubble->showStyle()) * BubbleEntities +
-                                  BubbleMargin * BubbleEntities));
+        Bubble *bubble = createBubble(notify, BubbleEntities + BubbleOverLap - 1);
         m_bubbleList.push_back(bubble);
     }
 }
 
 void BubbleManager::pushAnimation(Bubble *bubble)
 {
-    QPoint move_point(bubble->postion());
     int index = m_bubbleList.indexOf(bubble);
-    if (index == -1)  return;
+    if (index == -1)
+        return;
 
-    qreal m_scalRatio = 1.0;
     while (index < m_bubbleList.size() - 1) {
         index ++;
-        // overlap bubble
-        if (index > BubbleEntities - 1) {
-            m_scalRatio = (m_scalRatio * 19) / 20;
-            Bubble *overlap = m_bubbleList.at(index);
-            overlap->show();
-            Bubble *up_bubble = m_bubbleList.at(index - 1);
-
-            QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWINDOW) * m_scalRatio;
-            overlap->setFixedSize(standard_size);
-            int lr_margin = (up_bubble->width() - overlap->width()) / 2;
-
-            QPoint up_postion = up_bubble->postion();
-            move_point = QPoint(up_postion.x() + lr_margin, up_postion.y() + 10);
-        } else {
-            move_point.setY(move_point.y() + OSD::BubbleHeight(bubble->showStyle()) + BubbleMargin);
-        }
-
+        QRect startRect = GetBubbleGeometry(index - 1);
+        QRect endRect = GetBubbleGeometry(index);
         QPointer<Bubble> item = m_bubbleList.at(index);
-        if (bubble != nullptr) item->startMoveAnimation(move_point);
+        PrepareAnimation(item, index, endRect);
+        if (bubble != nullptr)
+            item->startMoveAnimation(startRect, endRect);
     }
 }
 
 void BubbleManager::popAnimation(Bubble *bubble)
 {
-    QPoint move_point(bubble->postion());
     int index = m_bubbleList.indexOf(bubble);
-    if (index == -1)  return;
-
-    qreal m_scalRatio = 1.0;
+    if (index == -1)
+        return;
     while (index < m_bubbleList.size() - 1) {
         index ++;
+        QRect startRect = GetBubbleGeometry(index);
+        QRect endRect = GetBubbleGeometry(index - 1);
         QPointer<Bubble> item = m_bubbleList.at(index);
-        QPoint up_position = item->postion();
-        if (bubble != nullptr) item->startMoveAnimation(move_point);
+        PrepareAnimation(item, index - 1, endRect);
+        if (bubble != nullptr)
+            item->startMoveAnimation(startRect, endRect);
+    }
 
-        // overlap bubble pop
-        if (index > BubbleEntities - 1) {
-            QPointer<Bubble> overlap = m_bubbleList.at(index);
-            if (index == BubbleEntities) {
-                overlap->setFixedSize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
-                overlap->raise();
-            } else {
-                m_scalRatio = (m_scalRatio * 19) / 20;
-                overlap->setFixedSize(OSD::BubbleSize(OSD::BUBBLEWINDOW) * m_scalRatio);
-                overlap->lower();
-            }
+    //确定层次关系
+    for (int i = m_bubbleList.size() - 1; i >= BubbleEntities - 1; --i) {
+        Bubble *b = m_bubbleList[i];
+        if (b) {
+            b->raise();
         }
-        move_point  = up_position;
+    }
+}
+
+QRect BubbleManager::GetBubbleGeometry(int index)
+{
+    Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
+    QRect rect;
+    if (index >= 0 && index <= BubbleEntities - 1) {
+        rect.setX((getX() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
+        rect.setY(ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
+        rect.setWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
+        rect.setHeight(OSD::BubbleHeight(OSD::BUBBLEWINDOW));
+    } else if (index >= BubbleEntities && index <= BubbleEntities + BubbleOverLap) {
+        rect = GetBubbleGeometry(index - 1);
+
+        int x = rect.x() + rect.width() / 20;
+        int y = rect.y() + rect.height() / 3;
+        int width = rect.width() * 18 / 20;
+        int height = rect.height() * 19 / 20;
+
+        rect.setX(x);
+        rect.setY(y);
+        rect.setWidth(width);
+        rect.setHeight(height);
+    }
+
+    return rect;
+}
+
+void BubbleManager::PrepareAnimation(Bubble *bubble, int index/*0-4*/, const QRect &endRect)
+{
+    Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
+    if (index >= BubbleEntities && index <= BubbleEntities + BubbleOverLap) {
+        QSize size = bubble->size();
+        bubble->setMinimumSize(0, 0);
+        bubble->setMaximumSize(16777215, 16777215);
+        bubble->setEnabled(false);
+        bubble->resize(size);
+    } else {
+        bubble->setFixedSize(endRect.width(), endRect.height());
+        bubble->setEnabled(true);
     }
 }
 
@@ -383,7 +401,7 @@ void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newNam
     }
 }
 
-Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify)
+Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, int index)
 {
     Bubble *bubble = new Bubble(nullptr, notify);
     connect(bubble, &Bubble::expired, this, &BubbleManager::bubbleExpired);
@@ -391,14 +409,14 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify)
     connect(bubble, &Bubble::replacedByOther, this, &BubbleManager::bubbleReplacedByOther);
     connect(bubble, &Bubble::actionInvoked, this, &BubbleManager::bubbleActionInvoked);
 
-    QDesktopWidget *desktop = QApplication::desktop();
-    int pointerScreen = desktop->screenNumber(QCursor::pos());
-    int primaryScreen = desktop->primaryScreen();
-    QWidget *pScreenWidget = desktop->screen(primaryScreen);
+    if (index != 0) {
+        QRect startRect = GetBubbleGeometry(5);
+        QRect endRect = GetBubbleGeometry(4);
+        PrepareAnimation(bubble, 4, endRect);
+        bubble->StartMoveIn(startRect, endRect);
+    } else {
+        bubble->StartMoveIn(getX(), getY() + ScreenPadding);
+    }
 
-    if (pointerScreen != primaryScreen)
-        pScreenWidget = desktop->screen(pointerScreen);
-
-    bubble->setBasePosition(getX(), getY(), pScreenWidget->geometry());
     return bubble;
 }
