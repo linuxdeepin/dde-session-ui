@@ -70,7 +70,6 @@ protected:
     virtual void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
-    void onActionButtonClicked(const QString &actionId);
     void onOutTimerTimeout();
     void onOutAnimFinished();
     void onDismissAnimFinished();

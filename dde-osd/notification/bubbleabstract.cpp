@@ -33,6 +33,7 @@
 
 #include <QDebug>
 #include <QDir>
+#include <QProcess>
 
 DWIDGET_USE_NAMESPACE
 
@@ -132,6 +133,7 @@ BubbleAbStract::BubbleAbStract(QWidget *parent, std::shared_ptr<NotificationEnti
     m_actionButton->clear();
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &BubbleAbStract::compositeChanged);
+    connect(m_actionButton, &ActionButton::buttonClicked, this, &BubbleAbStract::onActionButtonClicked);
 }
 
 void BubbleAbStract::compositeChanged()
@@ -314,4 +316,22 @@ void BubbleAbStract::leaveEvent(QEvent *event)
     }
 
     return DBlurEffectWidget::leaveEvent(event);
+}
+
+void BubbleAbStract::onActionButtonClicked(const QString &actionId)
+{
+    qDebug() << "actionId:" << actionId;
+    QMap<QString, QVariant> hints = m_entity->hints();
+    QMap<QString, QVariant>::const_iterator i = hints.constBegin();
+    while (i != hints.constEnd()) {
+        QStringList args = i.value().toString().split(",");
+        if (!args.isEmpty()) {
+            QString cmd = args.first();
+            args.removeFirst();
+            if (i.key() == "x-deepin-action-" + actionId) {
+                QProcess::startDetached(cmd, args);
+            }
+        }
+        ++i;
+    }
 }

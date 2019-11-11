@@ -34,7 +34,6 @@
 #include <QPropertyAnimation>
 #include <QDesktopWidget>
 #include <QApplication>
-#include <QProcess>
 #include <QGSettings>
 #include <QMoveEvent>
 #include <QBoxLayout>
@@ -95,7 +94,7 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "取消";
     actions << "取消";
 //    entity->setActions(actions);
-    entity->setTimeout("0");
+//    entity->setTimeout("0");
 #endif
 
     m_outTimer->stop();
@@ -216,28 +215,6 @@ void Bubble::hideEvent(QHideEvent *event)
     m_quitTimer->start();
 }
 
-void Bubble::onActionButtonClicked(const QString &actionId)
-{
-    qDebug() << "actionId:" << actionId;
-    QMap<QString, QVariant> hints = m_entity->hints();
-    QMap<QString, QVariant>::const_iterator i = hints.constBegin();
-    while (i != hints.constEnd()) {
-        QStringList args = i.value().toString().split(",");
-        if (!args.isEmpty()) {
-            QString cmd = args.first();
-            args.removeFirst();
-            if (i.key() == "x-deepin-action-" + actionId) {
-                QProcess::startDetached(cmd, args);
-            }
-        }
-        ++i;
-    }
-
-    m_dismissAnimation->start();
-    m_outTimer->stop();
-    Q_EMIT actionInvoked(this, actionId);
-}
-
 void Bubble::onOutTimerTimeout()
 {
     if (containsMouse()) {
@@ -311,9 +288,13 @@ void Bubble::initUI()
 
 void Bubble::initConnections()
 {
-    connect(m_actionButton, &ActionButton::buttonClicked, this, &Bubble::onActionButtonClicked);
+    connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & action_id) {
+        m_dismissAnimation->start();
+        m_outTimer->stop();
+        Q_EMIT actionInvoked(this, action_id);
+    });
 
-    connect(m_closeButton, &Button::clicked, this, [ = ] {
+    connect(m_closeButton, &Button::clicked, this, [ = ]() {
         m_dismissAnimation->start();
     });
 

@@ -65,6 +65,7 @@ protected:
 
 class BubbleAbStract : public DBlurEffectWidget
 {
+    Q_OBJECT
 public:
     BubbleAbStract(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
     void saveImg(const QImage &image);
@@ -72,6 +73,7 @@ public:
 
 public Q_SLOTS:
     void compositeChanged();
+    void onActionButtonClicked(const QString &actionId);
 
 protected:
     void updateContent();
