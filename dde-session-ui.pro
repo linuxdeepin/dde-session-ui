@@ -54,11 +54,6 @@ LOGIN_PROMPT_AVATAR=true
 LOGIN_PROMPT_INPUT=false
 # end config default value
 
-host_aarch64 {
-    ENABLE_SLEEP=false
-    ENABLE_HIBERNATE=false
-}
-
 IS_DEEPIN=false
 deepin {
     IS_DEEPIN=true
