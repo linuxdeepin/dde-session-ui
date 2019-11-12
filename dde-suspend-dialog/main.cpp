@@ -24,16 +24,22 @@
  */
 
 #include "suspenddialog.h"
-#include <QApplication>
+
+#include <DApplication>
+
 #include <QTranslator>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    DApplication::loadDXcbPlugin();
+    DApplication app(argc, argv);
+    app.setOrganizationName("deepin");
+    app.setApplicationName("dde-suspend-dialog");
+    app.loadTranslator();
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    a.installTranslator(&translator);
+    app.installTranslator(&translator);
 
     Manager manager;
     QObject::connect(&manager, &Manager::finished, [] (const int code) {
@@ -44,5 +50,5 @@ int main(int argc, char *argv[])
         }
     });
 
-    return a.exec();
+    return app.exec();
 }
