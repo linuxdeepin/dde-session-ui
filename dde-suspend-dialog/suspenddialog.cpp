@@ -29,6 +29,7 @@
 #include <QScreen>
 
 #include <QDebug>
+#include <QAbstractButton>
 
 SuspendDialog::SuspendDialog(QRect screenGeometry)
     : DDialog(tr("External monitor detected, suspend?"), tr("%1s").arg(15)),
@@ -44,6 +45,7 @@ SuspendDialog::SuspendDialog(QRect screenGeometry)
     QStringList buttons;
     buttons << tr("Cancel") << tr("Suspend");
     addButtons(buttons);
+    getButton(1)->setFocus();
 
     m_timer.setInterval(1000);
     m_timer.setSingleShot(false);
