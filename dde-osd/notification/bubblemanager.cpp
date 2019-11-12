@@ -88,8 +88,18 @@ BubbleManager::~BubbleManager()
 
 void BubbleManager::CloseNotification(uint id)
 {
-    Q_UNUSED(id);
-    return;
+    QString str_id = QString::number(id);
+    foreach (auto bubble, m_bubbleList) {
+        if (bubble->entity()->replacesId() == str_id) {
+            bubble->close();
+        }
+    }
+
+    foreach (auto notify, m_oldEntities) {
+        if (notify->replacesId() == str_id) {
+            m_oldEntities.removeOne(notify);
+        }
+    }
 }
 
 QStringList BubbleManager::GetCapabilities()
