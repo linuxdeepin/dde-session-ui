@@ -85,7 +85,7 @@ BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> enti
     , m_bgWidget(new BubbleWidget_Bg(this))
     , m_titleWidget(new BubbleWidget_Bg(this))
     , m_bodyWidget(new BubbleWidget_Bg(this))
-    , m_appNameLabel(new DLabel(this))
+    , m_appNameLabel(new DTipLabel("", this))
     , m_appTimeLabel(new DLabel(this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
@@ -116,8 +116,11 @@ void BubbleItem::initUI()
     titleLayout->addWidget(m_appNameLabel);
     titleLayout->addWidget(m_appTimeLabel);
 
+    m_appNameLabel->setForegroundRole(DPalette::TextTitle);
+    m_appNameLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     m_appNameLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_appTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+    m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_closeButton->setRadius(99);
     m_closeButton->setText("X");
@@ -143,10 +146,6 @@ void BubbleItem::initUI()
     l->setMargin(0);
     l->addWidget(m_bgWidget);
     setLayout(l);
-
-    m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_appNameLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    m_appTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
 
     processIconData();
     processActions();
@@ -207,7 +206,7 @@ void BubbleItem::onRefreshTime()
         }
     } else if (elapsedDay == 1) {
         m_refreshTimer->setInterval(1000 * 59);
-        text = tr("Yesterday ") + bubbleDateTime.toString("hh:mm");
+        text = tr("Yesterday ") + " " + bubbleDateTime.toString("hh:mm");
     } else if (elapsedDay >= 1 && elapsedDay < 7) {
         m_refreshTimer->setInterval(1000 * 60 * 60 * 24);
         text = bubbleDateTime.toString("dddd hh:mm");

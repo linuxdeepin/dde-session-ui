@@ -28,10 +28,11 @@
 
 #include "notifywidget.h"
 #include <DBlurEffectWidget>
-#include <DLabel>
 #include "notification/constants.h"
 
-DWIDGET_USE_NAMESPACE
+DWIDGET_BEGIN_NAMESPACE
+class DTipLabel;
+DWIDGET_END_NAMESPACE
 
 class Persistence;
 class QPropertyAnimation;
@@ -58,7 +59,7 @@ private:
 private:
     QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
-    DLabel *title_label = nullptr;
+    DTipLabel *title_label = nullptr;
     QRect m_screenGeometry;
 
     QPropertyAnimation *m_inAnimation = nullptr;

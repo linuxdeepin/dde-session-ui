@@ -37,7 +37,7 @@ BubbleOverlapWidget::BubbleOverlapWidget(const QList<std::shared_ptr<Notificatio
 void BubbleOverlapWidget::initOverlap()
 {
     qreal scal_ratio = 1;
-    int height_init = 18;
+    int height_init = 12;
     int index = 0;
     QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWIDGET);
     QPoint up_point(0, standard_size.height());
@@ -49,7 +49,7 @@ void BubbleOverlapWidget::initOverlap()
             bubble->setModel(m_notifyModel);
 
         if (index >= 1) {
-            height_init -= 6;
+            height_init -= 2;
             bubble->setFixedSize(standard_size.width() * scal_ratio, height_init);
             int lr_margin = (standard_size.width() - bubble->width()) / 2;
             QPoint move_point(lr_margin, up_point.y());

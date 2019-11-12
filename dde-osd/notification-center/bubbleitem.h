@@ -23,6 +23,7 @@
 #define BUBBLEITEM_H
 
 #include <DWidget>
+#include <DTipLabel>
 #include "notification/bubbleabstract.h"
 
 class NotificationEntity;
@@ -101,7 +102,7 @@ private:
     BubbleWidget_Bg *m_bgWidget = nullptr;
     BubbleWidget_Bg *m_titleWidget = nullptr;
     BubbleWidget_Bg *m_bodyWidget = nullptr;
-    DLabel *m_appNameLabel = nullptr;
+    DTipLabel *m_appNameLabel = nullptr;
     DLabel *m_appTimeLabel = nullptr;
 
     AppIcon *m_icon = nullptr;

@@ -5,9 +5,10 @@
 #include "notification/notificationentity.h"
 #include "notification/constants.h"
 
-#include <QListView>
+#include <DListView>
 #include <QBoxLayout>
 #include <DGuiApplicationHelper>
+#include <DIconButton>
 
 DWIDGET_USE_NAMESPACE
 
@@ -18,7 +19,14 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     m_titleWidget = new QWidget();
     m_titleWidget->setFixedSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), Notify::GroupTitleHeight);
 
-    group_title = new DLabel;
+    group_title = new DTipLabel("");
+    group_title->setForegroundRole(DPalette::TextTitle);
+    group_title->setAlignment(Qt::AlignLeft);
+
+    QFont font;
+    font.setBold(true);
+    group_title->setFont(DFontSizeManager::instance()->t4(font));
+
     title_close = new DIconButton(DStyle::SP_CloseButton);
     title_close->setFlat(true);
     title_close->setIconSize(QSize(Notify::GroupButtonSize, Notify::GroupButtonSize));
