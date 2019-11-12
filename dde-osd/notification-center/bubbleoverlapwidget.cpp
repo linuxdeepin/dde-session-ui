@@ -27,41 +27,36 @@
 
 BubbleOverlapWidget::BubbleOverlapWidget(const QList<std::shared_ptr<NotificationEntity>> &entitys,
                                          QWidget *parent, NotifyModel *model)
-    : QFrame(parent)
+    : QWidget(parent)
     , m_notifications(entitys)
     , m_notifyModel(model)
 {
-    setAttribute(Qt::WA_TranslucentBackground);
     initOverlap();
 }
 
 void BubbleOverlapWidget::initOverlap()
 {
     qreal scal_ratio = 1;
-    int  point_extra = 12;
+    int height_init = 18;
     int index = 0;
     QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWIDGET);
+    QPoint up_point(0, standard_size.height());
 
     foreach (auto notify, m_notifications) {
         BubbleItem *bubble = new BubbleItem(this, notify);
 
-        //Set the middle layer alpha
-        if (index % 2 == 1) bubble->setAlpha(25);
-
         if (m_notifyModel != nullptr)
             bubble->setModel(m_notifyModel);
 
-        QSize size = standard_size * scal_ratio;
-        bubble->setFixedSize(size);
-        int tb_margin = (standard_size.height() - bubble->height()) / 2;
-        int lr_margin = (standard_size.width() - bubble->width()) / 2;
-        if (lr_margin != 0 && tb_margin != 0) {
-            QPoint point(lr_margin, 2 * tb_margin  + point_extra);
-            bubble->clearContent();
-            bubble->move(point);
+        if (index >= 1) {
+            height_init -= 6;
+            bubble->setFixedSize(standard_size.width() * scal_ratio, height_init);
+            int lr_margin = (standard_size.width() - bubble->width()) / 2;
+            QPoint move_point(lr_margin, up_point.y());
+            up_point = QPoint(move_point.x(), move_point.y() + height_init);
+            bubble->setShowContent(false);
+            bubble->move(move_point);
             bubble->lower();
-
-            point_extra = point_extra + 10;
         }
 
         scal_ratio = (scal_ratio * 19) / 20;

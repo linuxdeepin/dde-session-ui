@@ -29,7 +29,7 @@
 class NotificationEntity;
 class NotifyModel;
 
-class BubbleOverlapWidget : public QFrame
+class BubbleOverlapWidget : public QWidget
 {
     Q_OBJECT
 public:

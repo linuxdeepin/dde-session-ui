@@ -25,7 +25,7 @@
 #include <QFrame>
 #include <QPointer>
 #include <memory>
-#include <QSequentialAnimationGroup>
+#include <QParallelAnimationGroup>
 
 class QSequen;
 class NotificationEntity;
@@ -45,7 +45,7 @@ signals:
 
 private:
     QList<QPointer<BubbleItem>> m_bubbleList;
-    QSequentialAnimationGroup *m_animationGroup = nullptr;
+    QParallelAnimationGroup *m_animationGroup = nullptr;
 };
 
 #endif // EXPANDANIMATION_H
