@@ -259,11 +259,6 @@ void Bubble::initUI()
     m_closeButton->setRadius(99);
     m_closeButton->setText("X");
     m_closeButton->setVisible(false);
-
-    //layout
-    m_appNameLabel->setVisible(false);
-    m_appTimeLabel->setVisible(false);
-
     m_body->setObjectName("Body");
 
     QHBoxLayout *layout = new QHBoxLayout;

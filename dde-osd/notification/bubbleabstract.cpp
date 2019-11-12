@@ -37,78 +37,9 @@
 
 DWIDGET_USE_NAMESPACE
 
-static const QStringList HintsOrder {
-    "desktop-entry",
-    "image-data",
-    "image-path",
-    "image_path",
-    "icon_data"
-};
-
-BubbleWidget_Bg::BubbleWidget_Bg(QWidget *parent)
-    : DWidget(parent)
-{
-    installEventFilter(this);
-}
-
-bool BubbleWidget_Bg::eventFilter(QObject *obj, QEvent *event)
-{
-    // 这里只是为了让界面不被拖动
-    if (obj) {
-        if (event->type() == QEvent::MouseMove
-                || event->type() == QEvent::Move) {
-            return true;
-        }
-    }
-    return false;
-}
-
-void BubbleWidget_Bg::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
-
-    QPalette pe = this->palette();
-    QColor c = pe.color(QPalette::Base);
-
-    QColor brushColor(c);
-    brushColor.setAlpha(m_hover ? m_hoverAlpha : m_unHoverAlpha);
-    painter.setBrush(brushColor);
-
-    QPen borderPen;
-    borderPen.setColor(Qt::transparent);
-    painter.setPen(borderPen);
-    painter.drawRect(QRectF(0, 0, width(), height()));
-
-    return DWidget::paintEvent(event);
-
-}
-
-void BubbleWidget_Bg::enterEvent(QEvent *event)
-{
-    m_hover = true;
-
-    update();
-
-    return DWidget::enterEvent(event);
-}
-
-void BubbleWidget_Bg::leaveEvent(QEvent *event)
-{
-    m_hover = false;
-
-    update();
-
-    return DWidget::leaveEvent(event);
-}
-
 BubbleAbStract::BubbleAbStract(QWidget *parent, std::shared_ptr<NotificationEntity> entity)
     : DBlurEffectWidget(parent)
     , m_entity(entity)
-    , m_bgWidget(new BubbleWidget_Bg(this))
-    , m_titleWidget(new BubbleWidget_Bg(this))
-    , m_bodyWidget(new BubbleWidget_Bg(this))
-    , m_appNameLabel(new DLabel(this))
-    , m_appTimeLabel(new DLabel(this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this))
@@ -126,11 +57,6 @@ BubbleAbStract::BubbleAbStract(QWidget *parent, std::shared_ptr<NotificationEnti
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
     setMouseTracking(true);
-
-    //controls
-    m_appNameLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    m_appTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
-    m_actionButton->clear();
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &BubbleAbStract::compositeChanged);
     connect(m_actionButton, &ActionButton::buttonClicked, this, &BubbleAbStract::onActionButtonClicked);
@@ -151,13 +77,12 @@ void BubbleAbStract::updateContent()
 {
     m_body->setTitle(m_entity->summary());
     m_body->setText(m_entity->body());
-    m_appNameLabel->setText(m_entity->appName());
 
     processIconData();
     processActions();
 }
 
-inline void copyLineRGB32(QRgb *dst, const char *src, int width)
+inline void BubbleAbStract::copyLineRGB32(QRgb *dst, const char *src, int width)
 {
     const char *end = src + width * 3;
     for (; src != end; ++dst, src += 3) {
@@ -165,7 +90,7 @@ inline void copyLineRGB32(QRgb *dst, const char *src, int width)
     }
 }
 
-inline void copyLineARGB32(QRgb *dst, const char *src, int width)
+inline void BubbleAbStract::copyLineARGB32(QRgb *dst, const char *src, int width)
 {
     const char *end = src + width * 4;
     for (; src != end; ++dst, src += 4) {
@@ -173,7 +98,7 @@ inline void copyLineARGB32(QRgb *dst, const char *src, int width)
     }
 }
 
-static QImage decodeNotificationSpecImageHint(const QDBusArgument &arg)
+QImage BubbleAbStract::decodeNotificationSpecImageHint(const QDBusArgument &arg)
 {
     int width, height, rowStride, hasAlpha, bitsPerSample, channels;
     QByteArray pixels;

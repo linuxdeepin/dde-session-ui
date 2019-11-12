@@ -38,29 +38,13 @@ class AppIcon;
 class AppBody;
 class Button;
 class ActionButton;
-class BubbleWidget_Bg : public DWidget
-{
-public:
-    BubbleWidget_Bg(QWidget *parent = nullptr);
 
-    void setAlpha(int alpha) {m_hoverAlpha = alpha; m_unHoverAlpha = alpha; update();}
-
-    int hoverAlpha() {return m_hoverAlpha;}
-    void setHoverAlpha(int alpha) {m_hoverAlpha = alpha; update();}
-
-    int unHoverAlpha() {return m_unHoverAlpha;}
-    void setUnHoverAlpha(int alpha) {m_unHoverAlpha = alpha; update();}
-
-private:
-    int m_hoverAlpha = 0;
-    int m_unHoverAlpha = 0;
-    bool m_hover = false;
-
-protected:
-    virtual bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
-    virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-    virtual void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
-    virtual void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+static const QStringList HintsOrder {
+    "desktop-entry",
+    "image-data",
+    "image-path",
+    "image_path",
+    "icon_data"
 };
 
 class BubbleAbStract : public DBlurEffectWidget
@@ -70,6 +54,9 @@ public:
     BubbleAbStract(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
     void saveImg(const QImage &image);
     const QPixmap converToPixmap(const QDBusArgument &value);
+    static inline void copyLineRGB32(QRgb *dst, const char *src, int width);
+    static inline void copyLineARGB32(QRgb *dst, const char *src, int width);
+    static QImage decodeNotificationSpecImageHint(const QDBusArgument &arg);
 
 public Q_SLOTS:
     void compositeChanged();
@@ -85,11 +72,6 @@ protected:
     std::shared_ptr<NotificationEntity> m_entity;
 
     //controls
-    BubbleWidget_Bg *m_bgWidget = nullptr;
-    BubbleWidget_Bg *m_titleWidget = nullptr;
-    BubbleWidget_Bg *m_bodyWidget = nullptr;
-    DLabel *m_appNameLabel = nullptr;
-    DLabel *m_appTimeLabel = nullptr;
     AppIcon *m_icon = nullptr;
     AppBody *m_body = nullptr;
     ActionButton *m_actionButton = nullptr;
