@@ -13,6 +13,16 @@
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="151"/>
+        <source>View in English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="154"/>
+        <source>View in Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ContentWidget</name>

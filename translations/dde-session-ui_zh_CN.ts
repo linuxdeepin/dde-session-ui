@@ -11,6 +11,16 @@
         <source>Confirm</source>
         <translation>确定</translation>
     </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="151"/>
+        <source>View in English</source>
+        <translation>查看英文</translation>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="154"/>
+        <source>View in Chinese</source>
+        <translation>查看中文</translation>
+    </message>
 </context>
 <context>
     <name>ContentWidget</name>
