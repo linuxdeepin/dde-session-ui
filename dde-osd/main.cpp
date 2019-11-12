@@ -36,7 +36,7 @@
 #include "notification/notifications_dbus_adaptor.h"
 #include "manager.h"
 #include "kblayoutindicator.h"
-
+#include <DGuiApplicationHelper>
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
@@ -48,6 +48,8 @@ int main(int argc, char *argv[])
     }
 
     DApplication::loadDXcbPlugin();
+    DGuiApplicationHelper::setUseInactiveColorGroup(false);
+    DGuiApplicationHelper::setColorCompositingEnabled(true);
     DApplication a(argc, argv);
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
     a.setApplicationName("dde-osd");
@@ -57,20 +59,12 @@ int main(int argc, char *argv[])
     a.setOOMScoreAdj(500);
 #endif
 
-    a.setTheme("light");
-
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
-
-    QFile file(":/themes/light.qss");
-    if (file.open(QFile::ReadOnly | QFile::Text)) {
-        a.setStyleSheet(file.readAll());
-        file.close();
-    }
 
     QStringList args = a.arguments();
     QString action;

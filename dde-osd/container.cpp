@@ -63,7 +63,7 @@ Container::Container(QWidget *parent)
     setBlurRectXRadius(radius);
     setBlurRectYRadius(radius);
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
-    setMaskColor(DBlurEffectWidget::LightColor);
+    setMaskColor(DBlurEffectWidget::AutoColor);
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged,
             this, &Container::windowManagerChanged);

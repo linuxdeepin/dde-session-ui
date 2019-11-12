@@ -101,7 +101,7 @@ Bubble::Bubble(NotificationEntity *entity)
     compositeChanged();
 
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
-    setMaskColor(DBlurEffectWidget::LightColor);
+    setMaskColor(DBlurEffectWidget::AutoColor);
 
     initUI();
     initAnimations();

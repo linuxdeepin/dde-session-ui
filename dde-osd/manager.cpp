@@ -56,6 +56,8 @@ Manager::Manager(QObject *parent)
     m_timer->setSingleShot(true);
 
     m_listview->setItemDelegate(m_delegate);
+    m_listview->setAutoFillBackground(false);
+    m_listview->viewport()->setAutoFillBackground(false);
     m_listview->setModel(m_model);
     m_container->setContent(m_listview);
 
