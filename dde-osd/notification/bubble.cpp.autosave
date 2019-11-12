@@ -34,6 +34,7 @@
 #include <QPropertyAnimation>
 #include <QDesktopWidget>
 #include <QApplication>
+#include <QProcess>
 #include <QGSettings>
 #include <QMoveEvent>
 #include <QBoxLayout>
@@ -96,7 +97,7 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "取消";
     actions << "取消";
 //    entity->setActions(actions);
-//    entity->setTimeout("0");
+    entity->setTimeout("0");
 #endif
 
     m_outTimer->stop();
@@ -201,7 +202,7 @@ bool Bubble::eventFilter(QObject *obj, QEvent *event)
         } else if (event->type() == QEvent::KeyPress) {
             QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
             if (keyEvent->key() == Qt::Key_Tab) {
-                clearFocus();
+                clearFocus();   
 //                qDebug() << hasFocus();
 //                QTimer::singleShot(1000, this, [ = ] {
 //                    setFocus();
@@ -315,6 +316,11 @@ void Bubble::initUI()
     m_closeButton->setRadius(99);
     m_closeButton->setText("X");
     m_closeButton->setVisible(false);
+
+    //layout
+    m_appNameLabel->setVisible(false);
+    m_appTimeLabel->setVisible(false);
+
     m_body->setObjectName("Body");
 
     QHBoxLayout *layout = new QHBoxLayout;
@@ -339,13 +345,9 @@ void Bubble::initUI()
 
 void Bubble::initConnections()
 {
-    connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & action_id) {
-        m_dismissAnimation->start();
-        m_outTimer->stop();
-        Q_EMIT actionInvoked(this, action_id);
-    });
+    connect(m_actionButton, &ActionButton::buttonClicked, this, &Bubble::onActionButtonClicked);
 
-    connect(m_closeButton, &Button::clicked, this, [ = ]() {
+    connect(m_closeButton, &Button::clicked, this, [ = ] {
         m_dismissAnimation->start();
     });
 

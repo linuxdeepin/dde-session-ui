@@ -36,6 +36,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QXmlStreamReader>
+#include <QFocusEvent>
 
 static QString removeHTML(const QString &source)
 {
@@ -351,6 +352,26 @@ void BubbleManager::onPrepareForSleep(bool sleep)
     }
 }
 
+void BubbleManager::onFocusTabed(Bubble *bubble)
+{
+    qDebug() << __FUNCTION__;
+    int index = m_bubbleList.indexOf(bubble);
+    if (index == -1)
+        return;
+
+    index ++;
+    if (index > BubbleEntities - 1) {
+        index = 0;
+    }
+
+    bubble->clearFocus();
+    Bubble *next = m_bubbleList[index];
+    next->setFocus();
+//    QFocusEvent inEvent(QEvent::FocusIn, Qt::TabFocusReason);
+//    qApp->sendEvent(next, &inEvent);
+    qDebug() << next->hasFocus();
+}
+
 bool BubbleManager::checkDockExistence()
 {
     return m_dbusDaemonInterface->NameHasOwner(DBbsDockDBusServer).value();
@@ -418,6 +439,7 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);
     connect(bubble, &Bubble::replacedByOther, this, &BubbleManager::bubbleReplacedByOther);
     connect(bubble, &Bubble::actionInvoked, this, &BubbleManager::bubbleActionInvoked);
+    connect(bubble, &Bubble::focusTabed, this, &BubbleManager::onFocusTabed);
 
     if (index != 0) {
         QRect startRect = GetBubbleGeometry(5);

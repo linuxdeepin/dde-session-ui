@@ -106,6 +106,7 @@ private Q_SLOTS:
     void onDockSizeChanged(uint size);
     void onDbusNameOwnerChanged(QString, QString, QString);
     void onPrepareForSleep(bool);
+    void onFocusTabed(Bubble *);
 
     void bubbleExpired(Bubble *);
     void bubbleDismissed(Bubble *);

@@ -57,6 +57,7 @@ Q_SIGNALS:
     void ignored(Bubble *);     //暂不处理信号
     void replacedByOther(Bubble *);
     void actionInvoked(Bubble *, QString);
+    void focusTabed(Bubble *);
 
 public Q_SLOTS:
     void onDelayQuit();
@@ -68,6 +69,8 @@ protected:
     virtual bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
     virtual void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
     virtual void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
+    virtual void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
+    virtual void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
     void onOutTimerTimeout();
