@@ -36,7 +36,6 @@
 #include <QTimer>
 #include <QDebug>
 #include <QXmlStreamReader>
-#include <QFocusEvent>
 
 static QString removeHTML(const QString &source)
 {
@@ -138,7 +137,49 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                                             QString::number(expireTimeout),
                                                                                             this);
     m_persistence->addOne(notification);
-    pushBubble(notification);
+
+    bool find = false;
+    for (int i = 0; i < m_bubbleList.size(); ++i) {
+        Bubble *b = m_bubbleList[i];
+        if (b->entity()->replacesId() == QString::number(replacesId)
+                && b->entity()->appName() == appName) {
+            b->setEntity(notification);
+
+            // 在其之前所有消息均向下移动一格
+            int index = i;
+            while (index > 0) {
+                index --;
+                QRect startRect = GetBubbleGeometry(index);
+                QRect endRect = GetBubbleGeometry(index + 1);
+                QPointer<Bubble> item = m_bubbleList.at(index);
+                PrepareAnimation(item, index + 1, endRect);
+                item->startMoveAnimation(startRect, endRect);
+            }
+
+            //2 自身调整到首位
+            if (i != 0) {
+                QRect startRect = GetBubbleGeometry(i);
+                QRect endRect = GetBubbleGeometry(0);
+                pushAnimation(b);
+                PrepareAnimation(b, index, endRect);
+                b->startMoveAnimation(startRect, endRect);
+
+                m_bubbleList.swap(i, 0);
+            }
+            find = true;
+            break;
+        }
+    }
+    for (int i = 0; i < m_oldEntities.size(); ++i) {
+        if (m_oldEntities[i]->replacesId() == QString::number(replacesId)
+                && m_oldEntities[i]->appName() == appName) {
+            m_oldEntities.removeAt(i);
+        }
+    }
+
+    if (!find) {
+        pushBubble(notification);
+    }
     m_messageCount++;
 
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.
@@ -352,26 +393,6 @@ void BubbleManager::onPrepareForSleep(bool sleep)
     }
 }
 
-void BubbleManager::onFocusTabed(Bubble *bubble)
-{
-    qDebug() << __FUNCTION__;
-    int index = m_bubbleList.indexOf(bubble);
-    if (index == -1)
-        return;
-
-    index ++;
-    if (index > BubbleEntities - 1) {
-        index = 0;
-    }
-
-    bubble->clearFocus();
-    Bubble *next = m_bubbleList[index];
-    next->setFocus();
-//    QFocusEvent inEvent(QEvent::FocusIn, Qt::TabFocusReason);
-//    qApp->sendEvent(next, &inEvent);
-    qDebug() << next->hasFocus();
-}
-
 bool BubbleManager::checkDockExistence()
 {
     return m_dbusDaemonInterface->NameHasOwner(DBbsDockDBusServer).value();
@@ -439,7 +460,6 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);
     connect(bubble, &Bubble::replacedByOther, this, &BubbleManager::bubbleReplacedByOther);
     connect(bubble, &Bubble::actionInvoked, this, &BubbleManager::bubbleActionInvoked);
-    connect(bubble, &Bubble::focusTabed, this, &BubbleManager::onFocusTabed);
 
     if (index != 0) {
         QRect startRect = GetBubbleGeometry(5);

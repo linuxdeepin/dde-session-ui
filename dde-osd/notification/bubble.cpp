@@ -69,8 +69,6 @@ Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD:
     setEntity(entity);
 
     installEventFilter(this);
-
-    setFocusPolicy(Qt::StrongFocus);
 }
 
 std::shared_ptr<NotificationEntity> Bubble::entity() const
@@ -95,8 +93,8 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "删除";
     actions << "取消";
     actions << "取消";
-//    entity->setActions(actions);
-//    entity->setTimeout("0");
+    entity->setActions(actions);
+    entity->setTimeout("0");
 #endif
 
     m_outTimer->stop();
@@ -163,8 +161,6 @@ void Bubble::mousePressEvent(QMouseEvent *event)
     }
 
     m_outTimer->stop();
-
-    return DBlurEffectWidget::mousePressEvent(event);
 }
 
 void Bubble::mouseReleaseEvent(QMouseEvent *event)
@@ -179,7 +175,7 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
             m_defaultAction.clear();
         }
         // FIX ME:采用动画的方式退出并隐藏，不会丢失窗体‘焦点’，造成控件不响应鼠标进入和离开事件
-        Q_EMIT dismissed(this);
+        m_dismissAnimation->start();
     } else if (m_pressed && event->pos().y() < 10) {
         Q_EMIT ignored(this);
         m_dismissAnimation->start();
@@ -198,77 +194,25 @@ bool Bubble::eventFilter(QObject *obj, QEvent *event)
         if (event->type() == QEvent::MouseMove
                 || event->type() == QEvent::Move) {
             return true;
-        } else if (event->type() == QEvent::KeyPress) {
-            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-            if (keyEvent->key() == Qt::Key_Tab) {
-                clearFocus();
-//                qDebug() << hasFocus();
-//                QTimer::singleShot(1000, this, [ = ] {
-//                    setFocus();
-//                    qDebug() << hasFocus();
-//                });
-//                Q_EMIT focusTabed(this);
-            }
-            return false;//不拦截
         }
     }
     return false;
 }
 void Bubble::showEvent(QShowEvent *event)
 {
-    BubbleAbStract::showEvent(event);
+    DBlurEffectWidget::showEvent(event);
 
     m_quitTimer->start();
 }
 
 void Bubble::hideEvent(QHideEvent *event)
 {
-    BubbleAbStract::hideEvent(event);
+    DBlurEffectWidget::hideEvent(event);
 
     m_outAnimation->stop();
     m_dismissAnimation->stop();
 
     m_quitTimer->start();
-}
-
-void Bubble::focusInEvent(QFocusEvent *event)
-{
-    qDebug() << __FUNCTION__ << "Has Focus:" << hasFocus();
-
-    setMaskAlpha(0);
-
-    return DWidget::focusInEvent(event);
-}
-
-void Bubble::focusOutEvent(QFocusEvent *event)
-{
-    qDebug() << __FUNCTION__ << "Has Focus:" << hasFocus();
-
-    setMaskAlpha(102);
-
-    return DWidget::focusInEvent(event);
-}
-
-void Bubble::onActionButtonClicked(const QString &actionId)
-{
-    qDebug() << "actionId:" << actionId;
-    QMap<QString, QVariant> hints = m_entity->hints();
-    QMap<QString, QVariant>::const_iterator i = hints.constBegin();
-    while (i != hints.constEnd()) {
-        QStringList args = i.value().toString().split(",");
-        if (!args.isEmpty()) {
-            QString cmd = args.first();
-            args.removeFirst();
-            if (i.key() == "x-deepin-action-" + actionId) {
-                QProcess::startDetached(cmd, args);
-            }
-        }
-        ++i;
-    }
-
-    m_dismissAnimation->start();
-    m_outTimer->stop();
-    Q_EMIT actionInvoked(this, actionId);
 }
 
 void Bubble::onOutTimerTimeout()
@@ -302,7 +246,7 @@ void Bubble::initUI()
     m_quitTimer->setInterval(60 * 1000);
     m_quitTimer->setSingleShot(true);
 
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint/* | Qt::Tool*/);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
 
     DStyleHelper dstyle(style());
     int radius = dstyle.pixelMetric(DStyle::PM_TopLevelWindowRadius);
