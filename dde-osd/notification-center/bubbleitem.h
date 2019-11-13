@@ -24,7 +24,8 @@
 
 #include <DWidget>
 #include <DTipLabel>
-#include "notification/bubbleabstract.h"
+#include <memory>
+#include <QDBusArgument>
 
 class NotificationEntity;
 class NotifyModel;
@@ -76,11 +77,6 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onHavorStateChanged(bool hover);
     void onCloseBubble();
-
-protected:
-    void onActionButtonClicked(const QString &actionId);
-    void processActions();
-    void processIconData();
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;

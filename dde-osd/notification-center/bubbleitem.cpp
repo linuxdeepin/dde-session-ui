@@ -5,6 +5,7 @@
 #include "notification/actionbutton.h"
 #include "notification/button.h"
 #include "notification/icondata.h"
+#include "notification/bubbletool.h"
 #include "notifymodel.h"
 
 #include <QTimer>
@@ -147,8 +148,8 @@ void BubbleItem::initUI()
     l->addWidget(m_bgWidget);
     setLayout(l);
 
-    processIconData();
-    processActions();
+    BubbleTool::processIconData(m_icon, m_entity);
+    m_defaultAction = BubbleTool::processActions(m_actionButton, m_entity->actions());
 }
 
 void BubbleItem::initContent()
@@ -164,8 +165,11 @@ void BubbleItem::initContent()
     connect(m_refreshTimer, &QTimer::timeout, this, &BubbleItem::onRefreshTime);
     onRefreshTime();
 
+    connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & id) {
+        BubbleTool::actionInvoke(id, m_entity);
+    });
+
     connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
-    connect(m_actionButton, &ActionButton::buttonClicked, this, &BubbleItem::onActionButtonClicked);
     connect(m_closeButton, &Button::clicked, this, &BubbleItem::onCloseBubble);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleItem::refreshTheme);
     refreshTheme();
@@ -277,77 +281,3 @@ void BubbleItem::refreshTheme()
     m_appNameLabel->setPalette(pa);
     m_appTimeLabel->setFont(DFontSizeManager::instance()->t8());
 }
-
-// Each even element in the list (starting at index 0) represents the identifier for the action.
-// Each odd element in the list is the localized string that will be displayed to the user.
-void BubbleItem::processActions()
-{
-    m_actionButton->clear();
-
-    QStringList list = m_entity->actions();
-    // the "default" is identifier for the default action
-    if (list.contains("default")) {
-        const int index = list.indexOf("default");
-        m_defaultAction = list[index];
-        // Default action does not need to be displayed, removed from the list
-        list.removeAt(index + 1);
-        list.removeAt(index);
-    }
-
-    m_actionButton->addButtons(list);
-}
-
-const QPixmap BubbleItem::converToPixmap(const QDBusArgument &value)
-{
-    // use plasma notify source code to conver photo, solving encoded question.
-    const QImage &img = BubbleAbStract::decodeNotificationSpecImageHint(value);
-    return QPixmap::fromImage(img).scaled(m_icon->width(), m_icon->height(),
-                                          Qt::KeepAspectRatioByExpanding,
-                                          Qt::SmoothTransformation);
-}
-
-void BubbleItem::processIconData()
-{
-    const QVariantMap &hints = m_entity->hints();
-    QString imagePath;
-    QPixmap imagePixmap;
-
-    for (const QString &hint : HintsOrder) {
-        const QVariant &source = hints.contains(hint) ? hints[hint] : QVariant();
-
-        if (source.isNull()) continue;
-
-        if (source.canConvert<QDBusArgument>()) {
-            QDBusArgument argument = source.value<QDBusArgument>();
-            imagePixmap = converToPixmap(argument);
-            break;
-        }
-
-        imagePath = source.toString();
-    }
-
-    if (!imagePixmap.isNull()) {
-        m_icon->setPixmap(imagePixmap);
-    } else {
-        m_icon->setIcon(imagePath.isEmpty() ? m_entity->appIcon() : imagePath, m_entity->appName());
-    }
-}
-
-void BubbleItem::onActionButtonClicked(const QString &actionId)
-{
-    qDebug() << "actionId:" << actionId;
-    QMap<QString, QVariant> hints = m_entity->hints();
-    QMap<QString, QVariant>::const_iterator i = hints.constBegin();
-    while (i != hints.constEnd()) {
-        QStringList args = i.value().toString().split(",");
-        if (!args.isEmpty()) {
-            QString cmd = args.first();
-            args.removeFirst();
-            if (i.key() == "x-deepin-action-" + actionId) {
-                QProcess::startDetached(cmd, args);
-            }
-        }
-        ++i;
-    }
-}
-

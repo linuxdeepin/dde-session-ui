@@ -5,7 +5,6 @@ QT += svg
 
 HEADERS += \
     $$PWD/bubble.h \
-    $$PWD/bubbleabstract.h \
     $$PWD/bubblemanager.h \
     $$PWD/notifications_dbus_adaptor.h \
     $$PWD/dbus_daemon_interface.h \
@@ -19,11 +18,11 @@ HEADERS += \
     $$PWD/icondata.h \
     $$PWD/button.h \
     $$PWD/appbodylabel.h \
-    $$PWD/constants.h
+    $$PWD/constants.h \
+    $$PWD/bubbletool.h
 
 SOURCES += \
     $$PWD/bubble.cpp \
-    $$PWD/bubbleabstract.cpp \
     $$PWD/bubblemanager.cpp \
     $$PWD/notifications_dbus_adaptor.cpp \
     $$PWD/dbus_daemon_interface.cpp \
@@ -36,7 +35,8 @@ SOURCES += \
     $$PWD/appbody.cpp \
     $$PWD/icondata.cpp \
     $$PWD/button.cpp \
-    $$PWD/appbodylabel.cpp
+    $$PWD/appbodylabel.cpp \
+    $$PWD/bubbletool.cpp
 
 orgDBus.input = $$PWD/files/com.deepin.dde.freedesktop.Notification.service.in
 orgDBus.output = $$OUT_PWD/files/com.deepin.dde.freedesktop.Notification.service
