@@ -28,7 +28,11 @@ ApplicationGroup::ApplicationGroup(std::shared_ptr<NotificationEntity> entity, P
     m_timeStamp = entity->ctime();
     m_notifyModel = std::make_shared<NotifyModel>(this, entity);
     m_notifyModel->setPersistence(database);
-    connect(m_notifyModel.get(), &NotifyModel::layoutGroup, this, &ApplicationGroup::layoutGroup);
+    connect(m_notifyModel.get(), &NotifyModel::layoutGroup, this, [ = ]() {
+        layoutGroup();
+
+        if (m_notifyModel->rowCount() == 0) removeGroup();
+    });
 }
 
 AppGroupModel::AppGroupModel(QObject *parent, Persistence *database)
@@ -127,13 +131,26 @@ void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
         connect(bubble_group, &ApplicationGroup::layoutGroup, this, [ = ]() {
             this->layoutChanged();
         });
+
+        connect(bubble_group, &ApplicationGroup::removeGroup, this, [ = ]() {
+            if (m_applications.contains(bubble_group)) {
+                int index = m_applications.indexOf(bubble_group);
+
+                beginRemoveRows(QModelIndex(), index, index);
+                m_applications.removeOne(bubble_group);
+                endRemoveRows();
+            }
+        });
     }
 }
 
 void AppGroupModel::removeGroup(const QModelIndex &index)
 {
-    beginRemoveRows(QModelIndex(), index.row(), index.row());
-    auto app = m_applications.takeAt(index.row());
+    int row = index.row();
+    if (row < 0 && row >= m_applications.size()) return;
+
+    beginRemoveRows(QModelIndex(), row, row);
+    auto app = m_applications.takeAt(row);
     endRemoveRows();
 
     //clear database content

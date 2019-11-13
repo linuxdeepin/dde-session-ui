@@ -44,6 +44,7 @@ public:
     QString timeStamp() { return m_timeStamp; }
 
 signals:
+    void removeGroup();
     void layoutGroup();
 
 private:

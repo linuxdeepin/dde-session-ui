@@ -103,6 +103,8 @@ void NotifyModel::addNotify(std::shared_ptr<NotificationEntity> entity)
 void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
 {
     int index = m_displays.indexOf(entity);
+    deleteNotify(index);
+
     if (m_displays.contains(entity)) {
         beginRemoveRows(QModelIndex(), index, index);
         m_displays.removeOne(entity);
@@ -122,7 +124,6 @@ void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
         m_database->removeOne(QString::number(entity->id()));
     }
 
-    deleteNotify(index);
     layoutGroup();
 }
 
