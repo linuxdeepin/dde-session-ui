@@ -104,23 +104,30 @@ void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
 {
     auto app_group = appGroup(entity->appName());
 
-    beginResetModel();
     if (app_group != nullptr) {
         auto notify_model = app_group->notifyModel().value<std::shared_ptr<NotifyModel>>();
         notify_model->addNotify(entity);
 
         if (m_applications.first() != app_group) {
+            int index = m_applications.indexOf(app_group);
+            beginRemoveRows(QModelIndex(), index, index);
             m_applications.removeOne(app_group);
+            endRemoveRows();
+
+            beginInsertRows(QModelIndex(), 0, 0);
             m_applications.push_front(app_group);
+            endInsertRows();
         }
     } else {
         ApplicationGroup *bubble_group = new ApplicationGroup(entity, m_database);
+        beginInsertRows(QModelIndex(), 0, 0);
         m_applications.push_front(bubble_group);
+        endInsertRows();
+
         connect(bubble_group, &ApplicationGroup::layoutGroup, this, [ = ]() {
             this->layoutChanged();
         });
     }
-    endResetModel();
 }
 
 void AppGroupModel::removeGroup(const QModelIndex &index)
