@@ -67,6 +67,8 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
 
     connect(title_close, &DIconButton::clicked, this, &BubbleGroup::closeGroup);
     connect(m_notifyModel.get(), &NotifyModel::expandNotify, this, &BubbleGroup::expandAnimation);
+    connect(m_notifyModel.get(), &NotifyModel::deleteNotify, this, &BubbleGroup::removeAnimation);
+    connect(m_notifyModel.get(), &NotifyModel::appendNotify, this, &BubbleGroup::appendAnimation);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleGroup::refreshTheme);
     refreshTheme();
 }
@@ -81,6 +83,61 @@ void BubbleGroup::leaveEvent(QEvent *)
     title_close->setVisible(false);
 }
 
+void BubbleGroup::appendAnimation()
+{
+    if (!isVisible()) return;
+
+    if (m_expandAnimation.isNull()) {
+        m_expandAnimation = new ExpandAnimation(m_groupList);
+
+        connect(m_expandAnimation, &ExpandAnimation::finished, [ = ]() {
+            m_expandAnimation->hide();
+            m_expandAnimation->deleteLater();
+        });
+    }
+
+    // calculated animation widget height
+    int need_bubble = animationNeedBubble();
+    int expand_height = need_bubble * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleOverLapHeight;
+    m_expandAnimation->setFixedSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), expand_height);
+
+    // calculated position
+    m_expandAnimation->move(0, 0);
+    m_expandAnimation->raise();
+    m_expandAnimation->show();
+
+    auto notifications = m_notifyModel->allNotifys();
+    m_expandAnimation->appendData(notifications.mid(0, need_bubble));
+    m_expandAnimation->start();
+}
+
+void BubbleGroup::removeAnimation(int index)
+{
+    if (m_expandAnimation.isNull()) {
+        m_expandAnimation = new ExpandAnimation(m_groupList);
+
+        connect(m_expandAnimation, &ExpandAnimation::finished, [ = ]() {
+            m_expandAnimation->hide();
+            m_expandAnimation->deleteLater();
+        });
+    }
+
+    // calculated animation widget height
+    int need_bubble = animationNeedBubble(index);
+    int expand_height = need_bubble * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleOverLapHeight;
+    m_expandAnimation->setFixedSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), expand_height);
+
+    // calculated position
+    int y = index * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::CenterMargin * index;
+    m_expandAnimation->move(0, y);
+    m_expandAnimation->raise();
+    m_expandAnimation->show();
+
+    auto notifications = m_notifyModel->allNotifys();
+    m_expandAnimation->removeData(notifications.mid(index, need_bubble));
+    m_expandAnimation->start();
+}
+
 void BubbleGroup::expandAnimation()
 {
     if (m_expandAnimation.isNull()) {
@@ -93,10 +150,8 @@ void BubbleGroup::expandAnimation()
         });
     }
 
-    int bubble_count = m_notifyModel->rowCount();
-    int need_bubble =  parentWidget()->height() / OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET);
-    need_bubble = bubble_count < need_bubble ? bubble_count : need_bubble;
-    int expand_height = need_bubble * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET);
+    int need_bubble = animationNeedBubble();
+    int expand_height = need_bubble * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleOverLapHeight;
     m_expandAnimation->setFixedSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), expand_height);
 
     int limit_up = BubbleEntities - 1;
@@ -108,8 +163,21 @@ void BubbleGroup::expandAnimation()
     auto notifications = m_notifyModel->allNotifys();
 
     need_bubble -= BubbleEntities;
-    m_expandAnimation->addData(notifications.mid(limit_up, need_bubble));
+    m_expandAnimation->expandData(notifications.mid(limit_up, need_bubble));
     m_expandAnimation->start();
+}
+
+int BubbleGroup::animationNeedBubble(int index)
+{
+    if (m_notifyModel->isExpand()) {
+        int bubble_count = m_notifyModel->rowCount();
+        int need_bubble =  parentWidget()->height() / OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET);
+        need_bubble = bubble_count < need_bubble ? bubble_count : need_bubble;
+
+        return need_bubble;
+    } else {
+        return BubbleEntities - index;
+    }
 }
 
 void BubbleGroup::refreshTheme()

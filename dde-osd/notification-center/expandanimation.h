@@ -22,7 +22,7 @@
 #ifndef EXPANDANIMATION_H
 #define EXPANDANIMATION_H
 
-#include <QFrame>
+#include <DBlurEffectWidget>
 #include <QPointer>
 #include <memory>
 #include <QParallelAnimationGroup>
@@ -31,13 +31,17 @@ class QSequen;
 class NotificationEntity;
 class BubbleItem;
 
-class ExpandAnimation : public QFrame
+DWIDGET_USE_NAMESPACE
+
+class ExpandAnimation : public DBlurEffectWidget
 {
     Q_OBJECT
 public:
     ExpandAnimation(QWidget *parent = nullptr);
     ~ExpandAnimation();
-    void addData(const QList<std::shared_ptr<NotificationEntity>> &);
+    void expandData(const QList<std::shared_ptr<NotificationEntity>> &);
+    void appendData(const QList<std::shared_ptr<NotificationEntity>> &);
+    void removeData(const QList<std::shared_ptr<NotificationEntity>> &);
     void start() { m_animationGroup->start(); }
 
 signals:

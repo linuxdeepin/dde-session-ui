@@ -37,7 +37,7 @@ BubbleOverlapWidget::BubbleOverlapWidget(const QList<std::shared_ptr<Notificatio
 void BubbleOverlapWidget::initOverlap()
 {
     qreal scal_ratio = 1;
-    int height_init = 12;
+    int height_init = BubbleOverLapHeight;
     int index = 0;
     QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWIDGET);
     QPoint up_point(0, standard_size.height());

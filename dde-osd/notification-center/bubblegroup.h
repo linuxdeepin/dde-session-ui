@@ -47,10 +47,16 @@ class BubbleGroup : public QWidget
 public:
     explicit BubbleGroup(QWidget *parent = nullptr, std::shared_ptr<NotifyModel> model = nullptr);
     void setGroupTitle(const QString &title) { group_title->setText(title); }
-    void expandAnimation();
+
 
 signals:
     void closeGroup();
+
+protected:
+    int animationNeedBubble(int index = 0);
+    void expandAnimation();
+    void removeAnimation(int index);
+    void appendAnimation();
 
 protected:
     void enterEvent(QEvent *event) override;

@@ -27,9 +27,12 @@
 #include <QPropertyAnimation>
 
 ExpandAnimation::ExpandAnimation(QWidget *parent)
-    : QFrame(parent)
+    : DBlurEffectWidget(parent)
 {
     setAttribute(Qt::WA_TranslucentBackground);
+    setBlendMode(DBlurEffectWidget::BehindWindowBlend);
+    setMaskColor(DBlurEffectWidget::AutoColor);
+
     m_animationGroup = new QParallelAnimationGroup(this);
     connect(m_animationGroup, &QParallelAnimationGroup::finished, this, &ExpandAnimation::finished);
 }
@@ -45,7 +48,7 @@ ExpandAnimation::~ExpandAnimation()
     }
 }
 
-void ExpandAnimation::addData(const QList<std::shared_ptr<NotificationEntity>> &notifications)
+void ExpandAnimation::expandData(const QList<std::shared_ptr<NotificationEntity>> &notifications)
 {
     int index = 0;
     qreal scal_ratio = 19 / 20;
@@ -104,6 +107,77 @@ void ExpandAnimation::addData(const QList<std::shared_ptr<NotificationEntity>> &
         }
 
         scal_ratio = (scal_ratio * 19) / 20;
+        index ++;
+    }
+}
+
+void ExpandAnimation::appendData(const QList<std::shared_ptr<NotificationEntity>> &notifications)
+{
+    int index = 0;
+
+    foreach (auto entity, notifications) {
+        BubbleItem *bubble = new BubbleItem(this, entity);
+        bubble->show();
+        m_bubbleList.push_front(bubble);
+
+        QPoint start(0, (index - 1) * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::CenterMargin * (index - 1));
+        QPoint end(0, index * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::CenterMargin);
+
+        QPropertyAnimation *move_ani = new QPropertyAnimation(bubble, "pos", this);
+        move_ani->setEasingCurve(QEasingCurve::OutCubic);
+        move_ani->setDuration(500);
+        move_ani->setStartValue(start);
+        move_ani->setEndValue(end);
+
+        m_animationGroup->addAnimation(move_ani);
+
+        index ++;
+    }
+}
+
+void ExpandAnimation::removeData(const QList<std::shared_ptr<NotificationEntity>> &notifications)
+{
+    QPoint end(OSD::BubbleWidth(OSD::BUBBLEWIDGET), 0);
+    QPoint start(0, 0);
+
+    int index = 0;
+    foreach (auto entity, notifications) {
+        if (index == 0) {
+            BubbleItem *bubble = new BubbleItem(this, entity);
+            bubble->show();
+            m_bubbleList.push_front(bubble);
+
+            QPropertyAnimation *move_ani = new QPropertyAnimation(bubble, "pos", this);
+            move_ani->setEasingCurve(QEasingCurve::OutCubic);
+            move_ani->setDuration(500);
+            move_ani->setStartValue(start);
+            move_ani->setEndValue(end);
+
+            QPropertyAnimation *opacity_ani = new QPropertyAnimation(bubble, "windowOpacity", this);
+            opacity_ani->setEasingCurve(QEasingCurve::OutCubic);
+            opacity_ani->setDuration(500);
+            opacity_ani->setStartValue(1);
+            opacity_ani->setEndValue(0);
+
+            m_animationGroup->addAnimation(move_ani);
+            m_animationGroup->addAnimation(opacity_ani);
+        } else {
+            BubbleItem *bubble = new BubbleItem(this, entity);
+            bubble->show();
+            m_bubbleList.push_front(bubble);
+
+            start = QPoint(0, index * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::CenterMargin * index);
+            end = QPoint(0, (index - 1) * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::CenterMargin * (index - 1));
+
+            QPropertyAnimation *move_ani = new QPropertyAnimation(bubble, "pos", this);
+            move_ani->setEasingCurve(QEasingCurve::OutCubic);
+            move_ani->setDuration(500);
+            move_ani->setStartValue(start);
+            move_ani->setEndValue(end);
+
+            m_animationGroup->addAnimation(move_ani);
+        }
+
         index ++;
     }
 }

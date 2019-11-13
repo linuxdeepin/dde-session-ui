@@ -84,29 +84,26 @@ Qt::ItemFlags NotifyModel::flags(const QModelIndex &index) const
 
 void NotifyModel::addNotify(std::shared_ptr<NotificationEntity> entity)
 {
-    if (m_displays.size() < BubbleEntities) {
+    if (m_displays.size() < BubbleEntities || isExpand()) {
         beginInsertRows(QModelIndex(), 0, 0);
         m_displays.push_front(entity);
         endInsertRows();
     } else {
-        beginInsertRows(QModelIndex(), 0, 0);
+        beginResetModel();
         m_displays.push_front(entity);
-        endInsertRows();
-
         m_notfications.push_front(m_displays.last());
-
-        int index = m_displays.size() - 1;
-        beginRemoveRows(QModelIndex(), index, index);
         m_displays.removeLast();
-        endRemoveRows();
+        endResetModel();
     }
 
+    appendNotify();
+    layoutGroup();
 }
 
 void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
 {
+    int index = m_displays.indexOf(entity);
     if (m_displays.contains(entity)) {
-        int index = m_displays.indexOf(entity);
         beginRemoveRows(QModelIndex(), index, index);
         m_displays.removeOne(entity);
         endRemoveRows();
@@ -125,7 +122,7 @@ void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
         m_database->removeOne(QString::number(entity->id()));
     }
 
-    deleteNotify();
+    deleteNotify(index);
     layoutGroup();
 }
 
@@ -153,6 +150,16 @@ bool NotifyModel::isShowOverlap() const
 {
     int notify_count = m_displays.size() + m_notfications.size();
     if (notify_count > BubbleEntities && !m_notfications.isEmpty()) {
+        return true;
+    }
+
+    return false;
+}
+
+bool NotifyModel::isExpand() const
+{
+    int notify_count = m_displays.size() + m_notfications.size();
+    if (notify_count > BubbleEntities && m_notfications.isEmpty()) {
         return true;
     }
 
