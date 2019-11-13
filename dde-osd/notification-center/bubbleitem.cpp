@@ -209,7 +209,7 @@ void BubbleItem::onRefreshTime()
         text = tr("Yesterday ") + " " + bubbleDateTime.toString("hh:mm");
     } else if (elapsedDay >= 1 && elapsedDay < 7) {
         m_refreshTimer->setInterval(1000 * 60 * 60 * 24);
-        text = bubbleDateTime.toString("dddd hh:mm");
+        text = bubbleDateTime.toString("ddd hh:mm");
     } else {
         text = bubbleDateTime.toString("yyyy/MM/dd");
     }
