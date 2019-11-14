@@ -24,7 +24,10 @@
 #ifndef BUBBLE_H
 #define BUBBLE_H
 
-#include "bubbleabstract.h"
+#include <DBlurEffectWidget>
+#include <DPlatformWindowHandle>
+#include <DWindowManagerHelper>
+#include <QDBusArgument>
 #include <memory>
 
 #include "constants.h"
@@ -34,8 +37,12 @@ DWIDGET_USE_NAMESPACE
 class QPropertyAnimation;
 class QParallelAnimationGroup;
 class NotificationEntity;
-class QGraphicsDropShadowEffect;
-class Bubble : public BubbleAbStract
+class AppIcon;
+class AppBody;
+class Button;
+class ActionButton;
+
+class Bubble : public DBlurEffectWidget
 {
     Q_OBJECT
 public:
@@ -59,6 +66,7 @@ Q_SIGNALS:
     void actionInvoked(Bubble *, QString);
 
 public Q_SLOTS:
+    void compositeChanged();
     void onDelayQuit();
     void startMoveAnimation(const QRect &startRect, const QRect &endRect);
 
@@ -68,6 +76,11 @@ protected:
     virtual bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
     virtual void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
     virtual void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
+    virtual void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    virtual void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+
+    void updateContent();
+    bool containsMouse() const;
 
 private Q_SLOTS:
     void onOutTimerTimeout();
@@ -81,10 +94,21 @@ private:
     void initTimers();
 
 protected:
+    std::shared_ptr<NotificationEntity> m_entity;
+
     //animation
     QPropertyAnimation *m_outAnimation = nullptr;
     QPropertyAnimation *m_dismissAnimation = nullptr;
     QPropertyAnimation *m_moveAnimation = nullptr;//负责移入和变更位置
+
+    //controls
+    AppIcon *m_icon = nullptr;
+    AppBody *m_body = nullptr;
+    ActionButton *m_actionButton = nullptr;
+    Button *m_closeButton = nullptr;
+
+    DPlatformWindowHandle *m_handle = nullptr;
+    DWindowManagerHelper *m_wmHelper = nullptr;
 
     QTimer *m_outTimer = nullptr;
     QTimer *m_quitTimer = nullptr;
@@ -93,6 +117,9 @@ protected:
     QPoint m_clickPos;
     bool m_pressed = false;
     OSD::ShowStyle m_showStyle;
+    QString m_defaultAction;
+    bool m_canClose = false;
+    bool m_enabled = true;
 };
 
 class BubbleTemplate : public DBlurEffectWidget

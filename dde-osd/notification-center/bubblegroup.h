@@ -25,12 +25,13 @@
 #include <QPointer>
 #include <QWidget>
 #include <memory>
-#include <DLabel>
-#include <DIconButton>
-#include <DListView>
+#include <DTipLabel>
 #include "expandanimation.h"
 
-DWIDGET_USE_NAMESPACE
+DWIDGET_BEGIN_NAMESPACE
+class DIconButton;
+class DListView;
+DWIDGET_END_NAMESPACE
 
 class QListView;
 class BubbleItem;
@@ -38,16 +39,24 @@ class NotifyModel;
 class BubbleDelegate;
 class NotificationEntity;
 
+DWIDGET_USE_NAMESPACE
+
 class BubbleGroup : public QWidget
 {
     Q_OBJECT
 public:
     explicit BubbleGroup(QWidget *parent = nullptr, std::shared_ptr<NotifyModel> model = nullptr);
     void setGroupTitle(const QString &title) { group_title->setText(title); }
-    void expandAnimation();
+
 
 signals:
     void closeGroup();
+
+protected:
+    int animationNeedBubble(int index = 0);
+    void expandAnimation();
+    void removeAnimation(int index);
+    void appendAnimation();
 
 protected:
     void enterEvent(QEvent *event) override;
@@ -60,7 +69,7 @@ private:
     DListView *m_groupList = nullptr;
     BubbleDelegate *m_notifyDelegate = nullptr;
     DIconButton *title_close = nullptr;
-    DLabel *group_title = nullptr;
+    DTipLabel *group_title = nullptr;
     std::shared_ptr<NotifyModel> m_notifyModel = nullptr;
     QPointer<ExpandAnimation> m_expandAnimation = nullptr;
 };

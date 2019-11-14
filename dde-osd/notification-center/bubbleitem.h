@@ -22,18 +22,53 @@
 #ifndef BUBBLEITEM_H
 #define BUBBLEITEM_H
 
-#include "notification/bubbleabstract.h"
+#include <DWidget>
+#include <DTipLabel>
+#include <memory>
+#include <QDBusArgument>
 
 class NotificationEntity;
 class NotifyModel;
+class AppIcon;
+class AppBody;
+class Button;
+class ActionButton;
 
-class BubbleItem : public BubbleAbStract
+DWIDGET_USE_NAMESPACE
+
+class BubbleWidget_Bg : public DWidget
+{
+public:
+    BubbleWidget_Bg(QWidget *parent = nullptr);
+
+    void setAlpha(int alpha) {m_hoverAlpha = alpha; m_unHoverAlpha = alpha; update();}
+
+    int hoverAlpha() {return m_hoverAlpha;}
+    void setHoverAlpha(int alpha) {m_hoverAlpha = alpha; update();}
+
+    int unHoverAlpha() {return m_unHoverAlpha;}
+    void setUnHoverAlpha(int alpha) {m_unHoverAlpha = alpha; update();}
+
+private:
+    int m_hoverAlpha = 0;
+    int m_unHoverAlpha = 0;
+    bool m_hover = false;
+
+protected:
+    virtual bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+    virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    virtual void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    virtual void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+};
+
+class BubbleItem : public QWidget
 {
     Q_OBJECT
 public:
     BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
     void setModel(NotifyModel *model);
-    void clearContent();
+    const QPixmap converToPixmap(const QDBusArgument &value);
+    void setShowContent(bool visible);
     void setAlpha(int alpha);
 
 Q_SIGNALS:
@@ -55,8 +90,24 @@ private:
     void refreshTheme();
 
 private:
+    std::shared_ptr<NotificationEntity> m_entity;
     NotifyModel *m_notifyModel = nullptr;
     QTimer *m_refreshTimer = nullptr;
+
+    //controls
+    BubbleWidget_Bg *m_bgWidget = nullptr;
+    BubbleWidget_Bg *m_titleWidget = nullptr;
+    BubbleWidget_Bg *m_bodyWidget = nullptr;
+    DTipLabel *m_appNameLabel = nullptr;
+    DLabel *m_appTimeLabel = nullptr;
+
+    AppIcon *m_icon = nullptr;
+    AppBody *m_body = nullptr;
+    ActionButton *m_actionButton = nullptr;
+    Button *m_closeButton = nullptr;
+
+    bool m_showContent = true;
+    QString m_defaultAction;
 };
 
 #endif // BUBBLEITEM_H

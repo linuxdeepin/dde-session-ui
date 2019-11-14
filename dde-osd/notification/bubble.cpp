@@ -28,35 +28,25 @@
 #include "actionbutton.h"
 #include "button.h"
 #include "icondata.h"
+#include "bubbletool.h"
 
 #include <QDebug>
 #include <QTimer>
 #include <QPropertyAnimation>
-#include <QDesktopWidget>
 #include <QApplication>
 #include <QGSettings>
 #include <QMoveEvent>
 #include <QBoxLayout>
-#include <QX11Info>
 #include <DStyleHelper>
 
-#include <xcb/xcb.h>
-#include <xcb/xcb_ewmh.h>
-
-void register_wm_state(WId winid)
-{
-    xcb_ewmh_connection_t m_ewmh_connection;
-    xcb_intern_atom_cookie_t *cookie = xcb_ewmh_init_atoms(QX11Info::connection(), &m_ewmh_connection);
-    xcb_ewmh_init_atoms_replies(&m_ewmh_connection, cookie, nullptr);
-
-    xcb_atom_t atoms[2];
-    atoms[0] = m_ewmh_connection._NET_WM_WINDOW_TYPE_DOCK;
-    atoms[1] = m_ewmh_connection._NET_WM_STATE_BELOW;
-    xcb_ewmh_set_wm_window_type(&m_ewmh_connection, winid, 1, atoms);
-}
 
 Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
-    : BubbleAbStract(parent, entity)
+    : DBlurEffectWidget(parent)
+    , m_entity(entity)
+    , m_icon(new AppIcon(this))
+    , m_body(new AppBody(this))
+    , m_actionButton(new ActionButton(this))
+    , m_closeButton(new Button(this))
     , m_outTimer(new QTimer(this))
     , m_quitTimer(new QTimer(this))
     , m_showStyle(style)
@@ -93,8 +83,8 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "删除";
     actions << "取消";
     actions << "取消";
-//    entity->setActions(actions);
-//    entity->setTimeout("0");
+    entity->setActions(actions);
+    entity->setTimeout("0");
 #endif
 
     m_outTimer->stop();
@@ -187,6 +177,7 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
 
     return DBlurEffectWidget::mouseReleaseEvent(event);
 }
+
 bool Bubble::eventFilter(QObject *obj, QEvent *event)
 {
     //FIX ME:过滤掉这两个事件，否则窗体上鼠标点击后，在界面之外进行mouseRlease,窗体接收不到mouseReleaseEvent
@@ -198,6 +189,7 @@ bool Bubble::eventFilter(QObject *obj, QEvent *event)
     }
     return false;
 }
+
 void Bubble::showEvent(QShowEvent *event)
 {
     DBlurEffectWidget::showEvent(event);
@@ -213,6 +205,24 @@ void Bubble::hideEvent(QHideEvent *event)
     m_dismissAnimation->stop();
 
     m_quitTimer->start();
+}
+
+void Bubble::enterEvent(QEvent *event)
+{
+    if (m_canClose && m_enabled) {
+        m_closeButton->setVisible(true);
+    }
+
+    return DBlurEffectWidget::enterEvent(event);
+}
+
+void Bubble::leaveEvent(QEvent *event)
+{
+    if (m_canClose) {
+        m_closeButton->setVisible(false);
+    }
+
+    return DBlurEffectWidget::leaveEvent(event);
 }
 
 void Bubble::onOutTimerTimeout()
@@ -243,10 +253,19 @@ void Bubble::onDismissAnimFinished()
 
 void Bubble::initUI()
 {
-    m_quitTimer->setInterval(60 * 1000);
-    m_quitTimer->setSingleShot(true);
-
+    setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
+
+    m_wmHelper = DWindowManagerHelper::instance();
+    m_handle = new DPlatformWindowHandle(this);
+    m_handle->setTranslucentBackground(true);
+    m_handle->setShadowOffset(QPoint(0, 4));
+
+    compositeChanged();
+
+    setBlendMode(DBlurEffectWidget::BehindWindowBlend);
+    setMaskColor(DBlurEffectWidget::AutoColor);
+    setMouseTracking(true);
 
     DStyleHelper dstyle(style());
     int radius = dstyle.pixelMetric(DStyle::PM_TopLevelWindowRadius);
@@ -259,11 +278,6 @@ void Bubble::initUI()
     m_closeButton->setRadius(99);
     m_closeButton->setText("X");
     m_closeButton->setVisible(false);
-
-    //layout
-    m_appNameLabel->setVisible(false);
-    m_appTimeLabel->setVisible(false);
-
     m_body->setObjectName("Body");
 
     QHBoxLayout *layout = new QHBoxLayout;
@@ -282,13 +296,15 @@ void Bubble::initUI()
     QTimer::singleShot(0, this, [ = ] {
         // FIXME: 锁屏不允许显示任何通知，而通知又需要禁止窗管进行管理，
         // 为了避免二者的冲突，将气泡修改为dock，保持在其他程序置顶，又不会显示在锁屏之上。
-        register_wm_state(winId());
+        BubbleTool::register_wm_state(winId());
     });
 }
 
 void Bubble::initConnections()
 {
     connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & action_id) {
+        BubbleTool::actionInvoke(action_id, m_entity);
+
         m_dismissAnimation->start();
         m_outTimer->stop();
         Q_EMIT actionInvoked(this, action_id);
@@ -309,6 +325,7 @@ void Bubble::initConnections()
     });
 
     connect(m_quitTimer, &QTimer::timeout, this, &Bubble::onDelayQuit);
+    connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &Bubble::compositeChanged);
 }
 
 void Bubble::initAnimations()
@@ -337,6 +354,9 @@ void Bubble::initAnimations()
 
 void Bubble::initTimers()
 {
+    m_quitTimer->setInterval(60 * 1000);
+    m_quitTimer->setSingleShot(true);
+
     m_outTimer->setInterval(BubbleTimeout);
     m_outTimer->setSingleShot(true);
     connect(m_outTimer, &QTimer::timeout, this, &Bubble::onOutTimerTimeout);
@@ -349,6 +369,32 @@ void Bubble::onDelayQuit()
         qWarning() << "Killer Timeout, now quiiting...";
         qApp->quit();
     }
+}
+
+void Bubble::compositeChanged()
+{
+    if (!m_wmHelper->hasComposite()) {
+        m_handle->setWindowRadius(0);
+        m_handle->setShadowColor(QColor("#E5E5E5"));
+    } else {
+        m_handle->setWindowRadius(5);
+        m_handle->setShadowColor(QColor(0, 0, 0, 100));
+    }
+}
+
+void Bubble::updateContent()
+{
+    m_body->setTitle(m_entity->summary());
+    m_body->setText(m_entity->body());
+    m_canClose = m_entity->actions().isEmpty();
+
+    BubbleTool::processIconData(m_icon, m_entity);
+    m_defaultAction = BubbleTool::processActions(m_actionButton, m_entity->actions());
+}
+
+bool Bubble::containsMouse() const
+{
+    return geometry().contains(QCursor::pos());
 }
 
 void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect)

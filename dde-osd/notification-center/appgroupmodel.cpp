@@ -28,7 +28,11 @@ ApplicationGroup::ApplicationGroup(std::shared_ptr<NotificationEntity> entity, P
     m_timeStamp = entity->ctime();
     m_notifyModel = std::make_shared<NotifyModel>(this, entity);
     m_notifyModel->setPersistence(database);
-    connect(m_notifyModel.get(), &NotifyModel::layoutGroup, this, &ApplicationGroup::layoutGroup);
+    connect(m_notifyModel.get(), &NotifyModel::layoutGroup, this, [ = ]() {
+        layoutGroup();
+
+        if (m_notifyModel->rowCount() == 0) removeGroup();
+    });
 }
 
 AppGroupModel::AppGroupModel(QObject *parent, Persistence *database)
@@ -104,29 +108,49 @@ void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
 {
     auto app_group = appGroup(entity->appName());
 
-    beginResetModel();
     if (app_group != nullptr) {
         auto notify_model = app_group->notifyModel().value<std::shared_ptr<NotifyModel>>();
         notify_model->addNotify(entity);
 
         if (m_applications.first() != app_group) {
+            int index = m_applications.indexOf(app_group);
+            beginRemoveRows(QModelIndex(), index, index);
             m_applications.removeOne(app_group);
+            endRemoveRows();
+
+            beginInsertRows(QModelIndex(), 0, 0);
             m_applications.push_front(app_group);
+            endInsertRows();
         }
     } else {
         ApplicationGroup *bubble_group = new ApplicationGroup(entity, m_database);
+        beginInsertRows(QModelIndex(), 0, 0);
         m_applications.push_front(bubble_group);
+        endInsertRows();
+
         connect(bubble_group, &ApplicationGroup::layoutGroup, this, [ = ]() {
             this->layoutChanged();
         });
+
+        connect(bubble_group, &ApplicationGroup::removeGroup, this, [ = ]() {
+            if (m_applications.contains(bubble_group)) {
+                int index = m_applications.indexOf(bubble_group);
+
+                beginRemoveRows(QModelIndex(), index, index);
+                m_applications.removeOne(bubble_group);
+                endRemoveRows();
+            }
+        });
     }
-    endResetModel();
 }
 
 void AppGroupModel::removeGroup(const QModelIndex &index)
 {
-    beginRemoveRows(QModelIndex(), index.row(), index.row());
-    auto app = m_applications.takeAt(index.row());
+    int row = index.row();
+    if (row < 0 && row >= m_applications.size()) return;
+
+    beginRemoveRows(QModelIndex(), row, row);
+    auto app = m_applications.takeAt(row);
     endRemoveRows();
 
     //clear database content

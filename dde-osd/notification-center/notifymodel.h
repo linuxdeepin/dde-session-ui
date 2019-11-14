@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2011 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     zorowk <near.kingzero@gmail.com>
@@ -54,12 +54,14 @@ public:
     void expandData(std::shared_ptr<NotificationEntity> entity);
     void refreshContent();
     bool isShowOverlap() const;
+    bool isExpand() const;
     QList<std::shared_ptr<NotificationEntity>> allNotifys() { return m_displays; }
     QList<std::shared_ptr<NotificationEntity>> overlapNotifys();
 
 signals:
+    void appendNotify();
     void expandNotify();
-    void deleteNotify();
+    void deleteNotify(int index);
     void layoutGroup();
 
 public:

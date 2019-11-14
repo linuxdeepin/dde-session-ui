@@ -84,32 +84,46 @@ Qt::ItemFlags NotifyModel::flags(const QModelIndex &index) const
 
 void NotifyModel::addNotify(std::shared_ptr<NotificationEntity> entity)
 {
-    beginInsertRows(QModelIndex(), 0, 0);
-    if (m_displays.size() < BubbleEntities) {
+    if (m_displays.size() < BubbleEntities || isExpand()) {
+        beginInsertRows(QModelIndex(), 0, 0);
         m_displays.push_front(entity);
+        endInsertRows();
     } else {
+        beginResetModel();
         m_displays.push_front(entity);
         m_notfications.push_front(m_displays.last());
         m_displays.removeLast();
+        endResetModel();
     }
-    endInsertRows();
+
+    appendNotify();
+    layoutGroup();
 }
 
 void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
 {
-    m_notfications.removeOne(entity);
+    int index = m_displays.indexOf(entity);
+    deleteNotify(index);
 
-    beginResetModel();
-    m_displays.removeOne(entity);
-    if (!m_notfications.isEmpty()) m_displays.push_back(m_notfications.takeFirst());
-    endResetModel();
+    if (m_displays.contains(entity)) {
+        beginRemoveRows(QModelIndex(), index, index);
+        m_displays.removeOne(entity);
+        endRemoveRows();
+    }
+
+    m_notfications.removeOne(entity);
+    if (!m_notfications.isEmpty()) {
+        int index = m_displays.size();
+        beginInsertRows(QModelIndex(), index, index);
+        m_displays.push_back(m_notfications.takeFirst());
+        endInsertRows();
+    }
 
     // need remove database
     if (m_database != nullptr) {
         m_database->removeOne(QString::number(entity->id()));
     }
 
-    deleteNotify();
     layoutGroup();
 }
 
@@ -137,6 +151,16 @@ bool NotifyModel::isShowOverlap() const
 {
     int notify_count = m_displays.size() + m_notfications.size();
     if (notify_count > BubbleEntities && !m_notfications.isEmpty()) {
+        return true;
+    }
+
+    return false;
+}
+
+bool NotifyModel::isExpand() const
+{
+    int notify_count = m_displays.size() + m_notfications.size();
+    if (notify_count > BubbleEntities && m_notfications.isEmpty()) {
         return true;
     }
 

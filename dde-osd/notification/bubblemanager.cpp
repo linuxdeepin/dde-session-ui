@@ -137,7 +137,49 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                                             QString::number(expireTimeout),
                                                                                             this);
     m_persistence->addOne(notification);
-    pushBubble(notification);
+
+    bool find = false;
+    for (int i = 0; i < m_bubbleList.size(); ++i) {
+        Bubble *b = m_bubbleList[i];
+        if (b->entity()->replacesId() == QString::number(replacesId)
+                && b->entity()->appName() == appName) {
+            b->setEntity(notification);
+
+            // 在其之前所有消息均向下移动一格
+            int index = i;
+            while (index > 0) {
+                index --;
+                QRect startRect = GetBubbleGeometry(index);
+                QRect endRect = GetBubbleGeometry(index + 1);
+                QPointer<Bubble> item = m_bubbleList.at(index);
+                PrepareAnimation(item, index + 1, endRect);
+                item->startMoveAnimation(startRect, endRect);
+            }
+
+            //2 自身调整到首位
+            if (i != 0) {
+                QRect startRect = GetBubbleGeometry(i);
+                QRect endRect = GetBubbleGeometry(0);
+                pushAnimation(b);
+                PrepareAnimation(b, index, endRect);
+                b->startMoveAnimation(startRect, endRect);
+
+                m_bubbleList.swap(i, 0);
+            }
+            find = true;
+            break;
+        }
+    }
+    for (int i = 0; i < m_oldEntities.size(); ++i) {
+        if (m_oldEntities[i]->replacesId() == QString::number(replacesId)
+                && m_oldEntities[i]->appName() == appName) {
+            m_oldEntities.removeAt(i);
+        }
+    }
+
+    if (!find) {
+        pushBubble(notification);
+    }
     m_messageCount++;
 
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.
