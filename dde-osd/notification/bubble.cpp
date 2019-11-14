@@ -37,8 +37,8 @@
 #include <QGSettings>
 #include <QMoveEvent>
 #include <QBoxLayout>
-#include <DStyleHelper>
 
+#include <DStyleHelper>
 
 Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
@@ -168,6 +168,7 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
         m_dismissAnimation->start();
     } else if (m_pressed && event->pos().y() < 10) {
         Q_EMIT ignored(this);
+
         m_dismissAnimation->start();
     } else {
         m_outTimer->start();
@@ -332,7 +333,7 @@ void Bubble::initAnimations()
 {
     m_outAnimation = new QPropertyAnimation(this, "windowOpacity", this);
     m_outAnimation->setDuration(500);
-    m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
+    m_outAnimation->setEasingCurve(QEasingCurve::Linear);
     if (m_outAnimation->state() != QPropertyAnimation::Running) {
         m_outAnimation->setStartValue(1);
         m_outAnimation->setEndValue(0);
@@ -341,7 +342,7 @@ void Bubble::initAnimations()
 
     m_dismissAnimation = new QPropertyAnimation(this, "windowOpacity", this);
     m_dismissAnimation->setDuration(300);
-    m_dismissAnimation->setEasingCurve(QEasingCurve::OutCubic);
+    m_dismissAnimation->setEasingCurve(QEasingCurve::Linear);
     if (m_dismissAnimation->state() != QPropertyAnimation::Running) {
         m_dismissAnimation->setStartValue(1);
         m_dismissAnimation->setEndValue(0);
@@ -349,7 +350,7 @@ void Bubble::initAnimations()
     connect(m_dismissAnimation, &QPropertyAnimation::finished, this, &Bubble::onDismissAnimFinished);
 
     m_moveAnimation = new QPropertyAnimation(this, "geometry", this);
-    m_moveAnimation->setEasingCurve(QEasingCurve::OutCubic);
+    m_moveAnimation->setEasingCurve(QEasingCurve::Linear);
 }
 
 void Bubble::initTimers()
@@ -400,42 +401,10 @@ bool Bubble::containsMouse() const
 void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect)
 {
     if (m_moveAnimation->state() != QPropertyAnimation::Running) {
-        m_moveAnimation->setStartValue(startRect);
-        m_moveAnimation->setEndValue(endRect);
+        m_moveAnimation->stop();
         m_moveAnimation->start();
     }
-}
-
-BubbleTemplate::BubbleTemplate()
-    : DBlurEffectWidget(nullptr)
-{
-    initUI();
-
-    this->installEventFilter(this);
-}
-
-void BubbleTemplate::initUI()
-{
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
-    setAttribute(Qt::WA_TranslucentBackground);
-
-    DStyleHelper dstyle(style());
-    int radius = dstyle.pixelMetric(DStyle::PM_TopLevelWindowRadius);
-    setBlurRectXRadius(radius);
-    setBlurRectYRadius(radius);
-}
-
-bool BubbleTemplate::eventFilter(QObject *object, QEvent *event)
-{
-    if (object) {
-        if (event->type() == QEvent::Type::MouseButtonPress
-                || event->type() == QEvent::Type::MouseButtonRelease
-                || event->type() == QEvent::Type::MouseButtonDblClick
-                || event->type() == QEvent::Type::MouseMove
-                || event->type() == QEvent::Type::Move) {
-            return true;
-        }
-    }
-
-    return false;
+    m_moveAnimation->setStartValue(startRect);
+    m_moveAnimation->setEndValue(endRect);
+    m_moveAnimation->start();
 }

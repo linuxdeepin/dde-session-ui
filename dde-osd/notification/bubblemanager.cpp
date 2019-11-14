@@ -152,6 +152,9 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                 QRect startRect = GetBubbleGeometry(index);
                 QRect endRect = GetBubbleGeometry(index + 1);
                 QPointer<Bubble> item = m_bubbleList.at(index);
+                if (item->geometry() != endRect) {
+                    startRect = item->geometry();
+                }
                 PrepareAnimation(item, index + 1, endRect);
                 item->startMoveAnimation(startRect, endRect);
             }
@@ -232,7 +235,10 @@ void BubbleManager::pushAnimation(Bubble *bubble)
         QRect startRect = GetBubbleGeometry(index - 1);
         QRect endRect = GetBubbleGeometry(index);
         QPointer<Bubble> item = m_bubbleList.at(index);
-        PrepareAnimation(item, index, endRect);
+        if (item->geometry() != endRect) { //动画中
+            startRect = item->geometry();
+        }
+        PrepareAnimation(item, index, endRect);//TODO  应等待动画结束后
         if (bubble != nullptr)
             item->startMoveAnimation(startRect, endRect);
     }
@@ -248,6 +254,9 @@ void BubbleManager::popAnimation(Bubble *bubble)
         QRect startRect = GetBubbleGeometry(index);
         QRect endRect = GetBubbleGeometry(index - 1);
         QPointer<Bubble> item = m_bubbleList.at(index);
+        if (item->geometry() != endRect) { //动画中
+            startRect = item->geometry();
+        }
         PrepareAnimation(item, index - 1, endRect);
         if (bubble != nullptr)
             item->startMoveAnimation(startRect, endRect);

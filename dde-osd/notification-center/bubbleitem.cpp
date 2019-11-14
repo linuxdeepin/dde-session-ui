@@ -17,13 +17,13 @@
 #include <QDebug>
 #include <QProcess>
 
-BubbleWidget_Bg::BubbleWidget_Bg(QWidget *parent)
+AlphaWidget::AlphaWidget(QWidget *parent)
     : DWidget(parent)
 {
     installEventFilter(this);
 }
 
-bool BubbleWidget_Bg::eventFilter(QObject *obj, QEvent *event)
+bool AlphaWidget::eventFilter(QObject *obj, QEvent *event)
 {
     // 这里只是为了让界面不被拖动
     if (obj) {
@@ -35,7 +35,7 @@ bool BubbleWidget_Bg::eventFilter(QObject *obj, QEvent *event)
     return false;
 }
 
-void BubbleWidget_Bg::paintEvent(QPaintEvent *event)
+void AlphaWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -61,7 +61,7 @@ void BubbleWidget_Bg::paintEvent(QPaintEvent *event)
 
 }
 
-void BubbleWidget_Bg::enterEvent(QEvent *event)
+void AlphaWidget::enterEvent(QEvent *event)
 {
     m_hover = true;
 
@@ -70,7 +70,7 @@ void BubbleWidget_Bg::enterEvent(QEvent *event)
     return DWidget::enterEvent(event);
 }
 
-void BubbleWidget_Bg::leaveEvent(QEvent *event)
+void AlphaWidget::leaveEvent(QEvent *event)
 {
     m_hover = false;
 
@@ -83,9 +83,9 @@ BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> enti
     : QWidget(parent)
     , m_entity(entity)
     , m_refreshTimer(new QTimer)
-    , m_bgWidget(new BubbleWidget_Bg(this))
-    , m_titleWidget(new BubbleWidget_Bg(this))
-    , m_bodyWidget(new BubbleWidget_Bg(this))
+    , m_bgWidget(new AlphaWidget(this))
+    , m_titleWidget(new AlphaWidget(this))
+    , m_bodyWidget(new AlphaWidget(this))
     , m_appNameLabel(new DTipLabel("", this))
     , m_appTimeLabel(new DLabel(this))
     , m_icon(new AppIcon(this))

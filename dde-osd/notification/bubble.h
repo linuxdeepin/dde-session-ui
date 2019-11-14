@@ -28,6 +28,7 @@
 #include <DPlatformWindowHandle>
 #include <DWindowManagerHelper>
 #include <QDBusArgument>
+
 #include <memory>
 
 #include "constants.h"
@@ -121,18 +122,4 @@ protected:
     bool m_canClose = false;
     bool m_enabled = true;
 };
-
-class BubbleTemplate : public DBlurEffectWidget
-{
-    Q_OBJECT
-public:
-    BubbleTemplate();
-
-private:
-    void initUI();
-
-protected:
-    bool eventFilter(QObject *object, QEvent *event) Q_DECL_OVERRIDE;
-};
-
 #endif // BUBBLE_H

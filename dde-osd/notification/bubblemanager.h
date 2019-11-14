@@ -56,7 +56,6 @@ class Login1ManagerInterface;
 class DBusDockInterface;
 class Persistence;
 class NotifyCenterWidget;
-class BubbleTemplate;
 class BubbleManager : public QObject
 {
     Q_OBJECT

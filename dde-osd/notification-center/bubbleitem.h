@@ -36,10 +36,10 @@ class ActionButton;
 
 DWIDGET_USE_NAMESPACE
 
-class BubbleWidget_Bg : public DWidget
+class AlphaWidget : public DWidget
 {
 public:
-    BubbleWidget_Bg(QWidget *parent = nullptr);
+    AlphaWidget(QWidget *parent = nullptr);
 
     void setAlpha(int alpha) {m_hoverAlpha = alpha; m_unHoverAlpha = alpha; update();}
 
@@ -95,9 +95,9 @@ private:
     QTimer *m_refreshTimer = nullptr;
 
     //controls
-    BubbleWidget_Bg *m_bgWidget = nullptr;
-    BubbleWidget_Bg *m_titleWidget = nullptr;
-    BubbleWidget_Bg *m_bodyWidget = nullptr;
+    AlphaWidget *m_bgWidget = nullptr;
+    AlphaWidget *m_titleWidget = nullptr;
+    AlphaWidget *m_bodyWidget = nullptr;
     DTipLabel *m_appNameLabel = nullptr;
     DLabel *m_appTimeLabel = nullptr;
 
