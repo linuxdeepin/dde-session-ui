@@ -292,7 +292,6 @@ QRect BubbleManager::GetBubbleGeometry(int index)
         rect.setHeight(height);
     }
 
-    qDebug() << "Rect:" << rect;
     return rect;
 }
 
@@ -420,38 +419,22 @@ bool BubbleManager::checkDockExistence()
 
 int BubbleManager::getX()
 {
-    QPair<QRect, bool> pair = screensInfo(QCursor::pos());
-    const QRect &rect = pair.first;
-    const int maxX = rect.x() + rect.width();
+    QDesktopWidget *desktop = QApplication::desktop();
+    int primaryScreen = desktop->primaryScreen();
 
-    // directly show the notify on the screen containing mouse,
-    // because dock  will only be displayed on the primary screen.
-    if (!pair.second)
-        return  maxX;
+    QRect rect = desktop->screenGeometry(primaryScreen);
 
-    return maxX;
+    return rect.x() + rect.width();
 }
 
 int BubbleManager::getY()
 {
-    QPair<QRect, bool> pair = screensInfo(QCursor::pos());
-    const QRect &rect = pair.first;
-
-    if (!pair.second)
-        return  rect.y();
-
-    return rect.y();
-}
-
-QPair<QRect, bool> BubbleManager::screensInfo(const QPoint &point) const
-{
     QDesktopWidget *desktop = QApplication::desktop();
-    int pointScreen = desktop->screenNumber(point);
     int primaryScreen = desktop->primaryScreen();
 
-    QRect rect = desktop->screenGeometry(pointScreen);
+    QRect rect = desktop->screenGeometry(primaryScreen);
 
-    return QPair<QRect, bool>(rect, (pointScreen == primaryScreen));
+    return rect.y();
 }
 
 void BubbleManager::onDockPositionChanged(int position)

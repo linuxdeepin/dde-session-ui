@@ -123,7 +123,6 @@ private:
     // return geometry of the containing specified point screen,
     // and return true if primary-screen and specified-point-screen are the same screen,
     // or return false.
-    QPair<QRect, bool> screensInfo(const QPoint &point) const;
 
     Bubble *createBubble(std::shared_ptr<NotificationEntity> notify, int index = 0);
     void pushBubble(std::shared_ptr<NotificationEntity> notify);
