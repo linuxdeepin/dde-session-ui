@@ -52,6 +52,8 @@ public:
     // If rowcount is - 1, it is obtained from offset + 1 to the last.
     QString getFrom(int rowCount, const QString &offsetId);
 
+    int getRecordCount();
+
 signals:
     void RecordAdded(std::shared_ptr<NotificationEntity> entity);
 

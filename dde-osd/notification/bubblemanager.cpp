@@ -73,6 +73,7 @@ BubbleManager::BubbleManager(QObject *parent)
 
     // get correct value for m_dockGeometry, m_dockPosition, m_ccGeometry
     if (m_dockDeamonInter->isValid()) {
+        qDebug() << "set position";
         onDockPositionChanged(m_dockDeamonInter->position());
         onDockSizeChanged(m_dockDeamonInter->windowSize());
     }
@@ -136,8 +137,6 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                                             QString::number(replacesId),
                                                                                             QString::number(expireTimeout),
                                                                                             this);
-    m_persistence->addOne(notification);
-
     bool find = false;
     for (int i = 0; i < m_bubbleList.size(); ++i) {
         Bubble *b = m_bubbleList[i];
@@ -183,7 +182,6 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     if (!find) {
         pushBubble(notification);
     }
-    m_messageCount++;
 
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.
     // If replaces_id is not 0, the returned value is the same value as replaces_id.
@@ -350,7 +348,7 @@ void BubbleManager::Toggle()
 
 uint BubbleManager::recordCount()
 {
-    return m_messageCount;
+    return m_persistence->getRecordCount();
 }
 
 void BubbleManager::registerAsService()
@@ -445,12 +443,14 @@ QPair<QRect, bool> BubbleManager::screensInfo(const QPoint &point) const
 
 void BubbleManager::onDockPositionChanged(int position)
 {
+    qDebug() << "DockPosition" << position;
     m_dockPosition = static_cast<OSD::DockPosition>(position);
     m_notifyCenter->updateGeometry(m_dockPosition, m_dockSize);
 }
 
 void BubbleManager::onDockSizeChanged(uint size)
 {
+    qDebug() << "DockSize:" << size;
     m_dockSize = size;
     m_notifyCenter->updateGeometry(m_dockPosition, size);
 }
@@ -469,6 +469,9 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);
     connect(bubble, &Bubble::replacedByOther, this, &BubbleManager::bubbleReplacedByOther);
     connect(bubble, &Bubble::actionInvoked, this, &BubbleManager::bubbleActionInvoked);
+    connect(bubble, &Bubble::notProcessedYet, this, [ = ](Bubble * bubble) {
+        m_persistence->addOne(bubble->entity());
+    });
 
     if (index != 0) {
         QRect startRect = GetBubbleGeometry(5);

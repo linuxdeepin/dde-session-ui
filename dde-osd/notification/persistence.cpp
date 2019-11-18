@@ -30,6 +30,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QMapIterator>
+#include <QSqlTableModel>
 
 #include "notificationentity.h"
 
@@ -74,10 +75,16 @@ Persistence::Persistence(QObject *parent)
 
 void Persistence::addOne(std::shared_ptr<NotificationEntity> entity)
 {
-    QString sqlCmd =  QString("INSERT INTO %1 ").arg(TableName_v2);
-    sqlCmd += QString("(%1, %2, %3, %4, %5, %6, %7, %8, %9)").arg(ColumnIcon, ColumnSummary, ColumnBody,
-                                                                  ColumnAppName, ColumnCTime, ColumnAction,
-                                                                  ColumnHint, ColumnReplacesId, ColumnTimeout);
+    QString sqlCmd =  QString("INSERT INTO %1 (").arg(TableName_v2);
+    sqlCmd += ColumnIcon + ",";
+    sqlCmd += ColumnSummary + ",";
+    sqlCmd += ColumnBody + ",";
+    sqlCmd += ColumnAppName + ",";
+    sqlCmd += ColumnCTime + ",";
+    sqlCmd += ColumnAction + ",";
+    sqlCmd += ColumnHint + ",";
+    sqlCmd += ColumnReplacesId + ",";
+    sqlCmd += ColumnTimeout + ")";
     sqlCmd += "VALUES (:icon, :summary, :body, :appname, :ctime, :action, :hint, :replacesid, :timeout)";
 
     m_query.prepare(sqlCmd);
@@ -95,7 +102,6 @@ void Persistence::addOne(std::shared_ptr<NotificationEntity> entity)
     }
     if (!action.isEmpty())
         action = action.mid(0, action.length() - 1);
-    qDebug() << action;
     m_query.bindValue(":action", action);
 
     //hint
@@ -189,9 +195,20 @@ void Persistence::removeAll()
 
 QString Persistence::getAll()
 {
-    m_query.prepare(QString("SELECT %1, %2, %3, %4, %5, %6 ,%7 ,%8 FROM %9")
-                    .arg(ColumnId, ColumnIcon, ColumnSummary, ColumnBody, ColumnAppName,
-                         ColumnCTime, ColumnAction, ColumnHint, TableName_v2));
+    QString sqlCmd = QString("SELECT ");
+    sqlCmd += ColumnId + ",";
+    sqlCmd += ColumnIcon + ",";
+    sqlCmd += ColumnSummary + ",";
+    sqlCmd += ColumnBody + ",";
+    sqlCmd += ColumnAppName + ",";
+    sqlCmd += ColumnCTime + ",";
+    sqlCmd += ColumnAction + ",";
+    sqlCmd += ColumnHint + ",";
+    sqlCmd += ColumnReplacesId + ",";
+    sqlCmd += ColumnTimeout + " FROM ";
+    sqlCmd += TableName_v2;
+
+    m_query.prepare(sqlCmd);
 
     if (!m_query.exec()) {
         qWarning() << "get all from database failed: " << m_query.lastError().text();
@@ -212,10 +229,11 @@ QString Persistence::getAll()
             {"name", m_query.value(4).toString()},
             {"time", m_query.value(5).toString()},
             {"action", m_query.value(6).toString()},
-            {"hint", m_query.value(7).toString()}
+            {"hint", m_query.value(7).toString()},
+            {"replacesid", m_query.value(8).toString()},
+            {"timeout", m_query.value(9).toString()},
         };
         array1.append(obj);
-
         qDebug() << m_query.value(6).toString();
     }
     return QJsonDocument(array1).toJson();
@@ -238,7 +256,9 @@ QList<std::shared_ptr<NotificationEntity>> Persistence::getAllNotify()
                                                                  obj.value("body").toString(),
                                                                  actions, ConvertStringToMap(obj.value("hint").toString()),
                                                                  obj.value("time").toString(),
-                                                                 QString(), QString(), this);
+                                                                 obj.value("replacesid").toString(),
+                                                                 obj.value("timeout").toString(),
+                                                                 this);
         db_notification.append(notification);
     }
     return db_notification;
@@ -246,9 +266,21 @@ QList<std::shared_ptr<NotificationEntity>> Persistence::getAllNotify()
 
 QString Persistence::getById(const QString &id)
 {
-    m_query.prepare(QString("SELECT %1, %2, %3, %4, %5, %6 ,%7 ,%8 FROM %9 WHERE ID = (:id)")
-                    .arg(ColumnId, ColumnIcon, ColumnSummary, ColumnBody, ColumnAppName,
-                         ColumnCTime, ColumnAction, ColumnHint, TableName_v2));
+    QString sqlCmd = QString("SELECT ");
+    sqlCmd += ColumnId + ",";
+    sqlCmd += ColumnIcon + ",";
+    sqlCmd += ColumnSummary + ",";
+    sqlCmd += ColumnBody + ",";
+    sqlCmd += ColumnAppName + ",";
+    sqlCmd += ColumnCTime + ",";
+    sqlCmd += ColumnAction + ",";
+    sqlCmd += ColumnHint + ",";
+    sqlCmd += ColumnReplacesId + ",";
+    sqlCmd += ColumnTimeout + " FROM ";
+    sqlCmd += TableName_v2;
+    sqlCmd += " WHERE ID = (:id)";
+
+    m_query.prepare(sqlCmd);
     m_query.bindValue(":id", id);
 
     if (!m_query.exec()) {
@@ -270,7 +302,9 @@ QString Persistence::getById(const QString &id)
             {"name", m_query.value(4).toString()},
             {"time", m_query.value(5).toString()},
             {"action", m_query.value(6).toString()},
-            {"hint", m_query.value(7).toString()}
+            {"hint", m_query.value(7).toString()},
+            {"replacesid", m_query.value(8).toString()},
+            {"timeout", m_query.value(9).toString()}
         };
         array.append(obj);
     }
@@ -310,9 +344,20 @@ QString Persistence::getFrom(int rowCount, const QString &offsetId)
     }
 
     // get data from rowNum+1
-    m_query.prepare(QString("SELECT %1, %2, %3, %4, %5, %6 ,%7 ,%8 FROM %9 LIMIT (:rowCount) OFFSET (:offset)")
-                    .arg(ColumnId, ColumnIcon, ColumnSummary, ColumnBody, ColumnAppName,
-                         ColumnCTime, ColumnAction, ColumnHint, TableName_v2));
+    QString sqlCmd = QString("SELECT ");
+    sqlCmd += ColumnId + ",";
+    sqlCmd += ColumnIcon + ",";
+    sqlCmd += ColumnSummary + ",";
+    sqlCmd += ColumnBody + ",";
+    sqlCmd += ColumnAppName + ",";
+    sqlCmd += ColumnCTime + ",";
+    sqlCmd += ColumnAction + ",";
+    sqlCmd += ColumnHint + ",";
+    sqlCmd += ColumnReplacesId + ",";
+    sqlCmd += ColumnTimeout + " FROM ";
+    sqlCmd += TableName_v2;
+    sqlCmd += QString(" LIMIT (:rowCount) OFFSET (:offset)");
+
     m_query.bindValue(":rowCount", rowCount);
     m_query.bindValue(":offset", rowNum);
 
@@ -335,7 +380,9 @@ QString Persistence::getFrom(int rowCount, const QString &offsetId)
             {"name", m_query.value(4).toString()},
             {"time", m_query.value(5).toString()},
             {"action", m_query.value(6).toString()},
-            {"hint", m_query.value(7).toString()}
+            {"hint", m_query.value(7).toString()},
+            {"replacesid", m_query.value(8).toString()},
+            {"timeout", m_query.value(9).toString()}
         };
         array.append(obj);
     }
@@ -344,25 +391,33 @@ QString Persistence::getFrom(int rowCount, const QString &offsetId)
     return QJsonDocument(array).toJson();
 }
 
+int Persistence::getRecordCount()
+{
+    QSqlTableModel *tableModel = new QSqlTableModel(this, m_dbConnection);
+    tableModel->setTable(TableName_v2);
+    tableModel->select();
+    int count = tableModel->rowCount();
+
+    delete tableModel;
+
+    return count;
+}
+
 void Persistence::attemptCreateTable()
 {
     QString text = QString("CREATE TABLE IF NOT EXISTS %1("
                            "%2 INTEGER PRIMARY KEY   AUTOINCREMENT,").arg(TableName_v2, ColumnId);
-    text += QString("%1 TEXT,"
-                    "%2 TEXT,"
-                    "%3 TEXT,"
-                    "%4 TEXT,"
-                    "%5 TEXT,"
-                    "%6 TEXT,"
-                    "%7 TEXT,"
-                    "%8 TEXT,"
-                    "%9 TEXT"
-                    ");").arg(ColumnIcon, ColumnSummary,
-                              ColumnBody, ColumnAppName, ColumnCTime, ColumnAction, ColumnHint,
-                              ColumnReplacesId, ColumnTimeout);
+    text += ColumnIcon + " TEXT,";
+    text += ColumnSummary + " TEXT,";
+    text += ColumnBody + " TEXT,";
+    text += ColumnAppName + " TEXT,";
+    text += ColumnCTime + " TEXT,";
+    text += ColumnAction + " TEXT,";
+    text += ColumnHint + " TEXT,";
+    text += ColumnReplacesId + " TEXT,";
+    text += ColumnTimeout + " TEXT)";
 
     m_query.prepare(text);
-
 
     if (!m_query.exec()) {
         qWarning() << "create table failed" << m_query.lastError().text();
@@ -374,6 +429,14 @@ void Persistence::attemptCreateTable()
 
     if (!IsAttributeValid(TableName_v2, ColumnHint)) {
         AddAttributeToTable(TableName_v2, ColumnHint);
+    }
+
+    if (!IsAttributeValid(TableName_v2, ColumnReplacesId)) {
+        AddAttributeToTable(TableName_v2, ColumnReplacesId);
+    }
+
+    if (!IsAttributeValid(TableName_v2, ColumnTimeout)) {
+        AddAttributeToTable(TableName_v2, ColumnTimeout);
     }
 }
 

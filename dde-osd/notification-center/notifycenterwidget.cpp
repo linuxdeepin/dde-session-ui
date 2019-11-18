@@ -34,6 +34,8 @@
 #include <QPropertyAnimation>
 #include <diconbutton.h>
 #include <QPalette>
+#include <QDebug>
+
 #include <DTipLabel>
 #include <DGuiApplicationHelper>
 
@@ -112,6 +114,7 @@ void NotifyCenterWidget::updateGeometry(OSD::DockPosition pos, int dock_size)
 {
     QDesktopWidget *desktop = QApplication::desktop();
     QRect rect = desktop->screenGeometry();
+    qDebug() <<  "screenGeometry:" << rect;
     m_screenGeometry = rect;
 
     int width = Notify::CenterWidth;
@@ -147,6 +150,7 @@ void NotifyCenterWidget::updateGeometry(OSD::DockPosition pos, int dock_size)
         }
     }
 
+    qDebug() <<  "set geometry:" << QRect(x, y, width, height);;
     setGeometry(x, y, width, height);
 }
 
@@ -155,7 +159,6 @@ void NotifyCenterWidget::showEvent(QShowEvent *event)
     m_inAnimation->start();
     DBlurEffectWidget::showEvent(event);
 }
-
 
 void NotifyCenterWidget::refreshTheme()
 {

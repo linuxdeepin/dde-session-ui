@@ -51,9 +51,10 @@ public:
            OSD::ShowStyle style = OSD::ShowStyle::BUBBLEWINDOW);
 
     std::shared_ptr<NotificationEntity> entity() const;
+    void setEntity(std::shared_ptr<NotificationEntity> entity);
+
     void StartMoveIn(int x, int y);
     void StartMoveIn(const QRect &startRect, const QRect &endRect);
-    void setEntity(std::shared_ptr<NotificationEntity> entity);
 
     OSD::ShowStyle showStyle() {return m_showStyle;}
 
@@ -62,7 +63,7 @@ public:
 Q_SIGNALS:
     void expired(Bubble *);
     void dismissed(Bubble *);
-    void ignored(Bubble *);     //暂不处理信号
+    void notProcessedYet(Bubble *);     //add into database when the signal emit
     void replacedByOther(Bubble *);
     void actionInvoked(Bubble *, QString);
 

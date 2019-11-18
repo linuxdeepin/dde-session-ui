@@ -83,8 +83,8 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "删除";
     actions << "取消";
     actions << "取消";
-    entity->setActions(actions);
-    entity->setTimeout("0");
+//    entity->setActions(actions);
+//    entity->setTimeout("0");
 #endif
 
     m_outTimer->stop();
@@ -98,23 +98,6 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     // -1: default 5s
     m_outTimer->setInterval(timeout == -1 ? BubbleTimeout : (timeout == 0 ? -1 : timeout));
     m_outTimer->start();
-}
-
-void Bubble::setEnabled(bool enable)
-{
-    m_enabled = enable;
-
-    if (!enable) {
-        m_actionButton->hide();
-        m_closeButton->hide();
-        m_icon->hide();
-        m_body->hide();
-    } else {
-        m_actionButton->show();
-//        m_closeButton->setVisible(m_canClose);
-        m_icon->show();
-        m_body->show();
-    }
 }
 
 void Bubble::StartMoveIn(int x, int y)
@@ -137,6 +120,23 @@ void Bubble::StartMoveIn(const QRect &startRect, const QRect &endRect)
         m_moveAnimation->setStartValue(startRect);
         m_moveAnimation->setEndValue(endRect);
         m_moveAnimation->start();
+    }
+}
+
+void Bubble::setEnabled(bool enable)
+{
+    m_enabled = enable;
+
+    if (!enable) {
+        m_actionButton->hide();
+        m_closeButton->hide();
+        m_icon->hide();
+        m_body->hide();
+    } else {
+        m_actionButton->show();
+//        m_closeButton->setVisible(m_canClose);
+        m_icon->show();
+        m_body->show();
     }
 }
 
@@ -166,8 +166,8 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
         }
         // FIX ME:采用动画的方式退出并隐藏，不会丢失窗体‘焦点’，造成控件不响应鼠标进入和离开事件
         m_dismissAnimation->start();
-    } else if (m_pressed && event->pos().y() < 10) {
-        Q_EMIT ignored(this);
+    } else if (m_pressed && mapToGlobal(event->pos()).y() < 10) {
+        Q_EMIT notProcessedYet(this);
 
         m_dismissAnimation->start();
     } else {
@@ -233,6 +233,8 @@ void Bubble::onOutTimerTimeout()
         m_outTimer->start();
     } else {
         m_outAnimation->start();
+
+        Q_EMIT notProcessedYet(this);
     }
 }
 

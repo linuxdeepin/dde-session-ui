@@ -48,7 +48,6 @@ public:
     explicit BubbleGroup(QWidget *parent = nullptr, std::shared_ptr<NotifyModel> model = nullptr);
     void setGroupTitle(const QString &title) { group_title->setText(title); }
 
-
 signals:
     void closeGroup();
 

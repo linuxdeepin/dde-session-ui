@@ -36,7 +36,7 @@ public:
                        const QString &body, const QStringList &actions,
                        const QVariantMap hints, const QString &ctime,
                        const QString &replacesId, const QString &timeout,
-                       QObject *parent=0);
+                       QObject *parent = 0);
 
     NotificationEntity(const NotificationEntity &notify);
 

@@ -149,8 +149,6 @@ private:
     OSD::DockPosition m_dockPosition;
     uint m_dockSize;
     NotifyCenterWidget *m_notifyCenter;
-
-    quint32 m_messageCount = 0;
 };
 
 #endif // BUBBLEMANAGER_H
