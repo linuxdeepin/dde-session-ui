@@ -35,6 +35,7 @@ public:
     enum WepKeyType {NotSpecified, Hex, Passphrase};
 
     explicit NetworkSecretDialog(QJsonDocument jsonDoc, QWidget *parent = nullptr);
+    ~NetworkSecretDialog();
 
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
