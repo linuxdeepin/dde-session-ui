@@ -94,6 +94,7 @@ void NetworkSecretDialog::initUI()
 {
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::Dialog);
 
+    setOnButtonClickedClose(false);
     setTitle(tr("Password required to connect <font color=\"#faca57\">%1</font>").arg(m_connName));
     addSpacing(10);
 
@@ -160,8 +161,11 @@ void NetworkSecretDialog::submit()
         file.write(QJsonDocument(resultJsonObj).toJson());
         file.flush();
         file.close();
+        reject();
     } else {
         qDebug() << "some input is invalid!";
+        m_lineEditList.at(0)->showAlertMessage(tr("Wrong password, please enter again!"), -1);
+        m_lineEditList.at(0)->setAlert(true);
     }
 }
 
@@ -169,6 +173,7 @@ void NetworkSecretDialog::checkInputValid()
 {
     bool allValid = true;
 
+    m_lineEditList.at(0)->hideAlertMessage();
     for (int i = 0; i < m_secretKeyList.size(); ++i) {
         DPasswordEdit * const lineEdit = m_lineEditList.at(i);
         if (!passwordIsValid(lineEdit->text(), m_secretKeyList.at(i))) {
@@ -192,7 +197,7 @@ bool NetworkSecretDialog::passwordIsValid(const QString &text, const QString &se
         valid = wepKeyIsValid(text, WepKeyType::Hex);
     } else if (secretKey == "psk") {
         valid = wpaPskIsValid(text);
-    } else{
+    } else {
         valid = !text.isEmpty();
     }
 
@@ -209,25 +214,7 @@ bool NetworkSecretDialog::wepKeyIsValid(const QString &key, WepKeyType type)
 
     if (type != WepKeyType::NotSpecified) {
         if (type == WepKeyType::Hex) {
-            if (keylen == 10 || keylen == 26) {
-                /* Hex key */
-                for (int i = 0; i < keylen; ++i) {
-                    if (!(key.at(i).isDigit() || (key.at(i) >= 'A' && key.at(i) <= 'F') || (key.at(i) >= 'a' && key.at(i) <= 'f'))) {
-                        return false;
-                    }
-                }
-                return true;
-            } else if (keylen == 5 || keylen == 13) {
-                /* ASCII KEY */
-                for (int i = 0; i < keylen; ++i) {
-                    if (!key.at(i).isPrint()) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-
-            return false;
+            return true;
         } else if (type == WepKeyType::Passphrase) {
             if (!keylen || keylen > 64) {
                 return false;
