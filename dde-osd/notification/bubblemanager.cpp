@@ -292,6 +292,7 @@ QRect BubbleManager::GetBubbleGeometry(int index)
         rect.setHeight(height);
     }
 
+    qDebug() << "Rect:" << rect;
     return rect;
 }
 
@@ -343,6 +344,18 @@ void BubbleManager::ClearRecords()
 
 void BubbleManager::Toggle()
 {
+    if (m_dockDeamonInter->windowSize() != m_dockSize) {
+        qDebug() << "dock size error";
+        m_dockSize = m_dockDeamonInter->windowSize();
+        onDockSizeChanged(m_dockDeamonInter->windowSize());
+    }
+
+    if (m_dockDeamonInter->position() != m_dockPosition) {
+        qDebug() << "dock position error";
+        m_dockPosition = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
+        onDockPositionChanged(m_dockDeamonInter->position());
+    }
+
     m_notifyCenter->showWidget();
 }
 
@@ -474,9 +487,9 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
     });
 
     if (index != 0) {
-        QRect startRect = GetBubbleGeometry(5);
-        QRect endRect = GetBubbleGeometry(4);
-        PrepareAnimation(bubble, 4, endRect);
+        QRect startRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap);
+        QRect endRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap - 1);
+        PrepareAnimation(bubble, BubbleEntities + BubbleOverLap - 1, endRect);
         bubble->StartMoveIn(startRect, endRect);
     } else {
         bubble->StartMoveIn(getX(), getY() + ScreenPadding);
