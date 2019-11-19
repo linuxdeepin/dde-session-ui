@@ -50,7 +50,7 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
 
 void NotifyCenterWidget::initUI()
 {
-    setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_TranslucentBackground);
 
     m_headWidget = new QWidget;
@@ -158,6 +158,12 @@ void NotifyCenterWidget::showEvent(QShowEvent *event)
 {
     m_inAnimation->start();
     DBlurEffectWidget::showEvent(event);
+}
+
+void NotifyCenterWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+    return;
 }
 
 void NotifyCenterWidget::refreshTheme()

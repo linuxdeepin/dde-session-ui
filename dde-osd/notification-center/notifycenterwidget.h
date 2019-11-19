@@ -50,6 +50,7 @@ Q_SIGNALS:
 
 protected:
     void showEvent(QShowEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     void initUI();

@@ -61,6 +61,8 @@ QSize BubbleDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelI
 
     NotifyModel *model = const_cast<NotifyModel *>(dynamic_cast<const NotifyModel *>(index.model()));
     QSize size = OSD::BubbleSize(OSD::ShowStyle::BUBBLEWIDGET);
+    size.setHeight(size.height() + 10);
+
     if (model->isShowOverlap() && index.row() == BubbleEntities - 1) size.setHeight(size.height() + 20);
     return size;
 }
@@ -71,6 +73,5 @@ void BubbleDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionVie
 
     QRect rect = option.rect;
     QSize size = sizeHint(option, index);
-    if (index.row() > 0) rect.setY(rect.y() + Notify::CenterMargin * index.row());
-    editor->setGeometry(rect.x(), rect.y(), size.width(), size.height());
+    editor->setGeometry(rect.x(), rect.y(), size.width(), size.height() - 10);
 }
