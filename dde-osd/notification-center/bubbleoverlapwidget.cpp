@@ -31,6 +31,7 @@ BubbleOverlapWidget::BubbleOverlapWidget(const QList<std::shared_ptr<Notificatio
     , m_notifications(entitys)
     , m_notifyModel(model)
 {
+    setFocusPolicy(Qt::StrongFocus);
     initOverlap();
 }
 
@@ -57,6 +58,9 @@ void BubbleOverlapWidget::initOverlap()
             bubble->setShowContent(false);
             bubble->move(move_point);
             bubble->lower();
+            bubble->setFocusPolicy(Qt::NoFocus);
+        } else {
+            setFocusProxy(bubble);
         }
 
         scal_ratio = (scal_ratio * 19) / 20;

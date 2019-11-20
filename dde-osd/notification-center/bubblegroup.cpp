@@ -16,6 +16,7 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     : QWidget(parent)
     , m_notifyModel(model)
 {
+    setFocusPolicy(Qt::NoFocus);
     m_titleWidget = new QWidget();
     m_titleWidget->setFixedSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), Notify::GroupTitleHeight);
 
@@ -56,6 +57,8 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     m_groupList->setContentsMargins(0, 0, 0, 0);
     m_groupList->setUpdatesEnabled(true);
     m_groupList->setSelectionMode(QListView::NoSelection);
+    m_groupList->setFocusPolicy(Qt::NoFocus);
+    m_groupList->setTabKeyNavigation(true);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSpacing(10);

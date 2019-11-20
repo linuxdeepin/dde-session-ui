@@ -42,7 +42,7 @@ void AlphaWidget::paintEvent(QPaintEvent *event)
 
     QPalette pe = this->palette();
     QColor brushColor(pe.color(QPalette::Base));
-    brushColor.setAlpha(m_hover ? m_hoverAlpha : m_unHoverAlpha);
+    brushColor.setAlpha(m_selected ? m_selectedAlpha : (m_hover ? m_hoverAlpha : m_unHoverAlpha));
     painter.setBrush(brushColor);
 
     DStyleHelper dstyle(style());
@@ -58,7 +58,6 @@ void AlphaWidget::paintEvent(QPaintEvent *event)
     painter.drawRoundedRect(rect, radius, radius);
 
     return DWidget::paintEvent(event);
-
 }
 
 void AlphaWidget::enterEvent(QEvent *event)
@@ -101,6 +100,7 @@ BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> enti
 void BubbleItem::initUI()
 {
     setWindowFlags(Qt::Widget);
+    setFocusPolicy(Qt::StrongFocus);
     setFixedSize(OSD::BubbleSize(OSD::BUBBLEWIDGET));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWIDGET));
     m_closeButton->setFixedSize(OSD::CloseButtonSize(OSD::BUBBLEWIDGET));
@@ -179,6 +179,7 @@ void BubbleItem::setAlpha(int alpha)
 {
     m_titleWidget->setAlpha(alpha);
     m_bodyWidget->setAlpha(0);
+    m_bgWidget->setSelectedAlpha(alpha * 5);
     m_bgWidget->setHoverAlpha(alpha * 4);
     m_bgWidget->setUnHoverAlpha(alpha * 3);
 }
@@ -241,6 +242,18 @@ void BubbleItem::leaveEvent(QEvent *event)
     return QWidget::leaveEvent(event);
 }
 
+void BubbleItem::focusInEvent(QFocusEvent *event)
+{
+    m_bgWidget->setSelectedStatus(true);
+    return QWidget::focusInEvent(event);
+}
+
+void BubbleItem::focusOutEvent(QFocusEvent *event)
+{
+    m_bgWidget->setSelectedStatus(false);
+    return QWidget::focusOutEvent(event);
+}
+
 void BubbleItem::onHavorStateChanged(bool hover)
 {
     if (m_showContent) {
@@ -281,3 +294,15 @@ void BubbleItem::refreshTheme()
     m_appNameLabel->setPalette(pa);
     m_appTimeLabel->setFont(DFontSizeManager::instance()->t8());
 }
+
+//void BubbleItem::paintEvent(QPaintEvent *event)
+//{
+//    QPainter pa(this);
+//    if (this->hasFocus()) {
+//        pa.fillRect(rect(), Qt::red);
+//    } else {
+//        pa.fillRect(rect(), Qt::green);
+//    }
+
+//    return QWidget::paintEvent(event);
+//}

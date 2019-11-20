@@ -67,6 +67,7 @@ void NotifyWidget::initView(Persistence *database)
     m_mainList->setUpdatesEnabled(true);
     m_mainList->setSelectionMode(QListView::NoSelection);
     m_mainList->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_mainList->setFocusPolicy(Qt::NoFocus);
 
     QScroller::grabGesture(m_mainList, QScroller::LeftMouseButtonGesture);
     QScroller *scroller = QScroller::scroller(m_mainList);
