@@ -142,6 +142,17 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
         Bubble *b = m_bubbleList[i];
         if (b->entity()->replacesId() == QString::number(replacesId)
                 && b->entity()->appName() == appName) {
+#if 1 //同一应用消息置顶，气泡无变换动画
+            if (i == 0) {
+                b->setEntity(notification);
+            } else {
+                b->setEntity(m_bubbleList.at(0)->entity());
+                m_bubbleList.at(0)->setEntity(notification);
+            }
+            find = true;
+
+#else //消息气泡自动上浮
+            // 更新消息内容
             b->setEntity(notification);
 
             // 在其之前所有消息均向下移动一格
@@ -170,6 +181,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
             }
             find = true;
             break;
+#endif
         }
     }
     for (int i = 0; i < m_oldEntities.size(); ++i) {

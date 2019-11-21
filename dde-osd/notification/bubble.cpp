@@ -84,7 +84,7 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "取消";
     actions << "取消";
 //    entity->setActions(actions);
-//    entity->setTimeout("0");
+    entity->setTimeout("0");
 #endif
 
     m_outTimer->stop();
@@ -352,6 +352,7 @@ void Bubble::initAnimations()
     connect(m_dismissAnimation, &QPropertyAnimation::finished, this, &Bubble::onDismissAnimFinished);
 
     m_moveAnimation = new QPropertyAnimation(this, "geometry", this);
+    m_moveAnimation->setDuration(300);
     m_moveAnimation->setEasingCurve(QEasingCurve::Linear);
 }
 
