@@ -29,9 +29,11 @@
 #include "dbus_daemon_interface.h"
 #include "dbuslogin1manager.h"
 #include "notificationentity.h"
-#include "notification-center/notifycenterwidget.h"
-
+#include "dbusdisplay.h"
+#include "dbusdock.h"
 #include "persistence.h"
+
+#include "notification-center/notifycenterwidget.h"
 
 #include <QTimer>
 #include <QDebug>
@@ -53,14 +55,12 @@ static QString removeHTML(const QString &source)
 BubbleManager::BubbleManager(QObject *parent)
     : QObject(parent)
     , m_persistence(new Persistence)
+    , m_displayInter(new DBusDisplay)
+    , m_dockDeamonInter(new DBusDock)
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
 {
-    m_dockPosition = OSD::DockPosition::Bottom;
-
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
                                                     QDBusConnection::sessionBus(), this);
-    m_dockDeamonInter = new DockDaemonInter(DockDaemonDBusServie, DockDaemonDBusPath,
-                                            QDBusConnection::sessionBus(), this);
     m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this);
 
@@ -68,14 +68,14 @@ BubbleManager::BubbleManager(QObject *parent)
             this, SLOT(onPrepareForSleep(bool)));
     connect(m_dbusDaemonInterface, SIGNAL(NameOwnerChanged(QString, QString, QString)),
             this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
-    connect(m_dockDeamonInter, &DockDaemonInter::PositionChanged, this, &BubbleManager::onDockPositionChanged);
-    connect(m_dockDeamonInter, &DockDaemonInter::WindowSizeChanged, this, &BubbleManager::onDockSizeChanged);
+
+    connect(m_displayInter, &DBusDisplay::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
+    connect(m_dockDeamonInter, &DBusDock::FrontendRectChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
 
     // get correct value for m_dockGeometry, m_dockPosition, m_ccGeometry
     if (m_dockDeamonInter->isValid()) {
         qDebug() << "set position";
-        onDockPositionChanged(m_dockDeamonInter->position());
-        onDockSizeChanged(m_dockDeamonInter->windowSize());
+        geometryChanged();
     }
 
     m_notifyCenter->hide();
@@ -343,18 +343,6 @@ void BubbleManager::ClearRecords()
 
 void BubbleManager::Toggle()
 {
-    if (m_dockDeamonInter->windowSize() != m_dockSize) {
-        qDebug() << "dock size error";
-        m_dockSize = m_dockDeamonInter->windowSize();
-        onDockSizeChanged(m_dockDeamonInter->windowSize());
-    }
-
-    if (m_dockDeamonInter->position() != m_dockPosition) {
-        qDebug() << "dock position error";
-        m_dockPosition = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
-        onDockPositionChanged(m_dockDeamonInter->position());
-    }
-
     m_notifyCenter->showWidget();
 }
 
@@ -437,24 +425,20 @@ int BubbleManager::getY()
     return rect.y();
 }
 
-void BubbleManager::onDockPositionChanged(int position)
+void BubbleManager::geometryChanged()
 {
-    qDebug() << "DockPosition" << position;
-    m_dockPosition = static_cast<OSD::DockPosition>(position);
-    m_notifyCenter->updateGeometry(m_dockPosition, m_dockSize);
-}
+    QRect display = m_displayInter->primaryRawRect();
+    QRect dock = m_dockDeamonInter->frontendRect();
+    OSD::DockPosition pos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
 
-void BubbleManager::onDockSizeChanged(uint size)
-{
-    qDebug() << "DockSize:" << size;
-    m_dockSize = size;
-    m_notifyCenter->updateGeometry(m_dockPosition, size);
+    qDebug() << "The primary display: " << display << " dock postion: " << dock;
+    m_notifyCenter->updateGeometry(display, dock, pos);
 }
 
 void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newName)
 {
     if (name == DockDaemonDBusServie && !newName.isEmpty()) {
-        onDockPositionChanged(m_dockDeamonInter->position());
+        geometryChanged();
     }
 }
 

@@ -32,9 +32,6 @@
 #include <QGuiApplication>
 #include "bubble.h"
 #include "constants.h"
-#include <com_deepin_dde_daemon_dock.h>
-
-using DockDaemonInter =  com::deepin::dde::daemon::Dock;
 
 static const QString DBbsDockDBusServer = "com.deepin.dde.Dock";
 static const QString DBusDockDBusPath = "/com/deepin/dde/Dock";
@@ -48,7 +45,6 @@ static const QString Login1DBusService = "org.freedesktop.login1";
 static const QString Login1DBusPath = "/org/freedesktop/login1";
 static const QString DockDaemonDBusServie = "com.deepin.dde.daemon.Dock";
 static const QString DockDaemonDBusPath = "/com/deepin/dde/daemon/Dock";
-static const int ControlCenterWidth = 400;
 
 class DBusControlCenter;
 class DBusDaemonInterface;
@@ -56,6 +52,9 @@ class Login1ManagerInterface;
 class DBusDockInterface;
 class Persistence;
 class NotifyCenterWidget;
+class DBusDisplay;
+class DBusDock;
+
 class BubbleManager : public QObject
 {
     Q_OBJECT
@@ -101,8 +100,7 @@ public Q_SLOTS:
     uint recordCount();
 
 private Q_SLOTS:
-    void onDockPositionChanged(int position);
-    void onDockSizeChanged(uint size);
+    void geometryChanged();
     void onDbusNameOwnerChanged(QString, QString, QString);
     void onPrepareForSleep(bool);
 
@@ -140,13 +138,12 @@ private:
     DBusControlCenter *m_dbusControlCenter;
     DBusDaemonInterface *m_dbusDaemonInterface;
     Login1ManagerInterface *m_login1ManagerInterface;
-    DockDaemonInter *m_dockDeamonInter;
+    DBusDisplay *m_displayInter;
+    DBusDock *m_dockDeamonInter;
 
     QList<std::shared_ptr<NotificationEntity>> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;
 
-    OSD::DockPosition m_dockPosition;
-    uint m_dockSize;
     NotifyCenterWidget *m_notifyCenter;
 };
 

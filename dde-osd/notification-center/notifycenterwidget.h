@@ -43,7 +43,7 @@ class NotifyCenterWidget : public DBlurEffectWidget
 public:
     explicit NotifyCenterWidget(Persistence *database = nullptr);
     void showWidget();
-    void updateGeometry(OSD::DockPosition pos, int dock_size);
+    void updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos);
 
 Q_SIGNALS:
     void notify();

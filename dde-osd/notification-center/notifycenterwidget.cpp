@@ -28,7 +28,6 @@
 #include "notification/constants.h"
 
 #include <QDesktopWidget>
-#include <QApplication>
 #include <QBoxLayout>
 #include <QDBusInterface>
 #include <QPropertyAnimation>
@@ -110,44 +109,32 @@ void NotifyCenterWidget::initAnimations()
     connect(m_outAnimation, &QPropertyAnimation::finished, this, &NotifyCenterWidget::hide);
 }
 
-void NotifyCenterWidget::updateGeometry(OSD::DockPosition pos, int dock_size)
+void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos)
 {
-    QDesktopWidget *desktop = QApplication::desktop();
-    QRect rect = desktop->screenGeometry();
-    qDebug() <<  "screenGeometry:" << rect;
-    m_screenGeometry = rect;
+    qDebug() <<  "screenGeometry:" << screen;
+    m_screenGeometry = screen;
 
     int width = Notify::CenterWidth;
-    int height = rect.height() - Notify::CenterMargin * 2;
+    int height = screen.height() - Notify::CenterMargin * 2;
     if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom)
-        height = rect.height() - Notify::CenterMargin * 2 - dock_size;
+        height = screen.height() - Notify::CenterMargin * 2 - dock.height();
 
-    int x = rect.width() - (Notify::CenterWidth + Notify::CenterMargin);
+    int x = screen.width() - (Notify::CenterWidth + Notify::CenterMargin);
     if (pos == OSD::DockPosition::Right)
-        x = Notify::CenterMargin;
+        x = screen.width() - (Notify::CenterWidth + Notify::CenterMargin + dock.width());
 
-    int y = rect.y() + Notify::CenterMargin;
+    int y = screen.y() + Notify::CenterMargin;
     if (pos == OSD::DockPosition::Top)
-        y = rect.y() + Notify::CenterMargin + dock_size;
+        y = screen.y() + Notify::CenterMargin + dock.height();
 
     if (m_inAnimation->state() != QPropertyAnimation::Running) {
-        if (pos == OSD::DockPosition::Right) {
-            m_inAnimation->setStartValue(QPoint(-Notify::CenterWidth, y));
-            m_inAnimation->setEndValue(QPoint(x, y));
-        } else {
-            m_inAnimation->setStartValue(QPoint(rect.width(), y));
-            m_inAnimation->setEndValue(QPoint(x, y));
-        }
+        m_inAnimation->setStartValue(QPoint(screen.width(), y));
+        m_inAnimation->setEndValue(QPoint(x, y));
     }
 
     if (m_outAnimation->state() != QPropertyAnimation::Running) {
-        if (pos == OSD::DockPosition::Right) {
-            m_outAnimation->setStartValue(QPoint(x, y));
-            m_outAnimation->setEndValue(QPoint(-Notify::CenterWidth, y));
-        } else {
-            m_outAnimation->setStartValue(QPoint(x, y));
-            m_outAnimation->setEndValue(QPoint(rect.width(), y));
-        }
+        m_outAnimation->setStartValue(QPoint(x, y));
+        m_outAnimation->setEndValue(QPoint(screen.width(), y));
     }
 
     qDebug() <<  "set geometry:" << QRect(x, y, width, height);;
