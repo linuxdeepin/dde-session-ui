@@ -20,11 +20,11 @@
 #define APPBODYLABEL_H
 
 #include <QFrame>
-#include <DLabel>
+#include <DTipLabel>
 
 DWIDGET_USE_NAMESPACE
 
-class AppBodyLabel : public DLabel
+class AppBodyLabel : public DTipLabel
 {
     Q_OBJECT
 public:

@@ -28,7 +28,7 @@
 #include <QStyle>
 
 AppBodyLabel::AppBodyLabel(QWidget *parent)
-    : DLabel(parent)
+    : DTipLabel("", parent)
     , m_alignment(Qt::AlignVCenter)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
