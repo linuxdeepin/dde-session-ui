@@ -107,7 +107,7 @@ void NotifyCenterWidget::initAnimations()
     m_outAnimation->setDuration(500);
     m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
 
-    connect(m_outAnimation, &QPropertyAnimation::finished, [this] {hide();});
+    connect(m_outAnimation, &QPropertyAnimation::finished, this, &NotifyCenterWidget::hide);
 }
 
 void NotifyCenterWidget::updateGeometry(OSD::DockPosition pos, int dock_size)

@@ -52,6 +52,7 @@ public:
     void removeNotify(std::shared_ptr<NotificationEntity> entity);
     void setPersistence(Persistence *db) { m_database = db; }
     void expandData(std::shared_ptr<NotificationEntity> entity);
+    void collapseData();
     void refreshContent();
     bool isShowOverlap() const;
     bool isExpand() const;

@@ -142,6 +142,22 @@ void NotifyModel::expandData(std::shared_ptr<NotificationEntity> entity)
     }
 }
 
+void NotifyModel::collapseData()
+{
+    if (m_notfications.isEmpty()) {
+        if (m_displays.size() > BubbleEntities) {
+            auto displays = m_displays.mid(0, BubbleEntities);
+            m_notfications.append(m_displays.mid(BubbleEntities));
+            m_displays.clear();
+
+            m_displays.append(displays);
+        }
+
+        refreshContent();
+        layoutGroup();
+    }
+}
+
 void NotifyModel::refreshContent()
 {
     dataChanged(index(0), index(m_displays.size() - 1));

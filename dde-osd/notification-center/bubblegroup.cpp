@@ -9,6 +9,7 @@
 #include <QBoxLayout>
 #include <DGuiApplicationHelper>
 #include <DIconButton>
+#include <QDebug>
 
 DWIDGET_USE_NAMESPACE
 
@@ -84,6 +85,13 @@ void BubbleGroup::enterEvent(QEvent *)
 void BubbleGroup::leaveEvent(QEvent *)
 {
     title_close->setVisible(false);
+}
+
+void BubbleGroup::hideEvent(QHideEvent *)
+{
+    if (m_notifyModel->isExpand()) {
+        m_notifyModel->collapseData();
+    }
 }
 
 void BubbleGroup::appendAnimation()
