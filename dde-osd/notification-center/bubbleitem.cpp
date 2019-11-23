@@ -158,7 +158,7 @@ void BubbleItem::initContent()
 
     m_body->setTitle(m_entity->summary());
     m_body->setText(m_entity->body());
-    m_appNameLabel->setText(m_entity->appName());
+    m_appNameLabel->setText(BubbleTool::getDeepinAppName(m_entity->appName()));
 
     m_refreshTimer->setSingleShot(false);
     m_refreshTimer->start();

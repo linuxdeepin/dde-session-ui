@@ -28,6 +28,9 @@
 #include <QDir>
 #include <QProcess>
 #include <QX11Info>
+#include <QSettings>
+#include <QTextCodec>
+
 #include <xcb/xcb.h>
 #include <xcb/xcb_ewmh.h>
 
@@ -160,7 +163,6 @@ void BubbleTool::processIconData(AppIcon *icon, std::shared_ptr<NotificationEnti
         const QVariant &source = hints.contains(hint) ? hints[hint] : QVariant();
 
         if (source.isNull()) continue;
-
         if (source.canConvert<QDBusArgument>()) {
             QDBusArgument argument = source.value<QDBusArgument>();
             imagePixmap = converToPixmap(icon, argument, entity->id());
@@ -169,7 +171,6 @@ void BubbleTool::processIconData(AppIcon *icon, std::shared_ptr<NotificationEnti
 
         imagePath = source.toString();
     }
-
     if (!imagePixmap.isNull()) {
         icon->setPixmap(imagePixmap);
     } else {
@@ -187,6 +188,22 @@ void BubbleTool::register_wm_state(WId winid)
     atoms[0] = m_ewmh_connection._NET_WM_WINDOW_TYPE_DOCK;
     atoms[1] = m_ewmh_connection._NET_WM_STATE_BELOW;
     xcb_ewmh_set_wm_window_type(&m_ewmh_connection, winid, 1, atoms);
+}
+
+const QString BubbleTool::getDeepinAppName(const QString &name)
+{
+    QSettings settings("/usr/share/applications/" + name + ".desktop", QSettings::IniFormat);
+    settings.beginGroup("Desktop Entry");
+    settings.setIniCodec(QTextCodec::codecForName("utf-8"));
+    if (settings.value("X-Deepin-Vendor").toString() == "deepin") {
+        QString key = "GenericName";
+        key += "[";
+        key += QLocale::system().name();
+        key += "]";
+        return settings.value(key).toString();
+    } else {
+        return name;
+    }
 }
 
 void BubbleTool::actionInvoke(const QString &actionId, std::shared_ptr<NotificationEntity> entity)

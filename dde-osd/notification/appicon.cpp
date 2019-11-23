@@ -25,6 +25,8 @@
 #include <QApplication>
 #include <QScreen>
 #include <QUrl>
+#include <QDebug>
+
 #include "appicon.h"
 
 AppIcon::AppIcon(QWidget *parent) :

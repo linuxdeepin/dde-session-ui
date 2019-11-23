@@ -234,7 +234,7 @@ QString Persistence::getAll()
             {"timeout", m_query.value(9).toString()},
         };
         array1.append(obj);
-        qDebug() << m_query.value(6).toString();
+        qDebug() << m_query.value(4).toString();
     }
     return QJsonDocument(array1).toJson();
 }

@@ -37,6 +37,7 @@ public:
     static void processIconData(AppIcon *icon, std::shared_ptr<NotificationEntity> entity);
     static void actionInvoke(const QString &actionId, std::shared_ptr<NotificationEntity> entity);
     static void register_wm_state(WId winid);
+    static const QString getDeepinAppName(const QString &name);
 
 private:
     static void saveImg(const QImage &image, uint id);

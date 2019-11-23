@@ -23,6 +23,7 @@
 #include "appgroupmodel.h"
 #include "bubblegroup.h"
 #include "notification/constants.h"
+#include "notification/bubbletool.h"
 
 #include <QDebug>
 
@@ -36,7 +37,7 @@ QWidget *AppGroupDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
     Q_UNUSED(option)
 
     std::shared_ptr<NotifyModel> model = index.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
-    QString title = index.data(AppGroupModel::ApplicationNameRole).toString();
+    QString title = BubbleTool::getDeepinAppName(index.data(AppGroupModel::ApplicationNameRole).toString());
     AppGroupModel *grpup_model = const_cast<AppGroupModel *>(dynamic_cast<const AppGroupModel *>(index.model()));
     Q_ASSERT(grpup_model);
 
