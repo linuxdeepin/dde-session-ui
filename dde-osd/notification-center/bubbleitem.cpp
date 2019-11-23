@@ -290,19 +290,6 @@ void BubbleItem::refreshTheme()
 {
     QPalette pa = m_appNameLabel->palette();
     pa.setBrush(QPalette::WindowText, pa.brightText());
-    pa.setColor(QPalette::WindowText, Qt::blue);
     m_appNameLabel->setPalette(pa);
     m_appTimeLabel->setFont(DFontSizeManager::instance()->t8());
 }
-
-//void BubbleItem::paintEvent(QPaintEvent *event)
-//{
-//    QPainter pa(this);
-//    if (this->hasFocus()) {
-//        pa.fillRect(rect(), Qt::red);
-//    } else {
-//        pa.fillRect(rect(), Qt::green);
-//    }
-
-//    return QWidget::paintEvent(event);
-//}

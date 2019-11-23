@@ -50,21 +50,18 @@ Q_SIGNALS:
 
 protected:
     void showEvent(QShowEvent *event) override;
+    void hideEvent(QHideEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     void initUI();
-    void initAnimations();
     void refreshTheme();
 
 private:
     QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
     DTipLabel *title_label = nullptr;
-    QRect m_screenGeometry;
-
-    QPropertyAnimation *m_inAnimation = nullptr;
-    QPropertyAnimation *m_outAnimation = nullptr;
+    bool m_visible = false;
 };
 
 #endif // MAINWIDGET_H

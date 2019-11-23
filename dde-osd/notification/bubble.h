@@ -42,7 +42,6 @@ class AppIcon;
 class AppBody;
 class Button;
 class ActionButton;
-
 class Bubble : public DBlurEffectWidget
 {
     Q_OBJECT

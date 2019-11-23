@@ -44,7 +44,6 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     : m_notifyWidget(new NotifyWidget(this, database))
 {
     initUI();
-    initAnimations();
 }
 
 void NotifyCenterWidget::initUI()
@@ -89,30 +88,14 @@ void NotifyCenterWidget::initUI()
 
     setLayout(mainLayout);
 
-    connect(close_btn, &DIconButton::clicked, this, [ = ]() {
-        m_outAnimation->start();
-    });
+    connect(close_btn, &DIconButton::clicked, this, &NotifyCenterWidget::hide);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotifyCenterWidget::refreshTheme);
     refreshTheme();
-}
-
-void NotifyCenterWidget::initAnimations()
-{
-    m_inAnimation = new QPropertyAnimation(this, "pos", this);
-    m_inAnimation->setDuration(500);
-    m_inAnimation->setEasingCurve(QEasingCurve::OutCirc);
-
-    m_outAnimation = new QPropertyAnimation(this, "pos", this);
-    m_outAnimation->setDuration(500);
-    m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
-
-    connect(m_outAnimation, &QPropertyAnimation::finished, this, &NotifyCenterWidget::hide);
 }
 
 void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos)
 {
     qDebug() <<  "screenGeometry:" << screen;
-    m_screenGeometry = screen;
 
     int width = Notify::CenterWidth;
     int height = screen.height() - Notify::CenterMargin * 2;
@@ -127,24 +110,22 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     if (pos == OSD::DockPosition::Top)
         y = screen.y() + Notify::CenterMargin + dock.height();
 
-    if (m_inAnimation->state() != QPropertyAnimation::Running) {
-        m_inAnimation->setStartValue(QPoint(screen.width(), y));
-        m_inAnimation->setEndValue(QPoint(x, y));
-    }
-
-    if (m_outAnimation->state() != QPropertyAnimation::Running) {
-        m_outAnimation->setStartValue(QPoint(x, y));
-        m_outAnimation->setEndValue(QPoint(screen.width(), y));
-    }
-
     qDebug() <<  "set geometry:" << QRect(x, y, width, height);;
     setGeometry(x, y, width, height);
 }
 
 void NotifyCenterWidget::showEvent(QShowEvent *event)
 {
-    m_inAnimation->start();
     DBlurEffectWidget::showEvent(event);
+
+    m_visible = true;
+}
+
+void NotifyCenterWidget::hideEvent(QHideEvent *event)
+{
+    DBlurEffectWidget::hideEvent(event);
+
+    m_visible = false;
 }
 
 void NotifyCenterWidget::mouseMoveEvent(QMouseEvent *event)
@@ -166,12 +147,10 @@ void NotifyCenterWidget::refreshTheme()
 
 void NotifyCenterWidget::showWidget()
 {
-    if (!isVisible()) {
+    if (!m_visible) {
         show();
+        activateWindow();
     } else {
-        if (m_screenGeometry.contains(pos()))
-            m_outAnimation->start();
-        else
-            m_inAnimation->start();
+        hide();
     }
 }
