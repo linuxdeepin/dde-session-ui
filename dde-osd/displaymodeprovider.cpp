@@ -134,6 +134,7 @@ void DisplayModeProvider::updateOutputNames()
         } else {
             QDBusReply<QStringList> reply = watcher->reply();
             m_outputNames = reply.value();
+            updatePlanItems();
             emit dataChanged();
         }
     });
