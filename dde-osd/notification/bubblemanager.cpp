@@ -284,9 +284,11 @@ void BubbleManager::popAnimation(Bubble *bubble)
 QRect BubbleManager::GetBubbleGeometry(int index)
 {
     Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
+
+    QRect display = m_displayInter->primaryRawRect();
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
-        rect.setX((getX() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
+        rect.setX(display.x() + (display.width()- OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
         rect.setY(ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
         rect.setWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
         rect.setHeight(OSD::BubbleHeight(OSD::BUBBLEWINDOW));
@@ -417,26 +419,6 @@ bool BubbleManager::checkDockExistence()
     return m_dbusDaemonInterface->NameHasOwner(DBbsDockDBusServer).value();
 }
 
-int BubbleManager::getX()
-{
-    QDesktopWidget *desktop = QApplication::desktop();
-    int primaryScreen = desktop->primaryScreen();
-
-    QRect rect = desktop->screenGeometry(primaryScreen);
-
-    return rect.x() + rect.width();
-}
-
-int BubbleManager::getY()
-{
-    QDesktopWidget *desktop = QApplication::desktop();
-    int primaryScreen = desktop->primaryScreen();
-
-    QRect rect = desktop->screenGeometry(primaryScreen);
-
-    return rect.y();
-}
-
 void BubbleManager::geometryChanged()
 {
     QRect display = m_displayInter->primaryRawRect();
@@ -471,7 +453,11 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
         PrepareAnimation(bubble, BubbleEntities + BubbleOverLap - 1, endRect);
         bubble->StartMoveIn(startRect, endRect);
     } else {
-        bubble->StartMoveIn(getX(), getY() + ScreenPadding);
+        QRect endRect = GetBubbleGeometry(0);
+        QRect startRect = endRect;
+        startRect.setY(0);
+        PrepareAnimation(bubble, 0, endRect);
+        bubble->StartMoveIn(startRect, endRect);
     }
 
     return bubble;

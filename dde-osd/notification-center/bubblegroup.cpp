@@ -23,7 +23,7 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
 
     group_title = new DTipLabel("");
     group_title->setForegroundRole(DPalette::TextTitle);
-    group_title->setAlignment(Qt::AlignLeft);
+    group_title->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     QFont font;
     font.setBold(true);

@@ -100,20 +100,6 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     m_outTimer->start();
 }
 
-void Bubble::StartMoveIn(int x, int y)
-{
-    if (m_moveAnimation->state() != QPropertyAnimation::Running) {
-        m_moveAnimation->setStartValue(QRect((x - OSD::BubbleWidth(m_showStyle)) / 2, 0,
-                                             OSD::BubbleWidth(OSD::BUBBLEWINDOW),
-                                             OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
-        m_moveAnimation->setEndValue(QRect((x - OSD::BubbleWidth(m_showStyle)) / 2,
-                                           y,
-                                           OSD::BubbleWidth(OSD::BUBBLEWINDOW),
-                                           OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
-        m_moveAnimation->start();
-    }
-}
-
 void Bubble::StartMoveIn(const QRect &startRect, const QRect &endRect)
 {
     if (m_moveAnimation->state() != QPropertyAnimation::Running) {

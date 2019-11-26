@@ -51,8 +51,6 @@ public:
 
     std::shared_ptr<NotificationEntity> entity() const;
     void setEntity(std::shared_ptr<NotificationEntity> entity);
-
-    void StartMoveIn(int x, int y);
     void StartMoveIn(const QRect &startRect, const QRect &endRect);
 
     OSD::ShowStyle showStyle() {return m_showStyle;}

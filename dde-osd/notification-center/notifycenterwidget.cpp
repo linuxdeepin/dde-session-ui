@@ -102,7 +102,7 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom)
         height = screen.height() - Notify::CenterMargin * 2 - dock.height();
 
-    int x = screen.width() - (Notify::CenterWidth + Notify::CenterMargin);
+    int x = screen.x() + screen.width() - (Notify::CenterWidth + Notify::CenterMargin);
     if (pos == OSD::DockPosition::Right)
         x = screen.width() - (Notify::CenterWidth + Notify::CenterMargin + dock.width());
 
@@ -112,6 +112,7 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
 
     qDebug() <<  "set geometry:" << QRect(x, y, width, height);;
     setGeometry(x, y, width, height);
+    setFixedSize(width,height);
 }
 
 void NotifyCenterWidget::showEvent(QShowEvent *event)

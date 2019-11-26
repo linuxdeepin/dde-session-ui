@@ -115,9 +115,6 @@ private:
     bool checkDockExistence();
     bool checkControlCenterExistence();
 
-    int getX();
-    int getY();
-
     // return geometry of the containing specified point screen,
     // and return true if primary-screen and specified-point-screen are the same screen,
     // or return false.
