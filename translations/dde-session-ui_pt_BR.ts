@@ -4,22 +4,22 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>Agora Mesmo</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 minutos atrás</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 horas atrás</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
         <source>Yesterday </source>
-        <translation type="unfinished"/>
+        <translation>Ontem</translation>
     </message>
 </context>
 <context>
@@ -37,12 +37,12 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="151"/>
         <source>View in English</source>
-        <translation type="unfinished"/>
+        <translation>Ver em Inglês</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="154"/>
         <source>View in Chinese</source>
-        <translation type="unfinished"/>
+        <translation>Ver em Chinês</translation>
     </message>
 </context>
 <context>
@@ -192,17 +192,17 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
         <source>Remind Later</source>
-        <translation>Lembrar mais tarde</translation>
+        <translation>Lembrar Mais Tarde</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
         <source>Not Now</source>
-        <translation>Agora não</translation>
+        <translation>Agora Não</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation>Atualizar agora</translation>
+        <translation>Atualizar Agora</translation>
     </message>
 </context>
 <context>
@@ -223,12 +223,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Por favor não desligue ou desconecte o computador</translation>
+        <translation>Não desligue ou desconecte o computador do carregador</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>Instalando atualizações %1%, por favor aguarde...</translation>
+        <translation>Instalando atualizações %1%, aguarde...</translation>
     </message>
 </context>
 <context>
@@ -374,12 +374,12 @@
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Central de Notificações</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1 Notificações</translation>
     </message>
 </context>
 <context>
@@ -387,7 +387,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Central de Notificações</translation>
     </message>
 </context>
 <context>
@@ -395,7 +395,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifywidget.cpp" line="39"/>
         <source>No system notifications</source>
-        <translation>Nenhuma Notificação</translation>
+        <translation>Nenhuma notificação do sistema</translation>
     </message>
 </context>
 <context>
@@ -403,17 +403,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation>Efeito de janela ativado</translation>
+        <translation>Efeito Janela ativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation>Efeito de janela desativado</translation>
+        <translation>Efeito Janela desativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation>Falha ao ativar os efeitos de janela</translation>
+        <translation>Falha ao ativar o Efeito Janela</translation>
     </message>
 </context>
 <context>
@@ -567,7 +567,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation>Este aplicativo não pode ser executado sem efeito de janela</translation>
+        <translation>Este aplicativo não pode ser executado sem o Efeito Janela</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>

@@ -4,22 +4,22 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>همین حالا</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 دقیقه پیش</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 ساعت پیش</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
         <source>Yesterday </source>
-        <translation type="unfinished"/>
+        <translation>دیروز</translation>
     </message>
 </context>
 <context>
@@ -37,12 +37,12 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="151"/>
         <source>View in English</source>
-        <translation type="unfinished"/>
+        <translation>مشاهده به زبان انگلیسی</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="154"/>
         <source>View in Chinese</source>
-        <translation type="unfinished"/>
+        <translation>مشاهده به زبان چینی</translation>
     </message>
 </context>
 <context>
@@ -110,7 +110,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
         <source>Lock</source>
-        <translation>قفل کردن</translation>
+        <translation>قفل</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="546"/>
@@ -187,22 +187,22 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation type="unfinished"/>
+        <translation>به روزرسانی ها دانلود شده ، برای به روزرسانی مجدداً راه اندازی می شوند؟</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
         <source>Remind Later</source>
-        <translation type="unfinished"/>
+        <translation>بعدا ً به من یادآوری کن</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
         <source>Not Now</source>
-        <translation type="unfinished"/>
+        <translation>الان نه</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation type="unfinished"/>
+        <translation>اکنون بروزرسانی کن</translation>
     </message>
 </context>
 <context>
@@ -223,12 +223,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation type="unfinished"/>
+        <translation>لطفاً دستگاه خود را خاموش و یا از برق جدا نکنید</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation type="unfinished"/>
+        <translation>در حال نصب بروزرسانی ها %1% ، لطفا صبر کنید...</translation>
     </message>
 </context>
 <context>
@@ -241,22 +241,22 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>تایید اثر انگشت منقضی شد , لطفا ً گذرواژه خود را دستی وارد کنید</translation>
+        <translation>تایید اثر انگشت منقضی شد , لطفا ً رمزعبور خود را دستی وارد کنید</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation>تطابق اثر انگشت ناموفق بود.</translation>
+        <translation>تطابق اثر انگشت ناموفق بود</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
         <source>Wrong Password</source>
-        <translation>پسوورد اشتباه</translation>
+        <translation>رمزعبور اشتباه است</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>حساب دامنه یا رمز عبور صحیح نیست. لطفا دوباره وارد کنید</translation>
+        <translation>حساب دامنه یا رمزعبور صحیح نیست. لطفا دوباره وارد کنید</translation>
     </message>
 </context>
 <context>
@@ -295,7 +295,7 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
-        <translation>پسوورد اشتباه</translation>
+        <translation>رمزعبور اشتباه</translation>
     </message>
 </context>
 <context>
@@ -350,12 +350,12 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation>پسورد گروه</translation>
+        <translation>رمزعبور گروه</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
         <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation> برای اتصال  نیاز به رمز عبور دارید &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
+        <translation> برای اتصال  نیاز به رمزعبور دارید &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
@@ -374,12 +374,12 @@
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>مرکز اعلان</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1 اعلان ها </translation>
     </message>
 </context>
 <context>
@@ -387,7 +387,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>مرکز اعلان</translation>
     </message>
 </context>
 <context>

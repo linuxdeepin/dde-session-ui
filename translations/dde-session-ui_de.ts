@@ -4,22 +4,22 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>Gerade eben</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>vor %1 Minuten</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>vor %1 Stunden</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
         <source>Yesterday </source>
-        <translation type="unfinished"/>
+        <translation>Gestern</translation>
     </message>
 </context>
 <context>
@@ -37,12 +37,12 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="151"/>
         <source>View in English</source>
-        <translation type="unfinished"/>
+        <translation>Auf Englisch anzeigen</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="154"/>
         <source>View in Chinese</source>
-        <translation type="unfinished"/>
+        <translation>Auf Chinesisch anzeigen</translation>
     </message>
 </context>
 <context>
@@ -374,12 +374,12 @@
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Benachrichtigungszentrum</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1 Benachrichtigungen</translation>
     </message>
 </context>
 <context>
@@ -387,7 +387,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Benachrichtigungszentrum</translation>
     </message>
 </context>
 <context>
@@ -497,7 +497,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Willkommen! Das System wurde erfolgreich auf den neuesten Stand gebracht.</translation>
+        <translation>Willkommen, System erfolgreich aktualisiert</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
@@ -507,7 +507,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation>Jetzt starten</translation>
+        <translation>Eingabe</translation>
     </message>
 </context>
 <context>
@@ -526,7 +526,7 @@
     </message>
     <message>
         <source>Enter your password to reboot</source>
-        <translation type="vanished">Geben Sie Ihr Passwort ein um den Computer neuzustarten</translation>
+        <translation type="vanished">Geben Sie zum Neustarten Ihr Passwort ein</translation>
     </message>
 </context>
 <context>
@@ -549,7 +549,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Effektmodus: ermöglicht eine delikate Erfahrung. Normaler Modus: Genießen Sie schnelle Performance</translation>
+        <translation>Effektmodus: ermöglicht eine grazile Erfahrung. Normaler Modus: Genießen Sie schnelle Performance</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>

@@ -236,7 +236,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
         <source>Domain account</source>
-        <translation>域账户</translation>
+        <translation>域帐户</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
@@ -256,7 +256,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>域账户或域密码不正确，请重新输入。</translation>
+        <translation>域帐户或域密码不正确，请重新输入。</translation>
     </message>
 </context>
 <context>
@@ -280,7 +280,7 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
-        <translation>域账户</translation>
+        <translation>域帐户</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
@@ -544,7 +544,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>检测到您正在使用虚拟机，在虚拟机下使用deepin会影响系统性能和操作体验，为了流畅地使用deepin，建议您选择普通模式进入桌面</translation>
+        <translation>检测到您正在使用虚拟机，在虚拟机下使用UOS会影响系统性能和操作体验，为了流畅地使用UOS，建议您选择普通模式进入桌面</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>

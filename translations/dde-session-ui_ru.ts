@@ -4,22 +4,22 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>Прямо Сейчас</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 минут тому назад</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 часов тому назад</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
         <source>Yesterday </source>
-        <translation type="unfinished"/>
+        <translation>Вчера</translation>
     </message>
 </context>
 <context>
@@ -37,12 +37,12 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="151"/>
         <source>View in English</source>
-        <translation type="unfinished"/>
+        <translation>Посмотреть на Английском</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="154"/>
         <source>View in Chinese</source>
-        <translation type="unfinished"/>
+        <translation>Посмотреть на Китайском</translation>
     </message>
 </context>
 <context>
@@ -192,17 +192,17 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
         <source>Remind Later</source>
-        <translation>Напомнить позже</translation>
+        <translation>Напомнить Позже</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
         <source>Not Now</source>
-        <translation>Не сейчас</translation>
+        <translation>Не Сейчас</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation>Обновить сейчас</translation>
+        <translation>Обновить Сейчас</translation>
     </message>
 </context>
 <context>
@@ -223,7 +223,7 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Пожалуйста, не выключайте питание компьютера</translation>
+        <translation>Пожалуйста, не выключайте питание вашего компьютера</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
@@ -374,12 +374,12 @@
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Центр Уведомлений</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1 Уведомлений</translation>
     </message>
 </context>
 <context>
@@ -387,7 +387,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Центр Уведомлений</translation>
     </message>
 </context>
 <context>

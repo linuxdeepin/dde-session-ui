@@ -4,22 +4,22 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>Управо сад</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>Пре %1 минута</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>Пре %1 сата/и</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
         <source>Yesterday </source>
-        <translation type="unfinished"/>
+        <translation>Јуче</translation>
     </message>
 </context>
 <context>
@@ -37,12 +37,12 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="151"/>
         <source>View in English</source>
-        <translation type="unfinished"/>
+        <translation>Прикажи на енглеском</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="154"/>
         <source>View in Chinese</source>
-        <translation type="unfinished"/>
+        <translation>Прикажи на кинеском</translation>
     </message>
 </context>
 <context>
@@ -187,7 +187,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Ажурирања преузета. Рестартовати систем ради ажурирања?</translation>
+        <translation>Ажурирања су преузета. Поново покренути рачунар и ажирирати?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
@@ -197,12 +197,12 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
         <source>Not Now</source>
-        <translation>Не сада</translation>
+        <translation>Не сад</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation>Ажурирај сада</translation>
+        <translation>Ажурирај сад</translation>
     </message>
 </context>
 <context>
@@ -223,12 +223,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Немојте гасити или искључивати рачунар</translation>
+        <translation>Немојте искључивати рачунар и довод струје</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>Инсталирам ажурирања %1%, сачекајте...</translation>
+        <translation>Инсталирање ажурирања %1%, сачекајте...</translation>
     </message>
 </context>
 <context>
@@ -374,12 +374,12 @@
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Обавештајни Центар</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1 Обавештења</translation>
     </message>
 </context>
 <context>
@@ -387,7 +387,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Обавештајни Центар</translation>
     </message>
 </context>
 <context>
@@ -452,7 +452,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
         <source>External monitor detected, suspend?</source>
-        <translation>Спољашњи екран је детектован, обустави?</translation>
+        <translation>Спољашњи екран је откривен, обустави?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
@@ -544,7 +544,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>Систем је препознао да користите виртуелну машину што ће утицати на перформансе система и корисничко искуство. За глатко корисничко искуство препоручено је да користите Обични режим.</translation>
+        <translation>Систем је препознао да користите виртуелну машину што ће утицати на перформансе система и корисничко искуство. За глатко корисничко искуство препоручено је да користите Обичан режим.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>

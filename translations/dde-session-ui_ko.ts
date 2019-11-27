@@ -4,22 +4,22 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>방금 전</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>%1분 전</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>%1시간 전</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
         <source>Yesterday </source>
-        <translation type="unfinished"/>
+        <translation>어제 </translation>
     </message>
 </context>
 <context>
@@ -32,17 +32,17 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="34"/>
         <source>Confirm</source>
-        <translation>확인</translation>
+        <translation>확정</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="151"/>
         <source>View in English</source>
-        <translation type="unfinished"/>
+        <translation>영어로 보기</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="154"/>
         <source>View in Chinese</source>
-        <translation type="unfinished"/>
+        <translation>중국어로 보기</translation>
     </message>
 </context>
 <context>
@@ -187,22 +187,22 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation type="unfinished"/>
+        <translation>업데이트를 다운로드했습니다. 다시 시작하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
         <source>Remind Later</source>
-        <translation type="unfinished"/>
+        <translation>나중에 알림</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
         <source>Not Now</source>
-        <translation type="unfinished"/>
+        <translation>지금은 아님</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation>지금 업데이트하기</translation>
+        <translation>지금 업데이트</translation>
     </message>
 </context>
 <context>
@@ -223,12 +223,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation type="unfinished"/>
+        <translation>기기의 전원을 끄거나 플러그를 뽑지 마십시오</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation type="unfinished"/>
+        <translation>%1% 업데이트를 설치하는 중, 잠시 기다리십시오...</translation>
     </message>
 </context>
 <context>
@@ -246,12 +246,12 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation>지문 대조 실패</translation>
+        <translation>지문 일치 실패</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
         <source>Wrong Password</source>
-        <translation>잘못된 비밀번호입니다</translation>
+        <translation>잘못된 비밀번호</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
@@ -290,12 +290,12 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
-        <translation>지문 대조 실패</translation>
+        <translation>지문 일치 실패</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
-        <translation>잘못된 비밀번호입니다</translation>
+        <translation>잘못된 비밀번호</translation>
     </message>
 </context>
 <context>
@@ -374,12 +374,12 @@
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>알림 센터</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1 알림</translation>
     </message>
 </context>
 <context>
@@ -387,7 +387,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>알림 센터</translation>
     </message>
 </context>
 <context>

@@ -10,7 +10,7 @@
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Show desktop or show windows</source>
-            <translation>Exibir à Área de Trabalho ou Janela</translation>
+            <translation>Exibir Área de Trabalho ou Janela</translation>
         </message>
     </context>
 </TS>

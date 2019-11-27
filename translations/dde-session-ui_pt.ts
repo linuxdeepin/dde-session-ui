@@ -9,12 +9,12 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 minutos atrás</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 horas atrás</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
@@ -94,7 +94,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
         <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>Os programas estão a impedir o computador de encerrar / hibernar e a forçar o encerramento / hibernação podem causar perda de dados.</translation>
+        <translation>Os programas estão a impedir o computador de encerrar / hibernar e a forçar o encerramento / hibernação pode causar perda de dados.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
@@ -241,12 +241,12 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>A verificação da impressão digital expirou, por favor insira a sua palavra-passe manualmente</translation>
+        <translation>A verificação por impressão digital expirou, por favor introduza a sua palavra-passe manualmente</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation>Falhou ao não corresponder à impressão digital</translation>
+        <translation>A impressão digital não corresponde</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
@@ -285,12 +285,12 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Expirou o tempo para verificação por impressão digital, por favor insira a sua palavra-passe manualmente</translation>
+        <translation>A verificação por impressão digital expirou, por favor introduza a sua palavra-passe manualmente</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
-        <translation>A correspondência da impressão digital falhou</translation>
+        <translation>A impressão digital não corresponde</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
@@ -395,7 +395,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifywidget.cpp" line="39"/>
         <source>No system notifications</source>
-        <translation>Sem notificações de sistema</translation>
+        <translation>Sem notificações do sistema</translation>
     </message>
 </context>
 <context>
@@ -554,7 +554,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>Lembrete amigável</translation>
+        <translation>Aviso</translation>
     </message>
 </context>
 <context>
@@ -562,7 +562,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>Lembrete gentil</translation>
+        <translation>Aviso</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
