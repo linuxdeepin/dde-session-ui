@@ -38,6 +38,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QXmlStreamReader>
+#include <QScreen>
 
 static QString removeHTML(const QString &source)
 {
@@ -138,56 +139,58 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                                             QString::number(expireTimeout),
                                                                                             this);
     bool find = false;
-    for (int i = 0; i < m_bubbleList.size(); ++i) {
-        Bubble *b = m_bubbleList[i];
-        if (b->entity()->replacesId() == QString::number(replacesId)
-                && b->entity()->appName() == appName) {
+    if (replacesId != 0) {
+        for (int i = 0; i < m_bubbleList.size(); ++i) {
+            Bubble *b = m_bubbleList[i];
+            if (b->entity()->replacesId() == QString::number(replacesId)
+                    && b->entity()->appName() == appName) {
 #if 1 //同一应用消息置顶，气泡无变换动画
-            if (i == 0) {
-                b->setEntity(notification);
-            } else {
-                b->setEntity(m_bubbleList.at(0)->entity());
-                m_bubbleList.at(0)->setEntity(notification);
-            }
-            find = true;
+                if (i == 0) {
+                    b->setEntity(notification);
+                } else {
+                    b->setEntity(m_bubbleList.at(0)->entity());
+                    m_bubbleList.at(0)->setEntity(notification);
+                }
+                find = true;
 
 #else //消息气泡自动上浮
-            // 更新消息内容
-            b->setEntity(notification);
+                // 更新消息内容
+                b->setEntity(notification);
 
-            // 在其之前所有消息均向下移动一格
-            int index = i;
-            while (index > 0) {
-                index --;
-                QRect startRect = GetBubbleGeometry(index);
-                QRect endRect = GetBubbleGeometry(index + 1);
-                QPointer<Bubble> item = m_bubbleList.at(index);
-                if (item->geometry() != endRect) {
-                    startRect = item->geometry();
+                // 在其之前所有消息均向下移动一格
+                int index = i;
+                while (index > 0) {
+                    index --;
+                    QRect startRect = GetBubbleGeometry(index);
+                    QRect endRect = GetBubbleGeometry(index + 1);
+                    QPointer<Bubble> item = m_bubbleList.at(index);
+                    if (item->geometry() != endRect) {
+                        startRect = item->geometry();
+                    }
+                    PrepareAnimation(item, index + 1, endRect);
+                    item->startMoveAnimation(startRect, endRect);
                 }
-                PrepareAnimation(item, index + 1, endRect);
-                item->startMoveAnimation(startRect, endRect);
-            }
 
-            //2 自身调整到首位
-            if (i != 0) {
-                QRect startRect = GetBubbleGeometry(i);
-                QRect endRect = GetBubbleGeometry(0);
-                pushAnimation(b);
-                PrepareAnimation(b, index, endRect);
-                b->startMoveAnimation(startRect, endRect);
+                //2 自身调整到首位
+                if (i != 0) {
+                    QRect startRect = GetBubbleGeometry(i);
+                    QRect endRect = GetBubbleGeometry(0);
+                    pushAnimation(b);
+                    PrepareAnimation(b, index, endRect);
+                    b->startMoveAnimation(startRect, endRect);
 
-                m_bubbleList.swap(i, 0);
-            }
-            find = true;
-            break;
+                    m_bubbleList.swap(i, 0);
+                }
+                find = true;
+                break;
 #endif
+            }
         }
-    }
-    for (int i = 0; i < m_oldEntities.size(); ++i) {
-        if (m_oldEntities[i]->replacesId() == QString::number(replacesId)
-                && m_oldEntities[i]->appName() == appName) {
-            m_oldEntities.removeAt(i);
+        for (int i = 0; i < m_oldEntities.size(); ++i) {
+            if (m_oldEntities[i]->replacesId() == QString::number(replacesId)
+                    && m_oldEntities[i]->appName() == appName) {
+                m_oldEntities.removeAt(i);
+            }
         }
     }
 
@@ -285,10 +288,15 @@ QRect BubbleManager::GetBubbleGeometry(int index)
 {
     Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
 
+    qreal scale = qApp->primaryScreen()->devicePixelRatio();
     QRect display = m_displayInter->primaryRawRect();
+
+    display.setWidth(int(qreal(display.width()) / scale));
+    display.setHeight(int(qreal(display.height()) / scale));
+
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
-        rect.setX(display.x() + (display.width()- OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
+        rect.setX(display.x() + (display.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
         rect.setY(ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
         rect.setWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
         rect.setHeight(OSD::BubbleHeight(OSD::BUBBLEWINDOW));

@@ -36,6 +36,7 @@
 #include <QDebug>
 
 #include <DTipLabel>
+#include <QScreen>
 #include <DGuiApplicationHelper>
 
 DWIDGET_USE_NAMESPACE
@@ -97,6 +98,13 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
 {
     qDebug() <<  "screenGeometry:" << screen;
 
+    qreal scale = qApp->primaryScreen()->devicePixelRatio();
+    dock.setWidth(int(qreal(dock.width()) / scale));
+    dock.setHeight(int(qreal(dock.height()) / scale));
+
+    screen.setWidth(int(qreal(screen.width()) / scale));
+    screen.setHeight(int(qreal(screen.height()) / scale));
+
     int width = Notify::CenterWidth;
     int height = screen.height() - Notify::CenterMargin * 2;
     if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom)
@@ -110,9 +118,9 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     if (pos == OSD::DockPosition::Top)
         y = screen.y() + Notify::CenterMargin + dock.height();
 
-    qDebug() <<  "set geometry:" << QRect(x, y, width, height);;
+    qDebug() <<  "set geometry:" << QRect(x, y, width, height);
     setGeometry(x, y, width, height);
-    setFixedSize(width,height);
+    setFixedSize(width, height);
 }
 
 void NotifyCenterWidget::showEvent(QShowEvent *event)
