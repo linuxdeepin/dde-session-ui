@@ -25,8 +25,6 @@
 #define BUBBLE_H
 
 #include <DBlurEffectWidget>
-#include <DPlatformWindowHandle>
-#include <DWindowManagerHelper>
 #include <QDBusArgument>
 
 #include <memory>
@@ -65,7 +63,6 @@ Q_SIGNALS:
     void actionInvoked(Bubble *, QString);
 
 public Q_SLOTS:
-    void compositeChanged();
     void onDelayQuit();
     void startMoveAnimation(const QRect &startRect, const QRect &endRect);
 
@@ -105,9 +102,6 @@ protected:
     AppBody *m_body = nullptr;
     ActionButton *m_actionButton = nullptr;
     Button *m_closeButton = nullptr;
-
-    DPlatformWindowHandle *m_handle = nullptr;
-    DWindowManagerHelper *m_wmHelper = nullptr;
 
     QTimer *m_outTimer = nullptr;
     QTimer *m_quitTimer = nullptr;

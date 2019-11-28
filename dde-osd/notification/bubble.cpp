@@ -38,8 +38,6 @@
 #include <QMoveEvent>
 #include <QBoxLayout>
 
-#include <DStyleHelper>
-
 Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
     , m_entity(entity)
@@ -243,22 +241,11 @@ void Bubble::onDismissAnimFinished()
 void Bubble::initUI()
 {
     setAttribute(Qt::WA_TranslucentBackground);
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
-
-    m_wmHelper = DWindowManagerHelper::instance();
-    m_handle = new DPlatformWindowHandle(this);
-    m_handle->setTranslucentBackground(true);
-    m_handle->setShadowOffset(QPoint(0, 4));
-
-    compositeChanged();
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool);
 
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
     setMouseTracking(true);
-
-    DStyleHelper dstyle(style());
-    int radius = dstyle.pixelMetric(DStyle::PM_TopLevelWindowRadius);
-    m_handle->setShadowRadius(radius);
 
     setFixedSize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWINDOW));
@@ -314,7 +301,6 @@ void Bubble::initConnections()
     });
 
     connect(m_quitTimer, &QTimer::timeout, this, &Bubble::onDelayQuit);
-    connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &Bubble::compositeChanged);
 }
 
 void Bubble::initAnimations()
@@ -358,17 +344,6 @@ void Bubble::onDelayQuit()
     if (gsettings.keys().contains("autoExit") && gsettings.get("auto-exit").toBool()) {
         qWarning() << "Killer Timeout, now quiiting...";
         qApp->quit();
-    }
-}
-
-void Bubble::compositeChanged()
-{
-    if (!m_wmHelper->hasComposite()) {
-        m_handle->setWindowRadius(0);
-        m_handle->setShadowColor(QColor("#E5E5E5"));
-    } else {
-        m_handle->setWindowRadius(5);
-        m_handle->setShadowColor(QColor(0, 0, 0, 100));
     }
 }
 
