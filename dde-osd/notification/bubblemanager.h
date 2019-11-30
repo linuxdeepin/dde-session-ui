@@ -111,7 +111,7 @@ private Q_SLOTS:
 
 private:
     void registerAsService();
-
+    bool calcReplaceId(std::shared_ptr<NotificationEntity> notify);
     bool checkDockExistence();
     bool checkControlCenterExistence();
 
@@ -141,6 +141,7 @@ private:
     QList<QPointer<Bubble>> m_bubbleList;
 
     NotifyCenterWidget *m_notifyCenter;
+    int m_replaceCount = 0;
 };
 
 #endif // BUBBLEMANAGER_H
