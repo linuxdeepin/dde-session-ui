@@ -25,6 +25,7 @@
 #define BUBBLE_H
 
 #include <DBlurEffectWidget>
+#include <DDialogCloseButton>
 #include <QDBusArgument>
 
 #include <memory>
@@ -101,7 +102,7 @@ protected:
     AppIcon *m_icon = nullptr;
     AppBody *m_body = nullptr;
     ActionButton *m_actionButton = nullptr;
-    Button *m_closeButton = nullptr;
+    DDialogCloseButton *m_closeButton = nullptr;
 
     QTimer *m_outTimer = nullptr;
     QTimer *m_quitTimer = nullptr;

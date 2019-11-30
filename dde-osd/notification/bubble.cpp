@@ -44,7 +44,7 @@ Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD:
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this))
-    , m_closeButton(new Button(this))
+    , m_closeButton(new DDialogCloseButton(this))
     , m_outTimer(new QTimer(this))
     , m_quitTimer(new QTimer(this))
     , m_showStyle(style)
@@ -250,9 +250,7 @@ void Bubble::initUI()
     setFixedSize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWINDOW));
 
-    m_closeButton->setFixedSize(OSD::CloseButtonSize(OSD::BUBBLEWINDOW));
-    m_closeButton->setRadius(99);
-    m_closeButton->setText("X");
+    m_closeButton->setIconSize(OSD::CloseButtonSize(OSD::BUBBLEWINDOW));
     m_closeButton->setVisible(false);
     m_body->setObjectName("Body");
 
@@ -286,7 +284,7 @@ void Bubble::initConnections()
         Q_EMIT actionInvoked(this, action_id);
     });
 
-    connect(m_closeButton, &Button::clicked, this, [ = ]() {
+    connect(m_closeButton, &DDialogCloseButton::clicked, this, [ = ]() {
         m_dismissAnimation->start();
     });
 

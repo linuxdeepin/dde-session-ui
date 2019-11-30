@@ -195,15 +195,13 @@ const QString BubbleTool::getDeepinAppName(const QString &name)
     QSettings settings("/usr/share/applications/" + name + ".desktop", QSettings::IniFormat);
     settings.beginGroup("Desktop Entry");
     settings.setIniCodec(QTextCodec::codecForName("utf-8"));
-    if (settings.value("X-Deepin-Vendor").toString() == "deepin") {
-        QString key = "GenericName";
-        key += "[";
-        key += QLocale::system().name();
-        key += "]";
-        return settings.value(key).toString();
-    } else {
-        return name;
+    QString key = QString("Name[%1]").arg(QLocale::system().name());
+    QString value = settings.value(key).toString();
+    value = value.isEmpty() ? settings.value("Name").toString() : value;
+    if(value.isEmpty()) {
+        value = name;
     }
+    return value;
 }
 
 void BubbleTool::actionInvoke(const QString &actionId, std::shared_ptr<NotificationEntity> entity)
