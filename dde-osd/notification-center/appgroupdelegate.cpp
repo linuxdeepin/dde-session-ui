@@ -22,6 +22,7 @@
 #include "appgroupdelegate.h"
 #include "appgroupmodel.h"
 #include "bubblegroup.h"
+#include "shortcutmanage.h"
 #include "notification/constants.h"
 #include "notification/bubbletool.h"
 
@@ -47,6 +48,7 @@ QWidget *AppGroupDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 
     BubbleGroup *group = new BubbleGroup(parent, model);
     group->setGroupTitle(title);
+    ShortcutManage::instance()->append(std::make_shared<ShortcutGroup>(group, index));
     connect(group, &BubbleGroup::closeGroup, grpup_model, [grpup_model, index]() {
         grpup_model->removeGroup(index);
     });

@@ -78,6 +78,9 @@ QVariant AppGroupModel::data(const QModelIndex &index, int role) const
     case NotifyModelRole:
         return application->notifyModel();
 
+    case GroupViewRole:
+        return QVariant::fromValue(m_view);
+
     default:
         break;
     }

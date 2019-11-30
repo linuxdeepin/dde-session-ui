@@ -37,6 +37,8 @@ DWIDGET_END_NAMESPACE
 class Persistence;
 class QPropertyAnimation;
 
+DWIDGET_USE_NAMESPACE
+
 class NotifyCenterWidget : public DBlurEffectWidget
 {
     Q_OBJECT

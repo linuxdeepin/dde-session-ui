@@ -66,6 +66,9 @@ QVariant NotifyModel::data(const QModelIndex &index, int role) const
     case NotifyEntityRole:
         return QVariant::fromValue(notify);
 
+    case NotifyViewRole:
+        return QVariant::fromValue(m_view);
+
     default:
         break;
     }

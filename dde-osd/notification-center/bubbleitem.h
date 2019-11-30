@@ -46,24 +46,18 @@ public:
 
     int hoverAlpha() {return m_hoverAlpha;}
     void setHoverAlpha(int alpha) {m_hoverAlpha = alpha; update();}
-    void setSelectedStatus(bool status) {m_selected = status;}
-    void setSelectedAlpha(int alpha) {m_selectedAlpha = alpha; update();}
 
     int unHoverAlpha() {return m_unHoverAlpha;}
     void setUnHoverAlpha(int alpha) {m_unHoverAlpha = alpha; update();}
 
+    void setHasFocus(bool focus) { m_hasFocus = focus; }
+protected:
+    virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+
 private:
-    int m_selectedAlpha = 0;
     int m_hoverAlpha = 0;
     int m_unHoverAlpha = 0;
-    bool m_hover = false;
-    bool m_selected = false;
-
-protected:
-    virtual bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
-    virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-    virtual void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
-    virtual void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+    bool m_hasFocus = false;
 };
 
 class BubbleItem : public QWidget
@@ -71,6 +65,7 @@ class BubbleItem : public QWidget
     Q_OBJECT
 public:
     BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
+    ~BubbleItem() override;
     void setModel(NotifyModel *model);
     const QPixmap converToPixmap(const QDBusArgument &value);
     void setShowContent(bool visible);
@@ -89,6 +84,7 @@ protected:
     void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
     void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
     void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
+    //void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void initUI();

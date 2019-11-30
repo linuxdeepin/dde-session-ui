@@ -60,7 +60,8 @@ public:
     enum NotifyDataRole {
         ApplicationNameRole = Qt::UserRole + 1,
         TimeStampRole = Qt::UserRole + 2,
-        NotifyModelRole = Qt::UserRole + 3
+        NotifyModelRole = Qt::UserRole + 3,
+        GroupViewRole = Qt::UserRole + 4
     };
 
     AppGroupModel(QObject *parent = nullptr, Persistence *database = nullptr);

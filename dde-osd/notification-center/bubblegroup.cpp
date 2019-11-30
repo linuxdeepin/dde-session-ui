@@ -2,11 +2,12 @@
 #include "bubbleitem.h"
 #include "notifymodel.h"
 #include "bubbledelegate.h"
+#include "shortcutmanage.h"
 #include "notification/notificationentity.h"
 #include "notification/constants.h"
 
-#include <DListView>
 #include <QBoxLayout>
+#include <DFontSizeManager>
 #include <DGuiApplicationHelper>
 #include <DIconButton>
 #include <QDebug>
@@ -42,7 +43,7 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     head_Layout->addWidget(title_close, Qt::AlignRight);
     m_titleWidget->setLayout(head_Layout);
 
-    m_groupList = new DListView(this);
+    m_groupList = new QListView(this);
     m_notifyDelegate = new BubbleDelegate(this);
     m_notifyModel->setView(m_groupList);
     m_groupList->setModel(m_notifyModel.get());
@@ -74,6 +75,11 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     connect(m_notifyModel.get(), &NotifyModel::appendNotify, this, &BubbleGroup::appendAnimation);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleGroup::refreshTheme);
     refreshTheme();
+}
+
+BubbleGroup::~BubbleGroup()
+{
+    ShortcutManage::instance()->removeGroup(this);
 }
 
 void BubbleGroup::enterEvent(QEvent *)

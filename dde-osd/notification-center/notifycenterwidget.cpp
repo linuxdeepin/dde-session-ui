@@ -37,6 +37,7 @@
 
 #include <DLabel>
 #include <QScreen>
+#include <DFontSizeManager>
 #include <DGuiApplicationHelper>
 
 DWIDGET_USE_NAMESPACE

@@ -23,20 +23,19 @@
 #define NOTIFYWIDGET_H
 
 #include <QWidget>
-#include <DListView>
 
 class Persistence;
 class AppGroupModel;
 class AppGroupDelegate;
 class QLabel;
-
-DWIDGET_USE_NAMESPACE
+class QListView;
 
 class NotifyWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit NotifyWidget(QWidget *parent = nullptr, Persistence *database = nullptr);
+    QListView *view() { return m_mainList; }
 
 private:
     void initView(Persistence *database);
@@ -44,7 +43,7 @@ private:
 private:
     AppGroupDelegate *m_groupDelegate = nullptr;
     AppGroupModel *m_groupModel = nullptr;
-    DListView *m_mainList = nullptr;
+    QListView *m_mainList = nullptr;
     QLabel *m_noNotify = nullptr;
 };
 

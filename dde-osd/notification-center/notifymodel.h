@@ -42,7 +42,8 @@ public:
         NotifyBodyRole = Qt::UserRole + 4,
         NotifyIconRole = Qt::UserRole + 5,
         NotifyTimeRole = Qt::UserRole + 6,
-        NotifyEntityRole = Qt::UserRole + 7
+        NotifyEntityRole = Qt::UserRole + 7,
+        NotifyViewRole = Qt::UserRole + 8
     };
 
     NotifyModel(QObject *parent = nullptr, std::shared_ptr<NotificationEntity> notify = nullptr);

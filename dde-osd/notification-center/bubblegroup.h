@@ -30,7 +30,6 @@
 
 DWIDGET_BEGIN_NAMESPACE
 class DIconButton;
-class DListView;
 DWIDGET_END_NAMESPACE
 
 class QListView;
@@ -46,7 +45,9 @@ class BubbleGroup : public QWidget
     Q_OBJECT
 public:
     explicit BubbleGroup(QWidget *parent = nullptr, std::shared_ptr<NotifyModel> model = nullptr);
+    ~BubbleGroup() override;
     void setGroupTitle(const QString &title) { group_title->setText(title); }
+    QListView *view() { return m_groupList; }
 
 signals:
     void closeGroup();
@@ -66,7 +67,7 @@ protected:
 private:
     QList<QPointer<BubbleItem>> m_bubbleList;
     QWidget *m_titleWidget = nullptr;
-    DListView *m_groupList = nullptr;
+    QListView *m_groupList = nullptr;
     BubbleDelegate *m_notifyDelegate = nullptr;
     DIconButton *title_close = nullptr;
     DLabel *group_title = nullptr;

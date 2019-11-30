@@ -35,6 +35,7 @@ class BubbleOverlapWidget : public QWidget
 public:
     BubbleOverlapWidget(const QList<std::shared_ptr<NotificationEntity>> &entitys,
                         QWidget *parent = nullptr, NotifyModel *model = nullptr);
+    ~BubbleOverlapWidget();
     void setModel(NotifyModel *model);
 
 private:

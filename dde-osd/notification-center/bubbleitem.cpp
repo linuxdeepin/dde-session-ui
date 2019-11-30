@@ -6,6 +6,7 @@
 #include "notification/button.h"
 #include "notification/icondata.h"
 #include "notification/bubbletool.h"
+#include "shortcutmanage.h"
 #include "notifymodel.h"
 
 #include <QTimer>
@@ -20,19 +21,6 @@
 AlphaWidget::AlphaWidget(QWidget *parent)
     : DWidget(parent)
 {
-    installEventFilter(this);
-}
-
-bool AlphaWidget::eventFilter(QObject *obj, QEvent *event)
-{
-    // 这里只是为了让界面不被拖动
-    if (obj) {
-        if (event->type() == QEvent::MouseMove
-                || event->type() == QEvent::Move) {
-            return true;
-        }
-    }
-    return false;
 }
 
 void AlphaWidget::paintEvent(QPaintEvent *event)
@@ -42,7 +30,7 @@ void AlphaWidget::paintEvent(QPaintEvent *event)
 
     QPalette pe = this->palette();
     QColor brushColor(pe.color(QPalette::Base));
-    brushColor.setAlpha(m_selected ? m_selectedAlpha : (m_hover ? m_hoverAlpha : m_unHoverAlpha));
+    brushColor.setAlpha(m_hasFocus ? m_hoverAlpha : m_unHoverAlpha);
     painter.setBrush(brushColor);
 
     DStyleHelper dstyle(style());
@@ -58,24 +46,6 @@ void AlphaWidget::paintEvent(QPaintEvent *event)
     painter.drawRoundedRect(rect, radius, radius);
 
     return DWidget::paintEvent(event);
-}
-
-void AlphaWidget::enterEvent(QEvent *event)
-{
-    m_hover = true;
-
-    update();
-
-    return DWidget::enterEvent(event);
-}
-
-void AlphaWidget::leaveEvent(QEvent *event)
-{
-    m_hover = false;
-
-    update();
-
-    return DWidget::leaveEvent(event);
 }
 
 BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> entity)
@@ -95,6 +65,11 @@ BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> enti
 {
     initUI();
     initContent();
+}
+
+BubbleItem::~BubbleItem()
+{
+    ShortcutManage::instance()->removeItem(this);
 }
 
 void BubbleItem::initUI()
@@ -177,8 +152,7 @@ void BubbleItem::setAlpha(int alpha)
 {
     m_titleWidget->setAlpha(alpha);
     m_bodyWidget->setAlpha(0);
-    m_bgWidget->setSelectedAlpha(alpha * 5);
-    m_bgWidget->setHoverAlpha(alpha * 4);
+    m_bgWidget->setHoverAlpha(alpha * 5);
     m_bgWidget->setUnHoverAlpha(alpha * 3);
 }
 
@@ -242,13 +216,13 @@ void BubbleItem::leaveEvent(QEvent *event)
 
 void BubbleItem::focusInEvent(QFocusEvent *event)
 {
-    m_bgWidget->setSelectedStatus(true);
+    m_bgWidget->setHasFocus(true);
     return QWidget::focusInEvent(event);
 }
 
 void BubbleItem::focusOutEvent(QFocusEvent *event)
 {
-    m_bgWidget->setSelectedStatus(false);
+    m_bgWidget->setHasFocus(false);
     return QWidget::focusOutEvent(event);
 }
 
@@ -289,3 +263,15 @@ void BubbleItem::refreshTheme()
     m_appNameLabel->setForegroundRole(QPalette::BrightText);
     m_appTimeLabel->setFont(DFontSizeManager::instance()->t8());
 }
+
+//void BubbleItem::paintEvent(QPaintEvent *event)
+//{
+//    QPainter pa(this);
+//    if (hasFocus()) {
+//        pa.fillRect(rect(), Qt::blue);
+//    } else {
+//        pa.fillRect(rect(), Qt::red);
+//    }
+
+//    QWidget::paintEvent(event);
+//}

@@ -20,6 +20,7 @@
  */
 
 #include "bubbleoverlapwidget.h"
+#include "shortcutmanage.h"
 #include "notification/notificationentity.h"
 #include "notification/constants.h"
 #include <QPointer>
@@ -33,6 +34,11 @@ BubbleOverlapWidget::BubbleOverlapWidget(const QList<std::shared_ptr<Notificatio
 {
     setFocusPolicy(Qt::StrongFocus);
     initOverlap();
+}
+
+BubbleOverlapWidget::~BubbleOverlapWidget()
+{
+    ShortcutManage::instance()->removeItem(this);
 }
 
 void BubbleOverlapWidget::initOverlap()

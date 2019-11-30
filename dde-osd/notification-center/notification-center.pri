@@ -13,7 +13,8 @@ HEADERS += \
     $$PWD/appgroupdelegate.h \
     $$PWD/bubbledelegate.h \
     $$PWD/bubbleoverlapwidget.h \
-    $$PWD/expandanimation.h
+    $$PWD/expandanimation.h \
+    $$PWD/shortcutmanage.h
 
 SOURCES += \
     $$PWD/notifywidget.cpp \
@@ -25,4 +26,5 @@ SOURCES += \
     $$PWD/appgroupdelegate.cpp \
     $$PWD/bubbledelegate.cpp \
     $$PWD/bubbleoverlapwidget.cpp \
-    $$PWD/expandanimation.cpp
+    $$PWD/expandanimation.cpp \
+    $$PWD/shortcutmanage.cpp
