@@ -251,7 +251,6 @@ void BubbleManager::pushAnimation(Bubble *bubble)
         if (item->geometry() != endRect) { //动画中
             startRect = item->geometry();
         }
-        PrepareAnimation(item, index, endRect);//TODO  应等待动画结束后
         if (bubble != nullptr)
             item->startMoveAnimation(startRect, endRect);
     }
@@ -270,7 +269,6 @@ void BubbleManager::popAnimation(Bubble *bubble)
         if (item->geometry() != endRect) { //动画中
             startRect = item->geometry();
         }
-        PrepareAnimation(item, index - 1, endRect);
         if (bubble != nullptr)
             item->startMoveAnimation(startRect, endRect);
     }
@@ -315,21 +313,6 @@ QRect BubbleManager::GetBubbleGeometry(int index)
     }
 
     return rect;
-}
-
-void BubbleManager::PrepareAnimation(Bubble *bubble, int index/*0-4*/, const QRect &endRect)
-{
-    Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
-    if (index >= BubbleEntities && index <= BubbleEntities + BubbleOverLap) {
-        QSize size = bubble->size();
-        bubble->setMinimumSize(0, 0);
-        bubble->setMaximumSize(16777215, 16777215);
-        bubble->setEnabled(false);
-        bubble->resize(size);
-    } else {
-        bubble->setFixedSize(endRect.width(), endRect.height());
-        bubble->setEnabled(true);
-    }
 }
 
 QString BubbleManager::GetAllRecords()
@@ -458,14 +441,12 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
     if (index != 0) {
         QRect startRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap);
         QRect endRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap - 1);
-        PrepareAnimation(bubble, BubbleEntities + BubbleOverLap - 1, endRect);
-        bubble->StartMoveIn(startRect, endRect);
+        bubble->startMoveAnimation(startRect, endRect);
     } else {
         QRect endRect = GetBubbleGeometry(0);
         QRect startRect = endRect;
         startRect.setY(0);
-        PrepareAnimation(bubble, 0, endRect);
-        bubble->StartMoveIn(startRect, endRect);
+        bubble->startMoveAnimation(startRect, endRect);
     }
 
     return bubble;

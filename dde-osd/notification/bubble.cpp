@@ -81,7 +81,7 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "删除";
     actions << "取消";
     actions << "取消";
-//    entity->setActions(actions);
+    entity->setActions(actions);
     entity->setTimeout("0");
 #endif
 
@@ -98,15 +98,6 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     m_outTimer->start();
 }
 
-void Bubble::StartMoveIn(const QRect &startRect, const QRect &endRect)
-{
-    if (m_moveAnimation->state() != QPropertyAnimation::Running) {
-        m_moveAnimation->setStartValue(startRect);
-        m_moveAnimation->setEndValue(endRect);
-        m_moveAnimation->start();
-    }
-}
-
 void Bubble::setEnabled(bool enable)
 {
     m_enabled = enable;
@@ -118,7 +109,6 @@ void Bubble::setEnabled(bool enable)
         m_body->hide();
     } else {
         m_actionButton->show();
-//        m_closeButton->setVisible(m_canClose);
         m_icon->show();
         m_body->show();
     }
@@ -224,7 +214,6 @@ void Bubble::onOutTimerTimeout()
 
 void Bubble::onOutAnimFinished()
 {
-    // FIXME: There should be no empty pointers here
     if (m_entity) {
         Q_EMIT expired(this);
     }
@@ -232,7 +221,6 @@ void Bubble::onOutAnimFinished()
 
 void Bubble::onDismissAnimFinished()
 {
-    // FIXME: There should be no empty pointers here
     if (m_entity) {
         Q_EMIT dismissed(this);
     }
@@ -369,4 +357,12 @@ void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect)
     m_moveAnimation->setStartValue(startRect);
     m_moveAnimation->setEndValue(endRect);
     m_moveAnimation->start();
+
+    setEnabled(QSize(endRect.width(),endRect.height()) == OSD::BubbleSize(OSD::BUBBLEWINDOW));
+}
+
+void Bubble::setFixedGeometry(QRect rect)
+{
+    setFixedSize(rect.width(),rect.height());
+    setGeometry(rect);
 }

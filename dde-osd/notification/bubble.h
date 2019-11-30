@@ -44,15 +44,13 @@ class ActionButton;
 class Bubble : public DBlurEffectWidget
 {
     Q_OBJECT
+    Q_PROPERTY(QRect geometry READ geometry WRITE setFixedGeometry)
 public:
     Bubble(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr,
            OSD::ShowStyle style = OSD::ShowStyle::BUBBLEWINDOW);
 
     std::shared_ptr<NotificationEntity> entity() const;
     void setEntity(std::shared_ptr<NotificationEntity> entity);
-    void StartMoveIn(const QRect &startRect, const QRect &endRect);
-
-    OSD::ShowStyle showStyle() {return m_showStyle;}
 
     void setEnabled(bool enable);
 
@@ -66,6 +64,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onDelayQuit();
     void startMoveAnimation(const QRect &startRect, const QRect &endRect);
+    void setFixedGeometry(QRect rect);
 
 protected:
     virtual void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;

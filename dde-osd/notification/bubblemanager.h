@@ -128,7 +128,6 @@ private:
     void popAnimation(Bubble *bubble);
 
     QRect GetBubbleGeometry(int index/*0-4*/);
-    void PrepareAnimation(Bubble *bubble, int index/*0-4*/, const QRect &endRect);
 
 private:
     Persistence *m_persistence;
