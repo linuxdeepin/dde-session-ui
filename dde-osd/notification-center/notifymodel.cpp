@@ -38,7 +38,7 @@ int NotifyModel::rowCount(const QModelIndex &parent) const
 
 QVariant NotifyModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() && m_displays.size() <= 0 && index.row() > m_displays.size()) {
+    if (!index.isValid() || m_displays.isEmpty() || index.row() >= m_displays.size()) {
         return QVariant();
     }
 
