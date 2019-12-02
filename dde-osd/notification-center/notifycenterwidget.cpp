@@ -45,6 +45,7 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     : m_notifyWidget(new NotifyWidget(this, database))
 {
     initUI();
+    installEventFilter(this);
 }
 
 void NotifyCenterWidget::initUI()
@@ -123,20 +124,6 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     setFixedSize(width, height);
 }
 
-void NotifyCenterWidget::showEvent(QShowEvent *event)
-{
-    DBlurEffectWidget::showEvent(event);
-
-    m_visible = true;
-}
-
-void NotifyCenterWidget::hideEvent(QHideEvent *event)
-{
-    DBlurEffectWidget::hideEvent(event);
-
-    m_visible = false;
-}
-
 void NotifyCenterWidget::mouseMoveEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
@@ -156,10 +143,20 @@ void NotifyCenterWidget::refreshTheme()
 
 void NotifyCenterWidget::showWidget()
 {
-    if (!m_visible) {
+    if (isHidden()) {
         show();
         activateWindow();
     } else {
         hide();
     }
+}
+
+bool NotifyCenterWidget::eventFilter(QObject *watched, QEvent *e)
+{
+    if (e->type() == QEvent::WindowDeactivate) {
+        if (!isHidden()) {
+            hide();
+        }
+    }
+    return QWidget::eventFilter(watched, e);
 }

@@ -49,9 +49,8 @@ Q_SIGNALS:
     void notify();
 
 protected:
-    void showEvent(QShowEvent *event) override;
-    void hideEvent(QHideEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+    bool eventFilter(QObject *watched, QEvent *e) override;
 
 private:
     void initUI();
