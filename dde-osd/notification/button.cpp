@@ -102,7 +102,10 @@ void ButtonContent::drawContent(QPainter *painter)
 
     pen.setColor(palette().color(QPalette::BrightText));
     painter->setPen(pen);
-    painter->drawText(geometry(), text(), option);
+
+    QFontMetrics metrics = this->fontMetrics();
+    QRect rect = geometry().marginsRemoved(QMargins(3, 3, 3, 3));
+    painter->drawText(rect, metrics.elidedText(text(), Qt::ElideRight, rect.width(), 0), option);
 
     painter->restore();
 }

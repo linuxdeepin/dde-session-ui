@@ -107,7 +107,7 @@ void Bubble::setEnabled(bool enable)
         m_icon->hide();
         m_body->hide();
     } else {
-        m_actionButton->show();
+        m_actionButton->setVisible(!m_actionButton->isEmpty());
         m_icon->show();
         m_body->show();
     }
@@ -236,7 +236,7 @@ void Bubble::onDismissAnimFinished()
 void Bubble::initUI()
 {
     setAttribute(Qt::WA_TranslucentBackground);
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool /*| Qt::X11BypassWindowManagerHint*/);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool);
 
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
@@ -247,7 +247,7 @@ void Bubble::initUI()
 
     m_closeButton->setIconSize(OSD::CloseButtonSize(OSD::BUBBLEWINDOW));
     m_closeButton->setVisible(false);
-    m_body->setObjectName("Body");
+    m_body->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setSpacing(BubbleSpacing);
