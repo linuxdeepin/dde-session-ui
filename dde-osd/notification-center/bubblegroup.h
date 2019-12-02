@@ -25,7 +25,7 @@
 #include <QPointer>
 #include <QWidget>
 #include <memory>
-#include <DTipLabel>
+#include <DLabel>
 #include "expandanimation.h"
 
 DWIDGET_BEGIN_NAMESPACE
@@ -69,7 +69,7 @@ private:
     DListView *m_groupList = nullptr;
     BubbleDelegate *m_notifyDelegate = nullptr;
     DIconButton *title_close = nullptr;
-    DTipLabel *group_title = nullptr;
+    DLabel *group_title = nullptr;
     std::shared_ptr<NotifyModel> m_notifyModel = nullptr;
     QPointer<ExpandAnimation> m_expandAnimation = nullptr;
 };

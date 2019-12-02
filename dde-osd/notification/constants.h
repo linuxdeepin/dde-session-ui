@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <QStandardPaths>
 
-static const int ScreenPadding = 46;    //最上方通知距屏幕上方间隔
+static const int ScreenPadding = 20;    //最上方通知距屏幕上方间隔
 static const int BubbleMargin = 12;     //桌面消息通知间隔
 static const int BubblePadding = 10;    //消息通知内部Padding
 static const int BubbleSpacing = 10;    //消息通知内部Space
@@ -13,7 +13,8 @@ static const int BubbleTimeout = 5000;  //通知默认超时时间(毫秒)
 static const int BubbleEntities = 3;
 static const int BubbleOverLap = 2;     //层叠的气泡数量
 static const int BubbleOverLapHeight = 12;  //通知中心层叠层高度
-static const int ReplaceIdNoCount = 0;     // 为0 返回一个计数值给程序
+static const int ReplaceIdNoCount = 0;     //为0 返回一个计数值给程序
+static const qreal BubbleOpacity = 0.6;    //bubble内容的透明度
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
 

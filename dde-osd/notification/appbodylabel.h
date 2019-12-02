@@ -20,16 +20,17 @@
 #define APPBODYLABEL_H
 
 #include <QFrame>
-#include <DTipLabel>
+#include <DLabel>
 
 DWIDGET_USE_NAMESPACE
 
-class AppBodyLabel : public DTipLabel
+class AppBodyLabel : public DLabel
 {
     Q_OBJECT
 public:
     explicit AppBodyLabel(QWidget *parent = nullptr);
     void setText(const QString &text);
+    void setOpacity(qreal opacity) { m_opacity = opacity; }
     QSize sizeHint() const override;
     QSize minimumSizeHint() const override;
     void setAlignment(Qt::Alignment alignment);
@@ -42,6 +43,7 @@ private:
 private:
     void updateLineCount();
 
+    qreal m_opacity = 1.0;
     QString m_text;
     int m_lineCount = 0;
     Qt::Alignment m_alignment;

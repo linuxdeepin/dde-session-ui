@@ -31,7 +31,7 @@
 #include "notification/constants.h"
 
 DWIDGET_BEGIN_NAMESPACE
-class DTipLabel;
+class DLabel;
 DWIDGET_END_NAMESPACE
 
 class Persistence;
@@ -60,7 +60,7 @@ private:
 private:
     QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
-    DTipLabel *title_label = nullptr;
+    DLabel *title_label = nullptr;
     bool m_visible = false;
 };
 

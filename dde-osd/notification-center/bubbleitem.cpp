@@ -85,12 +85,12 @@ BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> enti
     , m_bgWidget(new AlphaWidget(this))
     , m_titleWidget(new AlphaWidget(this))
     , m_bodyWidget(new AlphaWidget(this))
-    , m_appNameLabel(new DTipLabel("", this))
+    , m_appNameLabel(new DLabel(this))
     , m_appTimeLabel(new DLabel(this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this))
-    , m_closeButton(new Button(this))
+    , m_closeButton(new DDialogCloseButton(this))
 
 {
     initUI();
@@ -103,7 +103,8 @@ void BubbleItem::initUI()
     setFocusPolicy(Qt::StrongFocus);
     setFixedSize(OSD::BubbleSize(OSD::BUBBLEWIDGET));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWIDGET));
-    m_closeButton->setFixedSize(OSD::CloseButtonSize(OSD::BUBBLEWIDGET));
+    m_closeButton->setIconSize(OSD::CloseButtonSize(OSD::BUBBLEWIDGET));
+    m_closeButton->setVisible(false);
 
     m_titleWidget->setFixedHeight(37);
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -123,9 +124,6 @@ void BubbleItem::initUI()
     m_appTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_closeButton->setRadius(99);
-    m_closeButton->setText("X");
-    m_closeButton->setVisible(false);
     setAlpha(20);
     titleLayout->addWidget(m_closeButton);
     m_titleWidget->setLayout(titleLayout);
@@ -170,7 +168,7 @@ void BubbleItem::initContent()
     });
 
     connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
-    connect(m_closeButton, &Button::clicked, this, &BubbleItem::onCloseBubble);
+    connect(m_closeButton, &DDialogCloseButton::clicked, this, &BubbleItem::onCloseBubble);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleItem::refreshTheme);
     refreshTheme();
 }
@@ -288,8 +286,6 @@ void BubbleItem::setShowContent(bool visible)
 
 void BubbleItem::refreshTheme()
 {
-    QPalette pa = m_appNameLabel->palette();
-    pa.setBrush(QPalette::WindowText, pa.brightText());
-    m_appNameLabel->setPalette(pa);
+    m_appNameLabel->setForegroundRole(QPalette::BrightText);
     m_appTimeLabel->setFont(DFontSizeManager::instance()->t8());
 }

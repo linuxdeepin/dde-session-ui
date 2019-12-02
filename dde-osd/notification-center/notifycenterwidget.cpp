@@ -35,7 +35,7 @@
 #include <QPalette>
 #include <QDebug>
 
-#include <DTipLabel>
+#include <DLabel>
 #include <QScreen>
 #include <DGuiApplicationHelper>
 
@@ -63,10 +63,10 @@ void NotifyCenterWidget::initUI()
     QIcon icon_pix = QIcon::fromTheme("://icons/notifications.svg").pixmap(bell_notify->iconSize() * ratio);
     bell_notify->setIcon(icon_pix);
 
-    title_label = new DTipLabel("");
+    title_label = new DLabel;
     title_label->setText(tr("Notification Center"));
     title_label->setAlignment(Qt::AlignCenter);
-    title_label->setForegroundRole(DPalette::TextTitle);
+    title_label->setForegroundRole(QPalette::BrightText);
 
     DIconButton *close_btn = new DIconButton(DStyle::SP_CloseButton);
     close_btn->setFlat(true);

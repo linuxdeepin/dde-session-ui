@@ -23,7 +23,8 @@
 #define BUBBLEITEM_H
 
 #include <DWidget>
-#include <DTipLabel>
+#include <DLabel>
+#include <DDialogCloseButton>
 #include <memory>
 #include <QDBusArgument>
 
@@ -104,13 +105,13 @@ private:
     AlphaWidget *m_bgWidget = nullptr;
     AlphaWidget *m_titleWidget = nullptr;
     AlphaWidget *m_bodyWidget = nullptr;
-    DTipLabel *m_appNameLabel = nullptr;
+    DLabel *m_appNameLabel = nullptr;
     DLabel *m_appTimeLabel = nullptr;
 
     AppIcon *m_icon = nullptr;
     AppBody *m_body = nullptr;
     ActionButton *m_actionButton = nullptr;
-    Button *m_closeButton = nullptr;
+    DDialogCloseButton *m_closeButton = nullptr;
 
     bool m_showContent = true;
     QString m_defaultAction;

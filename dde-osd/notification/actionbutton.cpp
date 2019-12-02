@@ -28,6 +28,7 @@
 #include <QStyle>
 #include <QMenu>
 #include <QGridLayout>
+#include <DStyleHelper>
 
 #include "actionbutton.h"
 #include "button.h"
@@ -57,9 +58,11 @@ bool ActionButton::addButtons(const QStringList &list)
             id = list[i];
         } else {
             if (i == 1) {
+                DStyleHelper dstyle(style());
+                const int round = dstyle.pixelMetric(DStyle::PM_FrameRadius);
                 Button *button = new Button();
                 button->setText(list[i]);
-                button->setRadius(15);
+                button->setRadius(round);
                 button->setFixedSize(OSD::ButtonSize(m_showStyle));
 
                 m_layout->addWidget(button);

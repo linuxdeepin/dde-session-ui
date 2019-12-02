@@ -28,7 +28,7 @@
 #include <QStyle>
 
 AppBodyLabel::AppBodyLabel(QWidget *parent)
-    : DTipLabel("", parent)
+    : DLabel(parent)
     , m_alignment(Qt::AlignVCenter)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -175,6 +175,7 @@ void AppBodyLabel::paintEvent(QPaintEvent *event)
 
     Q_UNUSED(event)
     QPainter pa(this);
+    pa.setOpacity(m_opacity);
     QTextLayout layout(m_text, font(), this);
     QTextOption option;
 

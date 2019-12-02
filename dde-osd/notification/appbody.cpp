@@ -88,14 +88,17 @@ void AppBody::updateAlignment()
 
 void AppBody::refreshTheme()
 {
+    m_titleLbl->setForegroundRole(QPalette::BrightText);
+    m_bodyLbl->setForegroundRole(QPalette::BrightText);
+
     if (m_showStyle == OSD::BUBBLEWIDGET) {
-        m_titleLbl->setForegroundRole(DPalette::TextTitle);
-        m_bodyLbl->setForegroundRole(DPalette::TextTips);
+        m_titleLbl->setOpacity(1.0);
+        m_bodyLbl->setOpacity(BubbleOpacity);
 
         m_titleLbl->setFont(DFontSizeManager::instance()->t6());
         m_bodyLbl->setFont(DFontSizeManager::instance()->t7());
     } else {
-        m_titleLbl->setForegroundRole(DPalette::TextTips);
-        m_bodyLbl->setForegroundRole(DPalette::TextTitle);
+        m_titleLbl->setOpacity(BubbleOpacity);
+        m_bodyLbl->setOpacity(1.0);
     }
 }
