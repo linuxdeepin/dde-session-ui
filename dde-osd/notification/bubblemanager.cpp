@@ -126,11 +126,9 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QString &body, const QStringList &actions,
                            const QVariantMap hints, int expireTimeout)
 {
-//#ifdef QT_DEBUG
     qDebug() << "a new Notify:" << "appName:" + appName << "replaceID:" + QString::number(replacesId)
              << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
              << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
-//#endif
 
     std::shared_ptr<NotificationEntity> notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
                                                                                             summary, removeHTML(body), actions, hints,
@@ -190,14 +188,15 @@ void BubbleManager::pushAnimation(Bubble *bubble)
 
     while (index < m_bubbleList.size() - 1) {
         index ++;
-        QRect startRect = GetBubbleGeometry(index - 1);
+        QRect startRect = GetLastStableRect(index - 1);
         QRect endRect = GetBubbleGeometry(index);
         QPointer<Bubble> item = m_bubbleList.at(index);
         if (item->geometry() != endRect) { //动画中
             startRect = item->geometry();
         }
-        if (bubble != nullptr)
+        if (bubble != nullptr) {
             item->startMoveAnimation(startRect, endRect);
+        }
     }
 }
 
@@ -219,7 +218,7 @@ void BubbleManager::popAnimation(Bubble *bubble)
     }
 
     //确定层次关系
-    for (int i = m_bubbleList.size() - 1; i >= BubbleEntities - 1; --i) {
+    for (int i = m_bubbleList.size() - 1; i >= 0 ; --i) {
         Bubble *b = m_bubbleList[i];
         if (b) {
             b->raise();
@@ -255,6 +254,19 @@ QRect BubbleManager::GetBubbleGeometry(int index)
         rect.setY(y);
         rect.setWidth(width);
         rect.setHeight(height);
+    }
+
+    return rect;
+}
+
+QRect BubbleManager::GetLastStableRect(int index)
+{
+    QRect rect = GetBubbleGeometry(0);
+    for (int i = index - 1; i > 0; --i) {
+        if (i >= m_bubbleList.size() || m_bubbleList.at(i)->geometry() != GetBubbleGeometry(i))       {
+            continue;
+        }
+        rect = GetBubbleGeometry(i);
     }
 
     return rect;
@@ -417,10 +429,12 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
         bubble->startMoveAnimation(startRect, endRect);
     } else {
         QRect endRect = GetBubbleGeometry(0);
-        QRect startRect = endRect;
+        QRect startRect;
+        startRect.setX(endRect.x());
         startRect.setY(0);
+        startRect.setWidth(endRect.width());
+        startRect.setHeight(endRect.height());
         bubble->startMoveAnimation(startRect, endRect);
     }
-
     return bubble;
 }

@@ -5,6 +5,9 @@
 #include <QStringList>
 #include <QStandardPaths>
 
+#define MIN(a,b) ((a)>(b)?(b):(a))
+#define ABS(a) (a)>0?(a):(-(a))
+
 static const int ScreenPadding = 20;    //最上方通知距屏幕上方间隔
 static const int BubbleMargin = 12;     //桌面消息通知间隔
 static const int BubblePadding = 10;    //消息通知内部Padding

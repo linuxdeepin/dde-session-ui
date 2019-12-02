@@ -127,7 +127,9 @@ private:
     void pushAnimation(Bubble *bubble);
     void popAnimation(Bubble *bubble);
 
-    QRect GetBubbleGeometry(int index/*0-4*/);
+    QRect GetBubbleGeometry(int index);
+    // Get the last unanimated bubble rect
+    QRect GetLastStableRect(int index);
 
 private:
     Persistence *m_persistence;

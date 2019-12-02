@@ -24,9 +24,9 @@
 
 #include <DWidget>
 
-DWIDGET_USE_NAMESPACE
+#include "constants.h"
 
-#define MIN(a,b) ((a)>(b)?(b):(a))
+DWIDGET_USE_NAMESPACE
 
 class QMouseEvent;
 class QMenu;

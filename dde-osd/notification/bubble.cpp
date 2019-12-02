@@ -81,8 +81,8 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "删除";
     actions << "取消";
     actions << "取消";
-    entity->setActions(actions);
-    entity->setTimeout("0");
+//    entity->setActions(actions);
+//    entity->setTimeout("0");
 #endif
 
     m_outTimer->stop();
@@ -104,7 +104,6 @@ void Bubble::setEnabled(bool enable)
 
     if (!enable) {
         m_actionButton->hide();
-        m_closeButton->hide();
         m_icon->hide();
         m_body->hide();
     } else {
@@ -116,8 +115,10 @@ void Bubble::setEnabled(bool enable)
 
 void Bubble::mousePressEvent(QMouseEvent *event)
 {
-    if (!m_enabled)
+    if (!m_enabled) {
+        m_dismissAnimation->start();
         return;
+    }
 
     if (event->button() == Qt::LeftButton) {
         m_clickPos = event->pos();
@@ -184,7 +185,10 @@ void Bubble::hideEvent(QHideEvent *event)
 
 void Bubble::enterEvent(QEvent *event)
 {
-    if (m_canClose && m_enabled) {
+    if (!m_enabled)
+        return;
+
+    if (m_canClose) {
         m_closeButton->setVisible(true);
     }
 
@@ -193,6 +197,9 @@ void Bubble::enterEvent(QEvent *event)
 
 void Bubble::leaveEvent(QEvent *event)
 {
+    if (!m_enabled)
+        return;
+
     if (m_canClose) {
         m_closeButton->setVisible(false);
     }
@@ -229,7 +236,7 @@ void Bubble::onDismissAnimFinished()
 void Bubble::initUI()
 {
     setAttribute(Qt::WA_TranslucentBackground);
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool /*| Qt::X11BypassWindowManagerHint*/);
 
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
@@ -247,7 +254,6 @@ void Bubble::initUI()
     layout->setMargin(BubblePadding);
     layout->addWidget(m_icon);
     layout->addWidget(m_body);
-    layout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Expanding));
 
     m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     layout->addWidget(m_actionButton);
@@ -310,7 +316,7 @@ void Bubble::initAnimations()
     connect(m_dismissAnimation, &QPropertyAnimation::finished, this, &Bubble::onDismissAnimFinished);
 
     m_moveAnimation = new QPropertyAnimation(this, "geometry", this);
-    m_moveAnimation->setDuration(300);
+//    m_moveAnimation->setDuration(300);
     m_moveAnimation->setEasingCurve(QEasingCurve::Linear);
 }
 
@@ -356,13 +362,17 @@ void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect)
     }
     m_moveAnimation->setStartValue(startRect);
     m_moveAnimation->setEndValue(endRect);
+
+    //calc animation time 72pix/300ms
+    int ySpace = ABS(endRect.y() - startRect.y());
+    m_moveAnimation->setDuration(int(ySpace * 1.0 / 72 * 300));
     m_moveAnimation->start();
 
-    setEnabled(QSize(endRect.width(),endRect.height()) == OSD::BubbleSize(OSD::BUBBLEWINDOW));
+    setEnabled(QSize(endRect.width(), endRect.height()) == OSD::BubbleSize(OSD::BUBBLEWINDOW));
 }
 
 void Bubble::setFixedGeometry(QRect rect)
 {
-    setFixedSize(rect.width(),rect.height());
+    setFixedSize(rect.width(), rect.height());
     setGeometry(rect);
 }
