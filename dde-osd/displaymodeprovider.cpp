@@ -83,6 +83,17 @@ void DisplayModeProvider::sync()
     m_displayInter->SwitchMode(displayMode, monitorId);
 }
 
+void DisplayModeProvider::sync(const QModelIndex &index)
+{
+    m_currentPlan = m_planItems.at(index.row() % m_planItems.length());
+    sync();
+}
+
+int DisplayModeProvider::currentRow()
+{
+    return m_planItems.indexOf(m_currentPlan);
+}
+
 int DisplayModeProvider::rowCount(const QModelIndex &) const
 {
     return m_planItems.length();
@@ -105,7 +116,7 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     const int currentIndex = m_planItems.indexOf(m_currentPlan);
     const bool iscurrent = currentIndex == index.row();
-    if (iscurrent) {
+    if (option.state & QStyle::State_Selected) {
         DrawHelper::DrawBackground(painter, option);
         DrawHelper::DrawText(painter, option, textData.toString(), Qt::white);
     } else {
@@ -193,9 +204,9 @@ void DisplayModeProvider::displayModeChanged(const uchar &mode)
 {
     if (m_displayMode == mode) return;
 
-    updatePlanItems();
-
     m_displayMode = mode;
+
+    updatePlanItems();
     emit dataChanged();
 }
 

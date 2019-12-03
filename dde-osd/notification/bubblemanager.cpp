@@ -434,6 +434,9 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
         startRect.setY(0);
         startRect.setWidth(endRect.width());
         startRect.setHeight(endRect.height());
+        bubble->setFixedSize(startRect.size());
+        bubble->move(startRect.topLeft());
+        QTimer::singleShot(0, bubble, [ = ] {bubble->show();});
         bubble->startMoveAnimation(startRect, endRect);
     }
     return bubble;

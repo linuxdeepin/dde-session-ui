@@ -70,3 +70,13 @@ void AbstractOSDProvider::sync()
 {
 
 }
+
+void AbstractOSDProvider::sync(const QModelIndex &index)
+{
+    Q_UNUSED(index);
+}
+
+int AbstractOSDProvider::currentRow()
+{
+    return -1;
+}

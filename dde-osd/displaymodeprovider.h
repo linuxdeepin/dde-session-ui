@@ -47,6 +47,9 @@ public:
     void highlightNext() Q_DECL_OVERRIDE;
 
     void sync() Q_DECL_OVERRIDE;
+    void sync(const QModelIndex &index) Q_DECL_OVERRIDE;
+
+    int currentRow() Q_DECL_OVERRIDE;
 
     // model
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;

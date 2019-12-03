@@ -33,6 +33,12 @@ class ListView : public QListView
     Q_OBJECT
 public:
     explicit ListView(QWidget *parent = 0);
+
+Q_SIGNALS:
+    void currentIndexChanged(const QModelIndex &index);
+
+protected:
+    virtual void mousePressEvent(QMouseEvent *event) override;
 };
 
 #endif // LISTVIEW_H

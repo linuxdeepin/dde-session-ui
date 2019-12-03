@@ -61,6 +61,10 @@ Manager::Manager(QObject *parent)
     m_listview->setModel(m_model);
     m_container->setContent(m_listview);
 
+    connect(m_listview, &ListView::currentIndexChanged, this, [ = ](const QModelIndex & index) {
+        m_currentProvider->sync(index);
+    });
+
     m_providers << new AudioProvider(this) << new BrightnessProvider(this);
     m_providers << m_kbLayoutProvider << new DisplayModeProvider(this);
     m_providers << new IndicatorProvider(this) << new OSDProvider(this);
@@ -155,6 +159,7 @@ void Manager::updateUI()
 
     m_delegate->setProvider(m_currentProvider);
     m_listview->setFlow(m_currentProvider->flow());
+    m_listview->setCurrentIndex(m_listview->model()->index(m_currentProvider->currentRow(), 0));
     m_container->setContentsMargins(m_currentProvider->contentMargins());
     m_container->setFixedSize(m_currentProvider->contentSize());
     m_container->moveToCenter();

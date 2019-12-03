@@ -58,6 +58,9 @@ public:
     virtual void highlightNext();
 
     virtual void sync();
+    virtual void sync(const QModelIndex &index);
+
+    virtual int currentRow();
 
     // model
     virtual int rowCount(const QModelIndex &parent) const = 0;
