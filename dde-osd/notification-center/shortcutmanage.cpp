@@ -100,21 +100,26 @@ void ShortcutManage::removeGroup(QWidget *widget)
     }
 }
 
-bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
+bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
 {
     Q_UNUSED(object);
-    if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-        if (ke->key() == Qt::Key_Tab) {
-            auto current_group = m_groupMap.value(m_currentItem->m_widget);
-            if (current_group != nullptr) {
+
+    if (event->key() == Qt::Key_Tab) {
+        auto current_group = m_groupMap.value(m_currentItem->m_widget);
+        if (current_group != nullptr) {
+            if (current_group->m_groups.contains(m_currentItem)) {
                 int index = current_group->m_groups.indexOf(m_currentItem);
                 index++;
 
                 if (index < current_group->m_groups.size()) {
                     m_currentItem = current_group->m_groups.at(index % current_group->m_groups.size());
-                    m_currentItem->m_widget->setFocus();
-                    qDebug() << " index ##########" << index << "#####" << current_group->m_groups.size();
+                    if (m_currentItem != nullptr) {
+                        QListView *notify_view = m_currentItem->m_index.data(NotifyModel::NotifyViewRole).value<QListView *>();
+                        if (notify_view != nullptr) {
+                            notify_view->setCurrentIndex(m_currentItem->m_index);
+                            notify_view->scrollTo(m_currentItem->m_index);
+                        }
+                    }
                 } else {
                     int group_index = m_Shortcuts.indexOf(current_group);
                     group_index++;
@@ -122,30 +127,51 @@ bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
                     if (group_index < m_Shortcuts.size()) {
                         current_group = m_Shortcuts.at(group_index % m_Shortcuts.size());
                         QListView *group_view = current_group->m_index.data(AppGroupModel::GroupViewRole).value<QListView *>();
-                        group_view->setCurrentIndex(current_group->m_index);
-                        m_currentItem = current_group->m_groups.first();
-                        m_currentItem->m_widget->setFocus();
-                    }
+                        if (group_view != nullptr) {
+                            group_view->setCurrentIndex(current_group->m_index);
+                            group_view->scrollTo(current_group->m_index);
 
-                    qDebug() << " group $$$$$$$$$$$" << group_index << "$$$$$" << m_Shortcuts.size();
+                            if (!current_group->m_groups.isEmpty()) {
+                                m_currentItem = current_group->m_groups.first();
+                                m_currentItem->m_widget->setFocus();
+                            }
+                        }
+                    }
                 }
             }
-            return true;
         }
+    }
+
+    return true;
+}
+
+bool ShortcutManage::handMouseEvent(QObject *object, QMouseEvent *event)
+{
+    Q_UNUSED(event);
+    BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
+    if (bubble) {
+        auto item = m_widgetMap.value(bubble);
+        if (item != nullptr) {
+            m_currentItem = item;
+            auto index = m_currentItem->m_index;
+            QListView *view = index.data(NotifyModel::NotifyViewRole).value<QListView *>();
+            if (view != nullptr && index.isValid()) {
+                view->setCurrentIndex(index);
+            }
+        }
+    }
+    return false;
+}
+
+bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
+{
+    Q_UNUSED(object);
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *key = static_cast<QKeyEvent *>(event);
+        return handKeyEvent(object, key);
     } else if (event->type() == QEvent::MouseButtonPress) {
-        BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
-        if (bubble) {
-            auto item = m_widgetMap.value(bubble);
-            if (item != nullptr) {
-                m_currentItem = item;
-                auto index = m_currentItem->m_index;
-                QListView *view = index.data(NotifyModel::NotifyViewRole).value<QListView *>();
-                if (view != nullptr && index.isValid()) {
-                    view->setCurrentIndex(index);
-                }
-            }
-        }
-        return false;
+        QMouseEvent *mouse = static_cast<QMouseEvent *>(event);
+        return handMouseEvent(object, mouse);
     }
 
     return false;

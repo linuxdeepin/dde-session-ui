@@ -24,6 +24,9 @@
 #include <QModelIndex>
 #include <memory>
 
+class QKeyEvent;
+class QMouseEvent;
+
 class ShortcutItem
 {
 public:
@@ -57,6 +60,8 @@ protected:
 
 private:
     explicit ShortcutManage(QObject *parent = nullptr);
+    bool handKeyEvent(QObject *object, QKeyEvent *event);
+    bool handMouseEvent(QObject *object, QMouseEvent *event);
 
 private:
     static ShortcutManage *m_instance;
