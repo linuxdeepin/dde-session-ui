@@ -49,18 +49,21 @@ Q_SIGNALS:
     void notify();
 
 protected:
-    void mouseMoveEvent(QMouseEvent *event) override;
     bool eventFilter(QObject *watched, QEvent *e) override;
 
 private:
     void initUI();
+    void initAnimations();
     void refreshTheme();
 
 private:
     QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
     DLabel *title_label = nullptr;
-    bool m_visible = false;
+    QRect m_screenGeometry;
+
+    QPropertyAnimation *m_inAnimation = nullptr;
+    QPropertyAnimation *m_outAnimation = nullptr;
 };
 
 #endif // MAINWIDGET_H

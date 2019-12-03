@@ -95,7 +95,7 @@ public:
         if (style == BUBBLEWINDOW) {
             size = QSize(40, 40);
         } else if (style == BUBBLEWIDGET) {
-            size = QSize(20, 20);
+            size = QSize(24, 24);
         }
         return size;
     }
@@ -106,7 +106,7 @@ public:
         if (style == BUBBLEWINDOW) {
             size = QSize(30, 30);
         } else if (style == BUBBLEWIDGET) {
-            size = QSize(20, 20);
+            size = QSize(24, 24);
         }
         return size;
     }

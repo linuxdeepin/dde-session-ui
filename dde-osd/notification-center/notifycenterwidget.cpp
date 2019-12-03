@@ -45,12 +45,13 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     : m_notifyWidget(new NotifyWidget(this, database))
 {
     initUI();
+    initAnimations();
     installEventFilter(this);
 }
 
 void NotifyCenterWidget::initUI()
 {
-    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_TranslucentBackground);
 
     m_headWidget = new QWidget;
@@ -90,14 +91,30 @@ void NotifyCenterWidget::initUI()
 
     setLayout(mainLayout);
 
-    connect(close_btn, &DIconButton::clicked, this, &NotifyCenterWidget::hide);
+    connect(close_btn, &DIconButton::clicked, this, [ = ]() {
+        m_outAnimation->start();
+    });
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotifyCenterWidget::refreshTheme);
     refreshTheme();
+}
+
+void NotifyCenterWidget::initAnimations()
+{
+    m_inAnimation = new QPropertyAnimation(this, "pos", this);
+    m_inAnimation->setDuration(500);
+    m_inAnimation->setEasingCurve(QEasingCurve::OutCirc);
+
+    m_outAnimation = new QPropertyAnimation(this, "pos", this);
+    m_outAnimation->setDuration(500);
+    m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
+
+    connect(m_outAnimation, &QPropertyAnimation::finished, this, &NotifyCenterWidget::hide);
 }
 
 void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos)
 {
     qDebug() <<  "screenGeometry:" << screen;
+    m_screenGeometry = screen;
 
     qreal scale = qApp->primaryScreen()->devicePixelRatio();
     dock.setWidth(int(qreal(dock.width()) / scale));
@@ -119,15 +136,19 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     if (pos == OSD::DockPosition::Top)
         y = screen.y() + Notify::CenterMargin + dock.height();
 
+    if (m_inAnimation->state() != QPropertyAnimation::Running) {
+        m_inAnimation->setStartValue(QPoint(screen.width(), y));
+        m_inAnimation->setEndValue(QPoint(x, y));
+    }
+
+    if (m_outAnimation->state() != QPropertyAnimation::Running) {
+        m_outAnimation->setStartValue(QPoint(x, y));
+        m_outAnimation->setEndValue(QPoint(screen.width(), y));
+    }
+
     qDebug() <<  "set geometry:" << QRect(x, y, width, height);
     setGeometry(x, y, width, height);
     setFixedSize(width, height);
-}
-
-void NotifyCenterWidget::mouseMoveEvent(QMouseEvent *event)
-{
-    Q_UNUSED(event);
-    return;
 }
 
 void NotifyCenterWidget::refreshTheme()
@@ -145,9 +166,10 @@ void NotifyCenterWidget::showWidget()
 {
     if (isHidden()) {
         show();
+        m_inAnimation->start();
         activateWindow();
     } else {
-        hide();
+        m_outAnimation->start();
     }
 }
 
@@ -155,7 +177,7 @@ bool NotifyCenterWidget::eventFilter(QObject *watched, QEvent *e)
 {
     if (e->type() == QEvent::WindowDeactivate) {
         if (!isHidden()) {
-            hide();
+            m_outAnimation->start();
         }
     }
     return QWidget::eventFilter(watched, e);
