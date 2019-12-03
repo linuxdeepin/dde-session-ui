@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     layout->addSpacing(8);
     layout->addWidget(m_title, 0, Qt::AlignHCenter);
-    layout->addWidget(m_content, 0, Qt::AlignHCenter);
+    layout->addWidget(m_content);
 
     setLayout(layout);
 

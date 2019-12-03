@@ -33,7 +33,7 @@ Content::Content(QWidget *parent)
     m_cancelBtn->setText(tr("Cancel"));
     m_acceptBtn->setText(tr("Confirm"));
 
-    m_scrollArea->setFixedSize(468, 491);
+    m_scrollArea->setMinimumSize(468,491);
     m_scrollArea->setWidgetResizable(true);
     m_scrollArea->setFrameStyle(QFrame::NoFrame);
     m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
