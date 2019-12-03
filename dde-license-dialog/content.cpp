@@ -42,7 +42,6 @@ Content::Content(QWidget *parent)
     m_scrollArea->setContentsMargins(0, 0, 0, 0);
 
     QWidget* sourceWidget = new QWidget;
-    sourceWidget->setFixedWidth(468);
     QVBoxLayout* sourceLayout = new QVBoxLayout;
     sourceWidget->setLayout(sourceLayout);
     sourceLayout->addWidget(m_source);
