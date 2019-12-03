@@ -65,6 +65,7 @@ void NotifyCenterWidget::initUI()
     const auto ratio = devicePixelRatioF();
     QIcon icon_pix = QIcon::fromTheme("://icons/notifications.svg").pixmap(bell_notify->iconSize() * ratio);
     bell_notify->setIcon(icon_pix);
+    bell_notify->setFocusPolicy(Qt::NoFocus);
 
     title_label = new DLabel;
     title_label->setText(tr("Notification Center"));

@@ -204,6 +204,7 @@ void BubbleItem::mouseReleaseEvent(QMouseEvent *event)
 
 void BubbleItem::enterEvent(QEvent *event)
 {
+    setFocus();
     Q_EMIT havorStateChanged(true);
     return QWidget::enterEvent(event);
 }
