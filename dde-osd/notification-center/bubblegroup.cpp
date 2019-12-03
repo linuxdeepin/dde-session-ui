@@ -61,6 +61,10 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     m_groupList->setSelectionMode(QListView::NoSelection);
     m_groupList->setFocusPolicy(Qt::NoFocus);
 
+    QPalette pa = m_groupList->palette();
+    pa.setColor(QPalette::Highlight, Qt::transparent);
+    m_groupList->setPalette(pa);
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSpacing(10);
     mainLayout->setMargin(0);
