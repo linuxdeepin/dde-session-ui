@@ -47,8 +47,8 @@ void AppBodyLabel::setText(const QString &text)
 
     if (oldLineCount != m_lineCount)
         updateGeometry();
-    else
-        update();
+
+    update();
 }
 
 // return line count

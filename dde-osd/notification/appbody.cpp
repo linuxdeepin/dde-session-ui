@@ -24,6 +24,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <QVBoxLayout>
+
 #include <DGuiApplicationHelper>
 #include <DFontSizeManager>
 

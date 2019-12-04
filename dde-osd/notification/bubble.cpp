@@ -244,18 +244,16 @@ void Bubble::initUI()
 
     setFixedSize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWINDOW));
-
+    m_body->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_closeButton->setIconSize(OSD::CloseButtonSize(OSD::BUBBLEWINDOW));
     m_closeButton->setVisible(false);
-    m_body->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_actionButton->setVisible(false);
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setSpacing(BubbleSpacing);
     layout->setMargin(BubblePadding);
     layout->addWidget(m_icon);
     layout->addWidget(m_body);
-
-    m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     layout->addWidget(m_actionButton);
     layout->addWidget(m_closeButton);
 
@@ -342,7 +340,7 @@ void Bubble::onDelayQuit()
 void Bubble::updateContent()
 {
     m_body->setTitle(m_entity->summary());
-    m_body->setText(m_entity->body());
+    m_body->setText(OSD::removeHTML(m_entity->body()));
     m_canClose = m_entity->actions().isEmpty();
 
     BubbleTool::processIconData(m_icon, m_entity);

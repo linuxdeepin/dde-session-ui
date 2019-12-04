@@ -131,6 +131,7 @@ QString BubbleTool::processActions(ActionButton *action, QStringList action_list
     }
 
     action->addButtons(action_list);
+    action->setVisible(!action_list.isEmpty());
 
     return default_action;
 }

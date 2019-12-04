@@ -4,6 +4,7 @@
 #include <QSize>
 #include <QStringList>
 #include <QStandardPaths>
+#include <QXmlStreamReader>
 
 #define MIN(a,b) ((a)>(b)?(b):(a))
 #define ABS(a) (a)>0?(a):(-(a))
@@ -110,6 +111,19 @@ public:
             size = QSize(24, 24);
         }
         return size;
+    }
+
+    static QString removeHTML(const QString &source)
+    {
+        QXmlStreamReader xml(source);
+        QString textString;
+        while (!xml.atEnd()) {
+            if (xml.readNext() == QXmlStreamReader::Characters) {
+                textString += xml.text();
+            }
+        }
+
+        return textString.isEmpty() ? source : textString;
     }
 };
 #endif // DEFINE_H

@@ -37,21 +37,7 @@
 
 #include <QTimer>
 #include <QDebug>
-#include <QXmlStreamReader>
 #include <QScreen>
-
-static QString removeHTML(const QString &source)
-{
-    QXmlStreamReader xml(source);
-    QString textString;
-    while (!xml.atEnd()) {
-        if (xml.readNext() == QXmlStreamReader::Characters) {
-            textString += xml.text();
-        }
-    }
-
-    return textString.isEmpty() ? source : textString;
-}
 
 BubbleManager::BubbleManager(QObject *parent)
     : QObject(parent)
@@ -75,7 +61,6 @@ BubbleManager::BubbleManager(QObject *parent)
 
     // get correct value for m_dockGeometry, m_dockPosition, m_ccGeometry
     if (m_dockDeamonInter->isValid()) {
-        qDebug() << "set position";
         geometryChanged();
     }
 
@@ -126,12 +111,12 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QString &body, const QStringList &actions,
                            const QVariantMap hints, int expireTimeout)
 {
-    qDebug() << "a new Notify:" << "appName:" + appName << "replaceID:" + QString::number(replacesId)
+    qDebug() << "Notify:" << "appName:" + appName << "replaceID:" + QString::number(replacesId)
              << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
              << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 
     std::shared_ptr<NotificationEntity> notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
-                                                                                            summary, removeHTML(body), actions, hints,
+                                                                                            summary, body, actions, hints,
                                                                                             QString::number(QDateTime::currentMSecsSinceEpoch()),
                                                                                             QString::number(replacesId),
                                                                                             QString::number(expireTimeout),
@@ -395,7 +380,9 @@ bool BubbleManager::calcReplaceId(std::shared_ptr<NotificationEntity> notify)
             Bubble *bubble = m_bubbleList.at(i);
             if (bubble->entity()->replacesId() == notify->replacesId()
                     && bubble->entity()->appName() == notify->appName()) {
-                if (i != 0) bubble->setEntity(m_bubbleList.at(0)->entity());
+                if (i != 0) {
+                    bubble->setEntity(m_bubbleList.at(0)->entity());
+                }
                 m_bubbleList.at(0)->setEntity(notify);
                 find = true;
             }
