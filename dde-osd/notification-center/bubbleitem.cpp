@@ -43,8 +43,8 @@ void AlphaWidget::paintEvent(QPaintEvent *event)
     QRect rect = this->rect();
     rect.setWidth(rect.width() - 1);
     rect.setHeight(rect.height() - 1);
-    painter.drawRoundedRect(rect, radius, radius);
 
+    painter.drawRoundedRect(rect, radius, radius);
     return DWidget::paintEvent(event);
 }
 
@@ -99,7 +99,7 @@ void BubbleItem::initUI()
     m_appTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    setAlpha(20);
+    setAlpha(Notify::BubbleDefaultAlpha);
     titleLayout->addWidget(m_closeButton);
     m_titleWidget->setLayout(titleLayout);
     mainLayout->addWidget(m_titleWidget);
@@ -245,18 +245,6 @@ void BubbleItem::setModel(NotifyModel *model)
 {
     Q_ASSERT(model);
     m_notifyModel = model;
-}
-
-void BubbleItem::setShowContent(bool visible)
-{
-    m_icon->setVisible(visible);
-    m_body->setVisible(visible);
-    m_appNameLabel->setVisible(visible);
-    m_appTimeLabel->setVisible(visible);
-    m_actionButton->setVisible(visible);
-    m_closeButton->setVisible(visible);
-
-    m_showContent = visible;
 }
 
 void BubbleItem::refreshTheme()

@@ -29,6 +29,15 @@
 class NotificationEntity;
 class NotifyModel;
 
+class HalfRoundedRectWidget : public AlphaWidget
+{
+public:
+    HalfRoundedRectWidget(QWidget *parent = nullptr);
+
+protected:
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+};
+
 class BubbleOverlapWidget : public QWidget
 {
     Q_OBJECT

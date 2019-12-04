@@ -93,12 +93,12 @@ void AppBody::refreshTheme()
 
     if (m_showStyle == OSD::BUBBLEWIDGET) {
         m_titleLbl->setOpacity(1.0);
-        m_bodyLbl->setOpacity(BubbleOpacity);
+        m_bodyLbl->setOpacity(Notify::BubbleOpacity);
 
         m_titleLbl->setFont(DFontSizeManager::instance()->t6());
         m_bodyLbl->setFont(DFontSizeManager::instance()->t7());
     } else {
-        m_titleLbl->setOpacity(BubbleOpacity);
+        m_titleLbl->setOpacity(Notify::BubbleOpacity);
         m_bodyLbl->setOpacity(1.0);
     }
 }

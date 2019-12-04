@@ -25,6 +25,7 @@
 #include <DWidget>
 #include <DLabel>
 #include <DDialogCloseButton>
+
 #include <memory>
 #include <QDBusArgument>
 
@@ -52,9 +53,9 @@ public:
 
     void setHasFocus(bool focus) { m_hasFocus = focus; }
 protected:
-    virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
-private:
+protected:
     int m_hoverAlpha = 0;
     int m_unHoverAlpha = 0;
     bool m_hasFocus = false;
@@ -68,7 +69,6 @@ public:
     ~BubbleItem() override;
     void setModel(NotifyModel *model);
     const QPixmap converToPixmap(const QDBusArgument &value);
-    void setShowContent(bool visible);
     void setAlpha(int alpha);
 
 Q_SIGNALS:

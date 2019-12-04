@@ -17,7 +17,6 @@ static const int BubbleEntities = 3;
 static const int BubbleOverLap = 2;     //层叠的气泡数量
 static const int BubbleOverLapHeight = 12;  //通知中心层叠层高度
 static const int ReplaceIdNoCount = 0;     //为0 返回一个计数值给程序
-static const qreal BubbleOpacity = 0.6;    //bubble内容的透明度
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
 
@@ -29,6 +28,8 @@ static const int CenterTitleHeight = 32;
 static const int GroupTitleHeight = 32;
 static const int GroupButtonSize = 24;
 static const int GroupMargin = 30;
+static const int BubbleDefaultAlpha = 20;       //bubble控件透明度
+static const qreal BubbleOpacity = 0.6;    //bubble内容的透明度
 }
 
 class OSD
