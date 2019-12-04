@@ -163,5 +163,7 @@ void KBLayoutProvider::currentLayoutChanged(const QString &layout)
 void KBLayoutProvider::userLayoutListChanged(const QStringList &layouts)
 {
     m_userLayouts = layouts;
+    QDBusReply<KeyboardLayoutList> reply = m_keyboardInter->LayoutList();
+    m_database = reply.value();
     emit dataChanged();
 }
