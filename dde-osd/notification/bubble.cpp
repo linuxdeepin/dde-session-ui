@@ -81,15 +81,13 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "删除";
     actions << "取消";
     actions << "取消";
-//    entity->setActions(actions);
-//    entity->setTimeout("0");
+    //    entity->setActions(actions);
+    //    entity->setTimeout("0");
 #endif
 
     m_outTimer->stop();
 
     updateContent();
-
-    show();
 
     int timeout = entity->timeout().toInt();
     //  0: never times out
@@ -116,7 +114,7 @@ void Bubble::setEnabled(bool enable)
 void Bubble::mousePressEvent(QMouseEvent *event)
 {
     if (!m_enabled) {
-        m_dismissAnimation->start();
+        Q_EMIT dismissed(this);
         return;
     }
 
@@ -140,11 +138,10 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
             m_defaultAction.clear();
         }
         // FIX ME:采用动画的方式退出并隐藏，不会丢失窗体‘焦点’，造成控件不响应鼠标进入和离开事件
-        m_dismissAnimation->start();
+        Q_EMIT dismissed(this);
     } else if (m_pressed && mapToGlobal(event->pos()).y() < 10) {
         Q_EMIT notProcessedYet(this);
-
-        m_dismissAnimation->start();
+        Q_EMIT dismissed(this);
     } else {
         m_outTimer->start();
     }
@@ -178,8 +175,6 @@ void Bubble::hideEvent(QHideEvent *event)
     DBlurEffectWidget::hideEvent(event);
 
     m_outAnimation->stop();
-    m_dismissAnimation->stop();
-
     m_quitTimer->start();
 }
 
@@ -226,13 +221,6 @@ void Bubble::onOutAnimFinished()
     }
 }
 
-void Bubble::onDismissAnimFinished()
-{
-    if (m_entity) {
-        Q_EMIT dismissed(this);
-    }
-}
-
 void Bubble::initUI()
 {
     setAttribute(Qt::WA_TranslucentBackground);
@@ -271,13 +259,13 @@ void Bubble::initConnections()
     connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & action_id) {
         BubbleTool::actionInvoke(action_id, m_entity);
 
-        m_dismissAnimation->start();
+        Q_EMIT dismissed(this);
         m_outTimer->stop();
         Q_EMIT actionInvoked(this, action_id);
     });
 
     connect(m_closeButton, &DDialogCloseButton::clicked, this, [ = ]() {
-        m_dismissAnimation->start();
+        Q_EMIT dismissed(this);
     });
 
     connect(this, &Bubble::expired, m_actionButton, [ = ]() {
@@ -296,7 +284,7 @@ void Bubble::initConnections()
 void Bubble::initAnimations()
 {
     m_outAnimation = new QPropertyAnimation(this, "windowOpacity", this);
-    m_outAnimation->setDuration(500);
+    m_outAnimation->setDuration(AnimationTime);
     m_outAnimation->setEasingCurve(QEasingCurve::Linear);
     if (m_outAnimation->state() != QPropertyAnimation::Running) {
         m_outAnimation->setStartValue(1);
@@ -304,17 +292,7 @@ void Bubble::initAnimations()
     }
     connect(m_outAnimation, &QPropertyAnimation::finished, this, &Bubble::onOutAnimFinished);
 
-    m_dismissAnimation = new QPropertyAnimation(this, "windowOpacity", this);
-    m_dismissAnimation->setDuration(300);
-    m_dismissAnimation->setEasingCurve(QEasingCurve::Linear);
-    if (m_dismissAnimation->state() != QPropertyAnimation::Running) {
-        m_dismissAnimation->setStartValue(1);
-        m_dismissAnimation->setEndValue(0);
-    }
-    connect(m_dismissAnimation, &QPropertyAnimation::finished, this, &Bubble::onDismissAnimFinished);
-
     m_moveAnimation = new QPropertyAnimation(this, "geometry", this);
-//    m_moveAnimation->setDuration(300);
     m_moveAnimation->setEasingCurve(QEasingCurve::Linear);
 }
 
@@ -363,7 +341,7 @@ void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect)
 
     //calc animation time 72pix/300ms
     int ySpace = ABS(endRect.y() - startRect.y());
-    m_moveAnimation->setDuration(int(ySpace * 1.0 / 72 * 300));
+    m_moveAnimation->setDuration(int(ySpace * 1.0 / 72 * AnimationTime));
     m_moveAnimation->start();
 
     setEnabled(QSize(endRect.width(), endRect.height()) == OSD::BubbleSize(OSD::BUBBLEWINDOW));

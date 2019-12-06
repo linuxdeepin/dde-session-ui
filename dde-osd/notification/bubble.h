@@ -81,7 +81,6 @@ protected:
 private Q_SLOTS:
     void onOutTimerTimeout();
     void onOutAnimFinished();
-    void onDismissAnimFinished();
 
 private:
     void initUI();
@@ -94,7 +93,6 @@ protected:
 
     //animation
     QPropertyAnimation *m_outAnimation = nullptr;
-    QPropertyAnimation *m_dismissAnimation = nullptr;
     QPropertyAnimation *m_moveAnimation = nullptr;//负责移入和变更位置
 
     //controls

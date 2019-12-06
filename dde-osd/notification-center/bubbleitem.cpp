@@ -130,7 +130,7 @@ void BubbleItem::initContent()
     if (m_entity == nullptr) return;
 
     m_body->setTitle(m_entity->summary());
-    m_body->setText(m_entity->body());
+    m_body->setText(OSD::removeHTML(m_entity->body()));
     m_appNameLabel->setText(BubbleTool::getDeepinAppName(m_entity->appName()));
 
     m_refreshTimer->setSingleShot(false);
