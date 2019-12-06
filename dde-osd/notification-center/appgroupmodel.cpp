@@ -150,7 +150,7 @@ void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
 void AppGroupModel::removeGroup(const QModelIndex &index)
 {
     int row = index.row();
-    if (row < 0 && row >= m_applications.size()) return;
+    if (row < 0 || row >= m_applications.size()) return;
 
     beginRemoveRows(QModelIndex(), row, row);
     auto app = m_applications.takeAt(row);
