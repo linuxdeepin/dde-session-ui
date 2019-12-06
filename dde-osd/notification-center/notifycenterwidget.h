@@ -27,21 +27,23 @@
 #define MAINWIDGET_H
 
 #include "notifywidget.h"
-#include <DBlurEffectWidget>
 #include "notification/constants.h"
 
-DWIDGET_BEGIN_NAMESPACE
-class DLabel;
-DWIDGET_END_NAMESPACE
-
-class Persistence;
-class QPropertyAnimation;
+#include <DBlurEffectWidget>
+#include <DLabel>
 
 DWIDGET_USE_NAMESPACE
 
+class Persistence;
+class QPropertyAnimation;
+class QParallelAnimationGroup;
 class NotifyCenterWidget : public DBlurEffectWidget
 {
     Q_OBJECT
+    Q_PROPERTY(int width WRITE setFixedWidth)
+    Q_PROPERTY(int height WRITE setFixedHeight)
+    Q_PROPERTY(int y WRITE setY)
+    Q_PROPERTY(int x WRITE setX)
 public:
     explicit NotifyCenterWidget(Persistence *database = nullptr);
     void showWidget();
@@ -58,14 +60,23 @@ private:
     void initAnimations();
     void refreshTheme();
 
+    void showAni();
+    void hideAni();
+    void setY(int y);
+    void setX(int x);
+
 private:
     QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
     DLabel *title_label = nullptr;
     QRect m_screenGeometry;
 
-    QPropertyAnimation *m_inAnimation = nullptr;
-    QPropertyAnimation *m_outAnimation = nullptr;
+    QParallelAnimationGroup *m_aniGroup;
+    QPropertyAnimation *m_xAni;
+    QPropertyAnimation *m_widthAni;
+
+    QRect m_orignalRect;
+
 };
 
 #endif // MAINWIDGET_H

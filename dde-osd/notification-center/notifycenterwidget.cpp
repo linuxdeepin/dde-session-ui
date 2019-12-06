@@ -34,6 +34,9 @@
 #include <diconbutton.h>
 #include <QPalette>
 #include <QDebug>
+#include <QSequentialAnimationGroup>
+#include <QParallelAnimationGroup>
+#include <QTimer>
 
 #include <DLabel>
 #include <QScreen>
@@ -44,6 +47,9 @@ DWIDGET_USE_NAMESPACE
 
 NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     : m_notifyWidget(new NotifyWidget(this, database))
+    , m_aniGroup(new QParallelAnimationGroup(this))
+    , m_xAni(new QPropertyAnimation(this))
+    , m_widthAni(new QPropertyAnimation(this))
 {
     initUI();
     initAnimations();
@@ -94,7 +100,7 @@ void NotifyCenterWidget::initUI()
     setLayout(mainLayout);
 
     connect(close_btn, &DIconButton::clicked, this, [ = ]() {
-        m_outAnimation->start();
+        hideAni();
     });
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotifyCenterWidget::refreshTheme);
     refreshTheme();
@@ -102,20 +108,23 @@ void NotifyCenterWidget::initUI()
 
 void NotifyCenterWidget::initAnimations()
 {
-    m_inAnimation = new QPropertyAnimation(this, "pos", this);
-    m_inAnimation->setDuration(500);
-    m_inAnimation->setEasingCurve(QEasingCurve::OutCirc);
+    m_xAni->setEasingCurve(QEasingCurve::InQuad);
+    m_xAni->setPropertyName("x");
+    m_xAni->setTargetObject(this);
+    m_xAni->setDuration(AnimationTime);
 
-    m_outAnimation = new QPropertyAnimation(this, "pos", this);
-    m_outAnimation->setDuration(500);
-    m_outAnimation->setEasingCurve(QEasingCurve::OutCubic);
+    m_widthAni->setEasingCurve(QEasingCurve::InQuad);
+    m_widthAni->setPropertyName("width");
+    m_widthAni->setTargetObject(this);
+    m_widthAni->setDuration(AnimationTime);
 
-    connect(m_outAnimation, &QPropertyAnimation::finished, this, &NotifyCenterWidget::hide);
+    //控制基线动画，并行
+    m_aniGroup->addAnimation(m_widthAni);
+    m_aniGroup->addAnimation(m_xAni);
 }
 
 void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos)
 {
-    qDebug() <<  "screenGeometry:" << screen;
     m_screenGeometry = screen;
 
     qreal scale = qApp->primaryScreen()->devicePixelRatio();
@@ -138,19 +147,15 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     if (pos == OSD::DockPosition::Top)
         y = screen.y() + Notify::CenterMargin + dock.height();
 
-    if (m_inAnimation->state() != QPropertyAnimation::Running) {
-        m_inAnimation->setStartValue(QPoint(screen.width(), y));
-        m_inAnimation->setEndValue(QPoint(x, y));
-    }
+    m_orignalRect = QRect(x, y, width, height);
+    setGeometry(m_orignalRect);
+    m_notifyWidget->setFixedSize(m_orignalRect.size());
+    setFixedSize(m_orignalRect.size());
 
-    if (m_outAnimation->state() != QPropertyAnimation::Running) {
-        m_outAnimation->setStartValue(QPoint(x, y));
-        m_outAnimation->setEndValue(QPoint(screen.width(), y));
-    }
-
-    qDebug() <<  "set geometry:" << QRect(x, y, width, height);
-    setGeometry(x, y, width, height);
-    setFixedSize(width, height);
+    m_xAni->setStartValue(m_orignalRect.x());
+    m_xAni->setEndValue(m_orignalRect.x() + m_orignalRect.width() - 2);
+    m_widthAni->setStartValue(m_orignalRect.width());
+    m_widthAni->setEndValue(2);
 }
 
 void NotifyCenterWidget::refreshTheme()
@@ -164,14 +169,45 @@ void NotifyCenterWidget::refreshTheme()
     title_label->setFont(DFontSizeManager::instance()->t4(font));
 }
 
+void NotifyCenterWidget::showAni()
+{
+    move(m_orignalRect.x() + m_orignalRect.width(),m_orignalRect.y());
+
+    show();
+
+    QTimer::singleShot(0,this,[=]{activateWindow();});
+
+    m_aniGroup->setDirection(QAbstractAnimation::Backward);
+    m_aniGroup->start();
+}
+
+void NotifyCenterWidget::hideAni()
+{
+    m_aniGroup->setDirection(QAbstractAnimation::Forward);
+    m_aniGroup->start();
+
+    QTimer::singleShot(m_aniGroup->duration(),this,[=]{setVisible(false);});
+}
+
+void NotifyCenterWidget::setY(int y)
+{
+    move(this->x(),y);
+}
+
+void NotifyCenterWidget::setX(int x)
+{
+    move(x,this->y());
+}
+
 void NotifyCenterWidget::showWidget()
 {
+    if(m_aniGroup->state() == QAbstractAnimation::Running)
+        return;
+
     if (isHidden()) {
-        show();
-        m_inAnimation->start();
-        activateWindow();
+        showAni();
     } else {
-        m_outAnimation->start();
+        hideAni();
     }
 }
 
@@ -179,7 +215,7 @@ bool NotifyCenterWidget::eventFilter(QObject *watched, QEvent *e)
 {
     if (e->type() == QEvent::WindowDeactivate) {
         if (!isHidden()) {
-            m_outAnimation->start();
+            hideAni();
         }
     }
     return QWidget::eventFilter(watched, e);

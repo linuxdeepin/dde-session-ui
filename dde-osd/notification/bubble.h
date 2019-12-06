@@ -51,7 +51,6 @@ public:
 
     std::shared_ptr<NotificationEntity> entity() const;
     void setEntity(std::shared_ptr<NotificationEntity> entity);
-
     void setEnabled(bool enable);
 
 Q_SIGNALS:
