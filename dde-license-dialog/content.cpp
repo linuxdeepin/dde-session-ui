@@ -126,16 +126,14 @@ void Content::setAllowCheckBoxText(const QString &text)
 void Content::setCnSource(const QString &source)
 {
     m_cn = source;
-    if (m_isCn)
-        setSource(source);
+    setSource(source);
     updateLanguageBtn();
 }
 
 void Content::setEnSource(const QString &source)
 {
     m_en = source;
-    if (!m_isCn)
-        setSource(source);
+    setSource(source);
     updateLanguageBtn();
 }
 
