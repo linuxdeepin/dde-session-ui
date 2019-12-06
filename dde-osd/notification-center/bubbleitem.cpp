@@ -218,6 +218,7 @@ void BubbleItem::leaveEvent(QEvent *event)
 void BubbleItem::focusInEvent(QFocusEvent *event)
 {
     m_bgWidget->setHasFocus(true);
+    Q_EMIT havorStateChanged(true);
     return QWidget::focusInEvent(event);
 }
 

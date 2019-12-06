@@ -61,6 +61,7 @@ protected:
 protected:
     void enterEvent(QEvent *event) override;
     void leaveEvent(QEvent *event) override;
+    void focusInEvent(QFocusEvent *event) override;
     void hideEvent(QHideEvent *event) override;
     void refreshTheme();
 

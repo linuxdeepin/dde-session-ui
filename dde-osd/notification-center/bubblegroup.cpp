@@ -18,7 +18,6 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     : QWidget(parent)
     , m_notifyModel(model)
 {
-    setFocusPolicy(Qt::NoFocus);
     m_titleWidget = new QWidget();
     m_titleWidget->setFixedSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), Notify::GroupTitleHeight);
 
@@ -86,21 +85,30 @@ BubbleGroup::~BubbleGroup()
     ShortcutManage::instance()->removeGroup(this);
 }
 
-void BubbleGroup::enterEvent(QEvent *)
+void BubbleGroup::enterEvent(QEvent *event)
 {
     title_close->setVisible(true);
+    QWidget::enterEvent(event);
 }
 
-void BubbleGroup::leaveEvent(QEvent *)
+void BubbleGroup::leaveEvent(QEvent *event)
 {
     title_close->setVisible(false);
+    QWidget::leaveEvent(event);
 }
 
-void BubbleGroup::hideEvent(QHideEvent *)
+void BubbleGroup::focusInEvent(QFocusEvent *event)
+{
+    title_close->setVisible(true);
+    QWidget::focusInEvent(event);
+}
+
+void BubbleGroup::hideEvent(QHideEvent *event)
 {
     if (m_notifyModel->isExpand()) {
         m_notifyModel->collapseData();
     }
+    QWidget::hideEvent(event);
 }
 
 void BubbleGroup::appendAnimation()
