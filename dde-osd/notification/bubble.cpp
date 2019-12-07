@@ -81,7 +81,7 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "删除";
     actions << "取消";
     actions << "取消";
-    //    entity->setActions(actions);
+        entity->setActions(actions);
     //    entity->setTimeout("0");
 #endif
 
@@ -266,16 +266,6 @@ void Bubble::initConnections()
 
     connect(m_closeButton, &DDialogCloseButton::clicked, this, [ = ]() {
         Q_EMIT dismissed(this);
-    });
-
-    connect(this, &Bubble::expired, m_actionButton, [ = ]() {
-        m_actionButton->expired(int(m_entity->id()));
-    });
-    connect(this, &Bubble::dismissed, m_actionButton,  [ = ]() {
-        m_actionButton->dismissed(int(m_entity->id()));
-    });
-    connect(this, &Bubble::replacedByOther, m_actionButton, [ = ]() {
-        m_actionButton->replacedByOther(int(m_entity->id()));
     });
 
     connect(m_quitTimer, &QTimer::timeout, this, &Bubble::onDelayQuit);

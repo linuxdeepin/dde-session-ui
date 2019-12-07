@@ -264,11 +264,6 @@ QSize Button::minimumSizeHint() const
     return QSize(30, 25);
 }
 
-void Button::hideMenu()
-{
-    m_menu->hide();
-}
-
 void Button::onMenuClicked()
 {
     //unable to determine QMenu's size before it is displayed.

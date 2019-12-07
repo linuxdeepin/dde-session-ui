@@ -125,9 +125,6 @@ Q_SIGNALS:
     void clicked(bool checked = false);
     void toggled(const QString &id);
 
-public Q_SLOTS:
-    void hideMenu();
-
 private Q_SLOTS:
     void onMenuClicked();
 

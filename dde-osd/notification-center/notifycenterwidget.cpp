@@ -30,12 +30,10 @@
 #include <QDesktopWidget>
 #include <QBoxLayout>
 #include <QDBusInterface>
-#include <QPropertyAnimation>
+#include <QVariantAnimation>
 #include <diconbutton.h>
 #include <QPalette>
 #include <QDebug>
-#include <QSequentialAnimationGroup>
-#include <QParallelAnimationGroup>
 #include <QTimer>
 
 #include <DLabel>
@@ -47,9 +45,7 @@ DWIDGET_USE_NAMESPACE
 
 NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     : m_notifyWidget(new NotifyWidget(this, database))
-    , m_aniGroup(new QParallelAnimationGroup(this))
-    , m_xAni(new QPropertyAnimation(this))
-    , m_widthAni(new QPropertyAnimation(this))
+    , m_widthAni(new QVariantAnimation(this))
 {
     initUI();
     initAnimations();
@@ -108,19 +104,14 @@ void NotifyCenterWidget::initUI()
 
 void NotifyCenterWidget::initAnimations()
 {
-    m_xAni->setEasingCurve(QEasingCurve::InQuad);
-    m_xAni->setPropertyName("x");
-    m_xAni->setTargetObject(this);
-    m_xAni->setDuration(AnimationTime);
-
     m_widthAni->setEasingCurve(QEasingCurve::InQuad);
-    m_widthAni->setPropertyName("width");
-    m_widthAni->setTargetObject(this);
     m_widthAni->setDuration(AnimationTime);
 
-    //控制基线动画，并行
-    m_aniGroup->addAnimation(m_widthAni);
-    m_aniGroup->addAnimation(m_xAni);
+    connect(m_widthAni,&QVariantAnimation::valueChanged,this,[=](const QVariant &value){
+        int width = value.toInt();
+        this->setFixedWidth(width);
+        move(m_screenGeometry.x() + m_screenGeometry.width() - (this->width() + Notify::CenterMargin),this->y());
+    });
 }
 
 void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos)
@@ -152,10 +143,8 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     m_notifyWidget->setFixedSize(m_orignalRect.size());
     setFixedSize(m_orignalRect.size());
 
-    m_xAni->setStartValue(m_orignalRect.x());
-    m_xAni->setEndValue(m_orignalRect.x() + m_orignalRect.width() - 2);
     m_widthAni->setStartValue(m_orignalRect.width());
-    m_widthAni->setEndValue(2);
+    m_widthAni->setEndValue(0);
 }
 
 void NotifyCenterWidget::refreshTheme()
@@ -172,36 +161,25 @@ void NotifyCenterWidget::refreshTheme()
 void NotifyCenterWidget::showAni()
 {
     move(m_orignalRect.x() + m_orignalRect.width(),m_orignalRect.y());
-
     show();
 
     QTimer::singleShot(0,this,[=]{activateWindow();});
 
-    m_aniGroup->setDirection(QAbstractAnimation::Backward);
-    m_aniGroup->start();
+    m_widthAni->setDirection(QAbstractAnimation::Backward);
+    m_widthAni->start();
 }
 
 void NotifyCenterWidget::hideAni()
 {
-    m_aniGroup->setDirection(QAbstractAnimation::Forward);
-    m_aniGroup->start();
+    m_widthAni->setDirection(QAbstractAnimation::Forward);
+    m_widthAni->start();
 
-    QTimer::singleShot(m_aniGroup->duration(),this,[=]{setVisible(false);});
-}
-
-void NotifyCenterWidget::setY(int y)
-{
-    move(this->x(),y);
-}
-
-void NotifyCenterWidget::setX(int x)
-{
-    move(x,this->y());
+    QTimer::singleShot(m_widthAni->duration(),this,[=]{setVisible(false);});
 }
 
 void NotifyCenterWidget::showWidget()
 {
-    if(m_aniGroup->state() == QAbstractAnimation::Running)
+    if(m_widthAni->state() == QAbstractAnimation::Running)
         return;
 
     if (isHidden()) {

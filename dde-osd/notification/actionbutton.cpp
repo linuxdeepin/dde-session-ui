@@ -141,8 +141,5 @@ void ActionButton::initUI()
 
 void ActionButton::initConnections()
 {
-    connect(this, &ActionButton::expired, m_menuButton, &Button::hideMenu);
-    connect(this, &ActionButton::dismissed, m_menuButton, &Button::hideMenu);
-    connect(this, &ActionButton::replacedByOther, m_menuButton, &Button::hideMenu);
     connect(m_menuButton, &Button::toggled, this, &ActionButton::buttonClicked);
 }

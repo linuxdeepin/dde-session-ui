@@ -35,15 +35,11 @@
 DWIDGET_USE_NAMESPACE
 
 class Persistence;
-class QPropertyAnimation;
-class QParallelAnimationGroup;
+class QVariantAnimation;
 class NotifyCenterWidget : public DBlurEffectWidget
 {
     Q_OBJECT
     Q_PROPERTY(int width WRITE setFixedWidth)
-    Q_PROPERTY(int height WRITE setFixedHeight)
-    Q_PROPERTY(int y WRITE setY)
-    Q_PROPERTY(int x WRITE setX)
 public:
     explicit NotifyCenterWidget(Persistence *database = nullptr);
     void showWidget();
@@ -62,8 +58,6 @@ private:
 
     void showAni();
     void hideAni();
-    void setY(int y);
-    void setX(int x);
 
 private:
     QWidget *m_headWidget;
@@ -71,12 +65,9 @@ private:
     DLabel *title_label = nullptr;
     QRect m_screenGeometry;
 
-    QParallelAnimationGroup *m_aniGroup;
-    QPropertyAnimation *m_xAni;
-    QPropertyAnimation *m_widthAni;
+    QVariantAnimation *m_widthAni;
 
     QRect m_orignalRect;
-
 };
 
 #endif // MAINWIDGET_H

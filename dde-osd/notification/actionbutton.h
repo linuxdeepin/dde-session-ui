@@ -52,9 +52,6 @@ private:
 
 Q_SIGNALS:
     void buttonClicked(const QString &id);
-    void expired(int);
-    void dismissed(int);
-    void replacedByOther(int);
 
 private:
     OSD::ShowStyle m_showStyle;
