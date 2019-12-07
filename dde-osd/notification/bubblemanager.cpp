@@ -373,7 +373,7 @@ bool BubbleManager::calcReplaceId(std::shared_ptr<NotificationEntity> notify)
 {
     bool find = false;
 
-    if (notify->replacesId() == ReplaceIdNoCount) {
+    if (notify->replacesId() == NoReplaceId) {
         notify->setId(QString::number(m_replaceCount++));
     } else {
         for (int i = 0; i < m_bubbleList.size(); ++i) {
