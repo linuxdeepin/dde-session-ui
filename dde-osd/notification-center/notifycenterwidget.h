@@ -63,11 +63,8 @@ private:
     QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
     DLabel *title_label = nullptr;
-    QRect m_screenGeometry;
-
+    QRect m_notifyRect;
     QVariantAnimation *m_widthAni;
-
-    QRect m_orignalRect;
 };
 
 #endif // MAINWIDGET_H

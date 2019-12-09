@@ -110,14 +110,12 @@ void NotifyCenterWidget::initAnimations()
     connect(m_widthAni,&QVariantAnimation::valueChanged,this,[=](const QVariant &value){
         int width = value.toInt();
         this->setFixedWidth(width);
-        move(m_screenGeometry.x() + m_screenGeometry.width() - (this->width() + Notify::CenterMargin),this->y());
+        move(m_notifyRect.x() + m_notifyRect.width() - (this->width() + Notify::CenterMargin),m_notifyRect.y());
     });
 }
 
 void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos)
 {
-    m_screenGeometry = screen;
-
     qreal scale = qApp->primaryScreen()->devicePixelRatio();
     dock.setWidth(int(qreal(dock.width()) / scale));
     dock.setHeight(int(qreal(dock.height()) / scale));
@@ -138,12 +136,12 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     if (pos == OSD::DockPosition::Top)
         y = screen.y() + Notify::CenterMargin + dock.height();
 
-    m_orignalRect = QRect(x, y, width, height);
-    setGeometry(m_orignalRect);
-    m_notifyWidget->setFixedSize(m_orignalRect.size());
-    setFixedSize(m_orignalRect.size());
+    m_notifyRect = QRect(x, y, width, height);
+    setGeometry(m_notifyRect);
+    m_notifyWidget->setFixedSize(m_notifyRect.size());
+    setFixedSize(m_notifyRect.size());
 
-    m_widthAni->setStartValue(m_orignalRect.width());
+    m_widthAni->setStartValue(int(m_notifyRect.width()));
     m_widthAni->setEndValue(0);
 }
 
@@ -160,7 +158,7 @@ void NotifyCenterWidget::refreshTheme()
 
 void NotifyCenterWidget::showAni()
 {
-    move(m_orignalRect.x() + m_orignalRect.width(),m_orignalRect.y());
+    move(m_notifyRect.x() + m_notifyRect.width(),m_notifyRect.y());
     show();
 
     QTimer::singleShot(0,this,[=]{activateWindow();});
