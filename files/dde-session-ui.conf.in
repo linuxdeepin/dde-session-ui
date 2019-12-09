@@ -3,7 +3,7 @@ sleep=$$ENABLE_SLEEP
 hibernate=$$ENABLE_HIBERNATE
 
 [OS]
-isDeepin=$$IS_DEEPIN
+isDeepin=true
 
 [General]
 loginPromptAvatar=$$LOGIN_PROMPT_AVATAR
