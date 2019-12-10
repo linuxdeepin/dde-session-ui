@@ -107,10 +107,10 @@ void NotifyCenterWidget::initAnimations()
     m_widthAni->setEasingCurve(QEasingCurve::InQuad);
     m_widthAni->setDuration(AnimationTime);
 
-    connect(m_widthAni,&QVariantAnimation::valueChanged,this,[=](const QVariant &value){
+    connect(m_widthAni, &QVariantAnimation::valueChanged, this, [ = ](const QVariant & value) {
         int width = value.toInt();
         this->setFixedWidth(width);
-        move(m_notifyRect.x() + m_notifyRect.width() - (this->width() + Notify::CenterMargin),m_notifyRect.y());
+        move(m_notifyRect.x() + m_notifyRect.width() - width, m_notifyRect.y());
     });
 }
 
@@ -158,10 +158,10 @@ void NotifyCenterWidget::refreshTheme()
 
 void NotifyCenterWidget::showAni()
 {
-    move(m_notifyRect.x() + m_notifyRect.width(),m_notifyRect.y());
+    move(m_notifyRect.x() + m_notifyRect.width(), m_notifyRect.y());
     show();
 
-    QTimer::singleShot(0,this,[=]{activateWindow();});
+    QTimer::singleShot(0, this, [ = ] {activateWindow();});
 
     m_widthAni->setDirection(QAbstractAnimation::Backward);
     m_widthAni->start();
@@ -172,12 +172,12 @@ void NotifyCenterWidget::hideAni()
     m_widthAni->setDirection(QAbstractAnimation::Forward);
     m_widthAni->start();
 
-    QTimer::singleShot(m_widthAni->duration(),this,[=]{setVisible(false);});
+    QTimer::singleShot(m_widthAni->duration(), this, [ = ] {setVisible(false);});
 }
 
 void NotifyCenterWidget::showWidget()
 {
-    if(m_widthAni->state() == QAbstractAnimation::Running)
+    if (m_widthAni->state() == QAbstractAnimation::Running)
         return;
 
     if (isHidden()) {
