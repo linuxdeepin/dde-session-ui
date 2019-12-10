@@ -54,7 +54,7 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
 
 void NotifyCenterWidget::initUI()
 {
-    setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_TranslucentBackground);
 
     m_headWidget = new QWidget;
@@ -143,6 +143,12 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
 
     m_widthAni->setStartValue(int(m_notifyRect.width()));
     m_widthAni->setEndValue(0);
+}
+
+void NotifyCenterWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+    return;
 }
 
 void NotifyCenterWidget::refreshTheme()

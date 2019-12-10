@@ -50,6 +50,7 @@ Q_SIGNALS:
 
 protected:
     bool eventFilter(QObject *watched, QEvent *e) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     void initUI();

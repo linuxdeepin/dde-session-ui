@@ -81,7 +81,6 @@ BubbleOverlapWidget::BubbleOverlapWidget(const QList<std::shared_ptr<Notificatio
 
 BubbleOverlapWidget::~BubbleOverlapWidget()
 {
-    ShortcutManage::instance()->removeItem(this);
 }
 
 void BubbleOverlapWidget::initOverlap()

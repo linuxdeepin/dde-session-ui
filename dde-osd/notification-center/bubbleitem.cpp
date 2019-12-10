@@ -69,7 +69,6 @@ BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> enti
 
 BubbleItem::~BubbleItem()
 {
-    ShortcutManage::instance()->removeItem(this);
 }
 
 void BubbleItem::initUI()
@@ -225,6 +224,7 @@ void BubbleItem::focusInEvent(QFocusEvent *event)
 void BubbleItem::focusOutEvent(QFocusEvent *event)
 {
     m_bgWidget->setHasFocus(false);
+    Q_EMIT havorStateChanged(false);
     return QWidget::focusOutEvent(event);
 }
 
@@ -253,15 +253,3 @@ void BubbleItem::refreshTheme()
     m_appNameLabel->setForegroundRole(QPalette::BrightText);
     m_appTimeLabel->setFont(DFontSizeManager::instance()->t8());
 }
-
-//void BubbleItem::paintEvent(QPaintEvent *event)
-//{
-//    QPainter pa(this);
-//    if (hasFocus()) {
-//        pa.fillRect(rect(), Qt::blue);
-//    } else {
-//        pa.fillRect(rect(), Qt::red);
-//    }
-
-//    QWidget::paintEvent(event);
-//}

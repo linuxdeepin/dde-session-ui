@@ -22,6 +22,7 @@
 #include "notifywidget.h"
 #include "appgroupmodel.h"
 #include "appgroupdelegate.h"
+#include "shortcutmanage.h"
 #include "notification/persistence.h"
 
 #include <QVBoxLayout>
@@ -53,6 +54,7 @@ void NotifyWidget::initView(Persistence *database)
     m_groupDelegate = new AppGroupDelegate;
     m_mainList = new QListView(this);
 
+    ShortcutManage::instance()->setAppModel(m_groupModel);
     m_groupModel->setView(m_mainList);
     m_mainList->setModel(m_groupModel);
     m_mainList->setItemDelegate(m_groupDelegate);

@@ -23,7 +23,6 @@
 #include "notifymodel.h"
 #include "bubbleitem.h"
 #include "bubbleoverlapwidget.h"
-#include "shortcutmanage.h"
 #include "notification/notificationentity.h"
 #include "notification/constants.h"
 
@@ -48,12 +47,10 @@ QWidget *BubbleDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
 
     if (model->isShowOverlap() && index.row() == BubbleEntities - 1) {
         BubbleOverlapWidget *overlap_widget = new BubbleOverlapWidget(model->overlapNotifys(), parent,  model);
-        ShortcutManage::instance()->append(std::make_shared<ShortcutItem>(overlap_widget, index));
         return overlap_widget;
     } else {
         BubbleItem *bubble = new BubbleItem(parent, notify);
         bubble->setModel(model);
-        ShortcutManage::instance()->append(std::make_shared<ShortcutItem>(bubble, index));
         return bubble;
     }
 }

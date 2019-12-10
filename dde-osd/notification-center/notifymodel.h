@@ -49,6 +49,7 @@ public:
     NotifyModel(QObject *parent = nullptr, std::shared_ptr<NotificationEntity> notify = nullptr);
     void addNotify(std::shared_ptr<NotificationEntity> entity);
     void setView(QListView *view) { m_view = view; }
+    QListView *view() { return m_view; }
     int rowCount() { return m_displays.size(); }
     void removeNotify(std::shared_ptr<NotificationEntity> entity);
     void setPersistence(Persistence *db) { m_database = db; }

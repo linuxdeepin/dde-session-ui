@@ -82,7 +82,7 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
 
 BubbleGroup::~BubbleGroup()
 {
-    ShortcutManage::instance()->removeGroup(this);
+
 }
 
 void BubbleGroup::enterEvent(QEvent *event)

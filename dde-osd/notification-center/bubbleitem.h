@@ -84,7 +84,6 @@ protected:
     void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
     void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
     void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
-    //void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
 private:
     void initUI();

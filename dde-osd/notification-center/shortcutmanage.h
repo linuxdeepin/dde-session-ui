@@ -23,37 +23,19 @@
 #include <QObject>
 #include <QModelIndex>
 #include <memory>
+#include <QPointer>
 
 class QKeyEvent;
 class QMouseEvent;
-
-class ShortcutItem
-{
-public:
-    ShortcutItem(QWidget *widget = nullptr, const QModelIndex &index = QModelIndex());
-    QWidget *m_widget = nullptr;
-    QWidget *m_parent = nullptr;
-    QModelIndex m_index;
-};
-
-class ShortcutGroup
-{
-public:
-    ShortcutGroup(QWidget *widget = nullptr, const QModelIndex &index = QModelIndex());
-    QWidget *m_widget = nullptr;
-    QModelIndex m_index;
-    QList<std::shared_ptr<ShortcutItem>> m_groups;
-};
+class AppGroupModel;
+class ApplicationGroup;
 
 class ShortcutManage : public QObject
 {
     Q_OBJECT
 public:
     static ShortcutManage *instance(QObject *parent = nullptr);
-    void append(std::shared_ptr<ShortcutGroup> group);
-    void append(std::shared_ptr<ShortcutItem> item);
-    void removeItem(QWidget *widget);
-    void removeGroup(QWidget *widget);
+    void setAppModel(AppGroupModel *model);
 
 protected:
     bool eventFilter(QObject *object, QEvent *event) override;
@@ -65,10 +47,9 @@ private:
 
 private:
     static ShortcutManage *m_instance;
-    QList<std::shared_ptr<ShortcutGroup>> m_Shortcuts;
-    QMap<QWidget *, std::shared_ptr<ShortcutItem>> m_widgetMap;
-    QMap<QWidget *, std::shared_ptr<ShortcutGroup>> m_groupMap;
-    std::shared_ptr<ShortcutItem> m_currentItem = nullptr;
+    AppGroupModel *m_appModel = nullptr;
+    QModelIndex m_currentGroupIndex;
+    QModelIndex m_currentIndex;
 };
 
 #endif // SHORTCUTMANAGE_H

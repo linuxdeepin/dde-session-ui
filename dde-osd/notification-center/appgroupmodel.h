@@ -66,7 +66,9 @@ public:
 
     AppGroupModel(QObject *parent = nullptr, Persistence *database = nullptr);
     void setView(QListView *view) { m_view = view; }
+    QListView *view() { return m_view; }
     void removeGroup(const QModelIndex &index);
+    QList<QPointer<ApplicationGroup>> appGroups() { return m_applications; }
 
 public:
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
