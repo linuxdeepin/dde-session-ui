@@ -544,7 +544,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>检测到您正在使用虚拟机，在虚拟机下使用UOS会影响系统性能和操作体验，为了流畅地使用UOS，建议您选择普通模式进入桌面</translation>
+        <translation>检测到您正在使用虚拟机，这将影响系统性能和操作体验，为了在虚拟机下流畅地使用该系统，建议您选择普通模式进入桌面</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
