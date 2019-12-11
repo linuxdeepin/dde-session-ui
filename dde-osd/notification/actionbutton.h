@@ -40,6 +40,7 @@ public:
     ActionButton(QWidget *parent = nullptr, OSD::ShowStyle style = OSD::ShowStyle::BUBBLEWINDOW);
 
     bool addButtons(const QStringList &list);
+    QList<Button *> buttonList() { return m_buttons; }
     bool isEmpty();
     void clear();
 

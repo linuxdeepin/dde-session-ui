@@ -44,12 +44,15 @@ private:
     explicit ShortcutManage(QObject *parent = nullptr);
     bool handKeyEvent(QObject *object, QKeyEvent *event);
     bool handMouseEvent(QObject *object, QMouseEvent *event);
+    bool handBubbleTab(QWidget *item);
+    void calcCurrentIndex();
 
 private:
     static ShortcutManage *m_instance;
     AppGroupModel *m_appModel = nullptr;
     QModelIndex m_currentGroupIndex;
     QModelIndex m_currentIndex;
+    QWidget *m_currentElement = nullptr;
 };
 
 #endif // SHORTCUTMANAGE_H

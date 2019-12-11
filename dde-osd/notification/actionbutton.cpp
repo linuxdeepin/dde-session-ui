@@ -101,15 +101,13 @@ bool ActionButton::isEmpty()
 
 void ActionButton::clear()
 {
-    for (QWidget *w : m_buttons) {
+    for (Button *w : m_buttons) {
+        w->clear();
+        w->hide();
         m_layout->removeWidget(w);
         w->deleteLater();
     }
-
     m_buttons.clear();
-
-    m_menuButton->clear();
-    m_menuButton->hide();
 }
 
 void ActionButton::setButtonSize(const QSize &size)
@@ -134,8 +132,9 @@ void ActionButton::initUI()
     layout->addLayout(m_layout);
     layout->addWidget(m_menuButton);
 
-    setLayout(layout);
+    m_buttons << m_menuButton;
 
+    setLayout(layout);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 }
 

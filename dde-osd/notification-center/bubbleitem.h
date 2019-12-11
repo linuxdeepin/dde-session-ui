@@ -70,6 +70,7 @@ public:
     void setModel(NotifyModel *model);
     const QPixmap converToPixmap(const QDBusArgument &value);
     void setAlpha(int alpha);
+    QList<QWidget *> bubbleElements();
 
 Q_SIGNALS:
     void havorStateChanged(bool);

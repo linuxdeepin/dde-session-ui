@@ -78,6 +78,7 @@ void NotifyCenterWidget::initUI()
     close_btn->setFlat(true);
     close_btn->setIconSize(QSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight));
     close_btn->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
+    close_btn->setFocusPolicy(Qt::NoFocus);
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
     head_Layout->addWidget(bell_notify, Qt::AlignLeft);
