@@ -46,10 +46,15 @@ DWIDGET_USE_NAMESPACE
 NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     : m_notifyWidget(new NotifyWidget(this, database))
     , m_widthAni(new QVariantAnimation(this))
+    , m_wmHelper(DWindowManagerHelper::instance())
 {
     initUI();
+    initConnections();
     initAnimations();
+
     installEventFilter(this);
+
+    CompositeChanged();
 }
 
 void NotifyCenterWidget::initUI()
@@ -99,7 +104,7 @@ void NotifyCenterWidget::initUI()
     connect(close_btn, &DIconButton::clicked, this, [ = ]() {
         hideAni();
     });
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotifyCenterWidget::refreshTheme);
+
     refreshTheme();
 }
 
@@ -107,12 +112,19 @@ void NotifyCenterWidget::initAnimations()
 {
     m_widthAni->setEasingCurve(QEasingCurve::InQuad);
     m_widthAni->setDuration(AnimationTime);
+}
+
+void NotifyCenterWidget::initConnections()
+{
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotifyCenterWidget::refreshTheme);
 
     connect(m_widthAni, &QVariantAnimation::valueChanged, this, [ = ](const QVariant & value) {
         int width = value.toInt();
-        this->setFixedWidth(width);
         move(m_notifyRect.x() + m_notifyRect.width() - width, m_notifyRect.y());
+        this->setFixedWidth(width);
     });
+
+    connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &NotifyCenterWidget::CompositeChanged, Qt::QueuedConnection);
 }
 
 void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos)
@@ -165,6 +177,13 @@ void NotifyCenterWidget::refreshTheme()
 
 void NotifyCenterWidget::showAni()
 {
+    if (!m_hasComposite) {
+        setGeometry(m_notifyRect);
+        m_notifyWidget->setFixedSize(m_notifyRect.size());
+        setFixedSize(m_notifyRect.size());
+        show();
+        return;
+    }
     move(m_notifyRect.x() + m_notifyRect.width(), m_notifyRect.y());
     show();
 
@@ -176,10 +195,20 @@ void NotifyCenterWidget::showAni()
 
 void NotifyCenterWidget::hideAni()
 {
+    if (!m_hasComposite) {
+        hide();
+        return;
+    }
+
     m_widthAni->setDirection(QAbstractAnimation::Forward);
     m_widthAni->start();
 
     QTimer::singleShot(m_widthAni->duration(), this, [ = ] {setVisible(false);});
+}
+
+void NotifyCenterWidget::CompositeChanged()
+{
+    m_hasComposite = m_wmHelper->hasComposite();
 }
 
 void NotifyCenterWidget::showWidget()

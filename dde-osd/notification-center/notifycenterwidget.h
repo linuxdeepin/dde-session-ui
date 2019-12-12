@@ -31,8 +31,10 @@
 
 #include <DBlurEffectWidget>
 #include <DLabel>
+#include <DWindowManagerHelper>
 
 DWIDGET_USE_NAMESPACE
+DGUI_USE_NAMESPACE
 
 class Persistence;
 class QVariantAnimation;
@@ -55,10 +57,14 @@ protected:
 private:
     void initUI();
     void initAnimations();
+    void initConnections();
     void refreshTheme();
 
     void showAni();
     void hideAni();
+
+private Q_SLOTS:
+    void CompositeChanged();
 
 private:
     QWidget *m_headWidget;
@@ -66,6 +72,8 @@ private:
     DLabel *title_label = nullptr;
     QRect m_notifyRect;
     QVariantAnimation *m_widthAni;
+    DWindowManagerHelper *m_wmHelper;
+    bool m_hasComposite = false;
 };
 
 #endif // MAINWIDGET_H
