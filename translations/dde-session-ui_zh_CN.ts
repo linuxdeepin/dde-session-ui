@@ -379,7 +379,7 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
         <source>%1 Notifications</source>
-        <translation>%1 通知</translation>
+        <translation>%1 条通知</translation>
     </message>
 </context>
 <context>
