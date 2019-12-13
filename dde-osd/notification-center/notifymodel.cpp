@@ -186,6 +186,14 @@ bool NotifyModel::isExpand() const
     return false;
 }
 
+bool NotifyModel::canExpand(std::shared_ptr<NotificationEntity> entity) const
+{
+    if (m_displays.indexOf(entity) == BubbleEntities - 1 && m_notfications.size() != 0) {
+        return true;
+    }
+    return false;
+}
+
 QList<std::shared_ptr<NotificationEntity>> NotifyModel::overlapNotifys()
 {
     QList<std::shared_ptr<NotificationEntity>> notifys;

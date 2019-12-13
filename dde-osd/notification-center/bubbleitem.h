@@ -80,6 +80,7 @@ public Q_SLOTS:
     void onCloseBubble();
 
 protected:
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
     void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
@@ -111,6 +112,8 @@ private:
 
     bool m_showContent = true;
     QString m_defaultAction;
+
+    QPoint m_pressPoint;
 };
 
 #endif // BUBBLEITEM_H

@@ -81,8 +81,8 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     actions << "删除";
     actions << "取消";
     actions << "取消";
-//    entity->setActions(actions);
-    //    entity->setTimeout("0");
+    //    entity->setActions(actions);
+    entity->setTimeout("0");
 #endif
 
     m_outTimer->stop();
