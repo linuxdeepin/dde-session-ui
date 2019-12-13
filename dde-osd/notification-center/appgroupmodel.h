@@ -75,6 +75,9 @@ public:
     QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
     Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
 
+Q_SIGNALS:
+    void dataChanged();
+
 private:
     void initData();
     void addNotify(std::shared_ptr<NotificationEntity> entity);

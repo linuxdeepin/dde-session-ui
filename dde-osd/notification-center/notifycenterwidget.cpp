@@ -151,7 +151,7 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
 
     m_notifyRect = QRect(x, y, width, height);
     setGeometry(m_notifyRect);
-    m_notifyWidget->setFixedSize(m_notifyRect.size());
+    m_notifyWidget->setFixedWidth(m_notifyRect.width() - 2 * Notify::CenterMargin);
     setFixedSize(m_notifyRect.size());
 
     m_widthAni->setStartValue(int(m_notifyRect.width()));

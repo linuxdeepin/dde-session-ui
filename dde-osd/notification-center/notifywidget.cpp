@@ -46,6 +46,14 @@ NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
     mainVBLayout->addWidget(m_noNotify);
     mainVBLayout->setMargin(0);
     setLayout(mainVBLayout);
+
+    m_noNotify->setVisible(m_groupModel->rowCount(QModelIndex()) == 0);
+    m_mainList->setVisible(m_groupModel->rowCount(QModelIndex()) != 0);
+
+    connect(m_groupModel, &AppGroupModel::dataChanged, this, [ = ] {
+        m_noNotify->setVisible(m_groupModel->rowCount(QModelIndex()) == 0);
+        m_mainList->setVisible(m_groupModel->rowCount(QModelIndex()) != 0);
+    });
 }
 
 void NotifyWidget::initView(Persistence *database)

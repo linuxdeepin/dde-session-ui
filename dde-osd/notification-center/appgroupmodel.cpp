@@ -51,6 +51,7 @@ void AppGroupModel::initData()
         addNotify(notify);
     }
 
+    Q_EMIT dataChanged();
     connect(m_database, &Persistence::RecordAdded, this, &AppGroupModel::addNotify);
 }
 
@@ -145,6 +146,8 @@ void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
             }
         });
     }
+
+    Q_EMIT dataChanged();
 }
 
 void AppGroupModel::removeGroup(const QModelIndex &index)
