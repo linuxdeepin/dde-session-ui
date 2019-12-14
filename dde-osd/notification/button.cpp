@@ -119,8 +119,13 @@ void ButtonContent::mousePressEvent(QMouseEvent *event)
             Q_EMIT toggled(m_id);
         }
     }
+}
 
-    return QWidget::mousePressEvent(event);
+void ButtonContent::mouseReleaseEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+
+    return;
 }
 
 void ButtonContent::paintEvent(QPaintEvent *event)
@@ -155,6 +160,11 @@ void ButtonMenu::mousePressEvent(QMouseEvent *event)
     Q_UNUSED(event);
 
     Q_EMIT clicked();
+}
+
+void ButtonMenu::mouseReleaseEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
 }
 
 void ButtonMenu::paintEvent(QPaintEvent *event)

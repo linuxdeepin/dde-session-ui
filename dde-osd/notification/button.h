@@ -70,6 +70,7 @@ private:
 
 protected:
     virtual void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    virtual void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
@@ -88,6 +89,7 @@ Q_SIGNALS:
 
 protected:
     virtual void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    virtual void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
