@@ -2,22 +2,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="174"/>
         <source>Just Now</source>
         <translation>Proprio ora</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="178"/>
         <source>%1 minutes ago</source>
         <translation>%1 minuti fa</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
         <source>%1 hours ago</source>
         <translation>%1 ore fa</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
         <source>Yesterday </source>
         <translation>Ieri</translation>
     </message>
@@ -35,12 +35,12 @@
         <translation>Conferma</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="151"/>
+        <location filename="../dde-license-dialog/content.cpp" line="149"/>
         <source>View in English</source>
         <translation>Visualizza in Inglese</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="154"/>
+        <location filename="../dde-license-dialog/content.cpp" line="152"/>
         <source>View in Chinese</source>
         <translation>Visualizza in Cinese</translation>
     </message>
@@ -208,12 +208,12 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
         <source>Duplicate</source>
         <translation>Duplica</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
         <source>Extend</source>
         <translation>Estendi</translation>
     </message>
@@ -308,7 +308,7 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>Gli utenti sopra indicati sono oggati ed i dati andranno persi col riavvio, sicuro di voler riavviare?</translation>
+        <translation>Gli utenti sopra indicati sono loggati ed i dati andranno persi col riavvio, sicuro di voler riavviare?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
@@ -353,17 +353,22 @@
         <translation>Password di Gruppo</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
-        <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation>Password richiesta per connettersi a &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
+        <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
+        <source>Wrong password, please enter again!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
         <source>Connect</source>
         <translation>Connetti</translation>
     </message>
@@ -371,13 +376,13 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="94"/>
         <source>Notification Center</source>
         <translation>Centro notifiche</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
         <source>%1 Notifications</source>
         <translation>%1 Notifiche</translation>
     </message>
@@ -385,7 +390,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="73"/>
         <source>Notification Center</source>
         <translation>Centro notifiche</translation>
     </message>
@@ -393,7 +398,7 @@
 <context>
     <name>NotifyWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifywidget.cpp" line="39"/>
+        <location filename="../dde-osd/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
         <translation>Nessuna notifica di sistema</translation>
     </message>
@@ -450,23 +455,23 @@
 <context>
     <name>SuspendDialog</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
         <source>External monitor detected, suspend?</source>
         <translation>Monitor esterno rilevato, sospenderlo?</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="55"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="57"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
         <source>Cancel</source>
-        <translation>Cancella</translation>
+        <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
         <source>Suspend</source>
         <translation>Sospendi</translation>
     </message>
@@ -534,22 +539,22 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>Modalità completa</translation>
+        <translation>Modalità Completa</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>Modalità tradizionale</translation>
+        <translation>Modalità Base</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>E&apos; stato rilevato l&apos;utilizzo di una macchina virtuale, il che impatta negativamente sulle prestazioni e l&apos;operatività del Sistema, per un&apos;esperienza migliore si raccomanda l&apos;utilizzo della Modalità tradizionale</translation>
+        <translation>E&apos; stato rilevato l&apos;utilizzo di una macchina virtuale, il che impatta negativamente sulle prestazioni e l&apos;operatività del Sistema, per un&apos;esperienza migliore si raccomanda l&apos;utilizzo della Modalità Base</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Completa: esperienza utente ricca di effetti; Modalità tradizionale: goditi le massime performance.</translation>
+        <translation>Completa: esperienza utente completa; Base: goditi le massime performance.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>

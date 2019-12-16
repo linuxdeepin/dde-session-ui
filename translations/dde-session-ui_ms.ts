@@ -2,22 +2,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="123"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="174"/>
         <source>Just Now</source>
         <translation>Baru Tadi</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="127"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="178"/>
         <source>%1 minutes ago</source>
         <translation>%1 minit yang lalu</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="130"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
         <source>%1 hours ago</source>
         <translation>%1 jam yang lalu</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="134"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
         <source>Yesterday </source>
         <translation>Semalam</translation>
     </message>
@@ -35,12 +35,12 @@
         <translation>Sahkan</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="151"/>
+        <location filename="../dde-license-dialog/content.cpp" line="149"/>
         <source>View in English</source>
         <translation>Papar dalam Bahasa Inggeris</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="154"/>
+        <location filename="../dde-license-dialog/content.cpp" line="152"/>
         <source>View in Chinese</source>
         <translation>Papar dalam Bahasa Cina</translation>
     </message>
@@ -208,12 +208,12 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="164"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
         <source>Duplicate</source>
         <translation>Ganda Duakan</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="166"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
         <source>Extend</source>
         <translation>Lanjut</translation>
     </message>
@@ -353,17 +353,22 @@
         <translation>Kata Laluan Kumpulan</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="97"/>
-        <source>Password required to connect &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</source>
-        <translation>Kata laluan diperlukan untuk sambung ke &lt;font color=&quot;#faca57&quot;&gt;%1&lt;/font&gt;</translation>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
+        <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
+        <source>Wrong password, please enter again!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
         <source>Cancel</source>
         <translation>Batal</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
         <source>Connect</source>
         <translation>Sambung</translation>
     </message>
@@ -371,13 +376,13 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="69"/>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="94"/>
         <source>Notification Center</source>
         <translation>Pusat Pemberitahuan</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="90"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
         <source>%1 Notifications</source>
         <translation>%1 Pemberitahuan</translation>
     </message>
@@ -385,7 +390,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="65"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="73"/>
         <source>Notification Center</source>
         <translation>Pusat Pemberitahuan</translation>
     </message>
@@ -393,7 +398,7 @@
 <context>
     <name>NotifyWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifywidget.cpp" line="39"/>
+        <location filename="../dde-osd/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
         <translation>Tiada pemberitahuan sistem</translation>
     </message>
@@ -450,23 +455,23 @@
 <context>
     <name>SuspendDialog</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
         <source>External monitor detected, suspend?</source>
         <translation>Monitor luar dikesan, tangguhkan?</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="34"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="55"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="57"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
         <source>Cancel</source>
         <translation>Batal</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="45"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
         <source>Suspend</source>
         <translation>Tangguh</translation>
     </message>
