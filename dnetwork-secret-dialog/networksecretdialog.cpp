@@ -95,7 +95,7 @@ void NetworkSecretDialog::initUI()
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::Dialog);
 
     setOnButtonClickedClose(false);
-    setTitle(tr("Password required to connect <font color=\"#faca57\">%1</font>").arg(m_connName));
+    setTitle(tr("Password required to connect <font color=\"%1\">%2</font>").arg(palette().highlight().color().name()).arg(m_connName));
     addSpacing(10);
 
     const auto ratio = qApp->devicePixelRatio();
