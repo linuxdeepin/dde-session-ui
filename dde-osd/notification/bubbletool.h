@@ -29,7 +29,6 @@
 class ActionButton;
 class AppIcon;
 class NotificationEntity;
-
 class BubbleTool
 {
 public:

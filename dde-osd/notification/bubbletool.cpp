@@ -31,8 +31,12 @@
 #include <QSettings>
 #include <QTextCodec>
 
+#include <DDesktopEntry>
+
 #include <xcb/xcb.h>
 #include <xcb/xcb_ewmh.h>
+
+DCORE_USE_NAMESPACE
 
 static const QStringList HintsOrder {
     "desktop-entry",
@@ -193,16 +197,15 @@ void BubbleTool::register_wm_state(WId winid)
 
 const QString BubbleTool::getDeepinAppName(const QString &name)
 {
-    QSettings settings("/usr/share/applications/" + name + ".desktop", QSettings::IniFormat);
-    settings.beginGroup("Desktop Entry");
-    settings.setIniCodec(QTextCodec::codecForName("utf-8"));
-    QString key = QString("Name[%1]").arg(QLocale::system().name());
-    QString value = settings.value(key).toString();
-    value = value.isEmpty() ? settings.value("Name").toString() : value;
-    if(value.isEmpty()) {
-        value = name;
+    QString settingFile = "/usr/share/applications/" + name + ".desktop";
+    DDesktopEntry desktop(settingFile);
+    if (desktop.contains("X-Deepin-Vendor")) {
+        if (desktop.stringValue("X-Deepin-Vendor") == "deepin") {
+            return desktop.localizedValue("GenericName", "default", "Desktop Entry", name);
+        }
     }
-    return value;
+
+    return desktop.localizedValue("Name", "default", "Desktop Entry", name);
 }
 
 void BubbleTool::actionInvoke(const QString &actionId, std::shared_ptr<NotificationEntity> entity)

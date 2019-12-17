@@ -66,6 +66,15 @@ BubbleManager::BubbleManager(QObject *parent)
 
     m_notifyCenter->hide();
     registerAsService();
+
+#if 0  //用于测试
+    QTimer::singleShot(1000, [ = ] {
+        for (int i = 0; i < 100; ++i)
+        {
+            Notify(QString::number(i), i, QString::number(i), QString::number(i), QString::number(i), QStringList(), QVariantMap(), -1);
+        }
+    });
+#endif
 }
 
 BubbleManager::~BubbleManager()
@@ -195,6 +204,9 @@ void BubbleManager::popAnimation(Bubble *bubble)
         QRect startRect = GetBubbleGeometry(index);
         QRect endRect = GetBubbleGeometry(index - 1);
         QPointer<Bubble> item = m_bubbleList.at(index);
+        if (index == BubbleEntities + BubbleOverLap) {
+            item->show();
+        }
         if (item->geometry() != endRect) { //动画中
             startRect = item->geometry();
         }
