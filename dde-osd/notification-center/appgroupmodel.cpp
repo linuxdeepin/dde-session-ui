@@ -160,5 +160,8 @@ void AppGroupModel::removeGroup(const QModelIndex &index)
     endRemoveRows();
 
     //clear database content
-    if (m_database != nullptr) m_database->removeApp(app->appName());
+    if (m_database != nullptr) {
+        m_database->removeApp(app->appName());
+        app->deleteLater();
+    }
 }

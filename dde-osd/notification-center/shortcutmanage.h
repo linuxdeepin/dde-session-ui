@@ -37,6 +37,7 @@ class ShortcutManage : public QObject
 public:
     static ShortcutManage *instance(QObject *parent = nullptr);
     void setAppModel(AppGroupModel *model);
+    void initIndex();
 
 protected:
     bool eventFilter(QObject *object, QEvent *event) override;
@@ -45,6 +46,7 @@ private:
     explicit ShortcutManage(QObject *parent = nullptr);
     bool handKeyEvent(QObject *object, QKeyEvent *event);
     bool handEnterEvent(QObject *object);
+    bool handMousePressEvent(QObject *object, QMouseEvent *event);
     bool handBubbleTab(QWidget *item);
     void calcCurrentIndex();
 

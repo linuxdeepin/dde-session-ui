@@ -34,6 +34,11 @@ ShortcutManage *ShortcutManage::instance(QObject *parent)
 void ShortcutManage::setAppModel(AppGroupModel *model)
 {
     m_appModel = model;
+    initIndex();
+}
+
+void ShortcutManage::initIndex()
+{
     m_currentGroupIndex = m_appModel->index(0);
     QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
     if (app_view != nullptr) {
@@ -58,14 +63,14 @@ void ShortcutManage::setAppModel(AppGroupModel *model)
 
 bool ShortcutManage::handBubbleTab(QWidget *item)
 {
-    BubbleItem *bubble = dynamic_cast<BubbleItem *>(item);
-    BubbleOverlapWidget *bubble_overlap = dynamic_cast<BubbleOverlapWidget *>(item);
+    BubbleItem *bubble = qobject_cast<BubbleItem *>(item);
+    BubbleOverlapWidget *bubble_overlap = qobject_cast<BubbleOverlapWidget *>(item);
     if (bubble_overlap != nullptr) {
         bubble = bubble_overlap->faceBubble();
     }
     if (bubble == nullptr) return true;
 
-    Button *action_btn = dynamic_cast<Button *>(m_currentElement);
+    Button *action_btn = qobject_cast<Button *>(m_currentElement);
     if (action_btn != nullptr) {
         action_btn->setHoverState(false);
     }
@@ -74,17 +79,17 @@ bool ShortcutManage::handBubbleTab(QWidget *item)
     const int last_pos = elements.indexOf(m_currentElement) + 1;
     if (last_pos < elements.count()) {
         m_currentElement = elements.at(last_pos);
-        DIconButton *close_btn = dynamic_cast<DIconButton *>(m_currentElement);
+        DIconButton *close_btn = qobject_cast<DIconButton *>(m_currentElement);
         if (close_btn != nullptr) {
             close_btn->setChecked(true);
         } else {
-            Button *action_btn = dynamic_cast<Button *>(m_currentElement);
+            Button *action_btn = qobject_cast<Button *>(m_currentElement);
             if (action_btn != nullptr) {
                 action_btn->setHoverState(true);
             }
         }
     } else {
-        Button *action_btn = dynamic_cast<Button *>(m_currentElement);
+        Button *action_btn = qobject_cast<Button *>(m_currentElement);
         if (action_btn != nullptr) {
             action_btn->setHoverState(false);
         }
@@ -112,6 +117,9 @@ void ShortcutManage::calcCurrentIndex()
                     if (m_currentGroupIndex.isValid()) {
                         app_view->setCurrentIndex(m_currentGroupIndex);
                         app_view->scrollTo(m_currentGroupIndex);
+                    } else {
+                        initIndex();
+                        return;
                     }
 
                     auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
@@ -138,7 +146,6 @@ bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
             DIconButton *close_btn = dynamic_cast<DIconButton *>(m_currentElement);
             if (close_btn != nullptr) {
                 close_btn->click();
-                m_currentElement = nullptr;
             } else {
                 Button *action_btn = dynamic_cast<Button *>(m_currentElement);
                 if (action_btn != nullptr) {
@@ -146,7 +153,49 @@ bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
                 }
             }
         }
+
+        m_currentElement = nullptr;
+        calcCurrentIndex();
         return true;
+    }
+    return false;
+}
+
+bool ShortcutManage::handMousePressEvent(QObject *object, QMouseEvent *event)
+{
+    Q_UNUSED(event);
+    BubbleGroup *group = qobject_cast<BubbleGroup *>(object);
+    if (group != nullptr) {
+        m_currentGroupIndex = group->selfIndex();
+        QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
+        if (app_view != nullptr) {
+            int row = m_currentGroupIndex.row();
+            m_currentGroupIndex = app_view->model()->index(row + 1, 0);
+            if (m_currentGroupIndex.isValid()) {
+                app_view->setCurrentIndex(m_currentGroupIndex);
+                app_view->scrollTo(m_currentGroupIndex);
+            } else {
+                initIndex();
+                return false;
+            }
+        }
+    }
+
+    BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
+    BubbleOverlapWidget *bubble_overlap = qobject_cast<BubbleOverlapWidget *>(object);
+    if (bubble_overlap != nullptr) {
+        bubble = bubble_overlap->faceBubble();
+    }
+    if (bubble != nullptr) {
+        m_currentIndex = bubble->selfIndex();
+        QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
+        int row = m_currentIndex.row();
+        m_currentIndex = group_view->model()->index(row + 1, 0);
+
+        if (m_currentIndex.isValid()) {
+            group_view->setCurrentIndex(m_currentIndex);
+            group_view->scrollTo(m_currentIndex);
+        }
     }
     return false;
 }
@@ -176,6 +225,8 @@ bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *key = static_cast<QKeyEvent *>(event);
         return handKeyEvent(object, key);
+    } else if (event->type() == QEvent::MouseButtonPress) {
+
     } else if (event->type() == QEvent::Enter) {
         return handEnterEvent(object);
     }
