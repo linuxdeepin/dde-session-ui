@@ -28,6 +28,7 @@
 
 class NotificationEntity;
 class NotifyModel;
+class BubbleItem;
 
 class HalfRoundedRectWidget : public AlphaWidget
 {
@@ -46,6 +47,10 @@ public:
                         QWidget *parent = nullptr, NotifyModel *model = nullptr);
     ~BubbleOverlapWidget();
     void setModel(NotifyModel *model);
+    BubbleItem *faceBubble() { return m_faceBubbleItem; }
+
+    void setSelfIndex(const QModelIndex &index);
+    QModelIndex selfIndex() const;
 
 private:
     void initOverlap();
@@ -53,6 +58,7 @@ private:
 private:
     QList<std::shared_ptr<NotificationEntity>> m_notifications;
     NotifyModel *m_notifyModel = nullptr;
+    BubbleItem *m_faceBubbleItem = nullptr;
 };
 
 #endif // NOTIFYWIDGET_H

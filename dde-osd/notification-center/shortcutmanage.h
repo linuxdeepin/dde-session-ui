@@ -27,6 +27,7 @@
 
 class QKeyEvent;
 class QMouseEvent;
+class QFocusEvent;
 class AppGroupModel;
 class ApplicationGroup;
 
@@ -43,7 +44,7 @@ protected:
 private:
     explicit ShortcutManage(QObject *parent = nullptr);
     bool handKeyEvent(QObject *object, QKeyEvent *event);
-    bool handMouseEvent(QObject *object, QMouseEvent *event);
+    bool handEnterEvent(QObject *object);
     bool handBubbleTab(QWidget *item);
     void calcCurrentIndex();
 

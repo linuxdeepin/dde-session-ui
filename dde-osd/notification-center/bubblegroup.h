@@ -49,6 +49,9 @@ public:
     void setGroupTitle(const QString &title) { group_title->setText(title); }
     QListView *view() { return m_groupList; }
 
+    void setSelfIndex(const QModelIndex &index);
+    QModelIndex selfIndex() const;
+
 signals:
     void closeGroup();
 
@@ -74,6 +77,7 @@ private:
     DLabel *group_title = nullptr;
     std::shared_ptr<NotifyModel> m_notifyModel = nullptr;
     QPointer<ExpandAnimation> m_expandAnimation = nullptr;
+    QModelIndex m_selfIndex = QModelIndex();
 };
 
 #endif // BUBBLEGROUP_H

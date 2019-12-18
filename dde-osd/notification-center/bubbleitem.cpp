@@ -281,3 +281,15 @@ QList<QWidget *> BubbleItem::bubbleElements()
     }
     return bubble_elements;
 }
+
+void BubbleItem::setSelfIndex(const QModelIndex &index)
+{
+    if (m_selfIndex != index) {
+        m_selfIndex = index;
+    }
+}
+
+QModelIndex BubbleItem::selfIndex() const
+{
+    return m_selfIndex;
+}

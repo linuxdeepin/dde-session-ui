@@ -72,6 +72,9 @@ public:
     void setAlpha(int alpha);
     QList<QWidget *> bubbleElements();
 
+    void setSelfIndex(const QModelIndex &index);
+    QModelIndex selfIndex() const;
+
 Q_SIGNALS:
     void havorStateChanged(bool);
 
@@ -96,6 +99,7 @@ private:
 private:
     std::shared_ptr<NotificationEntity> m_entity;
     NotifyModel *m_notifyModel = nullptr;
+    QModelIndex m_selfIndex = QModelIndex();
     QTimer *m_refreshTimer = nullptr;
 
     //controls

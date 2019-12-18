@@ -47,10 +47,12 @@ QWidget *BubbleDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
 
     if (model->isShowOverlap() && index.row() == BubbleEntities - 1) {
         BubbleOverlapWidget *overlap_widget = new BubbleOverlapWidget(model->overlapNotifys(), parent,  model);
+        overlap_widget->setSelfIndex(index);
         return overlap_widget;
     } else {
         BubbleItem *bubble = new BubbleItem(parent, notify);
         bubble->setModel(model);
+        bubble->setSelfIndex(index);
         return bubble;
     }
 }

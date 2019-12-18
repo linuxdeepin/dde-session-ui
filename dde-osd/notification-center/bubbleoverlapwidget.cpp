@@ -104,15 +104,24 @@ void BubbleOverlapWidget::initOverlap()
             bubble->lower();
             bubble->setFocusPolicy(Qt::NoFocus);
         } else {
-            BubbleItem *bubble = new BubbleItem(this, notify);
+            m_faceBubbleItem = new BubbleItem(this, notify);
 
             if (m_notifyModel != nullptr)
-                bubble->setModel(m_notifyModel);
-
-            setFocusProxy(bubble);
+                m_faceBubbleItem->setModel(m_notifyModel);
+            setFocusProxy(m_faceBubbleItem);
         }
 
         scal_ratio = (scal_ratio * 19) / 20;
         index ++;
     }
+}
+
+void BubbleOverlapWidget::setSelfIndex(const QModelIndex &index)
+{
+    m_faceBubbleItem->setSelfIndex(index);
+}
+
+QModelIndex BubbleOverlapWidget::selfIndex() const
+{
+    return m_faceBubbleItem->selfIndex();
 }

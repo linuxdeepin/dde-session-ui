@@ -218,3 +218,15 @@ void BubbleGroup::refreshTheme()
     pa.setBrush(QPalette::WindowText, pa.brightText());
     group_title->setPalette(pa);
 }
+
+void BubbleGroup::setSelfIndex(const QModelIndex &index)
+{
+    if (m_selfIndex != index) {
+        m_selfIndex = index;
+    }
+}
+
+QModelIndex BubbleGroup::selfIndex() const
+{
+    return m_selfIndex;
+}
