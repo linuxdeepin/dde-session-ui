@@ -14,7 +14,8 @@ SUBDIRS += dde-license-dialog \
     dmemory-warning-dialog \
     dnetwork-secret-dialog \
     dde-full-filesystem \
-    dde-notification-plugin
+    dde-notification-plugin \
+    dde-pixmix
 
 load(dtk_qmake)
 include(common.pri)
