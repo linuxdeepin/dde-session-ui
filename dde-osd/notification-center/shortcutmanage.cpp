@@ -163,39 +163,25 @@ bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
     return false;
 }
 
-bool ShortcutManage::handMousePressEvent(QObject *object, QMouseEvent *event)
+bool ShortcutManage::handPressEvent(QObject *object)
 {
-    if (qobject_cast<BubbleItem *>(object) || qobject_cast<BubbleOverlapWidget *>(object)) {
+    BubbleGroup *group = qobject_cast<BubbleGroup *>(object);
+    if (group != nullptr) {
         QListView *app_view = m_appModel->view();
         if (app_view != nullptr) {
-            m_currentGroupIndex = app_view->indexAt(event->pos());
-        }
-
-        auto notify_model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
-        if (notify_model != nullptr) {
-            QListView *group_view = notify_model->view();
-            if (group_view != nullptr) {
-                m_currentIndex = group_view->indexAt(event->pos());
-            }
+            m_currentGroupIndex = app_view->indexAt(group->pos());
         }
     }
 
-    return false;
-}
-
-bool ShortcutManage::handEnterEvent(QObject *object, QEnterEvent *event)
-{
-    if (qobject_cast<BubbleItem *>(object) || qobject_cast<BubbleOverlapWidget *>(object)) {
-        QListView *app_view = m_appModel->view();
-        if (app_view != nullptr) {
-            m_currentGroupIndex = app_view->indexAt(event->pos());
-        }
-
+    BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
+    BubbleOverlapWidget *overlap = qobject_cast<BubbleOverlapWidget *>(object);
+    if (bubble != nullptr || overlap != nullptr) {
         auto notify_model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
         if (notify_model != nullptr) {
             QListView *group_view = notify_model->view();
             if (group_view != nullptr) {
-                m_currentIndex = group_view->indexAt(event->pos());
+                if (bubble != nullptr) m_currentIndex = group_view->indexAt(bubble->pos());
+                if (overlap != nullptr) m_currentIndex = group_view->indexAt(overlap->pos());
             }
         }
     }
@@ -205,16 +191,13 @@ bool ShortcutManage::handEnterEvent(QObject *object, QEnterEvent *event)
 
 bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
 {
-    Q_UNUSED(object);
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *key = static_cast<QKeyEvent *>(event);
         return handKeyEvent(object, key);
     } else if (event->type() == QEvent::MouseButtonPress) {
-        QMouseEvent *key = static_cast<QMouseEvent *>(event);
-        return handMousePressEvent(object, key);
+        return handPressEvent(object);
     } else if (event->type() == QEvent::Enter) {
-        QEnterEvent *enter = static_cast<QEnterEvent *>(event);
-        return handEnterEvent(object, enter);
+        return handPressEvent(object);
     }
 
     return false;
