@@ -92,10 +92,10 @@ int main(int argc, char *argv[])
     cmdParser.process(a);
 
     if (cmdParser.isSet(option)) {
-        QString pixPath = cmdParser.value(option);
-        if (!pixPath.isEmpty() && a.arguments().size() >= 4) {
-            QString outFile = a.arguments().at(3);
-            QPixmap pix = calcPix(pixPath);
+        QString outFile = cmdParser.value(option);
+        if (!outFile.isEmpty() && a.arguments().size() >= 4) {
+            QString inFile = a.arguments().at(3);
+            QPixmap pix = calcPix(inFile);
             if (!pix.isNull()) {
                 pix.save(outFile, nullptr, 100);
             } else {
