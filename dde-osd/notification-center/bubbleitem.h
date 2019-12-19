@@ -70,10 +70,7 @@ public:
     void setModel(NotifyModel *model);
     const QPixmap converToPixmap(const QDBusArgument &value);
     void setAlpha(int alpha);
-    QList<QWidget *> bubbleElements();
-
-    void setSelfIndex(const QModelIndex &index);
-    QModelIndex selfIndex() const;
+    QList<QPointer<QWidget>> bubbleElements();
 
 Q_SIGNALS:
     void havorStateChanged(bool);
@@ -99,7 +96,6 @@ private:
 private:
     std::shared_ptr<NotificationEntity> m_entity;
     NotifyModel *m_notifyModel = nullptr;
-    QModelIndex m_selfIndex = QModelIndex();
     QTimer *m_refreshTimer = nullptr;
 
     //controls

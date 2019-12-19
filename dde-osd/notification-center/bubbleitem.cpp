@@ -272,24 +272,12 @@ void BubbleItem::refreshTheme()
     m_appTimeLabel->setFont(DFontSizeManager::instance()->t8());
 }
 
-QList<QWidget *> BubbleItem::bubbleElements()
+QList<QPointer<QWidget>> BubbleItem::bubbleElements()
 {
-    QList<QWidget *> bubble_elements;
+    QList<QPointer<QWidget>> bubble_elements;
     bubble_elements.append(m_closeButton); m_actionButton->buttonList();
     foreach (auto btn, m_actionButton->buttonList()) {
         bubble_elements.append(btn);
     }
     return bubble_elements;
-}
-
-void BubbleItem::setSelfIndex(const QModelIndex &index)
-{
-    if (m_selfIndex != index) {
-        m_selfIndex = index;
-    }
-}
-
-QModelIndex BubbleItem::selfIndex() const
-{
-    return m_selfIndex;
 }

@@ -48,7 +48,6 @@ QWidget *AppGroupDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 
     BubbleGroup *group = new BubbleGroup(parent, model);
     group->setGroupTitle(title);
-    group->setSelfIndex(index);
     connect(group, &BubbleGroup::closeGroup, grpup_model, [grpup_model, index]() {
         grpup_model->removeGroup(index);
     });

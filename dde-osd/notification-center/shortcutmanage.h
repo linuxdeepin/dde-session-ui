@@ -23,11 +23,13 @@
 #include <QObject>
 #include <QModelIndex>
 #include <memory>
+#include <QWidget>
 #include <QPointer>
 
 class QKeyEvent;
 class QMouseEvent;
 class QFocusEvent;
+class QEnterEvent;
 class AppGroupModel;
 class ApplicationGroup;
 
@@ -45,7 +47,7 @@ protected:
 private:
     explicit ShortcutManage(QObject *parent = nullptr);
     bool handKeyEvent(QObject *object, QKeyEvent *event);
-    bool handEnterEvent(QObject *object);
+    bool handEnterEvent(QObject *object, QEnterEvent *event);
     bool handMousePressEvent(QObject *object, QMouseEvent *event);
     bool handBubbleTab(QWidget *item);
     void calcCurrentIndex();
@@ -55,7 +57,7 @@ private:
     AppGroupModel *m_appModel = nullptr;
     QModelIndex m_currentGroupIndex;
     QModelIndex m_currentIndex;
-    QWidget *m_currentElement = nullptr;
+    QPointer<QWidget> m_currentElement = nullptr;
 };
 
 #endif // SHORTCUTMANAGE_H

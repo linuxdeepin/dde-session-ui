@@ -115,13 +115,3 @@ void BubbleOverlapWidget::initOverlap()
         index ++;
     }
 }
-
-void BubbleOverlapWidget::setSelfIndex(const QModelIndex &index)
-{
-    m_faceBubbleItem->setSelfIndex(index);
-}
-
-QModelIndex BubbleOverlapWidget::selfIndex() const
-{
-    return m_faceBubbleItem->selfIndex();
-}

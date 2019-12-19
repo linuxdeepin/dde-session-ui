@@ -49,9 +49,6 @@ public:
     void setModel(NotifyModel *model);
     BubbleItem *faceBubble() { return m_faceBubbleItem; }
 
-    void setSelfIndex(const QModelIndex &index);
-    QModelIndex selfIndex() const;
-
 private:
     void initOverlap();
 

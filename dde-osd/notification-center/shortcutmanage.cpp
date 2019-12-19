@@ -70,12 +70,14 @@ bool ShortcutManage::handBubbleTab(QWidget *item)
     }
     if (bubble == nullptr) return true;
 
-    Button *action_btn = qobject_cast<Button *>(m_currentElement);
-    if (action_btn != nullptr) {
-        action_btn->setHoverState(false);
+    if (!m_currentElement.isNull()) {
+        Button *action_btn = qobject_cast<Button *>(m_currentElement.data());
+        if (action_btn != nullptr) {
+            action_btn->setHoverState(false);
+        }
     }
 
-    QList<QWidget *> elements = bubble->bubbleElements();
+    QList<QPointer<QWidget>> elements = bubble->bubbleElements();
     const int last_pos = elements.indexOf(m_currentElement) + 1;
     if (last_pos < elements.count()) {
         m_currentElement = elements.at(last_pos);
@@ -143,11 +145,11 @@ bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
         return true;
     } else if (event->key() == Qt::Key_Return) {
         if (m_currentElement != nullptr) {
-            DIconButton *close_btn = dynamic_cast<DIconButton *>(m_currentElement);
+            DIconButton *close_btn = qobject_cast<DIconButton *>(m_currentElement.data());
             if (close_btn != nullptr) {
                 close_btn->click();
             } else {
-                Button *action_btn = dynamic_cast<Button *>(m_currentElement);
+                Button *action_btn = qobject_cast<Button *>(m_currentElement.data());
                 if (action_btn != nullptr) {
                     action_btn->clicked();
                 }
@@ -163,57 +165,39 @@ bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
 
 bool ShortcutManage::handMousePressEvent(QObject *object, QMouseEvent *event)
 {
-    Q_UNUSED(event);
-    BubbleGroup *group = qobject_cast<BubbleGroup *>(object);
-    if (group != nullptr) {
-        m_currentGroupIndex = group->selfIndex();
-        QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
+    if (qobject_cast<BubbleItem *>(object) || qobject_cast<BubbleOverlapWidget *>(object)) {
+        QListView *app_view = m_appModel->view();
         if (app_view != nullptr) {
-            int row = m_currentGroupIndex.row();
-            m_currentGroupIndex = app_view->model()->index(row + 1, 0);
-            if (m_currentGroupIndex.isValid()) {
-                app_view->setCurrentIndex(m_currentGroupIndex);
-                app_view->scrollTo(m_currentGroupIndex);
-            } else {
-                initIndex();
-                return false;
+            m_currentGroupIndex = app_view->indexAt(event->pos());
+        }
+
+        auto notify_model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+        if (notify_model != nullptr) {
+            QListView *group_view = notify_model->view();
+            if (group_view != nullptr) {
+                m_currentIndex = group_view->indexAt(event->pos());
             }
         }
     }
 
-    BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
-    BubbleOverlapWidget *bubble_overlap = qobject_cast<BubbleOverlapWidget *>(object);
-    if (bubble_overlap != nullptr) {
-        bubble = bubble_overlap->faceBubble();
-    }
-    if (bubble != nullptr) {
-        m_currentIndex = bubble->selfIndex();
-        QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
-        int row = m_currentIndex.row();
-        m_currentIndex = group_view->model()->index(row + 1, 0);
-
-        if (m_currentIndex.isValid()) {
-            group_view->setCurrentIndex(m_currentIndex);
-            group_view->scrollTo(m_currentIndex);
-        }
-    }
     return false;
 }
 
-bool ShortcutManage::handEnterEvent(QObject *object)
+bool ShortcutManage::handEnterEvent(QObject *object, QEnterEvent *event)
 {
-    BubbleGroup *group = qobject_cast<BubbleGroup *>(object);
-    if (group != nullptr) {
-        m_currentGroupIndex = group->selfIndex();
-    }
+    if (qobject_cast<BubbleItem *>(object) || qobject_cast<BubbleOverlapWidget *>(object)) {
+        QListView *app_view = m_appModel->view();
+        if (app_view != nullptr) {
+            m_currentGroupIndex = app_view->indexAt(event->pos());
+        }
 
-    BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
-    BubbleOverlapWidget *bubble_overlap = qobject_cast<BubbleOverlapWidget *>(object);
-    if (bubble_overlap != nullptr) {
-        bubble = bubble_overlap->faceBubble();
-    }
-    if (bubble != nullptr) {
-        m_currentIndex = bubble->selfIndex();
+        auto notify_model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+        if (notify_model != nullptr) {
+            QListView *group_view = notify_model->view();
+            if (group_view != nullptr) {
+                m_currentIndex = group_view->indexAt(event->pos());
+            }
+        }
     }
 
     return false;
@@ -226,9 +210,11 @@ bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
         QKeyEvent *key = static_cast<QKeyEvent *>(event);
         return handKeyEvent(object, key);
     } else if (event->type() == QEvent::MouseButtonPress) {
-
+        QMouseEvent *key = static_cast<QMouseEvent *>(event);
+        return handMousePressEvent(object, key);
     } else if (event->type() == QEvent::Enter) {
-        return handEnterEvent(object);
+        QEnterEvent *enter = static_cast<QEnterEvent *>(event);
+        return handEnterEvent(object, enter);
     }
 
     return false;
