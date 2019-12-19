@@ -93,7 +93,6 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     //  0: never times out
     // -1: default 5s
     m_outTimer->setInterval(timeout == -1 ? BubbleTimeout : (timeout == 0 ? -1 : timeout));
-    m_outTimer->start();
 }
 
 void Bubble::setEnabled(bool enable)
@@ -284,6 +283,9 @@ void Bubble::initAnimations()
 
     m_moveAnimation = new QPropertyAnimation(this, "geometry", this);
     m_moveAnimation->setEasingCurve(QEasingCurve::Linear);
+    connect(m_moveAnimation, &QPropertyAnimation::finished, this, [ = ] {
+        m_outTimer->start();
+    });
 }
 
 void Bubble::initTimers()
