@@ -31,13 +31,13 @@
 #include <QBoxLayout>
 #include <QDBusInterface>
 #include <QVariantAnimation>
-#include <diconbutton.h>
 #include <QPalette>
 #include <QDebug>
 #include <QTimer>
-
-#include <DLabel>
 #include <QScreen>
+
+#include <DIconButton>
+#include <DLabel>
 #include <DFontSizeManager>
 #include <DGuiApplicationHelper>
 
@@ -110,7 +110,7 @@ void NotifyCenterWidget::initUI()
 
 void NotifyCenterWidget::initAnimations()
 {
-    m_widthAni->setEasingCurve(QEasingCurve::InQuad);
+    m_widthAni->setEasingCurve(QEasingCurve::Linear);
     m_widthAni->setDuration(AnimationTime);
 }
 
@@ -120,8 +120,10 @@ void NotifyCenterWidget::initConnections()
 
     connect(m_widthAni, &QVariantAnimation::valueChanged, this, [ = ](const QVariant & value) {
         int width = value.toInt();
-        move(m_notifyRect.x() + m_notifyRect.width() - width, m_notifyRect.y());
+        int x = int(width * 1.0 / 400 * 10);
+
         this->setFixedWidth(width);
+        move(m_notifyRect.x() + m_notifyRect.width() - x - width, m_notifyRect.y());
     });
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &NotifyCenterWidget::CompositeChanged, Qt::QueuedConnection);
@@ -141,9 +143,9 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom)
         height = screen.height() - Notify::CenterMargin * 2 - dock.height();
 
-    int x = screen.x() + screen.width() - (Notify::CenterWidth + Notify::CenterMargin);
+    int x = screen.x() + screen.width() - Notify::CenterWidth;
     if (pos == OSD::DockPosition::Right)
-        x = screen.width() - (Notify::CenterWidth + Notify::CenterMargin + dock.width());
+        x = screen.width() - (Notify::CenterWidth + dock.width());
 
     int y = screen.y() + Notify::CenterMargin;
     if (pos == OSD::DockPosition::Top)
@@ -178,13 +180,13 @@ void NotifyCenterWidget::refreshTheme()
 void NotifyCenterWidget::showAni()
 {
     if (!m_hasComposite) {
-        setGeometry(m_notifyRect);
+        setGeometry(QRect(m_notifyRect.x() - Notify::CenterMargin, m_notifyRect.y(), m_notifyRect.width(), m_notifyRect.height()));
         m_notifyWidget->setFixedSize(m_notifyRect.size());
         setFixedSize(m_notifyRect.size());
         show();
         return;
     }
-    move(m_notifyRect.x() + m_notifyRect.width(), m_notifyRect.y());
+    setFixedWidth(0);
     show();
 
     QTimer::singleShot(0, this, [ = ] {activateWindow();});
