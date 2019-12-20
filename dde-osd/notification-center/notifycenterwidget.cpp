@@ -184,10 +184,12 @@ void NotifyCenterWidget::showAni()
         m_notifyWidget->setFixedSize(m_notifyRect.size());
         setFixedSize(m_notifyRect.size());
         show();
+        activateWindow();
         return;
     }
     setFixedWidth(0);
     show();
+    activateWindow();
 
     QTimer::singleShot(0, this, [ = ] {activateWindow();});
 
@@ -228,6 +230,7 @@ void NotifyCenterWidget::showWidget()
 bool NotifyCenterWidget::eventFilter(QObject *watched, QEvent *e)
 {
     if (e->type() == QEvent::WindowDeactivate) {
+
         if (!isHidden()) {
             hideAni();
         }
