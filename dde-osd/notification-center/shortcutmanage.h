@@ -51,6 +51,7 @@ private:
     bool handBubbleTab(QWidget *item);
     bool calcNextBubbleIndex();
     bool calcNextGroupIndex();
+    bool calcCurrentGroupIndex();
 
 private:
     static ShortcutManage *m_instance;

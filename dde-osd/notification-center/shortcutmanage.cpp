@@ -1,4 +1,4 @@
-#include "shortcutmanage.h"
+﻿#include "shortcutmanage.h"
 #include "bubbleitem.h"
 #include "bubblegroup.h"
 #include "appgroupmodel.h"
@@ -149,6 +149,31 @@ bool ShortcutManage::calcNextGroupIndex()
     return false;
 }
 
+bool ShortcutManage::calcCurrentGroupIndex()
+{
+    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
+    if (app_view != nullptr) {
+        if (m_currentGroupIndex.isValid()) {
+            app_view->setCurrentIndex(m_currentGroupIndex);
+            app_view->scrollTo(m_currentGroupIndex);
+        } else {
+            initIndex();
+            return true;
+        }
+
+        auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+        if (model != nullptr) {
+            m_currentIndex = model->index(0);
+            QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
+            group_view->setCurrentIndex(m_currentIndex);
+            group_view->scrollTo(m_currentIndex);
+            group_view->indexWidget(m_currentIndex)->setFocus();
+        }
+        return true;
+    }
+    return false;
+}
+
 bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
 {
     Q_UNUSED(object);
@@ -169,7 +194,7 @@ bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
         }
 
         m_currentElement = nullptr;
-        if (!calcNextBubbleIndex()) initIndex();
+        if (!calcNextBubbleIndex()) calcCurrentGroupIndex();
         return true;
     }
     return false;
@@ -206,8 +231,6 @@ bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *key = static_cast<QKeyEvent *>(event);
         return handKeyEvent(object, key);
-    } else if (event->type() == QEvent::MouseButtonPress) {
-        return handPressEvent(object);
     } else if (event->type() == QEvent::Enter) {
         return handPressEvent(object);
     }
