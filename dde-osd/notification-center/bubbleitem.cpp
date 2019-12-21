@@ -6,6 +6,7 @@
 #include "notification/button.h"
 #include "notification/icondata.h"
 #include "notification/bubbletool.h"
+#include "notification/iconbutton.h"
 #include "shortcutmanage.h"
 #include "notifymodel.h"
 
@@ -61,7 +62,7 @@ BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> enti
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this))
-    , m_closeButton(new DDialogCloseButton(this))
+    , m_closeButton(new IconButton(this))
 
 {
     initUI();
@@ -77,8 +78,10 @@ void BubbleItem::initUI()
     setWindowFlags(Qt::Widget);
     setFocusPolicy(Qt::StrongFocus);
     setFixedSize(OSD::BubbleSize(OSD::BUBBLEWIDGET));
+
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWIDGET));
-    m_closeButton->setIconSize(OSD::CloseButtonSize(OSD::BUBBLEWIDGET));
+    m_closeButton->setFixedSize(OSD::CloseButtonSize(OSD::BUBBLEWIDGET));
+    m_closeButton->setRadius(OSD::CloseButtonSize(OSD::BUBBLEWIDGET).height());
     m_closeButton->setVisible(false);
 
     m_titleWidget->setFixedHeight(37);
@@ -146,7 +149,7 @@ void BubbleItem::initContent()
     });
 
     connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
-    connect(m_closeButton, &DDialogCloseButton::clicked, this, &BubbleItem::onCloseBubble);
+    connect(m_closeButton, &IconButton::clicked, this, &BubbleItem::onCloseBubble);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleItem::refreshTheme);
     refreshTheme();
 }
@@ -251,6 +254,10 @@ void BubbleItem::onHavorStateChanged(bool hover)
     if (m_showContent) {
         m_closeButton->setVisible(hover);
         m_appTimeLabel->setVisible(!hover);
+
+        if (!hover) {
+            m_closeButton->setFocusState(false);
+        }
     }
 }
 

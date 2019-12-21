@@ -24,7 +24,6 @@
 
 #include <DWidget>
 #include <DLabel>
-#include <DDialogCloseButton>
 
 #include <memory>
 #include <QDBusArgument>
@@ -35,6 +34,7 @@ class AppIcon;
 class AppBody;
 class Button;
 class ActionButton;
+class IconButton;
 
 DWIDGET_USE_NAMESPACE
 
@@ -108,7 +108,7 @@ private:
     AppIcon *m_icon = nullptr;
     AppBody *m_body = nullptr;
     ActionButton *m_actionButton = nullptr;
-    DDialogCloseButton *m_closeButton = nullptr;
+    IconButton *m_closeButton = nullptr;
 
     bool m_showContent = true;
     QString m_defaultAction;

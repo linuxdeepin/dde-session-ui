@@ -26,6 +26,7 @@
 #include "notifycenterwidget.h"
 #include "notification/persistence.h"
 #include "notification/constants.h"
+#include "shortcutmanage.h"
 
 #include <QDesktopWidget>
 #include <QBoxLayout>
@@ -195,6 +196,8 @@ void NotifyCenterWidget::showAni()
 
     m_widthAni->setDirection(QAbstractAnimation::Backward);
     m_widthAni->start();
+
+    ShortcutManage::instance()->initIndex();
 }
 
 void NotifyCenterWidget::hideAni()

@@ -49,7 +49,8 @@ private:
     bool handKeyEvent(QObject *object, QKeyEvent *event);
     bool handPressEvent(QObject *object);
     bool handBubbleTab(QWidget *item);
-    void calcCurrentIndex();
+    bool calcNextBubbleIndex();
+    bool calcNextGroupIndex();
 
 private:
     static ShortcutManage *m_instance;

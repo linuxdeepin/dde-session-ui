@@ -17,6 +17,7 @@ HEADERS += \
     $$PWD/appbody.h \
     $$PWD/icondata.h \
     $$PWD/button.h \
+    $$PWD/iconbutton.h \
     $$PWD/appbodylabel.h \
     $$PWD/constants.h \
     $$PWD/bubbletool.h \
@@ -38,6 +39,7 @@ SOURCES += \
     $$PWD/appbody.cpp \
     $$PWD/icondata.cpp \
     $$PWD/button.cpp \
+    $$PWD/iconbutton.cpp \
     $$PWD/appbodylabel.cpp \
     $$PWD/bubbletool.cpp \
     $$PWD/dbusdisplay.cpp \
