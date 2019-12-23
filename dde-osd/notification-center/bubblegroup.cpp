@@ -3,6 +3,7 @@
 #include "notifymodel.h"
 #include "bubbledelegate.h"
 #include "shortcutmanage.h"
+#include "appgroupmodel.h"
 #include "notification/notificationentity.h"
 #include "notification/constants.h"
 
@@ -72,7 +73,9 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
 
     setLayout(mainLayout);
 
-    connect(title_close, &DIconButton::clicked, this, &BubbleGroup::closeGroup);
+    connect(title_close, &DIconButton::clicked, this, [ = ] {
+        m_appModel->removeGroup(m_notifyModel);
+    });
     connect(m_notifyModel.get(), &NotifyModel::expandNotify, this, &BubbleGroup::expandAnimation);
     connect(m_notifyModel.get(), &NotifyModel::deleteNotify, this, &BubbleGroup::removeAnimation);
     connect(m_notifyModel.get(), &NotifyModel::appendNotify, this, &BubbleGroup::appendAnimation);
@@ -83,6 +86,13 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
 BubbleGroup::~BubbleGroup()
 {
 
+}
+
+void BubbleGroup::setParentModel(AppGroupModel *model)
+{
+    if (model != nullptr) {
+        m_appModel = model;
+    }
 }
 
 void BubbleGroup::enterEvent(QEvent *event)

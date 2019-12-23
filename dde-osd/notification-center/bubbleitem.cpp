@@ -268,7 +268,7 @@ void BubbleItem::onCloseBubble()
         m_notifyModel->removeNotify(m_entity);
 }
 
-void BubbleItem::setModel(NotifyModel *model)
+void BubbleItem::setParentModel(NotifyModel *model)
 {
     Q_ASSERT(model);
     m_notifyModel = model;

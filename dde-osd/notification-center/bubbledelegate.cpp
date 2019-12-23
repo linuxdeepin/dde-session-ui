@@ -50,7 +50,7 @@ QWidget *BubbleDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         return overlap_widget;
     } else {
         BubbleItem *bubble = new BubbleItem(parent, notify);
-        bubble->setModel(model);
+        bubble->setParentModel(model);
         return bubble;
     }
 }

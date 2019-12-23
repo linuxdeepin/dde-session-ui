@@ -71,7 +71,7 @@ int AppGroupModel::rowCount(const QModelIndex &parent) const
 
 QVariant AppGroupModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() && m_applications.size() <= 0 && index.row() > m_applications.size()) {
+    if (!index.isValid() || index.row() >= m_applications.size()) {
         return QVariant();
     }
 
@@ -175,11 +175,24 @@ void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
     Q_EMIT dataChanged();
 }
 
-void AppGroupModel::removeGroup(const QModelIndex &index)
+int AppGroupModel::indexOf(std::shared_ptr<NotifyModel> model)
 {
-    qDebug() << index.row();
-    int row = index.row();
-    if (row < 0 || row >= m_applications.size()) return;
+    int row = 0;
+    foreach (auto app, m_applications) {
+        auto notify_model = app->notifyModel().value<std::shared_ptr<NotifyModel>>();
+        if (notify_model != nullptr && notify_model == model) {
+            return row;
+        }
+        row ++;
+    }
+
+    return -1;
+}
+
+void AppGroupModel::removeGroup(std::shared_ptr<NotifyModel> model)
+{
+    int row = indexOf(model);
+    if (row >= m_applications.size()) return;
 
     beginRemoveRows(QModelIndex(), row, row);
     auto app = m_applications.takeAt(row);

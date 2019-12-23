@@ -67,7 +67,7 @@ class BubbleItem : public QWidget
 public:
     BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
     ~BubbleItem() override;
-    void setModel(NotifyModel *model);
+    void setParentModel(NotifyModel *model);
     const QPixmap converToPixmap(const QDBusArgument &value);
     void setAlpha(int alpha);
     QList<QPointer<QWidget>> bubbleElements();

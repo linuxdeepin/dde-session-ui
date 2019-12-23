@@ -67,7 +67,7 @@ public:
     AppGroupModel(QObject *parent = nullptr, Persistence *database = nullptr);
     void setView(QListView *view) { m_view = view; }
     QListView *view() { return m_view; }
-    void removeGroup(const QModelIndex &index);
+    void removeGroup(std::shared_ptr<NotifyModel> model);
     QList<QPointer<ApplicationGroup>> appGroups() { return m_applications; }
 
 public:
@@ -82,6 +82,7 @@ Q_SIGNALS:
 
 private:
     void initData();
+    int indexOf(std::shared_ptr<NotifyModel> model);
     void addNotify(std::shared_ptr<NotificationEntity> entity);
     QPointer<ApplicationGroup> appGroup(const QString &app_name);
 

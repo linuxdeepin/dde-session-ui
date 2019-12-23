@@ -107,7 +107,7 @@ void BubbleOverlapWidget::initOverlap()
             m_faceBubbleItem = new BubbleItem(this, notify);
 
             if (m_notifyModel != nullptr)
-                m_faceBubbleItem->setModel(m_notifyModel);
+                m_faceBubbleItem->setParentModel(m_notifyModel);
             setFocusProxy(m_faceBubbleItem);
         }
 
