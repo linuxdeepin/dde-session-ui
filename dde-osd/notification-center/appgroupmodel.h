@@ -77,6 +77,8 @@ public:
 
 Q_SIGNALS:
     void dataChanged();
+    void currentIndexChanged(const QModelIndex &index);
+    void currentIndexChanged_(const QModelIndex &index1, const QModelIndex &index2);
 
 private:
     void initData();

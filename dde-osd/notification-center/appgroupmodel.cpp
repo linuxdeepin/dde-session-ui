@@ -21,6 +21,9 @@
 
 #include "appgroupmodel.h"
 #include "notification/persistence.h"
+#include "notification-center/shortcutmanage.h"
+
+#include <QtDebug>
 
 ApplicationGroup::ApplicationGroup(std::shared_ptr<NotificationEntity> entity, Persistence *database)
 {
@@ -31,7 +34,9 @@ ApplicationGroup::ApplicationGroup(std::shared_ptr<NotificationEntity> entity, P
     connect(m_notifyModel.get(), &NotifyModel::layoutGroup, this, [ = ]() {
         layoutGroup();
 
-        if (m_notifyModel->rowCount() == 0) removeGroup();
+        if (m_notifyModel->rowCount() == 0) {
+            removeGroup();
+        }
     });
 }
 
@@ -40,6 +45,9 @@ AppGroupModel::AppGroupModel(QObject *parent, Persistence *database)
       m_database(database)
 {
     initData();
+
+    connect(this, &AppGroupModel::currentIndexChanged, ShortcutManage::instance(), &ShortcutManage::onGroupIndexChanged);
+    connect(this, &AppGroupModel::currentIndexChanged_, ShortcutManage::instance(), &ShortcutManage::onGroupIndexChanged_);
 }
 
 void AppGroupModel::initData()
@@ -143,6 +151,23 @@ void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
                 beginRemoveRows(QModelIndex(), index, index);
                 m_applications.removeOne(bubble_group);
                 endRemoveRows();
+
+                if (index <= m_applications.size() - 1) {
+                    auto model = this->index(index, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+                    if (model != nullptr) {
+                        Q_EMIT currentIndexChanged_(this->index(index, 0), model->index(0));
+                    } else {
+                        Q_EMIT currentIndexChanged(this->index(index, 0));
+                    }
+                } else {
+                    auto model = this->index(index - 1, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+                    if (model != nullptr) {
+                        Q_EMIT currentIndexChanged_(this->index(index - 1, 0), model->index(model->rowCount() - 1, 0));
+                    } else {
+                        Q_EMIT currentIndexChanged(this->index(index - 1, 0));
+                    }
+                }
+
             }
         });
     }
@@ -152,6 +177,7 @@ void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
 
 void AppGroupModel::removeGroup(const QModelIndex &index)
 {
+    qDebug() << index.row();
     int row = index.row();
     if (row < 0 || row >= m_applications.size()) return;
 

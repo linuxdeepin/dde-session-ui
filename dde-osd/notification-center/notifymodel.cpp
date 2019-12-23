@@ -23,11 +23,16 @@
 #include "notification/notificationentity.h"
 #include "notification/persistence.h"
 #include "notification/constants.h"
+#include "notification-center/shortcutmanage.h"
+
+#include <QDebug>
 
 NotifyModel::NotifyModel(QObject *parent, std::shared_ptr<NotificationEntity> notify)
     : QAbstractListModel(parent)
 {
     addNotify(notify);
+
+    connect(this, &NotifyModel::currentIndexChanged, ShortcutManage::instance(), &ShortcutManage::onViewIndexChanged);
 }
 
 int NotifyModel::rowCount(const QModelIndex &parent) const
@@ -108,18 +113,31 @@ void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
     int index = m_displays.indexOf(entity);
     deleteNotify(index);
 
+    bool update = false;
+
     if (m_displays.contains(entity)) {
         beginRemoveRows(QModelIndex(), index, index);
         m_displays.removeOne(entity);
         endRemoveRows();
+        if (index <= m_displays.size() - 1) {
+            Q_EMIT currentIndexChanged(this->index(index, 0));
+            update = true;
+        } else {
+            if (m_notfications.isEmpty()) { //意味着这条消息删除后就没有新的消息再插入进来了，索引需要-1
+                Q_EMIT currentIndexChanged(this->index(index - 1, 0));
+                update = true;
+            }
+        }
     }
-
-    m_notfications.removeOne(entity);
+    m_notfications.removeOne(entity);//？什么作用
     if (!m_notfications.isEmpty()) {
         int index = m_displays.size();
         beginInsertRows(QModelIndex(), index, index);
         m_displays.push_back(m_notfications.takeFirst());
         endInsertRows();
+        if (!update) {
+            Q_EMIT currentIndexChanged(this->index(index, 0));
+        }
     }
 
     // need remove database

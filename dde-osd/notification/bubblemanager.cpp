@@ -71,7 +71,10 @@ BubbleManager::BubbleManager(QObject *parent)
     QTimer::singleShot(1000, [ = ] {
         for (int i = 0; i < 100; ++i)
         {
+            std::shared_ptr<NotificationEntity> entity = std::make_shared<NotificationEntity>("test", QString::number(i), QString::number(i), QString::number(i), QString::number(i),
+                                                                                              QStringList(), QVariantMap(), QString::number(i), QString::number(i), QString::number(i));
             Notify(QString::number(i), i, QString::number(i), QString::number(i), QString::number(i), QStringList(), QVariantMap(), -1);
+            m_persistence->addOne(entity);
         }
     });
 #endif

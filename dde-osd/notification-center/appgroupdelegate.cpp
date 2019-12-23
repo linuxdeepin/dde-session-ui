@@ -39,8 +39,8 @@ QWidget *AppGroupDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 
     std::shared_ptr<NotifyModel> model = index.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
     QString title = BubbleTool::getDeepinAppName(index.data(AppGroupModel::ApplicationNameRole).toString());
-    AppGroupModel *grpup_model = const_cast<AppGroupModel *>(dynamic_cast<const AppGroupModel *>(index.model()));
-    Q_ASSERT(grpup_model);
+    AppGroupModel *group_model = const_cast<AppGroupModel *>(dynamic_cast<const AppGroupModel *>(index.model()));
+    Q_ASSERT(group_model);
 
     if (model == nullptr) {
         return nullptr;
@@ -48,8 +48,8 @@ QWidget *AppGroupDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 
     BubbleGroup *group = new BubbleGroup(parent, model);
     group->setGroupTitle(title);
-    connect(group, &BubbleGroup::closeGroup, grpup_model, [grpup_model, index]() {
-        grpup_model->removeGroup(index);
+    connect(group, &BubbleGroup::closeGroup, group_model, [group_model, index]() {
+        group_model->removeGroup(index);
     });
     return group;
 }
@@ -61,6 +61,8 @@ QSize AppGroupDelegate::sizeHint(const QStyleOptionViewItem &option, const QMode
 
     int row = model->rowCount();
     int group_height = row * OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + Notify::GroupTitleHeight + Notify::CenterMargin * row;
+//    qDebug() << group_height;
+//    group_height = MIN(group_height, 800);//TODO
     return QSize(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), group_height + Notify::GroupMargin);
 }
 

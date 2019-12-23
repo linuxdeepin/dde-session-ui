@@ -41,17 +41,22 @@ public:
     void setAppModel(AppGroupModel *model);
     void initIndex();
 
+public Q_SLOTS:
+    void onGroupIndexChanged(const QModelIndex &groupIndex);
+    void onGroupIndexChanged_(const QModelIndex &groupIndex, const QModelIndex &index);
+    void onViewIndexChanged(const QModelIndex &index);
+
 protected:
     bool eventFilter(QObject *object, QEvent *event) override;
 
 private:
     explicit ShortcutManage(QObject *parent = nullptr);
     bool handKeyEvent(QObject *object, QKeyEvent *event);
-    bool handPressEvent(QObject *object);
+//    bool handPressEvent(QObject *object);
     bool handBubbleTab(QWidget *item);
     bool calcNextBubbleIndex();
     bool calcNextGroupIndex();
-    bool calcCurrentGroupIndex();
+//    bool calcCurrentGroupIndex();
 
 private:
     static ShortcutManage *m_instance;

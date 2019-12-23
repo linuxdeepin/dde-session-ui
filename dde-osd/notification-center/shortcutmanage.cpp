@@ -63,6 +63,73 @@ void ShortcutManage::initIndex()
     }
 }
 
+void ShortcutManage::onGroupIndexChanged(const QModelIndex &groupIndex)
+{
+    //group发生修改，重置currentIndex为当前group第一个(后面删除)
+    m_currentGroupIndex = groupIndex;
+
+    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
+    if (app_view != nullptr) {
+        if (m_currentGroupIndex.isValid()) {
+            app_view->setCurrentIndex(m_currentGroupIndex);
+            app_view->scrollTo(m_currentGroupIndex);
+        } else {
+            initIndex();
+        }
+
+        auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+        if (model != nullptr) {
+            m_currentIndex = model->index(0);
+            QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
+            group_view->setCurrentIndex(m_currentIndex);
+            group_view->scrollTo(m_currentIndex);
+            group_view->indexWidget(m_currentIndex)->setFocus();
+        }
+    }
+}
+
+void ShortcutManage::onGroupIndexChanged_(const QModelIndex &groupIndex, const QModelIndex &index)
+{
+    m_currentGroupIndex = groupIndex;
+
+    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
+    if (app_view != nullptr) {
+        if (m_currentGroupIndex.isValid()) {
+            app_view->setCurrentIndex(m_currentGroupIndex);
+            app_view->scrollTo(m_currentGroupIndex);
+        } else {
+            initIndex();
+        }
+
+        auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+        if (model != nullptr) {
+            m_currentIndex = index;
+            QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
+            group_view->setCurrentIndex(m_currentIndex);
+            group_view->scrollTo(m_currentIndex);
+            group_view->indexWidget(m_currentIndex)->setFocus();
+        }
+    }
+}
+
+void ShortcutManage::onViewIndexChanged(const QModelIndex &index)
+{
+    if (!index.isValid()) {
+        return;
+    }
+    m_currentIndex = index;
+
+    auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+    if (model != nullptr) {
+        QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
+        if (group_view) {
+            group_view->setCurrentIndex(m_currentIndex);
+            group_view->scrollTo(m_currentIndex);
+            group_view->indexWidget(m_currentIndex)->setFocus();
+        }
+    }
+}
+
 bool ShortcutManage::handBubbleTab(QWidget *item)
 {
     BubbleItem *bubble = qobject_cast<BubbleItem *>(item);
@@ -149,30 +216,30 @@ bool ShortcutManage::calcNextGroupIndex()
     return false;
 }
 
-bool ShortcutManage::calcCurrentGroupIndex()
-{
-    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
-    if (app_view != nullptr) {
-        if (m_currentGroupIndex.isValid()) {
-            app_view->setCurrentIndex(m_currentGroupIndex);
-            app_view->scrollTo(m_currentGroupIndex);
-        } else {
-            initIndex();
-            return true;
-        }
+//bool ShortcutManage::calcCurrentGroupIndex()
+//{
+//    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
+//    if (app_view != nullptr) {
+//        if (m_currentGroupIndex.isValid()) {
+//            app_view->setCurrentIndex(m_currentGroupIndex);
+//            app_view->scrollTo(m_currentGroupIndex);
+//        } else {
+//            initIndex();
+//            return true;
+//        }
 
-        auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
-        if (model != nullptr) {
-            m_currentIndex = model->index(0);
-            QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
-            group_view->setCurrentIndex(m_currentIndex);
-            group_view->scrollTo(m_currentIndex);
-            group_view->indexWidget(m_currentIndex)->setFocus();
-        }
-        return true;
-    }
-    return false;
-}
+//        auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+//        if (model != nullptr) {
+//            m_currentIndex = model->index(0);
+//            QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
+//            group_view->setCurrentIndex(m_currentIndex);
+//            group_view->scrollTo(m_currentIndex);
+//            group_view->indexWidget(m_currentIndex)->setFocus();
+//        }
+//        return true;
+//    }
+//    return false;
+//}
 
 bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
 {
@@ -194,45 +261,42 @@ bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
         }
 
         m_currentElement = nullptr;
-        if (!calcNextBubbleIndex()) calcCurrentGroupIndex();
         return true;
     }
     return false;
 }
 
-bool ShortcutManage::handPressEvent(QObject *object)
-{
-    BubbleGroup *group = qobject_cast<BubbleGroup *>(object);
-    if (group != nullptr) {
-        QListView *app_view = m_appModel->view();
-        if (app_view != nullptr) {
-            m_currentGroupIndex = app_view->indexAt(group->pos());
-        }
-    }
+//bool ShortcutManage::handPressEvent(QObject *object)
+//{
+//    BubbleGroup *group = qobject_cast<BubbleGroup *>(object);
+//    if (group != nullptr) {
+//        QListView *app_view = m_appModel->view();
+//        if (app_view != nullptr) {
+//            m_currentGroupIndex = app_view->indexAt(group->pos());
+//        }
+//    }
 
-    BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
-    BubbleOverlapWidget *overlap = qobject_cast<BubbleOverlapWidget *>(object);
-    if (bubble != nullptr || overlap != nullptr) {
-        auto notify_model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
-        if (notify_model != nullptr) {
-            QListView *group_view = notify_model->view();
-            if (group_view != nullptr) {
-                if (bubble != nullptr) m_currentIndex = group_view->indexAt(bubble->pos());
-                if (overlap != nullptr) m_currentIndex = group_view->indexAt(overlap->pos());
-            }
-        }
-    }
+//    BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
+//    BubbleOverlapWidget *overlap = qobject_cast<BubbleOverlapWidget *>(object);
+//    if (bubble != nullptr || overlap != nullptr) {
+//        auto notify_model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+//        if (notify_model != nullptr) {
+//            QListView *group_view = notify_model->view();
+//            if (group_view != nullptr) {
+//                if (bubble != nullptr) m_currentIndex = group_view->indexAt(bubble->pos());
+//                if (overlap != nullptr) m_currentIndex = group_view->indexAt(overlap->pos());
+//            }
+//        }
+//    }
 
-    return false;
-}
+//    return false;
+//}
 
 bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *key = static_cast<QKeyEvent *>(event);
         return handKeyEvent(object, key);
-    } else if (event->type() == QEvent::Enter) {
-        return handPressEvent(object);
     }
 
     return false;

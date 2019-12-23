@@ -67,6 +67,7 @@ signals:
     void expandNotify();
     void deleteNotify(int index);
     void layoutGroup();
+    void currentIndexChanged(const QModelIndex &index);     //通知ShortManager
 
 public:
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;

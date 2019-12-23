@@ -144,6 +144,7 @@ void BubbleItem::initContent()
     connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & id) {
         BubbleTool::actionInvoke(id, m_entity);
 
+        qDebug() << __PRETTY_FUNCTION__;
         if (m_notifyModel != nullptr)
             m_notifyModel->removeNotify(m_entity);
     });
