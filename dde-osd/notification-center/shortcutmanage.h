@@ -52,7 +52,7 @@ protected:
 private:
     explicit ShortcutManage(QObject *parent = nullptr);
     bool handKeyEvent(QObject *object, QKeyEvent *event);
-//    bool handPressEvent(QObject *object);
+    bool handPressEvent(QObject *object);
     bool handBubbleTab(QWidget *item);
     bool calcNextBubbleIndex();
     bool calcNextGroupIndex();

@@ -266,37 +266,39 @@ bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
     return false;
 }
 
-//bool ShortcutManage::handPressEvent(QObject *object)
-//{
-//    BubbleGroup *group = qobject_cast<BubbleGroup *>(object);
-//    if (group != nullptr) {
-//        QListView *app_view = m_appModel->view();
-//        if (app_view != nullptr) {
-//            m_currentGroupIndex = app_view->indexAt(group->pos());
-//        }
-//    }
+bool ShortcutManage::handPressEvent(QObject *object)
+{
+    BubbleGroup *group = qobject_cast<BubbleGroup *>(object);
+    if (group != nullptr) {
+        QListView *app_view = m_appModel->view();
+        if (app_view != nullptr) {
+            m_currentGroupIndex = app_view->indexAt(group->pos());
+        }
+    }
 
-//    BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
-//    BubbleOverlapWidget *overlap = qobject_cast<BubbleOverlapWidget *>(object);
-//    if (bubble != nullptr || overlap != nullptr) {
-//        auto notify_model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
-//        if (notify_model != nullptr) {
-//            QListView *group_view = notify_model->view();
-//            if (group_view != nullptr) {
-//                if (bubble != nullptr) m_currentIndex = group_view->indexAt(bubble->pos());
-//                if (overlap != nullptr) m_currentIndex = group_view->indexAt(overlap->pos());
-//            }
-//        }
-//    }
+    BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
+    BubbleOverlapWidget *overlap = qobject_cast<BubbleOverlapWidget *>(object);
+    if (bubble != nullptr || overlap != nullptr) {
+        auto notify_model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+        if (notify_model != nullptr) {
+            QListView *group_view = notify_model->view();
+            if (group_view != nullptr) {
+                if (bubble != nullptr) m_currentIndex = group_view->indexAt(bubble->pos());
+                if (overlap != nullptr) m_currentIndex = group_view->indexAt(overlap->pos());
+            }
+        }
+    }
 
-//    return false;
-//}
+    return false;
+}
 
 bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *key = static_cast<QKeyEvent *>(event);
         return handKeyEvent(object, key);
+    } else if (event->type() == QEvent::Enter) {
+        return handPressEvent(object);
     }
 
     return false;
