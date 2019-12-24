@@ -23,7 +23,8 @@
 #include <QCommandLineParser>
 #include <QPainter>
 #include <QDebug>
-
+#include <QFile>
+#include <QBuffer>
 #include <DGuiApplicationHelper>
 
 #define MATRIX              16          //图片大小
@@ -81,7 +82,7 @@ int main(int argc, char *argv[])
     a.setApplicationVersion("0.0.1");
 
     QCommandLineOption option(QStringList() << "o" << "output", "Output suitable background image.");
-    option.setValueName("FileName");
+    option.setValueName("path");
 
     QCommandLineParser cmdParser;
     cmdParser.setApplicationDescription("DDE");
@@ -93,13 +94,33 @@ int main(int argc, char *argv[])
 
     if (cmdParser.isSet(option)) {
         QString outFile = cmdParser.value(option);
-        if (!outFile.isEmpty() && a.arguments().size() >= 4) {
-            QString inFile = a.arguments().at(3);
+        if (outFile == "-") {
+            QString inFile = a.arguments().last();
             QPixmap pix = calcPix(inFile);
             if (!pix.isNull()) {
-                pix.save(outFile, nullptr, 100);
+                QPixmap pixmap(pix);
+                QByteArray bytes;
+                QBuffer buffer(&bytes);
+                buffer.open(QIODevice::WriteOnly);
+                pixmap.save(&buffer, "PNG");
+
+                QFile *out = new QFile();
+                out->open(stdout, QIODevice::ReadWrite);
+                out->write(bytes);
+                out->flush();
+                out->close();
             } else {
                 return -1;
+            }
+        } else {
+            if (!outFile.isEmpty()) {
+                QString inFile = a.arguments().last();
+                QPixmap pix = calcPix(inFile);
+                if (!pix.isNull()) {
+                    pix.save(outFile, nullptr, 100);
+                } else {
+                    return -1;
+                }
             }
         }
     }
