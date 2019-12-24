@@ -9,13 +9,13 @@
 #define MIN(a,b) ((a)>(b)?(b):(a))
 #define ABS(a) (a)>0?(a):(-(a))
 
-static const int ScreenPadding = 20;    //最上方通知距屏幕上方间隔
-static const int BubbleMargin = 12;     //桌面消息通知间隔
-static const int BubblePadding = 10;    //消息通知内部Padding
-static const int BubbleSpacing = 10;    //消息通知内部Space
-static const int BubbleTimeout = 5000;  //通知默认超时时间(毫秒)
+static const int ScreenPadding = 20;            //最上方通知距屏幕上方间隔
+static const int BubbleMargin = 12;             //桌面消息通知间隔
+static const int BubblePadding = 10;            //消息通知内部Padding
+static const int BubbleSpacing = 10;            //消息通知内部Space
+static const int BubbleTimeout = 5000;          //通知默认超时时间(毫秒)
 static const int BubbleEntities = 3;
-static const int BubbleOverLap = 2;     //层叠的气泡数量
+static const int BubbleOverLap = 2;             //层叠的气泡数量
 static const int BubbleOverLapHeight = 12;      //通知中心层叠层高度
 static const QString NoReplaceId = "0";         //为0 返回一个计数值给程序
 static const int AnimationTime = 300;           //动画时间，单位：毫秒
@@ -31,7 +31,7 @@ static const int GroupTitleHeight = 32;
 static const int GroupButtonSize = 24;
 static const int GroupMargin = 30;
 static const int BubbleDefaultAlpha = 20;       //bubble控件透明度
-static const qreal BubbleOpacity = 0.6;    //bubble内容的透明度
+static const qreal BubbleOpacity = 0.6;         //bubble内容的透明度
 }
 
 class OSD
