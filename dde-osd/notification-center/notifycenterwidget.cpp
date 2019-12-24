@@ -41,6 +41,7 @@
 #include <DLabel>
 #include <DFontSizeManager>
 #include <DGuiApplicationHelper>
+#include <DRegionMonitor>
 
 DWIDGET_USE_NAMESPACE
 
@@ -56,6 +57,16 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     installEventFilter(this);
 
     CompositeChanged();
+
+    DRegionMonitor *monitor = new DRegionMonitor(this);
+    monitor->registerRegion(QRegion(QRect()));
+    connect(monitor, &DRegionMonitor::buttonPress, this, [ = ](const QPoint & p, const int flag) {
+        Q_UNUSED(flag);
+        if (!m_notifyRect.contains(p))
+            if (!isHidden()) {
+                hideAni();
+            }
+    });
 }
 
 void NotifyCenterWidget::initUI()
@@ -232,11 +243,11 @@ void NotifyCenterWidget::showWidget()
 
 bool NotifyCenterWidget::eventFilter(QObject *watched, QEvent *e)
 {
-    if (e->type() == QEvent::WindowDeactivate) {
+//    if (e->type() == QEvent::WindowDeactivate) {
 
-        if (!isHidden()) {
-            hideAni();
-        }
-    }
+//        if (!isHidden()) {
+//            hideAni();
+//        }
+//    }
     return QWidget::eventFilter(watched, e);
 }
