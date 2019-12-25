@@ -209,7 +209,9 @@ void BubbleItem::mousePressEvent(QMouseEvent *event)
 
 void BubbleItem::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (m_pressPoint == event->pos()) {
+    if (m_notifyModel != nullptr && m_entity != nullptr && m_notifyModel->canExpand(m_entity)) {
+        m_notifyModel->expandData(m_entity);
+    } else if (m_pressPoint == event->pos()) {
         BubbleTool::actionInvoke(m_defaultAction, m_entity);
         m_defaultAction.clear();
 
