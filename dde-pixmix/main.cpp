@@ -24,7 +24,8 @@
 #include <QPainter>
 #include <QDebug>
 #include <QFile>
-#include <QBuffer>
+#include <QImageReader>
+
 #include <DGuiApplicationHelper>
 
 #define MATRIX              16          //图片大小
@@ -37,6 +38,7 @@ DGUI_USE_NAMESPACE
 QPixmap calcPix(const QString &pixPath)
 {
     QPixmap pix(pixPath);
+    pix.toImage().format();
     if (pix.isNull())
         return pix;
 
@@ -97,16 +99,11 @@ int main(int argc, char *argv[])
         if (outFile == "-") {
             QString inFile = a.arguments().last();
             QPixmap pix = calcPix(inFile);
-            if (!pix.isNull()) {
-                QPixmap pixmap(pix);
-                QByteArray bytes;
-                QBuffer buffer(&bytes);
-                buffer.open(QIODevice::WriteOnly);
-                pixmap.save(&buffer, "PNG");
 
+            if (!pix.isNull()) {
                 QFile *out = new QFile();
-                out->open(stdout, QIODevice::ReadWrite);
-                out->write(bytes);
+                out->open(stdout, QIODevice::WriteOnly);
+                pix.save(out, QImageReader::imageFormat(inFile), 100);
                 out->flush();
                 out->close();
             } else {
@@ -117,7 +114,7 @@ int main(int argc, char *argv[])
                 QString inFile = a.arguments().last();
                 QPixmap pix = calcPix(inFile);
                 if (!pix.isNull()) {
-                    pix.save(outFile, nullptr, 100);
+                    pix.save(outFile, QImageReader::imageFormat(inFile), 100);
                 } else {
                     return -1;
                 }
