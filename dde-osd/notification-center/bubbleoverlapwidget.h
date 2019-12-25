@@ -56,6 +56,9 @@ private:
     QList<std::shared_ptr<NotificationEntity>> m_notifications;
     NotifyModel *m_notifyModel = nullptr;
     BubbleItem *m_faceBubbleItem = nullptr;
+
+protected:
+    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 };
 
 #endif // NOTIFYWIDGET_H

@@ -23,6 +23,7 @@
 #include "shortcutmanage.h"
 #include "notification/notificationentity.h"
 #include "notification/constants.h"
+#include "notifymodel.h"
 #include <QPointer>
 
 HalfRoundedRectWidget::HalfRoundedRectWidget(QWidget *parent)
@@ -114,4 +115,12 @@ void BubbleOverlapWidget::initOverlap()
         scal_ratio = (scal_ratio * 19) / 20;
         index ++;
     }
+}
+
+void BubbleOverlapWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (m_notifyModel != nullptr && !m_notifications.empty() && m_notifyModel->canExpand(m_notifications.first())) {
+            m_notifyModel->expandData(m_notifications.first());
+    }
+    return QWidget::mouseReleaseEvent(event);
 }
