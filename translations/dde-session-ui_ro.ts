@@ -2,22 +2,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="174"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
         <source>Just Now</source>
         <translation>Chiar acum</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="178"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
         <source>%1 minutes ago</source>
         <translation>%1 minute în urmă</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
         <source>%1 hours ago</source>
         <translation>%1 ore în urmă</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
         <source>Yesterday </source>
         <translation>Ieri</translation>
     </message>
@@ -25,24 +25,24 @@
 <context>
     <name>Content</name>
     <message>
+        <location filename="../dde-license-dialog/content.cpp" line="32"/>
+        <source>Chinese</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../dde-license-dialog/content.cpp" line="33"/>
+        <source>English</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="44"/>
         <source>Cancel</source>
         <translation>Anulare</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="34"/>
+        <location filename="../dde-license-dialog/content.cpp" line="45"/>
         <source>Confirm</source>
         <translation>Confirm</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="149"/>
-        <source>View in English</source>
-        <translation>Vizualizare în Engleză</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="152"/>
-        <source>View in Chinese</source>
-        <translation>Vizualizare în Chineză</translation>
     </message>
 </context>
 <context>
@@ -390,7 +390,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="73"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="90"/>
         <source>Notification Center</source>
         <translation>Centru Notificări</translation>
     </message>

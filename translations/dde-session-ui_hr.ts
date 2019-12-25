@@ -2,47 +2,47 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="174"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>Upravo sada</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="178"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
         <source>%1 minutes ago</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
         <source>%1 hours ago</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
         <source>Yesterday </source>
-        <translation type="unfinished"/>
+        <translation>Jučer</translation>
     </message>
 </context>
 <context>
     <name>Content</name>
     <message>
+        <location filename="../dde-license-dialog/content.cpp" line="32"/>
+        <source>Chinese</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../dde-license-dialog/content.cpp" line="33"/>
+        <source>English</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="44"/>
         <source>Cancel</source>
         <translation>Otkaži</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="34"/>
+        <location filename="../dde-license-dialog/content.cpp" line="45"/>
         <source>Confirm</source>
         <translation>Potvrdi</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="149"/>
-        <source>View in English</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="152"/>
-        <source>View in Chinese</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -129,7 +129,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation type="unfinished"/>
+        <translation>Izdanje</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
@@ -355,12 +355,12 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Potrebna je lozinka za spajanje &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
         <source>Wrong password, please enter again!</source>
-        <translation type="unfinished"/>
+        <translation>Pogrešna lozinka, molim unesite lozinku ponovno!</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
@@ -379,20 +379,20 @@
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="94"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Centar obavijesti</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1 obavijesti</translation>
     </message>
 </context>
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="73"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="90"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Centar obavijesti</translation>
     </message>
 </context>
 <context>

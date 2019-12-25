@@ -2,22 +2,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="174"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
         <source>Just Now</source>
         <translation>Gerade eben</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="178"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
         <source>%1 minutes ago</source>
         <translation>vor %1 Minuten</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
         <source>%1 hours ago</source>
         <translation>vor %1 Stunden</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
         <source>Yesterday </source>
         <translation>Gestern</translation>
     </message>
@@ -25,24 +25,24 @@
 <context>
     <name>Content</name>
     <message>
+        <location filename="../dde-license-dialog/content.cpp" line="32"/>
+        <source>Chinese</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../dde-license-dialog/content.cpp" line="33"/>
+        <source>English</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="44"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="34"/>
+        <location filename="../dde-license-dialog/content.cpp" line="45"/>
         <source>Confirm</source>
         <translation>Bestätigen</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="149"/>
-        <source>View in English</source>
-        <translation>Auf Englisch anzeigen</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="152"/>
-        <source>View in Chinese</source>
-        <translation>Auf Chinesisch anzeigen</translation>
     </message>
 </context>
 <context>
@@ -355,12 +355,12 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Kennwort erforderlich, um &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; zu verbinden</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
         <source>Wrong password, please enter again!</source>
-        <translation type="unfinished"/>
+        <translation>Falsches Passwort, bitte erneut eingeben!</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
@@ -390,7 +390,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="73"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="90"/>
         <source>Notification Center</source>
         <translation>Benachrichtigungszentrum</translation>
     </message>

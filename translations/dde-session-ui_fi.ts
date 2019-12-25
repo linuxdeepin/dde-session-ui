@@ -2,22 +2,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="174"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
         <source>Just Now</source>
         <translation>Juuri nyt</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="178"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
         <source>%1 minutes ago</source>
         <translation>%1 minuuttia sitten</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
         <source>%1 hours ago</source>
         <translation>%1 tuntia sitten</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
         <source>Yesterday </source>
         <translation>Eilen</translation>
     </message>
@@ -25,24 +25,24 @@
 <context>
     <name>Content</name>
     <message>
+        <location filename="../dde-license-dialog/content.cpp" line="32"/>
+        <source>Chinese</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../dde-license-dialog/content.cpp" line="33"/>
+        <source>English</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-license-dialog/content.cpp" line="44"/>
         <source>Cancel</source>
         <translation>Peruuta</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="34"/>
+        <location filename="../dde-license-dialog/content.cpp" line="45"/>
         <source>Confirm</source>
         <translation>Vahvista</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="149"/>
-        <source>View in English</source>
-        <translation>Näytä englanniksi</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="152"/>
-        <source>View in Chinese</source>
-        <translation>Näytä kiinaksi</translation>
     </message>
 </context>
 <context>
@@ -355,12 +355,12 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Yhteyden muodostamiseen vaaditaan salasana &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
         <source>Wrong password, please enter again!</source>
-        <translation type="unfinished"/>
+        <translation>Väärä salasana, yritä uudelleen!</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
@@ -390,7 +390,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="73"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="90"/>
         <source>Notification Center</source>
         <translation>Ilmoituskeskus</translation>
     </message>

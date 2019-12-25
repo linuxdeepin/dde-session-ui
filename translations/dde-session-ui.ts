@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="en" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="en" sourcelanguage="en" version="2.1">
 <context>
     <name>BubbleItem</name>
     <message>
@@ -29,12 +27,12 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="32"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Chinese</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="33"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>English</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="44"/>
@@ -525,10 +523,7 @@
     </message>
     <message numerus="yes">
         <source>Please try again %n minute(s) later</source>
-        <translation type="vanished">
-            <numerusform>Please try again %n minute(s) later</numerusform>
-            <numerusform>Please try again %n minute(s) later</numerusform>
-        </translation>
+        <translation type="vanished"><numerusform>Please try again %n minute(s) later</numerusform><numerusform>Please try again %n minute(s) later</numerusform></translation>
     </message>
     <message>
         <source>Enter your password to shut down</source>
