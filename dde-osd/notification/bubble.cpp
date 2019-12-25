@@ -93,6 +93,7 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     //  0: never times out
     // -1: default 5s
     m_outTimer->setInterval(timeout == -1 ? BubbleTimeout : (timeout == 0 ? -1 : timeout));
+    m_outTimer->start();
 }
 
 void Bubble::setEnabled(bool enable)
@@ -260,6 +261,7 @@ void Bubble::initConnections()
 
         Q_EMIT dismissed(this);
         m_outTimer->stop();
+        m_outTimer->start();
         Q_EMIT actionInvoked(this, action_id);
     });
 
@@ -294,7 +296,6 @@ void Bubble::initTimers()
     m_quitTimer->setSingleShot(true);
 
     m_outTimer->setInterval(BubbleTimeout);
-    m_outTimer->setSingleShot(true);
     connect(m_outTimer, &QTimer::timeout, this, &Bubble::onOutTimerTimeout);
 }
 
