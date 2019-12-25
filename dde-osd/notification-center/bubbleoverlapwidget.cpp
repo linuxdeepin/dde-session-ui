@@ -120,7 +120,7 @@ void BubbleOverlapWidget::initOverlap()
 void BubbleOverlapWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     if (m_notifyModel != nullptr && !m_notifications.empty() && m_notifyModel->canExpand(m_notifications.first())) {
-            m_notifyModel->expandData(m_notifications.first());
+        m_notifyModel->expandData(m_notifications.first());
     }
     return QWidget::mouseReleaseEvent(event);
 }
