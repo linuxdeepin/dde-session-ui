@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <dtkwidget_global.h>
+#include <DButtonBox>
 
 DWIDGET_BEGIN_NAMESPACE
 class DSuggestButton;
@@ -30,6 +31,7 @@ public slots:
 private:
     void updateLanguageBtn();
     void updateContent();
+    void updateWindowHeight();
 
 private:
     QScrollArea* m_scrollArea;
@@ -37,7 +39,7 @@ private:
     QPushButton* m_cancelBtn;
     DTK_WIDGET_NAMESPACE::DSuggestButton* m_acceptBtn;
     QLabel* m_source;
-    DTK_WIDGET_NAMESPACE::DCommandLinkButton* m_languageBtn;
+    DTK_WIDGET_NAMESPACE::DButtonBox* m_languageBtn;
     QString m_cn;
     QString m_en;
     bool m_isCn;

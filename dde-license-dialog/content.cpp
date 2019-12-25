@@ -21,19 +21,30 @@ Content::Content(QWidget *parent)
     , m_cancelBtn(new QPushButton)
     , m_acceptBtn(new DSuggestButton)
     , m_source(new QLabel)
-    , m_languageBtn(new DCommandLinkButton(""))
+    , m_languageBtn(new DButtonBox)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
 
     setLayout(layout);
+
+    DButtonBoxButton *btnChinese = new DButtonBoxButton(tr("Chinese"));
+    DButtonBoxButton *btnEnginsh = new DButtonBoxButton(tr("English"));
+    QList<DButtonBoxButton *> btnlist;
+    btnlist.append(btnChinese);
+    btnlist.append(btnEnginsh);
+    m_languageBtn->setButtonList(btnlist, true);
+    btnChinese->setChecked(true);
+    m_languageBtn->setId(btnChinese, 1);
+    m_languageBtn->setId(btnEnginsh, 0);
+
     layout->addWidget(m_languageBtn, 0, Qt::AlignHCenter);
 
     m_cancelBtn->setText(tr("Cancel"));
     m_acceptBtn->setText(tr("Confirm"));
 
-    m_scrollArea->setMinimumSize(468,491);
+    m_scrollArea->setMinimumSize(468,300);
     m_scrollArea->setWidgetResizable(true);
     m_scrollArea->setFrameStyle(QFrame::NoFrame);
     m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -48,6 +59,8 @@ Content::Content(QWidget *parent)
     sourceLayout->addWidget(m_source);
     sourceLayout->addStretch();
     m_source->setWordWrap(true);
+    // 左右边距20
+    m_source->setContentsMargins(20, 0, 20, 0);
 
     m_scrollArea->setWidget(sourceWidget);
 
@@ -72,16 +85,6 @@ Content::Content(QWidget *parent)
     layout->addWidget(m_scrollArea);
     layout->addWidget(bottom);
 
-//    QWidget* lineWidget = new QWidget(this);
-//    lineWidget->setObjectName("LineWidget");
-//    lineWidget->setFixedWidth(520);
-//    lineWidget->setFixedHeight(2);
-//    lineWidget->move(0, 490);
-
-//    setStyleSheet("#LineWidget {"
-//        "border: 1px solid rgba(0, 0, 0, 0.1);"
-//        "}");
-
     m_acceptBtn->setDisabled(true);
 
     connect(m_cancelBtn, &QPushButton::clicked, this, [=] {
@@ -94,8 +97,8 @@ Content::Content(QWidget *parent)
 
     connect(m_acceptCheck, &QCheckBox::toggled, m_acceptBtn, &QPushButton::setEnabled);
 
-    connect(m_languageBtn, &QPushButton::clicked, this, [=] {
-        m_isCn = !m_isCn;
+    connect(m_languageBtn, &DButtonBox::buttonClicked, [this](QAbstractButton *value) {
+        m_isCn = m_languageBtn->id(value);
         updateContent();
     });
 
@@ -113,6 +116,8 @@ void Content::setSource(const QString &source)
     if (file.open(QIODevice::Text | QIODevice::ReadOnly)) {
         m_source->setText(file.readAll());
         file.close();
+
+        updateWindowHeight();
     }
 }
 
@@ -128,6 +133,7 @@ void Content::setCnSource(const QString &source)
     m_cn = source;
     setSource(source);
     updateLanguageBtn();
+    m_languageBtn->button(1)->setChecked(true);
 }
 
 void Content::setEnSource(const QString &source)
@@ -135,6 +141,7 @@ void Content::setEnSource(const QString &source)
     m_en = source;
     setSource(source);
     updateLanguageBtn();
+    m_languageBtn->button(0)->setChecked(true);
 }
 
 void Content::updateLanguageBtn()
@@ -146,9 +153,18 @@ void Content::updateContent()
 {
     if (m_isCn) {
         setSource(m_cn);
-        m_languageBtn->setText(tr("View in English"));
     } else {
         setSource(m_en);
-        m_languageBtn->setText(tr("View in Chinese"));
     }
+}
+
+// 根据文本多少，调整窗口大小
+void Content::updateWindowHeight()
+{
+    QRect rc = m_source->rect();
+    rc.setWidth(rc.width() - 40);
+    QSize sz = m_source->fontMetrics().boundingRect(rc, Qt::TextWordWrap, m_source->text()).size();
+
+    int minHeight = qBound(300, sz.height(), 491);
+    m_scrollArea->setMinimumHeight(minHeight);
 }

@@ -4,8 +4,11 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
+#include <DFontSizeManager>
+DTK_USE_NAMESPACE
+
 MainWindow::MainWindow(QWidget *parent)
-    : DAbstractDialog(parent)
+    : DAbstractDialog(false, parent)
     , m_title(new QLabel)
     , m_content(new Content)
 {
@@ -17,17 +20,13 @@ MainWindow::MainWindow(QWidget *parent)
     layout->setMargin(0);
     layout->setSpacing(0);
 
-    layout->addSpacing(8);
+    layout->addSpacing(20);
     layout->addWidget(m_title, 0, Qt::AlignHCenter);
     layout->addWidget(m_content);
 
     setLayout(layout);
 
-    m_title->setStyleSheet("#TitleLabel {"
-        "font-size: 25px;"
-        "font-weight: bold;"
-        "color: #303030;"
-        "}");
+    DFontSizeManager::instance()->bind(m_title,DFontSizeManager::SizeType::T5,QFont::Weight::Medium);
 }
 
 MainWindow::~MainWindow()
