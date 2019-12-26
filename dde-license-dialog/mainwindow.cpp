@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setLayout(layout);
 
-    DFontSizeManager::instance()->bind(m_title,DFontSizeManager::SizeType::T5,QFont::Weight::Medium);
+    DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
 }
 
 MainWindow::~MainWindow()
