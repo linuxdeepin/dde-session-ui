@@ -161,6 +161,8 @@ void NotifyModel::expandData(std::shared_ptr<NotificationEntity> entity)
         layoutGroup();
         expandNotify();
     }
+
+    Q_EMIT currentIndexChanged(this->index(index, 0));
 }
 
 void NotifyModel::collapseData()

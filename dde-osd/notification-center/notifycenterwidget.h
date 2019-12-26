@@ -38,10 +38,13 @@ DGUI_USE_NAMESPACE
 
 class Persistence;
 class QVariantAnimation;
+class QPropertyAnimation;
+class QSequentialAnimationGroup;
 class NotifyCenterWidget : public DBlurEffectWidget
 {
     Q_OBJECT
     Q_PROPERTY(int width WRITE setFixedWidth)
+    Q_PROPERTY(int x WRITE setX)
 public:
     explicit NotifyCenterWidget(Persistence *database = nullptr);
     void showWidget();
@@ -65,13 +68,17 @@ private:
 
 private Q_SLOTS:
     void CompositeChanged();
+    void setX(int x);
 
 private:
     QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
     DLabel *title_label = nullptr;
     QRect m_notifyRect;
-    QVariantAnimation *m_widthAni;
+    QRect m_dockRect;
+    QPropertyAnimation *m_xAni;
+    QPropertyAnimation *m_widthAni;
+    QSequentialAnimationGroup *m_aniGroup;
     DWindowManagerHelper *m_wmHelper;
     bool m_hasComposite = false;
 };

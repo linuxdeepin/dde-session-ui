@@ -204,7 +204,7 @@ void BubbleItem::mousePressEvent(QMouseEvent *event)
 {
     m_pressPoint = event->pos();
 
-    return QWidget::mousePressEvent(event);
+    return DWidget::mousePressEvent(event);
 }
 
 void BubbleItem::mouseReleaseEvent(QMouseEvent *event)
@@ -219,34 +219,51 @@ void BubbleItem::mouseReleaseEvent(QMouseEvent *event)
             m_notifyModel->removeNotify(m_entity);
     }
 
-    QWidget::mouseReleaseEvent(event);
+    DWidget::mouseReleaseEvent(event);
+}
+
+void BubbleItem::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Return) {
+        //优先展开
+        if (m_notifyModel != nullptr && m_entity != nullptr && m_notifyModel->canExpand(m_entity)) {
+            m_notifyModel->expandData(m_entity);
+        } else {
+            BubbleTool::actionInvoke(m_defaultAction, m_entity);
+            m_defaultAction.clear();
+
+            if (m_notifyModel != nullptr)
+                m_notifyModel->removeNotify(m_entity);
+        }
+    }
+    return DWidget::keyPressEvent(event);
 }
 
 void BubbleItem::enterEvent(QEvent *event)
 {
     setFocus();
     Q_EMIT havorStateChanged(true);
-    return QWidget::enterEvent(event);
+    return DWidget::enterEvent(event);
 }
 
 void BubbleItem::leaveEvent(QEvent *event)
 {
     Q_EMIT havorStateChanged(false);
-    return QWidget::leaveEvent(event);
+    return DWidget::leaveEvent(event);
 }
 
 void BubbleItem::focusInEvent(QFocusEvent *event)
 {
     m_bgWidget->setHasFocus(true);
     Q_EMIT havorStateChanged(true);
-    return QWidget::focusInEvent(event);
+    return DWidget::focusInEvent(event);
 }
 
 void BubbleItem::focusOutEvent(QFocusEvent *event)
 {
     m_bgWidget->setHasFocus(false);
     Q_EMIT havorStateChanged(false);
-    return QWidget::focusOutEvent(event);
+    return DWidget::focusOutEvent(event);
 }
 
 void BubbleItem::onHavorStateChanged(bool hover)

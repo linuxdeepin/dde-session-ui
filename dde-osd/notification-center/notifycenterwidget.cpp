@@ -31,11 +31,13 @@
 #include <QDesktopWidget>
 #include <QBoxLayout>
 #include <QDBusInterface>
-#include <QVariantAnimation>
+//#include <QVariantAnimation>
 #include <QPalette>
 #include <QDebug>
 #include <QTimer>
 #include <QScreen>
+#include <QPropertyAnimation>
+#include <QSequentialAnimationGroup>
 
 #include <DIconButton>
 #include <DLabel>
@@ -47,7 +49,9 @@ DWIDGET_USE_NAMESPACE
 
 NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     : m_notifyWidget(new NotifyWidget(this, database))
-    , m_widthAni(new QVariantAnimation(this))
+    , m_xAni(new QPropertyAnimation(this, "x"))
+    , m_widthAni(new QPropertyAnimation(this, "width"))
+    , m_aniGroup(new QSequentialAnimationGroup(this))
     , m_wmHelper(DWindowManagerHelper::instance())
 {
     initUI();
@@ -62,7 +66,7 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     monitor->registerRegion(QRegion(QRect()));
     connect(monitor, &DRegionMonitor::buttonPress, this, [ = ](const QPoint & p, const int flag) {
         Q_UNUSED(flag);
-        if (!m_notifyRect.contains(p))
+        if (!geometry().contains(p) && !m_dockRect.contains(p))
             if (!isHidden()) {
                 hideAni();
             }
@@ -122,8 +126,14 @@ void NotifyCenterWidget::initUI()
 
 void NotifyCenterWidget::initAnimations()
 {
+    m_xAni->setEasingCurve(QEasingCurve::Linear);
+    m_xAni->setDuration(AnimationTime / 2);
+
     m_widthAni->setEasingCurve(QEasingCurve::Linear);
     m_widthAni->setDuration(AnimationTime);
+
+    m_aniGroup->addAnimation(m_xAni);
+    m_aniGroup->addAnimation(m_widthAni);
 }
 
 void NotifyCenterWidget::initConnections()
@@ -132,10 +142,7 @@ void NotifyCenterWidget::initConnections()
 
     connect(m_widthAni, &QVariantAnimation::valueChanged, this, [ = ](const QVariant & value) {
         int width = value.toInt();
-        int x = int(width * 1.0 / 400 * 10);
-
-        this->setFixedWidth(width);
-        move(m_notifyRect.x() + m_notifyRect.width() - x - width, m_notifyRect.y());
+        move(m_notifyRect.x() + m_notifyRect.width() + Notify::CenterMargin - width, m_notifyRect.y());
     });
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &NotifyCenterWidget::CompositeChanged, Qt::QueuedConnection);
@@ -147,6 +154,8 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     dock.setWidth(int(qreal(dock.width()) / scale));
     dock.setHeight(int(qreal(dock.height()) / scale));
 
+    m_dockRect = dock;
+
     screen.setWidth(int(qreal(screen.width()) / scale));
     screen.setHeight(int(qreal(screen.height()) / scale));
 
@@ -155,7 +164,7 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom)
         height = screen.height() - Notify::CenterMargin * 2 - dock.height();
 
-    int x = screen.x() + screen.width() - Notify::CenterWidth;
+    int x = screen.x() + screen.width() - Notify::CenterWidth - Notify::CenterMargin;
     if (pos == OSD::DockPosition::Right)
         x = screen.width() - (Notify::CenterWidth + dock.width());
 
@@ -165,8 +174,12 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
 
     m_notifyRect = QRect(x, y, width, height);
     setGeometry(m_notifyRect);
+
     m_notifyWidget->setFixedWidth(m_notifyRect.width() - 2 * Notify::CenterMargin);
     setFixedSize(m_notifyRect.size());
+
+    m_xAni->setStartValue(m_notifyRect.x());
+    m_xAni->setEndValue(m_notifyRect.x() + Notify::CenterMargin);
 
     m_widthAni->setStartValue(int(m_notifyRect.width()));
     m_widthAni->setEndValue(0);
@@ -192,7 +205,7 @@ void NotifyCenterWidget::refreshTheme()
 void NotifyCenterWidget::showAni()
 {
     if (!m_hasComposite) {
-        setGeometry(QRect(m_notifyRect.x() - Notify::CenterMargin, m_notifyRect.y(), m_notifyRect.width(), m_notifyRect.height()));
+        setGeometry(QRect(m_notifyRect.x(), m_notifyRect.y(), m_notifyRect.width(), m_notifyRect.height()));
         m_notifyWidget->setFixedSize(m_notifyRect.size());
         setFixedSize(m_notifyRect.size());
         show();
@@ -200,13 +213,13 @@ void NotifyCenterWidget::showAni()
         return;
     }
     setFixedWidth(0);
+    move(m_notifyRect.x() + m_notifyRect.width(), m_notifyRect.y());
     show();
-    activateWindow();
 
-    QTimer::singleShot(0, this, [ = ] {activateWindow();});
+    m_aniGroup->setDirection(QAbstractAnimation::Backward);
+    m_aniGroup->start();
 
-    m_widthAni->setDirection(QAbstractAnimation::Backward);
-    m_widthAni->start();
+    QTimer::singleShot(m_aniGroup->duration(), this, [ = ] {activateWindow();});
 
     ShortcutManage::instance()->initIndex();
 }
@@ -218,10 +231,10 @@ void NotifyCenterWidget::hideAni()
         return;
     }
 
-    m_widthAni->setDirection(QAbstractAnimation::Forward);
-    m_widthAni->start();
+    m_aniGroup->setDirection(QAbstractAnimation::Forward);
+    m_aniGroup->start();
 
-    QTimer::singleShot(m_widthAni->duration(), this, [ = ] {setVisible(false);});
+    QTimer::singleShot(m_aniGroup->duration(), this, [ = ] {setVisible(false);});
 }
 
 void NotifyCenterWidget::CompositeChanged()
@@ -229,9 +242,14 @@ void NotifyCenterWidget::CompositeChanged()
     m_hasComposite = m_wmHelper->hasComposite();
 }
 
+void NotifyCenterWidget::setX(int x)
+{
+    move(x, m_notifyRect.y());
+}
+
 void NotifyCenterWidget::showWidget()
 {
-    if (m_widthAni->state() == QAbstractAnimation::Running)
+    if (m_aniGroup->state() == QAbstractAnimation::Running)
         return;
 
     if (isHidden()) {
@@ -243,11 +261,5 @@ void NotifyCenterWidget::showWidget()
 
 bool NotifyCenterWidget::eventFilter(QObject *watched, QEvent *e)
 {
-//    if (e->type() == QEvent::WindowDeactivate) {
-
-//        if (!isHidden()) {
-//            hideAni();
-//        }
-//    }
     return QWidget::eventFilter(watched, e);
 }

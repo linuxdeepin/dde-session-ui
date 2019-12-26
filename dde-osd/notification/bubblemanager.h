@@ -109,7 +109,10 @@ private Q_SLOTS:
     void bubbleReplacedByOther(Bubble *);
     void bubbleActionInvoked(Bubble *, QString);
 
+    void updateGeometry();
+
 private:
+    void initConnections();
     void registerAsService();
     bool calcReplaceId(std::shared_ptr<NotificationEntity> notify);
     bool checkDockExistence();

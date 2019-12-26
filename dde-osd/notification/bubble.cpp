@@ -111,6 +111,22 @@ void Bubble::setEnabled(bool enable)
     }
 }
 
+void Bubble::stopAnimation()
+{
+    if (m_moveAnimation->state() == QVariantAnimation::Running)
+        m_moveAnimation->stop();
+
+    if (m_outAnimation->state() == QVariantAnimation::Running)
+        m_outAnimation->stop();
+}
+
+void Bubble::startCalcTimeout()
+{
+    m_outTimer->stop();
+    m_outTimer->setSingleShot(false);
+    m_outTimer->start();
+}
+
 void Bubble::mousePressEvent(QMouseEvent *event)
 {
     if (!m_enabled) {
@@ -338,8 +354,10 @@ bool Bubble::containsMouse() const
     return geometry().contains(QCursor::pos());
 }
 
-void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect)
+void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect, const int index)
 {
+    m_bubbleIndex = index;
+
     if (m_moveAnimation->state() != QPropertyAnimation::Running) {
         m_moveAnimation->stop();
         m_moveAnimation->start();

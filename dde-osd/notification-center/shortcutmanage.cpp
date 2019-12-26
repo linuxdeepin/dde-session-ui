@@ -5,6 +5,7 @@
 #include "notifymodel.h"
 #include "notification/button.h"
 #include "notification/iconbutton.h"
+#include "notification/constants.h"
 #include "bubbleoverlapwidget.h"
 
 #include <QWidget>
@@ -12,7 +13,7 @@
 #include <QApplication>
 #include <QKeyEvent>
 #include <QDebug>
-#include <DIconButton>
+#include <QTimer>
 
 DWIDGET_USE_NAMESPACE
 
@@ -123,9 +124,11 @@ void ShortcutManage::onViewIndexChanged(const QModelIndex &index)
     if (model != nullptr) {
         QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
         if (group_view) {
-            group_view->setCurrentIndex(m_currentIndex);
-            group_view->scrollTo(m_currentIndex);
-            group_view->indexWidget(m_currentIndex)->setFocus();
+            QTimer::singleShot(AnimationTime + 5, [ = ] {
+                group_view->setCurrentIndex(m_currentIndex);
+                group_view->scrollTo(m_currentIndex);
+                group_view->indexWidget(m_currentIndex)->setFocus();
+            });
         }
     }
 }
@@ -258,10 +261,9 @@ bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
                     action_btn->clicked();
                 }
             }
+            m_currentElement = nullptr;
+            return true;
         }
-
-        m_currentElement = nullptr;
-        return true;
     }
     return false;
 }

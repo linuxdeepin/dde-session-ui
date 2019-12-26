@@ -53,6 +53,11 @@ public:
     void setEntity(std::shared_ptr<NotificationEntity> entity);
     void setEnabled(bool enable);
 
+    inline int bubbleIndex() {return m_bubbleIndex;}
+
+    void stopAnimation();
+    void startCalcTimeout();
+
 Q_SIGNALS:
     void expired(Bubble *);
     void dismissed(Bubble *);
@@ -62,7 +67,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onDelayQuit();
-    void startMoveAnimation(const QRect &startRect, const QRect &endRect);
+    void startMoveAnimation(const QRect &startRect, const QRect &endRect, const int index);
     void setFixedGeometry(QRect rect);
 
 protected:
@@ -110,5 +115,6 @@ protected:
     QString m_defaultAction;
     bool m_canClose = false;
     bool m_enabled = true;
+    int m_bubbleIndex;
 };
 #endif // BUBBLE_H

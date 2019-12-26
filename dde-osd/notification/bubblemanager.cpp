@@ -51,13 +51,7 @@ BubbleManager::BubbleManager(QObject *parent)
     m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this);
 
-    connect(m_login1ManagerInterface, SIGNAL(PrepareForSleep(bool)),
-            this, SLOT(onPrepareForSleep(bool)));
-    connect(m_dbusDaemonInterface, SIGNAL(NameOwnerChanged(QString, QString, QString)),
-            this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
-
-    connect(m_displayInter, &DBusDisplay::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
-    connect(m_dockDeamonInter, &DBusDock::FrontendRectChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
+    initConnections();
 
     // get correct value for m_dockGeometry, m_dockPosition, m_ccGeometry
     if (m_dockDeamonInter->isValid()) {
@@ -66,18 +60,6 @@ BubbleManager::BubbleManager(QObject *parent)
 
     m_notifyCenter->hide();
     registerAsService();
-
-#if 0  //用于测试
-    QTimer::singleShot(1000, [ = ] {
-        for (int i = 0; i < 100; ++i)
-        {
-            std::shared_ptr<NotificationEntity> entity = std::make_shared<NotificationEntity>("test", QString::number(i), QString::number(i), QString::number(i), QString::number(i),
-                                                                                              QStringList(), QVariantMap(), QString::number(i), QString::number(i), QString::number(i));
-            Notify(QString::number(i), i, QString::number(i), QString::number(i), QString::number(i), QStringList(), QVariantMap(), -1);
-            m_persistence->addOne(entity);
-        }
-    });
-#endif
 }
 
 BubbleManager::~BubbleManager()
@@ -192,7 +174,7 @@ void BubbleManager::pushAnimation(Bubble *bubble)
             startRect = item->geometry();
         }
         if (bubble != nullptr) {
-            item->startMoveAnimation(startRect, endRect);
+            item->startMoveAnimation(startRect, endRect, index);
         }
     }
 }
@@ -214,7 +196,7 @@ void BubbleManager::popAnimation(Bubble *bubble)
             startRect = item->geometry();
         }
         if (bubble != nullptr)
-            item->startMoveAnimation(startRect, endRect);
+            item->startMoveAnimation(startRect, endRect, index);
     }
 
     //确定层次关系
@@ -352,6 +334,34 @@ void BubbleManager::bubbleActionInvoked(Bubble *bubble, QString actionId)
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Closed);
 }
 
+void BubbleManager::updateGeometry()
+{
+    foreach (auto item, m_bubbleList) {
+        item->setGeometry(GetBubbleGeometry(item->bubbleIndex()));
+        item->stopAnimation();
+        item->startCalcTimeout();
+    }
+}
+
+void BubbleManager::initConnections()
+{
+    connect(m_login1ManagerInterface, SIGNAL(PrepareForSleep(bool)),
+            this, SLOT(onPrepareForSleep(bool)));
+    connect(m_dbusDaemonInterface, SIGNAL(NameOwnerChanged(QString, QString, QString)),
+            this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
+
+    connect(m_displayInter, &DBusDisplay::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
+    connect(m_dockDeamonInter, &DBusDock::FrontendRectChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
+
+    connect(qApp, &QApplication::primaryScreenChanged, this, [ = ] {
+        updateGeometry();
+    });
+
+    connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, [ = ] {
+        updateGeometry();
+    });
+}
+
 void BubbleManager::onPrepareForSleep(bool sleep)
 {
     // workaround to avoid the "About to suspend..." notifications still
@@ -428,7 +438,7 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
     if (index != 0) {
         QRect startRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap);
         QRect endRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap - 1);
-        bubble->startMoveAnimation(startRect, endRect);
+        bubble->startMoveAnimation(startRect, endRect, BubbleEntities + BubbleOverLap - 1);
     } else {
         QRect endRect = GetBubbleGeometry(0);
         QRect startRect;
@@ -439,7 +449,7 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
         bubble->setFixedSize(startRect.size());
         bubble->move(startRect.topLeft());
         QTimer::singleShot(0, bubble, [ = ] {bubble->show();});
-        bubble->startMoveAnimation(startRect, endRect);
+        bubble->startMoveAnimation(startRect, endRect, 0);
     }
     return bubble;
 }
