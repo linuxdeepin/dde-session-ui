@@ -59,6 +59,7 @@ Content::Content(QWidget *parent)
     sourceLayout->addWidget(m_source);
     sourceLayout->addStretch();
     m_source->setWordWrap(true);
+    m_source->setOpenExternalLinks(true);
     // 左右边距20
     m_source->setContentsMargins(20, 0, 20, 0);
 
