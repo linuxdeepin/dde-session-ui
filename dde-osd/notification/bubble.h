@@ -26,8 +26,9 @@
 
 #include <DBlurEffectWidget>
 #include <DDialogCloseButton>
-#include <QDBusArgument>
 
+#include <QDBusArgument>
+#include <QVariantAnimation>
 #include <memory>
 
 #include "constants.h"
@@ -98,7 +99,6 @@ protected:
     //animation
     QPropertyAnimation *m_outAnimation = nullptr;
     QPropertyAnimation *m_moveAnimation = nullptr;//负责移入和变更位置
-
     //controls
     AppIcon *m_icon = nullptr;
     AppBody *m_body = nullptr;
@@ -116,5 +116,9 @@ protected:
     bool m_canClose = false;
     bool m_enabled = true;
     int m_bubbleIndex;
+
+    QVariantAnimation *m_posAnimation;
+    QVariantAnimation *m_pomAnimation;
+    QParallelAnimationGroup *m_posAnimationGroup;
 };
 #endif // BUBBLE_H

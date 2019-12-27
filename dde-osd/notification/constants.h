@@ -14,11 +14,14 @@ static const int BubbleMargin = 12;             //桌面消息通知间隔
 static const int BubblePadding = 10;            //消息通知内部Padding
 static const int BubbleSpacing = 10;            //消息通知内部Space
 static const int BubbleTimeout = 5000;          //通知默认超时时间(毫秒)
+static const int BubbleDeleteTimeout = 2000;    //通知删除的渐隐效果的默认时间
 static const int BubbleEntities = 3;
 static const int BubbleOverLap = 2;             //层叠的气泡数量
 static const int BubbleOverLapHeight = 12;      //通知中心层叠层高度
 static const QString NoReplaceId = "0";         //为0 返回一个计数值给程序
-static const int AnimationTime = 300;           //动画时间，单位：毫秒
+static const int AnimationTime = 500;           //动画时间，单位：毫秒
+static const int BubbleWindowHeight = 60;       // 窗口模式下气泡的高度
+static const int BubbleStartPos = -(BubbleWindowHeight + ScreenPadding);  // 窗口模式下气泡起始Y位置
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
 
@@ -53,7 +56,7 @@ public:
     {
         QSize size;
         if (style == BUBBLEWINDOW) {
-            size = QSize(600, 60);
+            size = QSize(600, BubbleWindowHeight);
         } else if (style == BUBBLEWIDGET) {
             size = QSize(380, 90);
         }

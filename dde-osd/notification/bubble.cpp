@@ -37,10 +37,13 @@
 #include <QGSettings>
 #include <QMoveEvent>
 #include <QBoxLayout>
+#include <QParallelAnimationGroup>
 
 Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
     , m_entity(entity)
+    , m_outAnimation(new QPropertyAnimation(this, "windowOpacity", this))
+    , m_moveAnimation(new QPropertyAnimation(this, "geometry", this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this))
@@ -48,6 +51,8 @@ Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD:
     , m_outTimer(new QTimer(this))
     , m_quitTimer(new QTimer(this))
     , m_showStyle(style)
+    , m_posAnimation(new QVariantAnimation(this))
+    , m_posAnimationGroup(new QParallelAnimationGroup)
 {
     initUI();
     initConnections();
@@ -240,8 +245,7 @@ void Bubble::onOutAnimFinished()
 void Bubble::initUI()
 {
     setAttribute(Qt::WA_TranslucentBackground);
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool);
-
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool | Qt::X11BypassWindowManagerHint);
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
     setMouseTracking(true);
@@ -290,20 +294,23 @@ void Bubble::initConnections()
 
 void Bubble::initAnimations()
 {
-    m_outAnimation = new QPropertyAnimation(this, "windowOpacity", this);
     m_outAnimation->setDuration(AnimationTime);
     m_outAnimation->setEasingCurve(QEasingCurve::Linear);
-    if (m_outAnimation->state() != QPropertyAnimation::Running) {
-        m_outAnimation->setStartValue(1);
-        m_outAnimation->setEndValue(0);
-    }
-    connect(m_outAnimation, &QPropertyAnimation::finished, this, &Bubble::onOutAnimFinished);
 
-    m_moveAnimation = new QPropertyAnimation(this, "geometry", this);
+    m_posAnimation->setStartValue(1.0);
+    m_posAnimation->setEndValue(0.0);
+    m_posAnimation->setDuration(BubbleDeleteTimeout);
+    m_posAnimation->setEasingCurve(QEasingCurve::InOutCirc);
+
+    connect(m_posAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant & value) {
+        window()->setWindowOpacity(value.toDouble());
+    });
+
     m_moveAnimation->setEasingCurve(QEasingCurve::Linear);
     connect(m_moveAnimation, &QPropertyAnimation::finished, this, [ = ] {
         m_outTimer->start();
     });
+    m_posAnimationGroup->addAnimation(m_moveAnimation);
 }
 
 void Bubble::initTimers()
@@ -357,11 +364,16 @@ bool Bubble::containsMouse() const
 void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect, const int index)
 {
     m_bubbleIndex = index;
+    if (startRect.top() > endRect.top() && m_pressed == true) {
+        m_posAnimation->start();
+    }
+    m_posAnimationGroup->start();
 
     if (m_moveAnimation->state() != QPropertyAnimation::Running) {
         m_moveAnimation->stop();
         m_moveAnimation->start();
     }
+
     m_moveAnimation->setStartValue(startRect);
     m_moveAnimation->setEndValue(endRect);
 

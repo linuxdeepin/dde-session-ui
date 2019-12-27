@@ -146,7 +146,8 @@ void BubbleManager::popBubble(Bubble *bubble)
 {
     refreshBubble();
     popAnimation(bubble);
-    bubble->deleteLater();
+    //删除会影响其他动画的正常执行
+//    bubble->deleteLater();
     m_bubbleList.removeOne(bubble);
 }
 
@@ -210,7 +211,8 @@ void BubbleManager::popAnimation(Bubble *bubble)
 
 QRect BubbleManager::GetBubbleGeometry(int index)
 {
-    Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
+    if (index < 0 || index > (BubbleEntities + BubbleOverLap))
+        return QRect();
 
     qreal scale = qApp->primaryScreen()->devicePixelRatio();
     QRect display = m_displayInter->primaryRawRect();
@@ -237,7 +239,6 @@ QRect BubbleManager::GetBubbleGeometry(int index)
         rect.setWidth(width);
         rect.setHeight(height);
     }
-
     return rect;
 }
 
@@ -319,7 +320,16 @@ void BubbleManager::bubbleExpired(Bubble *bubble)
 
 void BubbleManager::bubbleDismissed(Bubble *bubble)
 {
+    QRect startRect = GetBubbleGeometry(m_bubbleList.indexOf(bubble));
     popBubble(bubble);
+    QRect endRect;
+    endRect.setX(startRect.x());
+    endRect.setY(BubbleStartPos);
+    endRect.setWidth(startRect.width());
+    endRect.setHeight(startRect.height());
+
+    bubble->startMoveAnimation(startRect, endRect, 0);
+
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Dismissed);
 }
 
@@ -444,7 +454,7 @@ Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, 
         QRect endRect = GetBubbleGeometry(0);
         QRect startRect;
         startRect.setX(endRect.x());
-        startRect.setY(0);
+        startRect.setY(BubbleStartPos);
         startRect.setWidth(endRect.width());
         startRect.setHeight(endRect.height());
         bubble->setFixedSize(startRect.size());
