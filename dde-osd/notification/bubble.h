@@ -29,6 +29,7 @@
 
 #include <QDBusArgument>
 #include <QVariantAnimation>
+#include <QParallelAnimationGroup>
 #include <memory>
 
 #include "constants.h"
@@ -36,7 +37,6 @@
 DWIDGET_USE_NAMESPACE
 
 class QPropertyAnimation;
-class QParallelAnimationGroup;
 class NotificationEntity;
 class AppIcon;
 class AppBody;
@@ -111,6 +111,7 @@ protected:
     //---very private ,no get method
     QPoint m_clickPos;
     bool m_pressed = false;
+    bool m_isDelete = false;
     OSD::ShowStyle m_showStyle;
     QString m_defaultAction;
     bool m_canClose = false;
@@ -119,6 +120,7 @@ protected:
 
     QVariantAnimation *m_posAnimation;
     QVariantAnimation *m_pomAnimation;
+    QVariantAnimation *m_opacityAnimation;
     QParallelAnimationGroup *m_posAnimationGroup;
 };
 #endif // BUBBLE_H

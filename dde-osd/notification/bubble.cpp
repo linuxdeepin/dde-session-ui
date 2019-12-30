@@ -37,7 +37,6 @@
 #include <QGSettings>
 #include <QMoveEvent>
 #include <QBoxLayout>
-#include <QParallelAnimationGroup>
 
 Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
@@ -52,6 +51,7 @@ Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD:
     , m_quitTimer(new QTimer(this))
     , m_showStyle(style)
     , m_posAnimation(new QVariantAnimation(this))
+    , m_opacityAnimation(new QVariantAnimation(this))
     , m_posAnimationGroup(new QParallelAnimationGroup)
 {
     initUI();
@@ -75,20 +75,20 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
 
     m_entity = entity;
 
-#ifdef QT_DEBUG
-    //模拟通知消息带菜单的情况
-    QStringList actions;
-    actions << "default";
-    actions << "default";
-    actions << "查看";
-    actions << "查看";
-    actions << "删除";
-    actions << "删除";
-    actions << "取消";
-    actions << "取消";
-    //    entity->setActions(actions);
-    entity->setTimeout("0");
-#endif
+//#ifdef QT_DEBUG
+//    //模拟通知消息带菜单的情况
+//    QStringList actions;
+//    actions << "default";
+//    actions << "default";
+//    actions << "查看";
+//    actions << "查看";
+//    actions << "删除";
+//    actions << "删除";
+//    actions << "取消";
+//    actions << "取消";
+//    //    entity->setActions(actions);
+//    entity->setTimeout("0");
+//#endif
 
     m_outTimer->stop();
 
@@ -142,6 +142,7 @@ void Bubble::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton) {
         m_clickPos = event->pos();
         m_pressed = true;
+        m_isDelete = true;
     }
 
     m_outTimer->stop();
@@ -303,15 +304,25 @@ void Bubble::initAnimations()
     m_posAnimation->setEasingCurve(QEasingCurve::InOutCirc);
 
     connect(m_posAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant & value) {
+
+    m_opacityAnimation->setStartValue(1.0);
+    m_opacityAnimation->setEndValue(0.0);
+    m_opacityAnimation->setDuration(BubbleDeleteTimeout);
+    m_opacityAnimation->setEasingCurve(QEasingCurve::InOutCirc);
+
+    connect(m_opacityAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant & value) {
         window()->setWindowOpacity(value.toDouble());
     });
 
     m_moveAnimation->setEasingCurve(QEasingCurve::Linear);
     connect(m_moveAnimation, &QPropertyAnimation::finished, this, [ = ] {
         m_outTimer->start();
+        if(m_isDelete) this->deleteLater();
     });
     m_posAnimationGroup->addAnimation(m_moveAnimation);
+    });
 }
+
 
 void Bubble::initTimers()
 {
@@ -364,10 +375,15 @@ bool Bubble::containsMouse() const
 void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect, const int index)
 {
     m_bubbleIndex = index;
+
     if (startRect.top() > endRect.top() && m_pressed == true) {
         m_posAnimation->start();
     }
     m_posAnimationGroup->start();
+
+    if (startRect.top() > endRect.top() && m_isDelete == true) {
+        m_opacityAnimation->start();
+    }
 
     if (m_moveAnimation->state() != QPropertyAnimation::Running) {
         m_moveAnimation->stop();
