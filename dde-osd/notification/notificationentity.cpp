@@ -143,10 +143,3 @@ void NotificationEntity::setTimeout(const QString &timeout)
 {
     m_timeout = timeout;
 }
-
-
-
-
-
-
-

@@ -140,6 +140,7 @@ bool ShortcutManage::handBubbleTab(QWidget *item)
     if (bubble_overlap != nullptr) {
         bubble = bubble_overlap->faceBubble();
     }
+
     if (bubble == nullptr) return true;
 
     if (!m_currentElement.isNull()) {
@@ -169,6 +170,7 @@ bool ShortcutManage::handBubbleTab(QWidget *item)
         }
         m_currentElement = nullptr;
     }
+
     return m_currentElement == nullptr;
 }
 
@@ -278,15 +280,22 @@ bool ShortcutManage::handPressEvent(QObject *object)
         }
     }
 
+    BubbleOverlapWidget *bubbleParent = NULL;
     BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
+    if (bubble != NULL)
+        bubbleParent = qobject_cast<BubbleOverlapWidget *>(bubble->parent());
     BubbleOverlapWidget *overlap = qobject_cast<BubbleOverlapWidget *>(object);
     if (bubble != nullptr || overlap != nullptr) {
         auto notify_model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
         if (notify_model != nullptr) {
             QListView *group_view = notify_model->view();
             if (group_view != nullptr) {
-                if (bubble != nullptr) m_currentIndex = group_view->indexAt(bubble->pos());
-                if (overlap != nullptr) m_currentIndex = group_view->indexAt(overlap->pos());
+                if (bubble != nullptr && bubbleParent == nullptr)
+                    m_currentIndex = group_view->indexAt(bubble->pos());
+
+                if (overlap != nullptr)
+                    m_currentIndex = group_view->indexAt(overlap->pos());
+
             }
         }
     }
