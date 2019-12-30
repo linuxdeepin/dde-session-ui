@@ -303,7 +303,6 @@ void Bubble::initAnimations()
     }
     connect(m_outAnimation, &QPropertyAnimation::finished, this, [ = ]() {
         m_outTimer->start();
-        m_outTimer->stop();
     });
 
     m_tranAnimation->setStartValue(1.0);
