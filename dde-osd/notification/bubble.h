@@ -118,8 +118,7 @@ protected:
     bool m_enabled = true;
     int m_bubbleIndex;
 
-    QVariantAnimation *m_posAnimation;
-    QVariantAnimation *m_pomAnimation;
+    QVariantAnimation *m_tranAnimation;
     QVariantAnimation *m_opacityAnimation;
     QParallelAnimationGroup *m_posAnimationGroup;
 };

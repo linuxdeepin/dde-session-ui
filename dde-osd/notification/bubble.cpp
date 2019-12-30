@@ -50,7 +50,7 @@ Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD:
     , m_outTimer(new QTimer(this))
     , m_quitTimer(new QTimer(this))
     , m_showStyle(style)
-    , m_posAnimation(new QVariantAnimation(this))
+    , m_tranAnimation(new QVariantAnimation(this))
     , m_opacityAnimation(new QVariantAnimation(this))
     , m_posAnimationGroup(new QParallelAnimationGroup)
 {
@@ -297,29 +297,37 @@ void Bubble::initAnimations()
 {
     m_outAnimation->setDuration(AnimationTime);
     m_outAnimation->setEasingCurve(QEasingCurve::Linear);
-
-    m_posAnimation->setStartValue(1.0);
-    m_posAnimation->setEndValue(0.0);
-    m_posAnimation->setDuration(BubbleDeleteTimeout);
-    m_posAnimation->setEasingCurve(QEasingCurve::InOutCirc);
-
-    connect(m_posAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant & value) {
-
-    m_opacityAnimation->setStartValue(1.0);
-    m_opacityAnimation->setEndValue(0.0);
-    m_opacityAnimation->setDuration(BubbleDeleteTimeout);
-    m_opacityAnimation->setEasingCurve(QEasingCurve::InOutCirc);
-
-    connect(m_opacityAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant & value) {
-        window()->setWindowOpacity(value.toDouble());
-    });
-
-    m_moveAnimation->setEasingCurve(QEasingCurve::Linear);
-    connect(m_moveAnimation, &QPropertyAnimation::finished, this, [ = ] {
+    if (m_outAnimation->state() != QPropertyAnimation::Running) {
+        m_outAnimation->setStartValue(1);
+        m_outAnimation->setEndValue(0);
+    }
+    connect(m_outAnimation, &QPropertyAnimation::finished, this, [ = ]() {
         m_outTimer->start();
-        if(m_isDelete) this->deleteLater();
+        m_outTimer->stop();
     });
-    m_posAnimationGroup->addAnimation(m_moveAnimation);
+
+    m_tranAnimation->setStartValue(1.0);
+    m_tranAnimation->setEndValue(0.0);
+    m_tranAnimation->setDuration(BubbleDeleteTimeout);
+    m_tranAnimation->setEasingCurve(QEasingCurve::InOutCirc);
+
+    connect(m_tranAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant & value) {
+
+        m_opacityAnimation->setStartValue(1.0);
+        m_opacityAnimation->setEndValue(0.0);
+        m_opacityAnimation->setDuration(BubbleDeleteTimeout);
+        m_opacityAnimation->setEasingCurve(QEasingCurve::InOutCirc);
+
+        connect(m_opacityAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant & value) {
+            window()->setWindowOpacity(value.toDouble());
+        });
+
+        m_moveAnimation->setEasingCurve(QEasingCurve::Linear);
+        connect(m_moveAnimation, &QPropertyAnimation::finished, this, [ = ] {
+            m_outTimer->start();
+            if (m_isDelete) this->deleteLater();
+        });
+        m_posAnimationGroup->addAnimation(m_moveAnimation);
     });
 }
 
@@ -377,7 +385,7 @@ void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect, co
     m_bubbleIndex = index;
 
     if (startRect.top() > endRect.top() && m_pressed == true) {
-        m_posAnimation->start();
+        m_tranAnimation->start();
     }
     m_posAnimationGroup->start();
 
