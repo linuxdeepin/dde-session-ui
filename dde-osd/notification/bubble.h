@@ -120,6 +120,5 @@ protected:
 
     QVariantAnimation *m_tranAnimation;
     QVariantAnimation *m_opacityAnimation;
-    QParallelAnimationGroup *m_posAnimationGroup;
 };
 #endif // BUBBLE_H

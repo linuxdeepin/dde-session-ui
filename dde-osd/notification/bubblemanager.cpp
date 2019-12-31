@@ -147,7 +147,9 @@ void BubbleManager::popBubble(Bubble *bubble)
     refreshBubble();
     popAnimation(bubble);
     //删除会影响其他动画的正常执行
-//    bubble->deleteLater();
+//    QTimer::singleShot(BubbleDeleteTimeout,this,[=]{//TODO
+//       bubble->deleteLater();
+//    });
     m_bubbleList.removeOne(bubble);
 }
 
@@ -185,19 +187,27 @@ void BubbleManager::popAnimation(Bubble *bubble)
     int index = m_bubbleList.indexOf(bubble);
     if (index == -1)
         return;
+
+    QRect startRect = GetBubbleGeometry(index);
+    QRect endRect;
+    endRect.setX(startRect.x());
+    endRect.setY(BubbleStartPos);
+    endRect.setWidth(startRect.width());
+    endRect.setHeight(startRect.height());
+    bubble->startMoveAnimation(startRect, endRect, - 1);
+
     while (index < m_bubbleList.size() - 1) {
         index ++;
         QRect startRect = GetBubbleGeometry(index);
         QRect endRect = GetBubbleGeometry(index - 1);
+
         QPointer<Bubble> item = m_bubbleList.at(index);
-        if (index == BubbleEntities + BubbleOverLap) {
-            item->show();
-        }
+
         if (item->geometry() != endRect) { //动画中
             startRect = item->geometry();
         }
         if (bubble != nullptr)
-            item->startMoveAnimation(startRect, endRect, index);
+            item->startMoveAnimation(startRect, endRect, index - 1);
     }
 
     //确定层次关系
@@ -320,15 +330,8 @@ void BubbleManager::bubbleExpired(Bubble *bubble)
 
 void BubbleManager::bubbleDismissed(Bubble *bubble)
 {
-    QRect startRect = GetBubbleGeometry(m_bubbleList.indexOf(bubble));
+    //    QRect startRect = GetBubbleGeometry(m_bubbleList.indexOf(bubble));
     popBubble(bubble);
-    QRect endRect;
-    endRect.setX(startRect.x());
-    endRect.setY(BubbleStartPos);
-    endRect.setWidth(startRect.width());
-    endRect.setHeight(startRect.height());
-
-    bubble->startMoveAnimation(startRect, endRect, 0);
 
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Dismissed);
 }

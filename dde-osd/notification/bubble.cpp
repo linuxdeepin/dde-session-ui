@@ -52,7 +52,6 @@ Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD:
     , m_showStyle(style)
     , m_tranAnimation(new QVariantAnimation(this))
     , m_opacityAnimation(new QVariantAnimation(this))
-    , m_posAnimationGroup(new QParallelAnimationGroup)
 {
     initUI();
     initConnections();
@@ -75,20 +74,20 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
 
     m_entity = entity;
 
-//#ifdef QT_DEBUG
-//    //模拟通知消息带菜单的情况
-//    QStringList actions;
-//    actions << "default";
-//    actions << "default";
-//    actions << "查看";
-//    actions << "查看";
-//    actions << "删除";
-//    actions << "删除";
-//    actions << "取消";
-//    actions << "取消";
-//    //    entity->setActions(actions);
-//    entity->setTimeout("0");
-//#endif
+#ifdef QT_DEBUG
+    //模拟通知消息带菜单的情况
+    QStringList actions;
+    actions << "default";
+    actions << "default";
+    actions << "查看";
+    actions << "查看";
+    actions << "删除";
+    actions << "删除";
+    actions << "取消";
+    actions << "取消";
+    //    entity->setActions(actions);
+    entity->setTimeout("0");
+#endif
 
     m_outTimer->stop();
 
@@ -98,6 +97,7 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
     //  0: never times out
     // -1: default 5s
     m_outTimer->setInterval(timeout == -1 ? BubbleTimeout : (timeout == 0 ? -1 : timeout));
+    m_outTimer->setSingleShot(true);
     m_outTimer->start();
 }
 
@@ -135,7 +135,6 @@ void Bubble::startCalcTimeout()
 void Bubble::mousePressEvent(QMouseEvent *event)
 {
     if (!m_enabled) {
-        Q_EMIT dismissed(this);
         return;
     }
 
@@ -144,8 +143,6 @@ void Bubble::mousePressEvent(QMouseEvent *event)
         m_pressed = true;
         m_isDelete = true;
     }
-
-    m_outTimer->stop();
 }
 
 void Bubble::mouseReleaseEvent(QMouseEvent *event)
@@ -164,8 +161,6 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
     } else if (m_pressed && mapToGlobal(event->pos()).y() < 10) {
         Q_EMIT notProcessedYet(this);
         Q_EMIT dismissed(this);
-    } else {
-        m_outTimer->start();
     }
 
     m_pressed = false;
@@ -228,6 +223,7 @@ void Bubble::onOutTimerTimeout()
 {
     if (containsMouse()) {
         m_outTimer->stop();
+        m_outTimer->setSingleShot(true);
         m_outTimer->start();
     } else {
         m_outAnimation->start();
@@ -281,8 +277,6 @@ void Bubble::initConnections()
         BubbleTool::actionInvoke(action_id, m_entity);
 
         Q_EMIT dismissed(this);
-        m_outTimer->stop();
-        m_outTimer->start();
         Q_EMIT actionInvoked(this, action_id);
     });
 
@@ -301,9 +295,11 @@ void Bubble::initAnimations()
         m_outAnimation->setStartValue(1);
         m_outAnimation->setEndValue(0);
     }
-    connect(m_outAnimation, &QPropertyAnimation::finished, this, [ = ]() {
-        m_outTimer->stop();
-    });
+
+    m_tranAnimation->setStartValue(1.0);
+    m_tranAnimation->setEndValue(0.0);
+    m_tranAnimation->setDuration(BubbleDeleteTimeout);
+    m_tranAnimation->setEasingCurve(QEasingCurve::InOutCirc);
 
     connect(m_tranAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant & value) {
         m_opacityAnimation->setStartValue(1.0);
@@ -320,7 +316,6 @@ void Bubble::initAnimations()
             m_outTimer->start();
             if (m_isDelete) this->deleteLater();
         });
-        m_posAnimationGroup->addAnimation(m_moveAnimation);
     });
 }
 
@@ -379,10 +374,6 @@ void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect, co
 
     if (startRect.top() > endRect.top() && m_pressed == true) {
         m_tranAnimation->start();
-    }
-    m_posAnimationGroup->start();
-
-    if (startRect.top() > endRect.top() && m_isDelete == true) {
         m_opacityAnimation->start();
     }
 
