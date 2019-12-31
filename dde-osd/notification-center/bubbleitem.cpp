@@ -187,10 +187,9 @@ void BubbleItem::onRefreshTime()
             m_refreshTimer->setInterval(1000 * 60 * 59);
             text = tr("%1 hours ago").arg(minute / 60);
         }
-    } else if (elapsedDay == 1) {
-        m_refreshTimer->setInterval(1000 * 59);
+    } else if (elapsedDay >= 1 && elapsedDay < 2) {
         text = tr("Yesterday ") + " " + bubbleDateTime.toString("hh:mm");
-    } else if (elapsedDay > 1 && elapsedDay < 7) {
+    } else if (elapsedDay >= 2 && elapsedDay < 7) {
         m_refreshTimer->setInterval(1000 * 60 * 60 * 24);
         text = bubbleDateTime.toString("ddd hh:mm");
     } else {
