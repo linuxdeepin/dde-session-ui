@@ -302,16 +302,10 @@ void Bubble::initAnimations()
         m_outAnimation->setEndValue(0);
     }
     connect(m_outAnimation, &QPropertyAnimation::finished, this, [ = ]() {
-        m_outTimer->start();
+        m_outTimer->stop();
     });
 
-    m_tranAnimation->setStartValue(1.0);
-    m_tranAnimation->setEndValue(0.0);
-    m_tranAnimation->setDuration(BubbleDeleteTimeout);
-    m_tranAnimation->setEasingCurve(QEasingCurve::InOutCirc);
-
     connect(m_tranAnimation, &QVariantAnimation::valueChanged, this, [this](const QVariant & value) {
-
         m_opacityAnimation->setStartValue(1.0);
         m_opacityAnimation->setEndValue(0.0);
         m_opacityAnimation->setDuration(BubbleDeleteTimeout);
