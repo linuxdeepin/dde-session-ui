@@ -118,11 +118,6 @@ private:
     bool checkDockExistence();
     bool checkControlCenterExistence();
 
-    // return geometry of the containing specified point screen,
-    // and return true if primary-screen and specified-point-screen are the same screen,
-    // or return false.
-
-    // Bubble以后由其自身销毁，manager中不再管理
     Bubble *createBubble(EntityPtr notify, int index = 0);
     void pushBubble(EntityPtr notify);
     void popBubble(Bubble *);

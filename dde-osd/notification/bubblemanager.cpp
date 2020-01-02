@@ -144,12 +144,9 @@ void BubbleManager::pushBubble(EntityPtr notify)
 
 void BubbleManager::popBubble(Bubble *bubble)
 {
+    // bubble delete itself when aniamtion finished
     refreshBubble();
     popAnimation(bubble);
-    //删除会影响其他动画的正常执行
-//    QTimer::singleShot(BubbleDeleteTimeout,this,[=]{//TODO
-//       bubble->deleteLater();
-//    });
     m_bubbleList.removeOne(bubble);
 }
 
@@ -193,29 +190,24 @@ void BubbleManager::popAnimation(Bubble *bubble)
     QRect endRect;
     endRect.setX(startRect.x());
     endRect.setY(BubbleStartPos);
-    endRect.setWidth(startRect.width());
-    endRect.setHeight(startRect.height());
-    bubble->startMoveAnimation(startRect, endRect, - 1);
+    endRect.setSize(startRect.size());
+    bubble->startMove(startRect, endRect, true);// delete itself
 
     while (index < m_bubbleList.size() - 1) {
         index ++;
         QRect startRect = GetBubbleGeometry(index);
         QRect endRect = GetBubbleGeometry(index - 1);
-
         QPointer<Bubble> item = m_bubbleList.at(index);
-
+        if (index == BubbleEntities + BubbleOverLap) {
+            item->show();
+        }
         if (item->geometry() != endRect) { //动画中
             startRect = item->geometry();
         }
-<<<<<<< HEAD
-        if (bubble != nullptr)
-            item->startMoveAnimation(startRect, endRect, index - 1);
-=======
         if (bubble != nullptr) {
             item->setBubbleIndex(index);
             item->startMove(startRect, endRect);
         }
->>>>>>> feat：format code
     }
 
     //确定层次关系
@@ -229,8 +221,7 @@ void BubbleManager::popAnimation(Bubble *bubble)
 
 QRect BubbleManager::GetBubbleGeometry(int index)
 {
-    if (index < 0 || index > (BubbleEntities + BubbleOverLap))
-        return QRect();
+    Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
 
     qreal scale = qApp->primaryScreen()->devicePixelRatio();
     QRect display = m_displayInter->primaryRawRect();
@@ -257,6 +248,7 @@ QRect BubbleManager::GetBubbleGeometry(int index)
         rect.setWidth(width);
         rect.setHeight(height);
     }
+
     return rect;
 }
 
@@ -338,9 +330,7 @@ void BubbleManager::bubbleExpired(Bubble *bubble)
 
 void BubbleManager::bubbleDismissed(Bubble *bubble)
 {
-    //    QRect startRect = GetBubbleGeometry(m_bubbleList.indexOf(bubble));
     popBubble(bubble);
-
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Dismissed);
 }
 
@@ -451,8 +441,8 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
     connect(bubble, &Bubble::expired, this, &BubbleManager::bubbleExpired);
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);
     connect(bubble, &Bubble::actionInvoked, this, &BubbleManager::bubbleActionInvoked);
-    connect(bubble, &Bubble::notProcessedYet, this, [ = ](Bubble * bubble) {
-        m_persistence->addOne(bubble->entity());
+    connect(bubble, &Bubble::notProcessedYet, this, [ = ](EntityPtr ptr) {
+        m_persistence->addOne(ptr);
     });
 
     if (index != 0) {
@@ -467,8 +457,10 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         startRect.setY(BubbleStartPos);
         startRect.setWidth(endRect.width());
         startRect.setHeight(endRect.height());
+
         bubble->setFixedSize(startRect.size());
         bubble->move(startRect.topLeft());
+
         QTimer::singleShot(0, bubble, [ = ] {bubble->show();});
         bubble->setBubbleIndex(0);
         bubble->startMove(startRect, endRect);
