@@ -31,7 +31,7 @@
 #define MATRIX              16          //图片大小
 #define OPACITY             90          //颜色透明度
 #define SATUARATION         50          //饱和度
-#define BRIGHTNESS          -90         //亮度
+#define BRIGHTNESS          -60         //亮度
 
 DGUI_USE_NAMESPACE
 
