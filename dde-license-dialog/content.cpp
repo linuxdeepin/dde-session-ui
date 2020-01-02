@@ -145,6 +145,23 @@ void Content::setEnSource(const QString &source)
     m_languageBtn->button(0)->setChecked(true);
 }
 
+// 中英文都存在,选中本地语言
+void Content::updateLocaleSource()
+{
+    if (!m_languageBtn->isVisible())
+        return;
+
+    if (QLocale::system().language() == QLocale::Chinese) {
+        m_isCn = true;
+        m_languageBtn->button(1)->setChecked(true);
+    } else {
+        m_isCn = false;
+        m_languageBtn->button(0)->setChecked(true);
+    }
+
+    updateContent();
+}
+
 void Content::updateLanguageBtn()
 {
     m_languageBtn->setVisible(QFile::exists(m_cn) && QFile::exists(m_en));

@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
     }
 
     w.setAllowCheckBoxText(parser.value(checkbox));
+    w.updateLocaleSource();
 
     return a.exec();
 }

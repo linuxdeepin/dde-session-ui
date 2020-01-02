@@ -49,6 +49,11 @@ void MainWindow::setEnSource(const QString &source)
     m_content->setEnSource(source);
 }
 
+void MainWindow::updateLocaleSource()
+{
+    m_content->updateLocaleSource();
+}
+
 void MainWindow::setAllowCheckBoxText(const QString &text)
 {
     m_content->setAllowCheckBoxText(text);

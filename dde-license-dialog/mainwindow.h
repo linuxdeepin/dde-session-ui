@@ -20,6 +20,7 @@ public:
     void setAllowCheckBoxText(const QString& text);
     void setCnSource(const QString& source);
     void setEnSource(const QString& source);
+    void updateLocaleSource();
 
 private:
     QLabel* m_title;

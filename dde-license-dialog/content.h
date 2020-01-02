@@ -27,6 +27,7 @@ public slots:
     void setAllowCheckBoxText(const QString& text);
     void setCnSource(const QString& source);
     void setEnSource(const QString& language);
+    void updateLocaleSource();
 
 private:
     void updateLanguageBtn();
