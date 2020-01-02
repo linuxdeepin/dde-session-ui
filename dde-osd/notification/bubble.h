@@ -56,19 +56,19 @@ public:
 
     inline int bubbleIndex() {return m_bubbleIndex;}
 
-    void stopAnimation();
-    void startCalcTimeout();
+    void startMove(const QRect &startRect, const QRect &endRect);       // 负责位置的移动
+    void setBubbleIndex(int index);                                     // 设置通知的索引
+    void updateGeometry();                                              // 更新通知的位置,分辨率被修改时使用
 
 Q_SIGNALS:
-    void expired(Bubble *);
-    void dismissed(Bubble *);
-    void notProcessedYet(Bubble *);     //add into database when the signal emit
-    void replacedByOther(Bubble *);
+    void expired(Bubble *);                                             // 超时消失时发出
+    void dismissed(Bubble *);                                           // 点击后发出
+    void notProcessedYet(Bubble *);                                     // 触发'暂不处理'操作时发出
+
     void actionInvoked(Bubble *, QString);
 
 public Q_SLOTS:
     void onDelayQuit();
-    void startMoveAnimation(const QRect &startRect, const QRect &endRect, const int index);
     void setFixedGeometry(QRect rect);
 
 protected:
@@ -79,9 +79,7 @@ protected:
     virtual void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
     virtual void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
     virtual void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
-
-    void updateContent();
-    bool containsMouse() const;
+    virtual void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
     void onOutTimerTimeout();
@@ -93,29 +91,40 @@ private:
     void initAnimations();
     void initTimers();
 
+    void updateContent();
+    bool containsMouse() const;
+
 protected:
     std::shared_ptr<NotificationEntity> m_entity;
 
     //animation
+<<<<<<< HEAD
     QPropertyAnimation *m_outAnimation = nullptr;
     QPropertyAnimation *m_moveAnimation = nullptr;//负责移入和变更位置
-    //controls
-    AppIcon *m_icon = nullptr;
-    AppBody *m_body = nullptr;
-    ActionButton *m_actionButton = nullptr;
-    DDialogCloseButton *m_closeButton = nullptr;
+=======
+//    QPropertyAnimation *m_opacityAnimation;
+    QPropertyAnimation *m_geometryAnimation;
 
-    QTimer *m_outTimer = nullptr;
-    QTimer *m_quitTimer = nullptr;
+>>>>>>> feat：format code
+    //controls
+    AppIcon *m_icon;
+    AppBody *m_body;
+    ActionButton *m_actionButton;
+    DDialogCloseButton *m_closeButton;
+
+    QTimer *m_outTimer;
+    QTimer *m_quitTimer;
 
     //---very private ,no get method
     QPoint m_clickPos;
     bool m_pressed = false;
+<<<<<<< HEAD
     bool m_isDelete = false;
     OSD::ShowStyle m_showStyle;
+=======
+>>>>>>> feat：format code
     QString m_defaultAction;
     bool m_canClose = false;
-    bool m_enabled = true;
     int m_bubbleIndex;
 
     QVariantAnimation *m_tranAnimation;

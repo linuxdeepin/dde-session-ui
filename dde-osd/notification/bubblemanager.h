@@ -122,6 +122,7 @@ private:
     // and return true if primary-screen and specified-point-screen are the same screen,
     // or return false.
 
+    // Bubble以后由其自身销毁，manager中不再管理
     Bubble *createBubble(std::shared_ptr<NotificationEntity> notify, int index = 0);
     void pushBubble(std::shared_ptr<NotificationEntity> notify);
     void popBubble(Bubble *);

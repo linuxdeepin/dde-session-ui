@@ -37,6 +37,7 @@
 #include <QGSettings>
 #include <QMoveEvent>
 #include <QBoxLayout>
+#include <QParallelAnimationGroup>
 
 Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
@@ -49,14 +50,17 @@ Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD:
     , m_closeButton(new DDialogCloseButton(this))
     , m_outTimer(new QTimer(this))
     , m_quitTimer(new QTimer(this))
+<<<<<<< HEAD
     , m_showStyle(style)
     , m_tranAnimation(new QVariantAnimation(this))
     , m_opacityAnimation(new QVariantAnimation(this))
+=======
+>>>>>>> feat：format code
 {
     initUI();
-    initConnections();
     initAnimations();
     initTimers();
+    initConnections();
 
     setEntity(entity);
 
@@ -103,8 +107,6 @@ void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
 
 void Bubble::setEnabled(bool enable)
 {
-    m_enabled = enable;
-
     if (!enable) {
         m_actionButton->hide();
         m_icon->hide();
@@ -114,19 +116,18 @@ void Bubble::setEnabled(bool enable)
         m_icon->show();
         m_body->show();
     }
+
+    DWidget::setEnabled(enable);
 }
 
-void Bubble::stopAnimation()
+void Bubble::updateGeometry()
 {
-    if (m_moveAnimation->state() == QVariantAnimation::Running)
-        m_moveAnimation->stop();
+    if (m_geometryAnimation->state() == QVariantAnimation::Running)
+        m_geometryAnimation->stop();
 
-    if (m_outAnimation->state() == QVariantAnimation::Running)
-        m_outAnimation->stop();
-}
+//    if (m_opacityAnimation->state() == QVariantAnimation::Running)
+//        m_opacityAnimation->stop();
 
-void Bubble::startCalcTimeout()
-{
     m_outTimer->stop();
     m_outTimer->setSingleShot(false);
     m_outTimer->start();
@@ -134,7 +135,12 @@ void Bubble::startCalcTimeout()
 
 void Bubble::mousePressEvent(QMouseEvent *event)
 {
+<<<<<<< HEAD
     if (!m_enabled) {
+=======
+    if (!isEnabled()) {
+        Q_EMIT dismissed(this);
+>>>>>>> feat：format code
         return;
     }
 
@@ -147,7 +153,7 @@ void Bubble::mousePressEvent(QMouseEvent *event)
 
 void Bubble::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (!m_enabled)
+    if (!isEnabled())
         return;
 
     if (m_pressed && m_clickPos == event->pos()) {
@@ -191,13 +197,13 @@ void Bubble::hideEvent(QHideEvent *event)
 {
     DBlurEffectWidget::hideEvent(event);
 
-    m_outAnimation->stop();
+//    m_opacityAnimation->stop();
     m_quitTimer->start();
 }
 
 void Bubble::enterEvent(QEvent *event)
 {
-    if (!m_enabled)
+    if (!isEnabled())
         return;
 
     if (m_canClose) {
@@ -209,7 +215,7 @@ void Bubble::enterEvent(QEvent *event)
 
 void Bubble::leaveEvent(QEvent *event)
 {
-    if (!m_enabled)
+    if (!isEnabled())
         return;
 
     if (m_canClose) {
@@ -219,6 +225,31 @@ void Bubble::leaveEvent(QEvent *event)
     return DBlurEffectWidget::leaveEvent(event);
 }
 
+void Bubble::closeEvent(QCloseEvent *event)
+{
+    QPropertyAnimation *opacityAni = new QPropertyAnimation(this, "windowOpacity", this);
+    QPropertyAnimation *geometryAni = new QPropertyAnimation(this, "geometry", this);
+    opacityAni->setStartValue(1);
+    opacityAni->setEndValue(0);
+    geometryAni->setStartValue(geometry());
+
+    QRect rect;
+    rect.setX(this->y());
+    rect.setY(-60);//TODO
+    rect.setSize(geometry().size());
+    geometryAni->setEndValue(rect);
+
+    QParallelAnimationGroup *group = new QParallelAnimationGroup(this);
+    group->addAnimation(opacityAni);
+    group->addAnimation(geometryAni);
+
+    group->start(QAbstractAnimation::DeleteWhenStopped);
+
+    QTimer::singleShot(group->duration(), this, [ = ] {
+        DBlurEffectWidget::closeEvent(event);
+    });
+}
+
 void Bubble::onOutTimerTimeout()
 {
     if (containsMouse()) {
@@ -226,9 +257,10 @@ void Bubble::onOutTimerTimeout()
         m_outTimer->setSingleShot(true);
         m_outTimer->start();
     } else {
-        m_outAnimation->start();
+//        m_opacityAnimation->start();
 
         Q_EMIT notProcessedYet(this);
+        close();
     }
 }
 
@@ -275,9 +307,13 @@ void Bubble::initConnections()
 {
     connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & action_id) {
         BubbleTool::actionInvoke(action_id, m_entity);
+        Q_EMIT actionInvoked(this, action_id);
 
         Q_EMIT dismissed(this);
+<<<<<<< HEAD
         Q_EMIT actionInvoked(this, action_id);
+=======
+>>>>>>> feat：format code
     });
 
     connect(m_closeButton, &DDialogCloseButton::clicked, this, [ = ]() {
@@ -285,10 +321,18 @@ void Bubble::initConnections()
     });
 
     connect(m_quitTimer, &QTimer::timeout, this, &Bubble::onDelayQuit);
+
+//    connect(m_opacityAnimation, &QPropertyAnimation::finished, this, &Bubble::onOutAnimFinished);
+    connect(m_geometryAnimation, &QPropertyAnimation::finished, this, [ = ] {
+        m_outTimer->start();
+    });
+
+    connect(m_outTimer, &QTimer::timeout, this, &Bubble::onOutTimerTimeout);
 }
 
 void Bubble::initAnimations()
 {
+<<<<<<< HEAD
     m_outAnimation->setDuration(AnimationTime);
     m_outAnimation->setEasingCurve(QEasingCurve::Linear);
     if (m_outAnimation->state() != QPropertyAnimation::Running) {
@@ -317,6 +361,16 @@ void Bubble::initAnimations()
             if (m_isDelete) this->deleteLater();
         });
     });
+=======
+//    m_opacityAnimation = new QPropertyAnimation(this, "windowOpacity", this);
+//    m_opacityAnimation->setDuration(AnimationTime);
+//    m_opacityAnimation->setEasingCurve(QEasingCurve::Linear);
+//    m_opacityAnimation->setStartValue(1);
+//    m_opacityAnimation->setEndValue(0);
+
+    m_geometryAnimation = new QPropertyAnimation(this, "geometry", this);
+    m_geometryAnimation->setEasingCurve(QEasingCurve::Linear);
+>>>>>>> feat：format code
 }
 
 
@@ -326,7 +380,7 @@ void Bubble::initTimers()
     m_quitTimer->setSingleShot(true);
 
     m_outTimer->setInterval(BubbleTimeout);
-    connect(m_outTimer, &QTimer::timeout, this, &Bubble::onOutTimerTimeout);
+    m_outTimer->setSingleShot(true);
 }
 
 void Bubble::onDelayQuit()
@@ -368,8 +422,9 @@ bool Bubble::containsMouse() const
     return geometry().contains(QCursor::pos());
 }
 
-void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect, const int index)
+void Bubble::startMove(const QRect &startRect, const QRect &endRect)
 {
+<<<<<<< HEAD
     m_bubbleIndex = index;
 
     if (startRect.top() > endRect.top() && m_pressed == true) {
@@ -384,13 +439,26 @@ void Bubble::startMoveAnimation(const QRect &startRect, const QRect &endRect, co
 
     m_moveAnimation->setStartValue(startRect);
     m_moveAnimation->setEndValue(endRect);
+=======
+    if (m_geometryAnimation->state() != QPropertyAnimation::Running) {
+        m_geometryAnimation->stop();
+        m_geometryAnimation->start();
+    }
+    m_geometryAnimation->setStartValue(startRect);
+    m_geometryAnimation->setEndValue(endRect);
+>>>>>>> feat：format code
 
     //calc animation time 72pix/300ms
     int ySpace = ABS(endRect.y() - startRect.y());
-    m_moveAnimation->setDuration(int(ySpace * 1.0 / 72 * AnimationTime));
-    m_moveAnimation->start();
+    m_geometryAnimation->setDuration(int(ySpace * 1.0 / 72 * AnimationTime));
+    m_geometryAnimation->start();
 
     setEnabled(QSize(endRect.width(), endRect.height()) == OSD::BubbleSize(OSD::BUBBLEWINDOW));
+}
+
+void Bubble::setBubbleIndex(int index)
+{
+    m_bubbleIndex = index;
 }
 
 void Bubble::setFixedGeometry(QRect rect)
