@@ -25,7 +25,7 @@
 
 #include <QtDebug>
 
-ApplicationGroup::ApplicationGroup(std::shared_ptr<NotificationEntity> entity, Persistence *database)
+ApplicationGroup::ApplicationGroup(EntityPtr entity, Persistence *database)
 {
     m_appName = entity->appName();
     m_timeStamp = entity->ctime();
@@ -54,7 +54,7 @@ void AppGroupModel::initData()
 {
     Q_ASSERT(m_database);
     if (m_database == nullptr)  return;
-    QList<std::shared_ptr<NotificationEntity>> notifications = m_database->getAllNotify();
+    QList<EntityPtr> notifications = m_database->getAllNotify();
     foreach (auto notify, notifications) {
         addNotify(notify);
     }
@@ -116,7 +116,7 @@ QPointer<ApplicationGroup> AppGroupModel::appGroup(const QString &app_name)
     return nullptr;
 }
 
-void AppGroupModel::addNotify(std::shared_ptr<NotificationEntity> entity)
+void AppGroupModel::addNotify(EntityPtr entity)
 {
     auto app_group = appGroup(entity->appName());
 

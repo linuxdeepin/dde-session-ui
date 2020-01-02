@@ -47,11 +47,11 @@ class Bubble : public DBlurEffectWidget
     Q_OBJECT
     Q_PROPERTY(QRect geometry READ geometry WRITE setFixedGeometry)
 public:
-    Bubble(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr,
+    Bubble(QWidget *parent = nullptr, EntityPtr entity = nullptr,
            OSD::ShowStyle style = OSD::ShowStyle::BUBBLEWINDOW);
 
-    std::shared_ptr<NotificationEntity> entity() const;
-    void setEntity(std::shared_ptr<NotificationEntity> entity);
+    EntityPtr entity() const;
+    void setEntity(EntityPtr entity);
     void setEnabled(bool enable);
 
     inline int bubbleIndex() {return m_bubbleIndex;}
@@ -95,7 +95,7 @@ private:
     bool containsMouse() const;
 
 protected:
-    std::shared_ptr<NotificationEntity> m_entity;
+    EntityPtr m_entity;
 
     //animation
 <<<<<<< HEAD

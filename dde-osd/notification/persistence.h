@@ -25,7 +25,8 @@
 #include <QObject>
 #include <QSqlDatabase>
 #include <QSqlQuery>
-#include <memory>
+
+#include "constants.h"
 
 #define ACTION_SEGMENT ("|")
 #define HINT_SEGMENT ("|")
@@ -38,13 +39,13 @@ class Persistence : public QObject
 public:
     explicit Persistence(QObject *parent = nullptr);
 
-    void addOne(std::shared_ptr<NotificationEntity> entity);
-    void addAll(QList<std::shared_ptr<NotificationEntity>> entities);
+    void addOne(EntityPtr entity);
+    void addAll(QList<EntityPtr> entities);
     void removeOne(const QString &id);
     void removeApp(const QString &app_name);
     void removeAll();
 
-    QList<std::shared_ptr<NotificationEntity>> getAllNotify();
+    QList<EntityPtr> getAllNotify();
     QString getAll();
     QString getById(const QString &id);
 
@@ -55,7 +56,7 @@ public:
     int getRecordCount();
 
 signals:
-    void RecordAdded(std::shared_ptr<NotificationEntity> entity);
+    void RecordAdded(EntityPtr entity);
 
 private:
     void attemptCreateTable();

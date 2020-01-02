@@ -158,7 +158,7 @@ QPixmap BubbleTool::converToPixmap(AppIcon *icon, const QDBusArgument &value, ui
                                           Qt::SmoothTransformation);
 }
 
-void BubbleTool::processIconData(AppIcon *icon, std::shared_ptr<NotificationEntity> entity)
+void BubbleTool::processIconData(AppIcon *icon, EntityPtr entity)
 {
     const QVariantMap &hints = entity->hints();
     QString imagePath;
@@ -208,7 +208,7 @@ const QString BubbleTool::getDeepinAppName(const QString &name)
     return desktop.localizedValue("Name", "default", "Desktop Entry", name);
 }
 
-void BubbleTool::actionInvoke(const QString &actionId, std::shared_ptr<NotificationEntity> entity)
+void BubbleTool::actionInvoke(const QString &actionId, EntityPtr entity)
 {
     qDebug() << "actionId:" << actionId;
     QMap<QString, QVariant> hints = entity->hints();

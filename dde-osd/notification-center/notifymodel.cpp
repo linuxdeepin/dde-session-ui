@@ -27,7 +27,7 @@
 
 #include <QDebug>
 
-NotifyModel::NotifyModel(QObject *parent, std::shared_ptr<NotificationEntity> notify)
+NotifyModel::NotifyModel(QObject *parent, EntityPtr notify)
     : QAbstractListModel(parent)
 {
     addNotify(notify);
@@ -47,7 +47,7 @@ QVariant NotifyModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    std::shared_ptr<NotificationEntity> notify = m_displays.at(index.row());
+    EntityPtr notify = m_displays.at(index.row());
 
     switch (role) {
     case NotifyIdRole:
@@ -90,7 +90,7 @@ Qt::ItemFlags NotifyModel::flags(const QModelIndex &index) const
     return QAbstractListModel::flags(index);
 }
 
-void NotifyModel::addNotify(std::shared_ptr<NotificationEntity> entity)
+void NotifyModel::addNotify(EntityPtr entity)
 {
     if (m_displays.size() < BubbleEntities || isExpand()) {
         beginInsertRows(QModelIndex(), 0, 0);
@@ -108,7 +108,7 @@ void NotifyModel::addNotify(std::shared_ptr<NotificationEntity> entity)
     layoutGroup();
 }
 
-void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
+void NotifyModel::removeNotify(EntityPtr entity)
 {
     int index = m_displays.indexOf(entity);
     deleteNotify(index);
@@ -148,7 +148,7 @@ void NotifyModel::removeNotify(std::shared_ptr<NotificationEntity> entity)
     layoutGroup();
 }
 
-void NotifyModel::expandData(std::shared_ptr<NotificationEntity> entity)
+void NotifyModel::expandData(EntityPtr entity)
 {
     if (m_notfications.isEmpty()) return;
 
@@ -206,7 +206,7 @@ bool NotifyModel::isExpand() const
     return false;
 }
 
-bool NotifyModel::canExpand(std::shared_ptr<NotificationEntity> entity) const
+bool NotifyModel::canExpand(EntityPtr entity) const
 {
     if (m_displays.indexOf(entity) == BubbleEntities - 1 && m_notfications.size() != 0) {
         return true;
@@ -214,9 +214,9 @@ bool NotifyModel::canExpand(std::shared_ptr<NotificationEntity> entity) const
     return false;
 }
 
-QList<std::shared_ptr<NotificationEntity>> NotifyModel::overlapNotifys()
+QList<EntityPtr> NotifyModel::overlapNotifys()
 {
-    QList<std::shared_ptr<NotificationEntity>> notifys;
+    QList<EntityPtr> notifys;
     if (isShowOverlap()) {
         notifys.push_front(m_displays.last());
 

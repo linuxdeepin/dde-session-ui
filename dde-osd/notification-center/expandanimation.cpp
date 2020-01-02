@@ -48,7 +48,7 @@ ExpandAnimation::~ExpandAnimation()
     }
 }
 
-void ExpandAnimation::expandData(const QList<std::shared_ptr<NotificationEntity>> &notifications)
+void ExpandAnimation::expandData(const QList<EntityPtr> &notifications)
 {
     int index = 0;
     qreal scal_ratio = 19 / 20;
@@ -111,7 +111,7 @@ void ExpandAnimation::expandData(const QList<std::shared_ptr<NotificationEntity>
     }
 }
 
-void ExpandAnimation::appendData(const QList<std::shared_ptr<NotificationEntity>> &notifications)
+void ExpandAnimation::appendData(const QList<EntityPtr> &notifications)
 {
     int index = 0;
 
@@ -135,7 +135,7 @@ void ExpandAnimation::appendData(const QList<std::shared_ptr<NotificationEntity>
     }
 }
 
-void ExpandAnimation::removeData(const QList<std::shared_ptr<NotificationEntity>> &notifications)
+void ExpandAnimation::removeData(const QList<EntityPtr> &notifications)
 {
     QPoint end(OSD::BubbleWidth(OSD::BUBBLEWIDGET), 0);
     QPoint start(0, 0);

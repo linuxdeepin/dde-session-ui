@@ -73,7 +73,7 @@ Persistence::Persistence(QObject *parent)
     attemptCreateTable();
 }
 
-void Persistence::addOne(std::shared_ptr<NotificationEntity> entity)
+void Persistence::addOne(EntityPtr entity)
 {
     QString sqlCmd =  QString("INSERT INTO %1 (").arg(TableName_v2);
     sqlCmd += ColumnIcon + ",";
@@ -132,9 +132,9 @@ void Persistence::addOne(std::shared_ptr<NotificationEntity> entity)
     }
 }
 
-void Persistence::addAll(QList<std::shared_ptr<NotificationEntity>> entities)
+void Persistence::addAll(QList<EntityPtr> entities)
 {
-    for (std::shared_ptr<NotificationEntity> entity : entities) {
+    for (EntityPtr entity : entities) {
         addOne(entity);
     }
 }
@@ -238,9 +238,9 @@ QString Persistence::getAll()
     return QJsonDocument(array1).toJson();
 }
 
-QList<std::shared_ptr<NotificationEntity>> Persistence::getAllNotify()
+QList<EntityPtr> Persistence::getAllNotify()
 {
-    QList<std::shared_ptr<NotificationEntity>> db_notification;
+    QList<EntityPtr> db_notification;
     QString json = getAll();
     QJsonArray notify_array = QJsonDocument::fromJson(json.toLocal8Bit().data()).array();
 

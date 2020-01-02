@@ -37,7 +37,7 @@ QWidget *BubbleDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
 {
     Q_UNUSED(option)
 
-    std::shared_ptr<NotificationEntity> notify = index.data(NotifyModel::NotifyEntityRole).value<std::shared_ptr<NotificationEntity>>();
+    EntityPtr notify = index.data(NotifyModel::NotifyEntityRole).value<EntityPtr>();
     NotifyModel *model = const_cast<NotifyModel *>(dynamic_cast<const NotifyModel *>(index.model()));
     Q_ASSERT(model);
 

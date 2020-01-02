@@ -26,7 +26,8 @@
 #include <QListView>
 #include <QDateTime>
 #include <QPointer>
-#include <memory>
+
+#include "notification/constants.h"
 
 class NotificationEntity;
 class Persistence;
@@ -46,21 +47,21 @@ public:
         NotifyViewRole = Qt::UserRole + 8
     };
 
-    NotifyModel(QObject *parent = nullptr, std::shared_ptr<NotificationEntity> notify = nullptr);
-    void addNotify(std::shared_ptr<NotificationEntity> entity);
+    NotifyModel(QObject *parent = nullptr, EntityPtr notify = nullptr);
+    void addNotify(EntityPtr entity);
     void setView(QListView *view) { m_view = view; }
     QListView *view() { return m_view; }
     int rowCount() { return m_displays.size(); }
-    void removeNotify(std::shared_ptr<NotificationEntity> entity);
+    void removeNotify(EntityPtr entity);
     void setPersistence(Persistence *db) { m_database = db; }
-    void expandData(std::shared_ptr<NotificationEntity> entity);
+    void expandData(EntityPtr entity);
     void collapseData();
     void refreshContent();
     bool isShowOverlap() const;
     bool isExpand() const;
-    bool canExpand(std::shared_ptr<NotificationEntity> entity) const;
-    QList<std::shared_ptr<NotificationEntity>> allNotifys() { return m_displays; }
-    QList<std::shared_ptr<NotificationEntity>> overlapNotifys();
+    bool canExpand(EntityPtr entity) const;
+    QList<EntityPtr> allNotifys() { return m_displays; }
+    QList<EntityPtr> overlapNotifys();
 
 signals:
     void appendNotify();
@@ -77,8 +78,8 @@ public:
 private:
     QListView *m_view = nullptr;
     Persistence *m_database = nullptr;
-    QList<std::shared_ptr<NotificationEntity>> m_notfications;
-    QList<std::shared_ptr<NotificationEntity>> m_displays;
+    QList<EntityPtr> m_notfications;
+    QList<EntityPtr> m_displays;
 };
 
 Q_DECLARE_METATYPE(std::shared_ptr<NotifyModel>);

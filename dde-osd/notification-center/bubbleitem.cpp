@@ -50,7 +50,7 @@ void AlphaWidget::paintEvent(QPaintEvent *event)
     return DWidget::paintEvent(event);
 }
 
-BubbleItem::BubbleItem(QWidget *parent, std::shared_ptr<NotificationEntity> entity)
+BubbleItem::BubbleItem(QWidget *parent, EntityPtr entity)
     : QWidget(parent)
     , m_entity(entity)
     , m_refreshTimer(new QTimer)

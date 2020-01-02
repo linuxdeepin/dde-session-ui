@@ -24,7 +24,8 @@
 #include <QRgb>
 #include <QDBusArgument>
 #include <QImage>
-#include <memory>
+
+#include "constants.h"
 
 class ActionButton;
 class AppIcon;
@@ -33,8 +34,8 @@ class BubbleTool
 {
 public:
     static QString processActions(ActionButton *action, QStringList action_list);
-    static void processIconData(AppIcon *icon, std::shared_ptr<NotificationEntity> entity);
-    static void actionInvoke(const QString &actionId, std::shared_ptr<NotificationEntity> entity);
+    static void processIconData(AppIcon *icon, EntityPtr entity);
+    static void actionInvoke(const QString &actionId, EntityPtr entity);
     static void register_wm_state(WId winid);
     static const QString getDeepinAppName(const QString &name);
 

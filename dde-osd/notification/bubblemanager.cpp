@@ -109,12 +109,12 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
              << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
              << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 
-    std::shared_ptr<NotificationEntity> notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
-                                                                                            summary, body, actions, hints,
-                                                                                            QString::number(QDateTime::currentMSecsSinceEpoch()),
-                                                                                            QString::number(replacesId),
-                                                                                            QString::number(expireTimeout),
-                                                                                            this);
+    EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
+                                                                  summary, body, actions, hints,
+                                                                  QString::number(QDateTime::currentMSecsSinceEpoch()),
+                                                                  QString::number(replacesId),
+                                                                  QString::number(expireTimeout),
+                                                                  this);
 
     if (!calcReplaceId(notification)) {
         pushBubble(notification);
@@ -125,7 +125,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     return replacesId == 0 ? notification->id() : replacesId;
 }
 
-void BubbleManager::pushBubble(std::shared_ptr<NotificationEntity> notify)
+void BubbleManager::pushBubble(EntityPtr notify)
 {
     if (notify == nullptr) return;
 
@@ -414,7 +414,7 @@ void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newNam
     }
 }
 
-bool BubbleManager::calcReplaceId(std::shared_ptr<NotificationEntity> notify)
+bool BubbleManager::calcReplaceId(EntityPtr notify)
 {
     bool find = false;
 
@@ -445,7 +445,7 @@ bool BubbleManager::calcReplaceId(std::shared_ptr<NotificationEntity> notify)
     return find;
 }
 
-Bubble *BubbleManager::createBubble(std::shared_ptr<NotificationEntity> notify, int index)
+Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
 {
     Bubble *bubble = new Bubble(nullptr, notify);
     connect(bubble, &Bubble::expired, this, &BubbleManager::bubbleExpired);

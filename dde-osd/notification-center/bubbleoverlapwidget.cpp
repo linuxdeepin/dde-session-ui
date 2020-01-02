@@ -70,7 +70,7 @@ void HalfRoundedRectWidget::paintEvent(QPaintEvent *event)
     return AlphaWidget::paintEvent(event);
 }
 
-BubbleOverlapWidget::BubbleOverlapWidget(const QList<std::shared_ptr<NotificationEntity>> &entitys,
+BubbleOverlapWidget::BubbleOverlapWidget(const QList<EntityPtr> &entitys,
                                          QWidget *parent, NotifyModel *model)
     : QWidget(parent)
     , m_notifications(entitys)

@@ -25,8 +25,9 @@
 #include <DWidget>
 #include <DLabel>
 
-#include <memory>
 #include <QDBusArgument>
+
+#include "notification/constants.h"
 
 class NotificationEntity;
 class NotifyModel;
@@ -65,7 +66,7 @@ class BubbleItem : public QWidget
 {
     Q_OBJECT
 public:
-    BubbleItem(QWidget *parent = nullptr, std::shared_ptr<NotificationEntity> entity = nullptr);
+    BubbleItem(QWidget *parent = nullptr, EntityPtr entity = nullptr);
     ~BubbleItem() override;
     void setParentModel(NotifyModel *model);
     const QPixmap converToPixmap(const QDBusArgument &value);
@@ -95,7 +96,7 @@ private:
     void refreshTheme();
 
 private:
-    std::shared_ptr<NotificationEntity> m_entity;
+    EntityPtr m_entity;
     NotifyModel *m_notifyModel = nullptr;
     QTimer *m_refreshTimer = nullptr;
 

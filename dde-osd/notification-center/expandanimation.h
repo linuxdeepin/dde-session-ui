@@ -24,8 +24,9 @@
 
 #include <DBlurEffectWidget>
 #include <QPointer>
-#include <memory>
 #include <QParallelAnimationGroup>
+
+#include "notification/constants.h"
 
 class QSequen;
 class NotificationEntity;
@@ -39,9 +40,9 @@ class ExpandAnimation : public DBlurEffectWidget
 public:
     ExpandAnimation(QWidget *parent = nullptr);
     ~ExpandAnimation();
-    void expandData(const QList<std::shared_ptr<NotificationEntity>> &);
-    void appendData(const QList<std::shared_ptr<NotificationEntity>> &);
-    void removeData(const QList<std::shared_ptr<NotificationEntity>> &);
+    void expandData(const QList<EntityPtr> &);
+    void appendData(const QList<EntityPtr> &);
+    void removeData(const QList<EntityPtr> &);
     void start() { m_animationGroup->start(); }
 
 signals:

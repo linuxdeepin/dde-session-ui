@@ -114,7 +114,7 @@ private Q_SLOTS:
 private:
     void initConnections();
     void registerAsService();
-    bool calcReplaceId(std::shared_ptr<NotificationEntity> notify);
+    bool calcReplaceId(EntityPtr notify);
     bool checkDockExistence();
     bool checkControlCenterExistence();
 
@@ -123,8 +123,8 @@ private:
     // or return false.
 
     // Bubble以后由其自身销毁，manager中不再管理
-    Bubble *createBubble(std::shared_ptr<NotificationEntity> notify, int index = 0);
-    void pushBubble(std::shared_ptr<NotificationEntity> notify);
+    Bubble *createBubble(EntityPtr notify, int index = 0);
+    void pushBubble(EntityPtr notify);
     void popBubble(Bubble *);
     void refreshBubble();
 
@@ -143,7 +143,7 @@ private:
     DBusDisplay *m_displayInter;
     DBusDock *m_dockDeamonInter;
 
-    QList<std::shared_ptr<NotificationEntity>> m_oldEntities;
+    QList<EntityPtr> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;
 
     NotifyCenterWidget *m_notifyCenter;

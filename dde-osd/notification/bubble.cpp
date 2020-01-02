@@ -39,7 +39,7 @@
 #include <QBoxLayout>
 #include <QParallelAnimationGroup>
 
-Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD::ShowStyle style)
+Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
     , m_entity(entity)
     , m_outAnimation(new QPropertyAnimation(this, "windowOpacity", this))
@@ -67,12 +67,12 @@ Bubble::Bubble(QWidget *parent, std::shared_ptr<NotificationEntity> entity, OSD:
     installEventFilter(this);
 }
 
-std::shared_ptr<NotificationEntity> Bubble::entity() const
+EntityPtr Bubble::entity() const
 {
     return m_entity;
 }
 
-void Bubble::setEntity(std::shared_ptr<NotificationEntity> entity)
+void Bubble::setEntity(EntityPtr entity)
 {
     if (!entity) return;
 

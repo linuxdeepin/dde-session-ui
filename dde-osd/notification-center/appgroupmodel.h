@@ -37,7 +37,7 @@ class ApplicationGroup : public QObject
 {
     Q_OBJECT
 public:
-    ApplicationGroup(std::shared_ptr<NotificationEntity> entity, Persistence *database);
+    ApplicationGroup(EntityPtr entity, Persistence *database);
 
     QVariant notifyModel() { return QVariant::fromValue(m_notifyModel); }
     QString appName() { return m_appName; }
@@ -83,7 +83,7 @@ Q_SIGNALS:
 private:
     void initData();
     int indexOf(std::shared_ptr<NotifyModel> model);
-    void addNotify(std::shared_ptr<NotificationEntity> entity);
+    void addNotify(EntityPtr entity);
     QPointer<ApplicationGroup> appGroup(const QString &app_name);
 
 private:

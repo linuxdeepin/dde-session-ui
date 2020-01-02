@@ -6,8 +6,12 @@
 #include <QStandardPaths>
 #include <QXmlStreamReader>
 
+#include "notificationentity.h"
+
 #define MIN(a,b) ((a)>(b)?(b):(a))
 #define ABS(a) (a)>0?(a):(-(a))
+
+typedef std::shared_ptr<NotificationEntity> EntityPtr;
 
 static const int ScreenPadding = 20;            //最上方通知距屏幕上方间隔
 static const int BubbleMargin = 12;             //桌面消息通知间隔
