@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
     DGuiApplicationHelper::setColorCompositingEnabled(true);
     DApplication a(argc, argv);
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
+    a.setOrganizationName("deepin");
     a.setApplicationName("dde-osd");
     a.setApplicationVersion("1.0");
 
