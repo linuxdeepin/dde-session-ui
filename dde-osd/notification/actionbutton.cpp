@@ -75,6 +75,8 @@ bool ActionButton::addButtons(const QStringList &list)
             } else if (i == 3) {
                 m_menuButton->setText(list[i]);
                 m_menuButton->setId(id);
+
+                m_buttons << m_menuButton;
             } else {
                 QAction *action = new QAction(list[i]);
 
@@ -120,6 +122,7 @@ void ActionButton::initUI()
 {
     m_menuButton->setFixedSize(OSD::ButtonSize(m_showStyle));
     m_menuButton->setRadius(20);
+    m_menuButton->hide();
 
     m_layout = new QHBoxLayout;
     m_layout->setMargin(0);
@@ -131,8 +134,6 @@ void ActionButton::initUI()
     layout->setMargin(0);
     layout->addLayout(m_layout);
     layout->addWidget(m_menuButton);
-
-    m_buttons << m_menuButton;
 
     setLayout(layout);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
