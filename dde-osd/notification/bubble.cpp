@@ -254,7 +254,6 @@ void Bubble::initConnections()
     connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & action_id) {
         BubbleTool::actionInvoke(action_id, m_entity);
         Q_EMIT actionInvoked(this, action_id);
-        Q_EMIT dismissed(this);
     });
 
     connect(m_closeButton, &DDialogCloseButton::clicked, this, [ = ]() {
