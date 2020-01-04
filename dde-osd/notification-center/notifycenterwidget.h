@@ -81,6 +81,7 @@ private:
     QSequentialAnimationGroup *m_aniGroup;
     DWindowManagerHelper *m_wmHelper;
     bool m_hasComposite = false;
+    QTimer *m_refreshTimer = nullptr;
 };
 
 #endif // MAINWIDGET_H

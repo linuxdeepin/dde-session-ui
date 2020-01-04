@@ -53,7 +53,6 @@ void AlphaWidget::paintEvent(QPaintEvent *event)
 BubbleItem::BubbleItem(QWidget *parent, EntityPtr entity)
     : QWidget(parent)
     , m_entity(entity)
-    , m_refreshTimer(new QTimer)
     , m_bgWidget(new AlphaWidget(this))
     , m_titleWidget(new AlphaWidget(this))
     , m_bodyWidget(new AlphaWidget(this))
@@ -135,10 +134,6 @@ void BubbleItem::initContent()
     m_body->setTitle(m_entity->summary());
     m_body->setText(OSD::removeHTML(m_entity->body()));
     m_appNameLabel->setText(BubbleTool::getDeepinAppName(m_entity->appName()));
-
-    m_refreshTimer->setSingleShot(false);
-    m_refreshTimer->start();
-    connect(m_refreshTimer, &QTimer::timeout, this, &BubbleItem::onRefreshTime);
     onRefreshTime();
 
     connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & id) {
@@ -151,6 +146,7 @@ void BubbleItem::initContent()
     connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
     connect(m_closeButton, &IconButton::clicked, this, &BubbleItem::onCloseBubble);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleItem::refreshTheme);
+    connect(ShortcutManage::instance(), &ShortcutManage::refreshTimer, this, &BubbleItem::onRefreshTime);
     refreshTheme();
 }
 
@@ -179,23 +175,18 @@ void BubbleItem::onRefreshTime()
     if (elapsedDay == 0) {
         if (minute == 0) {
             text =  tr("Just Now");
-            m_refreshTimer->setInterval(1000 * 3);
         } else if (minute > 0 && minute < 60) {
-            m_refreshTimer->setInterval(1000 * 59);
             text = tr("%1 minutes ago").arg(minute);
         } else {
-            m_refreshTimer->setInterval(1000 * 60 * 59);
             text = tr("%1 hours ago").arg(minute / 60);
         }
     } else if (elapsedDay >= 1 && elapsedDay < 2) {
         text = tr("Yesterday ") + " " + bubbleDateTime.toString("hh:mm");
     } else if (elapsedDay >= 2 && elapsedDay < 7) {
-        m_refreshTimer->setInterval(1000 * 60 * 60 * 24);
         text = bubbleDateTime.toString("ddd hh:mm");
     } else {
         text = bubbleDateTime.toString("yyyy/MM/dd");
     }
-
     m_appTimeLabel->setText(text);
 }
 

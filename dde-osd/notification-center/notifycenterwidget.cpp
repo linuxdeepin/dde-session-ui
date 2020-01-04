@@ -53,6 +53,7 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     , m_widthAni(new QPropertyAnimation(this, "width"))
     , m_aniGroup(new QSequentialAnimationGroup(this))
     , m_wmHelper(DWindowManagerHelper::instance())
+    , m_refreshTimer(new QTimer(this))
 {
     initUI();
     initConnections();
@@ -115,6 +116,8 @@ void NotifyCenterWidget::initUI()
     mainLayout->addWidget(m_headWidget);
     mainLayout->addWidget(m_notifyWidget);
 
+    m_refreshTimer->setInterval(1000);
+
     setLayout(mainLayout);
 
     connect(close_btn, &DIconButton::clicked, this, [ = ]() {
@@ -139,6 +142,7 @@ void NotifyCenterWidget::initAnimations()
 void NotifyCenterWidget::initConnections()
 {
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotifyCenterWidget::refreshTheme);
+    connect(m_refreshTimer, &QTimer::timeout, ShortcutManage::instance(), &ShortcutManage::refreshTimer);
 
     connect(m_widthAni, &QVariantAnimation::valueChanged, this, [ = ](const QVariant & value) {
         int width = value.toInt();
@@ -253,9 +257,11 @@ void NotifyCenterWidget::showWidget()
         return;
 
     if (isHidden()) {
+        m_refreshTimer->start();
         showAni();
     } else {
         hideAni();
+        m_refreshTimer->stop();
     }
 }
 

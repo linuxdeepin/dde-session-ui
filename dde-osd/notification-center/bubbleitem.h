@@ -79,6 +79,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onHavorStateChanged(bool hover);
     void onCloseBubble();
+    void onRefreshTime();
 
 protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
@@ -92,13 +93,11 @@ protected:
 private:
     void initUI();
     void initContent();
-    void onRefreshTime();
     void refreshTheme();
 
 private:
     EntityPtr m_entity;
     NotifyModel *m_notifyModel = nullptr;
-    QTimer *m_refreshTimer = nullptr;
 
     //controls
     AlphaWidget *m_bgWidget = nullptr;

@@ -63,6 +63,9 @@ private:
     QModelIndex m_currentGroupIndex;
     QModelIndex m_currentIndex;
     QPointer<QWidget> m_currentElement = nullptr;
+
+Q_SIGNALS:
+    void refreshTimer();
 };
 
 #endif // SHORTCUTMANAGE_H
