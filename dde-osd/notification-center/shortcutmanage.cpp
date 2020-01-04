@@ -58,7 +58,9 @@ void ShortcutManage::initIndex()
             if (group_view != nullptr) {
                 group_view->setCurrentIndex(m_currentIndex);
                 group_view->scrollTo(m_currentIndex);
-                group_view->indexWidget(m_currentIndex)->setFocus();
+                if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
+                    widget->setFocus();
+                }
             }
         }
     }
@@ -84,7 +86,9 @@ void ShortcutManage::onGroupIndexChanged(const QModelIndex &groupIndex)
             QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
             group_view->setCurrentIndex(m_currentIndex);
             group_view->scrollTo(m_currentIndex);
-            group_view->indexWidget(m_currentIndex)->setFocus();
+            if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
+                widget->setFocus();
+            }
         }
     }
 }
@@ -108,7 +112,9 @@ void ShortcutManage::onGroupIndexChanged_(const QModelIndex &groupIndex, const Q
             QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
             group_view->setCurrentIndex(m_currentIndex);
             group_view->scrollTo(m_currentIndex);
-            group_view->indexWidget(m_currentIndex)->setFocus();
+            if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
+                widget->setFocus();
+            }
         }
     }
 }
@@ -127,7 +133,10 @@ void ShortcutManage::onViewIndexChanged(const QModelIndex &index)
             QTimer::singleShot(AnimationTime + 5, [ = ] {
                 group_view->setCurrentIndex(m_currentIndex);
                 group_view->scrollTo(m_currentIndex);
-                group_view->indexWidget(m_currentIndex)->setFocus();
+                if (QWidget *widget = group_view->indexWidget(m_currentIndex))
+                {
+                    widget->setFocus();
+                }
             });
         }
     }
@@ -184,7 +193,9 @@ bool ShortcutManage::calcNextBubbleIndex()
         if (m_currentIndex.isValid()) {
             group_view->setCurrentIndex(m_currentIndex);
             group_view->scrollTo(m_currentIndex);
-            group_view->indexWidget(m_currentIndex)->setFocus();
+            if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
+                widget->setFocus();
+            }
         } else {
             calcNextGroupIndex();
         }
@@ -214,7 +225,9 @@ bool ShortcutManage::calcNextGroupIndex()
             QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
             group_view->setCurrentIndex(m_currentIndex);
             group_view->scrollTo(m_currentIndex);
-            group_view->indexWidget(m_currentIndex)->setFocus();
+            if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
+                widget->setFocus();
+            }
         }
         return true;
     }

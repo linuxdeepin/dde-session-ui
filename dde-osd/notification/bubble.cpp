@@ -82,7 +82,7 @@ void Bubble::setEntity(EntityPtr entity)
     actions << "删除";
     actions << "取消";
     actions << "取消";
-    //    entity->setActions(actions);
+//    entity->setActions(actions);
 //    entity->setTimeout("0");
 #endif
 
@@ -220,6 +220,7 @@ void Bubble::onOutTimerTimeout()
 void Bubble::initUI()
 {
     setAttribute(Qt::WA_TranslucentBackground);
+    setAttribute(Qt::WA_DeleteOnClose);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool | Qt::X11BypassWindowManagerHint);
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
@@ -351,7 +352,7 @@ void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDe
 
     if (needDelete) {
         QTimer::singleShot(group->duration(), this, [ = ] {
-            DBlurEffectWidget::close();
+            close();
         });
     }
 }
