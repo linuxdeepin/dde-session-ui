@@ -395,6 +395,10 @@ int Persistence::getRecordCount()
     QSqlTableModel *tableModel = new QSqlTableModel(this, m_dbConnection);
     tableModel->setTable(TableName_v2);
     tableModel->select();
+
+    while (tableModel->canFetchMore())
+        tableModel->fetchMore();
+
     int count = tableModel->rowCount();
 
     delete tableModel;
