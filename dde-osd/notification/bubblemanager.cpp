@@ -44,6 +44,9 @@ BubbleManager::BubbleManager(QObject *parent)
     , m_persistence(new Persistence)
     , m_displayInter(new DBusDisplay)
     , m_dockDeamonInter(new DBusDock)
+    , m_userInter(new UserInter("com.deepin.SessionManager",
+                                "/com/deepin/SessionManager",
+                                QDBusConnection::sessionBus(), this))
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
 {
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
@@ -116,10 +119,14 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                   QString::number(expireTimeout),
                                                                   this);
 
-    if (!calcReplaceId(notification)) {
-        pushBubble(notification);
-    }
 
+    if (!calcReplaceId(notification)) {
+        if(m_userInter->locked()){//判断是否锁屏
+            m_persistence->addOne(notification);
+        } else {
+            pushBubble(notification);
+        }
+    }
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.
     // If replaces_id is not 0, the returned value is the same value as replaces_id.
     return replacesId == 0 ? notification->id() : replacesId;
@@ -462,7 +469,9 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         bubble->setFixedSize(startRect.size());
         bubble->move(startRect.topLeft());
 
-        QTimer::singleShot(0, bubble, [ = ] {bubble->show();});
+        QTimer::singleShot(0, bubble, [ = ] {
+            bubble->show();
+        });
         bubble->setBubbleIndex(0);
         bubble->startMove(startRect, endRect);
     }

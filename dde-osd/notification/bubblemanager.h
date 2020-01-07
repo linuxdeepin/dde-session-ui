@@ -30,8 +30,12 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QGuiApplication>
+#include <com_deepin_sessionmanager.h>
+
 #include "bubble.h"
 #include "constants.h"
+
+using UserInter = com::deepin::SessionManager;
 
 static const QString DBbsDockDBusServer = "com.deepin.dde.Dock";
 static const QString DBusDockDBusPath = "/com/deepin/dde/Dock";
@@ -137,6 +141,7 @@ private:
     Login1ManagerInterface *m_login1ManagerInterface;
     DBusDisplay *m_displayInter;
     DBusDock *m_dockDeamonInter;
+    UserInter *m_userInter;
 
     QList<EntityPtr> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;
