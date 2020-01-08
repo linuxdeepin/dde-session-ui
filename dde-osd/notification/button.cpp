@@ -35,10 +35,6 @@
 #include <QStyleOption>
 #include <QVBoxLayout>
 
-static int MenuPadding = 4;
-static int MenuWidth = 14;
-static int MenuHeight = 7;
-
 ButtonContent::ButtonContent(QWidget *parent)
     : DWidget(parent)
     , m_text("")
@@ -113,7 +109,6 @@ void ButtonContent::drawContent(QPainter *painter)
 void ButtonContent::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
-
         if (geometry().contains(mapFromGlobal(QCursor::pos()))) {
             Q_EMIT clicked();
             Q_EMIT toggled(m_id);

@@ -29,6 +29,7 @@
 #include <QMenu>
 #include <QGridLayout>
 #include <DStyleHelper>
+#include <QApplication>
 
 #include "actionbutton.h"
 #include "button.h"
@@ -63,7 +64,7 @@ bool ActionButton::addButtons(const QStringList &list)
                 Button *button = new Button();
                 button->setText(list[i]);
                 button->setRadius(round);
-                button->setFixedSize(OSD::ButtonSize(m_showStyle));
+                button->setFixedSize(contentSize(list[i]));
 
                 m_layout->addWidget(button);
 
@@ -75,6 +76,7 @@ bool ActionButton::addButtons(const QStringList &list)
             } else if (i == 3) {
                 m_menuButton->setText(list[i]);
                 m_menuButton->setId(id);
+                m_menuButton->setFixedSize(contentSize(list[i], true));
 
                 m_buttons << m_menuButton;
             } else {
@@ -120,8 +122,9 @@ void ActionButton::setButtonSize(const QSize &size)
 
 void ActionButton::initUI()
 {
-    m_menuButton->setFixedSize(OSD::ButtonSize(m_showStyle));
-    m_menuButton->setRadius(20);
+    DStyleHelper dstyle(style());
+    const int round = dstyle.pixelMetric(DStyle::PM_FrameRadius);
+    m_menuButton->setRadius(round);
     m_menuButton->hide();
 
     m_layout = new QHBoxLayout;
@@ -137,6 +140,23 @@ void ActionButton::initUI()
 
     setLayout(layout);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+}
+
+QSize ActionButton::contentSize(const QString &text, bool is_menu) const
+{
+    const QFont appNamefont(qApp->font());
+    const QFontMetrics fm(appNamefont);
+
+    if (m_showStyle == OSD::BUBBLEWINDOW) {
+        int text_width = fm.width(text) + 15;
+        int max_width = qMax(text_width, OSD::ButtonSize(m_showStyle).width());
+        if (is_menu) {
+            max_width = qMax(MenuWidth + 2 * MenuPadding + text_width, OSD::ButtonSize(m_showStyle).width());
+        }
+        return QSize(qMin(max_width, MaxBubbleButtonWidth), OSD::ButtonSize(m_showStyle).height());
+    } else {
+        return OSD::ButtonSize(m_showStyle);
+    }
 }
 
 void ActionButton::initConnections()

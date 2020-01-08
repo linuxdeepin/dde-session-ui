@@ -60,7 +60,7 @@ BubbleItem::BubbleItem(QWidget *parent, EntityPtr entity)
     , m_appTimeLabel(new DLabel(this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
-    , m_actionButton(new ActionButton(this))
+    , m_actionButton(new ActionButton(this, OSD::BUBBLEWIDGET))
     , m_closeButton(new IconButton(this))
 
 {

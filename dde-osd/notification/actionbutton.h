@@ -46,6 +46,7 @@ public:
 
     QSize buttonSize() const {return m_buttonSize;}
     void setButtonSize(const QSize &size);
+    QSize contentSize(const QString &text, bool is_menu = false) const;
 
 private:
     void initUI();
