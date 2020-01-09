@@ -30,6 +30,10 @@ class NotificationEntity;
 class NotifyModel;
 class BubbleItem;
 
+/*!
+ * \~chinese \class HalfRoundedRectWidget
+ * \~chinese \brief 气泡发生重叠下方收起的窗口
+ */
 class HalfRoundedRectWidget : public AlphaWidget
 {
 public:
@@ -39,6 +43,10 @@ protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
+/*!
+ * \~chinese \class BubbleOverlapWidget
+ * \~chinese \brief 气泡发生重叠时显示的窗口
+ */
 class BubbleOverlapWidget : public QWidget
 {
     Q_OBJECT
@@ -46,11 +54,11 @@ public:
     BubbleOverlapWidget(const QList<EntityPtr> &entitys,
                         QWidget *parent = nullptr, NotifyModel *model = nullptr);
     ~BubbleOverlapWidget();
-    void setModel(NotifyModel *model);
-    BubbleItem *faceBubble() { return m_faceBubbleItem; }
+    void setModel(NotifyModel *model);                          //设置Model
+    BubbleItem *faceBubble() { return m_faceBubbleItem; }       //气泡发生重叠时最上面显示的窗口
 
 private:
-    void initOverlap();
+    void initOverlap();                                         //初始化气泡发生重叠时的窗口
 
 private:
     QList<EntityPtr> m_notifications;
@@ -58,7 +66,7 @@ private:
     BubbleItem *m_faceBubbleItem = nullptr;
 
 protected:
-    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE; //鼠标点击时展开重叠的气泡
 };
 
 #endif // NOTIFYWIDGET_H

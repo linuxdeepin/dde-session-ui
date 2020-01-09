@@ -39,31 +39,33 @@ class Persistence : public QObject
 public:
     explicit Persistence(QObject *parent = nullptr);
 
-    void addOne(EntityPtr entity);
-    void addAll(QList<EntityPtr> entities);
-    void removeOne(const QString &id);
-    void removeApp(const QString &app_name);
-    void removeAll();
+    void addOne(EntityPtr entity);              //向数据库添加一条通知数据
+    void addAll(QList<EntityPtr> entities);     //向数据库添加多条通知数据
+    void removeOne(const QString &id);          //根据通知的ID,从数据库删除一条通知.
+    void removeApp(const QString &app_name);    //根据App名称从数据库删除App组的通知
+    void removeAll();                           //从数据库删除所有通知
 
-    QList<EntityPtr> getAllNotify();
-    QString getAll();
-    QString getById(const QString &id);
+    QList<EntityPtr> getAllNotify();            //获取所有通知
+    QString getAll();                           //将所有通知转为Json格式的字符串返回
+    QString getById(const QString &id);         //根据ID获取通知信息
 
     // the result starts with offset + 1
     // If rowcount is - 1, it is obtained from offset + 1 to the last.
     QString getFrom(int rowCount, const QString &offsetId);
 
-    int getRecordCount();
+    int getRecordCount();                       //获取通知记录有多少条
 
 signals:
     void RecordAdded(EntityPtr entity);
 
 private:
-    void attemptCreateTable();
-    QString ConvertMapToString(const QVariantMap &map);
-    QVariantMap ConvertStringToMap(const QString &text);
+    void attemptCreateTable();  //在数据库中尝试创建一个表,记录通知信息
+    QString ConvertMapToString(const QVariantMap &map); //将QVariantMap类型转换为QString类型
+    QVariantMap ConvertStringToMap(const QString &text); //将QString类型转换为QVariantMap类型
 
+    //判断数据库表中的属性名称是否有效,有效返回true,无效返回false
     bool IsAttributeValid(const QString &tableName, const QString &attributeName);
+    //添加一个属性到数据库表中,成功返回true,失败返回false
     bool AddAttributeToTable(const QString &tableName, const QString &attributeName);
 
 private:

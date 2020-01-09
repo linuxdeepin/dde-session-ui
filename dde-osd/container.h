@@ -33,6 +33,10 @@ DWIDGET_USE_NAMESPACE
 DGUI_USE_NAMESPACE
 
 class QHBoxLayout;
+/*!
+ * \~chinese \class Container
+ * \~chinese \brief 用来显示osd listview的窗口
+ */
 class Container : public DBlurEffectWidget
 {
     Q_OBJECT

@@ -32,6 +32,10 @@
 
 using namespace com::deepin::daemon::inputdevice;
 
+/*!
+ * \~chinese \class DisplayModeProvider
+ * \~chinese \brief 切换键盘布局时的通知类
+ */
 class KBLayoutProvider : public AbstractOSDProvider
 {
     Q_OBJECT

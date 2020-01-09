@@ -33,7 +33,11 @@
 #include <QListView>
 
 #include "common.h"
-
+/*!
+ * \~chinese \class AbstractOSDProvider
+ * \~chinese \brief 抽象一个osd类,当接收到不同通知时,用来展示不同的窗口,后缀带有Provider
+ * \~chinese 的类都是继承于该类
+ */
 class AbstractOSDProvider : public QObject
 {
     Q_OBJECT

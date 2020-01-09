@@ -32,7 +32,10 @@
 
 class Persistence;
 class QListView;
-
+/*!
+ * \~chinese \class ApplicationGroup
+ * \~chinese \brief App组的信息类
+ */
 class ApplicationGroup : public QObject
 {
     Q_OBJECT
@@ -53,6 +56,10 @@ private:
     QString m_timeStamp;
 };
 
+/*!
+ * \~chinese \class AppGroupModel
+ * \~chinese \brief MVC模型中的Model类,app组的Model,继承自QAbstractListModel,用于从数据库中获取数据.
+ */
 class AppGroupModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -67,7 +74,7 @@ public:
     AppGroupModel(QObject *parent = nullptr, Persistence *database = nullptr);
     void setView(QListView *view) { m_view = view; }
     QListView *view() { return m_view; }
-    void removeGroup(std::shared_ptr<NotifyModel> model);
+    void removeGroup(std::shared_ptr<NotifyModel> model); //移除一个app组的通知
     QList<QPointer<ApplicationGroup>> appGroups() { return m_applications; }
 
 public:
@@ -76,15 +83,15 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
-    void dataChanged();
+    void dataChanged();                                 //数据库有添加数据时发送该信号
     void currentIndexChanged(const QModelIndex &index);
     void currentIndexChanged_(const QModelIndex &index1, const QModelIndex &index2);
 
 private:
-    void initData();
-    int indexOf(std::shared_ptr<NotifyModel> model);
-    void addNotify(EntityPtr entity);
-    QPointer<ApplicationGroup> appGroup(const QString &app_name);
+    void initData();                                    //初始化数据
+    int indexOf(std::shared_ptr<NotifyModel> model);    //返回有多少个App组
+    void addNotify(EntityPtr entity);                   //添加通知
+    QPointer<ApplicationGroup> appGroup(const QString &app_name); //根据App名称查找App组
 
 private:
     QListView *m_view = nullptr;

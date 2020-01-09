@@ -29,6 +29,10 @@
 #include <QAbstractListModel>
 
 class AbstractOSDProvider;
+/*!
+ * \~chinese \class ListView
+ * \~chinese \brief osd的model类
+ */
 class Model : public QAbstractListModel
 {
     Q_OBJECT

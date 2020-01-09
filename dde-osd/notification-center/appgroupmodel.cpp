@@ -116,7 +116,7 @@ QPointer<ApplicationGroup> AppGroupModel::appGroup(const QString &app_name)
     return nullptr;
 }
 
-void AppGroupModel::addNotify(EntityPtr entity)
+void AppGroupModel::addNotify(EntityPtr entity)//数据库中有添加数据时发出信号,该函数被执行
 {
     auto app_group = appGroup(entity->appName());
 

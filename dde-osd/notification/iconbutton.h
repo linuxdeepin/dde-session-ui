@@ -22,7 +22,10 @@
 #include <DWidget>
 
 DWIDGET_USE_NAMESPACE
-
+/*!
+ * \~chinese \class IconButton
+ * \~chinese \brief 自定义按钮类
+ */
 class IconButton : public DWidget
 {
     Q_OBJECT

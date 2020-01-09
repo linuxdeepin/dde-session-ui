@@ -27,7 +27,10 @@
 #define INDICATORPROVIDER_H
 
 #include "abstractosdprovider.h"
-
+/*!
+ * \~chinese \class IndicatorProvider
+ * \~chinese \brief 外设模式切换时的通知类
+ */
 class IndicatorProvider : public AbstractOSDProvider
 {
     Q_OBJECT

@@ -29,6 +29,7 @@
 #include <QDebug>
 #include <QDBusMetaType>
 
+//描述Dock窗口大小和位置的数据结构
 struct DockRect
 {
 public:

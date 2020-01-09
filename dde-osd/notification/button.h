@@ -36,6 +36,11 @@ class QMouseEvent;
 class QMenu;
 class QPaintEvent;
 class QAction;
+
+/*!
+ * \~chinese \class ButtonContent
+ * \~chinese \brief 通知中心中气泡窗口无功能菜单的按钮
+ */
 class ButtonContent : public DWidget
 {
     friend class Button;
@@ -78,6 +83,10 @@ protected:
     virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
+/*!
+ * \~chinese \class ButtonMenu
+ * \~chinese \brief 通知中心中气泡窗口功能菜单类
+ */
 class ButtonMenu : public DWidget
 {
     friend class Button;
@@ -97,6 +106,10 @@ protected:
     virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
+/*!
+ * \~chinese \class Button
+ * \~chinese \brief 通知中心气泡上的有功能菜单的按钮
+ */
 class Button : public DWidget
 {
     Q_OBJECT

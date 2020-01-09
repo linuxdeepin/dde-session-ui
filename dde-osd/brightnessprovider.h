@@ -31,7 +31,10 @@
 #include <com_deepin_daemon_display.h>
 
 #include "common.h"
-
+/*!
+ * \~chinese \class BrightnessProvider
+ * \~chinese \brief 调整屏幕亮度的通知类
+ */
 class BrightnessProvider : public AbstractOSDProvider
 {
     Q_OBJECT

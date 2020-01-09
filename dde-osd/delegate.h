@@ -31,6 +31,10 @@
 #include "common.h"
 
 class AbstractOSDProvider;
+/*!
+ * \~chinese \class Delegate
+ * \~chinese \brief 用来设置osd中item的样式
+ */
 class Delegate : public QStyledItemDelegate
 {
     Q_OBJECT

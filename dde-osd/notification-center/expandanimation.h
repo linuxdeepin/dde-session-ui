@@ -33,17 +33,20 @@ class NotificationEntity;
 class BubbleItem;
 
 DWIDGET_USE_NAMESPACE
-
+/*!
+ * \~chinese \class ExpandAnimation
+ * \~chinese \brief 动画类,用于添加数据移除数据时产生动画效果的类
+ */
 class ExpandAnimation : public DBlurEffectWidget
 {
     Q_OBJECT
 public:
     ExpandAnimation(QWidget *parent = nullptr);
     ~ExpandAnimation();
-    void expandData(const QList<EntityPtr> &);
-    void appendData(const QList<EntityPtr> &);
-    void removeData(const QList<EntityPtr> &);
-    void start() { m_animationGroup->start(); }
+    void expandData(const QList<EntityPtr> &);  //展开通知时的动画
+    void appendData(const QList<EntityPtr> &);  //添加数据时的动画
+    void removeData(const QList<EntityPtr> &);  //移除数据时的动画
+    void start() { m_animationGroup->start(); } //开始动画
 
 signals:
     void finished();

@@ -27,7 +27,10 @@
 #define LISTVIEW_H
 
 #include <QListView>
-
+/*!
+ * \~chinese \class ListView
+ * \~chinese \brief osd的视图类
+ */
 class ListView : public QListView
 {
     Q_OBJECT

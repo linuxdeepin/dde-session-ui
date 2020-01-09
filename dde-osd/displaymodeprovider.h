@@ -31,7 +31,10 @@
 #include <com_deepin_daemon_display.h>
 
 using namespace com::deepin::daemon;
-
+/*!
+ * \~chinese \class DisplayModeProvider
+ * \~chinese \brief 切换屏幕模式时的通知类
+ */
 class DisplayModeProvider : public AbstractOSDProvider
 {
     Q_OBJECT

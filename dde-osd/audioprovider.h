@@ -30,7 +30,10 @@
 
 #include <com_deepin_daemon_audio.h>
 #include <com_deepin_daemon_audio_sink.h>
-
+/*!
+ * \~chinese \class AudioProvider
+ * \~chinese \brief 调整音频时的通知类
+ */
 class AudioProvider : public AbstractOSDProvider
 {
     Q_OBJECT

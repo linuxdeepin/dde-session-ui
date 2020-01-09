@@ -35,6 +35,10 @@ class ListView;
 class Delegate;
 class Model;
 class AbstractOSDProvider;
+/*!
+ * \~chinese \class Manager
+ * \~chinese \brief osd通知管理类
+ */
 class Manager : public QObject
 {
     Q_OBJECT
@@ -57,7 +61,7 @@ private:
     QTimer *m_timer;
 
 private slots:
-    void updateUI();
+    void updateUI();    //更新UI界面
     void doneSetting();
 };
 

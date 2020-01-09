@@ -31,7 +31,11 @@
 
 class NotificationEntity;
 class Persistence;
-
+/*!
+ * \~chinese \class NotifyModel
+ * \~chinese \brief MVC模型中的Model类,这个类定义了用于views和delegates访问数据的接口。
+ * \~chinese 从数据库中提取通知,提供所有通知气泡的数据
+ */
 class NotifyModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -48,20 +52,20 @@ public:
     };
 
     NotifyModel(QObject *parent = nullptr, EntityPtr notify = nullptr);
-    void addNotify(EntityPtr entity);
+    void addNotify(EntityPtr entity);                       //添加一条通知
     void setView(QListView *view) { m_view = view; }
     QListView *view() { return m_view; }
-    int rowCount() { return m_displays.size(); }
+    int rowCount() { return m_displays.size(); }            //返回屏幕上能存放的通知数量
     void removeNotify(EntityPtr entity);
-    void setPersistence(Persistence *db) { m_database = db; }
+    void setPersistence(Persistence *db) { m_database = db; }   //设置从那个数据库读取数据
     void expandData(EntityPtr entity);
     void collapseData();
     void refreshContent();
-    bool isShowOverlap() const;
-    bool isExpand() const;
+    bool isShowOverlap() const;                             //判断通知气泡是否会重叠
+    bool isExpand() const;                                  //判断通知气泡是否应该展开
     bool canExpand(EntityPtr entity) const;
-    QList<EntityPtr> allNotifys() { return m_displays; }
-    QList<EntityPtr> overlapNotifys();
+    QList<EntityPtr> allNotifys() { return m_displays; }    //返回所有通知
+    QList<EntityPtr> overlapNotifys();                      //返回被折叠的通知
 
 signals:
     void appendNotify();

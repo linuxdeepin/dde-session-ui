@@ -22,7 +22,10 @@
 
 #include <QLabel>
 #include <QPixmap>
-
+/*!
+ * \~chinese \class AppIcon
+ * \~chinese \brief 自定义控件类,在通知中心气泡中显示App图标的类
+ */
 class AppIcon : public QLabel
 {
     Q_OBJECT

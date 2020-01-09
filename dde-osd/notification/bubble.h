@@ -38,6 +38,10 @@ class AppIcon;
 class AppBody;
 class Button;
 class ActionButton;
+/*!
+ * \~chinese \class Bubble
+ * \~chinese \brief 自定义控件类,屏幕上方通知气泡的窗口类
+ */
 class Bubble : public DBlurEffectWidget
 {
     Q_OBJECT
@@ -52,16 +56,18 @@ public:
 
     inline int bubbleIndex() {return m_bubbleIndex;}
 
-    void startMove(const QRect &startRect, const QRect &endRect, bool needDelete = false);      // 负责位置的移动
-    void setBubbleIndex(int index);                                     // 设置通知的索引,在屏幕分辨率或主屏发生变化用于更新通知位置
-    void updateGeometry();                                              // 更新通知的位置,分辨率被修改时使用
+    void startMove(const QRect &startRect,
+                   const QRect &endRect,
+                   bool needDelete = false);            // 负责位置的移动
+    void setBubbleIndex(int index);                     // 设置通知的索引,在屏幕分辨率或主屏发生变化用于更新通知位置
+    void updateGeometry();                              // 更新通知的位置,分辨率被修改时使用
 
 Q_SIGNALS:
-    void expired(Bubble *);                                             // 超时消失时发出,动画执行完成后自动删除
-    void dismissed(Bubble *);                                           // 点击后发出，动画执行完成后自动删除
-    void notProcessedYet(EntityPtr ptr);                                // 触发'暂不处理'操作时发出，不会主动删除自身
+    void expired(Bubble *);                             // 超时消失时发出,动画执行完成后自动删除
+    void dismissed(Bubble *);                           // 点击后发出，动画执行完成后自动删除
+    void notProcessedYet(EntityPtr ptr);                // 触发'暂不处理'操作时发出，不会主动删除自身
 
-    void actionInvoked(Bubble *, QString);                              // 不会主动删除自身
+    void actionInvoked(Bubble *, QString);              // 不会主动删除自身
     void resetGeometry();
 
 public Q_SLOTS:

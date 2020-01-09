@@ -26,7 +26,10 @@
 #include <QStringList>
 #include <QVariantMap>
 #include <memory>
-
+/*!
+ * \~chinese \class 通知的数据结构类
+ * \~chinese \brief 设置或者返回通知的信息
+ */
 class NotificationEntity : public QObject
 {
     Q_OBJECT

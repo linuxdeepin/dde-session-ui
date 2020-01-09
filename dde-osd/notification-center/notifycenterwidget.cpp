@@ -292,8 +292,3 @@ void NotifyCenterWidget::showWidget()
         m_refreshTimer->stop();
     }
 }
-
-bool NotifyCenterWidget::eventFilter(QObject *watched, QEvent *e)
-{
-    return QWidget::eventFilter(watched, e);
-}

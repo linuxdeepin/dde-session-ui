@@ -30,9 +30,11 @@
 #include <QMenu>
 
 #include <com_deepin_daemon_inputdevice_keyboard.h>
-
 using KeyboardInterface = com::deepin::daemon::inputdevice::Keyboard;
-
+/*!
+ * \~chinese \class DataWrapper
+ * \~chinese \brief 获取键盘布局的信息
+ */
 class DataWrapper : public QObject
 {
     Q_OBJECT
@@ -64,6 +66,10 @@ private:
     void initLayoutListAll();
 };
 
+/*!
+ * \~chinese \class KBLayoutIndicator
+ * \~chinese \brief dock栏显示键盘布局的控件
+ */
 class KBLayoutIndicator : public QSystemTrayIcon
 {
     Q_OBJECT

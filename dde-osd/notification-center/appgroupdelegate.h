@@ -23,7 +23,10 @@
 #define APPGROUPDELEGATE_H
 
 #include <QStyledItemDelegate>
-
+/*!
+ * \~chinese \class AppGroupDelegate
+ * \~chinese \brief 定制通知中心中App组中气泡的显示样式
+ */
 class AppGroupDelegate : public QStyledItemDelegate
 {
     Q_OBJECT

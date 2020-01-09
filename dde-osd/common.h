@@ -39,13 +39,23 @@ static const int TextItemHeight = 36;
 
 static const QColor ItemHighlightColor = "#01bdff";
 
+/*!
+ * \~chinese \class DrawHelper
+ * \~chinese \brief osd辅助绘图类
+ */
 class DrawHelper {
 public:
+    //绘制图片
     static void DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QString &pix, bool withText = false, bool withProgress = false);
+    //绘制文字
     static void DrawText(QPainter *painter, const QStyleOptionViewItem &option, const QString &text, QColor color = Qt::black, bool withImage = true);
+    //绘制进度条
     static void DrawProgressBar(QPainter *painter, const QStyleOptionViewItem &option, double progress);
+    //绘制中心的数字
     static void DrawCenterNum(QPainter *painter, const QStyleOptionViewItem &option, const QString &text, const bool isCurrent);
+    //绘制背景
     static void DrawBackground(QPainter *painter, const QStyleOptionViewItem &option);
+    //绘制进度条刻度
     static void DrawVolumeGraduation(QPainter *painter, const QStyleOptionViewItem &option);
 };
 

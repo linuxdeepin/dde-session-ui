@@ -101,7 +101,7 @@ void Manager::ShowOSD(const QString &osd)
 
     bool repeat = false;
     for (AbstractOSDProvider *provider : m_providers) {
-        if (provider->match(osd)) {
+        if (provider->match(osd)) {//遍历容器根据osd名称查找provider
             repeat = (m_currentProvider == provider);
             m_currentProvider = provider;
             connect(provider, &AbstractOSDProvider::dataChanged, this, &Manager::updateUI);

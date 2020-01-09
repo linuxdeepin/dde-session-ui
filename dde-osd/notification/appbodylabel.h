@@ -23,7 +23,10 @@
 #include <DLabel>
 
 DWIDGET_USE_NAMESPACE
-
+/*!
+ * \~chinese \class AppBodyLabel
+ * \~chinese \brief 此类用于通知中心气泡Body中的Label控件的实现
+ */
 class AppBodyLabel : public DLabel
 {
     Q_OBJECT

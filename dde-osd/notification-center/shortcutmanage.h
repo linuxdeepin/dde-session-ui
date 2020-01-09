@@ -33,6 +33,10 @@ class QEnterEvent;
 class AppGroupModel;
 class ApplicationGroup;
 
+/*!
+ * \~chinese \class ShortcutManage
+ * \~chinese \brief 全局按键事件管理类，通知中心里的每一条通知的关闭按钮，菜单，通知本身可以实现按tab键切换选中焦点
+ */
 class ShortcutManage : public QObject
 {
     Q_OBJECT
@@ -42,20 +46,20 @@ public:
     void initIndex();
 
 public Q_SLOTS:
-    void onGroupIndexChanged(const QModelIndex &groupIndex);
+    void onGroupIndexChanged(const QModelIndex &groupIndex); //当前App组中Index发生改变时执行该函数
     void onGroupIndexChanged_(const QModelIndex &groupIndex, const QModelIndex &index);
-    void onViewIndexChanged(const QModelIndex &index);
+    void onViewIndexChanged(const QModelIndex &index);//当前视图中Index发生改变时执行该函数
 
 protected:
-    bool eventFilter(QObject *object, QEvent *event) override;
+    bool eventFilter(QObject *object, QEvent *event) override; //过滤事件
 
 private:
     explicit ShortcutManage(QObject *parent = nullptr);
-    bool handKeyEvent(QObject *object, QKeyEvent *event);
-    bool handPressEvent(QObject *object);
-    bool handBubbleTab(QWidget *item);
-    bool calcNextBubbleIndex();
-    bool calcNextGroupIndex();
+    bool handKeyEvent(QObject *object, QKeyEvent *event);   //处理键盘TAB键按下的事件
+    bool handPressEvent(QObject *object);                   //处理键盘Enter键按下的事件
+    bool handBubbleTab(QWidget *item);                      //按下键盘TAB键时计算气泡中index的位置是否到最后一个
+    bool calcNextBubbleIndex();                             //计算下一个气泡的位置
+    bool calcNextGroupIndex();                              //计算下一个气泡组的位置
 
 private:
     static ShortcutManage *m_instance;

@@ -40,14 +40,17 @@ class BubbleDelegate;
 class NotificationEntity;
 
 DWIDGET_USE_NAMESPACE
-
+/*!
+ * \~chinese \class BubbleGroup
+ * \~chinese \brief 继承自QWidget,通知中心窗口中的通知组窗口类
+ */
 class BubbleGroup : public QWidget
 {
     Q_OBJECT
 public:
     explicit BubbleGroup(QWidget *parent = nullptr, std::shared_ptr<NotifyModel> model = nullptr);
     ~BubbleGroup() override;
-    void setGroupTitle(const QString &title) { group_title->setText(title); }
+    void setGroupTitle(const QString &title) { group_title->setText(title); } //设置通知组组名
     void setParentModel(AppGroupModel *model);
     QListView *view() { return m_groupList; }
 
@@ -55,17 +58,17 @@ signals:
     void closeGroup();
 
 protected:
-    int animationNeedBubble(int index = 0);
+    int animationNeedBubble(int index = 0);     //产生动画需要的气泡个数
     void expandAnimation();
-    void removeAnimation(int index);
-    void appendAnimation();
+    void removeAnimation(int index);            //移除通知动画
+    void appendAnimation();                     //添加通知的动画
 
 protected:
-    void enterEvent(QEvent *event) override;
-    void leaveEvent(QEvent *event) override;
-    void focusInEvent(QFocusEvent *event) override;
-    void hideEvent(QHideEvent *event) override;
-    void refreshTheme();
+    void enterEvent(QEvent *event) override;        //鼠标移动到窗口上,显示气泡组的关闭按钮
+    void leaveEvent(QEvent *event) override;        //鼠标移出窗口,气泡组的关闭按钮不显示
+    void focusInEvent(QFocusEvent *event) override; //当焦点移动到气泡组时显示气泡组关闭按钮
+    void hideEvent(QHideEvent *event) override;     //窗口隐藏事件,窗口隐藏时判断气泡组是否展开,如果有展开折叠气泡组
+    void refreshTheme();                            //根据系统主题改变前通知组的主题
 
 private:
     QList<QPointer<BubbleItem>> m_bubbleList;

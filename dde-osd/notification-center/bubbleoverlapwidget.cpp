@@ -39,9 +39,9 @@ HalfRoundedRectWidget::HalfRoundedRectWidget(QWidget *parent)
 void HalfRoundedRectWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::Antialiasing);//消除锯齿
 
-    QPalette pe = this->palette();
+    QPalette pe = this->palette();//得到此类的调色板
     QColor brushColor(pe.color(QPalette::Base));
     brushColor.setAlpha(m_hasFocus ? m_hoverAlpha : m_unHoverAlpha);
     painter.setBrush(brushColor);

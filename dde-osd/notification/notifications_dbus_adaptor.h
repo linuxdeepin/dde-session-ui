@@ -42,8 +42,9 @@ class QStringList;
 class QVariant;
 QT_END_NAMESPACE
 
-/*
- * Adaptor class for interface org.freedesktop.Notifications
+/*!
+ * \~chinese \class NotificationsDBusAdaptor
+ * \~chinese \brief 继承于QDBusAbstractAdaptor,用于给外部提供通知中心的dbus接口
  */
 class NotificationsDBusAdaptor: public QDBusAbstractAdaptor
 {
@@ -55,15 +56,33 @@ public:
 
 public: // PROPERTIES
 public Q_SLOTS: // METHODS
+    /*!
+     * \~chinese \name CloseNotification
+     * \~chinese \brief 给外部提供一个根据通知ID关闭通知的接口
+     * \~chinese \param in0:需要关闭的通知的ID号
+     */
     void CloseNotification(uint in0);
     QStringList GetCapabilities();
+    /*!
+     * \~chinese \name GetServerInformation
+     * \~chinese \brief 给外部提供一个获取服务信息的接口
+     */
     QString GetServerInformation(QString &out1, QString &out2, QString &out3);
+    /*!
+     * \~chinese \name Notify
+     * \~chinese \brief 给外部提供一个接口返回一个根据通知内容生成的通知ID
+     * \~chinese \param in0:App名称; in1:ID; in2:App图标名称; in3:通知信息概要; in4:通知信息主体
+     * \~chinese \param in5:行为信息; in6:提示信息 in7:多长时间超时过期,值为-1时不会超时
+     */
     uint Notify(const QString &in0, uint in1, const QString &in2, const QString &in3, const QString &in4, const QStringList &in5, const QVariantMap &in6, int in7);
 Q_SIGNALS:
     void ActionInvoked(uint in0, const QString &in1);
     void NotificationClosed(uint in0, uint in1);
 };
-
+/*!
+ * \~chinese \class NotificationsDBusAdaptor
+ * \~chinese \brief 继承于QDBusAbstractAdaptor,用于给外部提供通知的dbus接口
+ */
 class DDENotifyDBus : public QDBusAbstractAdaptor
 {
     Q_OBJECT
@@ -73,17 +92,67 @@ public:
     ~DDENotifyDBus();
 
 public Q_SLOTS:
+    /*!
+     * \~chinese \name CloseNotification
+     * \~chinese \brief 给外部提供一个根据通知ID关闭通知的接口
+     * \~chinese \param in0:Notify函数返回的id
+     */
     void CloseNotification(uint in0);
     QStringList GetCapabilities();
+    /*!
+     * \~chinese \name GetServerInformation
+     * \~chinese \brief 获取服务信息
+     */
     QString GetServerInformation(QString &out1, QString &out2, QString &out3);
+    /*!
+     * \~chinese \name Notify
+     * \~chinese \brief 给外部提供一个接口返回一个根据通知内容生成的通知ID
+     * \~chinese \param in0:App名称; in1:ID; in2:App图标名称; in3:通知信息概要; in4:通知信息主体
+     * \~chinese \param in5:行为信息; in6:提示信息 in7:多长时间超时过期,值为-1时不会超时
+     * \~chinese \return 返回一个通知ID
+     */
     uint Notify(const QString &in0, uint in1, const QString &in2, const QString &in3, const QString &in4, const QStringList &in5, const QVariantMap &in6, int in7);
+    /*!
+     * \~chinese \name GetAllRecords
+     * \~chinese \brief 给外部提供一个接口返回所有通知的记录
+     * \~chinese \return 返回一个json格式的字符串
+     */
     QString GetAllRecords();
+    /*!
+     * \~chinese \name GetRecordById
+     * \~chinese \brief 给外部提供一个接口根据ID查询通知记录
+     * \~chinese \param Notify函数返回的id
+     * \~chinese \return 返回一个json格式的字符串
+     */
     QString GetRecordById(const QString &id);
     QString GetRecordsFromId(int rowCount, const QString &offsetId);
+    /*!
+     * \~chinese \name RemoveRecord
+     * \~chinese \brief 给外部提供一个接口根据ID删除通知记录
+     * \~chinese \param Notify函数返回的id
+     */
     void RemoveRecord(const QString &id);
+    /*!
+     * \~chinese \name ClearRecords
+     * \~chinese \brief 给外部提供一个接口删除所有通知记录
+     */
     void ClearRecords();
+    /*!
+     * \~chinese \name doAction
+     * \~chinese \brief 给外部提供一个接口根据id控制通知气泡产生相应动作
+     * \~chinese \param id: ; acction:行为信息
+     */
     void doAction(uint id, const QString& action);
+    /*!
+     * \~chinese \name Toggle
+     * \~chinese \brief 给外部提供一个接口根据控制通知中心的显示和隐藏
+     */
     void Toggle();
+    /*!
+     * \~chinese \name recordCount
+     * \~chinese \brief 给外部提供一个接口获取通知中心中通知的数量
+     * \~chinese \return 通知中心中通知的数量
+     */
     uint recordCount();
 
 Q_SIGNALS: // SIGNALS

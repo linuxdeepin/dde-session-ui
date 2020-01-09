@@ -23,7 +23,12 @@
 #define BUBBLEDELEGATE_H
 
 #include <QStyledItemDelegate>
-
+/*!
+ * \~chinese \class BubbleDelegate
+ * \~chinese \brief 继承于QStyledItemDelegate,QAbstractItemDelegate 是model/view架构中的用于delegate的抽象基类。
+ * \~chinese 缺省的delegate实现在QItemDelegate类中提供.它可以用于Qt标准views的缺省 delegate.通过重写以下方法paint,
+ * \~chinese createEditor,sizeHint,updateEditorGeometry,eventFilter提供一个自定义的委托样式
+ */
 class BubbleDelegate : public QStyledItemDelegate
 {
     Q_OBJECT

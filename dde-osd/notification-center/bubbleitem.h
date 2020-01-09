@@ -38,12 +38,16 @@ class ActionButton;
 class IconButton;
 
 DWIDGET_USE_NAMESPACE
-
+/*!
+ * \~chinese \class AlphaWidget
+ * \~chinese \brief 绘制一个无边框,带有透明度的窗口
+ */
 class AlphaWidget : public DWidget
 {
 public:
     AlphaWidget(QWidget *parent = nullptr);
 
+    //设置和获取窗口属性的接口
     void setAlpha(int alpha) {m_hoverAlpha = alpha; m_unHoverAlpha = alpha; update();}
 
     int hoverAlpha() {return m_hoverAlpha;}
@@ -62,6 +66,10 @@ protected:
     bool m_hasFocus = false;
 };
 
+/*!
+ * \~chinese \class ItemWidget
+ * \~chinese \brief 通知中心中的气泡窗口类
+ */
 class BubbleItem : public QWidget
 {
     Q_OBJECT
@@ -82,18 +90,18 @@ public Q_SLOTS:
     void onRefreshTime();
 
 protected:
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;       //获取当前鼠标点击的位置
+    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;     //判断鼠标松开的位置是否与点击的位置相同,相同移除通知
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
-    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
-    void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;                 //鼠标移动到通知窗口上,隐藏时间显示关闭按钮
+    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;                 //鼠标移出通知窗口,隐藏关闭按钮显示时间
+    void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;          //当焦点移入或移出时背景发生变化
     void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
 
 private:
-    void initUI();
-    void initContent();
-    void refreshTheme();
+    void initUI();          //初始化UI界面
+    void initContent();     //初始化信号槽连接
+    void refreshTheme();    //刷新主题
 
 private:
     EntityPtr m_entity;

@@ -21,7 +21,10 @@
 #define ICONDATA_H
 
 #include <QDBusArgument>
-
+/*!
+ * \~chinese \class IconData
+ * \~chinese \brief 描述Icon属性的数据结构
+ */
 class IconData
 {
 public:

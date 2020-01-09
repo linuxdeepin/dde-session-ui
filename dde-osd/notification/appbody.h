@@ -27,6 +27,10 @@
 DWIDGET_USE_NAMESPACE
 
 class AppBodyLabel;
+/*!
+ * \~chinese \class AppBody
+ * \~chinese \brief 展示通知气泡的Body部分信息的窗口
+ */
 class AppBody : public QFrame
 {
     Q_OBJECT

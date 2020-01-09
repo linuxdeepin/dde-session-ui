@@ -30,6 +30,10 @@ class AppGroupDelegate;
 class QLabel;
 class QListView;
 
+/*!
+ * \~chinese \class NotifyWidget
+ * \~chinese \brief 通知中心用来存放所有App组信息的窗口
+ */
 class NotifyWidget : public QWidget
 {
     Q_OBJECT
