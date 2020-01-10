@@ -63,15 +63,9 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
 
     CompositeChanged();
 
-    DRegionMonitor *monitor = new DRegionMonitor(this);
-    monitor->registerRegion(QRegion(QRect()));
-    connect(monitor, &DRegionMonitor::buttonPress, this, [ = ](const QPoint & p, const int flag) {
-        Q_UNUSED(flag);
-        if (!geometry().contains(p) && !m_dockRect.contains(p))
-            if (!isHidden()) {
-                hideAni();
-            }
-    });
+    checkXEventMonitorDbusState();
+
+    m_tickTime.start();
 }
 
 void NotifyCenterWidget::initUI()
@@ -208,6 +202,11 @@ void NotifyCenterWidget::refreshTheme()
 
 void NotifyCenterWidget::showAni()
 {
+    if (m_tickTime.elapsed() < 100) {
+        return;
+    }
+    m_tickTime.start();
+
     if (!m_hasComposite) {
         setGeometry(QRect(m_notifyRect.x(), m_notifyRect.y(), m_notifyRect.width(), m_notifyRect.height()));
         m_notifyWidget->setFixedSize(m_notifyRect.size());
@@ -230,6 +229,9 @@ void NotifyCenterWidget::showAni()
 
 void NotifyCenterWidget::hideAni()
 {
+    if (m_tickTime.elapsed() < 100) {
+        return;
+    }
     if (!m_hasComposite) {
         hide();
         return;
@@ -239,6 +241,32 @@ void NotifyCenterWidget::hideAni()
     m_aniGroup->start();
 
     QTimer::singleShot(m_aniGroup->duration(), this, [ = ] {setVisible(false);});
+}
+
+void NotifyCenterWidget::checkXEventMonitorDbusState()
+{
+    QTimer *timer = new QTimer(this);
+    timer->setInterval(100);
+    connect(timer, &QTimer::timeout, this, [ = ] {
+        // DRegionMonitor依赖以下服务，确保其启动再绑定其信号
+        QDBusInterface interface("com.deepin.api.XEventMonitor", "/com/deepin/api/XEventMonitor",
+                                     "com.deepin.api.XEventMonitor",
+                                     QDBusConnection::sessionBus());
+        if (interface.isValid())
+        {
+            DRegionMonitor *monitor = new DRegionMonitor(this);
+            monitor->registerRegion(QRegion(QRect()));
+            connect(monitor, &DRegionMonitor::buttonPress, this, [ = ](const QPoint & p, const int flag) {
+                Q_UNUSED(flag);
+                if (!geometry().contains(p) /*&& !m_dockRect.contains(p)*/)
+                   if (!isHidden()) {
+                        hideAni();
+                    }
+            });
+            timer->stop();
+        }
+    });
+    timer->start();
 }
 
 void NotifyCenterWidget::CompositeChanged()

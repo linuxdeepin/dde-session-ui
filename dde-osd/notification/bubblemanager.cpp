@@ -121,7 +121,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
 
 
     if (!calcReplaceId(notification)) {
-        if(m_userInter->locked()){//判断是否锁屏
+        if (m_userInter->locked()) { //判断是否锁屏
             m_persistence->addOne(notification);
         } else {
             pushBubble(notification);
@@ -401,7 +401,6 @@ void BubbleManager::geometryChanged()
     QRect dock = m_dockDeamonInter->frontendRect();
     OSD::DockPosition pos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
 
-    qDebug() << "The primary display: " << display << " dock postion: " << dock;
     m_notifyCenter->updateGeometry(display, dock, pos);
 }
 

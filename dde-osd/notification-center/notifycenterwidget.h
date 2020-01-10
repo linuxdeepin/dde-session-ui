@@ -33,6 +33,8 @@
 #include <DLabel>
 #include <DWindowManagerHelper>
 
+#include <QTime>
+
 DWIDGET_USE_NAMESPACE
 DGUI_USE_NAMESPACE
 
@@ -66,6 +68,8 @@ private:
     void showAni();
     void hideAni();
 
+    void checkXEventMonitorDbusState();
+
 private Q_SLOTS:
     void CompositeChanged();
     void setX(int x);
@@ -82,6 +86,7 @@ private:
     DWindowManagerHelper *m_wmHelper;
     bool m_hasComposite = false;
     QTimer *m_refreshTimer = nullptr;
+    QTime m_tickTime;
 };
 
 #endif // MAINWIDGET_H
