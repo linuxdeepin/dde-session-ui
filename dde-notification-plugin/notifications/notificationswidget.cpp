@@ -71,7 +71,7 @@ const QPixmap NotificationsWidget::loadSvg(const QString &iconName, const QStrin
 {
     QIcon icon = QIcon::fromTheme(iconName);
     if (!icon.isNull()) {
-        QPixmap pixmap = icon.pixmap(int(size * ratio), int(size * ratio));
+        QPixmap pixmap = icon.pixmap(int(size * ratio));
         pixmap.setDevicePixelRatio(ratio);
         return pixmap;
     }
