@@ -86,6 +86,7 @@ Q_SIGNALS:
     void dataChanged();                                 //数据库有添加数据时发送该信号
     void currentIndexChanged(const QModelIndex &index);
     void currentIndexChanged_(const QModelIndex &index1, const QModelIndex &index2);
+    void setScrollBarValue(int value);
 
 private:
     void initData();                                    //初始化数据

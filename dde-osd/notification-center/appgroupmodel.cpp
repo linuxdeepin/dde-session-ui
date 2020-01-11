@@ -204,3 +204,4 @@ void AppGroupModel::removeGroup(std::shared_ptr<NotifyModel> model)
         app->deleteLater();
     }
 }
+

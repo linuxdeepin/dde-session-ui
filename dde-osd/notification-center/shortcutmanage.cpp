@@ -41,6 +41,8 @@ ShortcutManage *ShortcutManage::m_instance = nullptr;
 
 ShortcutManage::ShortcutManage(QObject *parent)
     : QObject(parent)
+    , m_displayInter(new DBusDisplay)
+    , m_dockDeamonInter(new DBusDock)
 {
     qApp->installEventFilter(this);
 }
@@ -56,6 +58,7 @@ ShortcutManage *ShortcutManage::instance(QObject *parent)
 void ShortcutManage::setAppModel(AppGroupModel *model)
 {
     m_appModel = model;
+    connect(this, &ShortcutManage::setScrollBar, m_appModel, &AppGroupModel::setScrollBarValue);
     initIndex();
 }
 
@@ -65,7 +68,6 @@ void ShortcutManage::initIndex()
     QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
     if (app_view != nullptr) {
         app_view->setCurrentIndex(m_currentGroupIndex);
-        app_view->scrollTo(m_currentGroupIndex);
     }
 
     if (!m_appModel->appGroups().isEmpty()) {
@@ -95,7 +97,6 @@ void ShortcutManage::onGroupIndexChanged(const QModelIndex &groupIndex)
     if (app_view != nullptr) {
         if (m_currentGroupIndex.isValid()) {
             app_view->setCurrentIndex(m_currentGroupIndex);
-            app_view->scrollTo(m_currentGroupIndex);
         } else {
             initIndex();
         }
@@ -207,21 +208,26 @@ bool ShortcutManage::calcNextBubbleIndex()
 {
     QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
     if (group_view != nullptr && handBubbleTab(group_view->indexWidget(m_currentIndex))) {
-        int row = m_currentIndex.row();
+        int row = m_currentIndex.row(); 
         m_currentIndex = group_view->model()->index(row + 1, 0);
-
         if (m_currentIndex.isValid()) {
             group_view->setCurrentIndex(m_currentIndex);
             group_view->scrollTo(m_currentIndex);
+            if(calcScrollValue() > 0){
+                Q_EMIT setScrollBar(calcScrollValue());
+            }
             if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
                 widget->setFocus();
             }
         } else {
             calcNextGroupIndex();
+            if(calcScrollValue() > 0){
+                Q_EMIT setScrollBar(calcScrollValue());
+            }
+
         }
         return true;
     }
-
     return false;
 }
 
@@ -233,15 +239,16 @@ bool ShortcutManage::calcNextGroupIndex()
         m_currentGroupIndex = app_view->model()->index(row + 1, 0);
         if (m_currentGroupIndex.isValid()) {
             app_view->setCurrentIndex(m_currentGroupIndex);
-            app_view->scrollTo(m_currentGroupIndex);
         } else {
             initIndex();
+            Q_EMIT setScrollBar(-Notify::GroupTitleHeight);
             return true;
         }
 
         auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
         if (model != nullptr) {
             m_currentIndex = model->index(0);
+
             QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
             group_view->setCurrentIndex(m_currentIndex);
             group_view->scrollTo(m_currentIndex);
@@ -253,31 +260,6 @@ bool ShortcutManage::calcNextGroupIndex()
     }
     return false;
 }
-
-//bool ShortcutManage::calcCurrentGroupIndex()
-//{
-//    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
-//    if (app_view != nullptr) {
-//        if (m_currentGroupIndex.isValid()) {
-//            app_view->setCurrentIndex(m_currentGroupIndex);
-//            app_view->scrollTo(m_currentGroupIndex);
-//        } else {
-//            initIndex();
-//            return true;
-//        }
-
-//        auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
-//        if (model != nullptr) {
-//            m_currentIndex = model->index(0);
-//            QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
-//            group_view->setCurrentIndex(m_currentIndex);
-//            group_view->scrollTo(m_currentIndex);
-//            group_view->indexWidget(m_currentIndex)->setFocus();
-//        }
-//        return true;
-//    }
-//    return false;
-//}
 
 bool ShortcutManage::handKeyEvent(QObject *object, QKeyEvent *event)
 {
@@ -328,7 +310,6 @@ bool ShortcutManage::handPressEvent(QObject *object)
 
                 if (overlap != nullptr)
                     m_currentIndex = group_view->indexAt(overlap->pos());
-
             }
         }
     }
@@ -347,3 +328,33 @@ bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
 
     return false;
 }
+
+int ShortcutManage::calcScrollValue()
+{
+    int currentPos = 0;
+    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
+    int groupRow = m_currentGroupIndex.row(); //获取当前气泡组的索引
+
+    for (int row = 0; row < groupRow; row ++) { //计算当前组前面气泡组的高度之和
+        QModelIndex groupIndex = app_view->model()->index(row, 0);
+        auto notify_model = groupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+        QWidget *widget = app_view->indexWidget(groupIndex);
+        currentPos = currentPos + widget->height();
+    }
+
+    QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
+    QWidget *currentBubbleWidget = group_view->indexWidget(m_currentIndex);
+
+    currentPos = currentPos + m_currentIndex.row() * 100 + (currentBubbleWidget->height() + 10) + Notify::GroupTitleHeight; //计算当前气泡的位置
+    QRect display = m_displayInter->primaryRawRect();
+    QRect dock = m_dockDeamonInter->frontendRect();
+
+    int notifiWidgetHeight = display.height() - dock.height() - Notify::CenterTitleHeight - Notify::CenterMargin * 2 - Notify::CenterMargin;
+
+    if ((currentPos > notifiWidgetHeight - 100) && (currentPos < notifiWidgetHeight)) {
+        currentPos = notifiWidgetHeight - 100;
+    }
+    int scrollValue = currentPos - notifiWidgetHeight;
+    return scrollValue;
+}
+

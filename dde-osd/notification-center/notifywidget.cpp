@@ -54,13 +54,15 @@ NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
         m_noNotify->setVisible(m_groupModel->rowCount(QModelIndex()) == 0);
         m_mainList->setVisible(m_groupModel->rowCount(QModelIndex()) != 0);
     });
+
+    connect(m_groupModel, &AppGroupModel::setScrollBarValue, this, &NotifyWidget::setScrollBar);
 }
 
 void NotifyWidget::initView(Persistence *database)
 {
     m_groupModel = new AppGroupModel(this, database);
     m_groupDelegate = new AppGroupDelegate;
-    m_mainList = new QListView(this);
+    m_mainList = new NotifyListView(this);
 
     ShortcutManage::instance()->setAppModel(m_groupModel);
     m_groupModel->setView(m_mainList);
@@ -90,3 +92,7 @@ void NotifyWidget::initView(Persistence *database)
     scroller->setScrollerProperties(sp);
 }
 
+void NotifyWidget::setScrollBar(int value)
+{
+    m_mainList->verticalScrollBar()->setValue(value + Notify::CenterMargin * 2);
+}

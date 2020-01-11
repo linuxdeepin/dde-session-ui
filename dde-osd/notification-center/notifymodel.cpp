@@ -183,7 +183,8 @@ void NotifyModel::collapseData()
 
 void NotifyModel::refreshContent()
 {
-    dataChanged(index(0), index(m_displays.size() - 1));
+    beginResetModel();
+    endResetModel();
 }
 
 bool NotifyModel::isShowOverlap() const

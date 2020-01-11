@@ -23,6 +23,9 @@
 #define NOTIFYWIDGET_H
 
 #include <QWidget>
+#include <QScrollArea>
+
+#include "notifylistview.h"
 
 class Persistence;
 class AppGroupModel;
@@ -44,10 +47,13 @@ public:
 private:
     void initView(Persistence *database);
 
+public Q_SLOTS:
+    void setScrollBar(int value);
+
 private:
     AppGroupDelegate *m_groupDelegate = nullptr;
     AppGroupModel *m_groupModel = nullptr;
-    QListView *m_mainList = nullptr;
+    NotifyListView *m_mainList = nullptr;
     QLabel *m_noNotify = nullptr;
 };
 

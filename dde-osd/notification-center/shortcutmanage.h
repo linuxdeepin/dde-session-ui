@@ -26,6 +26,10 @@
 #include <QWidget>
 #include <QPointer>
 
+#include "notification/dbusdisplay.h"
+#include "notification/dbusdock.h"
+#include "notification/constants.h"
+
 class QKeyEvent;
 class QMouseEvent;
 class QFocusEvent;
@@ -60,6 +64,7 @@ private:
     bool handBubbleTab(QWidget *item);                      //按下键盘TAB键时计算气泡中index的位置是否到最后一个
     bool calcNextBubbleIndex();                             //计算下一个气泡的位置
     bool calcNextGroupIndex();                              //计算下一个气泡组的位置
+    int calcScrollValue();
 
 private:
     static ShortcutManage *m_instance;
@@ -68,8 +73,12 @@ private:
     QModelIndex m_currentIndex;
     QPointer<QWidget> m_currentElement = nullptr;
 
+    DBusDisplay *m_displayInter;
+    DBusDock *m_dockDeamonInter;
+
 Q_SIGNALS:
     void refreshTimer();
+    void setScrollBar(int value);
 };
 
 #endif // SHORTCUTMANAGE_H

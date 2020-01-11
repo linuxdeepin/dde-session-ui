@@ -234,13 +234,17 @@ void NotifyCenterWidget::hideAni()
     }
     if (!m_hasComposite) {
         hide();
+        m_notifyWidget->setScrollBar(-Notify::CenterTitleHeight);
         return;
     }
 
     m_aniGroup->setDirection(QAbstractAnimation::Forward);
     m_aniGroup->start();
 
-    QTimer::singleShot(m_aniGroup->duration(), this, [ = ] {setVisible(false);});
+    QTimer::singleShot(m_aniGroup->duration(), this, [ = ] {
+        setVisible(false);
+        m_notifyWidget->setScrollBar(-Notify::CenterTitleHeight);
+    });
 }
 
 void NotifyCenterWidget::checkXEventMonitorDbusState()
