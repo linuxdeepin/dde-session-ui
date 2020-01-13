@@ -234,6 +234,8 @@ void NotifyCenterWidget::hideAni()
     if (m_tickTime.elapsed() < 100) {
         return;
     }
+    m_tickTime.start();
+
     if (!m_hasComposite) {
         hide();
         return;
@@ -254,8 +256,8 @@ void NotifyCenterWidget::checkXEventMonitorDbusState()
     connect(timer, &QTimer::timeout, this, [ = ] {
         // DRegionMonitor依赖以下服务，确保其启动再绑定其信号
         QDBusInterface interface("com.deepin.api.XEventMonitor", "/com/deepin/api/XEventMonitor",
-                                     "com.deepin.api.XEventMonitor",
-                                     QDBusConnection::sessionBus());
+                                 "com.deepin.api.XEventMonitor",
+                                 QDBusConnection::sessionBus());
         if (interface.isValid())
         {
             DRegionMonitor *monitor = new DRegionMonitor(this);
@@ -263,7 +265,7 @@ void NotifyCenterWidget::checkXEventMonitorDbusState()
             connect(monitor, &DRegionMonitor::buttonPress, this, [ = ](const QPoint & p, const int flag) {
                 Q_UNUSED(flag);
                 if (!geometry().contains(p) /*&& !m_dockRect.contains(p)*/)
-                   if (!isHidden()) {
+                    if (!isHidden()) {
                         hideAni();
                     }
             });
