@@ -94,5 +94,5 @@ void NotifyWidget::initView(Persistence *database)
 
 void NotifyWidget::setScrollBar(int value)
 {
-    m_mainList->verticalScrollBar()->setValue(value + Notify::CenterMargin * 2);
+    m_mainList->verticalScrollBar()->setValue(value);
 }

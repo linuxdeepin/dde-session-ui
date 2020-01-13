@@ -212,12 +212,14 @@ void NotifyCenterWidget::showAni()
         m_notifyWidget->setFixedSize(m_notifyRect.size());
         setFixedSize(m_notifyRect.size());
         show();
+        m_notifyWidget->setScrollBar(0);
         activateWindow();
         return;
     }
     setFixedWidth(0);
     move(m_notifyRect.x() + m_notifyRect.width(), m_notifyRect.y());
     show();
+    m_notifyWidget->setScrollBar(0);//重新设置ScrollBar的位置
 
     m_aniGroup->setDirection(QAbstractAnimation::Backward);
     m_aniGroup->start();
@@ -234,7 +236,6 @@ void NotifyCenterWidget::hideAni()
     }
     if (!m_hasComposite) {
         hide();
-        m_notifyWidget->setScrollBar(-Notify::CenterTitleHeight);
         return;
     }
 
@@ -243,7 +244,6 @@ void NotifyCenterWidget::hideAni()
 
     QTimer::singleShot(m_aniGroup->duration(), this, [ = ] {
         setVisible(false);
-        m_notifyWidget->setScrollBar(-Notify::CenterTitleHeight);
     });
 }
 

@@ -241,7 +241,7 @@ bool ShortcutManage::calcNextGroupIndex()
             app_view->setCurrentIndex(m_currentGroupIndex);
         } else {
             initIndex();
-            Q_EMIT setScrollBar(-Notify::GroupTitleHeight);
+            Q_EMIT setScrollBar(0);
             return true;
         }
 
@@ -351,10 +351,7 @@ int ShortcutManage::calcScrollValue()
 
     int notifiWidgetHeight = display.height() - dock.height() - Notify::CenterTitleHeight - Notify::CenterMargin * 2 - Notify::CenterMargin;
 
-    if ((currentPos > notifiWidgetHeight - 100) && (currentPos < notifiWidgetHeight)) {
-        currentPos = notifiWidgetHeight - 100;
-    }
-    int scrollValue = currentPos - notifiWidgetHeight;
+    int scrollValue = currentPos - notifiWidgetHeight + Notify::CenterMargin * 2;
     return scrollValue;
 }
 
