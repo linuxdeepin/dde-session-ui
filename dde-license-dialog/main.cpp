@@ -4,6 +4,7 @@
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 #include <QFile>
+#include <QDesktopWidget>
 
 DWIDGET_USE_NAMESPACE
 
@@ -36,6 +37,7 @@ int main(int argc, char *argv[])
     parser.process(a);
 
     MainWindow w;
+    w.moveToCenter();
     w.show();
 
     if (parser.isSet(title)) {
