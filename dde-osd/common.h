@@ -37,7 +37,7 @@ static const int ImageTextItemHeight = 140;
 static const int TextItemWidth = 200;
 static const int TextItemHeight = 36;
 
-static const QColor ItemHighlightColor = "#01bdff";
+static const QColor ItemHighlightColor = "#FFFFFF";//"#01bdff";
 
 /*!
  * \~chinese \class DrawHelper

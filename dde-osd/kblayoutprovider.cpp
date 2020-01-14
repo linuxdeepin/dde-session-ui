@@ -135,7 +135,7 @@ void KBLayoutProvider::paint(QPainter *painter, const QStyleOptionViewItem &opti
         DrawHelper::DrawText(painter, option, textData.toString(), Qt::black, false);
     } else {
         painter->setPen(Qt::NoPen);
-        painter->setBrush(QColor::fromRgbF(0, 0, 0, 0.1));
+        painter->setBrush(QColor::fromRgbF(0, 0, 0, 0.2));
         painter->drawRoundedRect(option.rect, 4, 4);
 
         DrawHelper::DrawText(painter, option, textData.toString(), ItemHighlightColor, false);
