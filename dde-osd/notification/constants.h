@@ -24,7 +24,7 @@
 #include <QSize>
 #include <QStringList>
 #include <QStandardPaths>
-#include <QXmlStreamReader>
+#include <QTextDocument>
 
 #include "notificationentity.h"
 
@@ -143,15 +143,9 @@ public:
 
     static QString removeHTML(const QString &source)
     {
-        QXmlStreamReader xml(source);
-        QString textString;
-        while (!xml.atEnd()) {
-            if (xml.readNext() == QXmlStreamReader::Characters) {
-                textString += xml.text();
-            }
-        }
-
-        return textString.isEmpty() ? source : textString;
+        QTextDocument document;
+        document.setHtml(source);
+        return document.toPlainText();
     }
 };
 #endif // DEFINE_H

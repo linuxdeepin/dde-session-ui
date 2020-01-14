@@ -106,7 +106,7 @@ void NotifyCenterWidget::initUI()
     m_headWidget->setLayout(head_Layout);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setContentsMargins(10, 10, 10, 10);
+    mainLayout->setContentsMargins(Notify::CenterMargin, Notify::CenterMargin, Notify::CenterMargin, Notify::CenterMargin);
     mainLayout->addWidget(m_headWidget);
     mainLayout->addWidget(m_notifyWidget);
 
@@ -209,7 +209,6 @@ void NotifyCenterWidget::showAni()
 
     if (!m_hasComposite) {
         setGeometry(QRect(m_notifyRect.x(), m_notifyRect.y(), m_notifyRect.width(), m_notifyRect.height()));
-        m_notifyWidget->setFixedSize(m_notifyRect.size());
         setFixedSize(m_notifyRect.size());
         show();
         m_notifyWidget->setScrollBar(0);

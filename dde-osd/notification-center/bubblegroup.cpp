@@ -8,10 +8,12 @@
 #include "notification/constants.h"
 
 #include <QBoxLayout>
+#include <QKeyEvent>
+#include <QDebug>
+
 #include <DFontSizeManager>
 #include <DGuiApplicationHelper>
 #include <DIconButton>
-#include <QDebug>
 
 DWIDGET_USE_NAMESPACE
 
@@ -60,6 +62,7 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     m_groupList->setUpdatesEnabled(true);
     m_groupList->setSelectionMode(QListView::NoSelection);
     m_groupList->setFocusPolicy(Qt::NoFocus);
+    m_groupList->installEventFilter(this);
 
     QPalette pa = m_groupList->palette();
     pa.setColor(QPalette::Highlight, Qt::transparent);
@@ -119,6 +122,20 @@ void BubbleGroup::hideEvent(QHideEvent *event)
         m_notifyModel->collapseData();
     }
     QWidget::hideEvent(event);
+}
+
+bool BubbleGroup::eventFilter(QObject *obj, QEvent *event)
+{
+    if(obj == m_groupList)
+    {
+        if(QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event))
+        {
+            if(keyEvent->key() == Qt::Key_Up
+                    || keyEvent->key() == Qt::Key_Down)
+                return true;
+        }
+    }
+    return false;
 }
 
 void BubbleGroup::appendAnimation()

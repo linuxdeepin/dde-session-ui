@@ -38,6 +38,7 @@
 #include <QMoveEvent>
 #include <QBoxLayout>
 #include <QParallelAnimationGroup>
+#include <QTextDocument>
 
 Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
@@ -287,22 +288,7 @@ void Bubble::onDelayQuit()
 void Bubble::updateContent()
 {
     m_body->setTitle(m_entity->summary());
-#ifdef QT_DEBUG
-    //移除href标签
-    auto removeHref = [ = ](const QString & str) {
-        QString text = str.simplified();
-        int pos = entity()->body().indexOf("<a href");
-        int pos2 = entity()->body().indexOf("</a>");
-        if (pos != -1 && pos2 != -1) {
-            return text.replace(str.mid(pos, pos2 - pos + QString("</a>").length()), "");
-        }
-        return str;
-    };
-
-    m_body->setText(removeHref(m_entity->body()));
-#else
     m_body->setText(OSD::removeHTML(m_entity->body()));
-#endif
     m_canClose = m_entity->actions().isEmpty();
 
     BubbleTool::processIconData(m_icon, m_entity);

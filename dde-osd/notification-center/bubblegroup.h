@@ -68,6 +68,7 @@ protected:
     void leaveEvent(QEvent *event) override;        //鼠标移出窗口,气泡组的关闭按钮不显示
     void focusInEvent(QFocusEvent *event) override; //当焦点移动到气泡组时显示气泡组关闭按钮
     void hideEvent(QHideEvent *event) override;     //窗口隐藏事件,窗口隐藏时判断气泡组是否展开,如果有展开折叠气泡组
+    bool eventFilter(QObject *obj,QEvent *event) override;
     void refreshTheme();                            //根据系统主题改变前通知组的主题
 
 private:

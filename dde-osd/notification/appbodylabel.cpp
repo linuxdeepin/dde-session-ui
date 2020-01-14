@@ -40,6 +40,10 @@ void AppBodyLabel::setText(const QString &text)
         return;
     }
 
+#ifdef QT_DEBUG
+    setToolTip(text);
+#endif
+
     m_text = text;
     int oldLineCount = m_lineCount;
 
