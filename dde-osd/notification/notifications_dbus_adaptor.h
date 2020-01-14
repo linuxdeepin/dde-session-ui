@@ -108,7 +108,7 @@ public Q_SLOTS:
      * \~chinese \name Notify
      * \~chinese \brief 给外部提供一个接口返回一个根据通知内容生成的通知ID
      * \~chinese \param in0:App名称; in1:ID; in2:App图标名称; in3:通知信息概要; in4:通知信息主体
-     * \~chinese \param in5:行为信息; in6:提示信息 in7:多长时间超时过期,值为-1时不会超时
+     * \~chinese \param in5:行为信息; in6:提示信息 in7:多长时间超时过期,值为0时不会超时,值为-1时默认超时时间
      * \~chinese \return 返回一个通知ID
      */
     uint Notify(const QString &in0, uint in1, const QString &in2, const QString &in3, const QString &in4, const QStringList &in5, const QVariantMap &in6, int in7);
