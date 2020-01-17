@@ -111,6 +111,9 @@ void Manager::ShowOSD(const QString &osd)
     }
 
     if (m_currentProvider) {
+        if(!m_currentProvider->checkConditions() && m_container->isVisible()) {
+            m_container->hide();
+        }
         updateUI();
         if (repeat && m_container->isVisible()) {
             QModelIndex currentIndex = m_listview->currentIndex();
