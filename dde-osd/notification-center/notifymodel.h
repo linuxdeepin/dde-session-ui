@@ -23,11 +23,11 @@
 #define NOTIFYMODEL_H
 
 #include <QAbstractListModel>
-#include <QListView>
 #include <QDateTime>
 #include <QPointer>
 
 #include "notification/constants.h"
+#include "notifylistview.h"
 
 class NotificationEntity;
 class Persistence;
@@ -53,8 +53,8 @@ public:
 
     NotifyModel(QObject *parent = nullptr, EntityPtr notify = nullptr);
     void addNotify(EntityPtr entity);                       //添加一条通知
-    void setView(QListView *view) { m_view = view; }
-    QListView *view() { return m_view; }
+    void setView(NotifyListView *view) { m_view = view; }
+    NotifyListView *view() { return m_view; }
     int rowCount() { return m_displays.size(); }            //返回屏幕上能存放的通知数量
     void removeNotify(EntityPtr entity);
     void setPersistence(Persistence *db) { m_database = db; }   //设置从那个数据库读取数据
@@ -69,10 +69,11 @@ public:
 
 signals:
     void appendNotify();
-    void expandNotify();
+    void expandNotify(int index);
+    void expandOver(int index);
     void deleteNotify(int index);
     void layoutGroup();
-    void currentIndexChanged(const QModelIndex &index);     //通知ShortManager
+    void currentIndexChanged(int notifyRow);     //通知ShortManager
 
 public:
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
@@ -80,7 +81,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
 
 private:
-    QListView *m_view = nullptr;
+    NotifyListView *m_view = nullptr;
     Persistence *m_database = nullptr;
     QList<EntityPtr> m_notfications;
     QList<EntityPtr> m_displays;

@@ -27,9 +27,9 @@
 #include "notification/iconbutton.h"
 #include "notification/constants.h"
 #include "bubbleoverlapwidget.h"
+#include "notifylistview.h"
 
 #include <QWidget>
-#include <QListView>
 #include <QApplication>
 #include <QKeyEvent>
 #include <QDebug>
@@ -64,23 +64,22 @@ void ShortcutManage::setAppModel(AppGroupModel *model)
 
 void ShortcutManage::initIndex()
 {
-    m_currentGroupIndex = m_appModel->index(0);
-    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
+    m_appRow = 0;
+    NotifyListView *app_view = m_appModel->view();
     if (app_view != nullptr) {
-        app_view->setCurrentIndex(m_currentGroupIndex);
+        app_view->setCurrentIndex(m_appRow);
     }
 
     if (!m_appModel->appGroups().isEmpty()) {
         auto m_currentApp = m_appModel->appGroups().first();
-        auto notify_model = m_currentApp->notifyModel().value<std::shared_ptr<NotifyModel>>();
+        auto model = m_currentApp->notifyModel().value<std::shared_ptr<NotifyModel>>();
 
-        if (notify_model != nullptr) {
-            m_currentIndex = notify_model->index(0);
-            QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
+        if (model != nullptr) {
+            m_notifyRow = 0;
+            NotifyListView *group_view = model->view();
             if (group_view != nullptr) {
-                group_view->setCurrentIndex(m_currentIndex);
-                group_view->scrollTo(m_currentIndex);
-                if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
+                group_view->setCurrentIndex(m_notifyRow);
+                if (QWidget *widget = group_view->indexWidget(model->index(m_notifyRow))) {
                     widget->setFocus();
                 }
             }
@@ -88,77 +87,70 @@ void ShortcutManage::initIndex()
     }
 }
 
-void ShortcutManage::onGroupIndexChanged(const QModelIndex &groupIndex)
+void ShortcutManage::onGroupIndexChanged(int groupRow)
 {
     //group发生修改，重置currentIndex为当前group第一个(后面删除)
-    m_currentGroupIndex = groupIndex;
+    m_appRow = groupRow;
 
-    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
+    NotifyListView *app_view = m_appModel->view();
     if (app_view != nullptr) {
-        if (m_currentGroupIndex.isValid()) {
-            app_view->setCurrentIndex(m_currentGroupIndex);
+        if (app_view->model()->index(m_appRow, 0).isValid()) {
+            app_view->setCurrentIndex(m_appRow);
         } else {
             initIndex();
         }
 
-        auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+        auto model = app_view->model()->index(m_appRow, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
         if (model != nullptr) {
-            m_currentIndex = model->index(0);
-            QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
-            group_view->setCurrentIndex(m_currentIndex);
-            group_view->scrollTo(m_currentIndex);
-            if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
+            m_notifyRow = 0;
+            NotifyListView *group_view = model->view();
+            group_view->setCurrentIndex(m_notifyRow);
+            if (QWidget *widget = group_view->indexWidget(model->index(m_notifyRow))) {
                 widget->setFocus();
             }
         }
     }
 }
 
-void ShortcutManage::onGroupIndexChanged_(const QModelIndex &groupIndex, const QModelIndex &index)
+//void ShortcutManage::onGroupIndexChanged_(const QModelIndex &groupIndex, const QModelIndex &index)
+//{
+//    m_appRow = groupIndex.row();
+
+//    NotifyListView *app_view = m_appModel->view();
+//    if (app_view != nullptr) {
+//        if (m_appModel->index(m_appRow).isValid()) {
+//            app_view->setCurrentIndex(m_appRow);
+//        } else {
+//            initIndex();
+//        }
+//        auto model = app_view->model()->index(m_appRow, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+//        if (model != nullptr) {
+//            m_notifyRow = index.row();
+//            NotifyListView *group_view = model->view();
+//            group_view->setCurrentIndex(m_notifyRow);
+//            if (QWidget *widget = group_view->indexWidget(model->index(m_notifyRow))) {
+//                widget->setFocus();
+//            }
+//        }
+//    }
+//}
+
+void ShortcutManage::onViewIndexChanged(int notifyRow)
 {
-    m_currentGroupIndex = groupIndex;
-
-    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
-    if (app_view != nullptr) {
-        if (m_currentGroupIndex.isValid()) {
-            app_view->setCurrentIndex(m_currentGroupIndex);
-            app_view->scrollTo(m_currentGroupIndex);
-        } else {
-            initIndex();
-        }
-
-        auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
-        if (model != nullptr) {
-            m_currentIndex = index;
-            QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
-            group_view->setCurrentIndex(m_currentIndex);
-            group_view->scrollTo(m_currentIndex);
-            if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
-                widget->setFocus();
-            }
-        }
-    }
-}
-
-void ShortcutManage::onViewIndexChanged(const QModelIndex &index)
-{
-    if (!index.isValid()) {
+    auto model = m_appModel->index(m_appRow, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+    if (model && !model->index(notifyRow).isValid()) {
         return;
     }
-    m_currentIndex = index;
 
-    auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+    m_notifyRow = notifyRow;
+
     if (model != nullptr) {
-        QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
+        NotifyListView *group_view = model->view();
         if (group_view) {
-            QTimer::singleShot(AnimationTime + 5, [ = ] {
-                group_view->setCurrentIndex(m_currentIndex);
-                group_view->scrollTo(m_currentIndex);
-                if (QWidget *widget = group_view->indexWidget(m_currentIndex))
-                {
-                    widget->setFocus();
-                }
-            });
+            group_view->setCurrentIndex(m_notifyRow);
+            if (QWidget *widget = group_view->indexWidget(model->index(m_notifyRow))) {
+                widget->setFocus();
+            }
         }
     }
 }
@@ -206,22 +198,21 @@ bool ShortcutManage::handBubbleTab(QWidget *item)
 
 bool ShortcutManage::calcNextBubbleIndex()
 {
-    QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
-    if (group_view != nullptr && handBubbleTab(group_view->indexWidget(m_currentIndex))) {
-        int row = m_currentIndex.row(); 
-        m_currentIndex = group_view->model()->index(row + 1, 0);
-        if (m_currentIndex.isValid()) {
-            group_view->setCurrentIndex(m_currentIndex);
-            group_view->scrollTo(m_currentIndex);
-            if(calcScrollValue() > 0){
+    auto model = m_appModel->index(m_appRow, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+    NotifyListView *group_view = model->view();
+    if (group_view != nullptr && handBubbleTab(group_view->indexWidget(model->index(m_notifyRow)))) {
+        m_notifyRow ++;
+        if (model->index(m_notifyRow).isValid()) {
+            group_view->setCurrentIndex(m_notifyRow);
+            if (calcScrollValue() > 0) {
                 Q_EMIT setScrollBar(calcScrollValue());
             }
-            if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
+            if (QWidget *widget = group_view->indexWidget(model->index(m_notifyRow))) {
                 widget->setFocus();
             }
         } else {
             calcNextGroupIndex();
-            if(calcScrollValue() > 0){
+            if (calcScrollValue() > 0) {
                 Q_EMIT setScrollBar(calcScrollValue());
             }
 
@@ -233,26 +224,24 @@ bool ShortcutManage::calcNextBubbleIndex()
 
 bool ShortcutManage::calcNextGroupIndex()
 {
-    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
+    NotifyListView *app_view = m_appModel->view();
+
     if (app_view != nullptr) {
-        int row = m_currentGroupIndex.row();
-        m_currentGroupIndex = app_view->model()->index(row + 1, 0);
-        if (m_currentGroupIndex.isValid()) {
-            app_view->setCurrentIndex(m_currentGroupIndex);
+        m_appRow ++;
+        if (m_appModel->index(m_appRow).isValid()) {
+            app_view->setCurrentIndex(m_appRow);
         } else {
             initIndex();
             Q_EMIT setScrollBar(0);
             return true;
         }
+        auto model = app_view->model()->index(m_appRow, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
 
-        auto model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
         if (model != nullptr) {
-            m_currentIndex = model->index(0);
-
-            QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
-            group_view->setCurrentIndex(m_currentIndex);
-            group_view->scrollTo(m_currentIndex);
-            if (QWidget *widget = group_view->indexWidget(m_currentIndex)) {
+            m_notifyRow = 0;
+            NotifyListView *group_view = model->view();
+            group_view->setCurrentIndex(m_notifyRow);
+            if (QWidget *widget = group_view->indexWidget(model->index(m_notifyRow))) {
                 widget->setFocus();
             }
         }
@@ -289,27 +278,29 @@ bool ShortcutManage::handPressEvent(QObject *object)
 {
     BubbleGroup *group = qobject_cast<BubbleGroup *>(object);
     if (group != nullptr) {
-        QListView *app_view = m_appModel->view();
+        NotifyListView *app_view = m_appModel->view();
         if (app_view != nullptr) {
-            m_currentGroupIndex = app_view->indexAt(group->pos());
+            m_appRow = app_view->indexAt(group->pos()).row();
         }
     }
 
     BubbleOverlapWidget *bubbleParent = NULL;
     BubbleItem *bubble = qobject_cast<BubbleItem *>(object);
-    if (bubble != NULL)
+    if (bubble)
         bubbleParent = qobject_cast<BubbleOverlapWidget *>(bubble->parent());
     BubbleOverlapWidget *overlap = qobject_cast<BubbleOverlapWidget *>(object);
     if (bubble != nullptr || overlap != nullptr) {
-        auto notify_model = m_currentGroupIndex.data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
-        if (notify_model != nullptr) {
-            QListView *group_view = notify_model->view();
+
+        NotifyListView *app_view = m_appModel->view();
+        auto model = app_view->model()->index(m_appRow, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+
+        if (app_view && model) {
+            NotifyListView *group_view = model->view();
             if (group_view != nullptr) {
                 if (bubble != nullptr && bubbleParent == nullptr)
-                    m_currentIndex = group_view->indexAt(bubble->pos());
-
+                    m_notifyRow = group_view->indexAt(bubble->pos()).row();
                 if (overlap != nullptr)
-                    m_currentIndex = group_view->indexAt(overlap->pos());
+                    m_notifyRow = group_view->indexAt(overlap->pos()).row();
             }
         }
     }
@@ -332,8 +323,9 @@ bool ShortcutManage::eventFilter(QObject *object, QEvent *event)
 int ShortcutManage::calcScrollValue()
 {
     int currentPos = 0;
-    QListView *app_view = m_currentGroupIndex.data(AppGroupModel::GroupViewRole).value<QListView *>();
-    int groupRow = m_currentGroupIndex.row(); //获取当前气泡组的索引
+    NotifyListView *app_view = m_appModel->view();
+
+    int groupRow = m_appRow; //获取当前气泡组的索引
 
     for (int row = 0; row < groupRow; row ++) { //计算当前组前面气泡组的高度之和
         QModelIndex groupIndex = app_view->model()->index(row, 0);
@@ -342,10 +334,12 @@ int ShortcutManage::calcScrollValue()
         currentPos = currentPos + widget->height();
     }
 
-    QListView *group_view = m_currentIndex.data(NotifyModel::NotifyViewRole).value<QListView *>();
-    QWidget *currentBubbleWidget = group_view->indexWidget(m_currentIndex);
+    auto model = app_view->model()->index(m_appRow, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
+    NotifyListView *group_view = model->view();
 
-    currentPos = currentPos + m_currentIndex.row() * 100 + (currentBubbleWidget->height() + 10) + Notify::GroupTitleHeight; //计算当前气泡的位置
+    QWidget *currentBubbleWidget = group_view->indexWidget(model->index(m_notifyRow));
+
+    currentPos = currentPos + m_notifyRow * 100 + (currentBubbleWidget->height() + 10) + Notify::GroupTitleHeight; //计算当前气泡的位置
     QRect display = m_displayInter->primaryRawRect();
     QRect dock = m_dockDeamonInter->frontendRect();
 

@@ -30,6 +30,8 @@ public:
     NotifyListView(QWidget *parent = nullptr);
 
     void scrollTo(const QModelIndex &index, ScrollHint hint = EnsureVisible) override;
+
+    void setCurrentIndex(int row);
 };
 
 #endif // NOTIFYLISTVIEW_H

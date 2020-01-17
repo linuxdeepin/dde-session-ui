@@ -28,8 +28,6 @@
 
 #include "notification/constants.h"
 
-class QSequen;
-class NotificationEntity;
 class BubbleItem;
 
 DWIDGET_USE_NAMESPACE
@@ -46,7 +44,7 @@ public:
     void expandData(const QList<EntityPtr> &);  //展开通知时的动画
     void appendData(const QList<EntityPtr> &);  //添加数据时的动画
     void removeData(const QList<EntityPtr> &);  //移除数据时的动画
-    void start() { m_animationGroup->start(); } //开始动画
+    void start() {m_animationGroup->start(); } //开始动画
 
 signals:
     void finished();

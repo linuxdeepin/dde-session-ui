@@ -33,6 +33,9 @@ NotifyModel::NotifyModel(QObject *parent, EntityPtr notify)
     addNotify(notify);
 
     connect(this, &NotifyModel::currentIndexChanged, ShortcutManage::instance(), &ShortcutManage::onViewIndexChanged);
+    connect(this, &NotifyModel::expandOver, this, [ = ](int index) {
+        Q_EMIT currentIndexChanged(index);
+    });
 }
 
 int NotifyModel::rowCount(const QModelIndex &parent) const
@@ -120,11 +123,11 @@ void NotifyModel::removeNotify(EntityPtr entity)
         m_displays.removeOne(entity);
         endRemoveRows();
         if (index <= m_displays.size() - 1) {
-            Q_EMIT currentIndexChanged(this->index(index, 0));
+            Q_EMIT currentIndexChanged(index);
             update = true;
         } else {
             if (m_notfications.isEmpty()) { //意味着这条消息删除后就没有新的消息再插入进来了，索引需要-1
-                Q_EMIT currentIndexChanged(this->index(index - 1, 0));
+                Q_EMIT currentIndexChanged(index - 1);
                 update = true;
             }
         }
@@ -136,7 +139,7 @@ void NotifyModel::removeNotify(EntityPtr entity)
         m_displays.push_back(m_notfications.takeFirst());
         endInsertRows();
         if (!update) {
-            Q_EMIT currentIndexChanged(this->index(index, 0));
+            Q_EMIT currentIndexChanged(index);
         }
     }
 
@@ -159,10 +162,8 @@ void NotifyModel::expandData(EntityPtr entity)
             m_notfications.clear();
         }
         layoutGroup();
-        expandNotify();
+        expandNotify(index);
     }
-
-    Q_EMIT currentIndexChanged(this->index(index, 0));
 }
 
 void NotifyModel::collapseData()

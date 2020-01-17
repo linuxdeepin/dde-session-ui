@@ -66,7 +66,11 @@ class DBusDock;
  * \~chinese \brief     3.提供气泡叠加的
  * \~chinese \brief     4.提供对外的一些接口
  */
+#ifdef QT_DEBUG
+class BubbleManager : public QObject, public QDBusContext
+#else
 class BubbleManager : public QObject
+#endif
 {
     Q_OBJECT
 public:

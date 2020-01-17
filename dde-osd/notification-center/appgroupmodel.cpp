@@ -22,6 +22,7 @@
 #include "appgroupmodel.h"
 #include "notification/persistence.h"
 #include "notification-center/shortcutmanage.h"
+#include "notifylistview.h"
 
 #include <QtDebug>
 
@@ -47,7 +48,6 @@ AppGroupModel::AppGroupModel(QObject *parent, Persistence *database)
     initData();
 
     connect(this, &AppGroupModel::currentIndexChanged, ShortcutManage::instance(), &ShortcutManage::onGroupIndexChanged);
-    connect(this, &AppGroupModel::currentIndexChanged_, ShortcutManage::instance(), &ShortcutManage::onGroupIndexChanged_);
 }
 
 void AppGroupModel::initData()
@@ -154,20 +154,11 @@ void AppGroupModel::addNotify(EntityPtr entity)//数据库中有添加数据时�
 
                 if (index <= m_applications.size() - 1) {
                     auto model = this->index(index, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
-                    if (model != nullptr) {
-                        Q_EMIT currentIndexChanged_(this->index(index, 0), model->index(0));
-                    } else {
-                        Q_EMIT currentIndexChanged(this->index(index, 0));
-                    }
+                    Q_EMIT currentIndexChanged(index);
                 } else {
                     auto model = this->index(index - 1, 0).data(AppGroupModel::NotifyModelRole).value<std::shared_ptr<NotifyModel>>();
-                    if (model != nullptr) {
-                        Q_EMIT currentIndexChanged_(this->index(index - 1, 0), model->index(model->rowCount() - 1, 0));
-                    } else {
-                        Q_EMIT currentIndexChanged(this->index(index - 1, 0));
-                    }
+                    Q_EMIT currentIndexChanged(index - 1);
                 }
-
             }
         });
     }

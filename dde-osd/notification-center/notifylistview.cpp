@@ -25,7 +25,7 @@
 #include "notifylistview.h"
 
 NotifyListView::NotifyListView(QWidget *parent)
-    :QListView(parent)
+    : QListView(parent)
 {
 
 }
@@ -36,4 +36,11 @@ void NotifyListView::scrollTo(const QModelIndex &index, ScrollHint hint)
     Q_UNUSED(hint)
 
     return;
+}
+
+void NotifyListView::setCurrentIndex(int row)
+{
+    QModelIndex index = this->model()->index(row, 0);
+
+    QListView::setCurrentIndex(index);
 }

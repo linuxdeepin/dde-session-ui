@@ -72,16 +72,24 @@ BubbleManager::~BubbleManager()
 
 void BubbleManager::CloseNotification(uint id)
 {
+#ifdef QT_DEBUG
+    QDBusReply<uint> reply = connection().interface()->servicePid(message().service());
+    qDebug() << "PID:" << reply.value();//关闭通知的进程
+#endif
+
     QString str_id = QString::number(id);
     foreach (auto bubble, m_bubbleList) {
         if (bubble->entity()->replacesId() == str_id) {
             bubble->close();
+            m_bubbleList.removeOne(bubble);
+            qDebug() << "CloseNotification : id" << str_id;
         }
     }
 
     foreach (auto notify, m_oldEntities) {
         if (notify->replacesId() == str_id) {
             m_oldEntities.removeOne(notify);
+            qDebug() << "CloseNotification : id" << str_id;
         }
     }
 }

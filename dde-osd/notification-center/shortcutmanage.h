@@ -50,9 +50,8 @@ public:
     void initIndex();
 
 public Q_SLOTS:
-    void onGroupIndexChanged(const QModelIndex &groupIndex); //当前App组中Index发生改变时执行该函数
-    void onGroupIndexChanged_(const QModelIndex &groupIndex, const QModelIndex &index);
-    void onViewIndexChanged(const QModelIndex &index);//当前视图中Index发生改变时执行该函数
+    void onGroupIndexChanged(int groupRow); //当前App组中Index发生改变时执行该函数
+    void onViewIndexChanged(int notifyRow);//当前视图中Index发生改变时执行该函数
 
 protected:
     bool eventFilter(QObject *object, QEvent *event) override; //过滤事件
@@ -69,8 +68,8 @@ private:
 private:
     static ShortcutManage *m_instance;
     AppGroupModel *m_appModel = nullptr;
-    QModelIndex m_currentGroupIndex;
-    QModelIndex m_currentIndex;
+    int m_appRow = -1;
+    int m_notifyRow = -1;
     QPointer<QWidget> m_currentElement = nullptr;
 
     DBusDisplay *m_displayInter;

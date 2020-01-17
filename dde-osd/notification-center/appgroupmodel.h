@@ -31,7 +31,7 @@
 #include <memory>
 
 class Persistence;
-class QListView;
+class NotifyListView;
 /*!
  * \~chinese \class ApplicationGroup
  * \~chinese \brief App组的信息类
@@ -72,8 +72,8 @@ public:
     };
 
     AppGroupModel(QObject *parent = nullptr, Persistence *database = nullptr);
-    void setView(QListView *view) { m_view = view; }
-    QListView *view() { return m_view; }
+    void setView(NotifyListView *view) { m_view = view; }
+    NotifyListView *view() { return m_view; }
     void removeGroup(std::shared_ptr<NotifyModel> model); //移除一个app组的通知
     QList<QPointer<ApplicationGroup>> appGroups() { return m_applications; }
 
@@ -84,8 +84,7 @@ public:
 
 Q_SIGNALS:
     void dataChanged();                                 //数据库有添加数据时发送该信号
-    void currentIndexChanged(const QModelIndex &index);
-    void currentIndexChanged_(const QModelIndex &index1, const QModelIndex &index2);
+    void currentIndexChanged(int groupRow);
     void setScrollBarValue(int value);
 
 private:
@@ -95,7 +94,7 @@ private:
     QPointer<ApplicationGroup> appGroup(const QString &app_name); //根据App名称查找App组
 
 private:
-    QListView *m_view = nullptr;
+    NotifyListView *m_view = nullptr;
     Persistence *m_database = nullptr;
     QList<QPointer<ApplicationGroup>> m_applications;
 };

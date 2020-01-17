@@ -26,6 +26,7 @@
 #include "appgroupmodel.h"
 #include "notification/notificationentity.h"
 #include "notification/constants.h"
+#include "notifylistview.h"
 
 #include <QBoxLayout>
 #include <QKeyEvent>
@@ -65,7 +66,7 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     head_Layout->addWidget(title_close, Qt::AlignRight);
     m_titleWidget->setLayout(head_Layout);
 
-    m_groupList = new QListView(this);
+    m_groupList = new NotifyListView(this);
     m_notifyDelegate = new BubbleDelegate(this);
     m_notifyModel->setView(m_groupList);
     m_groupList->setModel(m_notifyModel.get());
@@ -146,11 +147,9 @@ void BubbleGroup::hideEvent(QHideEvent *event)
 
 bool BubbleGroup::eventFilter(QObject *obj, QEvent *event)
 {
-    if(obj == m_groupList)
-    {
-        if(QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event))
-        {
-            if(keyEvent->key() == Qt::Key_Up
+    if (obj == m_groupList) {
+        if (QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event)) {
+            if (keyEvent->key() == Qt::Key_Up
                     || keyEvent->key() == Qt::Key_Down)
                 return true;
         }
@@ -213,12 +212,13 @@ void BubbleGroup::removeAnimation(int index)
     m_expandAnimation->start();
 }
 
-void BubbleGroup::expandAnimation()
+void BubbleGroup::expandAnimation(int index)
 {
     if (m_expandAnimation.isNull()) {
         m_expandAnimation = new ExpandAnimation(m_groupList);
 
-        connect(m_expandAnimation, &ExpandAnimation::finished, [ = ]() {
+        connect(m_expandAnimation, &ExpandAnimation::finished, [ &, index]() {
+            m_notifyModel->expandOver(index);
             m_expandAnimation->hide();
             m_expandAnimation->deleteLater();
             m_notifyModel->refreshContent();
