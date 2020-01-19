@@ -411,7 +411,8 @@ void BubbleManager::geometryChanged()
     QRect dock = m_dockDeamonInter->frontendRect();
     OSD::DockPosition pos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
 
-    m_notifyCenter->updateGeometry(display, dock, pos);
+    int mode = m_dockDeamonInter->displayMode();
+    m_notifyCenter->updateGeometry(display, dock, pos, mode);
 }
 
 void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newName)

@@ -146,7 +146,7 @@ void NotifyCenterWidget::initConnections()
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &NotifyCenterWidget::CompositeChanged, Qt::QueuedConnection);
 }
 
-void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos)
+void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos, int mode)
 {
     qreal scale = qApp->primaryScreen()->devicePixelRatio();
     dock.setWidth(int(qreal(dock.width()) / scale));
@@ -159,8 +159,13 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
 
     int width = Notify::CenterWidth;
     int height = screen.height() - Notify::CenterMargin * 2;
-    if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom)
-        height = screen.height() - Notify::CenterMargin * 2 - dock.height();
+    if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom) {
+        if(mode == 0) {//mode == 0时dock栏为时尚模式 mode == 1时dock栏为高效模式
+            height = screen.height() - Notify::CenterMargin * 2 - Notify::CenterMargin - dock.height();
+        } else {
+            height = screen.height() - Notify::CenterMargin * 2 - dock.height();
+        }
+    }
 
     int x = screen.x() + screen.width() - Notify::CenterWidth - Notify::CenterMargin;
     if (pos == OSD::DockPosition::Right)
