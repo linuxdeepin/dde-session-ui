@@ -40,7 +40,7 @@ AudioProvider::AudioProvider(QObject *parent)
     connect(m_audioInter, &__Audio::DefaultSinkChanged,
             this, &AudioProvider::defaultSinkChanged);
 
-    auto onAudioIsValid = [=] (bool isvalid) {
+    auto onAudioIsValid = [ = ](bool isvalid) {
         if (isvalid) {
             defaultSinkChanged(m_audioInter->defaultSink());
         }
@@ -58,14 +58,15 @@ int AudioProvider::rowCount(const QModelIndex &) const
 
 QVariant AudioProvider::data(const QModelIndex &, int role) const
 {
-
     if (!m_sinkInter->isValid()) {
-        AudioProvider *provider = const_cast<AudioProvider*>(this);
+        AudioProvider *provider = const_cast<AudioProvider *>(this);
         provider->defaultSinkChanged(provider->m_audioInter->defaultSink());
     }
 
     if (role == Qt::DecorationRole) {
         return pixmapPath();
+    } else if (role == Qt::EditRole) {
+        return m_audioInter->increaseVolume();
     }
 
     return m_sinkInter->mute() ? 0 : m_sinkInter->volume();
@@ -75,11 +76,13 @@ void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option,
 {
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant progressData = index.data(Qt::DisplayRole);
+    QVariant increaseVolumnData = index.data(Qt::EditRole);
 
     // NOTE: Max volume is 1.5
     DrawHelper::DrawImage(painter, option, imageData.toString(), false, true);
-    DrawHelper::DrawProgressBar(painter, option, progressData.toDouble() / 1.5);
-    DrawHelper::DrawVolumeGraduation(painter, option);
+    DrawHelper::DrawProgressBar(painter, option, progressData.toDouble() / (increaseVolumnData.toBool() ? 1.5 : 1.0));
+    if (increaseVolumnData.toBool())
+        DrawHelper::DrawVolumeGraduation(painter, option);
 }
 
 QSize AudioProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
