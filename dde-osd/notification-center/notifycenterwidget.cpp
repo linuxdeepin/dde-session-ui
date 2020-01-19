@@ -43,7 +43,6 @@
 #include <DLabel>
 #include <DFontSizeManager>
 #include <DGuiApplicationHelper>
-#include <DRegionMonitor>
 
 DWIDGET_USE_NAMESPACE
 
@@ -54,6 +53,7 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
     , m_aniGroup(new QSequentialAnimationGroup(this))
     , m_wmHelper(DWindowManagerHelper::instance())
     , m_refreshTimer(new QTimer(this))
+    , m_regionMonitor(new DRegionMonitor(this))
 {
     initUI();
     initConnections();
@@ -63,7 +63,7 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
 
     CompositeChanged();
 
-    checkXEventMonitorDbusState();
+    m_regionMonitor->setCoordinateType(DRegionMonitor::Original);
 
     m_tickTime.start();
 }
@@ -189,6 +189,13 @@ void NotifyCenterWidget::mouseMoveEvent(QMouseEvent *event)
     return;
 }
 
+void NotifyCenterWidget::hideEvent(QHideEvent *event)
+{
+    unRegisterRegion();
+
+    return DBlurEffectWidget::hideEvent(event);
+}
+
 void NotifyCenterWidget::refreshTheme()
 {
     QPalette pa = title_label->palette();
@@ -202,10 +209,12 @@ void NotifyCenterWidget::refreshTheme()
 
 void NotifyCenterWidget::showAni()
 {
-    if (m_tickTime.elapsed() < 100) {
+    if (m_tickTime.elapsed() < 200) {
         return;
     }
     m_tickTime.start();
+
+    registerRegion();
 
     if (!m_hasComposite) {
         setGeometry(QRect(m_notifyRect.x(), m_notifyRect.y(), m_notifyRect.width(), m_notifyRect.height()));
@@ -223,14 +232,12 @@ void NotifyCenterWidget::showAni()
     m_aniGroup->setDirection(QAbstractAnimation::Backward);
     m_aniGroup->start();
 
-    QTimer::singleShot(m_aniGroup->duration(), this, [ = ] {activateWindow();});
-
     ShortcutManage::instance()->initIndex();
 }
 
 void NotifyCenterWidget::hideAni()
 {
-    if (m_tickTime.elapsed() < 100) {
+    if (m_tickTime.elapsed() < 200) {
         return;
     }
     m_tickTime.start();
@@ -248,30 +255,32 @@ void NotifyCenterWidget::hideAni()
     });
 }
 
-void NotifyCenterWidget::checkXEventMonitorDbusState()
+void NotifyCenterWidget::registerRegion()
 {
-    QTimer *timer = new QTimer(this);
-    timer->setInterval(100);
-    connect(timer, &QTimer::timeout, this, [ = ] {
-        // DRegionMonitor依赖以下服务，确保其启动再绑定其信号
-        QDBusInterface interface("com.deepin.api.XEventMonitor", "/com/deepin/api/XEventMonitor",
+    QDBusInterface interface("com.deepin.api.XEventMonitor", "/com/deepin/api/XEventMonitor",
                                  "com.deepin.api.XEventMonitor",
                                  QDBusConnection::sessionBus());
-        if (interface.isValid())
-        {
-            DRegionMonitor *monitor = new DRegionMonitor(this);
-            monitor->registerRegion(QRegion(QRect()));
-            connect(monitor, &DRegionMonitor::buttonPress, this, [ = ](const QPoint & p, const int flag) {
-                Q_UNUSED(flag);
-                if (!geometry().contains(p) /*&& !m_dockRect.contains(p)*/)
-                    if (!isHidden()) {
-                        hideAni();
-                    }
-            });
-            timer->stop();
-        }
-    });
-    timer->start();
+    if (interface.isValid()) {
+        m_regionConnect = connect(m_regionMonitor, &DRegionMonitor::buttonPress, this, [ = ](const QPoint & p, const int flag) {
+            Q_UNUSED(flag);
+            if (!geometry().contains(p))
+                if (!isHidden()) {
+                    hideAni();
+                }
+        });
+    }
+
+    if (!m_regionMonitor->registered()) {
+        m_regionMonitor->registerRegion();
+    }
+}
+
+void NotifyCenterWidget::unRegisterRegion()
+{
+    if (m_regionMonitor->registered()) {
+        m_regionMonitor->unregisterRegion();
+        disconnect(m_regionConnect);
+    }
 }
 
 void NotifyCenterWidget::CompositeChanged()

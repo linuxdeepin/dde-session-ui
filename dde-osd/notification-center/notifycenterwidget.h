@@ -32,6 +32,7 @@
 #include <DBlurEffectWidget>
 #include <DLabel>
 #include <DWindowManagerHelper>
+#include <DRegionMonitor>
 
 #include <QTime>
 
@@ -62,6 +63,7 @@ Q_SIGNALS:
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;       //重写mouseMoveEvent,屏蔽鼠标移动事件
+    void hideEvent(QHideEvent *event) override;
 
 private:
     void initUI();              //初始化主界面
@@ -72,7 +74,8 @@ private:
     void showAni();             //显示动画
     void hideAni();             //隐藏动画
 
-    void checkXEventMonitorDbusState();
+    void registerRegion();
+    void unRegisterRegion();
 
 private Q_SLOTS:
     void CompositeChanged();   //用来设置是否开启窗口特效
@@ -91,6 +94,8 @@ private:
     bool m_hasComposite = false;
     QTimer *m_refreshTimer = nullptr;
     QTime m_tickTime;
+    QMetaObject::Connection m_regionConnect;
+    DRegionMonitor *m_regionMonitor;
 };
 
 #endif // MAINWIDGET_H
