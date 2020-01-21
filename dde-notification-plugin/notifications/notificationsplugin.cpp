@@ -169,7 +169,15 @@ void NotificationsPlugin::loadPlugin()
 
     m_pluginLoaded = true;
 
+    QDBusConnection connection = QDBusConnection::sessionBus();
+    if (!connection.registerService("com.deepin.dde.notify_plugin")) {
+        qDebug() << "error:" << connection.lastError().message();
+    }
+
     m_itemWidget = new NotificationsWidget;
+
+    connection.registerObject("/com/deepin/dde/notify_plugin", m_itemWidget,
+                              QDBusConnection::ExportAllSlots | QDBusConnection::ExportAllSignals);
 
     m_proxyInter->itemAdded(this, pluginName());
     displayModeChanged(displayMode());

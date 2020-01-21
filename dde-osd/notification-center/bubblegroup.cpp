@@ -34,6 +34,7 @@
 
 #include <DFontSizeManager>
 #include <DGuiApplicationHelper>
+#include <DWindowManagerHelper>
 #include <DIconButton>
 
 DWIDGET_USE_NAMESPACE
@@ -104,7 +105,10 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     connect(m_notifyModel.get(), &NotifyModel::deleteNotify, this, &BubbleGroup::removeAnimation);
     connect(m_notifyModel.get(), &NotifyModel::appendNotify, this, &BubbleGroup::appendAnimation);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleGroup::refreshTheme);
+    connect(DWindowManagerHelper::instance(), &DWindowManagerHelper::hasCompositeChanged, this, &BubbleGroup::CompositeChanged);
+
     refreshTheme();
+    CompositeChanged();
 }
 
 BubbleGroup::~BubbleGroup()
@@ -159,6 +163,9 @@ bool BubbleGroup::eventFilter(QObject *obj, QEvent *event)
 
 void BubbleGroup::appendAnimation()
 {
+    if(!m_hasComposite) {
+        return;
+    }
     if (!isVisible()) return;
 
     if (m_expandAnimation.isNull()) {
@@ -187,6 +194,9 @@ void BubbleGroup::appendAnimation()
 
 void BubbleGroup::removeAnimation(int index)
 {
+    if(!m_hasComposite) {
+        return;
+    }
     if (m_expandAnimation.isNull()) {
         m_expandAnimation = new ExpandAnimation(m_groupList);
 
@@ -214,6 +224,10 @@ void BubbleGroup::removeAnimation(int index)
 
 void BubbleGroup::expandAnimation(int index)
 {
+    if(!m_hasComposite) {
+        m_notifyModel->refreshContent();
+        return;
+    }
     if (m_expandAnimation.isNull()) {
         m_expandAnimation = new ExpandAnimation(m_groupList);
 
@@ -264,4 +278,9 @@ void BubbleGroup::refreshTheme()
     QPalette pa = group_title->palette();
     pa.setBrush(QPalette::WindowText, pa.brightText());
     group_title->setPalette(pa);
+}
+
+void BubbleGroup::CompositeChanged()
+{
+    m_hasComposite = DWindowManagerHelper::instance()->hasComposite();
 }

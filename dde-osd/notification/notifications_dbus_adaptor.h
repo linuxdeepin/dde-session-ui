@@ -159,6 +159,7 @@ Q_SIGNALS: // SIGNALS
     void ActionInvoked(uint in0, const QString &in1);
     void NotificationClosed(uint in0, uint in1);
     void RecordAdded(const QString &in1);
+    void notifyComing();
 };
 
 #endif

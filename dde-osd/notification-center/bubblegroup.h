@@ -26,6 +26,7 @@
 #include <QWidget>
 #include <memory>
 #include <DLabel>
+
 #include "expandanimation.h"
 
 DWIDGET_BEGIN_NAMESPACE
@@ -69,6 +70,7 @@ protected:
     void hideEvent(QHideEvent *event) override;     //窗口隐藏事件,窗口隐藏时判断气泡组是否展开,如果有展开折叠气泡组
     bool eventFilter(QObject *obj, QEvent *event) override;
     void refreshTheme();                            //根据系统主题改变前通知组的主题
+    void CompositeChanged();
 
 private:
     QList<QPointer<BubbleItem>> m_bubbleList;
@@ -79,6 +81,7 @@ private:
     DLabel *group_title = nullptr;
     std::shared_ptr<NotifyModel> m_notifyModel = nullptr;
     AppGroupModel *m_appModel = nullptr;
+    bool m_hasComposite = true;
 
     QPointer<ExpandAnimation> m_expandAnimation = nullptr;
 };
