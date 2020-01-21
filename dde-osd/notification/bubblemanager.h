@@ -34,10 +34,8 @@
 
 #include "bubble.h"
 #include "constants.h"
-#include "notifyplugininterface.h"
 
 using UserInter = com::deepin::SessionManager;
-using NotifyPluginInter = com::deepin::dde::NotifyPluginInterface;
 
 static const QString DBbsDockDBusServer = "com.deepin.dde.Dock";
 static const QString DBusDockDBusPath = "/com/deepin/dde/Dock";
@@ -230,7 +228,6 @@ private:
     DBusDisplay *m_displayInter;
     DBusDock *m_dockDeamonInter;
     UserInter *m_userInter;
-    NotifyPluginInter *m_notifyInter;
 
     QList<EntityPtr> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;

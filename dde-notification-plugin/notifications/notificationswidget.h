@@ -26,31 +26,18 @@
 
 #include <QWidget>
 #include <QIcon>
-#include <QTimer>
 
 class NotificationsWidget: public QWidget
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "com.deepin.dde.notify_plugin")
 
 public:
     explicit NotificationsWidget(QWidget *parent = 0);
 
-public slots:
-    void notifyComing();
-
-signals:
-    void isMoveToRight(bool value);
-
 protected:
     void paintEvent(QPaintEvent *e) override;
     void resizeEvent(QResizeEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
     const QPixmap loadSvg(const QString &iconName, const QString &localPath, const int size, const qreal ratio);
-
-private:
-    bool m_state = true;
-    QTimer *m_timer;
 };
 
 #endif // NOTIFICATIONSWIDGET_H

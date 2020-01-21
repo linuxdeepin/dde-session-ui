@@ -47,9 +47,6 @@ BubbleManager::BubbleManager(QObject *parent)
     , m_userInter(new UserInter("com.deepin.SessionManager",
                                 "/com/deepin/SessionManager",
                                 QDBusConnection::sessionBus(), this))
-    , m_notifyInter(new NotifyPluginInter("com.deepin.dde.notify_plugin",
-                                          "/com/deepin/dde/notify_plugin",
-                                          QDBusConnection::sessionBus(), this))
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
 {
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
@@ -140,7 +137,6 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
             pushBubble(notification);
         }
     }
-    m_notifyInter->notifyComing();
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.
     // If replaces_id is not 0, the returned value is the same value as replaces_id.
     return replacesId == 0 ? notification->id() : replacesId;

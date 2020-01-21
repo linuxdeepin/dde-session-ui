@@ -33,17 +33,11 @@ DGUI_USE_NAMESPACE
 
 NotificationsWidget::NotificationsWidget(QWidget *parent)
     : QWidget(parent)
-    , m_timer(new QTimer(this))
 {
     setMouseTracking(true);
     setMinimumSize(PLUGIN_BACKGROUND_MIN_SIZE, PLUGIN_BACKGROUND_MIN_SIZE);
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [ = ] {
-        update();
-    });
-
-    connect(m_timer, &QTimer::timeout, this, [ = ] {
-        m_state = !m_state;
         update();
     });
 }
@@ -60,10 +54,7 @@ void NotificationsWidget::paintEvent(QPaintEvent *e)
     QPainter painter(this);
     const auto ratio = devicePixelRatioF();
 
-    QPixmap pixmap;
-    if(m_state) {
-        pixmap = loadSvg(iconName, ":/icons/resources/icons/", iconSize, ratio);
-    }
+    QPixmap pixmap = loadSvg(iconName, ":/icons/resources/icons/", iconSize, ratio);
 
     const QRectF &rf = QRectF(rect());
     const QRectF &rfp = QRectF(pixmap.rect());
@@ -99,17 +90,3 @@ const QPixmap NotificationsWidget::loadSvg(const QString &iconName, const QStrin
     return pixmap;
 }
 
-void NotificationsWidget::mouseReleaseEvent(QMouseEvent *event)
-{
-    m_timer->stop();
-    m_state = true;
-    update();
-
-    return QWidget::mouseReleaseEvent(event);
-}
-
-void NotificationsWidget::notifyComing()
-{
-    m_timer->start(500);
-    Q_EMIT isMoveToRight(true);
-}
