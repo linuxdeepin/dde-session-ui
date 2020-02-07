@@ -233,6 +233,7 @@ void NotifyCenterWidget::showAni()
     move(m_notifyRect.x() + m_notifyRect.width(), m_notifyRect.y());
     show();
     m_notifyWidget->setScrollBar(0);//重新设置ScrollBar的位置
+    activateWindow();
 
     m_aniGroup->setDirection(QAbstractAnimation::Backward);
     m_aniGroup->start();
