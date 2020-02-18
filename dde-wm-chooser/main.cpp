@@ -36,8 +36,31 @@
 #include <QScreen>
 #include <QWindow>
 #include <QDesktopWidget>
+#include <DSysInfo>
 
 DWIDGET_USE_NAMESPACE
+DCORE_USE_NAMESPACE
+
+void selectNormalModel(QString qPath)
+{
+    QFileInfo info(qPath);
+    QDir dir(info.path());
+    if (!dir.exists())
+       dir.mkpath(info.path());
+
+    QFile file(qPath);
+
+    if (!file.open(QFile::WriteOnly))
+        exit(0);
+
+    QJsonObject obj;
+    obj.insert("allow_switch", true);
+    obj.insert("last_wm", "deepin-metacity");
+
+    QJsonDocument doc(obj);
+    file.write(doc.toJson());
+    file.close();
+}
 
 int main(int argc, char *argv[])
 {
@@ -58,6 +81,13 @@ int main(int argc, char *argv[])
     parser.process(a);
 
     if (parser.isSet(config)) {
+        const DSysInfo::DeepinType DeepinType = DSysInfo::deepinType();
+        bool IsServerSystem = DSysInfo::DeepinServer == DeepinType;
+        if (IsServerSystem) {
+            selectNormalModel(parser.value(config));
+            return 0;
+        }
+
         PropertyGroup *pg = new PropertyGroup();
 
         pg->addProperty("contentVisible");
