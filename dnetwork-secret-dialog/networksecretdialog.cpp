@@ -92,9 +92,10 @@ void NetworkSecretDialog::parseJsonData(const QJsonDocument &jsonDoc)
 
 void NetworkSecretDialog::initUI()
 {
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::Dialog);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog);
 
     setOnButtonClickedClose(false);
+    setCloseButtonVisible(false);
     setTitle(tr("Password required to connect <font color=\"%1\">%2</font>").arg(palette().highlight().color().name()).arg(m_connName));
     addSpacing(10);
 
