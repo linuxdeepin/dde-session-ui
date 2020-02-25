@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
+
 SUBDIRS += dde-license-dialog \
     #dde-shutdown \
     #dde-lock \
