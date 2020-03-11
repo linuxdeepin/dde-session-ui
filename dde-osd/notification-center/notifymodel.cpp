@@ -31,11 +31,11 @@ NotifyModel::NotifyModel(QObject *parent, EntityPtr notify)
     : QAbstractListModel(parent)
 {
     addNotify(notify);
-
     connect(this, &NotifyModel::currentIndexChanged, ShortcutManage::instance(), &ShortcutManage::onViewIndexChanged);
     connect(this, &NotifyModel::expandOver, this, [ = ](int index) {
         Q_EMIT currentIndexChanged(index);
     });
+    connect(ShortcutManage::instance(), &ShortcutManage::refreshTimer, this, &NotifyModel::removeOverdueNotify);
 }
 
 int NotifyModel::rowCount(const QModelIndex &parent) const
@@ -231,4 +231,22 @@ QList<EntityPtr> NotifyModel::overlapNotifys()
         }
     }
     return notifys;
+}
+
+void NotifyModel::removeOverdueNotify()
+{
+    int overdueNotify = 0;
+    for (int index = 0; index < m_displays.size(); index ++) {
+        auto notify = m_displays.at(index);
+        QDateTime bubbleDateTime = QDateTime::fromMSecsSinceEpoch(notify->ctime().toLongLong());
+        QDateTime currentDateTime = QDateTime::currentDateTime();
+        int elapsedDay = int(bubbleDateTime.daysTo(currentDateTime));
+        if (elapsedDay > 7) {
+            overdueNotify++;
+            m_displays.removeOne(notify);
+        }
+    }
+    if (overdueNotify) {
+        layoutGroup();
+    }
 }
