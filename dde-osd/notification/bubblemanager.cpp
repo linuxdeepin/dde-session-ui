@@ -60,7 +60,6 @@ BubbleManager::BubbleManager(QObject *parent)
     if (m_dockDeamonInter->isValid()) {
         geometryChanged();
     }
-
     m_notifyCenter->hide();
     registerAsService();
 }

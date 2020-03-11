@@ -76,6 +76,7 @@ public:
     NotifyListView *view() { return m_view; }
     void removeGroup(std::shared_ptr<NotifyModel> model); //移除一个app组的通知
     QList<QPointer<ApplicationGroup>> appGroups() { return m_applications; }
+    bool isOverdueNotify(EntityPtr notify);
 
 public:
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;

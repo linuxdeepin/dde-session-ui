@@ -66,6 +66,7 @@ public:
     bool canExpand(EntityPtr entity) const;
     QList<EntityPtr> allNotifys() { return m_displays; }    //返回所有通知
     QList<EntityPtr> overlapNotifys();                      //返回被折叠的通知
+    void removeOverdueNotify();
 
 signals:
     void appendNotify();
