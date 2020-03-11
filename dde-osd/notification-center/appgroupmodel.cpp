@@ -56,7 +56,9 @@ void AppGroupModel::initData()
     if (m_database == nullptr)  return;
     QList<EntityPtr> notifications = m_database->getAllNotify();
     foreach (auto notify, notifications) {
-        addNotify(notify);
+        if (isOverdueNotify(notify)) { //初始化数据时屏蔽大于7天的通知
+            addNotify(notify);
+        }
     }
 
     Q_EMIT dataChanged();
@@ -194,5 +196,16 @@ void AppGroupModel::removeGroup(std::shared_ptr<NotifyModel> model)
         m_database->removeApp(app->appName());
         app->deleteLater();
     }
+}
+
+bool AppGroupModel::isOverdueNotify(EntityPtr notify)
+{
+    QDateTime bubbleDateTime = QDateTime::fromMSecsSinceEpoch(notify->ctime().toLongLong());
+    QDateTime currentDateTime = QDateTime::currentDateTime();
+    int elapsedDay = int(bubbleDateTime.daysTo(currentDateTime));
+    if(!(elapsedDay > 7)) {
+        return true;
+    }
+    return false;
 }
 
