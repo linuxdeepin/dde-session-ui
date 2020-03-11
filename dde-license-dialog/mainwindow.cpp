@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_title(new QLabel)
     , m_content(new Content)
 {
-    setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+    setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
     m_title->setObjectName("TitleLabel");
 
