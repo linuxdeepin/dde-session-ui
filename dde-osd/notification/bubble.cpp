@@ -29,6 +29,7 @@
 #include "button.h"
 #include "icondata.h"
 #include "bubbletool.h"
+#include "constants.h"
 
 #include <QDebug>
 #include <QTimer>
@@ -288,11 +289,18 @@ void Bubble::onDelayQuit()
 void Bubble::updateContent()
 {
     m_body->setTitle(m_entity->summary());
-    m_body->setText(OSD::removeHTML(m_entity->body()));
-    m_canClose = m_entity->actions().isEmpty();
+    qDebug()<<m_entity->appName();
+    if(valueByQSettings<bool>(DCC_CONFIG_FILES, m_entity->appName(), "showMessagePriview", true)) {
+        m_body->setText(OSD::removeHTML(m_entity->body()));
+        m_canClose = m_entity->actions().isEmpty();
+        m_defaultAction = BubbleTool::processActions(m_actionButton, m_entity->actions());
+    } else {
+        m_canClose = !m_entity->actions().isEmpty();
+        m_body->setText(tr("A new message"));
+        m_canClose = false;
+    }
 
     BubbleTool::processIconData(m_icon, m_entity);
-    m_defaultAction = BubbleTool::processActions(m_actionButton, m_entity->actions());
 }
 
 bool Bubble::containsMouse() const
