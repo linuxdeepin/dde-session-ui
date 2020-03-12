@@ -25,6 +25,8 @@
 #include <QStringList>
 #include <QStandardPaths>
 #include <QTextDocument>
+#include <QSettings>
+#include <QDebug>
 
 #include "notificationentity.h"
 
@@ -48,6 +50,32 @@ static const int MaxBubbleButtonWidth = 180;    // 窗口模式下气泡按钮�
 static const int BubbleStartPos = -(BubbleWindowHeight + ScreenPadding);  // 窗口模式下气泡起始Y位置
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
+static const QStringList DCC_CONFIG_FILES {
+    "/etc/deepin/dde-osd.conf",
+    "/usr/share/dde-osd/dde-osd.conf"
+};
+
+template <typename T>
+T valueByQSettings(const QStringList& configFiles,
+                   const QString&     group,
+                   const QString&     key,
+                   const QVariant&    failback)
+{
+    for (const QString& path : configFiles) {
+        QSettings settings(path, QSettings::IniFormat);
+        if (!group.isEmpty()) {
+            settings.beginGroup(group);
+        }
+
+        const QVariant& v = settings.value(key);
+        if (v.isValid()) {
+            T t = v.value<T>();
+            return t;
+        }
+    }
+
+    return failback.value<T>();
+}
 
 namespace Notify {
 static const int CenterWidth = 400;
