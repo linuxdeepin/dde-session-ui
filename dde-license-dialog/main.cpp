@@ -37,8 +37,6 @@ int main(int argc, char *argv[])
     parser.process(a);
 
     MainWindow w;
-    w.moveToCenter();
-    w.show();
 
     if (parser.isSet(title)) {
         w.setTitle(parser.value(title));
@@ -54,6 +52,10 @@ int main(int argc, char *argv[])
 
     w.setAllowCheckBoxText(parser.value(checkbox));
     w.updateLocaleSource();
+
+    w.moveToCenter();
+    w.show();
+
 
     return a.exec();
 }
