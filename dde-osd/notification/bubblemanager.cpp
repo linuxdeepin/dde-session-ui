@@ -32,6 +32,7 @@
 #include "dbusdisplay.h"
 #include "dbusdock.h"
 #include "persistence.h"
+#include "constants.h"
 
 #include "notification-center/notifycenterwidget.h"
 
@@ -129,11 +130,12 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
                                                                   QString::number(replacesId),
                                                                   QString::number(expireTimeout),
-                                                                  nullptr);
-
+                                                                  this);
+    bool lockShowNotifi = valueByQSettings<bool>(DCC_CONFIG_FILES, notification->appName(), "lockShowNotifi", true);
+    bool onlyInNotifiCenter = valueByQSettings<bool>(DCC_CONFIG_FILES, notification->appName(), "onlyInNotifiCenter", true);
 
     if (!calcReplaceId(notification)) {
-        if (m_userInter->locked()) { //判断是否锁屏
+        if ((m_userInter->locked() && !lockShowNotifi) || onlyInNotifiCenter) {
             m_persistence->addOne(notification);
         } else {
             pushBubble(notification);
