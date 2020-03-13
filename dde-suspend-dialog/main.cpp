@@ -41,6 +41,10 @@ int main(int argc, char *argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app.installTranslator(&translator);
 
+    if (!app.setSingleInstance(app.applicationName(), DApplication::UserScope)) {
+        return -1;
+    }
+
     Manager manager;
     QObject::connect(&manager, &Manager::finished, [] (const int code) {
         if (code == 0) {
