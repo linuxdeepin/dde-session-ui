@@ -198,6 +198,17 @@ void AppGroupModel::removeGroup(std::shared_ptr<NotifyModel> model)
     }
 }
 
+void AppGroupModel::removeAllGroup()
+{
+    m_applications.clear();
+    if (m_database != nullptr) {
+        m_database->removeAll();
+    }
+
+    beginResetModel();
+    endResetModel();
+}
+
 bool AppGroupModel::isOverdueNotify(EntityPtr notify)
 {
     QDateTime bubbleDateTime = QDateTime::fromMSecsSinceEpoch(notify->ctime().toLongLong());
