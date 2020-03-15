@@ -67,7 +67,9 @@ BubbleManager::BubbleManager(QObject *parent)
 
 BubbleManager::~BubbleManager()
 {
+    if(!m_bubbleList.isEmpty()) qDeleteAll(m_bubbleList);
 
+    m_oldEntities.clear();
 }
 
 void BubbleManager::CloseNotification(uint id)
@@ -127,7 +129,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
                                                                   QString::number(replacesId),
                                                                   QString::number(expireTimeout),
-                                                                  this);
+                                                                  nullptr);
 
 
     if (!calcReplaceId(notification)) {
