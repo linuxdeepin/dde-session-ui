@@ -295,7 +295,6 @@ void Bubble::onDelayQuit()
 void Bubble::updateContent()
 {
     m_body->setTitle(m_entity->summary());
-    qDebug()<<m_entity->appName();
     if(valueByQSettings<bool>(DCC_CONFIG_FILES, m_entity->appName(), "showMessagePriview", true)) {
         m_body->setText(OSD::removeHTML(m_entity->body()));
         m_canClose = m_entity->actions().isEmpty();

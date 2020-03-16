@@ -59,6 +59,7 @@ public:
     void removeNotify(EntityPtr entity);
     void setPersistence(Persistence *db) { m_database = db; }   //设置从那个数据库读取数据
     void expandData(EntityPtr entity);
+    void foldData();
     void collapseData();
     void refreshContent();
     bool isShowOverlap() const;                             //判断通知气泡是否会重叠

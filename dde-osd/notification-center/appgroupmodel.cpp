@@ -200,12 +200,11 @@ void AppGroupModel::removeGroup(std::shared_ptr<NotifyModel> model)
 
 void AppGroupModel::removeAllGroup()
 {
+    beginResetModel();
     m_applications.clear();
     if (m_database != nullptr) {
         m_database->removeAll();
     }
-
-    beginResetModel();
     endResetModel();
 }
 
