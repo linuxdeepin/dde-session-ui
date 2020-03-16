@@ -30,6 +30,10 @@
 #include <QScreen>
 #include <QDebug>
 #include <QAbstractButton>
+#include <com_deepin_daemon_display.h>
+#include <com_deepin_daemon_display_monitor.h>
+
+using MonitorInter = com::deepin::daemon::display::Monitor;
 
 SuspendDialog::SuspendDialog(QRect screenGeometry)
     : DDialog(tr("External monitor detected, suspend?"), tr("%1s").arg(15)),
@@ -75,10 +79,14 @@ Manager::Manager()
 
 void Manager::setupDialogs()
 {
-    QList<QScreen *> screenList = qApp->screens();
+    com::deepin::daemon::Display *displayInter = new com::deepin::daemon::Display("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus(), this);
+    QList<QDBusObjectPath> screenList = displayInter->monitors();
     for (int i = 0; i < screenList.length(); i++) {
-        const QRect geom = screenList[i]->geometry();
+        MonitorInter *monitor = new MonitorInter("com.deepin.daemon.Display", screenList[i].path(), QDBusConnection::sessionBus());
+        if (monitor->name().toLower().contains("edp"))
+            continue;
 
+        const QRect geom = QRect(monitor->x(), monitor->y(), monitor->width(), monitor->height());
         SuspendDialog *dialog = new SuspendDialog(geom);
         dialog->show();
 
