@@ -166,6 +166,17 @@ void NotifyModel::expandData(EntityPtr entity)
     }
 }
 
+void NotifyModel::foldData()
+{
+    beginResetModel();
+    auto displays = m_displays.mid(0, BubbleEntities);
+    m_notfications.append(m_displays.mid(BubbleEntities));
+    m_displays.clear();
+    m_displays.append(displays);
+    endResetModel();
+    layoutGroup();
+}
+
 void NotifyModel::collapseData()
 {
     if (m_notfications.isEmpty()) {
