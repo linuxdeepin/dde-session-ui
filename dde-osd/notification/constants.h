@@ -26,7 +26,6 @@
 #include <QStandardPaths>
 #include <QTextDocument>
 #include <QSettings>
-#include <QDebug>
 
 #include "notificationentity.h"
 
