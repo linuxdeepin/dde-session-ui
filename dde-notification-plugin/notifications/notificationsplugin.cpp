@@ -98,8 +98,11 @@ QWidget *NotificationsPlugin::itemTipsWidget(const QString &itemKey)
 
 void NotificationsPlugin::init(PluginProxyInterface *proxyInter)
 {
+    // 第一次是为了正确加载翻译，第二次是为了避免影响dock的accessible
+    QString applicationName = qApp->applicationName();
     qApp->setApplicationName("dde-session-ui");
     qApp->loadTranslator();
+    qApp->setApplicationName(applicationName);
 
     m_proxyInter = proxyInter;
 
