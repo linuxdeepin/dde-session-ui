@@ -113,9 +113,6 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
 {
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant textData = index.data(Qt::DisplayRole);
-
-    const int currentIndex = m_planItems.indexOf(m_currentPlan);
-    const bool iscurrent = currentIndex == index.row();
     if (option.state & QStyle::State_Selected) {
         DrawHelper::DrawBackground(painter, option);
         DrawHelper::DrawText(painter, option, textData.toString(), Qt::white);
@@ -124,10 +121,6 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
     }
 
     DrawHelper::DrawImage(painter, option, imageData.toString(), true);
-
-    const int v = index.row();
-    if (v > 1)
-        DrawHelper::DrawCenterNum(painter,option, QString::number(v - 1), iscurrent);
 }
 
 QSize DisplayModeProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
@@ -157,13 +150,13 @@ void DisplayModeProvider::updatePlanItems()
 
     m_planItems << QPair<uchar,QString>(1, "");
     m_planItems << QPair<uchar,QString>(2, "");
-    for (const QString &output : m_outputNames) {
-        m_planItems << QPair<uchar,QString>(3, output);
-    }
+    m_planItems << QPair<uchar,QString>(0, "_dde_display_config_private");
 
-    m_currentPlan = QPair<uchar,QString>(m_displayMode, "");
-    if (m_displayMode == 3) {
-        m_currentPlan.second = m_primaryScreen;
+    for (QPair<uchar,QString> pair : m_planItems) {
+        if (m_displayMode == pair.first) {
+            m_currentPlan = pair;
+            break;
+        }
     }
 }
 
@@ -172,12 +165,12 @@ QString DisplayModeProvider::getPlanItemName(QPair<uchar, QString> &plan) const
     const uchar displayMode = plan.first;
     const QString monitorId = plan.second;
 
-    if (displayMode == 1) {
+    if (displayMode == 0) {
+        return tr("Customize");
+    } else if (displayMode == 1) {
         return tr("Duplicate");
     } else if (displayMode == 2) {
         return tr("Extend");
-    } else if (displayMode == 3) {
-        return monitorId;
     }
 
     return "";
@@ -189,14 +182,13 @@ QString DisplayModeProvider::getPlanItemIcon(QPair<uchar, QString> &plan) const
 
     const bool active = plan == m_currentPlan;
 
-    if (displayMode == 1) {
+    if (displayMode == 0) {
+        return active ? ":/icons/OSD_custom_active.svg" : ":/icons/OSD_custom.svg";
+    } else if (displayMode == 1) {
         return active ? ":/icons/OSD_copy_mode_active.svg" : ":/icons/OSD_copy_mode.svg";
     } else if (displayMode == 2) {
         return active ? ":/icons/OSD_extend_mode_active.svg" : ":/icons/OSD_extend_mode.svg";
-    } else if (displayMode == 3) {
-        return QString(":/icons/OSD_only1%2.svg").arg(active ? "_active" : "");
     }
-
     return "";
 }
 
