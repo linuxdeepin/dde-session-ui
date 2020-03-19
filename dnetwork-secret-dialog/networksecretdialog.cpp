@@ -92,7 +92,13 @@ void NetworkSecretDialog::parseJsonData(const QJsonDocument &jsonDoc)
 
 void NetworkSecretDialog::initUI()
 {
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog);
+    auto envType = qEnvironmentVariable("XDG_SESSION_TYPE");
+    bool bWayland = envType.contains("wayland");
+    if (bWayland) {
+        setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::Dialog);
+    } else {
+        setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog);
+    }
 
     setOnButtonClickedClose(false);
     setCloseButtonVisible(false);
