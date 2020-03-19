@@ -18,7 +18,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <QApplication>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 #include <QPainter>
@@ -26,14 +25,18 @@
 #include <QFile>
 #include <QImageReader>
 
+#include <DApplication>
 #include <DGuiApplicationHelper>
+#include <DLog>
 
 #define MATRIX              16          //图片大小
 #define OPACITY             90          //颜色透明度
 #define SATUARATION         50          //饱和度
 #define BRIGHTNESS          -60         //亮度
 
+DWIDGET_USE_NAMESPACE
 DGUI_USE_NAMESPACE
+DCORE_USE_NAMESPACE
 
 QPixmap calcPix(const QString &pixPath)
 {
@@ -80,8 +83,14 @@ QPixmap calcPix(const QString &pixPath)
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    DApplication a(argc, argv);
     a.setApplicationVersion("0.0.1");
+
+    a.setOrganizationName("deepin");
+    a.setApplicationName("dde-pixmix");
+
+    DLogManager::registerConsoleAppender();
+    DLogManager::registerFileAppender();
 
     QCommandLineOption option(QStringList() << "o" << "output", "Output suitable background image.");
     option.setValueName("path");
@@ -106,7 +115,9 @@ int main(int argc, char *argv[])
                 pix.save(out, QImageReader::imageFormat(inFile), 100);
                 out->flush();
                 out->close();
+                qDebug() << "go to stdout";
             } else {
+                qDebug() << "pix is null";
                 return -1;
             }
         } else {
@@ -115,7 +126,9 @@ int main(int argc, char *argv[])
                 QPixmap pix = calcPix(inFile);
                 if (!pix.isNull()) {
                     pix.save(outFile, QImageReader::imageFormat(inFile), 100);
+                    qDebug() << "success:" << outFile;
                 } else {
+                    qDebug() << "pix is null";
                     return -1;
                 }
             }

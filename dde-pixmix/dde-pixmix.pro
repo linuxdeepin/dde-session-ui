@@ -1,4 +1,4 @@
-QT += gui dtkgui widgets
+QT += gui widgets dtkgui dtkcore dtkwidget
 
 CONFIG -= app_bundle
 
