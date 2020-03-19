@@ -16,7 +16,8 @@ SUBDIRS += dde-license-dialog \
     dnetwork-secret-dialog \
     dde-full-filesystem \
     dde-notification-plugin \
-    dde-pixmix
+    dde-pixmix \
+    dde-touchscreen-dialog
 
 load(dtk_qmake)
 include(common.pri)
