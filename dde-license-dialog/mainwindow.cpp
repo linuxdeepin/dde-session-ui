@@ -3,7 +3,7 @@
 
 #include <QLabel>
 #include <QVBoxLayout>
-
+#include <QKeyEvent>
 #include <DFontSizeManager>
 DTK_USE_NAMESPACE
 
@@ -12,7 +12,13 @@ MainWindow::MainWindow(QWidget *parent)
     , m_title(new QLabel)
     , m_content(new Content)
 {
-    setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    auto envType = qEnvironmentVariable("XDG_SESSION_TYPE");
+    bool bWayland = envType.contains("wayland");
+    if (bWayland) {
+        setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    } else {
+        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+    }
 
     m_title->setObjectName("TitleLabel");
 
@@ -58,3 +64,14 @@ void MainWindow::setAllowCheckBoxText(const QString &text)
 {
     m_content->setAllowCheckBoxText(text);
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->modifiers() & Qt::MetaModifier)
+    {
+        if (event->key() == Qt::Key_Up)
+            return;
+    }
+    DAbstractDialog::keyPressEvent(event);
+}
+

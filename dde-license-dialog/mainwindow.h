@@ -22,6 +22,9 @@ public:
     void setEnSource(const QString& source);
     void updateLocaleSource();
 
+protected:
+    void keyPressEvent(QKeyEvent *event);
+
 private:
     QLabel* m_title;
     Content* m_content;

@@ -76,6 +76,12 @@ void NetworkSecretDialog::keyPressEvent(QKeyEvent *event)
         qApp->exit(1);
     }
 
+    if (event->modifiers() & Qt::MetaModifier)
+    {
+        if (event->key() == Qt::Key_Up)
+            return;
+    }
+
     DDialog::keyPressEvent(event);
 }
 
