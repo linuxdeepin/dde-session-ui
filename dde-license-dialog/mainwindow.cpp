@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     layout->addWidget(m_content);
 
     setLayout(layout);
+    setFixedWidth(468);
 
     DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
 }

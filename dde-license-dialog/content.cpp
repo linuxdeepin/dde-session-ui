@@ -22,6 +22,8 @@ Content::Content(QWidget *parent)
     , m_acceptBtn(new DSuggestButton)
     , m_source(new QLabel)
     , m_languageBtn(new DButtonBox)
+    , m_hasCn(false)
+    , m_hasEn(false)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -35,7 +37,7 @@ Content::Content(QWidget *parent)
     btnlist.append(btnChinese);
     btnlist.append(btnEnginsh);
     m_languageBtn->setButtonList(btnlist, true);
-    btnChinese->setChecked(true);
+//    btnChinese->setChecked(true);//FIX:未显示之前setChecked无效
     m_languageBtn->setId(btnChinese, 1);
     m_languageBtn->setId(btnEnginsh, 0);
 
@@ -148,7 +150,7 @@ void Content::setEnSource(const QString &source)
 // 中英文都存在,选中本地语言
 void Content::updateLocaleSource()
 {
-    if (!m_languageBtn->isVisible())
+    if (!m_hasCn || !m_hasEn)
         return;
 
     if (QLocale::system().language() == QLocale::Chinese) {
@@ -164,7 +166,9 @@ void Content::updateLocaleSource()
 
 void Content::updateLanguageBtn()
 {
-    m_languageBtn->setVisible(QFile::exists(m_cn) && QFile::exists(m_en));
+    m_hasCn = QFile::exists(m_cn);
+    m_hasEn = QFile::exists(m_en);
+    m_languageBtn->setVisible(m_hasCn && m_hasEn);
 }
 
 void Content::updateContent()
