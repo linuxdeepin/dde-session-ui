@@ -44,6 +44,8 @@ private:
     QString m_cn;
     QString m_en;
     bool m_isCn;
+    bool m_hasCn;
+    bool m_hasEn;
 };
 
 #endif // CONTENT_H
