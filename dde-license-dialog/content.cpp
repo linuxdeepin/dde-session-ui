@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QApplication>
 #include <QFile>
+#include <QTimer>
 
 DWIDGET_USE_NAMESPACE
 
@@ -31,8 +32,8 @@ Content::Content(QWidget *parent)
 
     setLayout(layout);
 
-    DButtonBoxButton *btnChinese = new DButtonBoxButton(tr("Chinese"));
-    DButtonBoxButton *btnEnginsh = new DButtonBoxButton(tr("English"));
+    DButtonBoxButton *btnChinese = new DButtonBoxButton("中文");
+    DButtonBoxButton *btnEnginsh = new DButtonBoxButton("English");
     QList<DButtonBoxButton *> btnlist;
     btnlist.append(btnChinese);
     btnlist.append(btnEnginsh);
@@ -108,6 +109,14 @@ Content::Content(QWidget *parent)
     m_isCn = QLocale::system().language() == QLocale::Chinese;
     updateContent();
     updateLanguageBtn();
+
+    // 中文和英文按钮一样大
+    QTimer::singleShot(0,this,[=]{
+        int width = qMax(btnChinese->width(),btnEnginsh->width());
+        btnChinese->resize(width,btnChinese->height());
+        btnEnginsh->resize(width,btnChinese->height());
+        m_languageBtn->resize(width*2,m_languageBtn->height());
+    });
 }
 
 void Content::setSource(const QString &source)
