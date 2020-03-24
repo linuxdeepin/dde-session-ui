@@ -12,7 +12,13 @@ MainWindow::MainWindow(QWidget *parent)
     , m_title(new QLabel)
     , m_content(new Content)
 {
-    setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    auto envType = qEnvironmentVariable("XDG_SESSION_TYPE");
+    bool bWayland = envType.contains("wayland");
+    if (bWayland) {
+        setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    } else {
+        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+    }
 
     m_title->setObjectName("TitleLabel");
 
