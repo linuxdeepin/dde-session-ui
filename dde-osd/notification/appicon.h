@@ -22,6 +22,9 @@
 
 #include <QLabel>
 #include <QPixmap>
+#include <com_deepin_daemon_appearance.h>
+
+using Appearance = com::deepin::daemon::Appearance;
 /*!
  * \~chinese \class AppIcon
  * \~chinese \brief 自定义控件类,在通知中心气泡中显示App图标的类
@@ -33,6 +36,9 @@ public:
     explicit AppIcon(QWidget *parent = 0);
 
     void setIcon(const QString &iconPath, const QString &fallback = "");
+
+private:
+    Appearance *m_appearancedInter;
 };
 
 #endif // APPICON_H
