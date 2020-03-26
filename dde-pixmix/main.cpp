@@ -40,7 +40,11 @@ DCORE_USE_NAMESPACE
 
 QPixmap calcPix(const QString &pixPath)
 {
-    QPixmap pix(pixPath);
+    QPixmap pix;
+    if (!pix.load(pixPath)) {
+        QImage image(pixPath);
+        pix = QPixmap::fromImage(image);
+    }
     if (pix.isNull())
         exit(-1);
 
