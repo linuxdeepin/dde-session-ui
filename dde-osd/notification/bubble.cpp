@@ -295,7 +295,7 @@ void Bubble::onDelayQuit()
 void Bubble::updateContent()
 {
     m_body->setTitle(m_entity->summary());
-    if(valueByQSettings<bool>(DCC_CONFIG_FILES, m_entity->appName(), "showMessagePriview", true)) {
+    if(Config::valueByQSettings(Config::getConfigPath(), m_entity->appName(), ShowNotifyPreviewStr, true)) {
         m_body->setText(OSD::removeHTML(m_entity->body()));
         m_canClose = m_entity->actions().isEmpty();
         m_defaultAction = BubbleTool::processActions(m_actionButton, m_entity->actions());

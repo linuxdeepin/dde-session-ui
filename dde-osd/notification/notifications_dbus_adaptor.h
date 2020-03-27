@@ -155,6 +155,9 @@ public Q_SLOTS:
      */
     uint recordCount();
 
+    void setNotifyProperty(QString appName, uchar property, bool value);
+    bool getNotifyProperty(QString appName, uchar property, bool failback);
+
 Q_SIGNALS: // SIGNALS
     void ActionInvoked(uint in0, const QString &in1);
     void NotificationClosed(uint in0, uint in1);
