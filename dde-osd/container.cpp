@@ -31,6 +31,8 @@
 #include <QDebug>
 #include <QTimer>
 #include <QGSettings>
+#include <QScreen>
+
 #include <DPlatformWindowHandle>
 #include <com_deepin_daemon_display.h>
 #include <com_deepin_daemon_display_monitor.h>
@@ -93,7 +95,9 @@ void Container::moveToCenter()
         MonitorInter *monitor = new MonitorInter("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
         if (monitor->enabled()) {
             qDebug() << " screen display : " << screen.path();
-            displayRect = QRect(monitor->x(), monitor->y(), monitor->width(), monitor->height());
+            displayRect = QRect(monitor->x(), monitor->y(),
+                                monitor->width()/qApp->primaryScreen()->devicePixelRatio(),
+                                monitor->height()/qApp->primaryScreen()->devicePixelRatio());
             break;
         }
     }
