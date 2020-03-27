@@ -89,6 +89,14 @@ public:
         Up = 1
     };
 
+    enum NotifyProperty {
+        AllowNotify = 0,
+        OnlyInNotifyCenter = 1,
+        LockShowNotify = 2,
+        ShowNotifyPreview = 3,
+        NotificationSound = 4
+    };
+
 Q_SIGNALS:
     // Standard Notifications dbus implementation
     void ActionInvoked(uint, const QString &);
@@ -162,6 +170,9 @@ public Q_SLOTS:
      */
     uint recordCount();
 
+    void setNotifyProperty(QString appName, uchar property, bool value);
+    bool getNotifyProperty(QString appName, uchar property, bool fileback);
+
 private Q_SLOTS:
     /*!
      * \~chinese \name geometryChanged
@@ -234,6 +245,7 @@ private:
 
     NotifyCenterWidget *m_notifyCenter;
     int m_replaceCount = 0;
+    QString m_configFile;
 };
 
 #endif // BUBBLEMANAGER_H
