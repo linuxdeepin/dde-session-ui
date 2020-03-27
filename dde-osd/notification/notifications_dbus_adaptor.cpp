@@ -178,3 +178,15 @@ uint DDENotifyDBus::recordCount()
     QMetaObject::invokeMethod(parent(), "recordCount", Q_RETURN_ARG(uint, out0));
     return out0;
 }
+
+void DDENotifyDBus::setNotifyProperty(QString appName, uchar property, bool value)
+{
+    QMetaObject::invokeMethod(parent(), "setNotifyProperty", Q_ARG(QString, appName), Q_ARG(uchar, property), Q_ARG(bool, value));
+}
+
+bool DDENotifyDBus::getNotifyProperty(QString appName, uchar property, bool failback)
+{
+    bool out0;
+    QMetaObject::invokeMethod(parent(), "setNotifyProperty", Q_RETURN_ARG(bool, out0), Q_ARG(QString, appName), Q_ARG(uchar, property), Q_ARG(bool, failback));
+    return out0;
+}

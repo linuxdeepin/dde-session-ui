@@ -26,6 +26,8 @@
 #include <QStandardPaths>
 #include <QTextDocument>
 #include <QSettings>
+#include <QDebug>
+#include <QApplication>
 
 #include "notificationentity.h"
 
@@ -49,32 +51,50 @@ static const int MaxBubbleButtonWidth = 180;    // 窗口模式下气泡按钮�
 static const int BubbleStartPos = -(BubbleWindowHeight + ScreenPadding);  // 窗口模式下气泡起始Y位置
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
-static const QStringList DCC_CONFIG_FILES {
-    "/etc/deepin/dde-osd.conf",
-    "/usr/share/dde-osd/dde-osd.conf"
-};
 
-template <typename T>
-T valueByQSettings(const QStringList& configFiles,
-                   const QString&     group,
-                   const QString&     key,
-                   const QVariant&    failback)
+static const QString AllowNotifyStr = "AllowNotify";
+static const QString OnlyInNotifyCenterStr = "OnlyInNotifyCenter";
+static const QString LockShowNotifyStr = "LockShowNotify";
+static const QString ShowNotifyPreviewStr = "ShowNotifyPreview";
+static const QString NotificationSoundStr = "NotificationSound";
+
+class Config
 {
-    for (const QString& path : configFiles) {
-        QSettings settings(path, QSettings::IniFormat);
+public:
+    static QString getConfigPath()
+    {
+        auto configPath = QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
+        configPath = configPath
+                     + "/" + QApplication::organizationName()
+                     + "/" + QApplication::applicationName()
+                     + "/" + QApplication::applicationName() + ".conf";
+        return configPath;
+    }
+
+    static void qsettingsSetValue(const QString& configFile, const QString group, const QString key, const bool value)
+    {
+        QSettings settings(configFile, QSettings::IniFormat);
         if (!group.isEmpty()) {
             settings.beginGroup(group);
-        }
-
-        const QVariant& v = settings.value(key);
-        if (v.isValid()) {
-            T t = v.value<T>();
-            return t;
+            settings.setValue(key, value);
+            settings.endGroup();
         }
     }
 
-    return failback.value<T>();
-}
+    static bool valueByQSettings(const QString& configFile, const QString& group, const QString& key, const bool failback)
+    {
+        QSettings settings(configFile, QSettings::IniFormat);
+        if (!group.isEmpty()) {
+            settings.beginGroup(group);
+            const QVariant& v = settings.value(key);
+            if (v.isValid()) {
+                bool t = v.value<bool>();
+                return t;
+            }
+        }
+        return failback;
+    }
+};
 
 namespace Notify {
 static const int CenterWidth = 400;

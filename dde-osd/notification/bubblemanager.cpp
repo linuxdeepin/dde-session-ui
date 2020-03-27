@@ -54,6 +54,7 @@ BubbleManager::BubbleManager(QObject *parent)
                                                     QDBusConnection::sessionBus(), this);
     m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this);
+    m_configFile = Config::getConfigPath();
 
     initConnections();
 
@@ -124,14 +125,18 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
              << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
              << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 
+    if (!Config::valueByQSettings(m_configFile, appName, AllowNotifyStr, true))
+        return 0;
+
     EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
                                                                   summary, body, actions, hints,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
                                                                   QString::number(replacesId),
                                                                   QString::number(expireTimeout),
                                                                   this);
-    bool lockShowNotifi = valueByQSettings<bool>(DCC_CONFIG_FILES, notification->appName(), "lockShowNotifi", true);
-    bool onlyInNotifiCenter = valueByQSettings<bool>(DCC_CONFIG_FILES, notification->appName(), "onlyInNotifiCenter", true);
+
+    bool lockShowNotifi = Config::valueByQSettings(m_configFile, notification->appName(), LockShowNotifyStr, false);
+    bool onlyInNotifiCenter = Config::valueByQSettings(m_configFile, notification->appName(), OnlyInNotifyCenterStr, false);
 
     if (!calcReplaceId(notification)) {
         if ((m_userInter->locked() && !lockShowNotifi) || onlyInNotifiCenter) {
@@ -324,6 +329,46 @@ void BubbleManager::Toggle()
 uint BubbleManager::recordCount()
 {
     return m_persistence->getRecordCount();
+}
+
+void BubbleManager::setNotifyProperty(QString appName, uchar property, bool value)
+{
+    NotifyProperty por = static_cast<NotifyProperty>(property);
+    switch (por) {
+    case AllowNotify :
+        Config::qsettingsSetValue(m_configFile, appName, AllowNotifyStr, value);
+        break;
+    case OnlyInNotifyCenter :
+        Config::qsettingsSetValue(m_configFile, appName, OnlyInNotifyCenterStr, value);
+        break;
+    case LockShowNotify :
+        Config::qsettingsSetValue(m_configFile, appName, LockShowNotifyStr, value);
+        break;
+    case ShowNotifyPreview :
+        Config::qsettingsSetValue(m_configFile, appName, ShowNotifyPreviewStr, value);
+        break;
+    case NotificationSound :
+        Config::qsettingsSetValue(m_configFile, appName, NotificationSoundStr, value);
+        break;
+    }
+}
+
+bool BubbleManager::getNotifyProperty(QString appName, uchar property, bool failback)
+{
+    NotifyProperty por = static_cast<NotifyProperty>(property);
+    switch (por) {
+    case AllowNotify :
+        return Config::valueByQSettings(m_configFile, appName, AllowNotifyStr, true);
+    case OnlyInNotifyCenter :
+        return Config::valueByQSettings(m_configFile, appName, OnlyInNotifyCenterStr, true);
+    case LockShowNotify :
+        return Config::valueByQSettings(m_configFile, appName, LockShowNotifyStr, true);
+    case ShowNotifyPreview :
+        return Config::valueByQSettings(m_configFile, appName, ShowNotifyPreviewStr, true);
+    case NotificationSound :
+        return Config::valueByQSettings(m_configFile, appName, NotificationSoundStr, true);
+    }
+    return failback;
 }
 
 void BubbleManager::registerAsService()
