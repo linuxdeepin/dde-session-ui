@@ -214,6 +214,11 @@
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
+        <source>Customize</source>
+        <translation>自定义</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
         <source>Extend</source>
         <translation>扩展</translation>
     </message>
