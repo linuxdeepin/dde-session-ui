@@ -24,6 +24,7 @@
  */
 
 #include "displaymodeprovider.h"
+#include <DDBusSender>
 
 DisplayModeProvider::DisplayModeProvider(QObject *parent)
     : AbstractOSDProvider(parent),
@@ -80,8 +81,21 @@ void DisplayModeProvider::sync()
 {
     const uchar displayMode = m_currentPlan.first;
     const QString monitorId = m_currentPlan.second;
-
-    m_displayInter->SwitchMode(displayMode, monitorId);
+    if (displayMode == 0) {
+        if (m_displayInter->currentCustomId().isNull()) {
+            DDBusSender()
+            .service("com.deepin.dde.ControlCenter")
+            .interface("com.deepin.dde.ControlCenter")
+            .path("/com/deepin/dde/ControlCenter")
+            .method(QString("ShowModule"))
+            .arg(QString("display"))
+            .call();
+            return;
+        } else {
+            m_currentPlan.second = m_displayInter->currentCustomId();
+        }
+    }
+    m_displayInter->SwitchMode(m_currentPlan.first, m_currentPlan.second);
 }
 
 void DisplayModeProvider::sync(const QModelIndex &index)
