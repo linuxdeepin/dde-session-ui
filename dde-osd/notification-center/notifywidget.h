@@ -43,6 +43,7 @@ class NotifyWidget : public QWidget
 public:
     explicit NotifyWidget(QWidget *parent = nullptr, Persistence *database = nullptr);
     QListView *view() { return m_mainList; }
+    AppGroupModel *model() { return m_groupModel; }
 
 private:
     void initView(Persistence *database);
