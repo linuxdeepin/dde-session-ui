@@ -27,6 +27,8 @@
 #include "notification/persistence.h"
 #include "notification/constants.h"
 #include "shortcutmanage.h"
+#include "clearbutton.h"
+#include "appgroupmodel.h"
 
 #include <QDesktopWidget>
 #include <QBoxLayout>
@@ -90,11 +92,9 @@ void NotifyCenterWidget::initUI()
     title_label->setAlignment(Qt::AlignCenter);
     title_label->setForegroundRole(QPalette::BrightText);
 
-    DIconButton *close_btn = new DIconButton(DStyle::SP_CloseButton);
-    close_btn->setFlat(true);
-    close_btn->setIconSize(QSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight));
-    close_btn->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
-    close_btn->setFocusPolicy(Qt::NoFocus);
+    ClearButton *clear_btn = new ClearButton("");
+    clear_btn->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
+    clear_btn->setFocusPolicy(Qt::NoFocus);
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
     head_Layout->addWidget(bell_notify, Qt::AlignLeft);
@@ -102,7 +102,7 @@ void NotifyCenterWidget::initUI()
     head_Layout->addStretch();
     head_Layout->addWidget(title_label, Qt::AlignCenter);
     head_Layout->addStretch();
-    head_Layout->addWidget(close_btn, Qt::AlignRight);
+    head_Layout->addWidget(clear_btn, Qt::AlignRight);
     m_headWidget->setLayout(head_Layout);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -114,8 +114,8 @@ void NotifyCenterWidget::initUI()
 
     setLayout(mainLayout);
 
-    connect(close_btn, &DIconButton::clicked, this, [ = ]() {
-        hideAni();
+    connect(clear_btn, &ClearButton::clicked, this, [ = ]() {
+        m_notifyWidget->model()->removeAllGroup();
     });
 
     refreshTheme();
