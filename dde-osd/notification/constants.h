@@ -71,7 +71,7 @@ public:
         return configPath;
     }
 
-    static void qsettingsSetValue(const QString& configFile, const QString group, const QString key, const bool value)
+    static void qsettingsSetValue(const QString& configFile, const QString group, const QString key, const QVariant value)
     {
         QSettings settings(configFile, QSettings::IniFormat);
         if (!group.isEmpty()) {
@@ -81,18 +81,17 @@ public:
         }
     }
 
-    static bool valueByQSettings(const QString& configFile, const QString& group, const QString& key, const bool failback)
+    static QVariant valueByQSettings(const QString& configFile, const QString& group, const QString& key, const bool failback)
     {
         QSettings settings(configFile, QSettings::IniFormat);
         if (!group.isEmpty()) {
             settings.beginGroup(group);
             const QVariant& v = settings.value(key);
             if (v.isValid()) {
-                bool t = v.value<bool>();
-                return t;
+                return v;
             }
         }
-        return failback;
+        return QVariant(failback);
     }
 };
 
