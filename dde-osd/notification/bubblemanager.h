@@ -171,7 +171,7 @@ public Q_SLOTS:
     uint recordCount();
 
     void setNotifyProperty(QString appName, uchar property, bool value);
-    bool getNotifyProperty(QString appName, uchar property, bool fileback);
+    bool getNotifyProperty(QString appName, uchar property, bool failback);
 
 private Q_SLOTS:
     /*!

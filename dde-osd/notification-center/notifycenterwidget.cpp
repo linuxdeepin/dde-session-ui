@@ -92,7 +92,7 @@ void NotifyCenterWidget::initUI()
     title_label->setAlignment(Qt::AlignCenter);
     title_label->setForegroundRole(QPalette::BrightText);
 
-    ClearButton *clear_btn = new ClearButton("");
+    ClearButton *clear_btn = new ClearButton("://icons/list_icon_clear.svg");
     clear_btn->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
     clear_btn->setFocusPolicy(Qt::NoFocus);
 
