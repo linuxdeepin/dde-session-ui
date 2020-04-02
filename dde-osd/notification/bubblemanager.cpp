@@ -125,7 +125,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
              << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
              << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 
-    if (!Config::valueByQSettings(m_configFile, appName, AllowNotifyStr, true))
+    if (!Config::valueByQSettings(m_configFile, appName, AllowNotifyStr, true).toBool())
         return 0;
 
     EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
@@ -135,8 +135,8 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                   QString::number(expireTimeout),
                                                                   this);
 
-    bool lockShowNotifi = Config::valueByQSettings(m_configFile, notification->appName(), LockShowNotifyStr, false);
-    bool onlyInNotifiCenter = Config::valueByQSettings(m_configFile, notification->appName(), OnlyInNotifyCenterStr, false);
+    bool lockShowNotifi = Config::valueByQSettings(m_configFile, notification->appName(), LockShowNotifyStr, false).toBool();
+    bool onlyInNotifiCenter = Config::valueByQSettings(m_configFile, notification->appName(), OnlyInNotifyCenterStr, false).toBool();
 
     if (!calcReplaceId(notification)) {
         if ((m_userInter->locked() && !lockShowNotifi) || onlyInNotifiCenter) {
@@ -334,21 +334,22 @@ uint BubbleManager::recordCount()
 void BubbleManager::setNotifyProperty(QString appName, uchar property, bool value)
 {
     NotifyProperty por = static_cast<NotifyProperty>(property);
+    QVariant v(value);
     switch (por) {
     case AllowNotify :
-        Config::qsettingsSetValue(m_configFile, appName, AllowNotifyStr, value);
+        Config::qsettingsSetValue(m_configFile, appName, AllowNotifyStr, v);
         break;
     case OnlyInNotifyCenter :
-        Config::qsettingsSetValue(m_configFile, appName, OnlyInNotifyCenterStr, value);
+        Config::qsettingsSetValue(m_configFile, appName, OnlyInNotifyCenterStr, v);
         break;
     case LockShowNotify :
-        Config::qsettingsSetValue(m_configFile, appName, LockShowNotifyStr, value);
+        Config::qsettingsSetValue(m_configFile, appName, LockShowNotifyStr, v);
         break;
     case ShowNotifyPreview :
-        Config::qsettingsSetValue(m_configFile, appName, ShowNotifyPreviewStr, value);
+        Config::qsettingsSetValue(m_configFile, appName, ShowNotifyPreviewStr, v);
         break;
     case NotificationSound :
-        Config::qsettingsSetValue(m_configFile, appName, NotificationSoundStr, value);
+        Config::qsettingsSetValue(m_configFile, appName, NotificationSoundStr, v);
         break;
     }
 }
@@ -358,15 +359,15 @@ bool BubbleManager::getNotifyProperty(QString appName, uchar property, bool fail
     NotifyProperty por = static_cast<NotifyProperty>(property);
     switch (por) {
     case AllowNotify :
-        return Config::valueByQSettings(m_configFile, appName, AllowNotifyStr, true);
+        return Config::valueByQSettings(m_configFile, appName, AllowNotifyStr, true).toBool();
     case OnlyInNotifyCenter :
-        return Config::valueByQSettings(m_configFile, appName, OnlyInNotifyCenterStr, true);
+        return Config::valueByQSettings(m_configFile, appName, OnlyInNotifyCenterStr, true).toBool();
     case LockShowNotify :
-        return Config::valueByQSettings(m_configFile, appName, LockShowNotifyStr, true);
+        return Config::valueByQSettings(m_configFile, appName, LockShowNotifyStr, true).toBool();
     case ShowNotifyPreview :
-        return Config::valueByQSettings(m_configFile, appName, ShowNotifyPreviewStr, true);
+        return Config::valueByQSettings(m_configFile, appName, ShowNotifyPreviewStr, true).toBool();
     case NotificationSound :
-        return Config::valueByQSettings(m_configFile, appName, NotificationSoundStr, true);
+        return Config::valueByQSettings(m_configFile, appName, NotificationSoundStr, true).toBool();
     }
     return failback;
 }
