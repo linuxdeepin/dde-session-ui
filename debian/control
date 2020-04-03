@@ -21,8 +21,7 @@ Build-Depends: debhelper (>= 8.0.0), pkg-config,
  libxcursor-dev,
  libxrandr-dev,
  libdtkcore5-bin,
- dde-dock-dev,
- qtwebengine5-dev
+ dde-dock-dev
 Standards-Version: 3.9.4
 Homepage: http://www.deepin.org/
 

@@ -54,9 +54,8 @@ int main(int argc, char *argv[])
     w.updateLocaleSource();
 
     w.moveToCenter();
-    QObject::connect(&w,&MainWindow::loadFinished,[&]{
-        w.show();
-    });
+    w.show();
+
 
     return a.exec();
 }
