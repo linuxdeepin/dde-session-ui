@@ -48,15 +48,17 @@ BubbleManager::BubbleManager(QObject *parent)
     , m_userInter(new UserInter("com.deepin.SessionManager",
                                 "/com/deepin/SessionManager",
                                 QDBusConnection::sessionBus(), this))
+    , m_launcherInter(new LauncherInter("com.deepin.dde.daemon.Launcher",
+                                        "/com/deepin/dde/daemon/Launcher",
+                                        QDBusConnection::sessionBus(), this))
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
 {
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
                                                     QDBusConnection::sessionBus(), this);
     m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this);
-    m_configFile = Config::getConfigPath();
-
     initConnections();
+    initAllConfig();
 
     // get correct value for m_dockGeometry, m_dockPosition, m_ccGeometry
     if (m_dockDeamonInter->isValid()) {
@@ -290,6 +292,31 @@ QRect BubbleManager::GetLastStableRect(int index)
     return rect;
 }
 
+void BubbleManager::initAllConfig()
+{
+    auto configPath = QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
+    m_configFile = Config::getConfigPath();
+    //初始化系统通知配置
+    QSettings settings(m_configFile, QSettings::IniFormat);
+    QStringList currentList = settings.childGroups();
+    if (!currentList.contains(SystemNotifySettingStr)) {
+        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, DoNotDisturbStr, false);
+        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, StartTimeStr, DEFAULT_START_TIME);
+        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, EndTimeStr, DEFAULT_END_TIME);
+        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, AppsInFullscreenStr, false);
+        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, ConnectedProjectorStr, false);
+        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, ScreenLockedStr, false);
+        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, ShowIconOnDockStr, false);
+    }
+    //初始化应用通知配置
+    ItemInfoList ItemList = m_launcherInter->GetAllItemInfos().value();
+    for (auto appItem : ItemList) {
+        if (!currentList.contains(appItem.m_key)) {
+            addedApp(appItem.m_key);
+        }
+    }
+}
+
 QString BubbleManager::GetAllRecords()
 {
     return m_persistence->getAll();
@@ -331,45 +358,111 @@ uint BubbleManager::recordCount()
     return m_persistence->getRecordCount();
 }
 
-void BubbleManager::setNotifyProperty(QString appName, uchar property, bool value)
+void BubbleManager::removeApp(QString appName)
 {
-    NotifyProperty por = static_cast<NotifyProperty>(property);
-    QVariant v(value);
-    switch (por) {
-    case AllowNotify :
-        Config::qsettingsSetValue(m_configFile, appName, AllowNotifyStr, v);
-        break;
-    case OnlyInNotifyCenter :
-        Config::qsettingsSetValue(m_configFile, appName, OnlyInNotifyCenterStr, v);
-        break;
-    case LockShowNotify :
-        Config::qsettingsSetValue(m_configFile, appName, LockShowNotifyStr, v);
-        break;
-    case ShowNotifyPreview :
-        Config::qsettingsSetValue(m_configFile, appName, ShowNotifyPreviewStr, v);
-        break;
-    case NotificationSound :
-        Config::qsettingsSetValue(m_configFile, appName, NotificationSoundStr, v);
-        break;
+    QSettings settings(m_configFile, QSettings::IniFormat);
+    settings.beginGroup(appName);
+    settings.remove("");
+    settings.endGroup();
+
+    Q_EMIT appRemoved(appName);
+}
+
+void BubbleManager::addedApp(QString appName)
+{
+    Config::qsettingsSetValue(m_configFile, appName, AllowNotifyStr, true);
+    Config::qsettingsSetValue(m_configFile, appName, OnlyInNotifyCenterStr, false);
+    Config::qsettingsSetValue(m_configFile, appName, LockShowNotifyStr, true);
+    Config::qsettingsSetValue(m_configFile, appName, ShowNotifyPreviewStr, true);
+    Config::qsettingsSetValue(m_configFile, appName, NotificationSoundStr, true);
+
+    Q_EMIT appAdded(appName);
+}
+
+QString BubbleManager::getAllSetting()
+{
+    QSettings settings(m_configFile, QSettings::IniFormat);
+    QStringList Groupslist = settings.childGroups();
+    QMap<QString, QVariant> GroupMap;
+    for (auto group : Groupslist) {
+        QMap<QString, QVariant> map;
+        map[AllowNotifyStr] = Config::valueByQSettings(m_configFile, group, AllowNotifyStr, true).toBool();
+        map[OnlyInNotifyCenterStr] = Config::valueByQSettings(m_configFile, group, OnlyInNotifyCenterStr, false).toBool();
+        map[LockShowNotifyStr] = Config::valueByQSettings(m_configFile, group, LockShowNotifyStr, true).toBool();
+        map[ShowNotifyPreviewStr] = Config::valueByQSettings(m_configFile, group, ShowNotifyPreviewStr, true).toBool();
+        map[NotificationSoundStr]=Config::valueByQSettings(m_configFile, group, NotificationSoundStr, true).toBool();
+        GroupMap[group] = map;
+    }
+    return QJsonDocument::fromVariant(GroupMap).toJson();
+}
+
+void BubbleManager::setAllSetting(const QString settings)
+{
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(settings.toLocal8Bit().data());
+    if(jsonDocument.isNull())
+        return;
+    QJsonObject jsonObject = jsonDocument.object();
+    QVariantMap GroupMap = jsonObject.toVariantMap();
+    QMap<QString, QVariant>::iterator GroupMapIterator = GroupMap.begin();
+
+    while(GroupMapIterator != GroupMap.end()) {
+        QMap<QString, QVariant> keyMap = GroupMapIterator.value().toMap();
+        QMap<QString, QVariant>::iterator mapIterator = keyMap.begin();
+        while (mapIterator != keyMap.end()) {
+            Config::qsettingsSetValue(m_configFile, GroupMapIterator.key(), mapIterator.key(), mapIterator.value());
+            mapIterator ++;
+        }
+        GroupMapIterator ++;
     }
 }
 
-bool BubbleManager::getNotifyProperty(QString appName, uchar property, bool failback)
+QString BubbleManager::getAppSetting(QString appName)
 {
-    NotifyProperty por = static_cast<NotifyProperty>(property);
-    switch (por) {
-    case AllowNotify :
-        return Config::valueByQSettings(m_configFile, appName, AllowNotifyStr, true).toBool();
-    case OnlyInNotifyCenter :
-        return Config::valueByQSettings(m_configFile, appName, OnlyInNotifyCenterStr, true).toBool();
-    case LockShowNotify :
-        return Config::valueByQSettings(m_configFile, appName, LockShowNotifyStr, true).toBool();
-    case ShowNotifyPreview :
-        return Config::valueByQSettings(m_configFile, appName, ShowNotifyPreviewStr, true).toBool();
-    case NotificationSound :
-        return Config::valueByQSettings(m_configFile, appName, NotificationSoundStr, true).toBool();
+    QMap<QString, QVariant> GroupMap;
+    QMap<QString, QVariant> map;
+    map[AllowNotifyStr] = Config::valueByQSettings(m_configFile, appName, AllowNotifyStr, true).toBool();
+    map[OnlyInNotifyCenterStr] = Config::valueByQSettings(m_configFile, appName, OnlyInNotifyCenterStr, true).toBool();
+    map[LockShowNotifyStr] = Config::valueByQSettings(m_configFile, appName, LockShowNotifyStr, true).toBool();
+    map[ShowNotifyPreviewStr] = Config::valueByQSettings(m_configFile, appName, ShowNotifyPreviewStr, true).toBool();
+    map[NotificationSoundStr]=Config::valueByQSettings(m_configFile, appName, NotificationSoundStr, true).toBool();
+    GroupMap[appName] = map;
+    return QJsonDocument::fromVariant(GroupMap).toJson();
+}
+
+void BubbleManager::setAppSetting(const QString settings)
+{
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(settings.toLocal8Bit().data());
+    if(jsonDocument.isNull())
+        return;
+    QJsonObject jsonObject = jsonDocument.object();
+    QVariantMap GroupMap = jsonObject.toVariantMap();
+    QMap<QString, QVariant>::iterator GroupMapIterator = GroupMap.begin();
+    QMap<QString, QVariant> keyMap = GroupMapIterator.value().toMap();
+    QMap<QString, QVariant>::iterator mapIterator = keyMap.begin();
+    while (mapIterator != keyMap.end()) {
+        Config::qsettingsSetValue(m_configFile, GroupMapIterator.key(), mapIterator.key(), mapIterator.value());
+        mapIterator ++;
     }
-    return failback;
+}
+
+QString BubbleManager::getSystemSetting()
+{
+    QMap<QString, QVariant> GroupMap;
+    QMap<QString, QVariant> map;
+    map[DoNotDisturbStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, DoNotDisturbStr, false).toBool();
+    map[StartTimeStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, StartTimeStr, DEFAULT_START_TIME).toInt();
+    map[EndTimeStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, EndTimeStr, DEFAULT_END_TIME).toInt();
+    map[AppsInFullscreenStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, AppsInFullscreenStr, false).toBool();
+    map[ConnectedProjectorStr]=Config::valueByQSettings(m_configFile, SystemNotifySettingStr, ConnectedProjectorStr, false).toBool();
+    map[ScreenLockedStr]=Config::valueByQSettings(m_configFile, SystemNotifySettingStr, ScreenLockedStr, false).toBool();
+    map[ShowIconOnDockStr]=Config::valueByQSettings(m_configFile, SystemNotifySettingStr, ShowIconOnDockStr, false).toBool();
+    GroupMap[SystemNotifySettingStr] = map;
+    return QJsonDocument::fromVariant(GroupMap).toJson();
+}
+
+void BubbleManager::setSystemSetting(QString settings)
+{
+    setAppSetting(settings);
 }
 
 void BubbleManager::registerAsService()
@@ -437,6 +530,9 @@ void BubbleManager::initConnections()
     connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, [ = ] {
         updateGeometry();
     });
+
+    connect(m_launcherInter, &LauncherInter::UninstallSuccess, this, &BubbleManager::removeApp);
+    connect(m_launcherInter, &LauncherInter::NewAppLaunched, this, &BubbleManager::addedApp);
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
