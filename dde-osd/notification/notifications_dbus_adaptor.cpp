@@ -179,14 +179,38 @@ uint DDENotifyDBus::recordCount()
     return out0;
 }
 
-void DDENotifyDBus::setNotifyProperty(QString appName, uchar property, bool value)
+QString DDENotifyDBus::getAllSetting()
 {
-    QMetaObject::invokeMethod(parent(), "setNotifyProperty", Q_ARG(QString, appName), Q_ARG(uchar, property), Q_ARG(bool, value));
+    QString out0;
+    QMetaObject::invokeMethod(parent(), "getAllSetting", Q_RETURN_ARG(QString, out0));
+    return  out0;
 }
 
-bool DDENotifyDBus::getNotifyProperty(QString appName, uchar property, bool failback)
+void DDENotifyDBus::setAllSetting(const QString settings)
 {
-    bool out0;
-    QMetaObject::invokeMethod(parent(), "setNotifyProperty", Q_RETURN_ARG(bool, out0), Q_ARG(QString, appName), Q_ARG(uchar, property), Q_ARG(bool, failback));
-    return out0;
+    QMetaObject::invokeMethod(parent(), "setAllSetting", Q_ARG(QString, settings));
+}
+
+QString DDENotifyDBus::getAppSetting(QString appName)
+{
+    QString out0;
+    QMetaObject::invokeMethod(parent(), "getAppSetting", Q_RETURN_ARG(QString, out0), Q_ARG(QString, appName));
+    return  out0;
+}
+
+void DDENotifyDBus::setAppSetting(const QString settings)
+{
+    QMetaObject::invokeMethod(parent(), "setAllSetting", Q_ARG(QString, settings));
+}
+
+QString DDENotifyDBus::getSystemSetting()
+{
+    QString out0;
+    QMetaObject::invokeMethod(parent(), "getSystemSetting", Q_RETURN_ARG(QString, out0));
+    return  out0;
+}
+
+void DDENotifyDBus::setSystemSetting(QString settings)
+{
+    QMetaObject::invokeMethod(parent(), "setSystemSetting", Q_ARG(QString, settings));
 }
