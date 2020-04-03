@@ -29,9 +29,11 @@ MainWindow::MainWindow(QWidget *parent)
     layout->addSpacing(20);
     layout->addWidget(m_title, 0, Qt::AlignHCenter);
     layout->addWidget(m_content);
+    connect(m_content,&Content::loadFinished,this,&MainWindow::loadFinished);
 
     setLayout(layout);
-    setFixedWidth(468);
+    setFixedWidth(700);
+    setFixedHeight(500);
 
     DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
 }
