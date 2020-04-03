@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui dtkwidget webenginewidgets
+QT       += core gui dtkwidget
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,16 +28,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         content.cpp \
         main.cpp \
-        mainwindow.cpp \
-    sourcelabel.cpp
+        mainwindow.cpp
 
 HEADERS += \
         content.h \
-        mainwindow.h \
-    sourcelabel.h
-
-RESOURCES += \
-    resources/markdowneditor.qrc
+        mainwindow.h
 
 isEmpty(PREFIX){
     PREFIX = /usr
