@@ -33,6 +33,8 @@
 
 #define MIN(a,b) ((a)>(b)?(b):(a))
 #define ABS(a) (a)>0?(a):(-(a))
+#define  DEFAULT_START_TIME 22
+#define  DEFAULT_END_TIME 7
 
 typedef std::shared_ptr<NotificationEntity> EntityPtr;
 
@@ -57,6 +59,15 @@ static const QString OnlyInNotifyCenterStr = "OnlyInNotifyCenter";
 static const QString LockShowNotifyStr = "LockShowNotify";
 static const QString ShowNotifyPreviewStr = "ShowNotifyPreview";
 static const QString NotificationSoundStr = "NotificationSound";
+
+static const QString SystemNotifySettingStr = "SystemNotify";
+static const QString DoNotDisturbStr = "DoNotDisturb";
+static const QString StartTimeStr = "StartTime";
+static const QString EndTimeStr = "EndTime";
+static const QString AppsInFullscreenStr = "AppsInFullscreen";
+static const QString ConnectedProjectorStr = "ConnectedProjector";
+static const QString ScreenLockedStr = "ScreenLocked";
+static const QString ShowIconOnDockStr = "ShowIconOnDock";
 
 class Config
 {

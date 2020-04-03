@@ -154,14 +154,19 @@ public Q_SLOTS:
      * \~chinese \return 通知中心中通知的数量
      */
     uint recordCount();
-
-    void setNotifyProperty(QString appName, uchar property, bool value);
-    bool getNotifyProperty(QString appName, uchar property, bool failback);
+    QString getAllSetting();
+    void setAllSetting(const QString settings);
+    QString getAppSetting(QString appName);
+    void setAppSetting(const QString settings);
+    QString getSystemSetting();
+    void setSystemSetting(QString settings);
 
 Q_SIGNALS: // SIGNALS
     void ActionInvoked(uint in0, const QString &in1);
     void NotificationClosed(uint in0, uint in1);
     void RecordAdded(const QString &in1);
+    void appAdded(QString appName);
+    void appRemoved(QString appName);
 };
 
 #endif
