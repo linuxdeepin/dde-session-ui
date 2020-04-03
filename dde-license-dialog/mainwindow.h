@@ -22,6 +22,9 @@ public:
     void setEnSource(const QString& source);
     void updateLocaleSource();
 
+Q_SIGNALS:
+    void loadFinished(bool ok);
+
 private:
     QLabel* m_title;
     Content* m_content;
