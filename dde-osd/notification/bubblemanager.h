@@ -34,8 +34,10 @@
 
 #include "bubble.h"
 #include "constants.h"
+#include "launcherinter.h"
 
 using UserInter = com::deepin::SessionManager;
+using LauncherInter = com::deepin::dde::daemon::Launcher;
 
 static const QString DBbsDockDBusServer = "com.deepin.dde.Dock";
 static const QString DBusDockDBusPath = "/com/deepin/dde/Dock";
@@ -89,14 +91,6 @@ public:
         Up = 1
     };
 
-    enum NotifyProperty {
-        AllowNotify = 0,
-        OnlyInNotifyCenter = 1,
-        LockShowNotify = 2,
-        ShowNotifyPreview = 3,
-        NotificationSound = 4
-    };
-
 Q_SIGNALS:
     // Standard Notifications dbus implementation
     void ActionInvoked(uint, const QString &);
@@ -104,6 +98,8 @@ Q_SIGNALS:
 
     // Extra DBus APIs
     void RecordAdded(const QString &);
+    void appAdded(QString appName);
+    void appRemoved(QString appName);
 
 public Q_SLOTS:
     // Standard Notifications dbus implementation
@@ -170,8 +166,14 @@ public Q_SLOTS:
      */
     uint recordCount();
 
-    void setNotifyProperty(QString appName, uchar property, bool value);
-    bool getNotifyProperty(QString appName, uchar property, bool failback);
+    void removeApp(QString appName);
+    void addedApp(QString appName);
+    QString getAllSetting();
+    void setAllSetting(const QString settings);
+    QString getAppSetting(QString appName);
+    void setAppSetting(const QString settings);
+    QString getSystemSetting();
+    void setSystemSetting(QString settings);
 
 private Q_SLOTS:
     /*!
@@ -230,6 +232,7 @@ private:
     QRect GetBubbleGeometry(int index);                     //根据索引获取气泡的矩形大小
     // Get the last unanimated bubble rect
     QRect GetLastStableRect(int index);                     //得到最后一个没有动画的矩形气泡
+    void initAllConfig();
 
 private:
     Persistence *m_persistence;
@@ -239,6 +242,7 @@ private:
     DBusDisplay *m_displayInter;
     DBusDock *m_dockDeamonInter;
     UserInter *m_userInter;
+    LauncherInter *m_launcherInter;
 
     QList<EntityPtr> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;
