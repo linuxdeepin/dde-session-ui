@@ -13,16 +13,14 @@ DWIDGET_END_NAMESPACE
 class QScrollArea;
 class QPushButton;
 class QCheckBox;
-//class QLabel;
-class SourceLabel;
+class QLabel;
 class Content : public QWidget
 {
     Q_OBJECT
 public:
     explicit Content(QWidget *parent = nullptr);
 
-Q_SIGNALS:
-    void loadFinished(bool ok);
+signals:
 
 public slots:
     void setSource(const QString& source);
@@ -41,7 +39,7 @@ private:
     QCheckBox* m_acceptCheck;
     QPushButton* m_cancelBtn;
     DTK_WIDGET_NAMESPACE::DSuggestButton* m_acceptBtn;
-    SourceLabel* m_source;
+    QLabel* m_source;
     DTK_WIDGET_NAMESPACE::DButtonBox* m_languageBtn;
     QString m_cn;
     QString m_en;
