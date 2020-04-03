@@ -1,5 +1,4 @@
 #include "content.h"
-#include "sourcelabel.h"
 
 #include <DSuggestButton>
 #include <DCommandLinkButton>
@@ -22,7 +21,7 @@ Content::Content(QWidget *parent)
     , m_acceptCheck(new QCheckBox)
     , m_cancelBtn(new QPushButton)
     , m_acceptBtn(new DSuggestButton)
-    , m_source(new SourceLabel)
+    , m_source(new QLabel)
     , m_languageBtn(new DButtonBox)
     , m_hasCn(false)
     , m_hasEn(false)
@@ -57,9 +56,13 @@ Content::Content(QWidget *parent)
     m_scrollArea->setContentsMargins(0, 0, 0, 0);
 
     QWidget* sourceWidget = new QWidget;
+    sourceWidget->setFixedWidth(468);
     QVBoxLayout* sourceLayout = new QVBoxLayout;
     sourceWidget->setLayout(sourceLayout);
     sourceLayout->addWidget(m_source);
+    sourceLayout->addStretch();
+    m_source->setWordWrap(true);
+    m_source->setOpenExternalLinks(true);
     // 左右边距20
     m_source->setContentsMargins(20, 0, 20, 0);
 
@@ -98,7 +101,6 @@ Content::Content(QWidget *parent)
 
     connect(m_acceptCheck, &QCheckBox::toggled, m_acceptBtn, &QPushButton::setEnabled);
 
-    connect(m_source,&SourceLabel::loadFinished,this,&Content::loadFinished);
     connect(m_languageBtn, &DButtonBox::buttonClicked, [this](QAbstractButton *value) {
         m_isCn = m_languageBtn->id(value);
         updateContent();
@@ -108,14 +110,12 @@ Content::Content(QWidget *parent)
     updateContent();
     updateLanguageBtn();
 
-    connect(m_source,&SourceLabel::loadFinished,this,[=]{
-        // 中文和英文按钮一样大
-        QTimer::singleShot(0,this,[=]{
-            int width = qMax(btnChinese->width(),btnEnginsh->width());
-            btnChinese->resize(width,btnChinese->height());
-            btnEnginsh->resize(width,btnChinese->height());
-            m_languageBtn->resize(width*2,m_languageBtn->height());
-        });
+    // 中文和英文按钮一样大
+    QTimer::singleShot(0,this,[=]{
+        int width = qMax(btnChinese->width(),btnEnginsh->width());
+        btnChinese->resize(width,btnChinese->height());
+        btnEnginsh->resize(width,btnChinese->height());
+        m_languageBtn->resize(width*2,m_languageBtn->height());
     });
 }
 
