@@ -29,8 +29,11 @@
 #include <QDBusArgument>
 
 #include <memory>
+#include <com_deepin_sessionmanager.h>
 
 #include "constants.h"
+
+using UserInter = com::deepin::SessionManager;
 
 DWIDGET_USE_NAMESPACE
 
@@ -96,6 +99,7 @@ private:
 
 protected:
     EntityPtr m_entity;
+    UserInter *m_userInter;
 
     //controls
     AppIcon *m_icon;

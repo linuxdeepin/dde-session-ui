@@ -165,9 +165,6 @@ public Q_SLOTS:
      * \~chinese \return 通知中心中通知的数量
      */
     uint recordCount();
-
-    void removeApp(QString appName);
-    void addedApp(QString appName);
     QString getAllSetting();
     void setAllSetting(const QString settings);
     QString getAppSetting(QString appName);
@@ -207,6 +204,8 @@ private Q_SLOTS:
      * \~chinese \brief 当主屏幕发生改变或几何大小发送改变,更新所有通知气泡的几何位置
      */
     void updateGeometry();
+    void removeApp(QString appName);
+    void addedApp(QString appName);
 
 private:
     void initConnections();                 //初始化信号槽连接
@@ -233,6 +232,7 @@ private:
     // Get the last unanimated bubble rect
     QRect GetLastStableRect(int index);                     //得到最后一个没有动画的矩形气泡
     void initAllConfig();
+    bool isDoNotDisturb();
 
 private:
     Persistence *m_persistence;
