@@ -2,6 +2,14 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en" sourcelanguage="en">
 <context>
+    <name>Bubble</name>
+    <message>
+        <location filename="../dde-osd/notification/bubble.cpp" line="302"/>
+        <source>1 new message</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BubbleItem</name>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="197"/>
@@ -358,22 +366,22 @@
         <translation>Group Password</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="99"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
         <translation>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="168"/>
         <source>Wrong password, please enter again!</source>
         <translation>Wrong password, please enter again!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="108"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="108"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
@@ -414,7 +422,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="91"/>
         <source>Notification Center</source>
         <translation>Notification Center</translation>
     </message>
