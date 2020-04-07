@@ -12,7 +12,9 @@
 #include <QApplication>
 #include <QFile>
 #include <QTimer>
-
+#include <QProcess>
+#include <QDebug>
+#include <QStandardPaths>
 DWIDGET_USE_NAMESPACE
 
 Content::Content(QWidget *parent)
@@ -26,7 +28,7 @@ Content::Content(QWidget *parent)
     , m_hasCn(false)
     , m_hasEn(false)
 {
-    QVBoxLayout* layout = new QVBoxLayout;
+    QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
 
@@ -38,7 +40,7 @@ Content::Content(QWidget *parent)
     btnlist.append(btnChinese);
     btnlist.append(btnEnginsh);
     m_languageBtn->setButtonList(btnlist, true);
-//    btnChinese->setChecked(true);//FIX:未显示之前setChecked无效
+    //    btnChinese->setChecked(true);//FIX:未显示之前setChecked无效
     m_languageBtn->setId(btnChinese, 1);
     m_languageBtn->setId(btnEnginsh, 0);
 
@@ -47,7 +49,7 @@ Content::Content(QWidget *parent)
     m_cancelBtn->setText(tr("Cancel"));
     m_acceptBtn->setText(tr("Confirm"));
 
-    m_scrollArea->setMinimumSize(468,300);
+    m_scrollArea->setMinimumSize(468, 300);
     m_scrollArea->setWidgetResizable(true);
     m_scrollArea->setFrameStyle(QFrame::NoFrame);
     m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -55,12 +57,13 @@ Content::Content(QWidget *parent)
     m_scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     m_scrollArea->setContentsMargins(0, 0, 0, 0);
 
-    QWidget* sourceWidget = new QWidget;
+    QWidget *sourceWidget = new QWidget;
     sourceWidget->setFixedWidth(468);
-    QVBoxLayout* sourceLayout = new QVBoxLayout;
+    QVBoxLayout *sourceLayout = new QVBoxLayout;
     sourceWidget->setLayout(sourceLayout);
     sourceLayout->addWidget(m_source);
     sourceLayout->addStretch();
+    m_source->setTextFormat(Qt::RichText);
     m_source->setWordWrap(true);
     m_source->setOpenExternalLinks(true);
     // 左右边距20
@@ -68,7 +71,7 @@ Content::Content(QWidget *parent)
 
     m_scrollArea->setWidget(sourceWidget);
 
-    QHBoxLayout* bottomLayout = new QHBoxLayout;
+    QHBoxLayout *bottomLayout = new QHBoxLayout;
     bottomLayout->setMargin(0);
     bottomLayout->setSpacing(0);
     bottomLayout->addSpacing(10);
@@ -82,7 +85,7 @@ Content::Content(QWidget *parent)
     m_cancelBtn->setFixedSize(80, 36);
     m_acceptBtn->setFixedSize(80, 36);
 
-    QWidget* bottom = new QWidget;
+    QWidget *bottom = new QWidget;
     bottom->setFixedHeight(65);
     bottom->setLayout(bottomLayout);
 
@@ -91,17 +94,17 @@ Content::Content(QWidget *parent)
 
     m_acceptBtn->setDisabled(true);
 
-    connect(m_cancelBtn, &QPushButton::clicked, this, [=] {
+    connect(m_cancelBtn, &QPushButton::clicked, this, [ = ] {
         qApp->exit(-1);
     });
 
-    connect(m_acceptBtn, &QPushButton::clicked, this, [=] {
+    connect(m_acceptBtn, &QPushButton::clicked, this, [ = ] {
         qApp->exit(96);
     });
 
     connect(m_acceptCheck, &QCheckBox::toggled, m_acceptBtn, &QPushButton::setEnabled);
 
-    connect(m_languageBtn, &DButtonBox::buttonClicked, [this](QAbstractButton *value) {
+    connect(m_languageBtn, &DButtonBox::buttonClicked, [this](QAbstractButton * value) {
         m_isCn = m_languageBtn->id(value);
         updateContent();
     });
@@ -111,11 +114,11 @@ Content::Content(QWidget *parent)
     updateLanguageBtn();
 
     // 中文和英文按钮一样大
-    QTimer::singleShot(0,this,[=]{
-        int width = qMax(btnChinese->width(),btnEnginsh->width());
-        btnChinese->resize(width,btnChinese->height());
-        btnEnginsh->resize(width,btnChinese->height());
-        m_languageBtn->resize(width*2,m_languageBtn->height());
+    QTimer::singleShot(0, this, [ = ] {
+        int width = qMax(btnChinese->width(), btnEnginsh->width());
+        m_languageBtn->setFixedSize(width * 2, m_languageBtn->height());
+        btnChinese->setFixedSize(width, btnChinese->height());
+        btnEnginsh->setFixedSize(width, btnChinese->height());
     });
 }
 
@@ -123,14 +126,32 @@ void Content::setSource(const QString &source)
 {
     if (source.isEmpty())
         return;
+    // pandoc将md转换成html
+    static QMap<QString, QString> sourceMap;
 
-    QFile file(source);
-    if (file.open(QIODevice::Text | QIODevice::ReadOnly)) {
-        m_source->setText(file.readAll());
+    if (sourceMap[source].isEmpty()) {
+        QProcess process;
+        QString para;
+        QString tempPath=QStandardPaths::standardLocations(QStandardPaths::TempLocation).first();
+        tempPath.append("/temp.html");
+        const char *tempPathC=tempPath.toStdString().data();
+        para.sprintf("pandoc %s --output %s", source.toStdString().data(),tempPathC);
+
+        QStringList args;
+        args << "-c";
+        args << para;
+        process.start("sh", args);
+        process.waitForFinished();
+        QFile file(tempPathC);
+        if (!file.open(QIODevice::Text | QIODevice::ReadOnly))
+            return;
+        sourceMap.insert(source, file.readAll());
         file.close();
-
-        updateWindowHeight();
     }
+
+    m_source->setText(sourceMap[source]);
+
+    updateWindowHeight();
 }
 
 void Content::setAllowCheckBoxText(const QString &text)
