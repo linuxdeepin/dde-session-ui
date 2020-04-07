@@ -1,5 +1,13 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="en" sourcelanguage="en" version="2.1">
 <context>
+    <name>Bubble</name>
+    <message>
+        <location filename="../dde-osd/notification/bubble.cpp" line="302"/>
+        <source>1 new message</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BubbleItem</name>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="197"/>
@@ -388,7 +396,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="91"/>
         <source>Notification Center</source>
         <translation>Notification Center</translation>
     </message>

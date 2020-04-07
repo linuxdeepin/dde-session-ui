@@ -44,6 +44,9 @@
 Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
     , m_entity(entity)
+    , m_userInter(new UserInter("com.deepin.SessionManager",
+                                "/com/deepin/SessionManager",
+                                QDBusConnection::sessionBus(), this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this))
@@ -138,7 +141,7 @@ void Bubble::mousePressEvent(QMouseEvent *event)
 
 void Bubble::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (!isEnabled())
+    if (!isEnabled() || m_userInter->locked())
         return;
 
     if (m_pressed && m_clickPos == event->pos()) {
@@ -297,12 +300,13 @@ void Bubble::updateContent()
     m_body->setTitle(m_entity->summary());
     if(Config::valueByQSettings(Config::getConfigPath(), m_entity->appName(), ShowNotifyPreviewStr, true).toBool()) {
         m_body->setText(OSD::removeHTML(m_entity->body()));
-        m_canClose = m_entity->actions().isEmpty();
-        m_defaultAction = BubbleTool::processActions(m_actionButton, m_entity->actions());
+        if (!m_userInter->locked()) {
+            m_canClose = m_entity->actions().isEmpty();
+            m_defaultAction = BubbleTool::processActions(m_actionButton, m_entity->actions());
+        }
     } else {
+        m_body->setText(tr("1 new message"));
         m_canClose = !m_entity->actions().isEmpty();
-        m_body->setText(tr("A new message"));
-        m_canClose = false;
     }
 
     BubbleTool::processIconData(m_icon, m_entity);

@@ -35,6 +35,17 @@
 #define ABS(a) (a)>0?(a):(-(a))
 #define  DEFAULT_START_TIME 22
 #define  DEFAULT_END_TIME 7
+#define  DEFAULT_DO_NOT_DISTURB false
+#define  DEFAULT_APP_IN_FULLSCREEN false
+#define  DEFAULT_CONNECTED_PROJECTOR false
+#define  DEFAULT_SCREEN_LOCKED false
+#define  DEFAULT_SHOW_ICON_ON_DOCK true
+
+#define  DEFAULT_ALLOW_NOTIFY true
+#define  DEFAULT_ONLY_IN_NOTIFY false
+#define  DEFAULT_LOCK_SHOW_NOTIFY true
+#define  DEFAULT_SHOW_NOTIFY_PREVIEW true
+#define  DEFAULT_NOTIFY_SOUND true
 
 typedef std::shared_ptr<NotificationEntity> EntityPtr;
 
@@ -68,6 +79,10 @@ static const QString AppsInFullscreenStr = "AppsInFullscreen";
 static const QString ConnectedProjectorStr = "ConnectedProjector";
 static const QString ScreenLockedStr = "ScreenLocked";
 static const QString ShowIconOnDockStr = "ShowIconOnDock";
+static const QString WhiteBoardStr = "WhiteBoard";
+static const QStringList WhiteBoardAppList= {
+    "dde-control-center"
+};
 
 class Config
 {
@@ -92,7 +107,7 @@ public:
         }
     }
 
-    static QVariant valueByQSettings(const QString& configFile, const QString& group, const QString& key, const bool failback)
+    static QVariant valueByQSettings(const QString& configFile, const QString& group, const QString& key, const QVariant failback)
     {
         QSettings settings(configFile, QSettings::IniFormat);
         if (!group.isEmpty()) {
@@ -101,8 +116,9 @@ public:
             if (v.isValid()) {
                 return v;
             }
+            settings.endGroup();
         }
-        return QVariant(failback);
+        return failback;
     }
 };
 
