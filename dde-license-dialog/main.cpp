@@ -5,6 +5,7 @@
 #include <QCommandLineParser>
 #include <QFile>
 #include <QDesktopWidget>
+#include <QDebug>
 
 DWIDGET_USE_NAMESPACE
 
