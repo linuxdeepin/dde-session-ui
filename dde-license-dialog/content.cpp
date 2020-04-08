@@ -62,7 +62,7 @@ Content::Content(QWidget *parent)
     QVBoxLayout *sourceLayout = new QVBoxLayout;
     sourceWidget->setLayout(sourceLayout);
     sourceLayout->addWidget(m_source);
-    sourceLayout->addStretch();
+//    sourceLayout->addStretch();//FIX:英文协议内容过长，会导致label高度显示不正确，未找到原因，去掉这一行正常
     m_source->setTextFormat(Qt::RichText);
     m_source->setWordWrap(true);
     m_source->setOpenExternalLinks(true);
@@ -132,19 +132,22 @@ void Content::setSource(const QString &source)
     if (sourceMap[source].isEmpty()) {
         QProcess process;
         QString para;
-        QString tempPath=QStandardPaths::standardLocations(QStandardPaths::TempLocation).first();
-        tempPath.append("/temp.html");
-        const char *tempPathC=tempPath.toStdString().data();
-        para.sprintf("pandoc %s --output %s", source.toStdString().data(),tempPathC);
+        QString tempPath=QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
+        tempPath.append("/license_temp.html");
 
+        para = QString("pandoc %1 --output %2").arg(source).arg(tempPath);
         QStringList args;
         args << "-c";
         args << para;
         process.start("sh", args);
         process.waitForFinished();
-        QFile file(tempPathC);
+        process.waitForReadyRead();
+        QFile file(tempPath);
         if (!file.open(QIODevice::Text | QIODevice::ReadOnly))
+        {
+            qDebug() << file.errorString();
             return;
+        }
         sourceMap.insert(source, file.readAll());
         file.close();
     }
