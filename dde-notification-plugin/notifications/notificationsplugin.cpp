@@ -27,6 +27,7 @@
 
 #include <DGuiApplicationHelper>
 #include <DApplication>
+#include <DDBusSender>
 
 DGUI_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -91,7 +92,7 @@ QWidget *NotificationsPlugin::itemTipsWidget(const QString &itemKey)
     if (recordCount)
         m_tipsLabel->setText(QString(tr("%1 Notifications")).arg(recordCount));
     else
-        m_tipsLabel->setText(tr("Notification Center"));
+        m_tipsLabel->setText(tr("No News Yet"));
 
     return m_tipsLabel;
 }
@@ -202,5 +203,65 @@ void NotificationsPlugin::refreshPluginItemsVisible()
             return;
         }
         m_proxyInter->itemAdded(this, pluginName());
+    }
+}
+
+const QString NotificationsPlugin::itemContextMenu(const QString &itemKey)
+{
+    if (itemKey != "notifications")
+        return QString();
+    QList<QVariant> items;
+    items.reserve(2);
+
+    //Add do not disturb mode button
+    QMap<QString,QVariant> disturbs;
+    disturbs["itemId"] = "disturb";
+    disturbs["itemText"] = m_disturb ? tr("Turn off DND mode") : tr("Turn on DND mode");
+    disturbs["isActive"] =true;
+    items.push_back(disturbs);
+
+    // Add notification settings button
+    QMap<QString, QVariant> settings;
+    settings["itemId"] = "setting";
+    settings["itemText"] = tr("Notification settings");
+    settings["isActive"] = true;
+    items.push_back(settings);
+
+    QMap<QString, QVariant> menu;
+    menu["items"] = items;
+    menu["checkableMenu"] = false;
+    menu["singleCheck"] = false;
+
+    return QJsonDocument::fromVariant(menu).toJson();
+}
+
+
+void NotificationsPlugin::invokedMenuItem(const QString &itemKey, const QString &menuId, const bool checked)
+{
+    Q_UNUSED(checked);
+    Q_UNUSED(itemKey);
+    if (menuId == "disturb")
+    {
+        m_disturb = m_disturb ? false:true;
+        m_itemWidget->setDisturb(m_disturb);
+        //接口来自接口文档
+        QMap<QString,QVariant> SystemNotify;
+        QMap<QString,QVariant> setDoNotDisturb;
+        setDoNotDisturb["DoNotDisturb"] = m_disturb;
+        SystemNotify["SystemNotify"] = setDoNotDisturb;
+        //转成json
+        QString Dbusmsg = QJsonDocument::fromVariant(SystemNotify).toJson();
+        //发送数据给dbus接口
+        m_interface->call("setSystemSetting",Dbusmsg);
+    }
+    else if (menuId == "setting")
+    {
+        DDBusSender()
+            .service("com.deepin.dde.ControlCenter")
+            .interface("com.deepin.dde.ControlCenter")
+            .path("/com/deepin/dde/ControlCenter")
+            .method("ShowPage")
+            .arg(QString("Notification"))
+            .call();
     }
 }

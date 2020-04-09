@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="18px" viewBox="0 0 16 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>形状结合</title>
+    <desc>Created with Sketch.</desc>
+    <g id="控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="勿扰" transform="translate(-12.000000, -11.000000)" fill="#FFFFFF">
+            <g id="trayicon/notification">
+                <path d="M23,26 C23,27.6568542 21.6568542,29 20,29 C18.4023191,29 17.0963391,27.75108 17.0050927,26.1762728 L17,26 L23,26 Z M14.63811,17.2572723 L21.379,24 L12,24 L12.0169106,23.9755256 C13.4244203,21.8907691 14.3027307,19.6023961 14.63811,17.2572723 Z M20.3773685,11 C22.8942381,11 25.0585627,13.0673822 25.2115228,15.6176273 L25.2344541,15.999952 C25.4012564,18.7809831 26.3249519,21.5195476 27.9830894,23.9755256 L28,24 L25.621,24 L15.3159508,13.6958471 C16.1309368,12.1050078 17.7825672,11 19.6226315,11 L20.3773685,11 Z" id="形状结合"></path>
+            </g>
+        </g>
+    </g>
+</svg>
