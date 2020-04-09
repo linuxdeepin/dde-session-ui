@@ -27,22 +27,20 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="32"/>
         <source>Chinese</source>
-        <translation>Chinese</translation>
+        <translation type="vanished">Chinese</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="33"/>
         <source>English</source>
-        <translation>English</translation>
+        <translation type="vanished">English</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="44"/>
+        <location filename="../dde-license-dialog/content.cpp" line="49"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="45"/>
+        <location filename="../dde-license-dialog/content.cpp" line="50"/>
         <source>Confirm</source>
         <translation>Confirm</translation>
     </message>
@@ -210,17 +208,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="169"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="184"/>
         <source>Customize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="171"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="186"/>
         <source>Duplicate</source>
         <translation>Duplicate</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="173"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="188"/>
         <source>Extend</source>
         <translation>Extend</translation>
     </message>
@@ -360,22 +358,22 @@
         <translation>Group Password</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="99"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
         <translation>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="168"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
         <translation>Wrong password, please enter again!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="108"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="108"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
@@ -383,15 +381,34 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="94"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="72"/>
         <source>Notification Center</source>
         <translation>Notification Center</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="93"/>
         <source>%1 Notifications</source>
         <translation>%1 Notifications</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="95"/>
+        <source>No News Yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="219"/>
+        <source>Turn off DND mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="219"/>
+        <source>Turn on DND mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="226"/>
+        <source>Notification settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

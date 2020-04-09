@@ -33,11 +33,16 @@ class NotificationsWidget: public QWidget
 
 public:
     explicit NotificationsWidget(QWidget *parent = 0);
+    void setDisturb(bool OK);
 
 protected:
     void paintEvent(QPaintEvent *e) override;
     void resizeEvent(QResizeEvent *event) override;
     const QPixmap loadSvg(const QString &iconName, const QString &localPath, const int size, const qreal ratio);
+
+private:
+    bool m_disturb; //提供勿扰图标修改
+
 };
 
 #endif // NOTIFICATIONSWIDGET_H
