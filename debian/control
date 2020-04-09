@@ -21,14 +21,13 @@ Build-Depends: debhelper (>= 8.0.0), pkg-config,
  libxcursor-dev,
  libxrandr-dev,
  libdtkcore5-bin,
- dde-dock-dev,
- pandoc
+ dde-dock-dev
 Standards-Version: 3.9.4
 Homepage: http://www.deepin.org/
 
 Package: dde-session-ui
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, deepin-desktop-schemas (>= 2.91.2), dde-daemon, x11-xserver-utils, dbus-x11, dde-session-shell
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends}, deepin-desktop-schemas (>= 2.91.2), dde-daemon, x11-xserver-utils, dbus-x11, dde-session-shell, pandoc
 Provides: lightdm-greeter
 Recommends: onboard
 Conflicts: dde-workspace,
