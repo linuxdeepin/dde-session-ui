@@ -70,6 +70,14 @@ MainWindow::MainWindow(QWidget *parent)
         }
     });
 
+    connect(m_content, &Content::sourceChanged, this, [ = ](bool isCn) {
+        if (isCn) {
+            m_title->setText(m_cnTitle);
+        } else {
+            m_title->setText(m_enTitle);
+        }
+    });
+
     DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
 }
 
@@ -126,3 +134,4 @@ void MainWindow::setHideBottom(const QString& param)
     }
     m_content->setHideBottom(status);
 }
+
