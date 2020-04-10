@@ -13,27 +13,33 @@ int main(int argc, char *argv[])
 {
     DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
-//    a.setTheme("light");
+    //    a.setTheme("light");
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
     QCommandLineOption title(QStringList() << "t" << "title", "");
+    QCommandLineOption entitle(QStringList() << "u" << "english title", "");
     QCommandLineOption content(QStringList() << "c" << "content", "");
     QCommandLineOption checkbox(QStringList() << "a" << "allow", "");
+    QCommandLineOption encheckbox(QStringList() << "b" << "english allow", "");
     QCommandLineOption encontent(QStringList() << "e" << "english content", "");
 
     title.setValueName("TitleName");
+    entitle.setValueName("EnTitleName");
     content.setValueName("Content");
     checkbox.setValueName("Check");
+    encheckbox.setValueName("EnCheck");
     encontent.setValueName("EnContent");
 
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addOption(title);
+    parser.addOption(entitle);
     parser.addOption(content);
     parser.addOption(checkbox);
+    parser.addOption(encheckbox);
     parser.addOption(encontent);
     parser.process(a);
 
@@ -41,6 +47,12 @@ int main(int argc, char *argv[])
 
     if (parser.isSet(title)) {
         w.setTitle(parser.value(title));
+    }
+
+    if (parser.isSet(entitle)) {
+        w.setEnTitle(parser.value(entitle));
+    } else {
+        w.setEnTitle(parser.value(title));// 照顾以前的版本,英文未设置使用中文
     }
 
     if (parser.isSet(content)) {
@@ -51,7 +63,15 @@ int main(int argc, char *argv[])
         w.setEnSource(parser.value(encontent));
     }
 
-    w.setAllowCheckBoxText(parser.value(checkbox));
+    if (parser.isSet(checkbox)) {
+        w.setAllowCheckBoxText(parser.value(checkbox));
+    }
+
+    if (parser.isSet(encheckbox)) {
+        w.setEnAllowCheckBoxText(parser.value(encheckbox));
+    } else {
+        w.setEnAllowCheckBoxText(parser.value(checkbox));// 照顾以前的版本,英文未设置使用中文
+    }
     w.updateLocaleSource();
 
     w.moveToCenter();

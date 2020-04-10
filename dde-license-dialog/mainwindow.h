@@ -16,8 +16,10 @@ public:
     ~MainWindow();
 
     void setTitle(const QString& title);
+    void setEnTitle(const QString& title);
     void setEnableAllowCheckBox(const bool enable);
     void setAllowCheckBoxText(const QString& text);
+    void setEnAllowCheckBoxText(const QString& text);
     void setCnSource(const QString& source);
     void setEnSource(const QString& source);
     void updateLocaleSource();
@@ -25,6 +27,9 @@ public:
 private:
     QLabel* m_title;
     Content* m_content;
+
+    QString m_cnTitle;
+    QString m_enTitle;
 };
 
 #endif // MAINWINDOW_H
