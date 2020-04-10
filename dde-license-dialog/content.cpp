@@ -25,6 +25,7 @@ Content::Content(QWidget *parent)
     , m_acceptBtn(new DSuggestButton)
     , m_source(new QLabel)
     , m_languageBtn(new DButtonBox)
+    , m_isCn(false)
     , m_hasCn(false)
     , m_hasEn(false)
 {
@@ -46,9 +47,6 @@ Content::Content(QWidget *parent)
 
     layout->addWidget(m_languageBtn, 0, Qt::AlignHCenter);
 
-    m_cancelBtn->setText(tr("Cancel"));
-    m_acceptBtn->setText(tr("Confirm"));
-
     m_scrollArea->setMinimumSize(468, 300);
     m_scrollArea->setWidgetResizable(true);
     m_scrollArea->setFrameStyle(QFrame::NoFrame);
@@ -62,7 +60,7 @@ Content::Content(QWidget *parent)
     QVBoxLayout *sourceLayout = new QVBoxLayout;
     sourceWidget->setLayout(sourceLayout);
     sourceLayout->addWidget(m_source);
-//    sourceLayout->addStretch();//FIX:英文协议内容过长，会导致label高度显示不正确，未找到原因，去掉这一行正常
+    //    sourceLayout->addStretch();//FIX:英文协议内容过长，会导致label高度显示不正确，未找到原因，去掉这一行正常
     m_source->setTextFormat(Qt::RichText);
     m_source->setWordWrap(true);
     m_source->setOpenExternalLinks(true);
@@ -159,9 +157,12 @@ void Content::setSource(const QString &source)
 
 void Content::setAllowCheckBoxText(const QString &text)
 {
-    m_acceptCheck->setText(text);
-    m_acceptCheck->setVisible(!text.isEmpty());
-    m_acceptBtn->setEnabled(text.isEmpty());
+    m_allow = text;
+}
+
+void Content::setEnAllowCheckBoxText(const QString &text)
+{
+    m_enallow = text;
 }
 
 void Content::setCnSource(const QString &source)
@@ -208,9 +209,20 @@ void Content::updateContent()
 {
     if (m_isCn) {
         setSource(m_cn);
+        m_acceptCheck->setText(m_allow);
+        m_acceptCheck->setVisible(!m_allow.isEmpty());
+        m_cancelBtn->setText(tr("Cancel"));
+        m_acceptBtn->setText(tr("Confirm"));
+        m_acceptBtn->setEnabled(m_allow.isEmpty() || (!m_allow.isEmpty() && m_acceptCheck->isChecked()));
     } else {
         setSource(m_en);
+        m_acceptCheck->setText(m_enallow);
+        m_acceptCheck->setVisible(!m_enallow.isEmpty());
+        m_cancelBtn->setText("Cancel");
+        m_acceptBtn->setText("Confirm");
+        m_acceptBtn->setEnabled(m_allow.isEmpty() || (!m_allow.isEmpty() && m_acceptCheck->isChecked()));
     }
+    Q_EMIT sourceChanged(m_isCn);
 }
 
 // 根据文本多少，调整窗口大小

@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_title->setObjectName("TitleLabel");
 
-    QVBoxLayout* layout = new QVBoxLayout;
+    QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
 
@@ -32,6 +32,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     setLayout(layout);
     setFixedWidth(468);
+
+    connect(m_content, &Content::sourceChanged, this, [ = ](bool isCn) {
+        if (isCn) {
+            m_title->setText(m_cnTitle);
+        } else {
+            m_title->setText(m_enTitle);
+        }
+    });
 
     DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
 }
@@ -43,7 +51,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::setTitle(const QString &title)
 {
-    m_title->setText(title);
+    m_cnTitle = title;
+}
+
+void MainWindow::setEnTitle(const QString &title)
+{
+    m_enTitle = title;
 }
 
 void MainWindow::setCnSource(const QString &source)
@@ -64,4 +77,9 @@ void MainWindow::updateLocaleSource()
 void MainWindow::setAllowCheckBoxText(const QString &text)
 {
     m_content->setAllowCheckBoxText(text);
+}
+
+void MainWindow::setEnAllowCheckBoxText(const QString &text)
+{
+    m_content->setEnAllowCheckBoxText(text);
 }

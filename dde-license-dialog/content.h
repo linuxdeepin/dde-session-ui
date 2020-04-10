@@ -21,10 +21,12 @@ public:
     explicit Content(QWidget *parent = nullptr);
 
 signals:
+    void sourceChanged(bool isCn);
 
 public slots:
     void setSource(const QString& source);
     void setAllowCheckBoxText(const QString& text);
+    void setEnAllowCheckBoxText(const QString& text);
     void setCnSource(const QString& source);
     void setEnSource(const QString& language);
     void updateLocaleSource();
@@ -41,11 +43,14 @@ private:
     DTK_WIDGET_NAMESPACE::DSuggestButton* m_acceptBtn;
     QLabel* m_source;
     DTK_WIDGET_NAMESPACE::DButtonBox* m_languageBtn;
-    QString m_cn;
-    QString m_en;
     bool m_isCn;
     bool m_hasCn;
     bool m_hasEn;
+
+    QString m_cn;
+    QString m_en;
+    QString m_allow;
+    QString m_enallow;
 };
 
 #endif // CONTENT_H
