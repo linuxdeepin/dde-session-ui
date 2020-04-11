@@ -33,7 +33,6 @@ DGUI_USE_NAMESPACE
 
 NotificationsWidget::NotificationsWidget(QWidget *parent)
     : QWidget(parent)
-    , m_disturb(false)
 {
     setMouseTracking(true);
     setMinimumSize(PLUGIN_BACKGROUND_MIN_SIZE, PLUGIN_BACKGROUND_MIN_SIZE);
@@ -47,9 +46,7 @@ void NotificationsWidget::paintEvent(QPaintEvent *e)
 {
     Q_UNUSED(e);
 
-    QString iconName = "";
-    iconName = m_disturb ? "notification":"N_notification";
-
+    QString iconName = "notification";
     int iconSize = PLUGIN_ICON_MAX_SIZE;
     if (height() <= PLUGIN_BACKGROUND_MIN_SIZE && DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType)
         iconName.append(PLUGIN_MIN_ICON_NAME);
@@ -91,11 +88,5 @@ const QPixmap NotificationsWidget::loadSvg(const QString &iconName, const QStrin
     pixmap.setDevicePixelRatio(ratio);
 
     return pixmap;
-}
-
-void NotificationsWidget::setDisturb(bool OK)
-{
-    m_disturb = OK;
-    update();
 }
 
