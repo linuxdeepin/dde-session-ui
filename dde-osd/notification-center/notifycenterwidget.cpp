@@ -27,7 +27,7 @@
 #include "notification/persistence.h"
 #include "notification/constants.h"
 #include "shortcutmanage.h"
-#include "clearbutton.h"
+#include "notification/iconbutton.h"
 #include "appgroupmodel.h"
 
 #include <QDesktopWidget>
@@ -92,7 +92,9 @@ void NotifyCenterWidget::initUI()
     title_label->setAlignment(Qt::AlignCenter);
     title_label->setForegroundRole(QPalette::BrightText);
 
-    ClearButton *clear_btn = new ClearButton("://icons/list_icon_clear.svg");
+    IconButton *clear_btn = new IconButton;
+    clear_btn->setIcon("://icons/list_icon_clear.svg");
+    clear_btn->setBackOpacity(255);
     clear_btn->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
     clear_btn->setFocusPolicy(Qt::NoFocus);
 
@@ -114,7 +116,7 @@ void NotifyCenterWidget::initUI()
 
     setLayout(mainLayout);
 
-    connect(clear_btn, &ClearButton::clicked, this, [ = ]() {
+    connect(clear_btn, &IconButton::clicked, this, [ = ]() {
         m_notifyWidget->model()->removeAllGroup();
     });
 
