@@ -50,6 +50,13 @@ void IconButton::setText(const QString &text)
     update();
 }
 
+void IconButton::setIcon(const QString &iconPath)
+{
+    m_pixmap = QPixmap(iconPath);
+
+    update();
+}
+
 void IconButton::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
@@ -76,8 +83,10 @@ void IconButton::paintEvent(QPaintEvent *event)
     painter.drawText(rect(), m_text, option);
 
     if (m_text.isEmpty()) {
-        QPixmap pix = style()->standardIcon(QStyle::SP_TitleBarCloseButton).pixmap(width());
-        painter.drawPixmap(rect(), pix);
+        if (m_pixmap.isNull()) {
+            m_pixmap = style()->standardIcon(QStyle::SP_TitleBarCloseButton).pixmap(width());
+        }
+        painter.drawPixmap(rect(), m_pixmap);
     }
 }
 
