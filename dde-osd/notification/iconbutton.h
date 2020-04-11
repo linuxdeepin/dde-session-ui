@@ -34,6 +34,7 @@ public:
     explicit IconButton(const QString &text, QWidget *parent = nullptr);
 
     void setText(const QString &text);
+    void setIcon(const QString &iconPath);
     void setFocusState(bool has);
     void setBackOpacity(int opacity);
     void setRadius(int radius);
@@ -43,6 +44,7 @@ Q_SIGNALS:
 
 private:
     QString m_text;
+    QPixmap m_pixmap;
     bool m_hasFocus;
     bool m_hover;
     int m_opacity;
