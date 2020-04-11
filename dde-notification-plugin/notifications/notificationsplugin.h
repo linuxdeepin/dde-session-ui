@@ -28,11 +28,6 @@
 #include <QDBusInterface>
 #include <QLabel>
 
-#include <QList>
-#include <QMap>
-#include <QVariant>
-#include <QJsonDocument>
-
 class NotificationsPlugin : public QObject, PluginsItemInterface
 {
     Q_OBJECT
@@ -55,9 +50,6 @@ public:
     int itemSortKey(const QString &itemKey) Q_DECL_OVERRIDE;
     void setSortKey(const QString &itemKey, const int order) Q_DECL_OVERRIDE;
     void pluginSettingsChanged() override;
-    const QString itemContextMenu(const QString &itemKey) override;
-    void invokedMenuItem(const QString &itemKey, const QString &menuId, const bool checked) override;
-
     QDBusInterface *getNotifyInterface();
 
 private slots:
@@ -71,9 +63,6 @@ private:
 private:
     bool m_pluginLoaded;
     QDBusInterface *m_interface = nullptr;
-
-    //Judge whether it is in not Disturb mode
-    bool m_disturb;
 
     NotificationsWidget *m_itemWidget;
     QLabel *m_tipsLabel;
