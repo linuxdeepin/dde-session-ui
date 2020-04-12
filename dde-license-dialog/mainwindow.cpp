@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     layout->addWidget(m_content);
 
     setLayout(layout);
-    setFixedWidth(468);
+    setFixedWidth(500);
 
     connect(m_content, &Content::sourceChanged, this, [ = ](bool isCn) {
         if (isCn) {
