@@ -394,6 +394,10 @@ void BubbleManager::initConnections()
     connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, [ = ] {
         updateGeometry();
     });
+
+    connect(m_persistence, &Persistence::RecordAdded, this, [ = ] (EntityPtr entity) {
+        Q_EMIT RecordAdded(entity->appName());
+    });
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
