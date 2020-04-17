@@ -88,13 +88,14 @@ void Container::moveToCenter()
 {
     QDesktopWidget *desktop = QApplication::desktop();
     const int primary = desktop->primaryScreen();
+    const int currentprimary=desktop->screenNumber(QCursor::pos());
 
     QRect displayRect;
     DisplayInter *displayInter = new DisplayInter("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus(), this);
     QList<QDBusObjectPath> screenList = displayInter->monitors();
     for (auto screen : screenList) {
         MonitorInter *monitor = new MonitorInter("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
-        if (monitor->enabled()) {
+        if (monitor->enabled()&&screenList.indexOf(screen)==currentprimary) {
             qDebug() << " screen display : " << screen.path();
             displayRect = QRect(monitor->x(), monitor->y(),
                                 monitor->width()/qApp->primaryScreen()->devicePixelRatio(),
@@ -104,9 +105,10 @@ void Container::moveToCenter()
     }
 
     if (!displayRect.isValid() || displayRect.isEmpty()) {
-        displayRect = desktop->screenGeometry(primary);
+        displayRect = desktop->screenGeometry(currentprimary);
     }
 
+    setGeometry(displayRect);
     move(QPoint(displayRect.center().x(), displayRect.bottom() - 180) - QPoint(rect().center().x(), rect().bottom()));
 }
 
