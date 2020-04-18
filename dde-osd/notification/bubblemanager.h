@@ -233,7 +233,7 @@ private:
     QList<QPointer<Bubble>> m_bubbleList;
 
     NotifyCenterWidget *m_notifyCenter;
-    int m_replaceCount = 0;
+    int m_replaceCount = 10000;// 取大一点,防止和正常发送的ID号重复
 };
 
 #endif // BUBBLEMANAGER_H
