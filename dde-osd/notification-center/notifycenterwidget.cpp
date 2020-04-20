@@ -146,9 +146,9 @@ void NotifyCenterWidget::initConnections()
 
 void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos, int mode)
 {
-    qreal scale = qApp->primaryScreen()->devicePixelRatio();
-    dock.setWidth(int(qreal(dock.width()) / scale));
-    dock.setHeight(int(qreal(dock.height()) / scale));
+    m_scale = qApp->primaryScreen()->devicePixelRatio();
+    dock.setWidth(int(qreal(dock.width()) / m_scale));
+    dock.setHeight(int(qreal(dock.height()) / m_scale));
 
     m_dockRect = dock;
 
@@ -260,7 +260,8 @@ void NotifyCenterWidget::registerRegion()
     if (interface.isValid()) {
         m_regionConnect = connect(m_regionMonitor, &DRegionMonitor::buttonPress, this, [ = ](const QPoint & p, const int flag) {
             Q_UNUSED(flag);
-            if (!geometry().contains(p))
+            QPoint pScale(int(qreal(p.x() / m_scale)), int(qreal(p.y() / m_scale)));
+            if (!geometry().contains(pScale))
                 if (!isHidden()) {
                     hideAni();
                 }
