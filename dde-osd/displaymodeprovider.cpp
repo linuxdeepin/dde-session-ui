@@ -157,6 +157,9 @@ void DisplayModeProvider::updatePlanItems()
             m_currentPlan = pair;
             break;
         }
+        else {
+            m_currentPlan = m_planItems.first();
+        }
     }
 }
 
