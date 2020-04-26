@@ -42,7 +42,7 @@ Content::Content(QWidget *parent)
     btnlist.append(btnChinese);
     btnlist.append(btnEnginsh);
     m_languageBtn->setButtonList(btnlist, true);
-    //    btnChinese->setChecked(true);//FIX:未显示之前setChecked无效
+    // btnChinese->setChecked(true);//FIX:未显示之前setChecked无效
     m_languageBtn->setId(btnChinese, 1);
     m_languageBtn->setId(btnEnginsh, 0);
 
@@ -56,12 +56,12 @@ Content::Content(QWidget *parent)
     m_scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     m_scrollArea->setContentsMargins(0, 0, 0, 0);
 
-    QWidget *sourceWidget = new QWidget;
+    QWidget *sourceWidget = new QWidget(this);
     sourceWidget->setFixedWidth(468);
     QVBoxLayout *sourceLayout = new QVBoxLayout;
     sourceWidget->setLayout(sourceLayout);
     sourceLayout->addWidget(m_source);
-    //    sourceLayout->addStretch();//FIX:英文协议内容过长，会导致label高度显示不正确，未找到原因，去掉这一行正常
+    // sourceLayout->addStretch();//FIX:英文协议内容过长，会导致label高度显示不正确，未找到原因，去掉这一行正常
     m_source->setTextFormat(Qt::RichText);
     m_source->setWordWrap(true);
     m_source->setOpenExternalLinks(true);
@@ -84,12 +84,13 @@ Content::Content(QWidget *parent)
     m_cancelBtn->setFixedSize(80, 36);
     m_acceptBtn->setFixedSize(80, 36);
 
-    QWidget *bottom = new QWidget;
-    bottom->setFixedHeight(65);
-    bottom->setLayout(bottomLayout);
+    m_bottom = new QWidget(this);
+    m_bottom->setFixedHeight(65);
+    m_bottom->setLayout(bottomLayout);
 
     layout->addWidget(m_scrollArea);
-    layout->addWidget(bottom);
+    layout->addSpacing(20);
+    layout->addWidget(m_bottom);
 
     m_acceptBtn->setDisabled(true);
 
@@ -121,6 +122,11 @@ Content::Content(QWidget *parent)
         btnChinese->setFixedSize(width, btnChinese->height());
         btnEnginsh->setFixedSize(width, btnChinese->height());
     });
+}
+
+void Content::setHideBottom(const bool &status)
+{
+    m_bottom->setVisible(!status);
 }
 
 void Content::setSource(const QString &source)
