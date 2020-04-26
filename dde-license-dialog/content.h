@@ -19,6 +19,7 @@ class Content : public QWidget
     Q_OBJECT
 public:
     explicit Content(QWidget *parent = nullptr);
+    void setHideBottom(const bool &status);
 
 signals:
     void sourceChanged(bool isCn);
@@ -36,6 +37,7 @@ private:
     void updateContent();
     void updateWindowHeight();
 
+
 private:
     QScrollArea* m_scrollArea;
     QCheckBox* m_acceptCheck;
@@ -51,6 +53,8 @@ private:
     QString m_en;
     QString m_allow;
     QString m_enallow;
+
+    QWidget *m_bottom;
 };
 
 #endif // CONTENT_H

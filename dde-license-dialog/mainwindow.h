@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <dabstractdialog.h>
+#include <DIconButton>
 
 DWIDGET_USE_NAMESPACE
 
@@ -23,6 +24,7 @@ public:
     void setCnSource(const QString& source);
     void setEnSource(const QString& source);
     void updateLocaleSource();
+    void setHideBottom(const QString& status);
 
 private:
     QLabel* m_title;
@@ -30,6 +32,8 @@ private:
 
     QString m_cnTitle;
     QString m_enTitle;
+
+    DIconButton *btnclose;
 };
 
 #endif // MAINWINDOW_H
