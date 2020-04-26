@@ -68,7 +68,7 @@ BubbleManager::BubbleManager(QObject *parent)
 
 BubbleManager::~BubbleManager()
 {
-    if(!m_bubbleList.isEmpty()) qDeleteAll(m_bubbleList);
+    if (!m_bubbleList.isEmpty()) qDeleteAll(m_bubbleList);
 
     m_oldEntities.clear();
 }
@@ -255,7 +255,7 @@ QRect BubbleManager::GetBubbleGeometry(int index)
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
         rect.setX(display.x() + (display.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
-        rect.setY(display.y()+ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
+        rect.setY(display.y() + ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
         rect.setWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
         rect.setHeight(OSD::BubbleHeight(OSD::BUBBLEWINDOW));
     } else if (index >= BubbleEntities && index <= BubbleEntities + BubbleOverLap) {
@@ -395,7 +395,7 @@ void BubbleManager::initConnections()
         updateGeometry();
     });
 
-    connect(m_persistence, &Persistence::RecordAdded, this, [ = ] (EntityPtr entity) {
+    connect(m_persistence, &Persistence::RecordAdded, this, [ = ](EntityPtr entity) {
         Q_EMIT RecordAdded(entity->appName());
     });
 }
@@ -482,7 +482,7 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         QRect endRect = GetBubbleGeometry(0);
         QRect startRect;
         startRect.setX(endRect.x());
-        startRect.setY(BubbleStartPos);
+        startRect.setY(endRect.y() + BubbleStartPos);
         startRect.setWidth(endRect.width());
         startRect.setHeight(endRect.height());
 
