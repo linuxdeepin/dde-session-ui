@@ -13,18 +13,19 @@ int main(int argc, char *argv[])
 {
     DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
-    //    a.setTheme("light");
+    //a.setTheme("light");
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
-    QCommandLineOption title(QStringList() << "t" << "title", "");
-    QCommandLineOption entitle(QStringList() << "u" << "english title", "");
-    QCommandLineOption content(QStringList() << "c" << "content", "");
-    QCommandLineOption checkbox(QStringList() << "a" << "allow", "");
-    QCommandLineOption encheckbox(QStringList() << "b" << "english allow", "");
-    QCommandLineOption encontent(QStringList() << "e" << "english content", "");
+    QCommandLineOption title(QStringList() << "t" << "title", "Parm:string type  \n Action:Show Chinese title name");
+    QCommandLineOption entitle(QStringList() << "u" << "english title", "Parm:string type   \n Action:Show English title name");
+    QCommandLineOption content(QStringList() << "c" << "content", "Parm:string type   \n Action:Show English title name  \n Notice:Set absolute path of document you want to show");
+    QCommandLineOption checkbox(QStringList() << "a" << "allow", "Parm:string type \n Action:Show checkbox and allow content in Chinese");
+    QCommandLineOption encheckbox(QStringList() << "b" << "english allow", "Parm:string type \n Action:Show checkbox and allow content in English");
+    QCommandLineOption encontent(QStringList() << "e" << "english content", "Parm:string type \n Action:Show content in English  \n Notice:Set absolute path of document you want to show");
+    QCommandLineOption hidebottom(QStringList() << "d" << "hide bottom", "Parm:string type  \n Action:Show bottom if param set \"yes\"  \n Notice:Bottom include allow checkbox,confirm button,cancel bottom");
 
     title.setValueName("TitleName");
     entitle.setValueName("EnTitleName");
@@ -32,6 +33,7 @@ int main(int argc, char *argv[])
     checkbox.setValueName("Check");
     encheckbox.setValueName("EnCheck");
     encontent.setValueName("EnContent");
+    hidebottom.setValueName("hidebottom");
 
     QCommandLineParser parser;
     parser.addHelpOption();
@@ -41,6 +43,7 @@ int main(int argc, char *argv[])
     parser.addOption(checkbox);
     parser.addOption(encheckbox);
     parser.addOption(encontent);
+    parser.addOption(hidebottom);
     parser.process(a);
 
     MainWindow w;
@@ -72,6 +75,11 @@ int main(int argc, char *argv[])
     } else {
         w.setEnAllowCheckBoxText(parser.value(checkbox));// 照顾以前的版本,英文未设置使用中文
     }
+
+    if (parser.isSet(hidebottom)) {
+        w.setHideBottom(parser.value(hidebottom));
+    }
+
     w.updateLocaleSource();
 
     w.moveToCenter();
