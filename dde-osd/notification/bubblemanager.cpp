@@ -444,6 +444,7 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
             Bubble *bubble = m_bubbleList.at(i);
             if (bubble->entity()->replacesId() == notify->replacesId()
                     && bubble->entity()->appName() == notify->appName()) {
+                m_persistence->addOne(m_bubbleList.at(0)->entity());
                 if (i != 0) {
                     bubble->setEntity(m_bubbleList.at(0)->entity());
                 }
