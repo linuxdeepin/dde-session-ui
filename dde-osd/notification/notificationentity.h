@@ -34,12 +34,12 @@ class NotificationEntity : public QObject
 {
     Q_OBJECT
 public:
-    NotificationEntity(const QString &appName, const QString &id,
-                       const QString &appIcon, const QString &summary,
-                       const QString &body, const QStringList &actions,
-                       const QVariantMap hints, const QString &ctime,
-                       const QString &replacesId, const QString &timeout,
-                       QObject *parent = 0);
+    NotificationEntity(const QString &appName = QString(), const QString &id = QString(),
+                       const QString &appIcon = QString(), const QString &summary = QString(),
+                       const QString &body = QString(), const QStringList &actions = QStringList(),
+                       const QVariantMap hints = QVariantMap(), const QString &ctime = QString(),
+                       const QString &replacesId = QString(), const QString &timeout = QString(),
+                       QObject *parent = nullptr);
 
     NotificationEntity(const NotificationEntity &notify);
 
@@ -65,12 +65,22 @@ public:
     void setHints(const QVariantMap &hints);
 
     QString ctime() const;
+    void setTime(const QString & time);
 
     QString replacesId() const;
     void setReplacesId(const QString &replacesId);
 
     QString timeout() const;
     void setTimeout(const QString &timeout);
+
+    bool isTitle(){ return m_isTitle;}
+    void setIsTitle(bool is);
+
+    bool isShow(){ return m_isExpand;}
+    void setShow(bool expand);
+
+    void setHideCount(int count);
+    int hideCount(){return m_hideCount;}
 
 private:
     QString m_appName;
@@ -83,6 +93,9 @@ private:
     QString m_ctime;
     QString m_replacesId;
     QString m_timeout;
+    bool m_isTitle;     //是否是标题
+    bool m_isExpand;    //是否应该展开显示
+    int m_hideCount;    //此条消息下面被层叠的消息数量
 };
 
 Q_DECLARE_METATYPE(std::shared_ptr<NotificationEntity>);

@@ -18,20 +18,59 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #ifndef NOTIFYLISTVIEW_H
 #define NOTIFYLISTVIEW_H
 
+#include "notification/constants.h"
+#include "notifymodel.h"
+
 #include <QListView>
+#include <QPoint>
+
+class QScrollBar;
+class QTimer;
 
 class NotifyListView : public QListView
 {
-
+    Q_OBJECT
 public:
     NotifyListView(QWidget *parent = nullptr);
 
-    void scrollTo(const QModelIndex &index, ScrollHint hint = EnsureVisible) override;
+public:
+    void createAddedAnimation(EntityPtr entity, const ListItem appItem);
+    void createRemoveAnimation(int idx);
+    void createExpandAnimation(int idx, const ListItem appItem);
+    void setAniState(bool state);
+    void scrollValue();
 
-    void setCurrentIndex(int row);
+protected:
+    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *object, QEvent *event) Q_DECL_OVERRIDE;
+    void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
+    bool tabKeyEvent(QObject *object, QKeyEvent *event);   //处理键盘TAB键按下的事件,QListView过滤了TAB按键事件
+    void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
+
+private:
+    bool canShow(EntityPtr ptr); // 判断消息是否应该层叠[即超过4小时]
+
+signals:
+    void removeAniFinished();
+    void expandAniFinished(QString appName);
+    void addedAniFinished(EntityPtr entity);
+    void refreshItemTime();
+
+private:
+    bool m_aniState = false;
+    bool m_scrollState = false;
+    bool m_pressState = false;
+    int m_carrentIndex = 0;
+    int m_moveCount = 0;
+    QPointer<QWidget> m_prevElement = nullptr;
+    QPointer<QWidget> m_currentElement = nullptr;
+    QScrollBar *m_scrollBar = nullptr;
+    QTimer *m_scrollTimer = nullptr;
+    QTimer *m_refreshTimer = nullptr;
 };
 
 #endif // NOTIFYLISTVIEW_H

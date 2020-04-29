@@ -308,6 +308,7 @@ void BubbleManager::initAllConfig()
     QSettings settings(m_configFile, QSettings::IniFormat);
     QStringList currentList = settings.childGroups();
     if (!currentList.contains(SystemNotifySettingStr)) {
+        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, TimeSlotStr, DEFAULT_TIME_SLOT);
         Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB);
         Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, StartTimeStr, DEFAULT_START_TIME);
         Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, EndTimeStr, DEFAULT_END_TIME);
@@ -340,6 +341,7 @@ bool BubbleManager::isDoNotDisturb()
         bool projectorConfig = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, ConnectedProjectorStr, DEFAULT_CONNECTED_PROJECTOR).toBool();
         bool appFullConfig = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, AppsInFullscreenStr, DEFAULT_APP_IN_FULLSCREEN).toBool();
         bool lockedConfig = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, ScreenLockedStr, DEFAULT_SCREEN_LOCKED).toBool();
+        bool timeSlotConfig= Config::valueByQSettings(m_configFile, SystemNotifySettingStr, TimeSlotStr, DEFAULT_TIME_SLOT).toBool();
 
         int currentTime = QTime::currentTime().hour();
         int startTime = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, EndTimeStr, DEFAULT_START_TIME).toInt();
@@ -361,7 +363,7 @@ bool BubbleManager::isDoNotDisturb()
             isTimeMeet = true;
         }
         //时间段满足
-        if (isTimeMeet) {
+        if (isTimeMeet && timeSlotConfig) {
             return true;
         } else {
             return (hasProjector&&projectorConfig)||(hasAppFull&&appFullConfig)||(lockedConfig&&isLock);
@@ -441,6 +443,7 @@ QString BubbleManager::getAllSetting()
     for (auto group : Groupslist) {
         if (group == SystemNotifySettingStr) {
             QMap<QString, QVariant> map;
+            map[TimeSlotStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, TimeSlotStr, DEFAULT_TIME_SLOT).toBool();
             map[StartTimeStr] = Config::valueByQSettings(m_configFile, group, StartTimeStr, DEFAULT_START_TIME).toInt();
             map[EndTimeStr] = Config::valueByQSettings(m_configFile, group, EndTimeStr, DEFAULT_END_TIME).toInt();
             map[DoNotDisturbStr] = Config::valueByQSettings(m_configFile, group, DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB).toBool();
@@ -498,18 +501,21 @@ QString BubbleManager::getAppSetting(QString appName)
 
 void BubbleManager::setAppSetting(const QString settings)
 {
+    QString appName;
     QJsonDocument jsonDocument = QJsonDocument::fromJson(settings.toLocal8Bit().data());
     if(jsonDocument.isNull())
         return;
     QJsonObject jsonObject = jsonDocument.object();
     QVariantMap GroupMap = jsonObject.toVariantMap();
     QMap<QString, QVariant>::iterator GroupMapIterator = GroupMap.begin();
+    appName = GroupMapIterator.key();
     QMap<QString, QVariant> keyMap = GroupMapIterator.value().toMap();
     QMap<QString, QVariant>::iterator mapIterator = keyMap.begin();
     while (mapIterator != keyMap.end()) {
         Config::qsettingsSetValue(m_configFile, GroupMapIterator.key(), mapIterator.key(), mapIterator.value());
         mapIterator ++;
     }
+    appSettingDone(getAppSetting(appName));
 }
 
 QString BubbleManager::getSystemSetting()
@@ -517,6 +523,7 @@ QString BubbleManager::getSystemSetting()
     QMap<QString, QVariant> GroupMap;
     QMap<QString, QVariant> map;
     map[DoNotDisturbStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB).toBool();
+    map[TimeSlotStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, TimeSlotStr, DEFAULT_TIME_SLOT).toBool();
     map[StartTimeStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, StartTimeStr, DEFAULT_START_TIME).toInt();
     map[EndTimeStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, EndTimeStr, DEFAULT_END_TIME).toInt();
     map[AppsInFullscreenStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, AppsInFullscreenStr, DEFAULT_APP_IN_FULLSCREEN).toBool();

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2011 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
  *
- * Author:     zorowk <near.kingzero@gmail.com>
+ * Author:     chenwei <chenwei_cm@deepin.com>
  *
- * Maintainer: zorowk <near.kingzero@gmail.com>
+ * Maintainer: chenwei <chenwei_cm@deepin.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,12 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "bubbleoverlapwidget.h"
-#include "shortcutmanage.h"
-#include "notification/notificationentity.h"
-#include "notification/constants.h"
+#include "overlapwidet.h"
+#include "bubbleitem.h"
+#include "../notification/constants.h"
+#include "notifylistview.h"
 #include "notifymodel.h"
-#include <QPointer>
+
+#include <QTimer>
+#include <QKeyEvent>
 
 HalfRoundedRectWidget::HalfRoundedRectWidget(QWidget *parent)
     : AlphaWidget(parent)
@@ -70,57 +72,85 @@ void HalfRoundedRectWidget::paintEvent(QPaintEvent *event)
     return AlphaWidget::paintEvent(event);
 }
 
-BubbleOverlapWidget::BubbleOverlapWidget(const QList<EntityPtr> &entitys,
-                                         QWidget *parent, NotifyModel *model)
-    : QWidget(parent)
-    , m_notifications(entitys)
-    , m_notifyModel(model)
+OverLapWidet::OverLapWidet(NotifyModel *model, EntityPtr ptr, QWidget *parent)
+    : DWidget(parent),
+      m_entify(ptr),
+      m_model(model)
 {
-    setFocusPolicy(Qt::StrongFocus);
     initOverlap();
 }
 
-BubbleOverlapWidget::~BubbleOverlapWidget()
+void OverLapWidet::setIndexRow(int row)
 {
+    m_indexRow = row;
+    m_faceBubbleItem->setIndexRow(row);
 }
 
-void BubbleOverlapWidget::initOverlap()
+void OverLapWidet::setParentView(NotifyListView *view)
+{
+    m_view = view;
+    m_faceBubbleItem->setParentView(view);
+}
+
+QList<QPointer<QWidget> > OverLapWidet::bubbleElements()
+{
+    return m_faceBubbleItem->bubbleElements();
+}
+
+void OverLapWidet::expandAppGroup()
+{
+    if (m_aniState)
+        return;
+    ListItem appItem = m_model->getAppData(m_entify->appName());
+    if (m_model != nullptr && m_view != nullptr) {
+        resize(m_faceBubbleItem->size());
+        m_view->createExpandAnimation(m_indexRow, appItem);
+        m_aniState = true;
+    }
+}
+
+void OverLapWidet::initOverlap()
 {
     qreal scal_ratio = 1;
     int height_init = BubbleOverLapHeight;
-    int index = 0;
+    //    int index = 0;
     QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWIDGET);
     QPoint up_point(0, standard_size.height());
 
-    foreach (auto notify, m_notifications) {
-        if (index >= 1) {
-            HalfRoundedRectWidget *bubble = new HalfRoundedRectWidget(this);
-
-            height_init -= 2;
-            bubble->setFixedSize(standard_size.width() * scal_ratio, height_init);
-            int lr_margin = (standard_size.width() - bubble->width()) / 2;
-            QPoint move_point(lr_margin, up_point.y());
-            up_point = QPoint(move_point.x(), move_point.y() + height_init);
-            bubble->move(move_point);
-            bubble->lower();
-            bubble->setFocusPolicy(Qt::NoFocus);
-        } else {
-            m_faceBubbleItem = new BubbleItem(this, notify);
-
-            if (m_notifyModel != nullptr)
-                m_faceBubbleItem->setParentModel(m_notifyModel);
-            setFocusProxy(m_faceBubbleItem);
-        }
-
+    for(int i = 0; i < MIN(3,m_entify->hideCount()); ++i)
+    {
+        HalfRoundedRectWidget *bubble = new HalfRoundedRectWidget(this);
         scal_ratio = (scal_ratio * 19) / 20;
-        index ++;
+
+        height_init -= 2;
+        bubble->setFixedSize(standard_size.width() * scal_ratio, height_init);
+        int lr_margin = (standard_size.width() - bubble->width()) / 2;
+        QPoint move_point(lr_margin, up_point.y());
+        up_point = QPoint(move_point.x(), move_point.y() + height_init);
+        bubble->move(move_point);
+        bubble->lower();
+        bubble->setFocusPolicy(Qt::NoFocus);
     }
+
+    m_faceBubbleItem = new BubbleItem(this, m_entify);
+    m_faceBubbleItem->setParentModel(m_model);
+    setFocusProxy(m_faceBubbleItem);
 }
 
-void BubbleOverlapWidget::mouseReleaseEvent(QMouseEvent *event)
+void OverLapWidet::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (m_notifyModel != nullptr && !m_notifications.empty() && m_notifyModel->canExpand(m_notifications.first())) {
-        m_notifyModel->expandData(m_notifications.first());
-    }
+    expandAppGroup();
     return QWidget::mouseReleaseEvent(event);
+}
+
+void OverLapWidet::focusInEvent(QFocusEvent *event)
+{
+    m_faceBubbleItem->setHasFocus(true);
+    return DWidget::focusOutEvent(event);
+}
+
+void OverLapWidet::focusOutEvent(QFocusEvent *event)
+{
+    m_faceBubbleItem->setHasFocus(false);
+    return DWidget::focusOutEvent(event);
 }

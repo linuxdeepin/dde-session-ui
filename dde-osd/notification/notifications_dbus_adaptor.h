@@ -87,6 +87,8 @@ class DDENotifyDBus : public QDBusAbstractAdaptor
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "com.deepin.dde.Notification")
+    Q_PROPERTY(QString systemSetting READ getSystemSetting WRITE setSystemSetting)
+    Q_PROPERTY(QString allSetting READ getAllSetting WRITE setAllSetting)
 public:
     explicit DDENotifyDBus(QObject *parent);
     ~DDENotifyDBus();
@@ -154,10 +156,11 @@ public Q_SLOTS:
      * \~chinese \return 通知中心中通知的数量
      */
     uint recordCount();
-    QString getAllSetting();
-    void setAllSetting(const QString settings);
     QString getAppSetting(QString appName);
     void setAppSetting(const QString settings);
+protected:
+    QString getAllSetting();
+    void setAllSetting(const QString settings);
     QString getSystemSetting();
     void setSystemSetting(QString settings);
 
@@ -167,6 +170,7 @@ Q_SIGNALS: // SIGNALS
     void RecordAdded(const QString &in1);
     void appAdded(QString appName);
     void appRemoved(QString appName);
+    void appSettingDone(QString appName);
 };
 
 #endif

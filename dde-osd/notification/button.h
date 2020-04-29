@@ -162,5 +162,7 @@ protected:
     virtual void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
     virtual void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
     virtual void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+    virtual void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;          //当焦点移入或移出时背景发生变化
+    virtual void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
 };
 #endif // BUTTON_H
