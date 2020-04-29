@@ -23,8 +23,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MAINWIDGET_H
-#define MAINWIDGET_H
+#ifndef NotifyCenterWidget_H
+#define NotifyCenterWidget_H
 
 #include "notifywidget.h"
 #include "notification/constants.h"
@@ -98,4 +98,4 @@ private:
     DRegionMonitor *m_regionMonitor;
 };
 
-#endif // MAINWIDGET_H
+#endif // NotifyCenterWidget_H

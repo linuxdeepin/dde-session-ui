@@ -36,6 +36,8 @@ class AppBody;
 class Button;
 class ActionButton;
 class IconButton;
+class NotifyModel;
+class NotifyListView;
 
 DWIDGET_USE_NAMESPACE
 /*!
@@ -77,9 +79,13 @@ public:
     BubbleItem(QWidget *parent = nullptr, EntityPtr entity = nullptr);
     ~BubbleItem() override;
     void setParentModel(NotifyModel *model);
+    void setParentView(NotifyListView *view);
     const QPixmap converToPixmap(const QDBusArgument &value);
     void setAlpha(int alpha);
     QList<QPointer<QWidget>> bubbleElements();
+    void setIndexRow(int row);
+    int indexRow() { return m_indexRow; }
+    void setHasFocus(bool focus);
 
 Q_SIGNALS:
     void havorStateChanged(bool);
@@ -105,7 +111,8 @@ private:
 
 private:
     EntityPtr m_entity;
-    NotifyModel *m_notifyModel = nullptr;
+    NotifyModel *m_model = nullptr;
+    NotifyListView *m_view = nullptr;
 
     //controls
     AlphaWidget *m_bgWidget = nullptr;
@@ -118,11 +125,12 @@ private:
     AppBody *m_body = nullptr;
     ActionButton *m_actionButton = nullptr;
     IconButton *m_closeButton = nullptr;
+    QWidget *m_currentElement = nullptr;
 
     bool m_showContent = true;
     QString m_defaultAction;
-
     QPoint m_pressPoint;
+    int m_indexRow = 0;
 };
 
 #endif // BUBBLEITEM_H

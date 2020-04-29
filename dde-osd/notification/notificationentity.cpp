@@ -39,7 +39,10 @@ NotificationEntity::NotificationEntity(const QString &appName, const QString &id
     m_hints(hints),
     m_ctime(ctime),
     m_replacesId(replacesId),
-    m_timeout(timeout)
+    m_timeout(timeout),
+    m_isTitle(false),
+    m_isExpand(true),
+    m_hideCount(0)
 {
 
 }
@@ -124,6 +127,11 @@ QString NotificationEntity::ctime() const
     return m_ctime;
 }
 
+void NotificationEntity::setTime(const QString &time)
+{
+    m_ctime = time;
+}
+
 QString NotificationEntity::replacesId() const
 {
     return m_replacesId;
@@ -142,4 +150,19 @@ QString NotificationEntity::timeout() const
 void NotificationEntity::setTimeout(const QString &timeout)
 {
     m_timeout = timeout;
+}
+
+void NotificationEntity::setIsTitle(bool is)
+{
+    m_isTitle = is;
+}
+
+void NotificationEntity::setShow(bool expand)
+{
+    m_isExpand = expand;
+}
+
+void NotificationEntity::setHideCount(int count)
+{
+    m_hideCount = count;
 }

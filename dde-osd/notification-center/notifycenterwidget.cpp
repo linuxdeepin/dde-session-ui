@@ -26,14 +26,11 @@
 #include "notifycenterwidget.h"
 #include "notification/persistence.h"
 #include "notification/constants.h"
-#include "shortcutmanage.h"
 #include "notification/iconbutton.h"
-#include "appgroupmodel.h"
 
 #include <QDesktopWidget>
 #include <QBoxLayout>
 #include <QDBusInterface>
-//#include <QVariantAnimation>
 #include <QPalette>
 #include <QDebug>
 #include <QTimer>
@@ -117,7 +114,7 @@ void NotifyCenterWidget::initUI()
     setLayout(mainLayout);
 
     connect(clear_btn, &IconButton::clicked, this, [ = ]() {
-        m_notifyWidget->model()->removeAllGroup();
+        m_notifyWidget->model()->removeAllData();
     });
 
     refreshTheme();
@@ -138,7 +135,6 @@ void NotifyCenterWidget::initAnimations()
 void NotifyCenterWidget::initConnections()
 {
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotifyCenterWidget::refreshTheme);
-    connect(m_refreshTimer, &QTimer::timeout, ShortcutManage::instance(), &ShortcutManage::refreshTimer);
 
     connect(m_widthAni, &QVariantAnimation::valueChanged, this, [ = ](const QVariant & value) {
         int width = value.toInt();
@@ -162,7 +158,7 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     int width = Notify::CenterWidth;
     int height = screen.height() - Notify::CenterMargin * 2;
     if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom) {
-        if(mode == 0) {//mode == 0时dock栏为时尚模式 mode == 1时dock栏为高效模式
+        if(mode == 0) { //mode == 0时dock栏为时尚模式 mode == 1时dock栏为高效模式
             height = screen.height() - Notify::CenterMargin * 2 - Notify::CenterMargin - dock.height();
         } else {
             height = screen.height() - Notify::CenterMargin * 2 - dock.height();
@@ -227,20 +223,16 @@ void NotifyCenterWidget::showAni()
         setGeometry(QRect(m_notifyRect.x(), m_notifyRect.y(), m_notifyRect.width(), m_notifyRect.height()));
         setFixedSize(m_notifyRect.size());
         show();
-        m_notifyWidget->setScrollBar(0);
         activateWindow();
         return;
     }
     setFixedWidth(0);
     move(m_notifyRect.x() + m_notifyRect.width(), m_notifyRect.y());
     show();
-    m_notifyWidget->setScrollBar(0);//重新设置ScrollBar的位置
     activateWindow();
 
     m_aniGroup->setDirection(QAbstractAnimation::Backward);
     m_aniGroup->start();
-
-    ShortcutManage::instance()->initIndex();
 }
 
 void NotifyCenterWidget::hideAni()
@@ -266,8 +258,8 @@ void NotifyCenterWidget::hideAni()
 void NotifyCenterWidget::registerRegion()
 {
     QDBusInterface interface("com.deepin.api.XEventMonitor", "/com/deepin/api/XEventMonitor",
-                                 "com.deepin.api.XEventMonitor",
-                                 QDBusConnection::sessionBus());
+                             "com.deepin.api.XEventMonitor",
+                             QDBusConnection::sessionBus());
     if (interface.isValid()) {
         m_regionConnect = connect(m_regionMonitor, &DRegionMonitor::buttonPress, this, [ = ](const QPoint & p, const int flag) {
             Q_UNUSED(flag);

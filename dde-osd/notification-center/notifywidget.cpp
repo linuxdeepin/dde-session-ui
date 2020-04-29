@@ -20,9 +20,6 @@
  */
 
 #include "notifywidget.h"
-#include "appgroupmodel.h"
-#include "appgroupdelegate.h"
-#include "shortcutmanage.h"
 #include "notification/persistence.h"
 
 #include <QVBoxLayout>
@@ -30,6 +27,9 @@
 #include <QScrollBar>
 #include <QScroller>
 #include <QLabel>
+
+#include "itemdelegate.h"
+#include "notifymodel.h"
 
 NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
     : QWidget(parent)
@@ -46,28 +46,16 @@ NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
     mainVBLayout->addWidget(m_noNotify);
     mainVBLayout->setMargin(0);
     setLayout(mainVBLayout);
-
-    m_noNotify->setVisible(m_groupModel->rowCount(QModelIndex()) == 0);
-    m_mainList->setVisible(m_groupModel->rowCount(QModelIndex()) != 0);
-
-    connect(m_groupModel, &AppGroupModel::dataChanged, this, [ = ] {
-        m_noNotify->setVisible(m_groupModel->rowCount(QModelIndex()) == 0);
-        m_mainList->setVisible(m_groupModel->rowCount(QModelIndex()) != 0);
-    });
-
-    connect(m_groupModel, &AppGroupModel::setScrollBarValue, this, &NotifyWidget::setScrollBar);
 }
 
 void NotifyWidget::initView(Persistence *database)
 {
-    m_groupModel = new AppGroupModel(this, database);
-    m_groupDelegate = new AppGroupDelegate;
     m_mainList = new NotifyListView(this);
 
-    ShortcutManage::instance()->setAppModel(m_groupModel);
-    m_groupModel->setView(m_mainList);
-    m_mainList->setModel(m_groupModel);
-    m_mainList->setItemDelegate(m_groupDelegate);
+    m_model = new NotifyModel(this,database);
+    m_model->setView(m_mainList);
+    m_mainList->setModel(m_model);
+    m_mainList->setItemDelegate(new ItemDelegate(m_mainList ,m_model, this));
     m_mainList->setAutoFillBackground(false);
     m_mainList->viewport()->setAutoFillBackground(false);
     m_mainList->setFrameStyle(QFrame::NoFrame);
@@ -84,15 +72,17 @@ void NotifyWidget::initView(Persistence *database)
     QPalette pa = m_mainList->palette();
     pa.setColor(QPalette::Highlight, Qt::transparent);
     m_mainList->setPalette(pa);
-
-    QScroller::grabGesture(m_mainList, QScroller::LeftMouseButtonGesture);
-    QScroller *scroller = QScroller::scroller(m_mainList);
-    QScrollerProperties sp;
-    sp.setScrollMetric(QScrollerProperties::VerticalOvershootPolicy, QScrollerProperties::OvershootAlwaysOff);
-    scroller->setScrollerProperties(sp);
 }
 
-void NotifyWidget::setScrollBar(int value)
+void NotifyWidget::showEvent(QShowEvent *event)
 {
-    m_mainList->verticalScrollBar()->setValue(value);
+    Q_UNUSED(event)
+
+    m_model->resetModel();
+}
+
+void NotifyWidget::hideEvent(QHideEvent *event)
+{
+    Q_UNUSED(event)
+    m_model->collapseData();
 }

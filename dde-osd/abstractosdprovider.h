@@ -42,7 +42,7 @@ class AbstractOSDProvider : public QObject
 {
     Q_OBJECT
 public:
-    explicit AbstractOSDProvider(QObject *parent = 0);
+    explicit AbstractOSDProvider(QObject *parent = nullptr);
 
     // match tell if we should handle the param.
     virtual bool match(const QString &param);

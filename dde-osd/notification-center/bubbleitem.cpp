@@ -18,6 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "bubbleitem.h"
 #include "notification/notificationentity.h"
 #include "notification/appicon.h"
@@ -27,8 +28,8 @@
 #include "notification/icondata.h"
 #include "notification/bubbletool.h"
 #include "notification/iconbutton.h"
-#include "shortcutmanage.h"
 #include "notifymodel.h"
+#include "notifylistview.h"
 
 #include <QTimer>
 #include <QDateTime>
@@ -96,8 +97,7 @@ void BubbleItem::initUI()
 {
     setWindowFlags(Qt::Widget);
     setFocusPolicy(Qt::StrongFocus);
-    setFixedSize(OSD::BubbleSize(OSD::BUBBLEWIDGET));
-
+    resize(OSD::BubbleSize(OSD::BUBBLEWIDGET));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWIDGET));
     m_closeButton->setFixedSize(OSD::CloseButtonSize(OSD::BUBBLEWIDGET));
     m_closeButton->setRadius(OSD::CloseButtonSize(OSD::BUBBLEWIDGET).height());
@@ -159,14 +159,13 @@ void BubbleItem::initContent()
     connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & id) {
         BubbleTool::actionInvoke(id, m_entity);
 
-        if (m_notifyModel != nullptr)
-            m_notifyModel->removeNotify(m_entity);
+        if (m_model != nullptr)
+            onCloseBubble();
     });
 
     connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
     connect(m_closeButton, &IconButton::clicked, this, &BubbleItem::onCloseBubble);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleItem::refreshTheme);
-    connect(ShortcutManage::instance(), &ShortcutManage::refreshTimer, this, &BubbleItem::onRefreshTime);
     refreshTheme();
 }
 
@@ -219,38 +218,29 @@ void BubbleItem::mousePressEvent(QMouseEvent *event)
 
 void BubbleItem::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (m_notifyModel != nullptr && m_entity != nullptr && m_notifyModel->canExpand(m_entity)) {
-        m_notifyModel->expandData(m_entity);
-    } else if (m_pressPoint == event->pos()) {
+    if (m_pressPoint == event->pos()) {
         if(!m_defaultAction.isEmpty())
         {
             BubbleTool::actionInvoke(m_defaultAction, m_entity);
             m_defaultAction.clear();
 
-            if (m_notifyModel != nullptr)
-                m_notifyModel->removeNotify(m_entity);
+            if (m_model != nullptr)
+                onCloseBubble();
         }
     }
-
     DWidget::mouseReleaseEvent(event);
 }
 
 void BubbleItem::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Return) {
-        //优先展开
-        if (m_notifyModel != nullptr && m_entity != nullptr && m_notifyModel->canExpand(m_entity)) {
-            m_notifyModel->expandData(m_entity);
+        if(m_defaultAction.isNull()) {
+            return DWidget::keyPressEvent(event);
         } else {
-            if(m_defaultAction.isNull()) {
-                return DWidget::keyPressEvent(event);
-            } else {
-                BubbleTool::actionInvoke(m_defaultAction, m_entity);
-                m_defaultAction.clear();
-
-                if (m_notifyModel != nullptr)
-                    m_notifyModel->removeNotify(m_entity);
-            }
+            BubbleTool::actionInvoke(m_defaultAction, m_entity);
+            m_defaultAction.clear();
+            if (m_model != nullptr)
+                onCloseBubble();
         }
     }
     return DWidget::keyPressEvent(event);
@@ -297,14 +287,32 @@ void BubbleItem::onHavorStateChanged(bool hover)
 
 void BubbleItem::onCloseBubble()
 {
-    if (m_notifyModel != nullptr)
-        m_notifyModel->removeNotify(m_entity);
+    QPropertyAnimation *rightMoveAni = new QPropertyAnimation(this, "pos", this);
+    rightMoveAni->setStartValue(this->pos());
+    rightMoveAni->setEndValue(this->pos() + QPoint(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), 0));
+    rightMoveAni->setDuration(AnimationTime);
+    rightMoveAni->start(QPropertyAnimation::DeleteWhenStopped);
+    m_view->setAniState(true);
+    if (m_model->isExpand(m_entity->appName()))
+        m_view->createRemoveAnimation(m_indexRow);
+
+    QTimer::singleShot(AnimationTime + 10, this, [ = ] {
+        m_view->setAniState(false);
+        if (m_model != nullptr)
+            m_model->removeNotify(m_entity);
+    });
 }
 
 void BubbleItem::setParentModel(NotifyModel *model)
 {
     Q_ASSERT(model);
-    m_notifyModel = model;
+    m_model = model;
+}
+
+void BubbleItem::setParentView(NotifyListView *view)
+{
+    m_view = view;
+    connect(m_view, &NotifyListView::refreshItemTime, this, &BubbleItem::onRefreshTime);
 }
 
 void BubbleItem::refreshTheme()
@@ -321,4 +329,15 @@ QList<QPointer<QWidget>> BubbleItem::bubbleElements()
         bubble_elements.append(btn);
     }
     return bubble_elements;
+}
+
+void BubbleItem::setIndexRow(int row)
+{
+    m_indexRow = row;
+}
+
+void BubbleItem::setHasFocus(bool focus)
+{
+    m_bgWidget->setHasFocus(focus);
+    Q_EMIT havorStateChanged(focus);
 }

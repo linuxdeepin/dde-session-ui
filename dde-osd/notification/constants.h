@@ -33,6 +33,8 @@
 
 #define MIN(a,b) ((a)>(b)?(b):(a))
 #define ABS(a) (a)>0?(a):(-(a))
+
+#define  DEFAULT_TIME_SLOT true
 #define  DEFAULT_START_TIME 22
 #define  DEFAULT_END_TIME 7
 #define  DEFAULT_DO_NOT_DISTURB false
@@ -59,6 +61,7 @@ static const int BubbleOverLap = 2;             //层叠的气泡数量
 static const int BubbleOverLapHeight = 12;      //通知中心层叠层高度
 static const QString NoReplaceId = "0";         //为0 返回一个计数值给程序
 static const int AnimationTime = 300;           //动画时间，单位：毫秒
+static const int ExpandAnimationTime = 100;
 static const int BubbleWindowHeight = 60;       // 窗口模式下气泡的高度
 static const int MaxBubbleButtonWidth = 180;    // 窗口模式下气泡按钮的最大宽度
 static const int BubbleStartPos = -(BubbleWindowHeight + ScreenPadding);  // 窗口模式下气泡起始Y位置
@@ -73,6 +76,7 @@ static const QString NotificationSoundStr = "NotificationSound";
 
 static const QString SystemNotifySettingStr = "SystemNotify";
 static const QString DoNotDisturbStr = "DoNotDisturb";
+static const QString TimeSlotStr = "TimeSlot";
 static const QString StartTimeStr = "StartTime";
 static const QString EndTimeStr = "EndTime";
 static const QString AppsInFullscreenStr = "AppsInFullscreen";

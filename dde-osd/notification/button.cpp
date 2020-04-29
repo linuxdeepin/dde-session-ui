@@ -319,3 +319,17 @@ void Button::leaveEvent(QEvent *event)
 
     return DWidget::leaveEvent(event);
 }
+
+void Button::focusInEvent(QFocusEvent *event)
+{
+    setHoverState(true);
+
+    return DWidget::focusInEvent(event);
+}
+
+void Button::focusOutEvent(QFocusEvent *event)
+{
+    setHoverState(false);
+
+    return DWidget::focusOutEvent(event);
+}
