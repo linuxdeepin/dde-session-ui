@@ -2,6 +2,7 @@
 
 #include <DSuggestButton>
 #include <DCommandLinkButton>
+#include <DFontSizeManager>
 
 #include <QScrollArea>
 #include <QPushButton>
@@ -110,6 +111,8 @@ Content::Content(QWidget *parent)
     m_isCn = QLocale::system().language() == QLocale::Chinese;
     updateContent();
     updateLanguageBtn();
+
+    DFontSizeManager::instance()->bind(m_acceptCheck, DFontSizeManager::SizeType::T8, 70);
 
     // 中文和英文按钮一样大
     QTimer::singleShot(0, this, [ = ] {
