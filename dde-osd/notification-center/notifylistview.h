@@ -28,6 +28,7 @@
 #include <QListView>
 #include <QPoint>
 
+class QPropertyAnimation;
 class QScrollBar;
 class QTimer;
 
@@ -42,9 +43,10 @@ public:
     void createRemoveAnimation(int idx);
     void createExpandAnimation(int idx, const ListItem appItem);
     void setAniState(bool state);
-    void scrollValue();
+    bool aniState() { return m_aniState; }
 
 protected:
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
     bool eventFilter(QObject *object, QEvent *event) Q_DECL_OVERRIDE;
     void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
@@ -53,6 +55,8 @@ protected:
 
 private:
     bool canShow(EntityPtr ptr); // 判断消息是否应该层叠[即超过4小时]
+    void handleScrollValueChanged();
+    void handleScrollFinished();
 
 signals:
     void removeAniFinished();
@@ -66,10 +70,10 @@ private:
     bool m_pressState = false;
     int m_carrentIndex = 0;
     int m_moveCount = 0;
+    double m_speedTime = 2.0;
+    QPropertyAnimation *m_scrollAni;
     QPointer<QWidget> m_prevElement = nullptr;
     QPointer<QWidget> m_currentElement = nullptr;
-    QScrollBar *m_scrollBar = nullptr;
-    QTimer *m_scrollTimer = nullptr;
     QTimer *m_refreshTimer = nullptr;
 };
 
