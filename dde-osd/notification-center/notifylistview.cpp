@@ -43,32 +43,30 @@
 #include <QScroller>
 #include <QTimer>
 
-#define MoveStep 5
-#define MoveStepTime 10
-#define MoveCount 30
 #define RefreshTime 900
 
 NotifyListView::NotifyListView(QWidget *parent)
     : QListView(parent)
-    , m_scrollTimer(new QTimer(this))
+    , m_scrollAni(new QPropertyAnimation(verticalScrollBar(), "value"))
     , m_refreshTimer(new QTimer(this))
 {
     qApp->installEventFilter(this);
-    m_scrollTimer->setInterval(MoveStepTime);
+    m_scrollAni->setEasingCurve(QEasingCurve::OutQuint);
+    m_scrollAni->setDuration(800);
 
     m_refreshTimer->setInterval(RefreshTime);
     m_refreshTimer->start();
 
-    m_scrollBar = verticalScrollBar();
+    setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    connect(m_refreshTimer, &QTimer::timeout, this, &NotifyListView::refreshItemTime);
+    connect(m_scrollAni, &QPropertyAnimation::valueChanged, this, &NotifyListView::handleScrollValueChanged);
+    connect(m_scrollAni, &QPropertyAnimation::finished, this, &NotifyListView::handleScrollFinished);
 
     QScroller::grabGesture(this, QScroller::LeftMouseButtonGesture);
     QScroller *scroller = QScroller::scroller(this);
     QScrollerProperties sp;
     sp.setScrollMetric(QScrollerProperties::VerticalOvershootPolicy, QScrollerProperties::OvershootAlwaysOff);
     scroller->setScrollerProperties(sp);
-
-    connect(m_scrollTimer, &QTimer::timeout, this, &NotifyListView::scrollValue);
-    connect(m_refreshTimer, &QTimer::timeout, this, &NotifyListView::refreshItemTime);
 }
 
 void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appItem)
@@ -181,10 +179,12 @@ void NotifyListView::createRemoveAnimation(int idx)
 
 void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
 {
+    if (m_aniState)
+        return;
     const QModelIndex index = this->model()->index(idx, 0);
     QWidget *widget = this->indexWidget(index);
     QPoint benchMarkPos = widget->pos(); //动画基准位置
-    int maxCount = height() / (OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleSpacing);
+    int maxCount = (height() - benchMarkPos.y()) / (OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleSpacing);
 
     QSequentialAnimationGroup *insertAniGroup = new QSequentialAnimationGroup(this);// 逐个插入的串行动画
     QParallelAnimationGroup *downMoveAniGroup = new QParallelAnimationGroup(this);// 整体向下移动的动画
@@ -250,18 +250,11 @@ void NotifyListView::setAniState(bool state)
     m_aniState = state;
 }
 
-void NotifyListView::scrollValue()
+void NotifyListView::mousePressEvent(QMouseEvent *event)
 {
-    if (m_scrollState) {
-        m_scrollBar->setValue(m_scrollBar->value() - MoveStep);
-    } else {
-        m_scrollBar->setValue(m_scrollBar->value() + MoveStep);
-    }
-    m_moveCount ++;
-    if (m_moveCount > MoveCount) {
-        m_scrollTimer->stop();
-        m_moveCount = 0;
-    }
+    if (m_aniState)
+        return;
+    return QListView::mousePressEvent(event);
 }
 
 void NotifyListView::keyPressEvent(QKeyEvent *event)
@@ -319,7 +312,7 @@ void NotifyListView::hideEvent(QHideEvent *event)
     m_carrentIndex = 0;
     m_currentElement = nullptr;
     m_prevElement = nullptr;
-    m_scrollBar->setValue(0);
+    verticalScrollBar()->setValue(0);
     return QListView::hideEvent(event);
 }
 
@@ -376,25 +369,39 @@ bool NotifyListView::tabKeyEvent(QObject *object, QKeyEvent *event)
 
 void NotifyListView::wheelEvent(QWheelEvent *event)
 {
-    if (event->delta() > 0) {
-        if (m_scrollTimer->isActive()) {
-            m_scrollTimer->stop();
-            m_moveCount = 0;
-        }
-        m_scrollState = true;
-        m_scrollTimer->start();
-    } else {
-        m_scrollState = false;
-        if (m_scrollTimer->isActive()) {
-            m_scrollTimer->stop();
-            m_moveCount = 0;
-        }
-        m_scrollTimer->start();
-    }
+    if (m_aniState)
+        return;
+
+    int offset = -event->delta();
+
+    m_scrollAni->stop();
+    m_scrollAni->setStartValue(verticalScrollBar()->value());
+    m_scrollAni->setEndValue(verticalScrollBar()->value() + offset * m_speedTime);
+    m_scrollAni->start();
 }
 
 bool NotifyListView::canShow(EntityPtr ptr)
 {
     QDateTime t = QDateTime::fromMSecsSinceEpoch(ptr->ctime().toLongLong());
     return t.secsTo(QDateTime::currentDateTime()) < OVERLAPTIMEOUT;
+}
+
+void NotifyListView::handleScrollValueChanged()
+{
+    QScrollBar *vscroll = verticalScrollBar();
+
+    if (vscroll->value() == vscroll->maximum() ||
+        vscroll->value() == vscroll->minimum()) {
+        blockSignals(false);
+    } else {
+        blockSignals(true);
+    }
+}
+
+void NotifyListView::handleScrollFinished()
+{
+    blockSignals(false);
+
+    QPoint pos = mapFromGlobal(QCursor::pos());
+    emit entered(indexAt(pos));
 }

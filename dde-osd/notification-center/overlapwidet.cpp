@@ -99,13 +99,12 @@ QList<QPointer<QWidget> > OverLapWidet::bubbleElements()
 
 void OverLapWidet::expandAppGroup()
 {
-    if (m_aniState)
+    if (m_view->aniState())
         return;
     ListItem appItem = m_model->getAppData(m_entify->appName());
     if (m_model != nullptr && m_view != nullptr) {
         resize(m_faceBubbleItem->size());
         m_view->createExpandAnimation(m_indexRow, appItem);
-        m_aniState = true;
     }
 }
 

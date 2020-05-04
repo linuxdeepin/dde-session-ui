@@ -65,7 +65,6 @@ protected:
 
 private:
     int m_indexRow = 0;
-    bool m_aniState = false;
     EntityPtr m_entify;
     NotifyModel *m_model;
     NotifyListView *m_view;
