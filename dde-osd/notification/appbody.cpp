@@ -24,6 +24,9 @@
 #include <QPainter>
 #include <QDebug>
 #include <QVBoxLayout>
+#include <QDesktopWidget>
+#include <QApplication>
+#include <QScreen>
 
 #include <DGuiApplicationHelper>
 #include <DFontSizeManager>
@@ -95,11 +98,19 @@ void AppBody::refreshTheme()
     if (m_showStyle == OSD::BUBBLEWIDGET) {
         m_titleLbl->setOpacity(1.0);
         m_bodyLbl->setOpacity(Notify::BubbleOpacity);
-
-        m_titleLbl->setFont(DFontSizeManager::instance()->t6());
-        m_bodyLbl->setFont(DFontSizeManager::instance()->t7());
     } else {
         m_titleLbl->setOpacity(Notify::BubbleOpacity);
         m_bodyLbl->setOpacity(1.0);
     }
+
+    qreal scale = qApp->primaryScreen()->devicePixelRatio();
+    QFont font;
+    font.setBold(false);
+    int rate = int((scale - 1) / 0.25);
+    font.setPixelSize(FontPixelSize::fontT6 + 2 * rate);
+    m_titleLbl->setFont(font);
+
+    font.setBold(false);
+    font.setPixelSize(FontPixelSize::fontT7 + 2 * rate);
+    m_bodyLbl->setFont(font);
 }
