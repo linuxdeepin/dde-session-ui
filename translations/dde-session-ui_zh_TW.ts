@@ -2,22 +2,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="197"/>
         <source>Just Now</source>
         <translation>現在</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="199"/>
         <source>%1 minutes ago</source>
         <translation>%1分鐘前</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="201"/>
         <source>%1 hours ago</source>
         <translation>%1小時前</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>Yesterday </source>
         <translation>昨天</translation>
     </message>
@@ -25,22 +25,20 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="32"/>
         <source>Chinese</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">中文</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="33"/>
         <source>English</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">英文</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="44"/>
+        <location filename="../dde-license-dialog/content.cpp" line="47"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="45"/>
+        <location filename="../dde-license-dialog/content.cpp" line="48"/>
         <source>Confirm</source>
         <translation>確認</translation>
     </message>
@@ -353,22 +351,22 @@
         <translation>群組密碼</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>連接&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;需要密碼</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
-        <translation type="unfinished"/>
+        <translation>密碼錯誤，請再次輸入！</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Connect</source>
         <translation>連線</translation>
     </message>
@@ -390,7 +388,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="90"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
         <translation>通知中心</translation>
     </message>
@@ -455,23 +453,23 @@
 <context>
     <name>SuspendDialog</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
         <translation>偵測到外接式螢幕，確定待機？</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="57"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
         <source>%1s</source>
         <translation>%1 秒</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Suspend</source>
         <translation>待機</translation>
     </message>
@@ -586,6 +584,24 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>低電量，請接電源</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>確認雙方藍牙配對 PIN 碼為：</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>確認</translation>
     </message>
 </context>
 </TS>

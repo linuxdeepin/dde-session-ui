@@ -2,47 +2,45 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="197"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>Mu Tani</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="199"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 minuta më parë</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="201"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>%1 orë më parë</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>Yesterday </source>
-        <translation type="unfinished"/>
+        <translation>Dje </translation>
     </message>
 </context>
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="32"/>
         <source>Chinese</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Kinezçe</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="33"/>
         <source>English</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Anglisht</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="44"/>
+        <location filename="../dde-license-dialog/content.cpp" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Anuloje</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="45"/>
+        <location filename="../dde-license-dialog/content.cpp" line="48"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Ripohojeni</translation>
     </message>
 </context>
 <context>
@@ -53,7 +51,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="391"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Shut down</source>
-        <translation type="unfinished"/>
+        <translation>Fike</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="332"/>
@@ -61,61 +59,61 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Rinisu</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Jeni i sigurt se doni të fiket?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Jeni i sigurt se doni të riniset?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
         <source>Log out</source>
-        <translation type="unfinished"/>
+        <translation>Dilni</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>Jeni i sigurt se doni të dilet?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Suspend</source>
-        <translation type="unfinished"/>
+        <translation>Pezulloje</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
         <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation type="unfinished"/>
+        <translation>Ka programe që e pengojnë fikjen / plogështimin e kompjuterit, dhe fikja / pezullimi me zor mund të sjellë humbje të dhënash.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
         <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation type="unfinished"/>
+        <translation>Që të mbyllet programi, klikoni mbi “Anuloje”, dhe mandej mbyllni programin.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>Plogështoje</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
         <source>Lock</source>
-        <translation type="unfinished"/>
+        <translation>Kyçe</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="546"/>
         <source>Switch user</source>
-        <translation type="unfinished"/>
+        <translation>Këmbe përdorues</translation>
     </message>
 </context>
 <context>
@@ -129,57 +127,57 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation type="unfinished"/>
+        <translation>Hedhje në qarkullim</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation type="unfinished"/>
+        <translation>Ky aplikacion do të përfundohet, ju lutemi, sigurohuni se janë ruajtur të dhënat tuaja!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation type="unfinished"/>
+        <translation>Ju lutemi, ruani dokument, tekst dhe fletëllogaritje tuajën</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
         <source>Continue</source>
-        <translation type="unfinished"/>
+        <translation>Vazhdo</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation type="unfinished"/>
+        <translation>Kujtesë sistemi e pamjaftueshme, ju lutemi, përfundoni disa aplikacione, që të shmanget ngecje.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Vazhdo të xhirosh %1, lypset %2MB kujtesë</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Vazhdo të hapësh skedë shfletuesi, lypset %1MB kujtesë</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>Që të vazhdohet veprimi, lypset %1MB kujtesë</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation type="unfinished"/>
+        <translation>Kujtesa juaj e tanishme është e mjaftueshme, të vazhdohet me xhirimin e %1?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation type="unfinished"/>
+        <translation>Kujtesa juaj e tanishme është e mjaftueshme, të vazhdohet me hapjen e skedës së shfletuesit?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation type="unfinished"/>
+        <translation>Kujtesa juaj e tanishme është e mjaftueshme, të vazhdohet veprimi?</translation>
     </message>
 </context>
 <context>
@@ -187,22 +185,22 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation type="unfinished"/>
+        <translation>Përditësimet u shkarkuan, të bëhet rinisje që të përditësohet?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
         <source>Remind Later</source>
-        <translation type="unfinished"/>
+        <translation>Kujtoma Më Vonë</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
         <source>Not Now</source>
-        <translation type="unfinished"/>
+        <translation>Jo Tani</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation type="unfinished"/>
+        <translation>Përditësojeni Tani</translation>
     </message>
 </context>
 <context>
@@ -210,12 +208,12 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
         <source>Duplicate</source>
-        <translation type="unfinished"/>
+        <translation>Përsëdyte</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
         <source>Extend</source>
-        <translation type="unfinished"/>
+        <translation>Zgjeroje</translation>
     </message>
 </context>
 <context>
@@ -223,12 +221,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation type="unfinished"/>
+        <translation>Ju lutemi, mos e fikni apo hiqni nga priza makinën tuaj</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation type="unfinished"/>
+        <translation>Po instalohen përditësime %1%, ju lutemi, prisni…</translation>
     </message>
 </context>
 <context>
@@ -236,27 +234,27 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Llogari përkatësie</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Verifikimit të shenjave të gishtit i mbaroi koha, ju lutemi, jepeni fjalëkalimin tuaj dorazi</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Shenjat e gishtit s’u përputhën</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
         <source>Wrong Password</source>
-        <translation type="unfinished"/>
+        <translation>Fjalëkalim i Gabuar</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>Llogaria ose fjalëkalimi s’është i saktë. Ju lutemi, rijepeni.</translation>
     </message>
 </context>
 <context>
@@ -272,7 +270,7 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
-        <translation type="unfinished"/>
+        <translation>Shtoni skemë tastiere</translation>
     </message>
 </context>
 <context>
@@ -280,22 +278,22 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Llogari përkatësie</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Verifikimit të shenjave të gishtit i mbaroi koha, ju lutemi, jepeni fjalëkalimin tuaj dorazi</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Shenjat e gishtit s’u përputhën</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
-        <translation type="unfinished"/>
+        <translation>Fjalëkalim i Gabuar</translation>
     </message>
 </context>
 <context>
@@ -308,12 +306,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>Përdoruesit e mësipërm janë ende brenda llogarish dhe do të humbin të dhëna për shkak të rinisjes, jeni i sigurt se doni të riniset?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>Përdoruesit e mësipërm janë ende brenda llogarish dhe do të humbin të dhëna për shkak të fikjes, jeni i sigurt se doni të fiket?</translation>
     </message>
 </context>
 <context>
@@ -330,47 +328,47 @@
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
         <source>Key</source>
-        <translation type="unfinished"/>
+        <translation>Tast</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>tast</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
         <source>Private Pwd</source>
-        <translation type="unfinished"/>
+        <translation>Fjalëkalim Privat</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>Fjalëkalim Ndërmjetësi</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>Fjalëkalim Grupi</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Për t’u lidhur me &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; lypset fjalëkalim</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
-        <translation type="unfinished"/>
+        <translation>Fjalëkalim i gabuar, ju lutemi, rijepeni!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Cancel</source>
         <translation>Anuloje</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Connect</source>
-        <translation type="unfinished"/>
+        <translation>Lidhu</translation>
     </message>
 </context>
 <context>
@@ -379,20 +377,20 @@
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="94"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Qendër Njoftimesh</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1 Njoftime</translation>
     </message>
 </context>
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="90"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Qendër Njoftimesh</translation>
     </message>
 </context>
 <context>
@@ -400,7 +398,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
-        <translation type="unfinished"/>
+        <translation>S’ka njoftime sistemi</translation>
     </message>
 </context>
 <context>
@@ -408,17 +406,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>U aktivizuan efekte dritaresh</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation type="unfinished"/>
+        <translation>U çaktivizuan efekte dritaresh</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation type="unfinished"/>
+        <translation>S’u arrit të aktivizohen efekte dritaresh</translation>
     </message>
 </context>
 <context>
@@ -426,54 +424,54 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation type="unfinished"/>
+        <translation>Përfundoje</translation>
     </message>
 </context>
 <context>
     <name>ShutdownWidget</name>
     <message>
         <source>Shut down</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Fike</translation>
     </message>
     <message>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Hyrje</translation>
     </message>
     <message>
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Rinisu</translation>
     </message>
     <message>
         <source>Suspend</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Pezulloje</translation>
     </message>
     <message>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Plogështoje</translation>
     </message>
 </context>
 <context>
     <name>SuspendDialog</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>U pikas monitor i jashtëm, të pezullohet sistemi?</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="57"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Cancel</source>
         <translation>Anuloje</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Suspend</source>
-        <translation type="unfinished"/>
+        <translation>Pezulloje</translation>
     </message>
 </context>
 <context>
@@ -481,7 +479,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation type="unfinished"/>
+        <translation>Nis mbikëqyrës sistemi</translation>
     </message>
 </context>
 <context>
@@ -489,12 +487,12 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="69"/>
         <source>hh:mm</source>
-        <translation type="unfinished"/>
+        <translation>hh:mm</translation>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation type="unfinished"/>
+        <translation>dd-MM-yyyy dddd</translation>
     </message>
 </context>
 <context>
@@ -502,36 +500,36 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Mirë se erdhët, sistemi u përditësua me sukses</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>Edicioni i Tanishëm:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Hyr</translation>
     </message>
 </context>
 <context>
     <name>UserInputWidget</name>
     <message>
         <source>Login</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Hyrje</translation>
     </message>
     <message numerus="yes">
         <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="vanished"><numerusform>Ju lutemi, riprovoni %n minutë(a) më vonë</numerusform><numerusform>Ju lutemi, riprovoni %n minutë(a) më vonë</numerusform></translation>
     </message>
     <message>
         <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Që të fiket, jepni fjalëkalimin tuaj</translation>
     </message>
     <message>
         <source>Enter your password to reboot</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Që të riniset, jepni fjalëkalimin tuaj</translation>
     </message>
 </context>
 <context>
@@ -539,27 +537,27 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation type="unfinished"/>
+        <translation>Mënyra Efekte</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation type="unfinished"/>
+        <translation>Mënyrë Normale</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation type="unfinished"/>
+        <translation>Është pikasur që po xhironi një makinë virtual, çka do të ketë ndikim në funksionimin e sistemit dhe punën tuaj me veprimin, për një punim të rrjedhshëm, rekomandohet Mënyra Normale</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation type="unfinished"/>
+        <translation>Mënyra Efekte: Punë delikate. Mënyra Normale: Shijoni punim të shpejtë</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Kujtues Miqësor</translation>
     </message>
 </context>
 <context>
@@ -567,17 +565,17 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Kujtues i Mirësjellshëm</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>Ky aplikacion s’mund të xhirojë pa efekte dritaresh</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -585,7 +583,25 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation type="unfinished"/>
+        <translation>Bateri e pakët, ju lutemi, vëreni në prizë</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>PIN-i për lidhje me pajisjen Bluetooth është:</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Anuloje</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>Ripohojeni</translation>
     </message>
 </context>
 </TS>
