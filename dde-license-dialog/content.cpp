@@ -139,8 +139,11 @@ void Content::setSource(const QString &source)
     if (sourceMap[source].isEmpty()) {
         QProcess process;
         QString para;
-        QString tempPath=QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
+        QString tempPath = QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
         tempPath.append("/license_temp.html");
+
+        if (QFile::exists(tempPath))
+            QFile::remove(tempPath);
 
         para = QString("pandoc %1 --output %2").arg(source).arg(tempPath);
         QStringList args;
@@ -150,8 +153,7 @@ void Content::setSource(const QString &source)
         process.waitForFinished();
         process.waitForReadyRead();
         QFile file(tempPath);
-        if (!file.open(QIODevice::Text | QIODevice::ReadOnly))
-        {
+        if (!file.open(QIODevice::Text | QIODevice::ReadOnly)) {
             qDebug() << file.errorString();
             return;
         }
@@ -195,7 +197,6 @@ void Content::updateLocaleSource()
 {
     if (!m_hasCn && !m_hasEn)
         return;
-
     if (QLocale::system().language() == QLocale::Chinese) {
         m_isCn = true;
         m_languageBtn->button(1)->setChecked(true);
