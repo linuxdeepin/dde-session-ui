@@ -186,6 +186,7 @@ void NotifyModel::removeTimeOutNotify()
         for (int j = 0; j < m_notifications[i].appList.size(); j++) {
             if(checkTimeOut(m_notifications[i].appList[j])) {
                 m_notifications[i].appList.removeAt(j);
+                m_database->removeOne(QString(m_notifications[i].appList[j]->id()));
                 checkShow(m_notifications);
                 removeCount ++;
             }

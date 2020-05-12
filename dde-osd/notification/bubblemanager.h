@@ -100,7 +100,8 @@ Q_SIGNALS:
     void RecordAdded(const QString &);
     void appAdded(QString appName);
     void appRemoved(QString appName);
-    void appSettingDone(QString appName);
+    void appSettingChanged(QString Settings);
+    void systemSettingChanged(QString Settings);
 
 public Q_SLOTS:
     // Standard Notifications dbus implementation

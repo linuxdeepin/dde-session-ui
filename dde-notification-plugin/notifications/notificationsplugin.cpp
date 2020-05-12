@@ -33,17 +33,20 @@ DWIDGET_USE_NAMESPACE
 
 #define PLUGIN_STATE_KEY    "enable"
 
+const QString server = "com.deepin.dde.Notification";
+const QString path = "/com/deepin/dde/Notification";
+
 NotificationsPlugin::NotificationsPlugin(QObject *parent)
     : QObject(parent)
     , m_pluginLoaded(false)
+    , m_notifyInter(new NotifyInter(server, path, QDBusConnection::sessionBus(), this))
     , m_tipsLabel(new QLabel)
 {
     m_tipsLabel->setVisible(false);
     changeTheme();
-
+    getDndModel(); // 获取勿扰模式是否开启;
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotificationsPlugin::changeTheme);
-
-    getNotifyInterface();
+    connect(m_notifyInter, &NotifyInter::systemSettingChanged, this, &NotificationsPlugin::getDndModel);
 }
 
 void NotificationsPlugin::changeTheme()
@@ -51,14 +54,6 @@ void NotificationsPlugin::changeTheme()
     QPalette pa = m_tipsLabel->palette();
     pa.setBrush(QPalette::WindowText, pa.brightText());
     m_tipsLabel->setPalette(pa);
-}
-
-QDBusInterface *NotificationsPlugin::getNotifyInterface()
-{
-    if (!m_interface && QDBusConnection::sessionBus().interface()->isServiceRegistered("com.deepin.dde.Notification"))
-        m_interface = new QDBusInterface("com.deepin.dde.Notification", "/com/deepin/dde/Notification", "com.deepin.dde.Notification");
-
-    return m_interface;
 }
 
 const QString NotificationsPlugin::pluginName() const
@@ -82,11 +77,10 @@ QWidget *NotificationsPlugin::itemTipsWidget(const QString &itemKey)
 {
     Q_UNUSED(itemKey);
 
-    if (!getNotifyInterface())
+    if (!m_notifyInter->isValid())
         return nullptr;
 
-    QDBusMessage msg = m_interface->call("recordCount");
-    uint recordCount = msg.arguments()[0].toUInt();
+    uint recordCount = m_notifyInter->recordCount();
 
     if (recordCount)
         m_tipsLabel->setText(QString(tr("%1 Notifications")).arg(recordCount));
@@ -127,9 +121,7 @@ const QString NotificationsPlugin::itemCommand(const QString &itemKey)
 {
     Q_UNUSED(itemKey);
 
-    if (getNotifyInterface())
-        m_interface->call("Toggle");
-
+    m_notifyInter->Toggle();
     return "";
 }
 
@@ -173,6 +165,7 @@ void NotificationsPlugin::loadPlugin()
     m_pluginLoaded = true;
 
     m_itemWidget = new NotificationsWidget;
+    m_itemWidget->setDisturb(m_disturb);
 
     m_proxyInter->itemAdded(this, pluginName());
     displayModeChanged(displayMode());
@@ -202,5 +195,79 @@ void NotificationsPlugin::refreshPluginItemsVisible()
             return;
         }
         m_proxyInter->itemAdded(this, pluginName());
+    }
+}
+
+void NotificationsPlugin::getDndModel()
+{
+    QJsonObject obj = QJsonDocument::fromJson(m_notifyInter->systemSetting().toUtf8()).object();
+    if (!obj.isEmpty()) {
+        QJsonObject systemObj = obj["SystemNotify"].toObject();
+        m_disturb = systemObj["DoNotDisturb"].toBool();
+    }
+
+    if (m_itemWidget) {
+        m_itemWidget->setDisturb(m_disturb);
+    }
+}
+
+const QString NotificationsPlugin::itemContextMenu(const QString &itemKey)
+{
+    if (itemKey != "notifications")
+        return QString();
+    QList<QVariant> items;
+    items.reserve(2);
+
+    //Add do not disturb mode button
+    QMap<QString,QVariant> disturbs;
+    disturbs["itemId"] = "disturb";
+    disturbs["itemText"] = m_disturb ? tr("Turn off DND mode") : tr("Turn on DND mode");
+    disturbs["isActive"] =true;
+    items.push_back(disturbs);
+
+    // Add notification settings button
+    QMap<QString, QVariant> settings;
+    settings["itemId"] = "setting";
+    settings["itemText"] = tr("Notification settings");
+    settings["isActive"] = true;
+    items.push_back(settings);
+
+    QMap<QString, QVariant> menu;
+    menu["items"] = items;
+    menu["checkableMenu"] = false;
+    menu["singleCheck"] = false;
+
+    return QJsonDocument::fromVariant(menu).toJson();
+}
+
+
+void NotificationsPlugin::invokedMenuItem(const QString &itemKey, const QString &menuId, const bool checked)
+{
+    Q_UNUSED(checked);
+    Q_UNUSED(itemKey);
+    if (menuId == "disturb")
+    {
+        m_disturb = m_disturb ? false:true;
+        m_itemWidget->setDisturb(m_disturb);
+        //接口来自接口文档
+        QMap<QString,QVariant> SystemNotify;
+        QMap<QString,QVariant> setDoNotDisturb;
+        setDoNotDisturb["DoNotDisturb"] = m_disturb;
+        SystemNotify["SystemNotify"] = setDoNotDisturb;
+        //转成json
+        QString Dbusmsg = QJsonDocument::fromVariant(SystemNotify).toJson();
+        //发送数据给dbus接口
+        m_notifyInter->setSystemSetting(Dbusmsg);
+    }
+    else if (menuId == "setting")
+    {
+        DDBusSender()
+            .service("com.deepin.dde.ControlCenter")
+            .interface("com.deepin.dde.ControlCenter")
+            .path("/com/deepin/dde/ControlCenter")
+            .method("ShowPage")
+            .arg(QString("notification"))
+            .arg(QString("System Notification"))
+            .call();
     }
 }
