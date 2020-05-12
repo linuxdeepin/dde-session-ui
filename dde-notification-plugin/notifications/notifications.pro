@@ -2,7 +2,7 @@ PREFIX = /usr
 QT += core widgets dbus svg
 TEMPLATE = lib
 CONFIG += plugin c++11 link_pkgconfig
-PKGCONFIG       += dtkwidget
+PKGCONFIG       += dtkwidget dframeworkdbus
 
 INCLUDEPATH += /usr/include/dde-dock
 

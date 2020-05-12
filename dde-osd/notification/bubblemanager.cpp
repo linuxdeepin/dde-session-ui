@@ -515,7 +515,7 @@ void BubbleManager::setAppSetting(const QString settings)
         Config::qsettingsSetValue(m_configFile, GroupMapIterator.key(), mapIterator.key(), mapIterator.value());
         mapIterator ++;
     }
-    appSettingDone(getAppSetting(appName));
+    appSettingChanged(getAppSetting(appName));
 }
 
 QString BubbleManager::getSystemSetting()
@@ -538,6 +538,7 @@ QString BubbleManager::getSystemSetting()
 void BubbleManager::setSystemSetting(QString settings)
 {
     setAppSetting(settings);
+    Q_EMIT systemSettingChanged(getSystemSetting());
 }
 
 void BubbleManager::registerAsService()

@@ -46,7 +46,9 @@ void NotificationsWidget::paintEvent(QPaintEvent *e)
 {
     Q_UNUSED(e);
 
-    QString iconName = "notification";
+    QString iconName = "";
+    iconName = m_disturb ? "dnd-notification":"notification";
+
     int iconSize = PLUGIN_ICON_MAX_SIZE;
     if (height() <= PLUGIN_BACKGROUND_MIN_SIZE && DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType)
         iconName.append(PLUGIN_MIN_ICON_NAME);

@@ -170,7 +170,8 @@ Q_SIGNALS: // SIGNALS
     void RecordAdded(const QString &in1);
     void appAdded(QString appName);
     void appRemoved(QString appName);
-    void appSettingDone(QString appName);
+    void appSettingChanged(QString Settings);
+    void systemSettingChanged(QString Settings);
 };
 
 #endif
