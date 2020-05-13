@@ -88,44 +88,6 @@ static const QStringList WhiteBoardAppList= {
     "dde-control-center"
 };
 
-class Config
-{
-public:
-    static QString getConfigPath()
-    {
-        auto configPath = QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
-        configPath = configPath
-                     + "/" + QApplication::organizationName()
-                     + "/" + QApplication::applicationName()
-                     + "/" + QApplication::applicationName() + ".conf";
-        return configPath;
-    }
-
-    static void qsettingsSetValue(const QString& configFile, const QString group, const QString key, const QVariant value)
-    {
-        QSettings settings(configFile, QSettings::IniFormat);
-        if (!group.isEmpty()) {
-            settings.beginGroup(group);
-            settings.setValue(key, value);
-            settings.endGroup();
-        }
-    }
-
-    static QVariant valueByQSettings(const QString& configFile, const QString& group, const QString& key, const QVariant failback)
-    {
-        QSettings settings(configFile, QSettings::IniFormat);
-        if (!group.isEmpty()) {
-            settings.beginGroup(group);
-            const QVariant& v = settings.value(key);
-            if (v.isValid()) {
-                return v;
-            }
-            settings.endGroup();
-        }
-        return failback;
-    }
-};
-
 namespace Notify {
 static const int CenterWidth = 400;
 static const int CenterMargin = 10;

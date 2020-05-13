@@ -79,6 +79,9 @@ public:
     bool isShow(){ return m_isExpand;}
     void setShow(bool expand);
 
+    bool isShowPreview(){ return m_showPreview;}
+    void setShowPreview(bool is);
+
     void setHideCount(int count);
     int hideCount(){return m_hideCount;}
 
@@ -96,6 +99,7 @@ private:
     bool m_isTitle;     //是否是标题
     bool m_isExpand;    //是否应该展开显示
     int m_hideCount;    //此条消息下面被层叠的消息数量
+    bool m_showPreview;
 };
 
 Q_DECLARE_METATYPE(std::shared_ptr<NotificationEntity>);

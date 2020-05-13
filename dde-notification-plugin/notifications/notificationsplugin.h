@@ -27,7 +27,6 @@
 
 #include <QDBusInterface>
 #include <QLabel>
-
 #include <QList>
 #include <QMap>
 #include <QVariant>
@@ -62,8 +61,6 @@ public:
     const QString itemContextMenu(const QString &itemKey) override;
     void invokedMenuItem(const QString &itemKey, const QString &menuId, const bool checked) override;
 
-//    QDBusInterface *getNotifyInterface();
-
 private slots:
     void changeTheme();
 
@@ -71,14 +68,15 @@ private:
     void loadPlugin();
     bool checkSwap();
     void refreshPluginItemsVisible();
-    void getDndModel();
+    void initPluginState();
+    void updateDockIcon();
 
 private:
     bool m_pluginLoaded;
-//    QDBusInterface *m_interface = nullptr;
     NotifyInter *m_notifyInter;
     //Judge whether it is in not Disturb mode
     bool m_disturb = false;
+    bool m_isShowIcon = true;
 
     NotificationsWidget *m_itemWidget = nullptr;
     QLabel *m_tipsLabel;

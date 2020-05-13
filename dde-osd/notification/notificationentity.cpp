@@ -162,6 +162,11 @@ void NotificationEntity::setShow(bool expand)
     m_isExpand = expand;
 }
 
+void NotificationEntity::setShowPreview(bool is)
+{
+    m_showPreview = is;
+}
+
 void NotificationEntity::setHideCount(int count)
 {
     m_hideCount = count;
