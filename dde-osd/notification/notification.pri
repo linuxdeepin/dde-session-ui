@@ -25,7 +25,8 @@ HEADERS += \
     $$PWD/dbusdock.h \
     $$PWD/dockrect.h \
     $$PWD/launcherinter.h \
-    $$PWD/iteminfo.h
+    $$PWD/iteminfo.h \
+    $$PWD/notifysettings.h
 
 SOURCES += \
     $$PWD/bubble.cpp \
@@ -48,7 +49,8 @@ SOURCES += \
     $$PWD/dbusdock.cpp \
     $$PWD/dockrect.cpp \
     $$PWD/launcherinter.cpp \
-    $$PWD/iteminfo.cpp
+    $$PWD/iteminfo.cpp \
+    $$PWD/notifysettings.cpp
 
 orgDBus.input = $$PWD/files/com.deepin.dde.freedesktop.Notification.service.in
 orgDBus.output = $$OUT_PWD/files/com.deepin.dde.freedesktop.Notification.service

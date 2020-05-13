@@ -30,7 +30,10 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QGuiApplication>
+#include <QTimer>
+
 #include <com_deepin_sessionmanager.h>
+#include <com_deepin_daemon_soundeffect.h>
 
 #include "bubble.h"
 #include "constants.h"
@@ -38,6 +41,7 @@
 
 using UserInter = com::deepin::SessionManager;
 using LauncherInter = com::deepin::dde::daemon::Launcher;
+using SoundeffectInter = com::deepin::daemon::SoundEffect;
 
 static const QString DBbsDockDBusServer = "com.deepin.dde.Dock";
 static const QString DBusDockDBusPath = "/com/deepin/dde/Dock";
@@ -60,6 +64,7 @@ class Persistence;
 class NotifyCenterWidget;
 class DBusDisplay;
 class DBusDock;
+class NotifySettings;
 /*!
  * \~chinese \class BubbleManager
  * \~chinese \brief 通知管理类
@@ -68,6 +73,25 @@ class DBusDock;
  * \~chinese \brief     3.提供气泡叠加的
  * \~chinese \brief     4.提供对外的一些接口
  */
+typedef struct{
+    bool isAllowNotify;
+    bool isOnlyInNotifyCenter;
+    bool isLockShowNotify;
+    bool isShowNotifyPreview;
+    bool isNotificationSound;
+} AppNotifyProperty;
+
+typedef struct{
+    bool isDoNotDisturb;
+    bool isTimeSlot;
+    bool isAppsInFullscreen;
+    bool isConnectedProjector;
+    bool isScreenLocked;
+    bool isShowIconOnDock;
+    int StartTime;
+    int EndTime;
+} SysNotifyProperty;
+
 #ifdef QT_DEBUG
 class BubbleManager : public QObject, public QDBusContext
 #else
@@ -233,8 +257,9 @@ private:
     QRect GetBubbleGeometry(int index);                     //根据索引获取气泡的矩形大小
     // Get the last unanimated bubble rect
     QRect GetLastStableRect(int index);                     //得到最后一个没有动画的矩形气泡
-    void initAllConfig();
     bool isDoNotDisturb();
+    AppNotifyProperty getAppNotifyProperty(QString appName);
+    void updateSysNotifyProperty();
 
 private:
     Persistence *m_persistence;
@@ -245,6 +270,7 @@ private:
     DBusDock *m_dockDeamonInter;
     UserInter *m_userInter;
     LauncherInter *m_launcherInter;
+    NotifySettings *m_notifySettings;
 
     QList<EntityPtr> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;
@@ -252,6 +278,10 @@ private:
     NotifyCenterWidget *m_notifyCenter;
     int m_replaceCount = 0;
     QString m_configFile;
+
+    SysNotifyProperty m_sysNotifyProperty;
+    QTimer *m_checkDndTimer;
+    SoundeffectInter *m_soundeffectInter;
 };
 
 #endif // BUBBLEMANAGER_H

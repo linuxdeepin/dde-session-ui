@@ -298,7 +298,7 @@ void Bubble::onDelayQuit()
 void Bubble::updateContent()
 {
     m_body->setTitle(m_entity->summary());
-    if(Config::valueByQSettings(Config::getConfigPath(), m_entity->appName(), ShowNotifyPreviewStr, true).toBool()) {
+    if(m_entity->isShowPreview()) {
         m_body->setText(OSD::removeHTML(m_entity->body()));
         if (!m_userInter->locked()) {
             m_canClose = m_entity->actions().isEmpty();

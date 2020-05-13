@@ -200,7 +200,7 @@ QString DDENotifyDBus::getAppSetting(QString appName)
 
 void DDENotifyDBus::setAppSetting(const QString settings)
 {
-    QMetaObject::invokeMethod(parent(), "setAllSetting", Q_ARG(QString, settings));
+    QMetaObject::invokeMethod(parent(), "setAppSetting", Q_ARG(QString, settings));
 }
 
 QString DDENotifyDBus::getSystemSetting()

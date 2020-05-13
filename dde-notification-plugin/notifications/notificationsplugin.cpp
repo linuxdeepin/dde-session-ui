@@ -27,6 +27,7 @@
 
 #include <DGuiApplicationHelper>
 #include <DApplication>
+#include <DDBusSender>
 
 DGUI_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -44,9 +45,9 @@ NotificationsPlugin::NotificationsPlugin(QObject *parent)
 {
     m_tipsLabel->setVisible(false);
     changeTheme();
-    getDndModel(); // 获取勿扰模式是否开启;
+    initPluginState();
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotificationsPlugin::changeTheme);
-    connect(m_notifyInter, &NotifyInter::systemSettingChanged, this, &NotificationsPlugin::getDndModel);
+    connect(m_notifyInter, &NotifyInter::systemSettingChanged, this, &NotificationsPlugin::updateDockIcon);
 }
 
 void NotificationsPlugin::changeTheme()
@@ -85,7 +86,7 @@ QWidget *NotificationsPlugin::itemTipsWidget(const QString &itemKey)
     if (recordCount)
         m_tipsLabel->setText(QString(tr("%1 Notifications")).arg(recordCount));
     else
-        m_tipsLabel->setText(tr("Notification Center"));
+        m_tipsLabel->setText(tr("No News Yet"));
 
     return m_tipsLabel;
 }
@@ -165,9 +166,12 @@ void NotificationsPlugin::loadPlugin()
     m_pluginLoaded = true;
 
     m_itemWidget = new NotificationsWidget;
-    m_itemWidget->setDisturb(m_disturb);
 
-    m_proxyInter->itemAdded(this, pluginName());
+    if (m_isShowIcon) {
+        m_proxyInter->itemAdded(this, pluginName());
+        m_itemWidget->setDisturb(m_disturb);
+    }
+
     displayModeChanged(displayMode());
 }
 
@@ -198,17 +202,24 @@ void NotificationsPlugin::refreshPluginItemsVisible()
     }
 }
 
-void NotificationsPlugin::getDndModel()
+void NotificationsPlugin::initPluginState()
 {
     QJsonObject obj = QJsonDocument::fromJson(m_notifyInter->systemSetting().toUtf8()).object();
     if (!obj.isEmpty()) {
         QJsonObject systemObj = obj["SystemNotify"].toObject();
         m_disturb = systemObj["DoNotDisturb"].toBool();
+        m_isShowIcon = systemObj["ShowIconOnDock"].toBool();
     }
+}
 
-    if (m_itemWidget) {
+void NotificationsPlugin::updateDockIcon()
+{
+    initPluginState();
+
+    m_proxyInter->saveValue(this, PLUGIN_STATE_KEY, m_isShowIcon);
+    if (m_isShowIcon)
         m_itemWidget->setDisturb(m_disturb);
-    }
+    refreshPluginItemsVisible();
 }
 
 const QString NotificationsPlugin::itemContextMenu(const QString &itemKey)
@@ -239,7 +250,6 @@ const QString NotificationsPlugin::itemContextMenu(const QString &itemKey)
 
     return QJsonDocument::fromVariant(menu).toJson();
 }
-
 
 void NotificationsPlugin::invokedMenuItem(const QString &itemKey, const QString &menuId, const bool checked)
 {

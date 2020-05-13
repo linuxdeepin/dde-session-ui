@@ -20,11 +20,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "bubblemanager.h"
 #include <QStringList>
 #include <QVariantMap>
 #include <QTimer>
+#include <QDebug>
+#include <QScreen>
+
 #include <algorithm>
+
+#include "bubblemanager.h"
 #include "bubble.h"
 #include "dbus_daemon_interface.h"
 #include "dbuslogin1manager.h"
@@ -33,12 +37,8 @@
 #include "dbusdock.h"
 #include "persistence.h"
 #include "constants.h"
-
+#include "notifysettings.h"
 #include "notification-center/notifycenterwidget.h"
-
-#include <QTimer>
-#include <QDebug>
-#include <QScreen>
 
 BubbleManager::BubbleManager(QObject *parent)
     : QObject(parent)
@@ -51,14 +51,25 @@ BubbleManager::BubbleManager(QObject *parent)
     , m_launcherInter(new LauncherInter("com.deepin.dde.daemon.Launcher",
                                         "/com/deepin/dde/daemon/Launcher",
                                         QDBusConnection::sessionBus(), this))
+    , m_notifySettings(new NotifySettings(this))
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
+    , m_checkDndTimer(new QTimer(this))
+    , m_soundeffectInter(new SoundeffectInter("com.deepin.daemon.SoundEffect",
+                                              "/com/deepin/daemon/SoundEffect",
+                                              QDBusConnection::sessionBus(), this))
+
 {
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
                                                     QDBusConnection::sessionBus(), this);
     m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this);
-    initAllConfig();
+
     initConnections();
+
+    m_checkDndTimer->setInterval(900);
+    m_checkDndTimer->start();
+
+    updateSysNotifyProperty();
 
     // get correct value for m_dockGeometry, m_dockPosition, m_ccGeometry
     if (m_dockDeamonInter->isValid()) {
@@ -129,9 +140,6 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
              << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 #endif
 
-    if (!Config::valueByQSettings(m_configFile, appName, AllowNotifyStr, DEFAULT_ALLOW_NOTIFY).toBool())
-        return 0;
-
     EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
                                                                   summary, body, actions, hints,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
@@ -139,8 +147,12 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                   QString::number(expireTimeout),
                                                                   this);
 
-    bool lockShowNotifi = Config::valueByQSettings(m_configFile, notification->appName(), LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY).toBool();
-    bool onlyInNotifiCenter = Config::valueByQSettings(m_configFile, notification->appName(), OnlyInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY).toBool();
+    AppNotifyProperty appNotifyProperty = getAppNotifyProperty(notification->appName());
+
+    if (!appNotifyProperty.isAllowNotify)
+        return 0;
+
+    notification->setShowPreview(appNotifyProperty.isShowNotifyPreview);
 
     if (!calcReplaceId(notification)) {
         if (isDoNotDisturb()) {
@@ -149,7 +161,8 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
             } else {
                 m_persistence->addOne(notification);
             }
-        } else if ((m_userInter->locked() && !lockShowNotifi) || onlyInNotifiCenter) {
+        } else if ((m_userInter->locked() && !appNotifyProperty.isLockShowNotify)
+                   || appNotifyProperty.isOnlyInNotifyCenter) {
             m_persistence->addOne(notification);
         } else {
             pushBubble(notification);
@@ -291,7 +304,7 @@ QRect BubbleManager::GetLastStableRect(int index)
 {
     QRect rect = GetBubbleGeometry(0);
     for (int i = index - 1; i > 0; --i) {
-        if (i >= m_bubbleList.size() || m_bubbleList.at(i)->geometry() != GetBubbleGeometry(i))       {
+        if (i >= m_bubbleList.size() || m_bubbleList.at(i)->geometry() != GetBubbleGeometry(i)) {
             continue;
         }
         rect = GetBubbleGeometry(i);
@@ -300,37 +313,9 @@ QRect BubbleManager::GetLastStableRect(int index)
     return rect;
 }
 
-void BubbleManager::initAllConfig()
-{
-    auto configPath = QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
-    m_configFile = Config::getConfigPath();
-    //初始化系统通知配置
-    QSettings settings(m_configFile, QSettings::IniFormat);
-    QStringList currentList = settings.childGroups();
-    if (!currentList.contains(SystemNotifySettingStr)) {
-        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, TimeSlotStr, DEFAULT_TIME_SLOT);
-        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB);
-        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, StartTimeStr, DEFAULT_START_TIME);
-        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, EndTimeStr, DEFAULT_END_TIME);
-        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, AppsInFullscreenStr, DEFAULT_APP_IN_FULLSCREEN);
-        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, ConnectedProjectorStr, DEFAULT_CONNECTED_PROJECTOR);
-        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, ScreenLockedStr, DEFAULT_SCREEN_LOCKED);
-        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, ShowIconOnDockStr, DEFAULT_SHOW_ICON_ON_DOCK);
-        Config::qsettingsSetValue(m_configFile, SystemNotifySettingStr, WhiteBoardStr, WhiteBoardAppList);
-    }
-    //初始化应用通知配置
-    ItemInfoList ItemList = m_launcherInter->GetAllItemInfos().value();
-    for (auto appItem : ItemList) {
-        if (!currentList.contains(appItem.m_key)) {
-            addedApp(appItem.m_key);
-        }
-    }
-}
-
 bool BubbleManager::isDoNotDisturb()
 {
-    bool notDisturb = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB).toBool();
-    if (notDisturb) {
+    if (m_sysNotifyProperty.isDoNotDisturb) {
         //目前无法判断是否有投影仪连接,默认为false
         bool hasProjector = false;
         //目前无法判断是否有应用全屏默认写false
@@ -338,14 +323,9 @@ bool BubbleManager::isDoNotDisturb()
         bool isLock = m_userInter->locked();
         bool isTimeMeet = false;
 
-        bool projectorConfig = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, ConnectedProjectorStr, DEFAULT_CONNECTED_PROJECTOR).toBool();
-        bool appFullConfig = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, AppsInFullscreenStr, DEFAULT_APP_IN_FULLSCREEN).toBool();
-        bool lockedConfig = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, ScreenLockedStr, DEFAULT_SCREEN_LOCKED).toBool();
-        bool timeSlotConfig= Config::valueByQSettings(m_configFile, SystemNotifySettingStr, TimeSlotStr, DEFAULT_TIME_SLOT).toBool();
-
         int currentTime = QTime::currentTime().hour();
-        int startTime = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, EndTimeStr, DEFAULT_START_TIME).toInt();
-        int endTime = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, EndTimeStr, DEFAULT_END_TIME).toInt();
+        int startTime = m_sysNotifyProperty.StartTime;
+        int endTime = m_sysNotifyProperty.EndTime;
         //判断当前时间是否再时间段内
         if (startTime < endTime) {
             if (startTime < currentTime && endTime > currentTime) {
@@ -354,7 +334,7 @@ bool BubbleManager::isDoNotDisturb()
                 isTimeMeet = false;
             }
         } else if (startTime > endTime) {
-            if (startTime < currentTime || endTime < currentTime) {
+            if (startTime < currentTime || endTime > currentTime) {
                 isTimeMeet = true;
             } else {
                 isTimeMeet = false;
@@ -363,13 +343,113 @@ bool BubbleManager::isDoNotDisturb()
             isTimeMeet = true;
         }
         //时间段满足
-        if (isTimeMeet && timeSlotConfig) {
+        if (isTimeMeet && m_sysNotifyProperty.isTimeSlot) {
             return true;
         } else {
-            return (hasProjector&&projectorConfig)||(hasAppFull&&appFullConfig)||(lockedConfig&&isLock);
+            return (hasProjector&&m_sysNotifyProperty.isConnectedProjector)
+                    ||(hasAppFull&&m_sysNotifyProperty.isAppsInFullscreen)
+                    ||(m_sysNotifyProperty.isScreenLocked&&isLock);
         }
     } else {
         return false;
+    }
+}
+
+AppNotifyProperty BubbleManager::getAppNotifyProperty(QString appName)
+{
+    QJsonObject currentObj = QJsonDocument::fromJson(getAppSetting(appName).toUtf8()).object();
+    QJsonObject currentSettingsObj = currentObj.begin().value().toObject();
+
+    AppNotifyProperty appNotifyProperty;
+    if (currentSettingsObj.contains(AllowNotifyStr)) {
+        appNotifyProperty.isAllowNotify = currentSettingsObj[AllowNotifyStr].toBool();
+    } else {
+        appNotifyProperty.isAllowNotify = DEFAULT_ALLOW_NOTIFY;
+    }
+
+    if (currentSettingsObj.contains(OnlyInNotifyCenterStr)) {
+        appNotifyProperty.isOnlyInNotifyCenter = currentSettingsObj[OnlyInNotifyCenterStr].toBool();
+    } else {
+        appNotifyProperty.isOnlyInNotifyCenter = DEFAULT_ONLY_IN_NOTIFY;
+    }
+
+    if (currentSettingsObj.contains(LockShowNotifyStr)) {
+        appNotifyProperty.isLockShowNotify = currentSettingsObj[LockShowNotifyStr].toBool();
+    } else {
+        appNotifyProperty.isLockShowNotify = DEFAULT_LOCK_SHOW_NOTIFY;
+    }
+
+    if (currentSettingsObj.contains(NotificationSoundStr)) {
+        appNotifyProperty.isNotificationSound = currentSettingsObj[NotificationSoundStr].toBool();
+    } else {
+        appNotifyProperty.isNotificationSound = DEFAULT_NOTIFY_SOUND;
+    }
+
+    if (currentSettingsObj.contains(ShowNotifyPreviewStr)) {
+        appNotifyProperty.isShowNotifyPreview = currentSettingsObj[ShowNotifyPreviewStr].toBool();
+    } else {
+        appNotifyProperty.isShowNotifyPreview = DEFAULT_SHOW_NOTIFY_PREVIEW;
+    }
+
+    return appNotifyProperty;
+}
+
+void BubbleManager::updateSysNotifyProperty()
+{
+    QJsonObject currentObj = QJsonDocument::fromJson(getSystemSetting().toUtf8()).object();
+    QJsonObject currentSettingsObj = currentObj.begin().value().toObject();
+    if (currentSettingsObj.contains(DoNotDisturbStr)) {
+        m_sysNotifyProperty.isDoNotDisturb = currentSettingsObj[DoNotDisturbStr].toBool();
+    } else {
+        m_sysNotifyProperty.isDoNotDisturb = DEFAULT_DO_NOT_DISTURB;
+    }
+
+    if (currentSettingsObj.contains(TimeSlotStr)) {
+        m_sysNotifyProperty.isTimeSlot = currentSettingsObj[TimeSlotStr].toBool();
+    } else {
+        m_sysNotifyProperty.isTimeSlot = DEFAULT_TIME_SLOT;
+    }
+
+    if (currentSettingsObj.contains(StartTimeStr)) {
+        m_sysNotifyProperty.StartTime = currentSettingsObj[StartTimeStr].toInt();
+    } else {
+        m_sysNotifyProperty.StartTime = DEFAULT_START_TIME;
+    }
+
+    if (currentSettingsObj.contains(EndTimeStr)) {
+        m_sysNotifyProperty.EndTime = currentSettingsObj[EndTimeStr].toInt();
+    } else {
+        m_sysNotifyProperty.EndTime = DEFAULT_END_TIME;
+    }
+
+    if (currentSettingsObj.contains(AppsInFullscreenStr)) {
+        m_sysNotifyProperty.isAppsInFullscreen = currentSettingsObj[AppsInFullscreenStr].toBool();
+    } else {
+        m_sysNotifyProperty.isAppsInFullscreen = DEFAULT_APP_IN_FULLSCREEN;
+    }
+
+    if (currentSettingsObj.contains(AppsInFullscreenStr)) {
+        m_sysNotifyProperty.isAppsInFullscreen = currentSettingsObj[AppsInFullscreenStr].toBool();
+    } else {
+        m_sysNotifyProperty.isAppsInFullscreen = DEFAULT_APP_IN_FULLSCREEN;
+    }
+
+    if (currentSettingsObj.contains(ConnectedProjectorStr)) {
+        m_sysNotifyProperty.isConnectedProjector = currentSettingsObj[ConnectedProjectorStr].toBool();
+    } else {
+        m_sysNotifyProperty.isConnectedProjector = DEFAULT_CONNECTED_PROJECTOR;
+    }
+
+    if (currentSettingsObj.contains(ScreenLockedStr)) {
+        m_sysNotifyProperty.isScreenLocked = currentSettingsObj[ScreenLockedStr].toBool();
+    } else {
+        m_sysNotifyProperty.isScreenLocked = DEFAULT_SCREEN_LOCKED;
+    }
+
+    if (currentSettingsObj.contains(ShowIconOnDockStr)) {
+        m_sysNotifyProperty.isShowIconOnDock = currentSettingsObj[ShowIconOnDockStr].toBool();
+    } else {
+        m_sysNotifyProperty.isShowIconOnDock = DEFAULT_SHOW_ICON_ON_DOCK;
     }
 }
 
@@ -416,129 +496,48 @@ uint BubbleManager::recordCount()
 
 void BubbleManager::removeApp(QString appName)
 {
-    QSettings settings(m_configFile, QSettings::IniFormat);
-    settings.beginGroup(appName);
-    settings.remove("");
-    settings.endGroup();
-
+    m_notifySettings->appRemoved(appName);
     Q_EMIT appRemoved(appName);
 }
 
 void BubbleManager::addedApp(QString appName)
 {
-    Config::qsettingsSetValue(m_configFile, appName, AllowNotifyStr, DEFAULT_ALLOW_NOTIFY);
-    Config::qsettingsSetValue(m_configFile, appName, OnlyInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
-    Config::qsettingsSetValue(m_configFile, appName, LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY);
-    Config::qsettingsSetValue(m_configFile, appName, ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW);
-    Config::qsettingsSetValue(m_configFile, appName, NotificationSoundStr, DEFAULT_NOTIFY_SOUND);
-
+    m_notifySettings->appAdded(appName);
     Q_EMIT appAdded(appName);
 }
 
 QString BubbleManager::getAllSetting()
 {
-    QSettings settings(m_configFile, QSettings::IniFormat);
-    QStringList Groupslist = settings.childGroups();
-    QMap<QString, QVariant> GroupMap;
-    for (auto group : Groupslist) {
-        if (group == SystemNotifySettingStr) {
-            QMap<QString, QVariant> map;
-            map[TimeSlotStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, TimeSlotStr, DEFAULT_TIME_SLOT).toBool();
-            map[StartTimeStr] = Config::valueByQSettings(m_configFile, group, StartTimeStr, DEFAULT_START_TIME).toInt();
-            map[EndTimeStr] = Config::valueByQSettings(m_configFile, group, EndTimeStr, DEFAULT_END_TIME).toInt();
-            map[DoNotDisturbStr] = Config::valueByQSettings(m_configFile, group, DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB).toBool();
-            map[AppsInFullscreenStr] = Config::valueByQSettings(m_configFile, group, AppsInFullscreenStr, DEFAULT_APP_IN_FULLSCREEN).toBool();
-            map[ConnectedProjectorStr] = Config::valueByQSettings(m_configFile, group, ConnectedProjectorStr, DEFAULT_CONNECTED_PROJECTOR).toBool();
-            map[ScreenLockedStr] = Config::valueByQSettings(m_configFile, group, ScreenLockedStr, DEFAULT_SCREEN_LOCKED).toBool();
-            map[ShowIconOnDockStr]=Config::valueByQSettings(m_configFile, group, ShowIconOnDockStr, DEFAULT_SHOW_ICON_ON_DOCK).toBool();
-            map[WhiteBoardStr]=Config::valueByQSettings(m_configFile, group, WhiteBoardStr, WhiteBoardAppList).toStringList();
-            GroupMap[group] = map;
-        } else {
-            QMap<QString, QVariant> map;
-            map[AllowNotifyStr] = Config::valueByQSettings(m_configFile, group, AllowNotifyStr, DEFAULT_ALLOW_NOTIFY).toBool();
-            map[OnlyInNotifyCenterStr] = Config::valueByQSettings(m_configFile, group, OnlyInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY).toBool();
-            map[LockShowNotifyStr] = Config::valueByQSettings(m_configFile, group, LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY).toBool();
-            map[ShowNotifyPreviewStr] = Config::valueByQSettings(m_configFile, group, ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW).toBool();
-            map[NotificationSoundStr]=Config::valueByQSettings(m_configFile, group, NotificationSoundStr, DEFAULT_NOTIFY_SOUND).toBool();
-            GroupMap[group] = map;
-        }
-    }
-    return QJsonDocument::fromVariant(GroupMap).toJson();
+    return m_notifySettings->getAllSetings();
 }
 
 void BubbleManager::setAllSetting(const QString settings)
 {
-    QJsonDocument jsonDocument = QJsonDocument::fromJson(settings.toLocal8Bit().data());
-    if(jsonDocument.isNull())
-        return;
-    QJsonObject jsonObject = jsonDocument.object();
-    QVariantMap GroupMap = jsonObject.toVariantMap();
-    QMap<QString, QVariant>::iterator GroupMapIterator = GroupMap.begin();
-
-    while(GroupMapIterator != GroupMap.end()) {
-        QMap<QString, QVariant> keyMap = GroupMapIterator.value().toMap();
-        QMap<QString, QVariant>::iterator mapIterator = keyMap.begin();
-        while (mapIterator != keyMap.end()) {
-            Config::qsettingsSetValue(m_configFile, GroupMapIterator.key(), mapIterator.key(), mapIterator.value());
-            mapIterator ++;
-        }
-        GroupMapIterator ++;
-    }
+    m_notifySettings->setAllSetting(settings);
 }
 
 QString BubbleManager::getAppSetting(QString appName)
 {
-    QMap<QString, QVariant> GroupMap;
-    QMap<QString, QVariant> map;
-    map[AllowNotifyStr] = Config::valueByQSettings(m_configFile, appName, AllowNotifyStr, DEFAULT_ALLOW_NOTIFY).toBool();
-    map[OnlyInNotifyCenterStr] = Config::valueByQSettings(m_configFile, appName, OnlyInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY).toBool();
-    map[LockShowNotifyStr] = Config::valueByQSettings(m_configFile, appName, LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY).toBool();
-    map[ShowNotifyPreviewStr] = Config::valueByQSettings(m_configFile, appName, ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW).toBool();
-    map[NotificationSoundStr]=Config::valueByQSettings(m_configFile, appName, NotificationSoundStr, DEFAULT_NOTIFY_SOUND).toBool();
-    GroupMap[appName] = map;
-    return QJsonDocument::fromVariant(GroupMap).toJson();
+    return m_notifySettings->getAppSetings(appName);
 }
 
 void BubbleManager::setAppSetting(const QString settings)
 {
-    QString appName;
-    QJsonDocument jsonDocument = QJsonDocument::fromJson(settings.toLocal8Bit().data());
-    if(jsonDocument.isNull())
-        return;
-    QJsonObject jsonObject = jsonDocument.object();
-    QVariantMap GroupMap = jsonObject.toVariantMap();
-    QMap<QString, QVariant>::iterator GroupMapIterator = GroupMap.begin();
-    appName = GroupMapIterator.key();
-    QMap<QString, QVariant> keyMap = GroupMapIterator.value().toMap();
-    QMap<QString, QVariant>::iterator mapIterator = keyMap.begin();
-    while (mapIterator != keyMap.end()) {
-        Config::qsettingsSetValue(m_configFile, GroupMapIterator.key(), mapIterator.key(), mapIterator.value());
-        mapIterator ++;
-    }
-    appSettingChanged(getAppSetting(appName));
+    QJsonObject currentObj = QJsonDocument::fromJson(settings.toUtf8()).object();
+    m_notifySettings->setAppSetting(settings);
+    Q_EMIT systemSettingChanged(currentObj.begin().key());
 }
 
 QString BubbleManager::getSystemSetting()
 {
-    QMap<QString, QVariant> GroupMap;
-    QMap<QString, QVariant> map;
-    map[DoNotDisturbStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB).toBool();
-    map[TimeSlotStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, TimeSlotStr, DEFAULT_TIME_SLOT).toBool();
-    map[StartTimeStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, StartTimeStr, DEFAULT_START_TIME).toInt();
-    map[EndTimeStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, EndTimeStr, DEFAULT_END_TIME).toInt();
-    map[AppsInFullscreenStr] = Config::valueByQSettings(m_configFile, SystemNotifySettingStr, AppsInFullscreenStr, DEFAULT_APP_IN_FULLSCREEN).toBool();
-    map[ConnectedProjectorStr]=Config::valueByQSettings(m_configFile, SystemNotifySettingStr, ConnectedProjectorStr, DEFAULT_CONNECTED_PROJECTOR).toBool();
-    map[ScreenLockedStr]=Config::valueByQSettings(m_configFile, SystemNotifySettingStr, ScreenLockedStr, DEFAULT_SCREEN_LOCKED).toBool();
-    map[ShowIconOnDockStr]=Config::valueByQSettings(m_configFile, SystemNotifySettingStr, ShowIconOnDockStr, DEFAULT_SHOW_ICON_ON_DOCK).toBool();
-    map[WhiteBoardStr]=Config::valueByQSettings(m_configFile, SystemNotifySettingStr, WhiteBoardStr, WhiteBoardAppList).toStringList();
-    GroupMap[SystemNotifySettingStr] = map;
-    return QJsonDocument::fromVariant(GroupMap).toJson();
+    return m_notifySettings->getSystemSetings();
 }
 
 void BubbleManager::setSystemSetting(QString settings)
 {
-    setAppSetting(settings);
-    Q_EMIT systemSettingChanged(getSystemSetting());
+    m_notifySettings->setSystemSetting(settings);
+    updateSysNotifyProperty();
+    Q_EMIT systemSettingChanged(m_notifySettings->getSystemSetings());
 }
 
 void BubbleManager::registerAsService()
@@ -609,6 +608,10 @@ void BubbleManager::initConnections()
 
     connect(m_launcherInter, &LauncherInter::UninstallSuccess, this, &BubbleManager::removeApp);
     connect(m_launcherInter, &LauncherInter::NewAppLaunched, this, &BubbleManager::addedApp);
+
+    connect(m_checkDndTimer, &QTimer::timeout, this, [ = ] {
+        m_soundeffectInter->setEnabled(!isDoNotDisturb());
+    });
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
