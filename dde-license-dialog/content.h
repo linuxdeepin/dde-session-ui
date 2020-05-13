@@ -37,7 +37,6 @@ private:
     void updateContent();
     void updateWindowHeight();
 
-
 private:
     QScrollArea* m_scrollArea;
     QCheckBox* m_acceptCheck;

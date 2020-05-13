@@ -147,7 +147,10 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
         }
         Q_EMIT dismissed(this);
     } else if (m_pressed && mapToGlobal(event->pos()).y() < 10) {
-        Q_EMIT notProcessedYet(m_entity);
+        //等待屏幕上方气泡消失再将通知插入到通知中心，否则会导致同一个通知出现在两个位置。
+        QTimer::singleShot(AnimationTime + 10, this, [ = ] {
+            Q_EMIT notProcessedYet(m_entity);
+        });
         Q_EMIT dismissed(this);
     }
 
@@ -213,7 +216,10 @@ void Bubble::onOutTimerTimeout()
         m_outTimer->setSingleShot(true);
         m_outTimer->start();
     } else {
-        Q_EMIT notProcessedYet(m_entity);
+        //等待屏幕上方气泡消失再将通知插入到通知中心，否则会导致同一个通知出现在两个位置。
+        QTimer::singleShot(AnimationTime + 10, this, [ = ] {
+            Q_EMIT notProcessedYet(m_entity);
+        });
         Q_EMIT expired(this);
     }
 }

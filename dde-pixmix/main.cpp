@@ -40,10 +40,13 @@ DCORE_USE_NAMESPACE
 
 QPixmap calcPix(const QString &pixPath)
 {
-    QPixmap pix(pixPath);
-    pix.toImage().format();
+    QPixmap pix;
+    if (!pix.load(pixPath)) {
+        QImage image(pixPath);
+        pix = QPixmap::fromImage(image);
+    }
     if (pix.isNull())
-        return pix;
+        exit(-1);
 
     QPixmap pix2 = pix.scaled(MATRIX, MATRIX, Qt::IgnoreAspectRatio, Qt::FastTransformation);
 
@@ -65,8 +68,6 @@ QPixmap calcPix(const QString &pixPath)
             r += red.toInt(&ok, 16);
             g += green.toInt(&ok, 16);
             b += blue.toInt(&ok, 16);
-
-            //            qDebug() << str << red << green << blue;
         }
     }
 
@@ -112,24 +113,24 @@ int main(int argc, char *argv[])
             if (!pix.isNull()) {
                 QFile *out = new QFile();
                 out->open(stdout, QIODevice::WriteOnly);
-                pix.save(out, QImageReader::imageFormat(inFile), 100);
+                if (!pix.save(out, QImageReader::imageFormat(inFile), 100))
+                    return -2;
                 out->flush();
                 out->close();
-                qDebug() << "go to stdout";
             } else {
                 qDebug() << "pix is null";
-                return -1;
+                return -3;
             }
         } else {
             if (!outFile.isEmpty()) {
                 QString inFile = a.arguments().last();
                 QPixmap pix = calcPix(inFile);
                 if (!pix.isNull()) {
-                    pix.save(outFile, QImageReader::imageFormat(inFile), 100);
-                    qDebug() << "success:" << outFile;
+                    if (!pix.save(outFile, QImageReader::imageFormat(inFile), 100))
+                        return -4;
                 } else {
                     qDebug() << "pix is null";
-                    return -1;
+                    return -5;
                 }
             }
         }

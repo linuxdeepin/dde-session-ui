@@ -21,9 +21,9 @@ SUBDIRS += dde-license-dialog \
 load(dtk_qmake)
 include(common.pri)
 
-contains(DEFINES, ARCH_MIPSEL) {
-    SUBDIRS += session-ui-guardien
-}
+#contains(DEFINES, ARCH_MIPSEL) {
+#    SUBDIRS += session-ui-guardien
+#}
 
 isEmpty(PREFIX){
     PREFIX = /usr

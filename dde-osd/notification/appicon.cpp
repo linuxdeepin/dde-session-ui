@@ -29,8 +29,12 @@
 
 #include "appicon.h"
 
+const QString Service = "com.deepin.daemon.Appearance";
+const QString Path    = "/com/deepin/daemon/Appearance";
+
 AppIcon::AppIcon(QWidget *parent) :
     QLabel(parent)
+  , m_appearancedInter(new Appearance(Service, Path, QDBusConnection::sessionBus(), this))
 {
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setAlignment(Qt::AlignCenter);
@@ -54,7 +58,8 @@ void AppIcon::setIcon(const QString &iconPath, const QString &fallback)
         QString iconUrl;
         const QUrl url(iconPath);
         iconUrl = url.isLocalFile() ? url.toLocalFile() : url.url();
-
+        //反复注销登录时，系统主题会偶发性从当前主题切换成hicolor,系统中无hicolor主题，导致图标获取失败
+        QIcon::setThemeName(m_appearancedInter->iconTheme());
         const QIcon &icon = QIcon::fromTheme(iconPath, QIcon::fromTheme(fallback, QIcon::fromTheme("application-x-desktop")));
         pixmap = icon.pixmap(width() * pixelRatio, height() * pixelRatio);
     }
@@ -66,6 +71,5 @@ void AppIcon::setIcon(const QString &iconPath, const QString &fallback)
 
         pixmap.setDevicePixelRatio(pixelRatio);
     }
-
     setPixmap(pixmap);
 }

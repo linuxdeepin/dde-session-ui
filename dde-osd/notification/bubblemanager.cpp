@@ -251,7 +251,7 @@ QRect BubbleManager::GetBubbleGeometry(int index)
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
         rect.setX(display.x() + (display.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
-        rect.setY(ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
+        rect.setY(display.y()+ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
         rect.setWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
         rect.setHeight(OSD::BubbleHeight(OSD::BUBBLEWINDOW));
     } else if (index >= BubbleEntities && index <= BubbleEntities + BubbleOverLap) {

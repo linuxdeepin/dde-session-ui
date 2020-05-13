@@ -95,7 +95,7 @@ void Manager::ShowOSD(const QString &osd)
     }
 
     if (osd == "SwitchLayoutDone") {
-        doneSetting();
+        m_timer->start();
         return;
     }
 

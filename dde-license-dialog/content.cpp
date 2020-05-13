@@ -42,7 +42,7 @@ Content::Content(QWidget *parent)
     btnlist.append(btnChinese);
     btnlist.append(btnEnginsh);
     m_languageBtn->setButtonList(btnlist, true);
-    // btnChinese->setChecked(true);//FIX:未显示之前setChecked无效
+
     m_languageBtn->setId(btnChinese, 1);
     m_languageBtn->setId(btnEnginsh, 0);
 
@@ -61,7 +61,7 @@ Content::Content(QWidget *parent)
     QVBoxLayout *sourceLayout = new QVBoxLayout;
     sourceWidget->setLayout(sourceLayout);
     sourceLayout->addWidget(m_source);
-    // sourceLayout->addStretch();//FIX:英文协议内容过长，会导致label高度显示不正确，未找到原因，去掉这一行正常
+
     m_source->setTextFormat(Qt::RichText);
     m_source->setWordWrap(true);
     m_source->setOpenExternalLinks(true);
@@ -142,6 +142,9 @@ void Content::setSource(const QString &source)
         QString tempPath=QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
         tempPath.append("/license_temp.html");
 
+        if (QFile::exists(tempPath))
+            QFile::remove(tempPath);
+
         para = QString("pandoc %1 --output %2").arg(source).arg(tempPath);
         QStringList args;
         args << "-c";
@@ -150,8 +153,7 @@ void Content::setSource(const QString &source)
         process.waitForFinished();
         process.waitForReadyRead();
         QFile file(tempPath);
-        if (!file.open(QIODevice::Text | QIODevice::ReadOnly))
-        {
+        if (!file.open(QIODevice::Text | QIODevice::ReadOnly)) {
             qDebug() << file.errorString();
             return;
         }
