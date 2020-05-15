@@ -82,7 +82,7 @@ void BubbleManager::CloseNotification(uint id)
     QString str_id = QString::number(id);
     foreach (auto bubble, m_bubbleList) {
         if (bubble->entity()->replacesId() == str_id) {
-            m_persistence->addOne(bubble->entity());
+            //m_persistence->addOne(bubble->entity());
             bubble->close();
             m_bubbleList.removeOne(bubble);
             qDebug() << "CloseNotification : id" << str_id;
@@ -91,7 +91,7 @@ void BubbleManager::CloseNotification(uint id)
 
     foreach (auto notify, m_oldEntities) {
         if (notify->replacesId() == str_id) {
-            m_persistence->addOne(notify);
+            //m_persistence->addOne(notify);
             m_oldEntities.removeOne(notify);
             qDebug() << "CloseNotification : id" << str_id;
         }

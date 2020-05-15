@@ -32,6 +32,10 @@
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
+const int PingCode = 1;
+const int DevicePath = 2;
+const int PingTime = 3;
+
 int main(int argc, char *argv[])
 {
     DApplication::loadDXcbPlugin();
@@ -43,12 +47,15 @@ int main(int argc, char *argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app.installTranslator(&translator);
 
-    QStringList arguslist = app.arguments();
-    if (arguslist.size() < 2)
-        return -1;
 
-    qDebug()<<"PingCode:"<<arguslist.at(1)+" Device Path:"<<arguslist.at(2);
-    dcc::bluetooth::PinCodeDialog dialog(arguslist.at(1), arguslist.at(2), true);
+    QStringList arguslist = app.arguments();
+    if (arguslist.size() < 4) {
+        qDebug() << "number of parameters must be greater than 3";
+        return -1;
+    }
+    qDebug() << "PingCode:" << arguslist[PingCode] << " Device Path:" << arguslist[DevicePath] << "Ping Time:" + arguslist[PingTime];
+
+    dcc::bluetooth::PinCodeDialog dialog(arguslist[PingCode], arguslist[DevicePath], arguslist[PingTime], true);
     if (!dialog.isVisible()) {
         dialog.show();
     }

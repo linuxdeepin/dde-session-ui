@@ -26,22 +26,22 @@
 #include "pincodedialog.h"
 #include "widgets/labels/largelabel.h"
 
+#include <QDateTime>
+#include <QTimer>
+
 using namespace dcc::widgets;
 
 namespace dcc {
 namespace bluetooth {
 
-
-PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath, const bool &cancelable) :
+PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath, const QString &starttime, const bool &cancelable) :
     DDialog(),
     m_pinCodeLabel(new dcc::widgets::LargeLabel(this)),
     m_titileLabel(new dcc::widgets::LargeLabel(this)),
-    m_bluetoothInter(new DBusBluetooth("com.deepin.daemon.Bluetooth", "/com/deepin/daemon/Bluetooth", QDBusConnection::sessionBus(), this)),
-    m_devicePath(devicepath)
+    m_bluetoothInter(new DBusBluetooth("com.deepin.daemon.Bluetooth", "/com/deepin/daemon/Bluetooth", QDBusConnection::sessionBus(), this))
 {
     QString titilestr = tr("The PIN for connecting to the Bluetooth device is:");
     setIcon(QIcon::fromTheme("notification-bluetooth-connected"));
-
     setAttribute(Qt::WA_QuitOnClose);
     m_titileLabel->setObjectName("TitileText");
     addContent(m_titileLabel, Qt::AlignTop | Qt::AlignHCenter);
@@ -55,20 +55,28 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
 
     m_pinCodeLabel->setObjectName("PinCodeText");
     addContent(m_pinCodeLabel, Qt::AlignBottom | Qt::AlignHCenter);
-    QFont font=m_titileLabel->font();
+    QFont font = m_titileLabel->font();
     font.setBold(true);
     font.setPixelSize(16);
     m_titileLabel->setFont(font);
     m_titileLabel->setText(titilestr);
     m_pinCodeLabel->setText(pinCode);
 
+    qint64 msec = 60 * 1000 - QDateTime::currentMSecsSinceEpoch() + starttime.toLongLong();
+    if (msec < 0){
+        qDebug() << "timeout";
+        exit(-2);
+    }
+    QTimer::singleShot(msec, this, [ = ]() {
+        close();
+    });
+
+    connect(m_bluetoothInter, &DBusBluetooth::AdapterPropertiesChanged, this, &PinCodeDialog::HandleBlutoothPower);
     connect(this, &PinCodeDialog::buttonClicked, this, [ = ](int index, const QString & text) {
-        m_bluetoothInter->ConnectDevice(QDBusObjectPath(m_devicePath));
-        m_bluetoothInter->Confirm(QDBusObjectPath(m_devicePath), index == 1 ? true : false);
+        m_bluetoothInter->Confirm(QDBusObjectPath(devicepath), index == 1 ? true : false);
     });
     connect(this, &PinCodeDialog::closed, this, [ = ]() {
-        m_bluetoothInter->ConnectDevice(QDBusObjectPath(m_devicePath));
-        m_bluetoothInter->Confirm(QDBusObjectPath(m_devicePath), false);
+        m_bluetoothInter->Confirm(QDBusObjectPath(devicepath), false);
         qApp->quit();
     });
 }
@@ -83,8 +91,29 @@ QString PinCodeDialog::pinCode() const
     return m_pinCodeLabel->text();
 }
 
+void PinCodeDialog::HandleBlutoothPower(const QString &message)
+{
+    QJsonParseError json_error;
+    QString poweredbool;
+    QJsonDocument jsonDoc(QJsonDocument::fromJson(message.toLocal8Bit().data(), &json_error));
+
+    if (json_error.error != QJsonParseError::NoError) {
+        qDebug() << "json error! error type " << json_error.error;
+        return;
+    }
+
+    QJsonObject rootObj = jsonDoc.object();
+
+    if (rootObj.contains("Powered")) {
+        bool test = rootObj.value("Powered").toBool();
+        if (!test) {
+            close();
+        }
+    }
+}
+
 PinCodeDialog::PinCodeDialog() :
-    PinCodeDialog("", "", false)
+    PinCodeDialog("", "", "", false)
 {
 
 }

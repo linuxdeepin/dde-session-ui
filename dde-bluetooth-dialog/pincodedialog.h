@@ -29,6 +29,9 @@
 #include <ddialog.h>
 #include <com_deepin_daemon_bluetooth.h>
 
+#include <QJsonDocument>
+#include <QJsonParseError>
+
 DWIDGET_USE_NAMESPACE
 
 using  DBusBluetooth = com::deepin::daemon::Bluetooth;
@@ -44,16 +47,16 @@ class PinCodeDialog : public DDialog
     Q_OBJECT
 public:
     explicit PinCodeDialog();
-    explicit PinCodeDialog(const QString &pinCode,  const QString &devicepath, const bool &cancelable = true);
+    explicit PinCodeDialog(const QString &pinCode,  const QString &devicepath, const QString &starttime,  const bool &cancelable = true);
     ~PinCodeDialog();
 
     QString pinCode() const;
-
+private Q_SLOTS:
+    void HandleBlutoothPower(const QString &message);
 private:
     dcc::widgets::LargeLabel *m_pinCodeLabel;
     dcc::widgets::LargeLabel *m_titileLabel;
     DBusBluetooth *m_bluetoothInter;
-    QString m_devicePath;
 };
 } // namespace bluetooth
 } // namespace dcc
