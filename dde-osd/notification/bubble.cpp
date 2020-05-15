@@ -240,6 +240,8 @@ void Bubble::initUI()
     m_closeButton->setVisible(false);
     m_actionButton->setVisible(false);
 
+    m_body->refreshTheme();
+
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setSpacing(BubbleSpacing);
     layout->setMargin(BubblePadding);
