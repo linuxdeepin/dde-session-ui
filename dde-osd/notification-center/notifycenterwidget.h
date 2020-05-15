@@ -96,6 +96,7 @@ private:
     QTime m_tickTime;
     QMetaObject::Connection m_regionConnect;
     DRegionMonitor *m_regionMonitor;
+    qreal m_scale = 1;
 };
 
 #endif // MAINWIDGET_H
