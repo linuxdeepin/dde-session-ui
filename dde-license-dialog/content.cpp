@@ -142,6 +142,9 @@ void Content::setSource(const QString &source)
         QString tempPath=QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
         tempPath.append("/license_temp.html");
 
+        if (QFile::exists(tempPath))
+            QFile::remove(tempPath);
+
         para = QString("pandoc %1 --output %2").arg(source).arg(tempPath);
         QStringList args;
         args << "-c";
@@ -150,8 +153,7 @@ void Content::setSource(const QString &source)
         process.waitForFinished();
         process.waitForReadyRead();
         QFile file(tempPath);
-        if (!file.open(QIODevice::Text | QIODevice::ReadOnly))
-        {
+        if (!file.open(QIODevice::Text | QIODevice::ReadOnly)) {
             qDebug() << file.errorString();
             return;
         }
