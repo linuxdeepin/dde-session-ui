@@ -139,7 +139,7 @@ void Content::setSource(const QString &source)
     if (sourceMap[source].isEmpty()) {
         QProcess process;
         QString para;
-        QString tempPath=QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
+        QString tempPath = QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
         tempPath.append("/license_temp.html");
 
         if (QFile::exists(tempPath))
@@ -197,7 +197,6 @@ void Content::updateLocaleSource()
 {
     if (!m_hasCn && !m_hasEn)
         return;
-
     if (QLocale::system().language() == QLocale::Chinese) {
         m_isCn = true;
         m_languageBtn->button(1)->setChecked(true);
