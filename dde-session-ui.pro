@@ -15,6 +15,7 @@ SUBDIRS += dde-license-dialog \
     dmemory-warning-dialog \
     dnetwork-secret-dialog \
     dde-full-filesystem \
+    dde-bluetooth-dialog\
     dde-notification-plugin \
     dde-pixmix
 

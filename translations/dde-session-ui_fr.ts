@@ -2,22 +2,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="197"/>
         <source>Just Now</source>
         <translation>Juste maintenant</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="199"/>
         <source>%1 minutes ago</source>
         <translation>Il y a %1 minutes</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="201"/>
         <source>%1 hours ago</source>
         <translation>Il y a %1 heures</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>Yesterday </source>
         <translation>Hier</translation>
     </message>
@@ -25,22 +25,20 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="32"/>
         <source>Chinese</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Chinois</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="33"/>
         <source>English</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Anglais</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="44"/>
+        <location filename="../dde-license-dialog/content.cpp" line="47"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="45"/>
+        <location filename="../dde-license-dialog/content.cpp" line="48"/>
         <source>Confirm</source>
         <translation>Confirmer</translation>
     </message>
@@ -187,7 +185,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Mises à jour prêtes, actualiser et redémarrer?</translation>
+        <translation>Mises à jour prêtes, redémarrer pour mettre à jour?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
@@ -202,7 +200,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation>D&apos;accord</translation>
+        <translation>Mettre à jour maintenant</translation>
     </message>
 </context>
 <context>
@@ -223,7 +221,7 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Veuillez ne pas arrêter ou redémarrer votre appareil</translation>
+        <translation>Veuillez ne pas éteindre ou redémarrer votre appareil</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
@@ -353,22 +351,22 @@
         <translation>Mot de passe de groupe</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
         <translation>Mot de passe requis pour se connecter &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
         <translation>Mot de passe incorrect, veuillez saisir à nouveau !</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Connect</source>
         <translation>Se connecter</translation>
     </message>
@@ -390,7 +388,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="90"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
         <translation>Centre de notification</translation>
     </message>
@@ -455,23 +453,23 @@
 <context>
     <name>SuspendDialog</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
         <translation> Moniteur externe détécté, suspendre ?</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="57"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
         <source>%1s</source>
         <translation>%1s </translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Suspend</source>
         <translation>Mettre en veille </translation>
     </message>
@@ -507,7 +505,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation>Edition actuelle :</translation>
+        <translation>Édition actuelle :</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
@@ -549,12 +547,14 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>Il a été détecté que vous utilisez une machine virtuelle, ce qui affecte les performances du système, ainsi que l&apos;expérience utilisateur. Pour une utilisation optimale, il est recommandé d&apos;utiliser le mode normal</translation>
+        <translation>Vous utilisez une machine virtuelle, ce qui affecte les performances du système, ainsi que l&apos;expérience utilisateur.
+Pour une utilisation optimale, il est recommandé d&apos;utiliser le mode normal</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Mode Effet : Pour un rendu esthétique amélioré. Mode Normal : Pour des performances élevées</translation>
+        <translation>Mode effet : Pour un rendu esthétique amélioré. 
+Mode normal : Pour des performances élevées.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
@@ -586,6 +586,24 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>Batterie faible, veuillez brancher votre appareil</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>Le code PIN pour la connexion au périphérique Bluetooth est :</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>Confirmer</translation>
     </message>
 </context>
 </TS>

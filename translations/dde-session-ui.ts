@@ -598,4 +598,22 @@
         <translation>Low battery, please plug in</translation>
     </message>
 </context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>The PIN for connecting to the Bluetooth device is:</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Cancel</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>Confirm</translation>
+    </message>
+</context>
 </TS>
