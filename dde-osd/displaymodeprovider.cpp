@@ -24,12 +24,21 @@
  */
 
 #include "displaymodeprovider.h"
+
 #include <DDBusSender>
+#include <QSvgRenderer>
+#include <DStyle>
+#include <DStyleOptionButton>
+
+DWIDGET_USE_NAMESPACE
+
+const QString DisplayDBusServer = "com.deepin.daemon.Display";
+const QString DisplayDBusPath = "/com/deepin/daemon/Display";
 
 DisplayModeProvider::DisplayModeProvider(QObject *parent)
     : AbstractOSDProvider(parent),
-      m_displayInter(new Display("com.deepin.daemon.Display",
-                                 "/com/deepin/daemon/Display",
+      m_displayInter(new Display(DisplayDBusServer,
+                                 DisplayDBusPath,
                                  QDBusConnection::sessionBus(), this))
 {
     m_suitableParams << "SwitchMonitors";
@@ -54,14 +63,19 @@ bool DisplayModeProvider::checkConditions() const
     return m_outputNames.length() > 1;
 }
 
+QMargins DisplayModeProvider::contentMargins() const
+{
+    return QMargins(10, 10, 10, 10);
+}
+
 QSize DisplayModeProvider::contentSize() const
 {
-    return QSize(ImageTextItemWidth * m_planItems.length(), ImageTextItemHeight);
+    return QSize(ItemWidth, (ItemHeight + 10) * m_planItems.length() + 10 );
 }
 
 QListView::Flow DisplayModeProvider::flow() const
 {
-    return QListView::LeftToRight;
+    return QListView::TopToBottom;
 }
 
 void DisplayModeProvider::highlightCurrent()
@@ -89,6 +103,7 @@ void DisplayModeProvider::sync()
             .path("/com/deepin/dde/ControlCenter")
             .method(QString("ShowModule"))
             .arg(QString("display"))
+            .arg(QString("Multiple Displays"))
             .call();
             return;
         } else {
@@ -129,25 +144,74 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant textData = index.data(Qt::DisplayRole);
 
-    const int currentIndex = m_planItems.indexOf(m_currentPlan);
-    const bool isCurrent = (currentIndex == index.row());
-    if (isCurrent) {
-        DrawHelper::DrawBackground(painter, option);
-        DrawHelper::DrawText(painter, option, textData.toString(), Qt::white);
+    const QRect rect(option.rect);
+    QPalette palette;
+    bool checkState = false;
+
+    QRect backRect;
+    if (index.row() == m_planItems.length() - 1) {
+        backRect = rect;
     } else {
-        DrawHelper::DrawText(painter, option, textData.toString());
+        backRect = rect.marginsRemoved(QMargins(0, 0, 0, 10));
     }
 
-    DrawHelper::DrawImage(painter, option, imageData.toString(), true);
+    QColor textCorlor;
 
-    const int v = index.row();
-    if (v > 1)
-        DrawHelper::DrawCenterNum(painter,option, QString::number(v - 1), isCurrent);
+    QColor brushCorlor;
+    brushCorlor = palette.color(QPalette::Base);
+    // 绘制背景
+    painter->setPen(Qt::NoPen);
+    if (option.state & QStyle::State_Selected) {
+        checkState = true;
+        brushCorlor.setAlphaF(0.4);
+        textCorlor = palette.color(QPalette::Highlight);
+    } else {  
+        checkState = false;
+        brushCorlor.setAlphaF(0.1);
+        textCorlor = palette.color(QPalette::BrightText);
+    }
+
+    painter->setBrush(brushCorlor);
+    painter->drawRoundedRect(backRect, 8, 8);
+
+    // 绘制图标
+//    QPixmap pixmap(imageData.toString());
+
+    QSvgRenderer renderer(imageData.toString());
+    QRect imageRect = QRect(QPoint(backRect.x() + ICON_HSPACE,
+                                   backRect.y() + ((backRect.height() - IconSize) / 2)),
+                                   QSize(IconSize, IconSize));
+    renderer.render(painter, imageRect);
+
+    // 绘制文字
+    QTextOption opt;
+    QRect textRect = backRect.marginsRemoved(QMargins(IconSize + ICON_HSPACE * 2, 0, 0, 0));
+    opt.setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    painter->setPen(textCorlor);
+    painter->drawText(textRect, textData.toString(), opt);
+
+    QStyleOptionViewItem viewOption(option);
+    auto style = viewOption.widget->style();
+
+    // 画复选框
+    if (checkState) {
+        QRect checkButtonRect = backRect.marginsRemoved(QMargins(backRect.width() - CHECK_ICON_SIZE - CHECK_ICON_HSPACE,
+                                                        (backRect.height() - CHECK_ICON_SIZE) / 2, CHECK_ICON_HSPACE,
+                                                        (backRect.height() - CHECK_ICON_SIZE) / 2));
+        viewOption.rect = checkButtonRect;
+        viewOption.state |= QStyle::State_On;
+        style->drawPrimitive(DStyle::PE_IndicatorItemViewItemCheck, &viewOption, painter, nullptr);
+    }
 }
 
-QSize DisplayModeProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
+QSize DisplayModeProvider::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    return QSize(ImageTextItemWidth, ImageTextItemHeight);
+    Q_UNUSED(option)
+
+    if (index.row() == m_planItems.length() - 1) {
+        return QSize(ItemWidth , ItemHeight);
+    }
+    return QSize(ItemWidth , ItemHeight + 10);
 }
 
 void DisplayModeProvider::updateOutputNames()
@@ -202,14 +266,12 @@ QString DisplayModeProvider::getPlanItemIcon(QPair<uchar, QString> &plan) const
 {
     const uchar displayMode = plan.first;
 
-    const bool active = (plan == m_currentPlan);
-
-    if (displayMode == DisplayMode::DuplicateMode) {
-        return active ? ":/icons/OSD_copy_mode_active.svg" : ":/icons/OSD_copy_mode.svg";
-    } else if (displayMode == DisplayMode::ExtendMode) {
-        return active ? ":/icons/OSD_extend_mode_active.svg" : ":/icons/OSD_extend_mode.svg";
-    } else if (displayMode == DisplayMode::OSDOnlyMode) {
-        return QString(":/icons/OSD_only1%2.svg").arg(active ? "_active" : "");
+    if (displayMode == 0) {
+        return ":/icons/display_custom.svg";
+    } else if (displayMode == 1) {
+        return ":/icons/display_copy.svg";
+    } else if (displayMode == 2) {
+        return ":/icons/display_expansion.svg";
     }
 
     return "";

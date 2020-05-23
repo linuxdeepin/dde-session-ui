@@ -137,6 +137,8 @@ void Manager::ShowOSD(const QString &osd)
                 m_currentProvider->highlightNext();
             } else {
                 QModelIndex currentIndex = m_listview->currentIndex();
+                if (currentIndex.row() < 0)
+                    currentIndex = m_listview->model()->index(0, 0);
 
                 QModelIndex targetIndex;
                 if (currentIndex.row() + 1 >= m_listview->model()->rowCount(QModelIndex())) {
