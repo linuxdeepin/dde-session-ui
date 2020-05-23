@@ -2,16 +2,10 @@
     <qresource prefix="/">
         <file>icons/OSD_caps_lock_off.svg</file>
         <file>icons/OSD_caps_lock_on.svg</file>
-        <file>icons/OSD_copy_mode_active.svg</file>
-        <file>icons/OSD_copy_mode.svg</file>
-        <file>icons/OSD_custom.svg</file>
-        <file>icons/OSD_extend_mode_active.svg</file>
-        <file>icons/OSD_extend_mode.svg</file>
         <file>icons/OSD_light.svg</file>
         <file>icons/OSD_mute.svg</file>
         <file>icons/OSD_num_lock_off.svg</file>
         <file>icons/OSD_num_lock_on.svg</file>
-        <file>icons/OSD_only1_active.svg</file>
         <file>icons/OSD_only1.svg</file>
         <file>icons/OSD_rotate.svg</file>
         <file>icons/OSD_trackpad_off.svg</file>
@@ -28,7 +22,9 @@
         <file>icons/OSD_wifi_off.svg</file>
         <file>icons/OSD_trackpad_toggle.svg</file>
         <file>icons/notifications.svg</file>
-        <file>icons/OSD_custom_active.svg</file>
         <file>icons/list_icon_clear.svg</file>
+        <file>icons/display_copy.svg</file>
+        <file>icons/display_expansion.svg</file>
+        <file>icons/display_custom.svg</file>
     </qresource>
 </RCC>
