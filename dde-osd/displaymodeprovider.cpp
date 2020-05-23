@@ -175,8 +175,6 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
     painter->drawRoundedRect(backRect, 8, 8);
 
     // 绘制图标
-//    QPixmap pixmap(imageData.toString());
-
     QSvgRenderer renderer(imageData.toString());
     QRect imageRect = QRect(QPoint(backRect.x() + ICON_HSPACE,
                                    backRect.y() + ((backRect.height() - IconSize) / 2)),

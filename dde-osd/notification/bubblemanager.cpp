@@ -526,16 +526,15 @@ uint BubbleManager::recordCount()
     return m_persistence->getRecordCount();
 }
 
-void BubbleManager::removeApp(QString appName)
+void BubbleManager::appInfoChanged(QString action, ItemInfo info)
 {
-    m_notifySettings->appRemoved(appName);
-    Q_EMIT appRemoved(appName);
-}
-
-void BubbleManager::addedApp(QString appName)
-{
-    m_notifySettings->appAdded(appName);
-    Q_EMIT appAdded(appName);
+    if (action == DeletedAction) {
+        m_notifySettings->appRemoved(info.m_key);
+        Q_EMIT appRemoved(info.m_key);
+    } else if (action == CreatedAction) {
+        m_notifySettings->appAdded(info);
+        Q_EMIT appAdded(m_notifySettings->getAppSetings(info.m_key));
+    }
 }
 
 QString BubbleManager::getAllSetting()
@@ -638,8 +637,7 @@ void BubbleManager::initConnections()
         updateGeometry();
     });
 
-    connect(m_launcherInter, &LauncherInter::UninstallSuccess, this, &BubbleManager::removeApp);
-    connect(m_launcherInter, &LauncherInter::NewAppLaunched, this, &BubbleManager::addedApp);
+    connect(m_launcherInter, &LauncherInter::ItemChanged, this, &BubbleManager::appInfoChanged);
 
     connect(m_checkDndTimer, &QTimer::timeout, this, [ = ] {
         m_soundeffectInter->setEnabled(!isDoNotDisturb());

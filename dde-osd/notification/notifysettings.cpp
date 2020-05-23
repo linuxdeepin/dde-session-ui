@@ -1,3 +1,24 @@
+/*
+ * Copyright (C) 2011 ~ 2019 Deepin Technology Co., Ltd.
+ *
+ * Author:     chenwei <chenwei@uniontech.com>
+ *
+ * Maintainer: chenwei <chenwei@uniontech.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "notifysettings.h"
 #include "iteminfo.h"
 #include "constants.h"
@@ -53,6 +74,8 @@ void NotifySettings::initAllSettings()
     for (int i = 0; i < appList.size(); i++) {
         if (!settingList.contains(appList[i].m_key) && !WhiteBoardAppList.contains(appList[i].m_key)) {
             QJsonObject appObj;
+            appObj.insert(AppIconStr, appList[i].m_iconKey);
+            appObj.insert(AppNameStr, appList[i].m_name);
             appObj.insert(AllowNotifyStr, DEFAULT_ALLOW_NOTIFY);
             appObj.insert(OnlyInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
             appObj.insert(LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY);
@@ -141,18 +164,20 @@ QString NotifySettings::getAllSetings()
     return m_settings->get("notifycations-settings").toString();
 }
 
-void NotifySettings::appAdded(QString appName)
+void NotifySettings::appAdded(ItemInfo info)
 {
     if (m_settings == nullptr)
         return;
     QJsonObject obj = QJsonDocument::fromJson(m_settings->get("notifycations-settings").toString().toUtf8()).object();
     QJsonObject appObj;
+    appObj.insert(AppIconStr, info.m_iconKey);
+    appObj.insert(AppNameStr, info.m_name);
     appObj.insert(AllowNotifyStr, DEFAULT_ALLOW_NOTIFY);
     appObj.insert(OnlyInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
     appObj.insert(LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY);
     appObj.insert(ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW);
     appObj.insert(NotificationSoundStr, DEFAULT_NOTIFY_SOUND);
-    obj.insert(appName, appObj);
+    obj.insert(info.m_key, appObj);
 
     m_settings->set("notifycations-settings", QString(QJsonDocument(obj).toJson()));
 }
