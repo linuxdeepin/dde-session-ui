@@ -96,18 +96,18 @@ void DisplayModeProvider::sync()
     const uchar displayMode = m_currentPlan.first;
     const QString monitorId = m_currentPlan.second;
     if (displayMode == 0) {
-        if (m_displayInter->currentCustomId().isNull()) {
-            DDBusSender()
-            .service("com.deepin.dde.ControlCenter")
-            .interface("com.deepin.dde.ControlCenter")
-            .path("/com/deepin/dde/ControlCenter")
-            .method(QString("ShowModule"))
-            .arg(QString("display"))
-            .arg(QString("Multiple Displays"))
-            .call();
-            return;
-        } else {
+        DDBusSender()
+        .service("com.deepin.dde.ControlCenter")
+        .interface("com.deepin.dde.ControlCenter")
+        .path("/com/deepin/dde/ControlCenter")
+        .method(QString("ShowPage"))
+        .arg(QString("display"))
+        .arg(QString("Multiple Displays"))
+        .call();
+        if (!m_displayInter->currentCustomId().isNull()) {
             m_currentPlan.second = m_displayInter->currentCustomId();
+        } else {
+            return;
         }
     }
     m_displayInter->SwitchMode(m_currentPlan.first, m_currentPlan.second);
