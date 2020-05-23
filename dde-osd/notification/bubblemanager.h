@@ -230,8 +230,7 @@ private Q_SLOTS:
      * \~chinese \brief 当主屏幕发生改变或几何大小发送改变,更新所有通知气泡的几何位置
      */
     void updateGeometry();
-    void removeApp(QString appName);
-    void addedApp(QString appName);
+    void appInfoChanged(QString action, ItemInfo info);
 
 private:
     void initConnections();                 //初始化信号槽连接

@@ -68,11 +68,16 @@ static const int BubbleStartPos = -(BubbleWindowHeight + ScreenPadding);  // 窗
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
 
+static const QString DeletedAction = "deleted";
+static const QString CreatedAction = "created";
+
 static const QString AllowNotifyStr = "AllowNotify";
 static const QString OnlyInNotifyCenterStr = "OnlyInNotifyCenter";
 static const QString LockShowNotifyStr = "LockShowNotify";
 static const QString ShowNotifyPreviewStr = "ShowNotifyPreview";
 static const QString NotificationSoundStr = "NotificationSound";
+static const QString AppIconStr = "Icon";
+static const QString AppNameStr = "Name";
 
 static const QString SystemNotifySettingStr = "SystemNotify";
 static const QString DoNotDisturbStr = "DoNotDisturb";

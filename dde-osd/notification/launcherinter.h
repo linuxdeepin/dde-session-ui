@@ -46,6 +46,7 @@ public Q_SLOTS: // METHODS
 
 Q_SIGNALS: // SIGNALS
     void NewAppLaunched(const QString &in0);
+    void ItemChanged(const QString &status, ItemInfo itemInfo, qlonglong categoryID);
     void UninstallSuccess(const QString &in0);
 };
 
