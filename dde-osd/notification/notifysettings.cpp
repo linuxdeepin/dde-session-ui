@@ -3,6 +3,7 @@
 #include "constants.h"
 
 #include <QGSettings>
+#include <QTimer>
 #include <QVariant>
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -14,11 +15,14 @@ const QString path = "/com/deepin/dde/daemon/Launcher";
 NotifySettings::NotifySettings(QObject *parent)
     : QObject(parent)
     , m_launcherInter(new LauncherInter(server, path, QDBusConnection::sessionBus(), this))
+    , m_initTimer(new QTimer(this))
 {
+    m_initTimer->setInterval(1000);
     if (QGSettings::isSchemaInstalled("com.deepin.dde.notification")) {
         m_settings = new QGSettings("com.deepin.dde.notification", "/com/deepin/dde/notification/", this);
-        initAllSettings();
+        m_initTimer->start();
         connect(m_settings, &QGSettings::changed, this, &NotifySettings::settingChanged);
+        connect(m_initTimer, &QTimer::timeout, this, &NotifySettings::initAllSettings);
     }
 }
 
@@ -43,6 +47,9 @@ void NotifySettings::initAllSettings()
     }
 
     ItemInfoList appList = m_launcherInter->GetAllItemInfos();
+    if (appList.size() > 0) {
+        m_initTimer->stop();
+    }
     for (int i = 0; i < appList.size(); i++) {
         if (!settingList.contains(appList[i].m_key) && !WhiteBoardAppList.contains(appList[i].m_key)) {
             QJsonObject appObj;
