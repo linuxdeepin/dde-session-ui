@@ -86,7 +86,6 @@ void Container::setContent(QWidget *content)
 void Container::moveToCenter()
 {
     QDesktopWidget *desktop = QApplication::desktop();
-    const int primary = desktop->primaryScreen();
     const int currentprimary=desktop->screenNumber(QCursor::pos());
 
     QRect displayRect;

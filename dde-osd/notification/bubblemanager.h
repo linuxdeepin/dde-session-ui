@@ -259,6 +259,7 @@ private:
     bool isDoNotDisturb();
     AppNotifyProperty getAppNotifyProperty(QString appName);
     void updateSysNotifyProperty();
+    QRect calcDisplayRect();
 
 private:
     Persistence *m_persistence;

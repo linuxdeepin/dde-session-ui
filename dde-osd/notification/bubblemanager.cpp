@@ -40,6 +40,12 @@
 #include "notifysettings.h"
 #include "notification-center/notifycenterwidget.h"
 
+#include <com_deepin_daemon_display.h>
+#include <com_deepin_daemon_display_monitor.h>
+
+using DisplayInter = com::deepin::daemon::Display;
+using MonitorInter = com::deepin::daemon::display::Monitor;
+
 BubbleManager::BubbleManager(QObject *parent)
     : QObject(parent)
     , m_persistence(new Persistence)
@@ -270,8 +276,8 @@ QRect BubbleManager::GetBubbleGeometry(int index)
     Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
 
     qreal scale = qApp->primaryScreen()->devicePixelRatio();
-    QRect display = m_displayInter->primaryRawRect();
 
+    QRect display = calcDisplayRect();
     display.setWidth(int(qreal(display.width()) / scale));
     display.setHeight(int(qreal(display.height()) / scale));
 
@@ -451,6 +457,28 @@ void BubbleManager::updateSysNotifyProperty()
     }
 }
 
+QRect BubbleManager::calcDisplayRect()
+{
+    QDesktopWidget *desktop = QApplication::desktop();
+    const int currentprimary = desktop->screenNumber(QCursor::pos());
+
+    QRect displayRect;
+    QList<QDBusObjectPath> screenList = m_displayInter->monitors();
+
+    for (auto screen : screenList) {
+        MonitorInter *monitor = new MonitorInter("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
+        if (monitor->enabled()&&screenList.indexOf(screen)==currentprimary) {
+            qDebug() << " screen display : " << screen.path();
+            displayRect = QRect(monitor->x(), monitor->y(),
+                                monitor->width()/qApp->primaryScreen()->devicePixelRatio(),
+                                monitor->height()/qApp->primaryScreen()->devicePixelRatio());
+            break;
+        }
+    }
+
+    return displayRect;
+}
+
 QString BubbleManager::GetAllRecords()
 {
     return m_persistence->getAll();
@@ -484,6 +512,7 @@ void BubbleManager::ClearRecords()
 
 void BubbleManager::Toggle()
 {
+    geometryChanged();
     m_notifyCenter->showWidget();
 }
 
@@ -627,12 +656,20 @@ bool BubbleManager::checkDockExistence()
 
 void BubbleManager::geometryChanged()
 {
-    QRect display = m_displayInter->primaryRawRect();
+    QDesktopWidget *desktop = QApplication::desktop();
+    const int primary = desktop->primaryScreen();
+    const int currentprimary = desktop->screenNumber(QCursor::pos());
+
+    QRect displayRect = calcDisplayRect();
     QRect dock = m_dockDeamonInter->frontendRect();
+    if (primary != currentprimary) {
+        dock.setHeight(0);
+    }
+
     OSD::DockPosition pos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
 
     int mode = m_dockDeamonInter->displayMode();
-    m_notifyCenter->updateGeometry(display, dock, pos, mode);
+    m_notifyCenter->updateGeometry(displayRect, dock, pos, mode);
 }
 
 void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newName)
