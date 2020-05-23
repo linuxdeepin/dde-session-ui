@@ -6,6 +6,7 @@
 #include <QObject>
 
 class QGSettings;
+class QTimer;
 
 using LauncherInter = com::deepin::dde::daemon::Launcher;
 
@@ -41,6 +42,7 @@ private:
 private:
     QGSettings *m_settings = nullptr;
     LauncherInter *m_launcherInter = nullptr;
+    QTimer *m_initTimer;
 };
 
 #endif // NOTIFYSETTINGS_H
