@@ -192,8 +192,10 @@ bool NotificationsPlugin::checkSwap()
 void NotificationsPlugin::refreshPluginItemsVisible()
 {
     if (pluginIsDisable()) {
-        m_proxyInter->itemRemoved(this, pluginName());
+        setIconShow(false);
+        m_proxyInter->itemRemoved(this, pluginName());    
     } else {
+        setIconShow(true);
         if (!m_pluginLoaded) {
             loadPlugin();
             return;
@@ -220,6 +222,16 @@ void NotificationsPlugin::updateDockIcon()
     if (m_isShowIcon)
         m_itemWidget->setDisturb(m_disturb);
     refreshPluginItemsVisible();
+}
+
+void NotificationsPlugin::setIconShow(bool isShow)
+{
+    QMap<QString,QVariant> SystemNotify;
+    QMap<QString,QVariant> setDoNotDisturb;
+    setDoNotDisturb["ShowIconOnDock"] = isShow;
+    SystemNotify["SystemNotify"] = setDoNotDisturb;
+    QString Dbusmsg = QJsonDocument::fromVariant(SystemNotify).toJson();
+    m_notifyInter->setSystemSetting(Dbusmsg);
 }
 
 const QString NotificationsPlugin::itemContextMenu(const QString &itemKey)
