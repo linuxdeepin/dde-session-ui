@@ -1,23 +1,31 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="cs" sourcelanguage="en" version="2.1">
 <context>
+    <name>Bubble</name>
+    <message>
+        <location filename="../dde-osd/notification/bubble.cpp" line="308"/>
+        <source>1 new message</source>
+        <translation>1 nová zpráva</translation>
+    </message>
+</context>
+<context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="196"/>
         <source>Just Now</source>
         <translation>Právě teď</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
         <source>%1 minutes ago</source>
-        <translation>Před %s minutami</translation>
+        <translation>Před %1 minutami</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>%1 hours ago</source>
-        <translation>Před %s hodinami</translation>
+        <translation>Před %1 hodinami</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="203"/>
         <source>Yesterday </source>
         <translation>Včera</translation>
     </message>
@@ -25,22 +33,20 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="32"/>
         <source>Chinese</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">čínština</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="33"/>
         <source>English</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">angličtina</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="44"/>
+        <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="45"/>
+        <location filename="../dde-license-dialog/content.cpp" line="226"/>
         <source>Confirm</source>
         <translation>Potvrdit</translation>
     </message>
@@ -53,7 +59,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="391"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Shut down</source>
-        <translation>Vypnout</translation>
+        <translation>Vypínání</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="332"/>
@@ -66,19 +72,19 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation>Opravdu chcete vypnout počítač?</translation>
+        <translation>Opravdu chcete počítač vypnout?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation>Opravdu chcete restartovat?</translation>
+        <translation>Opravdu chcete počítač restartovat?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
         <source>Log out</source>
-        <translation>Odhlásit se</translation>
+        <translation>Odhlašování se</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
@@ -94,18 +100,18 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
         <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>Programy brání počítači ve vypnutí nebo hibernaci. Vynucení vypnutí nebo hibernace může způsobit ztrátu dat.</translation>
+        <translation>Některé ze spuštěných aplikací brání počítači ve vypnutí nebo uspání na disk. Vynucení vypnutí nebo uspání na disk může způsobit ztrátu dat.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
         <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation>Pro zavření programu klepněte na Zrušit, a potom zavřete program.</translation>
+        <translation>Abyste tomu předešli, klikněte na Storno, a potom dotyčnou aplikaci zavřete.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Hibernate</source>
-        <translation>Hibernovat</translation>
+        <translation>Uspat na disk</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
@@ -124,7 +130,7 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
@@ -139,7 +145,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Uložte si, prosím, svůj dokument, text a tabulku</translation>
+        <translation>Uložte si prosím svůj dokument (text, tabulku…)</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -149,37 +155,37 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Nedostatečná paměť systému. Ukončete některé aplikace, abyste zabránili zaseknutí systému.</translation>
+        <translation>Systému dochází volná operační paměť. Uvolněte ji ukončením nějakých aplikací a zabraňte tak zatuhnutí systému.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>Pokračujte v spuštění aplikace %1. Je požadováno %2 MB paměti</translation>
+        <translation>Pokračovat ve spuštění aplikace %1. Je zapotřebí %2 MB paměti</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Pokračujte v otevření karty prohlížeče, je vyžadována paměť %1MB</translation>
+        <translation>Pokračovat v otevření nového panelu v prohlížeči. Je zapotřebí %1MB paměti</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>Chcete-li pokračovat v operaci, je vyžadována paměť %1 MB</translation>
+        <translation>Pro pokračování v operaci je zapotřebí %1 MB paměti</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>Nynější paměť je dostačující. Chcete pokračovat ve spuštění %1?</translation>
+        <translation>Stávající volná operační paměť je ještě dostačující – pokračovat ve spouštění %1?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>Vaše nynější paměť je dostačující. Chcete pokračovat otevřením karty prohlížeče?</translation>
+        <translation>Stávající volná operační paměť je ještě dostačující – pokračovat v otevírání panelu v prohlížeči?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation>Nynější paměť je dostačující. Chcete pokračovat v operaci?</translation>
+        <translation>Stávající volná operační paměť je ještě dostačující – pokračovat v operaci?</translation>
     </message>
 </context>
 <context>
@@ -187,7 +193,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Aktualizace jsou staženy, je možné restartovat? </translation>
+        <translation>Aktualizace staženy – je možné restartovat?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
@@ -208,12 +214,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
-        <source>Duplicate</source>
-        <translation>Zdvojit</translation>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
+        <source>Customize</source>
+        <translation>Přizpůsobit</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
+        <source>Duplicate</source>
+        <translation>Zrcadlit</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="256"/>
         <source>Extend</source>
         <translation>Roztáhnout</translation>
     </message>
@@ -223,12 +234,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Prosím nevypínejte ani neodpojujte zařízení</translation>
+        <translation>Počítač prosím nevypínejte ani neodpojujte od napájení z elektrické sítě</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>Probíhá instalace aktualizací %1%, čekejte prosím...</translation>
+        <translation>Probíhá instalace aktualizací %1% – čekejte prosím…</translation>
     </message>
 </context>
 <context>
@@ -236,27 +247,27 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
         <source>Domain account</source>
-        <translation>Účet domény</translation>
+        <translation>Doménový účet</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Nepodařilo se porovnat otisk prstu. Zadejte, prosím, své heslo ručně</translation>
+        <translation>Překročen časový limit pro pokus o ověření se otiskem prstu – zadejte namísto toho heslo ručně</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation>Nepodařilo se porovnat otisk prstu</translation>
+        <translation>Nepodařilo se najít v otisku shodu</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
         <source>Wrong Password</source>
-        <translation>Špatné heslo</translation>
+        <translation>Chybné heslo</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>Účet domény nebo heslo není správné. Zadejte je, prosím, znovu.</translation>
+        <translation>Doménový účet nebo heslo není správné. Prosím zkuste zadat znovu.</translation>
     </message>
 </context>
 <context>
@@ -264,7 +275,7 @@
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="66"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
 </context>
 <context>
@@ -280,22 +291,22 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
-        <translation>Účet domény</translation>
+        <translation>Doménový účet</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Nepodařilo se porovnat otisk prstu. Zadejte, prosím, své heslo ručně</translation>
+        <translation>Překročen časový limit pro pokus o ověření se otiskem prstu – zadejte namísto toho heslo ručně</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
-        <translation>Nepodařilo se porovnat otisk prstu</translation>
+        <translation>Nepodařilo se najít v otisku shodu</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
-        <translation>Špatné heslo</translation>
+        <translation>Chybné heslo</translation>
     </message>
 </context>
 <context>
@@ -303,17 +314,17 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>Výše uvedení uživatelé jsou stále přihlášeni a restartováním budou data ztracena, opravdu chcete restartovat?</translation>
+        <translation>Výše uvedení uživatelé jsou pořád ještě přihlášení a restartováním mohou přijít o data – opravdu chcete počítač restartovat?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation>Výše uvedení uživatelé jsou stále přihlášeni a vypnutím budou data ztracena, opravdu chcete vypnout?</translation>
+        <translation>Výše uvedení uživatelé jsou pořád ještě přihlášení a vypnutím mohou přijít o data – opravdu chcete počítač vypnout?</translation>
     </message>
 </context>
 <context>
@@ -335,7 +346,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation>Klíč</translation>
+        <translation>klíč</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -345,7 +356,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation>Heslo proxy</translation>
+        <translation>Heslo k proxy</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
@@ -353,22 +364,22 @@
         <translation>Heslo skupiny</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation>Heslo požadováno pro připojení &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
+        <translation>Pro připojení se k &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; je požadováno heslo</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
-        <translation>Špatné heslo. Zkuste to, prosím, znovu!</translation>
+        <translation>Chybné heslo. Zkuste ho prosím zadat znovu!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Connect</source>
         <translation>Připojit</translation>
     </message>
@@ -376,23 +387,42 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="94"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
         <source>Notification Center</source>
-        <translation>Oznamovací středisko</translation>
+        <translation>Centrum oznámení</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
         <source>%1 Notifications</source>
         <translation>%1 oznámení</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <source>No messages</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <source>Turn off DND mode</source>
+        <translation>Vypnout režim Nerušit</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <source>Turn on DND mode</source>
+        <translation>Zapnout režim Nerušit</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="242"/>
+        <source>Notification settings</source>
+        <translation>Nastavení upozornění</translation>
     </message>
 </context>
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="90"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="88"/>
         <source>Notification Center</source>
-        <translation>Oznamovací středisko</translation>
+        <translation>Centrum oznámení</translation>
     </message>
 </context>
 <context>
@@ -400,7 +430,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
-        <translation>Žádná systémová upozornění</translation>
+        <translation>Žádná upozornění ze systému</translation>
     </message>
 </context>
 <context>
@@ -408,17 +438,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation>Okenní efekt povolen</translation>
+        <translation>Efekty oken zapnuté</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation>Okenní efekt zakázán</translation>
+        <translation>Efekty oken vypnuté</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation>Nepodařilo se povolit okenní efekty</translation>
+        <translation>Efekty oken se nepodařilo zapnout</translation>
     </message>
 </context>
 <context>
@@ -433,7 +463,7 @@
     <name>ShutdownWidget</name>
     <message>
         <source>Shut down</source>
-        <translation type="vanished">Vypnout</translation>
+        <translation type="vanished">Vypínání</translation>
     </message>
     <message>
         <source>Login</source>
@@ -449,29 +479,29 @@
     </message>
     <message>
         <source>Hibernate</source>
-        <translation type="vanished">Hibernovat</translation>
+        <translation type="vanished">Uspat na disk</translation>
     </message>
 </context>
 <context>
     <name>SuspendDialog</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation>Zjištěna vnější obrazovka. Uspat?</translation>
+        <translation>Zjištěn externí monitor – uspat?</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="57"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Suspend</source>
         <translation>Uspat</translation>
     </message>
@@ -481,7 +511,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>Spustit sledování systému</translation>
+        <translation>Spustit Systémové prostředky</translation>
     </message>
 </context>
 <context>
@@ -494,7 +524,7 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation>rrrrr-MM-dd dddd</translation>
     </message>
 </context>
 <context>
@@ -507,7 +537,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation>Nynější vydání</translation>
+        <translation>Stávající vydání:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
@@ -523,15 +553,15 @@
     </message>
     <message numerus="yes">
         <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>Zkuste to, prosím, znovu po %n minutě</numerusform><numerusform>Zkuste to, prosím, znovu po %n minutách</numerusform><numerusform>Zkuste to, prosím, znovu po %n minutách</numerusform><numerusform>Zkuste to, prosím, znovu po %n minutách</numerusform></translation>
+        <translation type="vanished"><numerusform>Zkuste to znovu za %n minutu</numerusform><numerusform>Zkuste to znovu za %n minuty</numerusform><numerusform>Zkuste to znovu za %n minut</numerusform><numerusform>Zkuste to znovu za %n minuty</numerusform></translation>
     </message>
     <message>
         <source>Enter your password to shut down</source>
-        <translation type="vanished">Zadejte své heslo pro vypnutí</translation>
+        <translation type="vanished">Pro vypnutí zadejte své heslo</translation>
     </message>
     <message>
         <source>Enter your password to reboot</source>
-        <translation type="vanished">Zadejte heslo pro restart</translation>
+        <translation type="vanished">Pro restart zadejte své heslo</translation>
     </message>
 </context>
 <context>
@@ -539,22 +569,22 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>Efektový režim</translation>
+        <translation>Líbivý režim</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>Normální režim</translation>
+        <translation>Střídmý režim</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>Bylo zjištěno, že používáte virtuální stroj, což má vliv na výkon systému a pocit z jeho rychlosti. Pro plynulost prožitku se doporučuje zvolit Normální režim</translation>
+        <translation>Bylo zjištěno, že systém používáte ve virtuálním stroji, což snižuje výkon systému a zhoršuje tak dojem z jeho provozování. Pro alespoň trochu plynulejší fungování se proto doporučuje zvolit „Střídmý režim“</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Efektový režim: Zažijete nádhernou zkušenost. Normální režim: Užijte si vysokou rychlost</translation>
+        <translation>Líbivý režim: Potěšte se estetičnem. Střídmý režim: Užívejte si rychlou odezvu systému</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
@@ -572,7 +602,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation>Tento program nemůže běžet bez okenního efektu</translation>
+        <translation>Tuto aplikaci není možné spustit bez efektu okna</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
@@ -585,7 +615,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Nízký stav baterie. Připojte, prosím, počítač k síti</translation>
+        <translation>Akumulátor je téměř vybitý – připojte počítač k napájení z elektrické sítě</translation>
     </message>
 </context>
 </TS>
