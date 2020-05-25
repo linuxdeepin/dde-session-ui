@@ -70,7 +70,6 @@ private:
     void refreshPluginItemsVisible();
     void initPluginState();
     void updateDockIcon();
-    void setIconShow(bool isShow);
 
 private:
     bool m_pluginLoaded;

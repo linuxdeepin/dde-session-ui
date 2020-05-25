@@ -23,5 +23,5 @@ DISTFILES       += notifications.json
 RESOURCES += \
     resources.qrc
 
-target.path = /usr/lib/dde-dock/plugins/
+target.path = /usr/lib/dde-dock/plugins/system-trays/
 INSTALLS += target
