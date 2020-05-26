@@ -2,22 +2,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>Just Now</source>
         <translation>방금 전</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 minutes ago</source>
         <translation>%1분 전</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>%1 hours ago</source>
         <translation>%1시간 전</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="207"/>
         <source>Yesterday </source>
         <translation>어제 </translation>
     </message>
@@ -25,24 +25,22 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="32"/>
         <source>Chinese</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">중국어</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="33"/>
         <source>English</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">영어</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="44"/>
+        <location filename="../dde-license-dialog/content.cpp" line="224"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="45"/>
+        <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Confirm</source>
-        <translation>확정</translation>
+        <translation>확인</translation>
     </message>
 </context>
 <context>
@@ -61,7 +59,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Reboot</source>
-        <translation>다시 시작</translation>
+        <translation>재부팅</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
@@ -89,7 +87,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Suspend</source>
-        <translation>일시 정지</translation>
+        <translation>절전 모드</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
@@ -110,7 +108,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
         <source>Lock</source>
-        <translation>잠그기</translation>
+        <translation>잠금</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="546"/>
@@ -208,12 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="184"/>
+        <source>Customize</source>
+        <translation>사용자 정의</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="186"/>
         <source>Duplicate</source>
         <translation>복제</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="188"/>
         <source>Extend</source>
         <translation>확장</translation>
     </message>
@@ -353,22 +356,22 @@
         <translation>그룹 비밀번호</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;을(를) 연결하는 데 필요한 비밀번호</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
-        <translation type="unfinished"/>
+        <translation>비밀번호가 잘못되었습니다. 다시 입력하십시오!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Connect</source>
         <translation>연결</translation>
     </message>
@@ -433,7 +436,7 @@
     <name>ShutdownWidget</name>
     <message>
         <source>Shut down</source>
-        <translation type="vanished">종료하기</translation>
+        <translation type="vanished">종료</translation>
     </message>
     <message>
         <source>Login</source>
@@ -441,11 +444,11 @@
     </message>
     <message>
         <source>Reboot</source>
-        <translation type="vanished">다시 시작</translation>
+        <translation type="vanished">재부팅</translation>
     </message>
     <message>
         <source>Suspend</source>
-        <translation type="vanished">일시 정지</translation>
+        <translation type="vanished">절전 모드</translation>
     </message>
     <message>
         <source>Hibernate</source>
@@ -455,25 +458,25 @@
 <context>
     <name>SuspendDialog</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
         <translation>외부 모니터가 발견되었습니다. 일시 정지할까요?</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="57"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
         <source>%1s</source>
         <translation>%1초</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Suspend</source>
-        <translation>일시 정지</translation>
+        <translation>절전 모드</translation>
     </message>
 </context>
 <context>
@@ -523,15 +526,15 @@
     </message>
     <message numerus="yes">
         <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>%n 분() 후에 다시 시도하십시오</numerusform></translation>
+        <translation type="unfinished"><numerusform></numerusform></translation>
     </message>
     <message>
         <source>Enter your password to shut down</source>
-        <translation type="vanished">종료 할 비밀번호를 입력하십시오</translation>
+        <translation type="vanished">종료하려면 비밀번호를 입력하십시오</translation>
     </message>
     <message>
         <source>Enter your password to reboot</source>
-        <translation type="vanished">다시 시작하려면 비밀번호를 입력하세요</translation>
+        <translation type="vanished">다시 시작하려면 비밀번호를 입력하십시오</translation>
     </message>
 </context>
 <context>
