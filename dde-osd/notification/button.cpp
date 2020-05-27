@@ -291,7 +291,7 @@ void Button::drawBackground(QPainter *painter)
     QPen borderPen;
     borderPen.setColor(Qt::transparent);
     painter->setPen(borderPen);
-    painter->drawRoundRect(QRectF(0, 0, width(), height()), m_radius, m_radius);
+    painter->drawRoundedRect(QRectF(0, 0, width(), height()), m_radius, m_radius);
 
     painter->restore();
 }
