@@ -69,7 +69,9 @@ private:
     bool checkSwap();
     void refreshPluginItemsVisible();
     void initPluginState();
-    void updateDockIcon();
+    void updateDockIcon(QString settings);
+    void setNotifySetting(QString key, QVariant value);
+    QVariant getNotifySetting(QString key);
 
 private:
     bool m_pluginLoaded;
