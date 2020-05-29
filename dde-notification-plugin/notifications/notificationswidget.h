@@ -32,17 +32,24 @@ class NotificationsWidget: public QWidget
     Q_OBJECT
 
 public:
-    explicit NotificationsWidget(QWidget *parent = 0);
+    explicit NotificationsWidget(QWidget *parent = nullptr);
     void setDisturb(bool OK);
 
 protected:
     void paintEvent(QPaintEvent *e) override;
+
+private:
     void resizeEvent(QResizeEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void leaveEvent(QEvent *event) override;
     const QPixmap loadSvg(const QString &iconName, const QString &localPath, const int size, const qreal ratio);
 
 private:
     bool m_disturb; //提供勿扰图标修改
-
+    bool m_hover;
+    bool m_pressed;
 };
 
 #endif // NOTIFICATIONSWIDGET_H

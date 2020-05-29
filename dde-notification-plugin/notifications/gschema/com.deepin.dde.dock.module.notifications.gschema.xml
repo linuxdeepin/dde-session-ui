@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/com/deepin/dde/dock/module/notifications/" id="com.deepin.dde.dock.module.notifications" gettext-domain="DDE">
+    <key type="b" name="control">
+      <default>false</default>
+      <summary>Blocking event</summary>
+      <description>
+            Blocking mouse events
+      </description>
+    </key>
+    <key type="b" name="enable">
+      <default>true</default>
+      <summary>Module Enable</summary>
+      <description>
+            Control Module Enable
+      </description>
+    </key>
+  </schema>
+</schemalist>

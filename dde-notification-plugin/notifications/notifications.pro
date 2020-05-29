@@ -23,5 +23,7 @@ DISTFILES       += notifications.json
 RESOURCES += \
     resources.qrc
 
-target.path = /usr/lib/dde-dock/plugins/system-trays/
-INSTALLS += target
+target.path = /usr/lib/dde-dock/plugins/
+gschema_files.path = /usr/share/glib-2.0/schemas/
+gschema_files.files = gschema/com.deepin.dde.dock.module.notifications.gschema.xml
+INSTALLS += target gschema_files
