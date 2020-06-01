@@ -1,3 +1,3 @@
 #!/bin/bash
-lupdate ./ -ts ./translations/dde-session-ui.ts
-tx push -s -b uos
+lupdate ./ -ts -no-obsolete ./translations/dde-session-ui.ts
+tx push -s -b m20
