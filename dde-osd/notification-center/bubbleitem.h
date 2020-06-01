@@ -94,6 +94,7 @@ public Q_SLOTS:
     void onHavorStateChanged(bool hover);
     void onCloseBubble();
     void onRefreshTime();
+    void setOverlapWidget(bool isOverlap);
 
 protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;       //获取当前鼠标点击的位置
@@ -131,6 +132,7 @@ private:
     QString m_defaultAction;
     QPoint m_pressPoint;
     int m_indexRow = 0;
+    bool m_isOverlapWidget = false;
 };
 
 #endif // BUBBLEITEM_H
