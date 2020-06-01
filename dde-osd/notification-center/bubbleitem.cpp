@@ -209,6 +209,11 @@ void BubbleItem::onRefreshTime()
     m_appTimeLabel->setText(text);
 }
 
+void BubbleItem::setOverlapWidget(bool isOverlap)
+{
+    m_isOverlapWidget = isOverlap;
+}
+
 void BubbleItem::mousePressEvent(QMouseEvent *event)
 {
     m_pressPoint = event->pos();
@@ -218,6 +223,10 @@ void BubbleItem::mousePressEvent(QMouseEvent *event)
 
 void BubbleItem::mouseReleaseEvent(QMouseEvent *event)
 {
+    if (m_isOverlapWidget) {
+        return DWidget::mouseReleaseEvent(event);
+    }
+
     if (m_pressPoint == event->pos()) {
         if(!m_defaultAction.isEmpty())
         {
@@ -228,7 +237,8 @@ void BubbleItem::mouseReleaseEvent(QMouseEvent *event)
                 onCloseBubble();
         }
     }
-    DWidget::mouseReleaseEvent(event);
+
+    return DWidget::mouseReleaseEvent(event);
 }
 
 void BubbleItem::keyPressEvent(QKeyEvent *event)

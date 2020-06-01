@@ -132,6 +132,7 @@ void OverLapWidet::initOverlap()
     }
 
     m_faceBubbleItem = new BubbleItem(this, m_entify);
+    m_faceBubbleItem->setOverlapWidget(true);
     m_faceBubbleItem->setParentModel(m_model);
     setFocusProxy(m_faceBubbleItem);
 }
