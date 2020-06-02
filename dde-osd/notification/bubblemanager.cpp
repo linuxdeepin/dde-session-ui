@@ -334,13 +334,13 @@ bool BubbleManager::isDoNotDisturb()
         int endTime = m_sysNotifyProperty.EndTime;
         //判断当前时间是否再时间段内
         if (startTime < endTime) {
-            if (startTime < currentTime && endTime > currentTime) {
+            if (startTime <= currentTime && endTime >= currentTime) {
                 isTimeMeet = true;
             } else {
                 isTimeMeet = false;
             }
         } else if (startTime > endTime) {
-            if (startTime < currentTime || endTime > currentTime) {
+            if (startTime <= currentTime || endTime >= currentTime) {
                 isTimeMeet = true;
             } else {
                 isTimeMeet = false;
