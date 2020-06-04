@@ -42,6 +42,7 @@
 
 #include <com_deepin_daemon_display.h>
 #include <com_deepin_daemon_display_monitor.h>
+#include "dbusdock_interface.h"
 
 using DisplayInter = com::deepin::daemon::Display;
 using MonitorInter = com::deepin::daemon::display::Monitor;
@@ -63,6 +64,9 @@ BubbleManager::BubbleManager(QObject *parent)
     , m_soundeffectInter(new SoundeffectInter("com.deepin.daemon.SoundEffect",
                                               "/com/deepin/daemon/SoundEffect",
                                               QDBusConnection::sessionBus(), this))
+    , m_dockInter(new DBusDockInterface("com.deepin.dde.Dock",
+                                        "/com/deepin/dde/Dock",
+                                        QDBusConnection::sessionBus(), this))
 
 {
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
@@ -87,7 +91,7 @@ BubbleManager::BubbleManager(QObject *parent)
 
 BubbleManager::~BubbleManager()
 {
-    if(!m_bubbleList.isEmpty()) qDeleteAll(m_bubbleList);
+    if (!m_bubbleList.isEmpty()) qDeleteAll(m_bubbleList);
 
     m_oldEntities.clear();
 }
@@ -286,7 +290,7 @@ QRect BubbleManager::GetBubbleGeometry(int index)
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
         rect.setX(display.x() + (display.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
-        rect.setY(display.y()+ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
+        rect.setY(display.y() + ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
         rect.setWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
         rect.setHeight(OSD::BubbleHeight(OSD::BUBBLEWINDOW));
     } else if (index >= BubbleEntities && index <= BubbleEntities + BubbleOverLap) {
@@ -352,9 +356,9 @@ bool BubbleManager::isDoNotDisturb()
         if (isTimeMeet && m_sysNotifyProperty.isTimeSlot) {
             return true;
         } else {
-            return (hasProjector&&m_sysNotifyProperty.isConnectedProjector)
-                    ||(hasAppFull&&m_sysNotifyProperty.isAppsInFullscreen)
-                    ||(m_sysNotifyProperty.isScreenLocked&&isLock);
+            return (hasProjector && m_sysNotifyProperty.isConnectedProjector)
+                   || (hasAppFull && m_sysNotifyProperty.isAppsInFullscreen)
+                   || (m_sysNotifyProperty.isScreenLocked && isLock);
         }
     } else {
         return false;
@@ -461,19 +465,18 @@ void BubbleManager::updateSysNotifyProperty()
 
 QRect BubbleManager::calcDisplayRect()
 {
-    QDesktopWidget *desktop = QApplication::desktop();
-    const int currentprimary = desktop->screenNumber(QCursor::pos());
-
     QRect displayRect;
     QList<QDBusObjectPath> screenList = m_displayInter->monitors();
 
     for (auto screen : screenList) {
         MonitorInter *monitor = new MonitorInter("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
-        if (monitor->enabled()&&screenList.indexOf(screen)==currentprimary) {
+        if (monitor->enabled()
+                && QCursor::pos().x() >= monitor->x() && QCursor::pos().x() <= monitor->x() + monitor->width()
+                && QCursor::pos().y() >= monitor->y() && QCursor::pos().y() <= monitor->y() + monitor->height()) {
             qDebug() << " screen display : " << screen.path();
             displayRect = QRect(monitor->x(), monitor->y(),
-                                monitor->width()/qApp->primaryScreen()->devicePixelRatio(),
-                                monitor->height()/qApp->primaryScreen()->devicePixelRatio());
+                                monitor->width() / qApp->primaryScreen()->devicePixelRatio(),
+                                monitor->height() / qApp->primaryScreen()->devicePixelRatio());
             break;
         }
     }
@@ -660,13 +663,9 @@ bool BubbleManager::checkDockExistence()
 
 void BubbleManager::geometryChanged()
 {
-    QDesktopWidget *desktop = QApplication::desktop();
-    const int primary = desktop->primaryScreen();
-    const int currentprimary = desktop->screenNumber(QCursor::pos());
-
     QRect displayRect = calcDisplayRect();
-    QRect dock = m_dockDeamonInter->frontendRect();
-    if (primary != currentprimary) {
+    QRect dock = m_dockInter->geometry();
+    if ((dock.topLeft().x() > QCursor::pos().x() || dock.topLeft().x() + dock.width() < QCursor::pos().x())) {
         dock.setHeight(0);
     }
 
