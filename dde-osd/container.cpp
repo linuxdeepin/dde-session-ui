@@ -93,7 +93,9 @@ void Container::moveToCenter()
     QList<QDBusObjectPath> screenList = displayInter->monitors();
     for (auto screen : screenList) {
         MonitorInter *monitor = new MonitorInter("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
-        if (monitor->enabled()&&screenList.indexOf(screen)==currentprimary) {
+        if (monitor->enabled()
+                && QCursor::pos().x() >= monitor->x() && QCursor::pos().x() <= monitor->x()+ monitor->width()
+                && QCursor::pos().y() >= monitor->y() && QCursor::pos().y() <= monitor->y()+ monitor->height()) {
             qDebug() << " screen display : " << screen.path();
             displayRect = QRect(monitor->x(), monitor->y(),
                                 monitor->width()/qApp->primaryScreen()->devicePixelRatio(),
