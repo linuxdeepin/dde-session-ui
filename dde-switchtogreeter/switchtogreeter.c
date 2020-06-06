@@ -228,16 +228,54 @@ switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
     printf("usd->username: %s\n", usd->username);
 
     if (usd->session_path != NULL && usd->username != NULL) {
+        GDBusProxy *login1_session_proxy = NULL;
+        GVariant *type_prop_var = NULL;
+        gchar *type = NULL;
+        char objpath[256];
         sd_uid_get_sessions(name_to_uid(usd->username), 0, &sessions);
+
         while (*sessions) {
             sd_session_get_display(*sessions, &display);
-            if (NULL == display){
+            memset(objpath, 0, 256 * sizeof(char));
+            sprintf(objpath, "/org/freedesktop/login1/session/_3%s", *sessions);
+            login1_session_proxy = g_dbus_proxy_new_for_bus_sync(G_BUS_TYPE_SYSTEM,
+                                                                 G_DBUS_PROXY_FLAGS_NONE,
+                                                                 NULL,
+                                                                 "org.freedesktop.login1",
+                                                                 objpath,
+                                                                 "org.freedesktop.login1.Session",
+                                                                 NULL,
+                                                                 &error);
+
+            if (error != NULL) {
+                g_warning("switchtogreeter:login1_session_proxy %s\n", error->message);
+                g_error_free(error);
+                g_object_unref(login1_session_proxy);
+                return 1;
+            }
+            
+            error = NULL;
+            
+            type_prop_var = g_dbus_proxy_get_cached_property(login1_session_proxy, "Type");
+            if (type_prop_var == NULL) {
+                g_variant_unref(type_prop_var);
+                g_object_unref(login1_session_proxy);
+                return 1;
+            }
+            
+            type = g_variant_dup_string(type_prop_var, NULL);
+            
+            if (NULL == display && strcmp(type, "wayland") != 0){
                 sessions++;
+                g_free(type);
+                g_variant_unref(type_prop_var);
+                g_object_unref(login1_session_proxy);
                 continue;
             }
-
+            
             sd_session_get_seat(*sessions, &seat);
             printf("session display %s %s\n", *sessions, display);
+
             if (seat != NULL && (0 == g_ascii_strcasecmp(seat, cur_seat))) {
                 new_user_session = *sessions;
                 printf("switchtogreeter: find sessions path %s %s \n", new_user_session, seat);
@@ -245,6 +283,10 @@ switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
             }
             sessions++;
         }
+
+        g_free(type);
+        g_variant_unref(type_prop_var);
+        g_object_unref(login1_session_proxy);
 
         if (NULL == new_user_session) {
             g_error("switchtogreeter: can not find user sessions %s \n", usd->username);
@@ -343,7 +385,7 @@ int main(int argc G_GNUC_UNUSED, char **argv G_GNUC_UNUSED)
         g_free(current_username);
         return 1;
     }
-
+    
     ret = switch_to_greeter(current_seat_path, &new_user);
 
     g_free(current_username);
