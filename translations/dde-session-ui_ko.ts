@@ -33,14 +33,6 @@
 <context>
     <name>Content</name>
     <message>
-        <source>Chinese</source>
-        <translation type="vanished">중국어</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">영어</translation>
-    </message>
-    <message>
         <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
         <translation>취소</translation>
@@ -387,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="66"/>
         <source>Notification Center</source>
         <translation>알림 센터</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="86"/>
         <source>%1 Notifications</source>
         <translation>%1 알림</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="88"/>
         <source>No messages</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn off DND mode</source>
         <translation>DND 모드 끄기</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn on DND mode</source>
         <translation>DND모드 켜기</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="242"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="266"/>
         <source>Notification settings</source>
         <translation>알림 설정</translation>
     </message>
@@ -457,29 +449,6 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>끝내기</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">종료</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">로그인</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">재부팅</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">절전 모드</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">최대 절전 모드</translation>
     </message>
 </context>
 <context>
@@ -546,25 +515,6 @@
     </message>
 </context>
 <context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">로그인</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>%n분 후에 다시 시도하십시오</numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">종료하려면 비밀번호를 입력하십시오</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">다시 시작하려면 비밀번호를 입력하십시오</translation>
-    </message>
-</context>
-<context>
     <name>WMChooser</name>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
@@ -616,6 +566,24 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>배터리 잔량이 낮습니다. 전원을 연결하십시오</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>블루투스 장치와 연결하기 위한 PIN번호 :</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>취소</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>확인</translation>
     </message>
 </context>
 </TS>

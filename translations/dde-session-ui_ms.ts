@@ -33,14 +33,6 @@
 <context>
     <name>Content</name>
     <message>
-        <source>Chinese</source>
-        <translation type="vanished">Bahasa Cina</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">Bahasa Inggeris</translation>
-    </message>
-    <message>
         <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
         <translation>Batal</translation>
@@ -387,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="66"/>
         <source>Notification Center</source>
         <translation>Pusat Pemberitahuan</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="86"/>
         <source>%1 Notifications</source>
         <translation>%1 Pemberitahuan</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="88"/>
         <source>No messages</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn off DND mode</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn on DND mode</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="242"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="266"/>
         <source>Notification settings</source>
         <translation type="unfinished"/>
     </message>
@@ -457,29 +449,6 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Akhir</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">Matikan</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Daftar Masuk</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">But semula</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">Tangguh</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">Hibernasi</translation>
     </message>
 </context>
 <context>
@@ -546,25 +515,6 @@
     </message>
 </context>
 <context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Daftar Masuk</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">Masukkan kata laluan anda untuk matikan komputer</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">Masukkan kata laluan anda untuk membut semula</translation>
-    </message>
-</context>
-<context>
     <name>WMChooser</name>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
@@ -616,6 +566,24 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>Kuasa bateri lemah, sila palamkan kuasa</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>PIN untuk menyambung dengan peranti Bluetooth ialah:</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Batal</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>Sahkan</translation>
     </message>
 </context>
 </TS>

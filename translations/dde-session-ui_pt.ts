@@ -33,14 +33,6 @@
 <context>
     <name>Content</name>
     <message>
-        <source>Chinese</source>
-        <translation type="vanished">Chinês</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">Inglês</translation>
-    </message>
-    <message>
         <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
@@ -140,12 +132,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Esta aplicação será terminada, certifique-se que os seus dados foram guardados!</translation>
+        <translation>Esta aplicação será encerrada, certifique-se que os seus dados foram guardados!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Guardar o seu documento, texto e folha de cálculo</translation>
+        <translation>Guarde o seu documento, texto e folha de cálculo</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -180,7 +172,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>A sua memória atual é suficiente, continuar para abrir separador do navegador?</translation>
+        <translation>A sua memória atual é suficiente, continuar para abrir o separador do navegador?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
@@ -234,7 +226,7 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Não encerre ou desligue da corrente o seu computador</translation>
+        <translation>Não encerre ou desligue o computador da corrente</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
@@ -252,7 +244,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>A verificação por impressão digital expirou, introduza a sua palavra-passe manualmente</translation>
+        <translation>A verificação por impressão digital expirou, introduza manualmente a sua palavra-passe</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
@@ -296,7 +288,7 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>A verificação por impressão digital expirou, introduza a sua palavra-passe manualmente</translation>
+        <translation>A verificação por impressão digital expirou, introduza manualmente a sua palavra-passe</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
@@ -387,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="66"/>
         <source>Notification Center</source>
         <translation>Centro de Notificações</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="86"/>
         <source>%1 Notifications</source>
         <translation>%1 Notificações</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="88"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>Sem mensagens</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn off DND mode</source>
         <translation>Desligar modo DND</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn on DND mode</source>
         <translation>Ligar modo DND</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="242"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="266"/>
         <source>Notification settings</source>
         <translation>Definições de notificação</translation>
     </message>
@@ -430,7 +422,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
-        <translation>Sem notificações de sistema</translation>
+        <translation>Sem notificações do sistema</translation>
     </message>
 </context>
 <context>
@@ -448,7 +440,7 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation>Falha ao ativar efeitos visuais</translation>
+        <translation>Não foi possível ativar os efeitos visuais</translation>
     </message>
 </context>
 <context>
@@ -460,34 +452,11 @@
     </message>
 </context>
 <context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">Encerrar</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Iniciar sessão</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">Reiniciar</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">Suspender</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">Hibernar</translation>
-    </message>
-</context>
-<context>
     <name>SuspendDialog</name>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation>Monitor externo detetado, suspender?</translation>
+        <translation>Detetado monitor externo, suspender?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
@@ -532,7 +501,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Bem vindo, o sistema foi atualizado com sucesso</translation>
+        <translation>Bem-vindo, o sistema foi atualizado com sucesso</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
@@ -543,25 +512,6 @@
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
         <translation>Entrar</translation>
-    </message>
-</context>
-<context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Iniciar sessão</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>Tente novamente %n minuto(s) mais tarde</numerusform><numerusform>Tente novamente %n minuto(s) mais tarde</numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">Introduza a sua palavra-passe para encerrar</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">Introduza a sua palavra-passe para reiniciar</translation>
     </message>
 </context>
 <context>
@@ -579,7 +529,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>Foi detetado que está a usar uma máquina virtual, o que irá afetar a performance do sistema e a experiência de utilização, para uma experiência sem problemas, é recomendado o Modo Normal</translation>
+        <translation>Foi detetado que está a utilizar uma máquina virtual, o que irá afetar o desempenho do sistema e a experiência de utilização, para uma experiência sem problemas, é recomendado o «Modo Normal»</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
@@ -616,6 +566,24 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>Bateria fraca, ligue à corrente</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>O PIN para ligar com o dispositivo Bluetooth é:</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>Confirmar</translation>
     </message>
 </context>
 </TS>

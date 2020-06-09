@@ -33,14 +33,6 @@
 <context>
     <name>Content</name>
     <message>
-        <source>Chinese</source>
-        <translation type="vanished">Kinezçe</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">Anglisht</translation>
-    </message>
-    <message>
         <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
         <translation>Anuloje</translation>
@@ -387,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="66"/>
         <source>Notification Center</source>
         <translation>Qendër Njoftimesh</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="86"/>
         <source>%1 Notifications</source>
         <translation>%1 Njoftime</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="88"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>S’ka mesazhe</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn off DND mode</source>
         <translation>Çaktivizo mënyrën DND</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn on DND mode</source>
         <translation>Aktivizo mënyrën DND</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="242"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="266"/>
         <source>Notification settings</source>
         <translation>Rregullime njoftimesh</translation>
     </message>
@@ -457,29 +449,6 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Përfundoje</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">Fike</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Hyrje</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">Rinisu</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">Pezulloje</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">Plogështoje</translation>
     </message>
 </context>
 <context>
@@ -546,25 +515,6 @@
     </message>
 </context>
 <context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Hyrje</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>Ju lutemi, riprovoni %n minutë(a) më vonë</numerusform><numerusform>Ju lutemi, riprovoni %n minutë(a) më vonë</numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">Që të fiket, jepni fjalëkalimin tuaj</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">Që të riniset, jepni fjalëkalimin tuaj</translation>
-    </message>
-</context>
-<context>
     <name>WMChooser</name>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
@@ -616,6 +566,24 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>Bateri e pakët, ju lutemi, vëreni në prizë</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>PIN-i për lidhje me pajisjen Bluetooth është:</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Anuloje</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>Ripohojeni</translation>
     </message>
 </context>
 </TS>

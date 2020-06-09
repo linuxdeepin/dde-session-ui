@@ -33,14 +33,6 @@
 <context>
     <name>Content</name>
     <message>
-        <source>Chinese</source>
-        <translation type="vanished">中文</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">英文</translation>
-    </message>
-    <message>
         <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
         <translation>取消</translation>
@@ -387,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="66"/>
         <source>Notification Center</source>
         <translation>通知中心</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="86"/>
         <source>%1 Notifications</source>
         <translation>%1条通知</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="88"/>
         <source>No messages</source>
         <translation>暂无新消息</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn off DND mode</source>
         <translation>关闭勿扰模式</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn on DND mode</source>
         <translation>开启勿扰模式</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="242"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="266"/>
         <source>Notification settings</source>
         <translation>通知设置</translation>
     </message>
@@ -457,29 +449,6 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>释放</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">关机</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">登录</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">重启</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">待机</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">休眠</translation>
     </message>
 </context>
 <context>
@@ -546,25 +515,6 @@
     </message>
 </context>
 <context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">登录</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>请%n分钟后再试</numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">请输入密码以完成关机</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">请输入密码以完成重启</translation>
-    </message>
-</context>
-<context>
     <name>WMChooser</name>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
@@ -616,6 +566,24 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>电量不足，请接入电源</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>连接蓝牙设备的PIN码为：</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>确定</translation>
     </message>
 </context>
 </TS>

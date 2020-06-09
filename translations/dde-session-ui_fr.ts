@@ -33,14 +33,6 @@
 <context>
     <name>Content</name>
     <message>
-        <source>Chinese</source>
-        <translation type="vanished">Chinois</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">Anglais</translation>
-    </message>
-    <message>
         <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
@@ -100,12 +92,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
         <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>Les programmes empêchent l&apos;ordinateur de s&apos;éteindre / veille prolongée, et forcer l&apos;arrêt / veille prolongée peut entraîner une perte de données.</translation>
+        <translation>Les programmes empêchent l&apos;ordinateur de s&apos;éteindre / veille prolongée, et forcer l&apos;arrêt / veille prolongée peut entraîner une perte des données.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
         <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation>Pour fermer le programme, cliquez sur Annuler, puis fermez le programme.</translation>
+        <translation>Pour arrêter le programme, cliquez sur Annuler, puis fermez le programme.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
@@ -319,12 +311,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>Les utilisateurs ci-dessus sont toujours connectés, des données seront perdues si vous redémarrez l&apos;ordinateur, êtes-vous sûr de vouloir poursuivre ?</translation>
+        <translation>Les utilisateurs ci-dessus sont toujours connectés, des données seront perdues si vous redémarrez l&apos;ordinateur, êtes-vous sûr de vouloir poursuivre?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation>Les utilisateurs ci-dessus sont toujours connectés, des données seront perdues si vous éteignez l&apos;ordinateur, êtes-vous sûr de vouloir poursuivre ?</translation>
+        <translation>Les utilisateurs ci-dessus sont toujours connectés, des données seront perdues si vous éteignez l&apos;ordinateur, êtes-vous sûr de vouloir poursuivre?</translation>
     </message>
 </context>
 <context>
@@ -341,7 +333,7 @@
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
         <source>Key</source>
-        <translation>Clé</translation>
+        <translation>Clef</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
@@ -387,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="66"/>
         <source>Notification Center</source>
         <translation>Centre de notification</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="86"/>
         <source>%1 Notifications</source>
         <translation>%1 Notifications</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="88"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>Aucun message</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn off DND mode</source>
-        <translation>Éteindre le mode DND</translation>
+        <translation>Désactiver le mode DND</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="235"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
         <source>Turn on DND mode</source>
         <translation>Activer le mode DND</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="242"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="266"/>
         <source>Notification settings</source>
         <translation>Paramètres de notifications</translation>
     </message>
@@ -457,29 +449,6 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Fin</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">Éteindre</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Identifiant</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">Redémarrer</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">Mise en veille </translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">Mise en hibernation</translation>
     </message>
 </context>
 <context>
@@ -537,31 +506,12 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation>Édition actuelle :</translation>
+        <translation>Édition actuelle:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
         <translation>Entrer</translation>
-    </message>
-</context>
-<context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Identifiant</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>Réessayez dans %n minute</numerusform><numerusform>Réessayez dans %n minutes</numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">Saisissez votre mot de passe pour éteindre</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">Saisissez votre mot de passe pour redémarrer </translation>
     </message>
 </context>
 <context>
@@ -579,14 +529,12 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>Vous utilisez une machine virtuelle, ce qui affecte les performances du système, ainsi que l&apos;expérience utilisateur.
-Pour une utilisation optimale, il est recommandé d&apos;utiliser le mode normal</translation>
+        <translation>Vous utilisez une machine virtuelle, ce qui affecte les performances du système, ainsi que l&apos;expérience utilisateur. Pour une utilisation optimale, il est recommandé d&apos;utiliser le mode normal</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Mode effet : Pour un rendu esthétique amélioré. 
-Mode normal : Pour des performances élevées.</translation>
+        <translation>Mode effet: Pour un rendu esthétique amélioré.  Mode normal: Pour des performances élevées.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
@@ -618,6 +566,24 @@ Mode normal : Pour des performances élevées.</translation>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>Batterie faible, veuillez brancher votre appareil</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>Le code PIN pour la connexion au périphérique Bluetooth est:</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>Confirmer</translation>
     </message>
 </context>
 </TS>
