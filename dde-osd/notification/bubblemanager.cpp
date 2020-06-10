@@ -287,8 +287,8 @@ QRect BubbleManager::GetBubbleGeometry(int index)
     qreal scale = qApp->primaryScreen()->devicePixelRatio();
 
     QRect display = calcDisplayRect();
-    display.setWidth(int(qreal(display.width()) / scale));
-    display.setHeight(int(qreal(display.height()) / scale));
+    display.setWidth(int(qreal(display.width())));
+    display.setHeight(int(qreal(display.height())));
 
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
@@ -734,7 +734,7 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         QRect endRect = GetBubbleGeometry(0);
         QRect startRect;
         startRect.setX(endRect.x());
-        startRect.setY(BubbleStartPos);
+        startRect.setY(endRect.y() + BubbleStartPos);
         startRect.setWidth(endRect.width());
         startRect.setHeight(endRect.height());
 
