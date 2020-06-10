@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2015 ~ 2018 Deepin Technology Co., Ltd.
  *
  * Author:     fanpengcheng <fanpengcheng_cm@deepin.com>
@@ -34,6 +34,7 @@
 #include <QSvgRenderer>
 #include <QStyleOption>
 #include <QVBoxLayout>
+#include <QScreen>
 
 ButtonContent::ButtonContent(QWidget *parent)
     : DWidget(parent)
@@ -218,6 +219,12 @@ void Button::setPixmap(const QPixmap &pixmap)
 
 void Button::setText(const QString &text)
 {
+    qreal scale = qApp->primaryScreen()->devicePixelRatio();
+    QFont font;
+    font.setBold(false);
+    int rate = int((scale - 1) / 0.25);
+    font.setPixelSize(FontPixelSize::fontT7 + 2 * rate);
+    m_button->setFont(font);
     m_button->setText(text);
 }
 
