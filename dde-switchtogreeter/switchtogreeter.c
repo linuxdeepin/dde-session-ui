@@ -27,7 +27,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define _POSIX_SOURCE
 #include <sys/types.h>
 #include <stdio.h>
 #include <pwd.h>

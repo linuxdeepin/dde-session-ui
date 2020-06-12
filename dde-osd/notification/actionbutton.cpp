@@ -33,6 +33,7 @@
 
 #include "actionbutton.h"
 #include "button.h"
+#include "constants.h"
 
 ActionButton::ActionButton(QWidget *parent, OSD::ShowStyle style) :
     QFrame(parent)

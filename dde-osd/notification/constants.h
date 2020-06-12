@@ -51,6 +51,9 @@
 
 typedef std::shared_ptr<NotificationEntity> EntityPtr;
 
+static const int MenuPadding = 4;
+static const int MenuWidth = 14;
+static const int MenuHeight = 7;
 static const int ScreenPadding = 20;            //最上方通知距屏幕上方间隔
 static const int BubbleMargin = 12;             //桌面消息通知间隔
 static const int BubblePadding = 10;            //消息通知内部Padding
