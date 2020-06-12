@@ -31,6 +31,7 @@
 #include <QJsonObject>
 #include <QMapIterator>
 #include <QSqlTableModel>
+#include <QDateTime>
 
 #include "notificationentity.h"
 
@@ -129,6 +130,9 @@ void Persistence::addOne(EntityPtr entity)
         qDebug() << "get entity's id done:" << entity->id();
 #endif
         emit RecordAdded(entity);
+
+        qDebug() << "application:" << entity->appName() << "," << "senderTime:"
+                 << QDateTime::fromMSecsSinceEpoch(entity->ctime().toLongLong()).toString("yyyy-MM-dd hh:mm:ss:zzz");
     }
 }
 
