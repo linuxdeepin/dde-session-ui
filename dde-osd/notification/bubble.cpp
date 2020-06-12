@@ -55,6 +55,7 @@ Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     , m_quitTimer(new QTimer(this))
 {
     Q_ASSERT(entity);// 数据无效不应该继续往下走
+    Q_UNUSED(style)
 
     initUI();
     initTimers();

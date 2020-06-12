@@ -73,6 +73,7 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
 
     connect(m_bluetoothInter, &DBusBluetooth::AdapterPropertiesChanged, this, &PinCodeDialog::HandleBlutoothPower);
     connect(this, &PinCodeDialog::buttonClicked, this, [ = ](int index, const QString & text) {
+        Q_UNUSED(text)
         m_bluetoothInter->Confirm(QDBusObjectPath(devicepath), index == 1 ? true : false);
     });
     connect(this, &PinCodeDialog::closed, this, [ = ]() {

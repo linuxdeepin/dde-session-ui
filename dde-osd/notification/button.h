@@ -28,10 +28,6 @@
 
 DWIDGET_USE_NAMESPACE
 
-static int MenuPadding = 4;
-static int MenuWidth = 14;
-static int MenuHeight = 7;
-
 class QMouseEvent;
 class QMenu;
 class QPaintEvent;
