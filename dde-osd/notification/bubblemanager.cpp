@@ -282,7 +282,12 @@ QRect BubbleManager::GetBubbleGeometry(int index)
 {
     Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
 
+    qreal scale = qApp->primaryScreen()->devicePixelRatio();
+
     QRect display = calcDisplayRect();
+    display.setWidth(int(qreal(display.width())));
+    display.setHeight(int(qreal(display.height())));
+
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
         rect.setX(display.x() + (display.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
