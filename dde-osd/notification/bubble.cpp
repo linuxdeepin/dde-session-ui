@@ -340,7 +340,7 @@ void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDe
         QPropertyAnimation *opacityAni = new QPropertyAnimation(this, "windowOpacity", group);
         opacityAni->setStartValue(1);
         opacityAni->setEndValue(0);
-        opacityAni->setDuration(animationTime + int(BubbleWindowHeight * 1.0 / 72 * AnimationTime));
+        opacityAni->setDuration(animationTime);
         group->addAnimation(opacityAni);
     }
 
@@ -358,7 +358,6 @@ void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDe
 
     if (needDelete) {
         QTimer::singleShot(group->duration(), this, [ = ] {
-            hide();
             close();
         });
     }

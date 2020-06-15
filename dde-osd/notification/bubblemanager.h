@@ -283,7 +283,6 @@ private:
     QTimer *m_checkDndTimer;
     SoundeffectInter *m_soundeffectInter;
     DBusDockInterface *m_dockInter;
-    QRect m_currentDisplay;
 };
 
 #endif // BUBBLEMANAGER_H

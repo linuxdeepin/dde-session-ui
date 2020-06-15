@@ -144,8 +144,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QString &body, const QStringList &actions,
                            const QVariantMap hints, int expireTimeout)
 {
-    QDBusReply<uint> reply = connection().interface()->servicePid(message().service());
-    qDebug() << "Notify:" << "appName:" + appName << "PID:" << reply.value() <<"replaceID:" + QString::number(replacesId)
+    qDebug() << "Notify:" << "appName:" + appName << "replaceID:" + QString::number(replacesId)
              << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
              << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 
@@ -247,8 +246,10 @@ void BubbleManager::popAnimation(Bubble *bubble)
         return;
 
     QRect startRect = GetBubbleGeometry(index);
-    QRect endRect = GetBubbleGeometry(0);
-
+    QRect endRect;
+    endRect.setX(startRect.x());
+    endRect.setY(BubbleStartPos);
+    endRect.setSize(startRect.size());
     bubble->startMove(startRect, endRect, true);// delete itself
 
     while (index < m_bubbleList.size() - 1) {
@@ -281,10 +282,16 @@ QRect BubbleManager::GetBubbleGeometry(int index)
 {
     Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
 
+    qreal scale = qApp->primaryScreen()->devicePixelRatio();
+
+    QRect display = calcDisplayRect();
+    display.setWidth(int(qreal(display.width())));
+    display.setHeight(int(qreal(display.height())));
+
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
-        rect.setX(m_currentDisplay.x() + (m_currentDisplay.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
-        rect.setY(m_currentDisplay.y() + ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
+        rect.setX(display.x() + (display.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
+        rect.setY(display.y() + ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
         rect.setWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
         rect.setHeight(OSD::BubbleHeight(OSD::BUBBLEWINDOW));
     } else if (index >= BubbleEntities && index <= BubbleEntities + BubbleOverLap) {
@@ -467,6 +474,7 @@ QRect BubbleManager::calcDisplayRect()
         if (monitor->enabled()
                 && QCursor::pos().x() >= monitor->x() && QCursor::pos().x() <= monitor->x() + monitor->width()
                 && QCursor::pos().y() >= monitor->y() && QCursor::pos().y() <= monitor->y() + monitor->height()) {
+            qDebug() << " screen display : " << screen.path();
             displayRect = QRect(monitor->x(), monitor->y(),
                                 monitor->width() / qApp->primaryScreen()->devicePixelRatio(),
                                 monitor->height() / qApp->primaryScreen()->devicePixelRatio());
@@ -715,8 +723,6 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         m_persistence->addOne(ptr);
     });
 
-    m_currentDisplay = calcDisplayRect();
-
     if (index != 0) {
         QRect startRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap);
         QRect endRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap - 1);
@@ -724,22 +730,20 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         bubble->startMove(startRect, endRect);
     } else {
         QRect endRect = GetBubbleGeometry(0);
-        QRect startRect = endRect;
-        startRect.setHeight(0);
+        QRect startRect;
+        startRect.setX(endRect.x());
+        startRect.setY(endRect.y() + BubbleStartPos);
+        startRect.setWidth(endRect.width());
+        startRect.setHeight(endRect.height());
 
-        QPropertyAnimation *ani = new QPropertyAnimation(bubble, "geometry");
-        ani->setStartValue(startRect);
-        ani->setEndValue(endRect);
-
-        int animationTime = int(endRect.height() * 1.0 / 72 * AnimationTime);
-        ani->setDuration(animationTime);
+        bubble->setFixedSize(startRect.size());
+        bubble->move(startRect.topLeft());
 
         QTimer::singleShot(0, bubble, [ = ] {
             bubble->show();
         });
-
         bubble->setBubbleIndex(0);
-        ani->start();
+        bubble->startMove(startRect, endRect);
     }
     return bubble;
 }
