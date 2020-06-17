@@ -102,7 +102,7 @@ void NotificationsWidget::paintEvent(QPaintEvent *e)
     }
 
     const auto ratio = devicePixelRatioF();
-
+    painter.setOpacity(1);
     pixmap = loadSvg(iconName, ":/icons/resources/icons/", iconSize, ratio);
 
     const QRectF &rf = QRectF(rect());
