@@ -120,10 +120,11 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QString &body, const QStringList &actions,
                            const QVariantMap hints, int expireTimeout)
 {
+#ifdef QT_DEBUG
     qDebug() << "Notify:" << "appName:" + appName << "replaceID:" + QString::number(replacesId)
              << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
              << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
-
+#endif
     EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
                                                                   summary, body, actions, hints,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
