@@ -282,7 +282,6 @@ private:
     SysNotifyProperty m_sysNotifyProperty;
     QTimer *m_checkDndTimer;
     SoundeffectInter *m_soundeffectInter;
-    DBusDockInterface *m_dockInter;
     QRect m_currentDisplay;
 };
 

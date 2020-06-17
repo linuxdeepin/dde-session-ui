@@ -40,9 +40,6 @@
 #include <QDebug>
 #include <QProcess>
 #include <QMouseEvent>
-#include <QDesktopWidget>
-#include <QApplication>
-#include <QScreen>
 
 AlphaWidget::AlphaWidget(QWidget *parent)
     : DWidget(parent)
@@ -156,6 +153,7 @@ void BubbleItem::initContent()
 
     m_body->setTitle(m_entity->summary());
     m_body->setText(OSD::removeHTML(m_entity->body()));
+    m_appNameLabel->setFont(DFontSizeManager::instance()->t6());
     m_appNameLabel->setText(BubbleTool::getDeepinAppName(m_entity->appName()));
     onRefreshTime();
 
@@ -331,19 +329,7 @@ void BubbleItem::setParentView(NotifyListView *view)
 void BubbleItem::refreshTheme()
 {
     m_appNameLabel->setForegroundRole(QPalette::BrightText);
-
-    qreal scale = qApp->primaryScreen()->devicePixelRatio();
-    QFont font;
-    font.setBold(false);
-    int rate = int((scale - 1) / 0.25);
-    font.setPixelSize(FontPixelSize::fontT6 + 2 * rate);
-    m_appNameLabel->setFont(font);
-
-    font.setBold(false);
-    font.setPixelSize(FontPixelSize::fontT8 + 2 *rate);
-    m_appTimeLabel->setFont(font);
-
-    m_actionButton->setFont(font);
+    m_appTimeLabel->setFont(DFontSizeManager::instance()->t8());
 }
 
 QList<QPointer<QWidget>> BubbleItem::bubbleElements()

@@ -108,20 +108,6 @@ static const int BubbleDefaultAlpha = 20;       //bubble控件透明度
 static const qreal BubbleOpacity = 0.6;         //bubble内容的透明度
 }
 
-namespace FontPixelSize{
-static const int fontT1 = 40;
-static const int fontT2 = 30;
-static const int fontT3 = 24;
-static const int fontT4 = 20;
-static const int fontT5 = 17;
-static const int fontT6 = 14;
-static const int fontT7 = 13;
-static const int fontT8 = 12;
-static const int fontT9 = 11;
-static const int fontT10 = 10;
-}
-
-
 class OSD
 {
 public:

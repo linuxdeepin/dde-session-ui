@@ -65,9 +65,6 @@ BubbleManager::BubbleManager(QObject *parent)
     , m_soundeffectInter(new SoundeffectInter("com.deepin.daemon.SoundEffect",
                                               "/com/deepin/daemon/SoundEffect",
                                               QDBusConnection::sessionBus(), this))
-    , m_dockInter(new DBusDockInterface("com.deepin.dde.Dock",
-                                        "/com/deepin/dde/Dock",
-                                        QDBusConnection::sessionBus(), this))
 
 {
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
@@ -675,7 +672,7 @@ bool BubbleManager::checkDockExistence()
 void BubbleManager::geometryChanged()
 {
     QRect displayRect = calcDisplayRect();
-    QRect dock = m_dockInter->geometry();
+    QRect dock = m_dockDeamonInter->frontendRect();
     if ((dock.topLeft().x() > QCursor::pos().x() || dock.topLeft().x() + dock.width() < QCursor::pos().x())) {
         dock.setHeight(0);
     }
