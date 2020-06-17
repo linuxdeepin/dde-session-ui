@@ -338,7 +338,7 @@ void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDe
         QPropertyAnimation *opacityAni = new QPropertyAnimation(this, "windowOpacity", group);
         opacityAni->setStartValue(1);
         opacityAni->setEndValue(0);
-        opacityAni->setDuration(animationTime + int(BubbleWindowHeight * 1.0 / 72 * AnimationTime));
+        opacityAni->setDuration(animationTime + int(-BubbleStartPos * 1.0 / 72 * AnimationTime));
         group->addAnimation(opacityAni);
     }
 
