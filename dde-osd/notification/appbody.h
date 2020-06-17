@@ -39,10 +39,10 @@ public:
     void setTitle(const QString &title);
     void setText(const QString &text);
     void setStyle(OSD::ShowStyle style);
-    void refreshTheme();
 
 private:
     void updateAlignment();
+    void refreshTheme();
 
 private:
     AppBodyLabel *m_titleLbl;
