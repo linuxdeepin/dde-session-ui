@@ -38,7 +38,6 @@
 #include <QScreen>
 #include <QPropertyAnimation>
 #include <QSequentialAnimationGroup>
-#include <QApplication>
 
 #include <DIconButton>
 #include <DLabel>
@@ -208,12 +207,9 @@ void NotifyCenterWidget::refreshTheme()
     pa.setBrush(QPalette::WindowText, pa.brightText());
     title_label->setPalette(pa);
 
-    qreal scale = qApp->primaryScreen()->devicePixelRatio();
-    int rate = int((scale - 1) / 0.25);
     QFont font;
-    font.setPixelSize(FontPixelSize::fontT4 + 2 * rate);
     font.setBold(true);
-    title_label->setFont(font);
+    title_label->setFont(DFontSizeManager::instance()->t4(font));
 }
 
 void NotifyCenterWidget::showAni()

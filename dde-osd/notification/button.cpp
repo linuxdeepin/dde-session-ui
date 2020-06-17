@@ -34,6 +34,7 @@
 #include <QSvgRenderer>
 #include <QStyleOption>
 #include <QVBoxLayout>
+#include <DFontSizeManager>
 
 ButtonContent::ButtonContent(QWidget *parent)
     : DWidget(parent)
@@ -218,6 +219,7 @@ void Button::setPixmap(const QPixmap &pixmap)
 
 void Button::setText(const QString &text)
 {
+    m_button->setFont(DFontSizeManager::instance()->t6());
     m_button->setText(text);
 }
 

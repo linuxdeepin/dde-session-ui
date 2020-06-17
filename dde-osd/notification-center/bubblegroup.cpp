@@ -31,9 +31,6 @@
 #include <QBoxLayout>
 #include <QKeyEvent>
 #include <QDebug>
-#include <QDesktopWidget>
-#include <QScreen>
-#include <QApplication>
 
 #include <DFontSizeManager>
 #include <DGuiApplicationHelper>
@@ -52,6 +49,10 @@ BubbleGroup::BubbleGroup(QWidget *parent, std::shared_ptr<NotifyModel> model)
     group_title = new DLabel;
     group_title->setForegroundRole(QPalette::BrightText);
     group_title->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+
+    QFont font;
+    font.setBold(true);
+    group_title->setFont(DFontSizeManager::instance()->t4(font));
 
     title_close = new DIconButton(DStyle::SP_CloseButton);
     title_close->setFlat(true);
@@ -270,12 +271,9 @@ int BubbleGroup::animationNeedBubble(int index)
 
 void BubbleGroup::refreshTheme()
 {
-    qreal scale = qApp->primaryScreen()->devicePixelRatio();
     QFont font;
     font.setBold(true);
-    int rate = int((scale - 1) / 0.25);
-    font.setPixelSize(FontPixelSize::fontT4 + 2 * rate);
-    group_title->setFont(font);
+    group_title->setFont(DFontSizeManager::instance()->t4(font));
 
     QPalette pa = group_title->palette();
     pa.setBrush(QPalette::WindowText, pa.brightText());
