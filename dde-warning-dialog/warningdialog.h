@@ -36,7 +36,7 @@ class WarningDialog : public DDialog
     Q_OBJECT
 
 public:
-    WarningDialog(QWidget *parent = 0);
+    WarningDialog(QWidget *parent = nullptr);
     ~WarningDialog();
 };
 

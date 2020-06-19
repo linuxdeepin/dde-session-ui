@@ -42,7 +42,7 @@
 
 DWIDGET_USE_NAMESPACE
 
-DMemoryWarningDialog *dialog = nullptr;
+static DMemoryWarningDialog *dialog = nullptr;
 
 bool confirm(const QPixmap &icon)
 {

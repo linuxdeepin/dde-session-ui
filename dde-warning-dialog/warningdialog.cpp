@@ -31,7 +31,7 @@ WarningDialog::WarningDialog(QWidget *parent)
     : DDialog(parent)
 {
     const auto ratio = devicePixelRatioF();
-    QPixmap icon = QIcon::fromTheme("dialog-warning").pixmap(48 * ratio, 48 * ratio);
+    QPixmap icon = QIcon::fromTheme("dialog-warning").pixmap(int(48 * ratio), int(48 * ratio));
     icon.setDevicePixelRatio(ratio);
 
     const QString title = tr("Kindly Reminder");
