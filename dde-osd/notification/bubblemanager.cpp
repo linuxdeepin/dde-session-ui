@@ -26,6 +26,7 @@
 #include <QDebug>
 #include <QScreen>
 #include <QDBusContext>
+#include <QDateTime>
 
 #include <algorithm>
 
@@ -324,9 +325,9 @@ bool BubbleManager::isDoNotDisturb()
         bool isLock = m_userInter->locked();
         bool isTimeMeet = false;
 
-        int currentTime = QTime::currentTime().hour();
-        int startTime = m_sysNotifyProperty.StartTime;
-        int endTime = m_sysNotifyProperty.EndTime;
+        QTime currentTime = QTime::fromString(QDateTime::currentDateTime().toString("hh:mm"));
+        QTime startTime = QTime::fromString(m_sysNotifyProperty.StartTime);
+        QTime endTime = QTime::fromString(m_sysNotifyProperty.EndTime);
         //判断当前时间是否再时间段内
         if (startTime < endTime) {
             if (startTime <= currentTime && endTime >= currentTime) {
@@ -412,15 +413,15 @@ void BubbleManager::updateSysNotifyProperty()
     }
 
     if (currentSettingsObj.contains(StartTimeStr)) {
-        m_sysNotifyProperty.StartTime = currentSettingsObj[StartTimeStr].toInt();
+        m_sysNotifyProperty.StartTime = currentSettingsObj[StartTimeStr].toString();
     } else {
-        m_sysNotifyProperty.StartTime = DEFAULT_START_TIME;
+        m_sysNotifyProperty.StartTime = DefaultStartTime;
     }
 
     if (currentSettingsObj.contains(EndTimeStr)) {
-        m_sysNotifyProperty.EndTime = currentSettingsObj[EndTimeStr].toInt();
+        m_sysNotifyProperty.EndTime = currentSettingsObj[EndTimeStr].toString();
     } else {
-        m_sysNotifyProperty.EndTime = DEFAULT_END_TIME;
+        m_sysNotifyProperty.EndTime = DefaultEndTime;
     }
 
     if (currentSettingsObj.contains(AppsInFullscreenStr)) {

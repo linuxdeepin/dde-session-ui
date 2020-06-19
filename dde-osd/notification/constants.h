@@ -35,8 +35,6 @@
 #define ABS(a) (a)>0?(a):(-(a))
 
 #define  DEFAULT_TIME_SLOT true
-#define  DEFAULT_START_TIME 22
-#define  DEFAULT_END_TIME 7
 #define  DEFAULT_DO_NOT_DISTURB false
 #define  DEFAULT_APP_IN_FULLSCREEN false
 #define  DEFAULT_CONNECTED_PROJECTOR false
@@ -86,7 +84,9 @@ static const QString SystemNotifySettingStr = "SystemNotify";
 static const QString DoNotDisturbStr = "DoNotDisturb";
 static const QString TimeSlotStr = "TimeSlot";
 static const QString StartTimeStr = "StartTime";
+static const QString DefaultStartTime = "22:00";
 static const QString EndTimeStr = "EndTime";
+static const QString DefaultEndTime = "07:00";
 static const QString AppsInFullscreenStr = "AppsInFullscreen";
 static const QString ConnectedProjectorStr = "ConnectedProjector";
 static const QString ScreenLockedStr = "ScreenLocked";

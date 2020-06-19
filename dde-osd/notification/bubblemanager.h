@@ -88,8 +88,8 @@ typedef struct{
     bool isConnectedProjector;
     bool isScreenLocked;
     bool isShowIconOnDock;
-    int StartTime;
-    int EndTime;
+    QString StartTime;
+    QString EndTime;
 } SysNotifyProperty;
 
 #ifdef QT_DEBUG
