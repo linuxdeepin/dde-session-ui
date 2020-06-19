@@ -58,8 +58,8 @@ void NotifySettings::initAllSettings()
         QJsonObject systemObj;
         systemObj.insert(DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB);
         systemObj.insert(TimeSlotStr, DEFAULT_TIME_SLOT);
-        systemObj.insert(StartTimeStr, DEFAULT_START_TIME);
-        systemObj.insert(EndTimeStr, DEFAULT_END_TIME);
+        systemObj.insert(StartTimeStr, DefaultStartTime);
+        systemObj.insert(EndTimeStr, DefaultEndTime);
         systemObj.insert(AppsInFullscreenStr, DEFAULT_APP_IN_FULLSCREEN);
         systemObj.insert(ConnectedProjectorStr, DEFAULT_CONNECTED_PROJECTOR);
         systemObj.insert(ScreenLockedStr, DEFAULT_SCREEN_LOCKED);
