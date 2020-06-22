@@ -72,7 +72,10 @@ void NotifySettings::initAllSettings()
         m_initTimer->stop();
     }
     for (int i = 0; i < appList.size(); i++) {
-        if (!settingList.contains(appList[i].m_key) && !WhiteBoardAppList.contains(appList[i].m_key)) {
+        if (WhiteBoardAppList.contains(appList[i].m_key))
+            continue;
+
+        if (!settingList.contains(appList[i].m_key)) {
             QJsonObject appObj;
             appObj.insert(AppIconStr, appList[i].m_iconKey);
             appObj.insert(AppNameStr, appList[i].m_name);
@@ -82,6 +85,11 @@ void NotifySettings::initAllSettings()
             appObj.insert(ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW);
             appObj.insert(NotificationSoundStr, DEFAULT_NOTIFY_SOUND);
             obj.insert(appList[i].m_key, appObj);
+        } else {
+            QJsonObject appObj;
+            appObj = obj[appList[i].m_key].toObject();
+            appObj[AppNameStr] = appList[i].m_name;
+            obj[appList[i].m_key] = appObj;
         }
     }
 
