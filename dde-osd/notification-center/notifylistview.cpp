@@ -383,7 +383,7 @@ void NotifyListView::wheelEvent(QWheelEvent *event)
 bool NotifyListView::canShow(EntityPtr ptr)
 {
     QDateTime t = QDateTime::fromMSecsSinceEpoch(ptr->ctime().toLongLong());
-    return t.secsTo(QDateTime::currentDateTime()) < OVERLAPTIMEOUT;
+    return t.secsTo(QDateTime::currentDateTime()) < OVERLAPTIMEOUT_4_HOUR;
 }
 
 void NotifyListView::handleScrollValueChanged()

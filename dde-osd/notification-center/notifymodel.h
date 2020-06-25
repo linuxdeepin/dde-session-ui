@@ -30,9 +30,9 @@
 #include <QPointer>
 #include <QListView>
 
-#define OVERLAPTIMEOUT (4 * 60 * 60)
-#define NOTIFYTIMEOUT (7 * 24 * 60 * 60)
-#define TIME_OUT_CHECK_TIME 1000
+#define OVERLAPTIMEOUT_4_HOUR       (4 * 60 * 60)
+#define OVERLAPTIMEOUT_7_DAY        (7 * 24 * 60 * 60)
+#define TIMEOUT_CHECK_TIME          1000
 
 class Persistence;
 class NotifyListView;
@@ -78,9 +78,8 @@ private:
     void addNotify(EntityPtr entity);                   //添加通知
     void addNotifyWithoutPaint(EntityPtr entity);
     EntityPtr getEntityByRow(int row) const;
-    bool canShow(EntityPtr ptr);                        // 判断消息是否应该层叠[即超过4小时]
     void checkShow(QList<ListItem>& list);              //进一步整理层叠的消息
-    bool checkTimeOut(EntityPtr ptr);
+    bool checkTimeOut(EntityPtr ptr, int sec);
 
 private:
     NotifyListView *m_view = nullptr;

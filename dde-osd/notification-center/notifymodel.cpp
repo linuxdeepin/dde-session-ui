@@ -34,7 +34,7 @@ NotifyModel::NotifyModel(QObject *parent, Persistence *database)
       m_checkTimeOutTimer(new QTimer(this))
 {
     m_addTimer->setInterval(AnimationTime + 100);
-    m_checkTimeOutTimer->setInterval(TIME_OUT_CHECK_TIME);
+    m_checkTimeOutTimer->setInterval(TIMEOUT_CHECK_TIME);
     m_checkTimeOutTimer->start();
 
     initData();
@@ -181,24 +181,26 @@ void NotifyModel::removeAllData()
 
 void NotifyModel::removeTimeOutNotify()
 {
-    int removeCount = 0;
     for (int i = 0; i < m_notifications.size(); i++) {
-        for (int j = 0; j < m_notifications[i].appList.size(); j++) {
-            if(checkTimeOut(m_notifications[i].appList[j])) {
-                m_notifications[i].appList.removeAt(j);
-                m_database->removeOne(QString(m_notifications[i].appList[j]->id()));
-                checkShow(m_notifications);
-                removeCount ++;
-            }
-            if(m_notifications[i].appList.isEmpty()) {
-                m_notifications.removeAt(i);
-                checkShow(m_notifications);
-                break;
+        ListItem &item = m_notifications[i];
+        QList<EntityPtr> notifyList;
+        for (int j = 0; j < item.appList.size(); j++) {
+            if(checkTimeOut(item.appList[j], OVERLAPTIMEOUT_7_DAY)) {
+                m_database->removeOne(QString::number(item.appList[j]->id()));
+            } else {
+                notifyList.append(item.appList[j]);
             }
         }
-    }
-    if (removeCount > 0) {
-        resetModel();
+
+        if (item.appList.size() != notifyList.size()) {
+            beginResetModel();
+            item.appList = notifyList;
+            if (notifyList.isEmpty()) {
+                m_notifications.removeAt(i);
+            }
+            checkShow(m_notifications);
+            endResetModel();
+        }
     }
 }
 
@@ -215,19 +217,13 @@ void NotifyModel::initData()
     if (m_database == nullptr)  return;
     QList<EntityPtr> notifications = m_database->getAllNotify();
     foreach (auto notify, notifications) {
-        if(!checkTimeOut(notify))
+        if(!checkTimeOut(notify, OVERLAPTIMEOUT_7_DAY)) {
             addNotifyWithoutPaint(notify);
-    }
-#if 1
-    for(int i = 0; i < m_notifications.size(); ++i)
-    {
-        auto item = m_notifications[i];
-        for(int j = 0; j < item.appList.size(); ++j)
-        {
-            auto ptr = item.appList[j];
+        } else {
+            m_database->removeOne(QString::number(notify->id()));
         }
     }
-#endif
+
     Q_EMIT dataChanged();
     connect(m_database, &Persistence::RecordAdded, this, [ = ] (EntityPtr entity) {
         if (m_view->isVisible()) {
@@ -393,13 +389,6 @@ EntityPtr NotifyModel::getEntityByRow(int row) const
     Q_UNREACHABLE();
 }
 
-bool NotifyModel::canShow(EntityPtr ptr)
-{
-    // 超过4小时的消息，应该折叠
-    QDateTime t = QDateTime::fromMSecsSinceEpoch(ptr->ctime().toLongLong());
-    return t.secsTo(QDateTime::currentDateTime()) < OVERLAPTIMEOUT;
-}
-
 void NotifyModel::checkShow(QList<ListItem> &list)
 {
     //TODO 重置一下显示状态，这里后面优化下，不用每次重置，给EntityPtr加一条是否是第一条消息的属性就可以
@@ -407,7 +396,7 @@ void NotifyModel::checkShow(QList<ListItem> &list)
         if (item.isExpand)
             continue;
         foreach (auto ptr, item.appList) {
-            ptr->setShow(canShow(ptr));
+            ptr->setShow(!checkTimeOut(ptr, OVERLAPTIMEOUT_4_HOUR));
         }
     }
 
@@ -444,9 +433,9 @@ void NotifyModel::checkShow(QList<ListItem> &list)
     }
 }
 
-bool NotifyModel::checkTimeOut(EntityPtr ptr)
+bool NotifyModel::checkTimeOut(EntityPtr ptr, int sec)
 {
     QDateTime t = QDateTime::fromMSecsSinceEpoch(ptr->ctime().toLongLong());
-    return t.secsTo(QDateTime::currentDateTime()) > NOTIFYTIMEOUT;
+    return t.secsTo(QDateTime::currentDateTime()) > sec;
 }
 
