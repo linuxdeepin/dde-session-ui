@@ -69,7 +69,9 @@ int main(int argc, char *argv[])
         } else {
             w.show();
             w.grabMouse();
-            w.grabKeyboard();
+            if (!w.SleepLock()) {
+               w.grabKeyboard();
+            }
 
             QDBusConnection::sessionBus().registerObject(DBUS_PATH, &w);
         }
