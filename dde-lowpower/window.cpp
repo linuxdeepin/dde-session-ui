@@ -30,16 +30,17 @@
 #include <QCursor>
 #include <QDebug>
 #include <QWindow>
-
+#include <QTimer>
 #include "window.h"
 
 Window::Window(QWidget *parent)
-    : QWidget(parent),
-	m_image(new QLabel(this)),
-	m_text(new QLabel(tr("Low battery, please plug in"), this))
+    : QWidget(parent)
+    , m_image(new QLabel(this))
+    , m_text(new QLabel(tr("Low battery, please plug in"), this))
+    , m_bSleepLock(false)
 {
     // set window flags as dde-lock, so we can easily cover it.
-    setWindowFlags(Qt::BypassWindowManagerHint | Qt::FramelessWindowHint);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 
     const qreal ratio = devicePixelRatioF();
     const QString iconPath = qt_findAtNxFile(":/images/lowpower.png", ratio);
@@ -50,11 +51,22 @@ Window::Window(QWidget *parent)
 
     setupSize();
     setStyleSheet("Window { background: black }");
+
+    QDBusConnection::sessionBus().connect("com.deepin.dde.lockFront",
+                                              "/com/deepin/dde/lockFront",
+                                              "com.deepin.dde.lockFront",
+                                              "Visible",
+                                              this, SLOT(HideShowToRaise(bool)));
 }
 
 Window::~Window()
 {
 
+}
+
+bool Window::SleepLock()
+{
+    return m_bSleepLock;
 }
 
 void Window::setupSize()
@@ -83,6 +95,23 @@ void Window::setupSize()
     m_text->setFixedSize(screen->geometry().width(), 30);
     m_text->setAlignment(Qt::AlignHCenter);
     m_text->move(0, m_image->y() + m_image->pixmap()->height());
+
+    QDBusInterface inter2Power("com.deepin.daemon.Power",
+                               "/com/deepin/daemon/Power",
+                               "com.deepin.daemon.Power",
+                               QDBusConnection::sessionBus(), this);
+    m_bSleepLock =  inter2Power.property("SleepLock").toBool();
+}
+
+void Window::HideShowToRaise(bool visible)
+{
+    if (visible) {
+        QTimer::singleShot(200, this, [ = ]  {
+            hide();
+            this->raise();
+            show();
+        });
+    }
 }
 
 LowPowerAdaptor::LowPowerAdaptor(Window * parent) :
@@ -103,7 +132,9 @@ void LowPowerAdaptor::Raise()
         w->raise();
         w->activateWindow();
         w->grabMouse();
-        w->grabKeyboard();
+        if (!w->SleepLock()) {
+           w->grabKeyboard();
+        }
     }
 }
 

@@ -28,6 +28,8 @@
 
 #include <QWidget>
 #include <QDBusAbstractAdaptor>
+#include <QDBusInterface>
+#include <QDBusConnection>
 
 class QLabel;
 class Window : public QWidget
@@ -37,13 +39,17 @@ class Window : public QWidget
 public:
     Window(QWidget *parent = 0);
     ~Window();
+    bool SleepLock();
 
 private:
     QLabel * m_image;
     QLabel * m_text;
+    bool m_bSleepLock;
 
     void setupSize();
     void setupUI();
+public slots:
+    void HideShowToRaise(bool visible);
 };
 
 class LowPowerAdaptor : public QDBusAbstractAdaptor {
