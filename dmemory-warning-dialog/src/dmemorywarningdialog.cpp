@@ -53,7 +53,7 @@ bool confirm(const QPixmap &icon)
     DDialog terminateDialog(dialog);
     terminateDialog.setTitle(QApplication::translate("DMemoryWarningDialog", "This application will be ended, please make sure your data has been saved!"));
     terminateDialog.setMessage(QApplication::translate("DMemoryWarningDialog", "Please save your document, text and spreadsheet"));
-    terminateDialog.setIconPixmap(icon);
+    terminateDialog.setIcon(icon);
     terminateDialog.addButtons(btns);
 
     const int r = terminateDialog.exec();

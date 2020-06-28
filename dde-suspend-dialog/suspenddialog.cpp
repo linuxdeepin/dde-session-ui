@@ -45,7 +45,7 @@ SuspendDialog::SuspendDialog(QRect screenGeometry)
     QPixmap icon = QIcon::fromTheme("computer").pixmap(QSize(48, 48) * ratio);
     icon.setDevicePixelRatio(ratio);
 
-    setIconPixmap(icon);
+    setIcon(icon);
 
     QStringList buttons;
     buttons << tr("Cancel") << tr("Suspend");
