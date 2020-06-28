@@ -38,7 +38,7 @@ WarningDialog::WarningDialog(QWidget *parent)
     const QString body = tr("This application cannot run without window effect");
     setTitle(title);
     setMessage(body);
-    setIconPixmap(icon);
+    setIcon(icon);
     addButton(tr("OK"), true);
 }
 

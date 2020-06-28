@@ -169,12 +169,12 @@ get_seat_path(gchar *username, struct user_session_dbus *usd)
 static uid_t name_to_uid(char const *name)
 {
     if (!name) {
-        return -1;
+        return (unsigned int)-1;
     }
 
     struct passwd *pwbufp = getpwnam(name);
 
-    return pwbufp ? pwbufp->pw_uid : -1;
+    return pwbufp ? pwbufp->pw_uid : (unsigned int)-1;
 }
 
 // ret:

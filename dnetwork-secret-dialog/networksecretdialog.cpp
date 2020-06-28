@@ -109,7 +109,7 @@ void NetworkSecretDialog::initUI()
     QPixmap iconPix = QIcon::fromTheme(
                 ConnTypeIconKeyMap.value(m_connType, "network-wired")).pixmap(QSize(64, 64) / ratio);
     iconPix.setDevicePixelRatio(ratio);
-    setIconPixmap(iconPix);
+    setIcon(iconPix);
 
     addButtons(QStringList() << tr("Cancel") << tr("Connect"));
     setDefaultButton(1);
