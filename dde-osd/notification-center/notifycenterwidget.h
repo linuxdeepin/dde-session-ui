@@ -43,6 +43,7 @@ class Persistence;
 class QVariantAnimation;
 class QPropertyAnimation;
 class QSequentialAnimationGroup;
+class IconButton;
 /*!
  * \~chinese \class NotifyCenterWidget
  * \~chinese \brief 继承于DBlurEffectWidget,DBlurEffectWidget是DTK库中的类,继承自QWidget.
@@ -85,6 +86,7 @@ private:
     QWidget *m_headWidget;
     NotifyWidget *m_notifyWidget;
     DLabel *title_label = nullptr;
+    IconButton *m_clearButton;
     QRect m_notifyRect;
     QRect m_dockRect;
     QPropertyAnimation *m_xAni;

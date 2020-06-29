@@ -23,6 +23,7 @@
         <file>icons/OSD_trackpad_toggle.svg</file>
         <file>icons/notifications.svg</file>
         <file>icons/list_icon_clear.svg</file>
+        <file>icons/list_icon_clear_dark.svg</file>
         <file>icons/display_copy.svg</file>
         <file>icons/display_expansion.svg</file>
         <file>icons/display_custom.svg</file>

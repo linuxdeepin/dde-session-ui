@@ -89,11 +89,12 @@ void NotifyCenterWidget::initUI()
     title_label->setAlignment(Qt::AlignCenter);
     title_label->setForegroundRole(QPalette::BrightText);
 
-    IconButton *clear_btn = new IconButton;
-    clear_btn->setIcon("://icons/list_icon_clear.svg");
-    clear_btn->setBackOpacity(255);
-    clear_btn->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
-    clear_btn->setFocusPolicy(Qt::NoFocus);
+    m_clearButton = new IconButton;
+    m_clearButton->setIcon("://icons/list_icon_clear.svg");
+    m_clearButton->setBackOpacity(0);
+    m_clearButton->setRadius(Notify::CenterTitleHeight / 2);
+    m_clearButton->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
+    m_clearButton->setFocusPolicy(Qt::NoFocus);
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
     head_Layout->addWidget(bell_notify, Qt::AlignLeft);
@@ -101,7 +102,7 @@ void NotifyCenterWidget::initUI()
     head_Layout->addStretch();
     head_Layout->addWidget(title_label, Qt::AlignCenter);
     head_Layout->addStretch();
-    head_Layout->addWidget(clear_btn, Qt::AlignRight);
+    head_Layout->addWidget(m_clearButton, Qt::AlignRight);
     m_headWidget->setLayout(head_Layout);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -113,7 +114,7 @@ void NotifyCenterWidget::initUI()
 
     setLayout(mainLayout);
 
-    connect(clear_btn, &IconButton::clicked, this, [ = ]() {
+    connect(m_clearButton, &IconButton::clicked, this, [ = ]() {
         m_notifyWidget->model()->removeAllData();
     });
 
@@ -201,6 +202,11 @@ void NotifyCenterWidget::refreshTheme()
     QPalette pa = title_label->palette();
     pa.setBrush(QPalette::WindowText, pa.brightText());
     title_label->setPalette(pa);
+    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+        m_clearButton->setIcon("://icons/list_icon_clear.svg");
+    } else {
+        m_clearButton->setIcon("://icons/list_icon_clear_dark.svg");
+    }
 
     QFont font;
     font.setBold(true);

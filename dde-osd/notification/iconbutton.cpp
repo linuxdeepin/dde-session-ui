@@ -67,7 +67,7 @@ void IconButton::paintEvent(QPaintEvent *event)
     QColor color;
     if (m_hasBackColor) {
         color = palette().color(QPalette::Base);
-        color.setAlpha(m_hover ? m_opacity : (m_opacity / 2));
+        color.setAlpha(m_hover ? 255 * 0.2 : m_opacity);
     } else {
         color = palette().color(QPalette::WindowText);
         color.setAlpha(m_hasFocus ? 80 : (m_hover ? 50 : 20));
@@ -86,7 +86,9 @@ void IconButton::paintEvent(QPaintEvent *event)
         if (m_pixmap.isNull()) {
             m_pixmap = style()->standardIcon(QStyle::SP_TitleBarCloseButton).pixmap(width());
         }
-        painter.drawPixmap(rect(), m_pixmap);
+        painter.drawPixmap(QRect((rect().width() - m_pixmap.width())/ 2,
+                                 (rect().height() - m_pixmap.height())/ 2,
+                                 m_pixmap.width(), m_pixmap.height()), m_pixmap);
     }
 }
 
