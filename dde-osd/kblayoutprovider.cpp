@@ -37,7 +37,7 @@ KBLayoutProvider::KBLayoutProvider(QObject *parent)
 
     m_keyboardInter->setSync(false, false);
 
-    auto keyboardIsValid = [=] (bool isvalid) {
+    auto keyboardIsValid = [ = ](bool isvalid) {
         if (isvalid) {
             userLayoutListChanged(m_keyboardInter->userLayoutList());
             currentLayoutChanged(m_keyboardInter->currentLayout());
@@ -81,14 +81,14 @@ QSize KBLayoutProvider::contentSize() const
         list << m_database.value(s, s);
     }
 
-    std::sort(list.begin(), list.end(), [=] (const QString &s1, const QString &s2) {
+    std::sort(list.begin(), list.end(), [ = ](const QString & s1, const QString & s2) {
         return s1.length() > s2.length();
     });
 
     const QFont appNamefont(qApp->font());
     const QFontMetrics fm(appNamefont);
 
-    return QSize(qMax(fm.width(list.first()), TextItemWidth) + 30, (fm.height() + 10) * count + 20);
+    return QSize(qMax(fm.width(list.first()), TextItemWidth) + 30, TextItemHeight * count + 20);
 }
 
 QMargins KBLayoutProvider::contentMargins() const
@@ -131,20 +131,28 @@ int KBLayoutProvider::currentIndex() const
 void KBLayoutProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QVariant textData = index.data();
-    if (index.row() != m_userLayouts.indexOf(m_userCurrentLayout)) {
-        DrawHelper::DrawText(painter, option, textData.toString(), Qt::black, false);
-    } else {
-        painter->setPen(Qt::NoPen);
-        painter->setBrush(QColor::fromRgbF(0, 0, 0, 0.2));
-        painter->drawRoundedRect(option.rect, 4, 4);
+    QPalette palette;
 
-        DrawHelper::DrawText(painter, option, textData.toString(), ItemHighlightColor, false);
+    const QString text = option.fontMetrics.elidedText(textData.toString(), Qt::ElideRight, option.rect.width());
+
+    if (index.row() != m_userLayouts.indexOf(m_userCurrentLayout)) {
+        DrawHelper::DrawText(painter, option, text, palette.color(QPalette::BrightText), false);
+    } else {
+        QColor brushCorlor;
+        brushCorlor = palette.color(QPalette::Base);
+        brushCorlor.setAlphaF(0.4);
+
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(brushCorlor);
+        painter->drawRoundedRect(option.rect, 6, 6);
+
+        DrawHelper::DrawText(painter, option, text, palette.color(QPalette::Highlight), false);
     }
 }
 
 QSize KBLayoutProvider::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const
 {
-    return QSize(qMax(TextItemWidth, opt.fontMetrics.width(index.data().toString())), opt.fontMetrics.height() + 10);
+    return QSize(qMax(TextItemWidth, opt.fontMetrics.width(index.data().toString())), TextItemHeight);
 }
 
 QString KBLayoutProvider::describeLayout(const QString &layout) const

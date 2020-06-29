@@ -34,8 +34,8 @@
 
 static const int ImageTextItemWidth = 140;
 static const int ImageTextItemHeight = 140;
-static const int TextItemWidth = 200;
-static const int TextItemHeight = 36;
+static const int TextItemWidth = 120;
+static const int TextItemHeight = 40;
 
 static const QColor ItemHighlightColor = "#FFFFFF";//"#01bdff";
 
