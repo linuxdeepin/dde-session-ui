@@ -2,22 +2,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>Just Now</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 minutes ago</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>%1 hours ago</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="207"/>
         <source>Yesterday </source>
         <translation type="unfinished"/>
     </message>
@@ -25,24 +25,22 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="32"/>
         <source>Chinese</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="33"/>
         <source>English</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="44"/>
+        <location filename="../dde-license-dialog/content.cpp" line="224"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Ακύρωση</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="45"/>
+        <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Επιβεβαίωση</translation>
     </message>
 </context>
 <context>
@@ -105,7 +103,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Hibernate</source>
-        <translation>Αδράνεια</translation>
+        <translation>Αδρανοποίηση</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
@@ -208,12 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="184"/>
+        <source>Customize</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="186"/>
         <source>Duplicate</source>
         <translation>Διπλότυπο</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="188"/>
         <source>Extend</source>
         <translation>Επέκταση</translation>
     </message>
@@ -236,27 +239,27 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>Λογαριασμός Domain</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Τέλος χρόνου επαλήθευσης δακτυλικού αποτυπώματος, παρακαλώ εισάγετε τον κωδικό πρόσβασης, χειροκίνητα.</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>Αποτυχία αντιστοίχισης δακτυλικού αποτυπώματος.</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
         <source>Wrong Password</source>
-        <translation type="unfinished"/>
+        <translation>Λάθος Κωδικός Πρόσβασης</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>Ο λογαρισμός τομέα (domain) ή ο κωδικός είναι εσφαλμένος. Παρακαλώ εισάγετε ξανά.</translation>
     </message>
 </context>
 <context>
@@ -353,22 +356,22 @@
         <translation>Κωδικός ομάδας.</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Cancel</source>
         <translation>Ακύρωση</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Connect</source>
         <translation>Σύνδεση</translation>
     </message>
@@ -455,23 +458,23 @@
 <context>
     <name>SuspendDialog</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
         <translation>Έχει εντοπιστεί εξωτερική οθόνη, αναστολή;</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="57"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
         <source>%1s</source>
         <translation>%1</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Cancel</source>
         <translation>Ακύρωση</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Suspend</source>
         <translation>Αναστολή</translation>
     </message>
@@ -523,7 +526,7 @@
     </message>
     <message numerus="yes">
         <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>Δοκιμάστε ξανά %n λεπτά αργότερα</numerusform><numerusform>Δοκιμάστε ξανά %n λεπτά αργότερα</numerusform></translation>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <source>Enter your password to shut down</source>

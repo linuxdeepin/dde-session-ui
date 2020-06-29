@@ -13,7 +13,8 @@ int main(int argc, char *argv[])
 {
     DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
-    //a.setTheme("light");
+    a.loadTranslator();
+    //    a.setTheme("light");
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());

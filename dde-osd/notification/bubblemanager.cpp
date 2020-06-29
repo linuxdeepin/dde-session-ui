@@ -38,6 +38,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QScreen>
+#include <QtCore/QStringList>
 
 BubbleManager::BubbleManager(QObject *parent)
     : QObject(parent)
@@ -67,7 +68,7 @@ BubbleManager::BubbleManager(QObject *parent)
 
 BubbleManager::~BubbleManager()
 {
-    if(!m_bubbleList.isEmpty()) qDeleteAll(m_bubbleList);
+    if (!m_bubbleList.isEmpty()) qDeleteAll(m_bubbleList);
 
     m_oldEntities.clear();
 }
@@ -124,8 +125,11 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
              << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
              << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 
+    QString strBody = body;
+    strBody.replace(QLatin1String("\\\\"), QLatin1String("\\"), Qt::CaseInsensitive);
+
     EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
-                                                                  summary, body, actions, hints,
+                                                                  summary, strBody, actions, hints,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
                                                                   QString::number(replacesId),
                                                                   QString::number(expireTimeout),
@@ -251,7 +255,7 @@ QRect BubbleManager::GetBubbleGeometry(int index)
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
         rect.setX(display.x() + (display.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
-        rect.setY(ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
+        rect.setY(display.y() + ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
         rect.setWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
         rect.setHeight(OSD::BubbleHeight(OSD::BUBBLEWINDOW));
     } else if (index >= BubbleEntities && index <= BubbleEntities + BubbleOverLap) {
@@ -390,6 +394,10 @@ void BubbleManager::initConnections()
     connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, [ = ] {
         updateGeometry();
     });
+
+    connect(m_persistence, &Persistence::RecordAdded, this, [ = ](EntityPtr entity) {
+        Q_EMIT RecordAdded(entity->appName());
+    });
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
@@ -436,6 +444,7 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
             Bubble *bubble = m_bubbleList.at(i);
             if (bubble->entity()->replacesId() == notify->replacesId()
                     && bubble->entity()->appName() == notify->appName()) {
+                m_persistence->addOne(m_bubbleList.at(0)->entity());
                 if (i != 0) {
                     bubble->setEntity(m_bubbleList.at(0)->entity());
                 }
@@ -474,7 +483,7 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         QRect endRect = GetBubbleGeometry(0);
         QRect startRect;
         startRect.setX(endRect.x());
-        startRect.setY(BubbleStartPos);
+        startRect.setY(endRect.y() + BubbleStartPos);
         startRect.setWidth(endRect.width());
         startRect.setHeight(endRect.height());
 

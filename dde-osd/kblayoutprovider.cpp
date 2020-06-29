@@ -37,7 +37,7 @@ KBLayoutProvider::KBLayoutProvider(QObject *parent)
 
     m_keyboardInter->setSync(false, false);
 
-    auto keyboardIsValid = [=] (bool isvalid) {
+    auto keyboardIsValid = [ = ](bool isvalid) {
         if (isvalid) {
             userLayoutListChanged(m_keyboardInter->userLayoutList());
             currentLayoutChanged(m_keyboardInter->currentLayout());
@@ -81,7 +81,7 @@ QSize KBLayoutProvider::contentSize() const
         list << m_database.value(s, s);
     }
 
-    std::sort(list.begin(), list.end(), [=] (const QString &s1, const QString &s2) {
+    std::sort(list.begin(), list.end(), [ = ](const QString & s1, const QString & s2) {
         return s1.length() > s2.length();
     });
 
@@ -131,14 +131,16 @@ int KBLayoutProvider::currentIndex() const
 void KBLayoutProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QVariant textData = index.data();
+    QPalette palette;
+    const QString text = option.fontMetrics.elidedText(textData.toString(), Qt::ElideRight, option.rect.width());
+
     if (index.row() != m_userLayouts.indexOf(m_userCurrentLayout)) {
-        DrawHelper::DrawText(painter, option, textData.toString(), Qt::black, false);
+        DrawHelper::DrawText(painter, option, text, palette.color(QPalette::BrightText), false);
     } else {
         painter->setPen(Qt::NoPen);
         painter->setBrush(QColor::fromRgbF(0, 0, 0, 0.2));
-        painter->drawRoundedRect(option.rect, 4, 4);
-
-        DrawHelper::DrawText(painter, option, textData.toString(), ItemHighlightColor, false);
+        painter->drawRoundedRect(option.rect, 8, 8);
+        DrawHelper::DrawText(painter, option, text, palette.color(QPalette::Highlight), false);
     }
 }
 
