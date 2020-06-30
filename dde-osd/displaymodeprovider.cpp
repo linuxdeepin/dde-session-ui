@@ -187,17 +187,17 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
     painter->setPen(textCorlor);
     painter->drawText(textRect, textData.toString(), opt);
 
-    QStyleOptionViewItem viewOption(option);
-    auto style = viewOption.widget->style();
-
     // 画复选框
     if (checkState) {
         QRect checkButtonRect = backRect.marginsRemoved(QMargins(backRect.width() - CHECK_ICON_SIZE - CHECK_ICON_HSPACE,
                                                         (backRect.height() - CHECK_ICON_SIZE) / 2, CHECK_ICON_HSPACE,
                                                         (backRect.height() - CHECK_ICON_SIZE) / 2));
-        viewOption.rect = checkButtonRect;
-        viewOption.state |= QStyle::State_On;
-        style->drawPrimitive(DStyle::PE_IndicatorItemViewItemCheck, &viewOption, painter, nullptr);
+        DStyle style;
+        QPixmap checkIcon = style.standardIcon(DStyle::SP_IndicatorChecked).pixmap(CHECK_ICON_SIZE);
+        if (checkIcon.isNull()) {
+            qDebug()<<"checkIcon is null";
+        }
+        painter->drawPixmap(checkButtonRect, checkIcon);
     }
 }
 
