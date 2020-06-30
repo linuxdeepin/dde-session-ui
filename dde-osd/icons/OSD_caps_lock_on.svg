@@ -1,12 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
-    <title>OSD_caps_lock_on</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.9" opacity="0.900000036">
-        <g id="OSD_caps_lock_on" fill="#000000">
-            <path d="M30.1319555,4 L7,61 L10.4976153,61 L17.7313196,42.9579832 L46.427663,42.9579832 L53.581876,61 L57,61 L33.9475358,4 L30.1319555,4 Z M18.8441971,40.0840336 L31.9602544,7.35294118 L32.1987281,7.35294118 L45.3147854,40.0840336 L18.8441971,40.0840336 Z" id="A"></path>
-        </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <path fill-opacity=".9" fill-rule="evenodd" d="M30.1319555,4 L7,61 L10.4976153,61 L17.7313196,42.9579832 L46.427663,42.9579832 L53.581876,61 L57,61 L33.9475358,4 L30.1319555,4 Z M18.8441971,40.0840336 L31.9602544,7.35294118 L32.1987281,7.35294118 L45.3147854,40.0840336 L18.8441971,40.0840336 Z" opacity=".9"/>
 </svg>

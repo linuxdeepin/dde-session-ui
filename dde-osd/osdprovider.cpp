@@ -25,6 +25,10 @@
 
 #include "osdprovider.h"
 
+#include <DGuiApplicationHelper>
+
+DGUI_USE_NAMESPACE
+
 const QString SwitchWM3D = "SwitchWM3D";
 const QString SwitchWM2D = "SwitchWM2D";
 const QString SwitchWMError = "SwitchWMError";
@@ -73,11 +77,19 @@ void OSDProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, c
 {
     QString pixPath = index.data(Qt::DecorationRole).toString();
     QString textData = index.data().toString();
-
-    DrawHelper::DrawImage(painter, option, pixPath, true);
+    QString iconPath;
+    QColor color;
+    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+        iconPath = pixPath;
+        color = QColor(Qt::black);
+    } else {
+        iconPath = QString(pixPath).replace(".svg", "_dark.svg");
+        color = QColor(Qt::white);
+    }
+    DrawHelper::DrawImage(painter, option, iconPath, true);
 
     if (!textData.isEmpty()) {
-        DrawHelper::DrawText(painter, option, textData);
+        DrawHelper::DrawText(painter, option, textData, color);
     }
 }
 

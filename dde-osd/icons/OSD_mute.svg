@@ -1,12 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
-    <title>OSD_mute</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.9">
-        <g id="OSD_mute" fill-rule="nonzero" fill="#000000">
-            <path d="M47.0104076,30.2441706 L39.3935249,22.6404772 L37.6272904,24.4097753 L45.2411068,32.0104076 L37.6272904,39.6110399 L39.3935249,41.3803381 L47.0104076,33.7766447 L54.6272904,41.3803381 L56.3935249,39.6110399 L48.7797084,32.0104076 L56.3935249,24.4097753 L54.6272904,22.6404772 L47.0104076,30.2441706 Z M34,9 L34,55 L21.1005668,42 L9,42 L9,22 L21.0994803,22 L34,9 Z" id="Combined-Shape"></path>
-        </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <path fill-opacity=".9" d="M34,9 L34,55 L21.1005668,42 L9,42 L9,22 L21.0994803,22 L34,9 Z M54.6272904,22.6404772 L56.3935249,24.4097753 L48.779,32.01 L56.3935249,39.6110399 L54.6272904,41.3803381 L47.01,33.776 L39.3935249,41.3803381 L37.6272904,39.6110399 L45.241,32.01 L37.6272904,24.4097753 L39.3935249,22.6404772 L47.01,30.244 L54.6272904,22.6404772 Z"/>
 </svg>

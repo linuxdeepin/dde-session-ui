@@ -25,6 +25,10 @@
 
 #include "indicatorprovider.h"
 
+#include <DGuiApplicationHelper>
+
+DGUI_USE_NAMESPACE
+
 IndicatorProvider::IndicatorProvider(QObject *parent)
     : AbstractOSDProvider(parent)
 {
@@ -50,7 +54,13 @@ QVariant IndicatorProvider::data(const QModelIndex &, int) const
 void IndicatorProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QVariant pixData = index.data(Qt::DecorationRole);
-    DrawHelper::DrawImage(painter, option, pixData.toString());
+    QString iconPath;
+    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+        iconPath = pixData.toString();
+    } else {
+        iconPath = QString(pixData.toString()).replace(".svg", "_dark.svg");
+    }
+    DrawHelper::DrawImage(painter, option, iconPath);
 }
 
 QSize IndicatorProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
