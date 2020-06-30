@@ -24,8 +24,11 @@
  */
 
 #include "audioprovider.h"
-
 #include "common.h"
+
+#include <DGuiApplicationHelper>
+
+DGUI_USE_NAMESPACE
 
 AudioProvider::AudioProvider(QObject *parent)
     : AbstractOSDProvider(parent),
@@ -63,7 +66,7 @@ QVariant AudioProvider::data(const QModelIndex &, int role) const
         provider->defaultSinkChanged(provider->m_audioInter->defaultSink());
     }
 
-    if (role == Qt::DecorationRole) {
+    if (role == Qt::DecorationRole) {    
         return pixmapPath();
     } else if (role == Qt::EditRole) {
         return m_audioInter->increaseVolume();
@@ -77,12 +80,21 @@ void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option,
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant progressData = index.data(Qt::DisplayRole);
     QVariant increaseVolumnData = index.data(Qt::EditRole);
+    QString iconPath;
+    QColor color;
+    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+        iconPath = imageData.toString();
+        color = QColor(Qt::black);
+    } else {
+        iconPath = QString(imageData.toString()).replace(".svg", "_dark.svg");
+        color = QColor(Qt::white);
+    }
 
     // NOTE: Max volume is 1.5
-    DrawHelper::DrawImage(painter, option, imageData.toString(), false, true);
-    DrawHelper::DrawProgressBar(painter, option, progressData.toDouble() / (increaseVolumnData.toBool() ? 1.5 : 1.0));
+    DrawHelper::DrawImage(painter, option, iconPath, false, true);
+    DrawHelper::DrawProgressBar(painter, option, progressData.toDouble() / (increaseVolumnData.toBool() ? 1.5 : 1.0), color);
     if (increaseVolumnData.toBool())
-        DrawHelper::DrawVolumeGraduation(painter, option);
+        DrawHelper::DrawVolumeGraduation(painter, option, color);
 }
 
 QSize AudioProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
@@ -95,7 +107,6 @@ QString AudioProvider::pixmapPath() const
     if (m_sinkInter->mute()) {
         return ":/icons/OSD_mute.svg";
     }
-
     const double volume = m_sinkInter->volume();
 
     const int level = volume > 0.6 ? 3 : volume > 0.3 ? 2 : 1;

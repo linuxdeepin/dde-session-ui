@@ -25,6 +25,10 @@
 
 #include "brightnessprovider.h"
 
+#include <DGuiApplicationHelper>
+
+DGUI_USE_NAMESPACE
+
 BrightnessProvider::BrightnessProvider(QObject *parent)
     : AbstractOSDProvider(parent),
       m_displayInter(new com::deepin::daemon::Display("com.deepin.daemon.Display",
@@ -55,8 +59,17 @@ void BrightnessProvider::paint(QPainter *painter, const QStyleOptionViewItem &op
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant progressData = index.data(Qt::DisplayRole);
 
-    DrawHelper::DrawImage(painter, option, imageData.toString(), false, true);
-    DrawHelper::DrawProgressBar(painter, option, progressData.toDouble());
+    QString iconPath;
+    QColor color;
+    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+        iconPath = imageData.toString();
+        color = QColor(Qt::black);
+    } else {
+        iconPath = QString(imageData.toString()).replace(".svg", "_dark.svg");
+        color = QColor(Qt::white);
+    }
+    DrawHelper::DrawImage(painter, option, iconPath, false, true);
+    DrawHelper::DrawProgressBar(painter, option, progressData.toDouble(), color);
 }
 
 QSize BrightnessProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
