@@ -131,7 +131,7 @@ private:
     bool m_showContent = true;
     QString m_defaultAction;
     QPoint m_pressPoint;
-    int m_indexRow = 0;
+    int m_indexRow = -1;
     bool m_isOverlapWidget = false;
 };
 
