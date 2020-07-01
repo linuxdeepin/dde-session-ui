@@ -259,7 +259,10 @@ void BubbleItem::keyPressEvent(QKeyEvent *event)
 
 void BubbleItem::enterEvent(QEvent *event)
 {
+    if (m_indexRow == -1)
+        return;
     setFocus();
+    m_view->setCurrentRow(m_indexRow);
     Q_EMIT havorStateChanged(true);
     return DWidget::enterEvent(event);
 }

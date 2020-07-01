@@ -250,6 +250,11 @@ void NotifyListView::setAniState(bool state)
     m_aniState = state;
 }
 
+void NotifyListView::setCurrentRow(int row)
+{
+    m_currentIndex = row;
+}
+
 void NotifyListView::mousePressEvent(QMouseEvent *event)
 {
     if (m_aniState)
@@ -260,17 +265,17 @@ void NotifyListView::mousePressEvent(QMouseEvent *event)
 void NotifyListView::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Return) {
-        QModelIndex index = this->model()->index(m_carrentIndex, 0);
+        QModelIndex index = this->model()->index(m_currentIndex, 0);
         QWidget *widget = this->indexWidget(index);
 
         if (qobject_cast<IconButton *> (m_prevElement) != nullptr) {
             IconButton *itemCloseBtn = qobject_cast<IconButton *> (m_prevElement);
             itemCloseBtn->clicked();
-            m_carrentIndex --;
+            m_currentIndex --;
         } else if (qobject_cast<Button *> (m_prevElement) != nullptr) {
             Button *actionBtn = qobject_cast<Button *> (m_prevElement);
             actionBtn->clicked();
-            m_carrentIndex --;
+            m_currentIndex --;
         } else {
             OverLapWidet *overLabWidget = qobject_cast<OverLapWidet *> (widget);
             if (overLabWidget != nullptr) {
@@ -295,11 +300,11 @@ bool NotifyListView::eventFilter(QObject *object, QEvent *event)
         } else if (key->key() == Qt::Key_Up) {
             return true;
         } else if (key->key() == Qt::Key_Backtab){
-            m_carrentIndex --;
-            if (m_carrentIndex < 0) {
-                m_carrentIndex = 0;
+            m_currentIndex --;
+            if (m_currentIndex < 0) {
+                m_currentIndex = 0;
             }
-            QModelIndex index = this->model()->index(m_carrentIndex, 0);
+            QModelIndex index = this->model()->index(m_currentIndex, 0);
             setCurrentIndex(index);
             return true;
         }
@@ -309,7 +314,7 @@ bool NotifyListView::eventFilter(QObject *object, QEvent *event)
 
 void NotifyListView::hideEvent(QHideEvent *event)
 {
-    m_carrentIndex = 0;
+    m_currentIndex = 0;
     m_currentElement = nullptr;
     m_prevElement = nullptr;
     verticalScrollBar()->setValue(0);
@@ -320,10 +325,10 @@ bool NotifyListView::tabKeyEvent(QObject *object, QKeyEvent *event)
 {
     Q_UNUSED(object)
     Q_UNUSED(event)
-    if (!(m_carrentIndex < model()->rowCount())) {
-        m_carrentIndex = 0;
+    if (m_currentIndex >= model()->rowCount()) {
+        m_currentIndex = 0;
     }
-    QModelIndex index = this->model()->index(m_carrentIndex, 0);
+    QModelIndex index = this->model()->index(m_currentIndex, 0);
     QWidget *widget = this->indexWidget(index);
     scrollTo(index);
     if (widget == nullptr)
@@ -331,8 +336,8 @@ bool NotifyListView::tabKeyEvent(QObject *object, QKeyEvent *event)
     // 更新按钮列表
     QList<QPointer<QWidget>> elements;
     if (qobject_cast<BubbleTitleWidget *> (widget) != nullptr) {
-        m_carrentIndex ++;
-        index = this->model()->index(m_carrentIndex, 0);
+        m_currentIndex ++;
+        index = this->model()->index(m_currentIndex, 0);
         widget = this->indexWidget(index);
     }
     setCurrentIndex(index);
@@ -361,7 +366,7 @@ bool NotifyListView::tabKeyEvent(QObject *object, QKeyEvent *event)
             m_currentElement = elements.at(last_pos);
         } else { // 到item最后一个按钮
             m_currentElement = nullptr;
-            m_carrentIndex ++;
+            m_currentIndex ++;
         }
     }
     return true;
@@ -378,6 +383,7 @@ void NotifyListView::wheelEvent(QWheelEvent *event)
     m_scrollAni->setStartValue(verticalScrollBar()->value());
     m_scrollAni->setEndValue(verticalScrollBar()->value() + offset * m_speedTime);
     m_scrollAni->start();
+    return QWidget::wheelEvent(event);
 }
 
 bool NotifyListView::canShow(EntityPtr ptr)

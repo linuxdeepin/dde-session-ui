@@ -44,6 +44,7 @@ public:
     void createExpandAnimation(int idx, const ListItem appItem);
     void setAniState(bool state);
     bool aniState() { return m_aniState; }
+    void setCurrentRow(int row);
 
 protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
@@ -68,7 +69,7 @@ private:
     bool m_aniState = false;
     bool m_scrollState = false;
     bool m_pressState = false;
-    int m_carrentIndex = 0;
+    int m_currentIndex = 0;
     int m_moveCount = 0;
     double m_speedTime = 2.0;
     QPropertyAnimation *m_scrollAni;
