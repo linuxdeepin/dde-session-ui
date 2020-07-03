@@ -62,6 +62,7 @@ private:
 
 private slots:
     void updateUI();    //更新UI界面
+    void updateGeometry();
     void doneSetting();
 };
 

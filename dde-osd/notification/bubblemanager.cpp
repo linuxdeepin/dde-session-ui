@@ -151,9 +151,6 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     QString strBody = body;
     strBody.replace(QLatin1String("\\\\"), QLatin1String("\\"), Qt::CaseInsensitive);
 
-    QString strBody = body;
-    strBody.replace(QLatin1String("\\\\"), QLatin1String("\\"), Qt::CaseInsensitive);
-
     EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
                                                                   summary, strBody, actions, hints,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),

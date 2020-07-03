@@ -35,7 +35,14 @@ class MenuButton;
 class CloseButton;
 /*!
  * \~chinese \class ActionButton
- * \~chinese \brief 通知中心中气泡中的功能按钮
+ * \~chinese \brief
+ */
+/**
+ * @brief The ActionButton class
+ * @brief 通知中心中气泡中的功能按钮
+ *
+ *
+ *
  */
 class ActionButton : public QFrame
 {
