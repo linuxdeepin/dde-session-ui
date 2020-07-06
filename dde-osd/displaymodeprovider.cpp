@@ -141,6 +141,8 @@ QVariant DisplayModeProvider::data(const QModelIndex &index, int role) const
 
 void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    painter->setRenderHint(QPainter::Antialiasing, true);
+
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant textData = index.data(Qt::DisplayRole);
 
@@ -193,12 +195,20 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
         QRect checkButtonRect = backRect.marginsRemoved(QMargins(backRect.width() - CHECK_ICON_SIZE - CHECK_ICON_HSPACE,
                                                         (backRect.height() - CHECK_ICON_SIZE) / 2, CHECK_ICON_HSPACE,
                                                         (backRect.height() - CHECK_ICON_SIZE) / 2));
-        DStyle style;
-        QPixmap checkIcon = style.standardIcon(DStyle::SP_IndicatorChecked).pixmap(CHECK_ICON_SIZE);
-        if (checkIcon.isNull()) {
-            qDebug()<<"checkIcon is null";
-        }
-        painter->drawPixmap(checkButtonRect, checkIcon);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(textCorlor);
+        painter->drawEllipse(checkButtonRect);
+
+        QPen pen(Qt::white, CHECK_ICON_SIZE / 100.0 * 6.20, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
+        painter->setPen(pen);
+
+        QPointF points[3] = {
+            QPointF(CHECK_ICON_SIZE / 100.0 * 32 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 57 + checkButtonRect.y()),
+            QPointF(CHECK_ICON_SIZE / 100.0 * 45 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 70 + checkButtonRect.y()),
+            QPointF(CHECK_ICON_SIZE / 100.0 * 75 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 35 + checkButtonRect.y())
+        };
+
+        painter->drawPolyline(points, 3);
     }
 }
 
