@@ -72,6 +72,10 @@ Manager::Manager(QObject *parent)
     m_providers << m_kbLayoutProvider << new DisplayModeProvider(this);
     m_providers << new IndicatorProvider(this) << new OSDProvider(this);
 
+    for (AbstractOSDProvider *provider : m_providers) {
+        connect(provider, &AbstractOSDProvider::dataChanged, this, &Manager::updateUI);
+    }
+
     connect(m_timer, &QTimer::timeout, this, &Manager::doneSetting);
 }
 
@@ -106,9 +110,6 @@ void Manager::ShowOSD(const QString &osd)
         if (provider->match(osd)) {//遍历容器根据osd名称匹配provider
             repeat = (m_currentProvider == provider);
             m_currentProvider = provider;
-            connect(provider, &AbstractOSDProvider::dataChanged, this, &Manager::updateUI);
-        } else {
-            disconnect(provider);
         }
     }
 

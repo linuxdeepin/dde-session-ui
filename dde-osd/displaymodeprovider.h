@@ -31,15 +31,6 @@
 #include <com_deepin_daemon_display.h>
 
 using namespace com::deepin::daemon;
-
-static const int ItemWidth = 370;
-static const int ItemHeight = 72;
-static const int IconSize = 54;
-
-#define CHECK_ICON_SIZE        16
-#define ICON_HSPACE            22
-#define CHECK_ICON_HSPACE      10
-
 /*!
  * \~chinese \class DisplayModeProvider
  * \~chinese \brief 切换屏幕模式时的通知类
@@ -48,10 +39,15 @@ class DisplayModeProvider : public AbstractOSDProvider
 {
     Q_OBJECT
 public:
+    enum DisplayMode {
+        DuplicateMode = 1,
+        ExtendMode,
+        OSDOnlyMode
+    };
+
     explicit DisplayModeProvider(QObject *parent = 0);
 
     bool checkConditions() const Q_DECL_OVERRIDE;
-    QMargins contentMargins() const Q_DECL_OVERRIDE; // 中心窗口距离边缘距离
     QSize contentSize() const Q_DECL_OVERRIDE;
 
     QListView::Flow flow() const Q_DECL_OVERRIDE;
