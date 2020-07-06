@@ -270,6 +270,7 @@ QString DisplayModeProvider::getPlanItemIcon(QPair<uchar, QString> &plan) const
     } else if (displayMode == 2) {
         return ":/icons/display_expansion.svg";
     }
+
     return "";
 }
 
