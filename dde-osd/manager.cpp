@@ -114,7 +114,7 @@ void Manager::ShowOSD(const QString &osd)
     }
 
     if (m_currentProvider) {
-        if(!m_currentProvider->checkConditions() && m_container->isVisible()) {
+        if (!m_currentProvider->checkConditions() && m_container->isVisible()) {
             m_container->hide();
         }
         updateUI();

@@ -115,6 +115,7 @@ void BubbleItem::initUI()
     titleLayout->addWidget(m_appNameLabel);
     titleLayout->addWidget(m_appTimeLabel);
 
+    m_appNameLabel->setFont(DFontSizeManager::instance()->t6());
     m_appNameLabel->setForegroundRole(DPalette::TextTitle);
     m_appNameLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     m_appNameLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);

@@ -461,23 +461,23 @@
 <context>
     <name>SuspendDialog</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
         <source>External monitor detected, suspend?</source>
         <translation>External monitor detected, suspend?</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="57"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
         <source>Suspend</source>
         <translation>Suspend</translation>
     </message>
