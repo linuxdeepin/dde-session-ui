@@ -83,6 +83,23 @@ void Manager::ShowOSD(const QString &osd)
 {
     qDebug() << "show osd" << osd;
 
+    //临时解决方案:（libinput未找到方法获取静态Caps按键状态）Task:28261，
+    //通过快捷键调用dde-osd的显示时，写入当前Caps状态到文件,提供给dde-session-shell锁屏等初始化UI时获取Caps按键状态显示
+    if (osd == "CapsLockOn" || osd == "CapsLockOff") {
+        QFile file("/tmp/caps_stu");
+        if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+            qDebug() << "Open file /tmp/caps_stu Error";
+        } else {
+            file.flush();
+            if (osd == "CapsLockOn") {
+                file.write("A");
+            } else if (osd == "CapsLockOff") {
+                file.write("a");
+            }
+            file.close();
+        }
+    }
+
     // 3D WM need long time, OSD will disappear too fast
     m_timer->setInterval(osd == "SwitchWM3D" ? 2000 : 1000);
 
