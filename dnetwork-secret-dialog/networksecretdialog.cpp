@@ -29,6 +29,7 @@
 #include <QPushButton>
 #include <QKeyEvent>
 #include <QLabel>
+#include <QValidator>
 
 DWIDGET_USE_NAMESPACE
 
@@ -125,6 +126,11 @@ void NetworkSecretDialog::initUI()
         const QString &secret = m_secretKeyList.at(row);
         DPasswordEdit *lineEdit = new DPasswordEdit();
         lineEdit->setClearButtonEnabled(true);
+        QRegExp reg("^((?![\u4e00-\u9fa5]).)*");
+        QValidator *validator = new QRegExpValidator(reg);
+        lineEdit->lineEdit()->setValidator(validator);
+        lineEdit->lineEdit()->setAttribute(Qt::WA_InputMethodEnabled, false);
+
         gridLayout->addWidget(new QLabel(m_secretKeyStrMap.value(secret) + ":"), row, 0);
         gridLayout->addWidget(lineEdit, row, 1);
         m_lineEditList.append(lineEdit);
