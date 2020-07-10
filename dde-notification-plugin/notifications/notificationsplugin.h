@@ -34,6 +34,8 @@
 
 #include <com_deepin_dde_notification.h>
 
+#define DOCK_DEFAULT_POS 9
+
 using NotifyInter = com::deepin::dde::Notification;
 
 class NotificationsPlugin : public QObject, PluginsItemInterface
