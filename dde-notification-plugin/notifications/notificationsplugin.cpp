@@ -42,6 +42,7 @@ NotificationsPlugin::NotificationsPlugin(QObject *parent)
     , m_tipsLabel(new QLabel)
 {
     m_tipsLabel->setVisible(false);
+    m_tipsLabel->setObjectName("notifications");
 
     changeTheme();
 
