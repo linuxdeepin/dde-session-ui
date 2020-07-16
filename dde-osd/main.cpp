@@ -23,6 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef UNIT_TEST
 #include <QTranslator>
 
 #include <DApplication>
@@ -36,6 +37,7 @@
 #include "notification/notifications_dbus_adaptor.h"
 #include "manager.h"
 #include "kblayoutindicator.h"
+
 #include <DGuiApplicationHelper>
 
 DWIDGET_USE_NAMESPACE
@@ -98,3 +100,10 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+#else
+
+#include "unittest.h"
+
+QTEST_MAIN(UnitTest)
+
+#endif
