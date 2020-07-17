@@ -28,6 +28,7 @@
 
 #include <QDateTime>
 #include <QTimer>
+#include <QVBoxLayout>
 
 using namespace dcc::widgets;
 
@@ -36,7 +37,6 @@ namespace bluetooth {
 
 PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath, const QString &starttime, const bool &cancelable) :
     DDialog(),
-    m_pinCodeLabel(new dcc::widgets::LargeLabel(this)),
     m_titileLabel(new dcc::widgets::LargeLabel(this)),
     m_bluetoothInter(new DBusBluetooth("com.deepin.daemon.Bluetooth", "/com/deepin/daemon/Bluetooth", QDBusConnection::sessionBus(), this))
 {
@@ -53,16 +53,17 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
     btns << tr("Confirm");
     addButtons(btns);
 
-    m_pinCodeLabel->setObjectName("PinCodeText");
-    addContent(m_pinCodeLabel, Qt::AlignBottom | Qt::AlignHCenter);
+    titilestr += QString(" %1").arg(pinCode);
     QFont font = m_titileLabel->font();
     font.setBold(true);
     font.setPixelSize(16);
     m_titileLabel->setFont(font);
     m_titileLabel->setText(titilestr);
-    m_pinCodeLabel->setText(pinCode);
+    setProperty("pinCode", pinCode);
 
-    qint64 msec = 25 * 1000 - QDateTime::currentMSecsSinceEpoch() + starttime.toLongLong();
+    addContent(messageTipWidget(), Qt::AlignTop | Qt::AlignHCenter);
+
+    qint64 msec = 60 * 1000 - QDateTime::currentMSecsSinceEpoch() + starttime.toLongLong();
     if (msec < 0){
         qDebug() << "timeout";
         exit(-2);
@@ -89,7 +90,7 @@ PinCodeDialog::~PinCodeDialog()
 
 QString PinCodeDialog::pinCode() const
 {
-    return m_pinCodeLabel->text();
+    return property("pinCode").toString();
 }
 
 void PinCodeDialog::HandleBlutoothPower(const QString &message)
@@ -111,6 +112,33 @@ void PinCodeDialog::HandleBlutoothPower(const QString &message)
             close();
         }
     }
+}
+
+QWidget *PinCodeDialog::messageTipWidget()
+{
+    QFont font = m_titileLabel->font();
+    font.setBold(false);
+    font.setPixelSize(16);
+
+    auto createrLabel = [&](const QString& text) ->QLabel* {
+        QLabel *tipLabel = new QLabel;
+        tipLabel->setFont(font);
+        tipLabel->setText(text);
+        tipLabel->setAlignment(Qt::AlignCenter);
+        return tipLabel;
+    };
+
+    QLabel* lb1 = createrLabel(tr("Make sure this PIN is shown on the device to be paired,"));
+    QLabel* lb2 = createrLabel(tr("and it should not be entered manually"));
+
+    QWidget* w = new QWidget;
+    QVBoxLayout* tipLayout = new QVBoxLayout(w);
+    tipLayout->setContentsMargins(0, 10, 0, 10);
+    tipLayout->setSpacing(0);
+    tipLayout->addWidget(lb1);
+    tipLayout->addWidget(lb2);
+
+    return w;
 }
 
 PinCodeDialog::PinCodeDialog() :

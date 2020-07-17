@@ -53,8 +53,9 @@ public:
     QString pinCode() const;
 private Q_SLOTS:
     void HandleBlutoothPower(const QString &message);
+
+    QWidget* messageTipWidget();
 private:
-    dcc::widgets::LargeLabel *m_pinCodeLabel;
     dcc::widgets::LargeLabel *m_titileLabel;
     DBusBluetooth *m_bluetoothInter;
 };
