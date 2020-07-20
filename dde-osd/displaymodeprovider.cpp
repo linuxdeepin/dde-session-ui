@@ -230,6 +230,7 @@ void DisplayModeProvider::updateOutputNames()
             qWarning() << "failed to get all output names" << watcher->error().message();
         } else {
             QDBusReply<QStringList> reply = watcher->reply();
+            m_displayMode = m_displayInter->displayMode();
             m_outputNames = reply.value();
             updatePlanItems();
             emit dataChanged();
