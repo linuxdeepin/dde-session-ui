@@ -42,6 +42,7 @@ NotificationsPlugin::NotificationsPlugin(QObject *parent)
     , m_tipsLabel(new QLabel)
 {
     m_tipsLabel->setVisible(false);
+    m_tipsLabel->setObjectName("notifications");
 
     changeTheme();
 
@@ -138,12 +139,7 @@ int NotificationsPlugin::itemSortKey(const QString &itemKey)
 {
     Dock::DisplayMode mode = displayMode();
     const QString key = QString("pos_%1_%2").arg(itemKey).arg(mode);
-
-    if (mode == Dock::DisplayMode::Fashion) {
-        return m_proxyInter->getValue(this, key, 2).toInt();
-    } else {
-        return m_proxyInter->getValue(this, key, 5).toInt();
-    }
+    return m_proxyInter->getValue(this, key, DOCK_DEFAULT_POS).toInt();
 }
 
 void NotificationsPlugin::setSortKey(const QString &itemKey, const int order)

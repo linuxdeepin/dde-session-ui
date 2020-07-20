@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui dbus x11extras svg sql dtkwidget
+QT       += core gui dbus x11extras svg sql dtkwidget testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,7 +28,8 @@ SOURCES += main.cpp \
     kblayoutprovider.cpp \
     displaymodeprovider.cpp \
     indicatorprovider.cpp \
-    kblayoutindicator.cpp
+    kblayoutindicator.cpp \
+    unittest.cpp
 
 HEADERS  += container.h \
     manager.h \
@@ -43,7 +44,8 @@ HEADERS  += container.h \
     kblayoutprovider.h \
     displaymodeprovider.h \
     indicatorprovider.h \
-    kblayoutindicator.h
+    kblayoutindicator.h \
+    unittest.h
 
 RESOURCES += \
     image.qrc \
