@@ -159,10 +159,17 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
 
     AppNotifyProperty appNotifyProperty = getAppNotifyProperty(notification->appName());
 
+    if (appNotifyProperty.isNotificationSound) {
+        m_soundeffectInter->EnableSound("message", true);
+    } else {
+        m_soundeffectInter->EnableSound("message", false);
+    }
+
     if (!appNotifyProperty.isAllowNotify)
         return 0;
 
     notification->setShowPreview(appNotifyProperty.isShowNotifyPreview);
+    notification->setShowInNotifyCenter(appNotifyProperty.isShowInNotifyCenter);
 
     if (!calcReplaceId(notification)) {
         if (isDoNotDisturb()) {
@@ -171,9 +178,9 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
             } else {
                 m_persistence->addOne(notification);
             }
-        } else if ((m_userInter->locked() && !appNotifyProperty.isLockShowNotify)
-                   || appNotifyProperty.isOnlyInNotifyCenter) {
-            m_persistence->addOne(notification);
+        } else if ((m_userInter->locked() && !appNotifyProperty.isLockShowNotify)) {
+            if (notification->isShowInNotifyCenter())
+                m_persistence->addOne(notification);
         } else {
             pushBubble(notification);
         }
@@ -369,10 +376,10 @@ AppNotifyProperty BubbleManager::getAppNotifyProperty(QString appName)
         appNotifyProperty.isAllowNotify = DEFAULT_ALLOW_NOTIFY;
     }
 
-    if (currentSettingsObj.contains(OnlyInNotifyCenterStr)) {
-        appNotifyProperty.isOnlyInNotifyCenter = currentSettingsObj[OnlyInNotifyCenterStr].toBool();
+    if (currentSettingsObj.contains(ShowInNotifyCenterStr)) {
+        appNotifyProperty.isShowInNotifyCenter = currentSettingsObj[ShowInNotifyCenterStr].toBool();
     } else {
-        appNotifyProperty.isOnlyInNotifyCenter = DEFAULT_ONLY_IN_NOTIFY;
+        appNotifyProperty.isShowInNotifyCenter = DEFAULT_ONLY_IN_NOTIFY;
     }
 
     if (currentSettingsObj.contains(LockShowNotifyStr)) {
@@ -730,7 +737,8 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);
     connect(bubble, &Bubble::actionInvoked, this, &BubbleManager::bubbleActionInvoked);
     connect(bubble, &Bubble::notProcessedYet, this, [ = ](EntityPtr ptr) {
-        m_persistence->addOne(ptr);
+        if (ptr->isShowInNotifyCenter())
+            m_persistence->addOne(ptr);
     });
 
     m_currentDisplay = calcDisplayRect();

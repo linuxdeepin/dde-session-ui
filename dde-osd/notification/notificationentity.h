@@ -85,6 +85,9 @@ public:
     void setHideCount(int count);
     int hideCount(){return m_hideCount;}
 
+    void setShowInNotifyCenter(bool isShow);
+    bool isShowInNotifyCenter(){return m_showInNotifyCenter;}
+
 private:
     QString m_appName;
     uint m_id;
@@ -100,6 +103,7 @@ private:
     bool m_isExpand;    //是否应该展开显示
     int m_hideCount;    //此条消息下面被层叠的消息数量
     bool m_showPreview;
+    bool m_showInNotifyCenter;
 };
 
 Q_DECLARE_METATYPE(std::shared_ptr<NotificationEntity>);

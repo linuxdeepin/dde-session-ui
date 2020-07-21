@@ -42,7 +42,7 @@
 #define  DEFAULT_SHOW_ICON_ON_DOCK true
 
 #define  DEFAULT_ALLOW_NOTIFY true
-#define  DEFAULT_ONLY_IN_NOTIFY false
+#define  DEFAULT_ONLY_IN_NOTIFY true
 #define  DEFAULT_LOCK_SHOW_NOTIFY true
 #define  DEFAULT_SHOW_NOTIFY_PREVIEW true
 #define  DEFAULT_NOTIFY_SOUND true
@@ -73,7 +73,7 @@ static const QString DeletedAction = "deleted";
 static const QString CreatedAction = "created";
 
 static const QString AllowNotifyStr = "AllowNotify";
-static const QString OnlyInNotifyCenterStr = "OnlyInNotifyCenter";
+static const QString ShowInNotifyCenterStr = "ShowInNotifyCenter";
 static const QString LockShowNotifyStr = "LockShowNotify";
 static const QString ShowNotifyPreviewStr = "ShowNotifyPreview";
 static const QString NotificationSoundStr = "NotificationSound";
