@@ -80,7 +80,7 @@ void NotifySettings::initAllSettings()
             appObj.insert(AppIconStr, appList[i].m_iconKey);
             appObj.insert(AppNameStr, appList[i].m_name);
             appObj.insert(AllowNotifyStr, DEFAULT_ALLOW_NOTIFY);
-            appObj.insert(OnlyInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
+            appObj.insert(ShowInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
             appObj.insert(LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY);
             appObj.insert(ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW);
             appObj.insert(NotificationSoundStr, DEFAULT_NOTIFY_SOUND);
@@ -181,7 +181,7 @@ void NotifySettings::appAdded(ItemInfo info)
     appObj.insert(AppIconStr, info.m_iconKey);
     appObj.insert(AppNameStr, info.m_name);
     appObj.insert(AllowNotifyStr, DEFAULT_ALLOW_NOTIFY);
-    appObj.insert(OnlyInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
+    appObj.insert(ShowInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
     appObj.insert(LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY);
     appObj.insert(ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW);
     appObj.insert(NotificationSoundStr, DEFAULT_NOTIFY_SOUND);

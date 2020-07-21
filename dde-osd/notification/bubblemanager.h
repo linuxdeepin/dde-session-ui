@@ -75,7 +75,7 @@ class NotifySettings;
  */
 typedef struct{
     bool isAllowNotify;
-    bool isOnlyInNotifyCenter;
+    bool isShowInNotifyCenter;
     bool isLockShowNotify;
     bool isShowNotifyPreview;
     bool isNotificationSound;

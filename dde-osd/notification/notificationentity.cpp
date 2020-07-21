@@ -171,3 +171,8 @@ void NotificationEntity::setHideCount(int count)
 {
     m_hideCount = count;
 }
+
+void NotificationEntity::setShowInNotifyCenter(bool isShow)
+{
+    m_showInNotifyCenter = isShow;
+}
