@@ -117,7 +117,7 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     const int currentIndex = m_planItems.indexOf(m_currentPlan);
     const bool isCurrent = (currentIndex == index.row());
-    if (option.state & QStyle::State_Selected) {
+    if (isCurrent) {
         DrawHelper::DrawBackground(painter, option);
         DrawHelper::DrawText(painter, option, textData.toString(), Qt::white);
     } else {
