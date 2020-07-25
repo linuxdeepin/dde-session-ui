@@ -34,6 +34,7 @@ DWIDGET_USE_NAMESPACE
 
 const QString DisplayDBusServer = "com.deepin.daemon.Display";
 const QString DisplayDBusPath = "/com/deepin/daemon/Display";
+const QString DefaultCustomId = "_dde_display_config_private";
 
 DisplayModeProvider::DisplayModeProvider(QObject *parent)
     : AbstractOSDProvider(parent),
@@ -106,11 +107,11 @@ void DisplayModeProvider::sync()
         .call();
         if (!m_displayInter->currentCustomId().isNull()) {
             m_currentPlan.second = m_displayInter->currentCustomId();
-        } else {
-            return;
+        } else { // 如果没有自定义模式，同控制中心设置默认自定义模式
+            m_currentPlan.second = DefaultCustomId;
         }
     }
-    m_displayInter->SwitchMode(m_currentPlan.first, m_currentPlan.second);
+    m_displayInter->SwitchMode(m_currentPlan.first,  m_currentPlan.second);
 }
 
 void DisplayModeProvider::sync(const QModelIndex &index)
@@ -166,7 +167,7 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
         checkState = true;
         brushCorlor.setAlphaF(0.4);
         textCorlor = palette.color(QPalette::Highlight);
-    } else {  
+    } else {
         checkState = false;
         brushCorlor.setAlphaF(0.1);
         textCorlor = palette.color(QPalette::BrightText);
