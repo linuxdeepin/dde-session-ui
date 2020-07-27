@@ -175,25 +175,19 @@ void Manager::updateUI()
 {
     if (!m_currentProvider) return;
 
-    AbstractOSDProvider *prevProvider = m_model->provider();
     if (m_model->provider() != m_currentProvider) {
         m_model->setProvider(m_currentProvider);
         m_delegate->setProvider(m_currentProvider);
         m_listview->setFlow(m_currentProvider->flow());
         m_listview->setCurrentIndex(m_listview->model()->index(m_currentProvider->currentRow(), 0));
         m_container->setContentsMargins(m_currentProvider->contentMargins());
-        updateGeometry();
-        connect(m_currentProvider, &AbstractOSDProvider::dataChanged, this, &Manager::updateGeometry);
-        if (prevProvider != nullptr) { //切换了模块之后断开与上一个模块的连接
-            disconnect(prevProvider, &AbstractOSDProvider::dataChanged, this, &Manager::updateGeometry);
-        }
+        m_container->setFixedSize(m_currentProvider->contentSize());
+        m_container->moveToCenter();
     }
-}
-
-void Manager::updateGeometry()
-{
-    m_container->setFixedSize(m_currentProvider->contentSize());
-    m_container->moveToCenter();
+    if (!m_container->isVisible()) { // 相同模块如果osd已经显示，就不更新OSD位置，避免频繁切换在性能较弱的机器上出现闪烁
+        m_container->setFixedSize(m_currentProvider->contentSize());
+        m_container->moveToCenter();
+    }
 }
 
 void Manager::doneSetting()
@@ -205,5 +199,6 @@ void Manager::doneSetting()
     m_container->hide();
     if (m_currentProvider) {
         m_currentProvider->sync();
+        m_currentProvider = nullptr;
     }
 }
