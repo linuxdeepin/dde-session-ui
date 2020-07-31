@@ -69,7 +69,8 @@ void SuspendDialog::showEvent(QShowEvent *event)
 {
     DDialog::showEvent(event);
 
-    move(m_screenGeometry.center() - rect().center());
+    const auto ratio = devicePixelRatioF();
+    move(m_screenGeometry.center() / ratio - rect().center());
 }
 
 Manager::Manager()
