@@ -19,17 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#include <QStringList>
-#include <QVariantMap>
-#include <QTimer>
-#include <QDebug>
-#include <QScreen>
-#include <QDBusContext>
-#include <QDateTime>
-
-#include <algorithm>
-
 #include "bubblemanager.h"
 #include "bubble.h"
 #include "dbus_daemon_interface.h"
@@ -41,10 +30,23 @@
 #include "constants.h"
 #include "notifysettings.h"
 #include "notification-center/notifycenterwidget.h"
+#include "dbusdock_interface.h"
+
+#include <QStringList>
+#include <QVariantMap>
+#include <QTimer>
+#include <QDebug>
+#include <QScreen>
+#include <QDBusContext>
+#include <QDateTime>
+
+#include <DDesktopServices>
+
+#include <algorithm>
 
 #include <com_deepin_daemon_display.h>
 #include <com_deepin_daemon_display_monitor.h>
-#include "dbusdock_interface.h"
+
 
 using DisplayInter = com::deepin::daemon::Display;
 using MonitorInter = com::deepin::daemon::display::Monitor;
@@ -62,11 +64,6 @@ BubbleManager::BubbleManager(QObject *parent)
                                         QDBusConnection::sessionBus(), this))
     , m_notifySettings(new NotifySettings(this))
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
-    , m_checkDndTimer(new QTimer(this))
-    , m_soundeffectInter(new SoundeffectInter("com.deepin.daemon.SoundEffect",
-                                              "/com/deepin/daemon/SoundEffect",
-                                              QDBusConnection::sessionBus(), this))
-
 {
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
                                                     QDBusConnection::sessionBus(), this);
@@ -74,9 +71,6 @@ BubbleManager::BubbleManager(QObject *parent)
                                                           QDBusConnection::systemBus(), this);
 
     initConnections();
-
-    m_checkDndTimer->setInterval(900);
-    m_checkDndTimer->start();
 
     updateSysNotifyProperty();
 
@@ -158,11 +152,16 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                   this);
 
     AppNotifyProperty appNotifyProperty = getAppNotifyProperty(notification->appName());
+    // 通知时提示声音，并且不在勿扰模式才播放声音
+    if (appNotifyProperty.isNotificationSound && !isDoNotDisturb()) {
+        DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+    }
 
     if (!appNotifyProperty.isAllowNotify)
         return 0;
 
     notification->setShowPreview(appNotifyProperty.isShowNotifyPreview);
+    notification->setShowInNotifyCenter(appNotifyProperty.isShowInNotifyCenter);
 
     if (!calcReplaceId(notification)) {
         if (isDoNotDisturb()) {
@@ -171,9 +170,9 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
             } else {
                 m_persistence->addOne(notification);
             }
-        } else if ((m_userInter->locked() && !appNotifyProperty.isLockShowNotify)
-                   || appNotifyProperty.isOnlyInNotifyCenter) {
-            m_persistence->addOne(notification);
+        } else if ((m_userInter->locked() && !appNotifyProperty.isLockShowNotify)) {
+            if (notification->isShowInNotifyCenter())
+                m_persistence->addOne(notification);
         } else {
             pushBubble(notification);
         }
@@ -369,10 +368,10 @@ AppNotifyProperty BubbleManager::getAppNotifyProperty(QString appName)
         appNotifyProperty.isAllowNotify = DEFAULT_ALLOW_NOTIFY;
     }
 
-    if (currentSettingsObj.contains(OnlyInNotifyCenterStr)) {
-        appNotifyProperty.isOnlyInNotifyCenter = currentSettingsObj[OnlyInNotifyCenterStr].toBool();
+    if (currentSettingsObj.contains(ShowInNotifyCenterStr)) {
+        appNotifyProperty.isShowInNotifyCenter = currentSettingsObj[ShowInNotifyCenterStr].toBool();
     } else {
-        appNotifyProperty.isOnlyInNotifyCenter = DEFAULT_ONLY_IN_NOTIFY;
+        appNotifyProperty.isShowInNotifyCenter = DEFAULT_ONLY_IN_NOTIFY;
     }
 
     if (currentSettingsObj.contains(LockShowNotifyStr)) {
@@ -629,30 +628,6 @@ void BubbleManager::initConnections()
     });
 
     connect(m_launcherInter, &LauncherInter::ItemChanged, this, &BubbleManager::appInfoChanged);
-
-    // 通知中心勿扰模式时，通知音效关闭
-    connect(m_checkDndTimer, &QTimer::timeout, this, [ = ] {
-        static bool firstCloseSound = true;
-        static bool userState = true;
-        static bool lastDoNotDisturb = false;
-        if (isDoNotDisturb()) {
-            lastDoNotDisturb = true;
-
-            // 第一次切换到勿扰模式，记录用户音效开关设置
-            if (firstCloseSound) {
-                firstCloseSound = false;
-                userState = m_soundeffectInter->IsSoundEnabled("message");
-            }
-            m_soundeffectInter->EnableSound("message", false);
-        } else {
-            // 从勿扰模式切换到勿扰模式关闭，恢复用户音效设置
-            if (lastDoNotDisturb) {
-                lastDoNotDisturb = false;
-                m_soundeffectInter->EnableSound("message", userState);
-            }
-            firstCloseSound = true;
-        }
-    });
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
@@ -730,7 +705,8 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);
     connect(bubble, &Bubble::actionInvoked, this, &BubbleManager::bubbleActionInvoked);
     connect(bubble, &Bubble::notProcessedYet, this, [ = ](EntityPtr ptr) {
-        m_persistence->addOne(ptr);
+        if (ptr->isShowInNotifyCenter())
+            m_persistence->addOne(ptr);
     });
 
     m_currentDisplay = calcDisplayRect();

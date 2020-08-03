@@ -75,7 +75,7 @@ class NotifySettings;
  */
 typedef struct{
     bool isAllowNotify;
-    bool isOnlyInNotifyCenter;
+    bool isShowInNotifyCenter;
     bool isLockShowNotify;
     bool isShowNotifyPreview;
     bool isNotificationSound;
@@ -280,8 +280,6 @@ private:
     QString m_configFile;
 
     SysNotifyProperty m_sysNotifyProperty;
-    QTimer *m_checkDndTimer;
-    SoundeffectInter *m_soundeffectInter;
     QRect m_currentDisplay;
 };
 

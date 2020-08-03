@@ -34,6 +34,7 @@ DWIDGET_USE_NAMESPACE
 
 const QString DisplayDBusServer = "com.deepin.daemon.Display";
 const QString DisplayDBusPath = "/com/deepin/daemon/Display";
+const QString DefaultCustomId = "_dde_display_config_private";
 
 DisplayModeProvider::DisplayModeProvider(QObject *parent)
     : AbstractOSDProvider(parent),
@@ -106,11 +107,11 @@ void DisplayModeProvider::sync()
         .call();
         if (!m_displayInter->currentCustomId().isNull()) {
             m_currentPlan.second = m_displayInter->currentCustomId();
-        } else {
-            return;
+        } else { // 如果没有自定义模式，同控制中心设置默认自定义模式
+            m_currentPlan.second = DefaultCustomId;
         }
     }
-    m_displayInter->SwitchMode(m_currentPlan.first, m_currentPlan.second);
+    m_displayInter->SwitchMode(m_currentPlan.first,  m_currentPlan.second);
 }
 
 void DisplayModeProvider::sync(const QModelIndex &index)
@@ -141,6 +142,8 @@ QVariant DisplayModeProvider::data(const QModelIndex &index, int role) const
 
 void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    painter->setRenderHint(QPainter::Antialiasing, true);
+
     QVariant imageData = index.data(Qt::DecorationRole);
     QVariant textData = index.data(Qt::DisplayRole);
     const QRect rect(option.rect);
@@ -164,7 +167,7 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
         checkState = true;
         brushCorlor.setAlphaF(0.4);
         textCorlor = palette.color(QPalette::Highlight);
-    } else {  
+    } else {
         checkState = false;
         brushCorlor.setAlphaF(0.1);
         textCorlor = palette.color(QPalette::BrightText);
@@ -192,12 +195,20 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
         QRect checkButtonRect = backRect.marginsRemoved(QMargins(backRect.width() - CHECK_ICON_SIZE - CHECK_ICON_HSPACE,
                                                         (backRect.height() - CHECK_ICON_SIZE) / 2, CHECK_ICON_HSPACE,
                                                         (backRect.height() - CHECK_ICON_SIZE) / 2));
-        DStyle style;
-        QPixmap checkIcon = style.standardIcon(DStyle::SP_IndicatorChecked).pixmap(CHECK_ICON_SIZE);
-        if (checkIcon.isNull()) {
-            qDebug()<<"checkIcon is null";
-        }
-        painter->drawPixmap(checkButtonRect, checkIcon);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(textCorlor);
+        painter->drawEllipse(checkButtonRect);
+
+        QPen pen(Qt::white, CHECK_ICON_SIZE / 100.0 * 6.20, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
+        painter->setPen(pen);
+
+        QPointF points[3] = {
+            QPointF(CHECK_ICON_SIZE / 100.0 * 32 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 57 + checkButtonRect.y()),
+            QPointF(CHECK_ICON_SIZE / 100.0 * 45 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 70 + checkButtonRect.y()),
+            QPointF(CHECK_ICON_SIZE / 100.0 * 75 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 35 + checkButtonRect.y())
+        };
+
+        painter->drawPolyline(points, 3);
     }
 }
 
@@ -220,6 +231,7 @@ void DisplayModeProvider::updateOutputNames()
             qWarning() << "failed to get all output names" << watcher->error().message();
         } else {
             QDBusReply<QStringList> reply = watcher->reply();
+            m_displayMode = m_displayInter->displayMode();
             m_outputNames = reply.value();
             updatePlanItems();
             emit dataChanged();
