@@ -25,20 +25,12 @@
 <context>
     <name>Content</name>
     <message>
-        <source>Chinese</source>
-        <translation type="vanished">Chinês</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">Inglês</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="47"/>
+        <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="48"/>
+        <location filename="../dde-license-dialog/content.cpp" line="226"/>
         <source>Confirm</source>
         <translation>Confirmar</translation>
     </message>
@@ -113,7 +105,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="546"/>
         <source>Switch user</source>
-        <translation>Trocar Usuário</translation>
+        <translation>Alternar Usuário</translation>
     </message>
 </context>
 <context>
@@ -185,7 +177,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Atualizações Baixadas! Reiniciar para Atualizar?</translation>
+        <translation>Atualizações baixadas; reiniciar para atualizar?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
@@ -200,18 +192,18 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation>Atualizar agora</translation>
+        <translation>Atualizar Agora</translation>
     </message>
 </context>
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="177"/>
         <source>Duplicate</source>
         <translation>Duplicar</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="179"/>
         <source>Extend</source>
         <translation>Estender</translation>
     </message>
@@ -270,7 +262,7 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
-        <translation>Adicionar o layout de teclado</translation>
+        <translation>Adicionar layout de teclado</translation>
     </message>
 </context>
 <context>
@@ -278,7 +270,7 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
-        <translation>Conta do domínio</translation>
+        <translation>Conta de domínio</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
@@ -317,56 +309,56 @@
 <context>
     <name>NetworkSecretDialog</name>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="46"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="53"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Password</source>
         <translation>Senha</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>Key</source>
         <translation>Chave</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="51"/>
         <source>key</source>
         <translation>chave</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="59"/>
         <source>Private Pwd</source>
         <translation>Senha Privada</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
         <source>Proxy Password</source>
         <translation>Senha do Proxy</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="64"/>
         <source>Group Password</source>
         <translation>Senha do Grupo</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
         <translation>Uma senha é necessária para conectar-se à &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="180"/>
         <source>Wrong password, please enter again!</source>
         <translation>Senha incorreta; digite novamente!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Connect</source>
         <translation>Conectar</translation>
     </message>
@@ -398,7 +390,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
-        <translation>Nenhuma notificação do sistema</translation>
+        <translation>Nenhuma Notificação</translation>
     </message>
 </context>
 <context>
@@ -425,29 +417,6 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Fim</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">Desligar</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Login</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">Reiniciar</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">Suspender</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">Hibernar</translation>
     </message>
 </context>
 <context>
@@ -511,25 +480,6 @@
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
         <translation>Entrar</translation>
-    </message>
-</context>
-<context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Entrar</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>Tentar novamente em %n minuto(s)</numerusform><numerusform>Tentar novamente em %n minuto(s)</numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">Digite a senha para desligar</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">Digite a senha para reiniciar</translation>
     </message>
 </context>
 <context>
@@ -602,6 +552,16 @@
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
         <source>Confirm</source>
         <translation>Confirmar</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="131"/>
+        <source>Make sure this PIN is shown on the device to be paired,</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
+        <source>and it should not be entered manually</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

@@ -25,20 +25,12 @@
 <context>
     <name>Content</name>
     <message>
-        <source>Chinese</source>
-        <translation type="vanished">Bahasa Cina</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">Bahasa Inggeris</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="47"/>
+        <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
         <translation>Batal</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="48"/>
+        <location filename="../dde-license-dialog/content.cpp" line="226"/>
         <source>Confirm</source>
         <translation>Sahkan</translation>
     </message>
@@ -206,12 +198,12 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="177"/>
         <source>Duplicate</source>
         <translation>Ganda Duakan</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="179"/>
         <source>Extend</source>
         <translation>Lanjut</translation>
     </message>
@@ -317,56 +309,56 @@
 <context>
     <name>NetworkSecretDialog</name>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="46"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="53"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Password</source>
         <translation>Kata Laluan</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>Key</source>
         <translation>Kunci</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="51"/>
         <source>key</source>
         <translation>kunci</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="59"/>
         <source>Private Pwd</source>
         <translation>Kata Laluan Persendirian</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
         <source>Proxy Password</source>
         <translation>Kata Laluan Proksi</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="64"/>
         <source>Group Password</source>
         <translation>Kata Laluan Kumpulan</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
         <translation>Kata laluan diperlukan untuk bersambung dengan &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="180"/>
         <source>Wrong password, please enter again!</source>
         <translation>Kata laluan salah, sila masukkan sekali lagi!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Cancel</source>
         <translation>Batal</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Connect</source>
         <translation>Sambung</translation>
     </message>
@@ -425,29 +417,6 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Akhir</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">Matikan</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Daftar Masuk</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">But semula</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">Tangguh</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">Hibernasi</translation>
     </message>
 </context>
 <context>
@@ -511,25 +480,6 @@
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
         <translation>Enter</translation>
-    </message>
-</context>
-<context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Daftar Masuk</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>Cuba sekali lagi selepas %n minit(s)</numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">Masukkan kata laluan anda untuk matikan komputer</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">Masukkan kata laluan anda untuk membut semula</translation>
     </message>
 </context>
 <context>
@@ -602,6 +552,16 @@
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
         <source>Confirm</source>
         <translation>Sahkan</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="131"/>
+        <source>Make sure this PIN is shown on the device to be paired,</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
+        <source>and it should not be entered manually</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

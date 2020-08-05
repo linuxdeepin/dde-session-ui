@@ -25,20 +25,12 @@
 <context>
     <name>Content</name>
     <message>
-        <source>Chinese</source>
-        <translation type="vanished">Chinesisch</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">Englisch</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="47"/>
+        <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="48"/>
+        <location filename="../dde-license-dialog/content.cpp" line="226"/>
         <source>Confirm</source>
         <translation>Bestätigen</translation>
     </message>
@@ -59,7 +51,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Reboot</source>
-        <translation>Neustarten</translation>
+        <translation>Neu starten</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
@@ -69,7 +61,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation>Sind Sie sicher, dass Sie einen Neustart durchführen möchten?</translation>
+        <translation>Sind Sie sicher, dass Sie neu starten möchten?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
@@ -87,7 +79,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Suspend</source>
-        <translation>Standby</translation>
+        <translation>Bereitschaftszustand</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
@@ -132,7 +124,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Diese Anwendung wird beendet, stellen Sie sicher, dass alle Daten gespeichert wurden!</translation>
+        <translation>Diese Anwendung wird beendet, bitte stellen Sie sicher, dass Ihre Daten gespeichert wurden!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
@@ -147,7 +139,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Ungenügend Systemspeicher verfügbar. Bitte schließen Sie unnötige Anwendungen um ein ruckelndes System zu vermeiden.</translation>
+        <translation>Ungenügend Systemspeicher verfügbar. Bitte schließen Sie unnötige Anwendungen, um ein ruckelndes System zu vermeiden.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
@@ -206,12 +198,12 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="177"/>
         <source>Duplicate</source>
         <translation>Duplizieren</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="179"/>
         <source>Extend</source>
         <translation>Erweitern</translation>
     </message>
@@ -317,56 +309,56 @@
 <context>
     <name>NetworkSecretDialog</name>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="46"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="53"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>Key</source>
         <translation>Schlüssel</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="51"/>
         <source>key</source>
         <translation>Schlüssel</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="59"/>
         <source>Private Pwd</source>
         <translation>Privates Passwort</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
         <source>Proxy Password</source>
         <translation>Proxy-Passwort</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="64"/>
         <source>Group Password</source>
         <translation>Gruppenpasswort</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation>Kennwort erforderlich, um &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; zu verbinden</translation>
+        <translation>Passwort erforderlich, um &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; zu verbinden</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="180"/>
         <source>Wrong password, please enter again!</source>
         <translation>Falsches Passwort, bitte erneut eingeben!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Connect</source>
         <translation>Verbinden</translation>
     </message>
@@ -425,29 +417,6 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Ende</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">Herunterfahren</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Anmelden</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">Neustarten</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">Bereitschaftszustand</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">Ruhezustand</translation>
     </message>
 </context>
 <context>
@@ -514,25 +483,6 @@
     </message>
 </context>
 <context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Anmelden</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>Bitte in %n Minute erneut versuchen</numerusform><numerusform>Bitte in %n Minute(n) erneut versuchen</numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">Geben Sie zum Herunterfahren Ihr Passwort ein</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">Geben Sie zum Neustarten Ihr Passwort ein</translation>
-    </message>
-</context>
-<context>
     <name>WMChooser</name>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
@@ -557,7 +507,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>Hinweis</translation>
+        <translation>Freundliche Erinnerung</translation>
     </message>
 </context>
 <context>
@@ -565,7 +515,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>Hinweis</translation>
+        <translation>Freundliche Erinnerung</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
@@ -602,6 +552,16 @@
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
         <source>Confirm</source>
         <translation>Bestätigen</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="131"/>
+        <source>Make sure this PIN is shown on the device to be paired,</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
+        <source>and it should not be entered manually</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

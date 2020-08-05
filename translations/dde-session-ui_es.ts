@@ -25,20 +25,12 @@
 <context>
     <name>Content</name>
     <message>
-        <source>Chinese</source>
-        <translation type="vanished">Chino</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">Inglés</translation>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="47"/>
+        <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="48"/>
+        <location filename="../dde-license-dialog/content.cpp" line="226"/>
         <source>Confirm</source>
         <translation>Confirmar</translation>
     </message>
@@ -64,12 +56,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation>¿Está seguro de apagar?</translation>
+        <translation>¿Seguro que desea apagar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation>¿Está seguro de reiniciar?</translation>
+        <translation>¿Seguro que desea reiniciar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
@@ -81,7 +73,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
-        <translation>¿Está seguro de cerrar sesión?</translation>
+        <translation>¿Seguro que desea cerrar sesión?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
@@ -92,12 +84,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
         <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>Los programas impiden que el equipo se apague / hiberne, y forzar el apagado / hibernado podría causar pérdida de datos.</translation>
+        <translation>Una o más aplicaciones aún están abiertas y evitan que el equipo se apague / hiberne.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
         <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation>Para cerrar el programa, haga clic en Cancelar y, a continuación, cierre el programa.</translation>
+        <translation>Haga clic en Cancelar para cerrarlas correctamente.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
@@ -113,7 +105,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="546"/>
         <source>Switch user</source>
-        <translation>Cambiar usuario</translation>
+        <translation>Cambiar de usuario</translation>
     </message>
 </context>
 <context>
@@ -147,7 +139,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Memoria del sistema insuficiente, por favor finalice algunas aplicaciones para evitar cuelgues.</translation>
+        <translation>Memoria del sistema insuficiente, por favor cierre algunas aplicaciones para evitar cuelgues.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
@@ -206,14 +198,14 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="177"/>
         <source>Duplicate</source>
-        <translation>Duplicar</translation>
+        <translation>Duplicada</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="179"/>
         <source>Extend</source>
-        <translation>Extender</translation>
+        <translation>Extendida</translation>
     </message>
 </context>
 <context>
@@ -239,7 +231,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Tiempo de verificación dactilar agotado, por favor ingrese manualmente su contraseña</translation>
+        <translation>Tiempo de verificación de huella dactilar agotado, escriba su contraseña</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
@@ -283,7 +275,7 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Tiempo para verificación dactilar finalizado, por favor ingrese la contraseña manualmente</translation>
+        <translation>Tiempo de verificación de huella dactilar agotado, escriba su contraseña</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
@@ -293,7 +285,7 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
-        <translation>Contraseña incorrecta </translation>
+        <translation>Contraseña incorrecta</translation>
     </message>
 </context>
 <context>
@@ -306,67 +298,67 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>Hay usuarios conectados y los datos se perderán al reiniciar, ¿está seguro de que desea reiniciar?</translation>
+        <translation>Hay usuarios conectados y sus datos se perderán al reiniciar, ¿está seguro de que desea reiniciar?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation>Hay usuarios conectados y los datos se perderán al apagar, ¿está seguro de que desea apagar?</translation>
+        <translation>Hay usuarios conectados y sus datos se perderán al apagar, ¿está seguro de que desea apagar?</translation>
     </message>
 </context>
 <context>
     <name>NetworkSecretDialog</name>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="46"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="53"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Password</source>
         <translation>Contraseña</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>Key</source>
         <translation>Clave</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="51"/>
         <source>key</source>
         <translation>Clave</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="59"/>
         <source>Private Pwd</source>
         <translation>Contraseña privada</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
         <source>Proxy Password</source>
         <translation>Contraseña del proxy</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="64"/>
         <source>Group Password</source>
         <translation>Contraseña del grupo</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
         <translation>Se requiere contraseña para conectar &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="180"/>
         <source>Wrong password, please enter again!</source>
-        <translation>Contraseña incorrecta, ¡por favor ingrese de nuevo1</translation>
+        <translation>Contraseña incorrecta, ¡por favor ingrese de nuevo!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Connect</source>
         <translation>Conectar</translation>
     </message>
@@ -406,17 +398,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="43"/>
         <source>Window effect enabled</source>
-        <translation>Efecto de ventanas activada</translation>
+        <translation>Efectos de ventana activados</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="44"/>
         <source>Window effect disabled</source>
-        <translation>Efecto de ventanas desactivada</translation>
+        <translation>Efectos de ventana desactivados</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="45"/>
         <source>Failed to enable window effects</source>
-        <translation>Error al activar efecto de ventanas</translation>
+        <translation>Error al activar efectos de ventana</translation>
     </message>
 </context>
 <context>
@@ -425,29 +417,6 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Fin</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">Apagar</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Iniciar sesión</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">Reiniciar</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">Suspender</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">Hibernar</translation>
     </message>
 </context>
 <context>
@@ -479,7 +448,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>Iniciar monitor del sistema</translation>
+        <translation>Iniciar el monitor del sistema</translation>
     </message>
 </context>
 <context>
@@ -511,25 +480,6 @@
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
         <translation>Entrar</translation>
-    </message>
-</context>
-<context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Iniciar sesión</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="vanished"><numerusform>Por favor, intente de nuevo luego de %n minuto(s)</numerusform><numerusform>Por favor, intente de nuevo luego de %n minuto(s)</numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">Ingrese su contraseña para apagar</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">Ingrese su contraseña para reiniciar</translation>
     </message>
 </context>
 <context>
@@ -571,7 +521,7 @@ Sin efectos disfrutará de un mayor rendimiento.</translation>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation>Esta aplicación no puede ser ejecutada sin efectos de ventanas</translation>
+        <translation>Esta aplicación no puede ser ejecutada sin efectos de ventana</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
@@ -592,7 +542,7 @@ Sin efectos disfrutará de un mayor rendimiento.</translation>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation>El PIN para conectar al dispositivo Bluetooth es:</translation>
+        <translation>El PIN para conectar el dispositivo Bluetooth es:</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
@@ -603,6 +553,16 @@ Sin efectos disfrutará de un mayor rendimiento.</translation>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
         <source>Confirm</source>
         <translation>Confirmar</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="131"/>
+        <source>Make sure this PIN is shown on the device to be paired,</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
+        <source>and it should not be entered manually</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
