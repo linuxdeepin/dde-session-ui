@@ -50,6 +50,7 @@ Container::Container(QWidget *parent)
 {
     setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_TranslucentBackground);
+    setMaskAlpha(255);
 
     m_quitTimer->setSingleShot(true);
     m_quitTimer->setInterval(60 * 1000);
