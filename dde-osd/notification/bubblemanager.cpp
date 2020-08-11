@@ -39,6 +39,7 @@
 #include <QScreen>
 #include <QDBusContext>
 #include <QDateTime>
+#include <QGSettings>
 
 #include <DDesktopServices>
 
@@ -137,9 +138,11 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QString &body, const QStringList &actions,
                            const QVariantMap hints, int expireTimeout)
 {
-    qDebug() << "Notify:" << "appName:" + appName <<"replaceID:" + QString::number(replacesId)
-             << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
-             << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
+    QGSettings setting("com.deepin.dde.osd", "/com/deepin/dde/osd/");
+    if (setting.keys().contains("bubble-debug-privacy") && setting.get("bubble-debug-privacy").toBool())
+        qDebug() << "Notify:" << "appName:" + appName <<"replaceID:" + QString::number(replacesId)
+                 << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
+                 << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 
     QString strBody = body;
     strBody.replace(QLatin1String("\\\\"), QLatin1String("\\"), Qt::CaseInsensitive);
