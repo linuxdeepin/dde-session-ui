@@ -28,9 +28,9 @@
 
 #include <QDateTime>
 #include <QTimer>
+#include <QGSettings>
 
 using namespace dcc::widgets;
-
 namespace dcc {
 namespace bluetooth {
 
@@ -62,7 +62,12 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
     m_titileLabel->setText(titilestr);
     m_pinCodeLabel->setText(pinCode);
 
-    qint64 msec = 60 * 1000 - QDateTime::currentMSecsSinceEpoch() + starttime.toLongLong();
+    uint pinsectime = 60;
+    QGSettings setting("com.deepin.dde.osd", "/com/deepin/dde/osd/");
+    if (setting.keys().contains("pindialog-time-sec"))
+        pinsectime = setting.get("pindialog-time-sec").toUInt();
+
+    qint64 msec = pinsectime * 1000 - QDateTime::currentMSecsSinceEpoch() + starttime.toLongLong();
     if (msec < 0){
         qDebug() << "timeout";
         exit(-2);
