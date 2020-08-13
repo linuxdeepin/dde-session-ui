@@ -68,6 +68,8 @@ bool ActionButton::addButtons(const QStringList &list)
                 button->setFixedSize(contentSize(list[i]));
 
                 m_layout->addWidget(button);
+                //避免数据大量接受引起的按钮隐藏
+                button->show();
 
                 connect(button, &Button::clicked, this, [ = ] {
                     Q_EMIT buttonClicked(id);
