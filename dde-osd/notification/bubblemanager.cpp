@@ -600,7 +600,9 @@ void BubbleManager::bubbleReplacedByOther(Bubble *bubble)
 void BubbleManager::bubbleActionInvoked(Bubble *bubble, QString actionId)
 {
     popBubble(bubble);
-    Q_EMIT ActionInvoked(bubble->entity()->id(), actionId);
+    uint id = bubble->entity()->id();
+    uint replacesId = bubble->entity()->replacesId().toUInt();
+    Q_EMIT ActionInvoked(replacesId == 0 ? id : replacesId, actionId);
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Closed);
 }
 
