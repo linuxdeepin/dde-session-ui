@@ -27,6 +27,7 @@
 #include <QPainter>
 #include <QScreen>
 #include <QTimer>
+#include <QPainterPath>
 
 using namespace com::deepin::daemon::display;
 
