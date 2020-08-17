@@ -2,7 +2,7 @@
 <context>
     <name>Bubble</name>
     <message>
-        <location filename="../dde-osd/notification/bubble.cpp" line="308"/>
+        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
         <source>1 new message</source>
         <translation>1 νέο μήνυμα</translation>
     </message>
@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="196"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
         <source>Just Now</source>
         <translation>Μόλις Τώρα</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>%1 minutes ago</source>
         <translation>%1 λεπτά πριν</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 hours ago</source>
         <translation>%1 ώρες πριν</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="203"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
         <source>Yesterday </source>
         <translation>Χθες</translation>
     </message>
@@ -33,12 +33,12 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="225"/>
+        <location filename="../dde-license-dialog/content.cpp" line="224"/>
         <source>Cancel</source>
         <translation>Ακύρωση</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="226"/>
+        <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Confirm</source>
         <translation>Επιβεβαίωση</translation>
     </message>
@@ -206,17 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="264"/>
         <source>Customize</source>
         <translation>Προσαρμογή</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="266"/>
         <source>Duplicate</source>
         <translation>Διπλότυπο</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="256"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="268"/>
         <source>Extend</source>
         <translation>Επέκταση</translation>
     </message>
@@ -379,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="66"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
         <source>Notification Center</source>
         <translation>Κέντρο Ειδοποιήσεων</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="86"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
         <source>%1 Notifications</source>
         <translation>%1 Ειδοποιήσεις</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="88"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
         <source>No messages</source>
         <translation>Κανένα μήνυμα</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn off DND mode</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn on DND mode</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="266"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
         <source>Notification settings</source>
         <translation>Ρυθμίσεις ειδοποιήσεων</translation>
     </message>
@@ -428,17 +428,17 @@
 <context>
     <name>OSDProvider</name>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="43"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
         <translation>Το εφέ παράθυρου είναι ενεργοποιημένο</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="44"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
         <translation>Το εφέ παράθυρου είναι απενεργοποιημένο</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="45"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
         <translation>Αποτυχία ενεργοποίησης εφέ παραθύρου</translation>
     </message>
@@ -494,6 +494,24 @@
         <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>εεεε-ΜΜ-ηη ηηηη</translation>
+    </message>
+</context>
+<context>
+    <name>TouchscreenSetting</name>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="45"/>
+        <source>Select your touch screen</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Ακύρωση</translation>
+    </message>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="52"/>
+        <source>Confirm</source>
+        <translation>Επιβεβαίωση</translation>
     </message>
 </context>
 <context>

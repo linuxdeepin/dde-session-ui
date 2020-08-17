@@ -2,7 +2,7 @@
 <context>
     <name>Bubble</name>
     <message>
-        <location filename="../dde-osd/notification/bubble.cpp" line="308"/>
+        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
         <source>1 new message</source>
         <translation>1 nova mensagem</translation>
     </message>
@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="196"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
         <source>Just Now</source>
         <translation>Agora Mesmo</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>%1 minutes ago</source>
         <translation>%1 minutos atrás</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 hours ago</source>
         <translation>%1 horas atrás</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="203"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
         <source>Yesterday </source>
         <translation>Ontem</translation>
     </message>
@@ -33,12 +33,12 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="225"/>
+        <location filename="../dde-license-dialog/content.cpp" line="224"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="226"/>
+        <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Confirm</source>
         <translation>Confirmar</translation>
     </message>
@@ -206,17 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="264"/>
         <source>Customize</source>
         <translation>Personalizar</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="266"/>
         <source>Duplicate</source>
         <translation>Duplicar</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="256"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="268"/>
         <source>Extend</source>
         <translation>Estender</translation>
     </message>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
         <source>Wrong Password</source>
-        <translation>Senha incorreta</translation>
+        <translation>Senha Incorreta</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
@@ -298,7 +298,7 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
-        <translation>Senha incorreta</translation>
+        <translation>Senha Incorreta</translation>
     </message>
 </context>
 <context>
@@ -379,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="66"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
         <source>Notification Center</source>
         <translation>Central de Notificações</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="86"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
         <source>%1 Notifications</source>
         <translation>%1 notificações</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="88"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
         <source>No messages</source>
         <translation>Nenhuma mensagem</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn off DND mode</source>
         <translation>Desativar o modo Não Perturbe</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn on DND mode</source>
         <translation>Ativar o modo Não Perturbe</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="266"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
         <source>Notification settings</source>
         <translation>Configurações de notificação</translation>
     </message>
@@ -422,23 +422,23 @@
     <message>
         <location filename="../dde-osd/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
-        <translation>Nenhuma Notificação</translation>
+        <translation>Nenhuma notificação do sistema</translation>
     </message>
 </context>
 <context>
     <name>OSDProvider</name>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="43"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
         <translation>Efeito janela ativado</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="44"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
         <translation>Efeito janela desativado</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="45"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
         <translation>Falha ao ativar o efeito janela</translation>
     </message>
@@ -494,6 +494,24 @@
         <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>dd-MM-yyyy dddd</translation>
+    </message>
+</context>
+<context>
+    <name>TouchscreenSetting</name>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="45"/>
+        <source>Select your touch screen</source>
+        <translation>Selecionar touchscreen</translation>
+    </message>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="52"/>
+        <source>Confirm</source>
+        <translation>Confirmar</translation>
     </message>
 </context>
 <context>

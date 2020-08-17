@@ -2,7 +2,7 @@
 <context>
     <name>Bubble</name>
     <message>
-        <location filename="../dde-osd/notification/bubble.cpp" line="308"/>
+        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
         <source>1 new message</source>
         <translation>1 missatge nou</translation>
     </message>
@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="196"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
         <source>Just Now</source>
         <translation>Ara mateix</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>%1 minutes ago</source>
         <translation>Fa %1 minuts</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 hours ago</source>
         <translation>Fa %1 hores</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="203"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
         <source>Yesterday </source>
         <translation>Ahir</translation>
     </message>
@@ -33,12 +33,12 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="225"/>
+        <location filename="../dde-license-dialog/content.cpp" line="224"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="226"/>
+        <location filename="../dde-license-dialog/content.cpp" line="225"/>
         <source>Confirm</source>
         <translation>Confirmeu-ho</translation>
     </message>
@@ -206,17 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="264"/>
         <source>Customize</source>
         <translation>Personalitzeu-ho</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="266"/>
         <source>Duplicate</source>
         <translation>Duplica</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="256"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="268"/>
         <source>Extend</source>
         <translation>Estén</translation>
     </message>
@@ -379,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="66"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
         <source>Notification Center</source>
         <translation>Centre de notificacions</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="86"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
         <source>%1 Notifications</source>
         <translation>%1 notificacions</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="88"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
         <source>No messages</source>
         <translation>No hi ha cap missatge.</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn off DND mode</source>
         <translation>Desactiva el mode de No emprenyar</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="259"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn on DND mode</source>
         <translation>Activa el mode de No emprenyar</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="266"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
         <source>Notification settings</source>
         <translation>Configuració de les notificacions</translation>
     </message>
@@ -428,17 +428,17 @@
 <context>
     <name>OSDProvider</name>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="43"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
         <translation>Efectes de finestra habilitats</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="44"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
         <translation>Efectes de finestra inhabilitats</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="45"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
         <translation>Ha fallat l&apos;activació dels efectes de finestres.</translation>
     </message>
@@ -494,6 +494,24 @@
         <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
         <translation>dddd dd-MM-yyyy</translation>
+    </message>
+</context>
+<context>
+    <name>TouchscreenSetting</name>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="45"/>
+        <source>Select your touch screen</source>
+        <translation>Seleccioneu la pantalla tàctil</translation>
+    </message>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Cancel·la</translation>
+    </message>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="52"/>
+        <source>Confirm</source>
+        <translation>Confirmeu-ho</translation>
     </message>
 </context>
 <context>

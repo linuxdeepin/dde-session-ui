@@ -1,37 +1,37 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="hr" sourcelanguage="en" version="2.1">
 <context>
+    <name>Bubble</name>
+    <message>
+        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
+        <source>1 new message</source>
+        <translation>1 nova poruka</translation>
+    </message>
+</context>
+<context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
         <source>Just Now</source>
         <translation>Upravo sada</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>%1 minutes ago</source>
         <translation>%1 minuta prije</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 hours ago</source>
         <translation>%1 sati prije</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="207"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
         <source>Yesterday </source>
         <translation>Jučer</translation>
     </message>
 </context>
 <context>
     <name>Content</name>
-    <message>
-        <source>Chinese</source>
-        <translation type="vanished">Kineski</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">Engleski</translation>
-    </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="224"/>
         <source>Cancel</source>
@@ -206,17 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="184"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="264"/>
         <source>Customize</source>
         <translation>Prilagodi</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="186"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="266"/>
         <source>Duplicate</source>
         <translation>Udvostruči</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="188"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="268"/>
         <source>Extend</source>
         <translation>Proširi</translation>
     </message>
@@ -244,7 +244,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Isteklo je vrijeme ovjere otiska prsta, molim unesite lozinku ručno</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
@@ -288,7 +288,7 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>Isteklo je vrijeme ovjere otisla prsta, molim unesite lozinku ručno</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
@@ -379,21 +379,40 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="94"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
         <source>Notification Center</source>
         <translation>Centar obavijesti</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
         <source>%1 Notifications</source>
         <translation>%1 obavijesti</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <source>No messages</source>
+        <translation>Nema poruka</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <source>Turn off DND mode</source>
+        <translation>Isključi DND način</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <source>Turn on DND mode</source>
+        <translation>Uključi DND način</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
+        <source>Notification settings</source>
+        <translation>Postavke obavijesti</translation>
     </message>
 </context>
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="90"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="88"/>
         <source>Notification Center</source>
         <translation>Centar obavijesti</translation>
     </message>
@@ -409,17 +428,17 @@
 <context>
     <name>OSDProvider</name>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="43"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
         <translation>Omogućeni efekti prozora</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="44"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
         <translation>Onemogućeni efekti prozora</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="45"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
         <translation>Neuspjelo omogućivanje efekta prozora</translation>
     </message>
@@ -430,29 +449,6 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Završetak</translation>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">Isključi</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Prijava</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">Ponovno podigni sustav</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">Suspendiraj</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="vanished">Hiberniraj</translation>
     </message>
 </context>
 <context>
@@ -501,6 +497,24 @@
     </message>
 </context>
 <context>
+    <name>TouchscreenSetting</name>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="45"/>
+        <source>Select your touch screen</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Otkaži</translation>
+    </message>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="52"/>
+        <source>Confirm</source>
+        <translation>Potvrdi</translation>
+    </message>
+</context>
+<context>
     <name>UpdateContent</name>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
@@ -516,25 +530,6 @@
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
         <translation>Unesi</translation>
-    </message>
-</context>
-<context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">Prijava</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="vanished">Unesite vašu lozinku za isključivanje</translation>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">Unesite vašu lozinku za ponovno podizanje sustava</translation>
     </message>
 </context>
 <context>
@@ -589,6 +584,24 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>Baterija slaba, molim priključite struju</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::bluetooth::PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>PIN za spajanje na Bluetooth uređaj je:</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
+        <source>Cancel</source>
+        <translation>Otkaži</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
+        <source>Confirm</source>
+        <translation>Potvrdi</translation>
     </message>
 </context>
 </TS>
