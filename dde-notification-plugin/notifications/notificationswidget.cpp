@@ -27,9 +27,9 @@
 #include <QApplication>
 #include <QIcon>
 #include <QPainterPath>
+
 #include <DGuiApplicationHelper>
 #include <DStyle>
-#include <QPainterPath>
 
 DGUI_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
