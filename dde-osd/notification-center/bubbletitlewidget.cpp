@@ -29,9 +29,9 @@
 BubbleTitleWidget::BubbleTitleWidget(NotifyModel *model, EntityPtr entity, QWidget *parent)
     : DWidget(parent),
       m_titleLabel(new DLabel),
-      m_closeButton(new DIconButton(DStyle::SP_CloseButton)),
       m_model(model)
 {
+    this->setObjectName(entity->appName());
     m_titleLabel = new DLabel;
     m_titleLabel->setForegroundRole(QPalette::BrightText);
     m_titleLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -42,6 +42,7 @@ BubbleTitleWidget::BubbleTitleWidget(NotifyModel *model, EntityPtr entity, QWidg
     m_titleLabel->setText(BubbleTool::getDeepinAppName(entity->appName()));
 
     m_closeButton = new DIconButton(DStyle::SP_CloseButton);
+    m_closeButton->setObjectName(entity->appName() + "-CloseButton");
     m_closeButton->setFlat(true);
     m_closeButton->setIconSize(QSize(Notify::GroupButtonSize, Notify::GroupButtonSize));
     m_closeButton->setFixedSize(Notify::GroupButtonSize, Notify::GroupButtonSize);

@@ -34,6 +34,8 @@ class NotifyModel;
 
 class HalfRoundedRectWidget : public AlphaWidget
 {
+    Q_OBJECT
+
 public:
     HalfRoundedRectWidget(QWidget *parent = nullptr);
 
