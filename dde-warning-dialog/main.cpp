@@ -24,12 +24,14 @@
  */
 
 #include "warningdialog.h"
+
 #include <DApplication>
+#include <DWidgetUtil>
+#include <DGuiApplicationHelper>
+
 #include <QTranslator>
 #include <QDBusConnection>
 #include <QDBusInterface>
-#include <QDebug>
-#include <DWidgetUtil>
 
 DWIDGET_USE_NAMESPACE
 
@@ -39,7 +41,6 @@ static const QString Interface = "com.deepin.dde.WarningDialog";
 
 int main(int argc, char *argv[])
 {
-    DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
     a.setApplicationName("dde-warning-dialog");
     a.setApplicationVersion("1.0");
@@ -49,6 +50,7 @@ int main(int argc, char *argv[])
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a.installTranslator(&translator);
 
+    DGuiApplicationHelper::setSingleInstanceInterval(-1);
     if (!a.setSingleInstance(a.applicationName(), DApplication::UserScope)) {
         return -1;
     }
