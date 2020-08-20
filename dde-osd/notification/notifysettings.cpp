@@ -29,6 +29,9 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QByteArray>
+#include <DDesktopEntry>
+
+DCORE_USE_NAMESPACE
 
 const QString server = "com.deepin.dde.daemon.Launcher";
 const QString path = "/com/deepin/dde/daemon/Launcher";
@@ -71,9 +74,15 @@ void NotifySettings::initAllSettings()
     if (appList.size() > 0) {
         m_initTimer->stop();
     }
+
     for (int i = 0; i < appList.size(); i++) {
-        if (WhiteBoardAppList.contains(appList[i].m_key))
+        DDesktopEntry appDeskTopInfo(appList[i].m_desktop);
+        // 判断是否为白名单应用或者WINE应用，这两种类型的应用通知不做处理
+        if (WhiteBoardAppList.contains(appList[i].m_key) || appDeskTopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
+            // 移除之前添加的WINE应用的通知设置
+            obj.remove(appList[i].m_key);
             continue;
+        }
 
         if (!settingList.contains(appList[i].m_key)) {
             QJsonObject appObj;
@@ -176,6 +185,12 @@ void NotifySettings::appAdded(ItemInfo info)
 {
     if (m_settings == nullptr)
         return;
+
+    DDesktopEntry appDeskTopInfo(info.m_desktop);
+    // 判断是否为白名单应用或者WINE应用，这两种类型的应用通知不做处理
+    if (WhiteBoardAppList.contains(info.m_key) || appDeskTopInfo.rawValue("X-Created-By") == "Deepin WINE Team")
+        return;
+
     QJsonObject obj = QJsonDocument::fromJson(m_settings->get("notifycations-settings").toString().toUtf8()).object();
     QJsonObject appObj;
     appObj.insert(AppIconStr, info.m_iconKey);
