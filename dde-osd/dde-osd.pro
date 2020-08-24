@@ -45,7 +45,9 @@ HEADERS  += container.h \
     displaymodeprovider.h \
     indicatorprovider.h \
     kblayoutindicator.h \
-    unittest.h
+    unittest.h \
+    accessibledefine.h \
+    accessible.h
 
 RESOURCES += \
     image.qrc \

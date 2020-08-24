@@ -51,6 +51,7 @@ NotifyListView::NotifyListView(QWidget *parent)
     , m_refreshTimer(new QTimer(this))
 {
     qApp->installEventFilter(this);
+    this->setAccessibleName("List_Notifications");
     m_scrollAni->setEasingCurve(QEasingCurve::OutQuint);
     m_scrollAni->setDuration(800);
 

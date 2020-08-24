@@ -46,6 +46,8 @@ DWIDGET_USE_NAMESPACE
  */
 class AlphaWidget : public DWidget
 {
+    Q_OBJECT
+
 public:
     AlphaWidget(QWidget *parent = nullptr);
 
