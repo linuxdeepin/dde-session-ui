@@ -48,7 +48,7 @@ Container::Container(QWidget *parent)
     , m_quitTimer(new QTimer(this))
     , m_supportComposite(m_wmHelper->hasComposite())
 {
-    setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
+    setWindowFlags(Qt::ToolTip | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_TranslucentBackground);
     setMaskAlpha(255);
 
