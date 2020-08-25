@@ -105,18 +105,13 @@ void RecognizeDialog::paintEvent(QPaintEvent *) {
 
     auto touchMap = m_displayInter->touchMap();
     auto monitorPathList = m_displayInter->monitors();
+
     if (!monitorsIsIntersect()) {
         for (auto m : monitorPathList) {
             Monitor monitor(
                     SERVICE_PATH, m.path(), QDBusConnection::sessionBus());
+            QString manufacturer = monitor.manufacturer();
             QString monitorName = monitor.name();
-
-            QStringList touchscreens;
-            for (auto i = touchMap.cbegin(); i != touchMap.cend(); ++i) {
-                if (i.value() == monitorName) {
-                    touchscreens << i.key();
-                }
-            }
 
             paintMonitorMark(painter,
                              QRect(monitor.x(),
@@ -124,7 +119,7 @@ void RecognizeDialog::paintEvent(QPaintEvent *) {
                                    monitor.width(),
                                    monitor.height()),
                              monitorName,
-                             touchscreens);
+                             manufacturer);
         }
     }
 }
@@ -153,8 +148,8 @@ void RecognizeDialog::onScreenRectChanged() {
 void RecognizeDialog::paintMonitorMark(QPainter &painter,
                                        const QRect &rect,
                                        const QString &name,
-                                       const QStringList &touchscreens) {
-    int line = touchscreens.size() + 1;
+                                       const QString &manufacturer) {
+    int line = 2;
 
     const qreal ratio = devicePixelRatioF();
     const QRect r(rect.topLeft() / ratio, rect.size() / ratio);
@@ -163,30 +158,20 @@ void RecognizeDialog::paintMonitorMark(QPainter &painter,
     font.setPixelSize(FONT_SIZE);
     const QFontMetrics fm(font);
 
-    int containerWidth = fm.width(name);
-    int y = r.center().y() - fm.height() * (line / 2) + fm.height() / 4;
+    int textWidth = fm.width(name) > fm.width(manufacturer) ? fm.width(name) : fm.width(manufacturer);
 
     QPainterPath path;
-    for (auto touchName : touchscreens) {
-        int width = fm.width(touchName);
-        if (width > containerWidth) containerWidth = width;
-
-        int x = r.center().x() - width / 2;
-        path.addText(x, y, font, touchName);
-        y += fm.height();
-    }
-
-    int x = r.center().x() - fm.width(name) / 2;
-    path.addText(x, y, font, name);
+    path.addText(r.center().x() - fm.width(manufacturer) / 2, r.center().y() - fm.height() / 2, font, manufacturer);
+    path.addText(r.center().x() - fm.width(name) / 2, r.center().y() + fm.height() / 2, font, name);
 
     painter.setPen(m_backgroundPen);
     painter.setBrush(m_backgroundBrush);
 
-    const int rectX = r.center().x() - containerWidth / 2 - HORIZENTAL_MARGIN;
+    const int rectX = r.center().x() - textWidth / 2 - HORIZENTAL_MARGIN;
     const int rectY = r.center().y() - fm.height() * line / 2 - VERTICAL_MARGIN;
     QRect rec(rectX,
               rectY,
-              containerWidth + HORIZENTAL_MARGIN * 2,
+              textWidth + HORIZENTAL_MARGIN * 2,
               fm.height() * line + VERTICAL_MARGIN * 2);
     painter.drawRoundedRect(rec, RADIUS, RADIUS);
 

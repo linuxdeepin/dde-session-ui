@@ -46,7 +46,7 @@ private:
     void paintMonitorMark(QPainter &painter,
                           const QRect &rect,
                           const QString &name,
-                          const QStringList &touchscreens);
+                          const QString &manufacturer);
     const QScreen *screenForGeometry(const QRect &rect) const;
     bool monitorsIsIntersect() const;
 
