@@ -27,10 +27,6 @@
 #define LARGELABEL_H
 
 #include <QLabel>
-
-namespace dcc {
-namespace widgets {
-
 class LargeLabel : public QLabel
 {
     Q_OBJECT
@@ -38,7 +34,5 @@ class LargeLabel : public QLabel
 public:
     using QLabel::QLabel; // using default inheritance constructor
 };
-}
-}
 
 #endif // LARGELABEL_H

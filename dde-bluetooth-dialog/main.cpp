@@ -38,7 +38,6 @@ const int PingTime = 3;
 
 int main(int argc, char *argv[])
 {
-    DApplication::loadDXcbPlugin();
     DApplication app(argc, argv);
     app.loadTranslator();
     app.setOrganizationName("deepin");
@@ -54,7 +53,7 @@ int main(int argc, char *argv[])
     }
     qDebug() << "PingCode:" << arguslist[PingCode] << " Device Path:" << arguslist[DevicePath] << "Ping Time:" + arguslist[PingTime];
 
-    dcc::bluetooth::PinCodeDialog dialog(arguslist[PingCode], arguslist[DevicePath], arguslist[PingTime], true);
+    PinCodeDialog dialog(arguslist[PingCode], arguslist[DevicePath], arguslist[PingTime], true);
     if (!dialog.isVisible()) {
         dialog.show();
     }

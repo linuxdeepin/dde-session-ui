@@ -24,20 +24,16 @@
  */
 
 #include "pincodedialog.h"
-#include "widgets/labels/largelabel.h"
+#include "largelabel.h"
 
 #include <QDateTime>
 #include <QTimer>
 #include <QGSettings>
 
-using namespace dcc::widgets;
-namespace dcc {
-namespace bluetooth {
-
 PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath, const QString &starttime, const bool &cancelable) :
     DDialog(),
-    m_pinCodeLabel(new dcc::widgets::LargeLabel(this)),
-    m_titileLabel(new dcc::widgets::LargeLabel(this)),
+    m_pinCodeLabel(new LargeLabel(this)),
+    m_titileLabel(new LargeLabel(this)),
     m_bluetoothInter(new DBusBluetooth("com.deepin.daemon.Bluetooth", "/com/deepin/daemon/Bluetooth", QDBusConnection::sessionBus(), this))
 {
     QString titilestr = tr("The PIN for connecting to the Bluetooth device is:");
@@ -123,6 +119,3 @@ PinCodeDialog::PinCodeDialog() :
 {
 
 }
-
-} // namespace bluetooth
-} // namespace dcc

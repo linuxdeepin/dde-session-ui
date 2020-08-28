@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui dbus x11extras svg sql dtkwidget testlib
+QT       += core gui dbus x11extras svg sql dtkwidget
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

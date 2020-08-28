@@ -36,12 +36,8 @@ DWIDGET_USE_NAMESPACE
 
 using  DBusBluetooth = com::deepin::daemon::Bluetooth;
 
-namespace dcc {
-namespace widgets {
 class LargeLabel;
-}
 
-namespace bluetooth {
 class PinCodeDialog : public DDialog
 {
     Q_OBJECT
@@ -54,11 +50,9 @@ public:
 private Q_SLOTS:
     void HandleBlutoothPower(const QString &message);
 private:
-    dcc::widgets::LargeLabel *m_pinCodeLabel;
-    dcc::widgets::LargeLabel *m_titileLabel;
+    LargeLabel *m_pinCodeLabel;
+    LargeLabel *m_titileLabel;
     DBusBluetooth *m_bluetoothInter;
 };
-} // namespace bluetooth
-} // namespace dcc
 
 #endif // DCC_BLUETOOTH_PINCODEDIALOG_H
