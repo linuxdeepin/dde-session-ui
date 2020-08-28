@@ -118,7 +118,12 @@ void NotificationsWidget::resizeEvent(QResizeEvent *event)
 
 void NotificationsWidget::mousePressEvent(QMouseEvent *event)
 {
-    m_pressed = true;
+    if (containCursorPos()) {
+        m_pressed = true;
+    } else {
+        m_pressed = false;
+    }
+
     update();
 
     QWidget::mousePressEvent(event);
@@ -135,7 +140,11 @@ void NotificationsWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void NotificationsWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    m_hover = true;
+    if (containCursorPos()) {
+        m_hover = true;
+    } else {
+        m_hover = false;
+    }
 
     QWidget::mouseMoveEvent(event);
 }
@@ -170,6 +179,20 @@ const QPixmap NotificationsWidget::loadSvg(const QString &iconName, const QStrin
     pixmap.setDevicePixelRatio(ratio);
 
     return pixmap;
+}
+
+bool NotificationsWidget::containCursorPos()
+{
+    QPoint cursorPos = this->mapFromGlobal(QCursor::pos());
+    QRect rect(this->rect());
+
+    int iconSize = qMin(rect.width(), rect.height());
+    int w = (rect.width() - iconSize) / 2;
+    int h = (rect.height() - iconSize) / 2;
+
+    rect = rect.adjusted(w, h, -w, -h);
+
+    return rect.contains(cursorPos);
 }
 
 void NotificationsWidget::setDisturb(bool OK)
