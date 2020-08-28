@@ -28,8 +28,7 @@ SOURCES += main.cpp \
     kblayoutprovider.cpp \
     displaymodeprovider.cpp \
     indicatorprovider.cpp \
-    kblayoutindicator.cpp \
-    unittest.cpp
+    kblayoutindicator.cpp
 
 HEADERS  += container.h \
     manager.h \
@@ -45,7 +44,6 @@ HEADERS  += container.h \
     displaymodeprovider.h \
     indicatorprovider.h \
     kblayoutindicator.h \
-    unittest.h \
     accessibledefine.h \
     accessible.h
 
