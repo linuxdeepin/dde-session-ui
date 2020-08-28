@@ -139,10 +139,24 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QVariantMap hints, int expireTimeout)
 {
     QGSettings setting("com.deepin.dde.osd", "/com/deepin/dde/osd/");
-    if (setting.keys().contains("bubble-debug-privacy") && setting.get("bubble-debug-privacy").toBool())
-        qDebug() << "Notify:" << "appName:" + appName <<"replaceID:" + QString::number(replacesId)
+    if (setting.keys().contains("bubble-debug-privacy") && setting.get("bubble-debug-privacy").toBool()) {
+        qDebug() << "Notify:" << "appName:" + appName << "replaceID:" + QString::number(replacesId)
                  << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
                  << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
+
+        // 记录通知发送方
+        QString cmd = QString("grep \"Name:\" /proc/%1/status").arg(QString::number(connection().interface()->servicePid(message().service())));
+        QProcess process;
+        QStringList args;
+        args << "-c";
+        args << cmd;
+        process.start("sh", args);
+        process.waitForFinished();
+        process.waitForReadyRead();
+        QString result = QString::fromUtf8(process.readAllStandardOutput());
+        qDebug() << "notify called by :" << result;
+        process.close();
+    }
 
     QString strBody = body;
     strBody.replace(QLatin1String("\\\\"), QLatin1String("\\"), Qt::CaseInsensitive);

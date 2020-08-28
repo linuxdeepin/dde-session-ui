@@ -92,11 +92,7 @@ typedef struct{
     QString EndTime;
 } SysNotifyProperty;
 
-#ifdef QT_DEBUG
 class BubbleManager : public QObject, public QDBusContext
-#else
-class BubbleManager : public QObject
-#endif
 {
     Q_OBJECT
 public:
