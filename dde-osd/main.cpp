@@ -37,6 +37,7 @@
 #include "notification/notifications_dbus_adaptor.h"
 #include "manager.h"
 #include "kblayoutindicator.h"
+#include "accessible.h"
 
 #include <DGuiApplicationHelper>
 
@@ -65,6 +66,7 @@ int main(int argc, char *argv[])
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
+    QAccessible::installFactory(accessibleFactory);
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());

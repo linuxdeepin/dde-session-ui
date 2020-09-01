@@ -104,6 +104,7 @@ void BubbleItem::initUI()
     m_closeButton->setVisible(false);
 
     m_titleWidget->setFixedHeight(37);
+    m_titleWidget->setObjectName("notification_title");
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSpacing(0);
     mainLayout->setMargin(0);
@@ -127,6 +128,7 @@ void BubbleItem::initUI()
     m_titleWidget->setLayout(titleLayout);
     mainLayout->addWidget(m_titleWidget);
     m_body->setStyle(OSD::BUBBLEWIDGET);
+    m_body->setObjectName("notification_body");
 
     QHBoxLayout *bodyLayout = new QHBoxLayout;
     bodyLayout->setSpacing(0);
