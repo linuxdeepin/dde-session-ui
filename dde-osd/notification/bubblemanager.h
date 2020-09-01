@@ -34,6 +34,7 @@
 
 #include <com_deepin_sessionmanager.h>
 #include <com_deepin_daemon_soundeffect.h>
+#include <com_deepin_daemon_gesture.h>
 
 #include "bubble.h"
 #include "constants.h"
@@ -42,6 +43,7 @@
 using UserInter = com::deepin::SessionManager;
 using LauncherInter = com::deepin::dde::daemon::Launcher;
 using SoundeffectInter = com::deepin::daemon::SoundEffect;
+using GestureInter = com::deepin::daemon::Gesture;
 
 static const QString DBbsDockDBusServer = "com.deepin.dde.Dock";
 static const QString DBusDockDBusPath = "/com/deepin/dde/Dock";
@@ -228,6 +230,8 @@ private Q_SLOTS:
     void updateGeometry();
     void appInfoChanged(QString action, ItemInfo info);
 
+    void onTouchEdgeIn(const QString &direction, double releaseX, double releaseY);
+
 private:
     void initConnections();                 //初始化信号槽连接
     void registerAsService();               //注册Dbus服务
@@ -277,6 +281,10 @@ private:
 
     SysNotifyProperty m_sysNotifyProperty;
     QRect m_currentDisplay;
+
+    // 手指划入距离，任务栏在右侧时，需大于任务栏最大宽度100，其它情况没有设限大于0即可
+    int m_slideWidth;
+    GestureInter *m_gestureInter;
 };
 
 #endif // BUBBLEMANAGER_H

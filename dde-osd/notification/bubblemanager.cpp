@@ -65,6 +65,10 @@ BubbleManager::BubbleManager(QObject *parent)
                                         QDBusConnection::sessionBus(), this))
     , m_notifySettings(new NotifySettings(this))
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
+    , m_gestureInter(new GestureInter("com.deepin.daemon.Gesture"
+                                      , "/com/deepin/daemon/Gesture"
+                                      , QDBusConnection::systemBus()
+                                      , this))
 {
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
                                                     QDBusConnection::sessionBus(), this);
@@ -81,6 +85,9 @@ BubbleManager::BubbleManager(QObject *parent)
     }
     m_notifyCenter->hide();
     registerAsService();
+
+    // 任务栏在左侧时，触屏划入距离需要超过100
+    m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
 }
 
 BubbleManager::~BubbleManager()
@@ -647,6 +654,12 @@ void BubbleManager::initConnections()
     });
 
     connect(m_launcherInter, &LauncherInter::ItemChanged, this, &BubbleManager::appInfoChanged);
+
+    // 响应任务栏方向改变信号，更新额外触屏划入距离
+    connect(m_dockDeamonInter, &DBusDock::PositionChanged, this, [ this ]{
+        m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
+    });
+    connect(m_gestureInter, &GestureInter::TouchEdgeEvent, this, &BubbleManager::onTouchEdgeIn);
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
@@ -755,4 +768,21 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         ani->start();
     }
     return bubble;
+}
+
+void BubbleManager::onTouchEdgeIn(const QString &direction, double releaseX, double releaseY)
+{
+    const QRect &rect = qApp->primaryScreen()->geometry();
+    int posX = static_cast<int>(releaseX * rect.width());
+    qDebug()<<"MainWindow::onTouchEdgeIn dir:"<< direction << ", x:" << posX << ", y:" << releaseY * rect.height();
+
+    // 通知中心是显示状态时返回
+    if (m_notifyCenter->isVisible()) {
+        return;
+    }
+
+    // 触屏划入方向为右，距离大于划入要求宽度，唤起通知中心
+    if (direction == "right" && (rect.width() - posX > m_slideWidth)) {
+        Toggle();
+    }
 }
