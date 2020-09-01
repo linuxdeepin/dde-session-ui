@@ -47,6 +47,16 @@ HEADERS  += container.h \
     accessibledefine.h \
     accessible.h
 
+isEmpty(PKGTYPE){
+    PKGTYPE = deb
+}
+
+contains(PKGTYPE, deb) {
+    QT += testlib
+    SOURCES += unittest.cpp
+    HEADERS += unittest.h
+}
+
 RESOURCES += \
     image.qrc \
     theme.qrc
