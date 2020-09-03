@@ -51,7 +51,6 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    DApplication::loadDXcbPlugin();
     DGuiApplicationHelper::setUseInactiveColorGroup(false);
     DGuiApplicationHelper::setColorCompositingEnabled(true);
     DApplication a(argc, argv);

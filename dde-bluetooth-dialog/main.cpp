@@ -39,7 +39,6 @@ const int PingTime = 3;
 int main(int argc, char *argv[])
 {
     DApplication app(argc, argv);
-    app.loadTranslator();
     app.setOrganizationName("deepin");
     app.setApplicationName("dde-bluetooth-dialog");
     QTranslator translator;

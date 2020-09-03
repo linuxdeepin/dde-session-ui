@@ -37,7 +37,6 @@ DCORE_USE_NAMESPACE
 
 int main(int argc, char *args[])
 {
-    DApplication::loadDXcbPlugin();
     DApplication dapp(argc, args);
     dapp.setQuitOnLastWindowClosed(false);
     dapp.setAttribute(Qt::AA_UseHighDpiPixmaps);

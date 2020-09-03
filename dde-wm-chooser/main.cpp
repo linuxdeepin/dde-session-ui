@@ -64,7 +64,6 @@ void selectNormalModel(QString qPath)
 
 int main(int argc, char *argv[])
 {
-    DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
     a.setApplicationName("deepin-wm-chooser");
 
