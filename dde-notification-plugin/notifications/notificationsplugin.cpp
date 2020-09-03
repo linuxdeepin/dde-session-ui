@@ -86,7 +86,7 @@ QWidget *NotificationsPlugin::itemTipsWidget(const QString &itemKey)
     if (recordCount)
         m_tipsLabel->setText(QString(tr("%1 Notifications")).arg(recordCount));
     else
-        m_tipsLabel->setText(tr("No News Yet"));
+        m_tipsLabel->setText(tr("No messages"));
 
     return m_tipsLabel;
 }

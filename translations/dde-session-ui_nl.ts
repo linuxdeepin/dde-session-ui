@@ -1,23 +1,31 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl" sourcelanguage="en" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl" version="2.1">
+<context>
+    <name>Bubble</name>
+    <message>
+        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
+        <source>1 new message</source>
+        <translation>1 nieuwe melding</translation>
+    </message>
+</context>
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="197"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>Zojuist</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="199"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>%1 minutes ago</source>
         <translation>%1 minuten geleden</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="201"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 hours ago</source>
         <translation>%1 uren geleden</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
         <source>Yesterday </source>
         <translation>Gisteren</translation>
     </message>
@@ -25,18 +33,28 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="225"/>
+        <location filename="../dde-license-dialog/content.cpp" line="226"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="226"/>
+        <location filename="../dde-license-dialog/content.cpp" line="227"/>
         <source>Confirm</source>
         <translation>Bevestigen</translation>
     </message>
 </context>
 <context>
     <name>ContentWidget</name>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
+        <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
+        <translation>De programma&apos;s voorkomen dat de computer wordt afgesloten / in slaapstand wordt gebracht, en het forceren van het afsluiten / in slaapstand brengen kan leiden tot gegevensverlies.</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <source>To close the program, Click Cancel, and then close the program.</source>
+        <translation>Om het programma te sluiten, klikt u op Annuleren en sluit u het programma.</translation>
+    </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="367"/>
@@ -54,6 +72,25 @@
         <translation>Herstarten</translation>
     </message>
     <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
+        <source>Suspend</source>
+        <translation>Pauzestand</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
+        <source>Hibernate</source>
+        <translation>Slaapstand</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
+        <source>Log out</source>
+        <translation>Afmelden</translation>
+    </message>
+    <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
         <translation>Bent u zeker dat u wil uitschakelen?</translation>
@@ -64,38 +101,9 @@
         <translation>Weet u zeker dat u opnieuw wilt opstarten?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
-        <source>Log out</source>
-        <translation>Afmelden</translation>
-    </message>
-    <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
         <translation>Ben u zeker dat u wil uitloggen?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
-        <source>Suspend</source>
-        <translation>Pauzestand</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
-        <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>De programma&apos;s voorkomen dat de computer wordt afgesloten / in slaapstand wordt gebracht, en het forceren van het afsluiten / in slaapstand brengen kan leiden tot gegevensverlies.</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
-        <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation>Om het programma te sluiten, klikt u op Annuleren en sluit u het programma.</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
-        <source>Hibernate</source>
-        <translation>Slaapstand</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
@@ -198,12 +206,12 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="177"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="265"/>
         <source>Duplicate</source>
         <translation>Dupliceer</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="179"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
         <source>Extend</source>
         <translation>Uitbreiden</translation>
     </message>
@@ -296,14 +304,14 @@
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
-        <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>De bovenstaande gebruikers zijn nog steeds ingelogd. Niet opgeslagen gegevens zullen verloren gaan als gevolg van het opnieuw opstarten. Weet u zeker dat u wilt doorgaan met het opnieuw opstarten?</translation>
-    </message>
-    <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
         <translation>De bovenstaande gebruikers zijn nog steeds ingelogd. Niet opgeslagen gegevens zullen verloren gaan als gevolg van het afsluiten. Weet u zeker dat u wilt doorgaan met het afsluiten?</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
+        <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
+        <translation>De bovenstaande gebruikers zijn nog steeds ingelogd. Niet opgeslagen gegevens zullen verloren gaan als gevolg van het opnieuw opstarten. Weet u zeker dat u wilt doorgaan met het opnieuw opstarten?</translation>
     </message>
 </context>
 <context>
@@ -348,11 +356,6 @@
         <translation>Wachtwoord nodig om verbinding te maken met &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="180"/>
-        <source>Wrong password, please enter again!</source>
-        <translation>Verkeerd wachtwoord, voer nogmaals in!</translation>
-    </message>
-    <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
@@ -362,27 +365,51 @@
         <source>Connect</source>
         <translation>Verbinden</translation>
     </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="180"/>
+        <source>Wrong password, please enter again!</source>
+        <translation>Verkeerd wachtwoord, voer nogmaals in!</translation>
+    </message>
 </context>
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="94"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Meldingencentrum</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1 meldingen</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <source>No messages</source>
+        <translation>Geen meldingen</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <source>Turn off DND mode</source>
+        <translation>Niet storen uitschakelen</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <source>Turn on DND mode</source>
+        <translation>Niet storen inschakelen</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
+        <source>Notification settings</source>
+        <translation>Meldingsinstellingen</translation>
     </message>
 </context>
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="88"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>Meldingencentrum</translation>
     </message>
 </context>
 <context>
@@ -396,17 +423,17 @@
 <context>
     <name>OSDProvider</name>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="43"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
         <translation>Venstereffect ingeschakeld</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="44"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
         <translation>Venstereffect uitgeschakeld</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="45"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
         <translation>Het inschakelen van venstereffecten is mislukt</translation>
     </message>
@@ -428,17 +455,17 @@
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="62"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="51"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="51"/>
         <source>Suspend</source>
         <translation>Pauzestand</translation>
     </message>
@@ -495,6 +522,11 @@
         <translation>Normale modus</translation>
     </message>
     <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
+        <source>Friendly Reminder</source>
+        <translation>Vriendelijke herinnering</translation>
+    </message>
+    <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
         <translation>Het systeem heeft gedetecteerd dat u een virtuele machine gebruikt, wat invloed heeft op de systeemprestaties en uw gebruikerservaring. Algemene modus wordt aanbevolen voor een vlotte ervaring.</translation>
@@ -503,11 +535,6 @@
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
         <translation>Effect modus: Deze modus zorgt ervoor dat u een vloeiende en delicate ervaring krijgt. Algemene modus: Deze modus zorgt ervoor dat u van snelle prestaties kan genieten</translation>
-    </message>
-    <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
-        <source>Friendly Reminder</source>
-        <translation>Vriendelijke herinnering</translation>
     </message>
 </context>
 <context>
@@ -554,12 +581,12 @@
         <translation>Bevestigen</translation>
     </message>
     <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="131"/>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
         <source>Make sure this PIN is shown on the device to be paired,</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="133"/>
         <source>and it should not be entered manually</source>
         <translation type="unfinished"/>
     </message>

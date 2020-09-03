@@ -1,23 +1,31 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="uk" sourcelanguage="en" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="uk" version="2.1">
+<context>
+    <name>Bubble</name>
+    <message>
+        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
+        <source>1 new message</source>
+        <translation>Одне нове повідомлення</translation>
+    </message>
+</context>
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="197"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
         <source>Just Now</source>
         <translation>Прямо зараз</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="199"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>%1 minutes ago</source>
         <translation>%1 хвилин тому</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="201"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 hours ago</source>
         <translation>%1 годин тому</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
         <source>Yesterday </source>
         <translation>Вчора</translation>
     </message>
@@ -25,18 +33,28 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="225"/>
+        <location filename="../dde-license-dialog/content.cpp" line="226"/>
         <source>Cancel</source>
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="226"/>
+        <location filename="../dde-license-dialog/content.cpp" line="227"/>
         <source>Confirm</source>
         <translation>Підтвердити</translation>
     </message>
 </context>
 <context>
     <name>ContentWidget</name>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
+        <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
+        <translation>Певні програми заважають вимиканню або присиплянню комп&apos;ютера. Примусове вимикання або присипляння може призвести до втрати даних.</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
+        <source>To close the program, Click Cancel, and then close the program.</source>
+        <translation>Щоб завершити роботу програми, натисніть кнопку «Скасувати» і закрийте вікно програми.</translation>
+    </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="367"/>
@@ -54,6 +72,25 @@
         <translation>Перезавантажити</translation>
     </message>
     <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
+        <source>Suspend</source>
+        <translation>Призупинити</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
+        <source>Hibernate</source>
+        <translation>Приспати</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
+        <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
+        <source>Log out</source>
+        <translation>Вихід</translation>
+    </message>
+    <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
         <translation>Ви впевнені, що хочете вимкнути компʼютер?</translation>
@@ -64,38 +101,9 @@
         <translation>Ви впевнені, що хочете перезавантажити?</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
-        <source>Log out</source>
-        <translation>Вихід</translation>
-    </message>
-    <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
         <translation>Ви впевнені, що хочете вийти?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
-        <source>Suspend</source>
-        <translation>Призупинити</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
-        <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>Певні програми заважають вимиканню або присиплянню комп&apos;ютера. Примусове вимикання або присипляння може призвести до втрати даних.</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
-        <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation>Щоб завершити роботу програми, натисніть кнопку «Скасувати» і закрийте вікно програми.</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
-        <source>Hibernate</source>
-        <translation>Приспати</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
@@ -198,12 +206,12 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="177"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="265"/>
         <source>Duplicate</source>
         <translation>Дублікат</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="179"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
         <source>Extend</source>
         <translation>Розширити</translation>
     </message>
@@ -296,14 +304,14 @@
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
-        <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>Вищевказані користувачі все ще знаходяться в системі, і їх дані будуть втрачені у випадку перезавантаження. Ви впевнені, що хочете перезавантажитись?</translation>
-    </message>
-    <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
         <translation>Вищевказані користувачі все ще знаходяться в системі, і їх дані будуть втрачені внаслідок вимкнення.</translation>
+    </message>
+    <message>
+        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
+        <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
+        <translation>Вищевказані користувачі все ще знаходяться в системі, і їх дані будуть втрачені у випадку перезавантаження. Ви впевнені, що хочете перезавантажитись?</translation>
     </message>
 </context>
 <context>
@@ -348,11 +356,6 @@
         <translation>Для підключення потрібен пароль &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="180"/>
-        <source>Wrong password, please enter again!</source>
-        <translation>Неправильний пароль, введіть ще раз!</translation>
-    </message>
-    <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Cancel</source>
         <translation>Скасувати</translation>
@@ -362,25 +365,49 @@
         <source>Connect</source>
         <translation>З&apos;єднатися</translation>
     </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="180"/>
+        <source>Wrong password, please enter again!</source>
+        <translation>Неправильний пароль, введіть ще раз!</translation>
+    </message>
 </context>
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="94"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
         <source>Notification Center</source>
         <translation>Центр повідомлень</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
         <source>%1 Notifications</source>
         <translation>%1 Сповіщення</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <source>No messages</source>
+        <translation>Немає повідомлень</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <source>Turn off DND mode</source>
+        <translation>Вимкнути режим «Не турбувати»</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <source>Turn on DND mode</source>
+        <translation>Увімкнути режим «Не турбувати»</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
+        <source>Notification settings</source>
+        <translation>Параметри сповіщень</translation>
     </message>
 </context>
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="88"/>
         <source>Notification Center</source>
         <translation>Центр повідомлень</translation>
     </message>
@@ -396,17 +423,17 @@
 <context>
     <name>OSDProvider</name>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="43"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
         <translation>Ефект вікна увімкнений</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="44"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
         <translation>Ефект вікна вимкнений</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="45"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
         <translation>Не вдалося увімкнути ефекти вікна</translation>
     </message>
@@ -428,17 +455,17 @@
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="62"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="51"/>
         <source>Cancel</source>
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="51"/>
         <source>Suspend</source>
         <translation>Призупинити</translation>
     </message>
@@ -495,6 +522,11 @@
         <translation>Звичайний режим</translation>
     </message>
     <message>
+        <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
+        <source>Friendly Reminder</source>
+        <translation>Дружнє нагадування</translation>
+    </message>
+    <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
         <translation>Виявлено, що ви використовуєте віртуальну машину, яка вплине на продуктивність системи та зручність роботи, для забезпечення плавного перегляду рекомендується нормальний режим.</translation>
@@ -503,11 +535,6 @@
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
         <translation>Режим ефекту: Мати делікатний досвід. Звичайний режим: Насолоджуйтеся швидкою продуктивністю</translation>
-    </message>
-    <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
-        <source>Friendly Reminder</source>
-        <translation>Дружнє нагадування</translation>
     </message>
 </context>
 <context>
@@ -554,12 +581,12 @@
         <translation>Підтвердити</translation>
     </message>
     <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="131"/>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
         <source>Make sure this PIN is shown on the device to be paired,</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="133"/>
         <source>and it should not be entered manually</source>
         <translation type="unfinished"/>
     </message>
