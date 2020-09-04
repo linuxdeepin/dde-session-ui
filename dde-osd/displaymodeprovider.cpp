@@ -244,15 +244,15 @@ void DisplayModeProvider::updatePlanItems()
 {
     m_planItems.clear();
 
-    m_planItems << QPair<uchar,QString>(DisplayMode::DuplicateMode, "");
-    m_planItems << QPair<uchar,QString>(DisplayMode::ExtendMode, "");
-    for (const QString &output : m_outputNames) {
-        m_planItems << QPair<uchar,QString>(DisplayMode::OSDOnlyMode, output);
-    }
+    m_planItems << QPair<uchar,QString>(DuplicateMode, "");
+    m_planItems << QPair<uchar,QString>(ExtendMode, "");
+    m_planItems << QPair<uchar,QString>(CustomizeMode, m_displayInter->currentCustomId());
 
-    m_currentPlan = QPair<uchar,QString>(m_displayMode, "");
-    if (m_displayMode == DisplayMode::OSDOnlyMode) {
-        m_currentPlan.second = m_primaryScreen;
+    for (QPair<uchar,QString> pair : m_planItems) {
+        if (m_displayMode == pair.first) {
+            m_currentPlan = pair;
+            break;
+        }
     }
 }
 
@@ -261,12 +261,12 @@ QString DisplayModeProvider::getPlanItemName(QPair<uchar, QString> &plan) const
     const uchar displayMode = plan.first;
     const QString monitorId = plan.second;
 
-    if (displayMode == DisplayMode::DuplicateMode) {
+    if (displayMode == CustomizeMode) {
+        return tr("Customize");
+    } else if (displayMode == DuplicateMode) {
         return tr("Duplicate");
-    } else if (displayMode == DisplayMode::ExtendMode) {
+    } else if (displayMode == ExtendMode) {
         return tr("Extend");
-    } else if (displayMode == DisplayMode::OSDOnlyMode) {
-        return monitorId;
     }
 
     return "";

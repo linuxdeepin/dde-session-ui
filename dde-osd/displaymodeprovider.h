@@ -50,9 +50,9 @@ class DisplayModeProvider : public AbstractOSDProvider
     Q_OBJECT
 public:
     enum DisplayMode {
-        DuplicateMode = 1,
-        ExtendMode,
-        OSDOnlyMode
+        CustomizeMode = 0,
+        DuplicateMode,
+        ExtendMode
     };
 
     explicit DisplayModeProvider(QObject *parent = 0);
