@@ -358,7 +358,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation>يجب تغيير كلمة المرور للإتصال &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; </translation>
+        <translation>يجب تغيير كلمة المرور للإتصال &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; </translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
@@ -588,7 +588,7 @@
     </message>
 </context>
 <context>
-    <name>dcc::bluetooth::PinCodeDialog</name>
+    <name>PinCodeDialog</name>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>

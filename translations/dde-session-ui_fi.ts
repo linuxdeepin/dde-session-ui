@@ -587,7 +587,7 @@
     </message>
 </context>
 <context>
-    <name>dcc::bluetooth::PinCodeDialog</name>
+    <name>PinCodeDialog</name>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
