@@ -178,7 +178,17 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     AppNotifyProperty appNotifyProperty = getAppNotifyProperty(notification->appName());
     // 通知时提示声音，并且不在勿扰模式才播放声音
     if (appNotifyProperty.isNotificationSound && !isDoNotDisturb()) {
-        DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+        QString action;
+        //接收蓝牙文件时，只在发送完成后才有提示音,"cancel"表示正在发送文件
+        if (actions.contains("cancel")) {
+            if (hints.contains("x-deepin-action-_view")) {
+                action = hints["x-deepin-action-_view"].toString();
+                if (action.contains("xdg-open"))
+                    DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+            }
+        } else {
+            DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+        }
     }
 
     if (!appNotifyProperty.isAllowNotify)
