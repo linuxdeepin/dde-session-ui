@@ -106,20 +106,22 @@ void RecognizeDialog::paintEvent(QPaintEvent *) {
     auto touchMap = m_displayInter->touchMap();
     auto monitorPathList = m_displayInter->monitors();
 
+    QList<Monitor *> monitorList;
+    for (auto m : monitorPathList) {
+        Monitor *monitor = new Monitor(SERVICE_PATH, m.path(), QDBusConnection::sessionBus(), this);
+        monitorList << monitor;
+    }
     if (!monitorsIsIntersect()) {
-        for (auto m : monitorPathList) {
-            Monitor monitor(
-                    SERVICE_PATH, m.path(), QDBusConnection::sessionBus());
-            QString manufacturer = monitor.manufacturer();
-            QString monitorName = monitor.name();
-
-            paintMonitorMark(painter,
-                             QRect(monitor.x(),
-                                   monitor.y(),
-                                   monitor.width(),
-                                   monitor.height()),
-                             monitorName,
-                             manufacturer);
+        for (auto m : monitorList) {
+            QString monitorName = m->name();
+            paintMonitorMark(painter, QRect(m->x(), m->y(), m->width(), m->height()), monitorName);
+        }
+    } else {
+        const QRect intersectRect = QRect(0, 0, monitorList[0]->width(), monitorList[0]->height());
+        QString intersectName = monitorList.first()->name();
+        for (int i(1); i != monitorList.size(); ++i) {
+            intersectName += "=" + monitorList[i]->name();
+            paintMonitorMark(painter, intersectRect, intersectName);
         }
     }
 }
@@ -147,10 +149,7 @@ void RecognizeDialog::onScreenRectChanged() {
 
 void RecognizeDialog::paintMonitorMark(QPainter &painter,
                                        const QRect &rect,
-                                       const QString &name,
-                                       const QString &manufacturer) {
-    int line = 2;
-
+                                       const QString &name) {
     const qreal ratio = devicePixelRatioF();
     const QRect r(rect.topLeft() / ratio, rect.size() / ratio);
 
@@ -158,26 +157,22 @@ void RecognizeDialog::paintMonitorMark(QPainter &painter,
     font.setPixelSize(FONT_SIZE);
     const QFontMetrics fm(font);
 
-    int textWidth = fm.width(name) > fm.width(manufacturer) ? fm.width(name) : fm.width(manufacturer);
+    int textWidth = fm.width(name);
+    int testHeight = fm.height();
+
+    const int rectX = r.center().x() - textWidth / 2 - HORIZENTAL_MARGIN;
+    const int rectY = r.center().y() - testHeight / 2 - VERTICAL_MARGIN;
+    QRect rec(rectX, rectY, textWidth + HORIZENTAL_MARGIN * 2, testHeight + VERTICAL_MARGIN * 2);
 
     QPainterPath path;
-    path.addText(r.center().x() - fm.width(manufacturer) / 2, r.center().y() - fm.height() / 2, font, manufacturer);
-    path.addText(r.center().x() - fm.width(name) / 2, r.center().y() + fm.height() / 2, font, name);
+    path.addText(rec.center().x() - textWidth / 2, rec.center().y() + testHeight / 4, font, name);
 
     painter.setPen(m_backgroundPen);
     painter.setBrush(m_backgroundBrush);
-
-    const int rectX = r.center().x() - textWidth / 2 - HORIZENTAL_MARGIN;
-    const int rectY = r.center().y() - fm.height() * line / 2 - VERTICAL_MARGIN;
-    QRect rec(rectX,
-              rectY,
-              textWidth + HORIZENTAL_MARGIN * 2,
-              fm.height() * line + VERTICAL_MARGIN * 2);
     painter.drawRoundedRect(rec, RADIUS, RADIUS);
 
     painter.setPen(m_textPen);
     painter.setBrush(m_textBrush);
-
     painter.drawPath(path);
 }
 

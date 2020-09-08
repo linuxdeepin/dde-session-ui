@@ -45,8 +45,7 @@ private Q_SLOTS:
 private:
     void paintMonitorMark(QPainter &painter,
                           const QRect &rect,
-                          const QString &name,
-                          const QString &manufacturer);
+                          const QString &name);
     const QScreen *screenForGeometry(const QRect &rect) const;
     bool monitorsIsIntersect() const;
 

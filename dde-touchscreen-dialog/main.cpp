@@ -6,7 +6,10 @@
 #include <QDebug>
 #include <QTranslator>
 
+#include <com_deepin_daemon_display.h>
+
 DWIDGET_USE_NAMESPACE
+using namespace com::deepin::daemon;
 
 int main(int argc, char *argv[])
 {
@@ -34,8 +37,14 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+
+    Display display("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus());
+    // 只有一块屏幕时不显示触摸选择提示框
+    if (display.monitors().size() < 2) {
+        return -1;
+    }
+
     TouchscreenSetting s(posArguments.first());
     s.show();
-
     return app.exec();
 }
