@@ -60,7 +60,7 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
 
     uint pinsectime = 60;
     QGSettings setting("com.deepin.dde.osd", "/com/deepin/dde/osd/");
-    if (setting.keys().contains("pindialog-time-sec"))
+    if (setting.keys().contains("pindialogTimeSec"))
         pinsectime = setting.get("pindialog-time-sec").toUInt();
 
     qint64 msec = pinsectime * 1000 - QDateTime::currentMSecsSinceEpoch() + starttime.toLongLong();

@@ -146,7 +146,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QVariantMap hints, int expireTimeout)
 {
     QGSettings setting("com.deepin.dde.osd", "/com/deepin/dde/osd/");
-    if (setting.keys().contains("bubble-debug-privacy") && setting.get("bubble-debug-privacy").toBool()) {
+    if (setting.keys().contains("bubbleDebugPrivacy") && setting.get("bubble-debug-privacy").toBool()) {
         qDebug() << "Notify:" << "appName:" + appName << "replaceID:" + QString::number(replacesId)
                  << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
                  << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
@@ -158,7 +158,6 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
         args << "-c";
         args << cmd;
         process.start("sh", args);
-        process.waitForFinished();
         process.waitForReadyRead();
         QString result = QString::fromUtf8(process.readAllStandardOutput());
         qDebug() << "notify called by :" << result;
