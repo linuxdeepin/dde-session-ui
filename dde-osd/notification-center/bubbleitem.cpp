@@ -262,10 +262,10 @@ void BubbleItem::keyPressEvent(QKeyEvent *event)
 
 void BubbleItem::enterEvent(QEvent *event)
 {
-    if (m_indexRow == -1)
+    if (m_view == nullptr)
         return;
     setFocus();
-    m_view->setCurrentRow(m_indexRow);
+    m_view->setCurrentRow(m_entity->currentIndex());
     Q_EMIT havorStateChanged(true);
     return DWidget::enterEvent(event);
 }
@@ -304,20 +304,8 @@ void BubbleItem::onHavorStateChanged(bool hover)
 
 void BubbleItem::onCloseBubble()
 {
-    QPropertyAnimation *rightMoveAni = new QPropertyAnimation(this, "pos", this);
-    rightMoveAni->setStartValue(this->pos());
-    rightMoveAni->setEndValue(this->pos() + QPoint(OSD::BubbleWidth(OSD::ShowStyle::BUBBLEWIDGET), 0));
-    rightMoveAni->setDuration(AnimationTime);
-    rightMoveAni->start(QPropertyAnimation::DeleteWhenStopped);
-    m_view->setAniState(true);
-    if (m_model->isExpand(m_entity->appName()))
-        m_view->createRemoveAnimation(m_indexRow);
-
-    QTimer::singleShot(AnimationTime + 10, this, [ = ] {
-        m_view->setAniState(false);
-        if (m_model != nullptr)
-            m_model->removeNotify(m_entity);
-    });
+    m_view->createRemoveAnimation(this);
+    Q_EMIT bubbleRemove();
 }
 
 void BubbleItem::setParentModel(NotifyModel *model)
@@ -348,9 +336,9 @@ QList<QPointer<QWidget>> BubbleItem::bubbleElements()
     return bubble_elements;
 }
 
-void BubbleItem::setIndexRow(int row)
+int BubbleItem::indexRow()
 {
-    m_indexRow = row;
+    return m_entity->currentIndex();
 }
 
 void BubbleItem::setHasFocus(bool focus)

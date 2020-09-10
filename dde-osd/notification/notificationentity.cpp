@@ -41,8 +41,9 @@ NotificationEntity::NotificationEntity(const QString &appName, const QString &id
     m_replacesId(replacesId),
     m_timeout(timeout),
     m_isTitle(false),
-    m_isExpand(true),
-    m_hideCount(0)
+    m_hideCount(0),
+    m_showPreview(true),
+    m_index(0)
 {
 
 }
@@ -157,19 +158,19 @@ void NotificationEntity::setIsTitle(bool is)
     m_isTitle = is;
 }
 
-void NotificationEntity::setShow(bool expand)
-{
-    m_isExpand = expand;
-}
-
-void NotificationEntity::setShowPreview(bool is)
-{
-    m_showPreview = is;
-}
-
 void NotificationEntity::setHideCount(int count)
 {
     m_hideCount = count;
+}
+
+void NotificationEntity::setShowPreview(bool show)
+{
+    m_showPreview = show;
+}
+
+void NotificationEntity::setCurrentIndex(int idx)
+{
+    m_index = idx;
 }
 
 void NotificationEntity::setShowInNotifyCenter(bool isShow)

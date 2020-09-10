@@ -51,9 +51,7 @@ NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
 void NotifyWidget::initView(Persistence *database)
 {
     m_mainList = new NotifyListView(this);
-
-    m_model = new NotifyModel(this,database);
-    m_model->setView(m_mainList);
+    m_model = new NotifyModel(this,database, m_mainList);
     m_mainList->setModel(m_model);
     m_mainList->setItemDelegate(new ItemDelegate(m_mainList ,m_model, this));
     m_mainList->setAutoFillBackground(false);
@@ -77,12 +75,10 @@ void NotifyWidget::initView(Persistence *database)
 void NotifyWidget::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event)
-
-    m_model->resetModel();
+    m_model->collapseData();
 }
 
 void NotifyWidget::hideEvent(QHideEvent *event)
 {
     Q_UNUSED(event)
-    m_model->collapseData();
 }

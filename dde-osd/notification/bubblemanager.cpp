@@ -24,13 +24,10 @@
 #include "dbus_daemon_interface.h"
 #include "dbuslogin1manager.h"
 #include "notificationentity.h"
-#include "dbusdisplay.h"
-#include "dbusdock.h"
 #include "persistence.h"
 #include "constants.h"
 #include "notifysettings.h"
 #include "notification-center/notifycenterwidget.h"
-#include "dbusdock_interface.h"
 
 #include <QStringList>
 #include <QVariantMap>
@@ -54,22 +51,23 @@ using MonitorInter = com::deepin::daemon::display::Monitor;
 BubbleManager::BubbleManager(QObject *parent)
     : QObject(parent)
     , m_persistence(new Persistence)
-    , m_displayInter(new DBusDisplay)
-    , m_dockDeamonInter(new DBusDock)
-    , m_userInter(new UserInter("com.deepin.SessionManager",
-                                "/com/deepin/SessionManager",
+    , m_dbusDaemonInterface(new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
+                                                    QDBusConnection::sessionBus(), this))
+    , m_login1ManagerInterface(new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
+                                                          QDBusConnection::systemBus(), this))
+    , m_displayInter(new DisplayInter(DisplayDaemonDBusServie, DisplayDaemonDBusPath,
+                                      QDBusConnection::sessionBus(), this))
+    , m_dockDeamonInter(new DockInter(DockDaemonDBusServie, DockDaemonDBusPath,
+                                      QDBusConnection::sessionBus(), this))
+    , m_userInter(new UserInter(SessionDBusServie, SessionDaemonDBusPath,
                                 QDBusConnection::sessionBus(), this))
-    , m_launcherInter(new LauncherInter("com.deepin.dde.daemon.Launcher",
-                                        "/com/deepin/dde/daemon/Launcher",
+    , m_launcherInter(new LauncherInter(LauncherDaemonDBusServie, LauncherDaemonDBusPath,
                                         QDBusConnection::sessionBus(), this))
+    , m_soundeffectInter(new SoundeffectInter(SoundEffectDaemonDBusServie, SoundEffectDaemonDBusPath,
+                                              QDBusConnection::sessionBus(), this))
     , m_notifySettings(new NotifySettings(this))
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
 {
-    m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
-                                                    QDBusConnection::sessionBus(), this);
-    m_login1ManagerInterface = new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
-                                                          QDBusConnection::systemBus(), this);
-
     initConnections();
 
     updateSysNotifyProperty();
@@ -469,7 +467,6 @@ QRect BubbleManager::calcDisplayRect()
             break;
         }
     }
-
     return displayRect;
 }
 
@@ -515,14 +512,14 @@ uint BubbleManager::recordCount()
     return uint(m_persistence->getRecordCount());
 }
 
-void BubbleManager::appInfoChanged(QString action, ItemInfo info)
+void BubbleManager::appInfoChanged(QString action, LauncherItemInfo info)
 {
     if (action == DeletedAction) {
-        m_notifySettings->appRemoved(info.m_key);
-        Q_EMIT appRemoved(info.m_key);
+        m_notifySettings->appRemoved(info.ID);
+        Q_EMIT appRemoved(info.ID);
     } else if (action == CreatedAction) {
         m_notifySettings->appAdded(info);
-        Q_EMIT appAdded(m_notifySettings->getAppSetings(info.m_key));
+        Q_EMIT appAdded(m_notifySettings->getAppSetings(info.ID));
     }
 }
 
@@ -615,8 +612,8 @@ void BubbleManager::initConnections()
     connect(m_dbusDaemonInterface, SIGNAL(NameOwnerChanged(QString, QString, QString)),
             this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
 
-    connect(m_displayInter, &DBusDisplay::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
-    connect(m_dockDeamonInter, &DBusDock::FrontendRectChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
+    connect(m_displayInter, &DisplayInter::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
+    connect(m_dockDeamonInter, &DockInter::FrontendWindowRectChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
 
     connect(qApp, &QApplication::primaryScreenChanged, this, [ = ] {
         updateGeometry();
@@ -639,15 +636,10 @@ void BubbleManager::onPrepareForSleep(bool sleep)
     }
 }
 
-bool BubbleManager::checkDockExistence()
-{
-    return m_dbusDaemonInterface->NameHasOwner(DBbsDockDBusServer).value();
-}
-
 void BubbleManager::geometryChanged()
 {
     QRect displayRect = calcDisplayRect();
-    QRect dock = m_dockDeamonInter->frontendRect();
+    QRect dock = m_dockDeamonInter->frontendWindowRect();
     if ((dock.topLeft().x() > QCursor::pos().x() || dock.topLeft().x() + dock.width() < QCursor::pos().x())) {
         dock.setHeight(0);
     }

@@ -287,6 +287,12 @@ inline QString getAccessibleName(QWidget *w, QAccessible::Role r, const QString 
                     return nullptr;\
                 }\
             }\
+        QAccessibleInterface *child(int index) const override {\
+            if (index > childCount() - 1) {\
+                return QAccessibleWidget::child(childCount() - 1);\
+            }\
+            return QAccessibleWidget::child(index);\
+        }\
     private:\
     classname *m_w;\
     QString m_description;\
@@ -306,7 +312,7 @@ inline QString getAccessibleName(QWidget *w, QAccessible::Role r, const QString 
                     return nullptr;\
                 }\
             }\
-        QAccessibleInterface *child(int index) const override { return nullptr; }\
+        QAccessibleInterface *child(int index) const override { Q_UNUSED(index) return nullptr; }\
         QStringList actionNames() const override;\
         void doAction(const QString &actionName) override;\
     private:\
@@ -332,20 +338,20 @@ inline QString getAccessibleName(QWidget *w, QAccessible::Role r, const QString 
                     return nullptr;\
                 }\
             }\
-        QAccessibleInterface *child(int index) const override { return nullptr; }\
+        QAccessibleInterface *child(int index) const override { Q_UNUSED(index) return nullptr; }\
         QString text(int startOffset, int endOffset) const override;\
-        void selection(int selectionIndex, int *startOffset, int *endOffset) const override {}\
+        void selection(int selectionIndex, int *startOffset, int *endOffset) const override { Q_UNUSED(selectionIndex) Q_UNUSED(startOffset) Q_UNUSED(endOffset)}\
         int selectionCount() const override { return 0; }\
-        void addSelection(int startOffset, int endOffset) override {}\
-        void removeSelection(int selectionIndex) override {}\
-        void setSelection(int selectionIndex, int startOffset, int endOffset) override {}\
+        void addSelection(int startOffset, int endOffset) override { Q_UNUSED(startOffset) Q_UNUSED(endOffset)}\
+        void removeSelection(int selectionIndex) override { Q_UNUSED(selectionIndex) }\
+        void setSelection(int selectionIndex, int startOffset, int endOffset) override { Q_UNUSED(selectionIndex) Q_UNUSED(startOffset) Q_UNUSED(endOffset) }\
         int cursorPosition() const override { return 0; }\
-        void setCursorPosition(int position) override {}\
+        void setCursorPosition(int position) override { Q_UNUSED(position) }\
         int characterCount() const override { return 0; }\
-        QRect characterRect(int offset) const override { return QRect(); }\
-        int offsetAtPoint(const QPoint &point) const override { return 0; }\
-        void scrollToSubstring(int startIndex, int endIndex) override {}\
-        QString attributes(int offset, int *startOffset, int *endOffset) const override { return QString(); }\
+        QRect characterRect(int offset) const override { Q_UNUSED(offset) return QRect(); }\
+        int offsetAtPoint(const QPoint &point) const override { Q_UNUSED(point) return 0; }\
+        void scrollToSubstring(int startIndex, int endIndex) override { Q_UNUSED(startIndex) Q_UNUSED(endIndex) }\
+        QString attributes(int offset, int *startOffset, int *endOffset) const override { Q_UNUSED(offset) Q_UNUSED(startOffset) Q_UNUSED(endOffset) return QString(); }\
     private:\
     classname *m_w;\
     QString m_description;\

@@ -12,7 +12,6 @@ HEADERS += \
     $$PWD/dbuslogin1manager.h \
     $$PWD/actionbutton.h \
     $$PWD/appicon.h\
-    $$PWD/dbusdock_interface.h \
     $$PWD/persistence.h \
     $$PWD/appbody.h \
     $$PWD/icondata.h \
@@ -21,11 +20,6 @@ HEADERS += \
     $$PWD/appbodylabel.h \
     $$PWD/constants.h \
     $$PWD/bubbletool.h \
-    $$PWD/dbusdisplay.h \
-    $$PWD/dbusdock.h \
-    $$PWD/dockrect.h \
-    $$PWD/launcherinter.h \
-    $$PWD/iteminfo.h \
     $$PWD/notifysettings.h
 
 SOURCES += \
@@ -37,7 +31,6 @@ SOURCES += \
     $$PWD/dbuslogin1manager.cpp \
     $$PWD/actionbutton.cpp \
     $$PWD/appicon.cpp\
-    $$PWD/dbusdock_interface.cpp \
     $$PWD/persistence.cpp \
     $$PWD/appbody.cpp \
     $$PWD/icondata.cpp \
@@ -45,11 +38,6 @@ SOURCES += \
     $$PWD/iconbutton.cpp \
     $$PWD/appbodylabel.cpp \
     $$PWD/bubbletool.cpp \
-    $$PWD/dbusdisplay.cpp \
-    $$PWD/dbusdock.cpp \
-    $$PWD/dockrect.cpp \
-    $$PWD/launcherinter.cpp \
-    $$PWD/iteminfo.cpp \
     $$PWD/notifysettings.cpp
 
 orgDBus.input = $$PWD/files/com.deepin.dde.freedesktop.Notification.service.in

@@ -31,6 +31,7 @@
 class QPropertyAnimation;
 class QScrollBar;
 class QTimer;
+class BubbleItem;
 
 class NotifyListView : public QListView
 {
@@ -40,9 +41,8 @@ public:
 
 public:
     void createAddedAnimation(EntityPtr entity, const ListItem appItem);
-    void createRemoveAnimation(int idx);
+    void createRemoveAnimation(BubbleItem *item);
     void createExpandAnimation(int idx, const ListItem appItem);
-    void setAniState(bool state);
     bool aniState() { return m_aniState; }
     void setCurrentRow(int row);
 
@@ -60,17 +60,14 @@ private:
     void handleScrollFinished();
 
 signals:
-    void removeAniFinished();
+    void removeAniFinished(EntityPtr ptr);
     void expandAniFinished(QString appName);
     void addedAniFinished(EntityPtr entity);
     void refreshItemTime();
 
 private:
     bool m_aniState = false;
-    bool m_scrollState = false;
-    bool m_pressState = false;
     int m_currentIndex = 0;
-    int m_moveCount = 0;
     double m_speedTime = 2.0;
     QPropertyAnimation *m_scrollAni;
     QPointer<QWidget> m_prevElement = nullptr;

@@ -76,18 +76,17 @@ public:
     bool isTitle(){ return m_isTitle;}
     void setIsTitle(bool is);
 
-    bool isShow(){ return m_isExpand;}
-    void setShow(bool expand);
-
-    bool isShowPreview(){ return m_showPreview;}
-    void setShowPreview(bool is);
-
     void setHideCount(int count);
     int hideCount(){return m_hideCount;}
 
     void setShowInNotifyCenter(bool isShow);
     bool isShowInNotifyCenter(){return m_showInNotifyCenter;}
 
+    void setShowPreview(bool show);
+    bool isShowPreview() { return m_showPreview; }
+
+    void setCurrentIndex(int idx);
+    int currentIndex() { return m_index; }
 private:
     QString m_appName;
     uint m_id;
@@ -100,9 +99,9 @@ private:
     QString m_replacesId;
     QString m_timeout;
     bool m_isTitle;     //是否是标题
-    bool m_isExpand;    //是否应该展开显示
     int m_hideCount;    //此条消息下面被层叠的消息数量
     bool m_showPreview;
+    int m_index;
     bool m_showInNotifyCenter;
 };
 
