@@ -65,10 +65,6 @@ BubbleManager::BubbleManager(QObject *parent)
                                         QDBusConnection::sessionBus(), this))
     , m_notifySettings(new NotifySettings(this))
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
-    , m_gestureInter(new GestureInter("com.deepin.daemon.Gesture"
-                                      , "/com/deepin/daemon/Gesture"
-                                      , QDBusConnection::systemBus()
-                                      , this))
 {
     m_dbusDaemonInterface = new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
                                                     QDBusConnection::sessionBus(), this);
@@ -668,7 +664,7 @@ void BubbleManager::initConnections()
     connect(m_dockDeamonInter, &DBusDock::PositionChanged, this, [ this ]{
         m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
     });
-    connect(m_gestureInter, &GestureInter::TouchEdgeEvent, this, &BubbleManager::onTouchEdgeIn);
+//    connect(m_gestureInter, &GestureInter::TouchEdgeEvent, this, &BubbleManager::onTouchEdgeIn);
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
