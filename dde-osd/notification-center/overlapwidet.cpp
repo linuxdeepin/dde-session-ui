@@ -27,6 +27,7 @@
 
 #include <QTimer>
 #include <QKeyEvent>
+#include <QPainterPath>
 
 HalfRoundedRectWidget::HalfRoundedRectWidget(QWidget *parent)
     : AlphaWidget(parent)
