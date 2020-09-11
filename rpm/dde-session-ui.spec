@@ -66,8 +66,9 @@ sed -i 's|/usr/lib/dde-dock|/usr/lib64/dde-dock|' dde-notification-plugin/notifi
 
 %build
 export PATH=%{_qt5_bindir}:$PATH
-%qmake_qt5 PREFIX=%{_prefix} PKGTYPE=%pkgtype
+%qmake_qt5 PREFIX=%{_prefix} PKGTYPE=rpm
 %make_build
+
 
 %install
 %make_install INSTALL_ROOT=%{buildroot}
@@ -78,7 +79,6 @@ sed -i "s|#greeter-session.*|greeter-session=lightdm-deepin-greeter|g" /etc/ligh
 %files
 %doc README.md
 %license LICENSE
-%pkgtype rpm
 %{_bindir}/dde-*
 %{_bindir}/dmemory-warning-dialog
 %{_libexecdir}/deepin-daemon/*
