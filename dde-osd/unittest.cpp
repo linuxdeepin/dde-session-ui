@@ -32,6 +32,7 @@
 #include <QThread>
 #include <QStringList>
 #include <DDBusSender>
+#include <QJsonArray>
 
 #include <QCheckBox>
 #include <QWidget>
@@ -164,6 +165,24 @@ void UnitTest::test_Bubble()
 
     QTRY_COMPARE_WITH_TIMEOUT(spy1.count(), 1, AnimationTime + 20);
     QCOMPARE(spy2.count(), 1);
+}
+
+void UnitTest::test_Persistence()
+{
+    Persistence database;
+    EntityPtr entity = createEntity();
+
+    database.addOne(entity);
+    QString data = database.getById(QString("%1").arg(entity->id()));
+    QJsonArray notify_array = QJsonDocument::fromJson(data.toLocal8Bit().data()).array();
+    QJsonObject notify = notify_array.begin()->toObject();
+    QCOMPARE(notify.value("id").toString(), QString("%1").arg(entity->id()));
+
+    QList<EntityPtr> entityList= database.getAllNotify();
+    QCOMPARE(entityList.size(), database.getRecordCount());
+
+    database.removeAll();
+    QCOMPARE(database.getRecordCount(), 0);
 }
 
 

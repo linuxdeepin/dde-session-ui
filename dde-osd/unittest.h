@@ -43,6 +43,7 @@ private slots:
     void test_BubbleItem();     // 测试BubbleItem类
     void test_NotifyModel();    // 测试NotifyModel类
     void test_Bubble();         // 测试Bubble类
+    void test_Persistence();    // 测试Persistence类
 
 private:
     NotifyInter *m_notifyInter;
