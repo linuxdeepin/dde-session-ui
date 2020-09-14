@@ -150,13 +150,12 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     m_scale = qApp->primaryScreen()->devicePixelRatio();
     dock.setWidth(int(qreal(dock.width()) / m_scale));
     dock.setHeight(int(qreal(dock.height()) / m_scale));
-
     m_dockRect = dock;
 
     int width = Notify::CenterWidth;
     int height = screen.height() - Notify::CenterMargin * 2;
     if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom) {
-        if(mode == 0) { //mode == 0时dock栏为时尚模式 mode == 1时dock栏为高效模式
+        if(mode == OSD::DockModel::Fashion) {
             height = screen.height() - Notify::CenterMargin * 2 - Notify::CenterMargin - dock.height();
         } else {
             height = screen.height() - Notify::CenterMargin * 2 - dock.height();
@@ -164,12 +163,22 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     }
 
     int x = screen.x() + screen.width() - Notify::CenterWidth - Notify::CenterMargin;
-    if (pos == OSD::DockPosition::Right)
-        x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width());
+    if (pos == OSD::DockPosition::Right) {
+        if(mode == OSD::DockModel::Fashion) {
+            x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() + OSD::DockMargin * 2 + Notify::CenterMargin);
+        } else {
+            x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() + Notify::CenterMargin);
+        }
+    }
 
     int y = screen.y() + Notify::CenterMargin;
-    if (pos == OSD::DockPosition::Top)
-        y = screen.y() + Notify::CenterMargin + dock.height();
+    if (pos == OSD::DockPosition::Top) {
+        if(mode == OSD::DockModel::Fashion) {
+            y = screen.y() + Notify::CenterMargin + dock.height() + OSD::DockMargin * 2;
+        } else {
+            y = screen.y() + Notify::CenterMargin + dock.height();
+        }
+    }
 
     m_notifyRect = QRect(x, y, width, height);
     setGeometry(m_notifyRect);
