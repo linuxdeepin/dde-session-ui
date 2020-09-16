@@ -148,8 +148,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                   summary, strBody, actions, hints,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
                                                                   QString::number(replacesId),
-                                                                  QString::number(expireTimeout),
-                                                                  this);
+                                                                  QString::number(expireTimeout));
 
     AppNotifyProperty appNotifyProperty = getAppNotifyProperty(notification->appName());
     // 通知时提示声音，并且不在勿扰模式才播放声音
