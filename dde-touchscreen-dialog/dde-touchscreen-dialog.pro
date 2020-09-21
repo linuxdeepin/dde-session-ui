@@ -4,12 +4,14 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets dtkwidget
+QT       += core gui widgets dtkwidget x11extras
 
 TARGET = dde-touchscreen-dialog
 TEMPLATE = app
 CONFIG += link_pkgconfig c++11
 PKGCONFIG += dframeworkdbus
+
+LIBS += -lX11 -lXext
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -27,11 +29,13 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     touchscreensetting.cpp \
-    recognizedialog.cpp
+    recognizedialog.cpp \
+    monitorindicator.cpp
 
 HEADERS += \
     touchscreensetting.h \
-    recognizedialog.h
+    recognizedialog.h \
+    monitorindicator.h
 
 target.path = /usr/lib/deepin-daemon/
 INSTALLS   += target

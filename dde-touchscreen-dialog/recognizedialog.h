@@ -22,39 +22,34 @@
 #ifndef RECOGNIZEDIALOG_H
 #define RECOGNIZEDIALOG_H
 
-#include <com_deepin_daemon_display.h>
+#include <com_deepin_daemon_display_monitor.h>
+
+#include <DBlurEffectWidget>
 
 #include <QBrush>
-#include <QDialog>
 #include <QPen>
 
-using namespace com::deepin::daemon;
+DWIDGET_USE_NAMESPACE
+using namespace com::deepin::daemon::display;
 
-class RecognizeDialog : public QDialog {
+class RecognizeDialog : public DBlurEffectWidget
+{
     Q_OBJECT
 
 public:
-    explicit RecognizeDialog(Display *display, QWidget *parent = 0);
+    explicit RecognizeDialog(Monitor *monitor, QWidget *parent = nullptr);
+    void setText(const QString text);
 
 protected:
     void paintEvent(QPaintEvent *);
 
-private Q_SLOTS:
+public Q_SLOTS:
     void onScreenRectChanged();
 
 private:
-    void paintMonitorMark(QPainter &painter,
-                          const QRect &rect,
-                          const QString &name);
-    const QScreen *screenForGeometry(const QRect &rect) const;
-    bool monitorsIsIntersect() const;
-
-private:
-    Display *m_displayInter;
-    QPen m_backgroundPen;
-    QPen m_textPen;
-    QBrush m_backgroundBrush;
-    QBrush m_textBrush;
+    Monitor *m_monitor;
+    QRect m_rect;
+    QString m_text;
 };
 
 #endif // !RECOGNIZEDIALOG_H
