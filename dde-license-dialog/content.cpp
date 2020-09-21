@@ -16,6 +16,7 @@
 #include <QProcess>
 #include <QDebug>
 #include <QStandardPaths>
+#include <QFontMetrics>
 DWIDGET_USE_NAMESPACE
 
 Content::Content(QWidget *parent)
@@ -57,10 +58,12 @@ Content::Content(QWidget *parent)
     m_scrollArea->setContentsMargins(0, 0, 0, 0);
 
     QWidget *sourceWidget = new QWidget(this);
-    sourceWidget->setFixedWidth(468);
     QVBoxLayout *sourceLayout = new QVBoxLayout;
     sourceWidget->setLayout(sourceLayout);
     sourceLayout->addWidget(m_source);
+
+    m_cancelBtn->setFixedSize(90, 36);
+    m_acceptBtn->setFixedSize(90, 36);
 
     m_source->setTextFormat(Qt::RichText);
     m_source->setWordWrap(true);
@@ -80,9 +83,6 @@ Content::Content(QWidget *parent)
     bottomLayout->addSpacing(10);
     bottomLayout->addWidget(m_acceptBtn, 0, Qt::AlignVCenter);
     bottomLayout->addSpacing(10);
-
-    m_cancelBtn->setFixedSize(80, 36);
-    m_acceptBtn->setFixedSize(80, 36);
 
     m_bottom = new QWidget(this);
     m_bottom->setFixedHeight(65);
@@ -127,6 +127,14 @@ Content::Content(QWidget *parent)
 void Content::setHideBottom(const bool &status)
 {
     m_bottom->setVisible(!status);
+}
+
+int Content::calWidgetWidth()
+{
+    QPainter p(m_acceptCheck);
+    QFontMetrics fm = p.fontMetrics();
+    int width = fm.width(m_enallow) + m_acceptBtn->width() * 2 + 40;
+    return width;
 }
 
 void Content::setSource(const QString &source)

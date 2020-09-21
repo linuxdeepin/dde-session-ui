@@ -20,7 +20,11 @@ class Content : public QWidget
 public:
     explicit Content(QWidget *parent = nullptr);
     void setHideBottom(const bool &status);
-
+    /**
+     * @brief calWidgetWidth 根据底下QCheckBox和QPushButton控件字宽计算窗口宽度
+     * @return 返回计算后的窗口宽度
+     */
+    int calWidgetWidth();
 signals:
     void sourceChanged(bool isCn);
 
