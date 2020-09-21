@@ -230,8 +230,6 @@ private Q_SLOTS:
     void updateGeometry();
     void appInfoChanged(QString action, ItemInfo info);
 
-    void onTouchEdgeIn(const QString &direction, double releaseX, double releaseY);
-
 private:
     void initConnections();                 //初始化信号槽连接
     void registerAsService();               //注册Dbus服务
