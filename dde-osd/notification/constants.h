@@ -111,6 +111,8 @@ static const qreal BubbleOpacity = 0.6;         //bubble内容的透明度
 class OSD
 {
 public:
+    static const int DockMargin = 5;
+
     typedef enum {
         BUBBLEWINDOW,
         BUBBLEWIDGET
@@ -121,6 +123,11 @@ public:
         Right = 1,
         Bottom = 2,
         Left = 3
+    };
+
+    enum DockModel {
+        Fashion = 0,
+        Efficient = 1
     };
 
     static QSize BubbleSize(ShowStyle style)

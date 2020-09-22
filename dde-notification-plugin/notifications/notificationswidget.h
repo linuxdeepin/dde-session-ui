@@ -45,6 +45,7 @@ private:
     void mouseMoveEvent(QMouseEvent *event) override;
     void leaveEvent(QEvent *event) override;
     const QPixmap loadSvg(const QString &iconName, const QString &localPath, const int size, const qreal ratio);
+    bool containCursorPos();
 
 private:
     bool m_disturb; //提供勿扰图标修改

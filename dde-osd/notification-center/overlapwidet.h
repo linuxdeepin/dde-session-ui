@@ -51,7 +51,6 @@ public:
     OverLapWidet(NotifyModel *model,EntityPtr ptr,QWidget * parent = nullptr);
 
 public:
-    void setIndexRow(int row);
     void setParentView(NotifyListView *view);
     BubbleItem *getFaceItem() { return m_faceBubbleItem; }
     QList<QPointer<QWidget>> bubbleElements();
@@ -59,6 +58,7 @@ public:
 
 private:
     void initOverlap();
+    void hideOverlapBubble();
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE; //鼠标点击时展开重叠的气泡
@@ -66,7 +66,6 @@ protected:
     void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
 
 private:
-    int m_indexRow = 0;
     EntityPtr m_entify;
     NotifyModel *m_model;
     NotifyListView *m_view;

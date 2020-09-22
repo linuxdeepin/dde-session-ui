@@ -27,138 +27,15 @@
 #include <QDateTime>
 #include <QTimer>
 
-NotifyModel::NotifyModel(QObject *parent, Persistence *database)
-    : QAbstractListModel(parent),
-      m_database(database),
-      m_addTimer(new QTimer(this)),
-      m_checkTimeOutTimer(new QTimer(this))
+NotifyModel::NotifyModel(QObject *parent, Persistence *database, NotifyListView *view)
+    : QAbstractListModel(parent)
+    , m_view(view)
+    , m_database(database)
+    , m_freeTimer(new QTimer(this))
 {
-    m_addTimer->setInterval(AnimationTime + 100);
-    m_checkTimeOutTimer->setInterval(TIMEOUT_CHECK_TIME);
-    m_checkTimeOutTimer->start();
-
+    m_freeTimer->setInterval(AnimationTime + 100);
     initData();
-    connect(m_addTimer, &QTimer::timeout, this, [ = ] { //通知顺序添加,防止同时插入多个通知导致动画出问题
-        pushNotify(m_newNotifyList.first());
-        m_newNotifyList.removeFirst();
-        if (m_newNotifyList.isEmpty()) {
-            m_addTimer->stop();
-            m_timerState = false;
-        }
-    });
-
-    connect(m_checkTimeOutTimer, &QTimer::timeout, this, &NotifyModel::removeTimeOutNotify);
-}
-
-void NotifyModel::setView(NotifyListView *view)
-{
-    if (view == nullptr)
-        return;
-    m_view = view;
-    connect(m_view, &NotifyListView::addedAniFinished, this, &NotifyModel::addNotify);
-    connect(m_view, &NotifyListView::expandAniFinished, this, &NotifyModel::expandData);
-}
-
-void NotifyModel::expandData(QString appName)
-{
-    beginResetModel();
-    for (int i = 0; i < m_notifications.size(); i++) {
-        if (m_notifications[i].appName == appName) {
-            m_notifications[i].isExpand = true;
-            foreach(auto ptr,m_notifications[i].appList)
-            {
-                ptr->setShow(true);
-                ptr->setHideCount(0);
-            }
-            break;
-        }
-    }
-    endResetModel();
-}
-
-void NotifyModel::collapseData()
-{
-    beginResetModel();
-    for (int i = 0; i < m_notifications.size(); i++) {
-        m_notifications[i].isExpand = false;
-    }
-    checkShow(m_notifications);
-    endResetModel();
-}
-
-void NotifyModel::removeAppGroup(QString appName)
-{
-    beginResetModel();
-    if (m_notifications.isEmpty())
-        return;
-    for (int i = 0; i < m_notifications.size(); i++) {
-        if (m_notifications[i].appName == appName) {
-            m_notifications.removeAt(i);
-        }
-    }
-    endResetModel();
-    m_database->removeApp(appName);
-}
-
-void NotifyModel::removeNotify(EntityPtr entity)
-{
-    beginResetModel();
-    if (m_notifications.isEmpty())
-        return;
-    for (int i = 0; i < m_notifications.size(); i++) {
-        if (m_notifications[i].appName == entity->appName() && m_notifications[i].appList.contains(entity)) {
-            m_notifications[i].appList.removeOne(entity);
-            int count = 0;
-            checkShow(m_notifications);
-            if (!m_notifications[i].appList.isEmpty()) {
-                foreach (auto ptr, m_notifications[i].appList) {
-                    if (ptr->isShow())
-                        count ++;
-                }
-            }
-
-            if (m_notifications[i].appList.isEmpty()) { //如果app通知为空，删除app组
-                for (int i = 0; i < m_notifications.size(); i++) {
-                    if (m_notifications[i].appName == entity->appName()) {
-                        m_notifications.removeAt(i);
-                    }
-                }
-                checkShow(m_notifications);
-            } else {
-                if (!(count < m_notifications[i].appList.size())) { //没有Item折叠设置app组为展开状态
-                    m_notifications[i].isExpand = true;
-                }
-            }
-            break;
-        }
-    }
-    endResetModel();
-    if (m_database != nullptr) {
-        m_database->removeOne(QString::number(entity->id()));
-    }
-}
-
-void NotifyModel::pushNotify(EntityPtr entity) //数据库中有添加数据时发出信号,该函数被执行
-{
-    // 通知中心没有通知或者app组不在第一个直接刷新model,不需要动画
-    if (m_notifications.isEmpty() || m_notifications[0].appName != entity->appName()) {
-        addNotify(entity);
-        return;
-    }
-    ListItem appItem = getAppData(entity->appName());
-    //执行动画
-    if (m_view->isVisible()) {
-        m_view->createAddedAnimation(entity, appItem);
-    }
-}
-
-bool NotifyModel::isExpand(QString appName)
-{
-    foreach (auto item, m_notifications) {
-        if (item.appName == appName)
-            return item.isExpand;
-    }
-    return false;
+    initConnect();
 }
 
 ListItem NotifyModel::getAppData(QString appName) const
@@ -167,75 +44,7 @@ ListItem NotifyModel::getAppData(QString appName) const
         if (item.appName == appName)
             return item;
     }
-    ListItem item;
-    return item;
-}
-
-void NotifyModel::removeAllData()
-{
-    beginResetModel();
-    m_notifications.clear();
-    endResetModel();
-    m_database->removeAll();
-}
-
-void NotifyModel::removeTimeOutNotify()
-{
-    for (int i = 0; i < m_notifications.size(); i++) {
-        ListItem &item = m_notifications[i];
-        QList<EntityPtr> notifyList;
-        for (int j = 0; j < item.appList.size(); j++) {
-            if(checkTimeOut(item.appList[j], OVERLAPTIMEOUT_7_DAY)) {
-                m_database->removeOne(QString::number(item.appList[j]->id()));
-            } else {
-                notifyList.append(item.appList[j]);
-            }
-        }
-
-        if (item.appList.size() != notifyList.size()) {
-            beginResetModel();
-            item.appList = notifyList;
-            if (notifyList.isEmpty()) {
-                m_notifications.removeAt(i);
-            }
-            checkShow(m_notifications);
-            endResetModel();
-        }
-    }
-}
-
-void NotifyModel::resetModel()
-{
-    checkShow(m_notifications);
-    beginResetModel();
-    endResetModel();
-}
-
-void NotifyModel::initData()
-{
-    Q_ASSERT(m_database);
-    if (m_database == nullptr)  return;
-    QList<EntityPtr> notifications = m_database->getAllNotify();
-    foreach (auto notify, notifications) {
-        if(!checkTimeOut(notify, OVERLAPTIMEOUT_7_DAY)) {
-            addNotifyWithoutPaint(notify);
-        } else {
-            m_database->removeOne(QString::number(notify->id()));
-        }
-    }
-
-    Q_EMIT dataChanged();
-    connect(m_database, &Persistence::RecordAdded, this, [ = ] (EntityPtr entity) {
-        if (m_view->isVisible()) {
-            m_newNotifyList.push_front(entity); // 暂存通知
-            if (!m_timerState) {
-                m_addTimer->start();
-                m_timerState = true;
-            }
-        } else {
-            addNotify(entity);
-        }
-    });
+    Q_UNREACHABLE();
 }
 
 int NotifyModel::rowCount(const QModelIndex &parent) const
@@ -243,10 +52,7 @@ int NotifyModel::rowCount(const QModelIndex &parent) const
     Q_UNUSED(parent)
     int count = 0;
     foreach (auto item, m_notifications) {
-        foreach (auto ptr, item.appList) {
-            if (ptr->isShow())
-                count ++;
-        }
+        count += item.showList.size();
     }
     count += m_notifications.size();
     return count;
@@ -261,12 +67,6 @@ QVariant NotifyModel::data(const QModelIndex &index, int role) const
 
     EntityPtr entity = getEntityByRow(index.row());
     if (entity) {
-#if 0
-        if(entity->appName().contains("notify-send"))
-        {
-            qDebug() << QDateTime::fromMSecsSinceEpoch(entity->ctime().toLongLong()).toString("yyyy-MM-dd hh:mm:ss:zzz");
-        }
-#endif
         return QVariant::fromValue(entity);
     }
     return QVariant();
@@ -284,84 +84,241 @@ Qt::ItemFlags NotifyModel::flags(const QModelIndex &index) const
 void NotifyModel::addNotify(EntityPtr entity)
 {
     beginResetModel();
-    bool bInsert = false;
-    for (int i = 0 ; i < m_notifications.size(); ++i) {
-        ListItem &item = m_notifications[i];
-        if (item.appName == entity->appName()) {
-            item.appList.push_front(entity);
-            item.lastTimeStamp = qMax(item.lastTimeStamp, entity->ctime());
-            bInsert = true;
-            // 消息排序
-            qSort(item.appList.begin(),item.appList.end(),[=](const EntityPtr& ptr1,const EntityPtr& ptr2){
-                return ptr1->ctime().toLongLong() > ptr2->ctime().toLongLong();
-            });
-            break;
+    addAppData(entity);
+    endResetModel();
+}
+
+void NotifyModel::removeNotify(EntityPtr entity)
+{
+    if (m_notifications.isEmpty())
+        return;
+
+    beginResetModel();
+    for (int i = 0; i < m_notifications.size(); i++) {
+        ListItem &AppGroup = m_notifications[i];
+        if (AppGroup.appName == entity->appName()
+                && AppGroup.showList.contains(entity)) {
+            AppGroup.showList.removeOne(entity);
+
+            if (AppGroup.showList.isEmpty() || (!AppGroup.hideList.isEmpty()
+                    && !checkTimeOut(AppGroup.hideList.first(), OVERLAPTIMEOUT_4_HOUR))) {
+                if (!AppGroup.showList.isEmpty()){
+                    AppGroup.showList.last()->setHideCount(0);
+                }
+                if (!AppGroup.hideList.isEmpty()) {
+                    AppGroup.showList.push_back(AppGroup.hideList.first());
+                    AppGroup.hideList.pop_front();
+                }
+                if (!AppGroup.showList.isEmpty()) {
+                    AppGroup.showList.last()->setHideCount(AppGroup.hideList.size() > 2 ? 2 : AppGroup.hideList.size());
+                }
+            }
+            if (AppGroup.showList.isEmpty()) {
+                m_notifications.removeAt(i);
+                break;
+            }
+        }
+
+    }
+    endResetModel();
+
+    if (m_database != nullptr) {
+        m_database->removeOne(QString::number(entity->id()));
+    }
+}
+
+void NotifyModel::removeAppGroup(QString appName)
+{
+    beginResetModel();
+    if (m_notifications.isEmpty())
+        return;
+    for (int i = 0; i < m_notifications.size(); i++) {
+        if (m_notifications[i].appName == appName) {
+            m_notifications.removeAt(i);
         }
     }
+    endResetModel();
+    m_database->removeApp(appName);
+}
 
-    // 新增应用
-    if (!bInsert) {
-        ListItem item;
-        item.appName = entity->appName();
-        item.lastTimeStamp = entity->ctime();
-        item.appList.push_back(entity);
-        item.isExpand = false;
+void NotifyModel::removeAllData()
+{
+    beginResetModel();
+    m_notifications.clear();
+    endResetModel();
+    m_database->removeAll();
+}
 
-        m_notifications.push_front(item);
-    }
-
-    // 对应用进行排序
-    qSort(m_notifications.begin(), m_notifications.end(), [ = ](const ListItem & item1, const ListItem & item2) {
-        return item1.lastTimeStamp.toLongLong() > item2.lastTimeStamp.toLongLong();
-    });
-    // 即将添加消息的应用永远在第一个
+void NotifyModel::expandData(QString appName)
+{
+    beginResetModel();
     for (int i = 0; i < m_notifications.size(); i++) {
-        if (m_notifications[i].appName == entity->appName()) {
+        ListItem &AppGroup = m_notifications[i];
+        if (AppGroup.appName == appName) {
+            AppGroup.showList.last()->setHideCount(0);
+            AppGroup.showList.append(AppGroup.hideList);
+            AppGroup.hideList.clear();
+        }
+    }
+    endResetModel();
+}
+
+void NotifyModel::collapseData()
+{
+    beginResetModel();
+    for (int i = 0; i < m_notifications.size(); i++) {
+        ListItem &AppGroup = m_notifications[i];
+        int collapseRow;
+        for(collapseRow = 0; collapseRow < AppGroup.showList.size(); collapseRow ++) {
+            if (checkTimeOut(AppGroup.showList[collapseRow], OVERLAPTIMEOUT_4_HOUR) || collapseRow >= 3) {
+                break;
+            }
+        }
+        if (collapseRow == 0) {
+            collapseRow = 1;
+        }
+
+        if (AppGroup.showList.size() == collapseRow) {
+            continue;
+        }
+        QList<EntityPtr> showList = AppGroup.showList.mid(0, collapseRow);
+        QList<EntityPtr> hideList = AppGroup.showList.mid(collapseRow,  AppGroup.showList.size() - collapseRow);
+        AppGroup.showList = showList;
+        AppGroup.hideList = hideList;
+    }
+    endResetModel();
+}
+
+void NotifyModel::removeTimeOutNotify()
+{
+    for (int i = 0; i < m_notifications.size(); i++) {
+        ListItem &AppGroup = m_notifications[i];
+        QList<EntityPtr> notifyList;
+        if (checkTimeOut(AppGroup.showList.last(), OVERLAPTIMEOUT_7_DAY)) {
+            beginResetModel();
+            for (int j = 0; j < AppGroup.hideList.size(); j++) {
+                m_database->removeOne(QString::number(AppGroup.hideList[j]->id()));
+            }
+            for (int j = 0; j < AppGroup.showList.size(); j++) {
+                if(checkTimeOut(AppGroup.showList[j], OVERLAPTIMEOUT_7_DAY)) {
+                    m_database->removeOne(QString::number(AppGroup.showList[j]->id()));
+                } else {
+                    notifyList.append(AppGroup.showList[j]);
+                }
+            }
+            AppGroup.hideList = notifyList;
+            if (notifyList.isEmpty()) {
+                m_notifications.removeAt(i);
+            }
+            endResetModel();
+            return;
+        } else {
+            for (int j = 0; j < AppGroup.hideList.size(); j++) {
+                if(checkTimeOut(AppGroup.hideList[j], OVERLAPTIMEOUT_7_DAY)) {
+                    m_database->removeOne(QString::number(AppGroup.hideList[j]->id()));
+                } else {
+                    notifyList.append(AppGroup.hideList[j]);
+                }
+            }
+
+            if (AppGroup.hideList.size() != notifyList.size()) {
+                beginResetModel();
+                AppGroup.hideList = notifyList;
+                endResetModel();
+            }
+        }
+    }
+}
+
+void NotifyModel::cacheData(EntityPtr entity)
+{
+    if (m_view->isVisible()) {
+        m_cacheList.push_front(entity);
+        if (!m_freeTimer->isActive()) {
+            m_freeTimer->start();
+        }
+    } else {
+        addNotify(entity);
+    }
+}
+
+void NotifyModel::freeData()
+{
+    if (!m_notifications.isEmpty() && m_notifications.first().appName == m_cacheList.first()->appName()) {
+        m_view->createAddedAnimation(m_cacheList.first(), getAppData(m_cacheList.first()->appName()));
+    } else {
+        addNotify(m_cacheList.first());
+    }
+    m_cacheList.removeFirst();
+    if (m_cacheList.isEmpty()) {
+        m_freeTimer->stop();
+    }
+}
+
+void NotifyModel::initData()
+{
+    if (m_database == nullptr)  return;
+    QList<EntityPtr> notifications = m_database->getAllNotify();
+
+    qSort(notifications.begin(),notifications.end(),[ = ](const EntityPtr& ptr1,const EntityPtr& ptr2){
+        return ptr1->ctime().toLongLong() < ptr2->ctime().toLongLong();
+    });
+
+    foreach (auto notify, notifications) {
+        if(!checkTimeOut(notify, OVERLAPTIMEOUT_7_DAY)) {
+            addAppData(notify);
+        } else {
+            m_database->removeOne(QString::number(notify->id()));
+        }
+    }
+}
+
+void NotifyModel::initConnect()
+{
+    connect(m_database, &Persistence::RecordAdded, this, &NotifyModel::cacheData);
+    connect(m_freeTimer, &QTimer::timeout, this, &NotifyModel::freeData);
+    connect(m_view, &NotifyListView::addedAniFinished, this, &NotifyModel::addNotify);
+    connect(m_view, &NotifyListView::removeAniFinished, this, &NotifyModel::removeNotify);
+    connect(m_view, &NotifyListView::expandAniFinished, this, &NotifyModel::expandData);
+    connect(m_view, &NotifyListView::refreshItemTime, this, &NotifyModel::removeTimeOutNotify);
+}
+
+void NotifyModel::addAppData(EntityPtr entity)
+{
+    bool isNewApp = true;
+    bool entityTimeout = checkTimeOut(entity, OVERLAPTIMEOUT_4_HOUR);
+    for (int i = 0; i < m_notifications.size(); i++) {
+        ListItem &AppGroup = m_notifications[i];
+        if (AppGroup.appName == entity->appName()) {
+            isNewApp = false;
+            if (entityTimeout) { //超时通知添加到隐藏列表
+                AppGroup.hideList.push_back(entity);
+            } else if ((!entityTimeout && AppGroup.showList.size() == 3)
+                       || checkTimeOut(AppGroup.showList.first(), OVERLAPTIMEOUT_4_HOUR)) { //通知未超时，显示列表已满
+                AppGroup.showList.last()->setHideCount(0);
+                AppGroup.showList.push_front(entity);
+                AppGroup.hideList.push_front(AppGroup.showList.last());
+                AppGroup.showList.removeLast();
+                AppGroup.lastTimeStamp = entity->ctime();
+            } else {
+                AppGroup.showList.push_front(entity);
+                AppGroup.lastTimeStamp = entity->ctime();
+            }
             m_notifications.move(i, 0);
         }
     }
 
-    //进一步整理层叠的消息
-    checkShow(m_notifications);
-
-    endResetModel();
-}
-
-void NotifyModel::addNotifyWithoutPaint(EntityPtr entity)
-{
-    bool bInsert = false;
-    for (int i = 0 ; i < m_notifications.size(); ++i) {
-        ListItem &item = m_notifications[i];
-        if (item.appName == entity->appName()) {
-            item.appList.push_front(entity);
-            item.lastTimeStamp = qMax(item.lastTimeStamp, entity->ctime());
-            bInsert = true;
-            // 消息排序
-            qSort(item.appList.begin(),item.appList.end(),[=](const EntityPtr& ptr1,const EntityPtr& ptr2){
-                return ptr1->ctime().toLongLong() > ptr2->ctime().toLongLong();
-            });
-            break;
-        }
+    if (isNewApp) {
+        ListItem AppGroup;
+        AppGroup.appName = entity->appName();
+        AppGroup.lastTimeStamp = entity->ctime();
+        AppGroup.showList.push_front(entity);
+        m_notifications.append(AppGroup);
     }
 
-    // 新增应用
-    if (!bInsert) {
-        ListItem item;
-        item.appName = entity->appName();
-        item.lastTimeStamp = entity->ctime();
-        item.appList.push_back(entity);
-        item.isExpand = false;
-
-        m_notifications.push_front(item);
-    }
-
-    // 对应用进行排序
-    qSort(m_notifications.begin(), m_notifications.end(), [ = ] (const ListItem & item1, const ListItem & item2) {
+    qSort(m_notifications.begin(), m_notifications.end(), [ = ](const ListItem & item1, const ListItem & item2) {
         return item1.lastTimeStamp.toLongLong() > item2.lastTimeStamp.toLongLong();
     });
-
-    //进一步整理层叠的消息
-    checkShow(m_notifications);
 }
 
 EntityPtr NotifyModel::getEntityByRow(int row) const
@@ -370,67 +327,24 @@ EntityPtr NotifyModel::getEntityByRow(int row) const
     int index = 0;
     for (int i = 0; i < m_notifications.size(); ++i) {
         const auto &item = m_notifications[i];
+        item.showList.last()->setHideCount(item.hideList.size() > 2 ? 2 : item.hideList.size());
         if (index == row) {
-            // 标题
             EntityPtr ptr = std::make_shared<NotificationEntity>(item.appName);
             ptr->setTime(item.lastTimeStamp);
             ptr->setIsTitle(true);
+            ptr->setCurrentIndex(row);
             return ptr;
         }
         index++;
-        for (int i = 0; i < item.appList.size(); ++i) {
-            if (item.appList[i]->isShow()) {
-                if (index == row)
-                    return item.appList.at(i);
-                index ++;
+        for (int i = 0; i < item.showList.size(); ++i) {
+            if (index == row) {
+                item.showList[i]->setCurrentIndex(row);
+                return item.showList.at(i);
             }
+            index ++;
         }
     }
     Q_UNREACHABLE();
-}
-
-void NotifyModel::checkShow(QList<ListItem> &list)
-{
-    //TODO 重置一下显示状态，这里后面优化下，不用每次重置，给EntityPtr加一条是否是第一条消息的属性就可以
-    foreach (auto item, m_notifications) {
-        if (item.isExpand)
-            continue;
-        foreach (auto ptr, item.appList) {
-            ptr->setShow(!checkTimeOut(ptr, OVERLAPTIMEOUT_4_HOUR));
-        }
-    }
-
-    for (int i = 0; i < list.size(); ++i) {
-        if (list[i].isExpand)
-            continue;
-        auto &item = list[i];
-        int hideCount = 0;
-        int size = list[i].appList.size();
-        int count = 0; // 展开的数量
-        if (item.appList.isEmpty())
-            return;
-        for (int j = 0 ; j < item.appList.size(); ++j) {
-            item.appList[j]->setHideCount(0);
-            if (item.appList[j]->isShow())
-            {
-                count++;
-            }
-            if (count > BubbleEntities) { //最多展开3个,其余的即使没超过4个小时也需要折叠起来
-                item.appList[j]->setShow(false);
-                count = BubbleEntities;
-            }
-        }
-        if (count == 0) { // 即都超过4小时的情况，那么相对最新的那一条需要显示，不能都折叠
-            item.appList[0]->setShow(true);
-            count = 1;
-        }
-        // 更新应用组信息
-        hideCount = size - count;
-        item.hideCount = hideCount;
-        item.showCount = count;
-        item.isExpand = false;
-        item.appList[count - 1]->setHideCount(hideCount < BubbleEntities ? hideCount : BubbleEntities - 1);
-    }
 }
 
 bool NotifyModel::checkTimeOut(EntityPtr ptr, int sec)

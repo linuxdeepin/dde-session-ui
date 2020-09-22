@@ -46,19 +46,16 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     if(notify->isTitle())
     {
         BubbleTitleWidget *titleWidget = new BubbleTitleWidget(m_model, notify, parent);
-        titleWidget->setIndexRow(index.row());
         return titleWidget;
     }
-    else if(notify->isShow() && notify->hideCount() != 0)
+    else if(notify->hideCount() != 0)
     {
         OverLapWidet *widget = new OverLapWidet(m_model, notify, parent);
-        widget->setIndexRow(index.row());
         widget->setParentView(m_view);
         return widget;
     }
     else {
         BubbleItem *bubble = new BubbleItem(parent, notify);
-        bubble->setIndexRow(index.row());
         bubble->setParentModel(m_model);
         bubble->setParentView(m_view);
         return bubble;
@@ -78,7 +75,7 @@ QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelInd
     {
         return QSize(380,50);
     }
-    else if(notify->isShow() && notify->hideCount() != 0)
+    else if(notify->hideCount() != 0)
     {
         return bubbleSize + QSize(0,notify->hideCount()*10);
     }

@@ -22,7 +22,9 @@
 #ifndef NOTIFYSETTINGS_H
 #define NOTIFYSETTINGS_H
 
-#include "launcherinter.h"
+#include <com_deepin_dde_daemon_launcherd.h>
+#include "types/launcheriteminfo.h"
+#include "types/launcheriteminfolist.h"
 
 #include <QObject>
 
@@ -54,7 +56,7 @@ public:
     void setAllSetting(QString settings);
     QString getAllSetings();
 
-    void appAdded(ItemInfo info);
+    void appAdded(LauncherItemInfo info);
     void appRemoved(QString appName);
 private:
     void setSetings(QString settings);

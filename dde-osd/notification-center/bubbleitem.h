@@ -85,18 +85,20 @@ public:
     const QPixmap converToPixmap(const QDBusArgument &value);
     void setAlpha(int alpha);
     QList<QPointer<QWidget>> bubbleElements();
-    void setIndexRow(int row);
-    int indexRow() { return m_indexRow; }
+    int indexRow();
     void setHasFocus(bool focus);
+    EntityPtr getEntity() { return m_entity; }
 
 Q_SIGNALS:
     void havorStateChanged(bool);
+    void bubbleRemove();
 
 public Q_SLOTS:
     void onHavorStateChanged(bool hover);
     void onCloseBubble();
     void onRefreshTime();
     void setOverlapWidget(bool isOverlap);
+    bool isOverlapWidget() { return m_isOverlapWidget; }
 
 protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;       //获取当前鼠标点击的位置
@@ -133,7 +135,6 @@ private:
     bool m_showContent = true;
     QString m_defaultAction;
     QPoint m_pressPoint;
-    int m_indexRow = -1;
     bool m_isOverlapWidget = false;
 };
 

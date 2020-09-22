@@ -20,7 +20,6 @@
  */
 
 #include "notifysettings.h"
-#include "iteminfo.h"
 #include "constants.h"
 
 #include <QGSettings>
@@ -41,6 +40,9 @@ NotifySettings::NotifySettings(QObject *parent)
     , m_launcherInter(new LauncherInter(server, path, QDBusConnection::sessionBus(), this))
     , m_initTimer(new QTimer(this))
 {
+    registerLauncherItemInfoListMetaType();
+    registerLauncherItemInfoMetaType();
+
     m_initTimer->setInterval(1000);
     if (QGSettings::isSchemaInstalled("com.deepin.dde.notification")) {
         m_settings = new QGSettings("com.deepin.dde.notification", "/com/deepin/dde/notification/", this);
@@ -70,35 +72,35 @@ void NotifySettings::initAllSettings()
         obj.insert(SystemNotifySettingStr, systemObj);
     }
 
-    ItemInfoList appList = m_launcherInter->GetAllItemInfos();
+    LauncherItemInfoList appList = m_launcherInter->GetAllItemInfos();
     if (appList.size() > 0) {
         m_initTimer->stop();
     }
 
     for (int i = 0; i < appList.size(); i++) {
-        DDesktopEntry appDeskTopInfo(appList[i].m_desktop);
+        DDesktopEntry appDeskTopInfo(appList[i].Path);
         // 判断是否为白名单应用或者WINE应用，这两种类型的应用通知不做处理
-        if (WhiteBoardAppList.contains(appList[i].m_key) || appDeskTopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
+        if (WhiteBoardAppList.contains(appList[i].ID) || appDeskTopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
             // 移除之前添加的WINE应用的通知设置
-            obj.remove(appList[i].m_key);
+            obj.remove(appList[i].ID);
             continue;
         }
 
-        if (!settingList.contains(appList[i].m_key)) {
+        if (!settingList.contains(appList[i].ID)) {
             QJsonObject appObj;
-            appObj.insert(AppIconStr, appList[i].m_iconKey);
-            appObj.insert(AppNameStr, appList[i].m_name);
+            appObj.insert(AppIconStr, appList[i].Icon);
+            appObj.insert(AppNameStr, appList[i].Name);
             appObj.insert(AllowNotifyStr, DEFAULT_ALLOW_NOTIFY);
             appObj.insert(ShowInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
             appObj.insert(LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY);
             appObj.insert(ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW);
             appObj.insert(NotificationSoundStr, DEFAULT_NOTIFY_SOUND);
-            obj.insert(appList[i].m_key, appObj);
+            obj.insert(appList[i].ID, appObj);
         } else {
             QJsonObject appObj;
-            appObj = obj[appList[i].m_key].toObject();
-            appObj[AppNameStr] = appList[i].m_name;
-            obj[appList[i].m_key] = appObj;
+            appObj = obj[appList[i].ID].toObject();
+            appObj[AppNameStr] = appList[i].Name;
+            obj[appList[i].ID] = appObj;
         }
     }
 
@@ -181,26 +183,26 @@ QString NotifySettings::getAllSetings()
     return m_settings->get("notifycations-settings").toString();
 }
 
-void NotifySettings::appAdded(ItemInfo info)
+void NotifySettings::appAdded(LauncherItemInfo info)
 {
     if (m_settings == nullptr)
         return;
 
-    DDesktopEntry appDeskTopInfo(info.m_desktop);
+    DDesktopEntry appDeskTopInfo(info.Path);
     // 判断是否为白名单应用或者WINE应用，这两种类型的应用通知不做处理
-    if (WhiteBoardAppList.contains(info.m_key) || appDeskTopInfo.rawValue("X-Created-By") == "Deepin WINE Team")
+    if (WhiteBoardAppList.contains(info.ID) || appDeskTopInfo.rawValue("X-Created-By") == "Deepin WINE Team")
         return;
 
     QJsonObject obj = QJsonDocument::fromJson(m_settings->get("notifycations-settings").toString().toUtf8()).object();
     QJsonObject appObj;
-    appObj.insert(AppIconStr, info.m_iconKey);
-    appObj.insert(AppNameStr, info.m_name);
+    appObj.insert(AppIconStr, info.Icon);
+    appObj.insert(AppNameStr, info.Name);
     appObj.insert(AllowNotifyStr, DEFAULT_ALLOW_NOTIFY);
     appObj.insert(ShowInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
     appObj.insert(LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY);
     appObj.insert(ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW);
     appObj.insert(NotificationSoundStr, DEFAULT_NOTIFY_SOUND);
-    obj.insert(info.m_key, appObj);
+    obj.insert(info.ID, appObj);
 
     m_settings->set("notifycations-settings", QString(QJsonDocument(obj).toJson()));
 }

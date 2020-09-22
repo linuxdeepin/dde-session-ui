@@ -81,12 +81,6 @@ OverLapWidet::OverLapWidet(NotifyModel *model, EntityPtr ptr, QWidget *parent)
     initOverlap();
 }
 
-void OverLapWidet::setIndexRow(int row)
-{
-    m_indexRow = row;
-    m_faceBubbleItem->setIndexRow(row);
-}
-
 void OverLapWidet::setParentView(NotifyListView *view)
 {
     m_view = view;
@@ -100,20 +94,15 @@ QList<QPointer<QWidget> > OverLapWidet::bubbleElements()
 
 void OverLapWidet::expandAppGroup()
 {
-    if (m_view->aniState())
-        return;
+    hideOverlapBubble();
     ListItem appItem = m_model->getAppData(m_entify->appName());
-    if (m_model != nullptr && m_view != nullptr) {
-        resize(m_faceBubbleItem->size());
-        m_view->createExpandAnimation(m_indexRow, appItem);
-    }
+    m_view->createExpandAnimation(m_entify->currentIndex(), appItem);
 }
 
 void OverLapWidet::initOverlap()
 {
     qreal scal_ratio = 1;
     int height_init = BubbleOverLapHeight;
-    //    int index = 0;
     QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWIDGET);
     QPoint up_point(0, standard_size.height());
 
@@ -123,7 +112,7 @@ void OverLapWidet::initOverlap()
         scal_ratio = (scal_ratio * 19) / 20;
 
         height_init -= 2;
-        bubble->setFixedSize(standard_size.width() * scal_ratio, height_init);
+        bubble->setFixedSize(int(standard_size.width() * scal_ratio), height_init);
         int lr_margin = (standard_size.width() - bubble->width()) / 2;
         QPoint move_point(lr_margin, up_point.y());
         up_point = QPoint(move_point.x(), move_point.y() + height_init);
@@ -133,14 +122,21 @@ void OverLapWidet::initOverlap()
     }
 
     m_faceBubbleItem = new BubbleItem(this, m_entify);
+    connect(m_faceBubbleItem, &BubbleItem::bubbleRemove, this, &OverLapWidet::hideOverlapBubble);
     m_faceBubbleItem->setOverlapWidget(true);
     m_faceBubbleItem->setParentModel(m_model);
     setFocusProxy(m_faceBubbleItem);
 }
 
+void OverLapWidet::hideOverlapBubble()
+{
+    resize(m_faceBubbleItem->size());
+}
+
 void OverLapWidet::mouseReleaseEvent(QMouseEvent *event)
 {
-    expandAppGroup();
+    if (!m_view->aniState())
+        expandAppGroup();
     return QWidget::mouseReleaseEvent(event);
 }
 

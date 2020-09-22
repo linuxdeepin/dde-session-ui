@@ -35,18 +35,20 @@
 #include <com_deepin_sessionmanager.h>
 #include <com_deepin_daemon_soundeffect.h>
 #include <com_deepin_daemon_gesture.h>
+#include <com_deepin_daemon_display.h>
+#include <com_deepin_dde_daemon_launcherd.h>
+#include <com_deepin_dde_daemon_dock.h>
 
 #include "bubble.h"
 #include "constants.h"
-#include "launcherinter.h"
 
 using UserInter = com::deepin::SessionManager;
 using LauncherInter = com::deepin::dde::daemon::Launcher;
 using SoundeffectInter = com::deepin::daemon::SoundEffect;
 using GestureInter = com::deepin::daemon::Gesture;
+using DisplayInter = com::deepin::daemon::Display;
+using DockInter = com::deepin::dde::daemon::Dock;
 
-static const QString DBbsDockDBusServer = "com.deepin.dde.Dock";
-static const QString DBusDockDBusPath = "/com/deepin/dde/Dock";
 static const QString DBusDaemonDBusService = "org.freedesktop.DBus";
 static const QString DBusDaemonDBusPath = "/org/freedesktop/DBus";
 static const QString NotificationsDBusService = "org.freedesktop.Notifications";
@@ -57,15 +59,20 @@ static const QString Login1DBusService = "org.freedesktop.login1";
 static const QString Login1DBusPath = "/org/freedesktop/login1";
 static const QString DockDaemonDBusServie = "com.deepin.dde.daemon.Dock";
 static const QString DockDaemonDBusPath = "/com/deepin/dde/daemon/Dock";
+static const QString DisplayDaemonDBusServie = "com.deepin.daemon.Display";
+static const QString DisplayDaemonDBusPath = "/com/deepin/daemon/Display";
+static const QString LauncherDaemonDBusServie = "com.deepin.dde.daemon.Launcher";
+static const QString LauncherDaemonDBusPath = "/com/deepin/dde/daemon/Launcher";
+static const QString SoundEffectDaemonDBusServie = "com.deepin.daemon.SoundEffect";
+static const QString SoundEffectDaemonDBusPath = "/com/deepin/daemon/SoundEffect";
+static const QString SessionDBusServie = "com.deepin.SessionManager";
+static const QString SessionDaemonDBusPath = "/com/deepin/SessionManager";
 
 class DBusControlCenter;
 class DBusDaemonInterface;
 class Login1ManagerInterface;
-class DBusDockInterface;
 class Persistence;
 class NotifyCenterWidget;
-class DBusDisplay;
-class DBusDock;
 class NotifySettings;
 /*!
  * \~chinese \class BubbleManager
@@ -228,7 +235,7 @@ private Q_SLOTS:
      * \~chinese \brief 当主屏幕发生改变或几何大小发送改变,更新所有通知气泡的几何位置
      */
     void updateGeometry();
-    void appInfoChanged(QString action, ItemInfo info);
+    void appInfoChanged(QString action, LauncherItemInfo info);
 
 private:
     void initConnections();                 //初始化信号槽连接
@@ -240,7 +247,7 @@ private:
      * \~chinese \return 有相同的ReplaceId返回true,没有返回false
      */
     bool calcReplaceId(EntityPtr notify);
-    bool checkDockExistence();              //检查DOCK栏是否存在
+
     bool checkControlCenterExistence();
 
     Bubble *createBubble(EntityPtr notify, int index = 0);  //创建一个通知气泡
@@ -260,25 +267,24 @@ private:
     QRect calcDisplayRect();
 
 private:
-    Persistence *m_persistence;
-    DBusControlCenter *m_dbusControlCenter;
-    DBusDaemonInterface *m_dbusDaemonInterface;
-    Login1ManagerInterface *m_login1ManagerInterface;
-    DBusDisplay *m_displayInter;
-    DBusDock *m_dockDeamonInter;
-    UserInter *m_userInter;
-    LauncherInter *m_launcherInter;
-    NotifySettings *m_notifySettings;
+    int m_replaceCount = 0;
+    QString m_configFile;
+    QRect m_currentDisplay;
+    SysNotifyProperty m_sysNotifyProperty;
 
     QList<EntityPtr> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;
 
+    Persistence *m_persistence;
+    DBusDaemonInterface *m_dbusDaemonInterface;
+    Login1ManagerInterface *m_login1ManagerInterface;
+    DisplayInter *m_displayInter;
+    DockInter *m_dockDeamonInter;
+    UserInter *m_userInter;
+    LauncherInter *m_launcherInter;
+    SoundeffectInter *m_soundeffectInter;
+    NotifySettings *m_notifySettings;
     NotifyCenterWidget *m_notifyCenter;
-    int m_replaceCount = 0;
-    QString m_configFile;
-
-    SysNotifyProperty m_sysNotifyProperty;
-    QRect m_currentDisplay;
 
     // 手指划入距离，任务栏在右侧时，需大于任务栏最大宽度100，其它情况没有设限大于0即可
     int m_slideWidth;
