@@ -61,8 +61,10 @@ void RecognizeDialog::setText(const QString text)
     onScreenRectChanged();
 }
 
-void RecognizeDialog::paintEvent(QPaintEvent *)
+void RecognizeDialog::paintEvent(QPaintEvent *event)
 {
+    DBlurEffectWidget::paintEvent(event);
+
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
