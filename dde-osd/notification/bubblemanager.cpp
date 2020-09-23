@@ -157,7 +157,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
                                                                   QString::number(replacesId),
                                                                   QString::number(expireTimeout),
-                                                                  this);
+                                                                  nullptr);
 
     AppNotifyProperty appNotifyProperty = getAppNotifyProperty(notification->appName());
 

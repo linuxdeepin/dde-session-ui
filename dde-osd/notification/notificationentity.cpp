@@ -47,6 +47,12 @@ NotificationEntity::NotificationEntity(const QString &appName, const QString &id
 
 }
 
+//防止共享指针析构一次，qt父对象再析构一次，导致double free
+NotificationEntity::~NotificationEntity()
+{
+    return;
+}
+
 NotificationEntity::NotificationEntity(const NotificationEntity &notify) :
     NotificationEntity(notify.appName(), QString::number(notify.id()), notify.appIcon(), notify.summary(),
                        notify.body(), notify.actions(), notify.hints(), notify.ctime(),

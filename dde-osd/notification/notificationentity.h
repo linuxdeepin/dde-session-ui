@@ -42,7 +42,7 @@ public:
                        QObject *parent = nullptr);
 
     NotificationEntity(const NotificationEntity &notify);
-
+    ~NotificationEntity();
     QString appName() const;
     void setAppName(const QString &appName);
 
