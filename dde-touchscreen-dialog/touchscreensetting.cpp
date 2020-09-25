@@ -48,7 +48,7 @@ TouchscreenSetting::TouchscreenSetting(const QString &touchscreen, QWidget *pare
     for (auto monitor : m_displayInter->monitors()) {
         m_monitors << new Monitor(DisplayServer, monitor.path(), QDBusConnection::sessionBus());
     }
-
+    addSpacing(10);
     addContent(m_listCombo);
     addButton(tr("Cancel"));
     addButton(tr("Confirm"), false, ButtonRecommend);
