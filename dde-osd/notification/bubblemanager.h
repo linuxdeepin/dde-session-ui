@@ -74,6 +74,7 @@ class Login1ManagerInterface;
 class Persistence;
 class NotifyCenterWidget;
 class NotifySettings;
+class DBusDockInterface;
 /*!
  * \~chinese \class BubbleManager
  * \~chinese \brief 通知管理类
@@ -289,6 +290,7 @@ private:
     // 手指划入距离，任务栏在右侧时，需大于任务栏最大宽度100，其它情况没有设限大于0即可
     int m_slideWidth;
     GestureInter *m_gestureInter;
+    DBusDockInterface *m_dockInter;
 };
 
 #endif // BUBBLEMANAGER_H

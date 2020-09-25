@@ -20,7 +20,9 @@ HEADERS += \
     $$PWD/appbodylabel.h \
     $$PWD/constants.h \
     $$PWD/bubbletool.h \
-    $$PWD/notifysettings.h
+    $$PWD/notifysettings.h \
+    $$PWD/dbusdockinterface.h \
+    $$PWD/dockrect.h
 
 SOURCES += \
     $$PWD/bubble.cpp \
@@ -38,7 +40,9 @@ SOURCES += \
     $$PWD/iconbutton.cpp \
     $$PWD/appbodylabel.cpp \
     $$PWD/bubbletool.cpp \
-    $$PWD/notifysettings.cpp
+    $$PWD/notifysettings.cpp \
+    $$PWD/dbusdockinterface.cpp \
+    $$PWD/dockrect.cpp
 
 orgDBus.input = $$PWD/files/com.deepin.dde.freedesktop.Notification.service.in
 orgDBus.output = $$OUT_PWD/files/com.deepin.dde.freedesktop.Notification.service

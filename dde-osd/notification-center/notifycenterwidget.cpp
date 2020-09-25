@@ -148,15 +148,16 @@ void NotifyCenterWidget::initConnections()
 void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos, int mode)
 {
     m_scale = qApp->primaryScreen()->devicePixelRatio();
-    dock.setWidth(int(qreal(dock.width()) / m_scale));
-    dock.setHeight(int(qreal(dock.height()) / m_scale));
     m_dockRect = dock;
 
     int width = Notify::CenterWidth;
     int height = screen.height() - Notify::CenterMargin * 2;
     if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom) {
         if(mode == OSD::DockModel::Fashion) {
-            height = screen.height() - Notify::CenterMargin * 2 - Notify::CenterMargin - dock.height();
+            height = screen.height() - Notify::CenterMargin * 2 - dock.height();
+            if (dock.height() != 0) {
+                height -= OSD::DockMargin * 2;
+            }
         } else {
             height = screen.height() - Notify::CenterMargin * 2 - dock.height();
         }
@@ -166,6 +167,9 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     if (pos == OSD::DockPosition::Right) {
         if(mode == OSD::DockModel::Fashion) {
             x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() + OSD::DockMargin * 2 + Notify::CenterMargin);
+            if (dock.width() == 0) {
+                x += OSD::DockMargin * 2;
+            }
         } else {
             x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() + Notify::CenterMargin);
         }

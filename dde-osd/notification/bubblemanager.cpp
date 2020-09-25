@@ -28,6 +28,7 @@
 #include "constants.h"
 #include "notifysettings.h"
 #include "notification-center/notifycenterwidget.h"
+#include "dbusdockinterface.h"
 
 #include <QStringList>
 #include <QVariantMap>
@@ -72,6 +73,7 @@ BubbleManager::BubbleManager(QObject *parent)
                                       , "/com/deepin/daemon/Gesture"
                                       , QDBusConnection::systemBus()
                                       , this))
+    , m_dockInter(new DBusDockInterface(this))
 {
     initConnections();
 
@@ -486,17 +488,16 @@ void BubbleManager::updateSysNotifyProperty()
 
 QRect BubbleManager::calcDisplayRect()
 {
+    qreal ratio = qApp->primaryScreen()->devicePixelRatio();
     QRect displayRect;
     QList<QDBusObjectPath> screenList = m_displayInter->monitors();
 
-    for (auto screen : screenList) {
-        MonitorInter *monitor = new MonitorInter("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
-        if (monitor->enabled()
-                && QCursor::pos().x() >= monitor->x() && QCursor::pos().x() <= monitor->x() + monitor->width()
-                && QCursor::pos().y() >= monitor->y() && QCursor::pos().y() <= monitor->y() + monitor->height()) {
-            displayRect = QRect(monitor->x(), monitor->y(),
-                                int(monitor->width() / qApp->primaryScreen()->devicePixelRatio()),
-                                int(monitor->height() / qApp->primaryScreen()->devicePixelRatio()));
+    for (const auto &screen : screenList) {
+        MonitorInter monitor("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
+        QRect monitorRect(monitor.x(), monitor.y(), monitor.width(), monitor.height());
+        if (monitor.enabled() && monitorRect.contains(m_dockDeamonInter->frontendWindowRect())) {
+            displayRect = QRect(monitorRect.x(), monitorRect.y(),
+                                monitorRect.width() / ratio, monitorRect.height() / ratio);
             break;
         }
     }
@@ -648,7 +649,7 @@ void BubbleManager::initConnections()
             this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
 
     connect(m_displayInter, &DisplayInter::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
-    connect(m_dockDeamonInter, &DockInter::FrontendWindowRectChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
+    connect(m_dockInter, &DBusDockInterface::geometryChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
 
     connect(qApp, &QApplication::primaryScreenChanged, this, [ = ] {
         updateGeometry();
@@ -679,10 +680,7 @@ void BubbleManager::onPrepareForSleep(bool sleep)
 void BubbleManager::geometryChanged()
 {
     QRect displayRect = calcDisplayRect();
-    QRect dock = m_dockDeamonInter->frontendWindowRect();
-    if ((dock.topLeft().x() > QCursor::pos().x() || dock.topLeft().x() + dock.width() < QCursor::pos().x())) {
-        dock.setHeight(0);
-    }
+    QRect dock = m_dockInter->geometry();
 
     OSD::DockPosition pos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
 

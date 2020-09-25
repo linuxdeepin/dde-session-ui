@@ -36,6 +36,7 @@
 #include <DPlatformWindowHandle>
 #include <com_deepin_daemon_display.h>
 #include <com_deepin_daemon_display_monitor.h>
+#include "notification/dbusdockinterface.h"
 
 using DisplayInter = com::deepin::daemon::Display;
 using MonitorInter = com::deepin::daemon::display::Monitor;
@@ -85,26 +86,26 @@ void Container::setContent(QWidget *content)
 
 void Container::moveToCenter()
 {
-    QDesktopWidget *desktop = QApplication::desktop();
-    const int currentprimary=desktop->screenNumber(QCursor::pos());
-
     QRect displayRect;
-    DisplayInter *displayInter = new DisplayInter("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus(), this);
-    QList<QDBusObjectPath> screenList = displayInter->monitors();
-    for (auto screen : screenList) {
-        MonitorInter *monitor = new MonitorInter("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
-        if (monitor->enabled()
-                && QCursor::pos().x() >= monitor->x() && QCursor::pos().x() <= monitor->x()+ monitor->width()
-                && QCursor::pos().y() >= monitor->y() && QCursor::pos().y() <= monitor->y()+ monitor->height()) {
+    qreal ratio = qApp->primaryScreen()->devicePixelRatio();
+    DisplayInter displayInter("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus());
+    QList<QDBusObjectPath> screenList = displayInter.monitors();
+
+    for (const auto &screen : screenList) {
+        MonitorInter monitor("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
+        QRect monitorRect(monitor.x(), monitor.y(), monitor.width(), monitor.height());
+        DBusDockInterface dockInter;
+        if (monitor.enabled() && monitorRect.contains(dockInter.geometry())) {
             qDebug() << " screen display : " << screen.path();
-            displayRect = QRect(monitor->x(), monitor->y(),
-                                monitor->width()/qApp->primaryScreen()->devicePixelRatio(),
-                                monitor->height()/qApp->primaryScreen()->devicePixelRatio());
+            displayRect = QRect(monitorRect.x(), monitorRect.y(),
+                                monitorRect.width() / ratio, monitorRect.height() / ratio);
             break;
         }
     }
 
     if (!displayRect.isValid() || displayRect.isEmpty()) {
+        QDesktopWidget *desktop = QApplication::desktop();
+        const int currentprimary = desktop->screenNumber(QCursor::pos());
         displayRect = desktop->screenGeometry(currentprimary);
     }
 
