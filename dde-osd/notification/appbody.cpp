@@ -57,8 +57,6 @@ void AppBody::setTitle(const QString &title)
     m_titleLbl->setFont(DFontSizeManager::instance()->t6());
     m_titleLbl->setText(title);
     m_titleLbl->setVisible(!title.isEmpty());
-
-    updateAlignment();
 }
 
 void AppBody::setText(const QString &text)
@@ -66,27 +64,12 @@ void AppBody::setText(const QString &text)
     m_bodyLbl->setFont(DFontSizeManager::instance()->t7());
     m_bodyLbl->setText(text);
     m_bodyLbl->setVisible(!text.isEmpty());
-
-    updateAlignment();
 }
 
 void AppBody::setStyle(OSD::ShowStyle style)
 {
     m_showStyle = style;
     refreshTheme();
-}
-
-void AppBody::updateAlignment()
-{
-    if (!m_titleLbl->isVisible())
-        m_bodyLbl->setAlignment(Qt::AlignVCenter);
-    else
-        m_bodyLbl->setAlignment(Qt::AlignTop);
-
-    if (!m_bodyLbl->isVisible())
-        m_titleLbl->setAlignment(Qt::AlignVCenter);
-    else
-        m_titleLbl->setAlignment(Qt::AlignBottom);
 }
 
 void AppBody::refreshTheme()

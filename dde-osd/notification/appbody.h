@@ -41,7 +41,6 @@ public:
     void setStyle(OSD::ShowStyle style);
 
 private:
-    void updateAlignment();
     void refreshTheme();
 
 private:
