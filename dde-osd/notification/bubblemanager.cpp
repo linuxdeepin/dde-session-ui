@@ -79,10 +79,6 @@ BubbleManager::BubbleManager(QObject *parent)
 
     updateSysNotifyProperty();
 
-    // get correct value for m_dockGeometry, m_dockPosition, m_ccGeometry
-    if (m_dockDeamonInter->isValid()) {
-        geometryChanged();
-    }
     m_notifyCenter->hide();
     registerAsService();
 
