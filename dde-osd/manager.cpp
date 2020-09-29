@@ -152,7 +152,6 @@ void Manager::ShowOSD(const QString &osd)
             KBLayoutProvider *provide = qobject_cast<KBLayoutProvider *>(m_kbLayoutProvider);
             if (provide) {
                 QModelIndex currentIndex = m_listview->currentIndex();
-
                 if (currentIndex.row() < 0)
                     currentIndex = m_listview->model()->index(0, 0).sibling(provide->currentIndex(), 0);
 
@@ -185,6 +184,8 @@ void Manager::updateUI()
         m_container->moveToCenter();
     }
     if (!m_container->isVisible()) { // 相同模块如果osd已经显示，就不更新OSD位置，避免频繁切换在性能较弱的机器上出现闪烁
+        m_model->setProvider(m_currentProvider);
+        m_listview->setCurrentIndex(m_listview->model()->index(m_currentProvider->currentRow(), 0));
         m_container->setFixedSize(m_currentProvider->contentSize());
         m_container->moveToCenter();
     }
