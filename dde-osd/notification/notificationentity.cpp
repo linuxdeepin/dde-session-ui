@@ -43,7 +43,8 @@ NotificationEntity::NotificationEntity(const QString &appName, const QString &id
     m_isTitle(false),
     m_hideCount(0),
     m_showPreview(true),
-    m_index(0)
+    m_index(0),
+    m_showInNotifyCenter(true)
 {
 
 }
