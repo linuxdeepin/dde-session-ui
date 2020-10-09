@@ -70,6 +70,36 @@ void NotifySettings::initAllSettings()
         systemObj.insert(ScreenLockedStr, DEFAULT_SCREEN_LOCKED);
         systemObj.insert(ShowIconOnDockStr, DEFAULT_SHOW_ICON_ON_DOCK);
         obj.insert(SystemNotifySettingStr, systemObj);
+    } else {
+        QJsonObject systemObj = obj[SystemNotifySettingStr].toObject();
+        if (!systemObj.contains(DoNotDisturbStr)) {
+            systemObj.insert(DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB);
+        }
+        if (!systemObj.contains(TimeSlotStr)) {
+            systemObj.insert(TimeSlotStr, DEFAULT_TIME_SLOT);
+        }
+        if (!systemObj.contains(StartTimeStr)) {
+            systemObj.insert(StartTimeStr, DefaultStartTime);
+        }
+        if (!systemObj.contains(EndTimeStr)) {
+            systemObj.insert(EndTimeStr, DefaultEndTime);
+        }
+        if (!systemObj.contains(AppsInFullscreenStr)) {
+            systemObj.insert(AppsInFullscreenStr, DEFAULT_APP_IN_FULLSCREEN);
+        }
+        if (!systemObj.contains(TimeSlotStr)) {
+            systemObj.insert(TimeSlotStr, DEFAULT_TIME_SLOT);
+        }
+        if (!systemObj.contains(ConnectedProjectorStr)) {
+            systemObj.insert(ConnectedProjectorStr, DEFAULT_CONNECTED_PROJECTOR);
+        }
+        if (!systemObj.contains(ScreenLockedStr)) {
+            systemObj.insert(ScreenLockedStr, DEFAULT_SCREEN_LOCKED);
+        }
+        if (!systemObj.contains(ShowIconOnDockStr)) {
+            systemObj.insert(ShowIconOnDockStr, DEFAULT_SHOW_ICON_ON_DOCK);
+        }
+        obj[SystemNotifySettingStr] = systemObj;
     }
 
     LauncherItemInfoList appList = m_launcherInter->GetAllItemInfos();
