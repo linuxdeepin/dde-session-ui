@@ -26,6 +26,7 @@
 #include <DApplication>
 #include <DDBusSender>
 #include <QIcon>
+#include <QGSettings>
 
 DGUI_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -189,7 +190,7 @@ bool NotificationsPlugin::checkSwap()
 void NotificationsPlugin::refreshPluginItemsVisible()
 {
     if (pluginIsDisable()) {
-        m_proxyInter->itemRemoved(this, pluginName());    
+        m_proxyInter->itemRemoved(this, pluginName());
     } else {
         if (!m_pluginLoaded) {
             loadPlugin();
@@ -201,9 +202,26 @@ void NotificationsPlugin::refreshPluginItemsVisible()
 
 void NotificationsPlugin::initPluginState()
 {
-    m_isShowIcon = m_proxyInter->getValue(this, PLUGIN_STATE_KEY, true).toBool();
-    setNotifySetting("ShowIconOnDock", QVariant(m_isShowIcon));
-    m_disturb = getNotifySetting("SystemNotify").toBool();
+    if (QGSettings::isSchemaInstalled("com.deepin.dde.notification")) {
+        QGSettings settings("com.deepin.dde.notification", "/com/deepin/dde/notification/", this);
+        QJsonObject obj = QJsonDocument::fromJson(settings.get("notifycations-settings").toString().toUtf8()).object();
+        QJsonObject systemObj = obj["SystemNotify"].toObject();
+        if (systemObj.contains("ShowIconOnDock")) {
+            m_isShowIcon = systemObj["ShowIconOnDock"].toBool();
+            m_proxyInter->saveValue(this, PLUGIN_STATE_KEY, m_isShowIcon);
+        } else {
+            m_isShowIcon = m_proxyInter->getValue(this, PLUGIN_STATE_KEY, true).toBool();
+            systemObj.insert("ShowIconOnDock", m_isShowIcon);
+        }
+        if (systemObj.contains("DoNotDisturb")) {
+            m_disturb = systemObj["DoNotDisturb"].toBool();
+        } else {
+            m_disturb = false;
+            systemObj.insert("DoNotDisturb", m_disturb);
+        }
+        obj["SystemNotify"] = systemObj;
+        settings.set("notifycations-settings", QString(QJsonDocument(obj).toJson()));
+    }
 }
 
 void NotificationsPlugin::updateDockIcon(QString settings)
