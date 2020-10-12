@@ -40,6 +40,8 @@ SuspendDialog::SuspendDialog(QRect screenGeometry)
       m_screenGeometry(screenGeometry),
       m_timerTick(0)
 {
+    setWindowFlags(windowFlags() | Qt::Tool);
+
     const auto ratio = devicePixelRatioF();
     QPixmap icon = QIcon::fromTheme("computer").pixmap(QSize(48, 48) * ratio);
     icon.setDevicePixelRatio(ratio);
