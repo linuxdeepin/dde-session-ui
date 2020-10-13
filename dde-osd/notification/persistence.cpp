@@ -75,6 +75,10 @@ Persistence::Persistence(QObject *parent)
 
 void Persistence::addOne(EntityPtr entity)
 {
+    // "cancel"表示正在发送蓝牙文件,不需要发送到通知中心
+    if (entity->body().contains("%") && entity->actions().contains("cancel")) {
+        return;
+    }
     QString sqlCmd =  QString("INSERT INTO %1 (").arg(TableName_v2);
     sqlCmd += ColumnIcon + ",";
     sqlCmd += ColumnSummary + ",";
