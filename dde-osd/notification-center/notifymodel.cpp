@@ -261,7 +261,7 @@ void NotifyModel::initData()
     QList<EntityPtr> notifications = m_database->getAllNotify();
 
     qSort(notifications.begin(),notifications.end(),[ = ](const EntityPtr& ptr1,const EntityPtr& ptr2){
-        return ptr1->ctime().toLongLong() < ptr2->ctime().toLongLong();
+        return ptr1->ctime().toLongLong() > ptr2->ctime().toLongLong();
     });
 
     foreach (auto notify, notifications) {
