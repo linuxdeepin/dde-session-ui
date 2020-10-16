@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     if (bWayland) {
         setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     } else {
-        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint | Qt::Tool);
+        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
     }
 
     m_title->setObjectName("TitleLabel");

@@ -97,7 +97,7 @@ void NetworkSecretDialog::initUI()
     if (bWayland) {
         setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::Dialog);
     } else {
-        setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog  | Qt::Tool);
+        setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog);
     }
 
     setOnButtonClickedClose(false);

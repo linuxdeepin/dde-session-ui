@@ -43,7 +43,7 @@ TouchscreenSetting::TouchscreenSetting(const QString &touchscreen, QWidget *pare
     setTitle(tr("Select your touch screen"));
     setIcon(QIcon::fromTheme("dcc_touchscreen"));
 
-    setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint | Qt::Tool);
+    setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 
     for (auto monitor : m_displayInter->monitors()) {
         m_monitors << new Monitor(DisplayServer, monitor.path(), QDBusConnection::sessionBus());

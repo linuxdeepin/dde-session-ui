@@ -30,8 +30,6 @@
 WarningDialog::WarningDialog(QWidget *parent)
     : DDialog(parent)
 {
-    setWindowFlags(windowFlags() | Qt::Tool);
-
     const auto ratio = devicePixelRatioF();
     QPixmap icon = QIcon::fromTheme("dialog-warning").pixmap(int(48 * ratio), int(48 * ratio));
     icon.setDevicePixelRatio(ratio);
