@@ -261,7 +261,7 @@ void NotifyModel::initData()
     QList<EntityPtr> notifications = m_database->getAllNotify();
 
     qSort(notifications.begin(),notifications.end(),[ = ](const EntityPtr& ptr1,const EntityPtr& ptr2){
-        return ptr1->ctime().toLongLong() > ptr2->ctime().toLongLong();
+        return ptr1->ctime().toLongLong() < ptr2->ctime().toLongLong();
     });
 
     foreach (auto notify, notifications) {
@@ -292,7 +292,11 @@ void NotifyModel::addAppData(EntityPtr entity)
         if (AppGroup.appName == entity->appName()) {
             isNewApp = false;
             if (entityTimeout) { //超时通知添加到隐藏列表
-                AppGroup.hideList.push_back(entity);
+                if (checkTimeOut(AppGroup.showList.last(), OVERLAPTIMEOUT_4_HOUR)) {
+                    AppGroup.showList.push_front(entity);
+                    AppGroup.hideList.push_front(AppGroup.showList.last());
+                    AppGroup.showList.removeLast();
+                }
             } else if ((!entityTimeout && AppGroup.showList.size() == 3)
                        || checkTimeOut(AppGroup.showList.first(), OVERLAPTIMEOUT_4_HOUR)) { //通知未超时，显示列表已满
                 AppGroup.showList.last()->setHideCount(0);
