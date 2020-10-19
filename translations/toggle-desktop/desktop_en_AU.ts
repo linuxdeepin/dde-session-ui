@@ -10,7 +10,7 @@
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Show desktop or show windows</source>
-            <translation type="unfinished"/>
+            <translation>Show desktop or show windows</translation>
         </message>
     </context>
 </TS>

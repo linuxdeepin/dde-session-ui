@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>Just Now</source>
         <translation>刚刚</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 minutes ago</source>
         <translation>%1分钟前</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>%1 hours ago</source>
         <translation>%1小时前</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="207"/>
         <source>Yesterday </source>
         <translation>昨天</translation>
     </message>
@@ -207,11 +207,16 @@
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="265"/>
+        <source>Customize</source>
+        <translation>自定义</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
         <source>Duplicate</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="269"/>
         <source>Extend</source>
         <translation>扩展</translation>
     </message>
@@ -321,7 +326,7 @@
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="53"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Password</source>
-        <translation>请输入密码</translation>
+        <translation>密码</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>

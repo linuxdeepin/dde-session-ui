@@ -1,10 +1,10 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ms" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="hr" version="2.1">
 <context>
     <name>Bubble</name>
     <message>
         <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
         <source>1 new message</source>
-        <translation type="unfinished"/>
+        <translation>1 nova poruka</translation>
     </message>
 </context>
 <context>
@@ -12,22 +12,22 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>Just Now</source>
-        <translation>Baru Tadi</translation>
+        <translation>Upravo sada</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 minutes ago</source>
-        <translation>%1 minit yang lalu</translation>
+        <translation>%1 minuta prije</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>%1 hours ago</source>
-        <translation>%1 jam yang lalu</translation>
+        <translation>%1 sati prije</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="207"/>
         <source>Yesterday </source>
-        <translation>Semalam</translation>
+        <translation>Jučer</translation>
     </message>
 </context>
 <context>
@@ -35,12 +35,12 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="226"/>
         <source>Cancel</source>
-        <translation>Batal</translation>
+        <translation>Otkaži</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="227"/>
         <source>Confirm</source>
-        <translation>Sahkan</translation>
+        <translation>Potvrdi</translation>
     </message>
 </context>
 <context>
@@ -48,12 +48,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
         <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>Ada program yang menghalang komputer dimatikan / dihibernasikan, dan memaksa dimatikan / dihibernasikan boleh menyebabkan kehilangan data.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
         <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation>Untuk menutup program, klik Batal, kemudian tutup program tersebut.</translation>
+        <translation>Za zatvaranje programa kliknite Otkaži i zatim zatvorite program.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
@@ -61,7 +61,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="391"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Shut down</source>
-        <translation>Matikan</translation>
+        <translation>Isključi</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="332"/>
@@ -69,51 +69,51 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Reboot</source>
-        <translation>But semula</translation>
+        <translation>Ponovno podigni sustav</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Suspend</source>
-        <translation>Tangguh</translation>
+        <translation>Suspendiraj</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Hibernate</source>
-        <translation>Hibernasi</translation>
+        <translation>Hiberniraj</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
         <source>Log out</source>
-        <translation>Daftar  keluar</translation>
+        <translation>Odjava</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation>Anda pasti mahu matikan komputer?</translation>
+        <translation>Jeste li sigurni da želite isključiti?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation>Anda pasti mahu but semula komputer?</translation>
+        <translation>Jeste li sigurni da želite ponovno podignuti sustav?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
-        <translation>Anda pasti mahu mendaftar keluar komputer?</translation>
+        <translation>Jeste li sigurni da se želite odjaviti?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
         <source>Lock</source>
-        <translation>Kunci</translation>
+        <translation>Zaključaj</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="546"/>
         <source>Switch user</source>
-        <translation>Tukar pengguna</translation>
+        <translation>Promjeni korisnika</translation>
     </message>
 </context>
 <context>
@@ -122,62 +122,62 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
         <source>Cancel</source>
-        <translation>Batal</translation>
+        <translation>Otkaži</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation>Lepaskan</translation>
+        <translation>Izdanje</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Aplikasi ini akan ditamatkan, sila pastikan data anda telah disimpan!</translation>
+        <translation>Ova će aplikacija prestati s radom, budite sigurni da su vaši podaci spremljeni!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Sila simpan dokumen, teks dan hamparan elektronik anda</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
         <source>Continue</source>
-        <translation>Teruskan</translation>
+        <translation>Nastavi</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Ingatan sistem tidak mencukupi, sila tamatkan beberapa aplikasi untuk menghindari kesulitan.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>Terus menjalankan %1, %2MB ingatan diperlukan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Terus membuka tab pelayar, %1MB ingatan diperlukan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>Untuk meneruskan operasi, %1MB ingatan diperlukan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>Ingatan semasa anda tidak mencukupi, terus menjalankan %1?</translation>
+        <translation>Vaša memorija je dovoljno velika, nastaviti sa pokretanjem %1?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>Ingatan semasa anda tidak mencukupi, terus membuka tab pelayar?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation>Ingatan semasa anda tidak mencukupi, teruskan operasi?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -185,22 +185,22 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Kemaskini telah dimuat turun, mulakan semula untuk kemaskinikan?</translation>
+        <translation>Ažuriranja preuzeta, iznova pokrenite računalo radi primjene?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
         <source>Remind Later</source>
-        <translation>Ingatkan Kemudian</translation>
+        <translation>Podsjeti kasnije</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
         <source>Not Now</source>
-        <translation>Bukan Sekarang</translation>
+        <translation>Ne sada</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation>Kemaskini Sekarang</translation>
+        <translation>Ažuriraj sada</translation>
     </message>
 </context>
 <context>
@@ -208,17 +208,17 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="265"/>
         <source>Customize</source>
-        <translation>Suaikan</translation>
+        <translation>Prilagodi</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
         <source>Duplicate</source>
-        <translation>Ganda Duakan</translation>
+        <translation>Udvostruči</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="269"/>
         <source>Extend</source>
-        <translation>Lanjut</translation>
+        <translation>Proširi</translation>
     </message>
 </context>
 <context>
@@ -226,12 +226,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Jangan matikan atau tanggalkan bekalan kuasa komputer anda</translation>
+        <translation>Molim nemojte isključiti ili iskopčati svoj stroj</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>Memasang kemaskini %1%, tunggu sebentar...</translation>
+        <translation>Instaliranje ažuriranja %1%, molim pričekajte...</translation>
     </message>
 </context>
 <context>
@@ -239,27 +239,27 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
         <source>Domain account</source>
-        <translation>Akaun domain</translation>
+        <translation>Račun domene</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Pengesahan cap jari telah tamat masa, sila masukkan kata laluan secara manual</translation>
+        <translation>Isteklo je vrijeme ovjere otiska prsta, molim unesite lozinku ručno</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation>Gagal padankan cap jari</translation>
+        <translation>Neuspjelo podudaranje otiska prsta</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
         <source>Wrong Password</source>
-        <translation>Kata Laluan Salah</translation>
+        <translation>Pogrešna lozinka</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>Akaun atau kata laluan domain adalah salah. Sila masukkan sekali lagi.</translation>
+        <translation>Račun ili lozinka domene nisu točni. Molim unesite ih ponovno.</translation>
     </message>
 </context>
 <context>
@@ -267,7 +267,7 @@
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="66"/>
         <source>Cancel</source>
-        <translation>Batal</translation>
+        <translation>Otkaži</translation>
     </message>
 </context>
 <context>
@@ -275,7 +275,7 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
         <source>Add keyboard layout</source>
-        <translation>Tambah bentangan papan kekunci</translation>
+        <translation>Dodaj raspored tipkovnice</translation>
     </message>
 </context>
 <context>
@@ -283,22 +283,22 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
-        <translation>Akaun domain</translation>
+        <translation>Račun domene</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Pengesahan cap jari telah tamat masa, sila masukkan kata laluan secara manual</translation>
+        <translation>Isteklo je vrijeme ovjere otiska prsta, molim unesite lozinku ručno</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
-        <translation>Gagal padankan cap jari</translation>
+        <translation>Neuspjelo podudaranje otiska prsta</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
-        <translation>Kata Laluan Salah</translation>
+        <translation>Pogrešna lozinka</translation>
     </message>
 </context>
 <context>
@@ -306,17 +306,17 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
         <source>Cancel</source>
-        <translation>Batal</translation>
+        <translation>Otkaži</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation>Pengguna di atas masih boleh mendaftar masuk dan data akan hilang disebabkan proses penutupan komputer, anda pasti mahu matikan komputer?</translation>
+        <translation>Gornji korisnici su još prijavljeni i podaci će biti izgubljeni zbog isključivanja računala, jeste li sigurni da želite isključiti računalo?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>Pengguna di atas masih boleh mendaftar masuk dan data tidak akan hilang disebabkan proses but semula komputer, anda pasti mahu but semula komputer?</translation>
+        <translation>Gornji korisnici su još prijavljeni i podaci će biti izgubljeni zbog ponovnog podizanja sustava, jeste li sigurni da želite ponovno podići sustav?</translation>
     </message>
 </context>
 <context>
@@ -326,54 +326,54 @@
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="53"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Password</source>
-        <translation>Kata Laluan</translation>
+        <translation>Lozinka</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>Key</source>
-        <translation>Kunci</translation>
+        <translation>Ključ</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="51"/>
         <source>key</source>
-        <translation>kunci</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="59"/>
         <source>Private Pwd</source>
-        <translation>Kata Laluan Persendirian</translation>
+        <translation>Privatna lozinka</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
         <source>Proxy Password</source>
-        <translation>Kata Laluan Proksi</translation>
+        <translation>Proxy lozinka</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="64"/>
         <source>Group Password</source>
-        <translation>Kata Laluan Kumpulan</translation>
+        <translation>Lozinka grupe</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="106"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation>Kata laluan diperlukan untuk bersambung dengan &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
+        <translation>Potrebna je lozinka za spajanje &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Cancel</source>
-        <translation>Batal</translation>
+        <translation>Otkaži</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="115"/>
         <source>Connect</source>
-        <translation>Sambung</translation>
+        <translation>Poveži</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="180"/>
         <source>Wrong password, please enter again!</source>
-        <translation>Kata laluan salah, sila masukkan sekali lagi!</translation>
+        <translation>Pogrešna lozinka, molim unesite lozinku ponovno!</translation>
     </message>
 </context>
 <context>
@@ -381,32 +381,32 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
         <source>Notification Center</source>
-        <translation>Pusat Pemberitahuan</translation>
+        <translation>Centar obavijesti</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
         <source>%1 Notifications</source>
-        <translation>%1 Pemberitahuan</translation>
+        <translation>%1 obavijesti</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>Nema poruka</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn off DND mode</source>
-        <translation type="unfinished"/>
+        <translation>Isključi DND način</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn on DND mode</source>
-        <translation type="unfinished"/>
+        <translation>Uključi DND način</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
         <source>Notification settings</source>
-        <translation type="unfinished"/>
+        <translation>Postavke obavijesti</translation>
     </message>
 </context>
 <context>
@@ -414,7 +414,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="88"/>
         <source>Notification Center</source>
-        <translation>Pusat Pemberitahuan</translation>
+        <translation>Centar obavijesti</translation>
     </message>
 </context>
 <context>
@@ -422,7 +422,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
-        <translation>Tiada pemberitahuan sistem</translation>
+        <translation>Nema obavijesti sustava</translation>
     </message>
 </context>
 <context>
@@ -430,17 +430,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
-        <translation>Kesan tetingkap dibenarkan</translation>
+        <translation>Omogućeni efekti prozora</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
-        <translation>Kesan tetingkap dilumpuhkan</translation>
+        <translation>Onemogućeni efekti prozora</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
-        <translation>Gagal membenarkan kesan tetingkap</translation>
+        <translation>Neuspjelo omogućivanje efekta prozora</translation>
     </message>
 </context>
 <context>
@@ -448,7 +448,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation>Akhir</translation>
+        <translation>Završetak</translation>
     </message>
 </context>
 <context>
@@ -456,7 +456,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation>Monitor luar dikesan, tangguhkan?</translation>
+        <translation>Otkriven je vanjski monitor, suspendirati ga?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
@@ -467,12 +467,12 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="51"/>
         <source>Cancel</source>
-        <translation>Batal</translation>
+        <translation>Otkaži</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="51"/>
         <source>Suspend</source>
-        <translation>Tangguh</translation>
+        <translation>Suspendiraj</translation>
     </message>
 </context>
 <context>
@@ -480,7 +480,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>Mula pemantau sistem</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -501,17 +501,17 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Selamat datang, sistem berjaya dikemaskinikan</translation>
+        <translation>Dobrodošli, sustav je uspješno ažuriran</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation>Edisi Semasa:</translation>
+        <translation>Trenutno izdanje:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation>Enter</translation>
+        <translation>Unesi</translation>
     </message>
 </context>
 <context>
@@ -519,27 +519,27 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>Mod Kesan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>Mod Biasa</translation>
+        <translation>Normalni način</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>Peringatan Mesra</translation>
+        <translation>Prijateljski podsjetnik</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>Sistem telah mengesan bahawa anda menggunakan mesin maya. yang akan mempengaruhi prestasi sistem dan pengendalian operasi. Untuk pengendalian yang lancar, Mod Biasa disarankan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Mod Kesan: Pengendalian yang lancar dan hebat, Mod Biasa: Nikmati prestasi yang pantas</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -547,17 +547,17 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>Peringatan Mesra</translation>
+        <translation>Ljubazni podsjetnik</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation>Aplikasi ini tidak dapat dijalankan tanpa kesan tetingkap</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>U redu</translation>
     </message>
 </context>
 <context>
@@ -565,7 +565,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Kuasa bateri lemah, sila palamkan kuasa</translation>
+        <translation>Baterija slaba, molim priključite struju</translation>
     </message>
 </context>
 <context>
@@ -573,17 +573,17 @@
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation>PIN untuk menyambung dengan peranti Bluetooth ialah:</translation>
+        <translation>PIN za spajanje na Bluetooth uređaj je:</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
         <source>Cancel</source>
-        <translation>Batal</translation>
+        <translation>Otkaži</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
         <source>Confirm</source>
-        <translation>Sahkan</translation>
+        <translation>Potvrdi</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>

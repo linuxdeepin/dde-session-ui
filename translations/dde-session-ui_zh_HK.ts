@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>Just Now</source>
         <translation>剛剛</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 minutes ago</source>
         <translation>%1分鐘前</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>%1 hours ago</source>
         <translation>%1小時前</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="207"/>
         <source>Yesterday </source>
         <translation>昨天</translation>
     </message>
@@ -88,7 +88,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
         <source>Log out</source>
-        <translation>登出</translation>
+        <translation>註銷</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
@@ -207,11 +207,16 @@
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="265"/>
+        <source>Customize</source>
+        <translation>自定義</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
         <source>Duplicate</source>
         <translation>同步</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="269"/>
         <source>Extend</source>
         <translation>延伸</translation>
     </message>
@@ -328,7 +333,7 @@
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>Key</source>
-        <translation>密钥</translation>
+        <translation>金鑰</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="51"/>
@@ -443,7 +448,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation>結束</translation>
+        <translation>釋放</translation>
     </message>
 </context>
 <context>

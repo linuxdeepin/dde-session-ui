@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>Just Now</source>
         <translation>فقط الآن</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 minutes ago</source>
         <translation>منذ 1 دقيقة</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>%1 hours ago</source>
         <translation>منذ 1 ساعة</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="207"/>
         <source>Yesterday </source>
         <translation>الأمس</translation>
     </message>
@@ -207,11 +207,16 @@
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="265"/>
+        <source>Customize</source>
+        <translation>تخصيص</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
         <source>Duplicate</source>
         <translation>مكرر</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="269"/>
         <source>Extend</source>
         <translation>تمديد</translation>
     </message>

@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>Just Now</source>
         <translation>Chiar acum</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 minutes ago</source>
         <translation>%1 minute în urmă</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>%1 hours ago</source>
         <translation>%1 ore în urmă</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="207"/>
         <source>Yesterday </source>
         <translation>Ieri</translation>
     </message>
@@ -207,11 +207,16 @@
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="265"/>
+        <source>Customize</source>
+        <translation>Personalizare</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
         <source>Duplicate</source>
         <translation>Duplicare</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="269"/>
         <source>Extend</source>
         <translation>Extindere</translation>
     </message>
@@ -386,7 +391,7 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>Niciun mesaj</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>

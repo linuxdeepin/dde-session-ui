@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
         <source>Just Now</source>
         <translation>Proprio ora</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
         <source>%1 minutes ago</source>
         <translation>%1 minuti fa</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="204"/>
         <source>%1 hours ago</source>
         <translation>%1 ore fa</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="207"/>
         <source>Yesterday </source>
         <translation>Ieri</translation>
     </message>
@@ -207,11 +207,16 @@
     <name>DisplayModeProvider</name>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="265"/>
+        <source>Customize</source>
+        <translation>Personalizza</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
         <source>Duplicate</source>
         <translation>Duplica</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="267"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="269"/>
         <source>Extend</source>
         <translation>Estendi</translation>
     </message>
@@ -583,12 +588,12 @@
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
         <source>Make sure this PIN is shown on the device to be paired,</source>
-        <translation type="unfinished"/>
+        <translation>Assicurati che il PIN sia mostrato sul dispositivo da accoppiare, </translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="133"/>
         <source>and it should not be entered manually</source>
-        <translation type="unfinished"/>
+        <translation>non dovrebbe essere inserito manualmente.</translation>
     </message>
 </context>
 </TS>

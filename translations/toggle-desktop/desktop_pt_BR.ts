@@ -5,12 +5,12 @@
             <location filename="Desktop Entry]GenericName" line="0"/>
             <location filename="Desktop Entry]Name" line="0"/>
             <source>Show Desktop</source>
-            <translation>Exibir à Área de Trabalho</translation>
+            <translation>Área de Trabalho</translation>
         </message>
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Show desktop or show windows</source>
-            <translation>Exibir Área de Trabalho ou Janela</translation>
+            <translation>Exibir a Área de Trabalho ou as Janelas</translation>
         </message>
     </context>
 </TS>
