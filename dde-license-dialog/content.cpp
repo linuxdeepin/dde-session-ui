@@ -17,6 +17,7 @@
 #include <QDebug>
 #include <QStandardPaths>
 #include <QFontMetrics>
+#include <QScroller>
 DWIDGET_USE_NAMESPACE
 
 Content::Content(QWidget *parent)
@@ -56,6 +57,7 @@ Content::Content(QWidget *parent)
     m_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     m_scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     m_scrollArea->setContentsMargins(0, 0, 0, 0);
+    QScroller::grabGesture(m_scrollArea->viewport(), QScroller::LeftMouseButtonGesture);
 
     QWidget *sourceWidget = new QWidget(this);
     QVBoxLayout *sourceLayout = new QVBoxLayout;
