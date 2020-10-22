@@ -658,7 +658,7 @@ void BubbleManager::initConnections()
     connect(m_launcherInter, &LauncherInter::ItemChanged, this, &BubbleManager::appInfoChanged);
 
     // 响应任务栏方向改变信号，更新额外触屏划入距离
-    connect(m_dockDeamonInter, &DockInter::PositionChanged, this, [ this ]{
+    connect(m_dockDeamonInter, &DockInter::PositionChanged, this, [ this ] {
         m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
     });
 }
@@ -675,6 +675,10 @@ void BubbleManager::onPrepareForSleep(bool sleep)
 
 void BubbleManager::geometryChanged()
 {
+    // dock未启动时，不要调用其接口，会导致系统刚启动是任务栏被提前启动（比窗管还早），造成显示异常，后续应该改成通知中心显示时才调用任务栏的接口，否则不应调用
+    if (!m_dockInter->isValid())
+        return;
+
     QRect displayRect = calcDisplayRect();
     QRect dock = m_dockInter->geometry();
 
