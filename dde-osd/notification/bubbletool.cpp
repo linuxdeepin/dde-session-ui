@@ -199,13 +199,25 @@ const QString BubbleTool::getDeepinAppName(const QString &name)
 {
     QString settingFile = "/usr/share/applications/" + name + ".desktop";
     DDesktopEntry desktop(settingFile);
+
+    // desktop文件语言配置规则不固定,通过判断 长语言名/短语言名 获取正确的系统语言对应的应用名
+    QString localKey = "default";
+    const QStringList &keys = desktop.keys();
+    QString language = QLocale::system().name();
+    QString shortLanguage = QLocale::system().bcp47Name();
+    if (!keys.filter(language).isEmpty()) {
+        localKey = language;
+    } else if (!keys.filter(shortLanguage).isEmpty()) {
+        localKey = shortLanguage;
+    }
+
     if (desktop.contains("X-Deepin-Vendor")) {
         if (desktop.stringValue("X-Deepin-Vendor") == "deepin") {
-            return desktop.localizedValue("GenericName", "default", "Desktop Entry", name);
+            return desktop.localizedValue("GenericName", localKey, "Desktop Entry", name);
         }
     }
 
-    return desktop.localizedValue("Name", "default", "Desktop Entry", name);
+    return desktop.localizedValue("Name", localKey, "Desktop Entry", name);
 }
 
 void BubbleTool::actionInvoke(const QString &actionId, EntityPtr entity)
