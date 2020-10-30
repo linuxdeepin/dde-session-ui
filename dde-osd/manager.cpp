@@ -188,6 +188,7 @@ void Manager::updateUI()
         m_listview->setCurrentIndex(m_listview->model()->index(m_currentProvider->currentRow(), 0));
         m_container->setFixedSize(m_currentProvider->contentSize());
         m_container->moveToCenter();
+        m_container->setVisible(true);
     }
 }
 
