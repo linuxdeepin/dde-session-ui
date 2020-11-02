@@ -27,6 +27,7 @@
 #include <QScreen>
 #include <QDBusContext>
 #include <QDateTime>
+#include <QGSettings>
 
 #include <algorithm>
 
@@ -45,6 +46,24 @@
 #include <com_deepin_daemon_display.h>
 #include <com_deepin_daemon_display_monitor.h>
 #include "dbusdock_interface.h"
+
+static const QStringList SOUND_TYPE_LIST {
+    "message",
+    "camera-shutter",
+    "trash-empty",
+    "x-deepin-app-sent-to-desktop",
+    "desktop-login",
+    "system-shutdown",
+    "desktop-logout",
+    "suspend-resume",
+    "audio-volume-change",
+    "power-unplug-battery-low",
+    "power-plug",
+    "power-unplug",
+    "device-added",
+    "device-removed",
+    "dialog-error",
+};
 
 using DisplayInter = com::deepin::daemon::Display;
 using MonitorInter = com::deepin::daemon::display::Monitor;
@@ -569,6 +588,35 @@ void BubbleManager::setSystemSetting(QString settings)
     m_notifySettings->setSystemSetting(settings);
     updateSysNotifyProperty();
     Q_EMIT systemSettingChanged(m_notifySettings->getSystemSetings());
+}
+
+bool BubbleManager::playSystemSoundEffect(const SystemSoundType &stype)
+{
+    QString systemSound = SOUND_TYPE_LIST.at(static_cast<int>(stype));
+    QGSettings settings("com.deepin.dde.sound-effect");
+    bool effEnabled = settings.get("enabled").toBool();
+    QStringList parts = systemSound.split('-',QString::SkipEmptyParts);
+    for (int i = 1; i < parts.size(); i++)
+    {
+        parts[i][0] = parts[i][0].toUpper();
+    }
+    QString newName = parts.join("");
+    if (effEnabled) {
+        const QStringList list = settings.keys();
+        if (!list.contains(newName)) {
+            return false;
+        }
+        effEnabled = settings.get(newName).toBool();
+    }
+    if (effEnabled == false) {
+        return false;
+    }
+    if (newName.isEmpty()) {
+        return false;
+    }
+
+    m_soundeffectInter->PlaySound(newName);
+    return true;
 }
 
 void BubbleManager::registerAsService()

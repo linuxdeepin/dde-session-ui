@@ -39,7 +39,9 @@
 
 #include <DDesktopServices>
 
+
 DCORE_USE_NAMESPACE
+
 
 /*
  * Implementation of adaptor class NotificationsDBusAdaptor
@@ -79,7 +81,11 @@ QString NotificationsDBusAdaptor::GetServerInformation(QString &out1, QString &o
 
 uint NotificationsDBusAdaptor::Notify(const QString &in0, uint in1, const QString &in2, const QString &in3, const QString &in4, const QStringList &in5, const QVariantMap &in6, int in7)
 {
-    DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+    //动态调用DTKWidget封装的playSystemSoundEffect后，sinkinput不能退出（原因未知），改成osd直接调用
+    //Task 42132
+    //DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+
+    static_cast<BubbleManager*>(parent())->playSystemSoundEffect(SystemSoundType::SSE_Notifications);
 
     // handle method call org.freedesktop.Notifications.Notify
     uint out0;
@@ -123,7 +129,8 @@ QString DDENotifyDBus::GetServerInformation(QString &out1, QString &out2, QStrin
 
 uint DDENotifyDBus::Notify(const QString &in0, uint in1, const QString &in2, const QString &in3, const QString &in4, const QStringList &in5, const QVariantMap &in6, int in7)
 {
-    DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+    //DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+    static_cast<BubbleManager*>(parent())->playSystemSoundEffect(SystemSoundType::SSE_Notifications);
 
     // handle method call org.freedesktop.Notifications.Notify
     uint out0;
