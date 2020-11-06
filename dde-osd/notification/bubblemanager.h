@@ -92,24 +92,6 @@ typedef struct{
     QString EndTime;
 } SysNotifyProperty;
 
-enum SystemSoundType {
-    SSE_Notifications,
-    SEE_Screenshot,
-    SSE_EmptyTrash,
-    SSE_SendFileComplete,
-    SSE_BootUp,
-    SSE_Shutdown,
-    SSE_Logout,
-    SSE_WakeUp,
-    SSE_VolumeChange,
-    SSE_LowBattery,
-    SSE_PlugIn,
-    SSE_PlugOut,
-    SSE_DeviceAdded,
-    SSE_DeviceRemoved,
-    SSE_Error,
-};
-
 #ifdef QT_DEBUG
 class BubbleManager : public QObject, public QDBusContext
 #else
@@ -132,12 +114,6 @@ public:
         Down = 0,
         Up = 1
     };
-    /*!
-     * \~chinese \name playSystemSoundEffect
-     * \~chinese \brief 根据stype来播放对应系统通知音频
-     * \~chinese \return
-     */
-    bool playSystemSoundEffect(const SystemSoundType &stype);
 
 Q_SIGNALS:
     // Standard Notifications dbus implementation
