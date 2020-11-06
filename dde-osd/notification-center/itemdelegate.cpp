@@ -46,6 +46,7 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     if(notify->isTitle())
     {
         BubbleTitleWidget *titleWidget = new BubbleTitleWidget(m_model, notify, parent);
+        titleWidget->setParentView(m_view);
         return titleWidget;
     }
     else if(notify->hideCount() != 0)

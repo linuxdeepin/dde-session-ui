@@ -21,9 +21,12 @@
 
 #include "bubbletitlewidget.h"
 #include "notification/bubbletool.h"
+#include "notifylistview.h"
 
 #include <QKeyEvent>
 #include <QBoxLayout>
+#include <QScroller>
+
 #include <DFontSizeManager>
 
 BubbleTitleWidget::BubbleTitleWidget(NotifyModel *model, EntityPtr entity, QWidget *parent)
@@ -67,13 +70,27 @@ void BubbleTitleWidget::setIndexRow(int row)
 
 void BubbleTitleWidget::enterEvent(QEvent *event)
 {
-    m_closeButton->setVisible(true);
+    // QScroller::hasScroller用于判断listview是否处于滑动状态，滑动状态不触发paint相关操作，否则滑动动画异常
+    if (!QScroller::hasScroller(m_view)) {
+        m_closeButton->setVisible(true);
+    }
     QWidget::enterEvent(event);
 }
 
 void BubbleTitleWidget::leaveEvent(QEvent *event)
 {
-    m_closeButton->setVisible(false);
+    bool hasScroller = QScroller::hasScroller(m_view);
+    if (!hasScroller) {
+        m_closeButton->setVisible(false);
+    } else {
+        // 滚动结束,处理hover变化
+        connect(QScroller::scroller(m_view), &QScroller::stateChanged, this, [this](const QScroller::State state){
+            if (state == QScroller::Inactive) {
+                m_closeButton->setVisible(false);
+            }
+        });
+    }
+
     QWidget::enterEvent(event);
 }
 
@@ -96,3 +113,7 @@ QList<QPointer<QWidget> > BubbleTitleWidget::bubbleElements()
     return bubble_elements;
 }
 
+void BubbleTitleWidget::setParentView(NotifyListView *view)
+{
+    m_view = view;
+}
