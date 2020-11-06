@@ -40,6 +40,7 @@
 #include <QDebug>
 #include <QProcess>
 #include <QMouseEvent>
+#include <QScroller>
 
 AlphaWidget::AlphaWidget(QWidget *parent)
     : DWidget(parent)
@@ -264,15 +265,30 @@ void BubbleItem::enterEvent(QEvent *event)
 {
     if (m_view == nullptr)
         return;
-    setFocus();
-    m_view->setCurrentRow(m_entity->currentIndex());
-    Q_EMIT havorStateChanged(true);
+    if (!QScroller::hasScroller(m_view)) {
+        setFocus();
+        m_view->setCurrentRow(m_entity->currentIndex());
+        Q_EMIT havorStateChanged(true);
+    }
+
     return DWidget::enterEvent(event);
 }
 
 void BubbleItem::leaveEvent(QEvent *event)
 {
-    Q_EMIT havorStateChanged(false);
+    // QScroller::hasScroller用于判断listview是否处于滑动状态，滑动状态不触发paint相关操作，否则滑动动画异常
+    bool hasScroller = QScroller::hasScroller(m_view);
+    if (!hasScroller) {
+        Q_EMIT havorStateChanged(false);
+    } else {
+        // 滚动结束,处理hover变化
+        connect(QScroller::scroller(m_view), &QScroller::stateChanged, this, [this](const QScroller::State state){
+            if (state == QScroller::Inactive) {
+                Q_EMIT havorStateChanged(false);
+            }
+        });
+    }
+
     return DWidget::leaveEvent(event);
 }
 

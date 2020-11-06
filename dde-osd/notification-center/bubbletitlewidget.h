@@ -30,11 +30,14 @@
 
 DWIDGET_USE_NAMESPACE
 
+class NotifyListView;
+
 class BubbleTitleWidget : public DWidget
 {
     Q_OBJECT
 public:
     BubbleTitleWidget(NotifyModel *model = nullptr, EntityPtr entity = nullptr, QWidget *parent = nullptr);
+    void setParentView(NotifyListView *view);
 
 public:
     void setIndexRow(int row);
@@ -52,6 +55,7 @@ private:
     DIconButton *m_closeButton;
     NotifyModel *m_model;
     int m_indexRow = 0;
+    NotifyListView *m_view = nullptr;
 };
 
 #endif // BUBBLETITLEWIDGET_H
