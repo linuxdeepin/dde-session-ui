@@ -754,7 +754,6 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         QRect endRect = GetBubbleGeometry(0);
         QRect startRect = endRect;
         startRect.setHeight(0);
-        bubble->setFixedHeight(0);
 
         QPropertyAnimation *ani = new QPropertyAnimation(bubble, "geometry");
         ani->setStartValue(startRect);

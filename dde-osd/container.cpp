@@ -50,13 +50,6 @@ Container::Container(QWidget *parent)
 {
     setWindowFlags(Qt::ToolTip | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_TranslucentBackground);
-
-    auto envType = qEnvironmentVariable("XDG_SESSION_TYPE");
-    if (envType.contains("wayland")) {
-        setAttribute(Qt::WA_NativeWindow);
-        windowHandle()->setProperty("_d_dwayland_window-type", "menu");
-    }
-
     setMaskAlpha(255);
 
     m_quitTimer->setSingleShot(true);

@@ -40,7 +40,6 @@
 #include <QBoxLayout>
 #include <QParallelAnimationGroup>
 #include <QTextDocument>
-#include <QWindow>
 
 Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
@@ -232,14 +231,8 @@ void Bubble::onOutTimerTimeout()
 
 void Bubble::initUI()
 {
-    auto envType = qEnvironmentVariable("XDG_SESSION_TYPE");
-
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_DeleteOnClose);
-    if (envType.contains("wayland")) {
-        setAttribute(Qt::WA_NativeWindow);
-        windowHandle()->setProperty("_d_dwayland_window-type", "menu");
-    }
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool | Qt::X11BypassWindowManagerHint);
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
@@ -262,13 +255,11 @@ void Bubble::initUI()
 
     setLayout(layout);
 
-    if (envType.contains("x11")) {
-        QTimer::singleShot(0, this, [ = ] {
-            // FIXME: 锁屏不允许显示任何通知，而通知又需要禁止窗管进行管理，
-            // 为了避免二者的冲突，将气泡修改为dock，保持在其他程序置顶，又不会显示在锁屏之上。
-            BubbleTool::register_wm_state(winId());
-        });
-    }
+    QTimer::singleShot(0, this, [ = ] {
+        // FIXME: 锁屏不允许显示任何通知，而通知又需要禁止窗管进行管理，
+        // 为了避免二者的冲突，将气泡修改为dock，保持在其他程序置顶，又不会显示在锁屏之上。
+        BubbleTool::register_wm_state(winId());
+    });
 }
 
 void Bubble::initConnections()
