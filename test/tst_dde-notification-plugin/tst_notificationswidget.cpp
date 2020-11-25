@@ -10,17 +10,17 @@ class TstNotificationsWidget : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new NotificationsWidget();
+//        obj = new NotificationsWidget();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+//        delete obj;
+//        obj = nullptr;
     }
 
 public:
-    NotificationsWidget *widget = nullptr;
+    NotificationsWidget *obj = nullptr;
 };
 
 TEST_F(TstNotificationsWidget, coverageTest)

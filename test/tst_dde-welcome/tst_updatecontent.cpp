@@ -10,18 +10,18 @@ class TstUpdateContent : public testing::Test
 public:
     void SetUp() override
     {
-        std::pair<QString, QString> pair;
-        widget = new UpdateContent(pair);
+//        std::pair<QString, QString> pair;
+//        obj = new UpdateContent(pair);
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+//        delete obj;
+//        obj = nullptr;
     }
 
 public:
-    UpdateContent *widget = nullptr;
+    UpdateContent *obj = nullptr;
 };
 
 TEST_F(TstUpdateContent, coverageTest)

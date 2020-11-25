@@ -10,17 +10,17 @@ class TstMainWidget : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new MainWidget();
+//        obj = new MainWidget();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+//        delete obj;
+//        obj = nullptr;
     }
 
 public:
-    MainWidget *widget = nullptr;
+    MainWidget *obj = nullptr;
 };
 
 TEST_F(TstMainWidget, coverageTest)

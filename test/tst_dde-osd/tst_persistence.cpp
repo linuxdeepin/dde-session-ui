@@ -10,17 +10,17 @@ class TstPersistence : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new Persistence();
+//        obj = new Persistence();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+        delete obj;
+        obj = nullptr;
     }
 
 public:
-    Persistence *widget = nullptr;
+    Persistence *obj = nullptr;
 };
 
 TEST_F(TstPersistence, coverageTest)

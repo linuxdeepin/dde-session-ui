@@ -10,7 +10,7 @@ class TstMainWindow : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new MainWindow();
+//        widget = new MainWindow();
     }
 
     void TearDown() override

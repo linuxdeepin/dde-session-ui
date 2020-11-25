@@ -10,17 +10,17 @@ class TstNotificationsPlugin : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new NotificationsPlugin();
+//        obj = new NotificationsPlugin();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+//        delete obj;
+//        obj = nullptr;
     }
 
 public:
-    NotificationsPlugin *widget = nullptr;
+    NotificationsPlugin *obj = nullptr;
 };
 
 TEST_F(TstNotificationsPlugin, coverageTest)

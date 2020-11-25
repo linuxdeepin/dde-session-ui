@@ -10,17 +10,17 @@ class TstWMFrame : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new WMFrame();
+//        obj = new WMFrame();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+//        delete obj;
+//        obj = nullptr;
     }
 
 public:
-    WMFrame *widget = nullptr;
+    WMFrame *obj = nullptr;
 };
 
 TEST_F(TstWMFrame, coverageTest)

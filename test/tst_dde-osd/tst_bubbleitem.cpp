@@ -10,17 +10,17 @@ class TstBubbleItem : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new BubbleItem();
+//        obj = new BubbleItem();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+        delete obj;
+        obj = nullptr;
     }
 
 public:
-    BubbleItem *widget = nullptr;
+    BubbleItem *obj = nullptr;
 };
 
 TEST_F(TstBubbleItem, coverageTest)

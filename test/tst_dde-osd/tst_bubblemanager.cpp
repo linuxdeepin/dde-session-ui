@@ -10,17 +10,17 @@ class TstBubbleManager : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new BubbleManager();
+//        obj = new BubbleManager();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+//        delete obj;
+//        obj = nullptr;
     }
 
 public:
-    BubbleManager *widget = nullptr;
+    BubbleManager *obj = nullptr;
 };
 
 TEST_F(TstBubbleManager, coverageTest)

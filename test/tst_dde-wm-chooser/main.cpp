@@ -7,6 +7,7 @@
 
 int main(int argc, char *argv[])
 {
+    qputenv("QT_QPA_PLATFORM", "offscreen");
     QApplication app(argc,argv);
     qDebug() << "start dde-wm-chooser test cases ..............";
     ::testing::InitGoogleTest(&argc, argv);

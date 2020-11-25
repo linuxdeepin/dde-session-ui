@@ -10,17 +10,17 @@ class TstWMChooser : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new WMChooser();
+//        obj = new WMChooser();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+//        delete obj;
+//        obj = nullptr;
     }
 
 public:
-    WMChooser *widget = nullptr;
+    WMChooser *obj = nullptr;
 };
 
 TEST_F(TstWMChooser, coverageTest)

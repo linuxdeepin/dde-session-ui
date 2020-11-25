@@ -3,7 +3,7 @@ QT       += widgets core gui dbus gui-private
 TARGET = tst_dde-warning-dialog
 TEMPLATE = app
 
-include(../dtk_testcase.prf)
+include(../testcase.prf)
 
 PKGCONFIG += dtkwidget dtkgui gio-qt dframeworkdbus gsettings-qt
 CONFIG += c++11 link_pkgconfig

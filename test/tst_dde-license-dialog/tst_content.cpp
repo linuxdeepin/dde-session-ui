@@ -10,7 +10,7 @@ class TstContent : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new Content();
+//        widget = new Content();
     }
 
     void TearDown() override

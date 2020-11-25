@@ -3,7 +3,7 @@ QT       += core gui dbus x11extras svg sql dtkwidget
 TARGET = tst_dde-osd
 TEMPLATE = app
 
-include(../dtk_testcase.prf)
+include(../testcase.prf)
 
 PKGCONFIG += dtkwidget dtkgui gio-qt dframeworkdbus gsettings-qt xcb-ewmh xrandr
 

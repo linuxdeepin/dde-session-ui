@@ -10,17 +10,17 @@ class TstManager : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new Manager();
+//        obj = new Manager();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+//        delete obj;
+//        obj = nullptr;
     }
 
 public:
-    Manager *widget = nullptr;
+    Manager *obj = nullptr;
 };
 
 TEST_F(TstManager, coverageTest)

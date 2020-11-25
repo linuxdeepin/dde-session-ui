@@ -10,7 +10,7 @@ class TstBubble : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new Bubble();
+//        widget = new Bubble();
     }
 
     void TearDown() override
