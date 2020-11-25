@@ -34,10 +34,13 @@
 
 #include <com_deepin_dde_notification.h>
 
-#define DOCK_DEFAULT_POS 9
+#define DOCK_DEFAULT_POS    9
+#define KEY_DNDMODE         0
+#define KEY_SHOWICON        5
 
 using NotifyInter = com::deepin::dde::Notification;
 
+class QGSettings;
 class NotificationsPlugin : public QObject, PluginsItemInterface
 {
     Q_OBJECT
@@ -71,9 +74,7 @@ private:
     bool checkSwap();
     void refreshPluginItemsVisible();
     void initPluginState();
-    void updateDockIcon(QString settings);
-    void setNotifySetting(QString key, QVariant value);
-    QVariant getNotifySetting(QString key);
+    void updateDockIcon(uint item, const QDBusVariant &var);
 
 private:
     bool m_pluginLoaded;
@@ -84,6 +85,7 @@ private:
 
     NotificationsWidget *m_itemWidget = nullptr;
     QLabel *m_tipsLabel;
+    QGSettings *m_settings;
 };
 
 #endif // NOTIFITIONPLUGIN_H

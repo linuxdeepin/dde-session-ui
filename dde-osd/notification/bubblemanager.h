@@ -75,36 +75,13 @@ class Persistence;
 class NotifyCenterWidget;
 class NotifySettings;
 class DBusDockInterface;
-/*!
- * \~chinese \class BubbleManager
- * \~chinese \brief 通知管理类
- * \~chinese \brief 功能:1.当有通知时创建通知气泡
- * \~chinese \brief     2.当有通知时讲通知信息存储到数据库
- * \~chinese \brief     3.提供气泡叠加的
- * \~chinese \brief     4.提供对外的一些接口
- */
-typedef struct{
-    bool isAllowNotify;
-    bool isShowInNotifyCenter;
-    bool isLockShowNotify;
-    bool isShowNotifyPreview;
-    bool isNotificationSound;
-} AppNotifyProperty;
-
-typedef struct{
-    bool isDoNotDisturb;
-    bool isTimeSlot;
-    bool isAppsInFullscreen;
-    bool isConnectedProjector;
-    bool isScreenLocked;
-    bool isShowIconOnDock;
-    QString StartTime;
-    QString EndTime;
-} SysNotifyProperty;
 
 class BubbleManager : public QObject, public QDBusContext
 {
     Q_OBJECT
+    Q_PROPERTY(QString allSetting READ getAllSetting WRITE setAllSetting)
+    Q_PROPERTY(QString systemSetting READ getSystemSetting WRITE setSystemSetting)
+
 public:
     explicit BubbleManager(QObject *parent = nullptr);
     ~BubbleManager();
@@ -128,6 +105,12 @@ Q_SIGNALS:
 
     // Extra DBus APIs
     void RecordAdded(const QString &);
+    void AppInfoChanged(const QString &id, uint item, QDBusVariant var);
+    void SystemInfoChanged(uint item, QDBusVariant var);
+    void AppAddedSignal(const QString &id);
+    void AppRemovedSignal(const QString &id);
+
+    // 旧接口之后废弃
     void appAdded(QString appName);
     void appRemoved(QString appName);
     void appSettingChanged(QString Settings);
@@ -135,7 +118,6 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     // Standard Notifications dbus implementation
-
     /*!
      * \~chinese \name CloseNotification
      * \~chinese \brief 根据通知id关闭通知气泡
@@ -197,6 +179,13 @@ public Q_SLOTS:
      * \~chinese \return 通知中心中通知的数量
      */
     uint recordCount();
+    QStringList GetAppList();
+    QDBusVariant GetAppInfo(const QString id, uint item);
+    QDBusVariant GetSystemInfo(uint item);
+    void SetAppInfo(const QString id, uint item, const QDBusVariant var);
+    void SetSystemInfo(uint item, const QDBusVariant var);
+
+    // 旧接口之后废弃
     QString getAllSetting();
     void setAllSetting(const QString settings);
     QString getAppSetting(QString appName);
@@ -263,15 +252,12 @@ private:
     // Get the last unanimated bubble rect
     QRect GetLastStableRect(int index);                     //得到最后一个没有动画的矩形气泡
     bool isDoNotDisturb();
-    AppNotifyProperty getAppNotifyProperty(QString appName);
-    void updateSysNotifyProperty();
     QRect calcDisplayRect();
 
 private:
     int m_replaceCount = 0;
     QString m_configFile;
     QRect m_currentDisplay;
-    SysNotifyProperty m_sysNotifyProperty;
 
     QList<EntityPtr> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;
@@ -282,7 +268,6 @@ private:
     DisplayInter *m_displayInter;
     DockInter *m_dockDeamonInter;
     UserInter *m_userInter;
-    LauncherInter *m_launcherInter;
     SoundeffectInter *m_soundeffectInter;
     NotifySettings *m_notifySettings;
     NotifyCenterWidget *m_notifyCenter;
