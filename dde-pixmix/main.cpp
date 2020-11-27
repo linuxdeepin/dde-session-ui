@@ -104,11 +104,13 @@ int main(int argc, char *argv[])
 
     cmdParser.process(a);
 
+    QString inFile = a.arguments().last();
+    QFileInfo file_info(inFile);
+
     if (cmdParser.isSet(option)) {
         QString outFile = cmdParser.value(option);
         if (outFile == "-") {
-            QString inFile = a.arguments().last();
-            QPixmap pix = calcPix(inFile);
+            QPixmap pix = calcPix(file_info.canonicalFilePath());
 
             if (!pix.isNull()) {
                 QFile *out = new QFile();
@@ -123,8 +125,7 @@ int main(int argc, char *argv[])
             }
         } else {
             if (!outFile.isEmpty()) {
-                QString inFile = a.arguments().last();
-                QPixmap pix = calcPix(inFile);
+                QPixmap pix = calcPix(file_info.canonicalFilePath());
                 if (!pix.isNull()) {
                     if (!pix.save(outFile, QImageReader::imageFormat(inFile), 100))
                         return -4;
