@@ -38,6 +38,12 @@ public:
     QSize minimumSizeHint() const override;
     void setAlignment(Qt::Alignment alignment);
 
+#ifdef GTEST
+    QString labelText() const { return m_text; }
+    qreal bodyOpacity() const { return m_opacity; }
+    Qt::Alignment bodyAlignment() const { return m_alignment; }
+#endif
+
 private:
     const QString holdTextInRect(const QFontMetrics &fm, const QString &text, const QRect &rect) const;
     void resizeEvent(QResizeEvent *e) override;

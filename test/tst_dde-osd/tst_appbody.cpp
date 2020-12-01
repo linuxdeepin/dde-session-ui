@@ -10,21 +10,22 @@ class TstAppBody : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new AppBody();
+        obj = new AppBody();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+        delete obj;
+        obj = nullptr;
     }
 
 public:
-    AppBody *widget = nullptr;
+    AppBody *obj = nullptr;
 };
 
 TEST_F(TstAppBody, coverageTest)
 {
-
+    obj->setTitle("控制中心");
+    obj->setText("已连接“有线链接2”");
 }
 

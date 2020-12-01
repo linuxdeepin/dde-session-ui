@@ -12,7 +12,7 @@ CONFIG -= app_bundle
 
 LIBS += -lgtest -lX11 -lXext
 
-DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += QT_DEPRECATED_WARNINGS GTEST
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

@@ -10,17 +10,17 @@ class TstNotifySettings : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new NotifySettings();
+//        obj = new NotifySettings();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+//        delete obj;
+//        obj = nullptr;
     }
 
 public:
-    NotifySettings *widget = nullptr;
+//    NotifySettings *obj = nullptr;
 };
 
 TEST_F(TstNotifySettings, coverageTest)
