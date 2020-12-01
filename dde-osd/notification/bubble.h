@@ -116,5 +116,6 @@ protected:
     QString m_defaultAction;
     bool m_canClose = false;
     int m_bubbleIndex;
+    bool m_beforeLocked;
 };
 #endif // BUBBLE_H
