@@ -60,11 +60,10 @@ Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     initUI();
     initTimers();
     initConnections();
-
+    m_beforeLocked =! m_userInter->locked();
     setEntity(entity);
 
     installEventFilter(this);
-    m_beforeLocked =! m_userInter->locked();
 }
 
 EntityPtr Bubble::entity() const
