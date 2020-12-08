@@ -212,7 +212,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                 m_persistence->addOne(notification);
             }
         } else { // 锁屏显示通知或者未锁屏状态
-             if (!systemNotification && !dndmode && enableNotificaion) { // 普通应用非勿扰模式并且开启通知选项
+            if (!systemNotification && !dndmode && enableNotificaion) { // 普通应用非勿扰模式并且开启通知选项
                 pushBubble(notification);
             } else if (showInNotifyCenter) {
                 m_persistence->addOne(notification);
@@ -378,8 +378,10 @@ bool BubbleManager::isDoNotDisturb()
 
     if (dndMode && m_notifySettings->getSystemSetting(NotifySettings::OPENBYTIMEINTERVAL).toBool()) {
         return dndMode;
+    } else if (m_notifySettings->getSystemSetting(NotifySettings::LOCKSCREENOPENDNDMODE).toBool() && lockScreen) {
+        return dndMode;
     } else {
-        return m_notifySettings->getSystemSetting(NotifySettings::LOCKSCREENOPENDNDMODE).toBool() && lockScreen;
+        return false;
     }
 }
 
