@@ -45,10 +45,13 @@ NotificationsPlugin::NotificationsPlugin(QObject *parent)
     m_tipsLabel->setVisible(false);
     m_tipsLabel->setObjectName("notifications");
 
+    if (QGSettings::isSchemaInstalled("com.deepin.dde.notifications")) {
+        m_settings = new QGSettings("com.deepin.dde.notifications", "/com/deepin/dde/notifications/", this);
+    }
     changeTheme();
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &NotificationsPlugin::changeTheme);
-    connect(m_notifyInter, &NotifyInter::systemSettingChanged, this, &NotificationsPlugin::updateDockIcon);
+    connect(m_notifyInter, &NotifyInter::SystemInfoChanged, this, &NotificationsPlugin::updateDockIcon);
 }
 
 void NotificationsPlugin::changeTheme()
@@ -109,8 +112,9 @@ void NotificationsPlugin::init(PluginProxyInterface *proxyInter)
 
 void NotificationsPlugin::pluginStateSwitched()
 {
-    m_proxyInter->saveValue(this, PLUGIN_STATE_KEY, !m_proxyInter->getValue(this, PLUGIN_STATE_KEY, true).toBool());
-    setNotifySetting("ShowIconOnDock", !pluginIsDisable());
+    bool pluginState = !m_proxyInter->getValue(this, PLUGIN_STATE_KEY, true).toBool();
+    m_proxyInter->saveValue(this, PLUGIN_STATE_KEY, pluginState);
+    m_notifyInter->SetSystemInfo(5, QDBusVariant(pluginState));
     refreshPluginItemsVisible();
 }
 
@@ -202,62 +206,24 @@ void NotificationsPlugin::refreshPluginItemsVisible()
 
 void NotificationsPlugin::initPluginState()
 {
-    if (QGSettings::isSchemaInstalled("com.deepin.dde.notification")) {
-        QGSettings settings("com.deepin.dde.notification", "/com/deepin/dde/notification/", this);
-        QJsonObject obj = QJsonDocument::fromJson(settings.get("notifycations-settings").toString().toUtf8()).object();
-        QJsonObject systemObj = obj["SystemNotify"].toObject();
-        if (systemObj.contains("ShowIconOnDock")) {
-            m_isShowIcon = systemObj["ShowIconOnDock"].toBool();
-            m_proxyInter->saveValue(this, PLUGIN_STATE_KEY, m_isShowIcon);
-        } else {
-            m_isShowIcon = m_proxyInter->getValue(this, PLUGIN_STATE_KEY, true).toBool();
-            systemObj.insert("ShowIconOnDock", m_isShowIcon);
-        }
-        if (systemObj.contains("DoNotDisturb")) {
-            m_disturb = systemObj["DoNotDisturb"].toBool();
-        } else {
-            m_disturb = false;
-            systemObj.insert("DoNotDisturb", m_disturb);
-        }
-        obj["SystemNotify"] = systemObj;
-        settings.set("notifycations-settings", QString(QJsonDocument(obj).toJson()));
-    }
+    if (m_settings == nullptr)
+        return;
+    m_isShowIcon = m_proxyInter->getValue(this, PLUGIN_STATE_KEY, true).toBool();
+    m_settings->set("show-icon", m_isShowIcon);
+    m_disturb = m_settings->get("dndmode").toBool();
 }
 
-void NotificationsPlugin::updateDockIcon(QString settings)
+void NotificationsPlugin::updateDockIcon(uint item, const QDBusVariant &var)
 {
-    QJsonObject obj = QJsonDocument::fromJson(settings.toUtf8()).object();
-    if (obj.isEmpty())
-        return;
-    QJsonObject systemObj = obj["SystemNotify"].toObject();
-
-    m_isShowIcon = systemObj["ShowIconOnDock"].toBool();
-    m_disturb = systemObj["DoNotDisturb"].toBool();
+    if (item == KEY_DNDMODE) {
+        m_disturb = var.variant().toBool();
+    } else if (item == KEY_SHOWICON) {
+        m_isShowIcon = var.variant().toBool();
+    }
 
     m_proxyInter->saveValue(this, PLUGIN_STATE_KEY, m_isShowIcon);
-    if (m_isShowIcon)
-        m_itemWidget->setDisturb(m_disturb);
+    m_itemWidget->setDisturb(m_disturb);
     refreshPluginItemsVisible();
-}
-
-void NotificationsPlugin::setNotifySetting(QString key, QVariant value)
-{
-    QMap<QString,QVariant> SystemNotify;
-    QMap<QString,QVariant> setDoNotDisturb;
-    setDoNotDisturb[key] = value;
-    SystemNotify["SystemNotify"] = setDoNotDisturb;
-    QString Dbusmsg = QJsonDocument::fromVariant(SystemNotify).toJson();
-    m_notifyInter->setSystemSetting(Dbusmsg);
-}
-
-QVariant NotificationsPlugin::getNotifySetting(QString key)
-{
-    QJsonObject obj = QJsonDocument::fromJson(m_notifyInter->systemSetting().toUtf8()).object();
-    if (!obj.isEmpty()) {
-        QJsonObject systemObj = obj["SystemNotify"].toObject();
-        return systemObj[key].toVariant();
-    }
-    return QVariant();
 }
 
 const QString NotificationsPlugin::itemContextMenu(const QString &itemKey)
@@ -293,22 +259,11 @@ void NotificationsPlugin::invokedMenuItem(const QString &itemKey, const QString 
 {
     Q_UNUSED(checked);
     Q_UNUSED(itemKey);
-    if (menuId == "disturb")
-    {
+    if (menuId == "disturb") {
         m_disturb = m_disturb ? false:true;
         m_itemWidget->setDisturb(m_disturb);
-        //接口来自接口文档
-        QMap<QString,QVariant> SystemNotify;
-        QMap<QString,QVariant> setDoNotDisturb;
-        setDoNotDisturb["DoNotDisturb"] = m_disturb;
-        SystemNotify["SystemNotify"] = setDoNotDisturb;
-        //转成json
-        QString Dbusmsg = QJsonDocument::fromVariant(SystemNotify).toJson();
-        //发送数据给dbus接口
-        m_notifyInter->setSystemSetting(Dbusmsg);
-    }
-    else if (menuId == "setting")
-    {
+        m_notifyInter->SetSystemInfo(KEY_DNDMODE, QDBusVariant(m_disturb));
+    } else if (menuId == "setting") {
         DDBusSender()
             .service("com.deepin.dde.ControlCenter")
             .interface("com.deepin.dde.ControlCenter")

@@ -60,7 +60,7 @@ Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     initUI();
     initTimers();
     initConnections();
-
+    m_beforeLocked =! m_userInter->locked();
     setEntity(entity);
 
     installEventFilter(this);
@@ -301,7 +301,7 @@ void Bubble::updateContent()
     m_body->setTitle(m_entity->summary());
     if(m_entity->isShowPreview()) {
         m_body->setText(OSD::removeHTML(m_entity->body()));
-        if (!m_userInter->locked()) {
+        if (m_beforeLocked) {
             m_canClose = m_entity->actions().isEmpty();
             m_defaultAction = BubbleTool::processActions(m_actionButton, m_entity->actions());
         }

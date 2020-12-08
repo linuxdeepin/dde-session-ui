@@ -29,221 +29,333 @@
 #include <QJsonDocument>
 #include <QByteArray>
 #include <DDesktopEntry>
+#include <QtConcurrent>
+#include <QStringList>
 
 DCORE_USE_NAMESPACE
 
-const QString server = "com.deepin.dde.daemon.Launcher";
-const QString path = "/com/deepin/dde/daemon/Launcher";
+const QString schemaKey = "com.deepin.dde.notifications";
+const QString schemaPath = "/com/deepin/dde/notifications/";
+const QString appSchemaKey = "com.deepin.dde.notifications.applications";
+const QString appSchemaPath = "/com/deepin/dde/notifications/applications/%1/";
 
 NotifySettings::NotifySettings(QObject *parent)
     : QObject(parent)
-    , m_launcherInter(new LauncherInter(server, path, QDBusConnection::sessionBus(), this))
     , m_initTimer(new QTimer(this))
+    , m_launcherInter(new LauncherInter("com.deepin.dde.daemon.Launcher",
+                                        "/com/deepin/dde/daemon/Launcher",
+                                        QDBusConnection::sessionBus(), this))
 {
     registerLauncherItemInfoListMetaType();
     registerLauncherItemInfoMetaType();
 
-    m_initTimer->setInterval(1000);
-    if (QGSettings::isSchemaInstalled("com.deepin.dde.notification")) {
-        m_settings = new QGSettings("com.deepin.dde.notification", "/com/deepin/dde/notification/", this);
-        m_initTimer->start();
-        connect(m_settings, &QGSettings::changed, this, &NotifySettings::settingChanged);
-        connect(m_initTimer, &QTimer::timeout, this, &NotifySettings::initAllSettings);
+    if (!QGSettings::isSchemaInstalled("com.deepin.dde.notification")) {
+        qDebug()<<"System configuration fetch failed!";
     }
+    m_initTimer->start(1000);
+    m_systemSetting = new QGSettings(schemaKey.toLocal8Bit(), schemaPath.toLocal8Bit(), this);
+
+    connect(m_initTimer, &QTimer::timeout, this, &NotifySettings::initAllSettings);
+    connect(m_launcherInter, &LauncherInter::ItemChanged, this, [ = ] (QString action, LauncherItemInfo info, qlonglong id) {
+        Q_UNUSED(id)
+        if (action == "deleted") {
+            appRemoved(info.ID);
+        } else if (action == "created") {
+            appAdded(info);
+        }
+    });
 }
 
 void NotifySettings::initAllSettings()
 {
-    if (m_settings == nullptr)
-        return;
-    QJsonObject obj = QJsonDocument::fromJson(m_settings->get("notifycations-settings").toString().toUtf8()).object();
-    QStringList settingList = obj.keys();
-    // 初始化系统设置
-    if (!settingList.contains(SystemNotifySettingStr)) {
-        QJsonObject systemObj;
-        systemObj.insert(DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB);
-        systemObj.insert(TimeSlotStr, DEFAULT_TIME_SLOT);
-        systemObj.insert(StartTimeStr, DefaultStartTime);
-        systemObj.insert(EndTimeStr, DefaultEndTime);
-        systemObj.insert(AppsInFullscreenStr, DEFAULT_APP_IN_FULLSCREEN);
-        systemObj.insert(ConnectedProjectorStr, DEFAULT_CONNECTED_PROJECTOR);
-        systemObj.insert(ScreenLockedStr, DEFAULT_SCREEN_LOCKED);
-        systemObj.insert(ShowIconOnDockStr, DEFAULT_SHOW_ICON_ON_DOCK);
-        obj.insert(SystemNotifySettingStr, systemObj);
-    } else {
-        QJsonObject systemObj = obj[SystemNotifySettingStr].toObject();
-        if (!systemObj.contains(DoNotDisturbStr)) {
-            systemObj.insert(DoNotDisturbStr, DEFAULT_DO_NOT_DISTURB);
-        }
-        if (!systemObj.contains(TimeSlotStr)) {
-            systemObj.insert(TimeSlotStr, DEFAULT_TIME_SLOT);
-        }
-        if (!systemObj.contains(StartTimeStr)) {
-            systemObj.insert(StartTimeStr, DefaultStartTime);
-        }
-        if (!systemObj.contains(EndTimeStr)) {
-            systemObj.insert(EndTimeStr, DefaultEndTime);
-        }
-        if (!systemObj.contains(AppsInFullscreenStr)) {
-            systemObj.insert(AppsInFullscreenStr, DEFAULT_APP_IN_FULLSCREEN);
-        }
-        if (!systemObj.contains(TimeSlotStr)) {
-            systemObj.insert(TimeSlotStr, DEFAULT_TIME_SLOT);
-        }
-        if (!systemObj.contains(ConnectedProjectorStr)) {
-            systemObj.insert(ConnectedProjectorStr, DEFAULT_CONNECTED_PROJECTOR);
-        }
-        if (!systemObj.contains(ScreenLockedStr)) {
-            systemObj.insert(ScreenLockedStr, DEFAULT_SCREEN_LOCKED);
-        }
-        if (!systemObj.contains(ShowIconOnDockStr)) {
-            systemObj.insert(ShowIconOnDockStr, DEFAULT_SHOW_ICON_ON_DOCK);
-        }
-        obj[SystemNotifySettingStr] = systemObj;
-    }
-
-    LauncherItemInfoList appList = m_launcherInter->GetAllItemInfos();
-    if (appList.size() > 0) {
+    LauncherItemInfoList itemInfoList = m_launcherInter->GetAllItemInfos();
+    if (!itemInfoList.isEmpty()) {
         m_initTimer->stop();
     }
 
-    for (int i = 0; i < appList.size(); i++) {
-        DDesktopEntry appDeskTopInfo(appList[i].Path);
-        // 判断是否为白名单应用或者WINE应用，这两种类型的应用通知不做处理
-        if (WhiteBoardAppList.contains(appList[i].ID) || appDeskTopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
-            // 移除之前添加的WINE应用的通知设置
-            obj.remove(appList[i].ID);
+    QStringList appList = m_systemSetting->get("app-list").toStringList();
+
+    foreach(const LauncherItemInfo &item, itemInfoList) {
+        DDesktopEntry desktopInfo(item.Path);
+        if (IgnoreList.contains(item.ID) || desktopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
             continue;
         }
 
-        if (!settingList.contains(appList[i].ID)) {
-            QJsonObject appObj;
-            appObj.insert(AppIconStr, appList[i].Icon);
-            appObj.insert(AppNameStr, appList[i].Name);
-            appObj.insert(AllowNotifyStr, DEFAULT_ALLOW_NOTIFY);
-            appObj.insert(ShowInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
-            appObj.insert(LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY);
-            appObj.insert(ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW);
-            appObj.insert(NotificationSoundStr, DEFAULT_NOTIFY_SOUND);
-            obj.insert(appList[i].ID, appObj);
-        } else {
-            QJsonObject appObj;
-            appObj = obj[appList[i].ID].toObject();
-            appObj[AppNameStr] = appList[i].Name;
-            obj[appList[i].ID] = appObj;
+        if (appList.contains(item.ID)) {
+            // 修改系统语言后需要更新翻译
+            QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(item.ID).toLocal8Bit(), this);
+            itemSetting.set("app-name", item.Name);
+            continue;
         }
+        appList.append(item.ID);
+        m_systemSetting->set("app-list", appList);
+        appAdded(item);
     }
-
-    m_settings->set("notifycations-settings", QString(QJsonDocument(obj).toJson()));
 }
 
-void NotifySettings::setSetings(QString settings)
+void NotifySettings::setAppSetting(const QString &id, const NotifySettings::AppConfigurationItem &item, const QVariant &var)
 {
-    if (m_settings == nullptr)
-        return;
-    QString allSettings = m_settings->get("notifycations-settings").toString();
-    QJsonObject allSettingsObj = QJsonDocument::fromJson(allSettings.toUtf8()).object();
-    QJsonObject currentObj = QJsonDocument::fromJson(settings.toUtf8()).object();
-
-    QString key = currentObj.begin().key();
-    QJsonObject currentSettingObj = currentObj[key].toObject();
-    QStringList currentSettingList = currentSettingObj.keys();
-
-    QJsonObject itemObj = allSettingsObj[key].toObject();
-    if (currentSettingList.isEmpty())
-        return;
-    if (allSettingsObj.contains(key)) {
-        for (int i = 0; i < currentSettingList.size(); i++) {
-            if (itemObj.contains(currentSettingList[i])) {
-                itemObj[currentSettingList[i]] = currentSettingObj[currentSettingList[i]];
-            } else {
-                itemObj.insert(currentSettingList[i], currentSettingObj[currentSettingList[i]]);
-            }
-        }
-        allSettingsObj[key] = itemObj;
-    } else {
-        allSettingsObj.insert(key, currentSettingObj);
+    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
+    switch (item) {
+    case APPNAME:
+        itemSetting.set("app-name", var);
+        break;
+    case APPICON:
+        itemSetting.set("app-icon", var);
+        break;
+    case ENABELNOTIFICATION:
+        itemSetting.set("enable-notification", var);
+        break;
+    case ENABELPREVIEW:
+        itemSetting.set("enable-preview", var);
+        break;
+    case ENABELSOUND:
+        itemSetting.set("enable-sound", var);
+        break;
+    case SHOWINNOTIFICATIONCENTER:
+        itemSetting.set("show-in-notification-center", var);
+        break;
+    case LOCKSCREENSHOWNOTIFICATION:
+        itemSetting.set("lockscreen-show-notification", var);
+        break;
     }
-    m_settings->set("notifycations-settings", QString(QJsonDocument(allSettingsObj).toJson()));
+
+    Q_EMIT appSettingChanged(id, item, var);
 }
 
-QString NotifySettings::getSetings(QString key)
+QVariant NotifySettings::getAppSetting(const QString &id, const NotifySettings::AppConfigurationItem &item)
 {
-    if (m_settings == nullptr)
-        return QString();
+    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
 
-    QString allSettings = m_settings->get("notifycations-settings").toString();
-    QJsonObject allSettingsObj = QJsonDocument::fromJson(allSettings.toUtf8()).object();
-    if (!allSettingsObj.isEmpty()) {
-        QJsonObject appObj;
-        appObj[key] = allSettingsObj[key].toObject();
-        return QString(QJsonDocument(appObj).toJson());
+    QVariant results;
+    switch (item) {
+    case APPNAME:
+        results = itemSetting.get("app-name");
+        break;
+    case APPICON:
+        results = itemSetting.get("app-icon");
+        break;
+    case ENABELNOTIFICATION:
+        results = itemSetting.get("enable-notification");
+        break;
+    case ENABELPREVIEW:
+        results = itemSetting.get("enable-preview");
+        break;
+    case ENABELSOUND:
+        results = itemSetting.get("enable-sound");
+        break;
+    case SHOWINNOTIFICATIONCENTER:
+        results = itemSetting.get("show-in-notification-center");
+        break;
+    case LOCKSCREENSHOWNOTIFICATION:
+        results = itemSetting.get("lockscreen-show-notification");
+        break;
+    }
+    return results;
+}
+
+void NotifySettings::setSystemSetting(const NotifySettings::SystemConfigurationItem &item, const QVariant &var)
+{
+    switch (item) {
+    case DNDMODE:
+        m_systemSetting->set("dndmode", var);
+        break;
+    case LOCKSCREENOPENDNDMODE:
+        m_systemSetting->set("lockscreen-open-dndmode", var);
+        break;
+    case OPENBYTIMEINTERVAL:
+        m_systemSetting->set("open-by-time-interval", var);
+        break;
+    case STARTTIME:
+        m_systemSetting->set("start-time", var);
+        break;
+    case ENDTIME:
+        m_systemSetting->set("end-time", var);
+        break;
+    case SHOWICON:
+        m_systemSetting->set("show-icon", var);
+        break;
     }
 
-    return QString();
+    Q_EMIT systemSettingChanged(item, var);
+}
+
+QVariant NotifySettings::getSystemSetting(const NotifySettings::SystemConfigurationItem &item)
+{
+    QVariant results;
+    switch (item) {
+    case DNDMODE:
+        results = m_systemSetting->get("dndmode");
+        break;
+    case LOCKSCREENOPENDNDMODE:
+        results = m_systemSetting->get("lockscreen-open-dndmode");
+        break;
+    case OPENBYTIMEINTERVAL:
+        results = m_systemSetting->get("open-by-time-interval");
+        break;
+    case STARTTIME:
+        results = m_systemSetting->get("start-time");
+        break;
+    case ENDTIME:
+        results = m_systemSetting->get("end-time");
+        break;
+    case SHOWICON:
+        results = m_systemSetting->get("show-icon");
+        break;
+    }
+    return results;
+}
+
+QStringList NotifySettings::getAppLists()
+{
+    return m_systemSetting->get("app-list").toStringList();
+}
+
+void NotifySettings::appAdded(const LauncherItemInfo &info)
+{
+    QStringList appList = m_systemSetting->get("app-list").toStringList();
+    if (!appList.contains(info.ID)) {
+        appList.append(info.ID);
+        m_systemSetting->set("app-list", appList);
+    }
+
+    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(info.ID).toLocal8Bit(), this);
+
+    itemSetting.set("app-name", info.Name);
+    itemSetting.set("app-icon", info.Icon);
+    itemSetting.set("enable-notification", DEFAULT_ALLOW_NOTIFY);
+    itemSetting.set("enable-preview", DEFAULT_SHOW_NOTIFY_PREVIEW);
+    itemSetting.set("enable-sound", DEFAULT_NOTIFY_SOUND);
+    itemSetting.set("show-in-notification-center", DEFAULT_ONLY_IN_NOTIFY);
+    itemSetting.set("lockscreen-show-notification", DEFAULT_LOCK_SHOW_NOTIFY);
+
+    Q_EMIT appAddedSignal(info.ID);
+}
+
+void NotifySettings::appRemoved(const QString &id)
+{
+    QStringList appList = m_systemSetting->get("app-list").toStringList();
+    if (appList.contains(id)) {
+        appList.removeOne(id);
+        m_systemSetting->set("app-list", appList);
+    }
+
+    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
+    itemSetting.reset("app-name");
+    itemSetting.reset("app-icon");
+    itemSetting.reset("enable-notification");
+    itemSetting.reset("enable-preview");
+    itemSetting.reset("enable-sound");
+    itemSetting.reset("show-in-notification-center");
+    itemSetting.reset("lockscreen-show-notification");
+
+    Q_EMIT appRemovedSignal(id);
 }
 
 void NotifySettings::setAppSetting(QString settings)
 {
-    setSetings(settings);
+    QJsonObject jsonObj = QJsonDocument::fromJson(settings.toLocal8Bit()).object();
+    QString id = jsonObj.begin().key();
+    jsonObj = jsonObj.begin().value().toObject();
+    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
+    itemSetting.set("enable-notification", jsonObj[AllowNotifyStr].toBool());
+    itemSetting.set("show-in-notification-center", jsonObj[ShowInNotifyCenterStr].toBool());
+    itemSetting.set("lockscreen-show-notification", jsonObj[LockShowNotifyStr].toBool());
+    itemSetting.set("enable-preview", jsonObj[ShowNotifyPreviewStr].toBool());
+    itemSetting.set("enable-sound", jsonObj[NotificationSoundStr].toBool());
+    itemSetting.set("app-icon", jsonObj[AppIconStr].toString());
+    itemSetting.set("app-name", jsonObj[AppNameStr].toString());
 }
 
-QString NotifySettings::getAppSetings(QString appName)
+QString NotifySettings::getAppSettings(const QString &id)
 {
-    return getSetings(appName);
+    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
+    QJsonObject jsonObj;
+    jsonObj.insert(AllowNotifyStr, itemSetting.get("enable-notification").toJsonValue());
+    jsonObj.insert(ShowInNotifyCenterStr, itemSetting.get("show-in-notification-center").toJsonValue());
+    jsonObj.insert(LockShowNotifyStr, itemSetting.get("lockscreen-show-notification").toJsonValue());
+    jsonObj.insert(ShowNotifyPreviewStr, itemSetting.get("enable-preview").toJsonValue());
+    jsonObj.insert(NotificationSoundStr, itemSetting.get("enable-sound").toJsonValue());
+    jsonObj.insert(AppIconStr, itemSetting.get("app-icon").toJsonValue());
+    jsonObj.insert(AppNameStr, itemSetting.get("app-name").toJsonValue());
+    QJsonObject appSetingObj;
+    appSetingObj[id] = jsonObj;
+    return QString(QJsonDocument(appSetingObj).toJson());
 }
 
 void NotifySettings::setSystemSetting(QString settings)
 {
-    setSetings(settings);
+    QJsonObject jsonObj = QJsonDocument::fromJson(settings.toUtf8()).object();
+    jsonObj = jsonObj.begin().value().toObject();
+    if (jsonObj.contains(DoNotDisturbStr)) {
+        m_systemSetting->set("dndmode", jsonObj[DoNotDisturbStr].toBool());
+        Q_EMIT systemSettingChanged(DNDMODE, jsonObj[DoNotDisturbStr].toBool());
+    }
+    if (jsonObj.contains(ScreenLockedStr)) {
+        m_systemSetting->set("lockscreen-open-dndmode", jsonObj[ScreenLockedStr].toBool());
+    }
+    if (jsonObj.contains(TimeSlotStr)) {
+        m_systemSetting->set("open-by-time-interval", jsonObj[TimeSlotStr].toBool());
+    }
+    if (jsonObj.contains(StartTimeStr)) {
+        m_systemSetting->set("start-time", jsonObj[StartTimeStr].toString());
+    }
+    if (jsonObj.contains(EndTimeStr)) {
+        m_systemSetting->set("end-time", jsonObj[EndTimeStr].toString());
+    }
+    if (jsonObj.contains(ShowIconOnDockStr)) {
+        m_systemSetting->set("show-icon", jsonObj[ShowIconOnDockStr].toBool());
+        Q_EMIT systemSettingChanged(SHOWICON, jsonObj[ShowIconOnDockStr].toBool());
+    }
 }
 
 QString NotifySettings::getSystemSetings()
 {
-    return getSetings(SystemNotifySettingStr);
+    QJsonObject jsonObj;
+    jsonObj.insert(DoNotDisturbStr, m_systemSetting->get("dndmode").toJsonValue());
+    jsonObj.insert(ScreenLockedStr, m_systemSetting->get("lockscreen-open-dndmode").toJsonValue());
+    jsonObj.insert(TimeSlotStr, m_systemSetting->get("open-by-time-interval").toJsonValue());
+    jsonObj.insert(StartTimeStr, m_systemSetting->get("start-time").toJsonValue());
+    jsonObj.insert(EndTimeStr, m_systemSetting->get("end-time").toJsonValue());
+    jsonObj.insert(ShowIconOnDockStr, m_systemSetting->get("show-icon").toJsonValue());
+    QJsonObject SystemSetingObj;
+    SystemSetingObj[SystemNotifySettingStr] = jsonObj;
+    return QString(QJsonDocument(SystemSetingObj).toJson());
 }
 
 void NotifySettings::setAllSetting(QString settings)
 {
-    m_settings->set("notifycations-settings", settings);
+    // 未被使用的接口废弃
+    Q_UNUSED(settings)
 }
 
 QString NotifySettings::getAllSetings()
 {
-    return m_settings->get("notifycations-settings").toString();
-}
+    QStringList appList = m_systemSetting->get("app-list").toStringList();
 
-void NotifySettings::appAdded(LauncherItemInfo info)
-{
-    if (m_settings == nullptr)
-        return;
+    QJsonObject jsonObj;
+    foreach (const auto &id, appList) {
+        QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
+        QJsonObject itemObj;
+        itemObj.insert(AllowNotifyStr, itemSetting.get("enable-notification").toJsonValue());
+        itemObj.insert(ShowInNotifyCenterStr, itemSetting.get("show-in-notification-center").toJsonValue());
+        itemObj.insert(LockShowNotifyStr, itemSetting.get("lockscreen-show-notification").toJsonValue());
+        itemObj.insert(ShowNotifyPreviewStr, itemSetting.get("enable-preview").toJsonValue());
+        itemObj.insert(NotificationSoundStr, itemSetting.get("enable-sound").toJsonValue());
+        itemObj.insert(AppIconStr, itemSetting.get("app-icon").toJsonValue());
+        itemObj.insert(AppNameStr, itemSetting.get("app-name").toJsonValue());
+        jsonObj[id] = itemObj;
+    }
 
-    DDesktopEntry appDeskTopInfo(info.Path);
-    // 判断是否为白名单应用或者WINE应用，这两种类型的应用通知不做处理
-    if (WhiteBoardAppList.contains(info.ID) || appDeskTopInfo.rawValue("X-Created-By") == "Deepin WINE Team")
-        return;
-
-    QJsonObject obj = QJsonDocument::fromJson(m_settings->get("notifycations-settings").toString().toUtf8()).object();
-    QJsonObject appObj;
-    appObj.insert(AppIconStr, info.Icon);
-    appObj.insert(AppNameStr, info.Name);
-    appObj.insert(AllowNotifyStr, DEFAULT_ALLOW_NOTIFY);
-    appObj.insert(ShowInNotifyCenterStr, DEFAULT_ONLY_IN_NOTIFY);
-    appObj.insert(LockShowNotifyStr, DEFAULT_LOCK_SHOW_NOTIFY);
-    appObj.insert(ShowNotifyPreviewStr, DEFAULT_SHOW_NOTIFY_PREVIEW);
-    appObj.insert(NotificationSoundStr, DEFAULT_NOTIFY_SOUND);
-    obj.insert(info.ID, appObj);
-
-    m_settings->set("notifycations-settings", QString(QJsonDocument(obj).toJson()));
-}
-
-void NotifySettings::appRemoved(QString appName)
-{
-    if (m_settings == nullptr)
-        return;
-    QJsonObject obj = QJsonDocument::fromJson(m_settings->get("notifycations-settings").toString().toUtf8()).object();
-    obj.remove(appName);
-    m_settings->set("notifycations-settings", QString(QJsonDocument(obj).toJson()));
+    QJsonObject Obj;
+    Obj.insert(DoNotDisturbStr, m_systemSetting->get("dndmode").toJsonValue());
+    Obj.insert(ScreenLockedStr, m_systemSetting->get("lockscreen-open-dndmode").toJsonValue());
+    Obj.insert(TimeSlotStr, m_systemSetting->get("open-by-time-interval").toJsonValue());
+    Obj.insert(StartTimeStr, m_systemSetting->get("start-time").toJsonValue());
+    Obj.insert(EndTimeStr, m_systemSetting->get("end-time").toJsonValue());
+    Obj.insert(ShowIconOnDockStr, m_systemSetting->get("show-icon").toJsonValue());
+    jsonObj[SystemNotifySettingStr] = Obj;
+    return QString(QJsonDocument(jsonObj).toJson());
 }
 
 

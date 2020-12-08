@@ -46,7 +46,7 @@
 #define RefreshTime 900
 
 NotifyListView::NotifyListView(QWidget *parent)
-    : QListView(parent)
+    : DListView(parent)
     , m_scrollAni(new QPropertyAnimation(verticalScrollBar(), "value"))
     , m_refreshTimer(new QTimer(this))
 {

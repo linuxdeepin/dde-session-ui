@@ -37,35 +37,53 @@ class NotifySettings : public QObject
 {
     Q_OBJECT
 public:
+    typedef enum {
+        APPNAME,
+        APPICON,
+        ENABELNOTIFICATION,
+        ENABELPREVIEW,
+        ENABELSOUND,
+        SHOWINNOTIFICATIONCENTER,
+        LOCKSCREENSHOWNOTIFICATION
+    } AppConfigurationItem;
+
+    typedef enum {
+        DNDMODE,
+        LOCKSCREENOPENDNDMODE,
+        OPENBYTIMEINTERVAL,
+        STARTTIME,
+        ENDTIME,
+        SHOWICON
+    } SystemConfigurationItem;
+
     explicit NotifySettings(QObject *parent = nullptr);
-
-signals:
-    void settingChanged(QString key);
-
-public slots:
-
-public:
     void initAllSettings();
+    void setAppSetting(const QString &id, const AppConfigurationItem &item, const QVariant &var);
+    QVariant getAppSetting(const QString &id, const AppConfigurationItem &item);
+    void setSystemSetting(const SystemConfigurationItem &item, const QVariant &var);
+    QVariant getSystemSetting(const SystemConfigurationItem &item);
+    QStringList getAppLists();
+    void appAdded(const LauncherItemInfo &info);
+    void appRemoved(const QString &id);
 
+    // 兼容之前版本的接口，后期移除
     void setAppSetting(QString settings);
-    QString getAppSetings(QString appName);
-
+    QString getAppSettings(const QString &id);
     void setSystemSetting(QString settings);
     QString getSystemSetings();
-
     void setAllSetting(QString settings);
     QString getAllSetings();
 
-    void appAdded(LauncherItemInfo info);
-    void appRemoved(QString appName);
-private:
-    void setSetings(QString settings);
-    QString getSetings(QString key);
+signals:
+    void appAddedSignal(const QString &id);
+    void appRemovedSignal(const QString &id);
+    void appSettingChanged(const QString &id, const uint &item, QVariant var);
+    void systemSettingChanged(const uint &item, QVariant var);
 
 private:
-    QGSettings *m_settings = nullptr;
-    LauncherInter *m_launcherInter = nullptr;
     QTimer *m_initTimer;
+    QGSettings *m_systemSetting;
+    LauncherInter *m_launcherInter;
 };
 
 #endif // NOTIFYSETTINGS_H

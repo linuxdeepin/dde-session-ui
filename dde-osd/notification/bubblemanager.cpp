@@ -63,8 +63,6 @@ BubbleManager::BubbleManager(QObject *parent)
                                       QDBusConnection::sessionBus(), this))
     , m_userInter(new UserInter(SessionDBusServie, SessionDaemonDBusPath,
                                 QDBusConnection::sessionBus(), this))
-    , m_launcherInter(new LauncherInter(LauncherDaemonDBusServie, LauncherDaemonDBusPath,
-                                        QDBusConnection::sessionBus(), this))
     , m_soundeffectInter(new SoundeffectInter(SoundEffectDaemonDBusServie, SoundEffectDaemonDBusPath,
                                               QDBusConnection::sessionBus(), this))
     , m_notifySettings(new NotifySettings(this))
@@ -76,8 +74,6 @@ BubbleManager::BubbleManager(QObject *parent)
     , m_dockInter(new DBusDockInterface(this))
 {
     initConnections();
-
-    updateSysNotifyProperty();
 
     m_notifyCenter->hide();
     registerAsService();
@@ -160,6 +156,13 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
         process.close();
     }
 
+    // 应用通知功能未开启不做处理
+    bool enableNotificaion = m_notifySettings->getAppSetting(appName, NotifySettings::ENABELNOTIFICATION).toBool();
+
+    if (!enableNotificaion) {
+        return 0;
+    }
+
     QString strBody = body;
     strBody.replace(QLatin1String("\\\\"), QLatin1String("\\"), Qt::CaseInsensitive);
 
@@ -169,9 +172,25 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                                                                   QString::number(replacesId),
                                                                   QString::number(expireTimeout));
 
-    AppNotifyProperty appNotifyProperty = getAppNotifyProperty(notification->appName());
-    // 通知时提示声音，并且不在勿扰模式才播放声音
-    if (appNotifyProperty.isNotificationSound && !isDoNotDisturb()) {
+    bool enablePreview = true;
+    bool showInNotifyCenter = true;
+    bool playsound = true;
+    bool lockscreeshow = true;
+    bool dndmode = isDoNotDisturb();
+    bool systemNotification = IgnoreList.contains(notification->appName());
+    bool lockscree = m_userInter->locked();
+
+    if (!systemNotification) {
+        enablePreview = m_notifySettings->getAppSetting(appName, NotifySettings::ENABELPREVIEW).toBool();
+        showInNotifyCenter = m_notifySettings->getAppSetting(appName, NotifySettings::SHOWINNOTIFICATIONCENTER).toBool();
+        playsound = m_notifySettings->getAppSetting(appName, NotifySettings::ENABELSOUND).toBool();
+        lockscreeshow = m_notifySettings->getAppSetting(appName, NotifySettings::LOCKSCREENSHOWNOTIFICATION).toBool();
+    }
+
+    notification->setShowPreview(enablePreview);
+    notification->setShowInNotifyCenter(showInNotifyCenter);
+
+    if (playsound && !dndmode) {
         QString action;
         //接收蓝牙文件时，只在发送完成后才有提示音,"cancel"表示正在发送文件
         if (actions.contains("cancel")) {
@@ -181,30 +200,26 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                     DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
             }
         } else {
-            DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+                DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
         }
     }
-
-    if (!appNotifyProperty.isAllowNotify)
-        return 0;
-
-    notification->setShowPreview(appNotifyProperty.isShowNotifyPreview);
-    notification->setShowInNotifyCenter(appNotifyProperty.isShowInNotifyCenter);
 
     if (!calcReplaceId(notification)) {
-        if (isDoNotDisturb()) {
-            if (WhiteBoardAppList.contains(notification->appName())) {
-                pushBubble(notification);
-            } else {
+        if (systemNotification) { // 系统通知
+            pushBubble(notification);
+        } else if (lockscree && !lockscreeshow) { // 锁屏不显示通知
+            if (showInNotifyCenter) { // 开启在通知中心显示才加入通知中心
                 m_persistence->addOne(notification);
             }
-        } else if ((m_userInter->locked() && !appNotifyProperty.isLockShowNotify)) {
-            if (notification->isShowInNotifyCenter())
+        } else { // 锁屏显示通知或者未锁屏状态
+             if (!systemNotification && !dndmode && enableNotificaion) { // 普通应用非勿扰模式并且开启通知选项
+                pushBubble(notification);
+            } else if (showInNotifyCenter) {
                 m_persistence->addOne(notification);
-        } else {
-            pushBubble(notification);
+            }
         }
     }
+
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.
     // If replaces_id is not 0, the returned value is the same value as replaces_id.
     return replacesId == 0 ? notification->id() : replacesId;
@@ -344,141 +359,27 @@ QRect BubbleManager::GetLastStableRect(int index)
 
 bool BubbleManager::isDoNotDisturb()
 {
-    if (m_sysNotifyProperty.isDoNotDisturb) {
-        //目前无法判断是否有投影仪连接,默认为false
-        bool hasProjector = false;
-        //目前无法判断是否有应用全屏默认写false
-        bool hasAppFull = false;
-        bool isLock = m_userInter->locked();
-        bool isTimeMeet = false;
-
-        QTime currentTime = QTime::fromString(QDateTime::currentDateTime().toString("hh:mm"));
-        QTime startTime = QTime::fromString(m_sysNotifyProperty.StartTime);
-        QTime endTime = QTime::fromString(m_sysNotifyProperty.EndTime);
-        //判断当前时间是否再时间段内
-        if (startTime < endTime) {
-            if (startTime <= currentTime && endTime >= currentTime) {
-                isTimeMeet = true;
-            } else {
-                isTimeMeet = false;
-            }
-        } else if (startTime > endTime) {
-            if (startTime <= currentTime || endTime >= currentTime) {
-                isTimeMeet = true;
-            } else {
-                isTimeMeet = false;
-            }
-        } else {
-            isTimeMeet = true;
-        }
-        //时间段满足
-        if (isTimeMeet && m_sysNotifyProperty.isTimeSlot) {
-            return true;
-        } else {
-            return (hasProjector && m_sysNotifyProperty.isConnectedProjector)
-                   || (hasAppFull && m_sysNotifyProperty.isAppsInFullscreen)
-                   || (m_sysNotifyProperty.isScreenLocked && isLock);
-        }
-    } else {
+    if (!m_notifySettings->getSystemSetting(NotifySettings::DNDMODE).toBool())
         return false;
-    }
-}
 
-AppNotifyProperty BubbleManager::getAppNotifyProperty(QString appName)
-{
-    QJsonObject currentObj = QJsonDocument::fromJson(getAppSetting(appName).toUtf8()).object();
-    QJsonObject currentSettingsObj = currentObj.begin().value().toObject();
+    QTime currentTime = QTime::fromString(QDateTime::currentDateTime().toString("hh:mm"));
+    QTime startTime = QTime::fromString(m_notifySettings->getSystemSetting(NotifySettings::STARTTIME).toString());
+    QTime endTime = QTime::fromString(m_notifySettings->getSystemSetting(NotifySettings::ENDTIME).toString());
 
-    AppNotifyProperty appNotifyProperty;
-    if (currentSettingsObj.contains(AllowNotifyStr)) {
-        appNotifyProperty.isAllowNotify = currentSettingsObj[AllowNotifyStr].toBool();
+    bool lockScreen = m_userInter->locked();
+    bool dndMode = false;
+    if (startTime < endTime) {
+        dndMode = startTime <= currentTime && endTime >= currentTime ? true : false;
+    } else if (startTime > endTime) {
+        dndMode = startTime <= currentTime || endTime >= currentTime ? true : false;
     } else {
-        appNotifyProperty.isAllowNotify = DEFAULT_ALLOW_NOTIFY;
-    }
-
-    if (currentSettingsObj.contains(ShowInNotifyCenterStr)) {
-        appNotifyProperty.isShowInNotifyCenter = currentSettingsObj[ShowInNotifyCenterStr].toBool();
-    } else {
-        appNotifyProperty.isShowInNotifyCenter = DEFAULT_ONLY_IN_NOTIFY;
+        dndMode = true;
     }
 
-    if (currentSettingsObj.contains(LockShowNotifyStr)) {
-        appNotifyProperty.isLockShowNotify = currentSettingsObj[LockShowNotifyStr].toBool();
+    if (dndMode && m_notifySettings->getSystemSetting(NotifySettings::OPENBYTIMEINTERVAL).toBool()) {
+        return dndMode;
     } else {
-        appNotifyProperty.isLockShowNotify = DEFAULT_LOCK_SHOW_NOTIFY;
-    }
-
-    if (currentSettingsObj.contains(NotificationSoundStr)) {
-        appNotifyProperty.isNotificationSound = currentSettingsObj[NotificationSoundStr].toBool();
-    } else {
-        appNotifyProperty.isNotificationSound = DEFAULT_NOTIFY_SOUND;
-    }
-
-    if (currentSettingsObj.contains(ShowNotifyPreviewStr)) {
-        appNotifyProperty.isShowNotifyPreview = currentSettingsObj[ShowNotifyPreviewStr].toBool();
-    } else {
-        appNotifyProperty.isShowNotifyPreview = DEFAULT_SHOW_NOTIFY_PREVIEW;
-    }
-
-    return appNotifyProperty;
-}
-
-void BubbleManager::updateSysNotifyProperty()
-{
-    QJsonObject currentObj = QJsonDocument::fromJson(getSystemSetting().toUtf8()).object();
-    QJsonObject currentSettingsObj = currentObj.begin().value().toObject();
-    if (currentSettingsObj.contains(DoNotDisturbStr)) {
-        m_sysNotifyProperty.isDoNotDisturb = currentSettingsObj[DoNotDisturbStr].toBool();
-    } else {
-        m_sysNotifyProperty.isDoNotDisturb = DEFAULT_DO_NOT_DISTURB;
-    }
-
-    if (currentSettingsObj.contains(TimeSlotStr)) {
-        m_sysNotifyProperty.isTimeSlot = currentSettingsObj[TimeSlotStr].toBool();
-    } else {
-        m_sysNotifyProperty.isTimeSlot = DEFAULT_TIME_SLOT;
-    }
-
-    if (currentSettingsObj.contains(StartTimeStr)) {
-        m_sysNotifyProperty.StartTime = currentSettingsObj[StartTimeStr].toString();
-    } else {
-        m_sysNotifyProperty.StartTime = DefaultStartTime;
-    }
-
-    if (currentSettingsObj.contains(EndTimeStr)) {
-        m_sysNotifyProperty.EndTime = currentSettingsObj[EndTimeStr].toString();
-    } else {
-        m_sysNotifyProperty.EndTime = DefaultEndTime;
-    }
-
-    if (currentSettingsObj.contains(AppsInFullscreenStr)) {
-        m_sysNotifyProperty.isAppsInFullscreen = currentSettingsObj[AppsInFullscreenStr].toBool();
-    } else {
-        m_sysNotifyProperty.isAppsInFullscreen = DEFAULT_APP_IN_FULLSCREEN;
-    }
-
-    if (currentSettingsObj.contains(AppsInFullscreenStr)) {
-        m_sysNotifyProperty.isAppsInFullscreen = currentSettingsObj[AppsInFullscreenStr].toBool();
-    } else {
-        m_sysNotifyProperty.isAppsInFullscreen = DEFAULT_APP_IN_FULLSCREEN;
-    }
-
-    if (currentSettingsObj.contains(ConnectedProjectorStr)) {
-        m_sysNotifyProperty.isConnectedProjector = currentSettingsObj[ConnectedProjectorStr].toBool();
-    } else {
-        m_sysNotifyProperty.isConnectedProjector = DEFAULT_CONNECTED_PROJECTOR;
-    }
-
-    if (currentSettingsObj.contains(ScreenLockedStr)) {
-        m_sysNotifyProperty.isScreenLocked = currentSettingsObj[ScreenLockedStr].toBool();
-    } else {
-        m_sysNotifyProperty.isScreenLocked = DEFAULT_SCREEN_LOCKED;
-    }
-
-    if (currentSettingsObj.contains(ShowIconOnDockStr)) {
-        m_sysNotifyProperty.isShowIconOnDock = currentSettingsObj[ShowIconOnDockStr].toBool();
-    } else {
-        m_sysNotifyProperty.isShowIconOnDock = DEFAULT_SHOW_ICON_ON_DOCK;
+        return m_notifySettings->getSystemSetting(NotifySettings::LOCKSCREENOPENDNDMODE).toBool() && lockScreen;
     }
 }
 
@@ -542,6 +443,32 @@ uint BubbleManager::recordCount()
     return uint(m_persistence->getRecordCount());
 }
 
+QStringList BubbleManager::GetAppList()
+{
+    return m_notifySettings->getAppLists();
+}
+
+QDBusVariant BubbleManager::GetAppInfo(const QString id, const uint item)
+{
+    return QDBusVariant(m_notifySettings->getAppSetting(id, static_cast<NotifySettings::AppConfigurationItem>(item)));
+}
+
+QDBusVariant BubbleManager::GetSystemInfo(uint item)
+{
+    return QDBusVariant(m_notifySettings->getSystemSetting(static_cast<NotifySettings::SystemConfigurationItem>(item)));
+}
+
+void BubbleManager::SetAppInfo(const QString id, const uint item, const QDBusVariant var)
+{
+    m_notifySettings->setAppSetting(id, static_cast<NotifySettings::AppConfigurationItem>(item), var.variant());
+}
+
+void BubbleManager::SetSystemInfo(uint item, const QDBusVariant var)
+{
+    m_notifySettings->setSystemSetting(static_cast<NotifySettings::SystemConfigurationItem>(item), var.variant());
+    Q_EMIT systemSettingChanged(m_notifySettings->getSystemSetings());
+}
+
 void BubbleManager::appInfoChanged(QString action, LauncherItemInfo info)
 {
     if (action == DeletedAction) {
@@ -549,7 +476,7 @@ void BubbleManager::appInfoChanged(QString action, LauncherItemInfo info)
         Q_EMIT appRemoved(info.ID);
     } else if (action == CreatedAction) {
         m_notifySettings->appAdded(info);
-        Q_EMIT appAdded(m_notifySettings->getAppSetings(info.ID));
+        Q_EMIT appAdded(m_notifySettings->getAppSettings(info.ID));
     }
 }
 
@@ -565,7 +492,7 @@ void BubbleManager::setAllSetting(const QString settings)
 
 QString BubbleManager::getAppSetting(QString appName)
 {
-    return m_notifySettings->getAppSetings(appName);
+    return m_notifySettings->getAppSettings(appName);
 }
 
 void BubbleManager::setAppSetting(const QString settings)
@@ -583,7 +510,6 @@ QString BubbleManager::getSystemSetting()
 void BubbleManager::setSystemSetting(QString settings)
 {
     m_notifySettings->setSystemSetting(settings);
-    updateSysNotifyProperty();
     Q_EMIT systemSettingChanged(m_notifySettings->getSystemSetings());
 }
 
@@ -655,7 +581,20 @@ void BubbleManager::initConnections()
         updateGeometry();
     });
 
-    connect(m_launcherInter, &LauncherInter::ItemChanged, this, &BubbleManager::appInfoChanged);
+    connect(m_notifySettings, &NotifySettings::appSettingChanged, this, [ = ] (const QString &id, const uint &item, QVariant var) {
+        Q_EMIT AppInfoChanged(id, item, QDBusVariant(var));
+    });
+    connect(m_notifySettings, &NotifySettings::systemSettingChanged, this, [ = ] (const uint &item, QVariant var) {
+        Q_EMIT SystemInfoChanged(item, QDBusVariant(var));
+    });
+    connect(m_notifySettings, &NotifySettings::appAddedSignal, this, [ = ] (const QString &id) {
+        Q_EMIT AppAddedSignal(id);
+        Q_EMIT appAdded(m_notifySettings->getAppSettings(id));
+    });
+    connect(m_notifySettings, &NotifySettings::appRemovedSignal, this, [ = ] (const QString &id) {
+        Q_EMIT AppRemovedSignal(id);
+        Q_EMIT appRemoved(id);
+    });
 
     // 响应任务栏方向改变信号，更新额外触屏划入距离
     connect(m_dockDeamonInter, &DockInter::PositionChanged, this, [ this ] {

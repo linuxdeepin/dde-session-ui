@@ -112,7 +112,8 @@ void ActionButton::clear()
         w->clear();
         w->hide();
         m_layout->removeWidget(w);
-        w->deleteLater();
+        if (w != m_menuButton)
+            w->deleteLater();
     }
     m_buttons.clear();
 }

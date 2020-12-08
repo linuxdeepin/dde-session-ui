@@ -25,7 +25,8 @@
 #include "notification/constants.h"
 #include "notifymodel.h"
 
-#include <QListView>
+#include <DListView>
+
 #include <QPoint>
 
 class QPropertyAnimation;
@@ -33,7 +34,9 @@ class QScrollBar;
 class QTimer;
 class BubbleItem;
 
-class NotifyListView : public QListView
+DWIDGET_USE_NAMESPACE
+
+class NotifyListView : public DListView
 {
     Q_OBJECT
 public:

@@ -92,7 +92,7 @@ static const QString ConnectedProjectorStr = "ConnectedProjector";
 static const QString ScreenLockedStr = "ScreenLocked";
 static const QString ShowIconOnDockStr = "ShowIconOnDock";
 static const QString WhiteBoardStr = "WhiteBoard";
-static const QStringList WhiteBoardAppList= {
+static const QStringList IgnoreList= {
     "dde-control-center"
 };
 
