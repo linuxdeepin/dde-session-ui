@@ -46,7 +46,6 @@
 #include <com_deepin_daemon_display.h>
 #include <com_deepin_daemon_display_monitor.h>
 
-
 using DisplayInter = com::deepin::daemon::Display;
 using MonitorInter = com::deepin::daemon::display::Monitor;
 
@@ -200,7 +199,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                     DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
             }
         } else {
-                DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+            DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
         }
     }
 

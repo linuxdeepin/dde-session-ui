@@ -4,13 +4,14 @@
 
 #include <QApplication>
 #include <QMimeData>
+#include <QDateTime>
 
 class TstPersistence : public testing::Test
 {
 public:
     void SetUp() override
     {
-//        obj = new Persistence();
+        obj = new Persistence();
     }
 
     void TearDown() override
@@ -25,5 +26,8 @@ public:
 
 TEST_F(TstPersistence, coverageTest)
 {
-
+    obj->getAll();
+    obj->removeAll();
+    obj->getAllNotify();
+    obj->getRecordCount();
 }

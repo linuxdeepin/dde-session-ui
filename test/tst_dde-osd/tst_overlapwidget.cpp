@@ -10,17 +10,17 @@ class TstOverLapWidet : public testing::Test
 public:
     void SetUp() override
     {
-//        widget = new OverLapWidet();
+//        obj = new OverLapWidet();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+        delete obj;
+        obj = nullptr;
     }
 
 public:
-    OverLapWidet *widget = nullptr;
+    OverLapWidet *obj = nullptr;
 };
 
 TEST_F(TstOverLapWidet, coverageTest)

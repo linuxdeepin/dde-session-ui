@@ -10,20 +10,24 @@ class TstIconButton : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new IconButton();
+        obj = new IconButton();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+        delete obj;
+        obj = nullptr;
     }
 
 public:
-    IconButton *widget = nullptr;
+    IconButton *obj = nullptr;
 };
 
 TEST_F(TstIconButton, coverageTest)
 {
-
+    obj->setIcon("");
+    obj->setText("Test");
+    obj->setRadius(10);
+    obj->setFocusState(false);
+    obj->setBackOpacity(0.5 * 255);
 }

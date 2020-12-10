@@ -10,17 +10,17 @@ class TstListView : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new ListView();
+        obj = new ListView();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+        delete obj;
+        obj = nullptr;
     }
 
 public:
-    ListView *widget = nullptr;
+    ListView *obj = nullptr;
 };
 
 TEST_F(TstListView, coverageTest)

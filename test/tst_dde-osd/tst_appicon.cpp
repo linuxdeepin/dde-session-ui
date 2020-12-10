@@ -10,20 +10,20 @@ class TstAppIcon : public testing::Test
 public:
     void SetUp() override
     {
-        widget = new AppIcon();
+        obj = new AppIcon();
     }
 
     void TearDown() override
     {
-        delete widget;
-        widget = nullptr;
+        delete obj;
+        obj = nullptr;
     }
 
 public:
-    AppIcon *widget = nullptr;
+    AppIcon *obj = nullptr;
 };
 
 TEST_F(TstAppIcon, coverageTest)
 {
-
+    obj->setIcon("dde-control-center");
 }

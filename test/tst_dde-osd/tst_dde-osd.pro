@@ -1,4 +1,4 @@
-QT       += core gui dbus x11extras svg sql dtkwidget
+QT       += core gui dbus x11extras svg sql dtkwidget testlib
 
 TARGET = tst_dde-osd
 TEMPLATE = app

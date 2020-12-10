@@ -20,7 +20,7 @@ public:
     }
 
 public:
-//    NotifySettings *obj = nullptr;
+    NotifySettings *obj = nullptr;
 };
 
 TEST_F(TstNotifySettings, coverageTest)
