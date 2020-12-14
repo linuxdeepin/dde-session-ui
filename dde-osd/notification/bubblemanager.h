@@ -257,7 +257,10 @@ private:
 private:
     int m_replaceCount = 0;
     QString m_configFile;
-    QRect m_currentDisplay;
+    QRect m_currentDisplayRect;
+    QRect m_currentDockRect;
+    OSD::DockPosition m_dockPos;
+    int m_dockMode;
 
     QList<EntityPtr> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;

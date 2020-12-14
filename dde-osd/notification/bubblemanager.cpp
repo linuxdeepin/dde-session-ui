@@ -74,6 +74,7 @@ BubbleManager::BubbleManager(QObject *parent)
     , m_dockInter(new DBusDockInterface(this))
 {
     initConnections();
+    geometryChanged();
 
     m_notifyCenter->hide();
     registerAsService();
@@ -323,8 +324,16 @@ QRect BubbleManager::GetBubbleGeometry(int index)
 
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
-        rect.setX(m_currentDisplay.x() + (m_currentDisplay.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
-        rect.setY(m_currentDisplay.y() + ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
+        int y = 0;
+        if (m_dockPos == OSD::Top) {
+            if (m_dockMode == OSD::DockModel::Fashion) {
+                y = m_currentDisplayRect.y() + m_currentDockRect.height() + OSD::DockMargin * 2;
+            } else {
+                y = m_currentDisplayRect.y() + m_currentDockRect.height();
+            }
+        }
+        rect.setX(m_currentDisplayRect.x() + (m_currentDisplayRect.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
+        rect.setY(y + ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
         rect.setWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
         rect.setHeight(OSD::BubbleHeight(OSD::BUBBLEWINDOW));
     } else if (index >= BubbleEntities && index <= BubbleEntities + BubbleOverLap) {
@@ -620,13 +629,11 @@ void BubbleManager::geometryChanged()
     if (!m_dockInter->isValid())
         return;
 
-    QRect displayRect = calcDisplayRect();
-    QRect dock = m_dockInter->geometry();
-
-    OSD::DockPosition pos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
-
-    int mode = m_dockDeamonInter->displayMode();
-    m_notifyCenter->updateGeometry(displayRect, dock, pos, mode);
+    m_currentDisplayRect = calcDisplayRect();
+    m_currentDockRect = m_dockInter->geometry();
+    m_dockPos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
+    m_dockMode = m_dockDeamonInter->displayMode();
+    m_notifyCenter->updateGeometry(m_currentDisplayRect, m_currentDockRect, m_dockPos, m_dockMode);
 }
 
 void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newName)
@@ -679,8 +686,6 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
             m_persistence->addOne(ptr);
     });
 
-    m_currentDisplay = calcDisplayRect();
-
     if (index != 0) {
         QRect startRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap);
         QRect endRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap - 1);
@@ -705,5 +710,6 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         bubble->setBubbleIndex(0);
         ani->start();
     }
+
     return bubble;
 }
