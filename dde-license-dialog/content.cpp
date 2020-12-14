@@ -39,7 +39,9 @@ Content::Content(QWidget *parent)
     setLayout(layout);
 
     DButtonBoxButton *btnChinese = new DButtonBoxButton("中文");
+    btnChinese->setFixedSize(90, 36);
     DButtonBoxButton *btnEnginsh = new DButtonBoxButton("English");
+    btnEnginsh->setFixedSize(90, 36);
     QList<DButtonBoxButton *> btnlist;
     btnlist.append(btnChinese);
     btnlist.append(btnEnginsh);
@@ -116,14 +118,6 @@ Content::Content(QWidget *parent)
     updateLanguageBtn();
 
     DFontSizeManager::instance()->bind(m_acceptCheck, DFontSizeManager::SizeType::T8, 70);
-
-    // 中文和英文按钮一样大
-    QTimer::singleShot(0, this, [ = ] {
-        int width = qMax(btnChinese->width(), btnEnginsh->width());
-        m_languageBtn->setFixedSize(width * 2, m_languageBtn->height());
-        btnChinese->setFixedSize(width, btnChinese->height());
-        btnEnginsh->setFixedSize(width, btnChinese->height());
-    });
 }
 
 void Content::setHideBottom(const bool &status)
