@@ -82,7 +82,6 @@ QListView::Flow DisplayModeProvider::flow() const
 void DisplayModeProvider::highlightCurrent()
 {
     updatePlanItems();
-    emit dataChanged();
 }
 
 void DisplayModeProvider::highlightNext()
