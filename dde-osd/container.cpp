@@ -50,6 +50,8 @@ Container::Container(QWidget *parent)
 {
     setWindowFlags(Qt::ToolTip | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_TranslucentBackground);
+    setAttribute(Qt::WA_NativeWindow);
+    windowHandle()->setProperty("_d_dwayland_window-type", "tooltip");
     setMaskAlpha(255);
 
     m_quitTimer->setSingleShot(true);

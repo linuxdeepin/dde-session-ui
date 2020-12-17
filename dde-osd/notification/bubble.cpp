@@ -40,6 +40,7 @@
 #include <QBoxLayout>
 #include <QParallelAnimationGroup>
 #include <QTextDocument>
+#include <QWindow>
 
 Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
@@ -237,6 +238,8 @@ void Bubble::initUI()
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
     setMouseTracking(true);
+    setAttribute(Qt::WA_NativeWindow);
+    windowHandle()->setProperty("_d_dwayland_window-type", "tooltip");
 
     setFixedSize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWINDOW));
@@ -255,11 +258,12 @@ void Bubble::initUI()
 
     setLayout(layout);
 
-    QTimer::singleShot(0, this, [ = ] {
-        // FIXME: 锁屏不允许显示任何通知，而通知又需要禁止窗管进行管理，
-        // 为了避免二者的冲突，将气泡修改为dock，保持在其他程序置顶，又不会显示在锁屏之上。
-        BubbleTool::register_wm_state(winId());
-    });
+//将osd窗口改成wayland窗口，下面关于x11相关代码多余
+//    QTimer::singleShot(0, this, [ = ] {
+//        // FIXME: 锁屏不允许显示任何通知，而通知又需要禁止窗管进行管理，
+//        // 为了避免二者的冲突，将气泡修改为dock，保持在其他程序置顶，又不会显示在锁屏之上。
+//        BubbleTool::register_wm_state(winId());
+//    });
 }
 
 void Bubble::initConnections()

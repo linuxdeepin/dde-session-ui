@@ -51,7 +51,8 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    DApplication::loadDXcbPlugin();
+    //DApplication::loadDXcbPlugin();
+    qputenv("QT_WAYLAND_SHELL_INTEGRATION", "kwayland-shell");
     DGuiApplicationHelper::setUseInactiveColorGroup(false);
     DGuiApplicationHelper::setColorCompositingEnabled(true);
     DApplication a(argc, argv);
