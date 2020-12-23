@@ -625,12 +625,12 @@ void BubbleManager::onPrepareForSleep(bool sleep)
 
 void BubbleManager::geometryChanged()
 {
-    // dock未启动时，不要调用其接口，会导致系统刚启动是任务栏被提前启动（比窗管还早），造成显示异常，后续应该改成通知中心显示时才调用任务栏的接口，否则不应调用
-    if (!m_dockInter->isValid())
-        return;
-
     m_currentDisplayRect = calcDisplayRect();
-    m_currentDockRect = m_dockInter->geometry();
+    // dock未启动时，不要调用其接口，会导致系统刚启动是任务栏被提前启动（比窗管还早），造成显示异常，后续应该改成通知中心显示时才调用任务栏的接口，否则不应调用
+    if (m_dockInter->isValid()) {
+        m_currentDockRect = m_dockInter->geometry();
+    }
+
     m_dockPos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
     m_dockMode = m_dockDeamonInter->displayMode();
     m_notifyCenter->updateGeometry(m_currentDisplayRect, m_currentDockRect, m_dockPos, m_dockMode);
