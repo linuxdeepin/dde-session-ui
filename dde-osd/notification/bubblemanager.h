@@ -49,8 +49,6 @@ using GestureInter = com::deepin::daemon::Gesture;
 using DisplayInter = com::deepin::daemon::Display;
 using DockInter = com::deepin::dde::daemon::Dock;
 
-static const QString DBusDaemonDBusService = "org.freedesktop.DBus";
-static const QString DBusDaemonDBusPath = "/org/freedesktop/DBus";
 static const QString NotificationsDBusService = "org.freedesktop.Notifications";
 static const QString NotificationsDBusPath = "/org/freedesktop/Notifications";
 static const QString DDENotifyDBusServer = "com.deepin.dde.Notification";
@@ -69,7 +67,6 @@ static const QString SessionDBusServie = "com.deepin.SessionManager";
 static const QString SessionDaemonDBusPath = "/com/deepin/SessionManager";
 
 class DBusControlCenter;
-class DBusDaemonInterface;
 class Login1ManagerInterface;
 class Persistence;
 class NotifyCenterWidget;
@@ -199,7 +196,6 @@ private Q_SLOTS:
      * \~chinese \brief 当屏幕或DOCK栏发生几何变化时,该函数被执行,更新通知中心的几何位置和大小
      */
     void geometryChanged();
-    void onDbusNameOwnerChanged(QString, QString, QString);
     void onPrepareForSleep(bool);
     /*!
      * \~chinese \name bubbleExpired
@@ -263,7 +259,6 @@ private:
     QList<QPointer<Bubble>> m_bubbleList;
 
     Persistence *m_persistence;
-    DBusDaemonInterface *m_dbusDaemonInterface;
     Login1ManagerInterface *m_login1ManagerInterface;
     DisplayInter *m_displayInter;
     DockInter *m_dockDeamonInter;
@@ -276,6 +271,7 @@ private:
     int m_slideWidth;
     GestureInter *m_gestureInter;
     DBusDockInterface *m_dockInter;
+    QTimer* m_trickTimer; // 防止300ms内重复按键
 };
 
 #endif // BUBBLEMANAGER_H

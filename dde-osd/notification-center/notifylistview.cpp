@@ -56,7 +56,6 @@ NotifyListView::NotifyListView(QWidget *parent)
     m_scrollAni->setDuration(800);
 
     m_refreshTimer->setInterval(RefreshTime);
-    m_refreshTimer->start();
 
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     connect(m_refreshTimer, &QTimer::timeout, this, &NotifyListView::refreshItemTime);
@@ -302,12 +301,21 @@ bool NotifyListView::eventFilter(QObject *object, QEvent *event)
     return QListView::eventFilter(object, event);
 }
 
+void NotifyListView::showEvent(QShowEvent *event)
+{
+    m_refreshTimer->start();
+
+    return QListView::showEvent(event);
+}
+
 void NotifyListView::hideEvent(QHideEvent *event)
 {
     m_currentIndex = 0;
     m_currentElement = nullptr;
     m_prevElement = nullptr;
     verticalScrollBar()->setValue(0);
+    m_refreshTimer->stop();
+
     return QListView::hideEvent(event);
 }
 

@@ -55,7 +55,7 @@ class NotifyCenterWidget : public DBlurEffectWidget
     Q_PROPERTY(int width WRITE setFixedWidth)
     Q_PROPERTY(int x WRITE setX)
 public:
-    explicit NotifyCenterWidget(Persistence *database = nullptr);
+    explicit NotifyCenterWidget(Persistence *database, QWidget* parent = nullptr);
     void showWidget();
     void updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos, int mode);
 

@@ -52,8 +52,6 @@ using MonitorInter = com::deepin::daemon::display::Monitor;
 BubbleManager::BubbleManager(QObject *parent)
     : QObject(parent)
     , m_persistence(new Persistence)
-    , m_dbusDaemonInterface(new DBusDaemonInterface(DBusDaemonDBusService, DBusDaemonDBusPath,
-                                                    QDBusConnection::sessionBus(), this))
     , m_login1ManagerInterface(new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this))
     , m_displayInter(new DisplayInter(DisplayDaemonDBusServie, DisplayDaemonDBusPath,
@@ -71,7 +69,11 @@ BubbleManager::BubbleManager(QObject *parent)
                                       , QDBusConnection::systemBus()
                                       , this))
     , m_dockInter(new DBusDockInterface(this))
+    , m_trickTimer(new QTimer(this))
 {
+    m_trickTimer->setInterval(300);
+    m_trickTimer->setSingleShot(true);
+
     initConnections();
 
     m_notifyCenter->hide();
@@ -433,6 +435,12 @@ void BubbleManager::ClearRecords()
 
 void BubbleManager::Toggle()
 {
+    if (m_trickTimer->isActive()) {
+        return;
+    }
+
+    m_trickTimer->start();
+
     geometryChanged();
     m_notifyCenter->showWidget();
 }
@@ -566,11 +574,10 @@ void BubbleManager::initConnections()
 {
     connect(m_login1ManagerInterface, SIGNAL(PrepareForSleep(bool)),
             this, SLOT(onPrepareForSleep(bool)));
-    connect(m_dbusDaemonInterface, SIGNAL(NameOwnerChanged(QString, QString, QString)),
-            this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
 
     connect(m_displayInter, &DisplayInter::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
     connect(m_dockInter, &DBusDockInterface::geometryChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
+    connect(m_dockDeamonInter, &DockInter::serviceValidChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
 
     connect(qApp, &QApplication::primaryScreenChanged, this, [ = ] {
         updateGeometry();
@@ -624,13 +631,6 @@ void BubbleManager::geometryChanged()
 
     int mode = m_dockDeamonInter->displayMode();
     m_notifyCenter->updateGeometry(displayRect, dock, pos, mode);
-}
-
-void BubbleManager::onDbusNameOwnerChanged(QString name, QString, QString newName)
-{
-    if (name == DockDaemonDBusServie && !newName.isEmpty()) {
-        geometryChanged();
-    }
 }
 
 bool BubbleManager::calcReplaceId(EntityPtr notify)

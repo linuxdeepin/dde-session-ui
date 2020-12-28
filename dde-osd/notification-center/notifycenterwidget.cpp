@@ -45,26 +45,22 @@
 
 DWIDGET_USE_NAMESPACE
 
-NotifyCenterWidget::NotifyCenterWidget(Persistence *database)
-    : m_notifyWidget(new NotifyWidget(this, database))
+NotifyCenterWidget::NotifyCenterWidget(Persistence *database, QWidget *parent)
+    : DBlurEffectWidget(parent)
+    , m_notifyWidget(new NotifyWidget(this, database))
     , m_xAni(new QPropertyAnimation(this, "x"))
     , m_widthAni(new QPropertyAnimation(this, "width"))
     , m_aniGroup(new QSequentialAnimationGroup(this))
     , m_wmHelper(DWindowManagerHelper::instance())
-    , m_refreshTimer(new QTimer(this))
     , m_regionMonitor(new DRegionMonitor(this))
 {
     initUI();
     initConnections();
     initAnimations();
 
-    installEventFilter(this);
-
     CompositeChanged();
 
     m_regionMonitor->setCoordinateType(DRegionMonitor::Original);
-
-    m_tickTime.start();
 }
 
 void NotifyCenterWidget::initUI()
@@ -109,8 +105,6 @@ void NotifyCenterWidget::initUI()
     mainLayout->setContentsMargins(Notify::CenterMargin, Notify::CenterMargin, Notify::CenterMargin, Notify::CenterMargin);
     mainLayout->addWidget(m_headWidget);
     mainLayout->addWidget(m_notifyWidget);
-
-    m_refreshTimer->setInterval(1000);
 
     setLayout(mainLayout);
 
@@ -228,11 +222,6 @@ void NotifyCenterWidget::refreshTheme()
 
 void NotifyCenterWidget::showAni()
 {
-    if (m_tickTime.elapsed() < 200) {
-        return;
-    }
-    m_tickTime.start();
-
     registerRegion();
 
     if (!m_hasComposite) {
@@ -253,11 +242,6 @@ void NotifyCenterWidget::showAni()
 
 void NotifyCenterWidget::hideAni()
 {
-    if (m_tickTime.elapsed() < 200) {
-        return;
-    }
-    m_tickTime.start();
-
     if (!m_hasComposite) {
         hide();
         return;
@@ -315,11 +299,5 @@ void NotifyCenterWidget::showWidget()
     if (m_aniGroup->state() == QAbstractAnimation::Running)
         return;
 
-    if (isHidden()) {
-        m_refreshTimer->start();
-        showAni();
-    } else {
-        hideAni();
-        m_refreshTimer->stop();
-    }
+    return isHidden() ? showAni() : hideAni();
 }

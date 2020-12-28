@@ -53,6 +53,7 @@ protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
     bool eventFilter(QObject *object, QEvent *event) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
     void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
     bool tabKeyEvent(QObject *object, QKeyEvent *event);   //处理键盘TAB键按下的事件,QListView过滤了TAB按键事件
     void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
