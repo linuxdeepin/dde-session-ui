@@ -397,7 +397,7 @@ bool BubbleManager::isDoNotDisturb()
 QRect BubbleManager::calcDisplayRect()
 {
     qreal ratio = qApp->primaryScreen()->devicePixelRatio();
-    QRect displayRect;
+    QRect displayRect = m_displayInter->primaryRect();
     QList<QDBusObjectPath> screenList = m_displayInter->monitors();
 
     for (const auto &screen : screenList) {
