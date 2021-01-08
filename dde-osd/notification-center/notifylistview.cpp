@@ -254,7 +254,7 @@ void NotifyListView::mousePressEvent(QMouseEvent *event)
 
 void NotifyListView::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Return) {
+    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
         QModelIndex index = this->model()->index(m_currentIndex, 0);
         QWidget *widget = this->indexWidget(index);
 
