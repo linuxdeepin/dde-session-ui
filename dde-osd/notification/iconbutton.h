@@ -50,6 +50,7 @@ private:
     int m_opacity;
     int m_radius;
     bool m_hasBackColor;
+    QPoint m_pressPos;
 
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
