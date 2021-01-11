@@ -45,8 +45,11 @@ DWIDGET_USE_NAMESPACE
 void terminate(const QStringList &pidList, const QPixmap &icon)
 {
     if (confirm(icon))
-        for (const auto &pid : pidList)
+        for (const auto &pid : pidList) {
+            qDebug() << "terminate kill process pid:" << pid;
             QProcess::startDetached("kill", QStringList() << "-9" << pid);
+
+        }
 }
 
 void close_tab(const QList<int> &tabs)
@@ -55,7 +58,6 @@ void close_tab(const QList<int> &tabs)
         return;
 
     for (auto tab : tabs)
-#if (DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 8, 0))
         DDBusSender()
             .service("com.deepin.chromeExtension.TabsLimit")
             .interface("com.deepin.chromeExtension.TabsLimit")
@@ -63,9 +65,6 @@ void close_tab(const QList<int> &tabs)
             .method("CloseTab")
             .arg(QString::number(tab))
             .call();
-#else
-        QProcess::startDetached("dbus-send --type=method_call --dest=com.deepin.chromeExtension.TabsLimit /com/deepin/chromeExtension/TabsLimit com.deepin.chromeExtension.TabsLimit.CloseTab string:" + QString::number(tab));
-#endif
 }
 
 ButtonDelegate::ButtonDelegate(QObject *parent)

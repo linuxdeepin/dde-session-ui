@@ -25,6 +25,8 @@
 
 #include "kblayoutindicator.h"
 
+#include <DDBusSender>
+
 #include <QDBusConnection>
 #include <QPainter>
 #include <QApplication>
@@ -245,9 +247,13 @@ void KBLayoutIndicator::handleDataChanged()
 void KBLayoutIndicator::handleActionTriggered(QAction *action)
 {
     if (action == m_addLayoutAction) {
-        QProcess::startDetached("dbus-send --print-reply --dest=com.deepin.dde.ControlCenter "
-                                "/com/deepin/dde/ControlCenter "
-                                "com.deepin.dde.ControlCenter.ShowModule string:keyboard");
+        DDBusSender()
+                .service("com.deepin.dde.ControlCenter")
+                .interface("/com/deepin/dde/ControlCenter")
+                .path("com.deepin.dde.ControlCenter")
+                .method(QString("ShowModule"))
+                .arg(QString("keyboard"))
+                .call();
     }
 
     const QString layout = action->objectName();
