@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=dde-osd
 Exec=/usr/lib/deepin-daemon/dde-osd
+Hidden=true
 OnlyShowIn=Deepin
 StartupNotify=false
 Terminal=false
