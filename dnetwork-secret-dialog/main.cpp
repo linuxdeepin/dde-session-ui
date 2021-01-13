@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     file.close();
 
     NetworkSecretDialog dialog(jsonDoc);
-    dialog.show();
+    dialog.exec();
 
-    return app.exec();
+    app.exit(0);
 }
