@@ -372,3 +372,8 @@ void Bubble::setFixedGeometry(QRect rect)
     setFixedSize(rect.width(), rect.height());
     setGeometry(rect);
 }
+
+void Bubble::onOpacityChanged(double value)
+{
+    setMaskAlpha(value * 255);
+}

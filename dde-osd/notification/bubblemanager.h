@@ -38,10 +38,12 @@
 #include <com_deepin_daemon_display.h>
 #include <com_deepin_dde_daemon_launcherd.h>
 #include <com_deepin_dde_daemon_dock.h>
+#include <com_deepin_daemon_appearance.h>
 
 #include "bubble.h"
 #include "constants.h"
 
+using Appearance = com::deepin::daemon::Appearance;
 using UserInter = com::deepin::SessionManager;
 using LauncherInter = com::deepin::dde::daemon::Launcher;
 using SoundeffectInter = com::deepin::daemon::SoundEffect;
@@ -226,6 +228,7 @@ private Q_SLOTS:
      */
     void updateGeometry();
     void appInfoChanged(QString action, LauncherItemInfo info);
+    void onOpacityChanged(double value);
 
 private:
     void initConnections();                 //初始化信号槽连接
@@ -274,6 +277,7 @@ private:
     SoundeffectInter *m_soundeffectInter;
     NotifySettings *m_notifySettings;
     NotifyCenterWidget *m_notifyCenter;
+    Appearance *m_appearance;
 
     // 手指划入距离，任务栏在右侧时，需大于任务栏最大宽度100，其它情况没有设限大于0即可
     int m_slideWidth;
