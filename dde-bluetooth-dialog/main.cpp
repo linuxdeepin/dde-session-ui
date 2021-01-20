@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app.installTranslator(&translator);
+    app.setApplicationDisplayName(QObject::tr("Bluetooth"));
 
 
     QStringList arguslist = app.arguments();
