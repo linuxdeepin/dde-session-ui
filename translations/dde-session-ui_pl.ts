@@ -2,7 +2,7 @@
 <context>
     <name>Bubble</name>
     <message>
-        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
+        <location filename="../dde-osd/notification/bubble.cpp" line="313"/>
         <source>1 new message</source>
         <translation>1 nowa wiadomość</translation>
     </message>
@@ -449,6 +449,14 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Zakończ</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/main.cpp" line="49"/>
+        <source>Bluetooth</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -2,7 +2,7 @@
 <context>
     <name>Bubble</name>
     <message>
-        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
+        <location filename="../dde-osd/notification/bubble.cpp" line="313"/>
         <source>1 new message</source>
         <translation>1 mensaje nuevo</translation>
     </message>
@@ -452,6 +452,14 @@
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/main.cpp" line="49"/>
+        <source>Bluetooth</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>SuspendDialog</name>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
@@ -589,12 +597,12 @@ Sin efectos disfrutará de un mayor rendimiento.</translation>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
         <source>Make sure this PIN is shown on the device to be paired,</source>
-        <translation type="unfinished"/>
+        <translation>Asegúrate de que este PIN aparezca en el dispositivo a emparejar,</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="133"/>
         <source>and it should not be entered manually</source>
-        <translation type="unfinished"/>
+        <translation>y no debe introducirse manualmente</translation>
     </message>
 </context>
 </TS>

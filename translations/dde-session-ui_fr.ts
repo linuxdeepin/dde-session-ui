@@ -2,7 +2,7 @@
 <context>
     <name>Bubble</name>
     <message>
-        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
+        <location filename="../dde-osd/notification/bubble.cpp" line="313"/>
         <source>1 new message</source>
         <translation>1 nouveau message</translation>
     </message>
@@ -53,7 +53,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
         <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation>Pour arrêter le programme, cliquez sur Annuler, puis fermez le programme.</translation>
+        <translation>Pour arrêter le programme, cliquez sur Annuler, puis fermer le programme.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
@@ -218,7 +218,7 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="269"/>
         <source>Extend</source>
-        <translation>Etendre</translation>
+        <translation>Étendre</translation>
     </message>
 </context>
 <context>
@@ -333,7 +333,7 @@
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>Key</source>
-        <translation>Clef</translation>
+        <translation>Clé</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="51"/>
@@ -452,6 +452,14 @@
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/main.cpp" line="49"/>
+        <source>Bluetooth</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>SuspendDialog</name>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
@@ -506,7 +514,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation>Édition actuelle:</translation>
+        <translation>Édition actuelle :</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
@@ -539,7 +547,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Mode effet: Pour un rendu esthétique amélioré.  Mode normal: Pour des performances élevées.</translation>
+        <translation>Mode effet : Pour un rendu esthétique amélioré.  Mode normal : Pour des performances élevées.</translation>
     </message>
 </context>
 <context>
@@ -588,12 +596,12 @@
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="132"/>
         <source>Make sure this PIN is shown on the device to be paired,</source>
-        <translation type="unfinished"/>
+        <translation>Assurez-vous que ce code PIN est affiché sur l&apos;appareil à appairer,</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="133"/>
         <source>and it should not be entered manually</source>
-        <translation type="unfinished"/>
+        <translation>et il ne doit pas être entré manuellement</translation>
     </message>
 </context>
 </TS>

@@ -2,9 +2,9 @@
 <context>
     <name>Bubble</name>
     <message>
-        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
+        <location filename="../dde-osd/notification/bubble.cpp" line="313"/>
         <source>1 new message</source>
-        <translation type="unfinished"/>
+        <translation>۱ پیام جدید</translation>
     </message>
 </context>
 <context>
@@ -373,7 +373,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="180"/>
         <source>Wrong password, please enter again!</source>
-        <translation type="unfinished"/>
+        <translation>کلمه عبور اشتباه؛ لطفا دوباره وارد کنید!</translation>
     </message>
 </context>
 <context>
@@ -391,22 +391,22 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>هیچ پیامی نیست</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn off DND mode</source>
-        <translation type="unfinished"/>
+        <translation>خاموش کردن حالت DND</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn on DND mode</source>
-        <translation type="unfinished"/>
+        <translation>روشن کردن حالت DND</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
         <source>Notification settings</source>
-        <translation type="unfinished"/>
+        <translation>تنظیمات نوتیفیکیشن</translation>
     </message>
 </context>
 <context>
@@ -449,6 +449,14 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>پایان</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/main.cpp" line="49"/>
+        <source>Bluetooth</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

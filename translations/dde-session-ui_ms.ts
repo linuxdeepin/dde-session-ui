@@ -2,9 +2,9 @@
 <context>
     <name>Bubble</name>
     <message>
-        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
+        <location filename="../dde-osd/notification/bubble.cpp" line="313"/>
         <source>1 new message</source>
-        <translation type="unfinished"/>
+        <translation>1 mesej baharu</translation>
     </message>
 </context>
 <context>
@@ -391,22 +391,22 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>Tiada mesej</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn off DND mode</source>
-        <translation type="unfinished"/>
+        <translation>Matikan mod DND</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
         <source>Turn on DND mode</source>
-        <translation type="unfinished"/>
+        <translation>Hidupkan mod DND</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
         <source>Notification settings</source>
-        <translation type="unfinished"/>
+        <translation>Tetapan pemberitahuan</translation>
     </message>
 </context>
 <context>
@@ -449,6 +449,14 @@
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
         <translation>Akhir</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/main.cpp" line="49"/>
+        <source>Bluetooth</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
