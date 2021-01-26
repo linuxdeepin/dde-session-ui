@@ -38,6 +38,11 @@ class ActionButton;
 class IconButton;
 class NotifyModel;
 class NotifyListView;
+class AppBodyLabel;
+
+DWIDGET_BEGIN_NAMESPACE
+class DIconButton;
+DWIDGET_END_NAMESPACE
 
 DWIDGET_USE_NAMESPACE
 /*!
@@ -52,7 +57,8 @@ public:
     AlphaWidget(QWidget *parent = nullptr);
 
     //设置和获取窗口属性的接口
-    void setAlpha(int alpha) {m_hoverAlpha = alpha; m_unHoverAlpha = alpha; update();}
+    void setAlpha(int alpha) { m_hoverAlpha = alpha; m_unHoverAlpha = alpha; update(); }
+    void setRadius(int top, int bottom) { m_topRedius = top; m_bottomRedius = bottom; }
 
     int hoverAlpha() {return m_hoverAlpha;}
     void setHoverAlpha(int alpha) {m_hoverAlpha = alpha; update();}
@@ -67,6 +73,8 @@ protected:
 protected:
     int m_hoverAlpha = 0;
     int m_unHoverAlpha = 0;
+    int m_topRedius = 0;
+    int m_bottomRedius = 0;
     bool m_hasFocus = false;
 };
 
@@ -124,12 +132,12 @@ private:
     AlphaWidget *m_titleWidget = nullptr;
     AlphaWidget *m_bodyWidget = nullptr;
     DLabel *m_appNameLabel = nullptr;
-    DLabel *m_appTimeLabel = nullptr;
+    AppBodyLabel *m_appTimeLabel = nullptr;
 
     AppIcon *m_icon = nullptr;
     AppBody *m_body = nullptr;
     ActionButton *m_actionButton = nullptr;
-    IconButton *m_closeButton = nullptr;
+    DIconButton *m_closeButton = nullptr;
     QWidget *m_currentElement = nullptr;
 
     bool m_showContent = true;

@@ -257,8 +257,8 @@ void NotifyListView::keyPressEvent(QKeyEvent *event)
         QModelIndex index = this->model()->index(m_currentIndex, 0);
         QWidget *widget = this->indexWidget(index);
 
-        if (qobject_cast<IconButton *> (m_prevElement) != nullptr) {
-            IconButton *itemCloseBtn = qobject_cast<IconButton *> (m_prevElement);
+        if (qobject_cast<DIconButton *> (m_prevElement) != nullptr) {
+            DIconButton *itemCloseBtn = qobject_cast<DIconButton *> (m_prevElement);
             itemCloseBtn->clicked();
             m_currentIndex --;
         } else if (qobject_cast<Button *> (m_prevElement) != nullptr) {
@@ -351,9 +351,10 @@ bool NotifyListView::tabKeyEvent(QObject *object, QKeyEvent *event)
     if (m_currentElement == nullptr && !elements.isEmpty()) {
         m_currentElement = elements.first();
     } else {
-        if (qobject_cast<IconButton *> (m_currentElement) != nullptr) {
-            IconButton *itemCloseBtn = qobject_cast<IconButton *> (m_currentElement);
-            itemCloseBtn->setFocusState(true);
+        if (qobject_cast<DIconButton *> (m_currentElement) != nullptr) {
+            DIconButton *itemCloseBtn = qobject_cast<DIconButton *> (m_currentElement);
+            QFocusEvent event(QEvent::Enter, Qt::MouseFocusReason);
+            QApplication::sendEvent (itemCloseBtn, &event);
         } else if (qobject_cast<Button *> (m_currentElement) != nullptr) {
             Button *actionBtn = qobject_cast<Button *> (m_currentElement);
             actionBtn->setFocus();

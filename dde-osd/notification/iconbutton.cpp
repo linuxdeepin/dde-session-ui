@@ -26,14 +26,21 @@
 #include <QDebug>
 #include <QMouseEvent>
 
+#include <DGuiApplicationHelper>
+#include <DSvgRenderer>
+
+DGUI_USE_NAMESPACE
+
 IconButton::IconButton(QWidget *parent)
     : DWidget(parent)
     , m_text("")
     , m_hasFocus(false)
     , m_hover(false)
-    , m_opacity(0)
+    , m_hoverOpacity(0)
+    , m_pressOpacity(0)
+    , m_releaseOpacity(0)
     , m_radius(8)
-    , m_hasBackColor(false)
+    , m_currentState(RELEASE)
 {
 
 }
@@ -53,7 +60,7 @@ void IconButton::setText(const QString &text)
 
 void IconButton::setIcon(const QString &iconPath)
 {
-    m_pixmap = QPixmap(iconPath);
+    m_iconPath = iconPath;
 
     update();
 }
@@ -66,31 +73,26 @@ void IconButton::paintEvent(QPaintEvent *event)
     painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
     QColor color;
-    if (m_hasBackColor) {
-        color = palette().color(QPalette::Base);
-        color.setAlpha(m_hover ? 255 * 0.2 : m_opacity);
+    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
+        color = QColor("#000000");
     } else {
-        color = palette().color(QPalette::WindowText);
-        color.setAlpha(m_hasFocus ? 80 : (m_hover ? 50 : 20));
+        color = QColor("#FFFFFF");
+    }
+    color = palette().color(QPalette::Base);
+
+    switch (m_currentState) {
+    case HOVER: color.setAlpha(m_hoverOpacity); break;
+    case PRESS: color.setAlpha(m_pressOpacity); break;
+    case RELEASE: color.setAlpha(m_releaseOpacity); break;
     }
 
     painter.setPen(Qt::NoPen);
     painter.setBrush(color);
     painter.drawRoundedRect(rect(), m_radius, m_radius);
 
-    QTextOption option;
-    option.setAlignment(Qt::AlignCenter);
-    painter.setPen(palette().color(QPalette::WindowText));
-    painter.drawText(rect(), m_text, option);
-
-    if (m_text.isEmpty()) {
-        if (m_pixmap.isNull()) {
-            m_pixmap = style()->standardIcon(QStyle::SP_TitleBarCloseButton).pixmap(width());
-        }
-        painter.drawPixmap(QRect((rect().width() - m_pixmap.width())/ 2,
-                                 (rect().height() - m_pixmap.height())/ 2,
-                                 m_pixmap.width(), m_pixmap.height()), m_pixmap);
-    }
+    DSvgRenderer svg;
+    svg.load(m_iconPath);
+    svg.render(&painter,QRect(5, 5, width() - 10, height() - 10));
 }
 
 void IconButton::setFocusState(bool has)
@@ -100,15 +102,16 @@ void IconButton::setFocusState(bool has)
     update();
 }
 
-void IconButton::setBackOpacity(int opacity)
+void IconButton::setOpacity(const IconButton::ButtonState state, int opacity)
 {
-    if (opacity < 0 || m_opacity > 255)
+    if (opacity < 0 || opacity > 255)
         return;
 
-    m_opacity = opacity;
-
-    m_hasBackColor = true;
-
+    switch (state) {
+    case HOVER: m_hoverOpacity = opacity; break;
+    case PRESS: m_pressOpacity = opacity; break;
+    case RELEASE: m_releaseOpacity = opacity; break;
+    }
     update();
 }
 
@@ -123,19 +126,25 @@ void IconButton::mousePressEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
     m_pressPos = event->pos();
+    m_currentState = PRESS;
+    update();
 }
 
 void IconButton::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (rect().contains(m_pressPos) && rect().contains(event->pos()))
+    if (rect().contains(m_pressPos) && rect().contains(event->pos())) {
+        m_currentState = HOVER;
         Q_EMIT clicked();
+    } else {
+        m_currentState = RELEASE;
+    }
+    update();
 }
 
 void IconButton::enterEvent(QEvent *event)
 {
     Q_UNUSED(event);
-    m_hover = true;
-
+    m_currentState = HOVER;
     update();
 
     return DWidget::enterEvent(event);
@@ -144,8 +153,7 @@ void IconButton::enterEvent(QEvent *event)
 void IconButton::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
-    m_hover = false;
-
+    m_currentState = RELEASE;
     update();
 
     return DWidget::leaveEvent(event);

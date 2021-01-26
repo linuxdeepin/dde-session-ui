@@ -35,7 +35,7 @@ NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
     : QWidget(parent)
 {
     initView(database);
-
+    setContentsMargins(0, 0, 0, 0);
     QVBoxLayout *mainVBLayout = new QVBoxLayout;
     m_noNotify = new QLabel(tr("No system notifications"));
 
@@ -58,7 +58,7 @@ void NotifyWidget::initView(Persistence *database)
     m_mainList->viewport()->setAutoFillBackground(false);
     m_mainList->setFrameStyle(QFrame::NoFrame);
     m_mainList->setMouseTracking(true);
-    m_mainList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_mainList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     m_mainList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_mainList->setVerticalScrollMode(QListView::ScrollPerPixel);
     m_mainList->setContentsMargins(0, 0, 0, 0);

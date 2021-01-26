@@ -28,19 +28,22 @@
 #include "notification/icondata.h"
 #include "notification/bubbletool.h"
 #include "notification/iconbutton.h"
+#include "notification/appbodylabel.h"
 #include "notifymodel.h"
 #include "notifylistview.h"
 
 #include <QTimer>
 #include <QDateTime>
-#include <DStyleHelper>
 #include <QPropertyAnimation>
-#include <DGuiApplicationHelper>
-#include <DFontSizeManager>
 #include <QDebug>
 #include <QProcess>
 #include <QMouseEvent>
 #include <QScroller>
+
+#include <DIconButton>
+#include <DStyleHelper>
+#include <DGuiApplicationHelper>
+#include <DFontSizeManager>
 
 AlphaWidget::AlphaWidget(QWidget *parent)
     : DWidget(parent)
@@ -49,6 +52,7 @@ AlphaWidget::AlphaWidget(QWidget *parent)
 
 void AlphaWidget::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
@@ -57,19 +61,27 @@ void AlphaWidget::paintEvent(QPaintEvent *event)
     brushColor.setAlpha(m_hasFocus ? m_hoverAlpha : m_unHoverAlpha);
     painter.setBrush(brushColor);
 
-    DStyleHelper dstyle(style());
-    int radius = dstyle.pixelMetric(DStyle::PM_FrameRadius);
-
     QPen borderPen;
     borderPen.setColor(Qt::transparent);
     painter.setPen(borderPen);
 
     QRect rect = this->rect();
-    rect.setWidth(rect.width() - 1);
-    rect.setHeight(rect.height() - 1);
+    const QPoint topLeft = rect.topLeft();
+    const QPoint topRight = rect.topRight();
+    const QPoint bottomLeft = rect.bottomLeft();
+    const QPoint bottomRight = rect.bottomRight();
 
-    painter.drawRoundedRect(rect, radius, radius);
-    return DWidget::paintEvent(event);
+    QPainterPath path;
+    path.moveTo(topLeft.x() + m_topRedius, topRight.y());
+    path.lineTo(topRight.x() - m_topRedius, topRight.y());
+    path.arcTo(topRight.x() - 2 * m_topRedius, topRight.y(), 2 * m_topRedius, 2 * m_topRedius, 90, -90);
+    path.lineTo(bottomRight.x(), bottomRight.y() - m_bottomRedius);
+    path.arcTo(bottomRight.x() - 2 * m_bottomRedius, bottomRight.y() - 2 * m_bottomRedius, 2 * m_bottomRedius, 2 * m_bottomRedius, 0, -90);
+    path.lineTo(bottomLeft.x() + m_bottomRedius, bottomLeft.y());
+    path.arcTo(bottomLeft.x(), bottomLeft.y() - 2 * m_bottomRedius, 2 * m_bottomRedius, 2 * m_bottomRedius, 270, -90);
+    path.lineTo(topLeft.x(), topLeft.y() - m_topRedius);
+    path.arcTo(topLeft.x(), topLeft.y(), 2 * m_topRedius, 2 * m_topRedius, 180, -90);
+    painter.drawPath(path);
 }
 
 BubbleItem::BubbleItem(QWidget *parent, EntityPtr entity)
@@ -79,11 +91,11 @@ BubbleItem::BubbleItem(QWidget *parent, EntityPtr entity)
     , m_titleWidget(new AlphaWidget(this))
     , m_bodyWidget(new AlphaWidget(this))
     , m_appNameLabel(new DLabel(this))
-    , m_appTimeLabel(new DLabel(this))
+    , m_appTimeLabel(new AppBodyLabel(this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this, OSD::BUBBLEWIDGET))
-    , m_closeButton(new IconButton(this))
+    , m_closeButton(new DIconButton(DStyle::SP_CloseButton, this))
 
 {
     initUI();
@@ -100,12 +112,15 @@ void BubbleItem::initUI()
     setFocusPolicy(Qt::StrongFocus);
     resize(OSD::BubbleSize(OSD::BUBBLEWIDGET));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWIDGET));
-    m_closeButton->setFixedSize(OSD::CloseButtonSize(OSD::BUBBLEWIDGET));
-    m_closeButton->setRadius(OSD::CloseButtonSize(OSD::BUBBLEWIDGET).height());
+    m_closeButton->setFlat(true);
+    m_closeButton->setContentsMargins(0, 0, 0, 0);
+    m_closeButton->setFixedSize(Notify::BubbleCloseButtonSize - 4, Notify::BubbleCloseButtonSize - 4);
+    m_closeButton->setIconSize(QSize(Notify::BubbleCloseButtonSize, Notify::BubbleCloseButtonSize));
     m_closeButton->setVisible(false);
 
     m_titleWidget->setFixedHeight(37);
     m_titleWidget->setObjectName("notification_title");
+    m_titleWidget->setRadius(8, 0);
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSpacing(0);
     mainLayout->setMargin(0);
@@ -117,12 +132,16 @@ void BubbleItem::initUI()
     titleLayout->addWidget(m_appNameLabel);
     titleLayout->addWidget(m_appTimeLabel);
 
-    m_appNameLabel->setFont(DFontSizeManager::instance()->t6());
     m_appNameLabel->setForegroundRole(DPalette::TextTitle);
     m_appNameLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     m_appNameLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_appTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+    m_appTimeLabel->setOpacity(0.6);
+    m_appTimeLabel->setForegroundRole(QPalette::BrightText);
+    m_appTimeLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_actionButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    DFontSizeManager::instance()->bind(m_appNameLabel, DFontSizeManager::T8);
+    DFontSizeManager::instance()->bind(m_appTimeLabel, DFontSizeManager::T8);
 
     setAlpha(Notify::BubbleDefaultAlpha);
     titleLayout->addWidget(m_closeButton);
@@ -138,8 +157,10 @@ void BubbleItem::initUI()
     bodyLayout->addWidget(m_actionButton);
 
     m_bodyWidget->setLayout(bodyLayout);
+    m_bodyWidget->setRadius(0, 8);
     mainLayout->addWidget(m_bodyWidget);
     m_bgWidget->setLayout(mainLayout);
+    m_bgWidget->setRadius(8, 8);
 
     QHBoxLayout *l = new QHBoxLayout;
     l->setSpacing(0);
@@ -157,7 +178,6 @@ void BubbleItem::initContent()
 
     m_body->setTitle(m_entity->summary());
     m_body->setText(OSD::removeHTML(m_entity->body()));
-    m_appNameLabel->setFont(DFontSizeManager::instance()->t6());
     m_appNameLabel->setText(BubbleTool::getDeepinAppName(m_entity->appName()));
     onRefreshTime();
 
@@ -169,7 +189,7 @@ void BubbleItem::initContent()
     });
 
     connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
-    connect(m_closeButton, &IconButton::clicked, this, &BubbleItem::onCloseBubble);
+    connect(m_closeButton, &DIconButton::clicked, this, &BubbleItem::onCloseBubble);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleItem::refreshTheme);
     refreshTheme();
 }
@@ -310,11 +330,11 @@ void BubbleItem::onHavorStateChanged(bool hover)
 {
     if (m_showContent) {
         m_closeButton->setVisible(hover);
-        m_appTimeLabel->setVisible(!hover);
-
-        if (!hover) {
-            m_closeButton->setFocusState(false);
+        if (hover) {
+            QFocusEvent event(QEvent::Leave, Qt::MouseFocusReason);
+            QApplication::sendEvent (m_closeButton, &event);
         }
+        m_appTimeLabel->setVisible(!hover);
     }
 }
 
@@ -339,7 +359,6 @@ void BubbleItem::setParentView(NotifyListView *view)
 void BubbleItem::refreshTheme()
 {
     m_appNameLabel->setForegroundRole(QPalette::BrightText);
-    m_appTimeLabel->setFont(DFontSizeManager::instance()->t8());
 }
 
 QList<QPointer<QWidget>> BubbleItem::bubbleElements()

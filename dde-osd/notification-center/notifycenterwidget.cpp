@@ -67,6 +67,7 @@ void NotifyCenterWidget::initUI()
 {
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_TranslucentBackground);
+    setContentsMargins(0, 0, 0, 0);
 
     m_headWidget = new QWidget;
     m_headWidget->setFixedSize(Notify::CenterWidth - 2 * Notify::CenterMargin, 32);
@@ -81,13 +82,17 @@ void NotifyCenterWidget::initUI()
     bell_notify->setFocusPolicy(Qt::NoFocus);
 
     title_label = new DLabel;
+    QFont font = title_label->font();
+    font.setBold(true);
+    font.setWeight(QFont::DemiBold);
+    title_label->setFont(font);
     title_label->setText(tr("Notification Center"));
     title_label->setAlignment(Qt::AlignCenter);
     title_label->setForegroundRole(QPalette::BrightText);
+    DFontSizeManager::instance()->bind(title_label, DFontSizeManager::T5);
 
     m_clearButton = new IconButton;
-    m_clearButton->setIcon("://icons/list_icon_clear.svg");
-    m_clearButton->setBackOpacity(0);
+    m_clearButton->setOpacity(IconButton::RELEASE, 255 * 0.0);
     m_clearButton->setRadius(Notify::CenterTitleHeight / 2);
     m_clearButton->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
     m_clearButton->setFocusPolicy(Qt::NoFocus);
@@ -102,7 +107,7 @@ void NotifyCenterWidget::initUI()
     m_headWidget->setLayout(head_Layout);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setContentsMargins(Notify::CenterMargin, Notify::CenterMargin, Notify::CenterMargin, Notify::CenterMargin);
+    mainLayout->setContentsMargins(Notify::CenterMargin, Notify::CenterMargin, 0, 0);
     mainLayout->addWidget(m_headWidget);
     mainLayout->addWidget(m_notifyWidget);
 
@@ -181,7 +186,7 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     m_notifyRect = QRect(x, y, width, height);
     setGeometry(m_notifyRect);
 
-    m_notifyWidget->setFixedWidth(m_notifyRect.width() - 2 * Notify::CenterMargin);
+    m_notifyWidget->setFixedWidth(m_notifyRect.width() - Notify::CenterMargin);
     setFixedSize(m_notifyRect.size());
 
     m_xAni->setStartValue(m_notifyRect.x());
@@ -211,13 +216,13 @@ void NotifyCenterWidget::refreshTheme()
     title_label->setPalette(pa);
     if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
         m_clearButton->setIcon("://icons/list_icon_clear.svg");
+        m_clearButton->setOpacity(IconButton::HOVER, 255 * 0.2);
+        m_clearButton->setOpacity(IconButton::PRESS, 255 * 0.3);
     } else {
         m_clearButton->setIcon("://icons/list_icon_clear_dark.svg");
+        m_clearButton->setOpacity(IconButton::HOVER, 255 * 0.2);
+        m_clearButton->setOpacity(IconButton::PRESS, 255 * 0.1);
     }
-
-    QFont font;
-    font.setBold(true);
-    title_label->setFont(DFontSizeManager::instance()->t4(font));
 }
 
 void NotifyCenterWidget::showAni()

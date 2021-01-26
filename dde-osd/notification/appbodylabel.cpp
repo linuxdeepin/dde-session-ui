@@ -102,13 +102,6 @@ static int drawText(QPainter *painter, const QRectF &rect, int lineHeight, QText
 
         offset.setY(offset.y() + lineHeight);
 
-//        // find '\n'
-//        int text_length_line = line.textLength();
-//        for (int start = line.textStart(); start < line.textStart() + text_length_line; ++start) {
-//            if (text.at(start) == '\n')
-//                height += lineHeight;
-//        }
-
         if (height + lineHeight > rect.height())
             break;
 

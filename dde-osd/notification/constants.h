@@ -102,7 +102,8 @@ static const int CenterMargin = 10;
 static const int CenterTitleHeight = 32;
 
 static const int GroupTitleHeight = 32;
-static const int GroupButtonSize = 24;
+static const int BubbleCloseButtonSize = 24;
+static const int GroupButtonSize = 28;
 static const int GroupMargin = 30;
 static const int BubbleDefaultAlpha = 20;       //bubble控件透明度
 static const qreal BubbleOpacity = 0.6;         //bubble内容的透明度

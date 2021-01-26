@@ -41,6 +41,7 @@ HalfRoundedRectWidget::HalfRoundedRectWidget(QWidget *parent)
 
 void HalfRoundedRectWidget::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);//消除锯齿
 
@@ -49,8 +50,7 @@ void HalfRoundedRectWidget::paintEvent(QPaintEvent *event)
     brushColor.setAlpha(m_hasFocus ? m_hoverAlpha : m_unHoverAlpha);
     painter.setBrush(brushColor);
 
-    DStyleHelper dstyle(style());
-    int radius = dstyle.pixelMetric(DStyle::PM_FrameRadius);
+    int radius = 6;
 
     QPen borderPen;
     borderPen.setColor(Qt::transparent);
@@ -70,7 +70,6 @@ void HalfRoundedRectWidget::paintEvent(QPaintEvent *event)
     path.arcTo(QRectF(QPointF(rect.bottomRight() - QPointF(radius * 2, radius * 2)), QSize(radius * 2, radius * 2)), 270, 90);
 
     painter.drawPath(path);
-    return AlphaWidget::paintEvent(event);
 }
 
 OverLapWidet::OverLapWidet(NotifyModel *model, EntityPtr ptr, QWidget *parent)

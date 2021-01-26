@@ -29,5 +29,5 @@ TEST_F(TstIconButton, coverageTest)
     obj->setText("Test");
     obj->setRadius(10);
     obj->setFocusState(false);
-    obj->setBackOpacity(0.5 * 255);
+    obj->setOpacity(IconButton::HOVER, 0.5 * 255);
 }

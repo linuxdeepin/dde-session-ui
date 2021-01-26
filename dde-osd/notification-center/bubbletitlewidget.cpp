@@ -39,16 +39,19 @@ BubbleTitleWidget::BubbleTitleWidget(NotifyModel *model, EntityPtr entity, QWidg
     m_titleLabel->setForegroundRole(QPalette::BrightText);
     m_titleLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
-    QFont font;
+    QFont font = m_titleLabel->font();
     font.setBold(true);
-    m_titleLabel->setFont(DFontSizeManager::instance()->t4(font));
+    font.setWeight(QFont::DemiBold);
+    m_titleLabel->setFont(font);
     m_titleLabel->setText(BubbleTool::getDeepinAppName(entity->appName()));
+    DFontSizeManager::instance()->bind(m_titleLabel, DFontSizeManager::T4);
+
 
     m_closeButton = new DIconButton(DStyle::SP_CloseButton);
     m_closeButton->setObjectName(entity->appName() + "-CloseButton");
     m_closeButton->setFlat(true);
     m_closeButton->setIconSize(QSize(Notify::GroupButtonSize, Notify::GroupButtonSize));
-    m_closeButton->setFixedSize(Notify::GroupButtonSize, Notify::GroupButtonSize);
+    m_closeButton->setFixedSize(Notify::GroupButtonSize - 4, Notify::GroupButtonSize - 4);
     m_closeButton->setVisible(false);
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
