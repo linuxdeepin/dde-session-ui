@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58px" height="58px" viewBox="0 0 58 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>display_custom1</title>
+    <defs>
+        <filter x="-14.8%" y="-27.6%" width="129.6%" height="155.2%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="4" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0.41176792   0 0 0 0 1  0 0 0 0.2 0" type="matrix" in="shadowOffsetOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="display_custom1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="displayc_ustom1">
+            <rect id="矩形" fill-opacity="0" fill="#D8D8D8" x="0" y="0" width="58" height="58"></rect>
+            <g id="编组" filter="url(#filter-1)" transform="translate(0.000000, 14.000000)">
+                <rect id="矩形" stroke="#4F89CA" stroke-width="2" fill="#B6DAE1" opacity="0.200000003" x="20" y="1" width="33" height="21" rx="4"></rect>
+                <path d="M44,0 L50,0 C52.209139,-4.05812251e-16 54,1.790861 54,4 L54,10 L54,10 C48.4771525,10 44,5.5228475 44,0 L44,0 L44,0 Z" id="矩形" fill="#722CC2" opacity="0.200000003"></path>
+                <rect id="矩形" stroke="#4F89CA" stroke-width="2" fill="#B6DAE1" opacity="0.200000003" x="35" y="23" width="4" height="5"></rect>
+                <rect id="矩形" stroke="#4F89CA" stroke-width="2" fill="#B6DAE1" opacity="0.200000003" x="32" y="28" width="10" height="1"></rect>
+                <path d="M22,13 C22.8284271,13 23.5784271,13.3357864 24.1213203,13.8786797 C24.6642136,14.4215729 25,15.1715729 25,16 L25,16 L25,27 L4,27 L4,16 C4,15.1715729 4.33578644,14.4215729 4.87867966,13.8786797 C5.42157288,13.3357864 6.17157288,13 7,13 L7,13 Z" id="矩形" stroke="#4F89CA" stroke-width="2" fill="#E1DFB6"></path>
+                <rect id="矩形" fill="#4663FF" x="7" y="16" width="6" height="7"></rect>
+                <rect id="矩形" stroke="#4F89CA" stroke-width="2" fill="#B6DAE1" x="1" y="28" width="27" height="1"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

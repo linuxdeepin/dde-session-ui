@@ -93,23 +93,6 @@ void DisplayModeProvider::highlightNext()
 
 void DisplayModeProvider::sync()
 {
-    const uchar displayMode = m_currentPlan.first;
-    const QString monitorId = m_currentPlan.second;
-    if (displayMode == 0) {
-        DDBusSender()
-        .service("com.deepin.dde.ControlCenter")
-        .interface("com.deepin.dde.ControlCenter")
-        .path("/com/deepin/dde/ControlCenter")
-        .method(QString("ShowPage"))
-        .arg(QString("display"))
-        .arg(QString("Multiple Displays"))
-        .call();
-        if (!m_displayInter->currentCustomId().isNull()) {
-            m_currentPlan.second = m_displayInter->currentCustomId();
-        } else { // 如果没有自定义模式，同控制中心设置默认自定义模式
-            m_currentPlan.second = DefaultCustomId;
-        }
-    }
     m_displayInter->SwitchMode(m_currentPlan.first,  m_currentPlan.second);
 }
 
@@ -133,7 +116,7 @@ QVariant DisplayModeProvider::data(const QModelIndex &index, int role) const
 {
     QPair<uchar,QString> item = m_planItems.at(index.row());
     if (role == Qt::DecorationRole) {
-        return getPlanItemIcon(item);
+        return getPlanItemIcon(index.row());
     }
 
     return getPlanItemName(item);
@@ -231,6 +214,7 @@ void DisplayModeProvider::updateOutputNames()
         } else {
             QDBusReply<QStringList> reply = watcher->reply();
             m_displayMode = m_displayInter->displayMode();
+            m_primaryScreen = m_displayInter->primary();
             m_outputNames = reply.value();
             updatePlanItems();
             emit dataChanged();
@@ -242,12 +226,15 @@ void DisplayModeProvider::updatePlanItems()
 {
     m_planItems.clear();
 
-    m_planItems << QPair<uchar,QString>(1, "");
-    m_planItems << QPair<uchar,QString>(2, "");
-    m_planItems << QPair<uchar,QString>(0, m_displayInter->currentCustomId());
+    m_planItems << QPair<uchar, QString>(MERGE_MODE, "");
+    m_planItems << QPair<uchar, QString>(EXTEND_MODE, "");
+    for (const QString &name : m_outputNames) {
+        m_planItems << QPair<uchar, QString>(SINGLE_MODE, name);
+    }
 
-    for (QPair<uchar,QString> pair : m_planItems) {
-        if (m_displayMode == pair.first) {
+    for (QPair<uchar, QString> pair : m_planItems) {
+        if ((m_displayMode != SINGLE_MODE && m_displayMode == pair.first)
+            || (m_displayMode == SINGLE_MODE && m_primaryScreen == pair.second)) {
             m_currentPlan = pair;
             break;
         }
@@ -257,29 +244,28 @@ void DisplayModeProvider::updatePlanItems()
 QString DisplayModeProvider::getPlanItemName(QPair<uchar, QString> &plan) const
 {
     const uchar displayMode = plan.first;
-    const QString monitorId = plan.second;
 
-    if (displayMode == 0) {
-        return tr("Customize");
-    } else if (displayMode == 1) {
+    if (displayMode == SINGLE_MODE) {
+        return tr("Only on %1").arg(plan.second);
+    } else if (displayMode == MERGE_MODE) {
         return tr("Duplicate");
-    } else if (displayMode == 2) {
+    } else if (displayMode == EXTEND_MODE) {
         return tr("Extend");
     }
 
     return "";
 }
 
-QString DisplayModeProvider::getPlanItemIcon(QPair<uchar, QString> &plan) const
+QString DisplayModeProvider::getPlanItemIcon(const int index) const
 {
-    const uchar displayMode = plan.first;
-
-    if (displayMode == 0) {
-        return ":/icons/display_custom.svg";
-    } else if (displayMode == 1) {
+    if (index == 0) {
         return ":/icons/display_copy.svg";
-    } else if (displayMode == 2) {
+    } else if (index == 1) {
         return ":/icons/display_expansion.svg";
+    } else if (index == 2) {
+        return ":/icons/display_custom1.svg";
+    } else if (index == 3) {
+        return ":/icons/display_custom2.svg";
     }
 
     return "";
@@ -299,8 +285,8 @@ void DisplayModeProvider::primaryChanged(const QString &primary)
 {
     if (m_primaryScreen == primary) return;
 
-    updatePlanItems();
-
     m_primaryScreen = primary;
+
+    updatePlanItems();
     emit dataChanged();
 }

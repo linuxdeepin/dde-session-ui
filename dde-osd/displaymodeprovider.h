@@ -41,6 +41,10 @@ static const int ItemWidth = 370;
 static const int ItemHeight = 72;
 static const int IconSize = 54;
 
+#define MERGE_MODE 1
+#define EXTEND_MODE 2
+#define SINGLE_MODE 3
+
 #define CHECK_ICON_SIZE        16
 #define ICON_HSPACE            22
 #define CHECK_ICON_HSPACE      10
@@ -88,7 +92,7 @@ private:
     void updatePlanItems();
 
     QString getPlanItemName(QPair<uchar,QString> &plan) const;
-    QString getPlanItemIcon(QPair<uchar,QString> &plan) const;
+    QString getPlanItemIcon(const int index) const;
 
 private slots:
     void displayModeChanged(const uchar &mode);
