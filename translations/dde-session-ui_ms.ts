@@ -4,28 +4,28 @@
     <message>
         <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
         <source>1 new message</source>
-        <translation type="unfinished"/>
+        <translation>1 mesej baharu</translation>
     </message>
 </context>
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="221"/>
         <source>Just Now</source>
         <translation>Baru Tadi</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
         <source>%1 minutes ago</source>
         <translation>%1 minit yang lalu</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="225"/>
         <source>%1 hours ago</source>
         <translation>%1 jam yang lalu</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="228"/>
         <source>Yesterday </source>
         <translation>Semalam</translation>
     </message>
@@ -33,12 +33,12 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="224"/>
+        <location filename="../dde-license-dialog/content.cpp" line="228"/>
         <source>Cancel</source>
         <translation>Batal</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="225"/>
+        <location filename="../dde-license-dialog/content.cpp" line="229"/>
         <source>Confirm</source>
         <translation>Sahkan</translation>
     </message>
@@ -185,12 +185,12 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Kemaskini telah dimuat turun, mulakan semula untuk kemaskinikan?</translation>
+        <translation>Kemas kini telah dimuat turun, mulakan semula untuk dikemaskinikan?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
         <source>Remind Later</source>
-        <translation>Ingatkan Kemudian</translation>
+        <translation>Ingat Kemudian</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
@@ -200,23 +200,23 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation>Kemaskini Sekarang</translation>
+        <translation>Kemas Kini Sekarang</translation>
     </message>
 </context>
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="264"/>
-        <source>Customize</source>
-        <translation>Suaikan</translation>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="250"/>
+        <source>Only on %1</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="266"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
         <source>Duplicate</source>
-        <translation>Ganda Duakan</translation>
+        <translation>Gandakan</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="268"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
         <source>Extend</source>
         <translation>Lanjut</translation>
     </message>
@@ -231,7 +231,7 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>Memasang kemaskini %1%, tunggu sebentar...</translation>
+        <translation>Memasang kemas kini %1%, tunggu sebentar...</translation>
     </message>
 </context>
 <context>
@@ -273,7 +273,7 @@
 <context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="161"/>
         <source>Add keyboard layout</source>
         <translation>Tambah bentangan papan kekunci</translation>
     </message>
@@ -379,40 +379,40 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
         <source>Notification Center</source>
         <translation>Pusat Pemberitahuan</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="91"/>
         <source>%1 Notifications</source>
         <translation>%1 Pemberitahuan</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="93"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>Tiada mesej</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn off DND mode</source>
-        <translation type="unfinished"/>
+        <translation>Matikan mod DND</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn on DND mode</source>
-        <translation type="unfinished"/>
+        <translation>Hidupkan mod DND</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>
         <source>Notification settings</source>
-        <translation type="unfinished"/>
+        <translation>Tetapan pemberitahuan</translation>
     </message>
 </context>
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="88"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
         <translation>Pusat Pemberitahuan</translation>
     </message>
@@ -441,6 +441,24 @@
         <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
         <translation>Gagal membenarkan kesan tetingkap</translation>
+    </message>
+</context>
+<context>
+    <name>PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
+        <source>Confirm</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -499,17 +517,17 @@
 <context>
     <name>TouchscreenSetting</name>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="45"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="43"/>
         <source>Select your touch screen</source>
-        <translation type="unfinished"/>
+        <translation>Pilih skrin sentuh anda</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="51"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="53"/>
         <source>Cancel</source>
         <translation>Batal</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="52"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="54"/>
         <source>Confirm</source>
         <translation>Sahkan</translation>
     </message>
@@ -584,24 +602,6 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>Kuasa bateri lemah, sila palamkan kuasa</translation>
-    </message>
-</context>
-<context>
-    <name>PinCodeDialog</name>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
-        <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation>PIN untuk menyambung dengan peranti Bluetooth ialah:</translation>
-    </message>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
-        <source>Cancel</source>
-        <translation>Batal</translation>
-    </message>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
-        <source>Confirm</source>
-        <translation>Sahkan</translation>
     </message>
 </context>
 </TS>

@@ -4,41 +4,41 @@
     <message>
         <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
         <source>1 new message</source>
-        <translation type="unfinished"/>
+        <translation>1件の新しいメッセージ</translation>
     </message>
 </context>
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="221"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>たった今</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>%1分前</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="225"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>%1時間前</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="228"/>
         <source>Yesterday </source>
-        <translation type="unfinished"/>
+        <translation>昨日</translation>
     </message>
 </context>
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="224"/>
+        <location filename="../dde-license-dialog/content.cpp" line="228"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="225"/>
+        <location filename="../dde-license-dialog/content.cpp" line="229"/>
         <source>Confirm</source>
         <translation>確認</translation>
     </message>
@@ -206,17 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="264"/>
-        <source>Customize</source>
-        <translation>カスタマイズ</translation>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="250"/>
+        <source>Only on %1</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="266"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
         <source>Duplicate</source>
         <translation>複製</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="268"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
         <source>Extend</source>
         <translation>拡張</translation>
     </message>
@@ -273,7 +273,7 @@
 <context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="161"/>
         <source>Add keyboard layout</source>
         <translation>キーボードレイアウトを追加</translation>
     </message>
@@ -358,12 +358,12 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; への接続にはパスワードが必要です</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
-        <translation type="unfinished"/>
+        <translation>パスワードが違います。再度入力してください！</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
@@ -379,42 +379,42 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>通知センター</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="91"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1件の通知</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="93"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>メッセージなし</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn off DND mode</source>
-        <translation type="unfinished"/>
+        <translation>おやすみモードをオフにする</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn on DND mode</source>
-        <translation type="unfinished"/>
+        <translation>おやすみモードをオンにする</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>
         <source>Notification settings</source>
-        <translation type="unfinished"/>
+        <translation>通知の設定</translation>
     </message>
 </context>
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="88"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>通知センター</translation>
     </message>
 </context>
 <context>
@@ -430,17 +430,35 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
-        <translation>ウィンドウ効果を有効にしました</translation>
+        <translation>ウィンドウ エフェクトを有効にしました</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
-        <translation>ウィンドウ効果を無効にしました</translation>
+        <translation>ウィンドウ エフェクトを無効にしました</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
-        <translation>ウィンドウ効果を有効にできませんでした</translation>
+        <translation>ウィンドウ エフェクトを有効にできませんでした</translation>
+    </message>
+</context>
+<context>
+    <name>PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
+        <source>Confirm</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -499,17 +517,17 @@
 <context>
     <name>TouchscreenSetting</name>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="45"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="43"/>
         <source>Select your touch screen</source>
-        <translation type="unfinished"/>
+        <translation>タッチスクリーンを選択してください</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="51"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="53"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="52"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="54"/>
         <source>Confirm</source>
         <translation>確認</translation>
     </message>
@@ -537,27 +555,27 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>効果モード</translation>
+        <translation>エフェクトモード</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>ノーマルモード</translation>
+        <translation>通常モード</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation type="unfinished"/>
+        <translation>仮想マシンの使用が検出されました。これは、システムパフォーマンスやオペレーションエクスペリエンスに影響を及ぼします。エクスペリエンス向上のため、通常モードを推奨します</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation type="unfinished"/>
+        <translation>エフェクトモード: 優美な体験をご堪能ください。通常モード: 高速パフォーマンスをお楽しみください</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>お知らせ</translation>
     </message>
 </context>
 <context>
@@ -565,12 +583,12 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>お知らせ</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation>このアプリケーションはウィンドウ効果を無効にして起動できません</translation>
+        <translation>このアプリケーションは、ウィンドウ エフェクトなしでは実行できません</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
@@ -584,24 +602,6 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>バッテリが少なくなっています、電源に接続してください</translation>
-    </message>
-</context>
-<context>
-    <name>PinCodeDialog</name>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
-        <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation>Bluetoothデバイスに接続するためのPIN:</translation>
-    </message>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
-        <source>Cancel</source>
-        <translation>キャンセル</translation>
-    </message>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
-        <source>Confirm</source>
-        <translation>確認</translation>
     </message>
 </context>
 </TS>

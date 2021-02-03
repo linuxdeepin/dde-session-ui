@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="221"/>
         <source>Just Now</source>
         <translation>刚刚</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
         <source>%1 minutes ago</source>
         <translation>%1分钟前</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="225"/>
         <source>%1 hours ago</source>
         <translation>%1小时前</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="228"/>
         <source>Yesterday </source>
         <translation>昨天</translation>
     </message>
@@ -33,12 +33,12 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="224"/>
+        <location filename="../dde-license-dialog/content.cpp" line="228"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="225"/>
+        <location filename="../dde-license-dialog/content.cpp" line="229"/>
         <source>Confirm</source>
         <translation>确定</translation>
     </message>
@@ -206,17 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="264"/>
-        <source>Customize</source>
-        <translation>自定义</translation>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="250"/>
+        <source>Only on %1</source>
+        <translation>仅%1屏</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="266"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
         <source>Duplicate</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="268"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
         <source>Extend</source>
         <translation>扩展</translation>
     </message>
@@ -273,7 +273,7 @@
 <context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="161"/>
         <source>Add keyboard layout</source>
         <translation>添加键盘布局</translation>
     </message>
@@ -379,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
         <source>Notification Center</source>
         <translation>通知中心</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="91"/>
         <source>%1 Notifications</source>
         <translation>%1条通知</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="93"/>
         <source>No messages</source>
         <translation>暂无新消息</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn off DND mode</source>
         <translation>关闭勿扰模式</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn on DND mode</source>
         <translation>开启勿扰模式</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>
         <source>Notification settings</source>
         <translation>通知设置</translation>
     </message>
@@ -412,7 +412,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="88"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
         <translation>通知中心</translation>
     </message>
@@ -441,6 +441,24 @@
         <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
         <translation>无法开启窗口特效</translation>
+    </message>
+</context>
+<context>
+    <name>PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>连接蓝牙设备的PIN码为：</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
+        <source>Confirm</source>
+        <translation>确认</translation>
     </message>
 </context>
 <context>
@@ -499,17 +517,17 @@
 <context>
     <name>TouchscreenSetting</name>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="45"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="43"/>
         <source>Select your touch screen</source>
         <translation>选择触控屏</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="51"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="53"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="52"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="54"/>
         <source>Confirm</source>
         <translation>确定</translation>
     </message>
@@ -584,24 +602,6 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>电量不足，请接入电源</translation>
-    </message>
-</context>
-<context>
-    <name>PinCodeDialog</name>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
-        <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation>连接蓝牙设备的PIN码为：</translation>
-    </message>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
-        <source>Cancel</source>
-        <translation>取消</translation>
-    </message>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
-        <source>Confirm</source>
-        <translation>确定</translation>
     </message>
 </context>
 </TS>

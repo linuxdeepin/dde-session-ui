@@ -4,28 +4,28 @@
     <message>
         <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
         <source>1 new message</source>
-        <translation type="unfinished"/>
+        <translation>1 پیام جدید</translation>
     </message>
 </context>
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="221"/>
         <source>Just Now</source>
         <translation>همین حالا</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
         <source>%1 minutes ago</source>
         <translation>%1 دقیقه پیش</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="225"/>
         <source>%1 hours ago</source>
         <translation>%1 ساعت پیش</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="228"/>
         <source>Yesterday </source>
         <translation>دیروز</translation>
     </message>
@@ -33,12 +33,12 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="224"/>
+        <location filename="../dde-license-dialog/content.cpp" line="228"/>
         <source>Cancel</source>
         <translation>انصراف</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="225"/>
+        <location filename="../dde-license-dialog/content.cpp" line="229"/>
         <source>Confirm</source>
         <translation>تایید</translation>
     </message>
@@ -206,17 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="264"/>
-        <source>Customize</source>
-        <translation>شخصی سازی</translation>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="250"/>
+        <source>Only on %1</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="266"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
         <source>Duplicate</source>
         <translation>تکراری</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="268"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
         <source>Extend</source>
         <translation>گسترش</translation>
     </message>
@@ -273,7 +273,7 @@
 <context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="161"/>
         <source>Add keyboard layout</source>
         <translation>اضافه کردن طرح بندی صفحه کلید</translation>
     </message>
@@ -363,7 +363,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
-        <translation type="unfinished"/>
+        <translation>کلمه عبور اشتباه؛ لطفا دوباره وارد کنید!</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
@@ -379,40 +379,40 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
         <source>Notification Center</source>
         <translation>مرکز اعلان</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="91"/>
         <source>%1 Notifications</source>
         <translation>%1 اعلان ها </translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="93"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>هیچ پیامی نیست</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn off DND mode</source>
-        <translation type="unfinished"/>
+        <translation>خاموش کردن حالت DND</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn on DND mode</source>
-        <translation type="unfinished"/>
+        <translation>روشن کردن حالت DND</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>
         <source>Notification settings</source>
-        <translation type="unfinished"/>
+        <translation>تنظیمات نوتیفیکیشن</translation>
     </message>
 </context>
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="88"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
         <translation>مرکز اعلان</translation>
     </message>
@@ -441,6 +441,24 @@
         <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
         <translation>عدم توانایی در اعمال جلوه های پنجره</translation>
+    </message>
+</context>
+<context>
+    <name>PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
+        <source>Confirm</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -499,17 +517,17 @@
 <context>
     <name>TouchscreenSetting</name>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="45"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="43"/>
         <source>Select your touch screen</source>
-        <translation type="unfinished"/>
+        <translation>صفحه نمایش لمسی خودتان را انتخاب کنید</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="51"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="53"/>
         <source>Cancel</source>
         <translation>انصراف</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="52"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="54"/>
         <source>Confirm</source>
         <translation>تایید</translation>
     </message>
@@ -584,24 +602,6 @@
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
         <translation>باتری شما کم است ، دستگاه را برق وصل کنید</translation>
-    </message>
-</context>
-<context>
-    <name>PinCodeDialog</name>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
-        <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation>PIN اتصال به دستگاه بلوتوث این است :</translation>
-    </message>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
-        <source>Cancel</source>
-        <translation>انصراف</translation>
-    </message>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
-        <source>Confirm</source>
-        <translation>تایید</translation>
     </message>
 </context>
 </TS>

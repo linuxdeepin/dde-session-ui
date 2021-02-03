@@ -1,48 +1,46 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="ug" sourcelanguage="en" version="2.1">
 <context>
+    <name>Bubble</name>
+    <message>
+        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
+        <source>1 new message</source>
+        <translation>1 يېڭى ئۇچۇر</translation>
+    </message>
+</context>
+<context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="181"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="221"/>
         <source>Just Now</source>
-        <translation type="unfinished"/>
+        <translation>ھازىر</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="185"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
         <source>%1 minutes ago</source>
-        <translation type="unfinished"/>
+        <translation>% 1 مىنۇت بۇرۇن</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="188"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="225"/>
         <source>%1 hours ago</source>
-        <translation type="unfinished"/>
+        <translation>% 1 سائەت بۇرۇن</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="192"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="228"/>
         <source>Yesterday </source>
-        <translation type="unfinished"/>
+        <translation>تۈنۈگۈن</translation>
     </message>
 </context>
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="32"/>
-        <source>Chinese</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="33"/>
-        <source>English</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../dde-license-dialog/content.cpp" line="44"/>
+        <location filename="../dde-license-dialog/content.cpp" line="228"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>بىكار قىلىش</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="45"/>
+        <location filename="../dde-license-dialog/content.cpp" line="229"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>جەزملەشتۈرۈش</translation>
     </message>
 </context>
 <context>
@@ -66,12 +64,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>راستلا تاقامسىز؟</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>راستلا قايتا قوزغىتامسىز؟</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
@@ -83,7 +81,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
-        <translation type="unfinished"/>
+        <translation>راستلا قايتا كىرەمسىز؟</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
@@ -94,18 +92,18 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
         <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation type="unfinished"/>
+        <translation>يۇقارقى پىروگراممىلار تاقاشقا توسقۇنلۇق قىلىۋاتىدۇ، مەجبۇرىي تاقىسىڭىز سانلىق مەلۇماتلىرىڭىز يوقاپ كېتىشى مۇمكىن</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
         <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation type="unfinished"/>
+        <translation>«بىكار قىلىش»نى چېكىپ بۇ پىروگراممىلارنى تاقىۋەتسىڭىز بولىدۇ.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>ئۇخلاش ھالىتى</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
@@ -129,57 +127,57 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation type="unfinished"/>
+        <translation>قويۇپ بېرىش</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation type="unfinished"/>
+        <translation>قوللىنىشچان ئىچكى ساقلىغۇچ قويۇپ بېرىلىدۇ، نۆۋەتتىكى سانلىق مەلۇماتنىڭ ساقلانغان ياكى ساقلانمىغانلىقىنى جەزملەشتۈرۈڭ.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation type="unfinished"/>
+        <translation>ھۆججەت، تېكىست، جەدۋەل قاتارلىق سانلىق مەلۇماتلار.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
         <source>Continue</source>
-        <translation type="unfinished"/>
+        <translation>داۋاملاشتۇرۇش</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation type="unfinished"/>
+        <translation>نۆۋەتتىكى سىستېما ئىچكى ساقلىغۇچ  يېتەرلىك ئەمەس، قېتىۋېلىشنىڭ ئالدىنى ئېلىش ئۈچۈن مۇناسىۋەتلىك قوللىنىشچان ئىچكى ساقلىغۇچنى قويۇپ بېرىڭ!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>ئەگەر %1 ئەپنى داۋاملىق ئىشلەتسىڭىز %2MB ئىچكى ساقلىغۇچ قويۇپ بېرىڭ!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>ئەگەر توركۆرگۈ بەتكۈچىنى داۋاملىق ئاچسىڭىز %1MB ئىچكى ساقلىغۇچ قويۇپ بېرىڭ</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation type="unfinished"/>
+        <translation>ئەگەر داۋاملىق بۇيرۇقنى ئىجرا قىلسىڭىز %1MB ئىچكى ساقلىغۇچ قويۇپ بېرىڭ!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation type="unfinished"/>
+        <translation>نۆۋەتتىكى ئىچكى ساقلىغۇچڭىز يېتەرلىك. %1 ئەپنى داۋاملاشتۇرامسىز؟</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation type="unfinished"/>
+        <translation>نۆۋەتتىكى ئىچكى ساقلىغۇچ يېتەرلىك ، توركۆرگۈ بەتكۈچىنى داۋاملىق ئاچماقچىمۇ؟</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation type="unfinished"/>
+        <translation>ھازىرقى ئىچكى ساقلىغۇچ يېتەرلىك، بۇيرۇقنى داۋاملىق ئىجرا قىلامسىز؟</translation>
     </message>
 </context>
 <context>
@@ -187,33 +185,38 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation type="unfinished"/>
+        <translation>يېڭىلانمىنى چۈشۈرۈش تاماملاندى، يېڭىلاشنى تاماملاش ئۈچۈن قايتا قوزغىتىش كېرەك. يېڭىلامسىز؟</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
         <source>Remind Later</source>
-        <translation type="unfinished"/>
+        <translation>سەك تۇرۇپ ئەسكەرتىڭ</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
         <source>Not Now</source>
-        <translation type="unfinished"/>
+        <translation>يېڭىلىمايمەن</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation type="unfinished"/>
+        <translation>يېڭىلايمەن</translation>
     </message>
 </context>
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="176"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="250"/>
+        <source>Only on %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
         <source>Duplicate</source>
         <translation>نۇسخىلاش</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="178"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
         <source>Extend</source>
         <translation>كېڭەيتىش</translation>
     </message>
@@ -223,12 +226,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation type="unfinished"/>
+        <translation>توك مەنبەسىنى ئۈزۈۋەتمەڭ ياكى مەجبۇرىي تاقىۋەتمەڭ</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation type="unfinished"/>
+        <translation>يېڭىلانمىنى قاچىلاۋاتىدۇ%1%، سەل ساقلاڭ...</translation>
     </message>
 </context>
 <context>
@@ -236,27 +239,27 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>دائىرە ھېساباتى</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>بارماق پارولىنى دەلىللەش ۋاقتى ئۆتۈپ كەتتى، پارول كىرگۈزۈڭ</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>ئېكراننى بارماق ئېزى ئارقىلىق ئېچىش مەغلۇپ بولدى</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
         <source>Wrong Password</source>
-        <translation type="unfinished"/>
+        <translation>ئىناۋەتسىز پارول</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation type="unfinished"/>
+        <translation>دائىرە ھېساباتى ياكى دائىرە پارولى خاتا، قايتا كىرگۈزۈڭ.</translation>
     </message>
 </context>
 <context>
@@ -270,7 +273,7 @@
 <context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="161"/>
         <source>Add keyboard layout</source>
         <translation>كۇنۇپكا تاختىسى ئورۇنلاشتۇرۇلۇشى قوشۇش</translation>
     </message>
@@ -280,17 +283,17 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
-        <translation type="unfinished"/>
+        <translation>دائىرە ھېساباتى</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation type="unfinished"/>
+        <translation>بارماق پارولىنى دەلىللەش ۋاقتى ئۆتۈپ كەتتى، پارول كىرگۈزۈڭ</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
-        <translation type="unfinished"/>
+        <translation>ئېكراننى بارماق ئېزى ئارقىلىق ئېچىش مەغلۇپ بولدى</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
@@ -308,12 +311,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation type="unfinished"/>
+        <translation>بۇ كومپيۇتېردا يەنە يۇقارقى ھېساباتلار ئوچۇق، قايتا قوزغاتسىڭىز سانلىق مەلۇماتلار يوقاپ كېتىشى مۇمكىن، راستلا قايتا قوزغىتامسىز؟</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation type="unfinished"/>
+        <translation>بۇ كومپيۇتېردا يەنە يۇقارقى ھېساباتلار ئوچۇق، تاقىۋەتسىڭىز سانلىق مەلۇماتلار يوقاپ كېتىشى مۇمكىن، راستلا تاقامسىز؟</translation>
     </message>
 </context>
 <context>
@@ -335,7 +338,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation type="unfinished"/>
+        <translation>ئاچقۇچ</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
@@ -345,30 +348,30 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation type="unfinished"/>
+        <translation>ۋاكالەتچى پارولى</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation type="unfinished"/>
+        <translation>گۇرۇپپا پارول</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="98"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; نى ئۇلاش ئۈچۈن پارول كىرگۈزۈڭ</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="167"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
-        <translation type="unfinished"/>
+        <translation>پارول خاتا، قايتا كىرگۈزۈڭ!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Cancel</source>
         <translation>بىكار قىلىش</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="107"/>
+        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Connect</source>
         <translation>ئۇلاش</translation>
     </message>
@@ -377,22 +380,41 @@
     <name>NotificationsPlugin</name>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="94"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>ئۇقتۇرۇش مەركىزى</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="92"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="91"/>
         <source>%1 Notifications</source>
-        <translation type="unfinished"/>
+        <translation>%1 ئۇقتۇرۇش</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="93"/>
+        <source>No messages</source>
+        <translation>يېڭى ئۇچۇر يوق</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
+        <source>Turn off DND mode</source>
+        <translation>تىنچ ھالەتنى تاقاش</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
+        <source>Turn on DND mode</source>
+        <translation>تىنچ ھالەتنى ئېچىش</translation>
+    </message>
+    <message>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>
+        <source>Notification settings</source>
+        <translation>ئۇقتۇرۇش تەڭشىكى</translation>
     </message>
 </context>
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="90"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
-        <translation type="unfinished"/>
+        <translation>ئۇقتۇرۇش مەركىزى</translation>
     </message>
 </context>
 <context>
@@ -406,18 +428,36 @@
 <context>
     <name>OSDProvider</name>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="43"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
-        <translation type="unfinished"/>
+        <translation>ئېكران ئالاھىدە ئۈنۈمى ئېچىلدى</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="44"/>
+        <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
+        <translation>ئېكران ئالاھىدە ئۈنۈمى تاقالدى</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/osdprovider.cpp" line="49"/>
+        <source>Failed to enable window effects</source>
+        <translation>ئېكران ئالاھىدە ئۈنۈمى ئېچىلمىدى</translation>
+    </message>
+</context>
+<context>
+    <name>PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="45"/>
-        <source>Failed to enable window effects</source>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
+        <source>Confirm</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -426,52 +466,29 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>ShutdownWidget</name>
-    <message>
-        <source>Shut down</source>
-        <translation type="vanished">ئۈسكۈنىنى تاقاش</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">كىرىش</translation>
-    </message>
-    <message>
-        <source>Reboot</source>
-        <translation type="vanished">قايتا قوزغىتىش</translation>
-    </message>
-    <message>
-        <source>Suspend</source>
-        <translation type="vanished">ئېسىپ قويۇش</translation>
-    </message>
-    <message>
-        <source>Hibernate</source>
-        <translation type="unfinished"/>
+        <translation>قويۇپ بېرىش</translation>
     </message>
 </context>
 <context>
     <name>SuspendDialog</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation type="unfinished"/>
+        <translation>سىرتقى ئېكران بايقالدى، تاقامسىز؟</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="35"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="57"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1 سىكۇنت</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Cancel</source>
         <translation>بىكار قىلىش</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="46"/>
+        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Suspend</source>
         <translation>ئېسىپ قويۇش</translation>
     </message>
@@ -498,40 +515,39 @@
     </message>
 </context>
 <context>
+    <name>TouchscreenSetting</name>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="43"/>
+        <source>Select your touch screen</source>
+        <translation>چەكمە ئېكراننى تاللاش</translation>
+    </message>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="53"/>
+        <source>Cancel</source>
+        <translation>بىكار قىلىش</translation>
+    </message>
+    <message>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="54"/>
+        <source>Confirm</source>
+        <translation>جەزملەشتۈرۈش</translation>
+    </message>
+</context>
+<context>
     <name>UpdateContent</name>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>خۇش كەپسىز، سىستېما يېڭىلاندى</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>نۆۋەتتىكى نەشرى:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>UserInputWidget</name>
-    <message>
-        <source>Login</source>
-        <translation type="vanished">كىرىش</translation>
-    </message>
-    <message numerus="yes">
-        <source>Please try again %n minute(s) later</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
-    </message>
-    <message>
-        <source>Enter your password to shut down</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Enter your password to reboot</source>
-        <translation type="vanished">پارولىڭىزنى كىرگۈزۈپ قايتا قوزغىتىڭ</translation>
+        <translation>ئىشلىتىشنى باشلاش</translation>
     </message>
 </context>
 <context>
@@ -544,17 +560,17 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation type="unfinished"/>
+        <translation>نورمال ھالەت</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation type="unfinished"/>
+        <translation>مەۋھۇم ماشىنا ئىشلىتىۋاتقانلىقىڭىز بايقالدى، بۇ سىستېمىنىڭ ئىقتىدارى ۋە مەشغۇلات تۇيغۇسىغا تەسىر كۆرسىتىدۇ. مەۋھۇم ماشىنا شارائىتىدا سىستېمىنى ئوڭۇشلۇق ئىشلىتىش ئۈچۈن، نورمال ھالەتنى تاللاپ ئۈستەل يۈزىگە كىرىشىڭىز تەۋسىيە قىلىمىز.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation type="unfinished"/>
+        <translation>ئالاھىدە ئۈنۈم ھالىتى: ئېسىل ۋە گۈزەل تۇيغۇدىن ھۇزۇرلىنىڭ؛ نورمال ھالەت: سىلىق ھەم تېز ئىقتىداردىن ھۇزۇرلىنىڭ</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
@@ -567,17 +583,17 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation type="unfinished"/>
+        <translation>سەمىمىي ئەسكەرتىش</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation type="unfinished"/>
+        <translation>بۇ ئەپ ئېكران ئالاھىدە ھالىتىنى قوللىمايدۇ</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation>تامام</translation>
+        <translation>جەزىملەشتۈرۈش</translation>
     </message>
 </context>
 <context>
@@ -585,7 +601,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation type="unfinished"/>
+        <translation>توك ئاز قالدى، توكقا چېتىڭ</translation>
     </message>
 </context>
 </TS>

@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="198"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="221"/>
         <source>Just Now</source>
         <translation>Éppen most</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="200"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
         <source>%1 minutes ago</source>
         <translation>%1 perccel ezelőtt</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="202"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="225"/>
         <source>%1 hours ago</source>
         <translation>%1 órával ezelőtt</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="205"/>
+        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="228"/>
         <source>Yesterday </source>
         <translation>Tegnap</translation>
     </message>
@@ -33,12 +33,12 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="224"/>
+        <location filename="../dde-license-dialog/content.cpp" line="228"/>
         <source>Cancel</source>
         <translation>Mégsem</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="225"/>
+        <location filename="../dde-license-dialog/content.cpp" line="229"/>
         <source>Confirm</source>
         <translation>Megerősítés</translation>
     </message>
@@ -64,12 +64,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation>Biztosan le akarod állítani?</translation>
+        <translation>Biztosan le akarja állítani?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation>Biztosan újra akarod indítani?</translation>
+        <translation>Biztosan újra akarja indítani?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
@@ -81,23 +81,23 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
-        <translation>Biztosan ki akarsz jelentkezni?</translation>
+        <translation>Biztosan ki akar jelentkezni?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Suspend</source>
-        <translation>Felfüggesztés</translation>
+        <translation>Alvó állapot</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
         <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>A programok megakadályozzák, hogy a számítógép kikapcsoljon vagy hibernálódjon, a kikapcsolás vagy hibernálás kényszerítése adatvesztéssel járhat.</translation>
+        <translation>A programok megakadályozzák a számítógép kikapcsolását / hibernálását, és a kikapcsolás / hibernálás kényszerítése adatvesztést okozhat.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
         <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation>A program bezárlásához kattintson a törlés/mégse gombra, és utána zárja be a programot.</translation>
+        <translation>A program bezárásához kattintson a Mégsem gombra, majd zárja be a programot.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
@@ -127,17 +127,17 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation>Lecsatolás</translation>
+        <translation>Kiadás</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Ez az alkalmazás bezáródik, kérlek bizonyosodj meg róla, hogy elmentetted az adataidat!</translation>
+        <translation>Ez az alkalmazás bezáródik, kérjük bizonyosodjon meg róla, hogy elmentette az adatait!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Kérlek mentsd el a dokumentumodat, táblázatodat.</translation>
+        <translation>Kérjük mentse el a dokumentumait, szöveges fájljait, táblázatait.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -147,37 +147,37 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Nincs elég rendszermemória, ezért kérlek zárj be néhány alkalmazást a problémák elkerülése miatt.</translation>
+        <translation>Nincs elég rendszermemória, ezért kérjük zárjon be néhány alkalmazást a problémák elkerülése végett.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>%1 futtatásának a folytatásához, %2MB memória szükséges</translation>
+        <translation>A %1 futtatásának folytatásához %2MB memória szükséges</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>A böngészés folytatásához legalább %1MB memória szükséges</translation>
+        <translation>A böngésző lap megnyitásához legalább %1MB memória szükséges</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>A működés folytatásához legalább %1MB memóriára van szükség</translation>
+        <translation>A művelet folytatásához legalább %1MB memóriára szükséges</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>Kevés az elérhető memória, folytatod a %1 futtatását?</translation>
+        <translation>Kevés az elérhető memória, folytatja a %1 futtatását?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>Kevés az  elérhető memória, folytatod a böngészést?</translation>
+        <translation>Kevés az elérhető memória, folytatja a böngésző lap megnyitását?</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation>Kevés az elérhető memória, folytatod a műveletet?</translation>
+        <translation>Kevés az elérhető memória, folytatja a műveletet?</translation>
     </message>
 </context>
 <context>
@@ -185,7 +185,7 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Frissítések letöltve, újraindítható a számítógép?</translation>
+        <translation>A frissítések letöltve, újraindítja a frissítéshez?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
@@ -206,19 +206,19 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="264"/>
-        <source>Customize</source>
-        <translation>Testreszabás</translation>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="250"/>
+        <source>Only on %1</source>
+        <translation>Megjelenítés csak a %1-n</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="266"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
         <source>Duplicate</source>
         <translation>Megkettőzés</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="268"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
         <source>Extend</source>
-        <translation>Kiterjeszt</translation>
+        <translation>Kiterjesztés</translation>
     </message>
 </context>
 <context>
@@ -226,12 +226,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Ne kapcsoljuk vagy húzzuk ki a számítógépet</translation>
+        <translation>Kérjük ne kapcsolja ki és ne húzza ki a számítógépet</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>%1% frissítések telepítése, várjunk...</translation>
+        <translation>A %1% frissítések telepítése folyamatban, kérjük várjon...</translation>
     </message>
 </context>
 <context>
@@ -239,17 +239,17 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
         <source>Domain account</source>
-        <translation>Domain fiók</translation>
+        <translation>Tartományi fiók</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Ujjlenyomat azonosítás időtúllépése! Kérem, adja meg a jelszót</translation>
+        <translation>Az ujjlenyomat ellenőrzés időtúllépésbe ütközött, kérjük adja meg kézzel a jelszavát</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation>Ujjlenyomat nem egyezik</translation>
+        <translation>Az ujjlenyomatok nem egyeznek</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
@@ -259,7 +259,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>A domain fiók vagy a jelszó helytelen. Kérem adja meg újra!</translation>
+        <translation>A tartományi fiók vagy a jelszó helytelen. Kérjük adja meg újra.</translation>
     </message>
 </context>
 <context>
@@ -273,9 +273,9 @@
 <context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="159"/>
+        <location filename="../dde-osd/kblayoutindicator.cpp" line="161"/>
         <source>Add keyboard layout</source>
-        <translation>Billentyűzet kiosztás megadása</translation>
+        <translation>Billentyűzetkiosztás megadása</translation>
     </message>
 </context>
 <context>
@@ -283,17 +283,17 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
-        <translation>Domain fiók</translation>
+        <translation>Tartományi fiók</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Ujjlenyomat azonosítás időtúllépése! Kérem, adja meg a jelszót</translation>
+        <translation>Az ujjlenyomat ellenőrzés időtúllépésbe ütközött, kérjük adja meg kézzel a jelszavát</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
-        <translation>Ujjlenyomat nem egyezik</translation>
+        <translation>Az ujjlenyomatok nem egyeznek</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
@@ -311,12 +311,12 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>A fenti felhasználók be vannak jelentkezve, ami újraindításkor az adatok elvesztéséhez vezethet. Biztosan újra akarod indítani?</translation>
+        <translation>A fenti felhasználók továbbra is be vannak jelentkezve, és az adatok elvesznek az újraindítás alatt. Biztosan újra szeretné indítani?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation>A fenti felhasználók be vannak jelentkezve, ami leállításkor az  adatok elvesztéséhez vezethet. Biztosan le akarod állítani?</translation>
+        <translation>A fenti felhasználók továbbra is be vannak jelentkezve, és az adatok elvesznek a leállítás alatt. Biztosan le szeretné állítani?</translation>
     </message>
 </context>
 <context>
@@ -363,7 +363,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
-        <translation>Helytelen jelszó, kérem próbálja meg újra!</translation>
+        <translation>Helytelen jelszó, kérjük adja meg újra!</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
@@ -379,32 +379,32 @@
 <context>
     <name>NotificationsPlugin</name>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="67"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
         <source>Notification Center</source>
         <translation>Értesítési központ</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="87"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="91"/>
         <source>%1 Notifications</source>
         <translation>%1 értesítés</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="89"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="93"/>
         <source>No messages</source>
-        <translation type="unfinished"/>
+        <translation>Nincsenek üzenetek</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn off DND mode</source>
-        <translation>Kapcsolja ki a DND módot</translation>
+        <translation>DND mód kikapcsolása</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="255"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn on DND mode</source>
-        <translation>Kapcsolja be a DND módot</translation>
+        <translation>DND mód bekapcsolása</translation>
     </message>
     <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="262"/>
+        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>
         <source>Notification settings</source>
         <translation>Értesítési beállítások</translation>
     </message>
@@ -412,7 +412,7 @@
 <context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="88"/>
+        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
         <translation>Értesítési központ</translation>
     </message>
@@ -430,17 +430,35 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
-        <translation>Effektek engedélyezve</translation>
+        <translation>Az ablakeffektusok engedélyezve</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
-        <translation>Effektek letiltva</translation>
+        <translation>Az ablakeffektusok letiltva</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
-        <translation>Effektek engedélyezése sikertelen</translation>
+        <translation>Az ablakeffektusok engedélyezése sikertelen</translation>
+    </message>
+</context>
+<context>
+    <name>PinCodeDialog</name>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
+        <source>The PIN for connecting to the Bluetooth device is:</source>
+        <translation>A Bluetooth-eszközhöz való kapcsolódás PIN-kódja:</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
+        <source>Cancel</source>
+        <translation>Mégsem</translation>
+    </message>
+    <message>
+        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
+        <source>Confirm</source>
+        <translation>Megerősítés</translation>
     </message>
 </context>
 <context>
@@ -448,7 +466,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation>Vége</translation>
+        <translation>Befejezés</translation>
     </message>
 </context>
 <context>
@@ -456,13 +474,13 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation>Külső monitort érzékeltem, legyen alvó állapotban a jelenlegi monitor?</translation>
+        <translation>Külső monitor érzékelve, a jelenlegi monitort alvó állapotba küldése?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
         <source>%1s</source>
-        <translation>%1</translation>
+        <translation>%1mp</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
@@ -472,7 +490,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Suspend</source>
-        <translation>Felfüggesztés</translation>
+        <translation>Alvó állapot</translation>
     </message>
 </context>
 <context>
@@ -480,7 +498,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>Rendszer monitor indítása</translation>
+        <translation>Rendszermonitor indítása</translation>
     </message>
 </context>
 <context>
@@ -488,28 +506,28 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="69"/>
         <source>hh:mm</source>
-        <translation>hh:mm</translation>
+        <translation>óó:pp</translation>
     </message>
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
+        <translation>éééé-HH-nn</translation>
     </message>
 </context>
 <context>
     <name>TouchscreenSetting</name>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="45"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="43"/>
         <source>Select your touch screen</source>
-        <translation type="unfinished"/>
+        <translation>Válassza ki az érintőképernyőt</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="51"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="53"/>
         <source>Cancel</source>
         <translation>Mégsem</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="52"/>
+        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="54"/>
         <source>Confirm</source>
         <translation>Megerősítés</translation>
     </message>
@@ -519,7 +537,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>A rendszerfrissítés sikerült.</translation>
+        <translation>Üdvözöljük, a rendszer sikeresen frissítve</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
@@ -547,12 +565,12 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>A rendszer érzékelte, hogy virtuális környezetben fut. Ilyenkor a teljesítmény és a felhasználói élmény optimalizálása érdekében javasolt a Normál mód használata.</translation>
+        <translation>Észleltük, hogy egy virtuális gépet használ, amely befolyásolja a rendszer teljesítményét és az üzemeltetési élményt, a zökkenőmentes működés érdekében a Normál mód használata ajánlott</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Effekt mód: design elemek bekapcsolva, lassabb működés Normál mód: design elemek kikapcsolva, gyorsabb működés.</translation>
+        <translation>Effektus mód: Szerezzen gyengéd élményeket. Normál mód: Élvezze a gyors teljesítményt</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
@@ -570,7 +588,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation>Ez az alkalmazás nem műkdik, csak bekapcsolt effekt módban.</translation>
+        <translation>Ez az alkalmazás nem futtatható ablakeffektus nélkül</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
@@ -583,25 +601,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Alacsony akkumulátor szint, kérlek csatlakoztasd a gépet a töltőre.</translation>
-    </message>
-</context>
-<context>
-    <name>PinCodeDialog</name>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="43"/>
-        <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation>A PIN-kód megadásával csatlakozhatsz a bluetooth eszközhöz:</translation>
-    </message>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="51"/>
-        <source>Cancel</source>
-        <translation>Mégsem</translation>
-    </message>
-    <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="53"/>
-        <source>Confirm</source>
-        <translation>Megerősítés</translation>
+        <translation>Alacsony akkumulátor szint, kérjük csatlakoztassa a töltőt</translation>
     </message>
 </context>
 </TS>
