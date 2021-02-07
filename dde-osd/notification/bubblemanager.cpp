@@ -206,6 +206,10 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
         }
     }
 
+    if (systemNotification && dndmode) {
+        DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
+    }
+
     if (!calcReplaceId(notification)) {
         if (systemNotification) { // 系统通知
             pushBubble(notification);
