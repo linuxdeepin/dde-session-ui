@@ -230,6 +230,11 @@ const QString NotificationsPlugin::itemContextMenu(const QString &itemKey)
 {
     if (itemKey != "notifications")
         return QString();
+
+    static QGSettings gsettings("com.deepin.dde.dock.module.notifications");
+    if (gsettings.keys().contains("menuEnable") && !gsettings.get("menuEnable").toBool())
+        return QString();
+
     QList<QVariant> items;
     items.reserve(2);
 

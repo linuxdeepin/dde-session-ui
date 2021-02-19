@@ -15,5 +15,19 @@
             Control Module Enable
       </description>
     </key>
+    <key type="b" name="visible">
+      <default>true</default>
+      <summary>Module visible</summary>
+      <description>
+            Control Module Visible
+      </description>
+    </key>
+    <key type="b" name="menu-enable">
+      <default>true</default>
+      <summary>Menu Enable</summary>
+      <description>
+          Control Menu Enable
+      </description>
+    </key>
   </schema>
 </schemalist>
