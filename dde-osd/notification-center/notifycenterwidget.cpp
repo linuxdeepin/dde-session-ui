@@ -53,6 +53,7 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database, QWidget *parent)
     , m_aniGroup(new QSequentialAnimationGroup(this))
     , m_wmHelper(DWindowManagerHelper::instance())
     , m_regionMonitor(new DRegionMonitor(this))
+    , m_trickTimer(new QTimer(this))
 {
     initUI();
     initConnections();
@@ -61,6 +62,9 @@ NotifyCenterWidget::NotifyCenterWidget(Persistence *database, QWidget *parent)
     CompositeChanged();
 
     m_regionMonitor->setCoordinateType(DRegionMonitor::Original);
+
+    m_trickTimer->setInterval(300);
+    m_trickTimer->setSingleShot(true);
 }
 
 void NotifyCenterWidget::initUI()
@@ -227,6 +231,12 @@ void NotifyCenterWidget::refreshTheme()
 
 void NotifyCenterWidget::showAni()
 {
+    if (m_trickTimer->isActive()) {
+        return;
+    }
+
+    m_trickTimer->start();
+
     registerRegion();
 
     if (!m_hasComposite) {
@@ -247,6 +257,12 @@ void NotifyCenterWidget::showAni()
 
 void NotifyCenterWidget::hideAni()
 {
+    if (m_trickTimer->isActive()) {
+        return;
+    }
+
+    m_trickTimer->start();
+
     if (!m_hasComposite) {
         hide();
         return;
@@ -266,8 +282,7 @@ void NotifyCenterWidget::registerRegion()
                              "com.deepin.api.XEventMonitor",
                              QDBusConnection::sessionBus());
     if (interface.isValid()) {
-        m_regionConnect = connect(m_regionMonitor, &DRegionMonitor::buttonPress, this, [ = ](const QPoint & p, const int flag) {
-            Q_UNUSED(flag);
+        m_regionConnect = connect(m_regionMonitor, &DRegionMonitor::buttonRelease, this, [ = ](const QPoint & p) {
             QPoint pScale(int(qreal(p.x() / m_scale)), int(qreal(p.y() / m_scale)));
             if (!geometry().contains(pScale))
                 if (!isHidden()) {

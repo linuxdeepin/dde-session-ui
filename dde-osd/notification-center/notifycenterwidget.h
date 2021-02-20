@@ -99,6 +99,7 @@ private:
     QMetaObject::Connection m_regionConnect;
     DRegionMonitor *m_regionMonitor;
     qreal m_scale = 1;
+    QTimer* m_trickTimer; // 防止同时响应鼠标事件和toggle事件
 };
 
 #endif // NotifyCenterWidget_H
