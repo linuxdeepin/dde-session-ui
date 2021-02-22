@@ -5,12 +5,12 @@
             <location filename="Desktop Entry]GenericName" line="0"/>
             <location filename="Desktop Entry]Name" line="0"/>
             <source>Show Desktop</source>
-            <translation>Tunjuk Desktop</translation>
+            <translation>Tunjuk Atas Meja</translation>
         </message>
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Show desktop or show windows</source>
-            <translation>Tunjuk desktop atau tunjuk tetingkap</translation>
+            <translation>Tunjuk atas meja atau tunjuk tetingkap</translation>
         </message>
     </context>
 </TS>

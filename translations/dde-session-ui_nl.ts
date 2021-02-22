@@ -206,17 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="250"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="249"/>
         <source>Only on %1</source>
-        <translation type="unfinished"/>
+        <translation>Alleen op %1</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="251"/>
         <source>Duplicate</source>
         <translation>Klonen</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="253"/>
         <source>Extend</source>
         <translation>Uitbreiden</translation>
     </message>
@@ -448,17 +448,17 @@
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation type="unfinished"/>
+        <translation>De pincode voor het koppelen van het bluetoothapparaat is:</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Bevestigen</translation>
     </message>
 </context>
 <context>

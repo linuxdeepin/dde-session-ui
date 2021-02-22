@@ -206,17 +206,17 @@
 <context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="250"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="249"/>
         <source>Only on %1</source>
-        <translation type="unfinished"/>
+        <translation>Nur auf %1</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="252"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="251"/>
         <source>Duplicate</source>
         <translation>Duplizieren</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="254"/>
+        <location filename="../dde-osd/displaymodeprovider.cpp" line="253"/>
         <source>Extend</source>
         <translation>Erweitern</translation>
     </message>
@@ -396,12 +396,12 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn off DND mode</source>
-        <translation type="unfinished"/>
+        <translation>Nicht-stören-Modus ausschalten</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn on DND mode</source>
-        <translation type="unfinished"/>
+        <translation>Nicht-stören-Modus einschalten</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>
@@ -448,17 +448,17 @@
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation type="unfinished"/>
+        <translation>Die PIN für die Verbindung mit dem Bluetooth-Gerät lautet:</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Bestätigen</translation>
     </message>
 </context>
 <context>

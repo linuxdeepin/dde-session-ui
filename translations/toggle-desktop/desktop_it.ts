@@ -10,7 +10,7 @@
         <message>
             <location filename="Desktop Entry]Comment" line="0"/>
             <source>Show desktop or show windows</source>
-            <translation>Mostra desktop o mostra finestre</translation>
+            <translation>Mostra desktop o finestre</translation>
         </message>
     </context>
 </TS>

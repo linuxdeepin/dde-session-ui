@@ -1,10 +1,10 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ja" sourcelanguage="en" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="bo" sourcelanguage="en" version="2.1">
 <context>
     <name>Bubble</name>
     <message>
         <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
         <source>1 new message</source>
-        <translation>1件の新しいメッセージ</translation>
+        <translation>འཕྲིན་གསར་1 </translation>
     </message>
 </context>
 <context>
@@ -12,22 +12,22 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="221"/>
         <source>Just Now</source>
-        <translation>たった今</translation>
+        <translation>ད་གིན།</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
         <source>%1 minutes ago</source>
-        <translation>%1分前</translation>
+        <translation>སྐར་མ་％1གོང་ལ།  </translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="225"/>
         <source>%1 hours ago</source>
-        <translation>%1時間前</translation>
+        <translation>ཆུ་ཚོད་％1གོང་ལ།  </translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="228"/>
         <source>Yesterday </source>
-        <translation>昨日</translation>
+        <translation>ཁ་སང་།</translation>
     </message>
 </context>
 <context>
@@ -35,12 +35,12 @@
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="228"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation>ཕྱིར་འཐེན།</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/content.cpp" line="229"/>
         <source>Confirm</source>
-        <translation>確認</translation>
+        <translation>གཏན་ཁེལ། </translation>
     </message>
 </context>
 <context>
@@ -51,7 +51,7 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="391"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
         <source>Shut down</source>
-        <translation>シャットダウン</translation>
+        <translation>ཁ་བརྒྱབ།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="332"/>
@@ -59,61 +59,61 @@
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
         <source>Reboot</source>
-        <translation>再起動</translation>
+        <translation>བསྐྱར་སློང་།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation>シャットダウンしてもよろしいですか？</translation>
+        <translation>ཁྱོད་ཀྱི་ཁ་རྒྱག་རྒྱུ་གཏན་ཁེལ་ལམ།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation>再起動してもよろしいですか？</translation>
+        <translation>ཁྱོད་ཀྱི་བསྐྱར་སློང་བྱེད་རྒྱུ་གཏན་ཁེལ་ལམ།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
         <source>Log out</source>
-        <translation>ログアウト</translation>
+        <translation>ཐོ་སུབ་པ།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
-        <translation>ログアウトしてもよろしいですか？</translation>
+        <translation>ཁྱོད་ཀྱི་ཐོ་འདོར་རྒྱུ་གཏན་ཁེལ་ལམ།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
         <source>Suspend</source>
-        <translation>サスペンド</translation>
+        <translation>སྒུག་སྡོད།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
         <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>プログラムが開いているため、コンピューターをシャットダウン／ハイバーネートにできません。強制的にシャットダウン／ハイバーネートにすると、データが失われる可能性があります。</translation>
+        <translation>གོང་གི་བྱ་རིམ་ཁ་བརྒྱབ་པ་/མལ་གསོ་བར་བཀག་འགོག་བྱེད་པ་དང་། བཙན་ཤེད་ཀྱིས་ཁ་བརྒྱབ་པ་/མལ་གསོ་རུ་བཅུག་པ་བཅས་བྱས་ཚེ། གཞི་གྲངས་བརླག་སྲིད།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
         <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation>プログラムを終了するには、キャンセルをクリックして、プログラムを終了してください。</translation>
+        <translation>ཁྱོད་ཀྱིས་“འདོར་བ་”ཞེས་པ་མནན་ནས་བྱ་རིམ་འདི་དག་ཁ་བརྒྱབ་ཆོག </translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
         <source>Hibernate</source>
-        <translation>ハイバーネート</translation>
+        <translation>མལ་གསོ།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
         <source>Lock</source>
-        <translation>ロック</translation>
+        <translation>ཟྭ་རྒྱག</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="546"/>
         <source>Switch user</source>
-        <translation>ユーザーを切り替え</translation>
+        <translation>སྤྱོད་མཁན་བརྗེ་བ།</translation>
     </message>
 </context>
 <context>
@@ -122,62 +122,62 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation>ཕྱིར་འཐེན།</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation>リリース</translation>
+        <translation>གློད་གྲོལ།</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>このアプリケーションは終了します。データが保存されていることを確認してください！</translation>
+        <translation>ཉེར་སྤྱོད་ནང་གསོག་གློད་གྲོལ་བྱེད་རྒྱུ་ཡིན་པས། མིག་སྔའི་གཞི་གྲངས་དག་ཉར་ཚགས་བྱས་ཡོད་མེད་གཏན་འཁེལ་བྱོས།</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>ドキュメント、テキスト、スプレッドシートを保存してください</translation>
+        <translation>དཔེར་ན་ཡིག་ཆ་དང་། ཡིག་རྐྱང་། རེའུ་མིག་སོགས་ཀྱི་གཞི་གྲངས། </translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
         <source>Continue</source>
-        <translation>続行</translation>
+        <translation>མུ་མཐུད།</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>システムメモリーが不足しています。フリーズを避けるにはアプリケーションをいくつか終了させてください。</translation>
+        <translation>མིག་སྔའི་རྒྱུད་ཁོངས་ཀྱི་ནང་གསོག་མི་འདང་བས། མི་འགག་པའི་ཆེད་འབྲེལ་ཡོད་ཀྱི་ཉེར་སྤྱོད་ནང་གསོག་གློད་གྲོལ་བྱེད།</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>%1 を実行するには、%2 MB のメモリーが必要です</translation>
+        <translation>གལ་ཏེ་ཉེར་སྤྱོད་%1མུ་མཐུད་འཁོར་སྐྱོད་བྱེད་དགོས་ན། ནང་གསོག་%2MBགློད་གྲོལ་བྱེད་དགོས།</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>ブラウザーのタブを開くには、%1 MB のメモリーが必要です</translation>
+        <translation>གལ་ཏེ་བཤར་ཆས་མུ་མཐུད་ཁ་ཕྱེ་དགོས་ཚེ། ནང་གསོག་%1MBགློད་གྲོལ་བྱེད་དགོས།</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>操作を実行するには、%1 MB のメモリーが必要です</translation>
+        <translation>གལ་ཏེ་བཀའ་རྒྱ་མུ་མཐུད་ལག་ལེན་བསྟར་དགོས་ཚེ། ནང་གསོག་%1MBགློད་གྲོལ་བྱེད་དགོས།</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>現在メモリーに十分な空きがあります。%1 を実行しますか？</translation>
+        <translation>ཁྱོད་ཀྱི་མིག་སྔའི་ནང་གསོག་འདང་ངེས་འདུག་པས། ཉེར་སྤྱོད་%1མུ་མཐུད་འཁོར་སྐྱོད་བྱེད་དགོས་སམ།</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>現在メモリーに十分な空きがあります。ブラウザーのタブを開きますか？</translation>
+        <translation>ཁྱོད་ཀྱི་མིག་སྔའི་ནང་གསོག་འདང་ངེས་འདུག་པས། བཤར་ཆས་མུ་མཐུད་ཁ་ཕྱེ་དགོས་སམ།</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation>現在メモリーに十分な空きがあります。操作を実行しますか？</translation>
+        <translation>ཁྱོད་ཀྱི་མིག་སྔའི་ནང་གསོག་འདང་ངེས་འདུག་པས། བཀའ་རྒྱ་མུ་མཐུད་ལག་ལེན་བསྟར་དགོས་སམ།</translation>
     </message>
 </context>
 <context>
@@ -185,22 +185,22 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>更新内容はダウンロードされました。更新するため再起動しますか？</translation>
+        <translation>གསར་བརྗེ་ཕབ་ལེན་བྱས་ཟིན། འགོ་བསྐྱར་སློང་བྱས་ནས་གསར་བརྗེ་ལེགས་གྲུབ་བྱེད་དགོས་པས། གསར་བརྗེ་བྱེད་དགོས་སམ།</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
         <source>Remind Later</source>
-        <translation>後で通知</translation>
+        <translation>ཏོག་ཙམ་ནས་དྲན་སྐུལ་བྱེད།</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
         <source>Not Now</source>
-        <translation>今は行わない</translation>
+        <translation>གནས་སྐབས་གསར་པ་མི་བརྗེ།</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
         <source>Update Now</source>
-        <translation>今すぐ更新</translation>
+        <translation>ལམ་སེང་གསར་སྒྱུར་བྱེད།</translation>
     </message>
 </context>
 <context>
@@ -208,17 +208,17 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="249"/>
         <source>Only on %1</source>
-        <translation type="unfinished"/>
+        <translation>བརྙན་ཡོལ་%1</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="251"/>
         <source>Duplicate</source>
-        <translation>複製</translation>
+        <translation>པར་སློག</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="253"/>
         <source>Extend</source>
-        <translation>拡張</translation>
+        <translation>རྒྱ་སྐྱེད།</translation>
     </message>
 </context>
 <context>
@@ -226,12 +226,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>電源を切ったり、電源コードを抜いたりしないでください</translation>
+        <translation>གློག་ཁུངས་བཀོག་པའམ་ཨུ་ཚུགས་ཀྱིས་ཁ་མ་རྒྱོབ།</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>更新内容 %1% をインストールしています。お待ちください...</translation>
+        <translation>སྒྲིག་འཇུག་གསར་བརྗེ་བྱེད་བཞིན་ཡོད་པས་%1%། ཏོག་ཙམ་སྒུག་རོགས།</translation>
     </message>
 </context>
 <context>
@@ -239,27 +239,27 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
         <source>Domain account</source>
-        <translation>ドメインアカウント</translation>
+        <translation>ཁོངས་ཀྱི་རྩིས་ཁྲ།</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>指紋認証がタイムアウトしました。パスワードを手入力してください</translation>
+        <translation>མཛུབ་རིས་གསང་ཨང་ར་སྤྲོད་བྱེད་པ་དུས་ཚོད་ལས་ཡོལ་ཟིན་པས། ལག་ཐབས་ཀྱིས་ནང་འཇུག་བྱེད་རོགས།</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation>指紋が一致しませんでした</translation>
+        <translation>མཛུབ་རིས་ཀྱིས་སྒོ་ལྕགས་ཕྱེ་ཐུབ་མ་སོང་།</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
         <source>Wrong Password</source>
-        <translation>パスワードが違います</translation>
+        <translation>གསང་ཨང་ནོར་འདུག</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>ドメインアカウントまたはパスワードが違います。もう一度入力してください。</translation>
+        <translation>ཁོངས་ཀྱི་རྩིས་ཁྲའམ་ཁོངས་ཀྱི་གསང་ཨང་ནོར་འདུག་པས། ཡང་བསྐྱར་ནང་འཇུག་བྱོས།</translation>
     </message>
 </context>
 <context>
@@ -267,7 +267,7 @@
     <message>
         <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="66"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation>ཕྱིར་འཐེན།</translation>
     </message>
 </context>
 <context>
@@ -275,7 +275,7 @@
     <message>
         <location filename="../dde-osd/kblayoutindicator.cpp" line="161"/>
         <source>Add keyboard layout</source>
-        <translation>キーボードレイアウトを追加</translation>
+        <translation>མཐེབ་གཞོང་བཀོད་པ་སྣོན་པ།</translation>
     </message>
 </context>
 <context>
@@ -283,22 +283,22 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
-        <translation>ドメインアカウント</translation>
+        <translation>ཁོངས་ཀྱི་རྩིས་ཁྲ།</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>指紋認証がタイムアウトしました。パスワードを手入力してください</translation>
+        <translation>མཛུབ་རིས་གསང་ཨང་ར་སྤྲོད་བྱེད་པ་དུས་ཚོད་ལས་ཡོལ་ཟིན་པས། ལག་ཐབས་ཀྱིས་ནང་འཇུག་བྱེད་རོགས།</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
-        <translation>指紋が一致しませんでした</translation>
+        <translation>མཛུབ་རིས་ཀྱིས་སྒོ་ལྕགས་ཕྱེ་ཐུབ་མ་སོང་།</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
         <source>Wrong Password</source>
-        <translation>パスワードが違います</translation>
+        <translation>གསང་ཨང་ནོར་འདུག</translation>
     </message>
 </context>
 <context>
@@ -306,17 +306,17 @@
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation>ཕྱིར་འཐེན།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
         <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>上記のユーザーがまだログインしているため、再起動によりこのデータが失われます。再起動してもよろしいですか？</translation>
+        <translation>གློག་ཀླད་འདིའི་སྟེང་ད་དུང་གོང་གི་རྩིས་ཁྲ་དག་ཐོ་འཇུག་བྱས་ཡོད། གློག་ཀླད་བསྐྱར་སློང་བྱས་ཚེ་གཞི་གྲངས་བརླག་སྲིད་པས། གློག་ཀླད་འདི་བསྐྱར་སློང་བྱ་དགོས་སམ།</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
         <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation>現在上記のユーザーがまだログインしているため、シャットダウンによりこのデータが失われます。シャットダウンしてもよろしいですか？</translation>
+        <translation>གློག་ཀླད་འདིའི་སྟེང་ད་དུང་གོང་གི་རྩིས་ཁྲ་དག་ཐོ་འཇུག་བྱས་ཡོད། གློག་ཀླད་ཁ་བརྒྱབ་ཚེ་གཞི་གྲངས་བརླག་སྲིད་པས། གློག་ཀླད་འདི་ཁ་རྒྱག་དགོས་སམ།</translation>
     </message>
 </context>
 <context>
@@ -326,54 +326,54 @@
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
         <source>Password</source>
-        <translation>パスワード</translation>
+        <translation>གསང་ཨང་། </translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
         <source>Key</source>
-        <translation>キー</translation>
+        <translation>གསང་ལྡེ།</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
         <source>key</source>
-        <translation>キー</translation>
+        <translation>གསང་ལྡེ།</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
         <source>Private Pwd</source>
-        <translation>プライベートパスワード</translation>
+        <translation>སྒེར་ལྡེའི་གསང་ཨང་།</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation>プロキシパスワード</translation>
+        <translation>ལས་ཚབ་གསང་ཨང་།</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
         <source>Group Password</source>
-        <translation>グループパスワード</translation>
+        <translation>ཚོ་པའི་གསང་ཨང་།</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation>&lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; への接続にはパスワードが必要です</translation>
+        <translation>1%དང་21མཐུད་པར་གསང་ཨང་དགོས།</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
-        <translation>パスワードが違います。再度入力してください！</translation>
+        <translation>གསང་ཨང་ནོར་འདུག་པས། ཡང་བསྐྱར་ནང་འཇུག་བྱོས།</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation>ཕྱིར་འཐེན།</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
         <source>Connect</source>
-        <translation>接続</translation>
+        <translation>འབྲེལ་མཐུད། </translation>
     </message>
 </context>
 <context>
@@ -381,32 +381,32 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
         <source>Notification Center</source>
-        <translation>通知センター</translation>
+        <translation>བརྡ་ཐོའི་ལྟེ་གནས།</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="91"/>
         <source>%1 Notifications</source>
-        <translation>%1件の通知</translation>
+        <translation>བརྡ་ཐོ་%1</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="93"/>
         <source>No messages</source>
-        <translation>メッセージなし</translation>
+        <translation>བརྡ་འཕྲིན་གསར་པ་མི་འདུག</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn off DND mode</source>
-        <translation>おやすみモードをオフにする</translation>
+        <translation>སུན་འགོག་དཔེ་རྣམ་ཁ་རྒྱོབ།</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn on DND mode</source>
-        <translation>おやすみモードをオンにする</translation>
+        <translation>སུན་འགོག་དཔེ་རྣམ་ཁ་ཕྱེ།</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>
         <source>Notification settings</source>
-        <translation>通知の設定</translation>
+        <translation>བརྡ་ཐོ་སྒྲིག་འགོད།</translation>
     </message>
 </context>
 <context>
@@ -414,7 +414,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
-        <translation>通知センター</translation>
+        <translation>བརྡ་ཐོའི་ལྟེ་གནས།</translation>
     </message>
 </context>
 <context>
@@ -422,7 +422,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
-        <translation>システム通知はありません</translation>
+        <translation>རྒྱུད་ཁོངས་ཀྱི་བརྡ་ཐོ་མེད།</translation>
     </message>
 </context>
 <context>
@@ -430,17 +430,17 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="47"/>
         <source>Window effect enabled</source>
-        <translation>ウィンドウ エフェクトを有効にしました</translation>
+        <translation>སྒེའུ་ཁུང་གི་དམིགས་བསལ་ནུས་པ་ཁ་ཕྱེ་བ།</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
-        <translation>ウィンドウ エフェクトを無効にしました</translation>
+        <translation>སྒེའུ་ཁུང་གི་དམིགས་བསལ་ནུས་པ་ཁ་བརྒྱབ་ཟིན།</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
-        <translation>ウィンドウ エフェクトを有効にできませんでした</translation>
+        <translation>སྒེའུ་ཁུང་གི་དམིགས་བསལ་ནུས་པ་ཁ་འབྱེད་ཐབས་བྲལ།</translation>
     </message>
 </context>
 <context>
@@ -448,17 +448,17 @@
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation type="unfinished"/>
+        <translation>སོ་སྔོན་སྒྲིག་ཆས་ཀྱི་PINདང་མཐུད་པ།</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>འདོར་བ། </translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>གཏན་ཁེལ། </translation>
     </message>
 </context>
 <context>
@@ -466,7 +466,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation>終了</translation>
+        <translation>གློད་གྲོལ།</translation>
     </message>
 </context>
 <context>
@@ -474,23 +474,23 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation>外部モニターを検出しました。サスペンドしますか？</translation>
+        <translation>ཕྱི་རོལ་གྱི་མངོན་ཆས་དཔྱད་འཇལ་ཐུབ་པས། སྒུག་སྡོད་དགོས་སམ།</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
         <source>%1s</source>
-        <translation>%1 秒</translation>
+        <translation>སྐར་ཆ་%1</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation>ཕྱིར་འཐེན།</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
         <source>Suspend</source>
-        <translation>サスペンド</translation>
+        <translation>སྒུག་སྡོད།</translation>
     </message>
 </context>
 <context>
@@ -498,7 +498,7 @@
     <message>
         <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
         <source>Start system monitor</source>
-        <translation>システムモニターを開始</translation>
+        <translation>རྒྱུད་ཁོངས་ཀྱི་ལྟ་ཆས་འགོ་སློང་།</translation>
     </message>
 </context>
 <context>
@@ -519,17 +519,17 @@
     <message>
         <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="43"/>
         <source>Select your touch screen</source>
-        <translation>タッチスクリーンを選択してください</translation>
+        <translation>ཐུག་རེག་བརྙན་ཡོལ་གདམ་པ། </translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="53"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation>འདོར་བ། </translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="54"/>
         <source>Confirm</source>
-        <translation>確認</translation>
+        <translation>གཏན་ཁེལ། </translation>
     </message>
 </context>
 <context>
@@ -537,17 +537,17 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>ようこそ、システムは正常にアップデートされました</translation>
+        <translation>དགའ་བསུ་ཞུ། རྒྱུད་ཁོངས་རིམ་སྤོར་ལེགས་གྲུབ་བྱུང་སོང་།</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
         <source>Current Edition:</source>
-        <translation>現在のエディション:</translation>
+        <translation>མིག་སྔའི་པར་གཞི།</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation>入力</translation>
+        <translation>སྤྱོད་འགོ་ཚུགས།</translation>
     </message>
 </context>
 <context>
@@ -555,27 +555,27 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>エフェクトモード</translation>
+        <translation>དཔེ་རྣམ་དམིགས་བསལ།</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>通常モード</translation>
+        <translation>དཔེ་རྣམ་དཀྱུས་མ།</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>仮想マシンの使用が検出されました。これは、システムパフォーマンスやオペレーションエクスペリエンスに影響を及ぼします。エクスペリエンス向上のため、通常モードを推奨します</translation>
+        <translation>ཁྱོད་ཀྱིས་རྟོག་བཟོའི་འཕྲུལ་འཁོར་སྤྱོད་བཞིན་འདུག་པས། འདིས་རྒྱུད་ཁོངས་ཀྱི་ནུས་པ་དང་བཀོལ་སྤྱོད་མྱོང་རོལ་ལ་ཤུགས་རྐྱེན་ཐེབས་ཀྱི་ཡོད། རྟོག་བཟོའི་འཕྲུལ་འཁོར་ནང་རྒྱུད་ཁོངས་འདི་ཉིད་བདེ་བླག་ངང་སྤྱོད་ཐུབ་ཆེད། ཁྱོད་ཀྱིས་སྤྱིར་བཏང་གི་དཔེ་རྣམ་བདམས་ནས་ཅོག་ངོས་སུ་འཛུལ་རྒྱུའི་གྲོས་འདོན་རྒྱུ་ཡིན།</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>エフェクトモード: 優美な体験をご堪能ください。通常モード: 高速パフォーマンスをお楽しみください</translation>
+        <translation>དམིགས་བསལ་ནུས་པའི་དཔེ་རྣམ། སྤུས་དག་ཅིང་ལྟ་ན་སྡུག་པ་ཉམས་སུ་མྱོང་བ། སྤྱིར་བཏང་གི་དཔེ་རྣམ། བདེ་བླག་མྱུར་མགྱོགས་ཀྱི་ནུས་པ་ཉམས་སུ་མྱོང་བ།</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>お知らせ</translation>
+        <translation>མཛའ་བརྩེའི་དྲན་སྐུལ།</translation>
     </message>
 </context>
 <context>
@@ -583,17 +583,17 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>お知らせ</translation>
+        <translation>ཤ་ཚའི་དྲན་སྐུལ།</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
         <source>This application cannot run without window effect</source>
-        <translation>このアプリケーションは、ウィンドウ エフェクトなしでは実行できません</translation>
+        <translation>བཀོལ་སྤྱོད་འདི་ཉིད་སྒེའུ་ཁུང་གི་དམིགས་བསལ་ནུས་པ་མེད་པའི་འོག་འཁོར་སྐྱོད་བྱེད་པར་རྒྱབ་སྐྱོར་མེད།</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>གཏན་ཁེལ།</translation>
     </message>
 </context>
 <context>
@@ -601,7 +601,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>バッテリが少なくなっています、電源に接続してください</translation>
+        <translation>གློག་མི་འདང་བས་གློག་ཁུངས་དང་མཐུད་རོགས།</translation>
     </message>
 </context>
 </TS>
