@@ -139,6 +139,10 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QString &body, const QStringList &actions,
                            const QVariantMap hints, int expireTimeout)
 {
+    QGSettings oem_setting("com.deepin.dde.notifications", "/com/deepin/dde/notifications/");
+    if (oem_setting.keys().contains("notifycationClosed") && oem_setting.get("notifycationClosed").toBool())
+        return 0;
+
     QGSettings setting("com.deepin.dde.osd", "/com/deepin/dde/osd/");
     if (setting.keys().contains("bubbleDebugPrivacy") && setting.get("bubble-debug-privacy").toBool()) {
         qDebug() << "Notify:" << "appName:" + appName << "replaceID:" + QString::number(replacesId)
