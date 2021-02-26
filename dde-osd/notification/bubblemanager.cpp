@@ -64,6 +64,7 @@ BubbleManager::BubbleManager(QObject *parent)
                                               QDBusConnection::sessionBus(), this))
     , m_notifySettings(new NotifySettings(this))
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
+    , m_appearance(new Appearance("com.deepin.daemon.Appearance", "/com/deepin/daemon/Appearance", QDBusConnection::sessionBus(), this))
     , m_gestureInter(new GestureInter("com.deepin.daemon.Gesture"
                                       , "/com/deepin/daemon/Gesture"
                                       , QDBusConnection::systemBus()
@@ -77,6 +78,7 @@ BubbleManager::BubbleManager(QObject *parent)
     initConnections();
     geometryChanged();
 
+    m_notifyCenter->setMaskAlpha(m_appearance->opacity() * 255);
     m_notifyCenter->hide();
     registerAsService();
 
@@ -204,6 +206,10 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
         } else {
             DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
         }
+    }
+
+    if (systemNotification && dndmode) {
+        DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
     }
 
     if (!calcReplaceId(notification)) {
@@ -498,6 +504,11 @@ void BubbleManager::appInfoChanged(QString action, LauncherItemInfo info)
     }
 }
 
+void BubbleManager::onOpacityChanged(double value)
+{
+    m_notifyCenter->setMaskAlpha(value * 255);
+}
+
 QString BubbleManager::getAllSetting()
 {
     return m_notifySettings->getAllSetings();
@@ -617,6 +628,8 @@ void BubbleManager::initConnections()
     connect(m_dockDeamonInter, &DockInter::PositionChanged, this, [ this ] {
         m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
     });
+
+    connect(m_appearance, &Appearance::OpacityChanged, this,  &BubbleManager::onOpacityChanged);
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
@@ -677,6 +690,8 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
 Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
 {
     Bubble *bubble = new Bubble(nullptr, notify);
+    bubble->setMaskAlpha(m_appearance->opacity() * 255);
+    connect(m_appearance, &Appearance::OpacityChanged, bubble, &Bubble::onOpacityChanged);
     connect(bubble, &Bubble::expired, this, &BubbleManager::bubbleExpired);
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);
     connect(bubble, &Bubble::actionInvoked, this, &BubbleManager::bubbleActionInvoked);
