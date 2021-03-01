@@ -39,6 +39,7 @@
 #include <QProcess>
 #include <QMouseEvent>
 #include <QScroller>
+#include <QPainterPath>
 
 #include <DIconButton>
 #include <DStyleHelper>
