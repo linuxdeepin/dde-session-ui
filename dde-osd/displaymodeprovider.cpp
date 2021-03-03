@@ -162,7 +162,7 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
     QSvgRenderer renderer(imageData.toString());
     QRect imageRect = QRect(QPoint(backRect.x() + ICON_HSPACE,
                                    backRect.y() + ((backRect.height() - IconSize) / 2)),
-                                   QSize(IconSize, IconSize));
+                            QSize(IconSize, IconSize));
     renderer.render(painter, imageRect);
 
     // 绘制文字
@@ -175,8 +175,8 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
     // 画复选框
     if (checkState) {
         QRect checkButtonRect = backRect.marginsRemoved(QMargins(backRect.width() - CHECK_ICON_SIZE - CHECK_ICON_HSPACE,
-                                                        (backRect.height() - CHECK_ICON_SIZE) / 2, CHECK_ICON_HSPACE,
-                                                        (backRect.height() - CHECK_ICON_SIZE) / 2));
+                                                                 (backRect.height() - CHECK_ICON_SIZE) / 2, CHECK_ICON_HSPACE,
+                                                                 (backRect.height() - CHECK_ICON_SIZE) / 2));
         painter->setPen(Qt::NoPen);
         painter->setBrush(textCorlor);
         painter->drawEllipse(checkButtonRect);
@@ -215,7 +215,10 @@ void DisplayModeProvider::updateOutputNames()
             QDBusReply<QStringList> reply = watcher->reply();
             m_displayMode = m_displayInter->displayMode();
             m_primaryScreen = m_displayInter->primary();
+
             m_outputNames = reply.value();
+            // 按照名称排序，显示的时候VGA在前，HDMI在后
+            qSort(m_outputNames.begin(), m_outputNames.end(), qGreater<QString>());
             updatePlanItems();
             emit dataChanged();
         }
@@ -234,7 +237,7 @@ void DisplayModeProvider::updatePlanItems()
 
     for (QPair<uchar, QString> pair : m_planItems) {
         if ((m_displayMode != SINGLE_MODE && m_displayMode == pair.first)
-            || (m_displayMode == SINGLE_MODE && m_primaryScreen == pair.second)) {
+                || (m_displayMode == SINGLE_MODE && m_primaryScreen == pair.second)) {
             m_currentPlan = pair;
             break;
         }
