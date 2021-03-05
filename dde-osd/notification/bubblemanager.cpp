@@ -384,6 +384,10 @@ bool BubbleManager::isDoNotDisturb()
     if (!m_notifySettings->getSystemSetting(NotifySettings::DNDMODE).toBool())
         return false;
 
+    if (!m_notifySettings->getSystemSetting(NotifySettings::OPENBYTIMEINTERVAL).toBool()) { // 未按时间段开启默认全时间段开启
+        return true;
+    }
+
     QTime currentTime = QTime::fromString(QDateTime::currentDateTime().toString("hh:mm"));
     QTime startTime = QTime::fromString(m_notifySettings->getSystemSetting(NotifySettings::STARTTIME).toString());
     QTime endTime = QTime::fromString(m_notifySettings->getSystemSetting(NotifySettings::ENDTIME).toString());
