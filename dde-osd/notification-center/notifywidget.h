@@ -25,7 +25,7 @@
 
 #include <QWidget>
 
-class Persistence;
+class AbstractPersistence;
 class AppGroupModel;
 class AppGroupDelegate;
 class QLabel;
@@ -40,12 +40,12 @@ class NotifyWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit NotifyWidget(QWidget *parent = nullptr, Persistence *database = nullptr);
+    explicit NotifyWidget(QWidget *parent = nullptr, AbstractPersistence *database = nullptr);
     QListView *view() { return m_mainList; }
     NotifyModel *model() { return m_model; }
 
 private:
-    void initView(Persistence *database);
+    void initView(AbstractPersistence *database);
 
 protected:
     void showEvent(QShowEvent *event) override;

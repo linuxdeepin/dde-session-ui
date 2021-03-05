@@ -15,18 +15,6 @@ SUBDIRS += dde-license-dialog \
     dde-notification-plugin \
     dde-pixmix \
     dde-touchscreen-dialog \
-    test/tst_dde-bluetooth-dialog \
-    test/tst_dde-welcome \
-    test/tst_dde-license-dialog \
-    test/tst_dde-lowpower \
-    test/tst_dde-osd \
-    test/tst_dde-suspend-dialog \
-    test/tst_dde-touchscreen-dialog \
-    test/tst_dde-warning-dialog \
-    test/tst_dde-wm-chooser \
-    test/tst_dmemory-warning-dialog \
-    test/tst_dnetwork-secret-dialog \
-    test/tst_dde-notification-plugin \
 
 load(dtk_qmake)
 include(common.pri)

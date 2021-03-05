@@ -36,6 +36,7 @@
 
 class QTimer;
 class Persistence;
+class AbstractPersistence;
 class NotifyListView;
 
 typedef struct{
@@ -50,7 +51,7 @@ class NotifyModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    NotifyModel(QObject *parent = nullptr, Persistence *database = nullptr, NotifyListView *view = nullptr);
+    NotifyModel(QObject *parent = nullptr, AbstractPersistence *database = nullptr, NotifyListView *view = nullptr);
     NotifyListView *view() { return m_view; }
     ListItem getAppData(QString appName) const;
 

@@ -26,6 +26,7 @@
 #include <QStringList>
 #include <QVariantMap>
 #include <memory>
+#include <QDateTime>
 /*!
  * \~chinese \class 通知的数据结构类
  * \~chinese \brief 设置或者返回通知的信息
@@ -37,7 +38,7 @@ public:
     NotificationEntity(const QString &appName = QString(), const QString &id = QString(),
                        const QString &appIcon = QString(), const QString &summary = QString(),
                        const QString &body = QString(), const QStringList &actions = QStringList(),
-                       const QVariantMap hints = QVariantMap(), const QString &ctime = QString(),
+                       const QVariantMap hints = QVariantMap(), const QString &ctime = QString::number(QDateTime::currentMSecsSinceEpoch()),
                        const QString &replacesId = QString(), const QString &timeout = QString(),
                        QObject *parent = nullptr);
 

@@ -31,7 +31,7 @@
 #include "itemdelegate.h"
 #include "notifymodel.h"
 
-NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
+NotifyWidget::NotifyWidget(QWidget *parent, AbstractPersistence *database)
     : QWidget(parent)
 {
     initView(database);
@@ -48,7 +48,7 @@ NotifyWidget::NotifyWidget(QWidget *parent, Persistence *database)
     setLayout(mainVBLayout);
 }
 
-void NotifyWidget::initView(Persistence *database)
+void NotifyWidget::initView(AbstractPersistence *database)
 {
     m_mainList = new NotifyListView(this);
     m_model = new NotifyModel(this,database, m_mainList);

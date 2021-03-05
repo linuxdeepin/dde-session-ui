@@ -16,8 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(../../dde-bluetooth-dialog/src.pri)
 
 SOURCES += \
-    $$PWD/main.cpp \
-    $$PWD/tst_pincodedialog.cpp
+    tst_pincodedialog.cpp \
+    ut_dde-bluetooth-dialog_main.cpp
 
 INCLUDEPATH += ../../dde-bluetooth-dialog
 

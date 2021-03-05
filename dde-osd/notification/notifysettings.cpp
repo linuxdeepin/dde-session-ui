@@ -40,7 +40,7 @@ const QString appSchemaKey = "com.deepin.dde.notifications.applications";
 const QString appSchemaPath = "/com/deepin/dde/notifications/applications/%1/";
 
 NotifySettings::NotifySettings(QObject *parent)
-    : QObject(parent)
+    : AbstractNotifySetting(parent)
     , m_initTimer(new QTimer(this))
     , m_launcherInter(new LauncherInter("com.deepin.dde.daemon.Launcher",
                                         "/com/deepin/dde/daemon/Launcher",
@@ -252,7 +252,7 @@ void NotifySettings::appRemoved(const QString &id)
     Q_EMIT appRemovedSignal(id);
 }
 
-void NotifySettings::setAppSetting(QString settings)
+void NotifySettings::setAppSetting_v1(QString settings)
 {
     QJsonObject jsonObj = QJsonDocument::fromJson(settings.toLocal8Bit()).object();
     QString id = jsonObj.begin().key();
@@ -267,7 +267,7 @@ void NotifySettings::setAppSetting(QString settings)
     itemSetting.set("app-name", jsonObj[AppNameStr].toString());
 }
 
-QString NotifySettings::getAppSettings(const QString &id)
+QString NotifySettings::getAppSettings_v1(const QString &id)
 {
     QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
     QJsonObject jsonObj;
@@ -283,7 +283,7 @@ QString NotifySettings::getAppSettings(const QString &id)
     return QString(QJsonDocument(appSetingObj).toJson());
 }
 
-void NotifySettings::setSystemSetting(QString settings)
+void NotifySettings::setSystemSetting_v1(QString settings)
 {
     QJsonObject jsonObj = QJsonDocument::fromJson(settings.toUtf8()).object();
     jsonObj = jsonObj.begin().value().toObject();
@@ -309,7 +309,7 @@ void NotifySettings::setSystemSetting(QString settings)
     }
 }
 
-QString NotifySettings::getSystemSetings()
+QString NotifySettings::getSystemSetings_v1()
 {
     QJsonObject jsonObj;
     jsonObj.insert(DoNotDisturbStr, m_systemSetting->get("dndmode").toJsonValue());
@@ -323,13 +323,13 @@ QString NotifySettings::getSystemSetings()
     return QString(QJsonDocument(SystemSetingObj).toJson());
 }
 
-void NotifySettings::setAllSetting(QString settings)
+void NotifySettings::setAllSetting_v1(QString settings)
 {
     // 未被使用的接口废弃
     Q_UNUSED(settings)
 }
 
-QString NotifySettings::getAllSetings()
+QString NotifySettings::getAllSetings_v1()
 {
     QStringList appList = m_systemSetting->get("app-list").toStringList();
 

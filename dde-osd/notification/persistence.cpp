@@ -48,7 +48,7 @@ static const QString ColumnReplacesId = "ReplacesId";
 static const QString ColumnTimeout = "Timeout";
 
 Persistence::Persistence(QObject *parent)
-    : QObject(parent)
+    : AbstractPersistence(parent)
 {
     const QString dataDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 

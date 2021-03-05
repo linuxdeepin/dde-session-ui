@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <QMimeData>
 
-class TstManager : public testing::Test
+class UT_Manager : public testing::Test
 {
 public:
     void SetUp() override
@@ -23,7 +23,7 @@ public:
     Manager *obj = nullptr;
 };
 
-TEST_F(TstManager, coverageTest)
+TEST_F(UT_Manager, coverageTest)
 {
 
     QStringList argList;

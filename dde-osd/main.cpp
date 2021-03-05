@@ -39,6 +39,8 @@
 #include "manager.h"
 #include "kblayoutindicator.h"
 #include "accessible.h"
+#include "notification/persistence.h"
+#include "notification/notifysettings.h"
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
@@ -153,7 +155,9 @@ int main(int argc, char *argv[])
     }
 
     // run notification
-    BubbleManager manager;
+    Persistence persistence;
+    NotifySettings setting;
+    BubbleManager manager(&persistence, &setting);
 
     DDENotifyDBus ddenotify(&manager);
     NotificationsDBusAdaptor adapter(&manager);

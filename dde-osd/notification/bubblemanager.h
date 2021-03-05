@@ -71,8 +71,11 @@ static const QString SessionDaemonDBusPath = "/com/deepin/SessionManager";
 class DBusControlCenter;
 class Login1ManagerInterface;
 class Persistence;
+class AbstractPersistence;
 class NotifyCenterWidget;
 class NotifySettings;
+class AbstractNotifySetting;
+
 class DBusDockInterface;
 
 class BubbleManager : public QObject, public QDBusContext
@@ -82,7 +85,8 @@ class BubbleManager : public QObject, public QDBusContext
     Q_PROPERTY(QString systemSetting READ getSystemSetting WRITE setSystemSetting)
 
 public:
-    explicit BubbleManager(QObject *parent = nullptr);
+    explicit BubbleManager(AbstractPersistence *persistence = nullptr,
+                           AbstractNotifySetting *setting = nullptr, QObject *parent = nullptr);
     ~BubbleManager();
 
     enum ClosedReason {
@@ -264,13 +268,13 @@ private:
     QList<EntityPtr> m_oldEntities;
     QList<QPointer<Bubble>> m_bubbleList;
 
-    Persistence *m_persistence;
+    AbstractPersistence *m_persistence;
     Login1ManagerInterface *m_login1ManagerInterface;
     DisplayInter *m_displayInter;
     DockInter *m_dockDeamonInter;
     UserInter *m_userInter;
     SoundeffectInter *m_soundeffectInter;
-    NotifySettings *m_notifySettings;
+    AbstractNotifySetting *m_notifySettings;
     NotifyCenterWidget *m_notifyCenter;
     Appearance *m_appearance;
 

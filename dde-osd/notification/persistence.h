@@ -33,9 +33,35 @@
 #define KEYVALUE_SEGMENT ("!!!")
 
 class NotificationEntity;
-class Persistence : public QObject
+
+class AbstractPersistence : public QObject
 {
     Q_OBJECT
+public:
+    explicit AbstractPersistence(QObject *parent = nullptr)
+        : QObject(parent)
+    {
+    }
+
+    virtual void addOne(EntityPtr entity) = 0;
+    virtual void addAll(QList<EntityPtr> entities) = 0;
+    virtual void removeOne(const QString &id) = 0;
+    virtual void removeApp(const QString &app_name) = 0;
+    virtual void removeAll() = 0;
+
+    virtual QList<EntityPtr> getAllNotify() = 0;
+    virtual QString getAll() = 0;
+    virtual QString getById(const QString &id) = 0;
+
+    virtual QString getFrom(int rowCount, const QString &offsetId) = 0;
+    virtual int getRecordCount() = 0;
+
+signals:
+    void RecordAdded(EntityPtr entity);
+};
+
+class Persistence : public AbstractPersistence
+{
 public:
     explicit Persistence(QObject *parent = nullptr);
 
@@ -54,9 +80,6 @@ public:
     QString getFrom(int rowCount, const QString &offsetId);
 
     int getRecordCount();                       //获取通知记录有多少条
-
-signals:
-    void RecordAdded(EntityPtr entity);
 
 private:
     void attemptCreateTable();  //在数据库中尝试创建一个表,记录通知信息

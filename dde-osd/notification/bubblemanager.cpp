@@ -49,9 +49,9 @@
 using DisplayInter = com::deepin::daemon::Display;
 using MonitorInter = com::deepin::daemon::display::Monitor;
 
-BubbleManager::BubbleManager(QObject *parent)
+BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySetting *setting, QObject *parent)
     : QObject(parent)
-    , m_persistence(new Persistence)
+    , m_persistence(persistence)
     , m_login1ManagerInterface(new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this))
     , m_displayInter(new DisplayInter(DisplayDaemonDBusServie, DisplayDaemonDBusPath,
@@ -62,7 +62,7 @@ BubbleManager::BubbleManager(QObject *parent)
                                 QDBusConnection::sessionBus(), this))
     , m_soundeffectInter(new SoundeffectInter(SoundEffectDaemonDBusServie, SoundEffectDaemonDBusPath,
                                               QDBusConnection::sessionBus(), this))
-    , m_notifySettings(new NotifySettings(this))
+    , m_notifySettings(setting)
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
     , m_appearance(new Appearance("com.deepin.daemon.Appearance", "/com/deepin/daemon/Appearance", QDBusConnection::sessionBus(), this))
     , m_gestureInter(new GestureInter("com.deepin.daemon.Gesture"
@@ -141,6 +141,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QString &body, const QStringList &actions,
                            const QVariantMap hints, int expireTimeout)
 {
+#ifndef GTEST
     QGSettings oem_setting("com.deepin.dde.notifications", "/com/deepin/dde/notifications/");
     if (oem_setting.keys().contains("notifycationClosed") && oem_setting.get("notifycationClosed").toBool())
         return 0;
@@ -163,11 +164,12 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
         qDebug() << "notify called by :" << result;
         process.close();
     }
+#endif
 
     // 应用通知功能未开启不做处理
     bool enableNotificaion = m_notifySettings->getAppSetting(appName, NotifySettings::ENABELNOTIFICATION).toBool();
 
-    if (!enableNotificaion) {
+    if (!enableNotificaion && !IgnoreList.contains(appName)) {
         return 0;
     }
 
@@ -494,7 +496,7 @@ void BubbleManager::SetAppInfo(const QString id, const uint item, const QDBusVar
 void BubbleManager::SetSystemInfo(uint item, const QDBusVariant var)
 {
     m_notifySettings->setSystemSetting(static_cast<NotifySettings::SystemConfigurationItem>(item), var.variant());
-    Q_EMIT systemSettingChanged(m_notifySettings->getSystemSetings());
+    Q_EMIT systemSettingChanged(m_notifySettings->getSystemSetings_v1());
 }
 
 void BubbleManager::appInfoChanged(QString action, LauncherItemInfo info)
@@ -504,7 +506,7 @@ void BubbleManager::appInfoChanged(QString action, LauncherItemInfo info)
         Q_EMIT appRemoved(info.ID);
     } else if (action == CreatedAction) {
         m_notifySettings->appAdded(info);
-        Q_EMIT appAdded(m_notifySettings->getAppSettings(info.ID));
+        Q_EMIT appAdded(m_notifySettings->getAppSettings_v1(info.ID));
     }
 }
 
@@ -515,35 +517,35 @@ void BubbleManager::onOpacityChanged(double value)
 
 QString BubbleManager::getAllSetting()
 {
-    return m_notifySettings->getAllSetings();
+    return m_notifySettings->getAllSetings_v1();
 }
 
 void BubbleManager::setAllSetting(const QString settings)
 {
-    m_notifySettings->setAllSetting(settings);
+    m_notifySettings->setAllSetting_v1(settings);
 }
 
 QString BubbleManager::getAppSetting(QString appName)
 {
-    return m_notifySettings->getAppSettings(appName);
+    return m_notifySettings->getAppSettings_v1(appName);
 }
 
 void BubbleManager::setAppSetting(const QString settings)
 {
     QJsonObject currentObj = QJsonDocument::fromJson(settings.toUtf8()).object();
-    m_notifySettings->setAppSetting(settings);
+    m_notifySettings->setAppSetting_v1(settings);
     Q_EMIT systemSettingChanged(currentObj.begin().key());
 }
 
 QString BubbleManager::getSystemSetting()
 {
-    return m_notifySettings->getSystemSetings();
+    return m_notifySettings->getSystemSetings_v1();
 }
 
 void BubbleManager::setSystemSetting(QString settings)
 {
-    m_notifySettings->setSystemSetting(settings);
-    Q_EMIT systemSettingChanged(m_notifySettings->getSystemSetings());
+    m_notifySettings->setSystemSetting_v1(settings);
+    Q_EMIT systemSettingChanged(m_notifySettings->getSystemSetings_v1());
 }
 
 void BubbleManager::registerAsService()
@@ -621,7 +623,7 @@ void BubbleManager::initConnections()
     });
     connect(m_notifySettings, &NotifySettings::appAddedSignal, this, [ = ] (const QString &id) {
         Q_EMIT AppAddedSignal(id);
-        Q_EMIT appAdded(m_notifySettings->getAppSettings(id));
+        Q_EMIT appAdded(m_notifySettings->getAppSettings_v1(id));
     });
     connect(m_notifySettings, &NotifySettings::appRemovedSignal, this, [ = ] (const QString &id) {
         Q_EMIT AppRemovedSignal(id);

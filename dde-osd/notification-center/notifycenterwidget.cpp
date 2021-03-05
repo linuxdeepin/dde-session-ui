@@ -45,7 +45,7 @@
 
 DWIDGET_USE_NAMESPACE
 
-NotifyCenterWidget::NotifyCenterWidget(Persistence *database, QWidget *parent)
+NotifyCenterWidget::NotifyCenterWidget(AbstractPersistence *database, QWidget *parent)
     : DBlurEffectWidget(parent)
     , m_notifyWidget(new NotifyWidget(this, database))
     , m_xAni(new QPropertyAnimation(this, "x"))

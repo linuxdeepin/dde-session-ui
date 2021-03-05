@@ -33,7 +33,7 @@ class QTimer;
 
 using LauncherInter = com::deepin::dde::daemon::Launcher;
 
-class NotifySettings : public QObject
+class AbstractNotifySetting : public QObject
 {
     Q_OBJECT
 public:
@@ -56,6 +56,37 @@ public:
         SHOWICON
     } SystemConfigurationItem;
 
+    explicit AbstractNotifySetting(QObject *parent = nullptr)
+        : QObject(parent)
+    {}
+    virtual void initAllSettings() = 0;
+    virtual void setAppSetting(const QString &id, const AppConfigurationItem &item, const QVariant &var) = 0;
+    virtual QVariant getAppSetting(const QString &id, const AppConfigurationItem &item) = 0;
+    virtual void setSystemSetting(const SystemConfigurationItem &item, const QVariant &var) = 0;
+    virtual QVariant getSystemSetting(const SystemConfigurationItem &item) = 0;
+    virtual QStringList getAppLists() = 0;
+    virtual void appAdded(const LauncherItemInfo &info) = 0;
+    virtual void appRemoved(const QString &id) = 0;
+
+    // 兼容之前版本的接口，后期移除
+    virtual void setAppSetting_v1(QString settings) = 0;
+    virtual QString getAppSettings_v1(const QString &id) = 0;
+    virtual void setSystemSetting_v1(QString settings) = 0;
+    virtual QString getSystemSetings_v1() = 0;
+    virtual void setAllSetting_v1(QString settings) = 0;
+    virtual QString getAllSetings_v1() = 0;
+
+signals:
+    void appAddedSignal(const QString &id);
+    void appRemovedSignal(const QString &id);
+    void appSettingChanged(const QString &id, const uint &item, QVariant var);
+    void systemSettingChanged(const uint &item, QVariant var);
+};
+
+class NotifySettings : public AbstractNotifySetting
+{
+    Q_OBJECT
+public:
     explicit NotifySettings(QObject *parent = nullptr);
     void initAllSettings();
     void setAppSetting(const QString &id, const AppConfigurationItem &item, const QVariant &var);
@@ -67,18 +98,12 @@ public:
     void appRemoved(const QString &id);
 
     // 兼容之前版本的接口，后期移除
-    void setAppSetting(QString settings);
-    QString getAppSettings(const QString &id);
-    void setSystemSetting(QString settings);
-    QString getSystemSetings();
-    void setAllSetting(QString settings);
-    QString getAllSetings();
-
-signals:
-    void appAddedSignal(const QString &id);
-    void appRemovedSignal(const QString &id);
-    void appSettingChanged(const QString &id, const uint &item, QVariant var);
-    void systemSettingChanged(const uint &item, QVariant var);
+    void setAppSetting_v1(QString settings);
+    QString getAppSettings_v1(const QString &id);
+    void setSystemSetting_v1(QString settings);
+    QString getSystemSetings_v1();
+    void setAllSetting_v1(QString settings);
+    QString getAllSetings_v1();
 
 private:
     QTimer *m_initTimer;

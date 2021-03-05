@@ -27,10 +27,10 @@
 #include <QDateTime>
 #include <QTimer>
 
-NotifyModel::NotifyModel(QObject *parent, Persistence *database, NotifyListView *view)
+NotifyModel::NotifyModel(QObject *parent, AbstractPersistence *database, NotifyListView *view)
     : QAbstractListModel(parent)
     , m_view(view)
-    , m_database(database)
+    , m_database(static_cast<Persistence *>(database))
     , m_freeTimer(new QTimer(this))
 {
     m_freeTimer->setInterval(AnimationTime + 100);
@@ -40,6 +40,7 @@ NotifyModel::NotifyModel(QObject *parent, Persistence *database, NotifyListView 
 
 ListItem NotifyModel::getAppData(QString appName) const
 {
+
     foreach (auto item, m_notifications) {
         if (item.appName == appName)
             return item;
@@ -271,6 +272,7 @@ void NotifyModel::initData()
             m_database->removeOne(QString::number(notify->id()));
         }
     }
+
 }
 
 void NotifyModel::initConnect()
