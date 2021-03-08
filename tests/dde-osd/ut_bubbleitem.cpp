@@ -7,7 +7,7 @@
 #include <QDateTime>
 #include <QtTest>
 
-class TstBubbleItem : public testing::Test
+class UT_BubbleItem : public testing::Test
 {
 public:
     void SetUp() override
@@ -41,7 +41,7 @@ public:
     EntityPtr entity;
 };
 
-TEST_F(TstBubbleItem, coverageTest)
+TEST_F(UT_BubbleItem, coverageTest)
 {
     obj->setAlpha(10);
     obj->setHasFocus(false);
@@ -49,7 +49,7 @@ TEST_F(TstBubbleItem, coverageTest)
     obj->setOverlapWidget(false);
 }
 
-TEST_F(TstBubbleItem, eventTest)
+TEST_F(UT_BubbleItem, eventTest)
 {
     BubbleItem item(obj, entity);
 

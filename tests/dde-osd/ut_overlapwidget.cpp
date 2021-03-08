@@ -1,16 +1,16 @@
 #include <gtest/gtest.h>
 
-#include "notification/appicon.h"
+#include "notification-center/overlapwidet.h"
 
 #include <QApplication>
 #include <QMimeData>
 
-class TstAppIcon : public testing::Test
+class UT_OverLapWidet : public testing::Test
 {
 public:
     void SetUp() override
     {
-        obj = new AppIcon();
+//        obj = new OverLapWidet();
     }
 
     void TearDown() override
@@ -20,10 +20,10 @@ public:
     }
 
 public:
-    AppIcon *obj = nullptr;
+    OverLapWidet *obj = nullptr;
 };
 
-TEST_F(TstAppIcon, coverageTest)
+TEST_F(UT_OverLapWidet, coverageTest)
 {
-    obj->setIcon("dde-control-center");
+
 }

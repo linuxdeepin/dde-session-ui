@@ -6,7 +6,7 @@
 #include <QMimeData>
 #include <QDateTime>
 
-class TstBubbleTitleWidget : public testing::Test
+class UT_BubbleTitleWidget : public testing::Test
 {
 public:
     void SetUp() override
@@ -40,12 +40,12 @@ public:
     EntityPtr entity;
 };
 
-TEST_F(TstBubbleTitleWidget, coverageTest)
+TEST_F(UT_BubbleTitleWidget, coverageTest)
 {
     obj->bubbleElements();
 }
 
-TEST_F(TstBubbleTitleWidget, indexRowTest)
+TEST_F(UT_BubbleTitleWidget, indexRowTest)
 {
     obj->setIndexRow(10);
     EXPECT_TRUE(10 == obj->indexRow());

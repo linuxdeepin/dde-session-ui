@@ -6,7 +6,7 @@
 #include <QMimeData>
 #include <QWidget>
 
-class TstBubbleTool : public testing::Test
+class UT_BubbleTool : public testing::Test
 {
 public:
     void SetUp() override
@@ -24,12 +24,12 @@ public:
     QWidget *obj = nullptr;
 };
 
-TEST_F(TstBubbleTool, coverageTest)
+TEST_F(UT_BubbleTool, coverageTest)
 {
 //    BubbleTool::register_wm_state(obj->winId());
 }
 
-TEST_F(TstBubbleTool, getAppNameTest)
+TEST_F(UT_BubbleTool, getAppNameTest)
 {
     QString key = "deepin-control-center";
     QString appName = BubbleTool::getDeepinAppName(key);//获取应用名称

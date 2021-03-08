@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <QDateTime>
 
-class TstNotificationEntity : public testing::Test
+class UT_NotificationEntity : public testing::Test
 {
 public:
     void SetUp() override
@@ -23,7 +23,7 @@ public:
     NotificationEntity *obj = nullptr;
 };
 
-TEST_F(TstNotificationEntity, coverageTest)
+TEST_F(UT_NotificationEntity, coverageTest)
 {
     obj->setId("0");
     obj->setBody("图片已保存到/home/chenwei/Desktop/截图录屏_20200709104935.png");

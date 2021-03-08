@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <QMimeData>
 
-class TstAppBody : public testing::Test
+class UT_AppBody : public testing::Test
 {
 public:
     void SetUp() override
@@ -23,7 +23,7 @@ public:
     AppBody *obj = nullptr;
 };
 
-TEST_F(TstAppBody, coverageTest)
+TEST_F(UT_AppBody, coverageTest)
 {
     obj->setTitle("控制中心");
     obj->setText("已连接“有线链接2”");

@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <QMimeData>
 
-class TstNotifyWidget : public testing::Test
+class UT_NotifyWidget : public testing::Test
 {
 public:
     void SetUp() override
@@ -23,7 +23,7 @@ public:
     NotifyWidget *obj = nullptr;
 };
 
-TEST_F(TstNotifyWidget, coverageTest)
+TEST_F(UT_NotifyWidget, coverageTest)
 {
     obj->view();
     obj->model();

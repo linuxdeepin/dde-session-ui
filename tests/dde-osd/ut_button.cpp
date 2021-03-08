@@ -7,7 +7,7 @@
 #include <QAction>
 #include <QPainter>
 
-class TstButton : public testing::Test
+class UT_Button : public testing::Test
 {
 public:
     void SetUp() override
@@ -25,12 +25,12 @@ public:
     Button *obj = nullptr;
 };
 
-TEST_F(TstButton, coverageTest)
+TEST_F(UT_Button, coverageTest)
 {
 
 }
 
-TEST_F(TstButton, valueTest)
+TEST_F(UT_Button, valueTest)
 {
     obj->setRadius(10);
     EXPECT_TRUE(10 == obj->radius());
@@ -56,7 +56,7 @@ TEST_F(TstButton, valueTest)
     obj->setPixmap(QPixmap());
 }
 
-TEST_F(TstButton, actionTest)
+TEST_F(UT_Button, actionTest)
 {
     QAction action(nullptr);
     obj->addAction(&action);

@@ -3,6 +3,8 @@
 
 #include <QAbstractItemModelTester>
 #include <QFocusEvent>
+#include <QApplication>
+#include <QTimer>
 
 #include "mockpersistence.h"
 #include "notification-center/notifymodel.h"
@@ -80,6 +82,17 @@ public:
 
 TEST_F(UT_NotifyListview, coverageTest)
 {
-    //    obj->ex
+    auto notification = std::make_shared<NotificationEntity>("deepin-editor");
+    ListItem item = model->getAppData("deepin-editor");
+    obj->setVisible(true);
+    obj->show();
+    model->cacheData(notification);
+    model->freeData();
+    model->removeNotify(notification);
+    model->expandData("deepin-editor");
+    model->collapseData();
+    model->removeAppGroup("deepin-editor");
+    model->removeTimeOutNotify();
+    model->removeAllData();
 }
 

@@ -21,31 +21,27 @@ include(../../dde-osd/notification-center/notification-center.pri)
 include(../../dde-osd/src.pri)
 
 SOURCES += \
-#    tst_actionbutton.cpp \
-#    tst_appbody.cpp \
-#    tst_appbodylabel.cpp \
-#    tst_appicon.cpp \
-#    tst_bubble.cpp \
-#    tst_bubblemanager.cpp \
-#    tst_bubbletool.cpp \
-#    tst_button.cpp \
-#    tst_iconbutton.cpp \
-#    tst_notificationentity.cpp \
-#    tst_notificationsetting.cpp \
-#    tst_persistence.cpp \
-#    tst_bubbleitem.cpp \
-#    tst_bubbletitlewidget.cpp \
-#    tst_notifylistview.cpp \
-#    tst_notifywidget.cpp \
-#    tst_overlapwidget.cpp \
-#    tst_listview.cpp \
     ut_notifycenterwidget.cpp \
     ut_notifyListview.cpp \
     mockpersistence.cpp \
     ut_bubblemanager.cpp \
     mocknotifysetting.cpp \
     ut_manager.cpp \
-    ut_dde-osd_main.cpp
+    ut_dde-osd_main.cpp \
+    ut_actionbutton.cpp \
+    ut_appbodylabel.cpp \
+    ut_appbody.cpp \
+    ut_appicon.cpp \
+    ut_bubble.cpp \
+    ut_bubbleitem.cpp \
+    ut_bubbletitlewidget.cpp \
+    ut_bubbletool.cpp \
+    ut_button.cpp \
+    ut_notificationentity.cpp \
+    ut_overlapwidget.cpp \
+    ut_listview.cpp \
+    ut_notifywidget.cpp \
+    ut_iconbutton.cpp
 
 INCLUDEPATH += ../../dde-osd/notification/ \
                ../../dde-osd/notification-center/ \

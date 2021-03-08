@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <QMimeData>
 
-class TstListView : public testing::Test
+class UT_ListView : public testing::Test
 {
 public:
     void SetUp() override
@@ -23,7 +23,7 @@ public:
     ListView *obj = nullptr;
 };
 
-TEST_F(TstListView, coverageTest)
+TEST_F(UT_ListView, coverageTest)
 {
 
 }

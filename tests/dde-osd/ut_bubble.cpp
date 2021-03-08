@@ -7,7 +7,7 @@
 #include <QMimeData>
 #include <QtTest>
 
-class TstBubble : public testing::Test
+class UT_Bubble : public testing::Test
 {
 public:
     void SetUp() override
@@ -41,16 +41,17 @@ public:
     EntityPtr entity;
 };
 
-TEST_F(TstBubble, coverageTest)
+TEST_F(UT_Bubble, coverageTest)
 {
     obj->entity();
     obj->setEntity(entity);
     obj->updateGeometry();
+    obj->setEnabled(true);
     obj->setEnabled(false);
     obj->setBubbleIndex(0);
 }
 
-TEST_F(TstBubble, eventTest)
+TEST_F(UT_Bubble, eventTest)
 {
     // 测试鼠标点击并松开后是否发出dismissed信号
     qRegisterMetaType<Bubble *>("Bubble *");
@@ -67,4 +68,16 @@ TEST_F(TstBubble, eventTest)
     QTest::mouseRelease(obj, Qt::LeftButton, Qt::KeyboardModifiers(),QPoint(0, 5));
 
     EXPECT_EQ(spy1.count(), 1);
+
+    QEvent showEvent(QEvent::Show);
+    QApplication::sendEvent(obj, &showEvent);
+
+    QEvent hoverEvent(QEvent::Leave);
+    QApplication::sendEvent(obj, &hoverEvent);
+
+    QEvent enterEvent(QEvent::Enter);
+    QApplication::sendEvent(obj, &enterEvent);
+
+    QEvent hideEvent(QEvent::Hide);
+    QApplication::sendEvent(obj, &hideEvent);
 }

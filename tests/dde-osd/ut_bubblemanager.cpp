@@ -121,8 +121,6 @@ TEST_F(UT_BubbleManager, coverageTest)
     QString vender;
     QString version;
     QString var = obj->GetServerInformation(name, vender, version);
-    uint id = obj->Notify("dde-control-center", 1, "", "", "", QStringList(), QVariantMap(), 1);
-    id = obj->Notify("deepin-editor", 1, "", "", "", QStringList(), QVariantMap(), 1);
 
     obj->GetAllRecords();
     obj->GetRecordById("0");
@@ -142,4 +140,13 @@ TEST_F(UT_BubbleManager, coverageTest)
     obj->setAppSetting("");
     obj->getSystemSetting();
     obj->setSystemSetting("");
+}
+
+TEST_F(UT_BubbleManager, NotifyTest)
+{
+    uint id = obj->Notify("deepin-editor", 1, "", "", "", QStringList(), QVariantMap(), 1);
+    obj->SetSystemInfo(3, QDBusVariant("00:00"));
+    obj->SetSystemInfo(4, QDBusVariant("00:00"));
+    id = obj->Notify("dde-control-center", 1, "", "", "", QStringList(), QVariantMap(), 1);
+    id = obj->Notify("deepin-editor", 1, "", "", "", QStringList(), QVariantMap(), 1);
 }

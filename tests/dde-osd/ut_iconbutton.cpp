@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <QMimeData>
 
-class TstIconButton : public testing::Test
+class UT_IconButton : public testing::Test
 {
 public:
     void SetUp() override
@@ -23,7 +23,7 @@ public:
     IconButton *obj = nullptr;
 };
 
-TEST_F(TstIconButton, coverageTest)
+TEST_F(UT_IconButton, coverageTest)
 {
     obj->setIcon("");
     obj->setText("Test");

@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <QMimeData>
 
-class TstAppBodyLabel : public testing::Test
+class UT_AppBodyLabel : public testing::Test
 {
 public:
     void SetUp() override
@@ -23,26 +23,28 @@ public:
     AppBodyLabel *obj = nullptr;
 };
 
-TEST_F(TstAppBodyLabel, coverageTest)
+TEST_F(UT_AppBodyLabel, coverageTest)
 {
-
+    obj->update();
 }
 
-TEST_F(TstAppBodyLabel, textTest)
+TEST_F(UT_AppBodyLabel, textTest)
 {
-    QString str = "GTEST";
+    QString str = "文件已保存到/home/chenwei/Desktop/截图录屏_dde-desktop_20210305170903.gif";
     obj->setText(str);
+    EXPECT_TRUE(obj->minimumSizeHint() == QSize(640, 26));
+    EXPECT_TRUE(obj->sizeHint() == QSize(640, 52));
     EXPECT_TRUE(str == obj->labelText());
 }
 
-TEST_F(TstAppBodyLabel, opacityTest)
+TEST_F(UT_AppBodyLabel, opacityTest)
 {
     qreal opacity = 0.5;
     obj->setOpacity(opacity);
     EXPECT_TRUE(opacity == obj->bodyOpacity());
 }
 
-TEST_F(TstAppBodyLabel, setAlignmentTest)
+TEST_F(UT_AppBodyLabel, setAlignmentTest)
 {
     Qt::Alignment alignment = Qt::AlignTop;
     obj->setAlignment(alignment);
