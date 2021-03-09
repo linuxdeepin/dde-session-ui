@@ -79,6 +79,7 @@ signals:
 
 protected:
     QStringList m_suitableParams;
+    bool m_isVisible;
 };
 
 #endif // ABSTRACTOSDPROVIDER_H

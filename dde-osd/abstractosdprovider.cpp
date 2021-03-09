@@ -33,6 +33,11 @@ AbstractOSDProvider::AbstractOSDProvider(QObject *parent)
 
 bool AbstractOSDProvider::match(const QString &param)
 {
+    if (param.contains("Ash")) {
+        m_isVisible = false;
+    } else {
+        m_isVisible = true;
+    }
     return m_suitableParams.contains(param);
 }
 

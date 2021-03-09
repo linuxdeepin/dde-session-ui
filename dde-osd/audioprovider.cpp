@@ -37,7 +37,7 @@ AudioProvider::AudioProvider(QObject *parent)
                                                   QDBusConnection::sessionBus(), this)),
       m_sinkInter(nullptr)
 {
-    m_suitableParams << "AudioUp" << "AudioDown" << "AudioMute";
+    m_suitableParams << "AudioUp" << "AudioDown" << "AudioMute" << "AudioUpAsh" << "AudioDownAsh" << "AudioMuteAsh";
 
     m_audioInter->setSync(true, false);
     connect(m_audioInter, &__Audio::DefaultSinkChanged,
@@ -92,6 +92,9 @@ void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option,
 
     // NOTE: Max volume is 1.5
     DrawHelper::DrawImage(painter, option, iconPath, false, true);
+    if (!m_isVisible) {
+        color.setAlpha(0.4 * 255);
+    }
     DrawHelper::DrawProgressBar(painter, option, progressData.toDouble() / (increaseVolumnData.toBool() ? 1.5 : 1.0), color);
     if (increaseVolumnData.toBool())
         DrawHelper::DrawVolumeGraduation(painter, option, color);

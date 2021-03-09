@@ -34,6 +34,8 @@ const QString SwitchWM2D = "SwitchWM2D";
 const QString SwitchWMError = "SwitchWMError";
 const QString AudioMicMuteOn = "AudioMicMuteOn";
 const QString AudioMicMuteOff = "AudioMicMuteOff";
+const QString AudioMicMuteOnAsh = "AudioMicMuteOnAsh";
+const QString AudioMicMuteOffAsh = "AudioMicMuteOffAsh";
 const QString WLANOn = "WLANOn";
 const QString WLANOff = "WLANOff";
 
@@ -50,6 +52,8 @@ OSDProvider::OSDProvider(QObject *parent)
 
     m_suitableParamsMap.insert(AudioMicMuteOn, QStringList() << ":/icons/OSD_mic_off.svg" << "");
     m_suitableParamsMap.insert(AudioMicMuteOff, QStringList() << ":/icons/OSD_mic_on.svg" << "");
+    m_suitableParamsMap.insert(AudioMicMuteOnAsh, QStringList() << ":/icons/OSD_mic_off.svg" << "");
+    m_suitableParamsMap.insert(AudioMicMuteOffAsh, QStringList() << ":/icons/OSD_mic_off.svg" << "");
 
     m_suitableParamsMap.insert(WLANOn, QStringList() << ":/icons/OSD_wifi_on.svg" << "");
     m_suitableParamsMap.insert(WLANOff, QStringList() << ":/icons/OSD_wifi_off.svg" << "");

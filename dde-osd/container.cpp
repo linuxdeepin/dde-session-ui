@@ -59,7 +59,6 @@ Container::Container(QWidget *parent)
     m_layout->setSpacing(0);
     m_layout->setMargin(0);
     setLayout(m_layout);
-
     const int radius = getWindowRadius();
 
     DPlatformWindowHandle handle(this);

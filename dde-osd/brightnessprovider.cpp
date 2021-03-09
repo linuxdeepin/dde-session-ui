@@ -35,7 +35,7 @@ BrightnessProvider::BrightnessProvider(QObject *parent)
                                                       "/com/deepin/daemon/Display",
                                                       QDBusConnection::sessionBus(), this))
 {
-    m_suitableParams << "BrightnessUp" << "BrightnessDown";
+    m_suitableParams << "BrightnessUp" << "BrightnessDown" << "BrightnessUpAsh" << "BrightnessDownAsh";
 
     m_displayInter->setSync(true, false);
 }
@@ -69,6 +69,9 @@ void BrightnessProvider::paint(QPainter *painter, const QStyleOptionViewItem &op
         color = QColor(Qt::white);
     }
     DrawHelper::DrawImage(painter, option, iconPath, false, true);
+    if (!m_isVisible) {
+        color.setAlpha(0.4 * 255);
+    }
     DrawHelper::DrawProgressBar(painter, option, progressData.toDouble(), color);
 }
 
