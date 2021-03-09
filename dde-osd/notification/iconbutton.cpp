@@ -92,7 +92,7 @@ void IconButton::paintEvent(QPaintEvent *event)
 
     DSvgRenderer svg;
     svg.load(m_iconPath);
-    svg.render(&painter,QRect(5, 5, width() - 10, height() - 10));
+    svg.render(&painter, QRectF(4, 4, width() - 8, height() - 8));
 }
 
 void IconButton::setFocusState(bool has)

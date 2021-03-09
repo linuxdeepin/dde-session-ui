@@ -74,12 +74,12 @@ void NotifyCenterWidget::initUI()
     setContentsMargins(0, 0, 0, 0);
 
     m_headWidget = new QWidget;
-    m_headWidget->setFixedSize(Notify::CenterWidth - 2 * Notify::CenterMargin, 32);
+    m_headWidget->setFixedSize(Notify::CenterWidth - 2 * Notify::CenterMargin, Notify::CenterTitleHeight);
 
     DIconButton *bell_notify = new DIconButton(m_headWidget);
     bell_notify->setFlat(true);
-    bell_notify->setIconSize(QSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight));
-    bell_notify->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
+    bell_notify->setIconSize(QSize(32, 32));
+    bell_notify->setFixedSize(32, 32);
     const auto ratio = devicePixelRatioF();
     QIcon icon_pix = QIcon::fromTheme("://icons/notifications.svg").pixmap(bell_notify->iconSize() * ratio);
     bell_notify->setIcon(icon_pix);
@@ -91,7 +91,7 @@ void NotifyCenterWidget::initUI()
     font.setWeight(QFont::DemiBold);
     title_label->setFont(font);
     title_label->setText(tr("Notification Center"));
-    title_label->setAlignment(Qt::AlignCenter);
+    title_label->setAlignment(Qt::AlignCenter | Qt::AlignBottom);
     title_label->setForegroundRole(QPalette::BrightText);
     DFontSizeManager::instance()->bind(title_label, DFontSizeManager::T5);
 
@@ -102,12 +102,12 @@ void NotifyCenterWidget::initUI()
     m_clearButton->setFocusPolicy(Qt::NoFocus);
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
-    head_Layout->addWidget(bell_notify, Qt::AlignLeft);
+    head_Layout->addWidget(bell_notify, Qt::AlignLeft | Qt::AlignTop);
     head_Layout->setMargin(0);
     head_Layout->addStretch();
-    head_Layout->addWidget(title_label, Qt::AlignCenter);
+    head_Layout->addWidget(title_label, Qt::AlignCenter | Qt::AlignBottom);
     head_Layout->addStretch();
-    head_Layout->addWidget(m_clearButton, Qt::AlignRight);
+    head_Layout->addWidget(m_clearButton, Qt::AlignRight | Qt::AlignTop);
     m_headWidget->setLayout(head_Layout);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;

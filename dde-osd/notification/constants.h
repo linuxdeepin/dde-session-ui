@@ -99,7 +99,7 @@ static const QStringList IgnoreList= {
 namespace Notify {
 static const int CenterWidth = 400;
 static const int CenterMargin = 10;
-static const int CenterTitleHeight = 32;
+static const int CenterTitleHeight = 36;
 
 static const int GroupTitleHeight = 32;
 static const int BubbleCloseButtonSize = 24;
