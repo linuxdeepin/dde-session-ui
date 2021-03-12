@@ -321,3 +321,19 @@ void NotifyCenterWidget::showWidget()
 
     return isHidden() ? showAni() : hideAni();
 }
+
+void NotifyCenterWidget::onlyShowWidget()
+{
+    if (m_aniGroup->state() == QAbstractAnimation::Running)
+        return;
+
+    return showAni();
+}
+
+void NotifyCenterWidget::onlyHideWidget()
+{
+    if (m_aniGroup->state() == QAbstractAnimation::Running)
+        return;
+
+    return hideAni();
+}

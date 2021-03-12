@@ -134,6 +134,8 @@ class DDENotifyDBus: public QDBusAbstractAdaptor
 "      <arg direction=\"out\" type=\"s\"/>\n"
 "    </method>\n"
 "    <method name=\"Toggle\"/>\n"
+"    <method name=\"Show\"/>\n"
+"    <method name=\"Hide\"/>\n"
 "    <method name=\"recordCount\">\n"
 "      <arg direction=\"out\" type=\"u\"/>\n"
 "    </method>\n"
@@ -232,6 +234,8 @@ public Q_SLOTS: // METHODS
     void SetAppInfo(const QString &in0, uint in1, const QDBusVariant &in2);
     void SetSystemInfo(uint in0, const QDBusVariant &in1);
     void Toggle();
+    void Show();
+    void Hide();
     QString getAppSetting(const QString &in0);
     uint recordCount();
     void setAppSetting(const QString &in0);

@@ -58,6 +58,8 @@ public:
     explicit NotifyCenterWidget(AbstractPersistence *database, QWidget* parent = nullptr);
     void showWidget();
     void updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos, int mode);
+    void onlyShowWidget();
+    void onlyHideWidget();
 
 Q_SIGNALS:
     void notify();

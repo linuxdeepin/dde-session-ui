@@ -181,6 +181,8 @@ public Q_SLOTS:
      * \~chinese \brief 返回通知中心中通知的数量
      * \~chinese \return 通知中心中通知的数量
      */
+    void Show();
+    void Hide();
     uint recordCount();
     QStringList GetAppList();
     QDBusVariant GetAppInfo(const QString id, uint item);

@@ -472,6 +472,30 @@ void BubbleManager::Toggle()
     m_notifyCenter->showWidget();
 }
 
+void BubbleManager::Show()
+{
+    if (m_trickTimer->isActive()) {
+        return;
+    }
+
+    m_trickTimer->start();
+    geometryChanged();
+
+    m_notifyCenter->onlyShowWidget();
+}
+
+void BubbleManager::Hide()
+{
+    if (m_trickTimer->isActive()) {
+        return;
+    }
+
+    m_trickTimer->start();
+    geometryChanged();
+
+    m_notifyCenter->onlyHideWidget();
+}
+
 uint BubbleManager::recordCount()
 {
     return uint(m_persistence->getRecordCount());

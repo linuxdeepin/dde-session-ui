@@ -231,6 +231,18 @@ void DDENotifyDBus::Toggle()
     QMetaObject::invokeMethod(parent(), "Toggle");
 }
 
+void DDENotifyDBus::Show()
+{
+    // handle method call com.deepin.dde.Notification.Show
+    QMetaObject::invokeMethod(parent(), "Show");
+}
+
+void DDENotifyDBus::Hide()
+{
+    // handle method call com.deepin.dde.Notification.Hide
+    QMetaObject::invokeMethod(parent(), "Hide");
+}
+
 QString DDENotifyDBus::getAppSetting(const QString &in0)
 {
     // handle method call com.deepin.dde.Notification.getAppSetting
