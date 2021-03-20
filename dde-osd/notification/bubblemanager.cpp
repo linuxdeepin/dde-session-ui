@@ -384,15 +384,20 @@ bool BubbleManager::isDoNotDisturb()
     if (!m_notifySettings->getSystemSetting(NotifySettings::DNDMODE).toBool())
         return false;
 
-    if (!m_notifySettings->getSystemSetting(NotifySettings::OPENBYTIMEINTERVAL).toBool()) { // 未按时间段开启默认全时间段开启
+    // 未点击按钮  任何时候都勿扰模式
+    if (!m_notifySettings->getSystemSetting(NotifySettings::OPENBYTIMEINTERVAL).toBool() && !m_notifySettings->getSystemSetting(NotifySettings::LOCKSCREENOPENDNDMODE).toBool()) {
         return true;
     }
+
+    bool lockScreen = m_userInter->locked();
+    // 点击锁屏时 并且 锁屏状态 任何时候都勿扰模式
+    if (m_notifySettings->getSystemSetting(NotifySettings::LOCKSCREENOPENDNDMODE).toBool() && lockScreen)
+        return true;
 
     QTime currentTime = QTime::fromString(QDateTime::currentDateTime().toString("hh:mm"));
     QTime startTime = QTime::fromString(m_notifySettings->getSystemSetting(NotifySettings::STARTTIME).toString());
     QTime endTime = QTime::fromString(m_notifySettings->getSystemSetting(NotifySettings::ENDTIME).toString());
 
-    bool lockScreen = m_userInter->locked();
     bool dndMode = false;
     if (startTime < endTime) {
         dndMode = startTime <= currentTime && endTime >= currentTime ? true : false;
@@ -403,8 +408,6 @@ bool BubbleManager::isDoNotDisturb()
     }
 
     if (dndMode && m_notifySettings->getSystemSetting(NotifySettings::OPENBYTIMEINTERVAL).toBool()) {
-        return dndMode;
-    } else if (m_notifySettings->getSystemSetting(NotifySettings::LOCKSCREENOPENDNDMODE).toBool() && lockScreen) {
         return dndMode;
     } else {
         return false;
