@@ -1,23 +1,15 @@
-%global repo dde-session-ui
-%global __provides_exclude_from ^%{_libdir}/dde-dock/.*\\.so$
-
-%if 0%{?fedora}
-Name:           deepin-session-ui
-%else
-Name:           %{repo}
-%endif
+Name:           dde-session-ui
 Version:        5.4.8
-Release:        1%{?fedora:%dist}
+Release:        1
 Summary:        Deepin desktop-environment - Session UI module
 License:        GPLv3
-URL:            https://github.com/linuxdeepin/%{repo}
-Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
+URL:            https://github.com/linuxdeepin/%{name}
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  deepin-gettext-tools
 BuildRequires:  pkgconfig(dtkwidget) >= 5.1
 BuildRequires:  pkgconfig(dframeworkdbus)
-BuildRequires:  pkgconfig(dde-dock)
 BuildRequires:  pkgconfig(gsettings-qt)
 BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(libsystemd)
@@ -25,23 +17,19 @@ BuildRequires:  pkgconfig(xcb-ewmh)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xtst)
 BuildRequires:  pkgconfig(xext)
-BuildRequires:  golang-github-msteinert-pam-devel
+BuildRequires:  gocode
+BuildRequires:  qt5-devel
 BuildRequires:  dtkcore-devel >= 5.1
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5DBus)
-BuildRequires:  pkgconfig(Qt5Svg)
-BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  pkgconfig(Qt5X11Extras)
-BuildRequires:  pkgconfig(Qt5Multimedia)
-%if 0%{?fedora}
-Requires:       deepin-daemon
-%else
+BuildRequires:  dde-dock-devel
 Requires:       dde-daemon
-%endif
 Requires:       startdde
 
+Requires:       lightdm
+Requires(post): sed
+Provides:       lightdm-deepin-greeter = %{version}-%{release}
+Provides:       lightdm-greeter = 1.2
 Provides:       deepin-notifications = %{version}-%{release}
-Obsoletes:      deepin-notifications <= 3.3.4
+Obsoletes:      deepin-notifications < %{version}-%{release}
 
 %description
 This project include those sub-project:
@@ -56,7 +44,8 @@ This project include those sub-project:
 - dde-hotzone: User interface of setting hot zone.
 
 %prep
-%autosetup -p1 -n %{repo}-%{version}
+%setup -q -n %{name}-%{version}
+sed -i 's|default_background.jpg|default.png|' widgets/fullscreenbackground.cpp
 sed -i 's|lib|libexec|' \
     misc/applications/deepin-toggle-desktop.desktop* \
     dde-osd/dde-osd_autostart.desktop \
@@ -73,7 +62,7 @@ sed -i 's|lib|libexec|' \
     dde-suspend-dialog/dde-suspend-dialog.pro \
     dnetwork-secret-dialog/dnetwork-secret-dialog.pro \
     dde-lowpower/dde-lowpower.pro
-sed -i 's|/usr/lib/dde-dock|%{_libdir}/dde-dock|' dde-notification-plugin/notifications/notifications.pro
+sed -i 's|/usr/lib/dde-dock|/usr/lib64/dde-dock|' dde-notification-plugin/notifications/notifications.pro
 
 %build
 export PATH=%{_qt5_bindir}:$PATH
@@ -83,13 +72,16 @@ export PATH=%{_qt5_bindir}:$PATH
 %install
 %make_install INSTALL_ROOT=%{buildroot}
 
+%post
+sed -i "s|#greeter-session.*|greeter-session=lightdm-deepin-greeter|g" /etc/lightdm/lightdm.conf
+
 %files
 %doc README.md
 %license LICENSE
 %{_bindir}/dde-*
 %{_bindir}/dmemory-warning-dialog
 %{_libexecdir}/deepin-daemon/*
-%{_datadir}/%{repo}/
+%{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/dbus-1/services/*.service
 %{_libdir}/dde-dock/plugins/libnotifications.so
