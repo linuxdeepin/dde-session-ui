@@ -6,7 +6,7 @@ Name:           deepin-session-ui
 %else
 Name:           %{repo}
 %endif
-Version:        5.3.0.22
+Version:        5.4.8
 Release:        1%{?fedora:%dist}
 Summary:        Deepin desktop-environment - Session UI module
 License:        GPLv3
@@ -96,8 +96,5 @@ export PATH=%{_qt5_bindir}:$PATH
 %{_prefix}/share/glib-2.0/schemas/com.deepin.dde.dock.module.notifications.gschema.xml
 
 %changelog
-* Mon Jul 06 2020 uoser <uoser@uniontech.com> - 5.1.0.11-2
-- Fix taskbar notifications are not available
-
-* Thu Jun 11 2020 uoser <uoser@uniontech.com> - 5.1.0.11
-- Update to 5.1.0.11
+* Wed Mar 31 2021 uoser <uoser@uniontech.com> - 5.4.8-1
+- Update to 5.4.8
