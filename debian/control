@@ -36,7 +36,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends},
  x11-xserver-utils,
  dbus-x11,
  pandoc
-Provides: lightdm-greeter
 Recommends: onboard
 Conflicts: dde-workspace,
  startdde (<< 2.91.1),
@@ -45,3 +44,9 @@ Replaces: deepin-notifications
 Breaks: dde-workspace, startdde(<< 2.91.1)
 Description: deepin desktop-environment - dde-session-ui module
  Deepin desktop environment 2015 - dde-session-ui module.
+
+Package: dde-system-dialog
+Architecture: any
+Depends: ${misc:Depends}, ${shlib:Depends}, ${dist:Depends}
+Description: deepin desktop-environment - dde-bluetooth-dialog、
+    dde-license-dialog、dnetwork-secret-dialog module
