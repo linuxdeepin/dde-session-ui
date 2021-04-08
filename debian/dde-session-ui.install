@@ -1,0 +1,10 @@
+usr/bin/dde-pixmix
+usr/bin/dde-switchtogreeter
+usr/bin/dde-wm-chooser
+usr/bin/dmemory-warning-dialog
+usr/lib/dde-dock/plugins/libnotifications.so
+usr/lib/deepin-daemon/dde-lowpower
+usr/lib/deepin-daemon/dde-suspend-dialog
+usr/lib/deepin-daemon/dde-touchscreen-dialog
+usr/lib/deepin-daemon/dde-warning-dialog
+usr/lib/deepin-daemon/dde-welcome
