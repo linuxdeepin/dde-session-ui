@@ -49,6 +49,8 @@ static const int IconSize = 54;
 #define ICON_HSPACE            22
 #define CHECK_ICON_HSPACE      10
 
+class QGSettings;
+
 class DisplayModeProvider : public AbstractOSDProvider
 {
     Q_OBJECT
@@ -76,6 +78,7 @@ public:
     // delegate
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
+    bool match(const QString &param) Q_DECL_OVERRIDE;
 
 private:
     QList<QPair<uchar,QString>> m_planItems;
@@ -87,6 +90,8 @@ private:
 
     Display *m_displayInter;
     Appearance *m_appearanceInter;
+    QGSettings *m_setting;
+    uint m_state;
 
     void updateOutputNames();
     void updatePlanItems();

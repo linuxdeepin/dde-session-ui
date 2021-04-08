@@ -30,11 +30,15 @@
 #include <DStyle>
 #include <DStyleOptionButton>
 
+#include <QGSettings>
+
 DWIDGET_USE_NAMESPACE
 
 const QString DisplayDBusServer = "com.deepin.daemon.Display";
 const QString DisplayDBusPath = "/com/deepin/daemon/Display";
 const QString DefaultCustomId = "_dde_display_config_private";
+const QString schemaKey = "com.deepin.dde.control-center";
+const QString schemaPath = "/com/deepin/dde/control-center/";
 
 DisplayModeProvider::DisplayModeProvider(QObject *parent)
     : AbstractOSDProvider(parent),
@@ -42,6 +46,12 @@ DisplayModeProvider::DisplayModeProvider(QObject *parent)
                                  DisplayDBusPath,
                                  QDBusConnection::sessionBus(), this))
 {
+    if (!QGSettings::isSchemaInstalled(schemaKey.toLocal8Bit())) {
+        qInfo()<<"System configuration fetch failed!";
+    } else {
+        m_setting = new QGSettings(schemaKey.toLocal8Bit(), schemaPath.toLocal8Bit(), this);
+    }
+
     m_suitableParams << "SwitchMonitors";
 
     m_displayInter->setSync(false, false);
@@ -86,6 +96,8 @@ void DisplayModeProvider::highlightCurrent()
 
 void DisplayModeProvider::highlightNext()
 {
+    if (m_state == DisplayModeProvider::DISABLE)
+        return;
     const int currentIndex = m_planItems.indexOf(m_currentPlan);
     const int itemsCount = m_planItems.length();
     m_currentPlan = m_planItems.at((currentIndex + itemsCount + 1) % itemsCount);
@@ -93,6 +105,8 @@ void DisplayModeProvider::highlightNext()
 
 void DisplayModeProvider::sync()
 {
+    if (m_state == DisplayModeProvider::DISABLE)
+        return;
     m_displayInter->SwitchMode(m_currentPlan.first,  m_currentPlan.second);
 }
 
@@ -143,9 +157,10 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     QColor brushCorlor;
     brushCorlor = palette.color(QPalette::Base);
+
     // 绘制背景
     painter->setPen(Qt::NoPen);
-    if (option.state & QStyle::State_Selected) {
+    if (option.state & QStyle::State_Selected && m_state != 1) {
         checkState = true;
         brushCorlor.setAlphaF(0.4);
         textCorlor = palette.color(QPalette::Highlight);
@@ -154,7 +169,6 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
         brushCorlor.setAlphaF(0.1);
         textCorlor = palette.color(QPalette::BrightText);
     }
-
     painter->setBrush(brushCorlor);
     painter->drawRoundedRect(backRect, 8, 8);
 
@@ -173,24 +187,26 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
     painter->drawText(textRect, textData.toString(), opt);
 
     // 画复选框
-    if (checkState) {
-        QRect checkButtonRect = backRect.marginsRemoved(QMargins(backRect.width() - CHECK_ICON_SIZE - CHECK_ICON_HSPACE,
-                                                                 (backRect.height() - CHECK_ICON_SIZE) / 2, CHECK_ICON_HSPACE,
-                                                                 (backRect.height() - CHECK_ICON_SIZE) / 2));
-        painter->setPen(Qt::NoPen);
-        painter->setBrush(textCorlor);
-        painter->drawEllipse(checkButtonRect);
+    if (m_state != DisplayModeProvider::DISABLE) {
+        if (checkState) {
+            QRect checkButtonRect = backRect.marginsRemoved(QMargins(backRect.width() - CHECK_ICON_SIZE - CHECK_ICON_HSPACE,
+                                                                     (backRect.height() - CHECK_ICON_SIZE) / 2, CHECK_ICON_HSPACE,
+                                                                     (backRect.height() - CHECK_ICON_SIZE) / 2));
+            painter->setPen(Qt::NoPen);
+            painter->setBrush(textCorlor);
+            painter->drawEllipse(checkButtonRect);
 
-        QPen pen(Qt::white, CHECK_ICON_SIZE / 100.0 * 6.20, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
-        painter->setPen(pen);
+            QPen pen(Qt::white, CHECK_ICON_SIZE / 100.0 * 6.20, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
+            painter->setPen(pen);
 
-        QPointF points[3] = {
-            QPointF(CHECK_ICON_SIZE / 100.0 * 32 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 57 + checkButtonRect.y()),
-            QPointF(CHECK_ICON_SIZE / 100.0 * 45 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 70 + checkButtonRect.y()),
-            QPointF(CHECK_ICON_SIZE / 100.0 * 75 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 35 + checkButtonRect.y())
-        };
+            QPointF points[3] = {
+                QPointF(CHECK_ICON_SIZE / 100.0 * 32 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 57 + checkButtonRect.y()),
+                QPointF(CHECK_ICON_SIZE / 100.0 * 45 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 70 + checkButtonRect.y()),
+                QPointF(CHECK_ICON_SIZE / 100.0 * 75 + checkButtonRect.x(),  CHECK_ICON_SIZE / 100.0 * 35 + checkButtonRect.y())
+            };
 
-        painter->drawPolyline(points, 3);
+            painter->drawPolyline(points, 3);
+        }
     }
 }
 
@@ -202,6 +218,23 @@ QSize DisplayModeProvider::sizeHint(const QStyleOptionViewItem &option, const QM
         return QSize(ItemWidth , ItemHeight);
     }
     return QSize(ItemWidth , ItemHeight + 10);
+}
+
+bool DisplayModeProvider::match(const QString &param)
+{
+    if (m_setting != nullptr) {
+        QString status = m_setting->get("display-multiple-displays").toString();
+        if (status == "Hidden")
+            m_state = DisplayModeProvider::HIDE;
+        if (status == "Disabled")
+            m_state = DisplayModeProvider::DISABLE;
+        if (status == "Enabled")
+            m_state = DisplayModeProvider::ENABLE;
+    }
+
+    if (m_state == DisplayModeProvider::HIDE)
+        return false;
+    return AbstractOSDProvider::match(param);
 }
 
 void DisplayModeProvider::updateOutputNames()

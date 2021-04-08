@@ -41,7 +41,14 @@
 class AbstractOSDProvider : public QObject
 {
     Q_OBJECT
+
 public:
+    typedef enum {
+        ENABLE,
+        DISABLE,
+        HIDE
+    } ModuleStatus;
+
     explicit AbstractOSDProvider(QObject *parent = nullptr);
 
     // match tell if we should handle the param.
