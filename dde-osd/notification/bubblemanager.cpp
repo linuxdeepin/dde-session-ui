@@ -423,7 +423,8 @@ QRect BubbleManager::calcDisplayRect()
     for (const auto &screen : screenList) {
         MonitorInter monitor("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
         QRect monitorRect(monitor.x(), monitor.y(), monitor.width(), monitor.height());
-        if (monitor.enabled() && monitorRect.contains(m_dockDeamonInter->frontendWindowRect())) {
+        QRect dockRect(m_dockDeamonInter->frontendWindowRect());
+        if (monitor.enabled() && monitorRect.contains(dockRect.center())) {
             displayRect = QRect(monitorRect.x(), monitorRect.y(),
                                 monitorRect.width() / ratio, monitorRect.height() / ratio);
             break;
