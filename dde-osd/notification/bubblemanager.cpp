@@ -691,6 +691,7 @@ void BubbleManager::geometryChanged()
     m_dockPos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
     m_dockMode = m_dockDeamonInter->displayMode();
     m_notifyCenter->updateGeometry(m_currentDisplayRect, m_currentDockRect, m_dockPos, m_dockMode);
+    updateGeometry();
 }
 
 bool BubbleManager::calcReplaceId(EntityPtr notify)
