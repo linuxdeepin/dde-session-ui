@@ -27,7 +27,7 @@
 #include <QMouseEvent>
 
 #include <DGuiApplicationHelper>
-#include <DSvgRenderer>
+#include <QImageReader>
 
 DGUI_USE_NAMESPACE
 
@@ -78,7 +78,6 @@ void IconButton::paintEvent(QPaintEvent *event)
     } else {
         color = QColor("#FFFFFF");
     }
-    color = palette().color(QPalette::Base);
 
     switch (m_currentState) {
     case HOVER: color.setAlpha(m_hoverOpacity); break;
@@ -90,9 +89,17 @@ void IconButton::paintEvent(QPaintEvent *event)
     painter.setBrush(color);
     painter.drawRoundedRect(rect(), m_radius, m_radius);
 
-    DSvgRenderer svg;
-    svg.load(m_iconPath);
-    svg.render(&painter, QRectF(4, 4, width() - 8, height() - 8));
+    QImageReader reader;
+
+    reader.setFileName(m_iconPath);
+    QPixmap pixmap;
+    if (reader.canRead()) {
+        const qreal ratio = qApp->devicePixelRatio();
+        reader.setScaledSize(size() * ratio);
+        pixmap = QPixmap::fromImage(reader.read());
+        pixmap.setDevicePixelRatio(ratio);
+    }
+    painter.drawPixmap(QPoint(0, 0),pixmap);
 }
 
 void IconButton::setFocusState(bool has)
