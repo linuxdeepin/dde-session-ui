@@ -101,7 +101,8 @@ void NetworkSecretDialog::initUI()
     }
 
     setOnButtonClickedClose(false);
-    setCloseButtonVisible(false);
+    //会给窗口强制增加最大化属性
+    //setCloseButtonVisible(false);
     setTitle(tr("Password required to connect <font color=\"%1\">%2</font>").arg(palette().highlight().color().name()).arg(m_connName));
     addSpacing(10);
 
