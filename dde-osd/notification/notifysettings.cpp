@@ -135,7 +135,19 @@ QString NotifySettings::getSetings(QString key)
     QJsonObject allSettingsObj = QJsonDocument::fromJson(allSettings.toUtf8()).object();
     if (!allSettingsObj.isEmpty()) {
         QJsonObject appObj;
+
+        //某些第三方应用发送Notify名称与系统获取的名称不一致,这里做判断，不一致则取setting里包含应用名称的key值
+        if (allSettingsObj[key].isNull()) {
+            for (int i = 0; i < allSettingsObj.keys().size(); i++) {
+                QString appItemkey = allSettingsObj.keys()[i];
+                if (appItemkey.contains(key, Qt::CaseInsensitive)) {
+                    key = appItemkey;
+                    break;
+                }
+            }
+        }
         appObj[key] = allSettingsObj[key].toObject();
+
         return QString(QJsonDocument(appObj).toJson());
     }
 

@@ -161,20 +161,17 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
 
     AppNotifyProperty appNotifyProperty = getAppNotifyProperty(notification->appName());
 
-    if (appNotifyProperty.isNotificationSound) {
-        m_soundeffectInter->EnableSound("message", true);
-    } else {
-        m_soundeffectInter->EnableSound("message", false);
-    }
-
+    qDebug() << "appNotifyProperty.isAllowNotify=" << appNotifyProperty.isAllowNotify;
     if (!appNotifyProperty.isAllowNotify)
         return 0;
 
     notification->setShowPreview(appNotifyProperty.isShowNotifyPreview);
     notification->setShowInNotifyCenter(appNotifyProperty.isShowInNotifyCenter);
 
+    bool isDnD = false;
     if (!calcReplaceId(notification)) {
-        if (isDoNotDisturb()) {
+        isDnD = isDoNotDisturb();
+        if (isDnD) {
             if (WhiteBoardAppList.contains(notification->appName())) {
                 pushBubble(notification);
             } else {
@@ -185,6 +182,16 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                 m_persistence->addOne(notification);
         } else {
             pushBubble(notification);
+        }
+    }
+
+    if (!isDnD)
+    {
+        if (m_soundeffectInter->IsSoundEnabled("message"))
+        {
+            if (appNotifyProperty.isNotificationSound) {
+                m_soundeffectInter->PlaySystemSound("message");
+            }
         }
     }
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.

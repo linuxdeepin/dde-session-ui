@@ -81,8 +81,6 @@ QString NotificationsDBusAdaptor::GetServerInformation(QString &out1, QString &o
 
 uint NotificationsDBusAdaptor::Notify(const QString &in0, uint in1, const QString &in2, const QString &in3, const QString &in4, const QStringList &in5, const QVariantMap &in6, int in7)
 {
-    DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
-
     // handle method call org.freedesktop.Notifications.Notify
     uint out0;
     QMetaObject::invokeMethod(parent(), "Notify", Q_RETURN_ARG(uint, out0), Q_ARG(QString, in0), Q_ARG(uint, in1), Q_ARG(QString, in2), Q_ARG(QString, in3), Q_ARG(QString, in4), Q_ARG(QStringList, in5), Q_ARG(QVariantMap, in6), Q_ARG(int, in7));
@@ -125,8 +123,6 @@ QString DDENotifyDBus::GetServerInformation(QString &out1, QString &out2, QStrin
 
 uint DDENotifyDBus::Notify(const QString &in0, uint in1, const QString &in2, const QString &in3, const QString &in4, const QStringList &in5, const QVariantMap &in6, int in7)
 {
-    DDesktopServices::playSystemSoundEffect(DDesktopServices::SSE_Notifications);
-
     // handle method call org.freedesktop.Notifications.Notify
     uint out0;
     QMetaObject::invokeMethod(parent(), "Notify", Q_RETURN_ARG(uint, out0), Q_ARG(QString, in0), Q_ARG(uint, in1), Q_ARG(QString, in2), Q_ARG(QString, in3), Q_ARG(QString, in4), Q_ARG(QStringList, in5), Q_ARG(QVariantMap, in6), Q_ARG(int, in7));
