@@ -74,8 +74,10 @@ void NotifySettings::initAllSettings()
     }
 
     QStringList appList = m_systemSetting->get("app-list").toStringList();
+    QStringList launcherList;
 
     foreach(const LauncherItemInfo &item, itemInfoList) {
+        launcherList << item.ID;
         DDesktopEntry desktopInfo(item.Path);
         if (IgnoreList.contains(item.ID) || desktopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
             continue;
@@ -90,6 +92,12 @@ void NotifySettings::initAllSettings()
         appList.append(item.ID);
         m_systemSetting->set("app-list", appList);
         appAdded(item);
+    }
+
+    for (const QString &app : appList) {
+        if (!launcherList.contains(app)) {
+            appRemoved(app);
+        }
     }
 }
 
