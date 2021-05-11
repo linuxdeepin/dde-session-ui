@@ -42,7 +42,6 @@ IconButton::IconButton(QWidget *parent)
     , m_radius(8)
     , m_currentState(RELEASE)
 {
-
 }
 
 IconButton::IconButton(const QString &text, QWidget *parent)
@@ -84,6 +83,8 @@ void IconButton::paintEvent(QPaintEvent *event)
     case PRESS: color.setAlpha(m_pressOpacity); break;
     case RELEASE: color.setAlpha(m_releaseOpacity); break;
     }
+
+    color.setAlpha(hasFocus() ? m_hoverOpacity : color.alpha());
 
     painter.setPen(Qt::NoPen);
     painter.setBrush(color);
@@ -164,4 +165,11 @@ void IconButton::leaveEvent(QEvent *event)
     update();
 
     return DWidget::leaveEvent(event);
+}
+
+void IconButton::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) {
+        clicked();
+    }
 }

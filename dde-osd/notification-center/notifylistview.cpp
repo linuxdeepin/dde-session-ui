@@ -325,6 +325,8 @@ bool NotifyListView::tabKeyEvent(QObject *object, QKeyEvent *event)
     Q_UNUSED(event)
     if (m_currentIndex >= model()->rowCount()) {
         m_currentIndex = 0;
+        Q_EMIT focusOnButton();
+        return true;
     }
     QModelIndex index = this->model()->index(m_currentIndex, 0);
     QWidget *widget = this->indexWidget(index);
@@ -332,6 +334,7 @@ bool NotifyListView::tabKeyEvent(QObject *object, QKeyEvent *event)
     if (widget == nullptr)
         return true;
     // 更新按钮列表
+    widget->setFocus();
     QList<QPointer<QWidget>> elements;
     if (qobject_cast<BubbleTitleWidget *> (widget) != nullptr) {
         m_currentIndex ++;

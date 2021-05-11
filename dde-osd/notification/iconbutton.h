@@ -51,6 +51,7 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent *event) override;
     virtual void enterEvent(QEvent *event) override;
     virtual void leaveEvent(QEvent *event) override;
+    virtual void keyPressEvent(QKeyEvent *event) override;
 
 Q_SIGNALS:
     void clicked();

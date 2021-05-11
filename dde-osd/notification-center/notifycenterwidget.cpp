@@ -99,7 +99,7 @@ void NotifyCenterWidget::initUI()
     m_clearButton->setOpacity(IconButton::RELEASE, 255 * 0.0);
     m_clearButton->setRadius(Notify::CenterTitleHeight / 2);
     m_clearButton->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
-    m_clearButton->setFocusPolicy(Qt::NoFocus);
+    m_clearButton->setFocusPolicy(Qt::StrongFocus);
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
     head_Layout->addWidget(bell_notify, Qt::AlignLeft | Qt::AlignTop);
@@ -146,6 +146,12 @@ void NotifyCenterWidget::initConnections()
     });
 
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &NotifyCenterWidget::CompositeChanged, Qt::QueuedConnection);
+
+    connect(m_notifyWidget, &NotifyWidget::focusOnButton, this, [=] {
+        qDebug() << "set Focus on clearButton";
+        m_clearButton->setFocus();
+        m_clearButton->update();
+    });
 }
 
 void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos, int mode)

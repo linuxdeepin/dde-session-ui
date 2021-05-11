@@ -70,6 +70,8 @@ void NotifyWidget::initView(AbstractPersistence *database)
     QPalette pa = m_mainList->palette();
     pa.setColor(QPalette::Highlight, Qt::transparent);
     m_mainList->setPalette(pa);
+
+    connect(m_mainList, &NotifyListView::focusOnButton, this, &NotifyWidget::focusOnButton);
 }
 
 void NotifyWidget::showEvent(QShowEvent *event)

@@ -68,6 +68,7 @@ signals:
     void expandAniFinished(QString appName);
     void addedAniFinished(EntityPtr entity);
     void refreshItemTime();
+    void focusOnButton();
 
 private:
     bool m_aniState = false;
