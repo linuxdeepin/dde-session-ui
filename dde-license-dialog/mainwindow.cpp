@@ -52,7 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
     layout->addWidget(m_content);
 
     setLayout(layout);
-    setFixedWidth(windowFixedWidth);
 
     connect(m_content, &Content::sourceChanged, this, [ = ](bool isCn) {
         if (isCn) {
@@ -60,14 +59,10 @@ MainWindow::MainWindow(QWidget *parent)
         } else {
             m_title->setText(m_enTitle);
         }
-
-         int newWidth = m_content->calWidgetWidth();
-        // 根据计算后的宽度调整主窗口
-        if (newWidth > windowFixedWidth)
-            setFixedWidth(newWidth);
     });
 
     DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
+    showFullScreen();
 }
 
 MainWindow::~MainWindow()
