@@ -41,7 +41,7 @@ public:
     // delegate
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
-
+    QSize contentSize() const Q_DECL_OVERRIDE;
     bool match(const QString &param) Q_DECL_OVERRIDE;
 
 private:

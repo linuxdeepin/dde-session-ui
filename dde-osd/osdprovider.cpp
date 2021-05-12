@@ -26,6 +26,7 @@
 #include "osdprovider.h"
 
 #include <DGuiApplicationHelper>
+#include <QApplication>
 
 DGUI_USE_NAMESPACE
 
@@ -100,6 +101,14 @@ void OSDProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, c
 QSize OSDProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
 {
     return QSize(ImageTextItemWidth, ImageTextItemHeight);
+}
+
+QSize OSDProvider::contentSize() const
+{
+    //根据文本长度自适应窗口宽度
+    QString textData = OSDProvider::data(QModelIndex(), Qt::DisplayRole).toString();
+    QFontMetrics fontMetrics(QApplication::font());
+    return QSize(qMax(ImageTextItemWidth,fontMetrics.horizontalAdvance(textData) + 30), ImageTextItemHeight);
 }
 
 bool OSDProvider::match(const QString &param)
