@@ -225,8 +225,8 @@ void Content::updateContent()
         setSource(m_cn);
         m_acceptCheck->setText(m_allow);
         m_acceptCheck->setVisible(!m_allow.isEmpty());
-        m_cancelBtn->setText(tr("Cancel"));
-        m_acceptBtn->setText(tr("Confirm"));
+        m_cancelBtn->setText("取消");
+        m_acceptBtn->setText("确定");
         m_acceptBtn->setEnabled(m_allow.isEmpty() || (!m_allow.isEmpty() && m_acceptCheck->isChecked()));
     } else {
         setSource(m_en);
