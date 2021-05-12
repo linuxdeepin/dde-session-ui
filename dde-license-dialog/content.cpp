@@ -19,6 +19,12 @@
 #include <QStandardPaths>
 #include <QFontMetrics>
 #include <QScroller>
+#include <QFuture>
+#include <QtConcurrent>
+#include <QThread>
+
+#include <unistd.h>
+
 DWIDGET_USE_NAMESPACE
 
 Content::Content(QWidget *parent)
@@ -98,6 +104,26 @@ Content::Content(QWidget *parent)
     layout->addWidget(m_bottom);
 
     m_acceptBtn->setDisabled(true);
+
+    // 当父进程退出后，此对话框自动退出
+    __pid_t idp;
+    idp = getppid();
+
+    static bool quit = false;
+    QFuture<void> future = QtConcurrent::run([ = ] () {
+        while(!quit) {
+            if (!QFile(QString("/proc/%1/exe").arg(idp)).exists()) {
+                qApp->quit();
+                break;
+            }
+
+            QThread::msleep(100);
+        }
+    });
+
+    connect(qApp, &QApplication::aboutToQuit, this, [ = ] {
+        quit = true;
+    });
 
     connect(m_cancelBtn, &QPushButton::clicked, this, [ = ] {
         qApp->exit(-1);

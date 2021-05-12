@@ -123,4 +123,3 @@ void MainWindow::setHideBottom(const QString& param)
     }
     m_content->setHideBottom(status);
 }
-
