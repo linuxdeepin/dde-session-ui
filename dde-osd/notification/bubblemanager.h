@@ -280,7 +280,6 @@ private:
     QString m_configFile;
 
     SysNotifyProperty m_sysNotifyProperty;
-    QTimer *m_checkDndTimer;
     SoundeffectInter *m_soundeffectInter;
     QRect m_currentDisplay;
 };

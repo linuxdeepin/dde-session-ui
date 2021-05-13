@@ -62,7 +62,6 @@ BubbleManager::BubbleManager(QObject *parent)
                                         QDBusConnection::sessionBus(), this))
     , m_notifySettings(new NotifySettings(this))
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
-    , m_checkDndTimer(new QTimer(this))
     , m_soundeffectInter(new SoundeffectInter("com.deepin.daemon.SoundEffect",
                                               "/com/deepin/daemon/SoundEffect",
                                               QDBusConnection::sessionBus(), this))
@@ -74,9 +73,6 @@ BubbleManager::BubbleManager(QObject *parent)
                                                           QDBusConnection::systemBus(), this);
 
     initConnections();
-
-    m_checkDndTimer->setInterval(900);
-    m_checkDndTimer->start();
 
     updateSysNotifyProperty();
 
@@ -645,30 +641,6 @@ void BubbleManager::initConnections()
     });
 
     connect(m_launcherInter, &LauncherInter::ItemChanged, this, &BubbleManager::appInfoChanged);
-
-    // 通知中心勿扰模式时，通知音效关闭
-    connect(m_checkDndTimer, &QTimer::timeout, this, [ = ] {
-        static bool firstCloseSound = true;
-        static bool userState = true;
-        static bool lastDoNotDisturb = false;
-        if (isDoNotDisturb()) {
-            lastDoNotDisturb = true;
-
-            // 第一次切换到勿扰模式，记录用户音效开关设置
-            if (firstCloseSound) {
-                firstCloseSound = false;
-                userState = m_soundeffectInter->IsSoundEnabled("message");
-            }
-            m_soundeffectInter->EnableSound("message", false);
-        } else {
-            // 从勿扰模式切换到勿扰模式关闭，恢复用户音效设置
-            if (lastDoNotDisturb) {
-                lastDoNotDisturb = false;
-                m_soundeffectInter->EnableSound("message", userState);
-            }
-            firstCloseSound = true;
-        }
-    });
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
