@@ -47,7 +47,7 @@
 
 NotifyListView::NotifyListView(QWidget *parent)
     : DListView(parent)
-    , m_scrollAni(new QPropertyAnimation(verticalScrollBar(), "value"))
+    , m_scrollAni(new QPropertyAnimation(verticalScrollBar(), "value" ,this))
     , m_refreshTimer(new QTimer(this))
 {
     qApp->installEventFilter(this);
@@ -67,6 +67,10 @@ NotifyListView::NotifyListView(QWidget *parent)
     QScrollerProperties sp;
     sp.setScrollMetric(QScrollerProperties::VerticalOvershootPolicy, QScrollerProperties::OvershootAlwaysOff);
     scroller->setScrollerProperties(sp);
+}
+
+NotifyListView::~NotifyListView()
+{
 }
 
 void NotifyListView::createRemoveAnimation(BubbleItem *item)

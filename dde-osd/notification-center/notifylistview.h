@@ -41,6 +41,7 @@ class NotifyListView : public DListView
     Q_OBJECT
 public:
     NotifyListView(QWidget *parent = nullptr);
+    ~NotifyListView();
 
 public:
     void createAddedAnimation(EntityPtr entity, const ListItem appItem);

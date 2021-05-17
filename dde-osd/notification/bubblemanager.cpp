@@ -91,6 +91,8 @@ BubbleManager::~BubbleManager()
     if (!m_bubbleList.isEmpty()) qDeleteAll(m_bubbleList);
 
     m_oldEntities.clear();
+    delete m_notifyCenter;
+    m_notifyCenter = nullptr;
 }
 
 void BubbleManager::CloseNotification(uint id)
