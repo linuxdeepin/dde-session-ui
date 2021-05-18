@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
     DApplication app(argc, argv);
     app.setOrganizationName("deepin");
     app.setApplicationName("dde-suspend-dialog");
+    app.setApplicationDisplayName("");
     app.loadTranslator();
 
     QTranslator translator;
