@@ -763,7 +763,7 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         });
 
         bubble->setBubbleIndex(0);
-        ani->start();
+        ani->start(QPropertyAnimation::DeleteWhenStopped);
     }
 
     return bubble;
