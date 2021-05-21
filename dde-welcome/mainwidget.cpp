@@ -33,12 +33,6 @@
 #include <QKeyEvent>
 #include <QApplication>
 
-#include <X11/Xlib-xcb.h>
-#include <X11/cursorfont.h>
-#include <X11/Xcursor/Xcursor.h>
-#include <X11/Xlib.h>
-#include <X11/extensions/Xfixes.h>
-
 #include "dtkcore_global.h"
 #if (DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 8, 0))
 #include <DDBusSender>
