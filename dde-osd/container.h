@@ -44,6 +44,7 @@ public:
     explicit Container(QWidget *parent = nullptr);
 
     void setContent(QWidget *content);
+    void setOSD(QString osd);
     void moveToCenter();
 
 protected:
@@ -60,6 +61,7 @@ private:
     QHBoxLayout *m_layout;
     DWindowManagerHelper *m_wmHelper;
     QTimer *m_quitTimer;
+    QString m_osd;
     bool m_supportComposite;
 };
 

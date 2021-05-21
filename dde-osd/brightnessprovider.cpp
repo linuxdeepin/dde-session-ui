@@ -51,7 +51,14 @@ QVariant BrightnessProvider::data(const QModelIndex &, int role) const
         return ":/icons/OSD_light.svg";
     }
 
-    return m_displayInter->brightness().value(m_displayInter->primary(), 0);
+    QString brightnessScreen = m_displayInter->primary();
+    QString productName = qEnvironmentVariable("SYS_PRODUCT_NAME");
+    // KelvinU仅支持内置屏eDP-1亮度调节
+    if (productName.contains("KLVU")) {
+        brightnessScreen = "eDP-1";
+    }
+
+    return m_displayInter->brightness().value(brightnessScreen, 0);
 }
 
 void BrightnessProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const

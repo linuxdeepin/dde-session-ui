@@ -53,6 +53,7 @@ private:
     ListView *m_listview;
     Delegate *m_delegate;
     Model *m_model;
+    QString m_osd;
 
     AbstractOSDProvider *m_currentProvider;
     AbstractOSDProvider *m_kbLayoutProvider;

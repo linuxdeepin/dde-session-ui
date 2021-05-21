@@ -86,6 +86,12 @@ void Container::setContent(QWidget *content)
     m_layout->addWidget(content);
 }
 
+void Container::setOSD(QString osd) {
+    if (m_osd != osd) {
+         m_osd = osd;
+    }
+}
+
 void Container::moveToCenter()
 {
     QDesktopWidget *desktop = QApplication::desktop();
@@ -96,14 +102,26 @@ void Container::moveToCenter()
     QList<QDBusObjectPath> screenList = displayInter->monitors();
     for (auto screen : screenList) {
         MonitorInter *monitor = new MonitorInter("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
-        if (monitor->enabled()
-                && QCursor::pos().x() >= monitor->x() && QCursor::pos().x() <= monitor->x()+ monitor->width()
-                && QCursor::pos().y() >= monitor->y() && QCursor::pos().y() <= monitor->y()+ monitor->height()) {
-            qDebug() << " screen display : " << screen.path();
-            displayRect = QRect(monitor->x(), monitor->y(),
-                                monitor->width()/qApp->primaryScreen()->devicePixelRatio(),
-                                monitor->height()/qApp->primaryScreen()->devicePixelRatio());
-            break;
+        QString productName = qEnvironmentVariable("SYS_PRODUCT_NAME");
+        // KelvinU仅支持内置屏eDP-1亮度调节
+        if (productName.contains("KLVU") && (m_osd == "BrightnessUp" || m_osd == "BrightnessDown")) {
+            if (monitor->enabled() && (monitor->name() == "eDP-1")) {
+                qDebug() << " screen display : " << screen.path();
+                displayRect = QRect(monitor->x(), monitor->y(),
+                                    monitor->width()/qApp->primaryScreen()->devicePixelRatio(),
+                                    monitor->height()/qApp->primaryScreen()->devicePixelRatio());
+                break;
+            }
+        } else {
+            if (monitor->enabled()
+                    && QCursor::pos().x() >= monitor->x() && QCursor::pos().x() <= monitor->x()+ monitor->width()
+                    && QCursor::pos().y() >= monitor->y() && QCursor::pos().y() <= monitor->y()+ monitor->height()) {
+                qDebug() << " screen display : " << screen.path();
+                displayRect = QRect(monitor->x(), monitor->y(),
+                                    monitor->width()/qApp->primaryScreen()->devicePixelRatio(),
+                                    monitor->height()/qApp->primaryScreen()->devicePixelRatio());
+                break;
+            }
         }
     }
 

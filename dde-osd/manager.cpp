@@ -45,6 +45,12 @@
 #include "indicatorprovider.h"
 #include "osdprovider.h"
 
+#include <com_deepin_daemon_display.h>
+#include <com_deepin_daemon_display_monitor.h>
+
+using DisplayInter = com::deepin::daemon::Display;
+using MonitorInter = com::deepin::daemon::display::Monitor;
+
 Manager::Manager(QObject *parent)
     : QObject(parent)
     , m_container(new Container)
@@ -82,6 +88,9 @@ Manager::Manager(QObject *parent)
 void Manager::ShowOSD(const QString &osd)
 {
     qDebug() << "show osd" << osd;
+    if (m_osd != osd) {
+        m_osd = osd;
+    }
 
     // 3D WM need long time, OSD will disappear too fast
     m_timer->setInterval(osd == "SwitchWM3D" ? 2000 : 1000);
@@ -166,7 +175,25 @@ void Manager::ShowOSD(const QString &osd)
         }
 
         if (m_currentProvider->checkConditions()) {
-            m_container->show();
+            bool bDisplay = true;
+            DisplayInter *displayInter = new DisplayInter("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus(), this);
+            QList<QDBusObjectPath> screenList = displayInter->monitors();
+            for (auto screen : screenList) {
+                MonitorInter *monitor = new MonitorInter("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
+                QString productName = qEnvironmentVariable("SYS_PRODUCT_NAME");
+                // KelvinU仅支持内置屏eDP-1亮度调节
+                if (productName.contains("KLVU") && (m_osd == "BrightnessUp" || m_osd == "BrightnessDown")) {
+                    if (!monitor->enabled() && monitor->name() == "eDP-1") {
+                        bDisplay = false;
+                        break;
+                    }
+                }
+            }
+            if (bDisplay) {
+                m_container->show();
+            } else {
+                m_container->hide();
+            }
             m_timer->start();
         } else {
             doneSetting();
@@ -182,6 +209,7 @@ void Manager::updateUI()
         m_model->setProvider(m_currentProvider);
         m_delegate->setProvider(m_currentProvider);
         m_container->setFixedSize(m_currentProvider->contentSize());
+        m_container->setOSD(m_osd);
         m_container->moveToCenter();
     }
 
@@ -189,10 +217,10 @@ void Manager::updateUI()
     m_listview->setCurrentIndex(m_listview->model()->index(m_currentProvider->currentRow(), 0));
     m_container->setContentsMargins(m_currentProvider->contentMargins());
 
-    if (!m_container->isVisible()) { // 相同模块如果osd已经显示，就不更新OSD位置，避免频繁切换在性能较弱的机器上出现闪烁
-        m_container->setFixedSize(m_currentProvider->contentSize());
-        m_container->moveToCenter();
-    }
+    // 实时更新OSD位置
+    m_container->setFixedSize(m_currentProvider->contentSize());
+    m_container->setOSD(m_osd);
+    m_container->moveToCenter();
 }
 
 void Manager::doneSetting()
