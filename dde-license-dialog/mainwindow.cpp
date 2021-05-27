@@ -62,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
-    showFullScreen();
+    showMaximized();
 }
 
 MainWindow::~MainWindow()
