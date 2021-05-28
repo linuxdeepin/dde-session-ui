@@ -8,3 +8,4 @@ usr/lib/deepin-daemon/dde-suspend-dialog
 usr/lib/deepin-daemon/dde-touchscreen-dialog
 usr/lib/deepin-daemon/dde-warning-dialog
 usr/lib/deepin-daemon/dde-welcome
+usr/share
