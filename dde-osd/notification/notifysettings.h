@@ -56,6 +56,9 @@ public:
     void setAllSetting(QString settings);
     QString getAllSetings();
 
+    void setNotificationClosed(bool disable);
+    bool getNotificationClosed();
+
     void appAdded(LauncherItemInfo info);
     void appRemoved(QString appName);
 private:

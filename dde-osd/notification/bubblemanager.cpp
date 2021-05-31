@@ -163,6 +163,8 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     QString strBody = body;
     strBody.replace(QLatin1String("\\\\"), QLatin1String("\\"), Qt::CaseInsensitive);
 
+    bool isNotificationClosed = m_notifySettings->getNotificationClosed();
+
     EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
                                                                   summary, strBody, actions, hints,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
@@ -171,7 +173,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
 
     AppNotifyProperty appNotifyProperty = getAppNotifyProperty(notification->appName());
     // 通知时提示声音，并且不在勿扰模式才播放声音
-    if (appNotifyProperty.isNotificationSound && !isDoNotDisturb()) {
+    if (appNotifyProperty.isNotificationSound && !isDoNotDisturb() && !isNotificationClosed) {
         QString action;
         //接收蓝牙文件时，只在发送完成后才有提示音,"cancel"表示正在发送文件
         if (actions.contains("cancel")) {
@@ -192,7 +194,10 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     notification->setShowInNotifyCenter(appNotifyProperty.isShowInNotifyCenter);
 
     if (!calcReplaceId(notification)) {
-        if (isDoNotDisturb()) {
+        if (isNotificationClosed) {
+            if (notification->isShowInNotifyCenter())
+                m_persistence->addOne(notification);
+        } else if (isDoNotDisturb()) {
             if (WhiteBoardAppList.contains(notification->appName())) {
                 pushBubble(notification);
             } else {

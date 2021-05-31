@@ -213,6 +213,16 @@ QString NotifySettings::getAllSetings()
     return m_settings->get("notifycations-settings").toString();
 }
 
+void NotifySettings::setNotificationClosed(bool disable)
+{
+    m_settings->set("notification-closed",disable);
+}
+
+bool NotifySettings::getNotificationClosed()
+{
+    return m_settings->get("notification-closed").toBool();
+}
+
 void NotifySettings::appAdded(LauncherItemInfo info)
 {
     if (m_settings == nullptr)
