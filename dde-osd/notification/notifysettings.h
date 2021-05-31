@@ -73,12 +73,14 @@ public:
     QString getSystemSetings();
     void setAllSetting(QString settings);
     QString getAllSetings();
+    void setNotificationClosed(bool disable);
+    bool getNotificationClosed();
 
 signals:
     void appAddedSignal(const QString &id);
     void appRemovedSignal(const QString &id);
     void appSettingChanged(const QString &id, const uint &item, QVariant var);
-    void systemSettingChanged(const uint &item, QVariant var);
+    void systemSettingChanged(const uint &item, QVariant var);   
 
 private:
     QTimer *m_initTimer;
