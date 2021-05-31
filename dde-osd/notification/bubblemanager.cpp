@@ -167,6 +167,8 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     QString strBody = body;
     strBody.replace(QLatin1String("\\\\"), QLatin1String("\\"), Qt::CaseInsensitive);
 
+    bool isNotificationClosed = m_notifySettings->getNotificationClosed();
+
     EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
                                                                   summary, strBody, actions, hints,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
@@ -191,7 +193,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     notification->setShowPreview(enablePreview);
     notification->setShowInNotifyCenter(showInNotifyCenter);
 
-    if (playsound && !dndmode) {
+    if (playsound && !dndmode && !isNotificationClosed) {
         QString action;
         //接收蓝牙文件时，只在发送完成后才有提示音,"cancel"表示正在发送文件
         if (actions.contains("cancel")) {
@@ -206,18 +208,23 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     }
 
     if (!calcReplaceId(notification)) {
-        if (systemNotification) { // 系统通知
-            pushBubble(notification);
-        } else if (lockscree && !lockscreeshow) { // 锁屏不显示通知
-            if (showInNotifyCenter) { // 开启在通知中心显示才加入通知中心
-                m_persistence->addOne(notification);
-            }
-        } else { // 锁屏显示通知或者未锁屏状态
-            if (!systemNotification && !dndmode && enableNotificaion) { // 普通应用非勿扰模式并且开启通知选项
+        if (!isNotificationClosed) {
+            if (systemNotification) { // 系统通知
                 pushBubble(notification);
-            } else if (showInNotifyCenter) {
-                m_persistence->addOne(notification);
+            } else if (lockscree && !lockscreeshow) { // 锁屏不显示通知
+                if (showInNotifyCenter) { // 开启在通知中心显示才加入通知中心
+                    m_persistence->addOne(notification);
+                }
+            } else { // 锁屏显示通知或者未锁屏状态
+                if (!systemNotification && !dndmode && enableNotificaion) { // 普通应用非勿扰模式并且开启通知选项
+                    pushBubble(notification);
+                } else if (showInNotifyCenter) {
+                    m_persistence->addOne(notification);
+                }
             }
+        } else if (showInNotifyCenter) {
+            //禁用了所有消息时，若设置在消息中心显示，则将禁用的消息都显示在消息中心
+            m_persistence->addOne(notification);
         }
     }
 

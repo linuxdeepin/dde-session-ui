@@ -358,4 +358,15 @@ QString NotifySettings::getAllSetings()
     return QString(QJsonDocument(jsonObj).toJson());
 }
 
+void NotifySettings::setNotificationClosed(bool disable)
+{
+    m_systemSetting->set("notification-closed",disable);
+}
+
+bool NotifySettings::getNotificationClosed()
+{
+    return m_systemSetting->get("notification-closed").toBool();
+}
+
+
 
