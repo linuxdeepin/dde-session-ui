@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QApplication>
+#include <QDesktopWidget>
 
 #include <DFontSizeManager>
 DTK_USE_NAMESPACE
@@ -46,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
+    layout->setContentsMargins(0,20,0,0);
 
     //layout->addSpacing(10);
     layout->addWidget(widget, 0, Qt::AlignHCenter);
@@ -62,7 +64,8 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
-    showMaximized();
+    QRect size = QApplication::desktop()->screenGeometry();
+    setFixedSize(size.width(),size.height());
 }
 
 MainWindow::~MainWindow()
