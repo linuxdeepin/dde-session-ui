@@ -751,16 +751,15 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         QRect startRect = endRect;
         startRect.setHeight(0);
 
+        bubble->setProperty("geometry",0);
+        bubble->show();
+
         QPropertyAnimation *ani = new QPropertyAnimation(bubble, "geometry", this);
         ani->setStartValue(startRect);
         ani->setEndValue(endRect);
 
         int animationTime = int(endRect.height() * 1.0 / 72 * AnimationTime);
         ani->setDuration(animationTime);
-
-        QTimer::singleShot(0, bubble, [ = ] {
-            bubble->show();
-        });
 
         bubble->setBubbleIndex(0);
         ani->start(QPropertyAnimation::DeleteWhenStopped);
