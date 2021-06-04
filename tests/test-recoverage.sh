@@ -8,7 +8,7 @@ cd ../
 rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
 cd $BUILD_DIR
-qmake ../dde-osd/
+qmake CONFIG+=debug  ../dde-osd/
 make
 #qmake ../dde-license-dialog/
 #make
@@ -43,8 +43,9 @@ cd ../tests/
 rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
 cd $BUILD_DIR
-qmake ../dde-osd/
+qmake  CONFIG+=debug ../dde-osd/
 make check
+mv asan_osd.log* asan_dde-osd.log
 #qmake ../dde-license-dialog/
 #make check
 #qmake ../dde-switchtogreeter/

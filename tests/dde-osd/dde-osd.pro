@@ -3,8 +3,6 @@ QT       += core gui dbus x11extras svg sql dtkwidget testlib
 TARGET = tst_dde-osd
 TEMPLATE = app
 
-include(../testcase.prf)
-
 PKGCONFIG += dtkwidget dtkgui gio-qt dframeworkdbus gsettings-qt xcb-ewmh xrandr
 
 CONFIG += c++11 link_pkgconfig
@@ -52,3 +50,17 @@ RESOURCES +=
 HEADERS += \
     mockpersistence.h \
     mocknotifysetting.h
+
+# 执行 make check 会运行 tests
+CONFIG += testcase no_testcase_installs
+# 生成统计信息
+QMAKE_CXXFLAGS += -g -Wall -fprofile-arcs -ftest-coverage -O0
+QMAKE_LFLAGS += -g -Wall -fprofile-arcs -ftest-coverage  -O0
+    
+
+# 添加内存泄露检测
+CONFIG(debug, debug|release) {
+QMAKE_CXX += -g -fsanitize=address -O2
+QMAKE_CXXFLAGS += -g -fsanitize=address -O2
+QMAKE_LFLAGS += -g -fsanitize=address -O2
+}
