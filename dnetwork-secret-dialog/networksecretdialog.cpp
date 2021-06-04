@@ -29,6 +29,7 @@
 #include <QPushButton>
 #include <QKeyEvent>
 #include <QLabel>
+#include <QInputMethod>
 
 DWIDGET_USE_NAMESPACE
 
@@ -77,6 +78,21 @@ void NetworkSecretDialog::keyPressEvent(QKeyEvent *event)
     }
 
     DDialog::keyPressEvent(event);
+}
+
+bool NetworkSecretDialog::eventFilter(QObject *watched, QEvent *event)
+{
+    QInputMethod *inputmethod = QGuiApplication::inputMethod();
+    if (!inputmethod || m_lineEditList.size() <= 0 || m_lineEditList.at(0)->lineEdit() != watched)
+        return false;
+
+    if (event->type() == QEvent::FocusIn) {
+        inputmethod->show();
+    } else if (event->type() == QEvent::FocusOut){
+        inputmethod->hide();
+    }
+
+    return false;
 }
 
 void NetworkSecretDialog::parseJsonData(const QJsonDocument &jsonDoc)
@@ -132,6 +148,7 @@ void NetworkSecretDialog::initUI()
 
         if (row == 0) {
             lineEdit->lineEdit()->setFocus();
+            lineEdit->lineEdit()->installEventFilter(this);
         }
 
         connect(lineEdit, &DLineEdit::textChanged, this, &NetworkSecretDialog::checkInputValid);

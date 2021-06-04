@@ -38,6 +38,7 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
     void parseJsonData(const QJsonDocument &jsonDoc);
