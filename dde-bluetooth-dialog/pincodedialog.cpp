@@ -37,6 +37,7 @@ namespace bluetooth {
 
 PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath, const QString &starttime, const bool &cancelable) :
     DDialog(),
+    m_pinCodeLabel(new dcc::widgets::LargeLabel(this)),
     m_titileLabel(new dcc::widgets::LargeLabel(this)),
     m_bluetoothInter(new DBusBluetooth("com.deepin.daemon.Bluetooth", "/com/deepin/daemon/Bluetooth", QDBusConnection::sessionBus(), this))
 {
@@ -53,15 +54,14 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
     btns << tr("Confirm");
     addButtons(btns);
 
-    titilestr += QString(" %1").arg(pinCode);
+    m_pinCodeLabel->setObjectName("PinCodeText");
+    addContent(m_pinCodeLabel, Qt::AlignBottom | Qt::AlignHCenter);
     QFont font = m_titileLabel->font();
     font.setBold(true);
     font.setPixelSize(16);
     m_titileLabel->setFont(font);
     m_titileLabel->setText(titilestr);
-    setProperty("pinCode", pinCode);
-
-    addContent(messageTipWidget(), Qt::AlignTop | Qt::AlignHCenter);
+    m_pinCodeLabel->setText(pinCode);
 
     qint64 msec = 60 * 1000 - QDateTime::currentMSecsSinceEpoch() + starttime.toLongLong();
     if (msec < 0){
@@ -91,7 +91,7 @@ PinCodeDialog::~PinCodeDialog()
 
 QString PinCodeDialog::pinCode() const
 {
-    return property("pinCode").toString();
+    return m_pinCodeLabel->text();
 }
 
 void PinCodeDialog::HandleBlutoothPower(const QString &message)

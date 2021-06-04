@@ -56,6 +56,7 @@ private Q_SLOTS:
 
     QWidget* messageTipWidget();
 private:
+    dcc::widgets::LargeLabel *m_pinCodeLabel;
     dcc::widgets::LargeLabel *m_titileLabel;
     DBusBluetooth *m_bluetoothInter;
 };
