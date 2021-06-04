@@ -41,6 +41,11 @@ static const QString Interface = "com.deepin.dde.WarningDialog";
 
 int main(int argc, char *argv[])
 {
+    //for qt5platform-plugins load DPlatformIntegration or DPlatformIntegrationParent
+    if (!QString(qgetenv("XDG_CURRENT_DESKTOP")).toLower().startsWith("deepin")){
+        setenv("XDG_CURRENT_DESKTOP", "Deepin", 1);
+    }
+
     DApplication a(argc, argv);
     a.setApplicationName("dde-warning-dialog");
     a.setApplicationVersion("1.0");
