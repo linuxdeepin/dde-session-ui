@@ -319,6 +319,7 @@ void NotifyModel::addAppData(EntityPtr entity)
         AppGroup.appName = entity->appName();
         AppGroup.lastTimeStamp = entity->ctime();
         AppGroup.showList.push_front(entity);
+        AppGroup.expand = false;//目前是没有用到这个变量，先初始化一下，不然cppcheck会报错
         m_notifications.append(AppGroup);
     }
 
