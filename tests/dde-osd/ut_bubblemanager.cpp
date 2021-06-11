@@ -51,9 +51,6 @@ public:
         EXPECT_CALL(*persistence, getFrom(testing::_, testing::_)).
                     WillRepeatedly(testing::Invoke(persistencehelper, &PersistenceHelper::getFrom));
 
-        notifySetting = new MockNotifySetting;
-        settingHelper = new NotifySettingHelper;
-
         EXPECT_CALL(*notifySetting, initAllSettings()).
                     WillRepeatedly(testing::Invoke(settingHelper, &NotifySettingHelper::initAllSettings));
 
