@@ -740,6 +740,11 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         if (ptr->isShowInNotifyCenter())
             m_persistence->addOne(ptr);
     });
+    connect(m_userInter, &__SessionManager::LockedChanged, bubble, [=] (const bool isLocked) {
+        if (isLocked && isDoNotDisturb()) {
+            bubble->hide();
+        }
+    });
 
     if (index != 0) {
         QRect startRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap);
