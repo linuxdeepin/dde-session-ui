@@ -740,10 +740,9 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         if (ptr->isShowInNotifyCenter())
             m_persistence->addOne(ptr);
     });
-    connect(m_userInter, &__SessionManager::LockedChanged, bubble, [=] (const bool isLocked) {
-        if (isLocked && isDoNotDisturb()) {
-            bubble->hide();
-        }
+    connect(m_userInter, &__SessionManager::LockedChanged, bubble, [=] {
+        //当锁屏状态发生变化时隐藏通知，桌面和锁屏的通知不交叉显示
+        bubble->hide();
     });
 
     if (index != 0) {
