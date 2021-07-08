@@ -44,7 +44,7 @@ rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
 cd $BUILD_DIR
 qmake  CONFIG+=debug ../dde-osd/
-make check
+TESTARGS="--gtest_output=xml:dde_test_report_osd.xml"  make check -j$(nproc)
 mv asan_osd.log* asan_dde-osd.log
 #qmake ../dde-license-dialog/
 #make check
