@@ -40,6 +40,9 @@ public:
     void setText(const QString &text);
     void setStyle(OSD::ShowStyle style);
 
+Q_SIGNALS:
+    void adjustLayout();
+
 private:
     void refreshTheme();
 
