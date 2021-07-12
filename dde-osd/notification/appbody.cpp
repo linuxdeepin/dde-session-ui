@@ -49,6 +49,13 @@ AppBody::AppBody(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &AppBody::refreshTheme);
+    connect(this, &AppBody::adjustLayout, [=] {
+           layout->removeWidget(m_titleLbl);
+           layout->removeWidget(m_bodyLbl);
+           layout->addWidget(m_titleLbl, 0, Qt::AlignVCenter);
+           layout->addSpacing(4);
+           layout->addWidget(m_bodyLbl, 0, Qt::AlignVCenter);
+       });
     refreshTheme();
 }
 

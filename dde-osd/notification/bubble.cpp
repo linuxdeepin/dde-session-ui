@@ -310,6 +310,11 @@ void Bubble::updateContent()
         m_canClose = !m_entity->actions().isEmpty();
     }
 
+    if (m_body->sizeHint().height() > BubbleWindowHeight) {
+        emit m_body->adjustLayout();
+        setFixedHeight(m_body->sizeHint().height());
+    }
+
     BubbleTool::processIconData(m_icon, m_entity);
 }
 
@@ -369,7 +374,6 @@ void Bubble::setBubbleIndex(int index)
 
 void Bubble::setFixedGeometry(QRect rect)
 {
-    setFixedSize(rect.width(), rect.height());
     setGeometry(rect);
 }
 
