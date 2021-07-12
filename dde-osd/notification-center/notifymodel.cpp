@@ -61,7 +61,10 @@ int NotifyModel::rowCount(const QModelIndex &parent) const
 
 QVariant NotifyModel::data(const QModelIndex &index, int role) const
 {
-    Q_UNUSED(role);
+    //返回空值，不绘制check状态
+    if (Qt::CheckStateRole == role)
+        return QVariant();
+
     if (!index.isValid() || index.row() > (rowCount(QModelIndex()) - 1)) {
         return QVariant();
     }
