@@ -5,6 +5,8 @@
 #include <QVBoxLayout>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QGuiApplication>
+#include <QScreen>
 
 #include <DFontSizeManager>
 DTK_USE_NAMESPACE
@@ -13,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     : DAbstractDialog(false, parent)
     , m_title(new QLabel)
     , m_content(new Content)
+    , m_screen(QGuiApplication::primaryScreen())
 {
     auto envType = qEnvironmentVariable("XDG_SESSION_TYPE");
     bool bWayland = envType.contains("wayland");
@@ -66,6 +69,11 @@ MainWindow::MainWindow(QWidget *parent)
     DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
     QRect size = QApplication::desktop()->screenGeometry();
     setFixedSize(size.width(),size.height());
+
+    connect(m_screen, &QScreen::virtualGeometryChanged, this, [this](const QRect &rect){
+        QRect size = QApplication::desktop()->screenGeometry();
+        setFixedSize(size.width(),size.height());
+    });
 }
 
 MainWindow::~MainWindow()

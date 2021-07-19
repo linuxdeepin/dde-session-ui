@@ -8,6 +8,7 @@ DWIDGET_USE_NAMESPACE
 
 class Content;
 class QLabel;
+class QScreen;
 class MainWindow : public DAbstractDialog
 {
     Q_OBJECT
@@ -29,6 +30,7 @@ public:
 private:
     QLabel* m_title;
     Content* m_content;
+    QScreen *m_screen;
 
     QString m_cnTitle;
     QString m_enTitle;
