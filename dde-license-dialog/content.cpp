@@ -18,6 +18,7 @@
 #include <QStandardPaths>
 #include <QFontMetrics>
 #include <QScroller>
+#include <QTranslator>
 DWIDGET_USE_NAMESPACE
 
 Content::Content(QWidget *parent)
@@ -221,21 +222,20 @@ void Content::updateLanguageBtn()
 
 void Content::updateContent()
 {
-    if (m_isCn) {
-        setSource(m_cn);
-        m_acceptCheck->setText(m_allow);
-        m_acceptCheck->setVisible(!m_allow.isEmpty());
-        m_cancelBtn->setText(tr("Cancel"));
-        m_acceptBtn->setText(tr("Confirm"));
-        m_acceptBtn->setEnabled(m_allow.isEmpty() || (!m_allow.isEmpty() && m_acceptCheck->isChecked()));
+    QTranslator trans;
+    setSource(m_isCn ? m_cn : m_en);
+    m_acceptCheck->setText(m_isCn ? m_allow : m_enallow);
+    m_acceptCheck->setVisible(m_isCn ? !m_allow.isEmpty() : !m_enallow.isEmpty());
+    if (m_hasCn && m_hasEn) {
+        trans.load(QString("/usr/share/dde-session-ui/translations/dde-session-ui_%1").arg(m_isCn ? "zh_CN" : "en_US"));
     } else {
-        setSource(m_en);
-        m_acceptCheck->setText(m_enallow);
-        m_acceptCheck->setVisible(!m_enallow.isEmpty());
-        m_cancelBtn->setText("Cancel");
-        m_acceptBtn->setText("Confirm");
-        m_acceptBtn->setEnabled(m_allow.isEmpty() || (!m_allow.isEmpty() && m_acceptCheck->isChecked()));
+        trans.load(QString("/usr/share/dde-session-ui/translations/dde-session-ui_%1").arg(QLocale::system().name()));
     }
+    qApp->installTranslator(&trans);
+    m_cancelBtn->setText(tr("Cancel"));
+    m_acceptBtn->setText(tr("Confirm"));
+    m_acceptBtn->setEnabled(m_allow.isEmpty() || (!m_allow.isEmpty() && m_acceptCheck->isChecked()));
+
     Q_EMIT sourceChanged(m_isCn);
 }
 
