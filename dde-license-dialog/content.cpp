@@ -253,7 +253,11 @@ void Content::updateContent()
     setSource(m_isCn ? m_cn : m_en);
     m_acceptCheck->setText(m_isCn ? m_allow : m_enallow);
     m_acceptCheck->setVisible(m_isCn ? !m_allow.isEmpty() : !m_enallow.isEmpty());
-    trans.load(QString("/usr/share/dde-session-ui/translations/dde-session-ui_%1").arg(m_isCn ? "zh_CN" : "en_US"));
+    if (m_hasCn && m_hasEn) {
+        trans.load(QString("/usr/share/dde-session-ui/translations/dde-session-ui_%1").arg(m_isCn ? "zh_CN" : "en_US"));
+    } else {
+        trans.load(QString("/usr/share/dde-session-ui/translations/dde-session-ui_%1").arg(QLocale::system().name()));
+    }
     qApp->installTranslator(&trans);
     m_cancelBtn->setText(tr("Cancel"));
     m_acceptBtn->setText(tr("Confirm"));
