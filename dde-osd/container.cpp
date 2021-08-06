@@ -53,6 +53,11 @@ Container::Container(QWidget *parent)
     setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_TranslucentBackground);
 
+    if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
+        setAttribute(Qt::WA_NativeWindow);
+        windowHandle()->setProperty("_d_dwayland_window-type", "tooltip");
+    }
+
     m_quitTimer->setSingleShot(true);
     m_quitTimer->setInterval(60 * 1000);
 

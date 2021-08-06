@@ -115,7 +115,9 @@ int main(int argc, char *argv[])
     else {
         DApplication::customQtThemeConfigPath("/etc/lightdm/");
     }
-
+    if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
+        qputenv("QT_WAYLAND_SHELL_INTEGRATION", "kwayland-shell");
+    }
     DGuiApplicationHelper::setUseInactiveColorGroup(false);
     DGuiApplicationHelper::setColorCompositingEnabled(true);
     DApplication a(argc, argv);

@@ -40,6 +40,7 @@
 #include <QBoxLayout>
 #include <QParallelAnimationGroup>
 #include <QTextDocument>
+#include <QWindow>
 
 Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
@@ -245,6 +246,11 @@ void Bubble::initUI()
 
     setFixedWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
     resize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
+    if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
+        setAttribute(Qt::WA_NativeWindow);
+        windowHandle()->setProperty("_d_dwayland_window-type", "tooltip");
+    }
+
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWINDOW));
     m_body->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_closeButton->setIconSize(OSD::CloseButtonSize(OSD::BUBBLEWINDOW));
