@@ -41,6 +41,9 @@ SuspendDialog::SuspendDialog(QRect screenGeometry)
       m_timerTick(0)
 {
     setAccessibleName("SuspendDialog");
+    if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
+        this->setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+    }
     const auto ratio = devicePixelRatioF();
     QPixmap icon = QIcon::fromTheme("computer").pixmap(QSize(48, 48) * ratio);
     icon.setDevicePixelRatio(ratio);
@@ -70,6 +73,11 @@ void SuspendDialog::showEvent(QShowEvent *event)
 {
     DDialog::showEvent(event);
 
+    if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
+        const auto ratio = devicePixelRatioF();
+        m_screenGeometry.setWidth(m_screenGeometry.width() / ratio);
+        m_screenGeometry.setHeight(m_screenGeometry.height() / ratio);
+    }
     move(m_screenGeometry.center() - rect().center());
 }
 
