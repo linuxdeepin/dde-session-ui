@@ -134,6 +134,7 @@ void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
 
     for (int i = 0; i < needCount; i++) {
         BubbleItem *item = new BubbleItem(this, appItem.hideList[i]);
+        item->setAccessibleName("BubbleItem");
         QPoint itemStartPos = startPos + QPoint(0, (OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET)+ BubbleSpacing) * i);
         QPoint itemEndPos = itemStartPos + QPoint(0, OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleSpacing);
         QPropertyAnimation *ani = new QPropertyAnimation(item, "pos", this);
@@ -183,6 +184,7 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
     QPoint startPos = widget->pos();                //动画基准位置
 
     BubbleItem *newItem = new BubbleItem(this, entity);
+    newItem->setAccessibleName("BubbleItem");
     newItem->show();
     QRect startRect = QRect(startPos, QSize(widget->width(), 0));
     QRect endRect = QRect(startPos, QSize(widget->width(), widget->height()));

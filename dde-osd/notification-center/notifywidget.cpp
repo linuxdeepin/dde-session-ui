@@ -52,6 +52,7 @@ void NotifyWidget::initView(AbstractPersistence *database)
 {
     m_mainList = new NotifyListView(this);
     m_model = new NotifyModel(this,database, m_mainList);
+    m_mainList->setAccessibleName("NotifyListView");
     m_mainList->setModel(m_model);
     m_mainList->setItemDelegate(new ItemDelegate(m_mainList ,m_model, this));
     m_mainList->setAutoFillBackground(false);

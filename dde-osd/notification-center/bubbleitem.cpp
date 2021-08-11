@@ -109,6 +109,16 @@ BubbleItem::~BubbleItem()
 
 void BubbleItem::initUI()
 {
+    m_bgWidget->setAccessibleName("BgWidget");
+    m_titleWidget->setAccessibleName("TitleWidget");
+    m_bodyWidget->setAccessibleName("BodyWidget");
+    m_appNameLabel->setAccessibleName("AppNameLabel");
+    m_appTimeLabel->setAccessibleName("AppTimeLabel");
+    m_icon->setAccessibleName("AppIcon");
+    m_body->setAccessibleName("AppBody");
+    m_actionButton->setAccessibleName("ActionButton");
+    m_closeButton->setAccessibleName("CloseButton");
+
     setWindowFlags(Qt::Widget);
     setFocusPolicy(Qt::StrongFocus);
     resize(OSD::BubbleSize(OSD::BUBBLEWIDGET));

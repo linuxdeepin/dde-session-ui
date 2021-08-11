@@ -96,12 +96,14 @@ void TouchscreenSetting::showRecognizeDialog()
             text += QString(" = %1").arg(m_monitors[i]->name());
         }
         RecognizeDialog *dialog = new RecognizeDialog(m_monitors[0], this);
+        dialog->setAccessibleName("RecognizeDialog");
         connect(m_displayInter, &Display::ScreenHeightChanged, dialog, &RecognizeDialog::onScreenRectChanged);
         dialog->setText(text);
         dialog->show();
     } else { // 拓展模式
         for (auto monitor : m_monitors) {
             RecognizeDialog *dialog = new RecognizeDialog(monitor, this);
+            dialog->setAccessibleName("RecognizeDialog");
             connect(m_displayInter, &Display::ScreenHeightChanged, dialog, &RecognizeDialog::onScreenRectChanged);
             dialog->setText(monitor->name());
             dialog->show();

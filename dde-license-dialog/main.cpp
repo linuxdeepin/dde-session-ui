@@ -1,5 +1,7 @@
 #include "mainwindow.h"
+
 #include <DApplication>
+
 #include <QTranslator>
 #include <QCommandLineOption>
 #include <QCommandLineParser>

@@ -30,7 +30,7 @@ SOURCES += main.cpp\
 
 HEADERS  +=\
     pincodedialog.h \
-    largelabel.h \
+    largelabel.h
 
 icons.path = /usr/share/icons/hicolor/scalable/devices
 

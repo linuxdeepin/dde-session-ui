@@ -21,10 +21,9 @@
 
 #include "networksecretdialog.h"
 
-#include <QApplication>
-
 #include <DLog>
 #include <DApplication>
+
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 
@@ -78,7 +77,6 @@ int main(int argc, char *argv[])
     }
 
     file.close();
-
     NetworkSecretDialog dialog(jsonDoc);
     dialog.exec();
 

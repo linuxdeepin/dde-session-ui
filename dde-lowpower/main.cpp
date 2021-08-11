@@ -24,6 +24,7 @@
  */
 
 #include "window.h"
+
 #include <QApplication>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
