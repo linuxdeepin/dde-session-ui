@@ -23,10 +23,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+#include "pincodedialog.h"
 #include <DApplication>
+
 #include <QDebug>
 #include <QTranslator>
-#include "pincodedialog.h"
 
 
 DWIDGET_USE_NAMESPACE

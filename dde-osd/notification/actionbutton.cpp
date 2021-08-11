@@ -63,6 +63,7 @@ bool ActionButton::addButtons(const QStringList &list)
                 DStyleHelper dstyle(style());
                 const int round = dstyle.pixelMetric(DStyle::PM_FrameRadius);
                 Button *button = new Button();
+                button->setAccessibleName("Button");
                 button->setText(list[i]);
                 button->setRadius(round);
                 button->setFixedSize(contentSize(list[i]));
@@ -128,6 +129,7 @@ void ActionButton::initUI()
 {
     DStyleHelper dstyle(style());
     const int round = dstyle.pixelMetric(DStyle::PM_FrameRadius);
+    m_menuButton->setAccessibleName("MenuButton");
     m_menuButton->setRadius(round);
     m_menuButton->hide();
 

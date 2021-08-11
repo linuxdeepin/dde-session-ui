@@ -39,6 +39,8 @@ Window::Window(QWidget *parent)
     , m_text(new QLabel(tr("Low battery, please plug in"), this))
     , m_bSleepLock(false)
 {
+    m_image->setAccessibleName("LowPowerImage");
+    m_text->setAccessibleName("LowPowerText");
     // set window flags as dde-lock, so we can easily cover it.
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 

@@ -66,6 +66,7 @@ MainWidget::MainWidget(QWidget *parent)
     m_wallpaper = url.isLocalFile() ? url.path() : m_wallpaper;
 
     UpdateContent *content = new UpdateContent(GetSystemVersion(), this);
+    content->setAccessibleName("UpdateContent");
     setContent(content);
     content->hide();
 

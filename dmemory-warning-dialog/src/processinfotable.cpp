@@ -59,6 +59,7 @@ void ProcessInfoView::setModel(QAbstractItemModel *model)
     QTreeView::setModel(model);
 
     QHeaderView *header = this->header();
+    header->setAccessibleName("HeaderView");
     header->setSectionsMovable(false);
     header->setStretchLastSection(false);
     header->setSectionResizeMode(COLUMN_ICON, QHeaderView::Fixed);

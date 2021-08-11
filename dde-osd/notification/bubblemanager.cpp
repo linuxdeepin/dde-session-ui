@@ -30,6 +30,8 @@
 #include "notification-center/notifycenterwidget.h"
 #include "dbusdockinterface.h"
 
+#include <DDesktopServices>
+
 #include <QStringList>
 #include <QVariantMap>
 #include <QTimer>
@@ -38,8 +40,6 @@
 #include <QDBusContext>
 #include <QDateTime>
 #include <QGSettings>
-
-#include <DDesktopServices>
 
 #include <algorithm>
 

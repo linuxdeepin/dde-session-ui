@@ -40,6 +40,12 @@ Content::Content(QWidget *parent)
     , m_hasCn(false)
     , m_hasEn(false)
 {
+    m_scrollArea->setAccessibleName("ScrollArea");
+    m_acceptCheck->setAccessibleName("AcceptCheck");
+    m_cancelBtn->setAccessibleName("CancelBtn");
+    m_acceptBtn->setAccessibleName("AcceptBtn");
+    m_source->setAccessibleName("SourceLabel");
+    m_languageBtn->setAccessibleName("LanguageBtn");
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
@@ -47,8 +53,10 @@ Content::Content(QWidget *parent)
     setLayout(layout);
 
     DButtonBoxButton *btnChinese = new DButtonBoxButton("中文");
+    btnChinese->setAccessibleName("ChineseBtn");
     btnChinese->setFixedSize(90, 36);
     DButtonBoxButton *btnEnginsh = new DButtonBoxButton("English");
+    btnEnginsh->setAccessibleName("EnglishBtn");
     btnEnginsh->setFixedSize(90, 36);
     QList<DButtonBoxButton *> btnlist;
     btnlist.append(btnChinese);
@@ -70,6 +78,7 @@ Content::Content(QWidget *parent)
     QScroller::grabGesture(m_scrollArea->viewport(), QScroller::LeftMouseButtonGesture);
 
     QWidget *sourceWidget = new QWidget(this);
+    sourceWidget->setAccessibleName("SourceWidget");
     QVBoxLayout *sourceLayout = new QVBoxLayout;
     sourceWidget->setLayout(sourceLayout);
     sourceLayout->addWidget(m_source);
@@ -99,6 +108,7 @@ Content::Content(QWidget *parent)
     m_bottom = new QWidget(this);
     m_bottom->setFixedHeight(65);
     m_bottom->setLayout(bottomLayout);
+    m_bottom->setAccessibleName("ContentBottomWidget");
 
     layout->addWidget(m_scrollArea);
     layout->addSpacing(20);

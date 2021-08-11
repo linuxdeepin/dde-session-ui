@@ -24,15 +24,6 @@
  */
 
 #ifndef UNIT_TEST
-#include <QTranslator>
-
-#include <DApplication>
-#include <QFile>
-#include <QDBusConnection>
-#include <QProcess>
-#include <DDBusSender>
-#include <DLog>
-#include <DGuiApplicationHelper>
 
 #include "notification/bubblemanager.h"
 #include "notification/notifications_dbus_adaptor.h"
@@ -41,6 +32,16 @@
 #include "accessible.h"
 #include "notification/persistence.h"
 #include "notification/notifysettings.h"
+
+#include <DApplication>
+#include <DDBusSender>
+#include <DLog>
+#include <DGuiApplicationHelper>
+
+#include <QTranslator>
+#include <QFile>
+#include <QDBusConnection>
+#include <QProcess>
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
@@ -163,7 +164,6 @@ int main(int argc, char *argv[])
 
     DDENotifyDBus ddenotify(&manager);
     NotificationsDBusAdaptor adapter(&manager);
-
     return a.exec();
 }
 #else

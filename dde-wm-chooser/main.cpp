@@ -28,15 +28,16 @@
 #include "multiscreenmanager.h"
 
 #include <DApplication>
+#include <DLog>
+#include <DSysInfo>
+
+#include <QDesktopWidget>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 #include <QDebug>
 #include <QTranslator>
-#include <DLog>
 #include <QScreen>
 #include <QWindow>
-#include <QDesktopWidget>
-#include <DSysInfo>
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE

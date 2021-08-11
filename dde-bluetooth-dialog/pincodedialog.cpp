@@ -40,6 +40,7 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
     setIcon(QIcon::fromTheme("notification-bluetooth-connected"));
     setAttribute(Qt::WA_QuitOnClose);
     m_titileLabel->setObjectName("TitileText");
+    m_titileLabel->setAccessibleName("TitileText");
     addContent(m_titileLabel, Qt::AlignTop | Qt::AlignHCenter);
 
     QStringList btns;
@@ -50,6 +51,7 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
     addButtons(btns);
 
     m_pinCodeLabel->setObjectName("PinCodeText");
+    m_pinCodeLabel->setAccessibleName("PinCodeText");
     addContent(m_pinCodeLabel, Qt::AlignBottom | Qt::AlignHCenter);
     QFont font = m_titileLabel->font();
     font.setBold(true);

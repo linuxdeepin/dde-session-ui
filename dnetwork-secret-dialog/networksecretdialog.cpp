@@ -116,6 +116,7 @@ void NetworkSecretDialog::initUI()
     getButton(1)->setEnabled(false);
 
     QWidget *widget = new QWidget;
+    widget->setAccessibleName("DialogContentWidget");
     QGridLayout *gridLayout = new QGridLayout;
     widget->setLayout(gridLayout);
 
