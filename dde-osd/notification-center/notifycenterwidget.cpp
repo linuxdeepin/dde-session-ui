@@ -69,14 +69,17 @@ NotifyCenterWidget::NotifyCenterWidget(AbstractPersistence *database, QWidget *p
 
 void NotifyCenterWidget::initUI()
 {
+    m_notifyWidget->setAccessibleName("NotifyWidget");
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_TranslucentBackground);
     setContentsMargins(0, 0, 0, 0);
 
     m_headWidget = new QWidget;
+    m_headWidget->setAccessibleName("HeadWidget");
     m_headWidget->setFixedSize(Notify::CenterWidth - 2 * Notify::CenterMargin, Notify::CenterTitleHeight);
 
     DIconButton *bell_notify = new DIconButton(m_headWidget);
+    bell_notify->setAccessibleName("BellNotifyBtn");
     bell_notify->setFlat(true);
     bell_notify->setIconSize(QSize(32, 32));
     bell_notify->setFixedSize(32, 32);
@@ -86,6 +89,7 @@ void NotifyCenterWidget::initUI()
     bell_notify->setFocusPolicy(Qt::NoFocus);
 
     title_label = new DLabel;
+    title_label->setAccessibleName("TitleLabel");
     QFont font = title_label->font();
     font.setBold(true);
     font.setWeight(QFont::DemiBold);
@@ -96,6 +100,7 @@ void NotifyCenterWidget::initUI()
     DFontSizeManager::instance()->bind(title_label, DFontSizeManager::T5);
 
     m_clearButton = new IconButton;
+    m_clearButton->setAccessibleName("ClearButton");
     m_clearButton->setOpacity(IconButton::RELEASE, 255 * 0.0);
     m_clearButton->setRadius(Notify::CenterTitleHeight / 2);
     m_clearButton->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);

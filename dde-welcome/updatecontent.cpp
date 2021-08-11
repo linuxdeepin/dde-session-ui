@@ -39,6 +39,7 @@ UpdateContent::UpdateContent(const std::pair<QString, QString> &version, QWidget
     mainLayout->setSpacing(0);
 
     QLabel *successIcon = new QLabel;
+    successIcon->setAccessibleName("SuccessIcon");
     successIcon->setPixmap(DHiDPIHelper::loadNxPixmap(":/resources/success.svg"));
 
     QLabel *successTip = new QLabel(tr("Welcome, system updated successfully"));

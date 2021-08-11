@@ -83,11 +83,14 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     dialog = this;
 
     m_memNeeded->setWordWrap(true);
+    m_memNeeded->setAccessibleName("MemNeededLabel");
     m_cancelButton->setText(tr("Cancel"));
     m_continueButton->setText(tr("Continue"));
+    m_icon->setAccessibleName("DdeIconLabel");
     m_icon->setPixmap(QIcon::fromTheme("dde").pixmap(32, 32));
 
     ProcessInfoView *table = new ProcessInfoView;
+    table->setAccessibleName("ProessInfoView");
     table->setModel(m_infoModel);
     table->setItemDelegate(new ProcessInfoDelegate);
     table->setItemDelegateForColumn(3, new ButtonDelegate);
@@ -98,6 +101,7 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     btnsLayout->addWidget(m_continueButton);
 
     QLabel *icon = new QLabel;
+    icon->setAccessibleName("MessageboxWarningIcon");
     icon->setAlignment(Qt::AlignCenter);
     icon->setPixmap(QIcon::fromTheme("messagebox_warning").pixmap(64, 64));
 

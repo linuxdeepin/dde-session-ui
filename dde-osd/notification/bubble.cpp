@@ -231,6 +231,11 @@ void Bubble::onOutTimerTimeout()
 
 void Bubble::initUI()
 {
+    m_icon->setAccessibleName("AppIcon");
+    m_body->setAccessibleName("AppBody");
+    m_actionButton->setAccessibleName("ActionButton");
+    m_closeButton->setAccessibleName("CloseButton");
+
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool | Qt::X11BypassWindowManagerHint);

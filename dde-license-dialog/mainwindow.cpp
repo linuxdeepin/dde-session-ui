@@ -22,10 +22,13 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     m_title->setObjectName("TitleLabel");
+    m_title->setAccessibleName("TitleLabel");
     QWidget *widget = new QWidget(this);
+    widget->setAccessibleName("MainWidget");
     widget->setFixedSize(500, 40);
 
     btnclose = new DIconButton(QStyle::SP_TitleBarCloseButton, this);
+    btnclose->setAccessibleName("CloseBtn");
     btnclose->setVisible(false);
     btnclose->setFlat(true);
     btnclose->setIconSize(QSize(40, 40));
@@ -50,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
     //layout->addSpacing(10);
     layout->addWidget(widget, 0, Qt::AlignHCenter);
     layout->addWidget(m_content);
+    m_content->setAccessibleName("MainContent");
 
     setLayout(layout);
     setFixedWidth(windowFixedWidth);

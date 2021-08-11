@@ -51,6 +51,5 @@ int main(int argc, char *argv[])
             qApp->exit(0);
         }
     });
-
     return app.exec();
 }

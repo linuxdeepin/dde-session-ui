@@ -22,17 +22,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#include <DApplication>
-#include <DLog>
-#include <QScreen>
-#include <QWindow>
-#include <QDesktopWidget>
-
 #include "mainwidget.h"
 #include "utils.h"
 #include "propertygroup.h"
 #include "multiscreenmanager.h"
+
+#include <DApplication>
+#include <DLog>
+
+#include <QScreen>
+#include <QWindow>
+#include <QDesktopWidget>
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
@@ -68,6 +68,5 @@ int main(int argc, char *argv[])
 
     MultiScreenManager multi_screen_manager;
     multi_screen_manager.register_for_mutil_screen(createFrame);
-
     return app.exec();
 }

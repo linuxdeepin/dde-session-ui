@@ -44,6 +44,7 @@ NotificationsPlugin::NotificationsPlugin(QObject *parent)
 {
     m_tipsLabel->setVisible(false);
     m_tipsLabel->setObjectName("notifications");
+    m_tipsLabel->setAccessibleName("TipsLabel");
 
     if (QGSettings::isSchemaInstalled("com.deepin.dde.notifications")) {
         m_settings = new QGSettings("com.deepin.dde.notifications", "/com/deepin/dde/notifications/", this);
@@ -168,7 +169,7 @@ void NotificationsPlugin::loadPlugin()
     m_pluginLoaded = true;
 
     m_itemWidget = new NotificationsWidget;
-
+    m_itemWidget->setAccessibleName("ItemWidget");
     if (m_isShowIcon) {
         m_proxyInter->itemAdded(this, pluginName());
         m_itemWidget->setDisturb(m_disturb);

@@ -35,7 +35,7 @@ WMFrame::WMFrame(QWidget *parent)
                                      QDBusConnection::systemBus(), this))
 {
     m_wmchooser = new WMChooser(this);
-
+    m_wmchooser->setAccessibleName("WMChooser");
     setContent(m_wmchooser);
 
     QGSettings gsettings("com.deepin.dde.appearance", "", this);

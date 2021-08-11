@@ -108,6 +108,7 @@ void OverLapWidet::initOverlap()
     for(int i = 0; i < MIN(3,m_entify->hideCount()); ++i)
     {
         HalfRoundedRectWidget *bubble = new HalfRoundedRectWidget(this);
+        bubble->setAccessibleName("HalfRoundedRectBubble");
         scal_ratio = (scal_ratio * 19) / 20;
 
         height_init -= 2;
@@ -121,6 +122,7 @@ void OverLapWidet::initOverlap()
     }
 
     m_faceBubbleItem = new BubbleItem(this, m_entify);
+    m_faceBubbleItem->setAccessibleName("FaceBubbleItem");
     connect(m_faceBubbleItem, &BubbleItem::bubbleRemove, this, &OverLapWidet::hideOverlapBubble);
     m_faceBubbleItem->setOverlapWidget(true);
     m_faceBubbleItem->setParentModel(m_model);

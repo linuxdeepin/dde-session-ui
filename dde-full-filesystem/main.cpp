@@ -20,10 +20,11 @@
  */
 
 #include "fullfilesystemframe.h"
-#include <QApplication>
 
 #include <DLog>
 #include <DApplication>
+
+#include <QApplication>
 
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE

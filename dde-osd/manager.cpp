@@ -60,6 +60,7 @@ Manager::Manager(QObject *parent)
     m_listview->viewport()->setAutoFillBackground(false);
     m_listview->setModel(m_model);
     m_listview->setFrameShape(QFrame::NoFrame);
+    m_listview->setAccessibleName("ListView");
     m_container->setContent(m_listview);
 
     connect(m_listview, &ListView::currentIndexChanged, this, [ = ](const QModelIndex & index) {

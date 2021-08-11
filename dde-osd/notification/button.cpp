@@ -198,6 +198,10 @@ Button::Button(QWidget *parent)
     , m_radius(0)
     , m_hover(false)
 {
+    m_button->setAccessibleName("ButtonContent");
+    m_menuArea->setAccessibleName("ButtonMenu");
+    m_menu->setAccessibleName("Menu");
+
     m_menuArea->setFixedWidth(MIN(MenuWidth + 2 * MenuPadding, width() / 3));
     m_menuArea->hide();
 
