@@ -379,6 +379,7 @@ void Bubble::setBubbleIndex(int index)
 
 void Bubble::setFixedGeometry(QRect rect)
 {
+    setFixedSize(rect.width(), rect.height());
     setGeometry(rect);
 }
 
