@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=com.deepin.dde.shutdownFront
-Exec=/usr/bin/dde-shutdown
