@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>skin/main.qss</file>
-        <file>skin/quickshutdown.qss</file>
-        <file>skin/shutdown.qss</file>
-    </qresource>
-</RCC>
