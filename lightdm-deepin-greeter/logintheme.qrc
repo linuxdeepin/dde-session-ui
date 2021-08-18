@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>skin/login.qss</file>
-        <file>theme/background/default_background.jpg</file>
-        <file>skin/dpasswdeditanimated.qss</file>
-    </qresource>
-</RCC>
