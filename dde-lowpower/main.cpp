@@ -25,6 +25,10 @@
 
 #include "window.h"
 
+#ifdef QT_DEBUG
+#include <DAccessibilityChecker>
+#endif
+
 #include <QApplication>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
@@ -33,6 +37,10 @@
 #include <QTranslator>
 #include <QTimer>
 #include <QDebug>
+
+#ifdef QT_DEBUG
+DWIDGET_USE_NAMESPACE
+#endif
 
 #define DBUS_SERV "com.deepin.dde.lowpower"
 #define DBUS_PATH "/com/deepin/dde/lowpower"
@@ -85,6 +93,12 @@ int main(int argc, char *argv[])
 
         QTimer::singleShot(500, &a, SLOT(quit()));
     }
+
+#ifdef QT_DEBUG
+    DAccessibilityChecker checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
 
     return a.exec();
 }

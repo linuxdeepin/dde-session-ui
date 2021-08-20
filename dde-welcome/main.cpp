@@ -29,6 +29,9 @@
 
 #include <DApplication>
 #include <DLog>
+#ifdef QT_DEBUG
+#include <DAccessibilityChecker>
+#endif
 
 #include <QScreen>
 #include <QWindow>
@@ -68,5 +71,10 @@ int main(int argc, char *argv[])
 
     MultiScreenManager multi_screen_manager;
     multi_screen_manager.register_for_mutil_screen(createFrame);
+#ifdef QT_DEBUG
+    DAccessibilityChecker checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
     return app.exec();
 }

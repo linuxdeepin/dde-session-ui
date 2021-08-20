@@ -20,6 +20,9 @@
  */
 
 #include "networksecretdialog.h"
+#ifdef QT_DEBUG
+#include "../common/accessibilitycheckerex.h"
+#endif
 
 #include <DLog>
 #include <DApplication>
@@ -78,6 +81,11 @@ int main(int argc, char *argv[])
 
     file.close();
     NetworkSecretDialog dialog(jsonDoc);
+#ifdef QT_DEBUG
+    AccessibilityCheckerEx checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
     dialog.exec();
 
     app.exit(0);

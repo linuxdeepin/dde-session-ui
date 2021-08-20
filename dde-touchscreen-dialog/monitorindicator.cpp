@@ -36,6 +36,7 @@
 MonitorIndicator::MonitorIndicator(QWidget *parent)
     : QFrame(parent)
 {
+    setAccessibleName("MonitorIndicator");
     setWindowFlags(Qt::SplashScreen | Qt::X11BypassWindowManagerHint);
     setStyleSheet("background-color: #2ca7f8;");
 }

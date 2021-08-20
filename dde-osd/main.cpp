@@ -37,6 +37,9 @@
 #include <DDBusSender>
 #include <DLog>
 #include <DGuiApplicationHelper>
+#ifdef QT_DEBUG
+#include <DAccessibilityChecker>
+#endif
 
 #include <QTranslator>
 #include <QFile>
@@ -164,6 +167,11 @@ int main(int argc, char *argv[])
 
     DDENotifyDBus ddenotify(&manager);
     NotificationsDBusAdaptor adapter(&manager);
+#ifdef QT_DEBUG
+    DAccessibilityChecker checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
     return a.exec();
 }
 #else
