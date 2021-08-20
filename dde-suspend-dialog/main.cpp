@@ -24,6 +24,9 @@
  */
 
 #include "suspenddialog.h"
+#ifdef QT_DEBUG
+#include "../common/accessibilitycheckerex.h"
+#endif
 
 #include <DApplication>
 
@@ -51,5 +54,10 @@ int main(int argc, char *argv[])
             qApp->exit(0);
         }
     });
+#ifdef QT_DEBUG
+    AccessibilityCheckerEx checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
     return app.exec();
 }

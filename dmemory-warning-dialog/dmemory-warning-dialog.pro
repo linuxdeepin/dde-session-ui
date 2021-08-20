@@ -13,7 +13,8 @@ HEADERS += \
     src/processinfomanager.h \
     src/processinfomodel.h \
     src/processinfotable.h \
-    src/dmemorywarningdialogadaptor.h
+    src/dmemorywarningdialogadaptor.h \
+    ../common/accessibilitycheckerex.h
 
 SOURCES += \
     src/buttondelegate.cpp \
@@ -23,7 +24,8 @@ SOURCES += \
     src/processinfomanager.cpp \
     src/processinfomodel.cpp \
     src/processinfotable.cpp \
-    src/dmemorywarningdialogadaptor.cpp
+    src/dmemorywarningdialogadaptor.cpp \
+    ../common/accessibilitycheckerex.cpp
 
 service.path = /usr/share/dbus-1/services
 service.files = com.deepin.dde.MemoryWarningDialog.service

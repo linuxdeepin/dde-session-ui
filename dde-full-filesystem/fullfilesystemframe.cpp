@@ -24,8 +24,8 @@
 
 FullFilesystemFrame::FullFilesystemFrame(QWidget *parent) : FullscreenBackground(parent)
 {
+    setAccessibleName("FullFilesystemFrame");
     FullFilesystem *full = new FullFilesystem(this);
-    full->setAccessibleName("FullFileSystem");
     setContent(full);
 
     connect(full, &FullFilesystem::requestSetBackground, this,

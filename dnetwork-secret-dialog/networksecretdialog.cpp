@@ -92,6 +92,7 @@ void NetworkSecretDialog::parseJsonData(const QJsonDocument &jsonDoc)
 
 void NetworkSecretDialog::initUI()
 {
+    setAccessibleName("NetworkSecretDialog");
     auto envType = qEnvironmentVariable("XDG_SESSION_TYPE");
     bool bWayland = envType.contains("wayland");
     if (bWayland) {

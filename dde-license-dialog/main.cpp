@@ -1,4 +1,7 @@
 #include "mainwindow.h"
+#ifdef QT_DEBUG
+#include "../common/accessibilitycheckerex.h"
+#endif
 
 #include <DApplication>
 
@@ -81,7 +84,11 @@ int main(int argc, char *argv[])
     }
 
     w.updateLocaleSource();
-
+#ifdef QT_DEBUG
+    AccessibilityCheckerEx checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
     w.moveToCenter();
     w.show();
 

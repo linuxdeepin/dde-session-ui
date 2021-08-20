@@ -33,6 +33,7 @@
 ProcessInfoView::ProcessInfoView(QWidget *parent)
     : QTreeView(parent)
 {
+    setProperty("CheckAccessibleName", false);
     header()->setVisible(false);
     setRootIsDecorated(false);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

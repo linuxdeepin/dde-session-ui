@@ -1,4 +1,7 @@
 #include "touchscreensetting.h"
+#ifdef QT_DEBUG
+#include "../common/accessibilitycheckerex.h"
+#endif
 
 #include <DApplication>
 
@@ -44,6 +47,11 @@ int main(int argc, char *argv[])
     }
 
     TouchscreenSetting s(posArguments.first());
+#ifdef QT_DEBUG
+    AccessibilityCheckerEx checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
     s.show();
     s.moveToCenter();
     return app.exec();

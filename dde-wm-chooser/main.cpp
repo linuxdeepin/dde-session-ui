@@ -30,6 +30,9 @@
 #include <DApplication>
 #include <DLog>
 #include <DSysInfo>
+#ifdef QT_DEBUG
+#include <DAccessibilityChecker>
+#endif
 
 #include <QDesktopWidget>
 #include <QCommandLineOption>
@@ -107,6 +110,10 @@ int main(int argc, char *argv[])
     } else {
         return 0;
     }
-
+#ifdef QT_DEBUG
+    DAccessibilityChecker checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
     return a.exec();
 }

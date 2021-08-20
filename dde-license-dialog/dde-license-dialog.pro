@@ -28,11 +28,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         content.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    ../common/accessibilitycheckerex.cpp
 
 HEADERS += \
         content.h \
-        mainwindow.h
+        mainwindow.h \
+    ../common/accessibilitycheckerex.h
 
 isEmpty(PREFIX){
     PREFIX = /usr
