@@ -36,6 +36,7 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
     m_titileLabel(new LargeLabel(this)),
     m_bluetoothInter(new DBusBluetooth("com.deepin.daemon.Bluetooth", "/com/deepin/daemon/Bluetooth", QDBusConnection::sessionBus(), this))
 {
+    setAccessibleName("PinCodeDialog");
     QString titilestr = tr("The PIN for connecting to the Bluetooth device is:");
     setIcon(QIcon::fromTheme("notification-bluetooth-connected"));
     setAttribute(Qt::WA_QuitOnClose);

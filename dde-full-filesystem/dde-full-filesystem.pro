@@ -16,11 +16,13 @@ include(../global_util/global_util.pri)
 SOURCES += \
         main.cpp \
         fullfilesystem.cpp \
-    fullfilesystemframe.cpp
+    fullfilesystemframe.cpp \
+    ../common/accessibilitycheckerex.cpp
 
 HEADERS += \
         fullfilesystem.h \
-    fullfilesystemframe.h
+    fullfilesystemframe.h \
+    ../common/accessibilitycheckerex.h
 
 RESOURCES += \
     resources.qrc

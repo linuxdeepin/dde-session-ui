@@ -25,6 +25,10 @@
 
 
 #include "pincodedialog.h"
+#ifdef QT_DEBUG
+#include "../common/accessibilitycheckerex.h"
+#endif
+
 #include <DApplication>
 
 #include <QDebug>
@@ -55,6 +59,11 @@ int main(int argc, char *argv[])
     qDebug() << "PingCode:" << arguslist[PingCode] << " Device Path:" << arguslist[DevicePath] << "Ping Time:" + arguslist[PingTime];
 
     PinCodeDialog dialog(arguslist[PingCode], arguslist[DevicePath], arguslist[PingTime], true);
+#ifdef QT_DEBUG
+    AccessibilityCheckerEx checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
     if (!dialog.isVisible()) {
         dialog.show();
     }

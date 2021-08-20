@@ -25,6 +25,9 @@
 
 #include "dmemorywarningdialog.h"
 #include "dmemorywarningdialogadaptor.h"
+#ifdef QT_DEBUG
+#include "../common/accessibilitycheckerex.h"
+#endif
 
 #include <DApplication>
 #include <DLog>
@@ -63,6 +66,10 @@ int main(int argc, char *args[])
         return -1;
 
 #ifdef QT_DEBUG
+    AccessibilityCheckerEx checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+
     dialog.show();
 #endif
 

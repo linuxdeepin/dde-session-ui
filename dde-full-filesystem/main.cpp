@@ -20,6 +20,9 @@
  */
 
 #include "fullfilesystemframe.h"
+#ifdef QT_DEBUG
+#include "../common/accessibilitycheckerex.h"
+#endif
 
 #include <DLog>
 #include <DApplication>
@@ -44,6 +47,11 @@ int main(int argc, char *argv[])
     app.installTranslator(&translator);
 
     FullFilesystemFrame frame;
+#ifdef QT_DEBUG
+    AccessibilityCheckerEx checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
     frame.show();
 
     return app.exec();

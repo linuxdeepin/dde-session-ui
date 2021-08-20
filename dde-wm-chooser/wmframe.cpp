@@ -34,6 +34,7 @@ WMFrame::WMFrame(QWidget *parent)
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
 {
+    setAccessibleName("WMFrame");
     m_wmchooser = new WMChooser(this);
     m_wmchooser->setAccessibleName("WMChooser");
     setContent(m_wmchooser);

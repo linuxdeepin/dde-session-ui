@@ -46,6 +46,7 @@ MainWidget::MainWidget(QWidget *parent)
                                      "/com/deepin/daemon/ImageBlur",
                                      QDBusConnection::systemBus(), this))
 {
+    setAccessibleName("MainWidget");
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &MainWidget::onBlurWallpaperFinished);
     connect(qApp, &QApplication::aboutToQuit, this, [=] {
         DDBusSender()

@@ -26,11 +26,13 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 
 SOURCES += main.cpp\
-    pincodedialog.cpp
+    pincodedialog.cpp \
+    ../common/accessibilitycheckerex.cpp
 
 HEADERS  +=\
     pincodedialog.h \
-    largelabel.h
+    largelabel.h \
+    ../common/accessibilitycheckerex.h
 
 icons.path = /usr/share/icons/hicolor/scalable/devices
 

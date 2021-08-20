@@ -40,6 +40,8 @@ TouchscreenSetting::TouchscreenSetting(const QString &touchscreen, QWidget *pare
     , m_listCombo(new DComboBox)
     , m_monitorIndicator(new MonitorIndicator)
 {
+    setAccessibleName("TouchscreenSetting");
+    m_listCombo->setAccessibleName("ListCombo");
     setTitle(tr("Select your touch screen"));
     setIcon(QIcon::fromTheme("dcc_touchscreen"));
 

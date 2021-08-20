@@ -30,6 +30,7 @@
 WarningDialog::WarningDialog(QWidget *parent)
     : DDialog(parent)
 {
+    setAccessibleName("WarningDialog");
     const auto ratio = devicePixelRatioF();
     QPixmap icon = QIcon::fromTheme("dialog-warning").pixmap(int(48 * ratio), int(48 * ratio));
     icon.setDevicePixelRatio(ratio);

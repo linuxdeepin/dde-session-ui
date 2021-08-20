@@ -26,9 +26,11 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 
 SOURCES += main.cpp\
-        suspenddialog.cpp
+        suspenddialog.cpp \
+    ../common/accessibilitycheckerex.cpp
 
-HEADERS  += suspenddialog.h
+HEADERS  += suspenddialog.h \
+    ../common/accessibilitycheckerex.h
 
 icons.file = data/*
 icons.path = /usr/share/icons/hicolor/scalable/devices

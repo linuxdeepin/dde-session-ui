@@ -61,6 +61,7 @@ void FullFilesystem::onPoweroffButtonClicked()
 
 void FullFilesystem::initUI()
 {
+    setAccessibleName("FullFileSystem");
     m_iconLabel->setObjectName("IconLabel");
     m_title->setObjectName("TitleLabel");
     m_message->setObjectName("MsgLabel");

@@ -24,6 +24,9 @@
  */
 
 #include "warningdialog.h"
+#ifdef QT_DEBUG
+#include "../common/accessibilitycheckerex.h"
+#endif
 
 #include <DApplication>
 #include <DWidgetUtil>
@@ -64,7 +67,11 @@ int main(int argc, char *argv[])
     QDBusConnection connection = QDBusConnection::sessionBus();
     connection.registerService(Service);
     connection.registerObject(Path, &w);
-
+#ifdef QT_DEBUG
+    AccessibilityCheckerEx checker;
+    checker.setOutputFormat(DAccessibilityChecker::FullFormat);
+    checker.start();
+#endif
     moveToCenter(&w);
     w.show();
 

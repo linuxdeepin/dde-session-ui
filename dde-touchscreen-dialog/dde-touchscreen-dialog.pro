@@ -30,12 +30,14 @@ SOURCES += \
     main.cpp \
     touchscreensetting.cpp \
     recognizedialog.cpp \
-    monitorindicator.cpp
+    monitorindicator.cpp \
+    ../common/accessibilitycheckerex.cpp
 
 HEADERS += \
     touchscreensetting.h \
     recognizedialog.h \
-    monitorindicator.h
+    monitorindicator.h \
+    ../common/accessibilitycheckerex.h
 
 target.path = /usr/lib/deepin-daemon/
 INSTALLS   += target

@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
     }
 
+    setAccessibleName("MainWindow");
     m_title->setObjectName("TitleLabel");
     m_title->setAccessibleName("TitleLabel");
     QWidget *widget = new QWidget(this);

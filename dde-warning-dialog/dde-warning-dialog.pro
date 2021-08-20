@@ -16,10 +16,12 @@ TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
 
 SOURCES += main.cpp \
-    warningdialog.cpp
+    warningdialog.cpp \
+    ../common/accessibilitycheckerex.cpp
 
 HEADERS  += \
-    warningdialog.h
+    warningdialog.h \
+    ../common/accessibilitycheckerex.h
 
 service.files += com.deepin.dde.WarningDialog.service
 service.path = /usr/share/dbus-1/services/
