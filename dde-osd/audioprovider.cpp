@@ -72,7 +72,7 @@ QVariant AudioProvider::data(const QModelIndex &, int role) const
         return m_audioInter->increaseVolume();
     }
 
-    return m_sinkInter->mute() ? 0 : m_sinkInter->volume();
+    return m_sinkInter->volume();
 }
 
 void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
