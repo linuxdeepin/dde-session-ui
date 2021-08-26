@@ -39,7 +39,10 @@ SOURCES += \
     ut_overlapwidget.cpp \
     ut_listview.cpp \
     ut_notifywidget.cpp \
-    ut_iconbutton.cpp
+    ut_iconbutton.cpp \
+    ut_icondata.cpp \
+    ut_dockrect.cpp \
+    ut_kblayoutindicator.cpp
 
 INCLUDEPATH += ../../dde-osd/notification/ \
                ../../dde-osd/notification-center/ \

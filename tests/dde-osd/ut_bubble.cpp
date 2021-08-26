@@ -1,7 +1,9 @@
 #include <gtest/gtest.h>
 
+#define private public
 #include "notification/bubble.h"
 #include "notification/constants.h"
+#undef private
 
 #include <QApplication>
 #include <QMimeData>
@@ -49,6 +51,7 @@ TEST_F(UT_Bubble, coverageTest)
     obj->setEnabled(true);
     obj->setEnabled(false);
     obj->setBubbleIndex(0);
+    obj->initTimers();
 }
 
 TEST_F(UT_Bubble, eventTest)
