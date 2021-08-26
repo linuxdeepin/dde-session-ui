@@ -4,6 +4,7 @@
 
 #include <QApplication>
 #include <QMimeData>
+#include <QTest>
 
 class UT_ListView : public testing::Test
 {
@@ -25,5 +26,5 @@ public:
 
 TEST_F(UT_ListView, coverageTest)
 {
-
+    QTest::mousePress(obj, Qt::LeftButton);
 }

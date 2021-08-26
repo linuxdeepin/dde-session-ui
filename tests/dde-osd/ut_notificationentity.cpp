@@ -39,5 +39,7 @@ TEST_F(UT_NotificationEntity, coverageTest)
     obj->setReplacesId(QString::number(0));
     obj->setShowPreview(true);
     obj->setCurrentIndex(0);
+    EXPECT_EQ(obj->currentIndex(), 0);
     obj->setShowInNotifyCenter(true);
+    EXPECT_TRUE(obj->isShowInNotifyCenter());
 }

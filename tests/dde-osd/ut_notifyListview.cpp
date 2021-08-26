@@ -86,6 +86,7 @@ TEST_F(UT_NotifyListview, coverageTest)
     ListItem item = model->getAppData("deepin-editor");
     obj->setVisible(true);
     obj->show();
+    obj->aniState();
     model->cacheData(notification);
     model->freeData();
     model->removeNotify(notification);
