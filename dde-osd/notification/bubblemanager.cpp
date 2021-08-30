@@ -453,7 +453,8 @@ void BubbleManager::updateSysNotifyProperty()
 
 QRect BubbleManager::calcDisplayRect()
 {
-    QRect displayRect;
+    qreal ratio = qApp->primaryScreen()->devicePixelRatio();
+    QRect displayRect = m_displayInter->primaryRect();
     QList<QDBusObjectPath> screenList = m_displayInter->monitors();
 
     for (auto screen : screenList) {
@@ -462,8 +463,8 @@ QRect BubbleManager::calcDisplayRect()
                 && QCursor::pos().x() >= monitor->x() && QCursor::pos().x() <= monitor->x() + monitor->width()
                 && QCursor::pos().y() >= monitor->y() && QCursor::pos().y() <= monitor->y() + monitor->height()) {
             displayRect = QRect(monitor->x(), monitor->y(),
-                                int(monitor->width() / qApp->primaryScreen()->devicePixelRatio()),
-                                int(monitor->height() / qApp->primaryScreen()->devicePixelRatio()));
+                                int(monitor->width() / ratio),
+                                int(monitor->height() / ratio));
             break;
         }
     }
