@@ -1,9 +1,9 @@
-#include <gtest/gtest.h>
-
+#define private public
 #include "manager.h"
+#include "kblayoutprovider.h"
+#undef private
 
-#include <QApplication>
-#include <QMimeData>
+#include <gtest/gtest.h>
 
 class UT_Manager : public testing::Test
 {
@@ -35,8 +35,17 @@ TEST_F(UT_Manager, coverageTest)
     argList << "SwitchWM3D" << "SwitchWM2D"<< "SwitchWMError";
     argList << "AudioMicMuteOn" << "AudioMicMuteOff";
     argList << "WLANOn" << "WLANOff";
+    argList << "DirectSwitchLayout";
+
+    obj->m_currentProvider = obj->m_kbLayoutProvider;
+    KBLayoutProvider *provide = qobject_cast<KBLayoutProvider *>(obj->m_kbLayoutProvider);
+    if (provide) {
+        QStringList layouts({"en"});
+        provide->userLayoutListChanged(layouts);
+    }
 
     foreach(QString arg , argList) {
         obj->ShowOSD(arg);
     }
+    obj->updateUI();
 }

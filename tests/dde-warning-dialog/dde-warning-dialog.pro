@@ -1,6 +1,6 @@
 QT       += widgets core gui dbus gui-private
 
-TARGET = tst_dde-warning-dialog
+TARGET = ut_dde-warning-dialog
 TEMPLATE = app
 
 include(../testcase.prf)
@@ -18,8 +18,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 include(../../dde-warning-dialog/src.pri)
 
 SOURCES += \
-    tst_warningdialog.cpp \
-    main.cpp
+    main.cpp \
+    ut_warningdialog.cpp
 
 INCLUDEPATH += ../../dde-warning-dialog
 

@@ -1,6 +1,6 @@
-QT       += widgets core gui dbus gui-private
+QT       += widgets core gui dbus gui-private concurrent
 
-TARGET = tst_dde-license-dialog
+TARGET = ut_dde-license-dialog
 TEMPLATE = app
 
 include(../testcase.prf)
@@ -17,8 +17,8 @@ include(../../dde-license-dialog/src.pri)
 
 SOURCES += \
     main.cpp \
-    tst_content.cpp \
-    tst_mainwindow.cpp
+    ut_content.cpp \
+    ut_mainwindow.cpp
 
 INCLUDEPATH += ../../dde-license-dialog
 

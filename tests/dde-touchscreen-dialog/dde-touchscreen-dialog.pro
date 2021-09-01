@@ -1,6 +1,6 @@
-QT       += widgets core gui dbus gui-private
+QT       += widgets core gui dbus gui-private x11extras
 
-TARGET = tst_dde-touchscreen-dialog
+TARGET = ut_dde-touchscreen-dialog
 TEMPLATE = app
 
 include(../testcase.prf)
@@ -9,7 +9,7 @@ PKGCONFIG += dtkwidget dtkgui gio-qt dframeworkdbus gsettings-qt
 CONFIG += c++11 link_pkgconfig
 CONFIG -= app_bundle
 
-LIBS += -lgtest
+LIBS += -lgtest -lX11 -lXext
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
@@ -19,9 +19,9 @@ include(../../dde-touchscreen-dialog/src.pri)
 
 SOURCES += \
     main.cpp \
-    tst_monitorindicator.cpp \
-    tst_recognizedialog.cpp \
-    tst_touchscreensetting.cpp
+    ut_monitorindicator.cpp \
+    ut_recognizedialog.cpp \
+    ut_touchscreensetting.cpp
 
 INCLUDEPATH += ../../dde-touchscreen-dialog
 

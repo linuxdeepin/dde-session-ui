@@ -1,6 +1,6 @@
 QT       += widgets core gui dbus gui-private
 
-TARGET = tst_dnetwork-secret-dialog
+TARGET = ut_dnetwork-secret-dialog
 TEMPLATE = app
 
 include(../testcase.prf)
@@ -19,7 +19,7 @@ include(../../dnetwork-secret-dialog/src.pri)
 
 SOURCES += \
     main.cpp \
-    tst_networksecretdialog.cpp
+    ut_networksecretdialog.cpp
 
 INCLUDEPATH += ../../dnetwork-secret-dialog
 

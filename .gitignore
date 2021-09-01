@@ -28,6 +28,7 @@ dde-shutdown/dde-shutdown
 debug
 release
 build*
+report/
 
 *.user*
 *.qm
