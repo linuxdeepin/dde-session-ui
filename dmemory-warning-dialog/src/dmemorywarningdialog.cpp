@@ -51,6 +51,7 @@ bool confirm(const QPixmap &icon)
                                            << QApplication::translate("DMemoryWarningDialog", "Release");
 
     DDialog terminateDialog(dialog);
+    terminateDialog.setAccessibleName("TerminateDialog");
     terminateDialog.setTitle(QApplication::translate("DMemoryWarningDialog", "This application will be ended, please make sure your data has been saved!"));
     terminateDialog.setMessage(QApplication::translate("DMemoryWarningDialog", "Please save your document, text and spreadsheet"));
     terminateDialog.setIcon(icon);
@@ -92,8 +93,8 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     ProcessInfoView *table = new ProcessInfoView;
     table->setAccessibleName("ProessInfoView");
     table->setModel(m_infoModel);
-    table->setItemDelegate(new ProcessInfoDelegate);
-    table->setItemDelegateForColumn(3, new ButtonDelegate);
+    table->setItemDelegate(new ProcessInfoDelegate(table));
+    table->setItemDelegateForColumn(3, new ButtonDelegate(table));
     table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QHBoxLayout *btnsLayout = new QHBoxLayout;
