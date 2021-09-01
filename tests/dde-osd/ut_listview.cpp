@@ -1,30 +1,19 @@
-#include <gtest/gtest.h>
-
+#define protected public
 #include "listview.h"
+#undef protected
 
-#include <QApplication>
-#include <QMimeData>
-#include <QTest>
+#include <QMouseEvent>
+
+#include <gtest/gtest.h>
 
 class UT_ListView : public testing::Test
 {
-public:
-    void SetUp() override
-    {
-        obj = new ListView();
-    }
 
-    void TearDown() override
-    {
-        delete obj;
-        obj = nullptr;
-    }
-
-public:
-    ListView *obj = nullptr;
 };
 
 TEST_F(UT_ListView, coverageTest)
 {
-    QTest::mousePress(obj, Qt::LeftButton);
+    ListView listView;
+    QMouseEvent event(QEvent::MouseButtonPress, QPointF(0, 0), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    listView.mousePressEvent(&event);
 }

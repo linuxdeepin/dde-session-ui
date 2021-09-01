@@ -1,14 +1,11 @@
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
-
 #include <QApplication>
 #include <QDebug>
 
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #ifdef QT_DEBUG
 #include <sanitizer/asan_interface.h>
 #endif
-
-#define private public
 
 int main(int argc, char *argv[])
 {
@@ -21,7 +18,7 @@ int main(int argc, char *argv[])
     qDebug() << "end dde-osd test cases ..............";
 
 #ifdef QT_DEBUG
-    __sanitizer_set_report_path("asan_osd.log");
+    __sanitizer_set_report_path("asan_dde-osd.log");
 #endif
 
     return ret;

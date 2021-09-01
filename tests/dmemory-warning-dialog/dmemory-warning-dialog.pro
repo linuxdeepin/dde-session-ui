@@ -1,6 +1,6 @@
-QT       += widgets core gui dbus gui-private
+QT       += widgets core gui dbus gui-private testlib
 
-TARGET = tst_dmemmory-warning-dialog
+TARGET = ut_dmemory-warning-dialog
 TEMPLATE = app
 
 include(../testcase.prf)
@@ -19,9 +19,11 @@ include(../../dmemory-warning-dialog/src/src.pri)
 
 SOURCES += \
     main.cpp \
-    tst_dmemorywarningdialog.cpp \
-    tst_processinfomanager.cpp \
-    tst_processinfotable.cpp
+    ut_buttondelegate.cpp \
+    ut_dmemorywarningdialogdaptor.cpp \
+    ut_processinfotable.cpp \
+    ut_dmemorywarningdialog.cpp \
+    ut_processinfomanager.cpp
 
 INCLUDEPATH += ../../dmemory-warning-dialog/src
 

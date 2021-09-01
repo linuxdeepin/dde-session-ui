@@ -1,6 +1,6 @@
-QT       += widgets core gui dbus gui-private
+QT       += widgets core gui dbus gui-private testlib
 
-TARGET = tst_dde-suspend-dialog
+TARGET = ut_dde-suspend-dialog
 TEMPLATE = app
 
 include(../testcase.prf)
@@ -19,7 +19,7 @@ include(../../dde-suspend-dialog/src.pri)
 
 SOURCES += \
     main.cpp \
-    tst_suspenddialog.cpp
+    ut_suspenddialog.cpp
 
 INCLUDEPATH += ../../dde-suspend-dialog
 

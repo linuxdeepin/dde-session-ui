@@ -1,6 +1,6 @@
 QT       += widgets core gui dbus gui-private
 
-TARGET = tst_dde-bluetooth-dialog
+TARGET = ut_dde-bluetooth-dialog
 TEMPLATE = app
 
 include(../testcase.prf)
@@ -16,8 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(../../dde-bluetooth-dialog/src.pri)
 
 SOURCES += \
-    tst_pincodedialog.cpp \
-    ut_dde-bluetooth-dialog_main.cpp
+    ut_pincodedialog.cpp \
+    main.cpp
 
 INCLUDEPATH += ../../dde-bluetooth-dialog
 
