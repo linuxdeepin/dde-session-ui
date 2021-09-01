@@ -1,6 +1,6 @@
-QT       += widgets core gui dbus gui-private svg
+QT       += widgets core gui dbus gui-private svg testlib
 
-TARGET = tst_dde-notification-plugin
+TARGET = ut_dde-notification-plugin
 TEMPLATE = app
 
 include(../testcase.prf)
@@ -18,8 +18,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 include(../../dde-notification-plugin/src.pri)
 
 SOURCES += main.cpp \
-    tst_notificationswidget.cpp \
-    tst_notificationsplugin.cpp
+    ut_notificationsplugin.cpp \
+    ut_notificationswidget.cpp
 
 INCLUDEPATH += ../../dde-notification-plugin \
                /usr/include/dde-dock

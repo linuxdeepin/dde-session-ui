@@ -1,6 +1,6 @@
 QT       += widgets core gui dbus gui-private
 
-TARGET = tst_dde-wm-chooser
+TARGET = ut_dde-wm-chooser
 TEMPLATE = app
 
 include(../testcase.prf)
@@ -21,8 +21,8 @@ include(../../global_util/global_util.pri)
 
 SOURCES += \
     main.cpp \
-    tst_wmchooser.cpp \
-    tst_wmframe.cpp
+    ut_wmframe.cpp \
+    ut_wmchooser.cpp
 
 INCLUDEPATH += ../../dde-wm-chooser
 

@@ -1,6 +1,6 @@
 QT       += widgets core gui dbus gui-private
 
-TARGET = tst_dde-lowpower
+TARGET = ut_dde-lowpower
 TEMPLATE = app
 
 include(../testcase.prf)
@@ -19,7 +19,7 @@ include(../../dde-lowpower/src.pri)
 
 SOURCES += \
     main.cpp \
-    tst_window.cpp
+    ut_window.cpp
 
 INCLUDEPATH += ../../dde-lowpower
 

@@ -1,9 +1,10 @@
-#include <gtest/gtest.h>
-
 #include <QApplication>
 #include <QDebug>
 
-#define private public
+#include <gtest/gtest.h>
+#ifdef QT_DEBUG
+#include <sanitizer/asan_interface.h>
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -13,5 +14,10 @@ int main(int argc, char *argv[])
     ::testing::InitGoogleTest(&argc, argv);
     int ret = RUN_ALL_TESTS();
     qDebug() << "end dde-lowpower test cases ..............";
+
+#ifdef QT_DEBUG
+    __sanitizer_set_report_path("asan_dde-lowpower.log");
+#endif
+
     return ret;
 }
