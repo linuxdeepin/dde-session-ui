@@ -223,7 +223,8 @@ void NotificationsPlugin::updateDockIcon(uint item, const QDBusVariant &var)
     }
 
     m_proxyInter->saveValue(this, PLUGIN_STATE_KEY, m_isShowIcon);
-    m_itemWidget->setDisturb(m_disturb);
+    if (m_itemWidget)
+        m_itemWidget->setDisturb(m_disturb);
     refreshPluginItemsVisible();
 }
 
