@@ -202,7 +202,6 @@ private Q_SLOTS:
      */
     void geometryChanged();
     void onDbusNameOwnerChanged(QString, QString, QString);
-    void onPrepareForSleep(bool);
     /*!
      * \~chinese \name bubbleExpired
      * \~chinese \brief 当气泡超时时发出信号,执行该函数,产生移除动画,动画结束删除通知气泡

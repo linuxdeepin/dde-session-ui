@@ -593,8 +593,6 @@ void BubbleManager::updateGeometry()
 
 void BubbleManager::initConnections()
 {
-    connect(m_login1ManagerInterface, SIGNAL(PrepareForSleep(bool)),
-            this, SLOT(onPrepareForSleep(bool)));
     connect(m_dbusDaemonInterface, SIGNAL(NameOwnerChanged(QString, QString, QString)),
             this, SLOT(onDbusNameOwnerChanged(QString, QString, QString)));
 
@@ -630,16 +628,6 @@ void BubbleManager::initConnections()
     });
 
     connect(m_appearance, &Appearance::OpacityChanged, this,  &BubbleManager::onOpacityChanged);
-}
-
-void BubbleManager::onPrepareForSleep(bool sleep)
-{
-    // workaround to avoid the "About to suspend..." notifications still
-    // hanging there on restoring from sleep confusing users.
-    if (!sleep) {
-        qDebug() << "Quit on restoring from sleep.";
-        qApp->quit();
-    }
 }
 
 void BubbleManager::geometryChanged()
