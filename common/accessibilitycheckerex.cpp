@@ -21,7 +21,7 @@
 
 #include "accessibilitycheckerex.h"
 
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 
 /**
  * @brief addIgnoreName 添加需要忽略的控件的objectName或accessibleName，一般用于设置property无法解决的情况

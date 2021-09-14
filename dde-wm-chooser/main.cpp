@@ -30,7 +30,7 @@
 #include <DApplication>
 #include <DLog>
 #include <DSysInfo>
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 #include <DAccessibilityChecker>
 #endif
 
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
     } else {
         return 0;
     }
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
     DAccessibilityChecker checker;
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
     checker.start();

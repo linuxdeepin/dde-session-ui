@@ -32,5 +32,6 @@ report/
 
 *.user*
 *.qm
+.vscode
 
 misc/*/deepin-toggle-desktop.desktop

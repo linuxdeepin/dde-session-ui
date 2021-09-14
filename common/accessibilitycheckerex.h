@@ -24,7 +24,7 @@
 
 //需要把QObject放在QT_DEBUG前面，否则不生效
 #include <QObject>
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 
 #include <QWidget>
 #include <DAccessibilityChecker>

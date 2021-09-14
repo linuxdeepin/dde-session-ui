@@ -29,7 +29,7 @@
 
 #include <DApplication>
 #include <DLog>
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 #include <DAccessibilityChecker>
 #endif
 
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 
     MultiScreenManager multi_screen_manager;
     multi_screen_manager.register_for_mutil_screen(createFrame);
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
     DAccessibilityChecker checker;
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
     checker.start();
