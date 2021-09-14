@@ -37,7 +37,7 @@
 #include <DDBusSender>
 #include <DLog>
 #include <DGuiApplicationHelper>
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 #include <DAccessibilityChecker>
 #endif
 
@@ -167,7 +167,7 @@ int main(int argc, char *argv[])
 
     DDENotifyDBus ddenotify(&manager);
     NotificationsDBusAdaptor adapter(&manager);
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
     DAccessibilityChecker checker;
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
     checker.start();

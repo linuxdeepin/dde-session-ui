@@ -25,7 +25,7 @@
 
 
 #include "pincodedialog.h"
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 #include "../common/accessibilitycheckerex.h"
 #endif
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     qDebug() << "PingCode:" << arguslist[PingCode] << " Device Path:" << arguslist[DevicePath] << "Ping Time:" + arguslist[PingTime];
 
     PinCodeDialog dialog(arguslist[PingCode], arguslist[DevicePath], arguslist[PingTime], true);
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
     AccessibilityCheckerEx checker;
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
     checker.start();

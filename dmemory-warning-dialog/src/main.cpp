@@ -25,7 +25,7 @@
 
 #include "dmemorywarningdialog.h"
 #include "dmemorywarningdialogadaptor.h"
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 #include "../common/accessibilitycheckerex.h"
 #endif
 
@@ -65,7 +65,7 @@ int main(int argc, char *args[])
         !connection.registerObject("/com/deepin/dde/MemoryWarningDialog", &dialog))
         return -1;
 
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
     AccessibilityCheckerEx checker;
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
     checker.start();
