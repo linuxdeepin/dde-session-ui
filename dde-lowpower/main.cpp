@@ -25,7 +25,7 @@
 
 #include "window.h"
 
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 #include <DAccessibilityChecker>
 #endif
 
@@ -38,7 +38,7 @@
 #include <QTimer>
 #include <QDebug>
 
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 DWIDGET_USE_NAMESPACE
 #endif
 
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
         QTimer::singleShot(500, &a, SLOT(quit()));
     }
 
-#ifdef QT_DEBUG
+#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
     DAccessibilityChecker checker;
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
     checker.start();
