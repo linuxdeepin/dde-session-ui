@@ -455,6 +455,7 @@ QRect BubbleManager::calcDisplayRect()
 {
     qreal ratio = qApp->primaryScreen()->devicePixelRatio();
     QRect displayRect = m_displayInter->primaryRect();
+    displayRect.setSize(qApp->primaryScreen()->size());
     QList<QDBusObjectPath> screenList = m_displayInter->monitors();
 
     for (auto screen : screenList) {
