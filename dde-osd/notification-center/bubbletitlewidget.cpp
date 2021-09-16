@@ -32,7 +32,7 @@
 
 BubbleTitleWidget::BubbleTitleWidget(NotifyModel *model, EntityPtr entity, QWidget *parent)
     : DWidget(parent),
-      m_titleLabel(new DLabel),
+      m_titleLabel(nullptr),
       m_model(model)
 {
     this->setObjectName(entity->appName());
@@ -46,7 +46,6 @@ BubbleTitleWidget::BubbleTitleWidget(NotifyModel *model, EntityPtr entity, QWidg
     m_titleLabel->setFont(font);
     m_titleLabel->setText(BubbleTool::getDeepinAppName(entity->appName()));
     DFontSizeManager::instance()->bind(m_titleLabel, DFontSizeManager::T4);
-
 
     m_closeButton = new DIconButton(DStyle::SP_CloseButton);
     m_closeButton->setObjectName(entity->appName() + "-CloseButton");

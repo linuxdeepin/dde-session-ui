@@ -2,7 +2,9 @@
 #include "notification/appbodylabel.h"
 #undef private
 
+#include <QPaintEvent>
 #include <QRect>
+#include <QTextLayout>
 
 #include <gtest/gtest.h>
 
@@ -26,9 +28,16 @@ public:
 
 TEST_F(UT_AppBodyLabel, coverageTest)
 {
+    obj->setText("UT_AppBodyLabel coverageTest");
     obj->show();
-    obj->resize(100, 200);
-    obj->holdTextInRect(obj->fontMetrics(), "unittest", QRect(0, 0, 100, 200));
+    obj->resize(100, 40);
+    QFont font = obj->font();
+    font.setPixelSize(100);
+    obj->setFont(font);
+    obj->holdTextInRect(obj->fontMetrics(), "unittest", QRect(0, 0, 100, 40));
+    obj->updateLineCount();
+    QPaintEvent event(QRect(0, 0, 100, 200));
+    obj->paintEvent(&event);
 }
 
 TEST_F(UT_AppBodyLabel, textTest)

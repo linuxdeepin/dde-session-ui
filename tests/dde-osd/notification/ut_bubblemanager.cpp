@@ -1,4 +1,6 @@
+#define private public
 #include "notification/bubblemanager.h"
+#undef private
 #include "mockpersistence.h"
 #include "mocknotifysetting.h"
 
@@ -108,8 +110,6 @@ public:
 
 TEST_F(UT_BubbleManager, coverageTest)
 {
-    return;
-
     obj->CloseNotification(0);
     obj->GetCapabilities();
 
@@ -133,9 +133,11 @@ TEST_F(UT_BubbleManager, coverageTest)
     obj->getAllSetting();
     obj->setAllSetting("");
     obj->getAppSetting("");
-    obj->setAppSetting("");
+    obj->setAppSetting("{}");
     obj->getSystemSetting();
     obj->setSystemSetting("");
+    obj->GetLastStableRect(0);
+    obj->geometryChanged();
 }
 
 TEST_F(UT_BubbleManager, NotifyTest)
