@@ -1,4 +1,7 @@
+#define private public
 #include "notification-center/notifycenterwidget.h"
+#include "iconbutton.h"
+#undef private
 #include "mockpersistence.h"
 
 #include <gtest/gtest.h>
@@ -11,7 +14,6 @@ class UT_NotifyCenterWidget : public testing::Test
 public:
     void SetUp() override
     {
-        MockPersistence persistence;
         PersistenceHelper helper;
 
         EXPECT_CALL(persistence, getAllNotify()).
@@ -51,6 +53,7 @@ public:
     }
 
 public:
+    MockPersistence persistence;
     NotifyCenterWidget *obj = nullptr;
 };
 
@@ -78,4 +81,8 @@ TEST_F(UT_NotifyCenterWidget, coverageTest)
     EXPECT_EQ(QRect(1510, 10, 400, 1060), obj->geometry());
 
     obj->showWidget();
+    obj->onlyHideWidget();
+    obj->onlyShowWidget();
+    Q_EMIT obj->m_clearButton->clicked();
+    Q_EMIT obj->m_notifyWidget->focusOnButton();
 }

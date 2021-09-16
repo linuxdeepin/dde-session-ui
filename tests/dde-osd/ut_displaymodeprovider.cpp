@@ -50,7 +50,8 @@ TEST_F(UT_DisplayModeProvider, coverageTest)
     provider.contentSize();
     provider.flow();
     // FIXME 会导致息屏几秒钟
-//    provider.sync(QModelIndex(0, 0, nullptr, nullptr));
+    provider.m_state = DisplayModeProvider::DISABLE;
+    provider.sync(QModelIndex(0, 0, nullptr, nullptr));
 
     PaintWidget w;
     w.setProvider(&provider);

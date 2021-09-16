@@ -3,6 +3,8 @@
 #include "mainwindow.h"
 #undef private
 
+#include <DSuggestButton>
+
 #include <gtest/gtest.h>
 
 class UT_MainWindow : public testing::Test
@@ -28,6 +30,7 @@ TEST_F(UT_MainWindow, coverageTest)
    window.m_content->m_hasCn = true;
    window.m_content->m_hasEn = true;
    window.updateLocaleSource();
+   Q_EMIT window.m_content->sourceChanged(false);
    if (QLocale::system().language() == QLocale::Chinese) {
         EXPECT_TRUE(window.m_content->m_isCn);
         EXPECT_TRUE(window.m_content->m_languageBtn->button(1)->isChecked());

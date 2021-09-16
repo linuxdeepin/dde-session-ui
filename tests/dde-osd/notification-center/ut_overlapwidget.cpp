@@ -1,9 +1,11 @@
 #define private public
+#define protected public
 #include "notification-center/overlapwidet.h"
 #include "notifymodel.h"
 #include "notifylistview.h"
 #include "notificationentity.h"
 #undef private
+#undef protected
 
 #include <QApplication>
 #include <QTest>
@@ -38,18 +40,35 @@ public:
 TEST_F(UT_OverLapWidet, coverageTest)
 {
     model->addNotify(entityPtr);
-    NotifyListView *listview = new NotifyListView();
-    listview->setModel(model);
-    obj->setParentView(listview);
+    NotifyListView listview;
+    listview.setModel(model);
+    model->addNotify(entityPtr);
+    model->addAppData(entityPtr);
+    for (int row = 0; row < model->rowCount(QModelIndex()); row++) {
+        listview.setIndexWidget(model->index(row), (new BubbleItem(obj, entityPtr)));
+    }
+    obj->setParentView(&listview);
     entityPtr->setHideCount(3);
     obj->initOverlap();
     obj->hideOverlapBubble();
     obj->getFaceItem();
     obj->bubbleElements();
     obj->update();
+    obj->show();
+    obj->expandAppGroup();
 
     QEvent event = QEvent(QEvent::FocusIn);
     qApp->sendEvent(obj, &event);
     event = QEvent(QEvent::FocusOut);
     qApp->sendEvent(obj, &event);
+    QTest::mouseRelease(obj, Qt::LeftButton);
+
+    for(auto child : obj->children()) {
+        HalfRoundedRectWidget *w = qobject_cast<HalfRoundedRectWidget *>(child);
+        if (w) {
+            QPaintEvent paintevent(QRect(0,0,1,1));
+            w->paintEvent(&paintevent);
+            break;
+        }
+    }
 }

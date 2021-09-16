@@ -7,6 +7,8 @@
 
 #include <QSharedPointer>
 #include <QGSettings>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 #include <gtest/gtest.h>
 
@@ -36,6 +38,21 @@ class UT_NotificationsPlugin : public testing::Test
 
 TEST_F(UT_NotificationsPlugin, coverageTest)
 {
+    //保存当前通知图标在通知栏的状态，测试完后恢复状态
+    bool isNotificationEnabel = true;
+    QGSettings settings("com.deepin.dde.dock", "/com/deepin/dde/dock/");
+    if (settings.keys().contains("plugin-settings")) {
+        auto jsonstr = settings.get("plugin-settings").toByteArray();
+        auto jsondocument = QJsonDocument::fromJson(jsonstr);
+        auto jsonobj = jsondocument.object();
+        if (jsonobj.contains("notifications")) {
+            QJsonObject notifycationsJsonObj = jsonobj.value("notifycations").toObject();
+            if (notifycationsJsonObj.contains("enable")) {
+                isNotificationEnabel = notifycationsJsonObj.value("enabel").toBool();
+            }
+        }
+    }
+
     NotificationsPlugin plugin;
     EXPECT_TRUE(plugin.m_notifyInter != nullptr);
     EXPECT_TRUE(plugin.m_tipsLabel != nullptr);
@@ -65,14 +82,13 @@ TEST_F(UT_NotificationsPlugin, coverageTest)
         EXPECT_EQ(plugin.itemContextMenu("notifications"), QString());
     else
         EXPECT_FALSE(plugin.itemContextMenu("notifications").isEmpty());
-
     EXPECT_EQ(plugin.itemSortKey(""), DOCK_DEFAULT_POS);
-    plugin.refreshPluginItemsVisible();
     plugin.updateDockIcon(KEY_DNDMODE, QDBusVariant(true));
     EXPECT_TRUE(plugin.m_disturb);
-    plugin.updateDockIcon(KEY_SHOWICON, QDBusVariant(true));
     EXPECT_TRUE(plugin.m_isShowIcon);
     plugin.pluginStateSwitched();
+    plugin.updateDockIcon(KEY_SHOWICON, QDBusVariant(isNotificationEnabel));
+    plugin.refreshPluginItemsVisible();
     NotificationsWidget *itemWidget = new NotificationsWidget;
     plugin.m_itemWidget = itemWidget;
     plugin.invokedMenuItem("", "disturb", true);
@@ -80,5 +96,9 @@ TEST_F(UT_NotificationsPlugin, coverageTest)
     plugin.checkSwap();
     plugin.setSortKey("notifycations", 9);
     plugin.pluginSettingsChanged();
+
+
+    //恢复插件原本的enable状态
+    plugin.m_notifyInter->SetSystemInfo(5, QDBusVariant(isNotificationEnabel));
 }
 

@@ -97,7 +97,7 @@ BubbleManager::~BubbleManager()
 
 void BubbleManager::CloseNotification(uint id)
 {
-#ifdef QT_DEBUG
+#if defined (QT_DEBUG) && !defined (GTEST)
     QDBusReply<uint> reply = connection().interface()->servicePid(message().service());
     qDebug() << "PID:" << reply.value();//关闭通知的进程
 #endif

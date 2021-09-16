@@ -36,6 +36,7 @@ TEST_F(UT_Manager, coverageTest)
     argList << "AudioMicMuteOn" << "AudioMicMuteOff";
     argList << "WLANOn" << "WLANOff";
     argList << "DirectSwitchLayout";
+    argList << "SwitchLayoutDone";
 
     obj->m_currentProvider = obj->m_kbLayoutProvider;
     KBLayoutProvider *provide = qobject_cast<KBLayoutProvider *>(obj->m_kbLayoutProvider);

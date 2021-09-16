@@ -1,14 +1,18 @@
 #define private public
+#define protected public
 #include "processinfotable.h"
 #include "processinfomodel.h"
 #include "processinfodelegate.h"
 #include "buttondelegate.h"
 #include "dmemorywarningdialog.h"
 #undef private
+#undef protected
 
 #include <DDialog>
 
 #include <QTest>
+#include <QMouseEvent>
+#include <QPainter>
 
 #include <gtest/gtest.h>
 
@@ -27,11 +31,13 @@ TEST_F(Ut_ProcessInfoView, coverageTest)
     table.setItemDelegateForColumn(3, new ButtonDelegate(&table));
     table.show();
     table.update();
+    QMouseEvent mouseEvent(QEvent::MouseButtonRelease, QPointF(1,1), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
+    table.mouseReleaseEvent(&mouseEvent);
+    QTest::mouseRelease(&table, Qt::LeftButton);
     model.startRefreshData();
     QTest::qWait(500);
     int count = model.rowCount(QModelIndex());
     if (count > 0) {
-
         ButtonDelegate * colunmDelegate = qobject_cast<ButtonDelegate *>(table.itemDelegateForColumn(3));
         QEvent event(QEvent::MouseButtonPress);
         colunmDelegate->editorEvent(&event, &model, QStyleOptionViewItem(), model.index(0, 0, QModelIndex()));

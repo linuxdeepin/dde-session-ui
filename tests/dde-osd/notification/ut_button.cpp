@@ -2,8 +2,13 @@
 #include "notification/button.h"
 #undef private
 
+#include <DMenu>
+
 #include <QAction>
 #include <QTest>
+#include <QSignalSpy>
+#include <QTimer>
+#include <QApplication>
 
 #include <gtest/gtest.h>
 
@@ -31,6 +36,17 @@ TEST_F(UT_Button, coverageTest)
     obj->m_button->show();
     obj->m_menuArea->show();
     QTest::qWait(100);
+
+    QTest::mousePress(obj->m_button, Qt::LeftButton);
+    QTest::mouseRelease(obj->m_button, Qt::LeftButton);
+
+    QSignalSpy spy1(obj, SIGNAL(clicked(bool checked)));
+    QTimer::singleShot(100, [ = ] {
+        if (obj && obj->m_menu)
+            obj->m_menu->close();
+    });
+    QTest::mousePress(obj->m_menuArea, Qt::LeftButton);
+    QTest::mouseRelease(obj->m_menuArea, Qt::LeftButton);
 }
 
 TEST_F(UT_Button, valueTest)

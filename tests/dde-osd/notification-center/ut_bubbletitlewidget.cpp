@@ -1,6 +1,8 @@
 #include "notification-center/bubbletitlewidget.h"
+#include "notifylistview.h"
 
 #include <QDateTime>
+#include <QTest>
 
 #include <gtest/gtest.h>
 
@@ -29,7 +31,7 @@ public:
 
     void TearDown() override
     {
-        if (obj){
+        if (obj) {
             delete obj;
             obj = nullptr;
         }
@@ -42,7 +44,18 @@ public:
 
 TEST_F(UT_BubbleTitleWidget, coverageTest)
 {
+    NotifyListView notifyListView;
     obj->bubbleElements();
+    obj->setParentView(&notifyListView);
+    QEvent enterEvent(QEvent::Enter);
+    QApplication::sendEvent(obj, &enterEvent);
+    QEvent leaveEvent(QEvent::Leave);
+    QApplication::sendEvent(obj, &leaveEvent);
+
+    QEvent focusInEvent(QEvent::FocusIn);
+    QApplication::sendEvent(obj, &focusInEvent);
+    QEvent focusOutEvent(QEvent::FocusOut);
+    QApplication::sendEvent(obj, &focusOutEvent);
 }
 
 TEST_F(UT_BubbleTitleWidget, indexRowTest)

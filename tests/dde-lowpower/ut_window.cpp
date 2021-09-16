@@ -1,4 +1,8 @@
+#define private public
 #include "window.h"
+#undef private
+
+#include <QTest>
 
 #include <gtest/gtest.h>
 
@@ -26,6 +30,9 @@ public:
 
 TEST_F(UT_Window, coverageTest)
 {
+    widget->HideShowToRaise(true);
+    widget->m_bSleepLock = false;
+    QTest::qWait(500);
     adaptor->Raise();
     adaptor->Quit();
 }
