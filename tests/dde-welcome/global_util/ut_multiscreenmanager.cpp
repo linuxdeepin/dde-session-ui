@@ -6,6 +6,7 @@
 #undef private
 
 #include <QApplication>
+#include <QTest>
 
 class Ut_MultiScreenManager : public testing::Test
 {
@@ -33,6 +34,7 @@ TEST_F(Ut_MultiScreenManager, coverageTest)
         return w;
     };
     manager->register_for_mutil_screen(createFrame);
+    QTest::qWait(200);
     if (!qApp->screens().isEmpty()) {
         manager->onScreenRemoved(qApp->screens().first());
     }

@@ -1,4 +1,8 @@
+#define private public
+#define protected public
 #include "notification-center/bubbleitem.h"
+#undef private
+#undef protected
 
 #include <QDateTime>
 #include <QtTest>
@@ -45,6 +49,13 @@ TEST_F(UT_BubbleItem, coverageTest)
     obj->setHasFocus(false);
     obj->indexRow();
     obj->setOverlapWidget(false);
+    obj->m_titleWidget->paintEvent(nullptr);
+    obj->getEntity();
+    QEvent event(QEvent::Enter);
+    qApp->sendEvent(obj, &event);
+    QTest::mousePress(obj, Qt::LeftButton);
+    QTest::mouseRelease(obj, Qt::LeftButton);
+    QTest::keyPress(obj, Qt::Key_Return);
 }
 
 TEST_F(UT_BubbleItem, eventTest)

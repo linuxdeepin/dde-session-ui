@@ -1,4 +1,4 @@
-QT       += widgets core gui dbus gui-private
+QT       += widgets core gui dbus gui-private testlib
 
 TARGET = ut_dde-lowpower
 TEMPLATE = app
