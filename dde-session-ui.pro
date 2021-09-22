@@ -15,6 +15,7 @@ SUBDIRS += dde-license-dialog \
     dde-notification-plugin \
     dde-pixmix \
     dde-touchscreen-dialog \
+    dde-hints-dialog
 
 load(dtk_qmake)
 include(common.pri)
