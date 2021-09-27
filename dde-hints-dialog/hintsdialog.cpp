@@ -53,11 +53,13 @@ HintsDialog::HintsDialog(QWidget *parent)
     m_content->setWordWrap(true);
 
     QHBoxLayout *titlelayout = new QHBoxLayout;
-    titlelayout->addWidget(m_title, 1, Qt::AlignLeft);
-    titlelayout->addWidget(m_closeButton, 0, Qt::AlignRight);
+    titlelayout->setMargin(0);
+    titlelayout->setSpacing(0);
+    titlelayout->addWidget(m_title, 1, Qt::AlignLeft | Qt::AlignVCenter);
+    titlelayout->addWidget(m_closeButton, 0, Qt::AlignRight | Qt::AlignVCenter);
 
     QWidget *widget = new QWidget(this);
-    widget->setAccessibleName("MainWidget");
+    widget->setAccessibleName("TitleWidget");
     widget->setFixedHeight(40);
     widget->setLayout(titlelayout);
 
@@ -67,6 +69,7 @@ HintsDialog::HintsDialog(QWidget *parent)
     layout->setMargin(15);
     layout->setSpacing(0);
     layout->addWidget(widget);
+    layout->addSpacing(10);
     layout->addWidget(seperator);
     layout->addSpacing(10);
     layout->addWidget(m_content);
