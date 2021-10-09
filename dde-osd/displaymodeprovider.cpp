@@ -264,8 +264,12 @@ void DisplayModeProvider::updatePlanItems()
 
     m_planItems << QPair<uchar, QString>(MERGE_MODE, "");
     m_planItems << QPair<uchar, QString>(EXTEND_MODE, "");
-    for (const QString &name : m_outputNames) {
-        m_planItems << QPair<uchar, QString>(SINGLE_MODE, name);
+
+    // 仅双屏时显示"仅X屏"
+    if (m_outputNames.size() == 2) {
+        for (const QString &name : m_outputNames) {
+            m_planItems << QPair<uchar, QString>(SINGLE_MODE, name);
+        }
     }
 
     for (QPair<uchar, QString> pair : m_planItems) {
