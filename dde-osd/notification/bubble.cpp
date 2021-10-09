@@ -266,6 +266,10 @@ void Bubble::initUI()
 
     setLayout(layout);
 
+    // wayland环境下，下面关于x11相关代码是多余的
+    if (!qgetenv("WAYLAND_DISPLAY").isEmpty())
+        return;
+
     QTimer::singleShot(0, this, [ = ] {
         // FIXME: 锁屏不允许显示任何通知，而通知又需要禁止窗管进行管理，
         // 为了避免二者的冲突，将气泡修改为dock，保持在其他程序置顶，又不会显示在锁屏之上。
