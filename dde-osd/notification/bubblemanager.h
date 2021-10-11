@@ -253,11 +253,17 @@ private:
     void pushAnimation(Bubble *bubble);                     //推入一个气泡的动画
     void popAnimation(Bubble *bubble);                      //推出一个气泡的动画
 
-    QRect GetBubbleGeometry(int index);                     //根据索引获取气泡的矩形大小
+    QRect getBubbleGeometry(int index);                     //根据索引获取气泡的矩形大小
     // Get the last unanimated bubble rect
-    QRect GetLastStableRect(int index);                     //得到最后一个没有动画的矩形气泡
+    QRect getLastStableRect(int index);                     //得到最后一个没有动画的矩形气泡
     bool isDoNotDisturb();
     QRect calcDisplayRect();
+    /**
+     * @brief getBubbleHeightBefore 获取序号小于index的气泡的高度之和
+     * @param index 当前的气泡序号
+     * @return 气泡高度之和
+     */
+    int getBubbleHeightBefore(const int index);
 
 private:
     int m_replaceCount = 0;

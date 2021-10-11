@@ -243,7 +243,8 @@ void Bubble::initUI()
     setMaskColor(DBlurEffectWidget::AutoColor);
     setMouseTracking(true);
 
-    setFixedSize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
+    setFixedWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
+    resize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWINDOW));
     m_body->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_closeButton->setIconSize(OSD::CloseButtonSize(OSD::BUBBLEWINDOW));
@@ -315,7 +316,7 @@ void Bubble::updateContent()
         m_canClose = !m_entity->actions().isEmpty();
     }
 
-    if (m_body->sizeHint().height() > BubbleWindowHeight) {
+    if (m_body->resizeHintHeight(BubbleWindowHeight)) {
         emit m_body->adjustLayout();
         setFixedHeight(m_body->sizeHint().height());
     }
@@ -379,7 +380,9 @@ void Bubble::setBubbleIndex(int index)
 
 void Bubble::setFixedGeometry(QRect rect)
 {
-    setFixedSize(rect.width(), rect.height());
+    //只设置宽度，高度自适应即可，否则大字体的时候显示不全
+    setFixedWidth(rect.width());
+    rect.setHeight(height());
     setGeometry(rect);
 }
 

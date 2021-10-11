@@ -79,6 +79,17 @@ void AppBody::setStyle(OSD::ShowStyle style)
     refreshTheme();
 }
 
+bool AppBody::resizeHintHeight(const int idealHeight)
+{
+    while (sizeHint().height() > idealHeight) {
+        //title和body至少保留一行
+        if (m_titleLbl->resizeHint(1) && m_bodyLbl->resizeHint(1))
+            break;
+    }
+
+    return sizeHint().height() > idealHeight;
+}
+
 void AppBody::refreshTheme()
 {
     m_titleLbl->setForegroundRole(QPalette::BrightText);
