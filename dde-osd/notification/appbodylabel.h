@@ -37,6 +37,7 @@ public:
     QSize sizeHint() const override;
     QSize minimumSizeHint() const override;
     void setAlignment(Qt::Alignment alignment);
+    bool resizeHint(int minLineCount);
 
 #ifdef GTEST
     QString labelText() const { return m_text; }

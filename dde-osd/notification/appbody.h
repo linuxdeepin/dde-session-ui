@@ -40,6 +40,13 @@ public:
     void setText(const QString &text);
     void setStyle(OSD::ShowStyle style);
 
+    /**
+     * @brief AppBody::resizeHintHeight 重新计算高度，知道title和body的达到最小行数或者高度不大于设定的理想值
+     * @param idealHeight 理想高度
+     * @return 最终结果是否大于理想高度
+     */
+    bool resizeHintHeight(const int idealHeight);
+
 Q_SIGNALS:
     void adjustLayout();
 

@@ -306,8 +306,8 @@ void BubbleManager::pushAnimation(Bubble *bubble)
 
     while (index < m_bubbleList.size() - 1) {
         index ++;
-        QRect startRect = GetLastStableRect(index - 1);
-        QRect endRect = GetBubbleGeometry(index);
+        QRect startRect = getLastStableRect(index - 1);
+        QRect endRect = getBubbleGeometry(index);
         QPointer<Bubble> item = m_bubbleList.at(index);
         if (item->geometry() != endRect) { //动画中
             startRect = item->geometry();
@@ -325,15 +325,15 @@ void BubbleManager::popAnimation(Bubble *bubble)
     if (index == -1)
         return;
 
-    QRect startRect = GetBubbleGeometry(index);
-    QRect endRect = GetBubbleGeometry(0);
+    QRect startRect = getBubbleGeometry(index);
+    QRect endRect = getBubbleGeometry(0);
 
     bubble->startMove(startRect, endRect, true);// delete itself
 
     while (index < m_bubbleList.size() - 1) {
         index ++;
-        QRect startRect = GetBubbleGeometry(index);
-        QRect endRect = GetBubbleGeometry(index - 1);
+        QRect startRect = getBubbleGeometry(index);
+        QRect endRect = getBubbleGeometry(index - 1);
         QPointer<Bubble> item = m_bubbleList.at(index);
         if (index == BubbleEntities + BubbleOverLap) {
             item->show();
@@ -356,7 +356,7 @@ void BubbleManager::popAnimation(Bubble *bubble)
     }
 }
 
-QRect BubbleManager::GetBubbleGeometry(int index)
+QRect BubbleManager::getBubbleGeometry(int index)
 {
     Q_ASSERT(index >= 0 && index <= BubbleEntities + BubbleOverLap);
 
@@ -371,11 +371,11 @@ QRect BubbleManager::GetBubbleGeometry(int index)
             }
         }
         rect.setX(m_currentDisplayRect.x() + (m_currentDisplayRect.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
-        rect.setY(y + ScreenPadding + index * (BubbleMargin + OSD::BubbleHeight(OSD::BUBBLEWINDOW)));
+        rect.setY(y + ScreenPadding + index * BubbleMargin + getBubbleHeightBefore(index));
         rect.setWidth(OSD::BubbleWidth(OSD::BUBBLEWINDOW));
         rect.setHeight(OSD::BubbleHeight(OSD::BUBBLEWINDOW));
     } else if (index >= BubbleEntities && index <= BubbleEntities + BubbleOverLap) {
-        rect = GetBubbleGeometry(index - 1);
+        rect = getBubbleGeometry(index - 1);
 
         int x = rect.x() + rect.width() / 20;
         int y = rect.y() + rect.height() / 3;
@@ -391,14 +391,26 @@ QRect BubbleManager::GetBubbleGeometry(int index)
     return rect;
 }
 
-QRect BubbleManager::GetLastStableRect(int index)
+int BubbleManager::getBubbleHeightBefore(const int index)
 {
-    QRect rect = GetBubbleGeometry(0);
+    int totalHeight = 0;
+    for (int i = 0; i < index; i++) {
+        if (m_bubbleList[i]) {
+            totalHeight += m_bubbleList[i]->height();
+        }
+    }
+
+    return totalHeight;
+}
+
+QRect BubbleManager::getLastStableRect(int index)
+{
+    QRect rect = getBubbleGeometry(0);
     for (int i = index - 1; i > 0; --i) {
-        if (i >= m_bubbleList.size() || m_bubbleList.at(i)->geometry() != GetBubbleGeometry(i)) {
+        if (i >= m_bubbleList.size() || m_bubbleList.at(i)->geometry() != getBubbleGeometry(i)) {
             continue;
         }
-        rect = GetBubbleGeometry(i);
+        rect = getBubbleGeometry(i);
     }
 
     return rect;
@@ -650,7 +662,7 @@ void BubbleManager::bubbleActionInvoked(Bubble *bubble, QString actionId)
 void BubbleManager::updateGeometry()
 {
     foreach (auto item, m_bubbleList) {
-        item->setGeometry(GetBubbleGeometry(item->bubbleIndex()));
+        item->setGeometry(getBubbleGeometry(item->bubbleIndex()));
         item->updateGeometry();
     }
 }
@@ -765,12 +777,12 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
     });
 
     if (index != 0) {
-        QRect startRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap);
-        QRect endRect = GetBubbleGeometry(BubbleEntities + BubbleOverLap - 1);
+        QRect startRect = getBubbleGeometry(BubbleEntities + BubbleOverLap);
+        QRect endRect = getBubbleGeometry(BubbleEntities + BubbleOverLap - 1);
         bubble->setBubbleIndex(BubbleEntities + BubbleOverLap - 1);
         bubble->startMove(startRect, endRect);
     } else {
-        QRect endRect = GetBubbleGeometry(0);
+        QRect endRect = getBubbleGeometry(0);
         QRect startRect = endRect;
         startRect.setHeight(0);
 
