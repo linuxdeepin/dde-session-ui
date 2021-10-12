@@ -137,7 +137,7 @@ bool AppBodyLabel::resizeHint(int minLineCount)
         updateGeometry();
     }
 
-    return minLineCount == m_lineCount;
+    return minLineCount >= m_lineCount;
 }
 
 const QString AppBodyLabel::holdTextInRect(const QFontMetrics &fm, const QString &text, const QRect &rect) const
