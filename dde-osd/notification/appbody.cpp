@@ -42,6 +42,7 @@ AppBody::AppBody(QWidget *parent)
     layout->setSpacing(2);
     layout->addStretch();
     layout->addWidget(m_titleLbl, 0, Qt::AlignVCenter);
+    layout->addSpacing(4);
     layout->addWidget(m_bodyLbl, 0, Qt::AlignVCenter);
     layout->addStretch();
 
@@ -49,13 +50,6 @@ AppBody::AppBody(QWidget *parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &AppBody::refreshTheme);
-    connect(this, &AppBody::adjustLayout, [=] {
-           layout->removeWidget(m_titleLbl);
-           layout->removeWidget(m_bodyLbl);
-           layout->addWidget(m_titleLbl, 0, Qt::AlignVCenter);
-           layout->addSpacing(4);
-           layout->addWidget(m_bodyLbl, 0, Qt::AlignVCenter);
-       });
     refreshTheme();
 }
 
@@ -79,15 +73,15 @@ void AppBody::setStyle(OSD::ShowStyle style)
     refreshTheme();
 }
 
-bool AppBody::resizeHintHeight(const int idealHeight)
+int AppBody::resizeHintHeight(const int idealHeight)
 {
-    while (sizeHint().height() > idealHeight) {
-        //title和body至少保留一行
+    //当sizeHint大于理想高度时，title和body的内容不得多于一行
+    while (sizeHint().height() > idealHeight) { 
         if (m_titleLbl->resizeHint(1) && m_bodyLbl->resizeHint(1))
             break;
     }
 
-    return sizeHint().height() > idealHeight;
+    return qMax(sizeHint().height(), idealHeight);
 }
 
 void AppBody::refreshTheme()

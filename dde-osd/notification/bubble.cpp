@@ -316,10 +316,7 @@ void Bubble::updateContent()
         m_canClose = !m_entity->actions().isEmpty();
     }
 
-    if (m_body->resizeHintHeight(BubbleWindowHeight)) {
-        emit m_body->adjustLayout();
-        setFixedHeight(m_body->sizeHint().height());
-    }
+    setFixedHeight(m_body->resizeHintHeight(BubbleWindowHeight));
 
     BubbleTool::processIconData(m_icon, m_entity);
 }
