@@ -22,7 +22,8 @@ HEADERS += \
     $$PWD/bubbletool.h \
     $$PWD/notifysettings.h \
     $$PWD/dbusdockinterface.h \
-    $$PWD/dockrect.h
+    $$PWD/dockrect.h \
+    $$PWD/signalbridge.h
 
 SOURCES += \
     $$PWD/bubble.cpp \

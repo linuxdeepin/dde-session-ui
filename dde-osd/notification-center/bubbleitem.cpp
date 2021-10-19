@@ -31,6 +31,7 @@
 #include "notification/appbodylabel.h"
 #include "notifymodel.h"
 #include "notifylistview.h"
+#include "notification/signalbridge.h"
 
 #include <QTimer>
 #include <QDateTime>
@@ -194,7 +195,7 @@ void BubbleItem::initContent()
 
     connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & id) {
         BubbleTool::actionInvoke(id, m_entity);
-
+        Q_EMIT SignalBridge::instance()->actionInvoked(m_entity->id(), id);
         if (m_model != nullptr)
             onCloseBubble();
     });

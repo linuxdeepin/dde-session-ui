@@ -29,6 +29,7 @@
 #include "notifysettings.h"
 #include "notification-center/notifycenterwidget.h"
 #include "dbusdockinterface.h"
+#include "signalbridge.h"
 
 #include <DDesktopServices>
 
@@ -682,6 +683,8 @@ void BubbleManager::initConnections()
     });
 
     connect(m_appearance, &Appearance::OpacityChanged, this,  &BubbleManager::onOpacityChanged);
+
+    connect(SignalBridge::instance(), &SignalBridge::actionInvoked, this , &BubbleManager::ActionInvoked);
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
