@@ -253,7 +253,7 @@ void Bubble::initUI()
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setSpacing(BubbleSpacing);
-    layout->setMargin(BubblePadding);
+    layout->setContentsMargins(BubblePadding, 0, BubblePadding, 0);
     layout->addWidget(m_icon);
     layout->addWidget(m_body);
     layout->addWidget(m_actionButton);
@@ -316,7 +316,7 @@ void Bubble::updateContent()
         m_canClose = !m_entity->actions().isEmpty();
     }
 
-    setFixedHeight(m_body->resizeHintHeight(BubbleWindowHeight));
+    setFixedHeight(qMax(m_body->appBodyHeight(), BubbleWindowHeight));
 
     BubbleTool::processIconData(m_icon, m_entity);
 }

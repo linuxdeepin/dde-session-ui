@@ -49,6 +49,7 @@ public:
     void createExpandAnimation(int idx, const ListItem appItem);
     bool aniState() { return m_aniState; }
     void setCurrentRow(int row);
+    int bubbleItemHeight();
 
 protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;

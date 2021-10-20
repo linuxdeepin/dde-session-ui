@@ -17,6 +17,7 @@
  */
 
 #include "appbodylabel.h"
+#include "appbody.h"
 
 #include <QTextDocument>
 #include <QEvent>
@@ -27,9 +28,10 @@
 #include <QPaintEngine>
 #include <QStyle>
 
-AppBodyLabel::AppBodyLabel(QWidget *parent)
+AppBodyLabel::AppBodyLabel(QWidget *appBody, QWidget *parent)
     : DLabel(parent)
     , m_alignment(Qt::AlignVCenter)
+    , m_appBody(appBody)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
@@ -48,9 +50,6 @@ void AppBodyLabel::setText(const QString &text)
     int oldLineCount = m_lineCount;
 
     updateLineCount();
-
-    if (oldLineCount != m_lineCount)
-        updateGeometry();
 
     update();
 }
@@ -115,7 +114,7 @@ static int drawText(QPainter *painter, const QRectF &rect, int lineHeight, QText
 
 QSize AppBodyLabel::sizeHint() const
 {
-    return QSize(width(), fontMetrics().height() * m_lineCount);
+    return QSize(width(), m_appBody->fontMetrics().height() * m_lineCount);
 }
 
 QSize AppBodyLabel::minimumSizeHint() const
@@ -128,16 +127,6 @@ QSize AppBodyLabel::minimumSizeHint() const
 void AppBodyLabel::setAlignment(Qt::Alignment alignment)
 {
     m_alignment = alignment;
-}
-
-bool AppBodyLabel::resizeHint(int minLineCount)
-{
-    if (m_lineCount > minLineCount) {
-        m_lineCount--;
-        updateGeometry();
-    }
-    
-    return minLineCount >= m_lineCount;
 }
 
 const QString AppBodyLabel::holdTextInRect(const QFontMetrics &fm, const QString &text, const QRect &rect) const

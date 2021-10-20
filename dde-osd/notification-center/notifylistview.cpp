@@ -87,10 +87,12 @@ void NotifyListView::createRemoveAnimation(BubbleItem *item)
     rightMoveAni->setDuration(AnimationTime);
     removeAniGroup->addAnimation(rightMoveAni);
 
+    const int bubbleItemHeight = item->bubbleItemHeight();
+
     NotifyModel *notifyModel= qobject_cast<NotifyModel *> (model());
     ListItem appGroup = notifyModel->getAppData(item->getEntity()->appName());
 
-    int moveValue = -OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) - BubbleSpacing;
+    int moveValue = -bubbleItemHeight - BubbleSpacing;
     if (!appGroup.hideList.isEmpty() && appGroup.showList.size() == 1) {
         moveValue = 0;
     }
@@ -128,15 +130,15 @@ void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
     const QModelIndex index = this->model()->index(idx, 0);
     QWidget *widget = this->indexWidget(index);
     QPoint startPos = widget->pos();
-
-    int maxCount = (height() - startPos.y()) / (OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleSpacing);
+    const int bubbleItemHight = bubbleItemHeight();
+    int maxCount = (height() - startPos.y()) / (bubbleItemHight + BubbleSpacing);
     int needCount = appItem.hideList.size() > maxCount ? maxCount : appItem.hideList.size();
 
     for (int i = 0; i < needCount; i++) {
         BubbleItem *item = new BubbleItem(this, appItem.hideList[i]);
         item->setAccessibleName("BubbleItem");
-        QPoint itemStartPos = startPos + QPoint(0, (OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET)+ BubbleSpacing) * i);
-        QPoint itemEndPos = itemStartPos + QPoint(0, OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleSpacing);
+        QPoint itemStartPos = startPos + QPoint(0, (bubbleItemHight + BubbleSpacing) * i);
+        QPoint itemEndPos = itemStartPos + QPoint(0, bubbleItemHight + BubbleSpacing);
         QPropertyAnimation *ani = new QPropertyAnimation(item, "pos", this);
         connect(ani, &QPropertyAnimation::stateChanged, item, [ = ] (QAbstractAnimation::State newState, QAbstractAnimation::State oldState) {
             if (newState == QAbstractAnimation::Running && oldState == QAbstractAnimation::Stopped) {
@@ -151,7 +153,7 @@ void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
         insertAniGroup->addAnimation(ani);
     }
 
-    QPoint offsetPos = QPoint(0, (OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleSpacing) * needCount - 22);
+    QPoint offsetPos = QPoint(0, (bubbleItemHight + BubbleSpacing) * needCount - 22);
     // 向下移动的动画
     for (int i = idx; i < this->model()->rowCount(QModelIndex()); ++i) {
         const QModelIndex index = this->model()->index(i + 1, 0);
@@ -182,6 +184,7 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
     const QModelIndex index = this->model()->index(1, 0);
     QWidget *widget = this->indexWidget(index);
     QPoint startPos = widget->pos();                //动画基准位置
+    const int bubbleItemHight = bubbleItemHeight();
 
     BubbleItem *newItem = new BubbleItem(this, entity);
     newItem->setAccessibleName("BubbleItem");
@@ -206,7 +209,7 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
             }
             QPropertyAnimation *downMoveAni = new QPropertyAnimation(widget, "pos", this);
             downMoveAni->setStartValue(widget->pos());
-            downMoveAni->setEndValue(widget->pos() + QPoint(0, OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleSpacing));
+            downMoveAni->setEndValue(widget->pos() + QPoint(0, bubbleItemHight + BubbleSpacing));
             downMoveAni->setDuration(AnimationTime);
             addedAniGroup->addAnimation(downMoveAni);
         }
@@ -219,7 +222,7 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
             QWidget *widget = this->indexWidget(index);
             QPropertyAnimation *downMoveAni = new QPropertyAnimation(widget, "pos", this);
             downMoveAni->setStartValue(widget->pos());
-            downMoveAni->setEndValue(widget->pos() + QPoint(0, OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET) + BubbleSpacing));
+            downMoveAni->setEndValue(widget->pos() + QPoint(0, bubbleItemHight + BubbleSpacing));
             downMoveAni->setDuration(AnimationTime);
             addedAniGroup->addAnimation(downMoveAni);
         }
@@ -234,7 +237,7 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
         }
 
         QRect startRect1 = QRect(faceWidget->pos(), faceWidget->size());
-        QRect endRect1 = QRect(startRect1.x(), startRect1.y() + OSD::BubbleHeight(OSD::ShowStyle::BUBBLEWIDGET), startRect.width(), 0);
+        QRect endRect1 = QRect(startRect1.x(), startRect1.y() + bubbleItemHight, startRect.width(), 0);
         QPropertyAnimation *removeAni = new QPropertyAnimation(faceWidget, "geometry", this);
         removeAni->setStartValue(startRect1);
         removeAni->setEndValue(endRect1);
@@ -418,4 +421,10 @@ void NotifyListView::handleScrollFinished()
 
     QPoint pos = mapFromGlobal(QCursor::pos());
     emit entered(indexAt(pos));
+}
+
+int NotifyListView::bubbleItemHeight()
+{
+    int appBodyHeight = fontMetrics().height() * 2 + BubbleAppBodyVerticalPadding;
+    return qMax(appBodyHeight, BubbleItemBodyHeight) + BubbleItemTitleHeight;
 }

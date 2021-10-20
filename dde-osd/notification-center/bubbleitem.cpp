@@ -93,7 +93,7 @@ BubbleItem::BubbleItem(QWidget *parent, EntityPtr entity)
     , m_titleWidget(new AlphaWidget(this))
     , m_bodyWidget(new AlphaWidget(this))
     , m_appNameLabel(new DLabel(this))
-    , m_appTimeLabel(new AppBodyLabel(this))
+    , m_appTimeLabel(new AppBodyLabel(this, this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this, OSD::BUBBLEWIDGET))
@@ -130,7 +130,7 @@ void BubbleItem::initUI()
     m_closeButton->setIconSize(QSize(Notify::BubbleCloseButtonSize, Notify::BubbleCloseButtonSize));
     m_closeButton->setVisible(false);
 
-    m_titleWidget->setFixedHeight(37);
+    m_titleWidget->setFixedHeight(BubbleItemTitleHeight);
     m_titleWidget->setObjectName("notification_title");
     m_titleWidget->setRadius(8, 0);
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -161,7 +161,6 @@ void BubbleItem::initUI()
     mainLayout->addWidget(m_titleWidget);
     m_body->setStyle(OSD::BUBBLEWIDGET);
     m_body->setObjectName("notification_body");
-
     QHBoxLayout *bodyLayout = new QHBoxLayout;
     bodyLayout->setSpacing(0);
     bodyLayout->setContentsMargins(10, 0, 10, 0);
@@ -182,6 +181,7 @@ void BubbleItem::initUI()
 
     BubbleTool::processIconData(m_icon, m_entity);
     m_defaultAction = BubbleTool::processActions(m_actionButton, m_entity->actions());
+    setFixedHeight(bubbleItemHeight());
 }
 
 void BubbleItem::initContent()
@@ -392,4 +392,10 @@ void BubbleItem::setHasFocus(bool focus)
 {
     m_bgWidget->setHasFocus(focus);
     Q_EMIT havorStateChanged(focus);
+}
+
+int BubbleItem::bubbleItemHeight()
+{
+    int appBodyHeight = fontMetrics().height() * 2 + BubbleAppBodyVerticalPadding;
+    return qMax(appBodyHeight, BubbleItemBodyHeight) + BubbleItemTitleHeight;
 }

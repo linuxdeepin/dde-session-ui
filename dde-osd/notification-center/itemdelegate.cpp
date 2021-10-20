@@ -40,27 +40,25 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     Q_UNUSED(option)
 
     EntityPtr notify = index.data().value<EntityPtr>();
-    if (!notify) {
+    if (!notify)
         return nullptr;
-    }
-    if(notify->isTitle())
-    {
+
+    if(notify->isTitle()) {
         BubbleTitleWidget *titleWidget = new BubbleTitleWidget(m_model, notify, parent);
         titleWidget->setParentView(m_view);
         return titleWidget;
     }
-    else if(notify->hideCount() != 0)
-    {
+
+    if (notify->hideCount() != 0) {
         OverLapWidet *widget = new OverLapWidet(m_model, notify, parent);
         widget->setParentView(m_view);
         return widget;
     }
-    else {
-        BubbleItem *bubble = new BubbleItem(parent, notify);
-        bubble->setParentModel(m_model);
-        bubble->setParentView(m_view);
-        return bubble;
-    }
+
+    BubbleItem *bubble = new BubbleItem(parent, notify);
+    bubble->setParentModel(m_model);
+    bubble->setParentView(m_view);
+    return bubble;
 }
 
 QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -69,20 +67,17 @@ QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelInd
 
     EntityPtr notify = index.data().value<EntityPtr>();
 
+    // 计算两行文字的高度，和默认高度两者取最大值
     QSize bubbleSize = OSD::BubbleSize(OSD::ShowStyle::BUBBLEWIDGET);
-    bubbleSize.setHeight(bubbleSize.height() + BubbleSpacing);
+    bubbleSize.setHeight(m_view->bubbleItemHeight() + BubbleSpacing);
 
-    if(notify && notify->isTitle())
-    {
-        return QSize(380,50);
+    if(notify && notify->isTitle()) {
+        bubbleSize = QSize(380,50);
+    } else if(notify->hideCount() != 0) {
+        bubbleSize = bubbleSize + QSize(0,notify->hideCount()*10);
     }
-    else if(notify->hideCount() != 0)
-    {
-        return bubbleSize + QSize(0,notify->hideCount()*10);
-    }
-    else {
-        return bubbleSize;
-    }
+
+    return bubbleSize;
 }
 
 void ItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const

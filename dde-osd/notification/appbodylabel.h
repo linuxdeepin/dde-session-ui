@@ -31,13 +31,12 @@ class AppBodyLabel : public DLabel
 {
     Q_OBJECT
 public:
-    explicit AppBodyLabel(QWidget *parent = nullptr);
+    explicit AppBodyLabel(QWidget *appBody, QWidget *parent = nullptr);
     void setText(const QString &text);
     void setOpacity(qreal opacity) { m_opacity = opacity; }
     QSize sizeHint() const override;
     QSize minimumSizeHint() const override;
     void setAlignment(Qt::Alignment alignment);
-    bool resizeHint(int minLineCount);
 
 #ifdef GTEST
     QString labelText() const { return m_text; }
@@ -57,6 +56,7 @@ private:
     QString m_text;
     int m_lineCount = 0;
     Qt::Alignment m_alignment;
+    QWidget *m_appBody;
 };
 
 #endif // APPBODYLABEL_H

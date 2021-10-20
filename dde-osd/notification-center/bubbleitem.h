@@ -96,6 +96,7 @@ public:
     int indexRow();
     void setHasFocus(bool focus);
     EntityPtr getEntity() { return m_entity; }
+    int bubbleItemHeight();
 
 Q_SIGNALS:
     void havorStateChanged(bool);
