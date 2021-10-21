@@ -330,7 +330,7 @@ void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDe
 {
     QPointer<QParallelAnimationGroup> group = new QParallelAnimationGroup(this);
 
-    QPropertyAnimation *geometryAni = new QPropertyAnimation(this, "geometry", group);
+    QPropertyAnimation *geometryAni = new QPropertyAnimation(this, "geometry", this);
     geometryAni->setStartValue(startRect);
     geometryAni->setEndValue(endRect);
     geometryAni->setEasingCurve(QEasingCurve::Linear);
@@ -343,7 +343,7 @@ void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDe
     group->addAnimation(geometryAni);
     // 需要删除时增加透明渐变效果
     if (needDelete) {
-        QPropertyAnimation *opacityAni = new QPropertyAnimation(this, "windowOpacity", group);
+        QPropertyAnimation *opacityAni = new QPropertyAnimation(this, "windowOpacity", this);
         opacityAni->setStartValue(1);
         opacityAni->setEndValue(0);
         opacityAni->setDuration(animationTime + int(-BubbleStartPos * 1.0 / 72 * AnimationTime));
@@ -352,10 +352,11 @@ void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDe
 
     // 当需要更新位置，停止动画，直接刷新最终位置
     if (!needDelete) {
-        connect(this, &Bubble::resetGeometry, this, [ endRect, group, this ] {
-            if (group && group->state() != QAbstractAnimation::Stopped)
+        connect(this, &Bubble::resetGeometry, this, [group, this] {
+            if (!group.isNull())
                 group->stop();
-            setFixedGeometry(endRect);
+            //当接收到该信号，则表示已经geometry已经更新，直接使用即可
+            setFixedGeometry(geometry());
         });
     }
 
