@@ -328,7 +328,7 @@ bool Bubble::containsMouse() const
 
 void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDelete)
 {
-    QParallelAnimationGroup *group = new QParallelAnimationGroup(this);
+    QPointer<QParallelAnimationGroup> group = new QParallelAnimationGroup(this);
 
     QPropertyAnimation *geometryAni = new QPropertyAnimation(this, "geometry", group);
     geometryAni->setStartValue(startRect);
@@ -352,8 +352,9 @@ void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDe
 
     // 当需要更新位置，停止动画，直接刷新最终位置
     if (!needDelete) {
-        connect(this, &Bubble::resetGeometry, this, [&] {
-            group->stop();
+        connect(this, &Bubble::resetGeometry, this, [ endRect, group, this ] {
+            if (group && group->state() != QAbstractAnimation::Stopped)
+                group->stop();
             setFixedGeometry(endRect);
         });
     }
