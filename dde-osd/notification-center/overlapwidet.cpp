@@ -100,18 +100,19 @@ void OverLapWidet::expandAppGroup()
 
 void OverLapWidet::initOverlap()
 {
+    // 通知内容
     m_faceBubbleItem = new BubbleItem(this, m_entify);
     m_faceBubbleItem->setAccessibleName("FaceBubbleItem");
     connect(m_faceBubbleItem, &BubbleItem::bubbleRemove, this, &OverLapWidet::hideOverlapBubble);
     m_faceBubbleItem->setOverlapWidget(true);
     m_faceBubbleItem->setParentModel(m_model);
     setFocusProxy(m_faceBubbleItem);
-    const int bubbleItemHeight = m_faceBubbleItem->bubbleItemHeight();
 
+    // 通知内容下面表现层叠效果的窗口
     qreal scal_ratio = 1;
     int height_init = BubbleOverLapHeight;
     QSize standard_size = OSD::BubbleSize(OSD::BUBBLEWIDGET);
-    standard_size.setHeight(bubbleItemHeight);
+    standard_size.setHeight(BubbleItem::bubbleItemHeight());
     QPoint up_point(0, standard_size.height());
 
     for(int i = 0; i < MIN(3,m_entify->hideCount()); ++i)

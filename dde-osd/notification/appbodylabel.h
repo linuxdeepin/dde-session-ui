@@ -31,7 +31,7 @@ class AppBodyLabel : public DLabel
 {
     Q_OBJECT
 public:
-    explicit AppBodyLabel(QWidget *appBody, QWidget *parent = nullptr);
+    explicit AppBodyLabel(QWidget *parent = nullptr);
     void setText(const QString &text);
     void setOpacity(qreal opacity) { m_opacity = opacity; }
     QSize sizeHint() const override;
@@ -56,7 +56,6 @@ private:
     QString m_text;
     int m_lineCount = 0;
     Qt::Alignment m_alignment;
-    QWidget *m_appBody;
 };
 
 #endif // APPBODYLABEL_H

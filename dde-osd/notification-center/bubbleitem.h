@@ -96,7 +96,9 @@ public:
     int indexRow();
     void setHasFocus(bool focus);
     EntityPtr getEntity() { return m_entity; }
-    int bubbleItemHeight();
+    // 通知列表在显示之前会获取所有item的sizeHint，bubbleItem中的控件字体有一些是不一样的，大小也不同
+    // 所以需要根据实际的情况去获取每个控件的在当前字体字号情况下的高度，求和组成BubbleItem的高度
+    static int bubbleItemHeight();
 
 Q_SIGNALS:
     void havorStateChanged(bool);

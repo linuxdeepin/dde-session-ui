@@ -125,3 +125,8 @@ void BubbleTitleWidget::setParentView(NotifyListView *view)
 {
     m_view = view;
 }
+
+int BubbleTitleWidget::bubbleTitleWidgetHeight()
+{
+    return qMax(QFontMetrics(DFontSizeManager::instance()->t4()).height(), BubbleTitleHeight);
+}

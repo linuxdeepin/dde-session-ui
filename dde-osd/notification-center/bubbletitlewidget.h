@@ -43,6 +43,7 @@ public:
     void setIndexRow(int row);
     int indexRow() { return m_indexRow; }
     QList<QPointer<QWidget>> bubbleElements();
+    static int bubbleTitleWidgetHeight();
 
 protected:
     void enterEvent(QEvent *event) override;        //鼠标移动到窗口上,显示气泡组的关闭按钮

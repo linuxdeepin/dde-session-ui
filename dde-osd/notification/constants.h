@@ -73,12 +73,13 @@ static const int BubbleItemWidth = 380;         // 通知中心气泡默认宽�
 static const int BubbleAppBodyPaddingTop = 10;         // 通知气泡app body顶部间隔
 static const int BubbleAppBodyPaddingBottom = 10;     // 通知气泡app body低部间隔
 static const int BubbleAppBodyVerticalPadding = BubbleAppBodyPaddingTop + BubbleAppBodyPaddingBottom;     // 通知气泡app body上下间隔之和
+static const int BubbleTitleHeight = 50;        // 通知中心App名称默认高度
+static const int BubbleTitleWidth = 380;        // 通知中心App名称默认宽度
+
 static const QStringList Directory = QStandardPaths::standardLocations(QStandardPaths::HomeLocation);
 static const QString CachePath = Directory.first() + "/.cache/deepin/deepin-notifications/";
-
 static const QString DeletedAction = "deleted";
 static const QString CreatedAction = "created";
-
 static const QString AllowNotifyStr = "AllowNotify";
 static const QString ShowInNotifyCenterStr = "ShowInNotifyCenter";
 static const QString LockShowNotifyStr = "LockShowNotify";
@@ -86,7 +87,6 @@ static const QString ShowNotifyPreviewStr = "ShowNotifyPreview";
 static const QString NotificationSoundStr = "NotificationSound";
 static const QString AppIconStr = "Icon";
 static const QString AppNameStr = "Name";
-
 static const QString SystemNotifySettingStr = "SystemNotify";
 static const QString DoNotDisturbStr = "DoNotDisturb";
 static const QString TimeSlotStr = "TimeSlot";
@@ -107,7 +107,6 @@ namespace Notify {
 static const int CenterWidth = 400;
 static const int CenterMargin = 10;
 static const int CenterTitleHeight = 36;
-
 static const int GroupTitleHeight = 32;
 static const int BubbleCloseButtonSize = 24;
 static const int GroupButtonSize = 28;

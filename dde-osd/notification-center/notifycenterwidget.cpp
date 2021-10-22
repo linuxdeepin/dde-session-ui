@@ -161,6 +161,9 @@ void NotifyCenterWidget::initConnections()
 
 void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos, int mode)
 {
+    // 重新根据字体设置一下标题的高度
+    m_headWidget->setFixedHeight(qMax(title_label->fontMetrics().boundingRect(title_label->text()).height(), Notify::CenterTitleHeight));
+
     m_scale = qApp->primaryScreen()->devicePixelRatio();
     m_dockRect = dock;
 

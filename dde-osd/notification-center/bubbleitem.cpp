@@ -93,7 +93,7 @@ BubbleItem::BubbleItem(QWidget *parent, EntityPtr entity)
     , m_titleWidget(new AlphaWidget(this))
     , m_bodyWidget(new AlphaWidget(this))
     , m_appNameLabel(new DLabel(this))
-    , m_appTimeLabel(new AppBodyLabel(this, this))
+    , m_appTimeLabel(new AppBodyLabel(this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))
     , m_actionButton(new ActionButton(this, OSD::BUBBLEWIDGET))
@@ -158,6 +158,7 @@ void BubbleItem::initUI()
     setAlpha(Notify::BubbleDefaultAlpha);
     titleLayout->addWidget(m_closeButton);
     m_titleWidget->setLayout(titleLayout);
+    m_titleWidget->setFixedHeight(qMax(m_appNameLabel->fontMetrics().height(), BubbleItemTitleHeight));
     mainLayout->addWidget(m_titleWidget);
     m_body->setStyle(OSD::BUBBLEWIDGET);
     m_body->setObjectName("notification_body");
@@ -401,6 +402,8 @@ void BubbleItem::setHasFocus(bool focus)
 
 int BubbleItem::bubbleItemHeight()
 {
-    int appBodyHeight = fontMetrics().height() * 2 + BubbleAppBodyVerticalPadding;
-    return qMax(appBodyHeight, BubbleItemBodyHeight) + BubbleItemTitleHeight;
+    int appBodyHeight = qMax(AppBody::bubbleWidgetAppBodyHeight(), BubbleItemBodyHeight);
+    int bubbleTitleHeight = qMax(QFontMetrics(DFontSizeManager::instance()->t8()).height(), BubbleItemTitleHeight);
+
+    return appBodyHeight + bubbleTitleHeight;
 }

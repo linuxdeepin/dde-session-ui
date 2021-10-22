@@ -28,10 +28,9 @@
 #include <QPaintEngine>
 #include <QStyle>
 
-AppBodyLabel::AppBodyLabel(QWidget *appBody, QWidget *parent)
+AppBodyLabel::AppBodyLabel(QWidget *parent)
     : DLabel(parent)
     , m_alignment(Qt::AlignVCenter)
-    , m_appBody(appBody)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
@@ -114,7 +113,7 @@ static int drawText(QPainter *painter, const QRectF &rect, int lineHeight, QText
 
 QSize AppBodyLabel::sizeHint() const
 {
-    return QSize(width(), m_appBody->fontMetrics().height() * m_lineCount);
+    return QSize(width(), fontMetrics().height() * m_lineCount);
 }
 
 QSize AppBodyLabel::minimumSizeHint() const

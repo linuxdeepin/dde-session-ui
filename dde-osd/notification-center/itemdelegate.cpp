@@ -66,16 +66,12 @@ QSize ItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelInd
     Q_UNUSED(option);
 
     EntityPtr notify = index.data().value<EntityPtr>();
+    QSize bubbleSize(BubbleItemWidth, BubbleItem::bubbleItemHeight() + BubbleSpacing);
 
-    // 计算两行文字的高度，和默认高度两者取最大值
-    QSize bubbleSize = OSD::BubbleSize(OSD::ShowStyle::BUBBLEWIDGET);
-    bubbleSize.setHeight(m_view->bubbleItemHeight() + BubbleSpacing);
-
-    if(notify && notify->isTitle()) {
-        bubbleSize = QSize(380,50);
-    } else if(notify->hideCount() != 0) {
+    if(notify && notify->isTitle())
+        bubbleSize = QSize(BubbleTitleWidth, BubbleTitleWidget::bubbleTitleWidgetHeight());
+    else if(notify->hideCount() != 0)
         bubbleSize = bubbleSize + QSize(0,notify->hideCount()*10);
-    }
 
     return bubbleSize;
 }

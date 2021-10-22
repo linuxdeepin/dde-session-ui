@@ -39,7 +39,8 @@ public:
     void setTitle(const QString &title);
     void setText(const QString &text);
     void setStyle(OSD::ShowStyle style);
-    int appBodyHeight();
+    static int bubbleWidgetAppBodyHeight();
+    int bubbleWindowAppBodyHeight();
 
 private:
     void refreshTheme();

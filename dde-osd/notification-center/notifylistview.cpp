@@ -87,7 +87,7 @@ void NotifyListView::createRemoveAnimation(BubbleItem *item)
     rightMoveAni->setDuration(AnimationTime);
     removeAniGroup->addAnimation(rightMoveAni);
 
-    const int bubbleItemHeight = item->bubbleItemHeight();
+    const int bubbleItemHeight = BubbleItem::bubbleItemHeight();
 
     NotifyModel *notifyModel= qobject_cast<NotifyModel *> (model());
     ListItem appGroup = notifyModel->getAppData(item->getEntity()->appName());
@@ -118,6 +118,12 @@ void NotifyListView::createRemoveAnimation(BubbleItem *item)
 
 void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
 {
+    // 获取动画的起始位置
+    const QModelIndex &index = this->model()->index(idx, 0);
+    QWidget *widget = this->indexWidget(index);
+    if (!widget)
+        return;
+
     QSequentialAnimationGroup *insertAniGroup = new QSequentialAnimationGroup(this);    // 逐个插入的串行动画
     QParallelAnimationGroup *downMoveAniGroup = new QParallelAnimationGroup(this);      // 整体向下移动的动画
 
@@ -126,11 +132,8 @@ void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
         Q_EMIT expandAniFinished(appItem.appName);
     });
 
-    // 获取动画的起始位置
-    const QModelIndex index = this->model()->index(idx, 0);
-    QWidget *widget = this->indexWidget(index);
     QPoint startPos = widget->pos();
-    const int bubbleItemHight = bubbleItemHeight();
+    const int bubbleItemHight = BubbleItem::bubbleItemHeight();
     int maxCount = (height() - startPos.y()) / (bubbleItemHight + BubbleSpacing);
     int needCount = appItem.hideList.size() > maxCount ? maxCount : appItem.hideList.size();
 
@@ -156,7 +159,7 @@ void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
     QPoint offsetPos = QPoint(0, (bubbleItemHight + BubbleSpacing) * needCount - 22);
     // 向下移动的动画
     for (int i = idx; i < this->model()->rowCount(QModelIndex()); ++i) {
-        const QModelIndex index = this->model()->index(i + 1, 0);
+        const QModelIndex &index = this->model()->index(i + 1, 0);
         QWidget *widget = this->indexWidget(index);
         if (!widget) {
             break;
@@ -174,17 +177,19 @@ void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
 
 void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appItem)
 {
-    QParallelAnimationGroup *addedAniGroup = new QParallelAnimationGroup(this);
+    const QModelIndex &index = this->model()->index(1, 0);
+    QWidget *widget = this->indexWidget(index);
+    if (!widget)
+        return;
 
+    QParallelAnimationGroup *addedAniGroup = new QParallelAnimationGroup(this);
     connect(addedAniGroup, &QParallelAnimationGroup::finished, this, [ = ] { //动画完成发出动画完成的信号
         m_aniState = false;
         Q_EMIT addedAniFinished(entity);
     });
 
-    const QModelIndex index = this->model()->index(1, 0);
-    QWidget *widget = this->indexWidget(index);
-    QPoint startPos = widget->pos();                //动画基准位置
-    const int bubbleItemHight = bubbleItemHeight();
+    QPoint startPos = widget->pos();    //动画基准位置
+    const int bubbleItemHight = BubbleItem::bubbleItemHeight();
 
     BubbleItem *newItem = new BubbleItem(this, entity);
     newItem->setAccessibleName("BubbleItem");
@@ -202,7 +207,7 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
 
     if (appItem.showList.size() != 3 && canShow(appItem.showList.last())) {
         for (int i = 1; i < this->model()->rowCount(QModelIndex()); ++i) {
-            const QModelIndex index = this->model()->index(i, 0);
+            const QModelIndex &index = this->model()->index(i, 0);
             QWidget *widget = this->indexWidget(index);
             if (!widget) {
                 break;
@@ -218,7 +223,7 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
             if (i > 1 || !canShow(appItem.showList[i])) {
                 break;
             }
-            const QModelIndex index = this->model()->index(1 + i, 0);
+            const QModelIndex &index = this->model()->index(1 + i, 0);
             QWidget *widget = this->indexWidget(index);
             QPropertyAnimation *downMoveAni = new QPropertyAnimation(widget, "pos", this);
             downMoveAni->setStartValue(widget->pos());
@@ -226,7 +231,7 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
             downMoveAni->setDuration(AnimationTime);
             addedAniGroup->addAnimation(downMoveAni);
         }
-        const QModelIndex index = this->model()->index(appItem.showList.size(), 0);
+        const QModelIndex &index = this->model()->index(appItem.showList.size(), 0);
         QWidget *lastWidget = this->indexWidget(index);
         OverLapWidet *overLapWidget = qobject_cast<OverLapWidet *> (lastWidget);
         QWidget *faceWidget = nullptr;
@@ -421,10 +426,4 @@ void NotifyListView::handleScrollFinished()
 
     QPoint pos = mapFromGlobal(QCursor::pos());
     emit entered(indexAt(pos));
-}
-
-int NotifyListView::bubbleItemHeight()
-{
-    int appBodyHeight = fontMetrics().height() * 2 + BubbleAppBodyVerticalPadding;
-    return qMax(appBodyHeight, BubbleItemBodyHeight) + BubbleItemTitleHeight;
 }

@@ -32,11 +32,10 @@ DGUI_USE_NAMESPACE
 
 AppBody::AppBody(QWidget *parent)
     : QFrame(parent)
+    , m_titleLbl(new AppBodyLabel(this))
+    , m_bodyLbl(new AppBodyLabel(this))
     , m_showStyle(OSD::BUBBLEWINDOW)
 {
-    m_titleLbl = new AppBodyLabel(this);
-    m_bodyLbl = new AppBodyLabel(this);
-
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setContentsMargins(0, BubbleAppBodyPaddingTop, 0, BubbleAppBodyPaddingBottom);
     layout->setSpacing(0);
@@ -72,7 +71,14 @@ void AppBody::setStyle(OSD::ShowStyle style)
     refreshTheme();
 }
 
-int AppBody::appBodyHeight()
+int AppBody::bubbleWidgetAppBodyHeight()
+{
+    int titleLabelHeight = QFontMetrics(DFontSizeManager::instance()->t6()).height();
+    int bodyLabelHeight = QFontMetrics(DFontSizeManager::instance()->t7()).height();
+    return titleLabelHeight + bodyLabelHeight + BubbleAppBodyVerticalPadding;
+}
+
+int AppBody::bubbleWindowAppBodyHeight()
 {
     return fontMetrics().height() * 2 + BubbleAppBodyVerticalPadding;
 }
