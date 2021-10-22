@@ -17,12 +17,12 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
         <source>%1 minutes ago</source>
-        <translation>སྐར་མ་％1གོང་ལ།  </translation>
+        <translation>སྐར་མ་%1གོང་ལ།  </translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="225"/>
         <source>%1 hours ago</source>
-        <translation>ཆུ་ཚོད་％1གོང་ལ།  </translation>
+        <translation>ཆུ་ཚོད་%1གོང་ལ།  </translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="228"/>
@@ -358,7 +358,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation>1%དང་21མཐུད་པར་གསང་ཨང་དགོས།</translation>
+        <translation>&lt;font color=&quot;%1&quot;&gt;དང་%2&lt;/font&gt;མཐུད་པར་གསང་ཨང་དགོས།</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>

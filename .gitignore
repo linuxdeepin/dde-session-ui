@@ -35,3 +35,4 @@ report/
 .vscode
 
 misc/*/deepin-toggle-desktop.desktop
+.transifexrc

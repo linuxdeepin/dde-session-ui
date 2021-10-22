@@ -17,12 +17,12 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
         <source>%1 minutes ago</source>
-        <translation>% 1 مىنۇت بۇرۇن</translation>
+        <translation>%1 مىنۇت بۇرۇن</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="225"/>
         <source>%1 hours ago</source>
-        <translation>% 1 سائەت بۇرۇن</translation>
+        <translation>%1 سائەت بۇرۇن</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="228"/>
@@ -152,17 +152,17 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>ئەگەر %1 ئەپنى داۋاملىق ئىشلەتسىڭىز %2MB ئىچكى ساقلىغۇچ قويۇپ بېرىڭ!</translation>
+        <translation>ئەگەر %1 ئەپنى داۋاملىق ئىشلەتسىڭىز %2 MB ئىچكى ساقلىغۇچ قويۇپ بېرىڭ!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>ئەگەر توركۆرگۈ بەتكۈچىنى داۋاملىق ئاچسىڭىز %1MB ئىچكى ساقلىغۇچ قويۇپ بېرىڭ</translation>
+        <translation>ئەگەر توركۆرگۈ بەتكۈچىنى داۋاملىق ئاچسىڭىز %1 MB ئىچكى ساقلىغۇچ قويۇپ بېرىڭ</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>ئەگەر داۋاملىق بۇيرۇقنى ئىجرا قىلسىڭىز %1MB ئىچكى ساقلىغۇچ قويۇپ بېرىڭ!</translation>
+        <translation>ئەگەر داۋاملىق بۇيرۇقنى ئىجرا قىلسىڭىز %1 MB ئىچكى ساقلىغۇچ قويۇپ بېرىڭ!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
