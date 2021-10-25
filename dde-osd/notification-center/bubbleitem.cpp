@@ -193,12 +193,10 @@ void BubbleItem::initContent()
     onRefreshTime();
 
     connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & id) {
-        BubbleTool::actionInvoke(id, m_entity);
-
+        m_actionId = id;
         if (m_model != nullptr)
             onCloseBubble();
     });
-
     connect(this, &BubbleItem::havorStateChanged, this, &BubbleItem::onHavorStateChanged);
     connect(m_closeButton, &DIconButton::clicked, this, &BubbleItem::onCloseBubble);
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &BubbleItem::refreshTheme);
@@ -359,6 +357,11 @@ void BubbleItem::setParentModel(NotifyModel *model)
 {
     Q_ASSERT(model);
     m_model = model;
+
+    connect(model, &NotifyModel::removedNotif, this, [this] {
+        if (!m_actionId.isEmpty())
+            BubbleTool::actionInvoke(m_actionId, m_entity);
+    });
 }
 
 void BubbleItem::setParentView(NotifyListView *view)

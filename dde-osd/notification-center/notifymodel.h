@@ -73,6 +73,7 @@ public slots:
 
 Q_SIGNALS:
     void dataChanged();                                 // 数据库有添加数据时发送该信号
+    void removedNotif();                                // 删除通知完成信号
 
 private:
     void initData();                                    // 初始化数据
