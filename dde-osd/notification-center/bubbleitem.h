@@ -145,6 +145,7 @@ private:
     QString m_defaultAction;
     QPoint m_pressPoint;
     bool m_isOverlapWidget = false;
+    QString m_actionId;
 };
 
 #endif // BUBBLEITEM_H

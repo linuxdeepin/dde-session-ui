@@ -129,6 +129,7 @@ void NotifyModel::removeNotify(EntityPtr entity)
     if (m_database != nullptr) {
         m_database->removeOne(QString::number(entity->id()));
     }
+    Q_EMIT removedNotif();
 }
 
 void NotifyModel::removeAppGroup(QString appName)
