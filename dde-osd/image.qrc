@@ -48,5 +48,8 @@
         <file>icons/OSD_wm_failed_dark.svg</file>
         <file>icons/OSD_wm_3d_dark.svg</file>
         <file>icons/OSD_wm_2d_dark.svg</file>
+        <file>icons/OSD_airplane_mode_off.svg</file>
+        <file>icons/OSD_airplane_mode_on.svg</file>
+        <file>icons/OSD_Fn_toggle.svg</file>
     </qresource>
 </RCC>
