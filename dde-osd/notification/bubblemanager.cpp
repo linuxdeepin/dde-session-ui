@@ -247,7 +247,9 @@ void BubbleManager::pushBubble(EntityPtr notify)
     if (notify == nullptr) return;
 
     Bubble *bubble = createBubble(notify);
-
+    if (!bubble)
+        return;
+ 
     if (m_bubbleList.size() == BubbleEntities + BubbleOverLap) {
         m_oldEntities.push_front(m_bubbleList.last()->entity());
         m_bubbleList.last()->setVisible(false);
@@ -272,7 +274,8 @@ void BubbleManager::refreshBubble()
     if (m_bubbleList.size() < BubbleEntities + BubbleOverLap + 1 && !m_oldEntities.isEmpty()) {
         auto notify = m_oldEntities.takeFirst();
         Bubble *bubble = createBubble(notify, BubbleEntities + BubbleOverLap - 1);
-        m_bubbleList.push_back(bubble);
+        if (bubble)
+            m_bubbleList.push_back(bubble);
     }
 }
 
@@ -745,6 +748,9 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
 
 Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
 {
+    //当处于锁屏状态，不允许创建Bubble
+    if (m_userInter->locked())
+        return nullptr;
     Bubble *bubble = new Bubble(nullptr, notify);
     bubble->setMaskAlpha(m_appearance->opacity() * 255);
     connect(m_appearance, &Appearance::OpacityChanged, bubble, &Bubble::onOpacityChanged);
@@ -755,8 +761,9 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         if (ptr->isShowInNotifyCenter())
             m_persistence->addOne(ptr);
     });
-    connect(m_userInter, &__SessionManager::LockedChanged, bubble, [=] {
+    connect(m_userInter, &__SessionManager::LockedChanged, bubble, [this, bubble] {
         //当锁屏状态发生变化时隐藏通知，桌面和锁屏的通知不交叉显示
+        popBubble(bubble);
         bubble->hide();
     });
 
