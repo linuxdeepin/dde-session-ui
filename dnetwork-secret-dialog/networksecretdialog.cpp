@@ -127,6 +127,8 @@ void NetworkSecretDialog::initUI()
         const QString &secret = m_secretKeyList.at(row);
         DPasswordEdit *lineEdit = new DPasswordEdit();
         lineEdit->setClearButtonEnabled(true);
+        lineEdit->setCopyEnabled(false);
+        lineEdit->setCutEnabled(false);
         gridLayout->addWidget(new QLabel(m_secretKeyStrMap.value(secret) + ":"), row, 0);
         gridLayout->addWidget(lineEdit, row, 1);
         m_lineEditList.append(lineEdit);

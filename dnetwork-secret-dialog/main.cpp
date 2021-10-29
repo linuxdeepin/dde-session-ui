@@ -20,6 +20,7 @@
  */
 
 #include "networksecretdialog.h"
+#include "networkdialog.h"
 #if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 #include "../common/accessibilitycheckerex.h"
 #endif
@@ -80,6 +81,12 @@ int main(int argc, char *argv[])
     }
 
     file.close();
+
+    NetworkDialog *networkDialog = new NetworkDialog();
+    if (networkDialog->exec(jsonDoc)) { // 不能处理就由原窗口处理
+        return app.exec();
+    }
+
     NetworkSecretDialog dialog(jsonDoc);
 #if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
     AccessibilityCheckerEx checker;

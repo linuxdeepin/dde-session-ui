@@ -10,11 +10,13 @@ CONFIG += c++11 link_pkgconfig
 SOURCES += \
         main.cpp \
     networksecretdialog.cpp \
-    ../common/accessibilitycheckerex.cpp
+    ../common/accessibilitycheckerex.cpp \
+    networkdialog.cpp \
 
 HEADERS += \
     networksecretdialog.h \
-    ../common/accessibilitycheckerex.h
+    ../common/accessibilitycheckerex.h \
+    networkdialog.h \
 
 RESOURCES += \
     resources.qrc
