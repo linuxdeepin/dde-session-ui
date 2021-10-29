@@ -48,69 +48,11 @@
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
-static double get_scale_ratio() {
-    Display *display = XOpenDisplay(nullptr);
-
-    XRRScreenResources *resources = XRRGetScreenResourcesCurrent(display, DefaultRootWindow(display));
-    double scaleRatio = 0.0;
-
-    if (!resources) {
-        resources = XRRGetScreenResources(display, DefaultRootWindow(display));
-        qWarning() << "get XRRGetScreenResourcesCurrent failed, use XRRGetScreenResources.";
-    }
-
-    if (resources) {
-        for (int i = 0; i < resources->noutput; i++) {
-            XRROutputInfo* outputInfo = XRRGetOutputInfo(display, resources, resources->outputs[i]);
-            if (outputInfo->crtc == 0 || outputInfo->mm_width == 0) continue;
-
-            XRRCrtcInfo *crtInfo = XRRGetCrtcInfo(display, resources, outputInfo->crtc);
-            if (crtInfo == nullptr) continue;
-
-            scaleRatio = static_cast<double>(crtInfo->width) / static_cast<double>(outputInfo->mm_width) / (1366.0 / 310.0);
-
-            if (scaleRatio > 1 + 2.0 / 3.0) {
-                scaleRatio = 2;
-            }
-            else if (scaleRatio > 1 + 1.0 / 3.0) {
-                scaleRatio = 1.5;
-            }
-            else {
-                scaleRatio = 1;
-            }
-        }
-    }
-    else {
-        qWarning() << "get scale radio failed, please check X11 Extension.";
-    }
-
-    return scaleRatio;
-}
-
-static void set_auto_QT_SCALE_FACTOR() {
-    const double ratio = get_scale_ratio();
-    if (ratio > 0.0) {
-        setenv("QT_SCALE_FACTOR", QByteArray::number(ratio).constData(), 1);
-    }
-
-    if (!qEnvironmentVariableIsSet("QT_SCALE_FACTOR")) {
-        setenv("QT_AUTO_SCREEN_SCALE_FACTOR", "1", 1);
-    }
-}
-
 int main(int argc, char *argv[])
 {
     if (QString(getenv("XDG_CURRENT_DESKTOP")) != QStringLiteral("Deepin")) {
         qDebug() << "I only run the Deepin Desktop!";
         return -1;
-    }
-
-    // 加载dpi设置防止应用启动后字体大小不正常
-    if (!QFile::exists("/etc/lightdm/deepin/qt-theme.ini")) {
-        set_auto_QT_SCALE_FACTOR();
-    }
-    else {
-        DApplication::customQtThemeConfigPath("/etc/lightdm/");
     }
 
     DGuiApplicationHelper::setUseInactiveColorGroup(false);
