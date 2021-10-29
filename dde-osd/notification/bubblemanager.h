@@ -265,6 +265,11 @@ private:
      */
     int getBubbleHeightBefore(const int index);
 
+    /**
+     * @brief popAllBubbles 立即移除当前所有的气泡
+     */
+    void popAllBubblesImmediately();
+
 private:
     int m_replaceCount = 0;
     QString m_configFile;

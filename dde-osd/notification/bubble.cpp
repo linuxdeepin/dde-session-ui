@@ -355,21 +355,20 @@ void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDe
         connect(this, &Bubble::resetGeometry, this, [group, this] {
             if (!group.isNull())
                 group->stop();
-            //当接收到该信号，则表示已经geometry已经更新，直接使用即可
+            // 当接收到该信号，则表示已经geometry已经更新，直接使用即可
             setFixedGeometry(geometry());
         });
     }
 
-    group->start(QAbstractAnimation::DeleteWhenStopped);
-
-    setEnabled(QSize(endRect.width(), endRect.height()) == OSD::BubbleSize(OSD::BUBBLEWINDOW));
-
     if (needDelete) {
-        QTimer::singleShot(group->duration(), this, [ = ] {
+        connect(group, &QParallelAnimationGroup::finished, this, [ this ] {
             hide();
             close();
         });
     }
+
+    setEnabled(QSize(endRect.width(), endRect.height()) == OSD::BubbleSize(OSD::BUBBLEWINDOW));
+    group->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void Bubble::setBubbleIndex(int index)
