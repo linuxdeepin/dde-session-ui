@@ -84,6 +84,11 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
 
     // 任务栏在左侧时，触屏划入距离需要超过100
     m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
+
+    connect(m_userInter, &__SessionManager::LockedChanged, this, [ this ] {
+        // 当锁屏状态发生变化时立即隐藏所有通知并插入到通知中心（根据通知的实际情况决定），桌面和锁屏的通知不交叉显示
+        popAllBubblesImmediately();
+    });
 }
 
 BubbleManager::~BubbleManager()
@@ -266,6 +271,21 @@ void BubbleManager::popBubble(Bubble *bubble)
     refreshBubble();
     popAnimation(bubble);
     m_bubbleList.removeOne(bubble);
+}
+
+void BubbleManager::popAllBubblesImmediately()
+{
+    for (QPointer<Bubble> &bubble : m_bubbleList) {
+        if (bubble) {
+            if (bubble->entity()->isShowInNotifyCenter())
+                m_persistence->addOne(bubble->entity());
+
+            bubble->hide();
+            bubble->close();
+        }
+    }
+
+    m_bubbleList.clear();
 }
 
 void BubbleManager::refreshBubble()
@@ -745,23 +765,15 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
 
 Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
 {
-    //当处于锁屏状态，不允许创建Bubble
-    if (m_userInter->locked())
-        return nullptr;
     Bubble *bubble = new Bubble(nullptr, notify);
-    bubble->setMaskAlpha(m_appearance->opacity() * 255);
+    bubble->setMaskAlpha(static_cast<quint8>(m_appearance->opacity() * 255));
     connect(m_appearance, &Appearance::OpacityChanged, bubble, &Bubble::onOpacityChanged);
     connect(bubble, &Bubble::expired, this, &BubbleManager::bubbleExpired);
     connect(bubble, &Bubble::dismissed, this, &BubbleManager::bubbleDismissed);
     connect(bubble, &Bubble::actionInvoked, this, &BubbleManager::bubbleActionInvoked);
-    connect(bubble, &Bubble::notProcessedYet, this, [ = ](EntityPtr ptr) {
+    connect(bubble, &Bubble::notProcessedYet, this, [ this ](EntityPtr ptr) {
         if (ptr->isShowInNotifyCenter())
             m_persistence->addOne(ptr);
-    });
-    connect(m_userInter, &__SessionManager::LockedChanged, bubble, [this, bubble] {
-        //当锁屏状态发生变化时隐藏通知，桌面和锁屏的通知不交叉显示
-        popBubble(bubble);
-        bubble->hide();
     });
 
     if (index != 0) {
