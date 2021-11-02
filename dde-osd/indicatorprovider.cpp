@@ -42,6 +42,9 @@ IndicatorProvider::IndicatorProvider(QObject *parent)
     m_dats["FnToggle"] = ":/icons/OSD_Fn_toggle.svg";
     m_dats["AirplaneModeOn"] = ":/icons/OSD_airplane_mode_on.svg";
     m_dats["AirplaneModeOff"] = ":/icons/OSD_airplane_mode_off.svg";
+    m_dats["balance"] = ":/icons/OSD-power-balance.svg";
+    m_dats["powersave"] = ":/icons/OSD-power-powersave.svg";
+    m_dats["performance"] = ":/icons/OSD-power-performance.svg";
 }
 
 int IndicatorProvider::rowCount(const QModelIndex &) const
