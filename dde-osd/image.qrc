@@ -51,5 +51,8 @@
         <file>icons/OSD_airplane_mode_off.svg</file>
         <file>icons/OSD_airplane_mode_on.svg</file>
         <file>icons/OSD_Fn_toggle.svg</file>
+        <file>icons/OSD-power-balance.svg</file>
+        <file>icons/OSD-power-performance.svg</file>
+        <file>icons/OSD-power-powersave.svg</file>
     </qresource>
 </RCC>
