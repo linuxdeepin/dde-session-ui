@@ -103,6 +103,10 @@ void NetworkDialog::readProcessOutput()
 bool NetworkDialog::exec(const QJsonDocument &doc)
 {
     QJsonObject obj = doc.object();
+    // 只处理无线网密码
+    if (obj.value("connType").toString() != "802-11-wireless") {
+        return false;
+    }
     QJsonArray array = obj.value("devices").toArray();
     QString device = array.first().toString(); // 暂只处理第一个
     QString specific = obj.value("specific").toString();
