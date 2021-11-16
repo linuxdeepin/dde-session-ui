@@ -108,13 +108,19 @@ bool NetworkDialog::exec(const QJsonDocument &doc)
         return false;
     }
     QJsonArray array = obj.value("devices").toArray();
-    QString device = array.first().toString(); // 暂只处理第一个
-    QString specific = obj.value("specific").toString();
-    if (!device.isEmpty() && !specific.isEmpty() && (1 == obj.value("secrets").toArray().size())) {
-        m_key = device + specific;
+    QString device;
+    if (!array.isEmpty()) {
+        device = array.first().toString();
+    }
+    QString connName = obj.value("connId").toString();
+    if (!connName.isEmpty() && (1 == obj.value("secrets").toArray().size())) {
+        m_key = connName;
         m_process->close();
         QStringList argList;
         argList << "-w" << "-c" << m_key;
+        if(!device.isEmpty()) {
+            argList << "-n" << device;
+        }
         m_process->start(NetworkDialogApp, argList);
         m_process->waitForStarted();
         return m_process->state() == QProcess::Running;
