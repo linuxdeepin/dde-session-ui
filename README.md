@@ -33,7 +33,6 @@ User interface of on-screen display .
 ```
 User interface of setting hot zone.
 ```
-
 ## Dependencies
 - Qt
 - [deepin-tool-kit](https://github.com/linuxdeepin/deepin-tool-kit)
