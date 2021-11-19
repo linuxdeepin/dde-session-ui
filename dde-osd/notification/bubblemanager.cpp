@@ -363,12 +363,12 @@ QRect BubbleManager::getBubbleGeometry(int index)
 
     QRect rect;
     if (index >= 0 && index <= BubbleEntities - 1) {
-        int y = 0;
+        int y =  m_currentDisplayRect.y(); // 多屏时屏幕设置为上下错位，主屏的top可能不是0
         if (m_dockPos == OSD::Top) {
             if (m_dockMode == OSD::DockModel::Fashion) {
-                y = m_currentDisplayRect.y() + m_currentDockRect.height() + OSD::DockMargin * 2;
+                y = m_currentDockRect.height() + OSD::DockMargin * 2;
             } else {
-                y = m_currentDisplayRect.y() + m_currentDockRect.height();
+                y = m_currentDockRect.height();
             }
         }
         rect.setX(m_currentDisplayRect.x() + (m_currentDisplayRect.width() - OSD::BubbleWidth(OSD::BUBBLEWINDOW)) / 2);
