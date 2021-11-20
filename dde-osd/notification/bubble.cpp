@@ -74,6 +74,7 @@ EntityPtr Bubble::entity() const
 
 void Bubble::setEntity(EntityPtr entity)
 {
+    qDebug() << Q_FUNC_INFO << "entity is nullptr: " << (entity == nullptr);
     if (!entity) return;
 
     m_entity = entity;
@@ -122,6 +123,7 @@ void Bubble::setEnabled(bool enable)
 
 void Bubble::updateGeometry()
 {
+    qDebug() << Q_FUNC_INFO;
     m_outTimer->stop();
     m_outTimer->setSingleShot(true);
     m_outTimer->start();
@@ -217,11 +219,13 @@ void Bubble::leaveEvent(QEvent *event)
 
 void Bubble::onOutTimerTimeout()
 {
+    qDebug() << Q_FUNC_INFO << ", containsMouse: " << containsMouse() << ", isEnabled: " << isEnabled();
     if (containsMouse() || !isEnabled()) {
         m_outTimer->stop();
         m_outTimer->setSingleShot(true);
         m_outTimer->start();
     } else {
+        qDebug() << "emit notProcessedYet";
         //等待屏幕上方气泡消失再将通知插入到通知中心，否则会导致同一个通知出现在两个位置。
         QTimer::singleShot(AnimationTime + 10, this, [ = ] {
             Q_EMIT notProcessedYet(m_entity);

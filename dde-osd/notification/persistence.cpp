@@ -75,6 +75,7 @@ Persistence::Persistence(QObject *parent)
 
 void Persistence::addOne(EntityPtr entity)
 {
+    qDebug() << "add one: " << entity->summary();
     // "cancel"表示正在发送蓝牙文件,不需要发送到通知中心
     if (entity->body().contains("%") && entity->actions().contains("cancel")) {
         return;
@@ -117,9 +118,7 @@ void Persistence::addOne(EntityPtr entity)
         qWarning() << "insert value to database failed: " << m_query.lastError().text() << entity->id() << entity->ctime();
         return;
     } else {
-#ifdef QT_DEBUG
         qDebug() << "insert value done, time is:" << entity->ctime();
-#endif
     }
 
     // to get entity's id in database
@@ -129,9 +128,7 @@ void Persistence::addOne(EntityPtr entity)
     } else {
         m_query.next();
         entity->setId(m_query.value(0).toString());
-#ifdef QT_DEBUG
         qDebug() << "get entity's id done:" << entity->id();
-#endif
         emit RecordAdded(entity);
     }
 }
@@ -152,9 +149,7 @@ void Persistence::removeOne(const QString &id)
         qWarning() << "remove value:" << id << "from database failed: " << m_query.lastError().text();
         return;
     } else {
-#ifdef QT_DEBUG
         qDebug() << "remove value:" << id;
-#endif
     }
 }
 
@@ -167,9 +162,7 @@ void Persistence::removeApp(const QString &app_name)
         qWarning() << "remove value:" << app_name << "from database failed: " << m_query.lastError().text();
         return;
     } else {
-#ifdef QT_DEBUG
         qDebug() << "remove value:" << app_name;
-#endif
     }
 }
 
