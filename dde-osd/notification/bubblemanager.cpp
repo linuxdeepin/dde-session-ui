@@ -330,6 +330,7 @@ void BubbleManager::pushAnimation(Bubble *bubble)
         }
         if (bubble != nullptr) {
             item->setBubbleIndex(index);
+            qDebug() << "pushAnimation, body: " << bubble->entity()->body();
             item->startMove(startRect, endRect);
         }
     }
@@ -337,7 +338,7 @@ void BubbleManager::pushAnimation(Bubble *bubble)
 
 void BubbleManager::popAnimation(Bubble *bubble)
 {
-    qDebug() << Q_FUNC_INFO << ", body: " << bubble->entity()->body();
+    qDebug() << Q_FUNC_INFO << "start ------- body: " << bubble->entity()->body();
     int index = m_bubbleList.indexOf(bubble);
     if (index == -1)
         return;
@@ -359,6 +360,7 @@ void BubbleManager::popAnimation(Bubble *bubble)
             startRect = item->geometry();
         }
         if (bubble != nullptr) {
+            qDebug() << "popAnimation, body: " << bubble->entity()->body();
             item->setBubbleIndex(index);
             item->startMove(startRect, endRect);
         }
@@ -371,6 +373,7 @@ void BubbleManager::popAnimation(Bubble *bubble)
             b->raise();
         }
     }
+    qDebug() << Q_FUNC_INFO << "end ------ body: " << bubble->entity()->body();
 }
 
 QRect BubbleManager::getBubbleGeometry(int index)
@@ -804,6 +807,7 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         QRect startRect = getBubbleGeometry(BubbleEntities + BubbleOverLap);
         QRect endRect = getBubbleGeometry(BubbleEntities + BubbleOverLap - 1);
         bubble->setBubbleIndex(BubbleEntities + BubbleOverLap - 1);
+        qDebug() << "createBubble, body: " << bubble->entity()->body();
         bubble->startMove(startRect, endRect);
     } else {
         QRect endRect = getBubbleGeometry(0);
@@ -824,5 +828,6 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         ani->start(QPropertyAnimation::DeleteWhenStopped);
     }
 
+    qDebug() << Q_FUNC_INFO << "end ------- body: " <<notify->body();
     return bubble;
 }
