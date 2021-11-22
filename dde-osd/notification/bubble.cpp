@@ -349,6 +349,7 @@ bool Bubble::containsMouse() const
 
 void Bubble::startMove(const QRect &startRect, const QRect &endRect, bool needDelete)
 {
+    qDebug() << Q_FUNC_INFO << ", neet delete: " << needDelete << ", body: " << m_entity->body();
     QPointer<QParallelAnimationGroup> group = new QParallelAnimationGroup(this);
 
     QPropertyAnimation *geometryAni = new QPropertyAnimation(this, "geometry", this);

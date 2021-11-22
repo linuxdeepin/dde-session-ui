@@ -41,6 +41,7 @@
 #include <QDBusContext>
 #include <QDateTime>
 #include <QGSettings>
+#include <QDBusAbstractInterface>
 
 #include <algorithm>
 
@@ -76,6 +77,17 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
     m_trickTimer->setInterval(300);
     m_trickTimer->setSingleShot(true);
 
+    qDebug() << Q_FUNC_INFO
+             << "m_login1ManagerInterface is valid: " << m_login1ManagerInterface->isValid()
+             << "m_displayInter is valid : " << m_displayInter->isValid()
+             << "m_dockDeamonInter is valid : " << m_dockDeamonInter->isValid()
+             << "m_userInter is valid : " << m_userInter->isValid()
+             << "m_soundeffectInter is valid : " << m_soundeffectInter->isValid()
+             << "m_appearance is valid : " << m_appearance->isValid()
+             << "m_gestureInter is valid : " << m_gestureInter->isValid()
+             << "m_dockInter is valid : " << m_dockInter->isValid();
+
+
     initConnections();
     geometryChanged();
 
@@ -94,6 +106,7 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
 
 BubbleManager::~BubbleManager()
 {
+    qDebug() << Q_FUNC_INFO;
     if (!m_bubbleList.isEmpty()) qDeleteAll(m_bubbleList);
 
     m_oldEntities.clear();
@@ -268,6 +281,7 @@ void BubbleManager::pushBubble(EntityPtr notify)
 
 void BubbleManager::popBubble(Bubble *bubble)
 {
+    qDebug() << Q_FUNC_INFO << ", body: " << bubble->entity()->body();
     // bubble delete itself when aniamtion finished
     refreshBubble();
     popAnimation(bubble);
@@ -276,6 +290,7 @@ void BubbleManager::popBubble(Bubble *bubble)
 
 void BubbleManager::popAllBubblesImmediately()
 {
+    qDebug() << Q_FUNC_INFO;
     for (QPointer<Bubble> &bubble : m_bubbleList) {
         if (bubble) {
             if (bubble->entity()->isShowInNotifyCenter())
@@ -322,6 +337,7 @@ void BubbleManager::pushAnimation(Bubble *bubble)
 
 void BubbleManager::popAnimation(Bubble *bubble)
 {
+    qDebug() << Q_FUNC_INFO << ", body: " << bubble->entity()->body();
     int index = m_bubbleList.indexOf(bubble);
     if (index == -1)
         return;
@@ -636,12 +652,14 @@ void BubbleManager::registerAsService()
 
 void BubbleManager::bubbleExpired(Bubble *bubble)
 {
+    qDebug() << Q_FUNC_INFO << ", body: " << bubble->entity()->body();
     popBubble(bubble);
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Expired);
 }
 
 void BubbleManager::bubbleDismissed(Bubble *bubble)
 {
+    qDebug() << Q_FUNC_INFO << ", body: " << bubble->entity()->body();
     popBubble(bubble);
     Q_EMIT NotificationClosed(bubble->entity()->id(), BubbleManager::Dismissed);
 }
@@ -653,6 +671,7 @@ void BubbleManager::bubbleReplacedByOther(Bubble *bubble)
 
 void BubbleManager::bubbleActionInvoked(Bubble *bubble, QString actionId)
 {
+    qDebug() << Q_FUNC_INFO << ", body: " << bubble->entity()->body();
     popBubble(bubble);
     uint id = bubble->entity()->id();
     uint replacesId = bubble->entity()->replacesId().toUInt();

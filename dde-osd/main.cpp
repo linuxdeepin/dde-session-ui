@@ -144,6 +144,8 @@ int main(int argc, char *argv[])
         action = args.at(1);
     }
 
+    qDebug() << "------> run dde-osd";
+
     // run osd
     Manager m;
     QDBusConnection connection = QDBusConnection::sessionBus();
