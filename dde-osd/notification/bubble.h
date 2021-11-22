@@ -53,6 +53,8 @@ public:
     Bubble(QWidget *parent = nullptr, EntityPtr entity = nullptr,
            OSD::ShowStyle style = OSD::ShowStyle::BUBBLEWINDOW);
 
+    ~Bubble() override;
+
     EntityPtr entity() const;
     void setEntity(EntityPtr entity);
     void setEnabled(bool enable);

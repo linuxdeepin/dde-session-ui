@@ -67,6 +67,11 @@ Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     installEventFilter(this);
 }
 
+Bubble::~Bubble()
+{
+    qDebug() << Q_FUNC_INFO << ", entity body: " << m_entity->body();
+}
+
 EntityPtr Bubble::entity() const
 {
     return m_entity;
@@ -74,7 +79,7 @@ EntityPtr Bubble::entity() const
 
 void Bubble::setEntity(EntityPtr entity)
 {
-    qDebug() << Q_FUNC_INFO << "entity is nullptr: " << (entity == nullptr);
+    qDebug() << Q_FUNC_INFO << "entity is nullptr: " << (entity == nullptr) << ", body: " << entity->body();
     if (!entity) return;
 
     m_entity = entity;
@@ -103,6 +108,7 @@ void Bubble::setEntity(EntityPtr entity)
     m_outTimer->stop();
     m_outTimer->setInterval(timeout == -1 ? BubbleTimeout : (timeout == 0 ? -1 : timeout));
     m_outTimer->setSingleShot(true);
+    qDebug() << Q_FUNC_INFO << "m_outTimer start " << ", entity body: " << entity->body();
     m_outTimer->start();
 }
 
@@ -126,6 +132,7 @@ void Bubble::updateGeometry()
     qDebug() << Q_FUNC_INFO;
     m_outTimer->stop();
     m_outTimer->setSingleShot(true);
+    qDebug() << Q_FUNC_INFO << "m_outTimer start " << ", entity body: " << m_entity->body();
     m_outTimer->start();
 
     Q_EMIT resetGeometry();
@@ -223,6 +230,7 @@ void Bubble::onOutTimerTimeout()
     if (containsMouse() || !isEnabled()) {
         m_outTimer->stop();
         m_outTimer->setSingleShot(true);
+        qDebug() << Q_FUNC_INFO << "m_outTimer start " << ", entity body: " << m_entity->body();
         m_outTimer->start();
     } else {
         qDebug() << "emit notProcessedYet";

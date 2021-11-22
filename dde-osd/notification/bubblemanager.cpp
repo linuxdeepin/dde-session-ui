@@ -768,7 +768,7 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
 
 Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
 {
-    qDebug() << Q_FUNC_INFO << notify->summary() << ", index: " << index;
+    qDebug() << Q_FUNC_INFO << notify->body() << ", index: " << index;
     Bubble *bubble = new Bubble(nullptr, notify);
     bubble->setMaskAlpha(static_cast<quint8>(m_appearance->opacity() * 255));
     connect(m_appearance, &Appearance::OpacityChanged, bubble, &Bubble::onOpacityChanged);
