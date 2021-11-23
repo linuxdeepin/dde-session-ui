@@ -120,14 +120,21 @@ int main(int argc, char *argv[])
     }
     DGuiApplicationHelper::setUseInactiveColorGroup(false);
     DGuiApplicationHelper::setColorCompositingEnabled(true);
-    DApplication a(argc, argv);
-    a.setAttribute(Qt::AA_UseHighDpiPixmaps);
-    a.setOrganizationName("deepin");
-    a.setApplicationName("dde-osd");
-    a.setApplicationVersion("1.0");
+
+    DApplication *a = nullptr;
+#if (DTK_VERSION < DTK_VERSION_CHECK(5, 4, 0, 0))
+    a = new DApplication(argc, argv);
+#else
+    a = DApplication::globalApplication(argc, argv);
+#endif
+
+    a->setAttribute(Qt::AA_UseHighDpiPixmaps);
+    a->setOrganizationName("deepin");
+    a->setApplicationName("dde-osd");
+    a->setApplicationVersion("1.0");
 
 #if DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 9, 0)
-    a.setOOMScoreAdj(500);
+    a->setOOMScoreAdj(500);
 #endif
 
     DLogManager::registerConsoleAppender();
@@ -136,9 +143,9 @@ int main(int argc, char *argv[])
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    a.installTranslator(&translator);
+    a->installTranslator(&translator);
 
-    QStringList args = a.arguments();
+    QStringList args = a->arguments();
     QString action;
     if (args.length() > 1) {
         action = args.at(1);
@@ -174,7 +181,7 @@ int main(int argc, char *argv[])
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
     checker.start();
 #endif
-    return a.exec();
+    return a->exec();
 }
 #else
 
