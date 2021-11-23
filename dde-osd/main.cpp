@@ -48,6 +48,8 @@
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
+#include <unistd.h>
+
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
@@ -120,25 +122,29 @@ int main(int argc, char *argv[])
     }
     DGuiApplicationHelper::setUseInactiveColorGroup(false);
     DGuiApplicationHelper::setColorCompositingEnabled(true);
-    DApplication a(argc, argv);
-    a.setAttribute(Qt::AA_UseHighDpiPixmaps);
-    a.setOrganizationName("deepin");
-    a.setApplicationName("dde-osd");
-    a.setApplicationVersion("1.0");
+
+    DApplication *app = DApplication::globalApplication(argc, argv);
+    app->setAttribute(Qt::AA_UseHighDpiPixmaps);
+    app->setOrganizationName("deepin");
+    app->setApplicationName("dde-osd");
+    app->setApplicationVersion("1.0");
+    if(!app->setSingleInstance(app->applicationName())) {
+        qDebug() << "dde-osd is running...";
+        return 1;
+    }
 
 #if DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 9, 0)
-    a.setOOMScoreAdj(500);
+    app->setOOMScoreAdj(500);
 #endif
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
     QAccessible::installFactory(accessibleFactory);
-
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    a.installTranslator(&translator);
+    app->installTranslator(&translator);
 
-    QStringList args = a.arguments();
+    QStringList args = app->arguments();
     QString action;
     if (args.length() > 1) {
         action = args.at(1);
@@ -172,7 +178,7 @@ int main(int argc, char *argv[])
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
     checker.start();
 #endif
-    return a.exec();
+    return app->exec();
 }
 #else
 
