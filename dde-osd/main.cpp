@@ -48,6 +48,8 @@
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
+#include <unistd.h>
+
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
@@ -121,17 +123,16 @@ int main(int argc, char *argv[])
     DGuiApplicationHelper::setUseInactiveColorGroup(false);
     DGuiApplicationHelper::setColorCompositingEnabled(true);
 
-    DApplication *a = nullptr;
-#if (DTK_VERSION < DTK_VERSION_CHECK(5, 4, 0, 0))
-    a = new DApplication(argc, argv);
-#else
-    a = DApplication::globalApplication(argc, argv);
-#endif
+    DApplication *a = DApplication::globalApplication(argc, argv);
 
     a->setAttribute(Qt::AA_UseHighDpiPixmaps);
     a->setOrganizationName("deepin");
     a->setApplicationName("dde-osd");
     a->setApplicationVersion("1.0");
+    if(!a->setSingleInstance(a->applicationName())) {
+        qDebug() << "dde-osd is running...";
+        return 1;
+    }
 
 #if DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 9, 0)
     a->setOOMScoreAdj(500);
@@ -140,7 +141,6 @@ int main(int argc, char *argv[])
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
     QAccessible::installFactory(accessibleFactory);
-
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     a->installTranslator(&translator);
