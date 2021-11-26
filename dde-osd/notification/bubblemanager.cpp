@@ -174,6 +174,12 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     }
 #endif
 
+    // 如果display服务无效，无法获取显示器大小，不能正确计算显示位置，则不显示消息通知
+    if (!m_displayInter->isValid()) {
+        qWarning() << "The name com.deepin.daemon.Display is invalid";
+        return 0;
+    }
+
     // 应用通知功能未开启不做处理
     bool enableNotificaion = m_notifySettings->getAppSetting(appName, NotifySettings::ENABELNOTIFICATION).toBool();
 
@@ -254,7 +260,7 @@ void BubbleManager::pushBubble(EntityPtr notify)
     Bubble *bubble = createBubble(notify);
     if (!bubble)
         return;
- 
+
     if (m_bubbleList.size() == BubbleEntities + BubbleOverLap) {
         m_oldEntities.push_front(m_bubbleList.last()->entity());
         m_bubbleList.last()->setVisible(false);
