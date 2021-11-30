@@ -133,10 +133,9 @@ TEST_F(UT_BubbleManager, coverageTest)
     obj->getAllSetting();
     obj->setAllSetting("");
     obj->getAppSetting("");
-    obj->setAppSetting("{}");
     obj->getSystemSetting();
     obj->setSystemSetting("");
-    obj->GetLastStableRect(0);
+    obj->getLastStableRect(0);
     obj->geometryChanged();
 }
 
