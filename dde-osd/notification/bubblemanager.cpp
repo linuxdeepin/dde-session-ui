@@ -708,11 +708,11 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
             Bubble *bubble = m_bubbleList.at(i);
             if (bubble->entity()->replacesId() == notify->replacesId()
                     && bubble->entity()->appName() == notify->appName()) {
-                m_persistence->addOne(m_bubbleList.at(0)->entity());
+                m_persistence->addOne(m_bubbleList.at(i)->entity());
                 if (i != 0) {
-                    bubble->setEntity(m_bubbleList.at(0)->entity());
+                    bubble->setEntity(m_bubbleList.at(i)->entity());
                 }
-                m_bubbleList.at(0)->setEntity(notify);
+                m_bubbleList.at(i)->setEntity(notify);
                 find = true;
             }
         }
