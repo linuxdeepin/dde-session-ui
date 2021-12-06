@@ -790,7 +790,7 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
     } else {
         QRect endRect = getBubbleGeometry(0);
         QRect startRect = endRect;
-        startRect.setHeight(0);
+        startRect.setHeight(1);
 
         bubble->setProperty("geometry",0);
         bubble->show();
