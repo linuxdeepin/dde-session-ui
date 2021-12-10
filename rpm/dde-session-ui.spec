@@ -58,7 +58,6 @@ sed -i 's|lib|libexec|' \
     dde-touchscreen-dialog/dde-touchscreen-dialog.pro \
     dde-warning-dialog/com.deepin.dde.WarningDialog.service \
     dde-warning-dialog/dde-warning-dialog.pro \
-    dde-offline-upgrader/dde-offline-upgrader.pro \
     dde-suspend-dialog/dde-suspend-dialog.pro \
     dnetwork-secret-dialog/dnetwork-secret-dialog.pro \
     dde-lowpower/dde-lowpower.pro
