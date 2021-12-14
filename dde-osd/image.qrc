@@ -49,7 +49,9 @@
         <file>icons/OSD_wm_3d_dark.svg</file>
         <file>icons/OSD_wm_2d_dark.svg</file>
         <file>icons/OSD_airplane_mode_off.svg</file>
+        <file>icons/OSD_airplane_mode_off_dark.svg</file>
         <file>icons/OSD_airplane_mode_on.svg</file>
+        <file>icons/OSD_airplane_mode_on_dark.svg</file>
         <file>icons/OSD_Fn_toggle.svg</file>
         <file>icons/OSD-power-balance.svg</file>
         <file>icons/OSD-power-performance.svg</file>
