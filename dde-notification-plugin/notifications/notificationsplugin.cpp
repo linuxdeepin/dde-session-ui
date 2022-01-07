@@ -45,6 +45,7 @@ NotificationsPlugin::NotificationsPlugin(QObject *parent)
     m_tipsLabel->setVisible(false);
     m_tipsLabel->setObjectName("notifications");
     m_tipsLabel->setAccessibleName("TipsLabel");
+    m_tipsLabel->setAlignment(Qt::AlignCenter);
 
     if (QGSettings::isSchemaInstalled("com.deepin.dde.notifications")) {
         m_settings = new QGSettings("com.deepin.dde.notifications", "/com/deepin/dde/notifications/", this);
@@ -88,10 +89,15 @@ QWidget *NotificationsPlugin::itemTipsWidget(const QString &itemKey)
 
     uint recordCount = m_notifyInter->recordCount();
 
+    QString text;
     if (recordCount)
-        m_tipsLabel->setText(QString(tr("%1 Notifications")).arg(recordCount));
+        text = QString(tr("%1 Notifications")).arg(recordCount);
     else
-        m_tipsLabel->setText(tr("No messages"));
+        text = QString(tr("No messages"));
+
+    m_tipsLabel->setText(text);
+    const QFontMetrics &metrics = m_tipsLabel->fontMetrics();
+    m_tipsLabel->setFixedSize(metrics.width(text) + 20, metrics.boundingRect(text).height());
 
     return m_tipsLabel;
 }
