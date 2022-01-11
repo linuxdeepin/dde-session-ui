@@ -55,7 +55,7 @@ Q_SIGNALS:
 private:
     Display *m_displayInter;
     RecognizeDialog *m_recognize;
-    QString m_touchscreenSerial;
+    QString m_touchscreenUUID;
     DComboBox *m_listCombo;
     QList<Monitor *> m_monitors;
     MonitorIndicator *m_monitorIndicator;

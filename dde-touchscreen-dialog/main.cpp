@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addPositionalArgument("touchscreen",
-                                 "the serial number of touchscreen.",
+                                 "the UUID of touchscreen.",
                                  "[touchscreen]");
     parser.process(app);
 

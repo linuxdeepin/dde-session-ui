@@ -36,7 +36,7 @@ const QString DisplayServerPath = "/com/deepin/daemon/Display";
 TouchscreenSetting::TouchscreenSetting(const QString &touchscreen, QWidget *parent)
     : DDialog(parent)
     , m_displayInter(new Display(DisplayServer, DisplayServerPath, QDBusConnection::sessionBus()))
-    , m_touchscreenSerial(touchscreen)
+    , m_touchscreenUUID(touchscreen)
     , m_listCombo(new DComboBox)
     , m_monitorIndicator(new MonitorIndicator)
 {
@@ -85,7 +85,7 @@ void TouchscreenSetting::onButtonClicked(int index, const QString &)
     qDebug() << "confirm clicked";
 
     QString monitor = m_listCombo->currentText();
-    Q_EMIT requestAssociateTouch(monitor, m_touchscreenSerial);
+    Q_EMIT requestAssociateTouch(monitor, m_touchscreenUUID);
 
     close();
 }
