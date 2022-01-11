@@ -148,6 +148,7 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
 
     if (m_pressed && m_clickPos == event->pos()) {
         if (!m_defaultAction.isEmpty()) {
+            BubbleTool::actionInvoke(m_defaultAction, m_entity);
             Q_EMIT actionInvoked(this, m_defaultAction);
             m_defaultAction.clear();
         }
