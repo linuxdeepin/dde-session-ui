@@ -85,8 +85,8 @@ class BubbleManager : public QObject, public QDBusContext
     Q_PROPERTY(QString systemSetting READ getSystemSetting WRITE setSystemSetting)
 
 public:
-    explicit BubbleManager(AbstractPersistence *persistence = nullptr,
-                           AbstractNotifySetting *setting = nullptr, QObject *parent = nullptr);
+    explicit BubbleManager(AbstractPersistence *persistence,
+                           AbstractNotifySetting *setting, QObject *parent = nullptr);
     ~BubbleManager();
 
     enum ClosedReason {
@@ -185,18 +185,18 @@ public Q_SLOTS:
     void Hide();
     uint recordCount();
     QStringList GetAppList();
-    QDBusVariant GetAppInfo(const QString id, uint item);
+    QDBusVariant GetAppInfo(const QString &id, uint item);
     QDBusVariant GetSystemInfo(uint item);
-    void SetAppInfo(const QString id, uint item, const QDBusVariant var);
+    void SetAppInfo(const QString &id, uint item, const QDBusVariant var);
     void SetSystemInfo(uint item, const QDBusVariant var);
 
     // 旧接口之后废弃
     QString getAllSetting();
-    void setAllSetting(const QString settings);
+    void setAllSetting(const QString &settings);
     QString getAppSetting(QString appName);
-    void setAppSetting(const QString settings);
+    void setAppSetting(const QString &settings);
     QString getSystemSetting();
-    void setSystemSetting(QString settings);
+    void setSystemSetting(const QString &settings);
 
 private Q_SLOTS:
     /*!

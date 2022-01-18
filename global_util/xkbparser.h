@@ -35,7 +35,7 @@
 class XkbParser: public QObject
 {
 public:
-    XkbParser(QObject* parent = 0);
+    explicit XkbParser(QObject* parent = nullptr);
     ~XkbParser();
     struct VariantItem {
         QString name;

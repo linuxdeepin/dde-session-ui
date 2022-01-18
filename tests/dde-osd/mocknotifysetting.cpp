@@ -36,7 +36,7 @@ void NotifySettingHelper::initAllSettings()
 
 void NotifySettingHelper::setAppSetting(const QString &id, const AbstractNotifySetting::AppConfigurationItem &item, const QVariant &var)
 {
-    QMap<QString, QVariant> app1Setting = m_appSetting[id];
+    QMap<QString, QVariant> &app1Setting = m_appSetting[id];
 
     switch (item) {
     case  AbstractNotifySetting::APPNAME:
@@ -63,9 +63,10 @@ void NotifySettingHelper::setAppSetting(const QString &id, const AbstractNotifyS
     }
 }
 
-QVariant NotifySettingHelper::getAppSetting(const QString &id, const AbstractNotifySetting::AppConfigurationItem &item)
+QVariant NotifySettingHelper::getAppSetting(const QString &id, const AbstractNotifySetting::AppConfigurationItem &item) const
 {
-    QMap<QString, QVariant> app1Setting = m_appSetting[id];
+    const auto &app1Setting = m_appSetting[id];
+
     switch (item) {
     case  AbstractNotifySetting::APPNAME:
         return app1Setting["app-name"];
@@ -82,6 +83,8 @@ QVariant NotifySettingHelper::getAppSetting(const QString &id, const AbstractNot
     case  AbstractNotifySetting::LOCKSCREENSHOWNOTIFICATION:
         return app1Setting["lockscreen-show-notification"];
     }
+
+    return QVariant();
 }
 
 void NotifySettingHelper::setSystemSetting(const AbstractNotifySetting::SystemConfigurationItem &item, const QVariant &var)
@@ -108,7 +111,7 @@ void NotifySettingHelper::setSystemSetting(const AbstractNotifySetting::SystemCo
     }
 }
 
-QVariant NotifySettingHelper::getSystemSetting(const AbstractNotifySetting::SystemConfigurationItem &item)
+QVariant NotifySettingHelper::getSystemSetting(const AbstractNotifySetting::SystemConfigurationItem &item) const
 {
     switch (item) {
     case AbstractNotifySetting::DNDMODE:
@@ -124,6 +127,8 @@ QVariant NotifySettingHelper::getSystemSetting(const AbstractNotifySetting::Syst
     case AbstractNotifySetting::SHOWICON:
         return m_systemSetting["show-icon"];
     }
+
+    return QVariant();
 }
 
 QStringList NotifySettingHelper::getAppLists()

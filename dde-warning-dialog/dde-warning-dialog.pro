@@ -15,6 +15,8 @@ TEMPLATE = app
 
 CONFIG += c++11 link_pkgconfig
 
+DEFINES += QT_DEPRECATED_WARNINGS
+
 SOURCES += main.cpp \
     warningdialog.cpp \
     ../common/accessibilitycheckerex.cpp

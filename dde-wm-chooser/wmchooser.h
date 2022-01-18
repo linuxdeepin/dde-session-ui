@@ -34,7 +34,7 @@ class WMChooser : public QWidget
     Q_OBJECT
 
 public:
-    WMChooser(QWidget *parent = 0);
+    explicit WMChooser(QWidget *parent = nullptr);
 
     void setConfigPath(const QString &path);
     void createParentDir(const QString &fullfilepath);
@@ -46,7 +46,7 @@ private slots:
     void saveConfig();
 
 protected:
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent *event) override;
 
 private:
     QPushButton *m_gorgeousBtn;

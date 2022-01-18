@@ -37,7 +37,7 @@ class Window : public QWidget
     Q_OBJECT
 
 public:
-    Window(QWidget *parent = 0);
+    explicit Window(QWidget *parent = nullptr);
     ~Window();
     bool SleepLock();
 
@@ -57,7 +57,7 @@ class LowPowerAdaptor : public QDBusAbstractAdaptor {
     Q_CLASSINFO("D-Bus Interface", "com.deepin.dde.LowPower")
 
 public:
-    LowPowerAdaptor(Window * parent);
+    explicit LowPowerAdaptor(Window * parent);
     ~LowPowerAdaptor();
 
 public slots:

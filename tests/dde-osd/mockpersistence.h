@@ -27,7 +27,7 @@ class PersistenceHelper
 {
 public:
     PersistenceHelper();
-    QList<EntityPtr> getAllNotify();
+    QList<EntityPtr> getAllNotify() const;
     QString getAll();
     void removeAll();
     void addOne(EntityPtr entiry);

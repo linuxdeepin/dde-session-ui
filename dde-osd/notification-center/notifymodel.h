@@ -42,7 +42,6 @@ class NotifyListView;
 typedef struct{
     QString appName;                // 应用名称
     QString lastTimeStamp;          // 此组应用最新的时间组
-    bool expand;                    // 是否展开
     QList<EntityPtr> showList;      // 显示列表
     QList<EntityPtr> hideList;      // 隐藏列表
 } ListItem;

@@ -51,7 +51,7 @@ class NotificationsDBusAdaptor: public QDBusAbstractAdaptor
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.freedesktop.Notifications")
 public:
-    NotificationsDBusAdaptor(QObject *parent);
+    explicit NotificationsDBusAdaptor(QObject *parent);
     virtual ~NotificationsDBusAdaptor();
 
 public: // PROPERTIES
@@ -206,7 +206,7 @@ class DDENotifyDBus: public QDBusAbstractAdaptor
 "  </interface>\n"
         "")
 public:
-    DDENotifyDBus(QObject *parent);
+    explicit DDENotifyDBus(QObject *parent);
     virtual ~DDENotifyDBus();
 
 public: // PROPERTIES

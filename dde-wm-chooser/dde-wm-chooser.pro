@@ -13,6 +13,7 @@ TEMPLATE = app
 
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += gsettings-qt
+DEFINES += QT_DEPRECATED_WARNINGS
 
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)

@@ -103,7 +103,7 @@ public:
     { return "/com/deepin/daemon/Display"; }
 
 public:
-    DisplayInterface(QObject *parent = 0);
+    explicit DisplayInterface(QObject *parent = nullptr);
 
     ~DisplayInterface();
 

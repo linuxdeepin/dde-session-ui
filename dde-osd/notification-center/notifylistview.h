@@ -40,8 +40,8 @@ class NotifyListView : public DListView
 {
     Q_OBJECT
 public:
-    NotifyListView(QWidget *parent = nullptr);
-    ~NotifyListView();
+    explicit NotifyListView(QWidget *parent = nullptr);
+    ~NotifyListView() override;
 
 public:
     void createAddedAnimation(EntityPtr entity, const ListItem appItem);
@@ -51,13 +51,13 @@ public:
     void setCurrentRow(int row);
 
 protected:
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
-    bool eventFilter(QObject *object, QEvent *event) Q_DECL_OVERRIDE;
-    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
-    void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
+    bool eventFilter(QObject *object, QEvent *event) override;
+    void showEvent(QShowEvent *event) override;
+    void hideEvent(QHideEvent *event) override;
     bool tabKeyEvent(QObject *object, QKeyEvent *event);   //处理键盘TAB键按下的事件,QListView过滤了TAB按键事件
-    void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
+    void wheelEvent(QWheelEvent *event) override;
 
 private:
     bool canShow(EntityPtr ptr); // 判断消息是否应该层叠[即超过4小时]

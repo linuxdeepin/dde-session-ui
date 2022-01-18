@@ -46,10 +46,7 @@ void AppBodyLabel::setText(const QString &text)
 #endif
 
     m_text = text;
-    int oldLineCount = m_lineCount;
-
     updateLineCount();
-
     update();
 }
 

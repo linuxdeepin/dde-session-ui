@@ -39,7 +39,7 @@ class FullFilesystem : public QWidget
     Q_OBJECT
 
 public:
-    FullFilesystem(QWidget *parent = 0);
+    explicit FullFilesystem(QWidget *parent = nullptr);
 
 public Q_SLOTS:
     void setCurrentUser(User *currentUser);

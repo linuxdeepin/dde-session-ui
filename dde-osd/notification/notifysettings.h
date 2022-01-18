@@ -88,22 +88,22 @@ class NotifySettings : public AbstractNotifySetting
     Q_OBJECT
 public:
     explicit NotifySettings(QObject *parent = nullptr);
-    void initAllSettings();
-    void setAppSetting(const QString &id, const AppConfigurationItem &item, const QVariant &var);
-    QVariant getAppSetting(const QString &id, const AppConfigurationItem &item);
-    void setSystemSetting(const SystemConfigurationItem &item, const QVariant &var);
-    QVariant getSystemSetting(const SystemConfigurationItem &item);
-    QStringList getAppLists();
-    void appAdded(const LauncherItemInfo &info);
-    void appRemoved(const QString &id);
+    void initAllSettings() override;
+    void setAppSetting(const QString &id, const AppConfigurationItem &item, const QVariant &var) override;
+    QVariant getAppSetting(const QString &id, const AppConfigurationItem &item) override;
+    void setSystemSetting(const SystemConfigurationItem &item, const QVariant &var) override;
+    QVariant getSystemSetting(const SystemConfigurationItem &item) override;
+    QStringList getAppLists() override;
+    void appAdded(const LauncherItemInfo &info) override;
+    void appRemoved(const QString &id) override;
 
     // 兼容之前版本的接口，后期移除
-    void setAppSetting_v1(QString settings);
-    QString getAppSettings_v1(const QString &id);
-    void setSystemSetting_v1(QString settings);
-    QString getSystemSetings_v1();
-    void setAllSetting_v1(QString settings);
-    QString getAllSetings_v1();
+    void setAppSetting_v1(QString settings) override;
+    QString getAppSettings_v1(const QString &id) override;
+    void setSystemSetting_v1(QString settings) override;
+    QString getSystemSetings_v1() override;
+    void setAllSetting_v1(QString settings) override;
+    QString getAllSetings_v1() override;
 
 private:
     QTimer *m_initTimer;

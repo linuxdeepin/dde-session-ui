@@ -265,7 +265,7 @@ void NotifyModel::initData()
     if (m_database == nullptr)  return;
     QList<EntityPtr> notifications = m_database->getAllNotify();
 
-    qSort(notifications.begin(),notifications.end(),[ = ](const EntityPtr& ptr1,const EntityPtr& ptr2){
+    std::sort(notifications.begin(), notifications.end(), [=](const EntityPtr& ptr1,const EntityPtr& ptr2) {
         return ptr1->ctime().toLongLong() < ptr2->ctime().toLongLong();
     });
 
@@ -323,11 +323,10 @@ void NotifyModel::addAppData(EntityPtr entity)
         AppGroup.appName = entity->appName();
         AppGroup.lastTimeStamp = entity->ctime();
         AppGroup.showList.push_front(entity);
-        AppGroup.expand = false;//目前是没有用到这个变量，先初始化一下，不然cppcheck会报错
         m_notifications.append(AppGroup);
     }
 
-    qSort(m_notifications.begin(), m_notifications.end(), [ = ](const ListItem & item1, const ListItem & item2) {
+    std::sort(m_notifications.begin(), m_notifications.end(), [=](const ListItem & item1, const ListItem & item2) {
         return item1.lastTimeStamp.toLongLong() > item2.lastTimeStamp.toLongLong();
     });
 }
@@ -347,10 +346,10 @@ EntityPtr NotifyModel::getEntityByRow(int row) const
             return ptr;
         }
         index++;
-        for (int i = 0; i < item.showList.size(); ++i) {
+        for (int j = 0; j < item.showList.size(); ++j) {
             if (index == row) {
-                item.showList[i]->setCurrentIndex(row);
-                return item.showList.at(i);
+                item.showList[j]->setCurrentIndex(row);
+                return item.showList.at(j);
             }
             index ++;
         }

@@ -35,10 +35,10 @@ public:
                        const AbstractNotifySetting::AppConfigurationItem &item,
                        const QVariant &var);
     QVariant getAppSetting(const QString &id,
-                           const AbstractNotifySetting::AppConfigurationItem &item);
+                           const AbstractNotifySetting::AppConfigurationItem &item) const;
     void setSystemSetting(const AbstractNotifySetting::SystemConfigurationItem &item,
                           const QVariant &var);
-    QVariant getSystemSetting(const AbstractNotifySetting::SystemConfigurationItem &item);
+    QVariant getSystemSetting(const AbstractNotifySetting::SystemConfigurationItem &item) const;
     QStringList getAppLists();
     void appAdded(const LauncherItemInfo &info);
     void appRemoved(const QString &id);

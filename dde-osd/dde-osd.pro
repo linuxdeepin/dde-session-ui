@@ -14,6 +14,8 @@ TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += dframeworkdbus dtkgui gsettings-qt xcb-ewmh dtkwidget xrandr
 
+DEFINES += QT_DEPRECATED_WARNINGS
+
 SOURCES += main.cpp \
     container.cpp \
     manager.cpp \

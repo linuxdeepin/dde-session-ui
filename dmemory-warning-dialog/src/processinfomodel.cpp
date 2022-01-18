@@ -55,11 +55,11 @@ QPixmap appIcon(const int size, const QString &desktop)
     if (file.open(QIODevice::ReadOnly)) {
         const QString &content = file.readAll();
         const QStringList &lines = content.split('\n');
-        for (const QString &line : lines) {
-            if (line.split('=').first() == "Icon") {
-                const QString icon = line.split('=').last();
-                return QIcon::fromTheme(icon, defaultIcon).pixmap(size, size);
-            }
+
+        auto it = std::find_if(lines.begin(), lines.end(), [](const QString &line) { return line.split('=').first() == "Icon"; });
+        if (it != lines.end()) {
+            const QString icon = it->split('=').last();
+            return QIcon::fromTheme(icon, defaultIcon).pixmap(size, size);
         }
     }
 

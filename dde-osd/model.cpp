@@ -36,11 +36,11 @@ Model::Model(QObject *parent)
 
 }
 
-int Model::rowCount(const QModelIndex &index) const
+int Model::rowCount(const QModelIndex &parent) const
 {
     if (!m_provider) return 0;
 
-    return m_provider->rowCount(index);
+    return m_provider->rowCount(parent);
 }
 
 QVariant Model::data(const QModelIndex &index, int role) const

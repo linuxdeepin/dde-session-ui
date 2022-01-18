@@ -33,7 +33,7 @@ public slots:
     void setAllowCheckBoxText(const QString& text);
     void setEnAllowCheckBoxText(const QString& text);
     void setCnSource(const QString& source);
-    void setEnSource(const QString& language);
+    void setEnSource(const QString& source);
     void updateLocaleSource();
 
 private:

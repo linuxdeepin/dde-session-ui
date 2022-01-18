@@ -88,7 +88,7 @@ private:
     void updateIcon();
 
     QString duplicateCheck(const QString &kb);
-    QPixmap generateIconPixmap(const QString &name, qreal dpr = 1.0);
+    QPixmap generateIconPixmap(const QString &layout, qreal dpr = 1.0);
 
     void switchToNextLayout();
 

@@ -216,7 +216,7 @@ QPixmap KBLayoutIndicator::generateIconPixmap(const QString &layout, qreal dpr)
     r.setTop(r.top() - 14);
     pa.drawText(r, layout, op);
 
-    QPixmap ret = pix.scaled(QSize(iconSize * dpr, iconSize * dpr),
+    QPixmap ret = pix.scaled(QSize(static_cast<int>(iconSize * dpr), static_cast<int>(iconSize * dpr)),
                              Qt::KeepAspectRatio, Qt::SmoothTransformation);
     ret.setDevicePixelRatio(dpr);
 

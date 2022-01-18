@@ -52,10 +52,11 @@ class IconButton;
 class NotifyCenterWidget : public DBlurEffectWidget
 {
     Q_OBJECT
-    Q_PROPERTY(int width WRITE setFixedWidth)
-    Q_PROPERTY(int x WRITE setX)
+    Q_PROPERTY(int width READ width WRITE setFixedWidth)
+    Q_PROPERTY(int x READ x WRITE setX)
 public:
     explicit NotifyCenterWidget(AbstractPersistence *database, QWidget* parent = nullptr);
+
     void showWidget();
     void updateGeometry(QRect screen, QRect dock, OSD::DockPosition pos, int mode);
     void onlyShowWidget();

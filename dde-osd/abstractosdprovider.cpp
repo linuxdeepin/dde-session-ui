@@ -27,6 +27,7 @@
 
 AbstractOSDProvider::AbstractOSDProvider(QObject *parent)
     : QObject(parent)
+    , m_isVisible(false)
 {
 
 }

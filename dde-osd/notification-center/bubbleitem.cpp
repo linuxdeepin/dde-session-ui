@@ -363,7 +363,7 @@ void BubbleItem::setParentModel(NotifyModel *model)
     connect(model, &NotifyModel::removedNotif, this, [this] {
         if (!m_actionId.isEmpty()) {
             BubbleTool::actionInvoke(m_actionId, m_entity);
-            Q_EMIT SignalBridge::instance()->actionInvoked(m_entity->id(), m_actionId);
+            Q_EMIT SignalBridge::ref().actionInvoked(m_entity->id(), m_actionId);
         }
     });
 }

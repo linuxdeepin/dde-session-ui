@@ -32,17 +32,17 @@ class OSDProvider : public AbstractOSDProvider
 {
     Q_OBJECT
 public:
-    explicit OSDProvider(QObject *parent = 0);
+    explicit OSDProvider(QObject *parent = nullptr);
 
     // model
-    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
-    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+    int rowCount(const QModelIndex &parent) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
 
     // delegate
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
-    QSize contentSize() const Q_DECL_OVERRIDE;
-    bool match(const QString &param) Q_DECL_OVERRIDE;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    QSize contentSize() const override;
+    bool match(const QString &param) override;
 
 private:
     QMap<QString, QStringList> m_suitableParamsMap;

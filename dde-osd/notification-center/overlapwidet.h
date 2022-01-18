@@ -37,10 +37,10 @@ class HalfRoundedRectWidget : public AlphaWidget
     Q_OBJECT
 
 public:
-    HalfRoundedRectWidget(QWidget *parent = nullptr);
+    explicit HalfRoundedRectWidget(QWidget *parent = nullptr);
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) override;
 };
 
 class OverLapWidet : public DWidget
@@ -61,9 +61,9 @@ private:
     void hideOverlapBubble();
 
 protected:
-    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE; //鼠标点击时展开重叠的气泡
-    void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;          //当焦点移入或移出时背景发生变化
-    void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QMouseEvent *event) override; //鼠标点击时展开重叠的气泡
+    void focusInEvent(QFocusEvent *event) override;          //当焦点移入或移出时背景发生变化
+    void focusOutEvent(QFocusEvent *event) override;
 
 private:
     EntityPtr m_entify;

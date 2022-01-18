@@ -15,10 +15,12 @@ SUBDIRS += dde-license-dialog \
     dde-notification-plugin \
     dde-pixmix \
     dde-touchscreen-dialog \
-    dde-hints-dialog
+    dde-hints-dialog \
 
 load(dtk_qmake)
 include(common.pri)
+
+CONFIG += c++11
 
 #contains(DEFINES, ARCH_MIPSEL) {
 #    SUBDIRS += session-ui-guardien

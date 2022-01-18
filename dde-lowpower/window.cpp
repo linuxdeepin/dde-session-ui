@@ -23,15 +23,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "window.h"
+
 #include <QLabel>
 #include <QPixmap>
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QCursor>
 #include <QDebug>
 #include <QWindow>
 #include <QTimer>
-#include "window.h"
+#include <QGuiApplication>
+#include <QScreen>
 
 Window::Window(QWidget *parent)
     : QWidget(parent)
@@ -74,24 +76,17 @@ bool Window::SleepLock()
 
 void Window::setupSize()
 {
-    QDesktopWidget * desktop = QApplication::desktop();
-    int screenCount = desktop->screenCount();
-
     int totalWidth = 0;
     int totalHeight = 0;
-    for (int i = 0; i < screenCount; i++) {
-        QWidget * screen = desktop->screen(i);
-        totalWidth = qMax(totalWidth, screen->x() + screen->width());
-        totalHeight = qMax(totalHeight, screen->y() + screen->height());
+    for (const QScreen *screen : qApp->screens()) {
+        totalWidth = qMax(totalWidth, screen->geometry().x() + screen->geometry().width());
+        totalHeight = qMax(totalHeight, screen->geometry().y() + screen->geometry().height());
     }
 
     setFixedSize(totalWidth, totalHeight);
 
-    QPoint cursorPos = QCursor::pos();
-    int screenNum = desktop->screenNumber(cursorPos);
-    QWidget * screen = desktop->screen(screenNum);
-
-    const qreal ratio = screen->devicePixelRatioF();
+    QScreen *screen = qApp->screenAt(QCursor::pos());
+    const qreal ratio = screen->devicePixelRatio();
     m_image->setFixedSize(m_image->pixmap()->size() / ratio);
     m_image->move(screen->geometry().center() - m_image->rect().center());
 

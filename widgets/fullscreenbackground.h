@@ -54,14 +54,14 @@ signals:
 
 protected:
     void setContent(QWidget * const w);
-    void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+    void keyPressEvent(QKeyEvent *e) override;
     void showEvent(QShowEvent *event) override;
 
 private:
-    void paintEvent(QPaintEvent *e) Q_DECL_OVERRIDE;
-    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *e) override;
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 
     const QPixmap pixmapHandle(const QPixmap &pixmap);
 

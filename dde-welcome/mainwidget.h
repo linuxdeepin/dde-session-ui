@@ -41,7 +41,7 @@ public:
     explicit MainWidget(QWidget *parent = nullptr);
 
 protected:
-    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    void keyPressEvent(QKeyEvent *event) override;
 
 private:
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);

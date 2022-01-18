@@ -36,11 +36,6 @@ TEST_F(TstPropertyGroup, coverageTest)
     propertyGroup->addObject(&obj);
     propertyGroup->addObject(&obj1);
 
-    auto mapper = propertyGroup->m_signalMapperMap["hello"];
-    if (mapper) {
-        Q_EMIT mapper->mapped(&obj);
-    }
-
     propertyGroup->removeProperty("hello");
     propertyGroup->removeObject(&obj);
 }

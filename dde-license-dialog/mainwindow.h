@@ -13,7 +13,7 @@ class MainWindow : public DAbstractDialog
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
     void setTitle(const QString& title);
@@ -24,7 +24,7 @@ public:
     void setCnSource(const QString& source);
     void setEnSource(const QString& source);
     void updateLocaleSource();
-    void setHideBottom(const QString& status);
+    void setHideBottom(const QString& param);
 
 private:
     QLabel* m_title;

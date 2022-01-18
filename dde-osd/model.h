@@ -37,7 +37,7 @@ class Model : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit Model(QObject *parent = 0);
+    explicit Model(QObject *parent = nullptr);
 
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;

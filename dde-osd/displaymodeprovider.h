@@ -55,30 +55,30 @@ class DisplayModeProvider : public AbstractOSDProvider
 {
     Q_OBJECT
 public:
-    explicit DisplayModeProvider(QObject *parent = 0);
+    explicit DisplayModeProvider(QObject *parent = nullptr);
 
-    bool checkConditions() const Q_DECL_OVERRIDE;
-    QMargins contentMargins() const Q_DECL_OVERRIDE; // 中心窗口距离边缘距离
-    QSize contentSize() const Q_DECL_OVERRIDE; // 中心窗口大小
+    bool checkConditions() const override;
+    QMargins contentMargins() const override; // 中心窗口距离边缘距离
+    QSize contentSize() const override; // 中心窗口大小
 
-    QListView::Flow flow() const Q_DECL_OVERRIDE;
+    QListView::Flow flow() const override;
 
-    void highlightCurrent() Q_DECL_OVERRIDE;
-    void highlightNext() Q_DECL_OVERRIDE;
+    void highlightCurrent() override;
+    void highlightNext() override;
 
-    void sync() Q_DECL_OVERRIDE;
-    void sync(const QModelIndex &index) Q_DECL_OVERRIDE;
+    void sync() override;
+    void sync(const QModelIndex &index) override;
 
-    int currentRow() Q_DECL_OVERRIDE;
+    int currentRow() override;
 
     // model
-    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
-    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+    int rowCount(const QModelIndex &parent) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
 
     // delegate
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
-    bool match(const QString &param) Q_DECL_OVERRIDE;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    bool match(const QString &param) override;
 
 private:
     QList<QPair<uchar,QString>> m_planItems;

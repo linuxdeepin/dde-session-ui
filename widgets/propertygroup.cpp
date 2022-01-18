@@ -33,84 +33,87 @@ PropertyGroup::PropertyGroup(QObject *parent)
 
 int PropertyGroup::addObject(QObject *obj)
 {
-    m_objList.append(obj);
-    int objIndex = m_objList.count() - 1;
-
-    connect(obj, &QObject::destroyed, this, &PropertyGroup::removeObject);
-
     if (m_propertyList.isEmpty())
-        return objIndex;
+        return -1;
+
+    if (m_objList.contains(obj))
+        return m_objList.indexOf(obj);
 
     const QMetaObject *mo = obj->metaObject();
+    for (const QByteArray &propertyName : m_propertyList) {
+        // sender是否包含此属性
+        int propertyIndex = mo->indexOfProperty(propertyName);
+        if (-1 == propertyIndex)
+            continue;
 
-    for (int i = 0; i < mo->propertyCount(); ++i) {
-        auto p = mo->property(i);
+        QMetaProperty p = mo->property(propertyIndex);
+        Q_ASSERT(p.isReadable() && p.isWritable() && p.hasNotifySignal());
 
-        if (QSignalMapper *mapper = m_signalMapperMap.value(QByteArray(p.name()))) {
-            Q_ASSERT(p.isReadable() && p.isWritable() && p.hasNotifySignal());
+        // 如果目前已存在对象的这个属性为真，则将新加入对象的此属性设置为假
+        const bool exist = std::any_of(m_objList.begin(), m_objList.end(), [p, obj](const QObject *oo) { 
+            return (oo != obj && oo->property(p.name()).toBool()); 
+        });
+        if (exist)
+            p.write(obj, QVariant());
 
-            // 如果目前已存在对象的这个属性为真，则将新加入对象的此属性设置为假
-            for (const QObject *oo : m_objList) {
-                if (oo != obj && oo->property(p.name()).toBool()) {
-                    p.write(obj, QVariant());
-                    break;
-                }
-            }
+        // 与onObjectPropertyChanged函数进行绑定
+        const int index = this->metaObject()->indexOfSlot("onObjectPropertyChanged()");
+        if (-1 == index)
+            return -1;
 
-            static int mapper_mapping_index = mapper->metaObject()->indexOfSlot("map()");
-
-            mapper->setMapping(obj, obj);
-            mo->connect(obj, p.notifySignalIndex(), mapper, mapper_mapping_index);
-        }
+        mo->connect(obj, p.notifySignalIndex(), this, index);
     }
 
-    return objIndex;
+    m_objList.append(obj);
+    connect(obj, &QObject::destroyed, this, &PropertyGroup::removeObject);
+
+    return m_objList.count() - 1;
 }
 
 void PropertyGroup::removeObject(QObject *obj)
 {
-    for (QSignalMapper *mapper : m_signalMapperMap) {
-        mapper->removeMappings(obj);
-    }
-
-    m_objList.removeOne(obj);
+    m_objList.removeAll(obj);
 }
 
 void PropertyGroup::addProperty(const QByteArray &propertyName)
 {
-    m_propertyList.append(propertyName);
-
-    QSignalMapper *mapper = new QSignalMapper(this);
-
-    m_signalMapperMap[propertyName] = mapper;
-
-    connect(mapper, static_cast<void (QSignalMapper::*)(QObject *)>(&QSignalMapper::mapped),
-            this, &PropertyGroup::onObjectPropertyChanged);
+    if (!m_propertyList.contains(propertyName))
+        m_propertyList.append(propertyName);
 }
 
 void PropertyGroup::removeProperty(const QByteArray &propertyName)
 {
-    m_signalMapperMap.take(propertyName)->deleteLater();
+    m_propertyList.removeAll(propertyName);
 }
 
-void PropertyGroup::onObjectPropertyChanged(QObject *obj)
+void PropertyGroup::onObjectPropertyChanged()
 {
-    if (QSignalMapper *mapper = qobject_cast<QSignalMapper*>(sender())) {
-        const QByteArray &property_name = m_signalMapperMap.key(mapper);
-        Q_ASSERT(!property_name.isEmpty());
+    QObject *senderObj = sender();
+    if (!m_objList.contains(senderObj))
+        return;
 
-        // 只允许一个对象的这个属性为真，其它对象必须设置为假。或许此处应该增加设置某属性所允许为真的最大数量，而不是直接定死为1
-        if (obj->property(property_name.constData()).toBool()) {
-            QSignalBlocker sb(m_signalMapperMap.value(property_name));
-            Q_UNUSED(sb)
+    const QMetaObject *mo = senderObj->metaObject();
+    QMetaMethod senderSignal = mo->method(senderSignalIndex());
 
-            for (QObject *oo : m_objList) {
-                if (oo == obj)
+    for (const QByteArray &propertyName : m_propertyList) {
+        // sender是否包含此属性
+        int propertyIndex = mo->indexOfProperty(propertyName);
+        if (propertyIndex == -1)
+            continue;
+
+        // 判断发送变更信号的是否是此属性
+        QMetaProperty property = mo->property(propertyIndex);
+        if (!property.hasNotifySignal() || property.notifySignal() != senderSignal)
+            return;
+
+        // 将其它对象的属性都都设置为假
+        if (senderObj->property(propertyName.constData()).toBool()) {
+            for (QObject *obj : m_objList) {
+                if (obj == senderObj)
                     continue;
 
-                // 将其它对象的属性都都设置为假
-                if (oo->property(property_name.constData()).toBool()) {
-                    oo->setProperty(property_name, QVariant());
+                if (obj->property(propertyName.constData()).toBool()) {
+                    obj->setProperty(propertyName, QVariant());
                 }
             }
         }

@@ -150,9 +150,9 @@ void KBLayoutProvider::paint(QPainter *painter, const QStyleOptionViewItem &opti
     }
 }
 
-QSize KBLayoutProvider::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const
+QSize KBLayoutProvider::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    return QSize(qMax(TextItemWidth, opt.fontMetrics.width(index.data().toString())), TextItemHeight);
+    return QSize(qMax(TextItemWidth, option.fontMetrics.width(index.data().toString())), TextItemHeight);
 }
 
 QString KBLayoutProvider::describeLayout(const QString &layout) const

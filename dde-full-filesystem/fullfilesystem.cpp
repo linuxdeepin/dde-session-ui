@@ -30,7 +30,7 @@ const int ButtonHeight = 30;
 
 FullFilesystem::FullFilesystem(QWidget *parent)
     : QWidget(parent)
-    , m_currentUser(0)
+    , m_currentUser(nullptr)
     , m_iconLabel(new QLabel("icon", this))
     , m_title(new QLabel("sorry, couldn't get into the desktop", this))
     , m_message(new QLabel("your disk space is full, please enter recovery mode to clean up the disk!", this))

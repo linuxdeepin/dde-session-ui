@@ -12,6 +12,8 @@ TARGET = dde-lowpower
 TEMPLATE = app
 CONFIG += c++11
 
+DEFINES += QT_DEPRECATED_WARNINGS
+
 SOURCES += main.cpp \
         window.cpp
 

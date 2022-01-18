@@ -141,9 +141,9 @@ TEST_F(UT_BubbleManager, coverageTest)
 
 TEST_F(UT_BubbleManager, NotifyTest)
 {
-    uint id = obj->Notify("deepin-editor", 1, "", "", "", QStringList(), QVariantMap(), 1);
+    obj->Notify("deepin-editor", 1, "", "", "", QStringList(), QVariantMap(), 1);
     obj->SetSystemInfo(3, QDBusVariant("00:00"));
     obj->SetSystemInfo(4, QDBusVariant("00:00"));
-    id = obj->Notify("dde-control-center", 1, "", "", "", QStringList(), QVariantMap(), 1);
-    id = obj->Notify("deepin-editor", 1, "", "", "", QStringList(), QVariantMap(), 1);
+    obj->Notify("dde-control-center", 1, "", "", "", QStringList(), QVariantMap(), 1);
+    obj->Notify("deepin-editor", 1, "", "", "", QStringList(), QVariantMap(), 1);
 }

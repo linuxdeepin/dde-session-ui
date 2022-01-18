@@ -62,8 +62,9 @@ int main(int argc, char *argv[])
     if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
         qputenv("QT_WAYLAND_SHELL_INTEGRATION", "kwayland-shell");
     }
-    DGuiApplicationHelper::setUseInactiveColorGroup(false);
-    DGuiApplicationHelper::setColorCompositingEnabled(true);
+
+    DGuiApplicationHelper::setAttribute(DGuiApplicationHelper::UseInactiveColorGroup, false);
+    DGuiApplicationHelper::setAttribute(DGuiApplicationHelper::ColorCompositing, true);
 
     DApplication *app = DApplication::globalApplication(argc, argv);
     app->setAttribute(Qt::AA_UseHighDpiPixmaps);

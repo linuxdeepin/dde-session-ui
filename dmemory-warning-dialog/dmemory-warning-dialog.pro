@@ -5,6 +5,7 @@ TEMPLATE = app
 
 CONFIG += c++14 link_pkgconfig
 PKGCONFIG += dframeworkdbus
+DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     src/buttondelegate.h \

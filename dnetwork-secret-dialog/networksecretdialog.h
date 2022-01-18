@@ -37,7 +37,7 @@ public:
     explicit NetworkSecretDialog(QJsonDocument jsonDoc, QWidget *parent = nullptr);
 
 protected:
-    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    void keyPressEvent(QKeyEvent *event) override;
 
 private slots:
     void parseJsonData(const QJsonDocument &jsonDoc);

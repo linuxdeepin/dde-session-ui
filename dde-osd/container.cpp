@@ -109,9 +109,9 @@ void Container::moveToCenter()
     }
 
     if (!displayRect.isValid() || displayRect.isEmpty()) {
-        QDesktopWidget *desktop = QApplication::desktop();
-        const int currentprimary = desktop->screenNumber(QCursor::pos());
-        displayRect = desktop->screenGeometry(currentprimary);
+        const QScreen *screen = qApp->screenAt(QCursor::pos());
+        if (screen)
+            displayRect = screen->geometry();
     }
 
     setGeometry(displayRect);

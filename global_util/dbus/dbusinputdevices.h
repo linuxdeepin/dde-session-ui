@@ -85,7 +85,7 @@ public:
     { return "/com/deepin/daemon/InputDevices"; }
 
 public:
-    DBusInputDevices(QObject *parent = 0);
+    explicit DBusInputDevices(QObject *parent = nullptr);
 
     ~DBusInputDevices();
 

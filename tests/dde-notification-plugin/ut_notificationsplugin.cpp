@@ -15,20 +15,20 @@
 class PluginProxyInterfaceObj : public PluginProxyInterface {
 public:
     PluginProxyInterfaceObj() {}
-    void itemAdded(PluginsItemInterface * const itemInter, const QString &itemKey) {}
-    void itemUpdate(PluginsItemInterface * const itemInter, const QString &itemKey) {}
-    void itemRemoved(PluginsItemInterface * const itemInter, const QString &itemKey) {}
-    void requestWindowAutoHide(PluginsItemInterface * const itemInter, const QString &itemKey, const bool autoHide) {}
-    void requestRefreshWindowVisible(PluginsItemInterface * const itemInter, const QString &itemKey) {}
-    void requestSetAppletVisible(PluginsItemInterface * const itemInter, const QString &itemKey, const bool visible) {}
-    void saveValue(PluginsItemInterface * const itemInter, const QString &key, const QVariant &value) {}
-    const QVariant getValue(PluginsItemInterface * const itemInter, const QString &key, const QVariant &fallback) {
+    void itemAdded(PluginsItemInterface * const, const QString &) {}
+    void itemUpdate(PluginsItemInterface * const, const QString &) {}
+    void itemRemoved(PluginsItemInterface * const, const QString &) {}
+    void requestWindowAutoHide(PluginsItemInterface * const, const QString &, const bool) {}
+    void requestRefreshWindowVisible(PluginsItemInterface * const, const QString &) {}
+    void requestSetAppletVisible(PluginsItemInterface * const, const QString &, const bool) {}
+    void saveValue(PluginsItemInterface * const, const QString &, const QVariant &) {}
+    const QVariant getValue(PluginsItemInterface * const, const QString &key, const QVariant &) {
         if (key == "enable")
             return QVariant(true);
         else
             return QVariant(DOCK_DEFAULT_POS);
     }
-    void removeValue(PluginsItemInterface * const itemInter, const QStringList &keyList) {}
+    void removeValue(PluginsItemInterface * const, const QStringList &) {}
 };
 
 class UT_NotificationsPlugin : public testing::Test

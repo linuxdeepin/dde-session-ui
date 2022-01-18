@@ -48,12 +48,12 @@ TEST_F(UT_NotificationsWidget, coverageTest)
     const QPixmap &pixmap = widget.loadSvg("notification", ":/icons/resources/icons/", PLUGIN_ICON_MAX_SIZE, widget.devicePixelRatioF());
     EXPECT_FALSE(pixmap.isNull());
 
-    DGuiApplicationHelper::instance()->setThemeType(DGuiApplicationHelper::LightType);
+    DGuiApplicationHelper::instance()->setPaletteType(DGuiApplicationHelper::LightType);
     widget.m_hover = true;
     widget.m_pressed = true;
     widget.paintEvent(nullptr);
 
-    DGuiApplicationHelper::instance()->setThemeType(DGuiApplicationHelper::DarkType);
+    DGuiApplicationHelper::instance()->setPaletteType(DGuiApplicationHelper::DarkType);
     widget.m_hover = true;
     widget.m_pressed = true;
     widget.paintEvent(nullptr);

@@ -251,7 +251,7 @@ void DisplayModeProvider::updateOutputNames()
 
             m_outputNames = reply.value();
             // 按照名称排序，显示的时候VGA在前，HDMI在后
-            qSort(m_outputNames.begin(), m_outputNames.end(), qGreater<QString>());
+            std::sort(m_outputNames.begin(), m_outputNames.end(), std::greater<QString>());
             updatePlanItems();
             emit dataChanged();
         }
@@ -272,13 +272,13 @@ void DisplayModeProvider::updatePlanItems()
         }
     }
 
-    for (QPair<uchar, QString> pair : m_planItems) {
-        if ((m_displayMode != SINGLE_MODE && m_displayMode == pair.first)
-                || (m_displayMode == SINGLE_MODE && m_primaryScreen == pair.second)) {
-            m_currentPlan = pair;
-            break;
-        }
-    }
+    auto it = std::find_if(m_planItems.begin(), m_planItems.end(), [this](const QPair<uchar, QString> &pair) {
+        return (m_displayMode != SINGLE_MODE && m_displayMode == pair.first)
+                || (m_displayMode == SINGLE_MODE && m_primaryScreen == pair.second);
+    });
+
+    if (it != m_planItems.end())
+        m_currentPlan = *it;
 }
 
 QString DisplayModeProvider::getPlanItemName(QPair<uchar, QString> &plan) const

@@ -48,8 +48,8 @@ public:
 protected:
     void enterEvent(QEvent *event) override;        //鼠标移动到窗口上,显示气泡组的关闭按钮
     void leaveEvent(QEvent *event) override;        //鼠标移出窗口,气泡组的关闭按钮不显示
-    void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;          //当焦点移入或移出时背景发生变化
-    void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
+    void focusInEvent(QFocusEvent *event) override;          //当焦点移入或移出时背景发生变化
+    void focusOutEvent(QFocusEvent *event) override;
 
 private:
     DLabel *m_titleLabel;

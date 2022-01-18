@@ -36,7 +36,7 @@ public:
     explicit UpdateContent(const std::pair<QString, QString> &version, QWidget *parent = nullptr);
 
 protected:
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event) override;
 
 private:
     QPushButton *m_enterBtn;

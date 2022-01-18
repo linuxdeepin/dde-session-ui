@@ -65,21 +65,21 @@ class Persistence : public AbstractPersistence
 public:
     explicit Persistence(QObject *parent = nullptr);
 
-    void addOne(EntityPtr entity);              //向数据库添加一条通知数据
-    void addAll(QList<EntityPtr> entities);     //向数据库添加多条通知数据
-    void removeOne(const QString &id);          //根据通知的ID,从数据库删除一条通知.
-    void removeApp(const QString &app_name);    //根据App名称从数据库删除App组的通知
-    void removeAll();                           //从数据库删除所有通知
+    void addOne(EntityPtr entity) override;              //向数据库添加一条通知数据
+    void addAll(QList<EntityPtr> entities) override;     //向数据库添加多条通知数据
+    void removeOne(const QString &id) override;          //根据通知的ID,从数据库删除一条通知.
+    void removeApp(const QString &app_name) override;    //根据App名称从数据库删除App组的通知
+    void removeAll() override;                           //从数据库删除所有通知
 
-    QList<EntityPtr> getAllNotify();            //获取所有通知
-    QString getAll();                           //将所有通知转为Json格式的字符串返回
-    QString getById(const QString &id);         //根据ID获取通知信息
+    QList<EntityPtr> getAllNotify() override;            //获取所有通知
+    QString getAll() override;                           //将所有通知转为Json格式的字符串返回
+    QString getById(const QString &id) override;         //根据ID获取通知信息
 
     // the result starts with offset + 1
     // If rowcount is - 1, it is obtained from offset + 1 to the last.
-    QString getFrom(int rowCount, const QString &offsetId);
+    QString getFrom(int rowCount, const QString &offsetId) override;
 
-    int getRecordCount();                       //获取通知记录有多少条
+    int getRecordCount() override;                       //获取通知记录有多少条
 
 private:
     void attemptCreateTable();  //在数据库中尝试创建一个表,记录通知信息

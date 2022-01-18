@@ -120,8 +120,8 @@ void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
 {
     // 获取动画的起始位置
     const QModelIndex &index = this->model()->index(idx, 0);
-    QWidget *widget = this->indexWidget(index);
-    if (!widget)
+    QWidget *currentWidget = this->indexWidget(index);
+    if (!currentWidget)
         return;
 
     QSequentialAnimationGroup *insertAniGroup = new QSequentialAnimationGroup(this);    // 逐个插入的串行动画
@@ -132,7 +132,7 @@ void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
         Q_EMIT expandAniFinished(appItem.appName);
     });
 
-    QPoint startPos = widget->pos();
+    QPoint startPos = currentWidget->pos();
     const int bubbleItemHight = BubbleItem::bubbleItemHeight();
     int maxCount = (height() - startPos.y()) / (bubbleItemHight + BubbleSpacing);
     int needCount = appItem.hideList.size() > maxCount ? maxCount : appItem.hideList.size();
@@ -159,14 +159,13 @@ void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
     QPoint offsetPos = QPoint(0, (bubbleItemHight + BubbleSpacing) * needCount - 22);
     // 向下移动的动画
     for (int i = idx; i < this->model()->rowCount(QModelIndex()); ++i) {
-        const QModelIndex &index = this->model()->index(i + 1, 0);
-        QWidget *widget = this->indexWidget(index);
-        if (!widget) {
+        QWidget *moveDownWidget = this->indexWidget(this->model()->index(i + 1, 0));
+        if (!moveDownWidget) {
             break;
         }
-        QPropertyAnimation *ani = new QPropertyAnimation(widget, "pos", this);
-        ani->setStartValue(widget->pos());
-        ani->setEndValue(widget->pos() + offsetPos);
+        QPropertyAnimation *ani = new QPropertyAnimation(moveDownWidget, "pos", this);
+        ani->setStartValue(moveDownWidget->pos());
+        ani->setEndValue(moveDownWidget->pos() + offsetPos);
         ani->setDuration(ExpandAnimationTime * needCount);
         downMoveAniGroup->addAnimation(ani);
     }
@@ -178,8 +177,8 @@ void NotifyListView::createExpandAnimation(int idx, const ListItem appItem)
 void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appItem)
 {
     const QModelIndex &index = this->model()->index(1, 0);
-    QWidget *widget = this->indexWidget(index);
-    if (!widget)
+    QWidget *currentWidget = this->indexWidget(index);
+    if (!currentWidget)
         return;
 
     QParallelAnimationGroup *addedAniGroup = new QParallelAnimationGroup(this);
@@ -188,14 +187,14 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
         Q_EMIT addedAniFinished(entity);
     });
 
-    QPoint startPos = widget->pos();    //动画基准位置
+    QPoint startPos = currentWidget->pos();    //动画基准位置
     const int bubbleItemHight = BubbleItem::bubbleItemHeight();
 
     BubbleItem *newItem = new BubbleItem(this, entity);
     newItem->setAccessibleName("BubbleItem");
     newItem->show();
-    QRect startRect = QRect(startPos, QSize(widget->width(), 0));
-    QRect endRect = QRect(startPos, QSize(widget->width(), widget->height()));
+    QRect startRect = QRect(startPos, QSize(currentWidget->width(), 0));
+    QRect endRect = QRect(startPos, QSize(currentWidget->width(), currentWidget->height()));
     QPropertyAnimation *addAni = new QPropertyAnimation(newItem, "geometry", this);
     connect(addAni, &QPropertyAnimation::finished, newItem, [ = ] {
         newItem->deleteLater();
@@ -207,8 +206,7 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
 
     if (appItem.showList.size() != 3 && canShow(appItem.showList.last())) {
         for (int i = 1; i < this->model()->rowCount(QModelIndex()); ++i) {
-            const QModelIndex &index = this->model()->index(i, 0);
-            QWidget *widget = this->indexWidget(index);
+            QWidget *widget = this->indexWidget(this->model()->index(i, 0));
             if (!widget) {
                 break;
             }
@@ -223,16 +221,14 @@ void NotifyListView::createAddedAnimation(EntityPtr entity, const ListItem appIt
             if (i > 1 || !canShow(appItem.showList[i])) {
                 break;
             }
-            const QModelIndex &index = this->model()->index(1 + i, 0);
-            QWidget *widget = this->indexWidget(index);
+            QWidget *widget = this->indexWidget(this->model()->index(1 + i, 0));
             QPropertyAnimation *downMoveAni = new QPropertyAnimation(widget, "pos", this);
             downMoveAni->setStartValue(widget->pos());
             downMoveAni->setEndValue(widget->pos() + QPoint(0, bubbleItemHight + BubbleSpacing));
             downMoveAni->setDuration(AnimationTime);
             addedAniGroup->addAnimation(downMoveAni);
         }
-        const QModelIndex &index = this->model()->index(appItem.showList.size(), 0);
-        QWidget *lastWidget = this->indexWidget(index);
+        QWidget *lastWidget = this->indexWidget(this->model()->index(appItem.showList.size(), 0));
         OverLapWidet *overLapWidget = qobject_cast<OverLapWidet *> (lastWidget);
         QWidget *faceWidget = nullptr;
         if (overLapWidget != nullptr) {

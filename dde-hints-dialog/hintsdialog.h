@@ -37,8 +37,8 @@ class HintsDialog : public DAbstractDialog
     Q_OBJECT
 
 public:
-    HintsDialog(QWidget *parent = nullptr);
-    ~HintsDialog();
+    explicit HintsDialog(QWidget *parent = nullptr);
+    ~HintsDialog() override;
     void setHintTitle(const QString &title);
     void setHintContent(const QString &message);
 

@@ -79,7 +79,7 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
     initConnections();
     geometryChanged();
 
-    m_notifyCenter->setMaskAlpha(m_appearance->opacity() * 255);
+    m_notifyCenter->setMaskAlpha(static_cast<quint8>(m_appearance->opacity() * 255));
     m_notifyCenter->hide();
     registerAsService();
 
@@ -335,12 +335,13 @@ void BubbleManager::popAnimation(Bubble *bubble)
     QRect startRect = getBubbleGeometry(index);
     QRect endRect = getBubbleGeometry(0);
 
-    bubble->startMove(startRect, endRect, true);// delete itself
+    if (bubble)
+        bubble->startMove(startRect, endRect, true); // delete itself
 
     while (index < m_bubbleList.size() - 1) {
         index ++;
-        QRect startRect = getBubbleGeometry(index);
-        QRect endRect = getBubbleGeometry(index - 1);
+        startRect = getBubbleGeometry(index);
+        endRect = getBubbleGeometry(index - 1);
         QPointer<Bubble> item = m_bubbleList.at(index);
         if (index == BubbleEntities + BubbleOverLap) {
             item->show();
@@ -554,7 +555,7 @@ QStringList BubbleManager::GetAppList()
     return m_notifySettings->getAppLists();
 }
 
-QDBusVariant BubbleManager::GetAppInfo(const QString id, const uint item)
+QDBusVariant BubbleManager::GetAppInfo(const QString &id, const uint item)
 {
     return QDBusVariant(m_notifySettings->getAppSetting(id, static_cast<NotifySettings::AppConfigurationItem>(item)));
 }
@@ -564,7 +565,7 @@ QDBusVariant BubbleManager::GetSystemInfo(uint item)
     return QDBusVariant(m_notifySettings->getSystemSetting(static_cast<NotifySettings::SystemConfigurationItem>(item)));
 }
 
-void BubbleManager::SetAppInfo(const QString id, const uint item, const QDBusVariant var)
+void BubbleManager::SetAppInfo(const QString &id, const uint item, const QDBusVariant var)
 {
     m_notifySettings->setAppSetting(id, static_cast<NotifySettings::AppConfigurationItem>(item), var.variant());
 }
@@ -588,7 +589,7 @@ void BubbleManager::appInfoChanged(QString action, LauncherItemInfo info)
 
 void BubbleManager::onOpacityChanged(double value)
 {
-    m_notifyCenter->setMaskAlpha(value * 255);
+    m_notifyCenter->setMaskAlpha(static_cast<quint8>(value * 255));
 }
 
 QString BubbleManager::getAllSetting()
@@ -596,7 +597,7 @@ QString BubbleManager::getAllSetting()
     return m_notifySettings->getAllSetings_v1();
 }
 
-void BubbleManager::setAllSetting(const QString settings)
+void BubbleManager::setAllSetting(const QString &settings)
 {
     m_notifySettings->setAllSetting_v1(settings);
 }
@@ -606,7 +607,7 @@ QString BubbleManager::getAppSetting(QString appName)
     return m_notifySettings->getAppSettings_v1(appName);
 }
 
-void BubbleManager::setAppSetting(const QString settings)
+void BubbleManager::setAppSetting(const QString &settings)
 {
     QJsonObject currentObj = QJsonDocument::fromJson(settings.toUtf8()).object();
     m_notifySettings->setAppSetting_v1(settings);
@@ -618,7 +619,7 @@ QString BubbleManager::getSystemSetting()
     return m_notifySettings->getSystemSetings_v1();
 }
 
-void BubbleManager::setSystemSetting(QString settings)
+void BubbleManager::setSystemSetting(const QString &settings)
 {
     m_notifySettings->setSystemSetting_v1(settings);
     Q_EMIT systemSettingChanged(m_notifySettings->getSystemSetings_v1());
@@ -713,7 +714,7 @@ void BubbleManager::initConnections()
 
     connect(m_appearance, &Appearance::OpacityChanged, this,  &BubbleManager::onOpacityChanged);
 
-    connect(SignalBridge::instance(), &SignalBridge::actionInvoked, this , &BubbleManager::ActionInvoked);
+    connect(&SignalBridge::ref(), &SignalBridge::actionInvoked, this, &BubbleManager::ActionInvoked);
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)

@@ -15,7 +15,7 @@ PersistenceHelper::PersistenceHelper()
     }
 }
 
-QList<EntityPtr> PersistenceHelper::getAllNotify()
+QList<EntityPtr> PersistenceHelper::getAllNotify() const
 {
     return m_entityList;
 }

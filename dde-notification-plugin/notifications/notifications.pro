@@ -4,6 +4,8 @@ TEMPLATE = lib
 CONFIG += plugin c++11 link_pkgconfig
 PKGCONFIG       += dtkwidget dframeworkdbus gsettings-qt
 
+DEFINES += QT_DEPRECATED_WARNINGS
+
 INCLUDEPATH += /usr/include/dde-dock
 
 TARGET = $$qtLibraryTarget($$TARGET)

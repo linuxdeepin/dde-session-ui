@@ -85,7 +85,7 @@ public:
     { return "com.deepin.daemon.InputDevices"; }
 
 public:
-    DBusKeyboard(QObject *parent = 0);
+    explicit DBusKeyboard(QObject *parent = nullptr);
 
     ~DBusKeyboard();
 

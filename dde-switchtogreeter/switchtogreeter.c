@@ -141,11 +141,11 @@ get_seat_path(gchar *username, struct user_session_dbus *usd)
 
         if (g_strcmp0(username, user_name) == 0) {
             GVariant *seat_prop_var = NULL;
-            gsize length = 0;
+            gsize seat_path_length = 0;
 
             seat_prop_var = g_dbus_proxy_get_cached_property(session_proxy, "Seat");
             if (seat_prop_var != NULL) {
-                usd->seat_path  = g_variant_dup_string(seat_prop_var, &length);
+                usd->seat_path  = g_variant_dup_string(seat_prop_var, &seat_path_length);
                 usd->session_path = g_strdup_printf("%s", sessions[i]);
                 usd->username = username;
             } else {

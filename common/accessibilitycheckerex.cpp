@@ -21,8 +21,6 @@
 
 #include "accessibilitycheckerex.h"
 
-#if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
-
 /**
  * @brief addIgnoreName 添加需要忽略的控件的objectName或accessibleName，一般用于设置property无法解决的情况
  * @param name 只能是objectName或accessibleName
@@ -77,5 +75,3 @@ bool AccessibilityCheckerEx::isIgnore(Role role, const QWidget *w)
 
     return DAccessibilityChecker::isIgnore(role, w);
 }
-
-#endif //defined(DSS_CHECK_ACCESSIBILITY) && defined(QT_DEBUG)

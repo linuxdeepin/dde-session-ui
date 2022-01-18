@@ -6,6 +6,8 @@ TEMPLATE = app
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += dframeworkdbus gsettings-qt x11 xext xfixes xcursor
 
+DEFINES += QT_DEPRECATED_WARNINGS
+
 include(../widgets/widgets.pri)
 include(../global_util/global_util.pri)
 

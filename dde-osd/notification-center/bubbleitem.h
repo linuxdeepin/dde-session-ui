@@ -54,7 +54,7 @@ class AlphaWidget : public DWidget
     Q_OBJECT
 
 public:
-    AlphaWidget(QWidget *parent = nullptr);
+    explicit AlphaWidget(QWidget *parent = nullptr);
 
     //设置和获取窗口属性的接口
     void setAlpha(int alpha) { m_hoverAlpha = alpha; m_unHoverAlpha = alpha; update(); }
@@ -68,7 +68,7 @@ public:
 
     void setHasFocus(bool focus) { m_hasFocus = focus; }
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) override;
 
 protected:
     int m_hoverAlpha = 0;
@@ -112,13 +112,13 @@ public Q_SLOTS:
     bool isOverlapWidget() { return m_isOverlapWidget; }
 
 protected:
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;       //获取当前鼠标点击的位置
-    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;     //判断鼠标松开的位置是否与点击的位置相同,相同移除通知
-    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
-    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;                 //鼠标移动到通知窗口上,隐藏时间显示关闭按钮
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;                 //鼠标移出通知窗口,隐藏关闭按钮显示时间
-    void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;          //当焦点移入或移出时背景发生变化
-    void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) override;       //获取当前鼠标点击的位置
+    void mouseReleaseEvent(QMouseEvent *event) override;     //判断鼠标松开的位置是否与点击的位置相同,相同移除通知
+    void keyPressEvent(QKeyEvent *event) override;
+    void enterEvent(QEvent *event) override;                 //鼠标移动到通知窗口上,隐藏时间显示关闭按钮
+    void leaveEvent(QEvent *event) override;                 //鼠标移出通知窗口,隐藏关闭按钮显示时间
+    void focusInEvent(QFocusEvent *event) override;          //当焦点移入或移出时背景发生变化
+    void focusOutEvent(QFocusEvent *event) override;
 
 private:
     void initUI();          //初始化UI界面

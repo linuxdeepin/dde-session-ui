@@ -42,23 +42,23 @@ class KBLayoutProvider : public AbstractOSDProvider
 public:
     explicit KBLayoutProvider(QObject *parent = 0);
 
-    bool checkConditions() const Q_DECL_OVERRIDE;
-    QSize contentSize() const Q_DECL_OVERRIDE;
-    QMargins contentMargins() const Q_DECL_OVERRIDE;
+    bool checkConditions() const override;
+    QSize contentSize() const override;
+    QMargins contentMargins() const override;
 
-    void highlightCurrent() Q_DECL_OVERRIDE;
-    void highlightNext() Q_DECL_OVERRIDE;
+    void highlightCurrent() override;
+    void highlightNext() override;
 
-    void sync() Q_DECL_OVERRIDE;
+    void sync() override;
 
     // model
-    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
-    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+    int rowCount(const QModelIndex &parent) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
     int currentIndex() const;
 
     // delegate
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
 private:
     KeyboardLayoutList m_database;
