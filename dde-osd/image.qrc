@@ -56,5 +56,9 @@
         <file>icons/OSD-power-balance.svg</file>
         <file>icons/OSD-power-performance.svg</file>
         <file>icons/OSD-power-powersave.svg</file>
+        <file>icons/OSD_keyboard_backlight_auto.svg</file>
+        <file>icons/OSD_keyboard_backlight_close.svg</file>
+        <file>icons/OSD_keyboard_backlight_high.svg</file>
+        <file>icons/OSD_keyboard_backlight_low.svg</file>
     </qresource>
 </RCC>
