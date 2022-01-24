@@ -45,6 +45,10 @@ IndicatorProvider::IndicatorProvider(QObject *parent)
     m_dats["balance"] = ":/icons/OSD-power-balance.svg";
     m_dats["powersave"] = ":/icons/OSD-power-powersave.svg";
     m_dats["performance"] = ":/icons/OSD-power-performance.svg";
+    m_dats["KbLightClose"] = ":/icons/OSD_keyboard_backlight_close.svg";
+    m_dats["KbLightAuto"] = ":/icons/OSD_keyboard_backlight_auto.svg";
+    m_dats["KbLightLow"] = ":/icons/OSD_keyboard_backlight_low.svg";
+    m_dats["KbLightHigh"] = ":/icons/OSD_keyboard_backlight_high.svg";
 }
 
 int IndicatorProvider::rowCount(const QModelIndex &) const
