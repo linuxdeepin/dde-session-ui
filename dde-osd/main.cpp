@@ -46,10 +46,6 @@
 #include <QDBusConnection>
 #include <QProcess>
 
-#include <X11/Xlib.h>
-#include <X11/extensions/Xrandr.h>
-#include <unistd.h>
-
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 

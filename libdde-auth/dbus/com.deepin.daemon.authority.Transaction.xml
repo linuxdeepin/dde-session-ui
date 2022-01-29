@@ -1,8 +1,0 @@
-<interface name="com.deepin.daemon.Authority.Transaction">
-  <method name="Authenticate"/>
-  <method name="End"/>
-  <method name="SetUser">
-    <arg name="user" type="s" direction="in"/>
-  </method>
-  <property name="Authenticating" type="b" access="read"/>
-</interface>

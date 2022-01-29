@@ -17,7 +17,7 @@ targets[${#targets[*]}]=dde-welcome
 targets[${#targets[*]}]=dde-wm-chooser
 targets[${#targets[*]}]=dmemory-warning-dialog
 targets[${#targets[*]}]=dnetwork-secret-dialog
-# FIXME 编译不通过 targets[${#targets[*]}]=dde-touchscreen-dialog
+targets[${#targets[*]}]=dde-touchscreen-dialog
 
 # 编译源文件
 cd ../
@@ -25,27 +25,12 @@ rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
 cd $BUILD_DIR || return
 
-for target in ${targets[*]}; do
-    qmake CONFIG+=debug ../${target}/
-    make -j$(nproc)
-done
-
-# 编译测试程序
-cd ../tests/ || return
-rm -rf $BUILD_DIR
-mkdir $BUILD_DIR
-cd $BUILD_DIR || return
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+make -j 8
 
 for target in ${targets[*]}; do
-    # 为每个工程创建一个文件夹
-    mkdir ${target}
-    cd ${target} || continue
-    qmake CONFIG+=debug ../../${target}/
-    make -j$(nproc)
     # 生成单元测试报告
-    cd ..
-    cp ${target}/ut_${target} .
-    ./ut_${target} --gtest_output=xml:test_report_${target}.xml
+    ./ut-${target} --gtest_output=xml:test_report_${target}.xml
     mv asan_${target}.log* asan_${target}.log
 done
 
@@ -55,4 +40,4 @@ lcov --remove ./coverage.info "*/tests/*" "*/usr/include*" "*build/src*" "*persi
 
 # 生成html
 cd .. || return
-genhtml -o $REPORT_DIR $BUILD_DIR/coverage.info
+genhtml -o tests/$REPORT_DIR $BUILD_DIR/coverage.info

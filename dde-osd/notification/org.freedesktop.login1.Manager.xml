@@ -1,5 +1,0 @@
-<interface name="org.freedesktop.login1.Manager">
-    <signal name="PrepareForSleep">
-        <arg type="b"/>
-    </signal>
-</interface>

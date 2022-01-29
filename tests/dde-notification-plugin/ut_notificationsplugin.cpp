@@ -1,6 +1,6 @@
 #define private public
 #define protected public
-#include "notifications/notificationsplugin.h"
+#include "notificationsplugin.h"
 #include "pluginsiteminterface.h"
 #undef private
 #undef protected

@@ -1,7 +1,7 @@
 #define private public
 #include "dmemorywarningdialog.h"
 #include "dmemorywarningdialogadaptor.h"
-#undef private public
+#undef private
 
 #include <QApplication>
 #include <QMimeData>
