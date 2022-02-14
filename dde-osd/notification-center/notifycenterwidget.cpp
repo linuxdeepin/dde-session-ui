@@ -70,7 +70,7 @@ NotifyCenterWidget::NotifyCenterWidget(AbstractPersistence *database, QWidget *p
 void NotifyCenterWidget::initUI()
 {
     m_notifyWidget->setAccessibleName("NotifyWidget");
-    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
     setAttribute(Qt::WA_TranslucentBackground);
     setContentsMargins(0, 0, 0, 0);
 
