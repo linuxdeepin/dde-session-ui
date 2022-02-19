@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     const QStringList &posArguments = parser.positionalArguments();
 
     if (posArguments.isEmpty()) {
-        qDebug() << "empty touchscreen serial number";
+        qDebug() << "empty touchscreen UUID";
         return -1;
     }
 
