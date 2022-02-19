@@ -55,7 +55,7 @@ TouchscreenSetting::TouchscreenSetting(const QString &touchscreen, QWidget *pare
 
     connect(m_displayInter, &Display::MonitorsChanged, this, &TouchscreenSetting::onMonitorChanged);
     connect(this, &DDialog::buttonClicked, this, &TouchscreenSetting::onButtonClicked);
-    connect(this, &TouchscreenSetting::requestAssociateTouch, m_displayInter, &Display::AssociateTouch);
+    connect(this, &TouchscreenSetting::requestAssociateTouch, m_displayInter, &Display::AssociateTouchByUUID);
     connect(m_listCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(markDisplay(int)));
     onMonitorChanged();
 
