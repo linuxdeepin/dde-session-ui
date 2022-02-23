@@ -53,7 +53,7 @@ private slots:
 
 private:
     QJsonObject m_jsonObj;
-    QMap<QString, QString> m_secretKeyStrMap;
+    const QMap<QString, QString> m_secretKeyStrMap;
     QString m_connName;
     QString m_connType;
     QString m_connSettingName;
