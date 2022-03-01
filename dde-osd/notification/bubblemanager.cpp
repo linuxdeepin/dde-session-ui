@@ -461,8 +461,7 @@ QRect BubbleManager::calcDisplayRect()
     for (const auto &screen : screenList) {
         MonitorInter monitor("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
         QRect monitorRect(monitor.x(), monitor.y(), monitor.width(), monitor.height());
-        QRect dockRect(m_dockInter->geometry());
-        if (monitor.enabled() && monitorRect.contains(dockRect.center())) {
+        if (monitor.enabled() && monitorRect.contains(m_currentDockRect.center())) {
             displayRect = QRect(monitorRect.x(), monitorRect.y(),
                                 monitorRect.width() / ratio, monitorRect.height() / ratio);
             break;
@@ -722,11 +721,8 @@ void BubbleManager::onPrepareForSleep(bool sleep)
 
 void BubbleManager::geometryChanged()
 {
+    m_currentDockRect = m_dockDeamonInter->frontendWindowRect();
     m_currentDisplayRect = calcDisplayRect();
-    // dock未启动时，不要调用其接口，会导致系统刚启动是任务栏被提前启动（比窗管还早），造成显示异常，后续应该改成通知中心显示时才调用任务栏的接口，否则不应调用
-    if (m_dockInter->isValid()) {
-        m_currentDockRect = m_dockInter->geometry();
-    }
 
     m_dockPos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
     m_dockMode = m_dockDeamonInter->displayMode();
