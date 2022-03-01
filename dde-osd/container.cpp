@@ -36,10 +36,11 @@
 #include <DPlatformWindowHandle>
 #include <com_deepin_daemon_display.h>
 #include <com_deepin_daemon_display_monitor.h>
-#include "notification/dbusdockinterface.h"
+#include <com_deepin_dde_daemon_dock.h>
 
 using DisplayInter = com::deepin::daemon::Display;
 using MonitorInter = com::deepin::daemon::display::Monitor;
+using DockInter = com::deepin::dde::daemon::Dock;
 
 DGUI_USE_NAMESPACE
 
@@ -90,11 +91,11 @@ void Container::moveToCenter()
     DisplayInter displayInter("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus());
     QList<QDBusObjectPath> screenList = displayInter.monitors();
 
+    DockInter dockInter("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this);
     for (const auto &screen : screenList) {
         MonitorInter monitor("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
         QRect monitorRect(monitor.x(), monitor.y(), monitor.width(), monitor.height());
-        DBusDockInterface dockInter;
-        if (monitor.enabled() && monitorRect.contains(dockInter.geometry())) {
+        if (monitor.enabled() && monitorRect.contains(dockInter.frontendWindowRect())) {
             qDebug() << " screen display : " << screen.path();
             displayRect = QRect(monitorRect.x(), monitorRect.y(),
                                 monitorRect.width() / ratio, monitorRect.height() / ratio);
