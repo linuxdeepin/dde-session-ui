@@ -70,7 +70,6 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
                                       , "/com/deepin/daemon/Gesture"
                                       , QDBusConnection::systemBus()
                                       , this))
-    , m_dockInter(new DBusDockInterface(this))
     , m_trickTimer(new QTimer(this))
 {
     m_trickTimer->setInterval(300);
@@ -673,7 +672,7 @@ void BubbleManager::initConnections()
             this, SLOT(onPrepareForSleep(bool)));
 
     connect(m_displayInter, &DisplayInter::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
-    connect(m_dockInter, &DBusDockInterface::geometryChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
+    connect(m_dockDeamonInter, &DockInter::FrontendWindowRectChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
     connect(m_dockDeamonInter, &DockInter::serviceValidChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
 
     connect(qApp, &QApplication::primaryScreenChanged, this, [ = ] {

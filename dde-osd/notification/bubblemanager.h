@@ -294,7 +294,6 @@ private:
     // 手指划入距离，任务栏在右侧时，需大于任务栏最大宽度100，其它情况没有设限大于0即可
     int m_slideWidth;
     GestureInter *m_gestureInter;
-    DBusDockInterface *m_dockInter;
     QTimer* m_trickTimer; // 防止300ms内重复按键
 };
 
