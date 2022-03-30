@@ -171,33 +171,33 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     int height = screen.height() - Notify::CenterMargin * 2;
     if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom) {
         if(mode == OSD::DockModel::Fashion) {
-            height = screen.height() - Notify::CenterMargin * 2 - dock.height();
+            height = screen.height() - Notify::CenterMargin * 2 - dock.height() / m_scale;
             if (dock.height() != 0) {
                 height -= OSD::DockMargin * 2;
             }
         } else {
-            height = screen.height() - Notify::CenterMargin * 2 - dock.height();
+            height = screen.height() - Notify::CenterMargin * 2 - dock.height() / m_scale;
         }
     }
 
     int x = screen.x() + screen.width() - Notify::CenterWidth - Notify::CenterMargin;
     if (pos == OSD::DockPosition::Right) {
         if(mode == OSD::DockModel::Fashion) {
-            x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() + OSD::DockMargin * 2 + Notify::CenterMargin);
+            x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() / m_scale + OSD::DockMargin * 2 + Notify::CenterMargin);
             if (dock.width() == 0) {
                 x += OSD::DockMargin * 2;
             }
         } else {
-            x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() + Notify::CenterMargin);
+            x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() / m_scale + Notify::CenterMargin);
         }
     }
 
     int y = screen.y() + Notify::CenterMargin;
     if (pos == OSD::DockPosition::Top) {
         if(mode == OSD::DockModel::Fashion) {
-            y = screen.y() + Notify::CenterMargin + dock.height() + OSD::DockMargin * 2;
+            y = screen.y() + Notify::CenterMargin + dock.height() / m_scale + OSD::DockMargin * 2;
         } else {
-            y = screen.y() + Notify::CenterMargin + dock.height();
+            y = screen.y() + Notify::CenterMargin + dock.height() / m_scale;
         }
     }
 
@@ -217,7 +217,7 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
 void NotifyCenterWidget::mouseMoveEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
-    return; 
+    return;
 }
 
 void NotifyCenterWidget::hideEvent(QHideEvent *event)
