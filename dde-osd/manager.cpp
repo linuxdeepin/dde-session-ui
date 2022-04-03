@@ -194,12 +194,9 @@ void Manager::updateUI()
 
 void Manager::doneSetting()
 {
+    qInfo() << qApp->queryKeyboardModifiers() << endl;
     // wayland下meta键的MetaModifier事件依赖于按键事件，会先收到按键事件，随后才收到Modifier，这里应用自己规避
-    if (QGuiApplication::platformName().startsWith("wayland", Qt::CaseInsensitive)) {
-        if (qApp->queryKeyboardModifiers().testFlag(Qt::NoModifier)) {
-            return m_timer->start();
-        }
-    } else {
+    if (!QGuiApplication::platformName().startsWith("wayland", Qt::CaseInsensitive)) {
         if (qApp->queryKeyboardModifiers().testFlag(Qt::MetaModifier)) {
             return m_timer->start();
         }
