@@ -123,7 +123,7 @@ target_link_libraries(${Bluetooth_Dialog_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${Bluetooth_Dialog_Name} DESTINATION ${CMAKE_INSTALL_LIBDIR}/deepin-daemon)
+install(TARGETS ${Bluetooth_Dialog_Name} DESTINATION lib/deepin-daemon)
 
 #-------------------------ut-dde-bluetooth-dialog-------------------------
 set(UT_Bluetooth_Dialog_Name ut-dde-bluetooth-dialog)
@@ -266,7 +266,7 @@ target_link_libraries(${Lowpower_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${Lowpower_Name} DESTINATION ${CMAKE_INSTALL_LIBDIR}/deepin-daemon)
+install(TARGETS ${Lowpower_Name} DESTINATION lib/deepin-daemon)
 
 #----------------------------ut-dde-lowpower----------------------------
 set(UT_Lowpower_Name ut-dde-lowpower)
@@ -331,7 +331,7 @@ target_link_libraries(${Notification_Plugin_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${Notification_Plugin_Name} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/dde-dock/plugins)
+install(TARGETS ${Notification_Plugin_Name} LIBRARY DESTINATION lib/dde-dock/plugins)
 
 ## schemas
 install(FILES dde-notification-plugin/gschema/com.deepin.dde.dock.module.notifications.gschema.xml DESTINATION share/glib-2.0/schemas)
@@ -411,7 +411,7 @@ target_link_libraries(${OSD_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${OSD_Name} DESTINATION ${CMAKE_INSTALL_LIBDIR}/deepin-daemon)
+install(TARGETS ${OSD_Name} DESTINATION lib/deepin-daemon)
 
 ## service
 file(GLOB OSD_SERVICE_FILES "dde-osd/files/*.service")
@@ -511,7 +511,7 @@ target_link_libraries(${Suspend_Dialog_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${Suspend_Dialog_Name} DESTINATION ${CMAKE_INSTALL_LIBDIR}/deepin-daemon)
+install(TARGETS ${Suspend_Dialog_Name} DESTINATION lib/deepin-daemon)
 
 ## icons
 install(FILES dde-suspend-dialog/data/computer.svg DESTINATION share/icons/hicolor/scalable/devices)
@@ -611,7 +611,7 @@ target_link_libraries(${Touchscreen_Dialog_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${Touchscreen_Dialog_Name} DESTINATION ${CMAKE_INSTALL_LIBDIR}/deepin-daemon)
+install(TARGETS ${Touchscreen_Dialog_Name} DESTINATION lib/deepin-daemon)
 
 #-------------------------ut-dde-touchscreen-dialog------------------------
 set(UT_Touchscreen_Dialog_Name ut-dde-touchscreen-dialog)
@@ -669,7 +669,7 @@ target_link_libraries(${Warning_Dialog_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${Warning_Dialog_Name} DESTINATION ${CMAKE_INSTALL_LIBDIR}/deepin-daemon)
+install(TARGETS ${Warning_Dialog_Name} DESTINATION lib/deepin-daemon)
 
 ## service
 install(FILES dde-warning-dialog/com.deepin.dde.WarningDialog.service DESTINATION share/dbus-1/services)
@@ -738,7 +738,7 @@ target_link_libraries(${Welcome_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${Welcome_Name} DESTINATION ${CMAKE_INSTALL_LIBDIR}/deepin-daemon)
+install(TARGETS ${Welcome_Name} DESTINATION lib/deepin-daemon)
 
 ## service
 install(FILES dde-welcome/com.deepin.dde.welcome.service DESTINATION share/dbus-1/services)
@@ -936,7 +936,7 @@ target_link_libraries(${Dnetwork_Secret_Dialog_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${Dnetwork_Secret_Dialog_Name} DESTINATION ${CMAKE_INSTALL_LIBDIR}/deepin-daemon)
+install(TARGETS ${Dnetwork_Secret_Dialog_Name} DESTINATION lib/deepin-daemon)
 
 #-------------------------ut-dnetwork-secret-dialog------------------------
 set(UT_Dnetwork_Secret_Dialog_Name ut-dnetwork-secret-dialog)
