@@ -93,18 +93,17 @@ void Container::setContent(QWidget *content)
 void Container::moveToCenter()
 {
     QRect displayRect;
-    qreal ratio = qApp->primaryScreen()->devicePixelRatio();
     DisplayInter displayInter("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus());
     QList<QDBusObjectPath> screenList = displayInter.monitors();
 
     DockInter dockInter("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this);
-    for (const auto &screen : screenList) {
-        MonitorInter monitor("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
-        QRect monitorRect(monitor.x(), monitor.y(), monitor.width(), monitor.height());
-        if (monitor.enabled() && monitorRect.contains(dockInter.frontendWindowRect())) {
-            qDebug() << " screen display : " << screen.path();
-            displayRect = QRect(monitorRect.x(), monitorRect.y(),
-                                monitorRect.width() / ratio, monitorRect.height() / ratio);
+    QRect dockRect = dockInter.frontendWindowRect();
+    for (auto *screen : qApp->screens()) {
+        const QRect &screenRect = screen->geometry();
+        const QRect &rect = QRect(screenRect.topLeft(), screenRect.size());
+
+        if (rect.contains(dockRect.topLeft())) {
+            displayRect = rect;
             break;
         }
     }
