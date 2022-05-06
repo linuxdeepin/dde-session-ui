@@ -6,6 +6,7 @@ Build-Depends: debhelper (>= 8.0.0), pkg-config,
  cmake,
  qtbase5-dev,
  libxcb-ewmh-dev,
+ libxcb1-dev,
  libqt5x11extras5-dev,
  libgsettings-qt-dev,
  libqt5svg5-dev,
@@ -31,8 +32,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends},
  x11-xserver-utils,
  dbus-x11,
  dde-session-shell,
- pandoc,
- libxcb-util0
+ pandoc
 Provides: lightdm-greeter
 Recommends: onboard
 Conflicts: dde-workspace,
