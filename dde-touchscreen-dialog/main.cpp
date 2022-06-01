@@ -4,6 +4,7 @@
 #endif
 
 #include <DApplication>
+#include <DLog>
 
 #include <QCommandLineParser>
 #include <QDebug>
@@ -12,6 +13,7 @@
 #include <com_deepin_daemon_display.h>
 
 DWIDGET_USE_NAMESPACE
+DCORE_USE_NAMESPACE
 using namespace com::deepin::daemon;
 
 int main(int argc, char *argv[])
@@ -20,6 +22,10 @@ int main(int argc, char *argv[])
     app.setQuitOnLastWindowClosed(false);
     app.setAttribute(Qt::AA_UseHighDpiPixmaps);
     app.setQuitOnLastWindowClosed(true);
+    app.setApplicationName("dde-touchscreen-dialog");
+
+    DLogManager::registerConsoleAppender();
+    DLogManager::registerFileAppender();
 
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" +
@@ -35,6 +41,7 @@ int main(int argc, char *argv[])
 
     const QStringList &posArguments = parser.positionalArguments();
 
+    qInfo() << posArguments;
     if (posArguments.isEmpty()) {
         qDebug() << "empty touchscreen UUID";
         return -1;
