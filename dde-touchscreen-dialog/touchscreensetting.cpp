@@ -132,9 +132,15 @@ bool TouchscreenSetting::monitorsIsIntersect() const
 
 void TouchscreenSetting::markDisplay(int index)
 {
-    m_monitorIndicator->setGeometry(QRect(m_monitors[index]->x(), m_monitors[index]->y(), m_monitors[index]->width(), m_monitors[0]->height()));
-    m_monitorIndicator->show();
+    Monitor *currentMonitor = m_monitors[index];
+    if (!currentMonitor) {
+        qWarning() << "current monitor is null: " << index;
+        return;
+    }
+
+    m_monitorIndicator->setGeometry(QRect(currentMonitor->x(), currentMonitor->y(), currentMonitor->width(), currentMonitor->height()));
+    m_monitorIndicator->setVisible(true);
     QTimer::singleShot(300, this, [ = ] {
-        m_monitorIndicator->hide();
+        m_monitorIndicator->setVisible(false);
     });
 }
