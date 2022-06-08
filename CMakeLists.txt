@@ -96,6 +96,8 @@ add_subdirectory("dde-welcome")
 add_subdirectory("dde-wm-chooser")
 add_subdirectory("dmemory-warning-dialog")
 add_subdirectory("dnetwork-secret-dialog")
+#TODO 需要break旧版本的控制中心
+add_subdirectory("reset-password-dialog")
 
 #----------------------------install config------------------------------
 ## qm files
