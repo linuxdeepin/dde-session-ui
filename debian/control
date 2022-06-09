@@ -18,6 +18,7 @@ Build-Depends: debhelper (>= 8.0.0), pkg-config,
  libdtkcore5-bin,
  dde-dock-dev,
  libgtest-dev,
+ libgmock-dev,
  libgio-qt-dev
 Standards-Version: 3.9.4
 Homepage: http://www.deepin.org/
