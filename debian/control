@@ -38,8 +38,9 @@ Provides: lightdm-greeter
 Recommends: onboard
 Conflicts: dde-workspace,
  startdde (<< 2.91.1),
+ dde-control-center (<<6.0.0.1),
  deepin-notifications
 Replaces: deepin-notifications
-Breaks: dde-workspace, startdde(<< 2.91.1)
+Breaks: dde-workspace, startdde(<< 2.91.1), dde-control-center (<<6.0.0.1)
 Description: deepin desktop-environment - dde-session-ui module
  Deepin desktop environment 2015 - dde-session-ui module.
