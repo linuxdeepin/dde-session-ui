@@ -708,6 +708,9 @@ void BubbleManager::initConnections()
     connect(m_appearance, &Appearance::OpacityChanged, this,  &BubbleManager::onOpacityChanged);
 
     connect(&SignalBridge::ref(), &SignalBridge::actionInvoked, this, &BubbleManager::ActionInvoked);
+    connect(m_persistence, &AbstractPersistence::RecordAdded, this, [this](EntityPtr entity){
+        Q_EMIT this->RecordAdded(QString::number(entity->id()));
+    });
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)
