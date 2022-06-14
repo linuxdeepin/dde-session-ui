@@ -1,3 +1,9 @@
+dde-session-ui (4.0.0.0) unstable; urgency=medium
+
+  * release 4.0.0.0
+
+ --  <fanpengcheng@uniontech.com>  Tue, 14 June 2022 10:05:13 +0800
+
 dde-session-ui (3.0.14-1) unstable; urgency=low
 
   * Autobuild Tag 3.0.14 
