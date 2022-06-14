@@ -114,7 +114,6 @@ void Container::moveToCenter()
             displayRect = screen->geometry();
     }
 
-    setGeometry(displayRect);
     move(QPoint(displayRect.center().x(), displayRect.bottom() - 180) - QPoint(rect().center().x(), rect().bottom()));
 }
 
