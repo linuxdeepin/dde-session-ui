@@ -550,12 +550,24 @@ QStringList BubbleManager::GetAppList()
 
 QDBusVariant BubbleManager::GetAppInfo(const QString &id, const uint item)
 {
-    return QDBusVariant(m_notifySettings->getAppSetting(id, static_cast<NotifySettings::AppConfigurationItem>(item)));
+    const auto &tmp = m_notifySettings->getAppSetting(id, static_cast<NotifySettings::AppConfigurationItem>(item));
+    if (!tmp.isValid()) {
+        sendErrorReply(QDBusError::NotSupported, QString("GetAppInfo() failed for the app: [%1] configuration item: [%2].").arg(id).arg(item));
+        return QDBusVariant();
+    }
+
+    return QDBusVariant(tmp);
 }
 
 QDBusVariant BubbleManager::GetSystemInfo(uint item)
 {
-    return QDBusVariant(m_notifySettings->getSystemSetting(static_cast<NotifySettings::SystemConfigurationItem>(item)));
+    const auto &tmp = m_notifySettings->getSystemSetting(static_cast<NotifySettings::SystemConfigurationItem>(item));
+    if (!tmp.isValid()) {
+        sendErrorReply(QDBusError::NotSupported, QString("GetSystemInfo() failed for the configuration item: [%1].").arg(item));
+        return QDBusVariant();
+    }
+
+    return QDBusVariant(tmp);
 }
 
 void BubbleManager::SetAppInfo(const QString &id, const uint item, const QDBusVariant var)
