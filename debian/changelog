@@ -1,8 +1,14 @@
+dde-session-ui (6.0.1) unstable; urgency=medium
+
+  * release 6.0.1
+
+ --  fanpengcheng <fanpengcheng@uniontech.com>  Tue, 21 Jun 2022 16:30:56 +0800
+
 dde-session-ui (6.0.0.0) unstable; urgency=medium
 
   * release 6.0.0.0
 
- --  <fanpengcheng@uniontech.com>  Tue, 14 June 2022 10:05:13 +0800
+ --  <fanpengcheng@uniontech.com>  Tue, 14 Jun 2022 10:05:13 +0800
 
 dde-session-ui (3.0.14-1) unstable; urgency=low
 
