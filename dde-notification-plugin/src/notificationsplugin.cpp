@@ -282,8 +282,7 @@ void NotificationsPlugin::invokedMenuItem(const QString &itemKey, const QString 
             .interface("com.deepin.dde.ControlCenter")
             .path("/com/deepin/dde/ControlCenter")
             .method("ShowPage")
-            .arg(QString("notification"))
-            .arg(QString("System Notification"))
+            .arg(QString("/notification/System Notification"))
             .call();
     }
 }
