@@ -176,13 +176,19 @@ void Manager::updateUI()
     if (!m_currentProvider)
         return;
 
-    m_model->setProvider(m_currentProvider);
-    m_delegate->setProvider(m_currentProvider);
-    m_listview->setFlow(m_currentProvider->flow());
+    if (m_model->provider() != m_currentProvider) {
+        m_model->setProvider(m_currentProvider);
+        m_delegate->setProvider(m_currentProvider);
+        m_listview->setFlow(m_currentProvider->flow());
+    }
+
+    if (!m_container->isVisible()) {
+        m_container->setContentsMargins(m_currentProvider->contentMargins());
+        m_container->setFixedSize(m_currentProvider->contentSize());
+        m_container->moveToCenter();
+    }
+
     m_listview->setCurrentIndex(m_listview->model()->index(m_currentProvider->currentRow(), 0));
-    m_container->setContentsMargins(m_currentProvider->contentMargins());
-    m_container->setFixedSize(m_currentProvider->contentSize());
-    m_container->moveToCenter();
 }
 
 void Manager::doneSetting()

@@ -49,13 +49,15 @@ public:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
 private:
-    com::deepin::daemon::Audio *m_audioInter;
-    com::deepin::daemon::audio::Sink *m_sinkInter;
-
     QString pixmapPath() const;
 
 private slots:
     void defaultSinkChanged(const QDBusObjectPath &path);
+
+private:
+    com::deepin::daemon::Audio *m_audioInter;
+    com::deepin::daemon::audio::Sink *m_sinkInter;
+    mutable bool m_isMute;
 };
 
 #endif // AUDIOPROVIDER_H

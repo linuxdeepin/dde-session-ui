@@ -35,7 +35,8 @@ AudioProvider::AudioProvider(QObject *parent)
       m_audioInter(new com::deepin::daemon::Audio("com.deepin.daemon.Audio",
                                                   "/com/deepin/daemon/Audio",
                                                   QDBusConnection::sessionBus(), this)),
-      m_sinkInter(nullptr)
+      m_sinkInter(nullptr),
+      m_isMute(false)
 {
     m_suitableParams << "AudioUp" << "AudioDown" << "AudioMute" << "AudioUpAsh" << "AudioDownAsh" << "AudioMuteAsh";
 
@@ -66,7 +67,7 @@ QVariant AudioProvider::data(const QModelIndex &, int role) const
         provider->defaultSinkChanged(provider->m_audioInter->defaultSink());
     }
 
-    if (role == Qt::DecorationRole) {    
+    if (role == Qt::DecorationRole) {
         return pixmapPath();
     } else if (role == Qt::EditRole) {
         return m_audioInter->increaseVolume();
@@ -107,7 +108,8 @@ QSize AudioProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &)
 
 QString AudioProvider::pixmapPath() const
 {
-    if (m_sinkInter->mute()) {
+    m_isMute = m_sinkInter->mute();
+    if (m_isMute) {
         return ":/icons/OSD_mute.svg";
     }
     const double volume = m_sinkInter->volume();
@@ -128,6 +130,11 @@ void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)
         m_sinkInter = new com::deepin::daemon::audio::Sink("com.deepin.daemon.Audio",
                                                            pathStr,
                                                            QDBusConnection::sessionBus(), this);
+        connect(m_sinkInter, &com::deepin::daemon::audio::Sink::MuteChanged, this, [this] {
+            if (m_sinkInter->mute() != m_isMute)
+                emit dataChanged();
+        });
+
         m_sinkInter->setSync(true);
     }
 }
