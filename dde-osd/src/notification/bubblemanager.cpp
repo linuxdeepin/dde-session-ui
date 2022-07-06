@@ -674,9 +674,12 @@ void BubbleManager::bubbleActionInvoked(Bubble *bubble, QString actionId)
 
 void BubbleManager::updateGeometry()
 {
-    foreach (auto item, m_bubbleList) {
-        item->setGeometry(getBubbleGeometry(item->bubbleIndex()));
-        item->updateGeometry();
+    for (int index = 0; index < m_bubbleList.count(); index++) {
+        auto item = m_bubbleList[index];
+        if (!item.isNull()) {
+            item->setGeometry(getBubbleGeometry(index));
+            item->updateGeometry();
+        }
     }
 }
 
