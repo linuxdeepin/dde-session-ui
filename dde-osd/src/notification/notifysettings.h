@@ -44,7 +44,8 @@ public:
         ENABELPREVIEW,
         ENABELSOUND,
         SHOWINNOTIFICATIONCENTER,
-        LOCKSCREENSHOWNOTIFICATION
+        LOCKSCREENSHOWNOTIFICATION,
+        SHOWONTOP
     } AppConfigurationItem;
 
     typedef enum {
@@ -106,6 +107,8 @@ public:
     QString getAllSetings_v1() override;
 
 private:
+    bool containsAppSettings(const QGSettings &settings, const QString &id);
+
     QTimer *m_initTimer;
     QGSettings *m_systemSetting;
     LauncherInter *m_launcherInter;

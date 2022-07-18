@@ -30,6 +30,7 @@ void NotifySettingHelper::initAllSettings()
         appSetting["enable-sound"] = DEFAULT_NOTIFY_SOUND;
         appSetting["app-icon"] = true;
         appSetting["app-name"] = appname;
+        appSetting["show-on-top"] = true;
         m_appSetting[appname] = appSetting;
     }
 }
@@ -60,6 +61,11 @@ void NotifySettingHelper::setAppSetting(const QString &id, const AbstractNotifyS
     case  AbstractNotifySetting::LOCKSCREENSHOWNOTIFICATION:
         app1Setting["lockscreen-show-notification"] = var;
         break;
+    case  AbstractNotifySetting::SHOWONTOP:
+        app1Setting["show-on-top"] = var;
+        break;
+    default:
+        break;
     }
 }
 
@@ -82,6 +88,8 @@ QVariant NotifySettingHelper::getAppSetting(const QString &id, const AbstractNot
         return app1Setting["show-in-notification-center"];
     case  AbstractNotifySetting::LOCKSCREENSHOWNOTIFICATION:
         return app1Setting["lockscreen-show-notification"];
+    case  AbstractNotifySetting::SHOWONTOP:
+        return app1Setting["show-on-top"];
     }
 
     return QVariant();

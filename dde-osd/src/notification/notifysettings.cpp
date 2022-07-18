@@ -126,6 +126,13 @@ void NotifySettings::setAppSetting(const QString &id, const NotifySettings::AppC
     case LOCKSCREENSHOWNOTIFICATION:
         itemSetting.set("lockscreen-show-notification", var);
         break;
+    case SHOWONTOP:
+        if (containsAppSettings(itemSetting, "show-on-top")) {
+            itemSetting.set("show-on-top", var);
+            break;
+        }
+    default:
+        return;
     }
 
     Q_EMIT appSettingChanged(id, item, var);
@@ -158,6 +165,11 @@ QVariant NotifySettings::getAppSetting(const QString &id, const NotifySettings::
     case LOCKSCREENSHOWNOTIFICATION:
         results = itemSetting.get("lockscreen-show-notification");
         break;
+    case SHOWONTOP:
+        if (containsAppSettings(itemSetting, "show-on-top")) {
+            results = itemSetting.get("show-on-top");
+            break;
+        }
     }
     return results;
 }
@@ -183,6 +195,8 @@ void NotifySettings::setSystemSetting(const NotifySettings::SystemConfigurationI
     case SHOWICON:
         m_systemSetting->set("show-icon", var);
         break;
+    default:
+        return;
     }
 
     Q_EMIT systemSettingChanged(item, var);
@@ -366,4 +380,10 @@ QString NotifySettings::getAllSetings_v1()
     return QString(QJsonDocument(jsonObj).toJson());
 }
 
+bool NotifySettings::containsAppSettings(const QGSettings &settings, const QString &id)
+{
+    if (settings.keys().contains(id))
+        return true;
 
+    return false;
+}
