@@ -249,7 +249,7 @@ void Bubble::initUI()
     resize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
     if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
         setAttribute(Qt::WA_NativeWindow);
-        windowHandle()->setProperty("_d_dwayland_window-type", "tooltip");
+        windowHandle()->setProperty("_d_dwayland_window-type", "override");
     }
 
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWINDOW));
