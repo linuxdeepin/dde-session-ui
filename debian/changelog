@@ -1,3 +1,22 @@
+dde-session-ui (6.0.3) unstable; urgency=medium
+
+  [ TagBuilder ]
+  * chore: 去掉dde-notification-plugin模块（libnotifications.so）。
+
+ --  zhaoyingzhen <zhaoyingzhen@uniontech.com>  Thu, 28 Jul 2022 10:45:51 +0800
+
+dde-session-ui (6.0.2) unstable; urgency=medium
+
+  [ TagBuilder ]
+  * fix: Blocking caller when required no settings(Task: 136345)(Influence: 会阻塞调用者，例如dde-widget调用了应用置顶获取设置的接口，)
+  * fix: 修复通知中心无法打开控制中心设置的问题(Bug: 143857)(Influence: 无)
+  * fix: 修复通知显示超过3条关闭其中一条后打开通知中心面板通知位置显示异常的问题。(Bug: 161137)(Influence: 通知显示位置，呼出通知中心面板后通知显示位置。)
+  * fix: 将osd的dbus service启动二进制改为启动systemd service(Task: 163783)(Influence: osd服务运行状态是否正常)
+  * fix: 修复登陆界面重置密码点击无反应的问题(Task: 161781)(Influence: 登陆--重置密码)
+  * feat: Add ShowOnTop for Notification(Bug: 147681)(Influence: 依赖deepin-desktop-schemas的升级，其它需要置顶功能的客户端。)
+
+ -- caixiangrong <caixiangrong@uniontech.com>  Mon, 25 Jul 2022 11:38:30 +0800
+
 dde-session-ui (6.0.1) unstable; urgency=medium
 
   * release 6.0.1
