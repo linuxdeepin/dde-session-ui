@@ -27,11 +27,11 @@ prepare() {
 
 build() {
   cd $deepin_source_name
-  cmake -B build -GNinja -DCMAKE_INSTALL_PREFIX=/usr
+  cmake -B build -GNinja -DCMAKE_INSTALL_PREFIX=$pkgdir/usr
   cmake --build build
 }
 
 package() {
   cd $deepin_source_name
-  cmake --install build --prefix "$pkgdir"
+  cmake --install build
 }
