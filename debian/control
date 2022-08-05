@@ -32,7 +32,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends},
  dbus-x11,
  dde-session-shell,
  pandoc,
- libxcb-util0
+ libxcb-util0 | libxcb-util1
 Provides: lightdm-greeter
 Recommends: onboard
 Conflicts: dde-workspace,
