@@ -28,7 +28,6 @@
 #include <QHBoxLayout>
 #include <QDesktopWidget>
 #include <QApplication>
-#include <QDebug>
 #include <QTimer>
 #include <QGSettings>
 #include <QScreen>
@@ -43,11 +42,11 @@ using MonitorInter = com::deepin::daemon::display::Monitor;
 
 DGUI_USE_NAMESPACE
 
+const int DefaultRadius = 30;
+
 Container::Container(QWidget *parent)
     : DBlurEffectWidget(parent)
-    , m_wmHelper(DWindowManagerHelper::instance())
     , m_quitTimer(new QTimer(this))
-    , m_supportComposite(m_wmHelper->hasComposite())
 {
     setAccessibleName("Container");
     setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
@@ -65,21 +64,17 @@ Container::Container(QWidget *parent)
     m_layout->setSpacing(0);
     m_layout->setMargin(0);
     setLayout(m_layout);
-    const int radius = getWindowRadius();
 
     DPlatformWindowHandle handle(this);
     handle.setBorderColor(QColor(0, 0, 0, 0.04 * 255));
     handle.setShadowColor(Qt::transparent);
     handle.setTranslucentBackground(true);
-    handle.setWindowRadius(radius);
+    handle.setWindowRadius(DefaultRadius);
 
-    setBlurRectXRadius(radius);
-    setBlurRectYRadius(radius);
+    setBlurRectXRadius(DefaultRadius);
+    setBlurRectYRadius(DefaultRadius);
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
-
-    connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged,
-            this, &Container::windowManagerChanged);
 
     connect(m_quitTimer, &QTimer::timeout, this, &Container::onDelayQuit);
 }
@@ -132,16 +127,9 @@ void Container::hideEvent(QHideEvent *event)
     m_quitTimer->start();
 }
 
-void Container::windowManagerChanged()
+void Container::updateWindowRadius(int radius)
 {
-    m_supportComposite = m_wmHelper->hasComposite();
-
-    updateWindowRadius();
-}
-
-void Container::updateWindowRadius()
-{
-    const int value = getWindowRadius();
+    int value = radius == -1 ? DefaultRadius : radius;
 
     DPlatformWindowHandle handle(this);
     handle.setWindowRadius(value);
@@ -150,18 +138,13 @@ void Container::updateWindowRadius()
     setBlurRectYRadius(value);
 }
 
-int Container::getWindowRadius()
-{
-    return m_supportComposite ? 10 : 0;
-}
-
 void Container::onDelayQuit()
 {
     const QGSettings gsettings("com.deepin.dde.osd", "/com/deepin/dde/osd/");
     if (gsettings.keys().contains("autoExit") && gsettings.get("auto-exit").toBool()) {
         if (isVisible())
             return m_quitTimer->start();
-        qWarning() << "Killer Timeout, now quiiting...";
+        qWarning() << "Killer Timeout, now quiting...";
         qApp->quit();
     }
 }

@@ -66,8 +66,8 @@ QVariant AudioProvider::data(const QModelIndex &, int role) const
         provider->defaultSinkChanged(provider->m_audioInter->defaultSink());
     }
 
-    if (role == Qt::DecorationRole) {    
-        return pixmapPath();
+    if (role == Qt::DecorationRole) {
+        return pixmapName();
     } else if (role == Qt::EditRole) {
         return m_audioInter->increaseVolume();
     }
@@ -77,27 +77,29 @@ QVariant AudioProvider::data(const QModelIndex &, int role) const
 
 void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QVariant imageData = index.data(Qt::DecorationRole);
-    QVariant progressData = index.data(Qt::DisplayRole);
-    QVariant increaseVolumnData = index.data(Qt::EditRole);
-    QString iconPath;
+
+    QVariant increaseVolumeData = index.data(Qt::EditRole);
+    QVariant volumeValue = index.data(Qt::DisplayRole);
+    QString pixmapName = index.data(Qt::DecorationRole).toString();
+
     QColor color;
+    bool isLightTheme = false;
     if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
-        iconPath = imageData.toString();
         color = QColor(Qt::black);
+        isLightTheme = true;
     } else {
-        iconPath = QString(imageData.toString()).replace(".svg", "_dark.svg");
         color = QColor(Qt::white);
     }
 
-    // NOTE: Max volume is 1.5
-    DrawHelper::DrawImage(painter, option, iconPath, false, true);
-    if (!m_isVisible) {
-        color.setAlpha(0.4 * 255);
-    }
-    DrawHelper::DrawProgressBar(painter, option, progressData.toDouble() / (increaseVolumnData.toBool() ? 1.5 : 1.0), color);
-    if (increaseVolumnData.toBool())
-        DrawHelper::DrawVolumeGraduation(painter, option, color);
+    DrawHelper::DrawImage(painter, option, pixmapName, isLightTheme);
+
+    DrawHelper::DrawProgressBar(painter, option, volumeValue.toDouble() / (increaseVolumeData.toBool() ? 1.5 : 1.0), color);
+
+    // 绘制刻度
+    if (increaseVolumeData.toBool())
+        drawScale(painter, option);
+
+    DrawHelper::DrawPercentValue(painter, option, volumeValue.toDouble() * 100);
 }
 
 QSize AudioProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
@@ -105,15 +107,24 @@ QSize AudioProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &)
     return QSize(ImageTextItemWidth, ImageTextItemHeight);
 }
 
-QString AudioProvider::pixmapPath() const
+QString AudioProvider::pixmapName() const
 {
     if (m_sinkInter->mute()) {
-        return ":/icons/OSD_mute.svg";
+        return "osd_volume_mute";
     }
-    const double volume = m_sinkInter->volume();
 
-    const int level = volume > 0.6 ? 3 : volume > 0.3 ? 2 : 1;
-    return QString(":/icons/OSD_volume_%1.svg").arg(level);
+    const double volume = m_sinkInter->volume();
+    QString level = "0";
+    if (volume > 0 && volume <= 0.33)
+        level = "33";
+    else if (volume > 0.33 && volume <= 0.66)
+        level = "66";
+    else if (volume > 0.66 && volume <= 1)
+        level = "100";
+    else if (volume > 1)
+        level = "more";
+
+    return QString("osd_volume_%1").arg(level);
 }
 
 void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)
@@ -130,4 +141,25 @@ void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)
                                                            QDBusConnection::sessionBus(), this);
         m_sinkInter->setSync(true);
     }
+}
+
+void AudioProvider::drawScale(QPainter *painter, const QStyleOptionViewItem &option) const
+{
+    const int leftMargin = 200;
+    const int topMargin = 20;
+    const int lineHeight = 6;
+    const int spacing = 8;
+
+    QPen pen;
+    pen.setWidth(2);
+
+    QColor color(Qt::black);
+    color.setAlpha(255 * 0.3);
+    pen.setColor(color);
+    painter->setPen(pen);
+
+    int x = option.rect.left() + leftMargin;
+    int y = option.rect.top() + topMargin;
+    painter->drawLine(x, y, x, y + lineHeight);
+    painter->drawLine(x, y + lineHeight + spacing, x, y + lineHeight + spacing + lineHeight);
 }

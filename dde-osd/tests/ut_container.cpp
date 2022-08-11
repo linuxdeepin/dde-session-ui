@@ -21,6 +21,5 @@ TEST_F(UT_Container, coverageTest)
 
     container.show();
     container.hide();
-    container.windowManagerChanged();
     container.onDelayQuit();
 }

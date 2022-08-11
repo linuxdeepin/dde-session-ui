@@ -26,7 +26,6 @@
 #include "manager.h"
 
 #include <QHBoxLayout>
-#include <QDebug>
 #include <QGSettings>
 #include <QGuiApplication>
 
@@ -34,13 +33,11 @@
 #include "listview.h"
 #include "delegate.h"
 #include "model.h"
-#include "common.h"
 
 #include "audioprovider.h"
 #include "brightnessprovider.h"
 #include "kblayoutprovider.h"
 #include "displaymodeprovider.h"
-#include "indicatorprovider.h"
 #include "osdprovider.h"
 
 Manager::Manager(QObject *parent)
@@ -69,7 +66,7 @@ Manager::Manager(QObject *parent)
 
     m_providers << new AudioProvider(this) << new BrightnessProvider(this);
     m_providers << m_kbLayoutProvider << new DisplayModeProvider(this);
-    m_providers << new IndicatorProvider(this) << new OSDProvider(this);
+    m_providers << new OSDProvider(this);
 
     connect(m_timer, &QTimer::timeout, this, &Manager::doneSetting);
 }
@@ -102,78 +99,91 @@ void Manager::ShowOSD(const QString &osd)
 
     bool repeat = false;
     for (AbstractOSDProvider *provider : m_providers) {
-        if (provider->match(osd)) {//遍历容器根据osd名称匹配provider
+        if (provider->match(osd)) { // 遍历容器根据osd名称匹配provider
             repeat = (m_currentProvider == provider);
+            if (m_currentProvider)
+                disconnect(m_currentProvider);
+
             m_currentProvider = provider;
             connect(provider, &AbstractOSDProvider::dataChanged, this, &Manager::updateUI);
-        } else {
-            disconnect(provider);
+            break;
         }
     }
 
-    if (m_currentProvider) {
-        if (!m_currentProvider->checkConditions() && m_container->isVisible()) {
-            m_container->hide();
-        }
-        updateUI();
-        if (repeat && m_container->isVisible()) {
-            KBLayoutProvider *provide = qobject_cast<KBLayoutProvider *>(m_currentProvider);
-            if (provide) {
-                QModelIndex currentIndex = m_listview->model()->index(provide->currentIndex(), 0);
-                if (currentIndex.row() < 0)
-                    currentIndex = m_listview->model()->index(0, 0);
+    if (!m_currentProvider)
+        return;
 
-                QModelIndex targetIndex;
-                if (currentIndex.row() + 1 >= m_listview->model()->rowCount(QModelIndex())) {
-                    targetIndex = m_listview->model()->index(0, 0);
-                } else {
-                    targetIndex = currentIndex.sibling(currentIndex.row() + 1, 0);
-                }
+    if (!m_currentProvider->checkConditions() && m_container->isVisible()) {
+        m_container->hide();
+    }
 
-                m_listview->setCurrentIndex(targetIndex);
-                m_listview->scrollTo(targetIndex);
-                m_currentProvider->highlightNext();
+    updateUI();
+
+    if (repeat && m_container->isVisible()) {
+        KBLayoutProvider *provide = qobject_cast<KBLayoutProvider *>(m_currentProvider);
+        if (provide) {
+            QModelIndex currentIndex = m_listview->model()->index(provide->currentIndex(), 0);
+            if (currentIndex.row() < 0)
+                currentIndex = m_listview->model()->index(0, 0);
+
+            QModelIndex targetIndex;
+            if (currentIndex.row() + 1 >= m_listview->model()->rowCount(QModelIndex())) {
+                targetIndex = m_listview->model()->index(0, 0);
             } else {
-                QModelIndex currentIndex = m_listview->currentIndex();
-                if (currentIndex.row() < 0)
-                    currentIndex = m_listview->model()->index(0, 0);
-
-                QModelIndex targetIndex;
-                if (currentIndex.row() + 1 >= m_listview->model()->rowCount(QModelIndex())) {
-                    targetIndex = m_listview->model()->index(0, 0);
-                } else {
-                    targetIndex = currentIndex.sibling(currentIndex.row() + 1, 0);
-                }
-
-                m_listview->setCurrentIndex(targetIndex);
-                m_listview->scrollTo(targetIndex);
-                m_currentProvider->highlightNext();
+                targetIndex = currentIndex.sibling(currentIndex.row() + 1, 0);
             }
-        } else {
-            KBLayoutProvider *provide = qobject_cast<KBLayoutProvider *>(m_kbLayoutProvider);
-            if (provide) {
-                QModelIndex currentIndex = m_listview->currentIndex();
-                if (currentIndex.row() < 0)
-                    currentIndex = m_listview->model()->index(0, 0).sibling(provide->currentIndex(), 0);
 
-                m_listview->setCurrentIndex(currentIndex);
-                m_listview->scrollTo(currentIndex);
+            m_listview->setCurrentIndex(targetIndex);
+            m_listview->scrollTo(targetIndex);
+            m_currentProvider->highlightNext();
+        } else {
+            QModelIndex currentIndex = m_listview->currentIndex();
+            if (currentIndex.row() < 0)
+                currentIndex = m_listview->model()->index(0, 0);
+
+            QModelIndex targetIndex;
+            if (currentIndex.row() + 1 >= m_listview->model()->rowCount(QModelIndex())) {
+                targetIndex = m_listview->model()->index(0, 0);
+            } else {
+                targetIndex = currentIndex.sibling(currentIndex.row() + 1, 0);
             }
-            m_currentProvider->highlightCurrent();
-        }
 
-        if (m_currentProvider->checkConditions()) {
-            m_container->show();
-            m_timer->start();
-        } else {
-            doneSetting();
+            m_listview->setCurrentIndex(targetIndex);
+            m_listview->scrollTo(targetIndex);
+            m_currentProvider->highlightNext();
         }
+    } else {
+        KBLayoutProvider *provide = qobject_cast<KBLayoutProvider *>(m_kbLayoutProvider);
+        if (provide) {
+            QModelIndex currentIndex = m_listview->currentIndex();
+            if (currentIndex.row() < 0)
+                currentIndex = m_listview->model()->index(0, 0).sibling(provide->currentIndex(), 0);
+
+            m_listview->setCurrentIndex(currentIndex);
+            m_listview->scrollTo(currentIndex);
+        }
+        m_currentProvider->highlightCurrent();
+    }
+
+    if (m_currentProvider->checkConditions()) {
+        m_container->show();
+        m_timer->start();
+    } else {
+        doneSetting();
     }
 }
 
 void Manager::updateUI()
 {
     if (!m_currentProvider) return;
+
+    // 键盘和显示列表切换，圆角为18
+    if (qobject_cast<DisplayModeProvider *>(m_currentProvider) ||
+            qobject_cast<KBLayoutProvider *>(m_currentProvider) ) {
+        m_container->updateWindowRadius(18);
+    } else {
+        m_container->updateWindowRadius();
+    }
 
     if (m_model->provider() != m_currentProvider) {
         m_model->setProvider(m_currentProvider);

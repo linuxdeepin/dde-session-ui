@@ -50,6 +50,9 @@ public:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
 private:
+    QString pixmapName() const;
+
+private:
     com::deepin::daemon::Display *m_displayInter;
 };
 

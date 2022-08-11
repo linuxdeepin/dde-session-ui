@@ -28,10 +28,14 @@
 
 #include "abstractosdprovider.h"
 
+#include <DConfig>
+
 #include <com_deepin_daemon_display.h>
 #include <com_deepin_daemon_appearance.h>
 
 using namespace com::deepin::daemon;
+DCORE_USE_NAMESPACE
+
 /*!
  * \~chinese \class DisplayModeProvider
  * \~chinese \brief 切换屏幕模式时的通知类
@@ -48,8 +52,6 @@ static const int IconSize = 54;
 #define CHECK_ICON_SIZE        16
 #define ICON_HSPACE            22
 #define CHECK_ICON_HSPACE      10
-
-class QGSettings;
 
 class DisplayModeProvider : public AbstractOSDProvider
 {
@@ -81,6 +83,17 @@ public:
     bool match(const QString &param) override;
 
 private:
+    void updateOutputNames();
+    void updatePlanItems();
+
+    QString getPlanItemName(QPair<uchar,QString> &plan) const;
+    QString getPlanItemIconName(const int index) const;
+
+private slots:
+    void displayModeChanged(const uchar &mode);
+    void primaryChanged(const QString &primary);
+
+private:
     QList<QPair<uchar,QString>> m_planItems;
     QPair<uchar,QString> m_currentPlan;
 
@@ -89,19 +102,7 @@ private:
     QString m_primaryScreen;
 
     Display *m_displayInter;
-    Appearance *m_appearanceInter;
-    QGSettings *m_setting;
     uint m_state;
-
-    void updateOutputNames();
-    void updatePlanItems();
-
-    QString getPlanItemName(QPair<uchar,QString> &plan) const;
-    QString getPlanItemIcon(const int index) const;
-
-private slots:
-    void displayModeChanged(const uchar &mode);
-    void primaryChanged(const QString &primary);
 };
 
 #endif // DISPLAYMODEPROVIDER_H

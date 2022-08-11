@@ -44,7 +44,7 @@ TEST_F(UT_AudioProvider, coverageTest)
     provider.data(QModelIndex(), Qt::DecorationRole);
     provider.data(QModelIndex(), Qt::EditRole);
     provider.data(QModelIndex(), Qt::DisplayRole);
-    provider.pixmapPath();
+    provider.pixmapName();
 
     PaintWidget w;
     w.setProvider(&provider);

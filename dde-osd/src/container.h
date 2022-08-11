@@ -46,21 +46,18 @@ public:
     void setContent(QWidget *content);
     void moveToCenter();
 
+    void updateWindowRadius(int radius = -1);
+
 protected:
     void showEvent(QShowEvent *event) override;
     void hideEvent(QHideEvent *event) override;
 
 private slots:
-    void windowManagerChanged();
-    void updateWindowRadius();
-    int getWindowRadius();
     void onDelayQuit();
 
 private:
     QHBoxLayout *m_layout;
-    DWindowManagerHelper *m_wmHelper;
     QTimer *m_quitTimer;
-    bool m_supportComposite;
 };
 
 #endif // CONTAINER_H

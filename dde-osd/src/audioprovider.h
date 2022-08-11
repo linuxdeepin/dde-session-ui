@@ -52,7 +52,8 @@ private:
     com::deepin::daemon::Audio *m_audioInter;
     com::deepin::daemon::audio::Sink *m_sinkInter;
 
-    QString pixmapPath() const;
+    QString pixmapName() const;
+    void drawScale(QPainter *painter, const QStyleOptionViewItem &option) const;
 
 private slots:
     void defaultSinkChanged(const QDBusObjectPath &path);

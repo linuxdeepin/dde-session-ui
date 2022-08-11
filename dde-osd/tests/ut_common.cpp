@@ -24,13 +24,12 @@ public:
         QStyleOptionViewItem option;
         option.rect = QRect(0, 0, 100, 100);
         option.state |= QStyle::State_Selected;
-        DrawHelper::DrawImage(&painter, option, "");
+        DrawHelper::DrawImage(&painter, option, "", false);
         DrawHelper::DrawText(&painter, option, "123");
         // FIXME 调用这两个会崩溃
 //        DrawHelper::DrawProgressBar(&painter, option, 0.5, Qt::red);
 //        DrawHelper::DrawCenterNum(&painter, option, "123", true);
         DrawHelper::DrawBackground(&painter, option);
-        DrawHelper::DrawVolumeGraduation(&painter, option, Qt::red);
     }
 };
 

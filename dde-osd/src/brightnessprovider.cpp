@@ -48,7 +48,7 @@ int BrightnessProvider::rowCount(const QModelIndex &) const
 QVariant BrightnessProvider::data(const QModelIndex &, int role) const
 {
     if (role == Qt::DecorationRole) {
-        return ":/icons/OSD_light.svg";
+        return pixmapName();
     }
 
     return m_displayInter->brightness().value(m_displayInter->primary(), 0);
@@ -56,26 +56,45 @@ QVariant BrightnessProvider::data(const QModelIndex &, int role) const
 
 void BrightnessProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QVariant imageData = index.data(Qt::DecorationRole);
+    QString pixmapName = index.data(Qt::DecorationRole).toString();
     QVariant progressData = index.data(Qt::DisplayRole);
 
-    QString iconPath;
     QColor color;
+    bool isLightTheme = false;
     if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
-        iconPath = imageData.toString();
+        isLightTheme = true;
         color = QColor(Qt::black);
     } else {
-        iconPath = QString(imageData.toString()).replace(".svg", "_dark.svg");
         color = QColor(Qt::white);
     }
-    DrawHelper::DrawImage(painter, option, iconPath, false, true);
+
+    DrawHelper::DrawImage(painter, option, pixmapName, isLightTheme);
+
     if (!m_isVisible) {
         color.setAlpha(0.4 * 255);
     }
     DrawHelper::DrawProgressBar(painter, option, progressData.toDouble(), color);
+
+    int value = progressData.toDouble() * 100;
+    DrawHelper::DrawPercentValue(painter, option, value);
 }
 
 QSize BrightnessProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
 {
     return QSize(ImageTextItemWidth, ImageTextItemHeight);
+}
+
+QString BrightnessProvider::pixmapName() const
+{
+    double brightness = m_displayInter->brightness().value(m_displayInter->primary(), 0);
+
+    QString level = "0";
+    if (brightness > 0 && brightness <= 0.33)
+        level = "33";
+    else if (brightness > 0.33 && brightness <= 0.66)
+        level = "66";
+    else if (brightness > 0.66 && brightness <= 1)
+        level = "100";
+
+    return QString("osd_brightness%1").arg(level);
 }

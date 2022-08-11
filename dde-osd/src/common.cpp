@@ -24,17 +24,30 @@
  */
 
 #include "common.h"
+
+#include <DDciIcon>
+#include <DFontSizeManager>
+
+#include <QIcon>
 #include <QSvgRenderer>
 #include <QPainterPath>
+#include <QApplication>
 
-void DrawHelper::DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QString &pix, bool withText, bool withProgress)
+DWIDGET_USE_NAMESPACE
+
+void DrawHelper::DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QString &iconName, bool isLightTheme)
 {
-    const QRect rect(option.rect);
-    const int yOffset = withProgress ? 30 : withText ? 25 : 40;
-    QPixmap pixmap(pix);
+    const int margin = 14;
+    const QSize iconSize = QSize(32, 32);
 
-    QSvgRenderer renderer(pix);
-    renderer.render(painter, QRect(QPoint(rect.x() + (rect.width() - pixmap.width()) / 2, rect.y() + yOffset), pixmap.size()));
+    DDciIconPalette palette{option.palette.color(QPalette::Normal, QPalette::ToolTipText),
+                            option.palette.color(QPalette::Normal, QPalette::HighlightedText)};
+    DDciIcon icon = DDciIcon::fromTheme(iconName);
+    qreal ratio = qApp->devicePixelRatio();
+    QPixmap pixmap = icon.pixmap(ratio, iconSize.width(), isLightTheme ? DDciIcon::Light : DDciIcon::Dark, DDciIcon::Normal, palette);
+
+    QRect pixMapRect(option.rect.left() + margin, option.rect.top() + margin, iconSize.width(), iconSize.height());
+    painter->drawPixmap(pixMapRect, pixmap);
 }
 
 void DrawHelper::DrawText(QPainter *painter, const QStyleOptionViewItem &option, const QString &text, QColor color, bool withImage)
@@ -53,14 +66,16 @@ void DrawHelper::DrawText(QPainter *painter, const QStyleOptionViewItem &option,
 
 void DrawHelper::DrawProgressBar(QPainter *painter, const QStyleOptionViewItem &option, double progress, const QColor color)
 {
-    const QRect rect( option.rect );
-    const int progressBarWidth = 80;
+    const QRect rect(option.rect);
+    const int progressBarWidth = 220;
     const int progressBarHeight = 4;
     const float radius = progressBarHeight / 2.f;
+    const int leftMargin = 55;
+    const int topMargin = 28;
 
     painter->setPen(Qt::NoPen);
 
-    QRect dest(rect.x() + (rect.width() - progressBarWidth) / 2, rect.y() + 110, progressBarWidth, progressBarHeight);
+    QRect dest(rect.x() + leftMargin, rect.y() + topMargin, progressBarWidth, progressBarHeight);
     painter->setOpacity(0.1);
     painter->setBrush(color);
     painter->drawRoundedRect(dest, radius, radius);
@@ -71,28 +86,6 @@ void DrawHelper::DrawProgressBar(QPainter *painter, const QStyleOptionViewItem &
     painter->drawRoundedRect(dest, radius, radius);
 }
 
-void DrawHelper::DrawCenterNum(QPainter *painter, const QStyleOptionViewItem &option, const QString &text, const bool isCurrent)
-{
-    QRect rect(option.rect);
-    rect.setY(rect.y() - 30);
-
-    QFont font(painter->font());
-    QPen pen(painter->pen());
-
-    QFont f(painter->font());
-    f.setPointSize(17);
-    f.setWeight(44);
-
-    painter->setPen(isCurrent ? QColor("#2ca7f8") : Qt::black);
-
-    painter->setFont(f);
-
-    painter->drawText(rect, Qt::AlignCenter, text);
-
-    painter->setFont(font);
-    painter->setPen(pen);
-}
-
 void DrawHelper::DrawBackground(QPainter *painter, const QStyleOptionViewItem &option)
 {
     QPainterPath path;
@@ -101,24 +94,30 @@ void DrawHelper::DrawBackground(QPainter *painter, const QStyleOptionViewItem &o
     painter->fillPath(path, QColor("#2ca7f8"));
 }
 
-void DrawHelper::DrawVolumeGraduation(QPainter *painter, const QStyleOptionViewItem &option, const QColor color)
+void DrawHelper::DrawPercentValue(QPainter *painter, const QStyleOptionViewItem &option, int value)
 {
-    const QRect rect( option.rect );
-    const int progressBarWidth = 80;
-    const int progressBarHeight = 4;
+    const int rightMargin = 16;
+    const int percentFlagWidth = 9; // %号宽度
+    const int percentFlagHeight = 20;
+    const int topMargin = 14;
+    const int ValueAreaHeight = 26;
 
-    painter->setPen(Qt::NoPen);
-    painter->setBrush(color);
+    QFont font = DFontSizeManager::instance()->t4();
+    font.setPixelSize(font.pixelSize());
 
-    // Max volume is 1.5, here need graduation
-    QRect dest(rect.x() + (rect.width() - progressBarWidth) / 2, rect.y() + 110, progressBarWidth, progressBarHeight);
-    const int w = dest.width() / 1.5;
+    QFontMetrics fm(font);
+    int valueAreaWidth = fm.width(QString::number(value));
+    QRect valueRect(option.rect.right() - rightMargin - valueAreaWidth - percentFlagWidth, option.rect.top() + topMargin,
+                    valueAreaWidth, ValueAreaHeight);
+    QPen pen;
+    pen.setColor(Qt::black);
+    painter->setPen(pen);
+    painter->setFont(font);
+    painter->drawText(valueRect, QString::number(value));
 
-    // up
-    const QRect upR(dest.x() + w, dest.y() - 8, 1, 5);
-    painter->drawRect(upR);
+    font = DFontSizeManager::instance()->t10();
+    painter->setFont(font);
 
-    // bottom
-    const QRect bottomR(dest.x() + w, dest.y() + dest.height() + 3, 1, 5);
-    painter->drawRect(bottomR);
+    QRect percentRect(valueRect.right() + 1, valueRect.top() + valueRect.height() / 2, percentFlagWidth, percentFlagHeight);
+    painter->drawText(percentRect, "%");
 }

@@ -29,29 +29,20 @@
 #include <QSvgRenderer>
 #include <DStyle>
 #include <DStyleOptionButton>
-
-#include <QGSettings>
+#include <DDciIcon>
+#include <DGuiApplicationHelper>
 
 DWIDGET_USE_NAMESPACE
 
 const QString DisplayDBusServer = "com.deepin.daemon.Display";
 const QString DisplayDBusPath = "/com/deepin/daemon/Display";
-const QString DefaultCustomId = "_dde_display_config_private";
-const QString schemaKey = "com.deepin.dde.control-center";
-const QString schemaPath = "/com/deepin/dde/control-center/";
+const QString AppIdAndName = "com.deepin.dde.control-center";
+const QString MultipleDisplayConfigKey = "display/mode";
 
 DisplayModeProvider::DisplayModeProvider(QObject *parent)
-    : AbstractOSDProvider(parent),
-      m_displayInter(new Display(DisplayDBusServer,
-                                 DisplayDBusPath,
-                                 QDBusConnection::sessionBus(), this))
+    : AbstractOSDProvider(parent)
+    , m_displayInter(new Display(DisplayDBusServer,DisplayDBusPath,QDBusConnection::sessionBus(), this))
 {
-    if (!QGSettings::isSchemaInstalled(schemaKey.toLocal8Bit())) {
-        qInfo()<<"System configuration fetch failed!";
-    } else {
-        m_setting = new QGSettings(schemaKey.toLocal8Bit(), schemaPath.toLocal8Bit(), this);
-    }
-
     m_suitableParams << "SwitchMonitors";
 
     m_displayInter->setSync(false, false);
@@ -130,7 +121,7 @@ QVariant DisplayModeProvider::data(const QModelIndex &index, int role) const
 {
     QPair<uchar,QString> item = m_planItems.at(index.row());
     if (role == Qt::DecorationRole) {
-        return getPlanItemIcon(index.row());
+        return getPlanItemIconName(index.row());
     }
 
     return getPlanItemName(item);
@@ -140,7 +131,7 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
 {
     painter->setRenderHint(QPainter::Antialiasing, true);
 
-    QVariant imageData = index.data(Qt::DecorationRole);
+    QString iconName = index.data(Qt::DecorationRole).toString();
     QVariant textData = index.data(Qt::DisplayRole);
     const QRect rect(option.rect);
     QPalette palette;
@@ -153,37 +144,44 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
         backRect = rect.marginsRemoved(QMargins(0, 0, 0, 10));
     }
 
-    QColor textCorlor;
-
-    QColor brushCorlor;
-    brushCorlor = palette.color(QPalette::Base);
+    QColor textColor;
+    QColor brushColor;
+    brushColor = palette.color(QPalette::Base);
 
     // 绘制背景
     painter->setPen(Qt::NoPen);
     if (option.state & QStyle::State_Selected && m_state != 1) {
         checkState = true;
-        brushCorlor.setAlphaF(0.4);
-        textCorlor = palette.color(QPalette::Highlight);
+        brushColor.setAlphaF(0.4);
+        textColor = palette.color(QPalette::Highlight);
     } else {
         checkState = false;
-        brushCorlor.setAlphaF(0.1);
-        textCorlor = palette.color(QPalette::BrightText);
+        brushColor.setAlphaF(0.1);
+        textColor = palette.color(QPalette::BrightText);
     }
-    painter->setBrush(brushCorlor);
+    painter->setBrush(brushColor);
     painter->drawRoundedRect(backRect, 8, 8);
 
     // 绘制图标
-    QSvgRenderer renderer(imageData.toString());
-    QRect imageRect = QRect(QPoint(backRect.x() + ICON_HSPACE,
-                                   backRect.y() + ((backRect.height() - IconSize) / 2)),
-                            QSize(IconSize, IconSize));
-    renderer.render(painter, imageRect);
+    const int leftMargin = 20;
+    const int topMargin = 7;
+    const int iconWidth = 58;
+
+    DDciIconPalette dciPalette{option.palette.color(QPalette::Normal, QPalette::ToolTipText),
+                            option.palette.color(QPalette::Normal, QPalette::BrightText)};
+    DDciIcon icon = DDciIcon::fromTheme(iconName);
+    qreal ratio = qApp->devicePixelRatio();
+    bool isLightTheme = DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType;
+    QPixmap pixmap = icon.pixmap(ratio, iconWidth, isLightTheme ? DDciIcon::Light : DDciIcon::Dark, DDciIcon::Normal, dciPalette);
+
+    QRect pixMapRect(option.rect.left() + leftMargin, option.rect.top() + topMargin, iconWidth, iconWidth);
+    painter->drawPixmap(pixMapRect, pixmap);
 
     // 绘制文字
     QTextOption opt;
     QRect textRect = backRect.marginsRemoved(QMargins(IconSize + ICON_HSPACE * 2, 0, 0, 0));
     opt.setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    painter->setPen(textCorlor);
+    painter->setPen(textColor);
     painter->drawText(textRect, textData.toString(), opt);
 
     // 画复选框
@@ -193,7 +191,7 @@ void DisplayModeProvider::paint(QPainter *painter, const QStyleOptionViewItem &o
                                                                      (backRect.height() - CHECK_ICON_SIZE) / 2, CHECK_ICON_HSPACE,
                                                                      (backRect.height() - CHECK_ICON_SIZE) / 2));
             painter->setPen(Qt::NoPen);
-            painter->setBrush(textCorlor);
+            painter->setBrush(textColor);
             painter->drawEllipse(checkButtonRect);
 
             QPen pen(Qt::white, CHECK_ICON_SIZE / 100.0 * 6.20, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
@@ -222,18 +220,23 @@ QSize DisplayModeProvider::sizeHint(const QStyleOptionViewItem &option, const QM
 
 bool DisplayModeProvider::match(const QString &param)
 {
-    if (m_setting != nullptr) {
-        QString status = m_setting->get("display-multiple-displays").toString();
-        if (status == "Hidden")
-            m_state = DisplayModeProvider::HIDE;
-        if (status == "Disabled")
-            m_state = DisplayModeProvider::DISABLE;
-        if (status == "Enabled")
+    // match接口需要被经常轮询，所以这里使用static变量
+    static DConfig *multipleDisplayConfig = DConfig::create(AppIdAndName, AppIdAndName, QString(), this);
+
+    m_state = DisplayModeProvider::HIDE;
+    if (multipleDisplayConfig) {
+        bool inHideModules = multipleDisplayConfig->value("hideModule").toStringList().contains(MultipleDisplayConfigKey);
+        bool inDisableModules = multipleDisplayConfig->value("disableModule").toStringList().contains(MultipleDisplayConfigKey);
+
+        if (!inHideModules && !inDisableModules)
             m_state = DisplayModeProvider::ENABLE;
+        else if (inDisableModules)
+            m_state = DisplayModeProvider::DISABLE;
     }
 
     if (m_state == DisplayModeProvider::HIDE)
         return false;
+
     return AbstractOSDProvider::match(param);
 }
 
@@ -296,16 +299,16 @@ QString DisplayModeProvider::getPlanItemName(QPair<uchar, QString> &plan) const
     return "";
 }
 
-QString DisplayModeProvider::getPlanItemIcon(const int index) const
+QString DisplayModeProvider::getPlanItemIconName(const int index) const
 {
     if (index == 0) {
-        return ":/icons/display_copy.svg";
+        return "osd_display_copy";
     } else if (index == 1) {
-        return ":/icons/display_expansion.svg";
+        return "osd_display_expansion";
     } else if (index == 2) {
-        return ":/icons/display_custom1.svg";
+        return "osd_display_custom1";
     } else if (index == 3) {
-        return ":/icons/display_custom2.svg";
+        return "osd_display_custom2";
     }
 
     return "";

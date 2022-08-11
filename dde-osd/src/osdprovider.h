@@ -45,6 +45,10 @@ public:
     bool match(const QString &param) override;
 
 private:
+    void initParamsAndSrc();
+    void drawText(QPainter *painter, const QStyleOptionViewItem &option, const QString &txt, const QColor &color) const;
+
+private:
     QMap<QString, QStringList> m_suitableParamsMap;
     QString m_param;
 };

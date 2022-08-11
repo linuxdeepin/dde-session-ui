@@ -30,34 +30,10 @@
 
 DGUI_USE_NAMESPACE
 
-const QString SwitchWM3D = "SwitchWM3D";
-const QString SwitchWM2D = "SwitchWM2D";
-const QString SwitchWMError = "SwitchWMError";
-const QString AudioMicMuteOn = "AudioMicMuteOn";
-const QString AudioMicMuteOff = "AudioMicMuteOff";
-const QString AudioMicMuteOnAsh = "AudioMicMuteOnAsh";
-const QString AudioMicMuteOffAsh = "AudioMicMuteOffAsh";
-const QString WLANOn = "WLANOn";
-const QString WLANOff = "WLANOff";
-
 OSDProvider::OSDProvider(QObject *parent)
     : AbstractOSDProvider(parent)
 {
-    m_suitableParams << SwitchWM3D << SwitchWM2D << SwitchWMError;
-    m_suitableParams << AudioMicMuteOn << AudioMicMuteOff;
-    m_suitableParams << WLANOn << WLANOff;
-
-    m_suitableParamsMap.insert(SwitchWM3D, QStringList() << ":/icons/OSD_wm_3d.svg" << tr("Window effect enabled"));
-    m_suitableParamsMap.insert(SwitchWM2D, QStringList() << ":/icons/OSD_wm_2d.svg" << tr("Window effect disabled"));
-    m_suitableParamsMap.insert(SwitchWMError, QStringList() << ":/icons/OSD_wm_failed.svg" << tr("Failed to enable window effects"));
-
-    m_suitableParamsMap.insert(AudioMicMuteOn, QStringList() << ":/icons/OSD_mic_off.svg" << "");
-    m_suitableParamsMap.insert(AudioMicMuteOff, QStringList() << ":/icons/OSD_mic_on.svg" << "");
-    m_suitableParamsMap.insert(AudioMicMuteOnAsh, QStringList() << ":/icons/OSD_mic_off.svg" << "");
-    m_suitableParamsMap.insert(AudioMicMuteOffAsh, QStringList() << ":/icons/OSD_mic_off.svg" << "");
-
-    m_suitableParamsMap.insert(WLANOn, QStringList() << ":/icons/OSD_wifi_on.svg" << "");
-    m_suitableParamsMap.insert(WLANOff, QStringList() << ":/icons/OSD_wifi_off.svg" << "");
+    initParamsAndSrc();
 }
 
 int OSDProvider::rowCount(const QModelIndex &) const
@@ -67,11 +43,9 @@ int OSDProvider::rowCount(const QModelIndex &) const
 
 QVariant OSDProvider::data(const QModelIndex &, int role) const
 {
-    const bool decoration = role == Qt::DecorationRole;
-
     if (m_suitableParamsMap.contains(m_param)) {
         QStringList value = m_suitableParamsMap.value(m_param);
-        return decoration ? value.at(0) : value.at(1).toStdString().c_str();
+        return role == Qt::DecorationRole ? value.at(0) : value.at(1);
     }
 
     qDebug() << "Unable to recognize osd type!";
@@ -80,39 +54,100 @@ QVariant OSDProvider::data(const QModelIndex &, int role) const
 
 void OSDProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QString pixPath = index.data(Qt::DecorationRole).toString();
-    QString textData = index.data().toString();
-    QString iconPath;
+    QString iconName = index.data(Qt::DecorationRole).toString();
+    QString textData = index.data(Qt::DisplayRole).toString();
+
     QColor color;
+    bool isLightTheme = false;
     if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::LightType) {
-        iconPath = pixPath;
         color = QColor(Qt::black);
-    } else {
-        iconPath = QString(pixPath).replace(".svg", "_dark.svg");
-        color = QColor(Qt::white);
+        isLightTheme = true;
     }
-    DrawHelper::DrawImage(painter, option, iconPath, true);
+    else
+        color = QColor(Qt::white);
+
+    DrawHelper::DrawImage(painter, option, iconName, isLightTheme);
 
     if (!textData.isEmpty()) {
-        DrawHelper::DrawText(painter, option, textData, color);
+        drawText(painter, option, textData, color);
     }
 }
 
-QSize OSDProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const
+QSize OSDProvider::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &) const
 {
-    return QSize(ImageTextItemWidth, ImageTextItemHeight);
+    return QSize(option.rect.width(), ImageTextItemHeight);
 }
 
 QSize OSDProvider::contentSize() const
 {
+    const int leftMargin = 68;
+    const int rightMargin = 26;
+
     //根据文本长度自适应窗口宽度
-    QString textData = OSDProvider::data(QModelIndex(), Qt::DisplayRole).toString();
-    QFontMetrics fontMetrics(QApplication::font());
-    return QSize(qMax(ImageTextItemWidth,fontMetrics.horizontalAdvance(textData) + 30), ImageTextItemHeight);
+    QString textData = data(QModelIndex(), Qt::DisplayRole).toString();
+
+    // TODO 后续需要更换具体字体
+    QFont font;
+    font.setPixelSize(22);
+
+    QFontMetrics fontMetrics(font);
+    return QSize(fontMetrics.horizontalAdvance(textData) + leftMargin + rightMargin, ImageTextItemHeight);
 }
 
 bool OSDProvider::match(const QString &param)
 {
     m_param = param;
     return m_suitableParamsMap.contains(param);
+}
+
+void OSDProvider::drawText(QPainter *painter, const QStyleOptionViewItem &option, const QString &text, const QColor &color) const
+{
+    const int leftMargin = 68;
+    const int topMargin = 13;
+    const int height = 30;
+
+    QRect txtRect(option.rect.left() + leftMargin, option.rect.top() + topMargin,
+                  option.rect.width() - leftMargin, height);
+
+    QTextOption opt;
+    opt.setAlignment(Qt::AlignBottom);
+
+    QFont font;
+    font.setPixelSize(22);
+
+    painter->setFont(font);
+    painter->setPen(color);
+    painter->drawText(txtRect, text, opt);
+}
+
+void OSDProvider::initParamsAndSrc()
+{
+    m_suitableParamsMap["WLANOn"] = QStringList() << "osd_wifi_on" << tr("wifi on");
+    m_suitableParamsMap["WLANOff"] = QStringList() << "osd_wifi_off" << tr("wifi off");
+
+    m_suitableParamsMap["CapsLockOn"] = QStringList() << "osd_capslock_on" << tr("uppercase"); // 大写
+    m_suitableParamsMap["CapsLockOff"] = QStringList() << "osd_capslock_off" << tr("lowercase"); // 小写
+
+    m_suitableParamsMap["NumLockOn"] = QStringList() << "osd_keyboard_on" << tr("number keyboard on"); // 数字键盘开启
+    m_suitableParamsMap["NumLockOff"] = QStringList() << "osd_keyboard_off" << tr("number keyboard off"); // 数字键盘关闭
+
+    m_suitableParamsMap["TouchpadOn"] = QStringList() << "osd_touchpad_on" << tr("touchpad on"); // 触摸板开启
+    m_suitableParamsMap["TouchpadOff"] = QStringList() << "osd_touchpad_off" << tr("touchpad off"); // 触摸板关闭
+    m_suitableParamsMap["TouchpadToggle"] = QStringList() << "osd_touchpad_exchange" << tr("touchpad toggle"); // 触控板切换
+
+    m_suitableParamsMap["FnToggle"] = QStringList() << "osd_fn" << tr("Fn toggle"); // Fn切换
+
+    m_suitableParamsMap["AirplaneModeOn"] = QStringList() << "osd_airplane_mode_on" << tr("airplane mode on");
+    m_suitableParamsMap["AirplaneModeOff"] = QStringList() << "osd_airplane_mode_off" << tr("airplane mode off");
+
+    m_suitableParamsMap["AudioMicMuteOn"] = QStringList() << "osd_mic_on" << tr("audio mic mute on");
+    m_suitableParamsMap["AudioMicMuteOff"] = QStringList() << "osd_mic_off" << tr("audio mic mute off");
+
+    m_suitableParamsMap["balance"] = QStringList() << "osd_power_balance" << tr("power balance");
+    m_suitableParamsMap["powersave"] = QStringList() << "osd_power_save" << tr("power save");
+    m_suitableParamsMap["performance"] = QStringList() << "osd_power_performance" << tr("power performance");
+
+    m_suitableParamsMap["SwitchWM3D"] = QStringList() << "osd_wm_3d" << tr("Window effect enabled");
+    m_suitableParamsMap["SwitchWM2D"] = QStringList() << "osd_wm_2d" << tr("Window effect disabled");
+    m_suitableParamsMap["SwitchWMError"] = QStringList() << "osd_wm_failed" << tr("Failed to enable window effects");
 }
