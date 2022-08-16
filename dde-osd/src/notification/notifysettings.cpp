@@ -380,9 +380,13 @@ QString NotifySettings::getAllSetings_v1()
     return QString(QJsonDocument(jsonObj).toJson());
 }
 
+// it exists in gsettings-qt package of util.h, but it not installed in dev package.
+// and the symbol is default export in linux.
+extern QString qtify_name(const char *name);
 bool NotifySettings::containsAppSettings(const QGSettings &settings, const QString &id)
 {
-    if (settings.keys().contains(id))
+    const QString &key = qtify_name(id.toLocal8Bit().constData());
+    if (settings.keys().contains(key))
         return true;
 
     return false;
