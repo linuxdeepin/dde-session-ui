@@ -56,7 +56,8 @@ Container::Container(QWidget *parent)
 
     if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
         setAttribute(Qt::WA_NativeWindow);
-        windowHandle()->setProperty("_d_dwayland_window-type", "tooltip");
+        // 慎重修改层级，特别考虑对锁屏的影响
+        windowHandle()->setProperty("_d_dwayland_window-type", "onScreenDisplay");
     }
 
     m_quitTimer->setSingleShot(true);
