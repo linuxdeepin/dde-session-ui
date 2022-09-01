@@ -35,14 +35,7 @@ User interface of setting hot zone.
 ```
 
 ## Dependencies
-- Qt
-- [deepin-tool-kit](https://github.com/linuxdeepin/deepin-tool-kit)
-- gsettings-qt
-- glib-2.0 gio-unix-2.0
-- liblightdm-qt5-3
-- xrandr
-- x11 xext xfixes xcursor x11extras
-- pam
+You can also check the "Depends" provided in the debian/control file.
 
 ## Installation
 Those project's installation is all the same, so we just make a example.
@@ -65,6 +58,7 @@ when you choose to shutdown you pc, and so on.
 * [IRC channel](https://webchat.freenode.net/?channels=deepin)
 * [Forum](https://bbs.deepin.org)
 * [WiKi](https://wiki.deepin.org/)
+* [Developer Center](https://github.com/linuxdeepin/dde-session-shell) 
 
 ## Getting involved
 We encourage you to report issues and contribute changes

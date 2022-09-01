@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "mainwindow.h"
 #if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
 #include "../common/accessibilitycheckerex.h"
