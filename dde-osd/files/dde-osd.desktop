@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Deepin OSD
+Comment=Deepin OSD
+Exec=/usr/lib/deepin-daemon/dde-osd
+NoDisplay=true
+OnlyShowIn=Deepin
+Type=Application
+X-Deepin-Vendor=user-custom
+X-Deepin-TurboType=dtkwidget
