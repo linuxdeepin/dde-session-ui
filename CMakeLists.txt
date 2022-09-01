@@ -416,6 +416,7 @@ install(TARGETS ${OSD_Name} DESTINATION lib/deepin-daemon)
 ## service
 file(GLOB OSD_SERVICE_FILES "dde-osd/files/*.service")
 install(FILES ${OSD_SERVICE_FILES} DESTINATION share/dbus-1/services)
+install(FILES dde-osd/files/dde-osd.desktop DESTINATION share/applications/)
 
 #-----------------------------ut-dde-osd-----------------------------
 #--todo: 单元测试编译不通过，需修改后取消注释
