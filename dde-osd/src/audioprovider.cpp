@@ -99,7 +99,7 @@ void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option,
     if (increaseVolumeData.toBool())
         drawScale(painter, option);
 
-    DrawHelper::DrawPercentValue(painter, option, volumeValue.toDouble() * 100);
+    DrawHelper::DrawPercentValue(painter, option, volumeValue.toDouble() * 100, color);
 }
 
 QSize AudioProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const

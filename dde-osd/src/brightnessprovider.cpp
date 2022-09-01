@@ -76,7 +76,7 @@ void BrightnessProvider::paint(QPainter *painter, const QStyleOptionViewItem &op
     DrawHelper::DrawProgressBar(painter, option, progressData.toDouble(), color);
 
     int value = progressData.toDouble() * 100;
-    DrawHelper::DrawPercentValue(painter, option, value);
+    DrawHelper::DrawPercentValue(painter, option, value, color);
 }
 
 QSize BrightnessProvider::sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const

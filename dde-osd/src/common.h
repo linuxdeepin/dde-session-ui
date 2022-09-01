@@ -48,7 +48,7 @@ public:
     //绘制进度条
     static void DrawProgressBar(QPainter *painter, const QStyleOptionViewItem &option, double progress, const QColor color);
     // 绘制百分比数据
-    static void DrawPercentValue(QPainter *painter, const QStyleOptionViewItem &option, int value);
+    static void DrawPercentValue(QPainter *painter, const QStyleOptionViewItem &option, int value, const QColor &color);
     // 绘制背景
     static void DrawBackground(QPainter *painter, const QStyleOptionViewItem &option);
 };
