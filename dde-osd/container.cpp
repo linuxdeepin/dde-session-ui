@@ -30,7 +30,7 @@ Container::Container(QWidget *parent)
     , m_supportComposite(m_wmHelper->hasComposite())
 {
     setAccessibleName("Container");
-    setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
+    setWindowFlags(Qt::Tool | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_TranslucentBackground);
 
     if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
