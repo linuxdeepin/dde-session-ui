@@ -19,6 +19,7 @@ DCORE_USE_NAMESPACE
 const int PingCode = 1;
 const int DevicePath = 2;
 const int PingTime = 3;
+const int CancelBtnState = 4;
 
 int main(int argc, char *argv[])
 {
@@ -30,13 +31,14 @@ int main(int argc, char *argv[])
     app.installTranslator(&translator);
 
     QStringList arguslist = app.arguments();
-    if (arguslist.size() < 4) {
-        qDebug() << "number of parameters must be greater than 3";
+    if (arguslist.size() < 5) {
+        qDebug() << "number of parameters must be greater than 4";
         return -1;
     }
-    qDebug() << "PingCode:" << arguslist[PingCode] << " Device Path:" << arguslist[DevicePath] << "Ping Time:" + arguslist[PingTime];
+    qDebug() << "PingCode:" << arguslist[PingCode] << " Device Path:" << arguslist[DevicePath] << "Ping Time:" + arguslist[PingTime]
+             << "isCancelBtnShown:" << arguslist[CancelBtnState].toInt();
 
-    PinCodeDialog dialog(arguslist[PingCode], arguslist[DevicePath], arguslist[PingTime], true);
+    PinCodeDialog dialog(arguslist[PingCode], arguslist[DevicePath], arguslist[PingTime], arguslist[CancelBtnState].toInt());
 #if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
     AccessibilityCheckerEx checker;
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
