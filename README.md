@@ -54,11 +54,10 @@ when you choose to shutdown you pc, and so on.
 
 ## Getting help
 * [github](https://github.com/linuxdeepin/dde-session-ui)
-* [Gitter](https://gitter.im/orgs/linuxdeepin/rooms)
-* [IRC channel](https://webchat.freenode.net/?channels=deepin)
+* [Matrix](https://matrix.to/#/#deepin-community:matrix.org)
 * [Forum](https://bbs.deepin.org)
 * [WiKi](https://wiki.deepin.org/)
-* [Developer Center](https://github.com/linuxdeepin/dde-session-shell) 
+* [Developer Center](https://github.com/linuxdeepin/developer-center/issues) 
 
 ## Getting involved
 We encourage you to report issues and contribute changes
