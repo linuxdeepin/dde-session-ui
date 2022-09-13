@@ -25,6 +25,11 @@ Window::Window(QWidget *parent)
     m_text->setAccessibleName("LowPowerText");
     // set window flags as dde-lock, so we can easily cover it.
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
+    if (QGuiApplication::platformName().startsWith("wayland", Qt::CaseInsensitive)) {
+        setAttribute(Qt::WA_NativeWindow);
+        // 慎重修改层级，特别考虑对锁屏的影响
+        windowHandle()->setProperty("_d_dwayland_window-type", "override");
+    }
 
     const qreal ratio = devicePixelRatioF();
     const QString iconPath = qt_findAtNxFile(":/images/lowpower.png", ratio);
