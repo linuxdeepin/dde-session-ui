@@ -57,6 +57,16 @@ void Manager::ShowOSD(const QString &osd)
 {
     qDebug() << "show osd" << osd;
 
+    QDBusInterface inter("org.freedesktop.login1",
+                         "/org/freedesktop/login1/session/self",
+                         "org.freedesktop.login1.Session",
+                         QDBusConnection::systemBus());
+    if(!inter.property("Active").toBool())
+    {
+        qWarning() << "self session is not active";
+        return;
+    }
+
     // 3D WM need long time, OSD will disappear too fast
     m_timer->setInterval(osd == "SwitchWM3D" ? 2000 : 1000);
 
