@@ -8,6 +8,7 @@ file(GLOB_RECURSE UT_OSD_SRCS
 add_executable(${UT_OSD_Name}
     ${OSD_SRCS}
     ${UT_OSD_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     )
 
 # 用于测试覆盖率的编译条件

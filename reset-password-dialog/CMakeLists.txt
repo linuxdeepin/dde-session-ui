@@ -59,18 +59,15 @@ find_package(Qt5Concurrent REQUIRED)
 find_package(DtkWidget REQUIRED)
 find_package(DtkGui REQUIRED)
 
-pkg_check_modules(DFrameworkDBus REQUIRED dframeworkdbus)
 
-add_executable(${BIN_NAME} ${SRCS} ${QRC})
+add_executable(${BIN_NAME} ${SRCS} ${QRC} ${DBUS_INTERFACE_SRCS})
 target_include_directories(${BIN_NAME} PUBLIC
     ${DtkWidget_INCLUDE_DIRS}
-    ${DFrameworkDBus_INCLUDE_DIRS}
     ${Qt5Gui_PRIVATE_INCLUDE_DIRS}
     ${PROJECT_BINARY_DIR}
 )
 
 target_link_libraries(${BIN_NAME} PRIVATE
-    ${DFrameworkDBus_LIBRARIES}
     ${DtkWidget_LIBRARIES}
     ${Qt5Widgets_LIBRARIES}
     ${Qt5Network_LIBRARIES}

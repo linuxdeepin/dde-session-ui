@@ -36,7 +36,7 @@ DWIDGET_USE_NAMESPACE
 
 const QString DisplayDBusServer = "com.deepin.daemon.Display";
 const QString DisplayDBusPath = "/com/deepin/daemon/Display";
-const QString AppIdAndName = "com.deepin.dde.control-center";
+const QString AppIdAndName = "org.deepin.dde.control-center";
 const QString MultipleDisplayConfigKey = "display/mode";
 
 DisplayModeProvider::DisplayModeProvider(QObject *parent)

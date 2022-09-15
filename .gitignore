@@ -36,3 +36,7 @@ report/
 
 misc/*/deepin-toggle-desktop.desktop
 .transifexrc
+
+# xml2Cpp
+global_util/dbus/*.cpp
+global_util/dbus/*.h

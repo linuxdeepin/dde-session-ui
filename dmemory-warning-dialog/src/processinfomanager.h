@@ -31,8 +31,8 @@
 #include <QTimer>
 #include <QPointer>
 
-#include <com_deepin_startmanager.h>
-#include <com_deepin_chromeextension_tabslimit.h>
+#include "com_deepin_startmanager.h"
+#include "com_deepin_chromeextension_tabslimit.h"
 
 QString genericAppName(const QString &desktop);
 

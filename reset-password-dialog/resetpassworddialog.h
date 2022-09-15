@@ -27,8 +27,8 @@
 
 #include <DDialog>
 
-#include <com_deepin_daemon_accounts_user.h>
-#include <com_deepin_daemon_accounts.h>
+#include "org_deepin_daemon_accounts1_user.h"
+#include "org_deepin_daemon_accounts1.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -86,8 +86,8 @@ private:
     SecurityQuestionsWidget *m_SecurityQuestionsWidget;
     bool m_isSecurityQuestionsExist;
     QRect m_screenGeometry;
-    com::deepin::daemon::Accounts *m_accountInter;
-    com::deepin::daemon::accounts::User *m_userInter;
+    org::deepin::daemon::Accounts1 *m_accountInter;
+    org::deepin::daemon::accounts1::User *m_userInter;
     QFile filein;
     QString m_userPath;
     QString m_userName;

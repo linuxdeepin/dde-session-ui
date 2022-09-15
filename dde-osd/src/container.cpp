@@ -33,8 +33,8 @@
 #include <QScreen>
 
 #include <DPlatformWindowHandle>
-#include <com_deepin_daemon_display.h>
-#include <com_deepin_daemon_display_monitor.h>
+#include "com_deepin_daemon_display.h"
+#include "com_deepin_daemon_display_monitor.h"
 #include "notification/dbusdockinterface.h"
 
 using DisplayInter = com::deepin::daemon::Display;

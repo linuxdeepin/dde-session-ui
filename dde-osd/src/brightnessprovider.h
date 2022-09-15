@@ -28,7 +28,7 @@
 
 #include "abstractosdprovider.h"
 
-#include <com_deepin_daemon_display.h>
+#include "com_deepin_daemon_display.h"
 
 #include "common.h"
 /*!

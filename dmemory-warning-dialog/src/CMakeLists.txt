@@ -2,6 +2,7 @@ set(Dmemory_Warning_Dialog_Name dmemory-warning-dialog)
 
 add_executable(${Dmemory_Warning_Dialog_Name}
     ${Dmemory_Warning_Dialog_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 

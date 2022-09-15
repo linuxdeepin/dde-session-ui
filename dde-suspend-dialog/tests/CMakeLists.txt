@@ -7,6 +7,7 @@ file(GLOB_RECURSE UT_Suspend_Dialog_SRCS
 add_executable(${UT_Suspend_Dialog_Name}
     ${Suspend_Dialog_SRCS}
     ${UT_Suspend_Dialog_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     )
 
 # 用于测试覆盖率的编译条件

@@ -22,7 +22,7 @@
 #ifndef NOTIFYSETTINGS_H
 #define NOTIFYSETTINGS_H
 
-#include <com_deepin_dde_daemon_launcherd.h>
+#include "org_deepin_dde_daemon_launcherd1.h"
 #include "types/launcheriteminfo.h"
 #include "types/launcheriteminfolist.h"
 
@@ -31,7 +31,7 @@
 class QGSettings;
 class QTimer;
 
-using LauncherInter = com::deepin::dde::daemon::Launcher;
+using LauncherInter = org::deepin::dde::daemon::Launcher1;
 
 class AbstractNotifySetting : public QObject
 {

@@ -30,8 +30,8 @@
 
 #include <DConfig>
 
-#include <com_deepin_daemon_display.h>
-#include <com_deepin_daemon_appearance.h>
+#include "com_deepin_daemon_display.h"
+#include "org_deepin_daemon_appearance1.h"
 
 using namespace com::deepin::daemon;
 DCORE_USE_NAMESPACE

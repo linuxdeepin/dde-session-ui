@@ -8,7 +8,6 @@ list(REMOVE_ITEM OSD_SRCS "${CMAKE_SOURCE_DIR}/dde-osd/src/main.cpp")
 
 set(OSD_Includes
     ${DtkWidget_INCLUDE_DIRS}
-    ${DFrameworkDBus_INCLUDE_DIRS}
     ${GSETTINGS_INCLUDE_DIRS}
     Qt5::Concurrent
     Qt5::X11Extras
@@ -21,7 +20,6 @@ set(OSD_Includes
 
 set(OSD_Libraries
     ${DtkWidget_LIBRARIES}
-    ${DFrameworkDBus_LIBRARIES}
     ${GSETTINGS_LIBRARIES}
     ${XCB_EWMH_LIBRARIES}
     Qt5::Concurrent

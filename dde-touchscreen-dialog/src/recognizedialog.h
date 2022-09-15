@@ -22,7 +22,7 @@
 #ifndef RECOGNIZEDIALOG_H
 #define RECOGNIZEDIALOG_H
 
-#include <com_deepin_daemon_display_monitor.h>
+#include "com_deepin_daemon_display_monitor.h"
 
 #include <DBlurEffectWidget>
 

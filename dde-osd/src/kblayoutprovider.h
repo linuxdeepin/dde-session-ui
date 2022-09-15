@@ -28,7 +28,7 @@
 
 #include "abstractosdprovider.h"
 
-#include <com_deepin_daemon_inputdevice_keyboard.h>
+#include "com_deepin_daemon_inputdevice_keyboard.h"
 
 using namespace com::deepin::daemon::inputdevice;
 

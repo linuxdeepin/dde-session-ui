@@ -24,7 +24,7 @@
 #include "notification/constants.h"
 
 #include <QtTest>
-#include <com_deepin_dde_notification.h>
+#include "com_deepin_dde_notification.h"
 
 using NotifyInter = com::deepin::dde::Notification;
 

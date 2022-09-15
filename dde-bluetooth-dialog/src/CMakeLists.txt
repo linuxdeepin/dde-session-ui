@@ -3,6 +3,7 @@ set(Bluetooth_Dialog_Name dde-bluetooth-dialog)
 add_executable(${Bluetooth_Dialog_Name}
     ${Common_SRCS}
     ${Bluetooth_Dialog_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 

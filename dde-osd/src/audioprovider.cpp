@@ -32,15 +32,15 @@ DGUI_USE_NAMESPACE
 
 AudioProvider::AudioProvider(QObject *parent)
     : AbstractOSDProvider(parent),
-      m_audioInter(new com::deepin::daemon::Audio("com.deepin.daemon.Audio",
-                                                  "/com/deepin/daemon/Audio",
+      m_audioInter(new org::deepin::daemon::Audio1("org.deepin.daemon.Audio1",
+                                                  "/org/deepin/daemon/Audio1",
                                                   QDBusConnection::sessionBus(), this)),
       m_sinkInter(nullptr)
 {
     m_suitableParams << "AudioUp" << "AudioDown" << "AudioMute" << "AudioUpAsh" << "AudioDownAsh" << "AudioMuteAsh";
 
     m_audioInter->setSync(true, false);
-    connect(m_audioInter, &__Audio::DefaultSinkChanged,
+    connect(m_audioInter, &__Audio1::DefaultSinkChanged,
             this, &AudioProvider::defaultSinkChanged);
 
     auto onAudioIsValid = [ = ](bool isvalid) {
@@ -49,7 +49,7 @@ AudioProvider::AudioProvider(QObject *parent)
         }
     };
 
-    connect(m_audioInter, &__Audio::serviceValidChanged, this, onAudioIsValid);
+    connect(m_audioInter, &__Audio1::serviceValidChanged, this, onAudioIsValid);
 
     onAudioIsValid(m_audioInter->isValid());
 }
@@ -136,7 +136,7 @@ void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)
             m_sinkInter = nullptr;
         }
 
-        m_sinkInter = new com::deepin::daemon::audio::Sink("com.deepin.daemon.Audio",
+        m_sinkInter = new org::deepin::daemon::audio1::Sink("org.deepin.daemon.Audio1",
                                                            pathStr,
                                                            QDBusConnection::sessionBus(), this);
         m_sinkInter->setSync(true);

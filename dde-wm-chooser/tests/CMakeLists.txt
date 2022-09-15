@@ -10,6 +10,7 @@ add_executable(${UT_Wm_Chooser_Name}
     ${Widgets_SRCS}
     ${Global_Util_SRCS}
     ${UT_Wm_Chooser_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     )
 
 # 用于测试覆盖率的编译条件

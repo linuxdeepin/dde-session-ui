@@ -13,8 +13,8 @@ set(CMAKE_CXX_FLAGS "-g -Wall")
 ADD_DEFINITIONS("-fstack-protector-strong -D_FORTITY_SOURCE=1 -z noexecstack -pie -fPIC -z lazy")
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -fsanitize=address -O2")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fsanitize=address -O2")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -fsanitize=address -O0")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fsanitize=address -O0")
 endif()
 
 if (DEFINED ENABLE_MIEEE)
@@ -44,7 +44,6 @@ find_package(GTest REQUIRED)
 find_package(GMock REQUIRED)
 find_package(Qt5 COMPONENTS Widgets DBus X11Extras Xml Concurrent Svg Sql Test REQUIRED)
 
-pkg_check_modules(DFrameworkDBus REQUIRED dframeworkdbus)
 pkg_check_modules(GSETTINGS REQUIRED gsettings-qt)
 pkg_check_modules(DdeDockInterface REQUIRED dde-dock)
 pkg_check_modules(XCB_EWMH REQUIRED xcb-ewmh)
@@ -55,7 +54,10 @@ pkg_check_modules(SYSTEMD REQUIRED libsystemd)
 include_directories(
     common
     global_util
+    global_util/dbus
+    global_util/dbus/types
     widgets
+    qtdbusextended
     )
 
 set(Test_Libraries
@@ -64,6 +66,26 @@ set(Test_Libraries
     -lgtest
     -lgmock
     )
+
+set(XML2CPP_DIR ${PROJECT_SOURCE_DIR}/global_util/dbus)
+file(GLOB_RECURSE XMLFILES xml/*.xml)
+
+foreach(XMLFILE ${XMLFILES})
+    string(FIND ${XMLFILE} "/" INDEX REVERSE)
+    string(SUBSTRING ${XMLFILE} ${INDEX} -1 filename)
+    string(REPLACE "/" "" filename ${filename})
+    string(REPLACE ".xml" "" filename ${filename})
+    string(REPLACE "." "_" filename ${filename})
+
+    string(FIND ${filename} "_" INDEX1 REVERSE)
+    string(SUBSTRING ${filename} ${INDEX1} -1 classname)
+    string(REPLACE "_" "" classname ${classname})
+
+    string(TOLOWER ${filename} filename)
+
+    execute_process(COMMAND qdbusxml2cpp-fix -c ${classname} -p ${XML2CPP_DIR}/${filename} ${XMLFILE}
+            WORKING_DIRECTORY ${XML2CPP_DIR})
+endforeach()
 
 #----------------------------common sources------------------------------
 file(GLOB_RECURSE Common_SRCS
@@ -79,6 +101,15 @@ file(GLOB_RECURSE Widgets_SRCS
 file(GLOB_RECURSE Global_Util_SRCS
     "global_util/*.h"
     "global_util/*.cpp"
+    )
+
+file (GLOB_RECURSE DBUS_INTERFACE_SRCS
+    "global_util/dbus/*.h"
+    "global_util/dbus/*.cpp"
+    "global_util/dbus/types/*.h"
+    "global_util/dbus/types/*.cpp"
+    "qtdbusextended/*.h"
+    "qtdbusextended/*.cpp"
     )
 
 add_subdirectory("dde-bluetooth-dialog")

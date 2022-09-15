@@ -6,7 +6,6 @@ file(GLOB_RECURSE Wm_Chooser_SRCS
 list(REMOVE_ITEM Wm_Chooser_SRCS "${CMAKE_SOURCE_DIR}/dde-wm-chooser/src/main.cpp")
 
 set(Wm_Chooser_Includes
-    ${DFrameworkDBus_INCLUDE_DIRS}
     ${DtkWidget_INCLUDE_DIRS}
     ${GSETTINGS_INCLUDE_DIRS}
     Qt5::Widgets
@@ -14,7 +13,6 @@ set(Wm_Chooser_Includes
     Qt5::Xml
     )
 set(Wm_Chooser_Libraries
-    ${DFrameworkDBus_LIBRARIES}
     ${DtkWidget_LIBRARIES}
     ${GSETTINGS_LIBRARIES}
     Qt5::Widgets

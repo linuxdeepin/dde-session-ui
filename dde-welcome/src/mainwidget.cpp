@@ -41,17 +41,17 @@
 
 MainWidget::MainWidget(QWidget *parent)
     : FullscreenBackground(parent)
-    , m_blurImageInter(new ImageBlur("com.deepin.daemon.Accounts",
-                                     "/com/deepin/daemon/ImageBlur",
+    , m_blurImageInter(new ImageBlur("org.deepin.daemon.Accounts1",
+                                     "/org/deepin/daemon/ImageBlur1",
                                      QDBusConnection::systemBus(), this))
 {
     setAccessibleName("MainWidget");
     connect(m_blurImageInter, &ImageBlur::BlurDone, this, &MainWidget::onBlurWallpaperFinished);
     connect(qApp, &QApplication::aboutToQuit, this, [=] {
         DDBusSender()
-            .service("com.deepin.daemon.Zone")
-            .interface("com.deepin.daemon.Zone")
-            .path("/com/deepin/daemon/Zone")
+            .service("org.deepin.daemon.Zone1")
+            .interface("org.deepin.daemon.Zone1")
+            .path("/org/deepin/daemon/Zone1")
             .method("EnableZoneDetected")
             .arg(true)
             .call();
@@ -76,9 +76,9 @@ MainWidget::MainWidget(QWidget *parent)
     updateBackground(w.isEmpty() ? m_wallpaper : w);
 
     DDBusSender()
-        .service("com.deepin.daemon.Zone")
-        .interface("com.deepin.daemon.Zone")
-        .path("/com/deepin/daemon/Zone")
+        .service("org.deepin.daemon.Zone1")
+        .interface("org.deepin.daemon.Zone1")
+        .path("/org/deepin/daemon/Zone1")
         .method("EnableZoneDetected")
         .arg(false)
         .call();

@@ -2,6 +2,7 @@ set(Touchscreen_Dialog_Name dde-touchscreen-dialog)
 
 add_executable(${Touchscreen_Dialog_Name}
     ${Touchscreen_Dialog_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 

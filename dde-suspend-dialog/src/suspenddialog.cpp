@@ -30,8 +30,8 @@
 #include <QScreen>
 #include <QDebug>
 #include <QAbstractButton>
-#include <com_deepin_daemon_display.h>
-#include <com_deepin_daemon_display_monitor.h>
+#include "com_deepin_daemon_display.h"
+#include "com_deepin_daemon_display_monitor.h"
 
 using MonitorInter = com::deepin::daemon::display::Monitor;
 

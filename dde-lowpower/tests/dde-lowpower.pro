@@ -5,7 +5,7 @@ TEMPLATE = app
 
 include(../testcase.prf)
 
-PKGCONFIG += dtkwidget dtkgui gio-qt dframeworkdbus gsettings-qt
+PKGCONFIG += dtkwidget dtkgui gio-qt gsettings-qt
 CONFIG += c++11 link_pkgconfig
 CONFIG -= app_bundle
 

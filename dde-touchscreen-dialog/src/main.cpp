@@ -9,7 +9,7 @@
 #include <QDebug>
 #include <QTranslator>
 
-#include <com_deepin_daemon_display.h>
+#include "com_deepin_daemon_display.h"
 
 DWIDGET_USE_NAMESPACE
 using namespace com::deepin::daemon;

@@ -4,6 +4,7 @@ add_executable(${Wm_Chooser_Name}
     ${Wm_Chooser_SRCS}
     ${Widgets_SRCS}
     ${Global_Util_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 

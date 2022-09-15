@@ -7,6 +7,7 @@ file(GLOB_RECURSE UT_Bluetooth_Dialog_SRCS
 add_executable(${UT_Bluetooth_Dialog_Name}
     ${Common_SRCS}
     ${Bluetooth_Dialog_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     ${UT_Bluetooth_Dialog_SRCS}
     )
 

@@ -2,6 +2,7 @@ set(Suspend_Dialog_Name dde-suspend-dialog)
 
 add_executable(${Suspend_Dialog_Name}
     ${Suspend_Dialog_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 

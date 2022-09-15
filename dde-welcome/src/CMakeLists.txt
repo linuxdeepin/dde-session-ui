@@ -4,6 +4,7 @@ add_executable(${Welcome_Name}
     ${Welcome_SRCS}
     ${Widgets_SRCS}
     ${Global_Util_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 

@@ -29,7 +29,7 @@
 #include <QSystemTrayIcon>
 #include <QMenu>
 
-#include <com_deepin_daemon_inputdevice_keyboard.h>
+#include "com_deepin_daemon_inputdevice_keyboard.h"
 using KeyboardInterface = com::deepin::daemon::inputdevice::Keyboard;
 /*!
  * \~chinese \class DataWrapper

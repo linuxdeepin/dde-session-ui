@@ -292,8 +292,8 @@ void NotifyCenterWidget::hideAni()
 
 void NotifyCenterWidget::registerRegion()
 {
-    QDBusInterface interface("com.deepin.api.XEventMonitor", "/com/deepin/api/XEventMonitor",
-                             "com.deepin.api.XEventMonitor",
+    QDBusInterface interface("org.deepin.api.XEventMonitor1", "/org/deepin/api/XEventMonitor1",
+                             "org.deepin.api.XEventMonitor1",
                              QDBusConnection::sessionBus());
     if (interface.isValid()) {
         m_regionConnect = connect(m_regionMonitor, &DRegionMonitor::buttonRelease, this, [ = ](const QPoint & p) {

@@ -2,6 +2,7 @@ set(OSD_Name dde-osd)
 
 add_executable(${OSD_Name}
     ${OSD_SRCS}
+    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 

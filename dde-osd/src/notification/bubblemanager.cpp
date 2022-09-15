@@ -44,8 +44,8 @@
 
 #include <algorithm>
 
-#include <com_deepin_daemon_display.h>
-#include <com_deepin_daemon_display_monitor.h>
+#include "com_deepin_daemon_display.h"
+#include "com_deepin_daemon_display_monitor.h"
 
 using DisplayInter = com::deepin::daemon::Display;
 using MonitorInter = com::deepin::daemon::display::Monitor;
@@ -65,7 +65,7 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
                                               QDBusConnection::sessionBus(), this))
     , m_notifySettings(setting)
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
-    , m_appearance(new Appearance("com.deepin.daemon.Appearance", "/com/deepin/daemon/Appearance", QDBusConnection::sessionBus(), this))
+    , m_appearance(new Appearance("org.deepin.daemon.Appearance1", "/org/deepin/daemon/Appearance1", QDBusConnection::sessionBus(), this))
     , m_gestureInter(new GestureInter("com.deepin.daemon.Gesture"
                                       , "/com/deepin/daemon/Gesture"
                                       , QDBusConnection::systemBus()

@@ -42,8 +42,8 @@ const QString appSchemaPath = "/com/deepin/dde/notifications/applications/%1/";
 NotifySettings::NotifySettings(QObject *parent)
     : AbstractNotifySetting(parent)
     , m_initTimer(new QTimer(this))
-    , m_launcherInter(new LauncherInter("com.deepin.dde.daemon.Launcher",
-                                        "/com/deepin/dde/daemon/Launcher",
+    , m_launcherInter(new LauncherInter("org.deepin.dde.daemon.Launcher1",
+                                        "/org/deepin/dde/daemon/Launcher1",
                                         QDBusConnection::sessionBus(), this))
 {
     registerLauncherItemInfoListMetaType();
