@@ -94,7 +94,7 @@ void DrawHelper::DrawBackground(QPainter *painter, const QStyleOptionViewItem &o
     painter->fillPath(path, QColor("#2ca7f8"));
 }
 
-void DrawHelper::DrawPercentValue(QPainter *painter, const QStyleOptionViewItem &option, int value, const QColor &color)
+void DrawHelper::DrawPercentValue(QPainter *painter, const QStyleOptionViewItem &option, double value, const QColor &color)
 {
     const int rightMargin = 16;
     const int percentFlagWidth = 9; // %号宽度
