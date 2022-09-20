@@ -17,7 +17,7 @@
         <file alias="osd_volume_66.dci">icons/osd_volume_66.dci</file>
         <file alias="osd_volume_100.dci">icons/osd_volume_100.dci</file>
         <file alias="osd_volume_more.dci">icons/osd_volume_more.dci</file>
-        <file alias="osd_volume_mute.dci">icons/osd_volume_66.dci</file>
+        <file alias="osd_volume_mute.dci">icons/osd_volume_mute.dci</file>
         <file alias="osd_wifi_off.dci">icons/osd_wifi_off.dci</file>
         <file alias="osd_wifi_on.dci">icons/osd_wifi_on.dci</file>
         <file alias="osd_display_copy.dci">icons/osd_display_copy.dci</file>
