@@ -185,13 +185,15 @@ void Manager::updateUI()
         m_container->updateWindowRadius();
     }
 
+    // 同一个provider中文字长度不一致也要变化窗体尺寸
+    m_container->setFixedSize(m_currentProvider->contentSize());
+
     if (m_model->provider() != m_currentProvider) {
         m_model->setProvider(m_currentProvider);
         m_delegate->setProvider(m_currentProvider);
         m_listview->setFlow(m_currentProvider->flow());
         m_listview->setCurrentIndex(m_listview->model()->index(m_currentProvider->currentRow(), 0));
         m_container->setContentsMargins(m_currentProvider->contentMargins());
-        m_container->setFixedSize(m_currentProvider->contentSize());
         m_container->moveToCenter();
     }
     if (!m_container->isVisible()) { // 相同模块如果osd已经显示，就不更新OSD位置，避免频繁切换在性能较弱的机器上出现闪烁
