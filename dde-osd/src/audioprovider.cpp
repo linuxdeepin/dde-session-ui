@@ -97,7 +97,7 @@ void AudioProvider::paint(QPainter *painter, const QStyleOptionViewItem &option,
 
     // 绘制刻度
     if (increaseVolumeData.toBool())
-        drawScale(painter, option);
+        drawScale(painter, option, color);
 
     DrawHelper::DrawPercentValue(painter, option, volumeValue.toDouble() * 100, color);
 }
@@ -143,7 +143,7 @@ void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)
     }
 }
 
-void AudioProvider::drawScale(QPainter *painter, const QStyleOptionViewItem &option) const
+void AudioProvider::drawScale(QPainter *painter, const QStyleOptionViewItem &option, const QColor &paintColor) const
 {
     const int leftMargin = 200;
     const int topMargin = 20;
@@ -153,7 +153,7 @@ void AudioProvider::drawScale(QPainter *painter, const QStyleOptionViewItem &opt
     QPen pen;
     pen.setWidth(2);
 
-    QColor color(Qt::black);
+    QColor color(paintColor);
     color.setAlpha(255 * 0.3);
     pen.setColor(color);
     painter->setPen(pen);
