@@ -68,4 +68,4 @@
 * [开发者代码贡献指南](https://github.com/linuxdeepin/developer-center/wiki/Contribution-Guidelines-for-Developers) (中文)
 
 ## License
-GNU General Public License, Version 3.0
+dde-session-ui 在 [GPL-3.0-or-later](LICENSE) 下发布。
