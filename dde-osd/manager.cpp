@@ -101,9 +101,11 @@ void Manager::ShowOSD(const QString &osd)
     }
 
     if (m_currentProvider) {
-        if (!m_currentProvider->checkConditions() && m_container->isVisible()) {
+        // 在显示下一个不同类型的OSD前先隐藏前面显示的界面，避免界面不会调整大小
+        if ((!m_currentProvider->checkConditions() && m_container->isVisible()) || !repeat) {
             m_container->hide();
         }
+
         updateUI();
         if (repeat && m_container->isVisible()) {
             KBLayoutProvider *provide = qobject_cast<KBLayoutProvider *>(m_currentProvider);
