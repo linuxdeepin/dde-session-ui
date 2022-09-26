@@ -67,4 +67,4 @@ We encourage you to report issues and contribute changes
 * [开发者代码贡献指南](https://github.com/linuxdeepin/developer-center/wiki/Contribution-Guidelines-for-Developers) (中文)
 
 ## License
-GNU General Public License, Version 3.0
+DDE session ui is licensed under [GPL-3.0-or-later](LICENSE).
