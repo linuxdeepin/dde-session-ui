@@ -54,11 +54,11 @@
 
 ## 获得帮助
 * [github](https://github.com/linuxdeepin/dde-session-ui)
-* [Gitter](https://gitter.im/orgs/linuxdeepin/rooms)
-* [IRC channel](https://webchat.freenode.net/?channels=deepin)
+* [Matrix](https://matrix.to/#/#deepin-community:matrix.org)
 * [官方论坛](https://bbs.deepin.org)
 * [WiKi](https://wiki.deepin.org/)
 * [项目地址](https://github.com/linuxdeepin/dde-session-ui) 
+* [开发者中心](https://github.com/linuxdeepin/developer-center/issues)
 
 ## 贡献指南
 
