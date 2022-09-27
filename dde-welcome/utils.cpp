@@ -6,15 +6,15 @@
 
 const std::pair<QString, QString> GetSystemVersion()
 {
-    QSettings lsbSetting("/etc/deepin-version", QSettings::IniFormat);
+    QSettings lsbSetting("/etc/os-version", QSettings::IniFormat);
     lsbSetting.setIniCodec("utf-8");
-    lsbSetting.beginGroup("Release");
+    lsbSetting.beginGroup("Version");
     QLocale locale;
 
     if (locale.language() == QLocale::Chinese)
-        return std::pair<QString, QString>{ lsbSetting.value("Version").toString(),
-                    lsbSetting.value(QString("Type[%1]").arg(locale.name()), "").toString() };
+        return std::pair<QString, QString>{ lsbSetting.value("MinorVersion").toString(),
+                    lsbSetting.value(QString("EditionName[%1]").arg(locale.name()), "").toString() };
 
-    return std::pair<QString, QString>{ lsbSetting.value("Version").toString(),
-                lsbSetting.value(QString("Type"), "").toString() };
+    return std::pair<QString, QString>{ lsbSetting.value("MinorVersion").toString(),
+                lsbSetting.value(QString("EditionName"), "").toString() };
 }

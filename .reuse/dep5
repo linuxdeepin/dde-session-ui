@@ -35,8 +35,8 @@ License: CC0-1.0
 
 # sh
 Files: lupdate.sh tests/test-recoverage.sh translate_generation.sh 
-Copyright: None
-License: CC0-1.0
+Copyright: UnionTech Software Technology Co., Ltd.
+License: GPL-3.0-or-later
 
 # qss
 Files: src/*.qss
@@ -60,6 +60,11 @@ License: CC0-1.0
 
 # qss service
 Files: dde-osd/light.qss dde-osd/files/*.service dde-warning-dialog/*.service dde-welcome/*.service dmemory-warning-dialog/*.service
+Copyright: UnionTech Software Technology Co., Ltd.
+License: GPL-3.0-or-later
+
+# desktop
+Files: dde-osd/files/dde-osd.desktop
 Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
 
