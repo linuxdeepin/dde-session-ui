@@ -274,6 +274,7 @@ int switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
                 {
                     sessions++;
                     g_free(type);
+                    type = NULL;
                     g_variant_unref(type_prop_var);
                     g_object_unref(login1_session_proxy);
                     continue;
@@ -308,7 +309,8 @@ int switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
 
         if (getenv("WAYLAND_DISPLAY") != NULL)
         {
-            g_free(type);
+            if (type)
+                g_free(type);
             g_variant_unref(type_prop_var);
             g_object_unref(login1_session_proxy);
         }
