@@ -64,12 +64,12 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation>Czy na pewno chcesz zamknąć komputer?</translation>
+        <translation>Czy na pewno chcesz wyłączyć?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
         <source>Are you sure you want to reboot?</source>
-        <translation>Czy na pewno chcesz ponownie uruchomić komputer?</translation>
+        <translation>Czy na pewno chcesz uruchomić ponownie?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
@@ -81,7 +81,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
         <source>Are you sure you want to log out?</source>
-        <translation>Czy na pewno chcesz wylogować?</translation>
+        <translation>Czy na pewno chcesz się wylogować?</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
@@ -92,7 +92,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
         <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>Programy zapobiegają wyłączeniu/hibernacji komputera, a wymuszenie wyłączenia/hibernacji może spowodować utratę danych.</translation>
+        <translation>Włączone są programy, które uniemożliwiają wyłączenie / hibernację, a wymuszenie wyłączenia / hibernacji może spowodować utratę danych.</translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
@@ -137,7 +137,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>Prosimy zapisać swoje dokumenty, teksty i arkusze</translation>
+        <translation>Prosimy o zapisanie swoich dokumentów, tekstów lub arkuszy</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
@@ -147,7 +147,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Brak koniecznej ilości pamięci systemu, prosimy zakończyć pracę niektórych programów aby uniknąć niestabilnego działania.</translation>
+        <translation>Niewystarczająca ilość pamięci systemowej, zakończ niepotrzebne aplikacje, aby uniknąć zawieszenia systemu.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
@@ -208,12 +208,12 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="249"/>
         <source>Only on %1</source>
-        <translation type="unfinished"/>
+        <translation>Tylko w %1</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="251"/>
         <source>Duplicate</source>
-        <translation>Powiel</translation>
+        <translation>Duplikuj</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="253"/>
@@ -226,12 +226,12 @@
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
         <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Prosimy nie wyłączać ani nie odłączać swojego komputera</translation>
+        <translation>Nie wyłączaj, ani nie odpinaj od zasilania swojego komputera</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
         <source>Installing updates %1%, please wait...</source>
-        <translation>Zainstalowano aktualizacje w %1%, prosimy czekać...</translation>
+        <translation>Zainstalowano aktualizacje w %1%, proszę czekać...</translation>
     </message>
 </context>
 <context>
@@ -244,12 +244,12 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Weryfikacja poprzez odcisk palca przekroczyła wymagany czas, prosimy ręcznie wprowadzić hasło.</translation>
+        <translation>Weryfikacja poprzez odcisk palca przekroczyła czas oczekiwania, prosimy ręcznie wprowadzić hasło.</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
         <source>Failed to match fingerprint</source>
-        <translation>Błąd porównania odcisków palcy</translation>
+        <translation>Nie udało się dopasować odcisku palca</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
@@ -288,12 +288,12 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Weryfikacja poprzez odcisk palca przekroczyła wymagany czas, prosimy ręcznie wprowadzić hasło.</translation>
+        <translation>Weryfikacja poprzez odcisk palca przekroczyła czas oczekiwania, prosimy ręcznie wprowadzić hasło.</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
         <source>Failed to match fingerprint</source>
-        <translation>Błąd porównania odcisków palcy</translation>
+        <translation>Nie udało się dopasować odcisku palca</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="274"/>
@@ -348,7 +348,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
         <source>Proxy Password</source>
-        <translation>Hasło pośrednika proxy</translation>
+        <translation>Hasło proxy</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
@@ -363,7 +363,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
         <source>Wrong password, please enter again!</source>
-        <translation>Błędne hasło, proszę wprowadzić ponownie!</translation>
+        <translation>Błędne hasło, spróbuj ponownie!</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
@@ -381,12 +381,12 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
         <source>Notification Center</source>
-        <translation>Centrum powiadamiania </translation>
+        <translation>Centrum powiadomień</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="91"/>
         <source>%1 Notifications</source>
-        <translation>%1 Powiadomień</translation>
+        <translation>%1 powiadomień</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="93"/>
@@ -396,12 +396,12 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn off DND mode</source>
-        <translation>Wyłącz tryb DND</translation>
+        <translation>Wyłącz tryb Nie przeszkadzać</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn on DND mode</source>
-        <translation>Włącz tryb DND</translation>
+        <translation>Włącz tryb Nie przeszkadzać</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>
@@ -414,7 +414,7 @@
     <message>
         <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
         <source>Notification Center</source>
-        <translation>Centrum powiadamiania </translation>
+        <translation>Centrum powiadomień</translation>
     </message>
 </context>
 <context>
@@ -440,7 +440,7 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="49"/>
         <source>Failed to enable window effects</source>
-        <translation>Wystąpił błąd włączania efektów okien</translation>
+        <translation>Nie udało się włączyć efektów okna</translation>
     </message>
 </context>
 <context>
@@ -448,17 +448,17 @@
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation type="unfinished"/>
+        <translation>Kod PIN do połączenia z urządzeniem Bluetooth to:</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Potwierdź</translation>
     </message>
 </context>
 <context>
@@ -474,7 +474,7 @@
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation>Wykryto zewnętrzny monitor, wstrzymać?</translation>
+        <translation>Wykryto zewnętrzny monitor, czy chcesz go wstrzymać?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
@@ -511,7 +511,7 @@
     <message>
         <location filename="../dde-lock/timewidget.cpp" line="70"/>
         <source>yyyy-MM-dd dddd</source>
-        <translation>dddd dd-MM-yyyy</translation>
+        <translation>yyyy-MM-dd dddd</translation>
     </message>
 </context>
 <context>
@@ -565,17 +565,17 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>Wykryliśmy, że używasz Deepin na maszynie wirtualnej, która wpływa na wydajność systemu oraz jego działanie. Aby uzyskać jak najlepsze wrażenia, zalecamy wybór trybu zwykłego</translation>
+        <translation>Wykryliśmy, że korzystasz z maszyny wirtualnej, która wpływa na wydajność systemu oraz jego działanie. Dla najlepszych doświadczeń, zalecamy wybór Trybu normalnego</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Tryb efektów: otrzymuj płynne i delikatne doznania. Tryb zwykły: ciesz się jego szybką wydajnością.</translation>
+        <translation>Tryb efektów: otrzymuj płynne i delikatne doznania. Tryb normalny: ciesz się wysoką wydajnością.</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>Grzeczne przypomnienie</translation>
+        <translation>Przyjazne przypomnienie</translation>
     </message>
 </context>
 <context>
@@ -583,7 +583,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>Grzeczne przypomnienie</translation>
+        <translation>Uprzejme przypomnienie</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
@@ -601,7 +601,7 @@
     <message>
         <location filename="../dde-lowpower/window.cpp" line="39"/>
         <source>Low battery, please plug in</source>
-        <translation>Niski stan baterii, prosimy podłączyć do zasilania</translation>
+        <translation>Niski stan poziomu baterii, podłącz komputer do zasilania</translation>
     </message>
 </context>
 </TS>

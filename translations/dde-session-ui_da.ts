@@ -208,7 +208,7 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="249"/>
         <source>Only on %1</source>
-        <translation type="unfinished"/>
+        <translation>Kun på %1</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="251"/>

@@ -239,7 +239,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
         <source>Domain account</source>
-        <translation>Verkkotunnus</translation>
+        <translation>Toimialueen käyttäjätili</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
@@ -259,7 +259,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
         <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>Verkkotunnuksen tili tai salasana ei ole oikea. Anna uudelleen.</translation>
+        <translation>Toimialueen käyttäjätili tai salasana ei ole oikea. Kirjoita uudelleen.</translation>
     </message>
 </context>
 <context>
@@ -283,7 +283,7 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="98"/>
         <source>Domain account</source>
-        <translation>Verkkotunnus</translation>
+        <translation>Toimialueen käyttäjätili</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>

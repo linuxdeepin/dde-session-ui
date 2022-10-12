@@ -208,7 +208,7 @@
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="249"/>
         <source>Only on %1</source>
-        <translation type="unfinished"/>
+        <translation>Solo mostrada en %1</translation>
     </message>
     <message>
         <location filename="../dde-osd/displaymodeprovider.cpp" line="251"/>
@@ -448,17 +448,17 @@
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation type="unfinished"/>
+        <translation>El PIN para conectar el dispositivo Bluetooth es:</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Confirmar</translation>
     </message>
 </context>
 <context>

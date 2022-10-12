@@ -185,12 +185,12 @@
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
         <source>Updates downloaded, restart to update?</source>
-        <translation>Atualizações Baixadas! Reiniciar para Atualizar?</translation>
+        <translation>Atualizações baixadas! Reiniciar para atualizar?</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
         <source>Remind Later</source>
-        <translation>Lembrar Mais Tarde</translation>
+        <translation>Lembrar mais tarde</translation>
     </message>
     <message>
         <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
@@ -519,7 +519,7 @@
     <message>
         <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="43"/>
         <source>Select your touch screen</source>
-        <translation>Selecionar touchscreen</translation>
+        <translation>Selecionar touch screen</translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="53"/>
@@ -575,7 +575,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>Lembrete</translation>
+        <translation>Lembrete amigável</translation>
     </message>
 </context>
 <context>
@@ -583,7 +583,7 @@
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
         <source>Kindly Reminder</source>
-        <translation>Lembrete</translation>
+        <translation>Lembrete amigável</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>

@@ -244,7 +244,7 @@
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Fingerabdruck-Überprüfung abgelaufen, bitte geben Sie Ihr Passwort manuell ein. </translation>
+        <translation>Fingerabdrucküberprüfung abgelaufen, bitte geben Sie Ihr Passwort manuell ein</translation>
     </message>
     <message>
         <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
@@ -288,7 +288,7 @@
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="221"/>
         <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Fingerabdruck-Überprüfung abgelaufen, bitte geben Sie Ihr Passwort manuell ein. </translation>
+        <translation>Fingerabdrucküberprüfung abgelaufen, bitte geben Sie Ihr Passwort manuell ein</translation>
     </message>
     <message>
         <location filename="../dde-lock/lockworker.cpp" line="239"/>
@@ -547,7 +547,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
         <source>Enter</source>
-        <translation>Eingabe</translation>
+        <translation>Jetzt starten</translation>
     </message>
 </context>
 <context>

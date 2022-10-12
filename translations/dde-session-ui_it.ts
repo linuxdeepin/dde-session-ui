@@ -396,12 +396,12 @@
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn off DND mode</source>
-        <translation>Disabilita modalità DND</translation>
+        <translation>Disabilita modalità Non Disturbare</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
         <source>Turn on DND mode</source>
-        <translation>Attiva modalità DND</translation>
+        <translation>Attiva modalità Non Disturbare</translation>
     </message>
     <message>
         <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>

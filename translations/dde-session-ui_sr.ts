@@ -537,7 +537,7 @@
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Добро дошли, систем је ажуриран успешно</translation>
+        <translation>Добро дошли, систем је успешно ажуриран</translation>
     </message>
     <message>
         <location filename="../dde-welcome/updatecontent.cpp" line="45"/>

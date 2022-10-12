@@ -12,7 +12,7 @@
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="221"/>
         <source>Just Now</source>
-        <translation>ھازىر</translation>
+        <translation>بايىلا</translation>
     </message>
     <message>
         <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
@@ -64,7 +64,7 @@
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
         <source>Are you sure you want to shut down?</source>
-        <translation>راستلا تاقامسىز؟</translation>
+        <translation>راستىنلا تاقامسىز؟  </translation>
     </message>
     <message>
         <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
@@ -435,7 +435,7 @@
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="48"/>
         <source>Window effect disabled</source>
-        <translation>ئېكران ئالاھىدە ئۈنۈمى تاقالدى</translation>
+        <translation>كۆزنەك ئالاھىدە ئۈنۈمى تاقالدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/osdprovider.cpp" line="49"/>
@@ -575,7 +575,7 @@
     <message>
         <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>دوستانە بېشارەت</translation>
+        <translation>دوستانە  ئەسكەرتىش </translation>
     </message>
 </context>
 <context>
