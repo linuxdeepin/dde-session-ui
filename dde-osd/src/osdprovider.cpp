@@ -122,30 +122,30 @@ void OSDProvider::drawText(QPainter *painter, const QStyleOptionViewItem &option
 
 void OSDProvider::initParamsAndSrc()
 {
-    m_suitableParamsMap["WLANOn"] = QStringList() << "osd_wifi_on" << tr("wifi on");
-    m_suitableParamsMap["WLANOff"] = QStringList() << "osd_wifi_off" << tr("wifi off");
+    m_suitableParamsMap["WLANOn"] = QStringList() << "osd_wifi_on" << tr("WLAN on");
+    m_suitableParamsMap["WLANOff"] = QStringList() << "osd_wifi_off" << tr("WLAN off");
 
-    m_suitableParamsMap["CapsLockOn"] = QStringList() << "osd_capslock_on" << tr("uppercase"); // 大写
-    m_suitableParamsMap["CapsLockOff"] = QStringList() << "osd_capslock_off" << tr("lowercase"); // 小写
+    m_suitableParamsMap["CapsLockOn"] = QStringList() << "osd_capslock_on" << tr("Caps Lock on"); // 大写
+    m_suitableParamsMap["CapsLockOff"] = QStringList() << "osd_capslock_off" << tr("Caps Lock off"); // 小写
 
-    m_suitableParamsMap["NumLockOn"] = QStringList() << "osd_keyboard_on" << tr("number keyboard on"); // 数字键盘开启
-    m_suitableParamsMap["NumLockOff"] = QStringList() << "osd_keyboard_off" << tr("number keyboard off"); // 数字键盘关闭
+    m_suitableParamsMap["NumLockOn"] = QStringList() << "osd_keyboard_on" << tr("Numeric keypad on"); // 数字键盘开启
+    m_suitableParamsMap["NumLockOff"] = QStringList() << "osd_keyboard_off" << tr("Numeric keypad off"); // 数字键盘关闭
 
-    m_suitableParamsMap["TouchpadOn"] = QStringList() << "osd_touchpad_on" << tr("touchpad on"); // 触摸板开启
-    m_suitableParamsMap["TouchpadOff"] = QStringList() << "osd_touchpad_off" << tr("touchpad off"); // 触摸板关闭
-    m_suitableParamsMap["TouchpadToggle"] = QStringList() << "osd_touchpad_exchange" << tr("touchpad toggle"); // 触控板切换
+    m_suitableParamsMap["TouchpadOn"] = QStringList() << "osd_touchpad_on" << tr("Touchpad on"); // 触摸板开启
+    m_suitableParamsMap["TouchpadOff"] = QStringList() << "osd_touchpad_off" << tr("Touchpad off"); // 触摸板关闭
+    m_suitableParamsMap["TouchpadToggle"] = QStringList() << "osd_touchpad_exchange" << tr("Touchpad toggle"); // 触控板切换
 
     m_suitableParamsMap["FnToggle"] = QStringList() << "osd_fn" << tr("Fn toggle"); // Fn切换
 
-    m_suitableParamsMap["AirplaneModeOn"] = QStringList() << "osd_airplane_mode_on" << tr("airplane mode on");
-    m_suitableParamsMap["AirplaneModeOff"] = QStringList() << "osd_airplane_mode_off" << tr("airplane mode off");
+    m_suitableParamsMap["AirplaneModeOn"] = QStringList() << "osd_airplane_mode_on" << tr("Airplane mode on");
+    m_suitableParamsMap["AirplaneModeOff"] = QStringList() << "osd_airplane_mode_off" << tr("Airplane mode off");
 
-    m_suitableParamsMap["AudioMicMuteOn"] = QStringList() << "osd_mic_on" << tr("audio mic mute on");
-    m_suitableParamsMap["AudioMicMuteOff"] = QStringList() << "osd_mic_off" << tr("audio mic mute off");
+    m_suitableParamsMap["AudioMicMuteOn"] = QStringList() << "osd_mic_on" << tr("Mute on");
+    m_suitableParamsMap["AudioMicMuteOff"] = QStringList() << "osd_mic_off" << tr("Mute off");
 
-    m_suitableParamsMap["balance"] = QStringList() << "osd_power_balance" << tr("power balance");
-    m_suitableParamsMap["powersave"] = QStringList() << "osd_power_save" << tr("power save");
-    m_suitableParamsMap["performance"] = QStringList() << "osd_power_performance" << tr("power performance");
+    m_suitableParamsMap["balance"] = QStringList() << "osd_power_balance" << tr("Balanced power");
+    m_suitableParamsMap["powersave"] = QStringList() << "osd_power_save" << tr("Power saver");
+    m_suitableParamsMap["performance"] = QStringList() << "osd_power_performance" << tr("High performance");
 
     m_suitableParamsMap["SwitchWM3D"] = QStringList() << "osd_wm_3d" << tr("Window effect enabled");
     m_suitableParamsMap["SwitchWM2D"] = QStringList() << "osd_wm_2d" << tr("Window effect disabled");
