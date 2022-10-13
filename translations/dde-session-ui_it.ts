@@ -1,8 +1,8 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="it" sourcelanguage="en" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="it" sourcelanguage="en">
 <context>
     <name>Bubble</name>
     <message>
-        <location filename="../dde-osd/notification/bubble.cpp" line="309"/>
+        <location filename="../dde-osd/src/notification/bubble.cpp" line="325"/>
         <source>1 new message</source>
         <translation>1 nuovo messaggio</translation>
     </message>
@@ -10,22 +10,22 @@
 <context>
     <name>BubbleItem</name>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="221"/>
+        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="232"/>
         <source>Just Now</source>
         <translation>Proprio ora</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="223"/>
+        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="234"/>
         <source>%1 minutes ago</source>
         <translation>%1 minuti fa</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="225"/>
+        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="236"/>
         <source>%1 hours ago</source>
         <translation>%1 ore fa</translation>
     </message>
     <message>
-        <location filename="../dde-osd/notification-center/bubbleitem.cpp" line="228"/>
+        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="239"/>
         <source>Yesterday </source>
         <translation>Ieri</translation>
     </message>
@@ -33,94 +33,21 @@
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="228"/>
+        <location filename="../dde-license-dialog/src/content.cpp" line="272"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/content.cpp" line="229"/>
+        <location filename="../dde-license-dialog/src/content.cpp" line="273"/>
         <source>Confirm</source>
         <translation>Conferma</translation>
-    </message>
-</context>
-<context>
-    <name>ContentWidget</name>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="330"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="367"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="391"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="527"/>
-        <source>Shut down</source>
-        <translation>Spegni</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="332"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="369"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="396"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="530"/>
-        <source>Reboot</source>
-        <translation>Riavvia</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="392"/>
-        <source>Are you sure you want to shut down?</source>
-        <translation>Sicuro di voler spegnere?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="397"/>
-        <source>Are you sure you want to reboot?</source>
-        <translation>Desideri veramente riavviare il Sistema?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="338"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="401"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="542"/>
-        <source>Log out</source>
-        <translation>Logout</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="402"/>
-        <source>Are you sure you want to log out?</source>
-        <translation>Sicuro di voler terminare la sessione?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="334"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="533"/>
-        <source>Suspend</source>
-        <translation>Sospendi</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="326"/>
-        <source>The programs are preventing the computer from shutting down / hibernation, and forcing shut down / hibernate may cause data loss.</source>
-        <translation>I programmi attivi non permettono lo spegnimento / ibernazione del PC, forzare lo spegnimento / ibernazione potrebbe causare la perdita di dati.</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="327"/>
-        <source>To close the program, Click Cancel, and then close the program.</source>
-        <translation>Per chiudere il programma, clicca Annulla, e chiudi il programma in questione.</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="336"/>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="536"/>
-        <source>Hibernate</source>
-        <translation>Ibernazione</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="539"/>
-        <source>Lock</source>
-        <translation>Blocca</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/contentwidget.cpp" line="546"/>
-        <source>Switch user</source>
-        <translation>Cambia utente</translation>
     </message>
 </context>
 <context>
     <name>DMemoryWarningDialog</name>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="86"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="88"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
@@ -130,289 +57,109 @@
         <translation>Versione</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="54"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
         <translation>Questa applicazione verrà chiusa, assicurati di aver salvato gli ultimi progressi!</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="56"/>
         <source>Please save your document, text and spreadsheet</source>
         <translation>Salva i tuoi documenti, testi o fogli di calcolo</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="89"/>
         <source>Continue</source>
         <translation>Continua</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="105"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="110"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
         <translation>Memoria di sistema insufficiente, chiudi alcune applicazioni per evitare blocchi del sistema.</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="222"/>
         <source>Continue to run %1, %2MB memory is required</source>
         <translation>Per continuare ad utilizzare %1 sono richiesti %2MB di memoria</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="220"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="225"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
         <translation>Per aprire una nuova scheda del browser sono richiesti %1MB di memoria</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="223"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="228"/>
         <source>To continue the operation, %1MB memory is required</source>
         <translation>Per proseguire questa operazione sono necessari %1MB di memoria</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="229"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="234"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
         <translation>La memoria disponibile è sufficiente, proseguire eseguendo %1?</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="232"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="237"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
         <translation>La tua memoria disponibile è sufficiente, proseguire aprendo una nuova scheda del browser?</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="235"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="240"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
         <translation>La tua memoria disponibile è sufficiente, continuare l&apos;operazione?</translation>
     </message>
 </context>
 <context>
-    <name>Dialog</name>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="30"/>
-        <source>Updates downloaded, restart to update?</source>
-        <translation>Aggiornamenti scaricati, riavviare per installarli?</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="33"/>
-        <source>Remind Later</source>
-        <translation>Ricordamelo dopo</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="34"/>
-        <source>Not Now</source>
-        <translation>Non ora</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/dialog.cpp" line="35"/>
-        <source>Update Now</source>
-        <translation>Aggiorna ora</translation>
-    </message>
-</context>
-<context>
     <name>DisplayModeProvider</name>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="249"/>
+        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="292"/>
         <source>Only on %1</source>
         <translation>Utilizza solo %1</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="251"/>
+        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="294"/>
         <source>Duplicate</source>
         <translation>Duplica</translation>
     </message>
     <message>
-        <location filename="../dde-osd/displaymodeprovider.cpp" line="253"/>
+        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="296"/>
         <source>Extend</source>
         <translation>Estendi</translation>
     </message>
 </context>
 <context>
-    <name>Frame</name>
-    <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="54"/>
-        <source>Please don&apos;t power off or unplug your machine</source>
-        <translation>Non spegnere o scollegare il PC</translation>
-    </message>
-    <message>
-        <location filename="../dde-offline-upgrader/frame.cpp" line="136"/>
-        <source>Installing updates %1%, please wait...</source>
-        <translation>Installazione aggiornamenti %1%, attendere prego...</translation>
-    </message>
-</context>
-<context>
-    <name>GreeterWorkek</name>
-    <message>
-        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="93"/>
-        <source>Domain account</source>
-        <translation>Account</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="249"/>
-        <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Verifica dell&apos;impronta digitale fallita per timeout, inserisci la tua password manualmente</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="264"/>
-        <source>Failed to match fingerprint</source>
-        <translation>Controllo impronta digitale fallita</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="282"/>
-        <source>Wrong Password</source>
-        <translation>Password errata</translation>
-    </message>
-    <message>
-        <location filename="../lightdm-deepin-greeter/greeterworkek.cpp" line="287"/>
-        <source>The domain account or password is not correct. Please enter again.</source>
-        <translation>Account o password non corretti. Inseriscili nuovamente.</translation>
-    </message>
-</context>
-<context>
-    <name>InhibitWarnView</name>
-    <message>
-        <location filename="../dde-shutdown/view/inhibitwarnview.cpp" line="66"/>
-        <source>Cancel</source>
-        <translation>Annulla</translation>
-    </message>
-</context>
-<context>
     <name>KBLayoutIndicator</name>
     <message>
-        <location filename="../dde-osd/kblayoutindicator.cpp" line="161"/>
+        <location filename="../dde-osd/src/kblayoutindicator.cpp" line="161"/>
         <source>Add keyboard layout</source>
         <translation>Aggiungi un layout della Tastiera</translation>
     </message>
 </context>
 <context>
-    <name>LockWorker</name>
-    <message>
-        <location filename="../dde-lock/lockworker.cpp" line="98"/>
-        <source>Domain account</source>
-        <translation>Account</translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockworker.cpp" line="221"/>
-        <source>Fingerprint verification timed out, please enter your password manually</source>
-        <translation>Verifica dell&apos;impronta digitale fallita per timeout, inserisci la tua password manualmente</translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockworker.cpp" line="239"/>
-        <source>Failed to match fingerprint</source>
-        <translation>Controllo impronta digitale fallita</translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/lockworker.cpp" line="274"/>
-        <source>Wrong Password</source>
-        <translation>Password errata</translation>
-    </message>
-</context>
-<context>
-    <name>MultiUsersWarningView</name>
-    <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="44"/>
-        <source>Cancel</source>
-        <translation>Annulla</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="129"/>
-        <source>The above users are still logged in and data will be lost due to reboot, are you sure you want to reboot?</source>
-        <translation>Gli utenti sopra indicati sono loggati ed i dati andranno persi col riavvio, sicuro di voler riavviare?</translation>
-    </message>
-    <message>
-        <location filename="../dde-shutdown/view/multiuserswarningview.cpp" line="123"/>
-        <source>The above users are still logged in and data will be lost due to shutdown, are you sure you want to shut down?</source>
-        <translation>Gli utenti sopra indicati sono oggati ed i dati andranno persi spegnendo il PC, sicuro di voler spegnere?</translation>
-    </message>
-</context>
-<context>
     <name>NetworkSecretDialog</name>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="46"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="52"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="62"/>
-        <source>Password</source>
-        <translation>Password</translation>
-    </message>
-    <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="47"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="48"/>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="49"/>
-        <source>Key</source>
-        <translation>Chiave</translation>
-    </message>
-    <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="50"/>
-        <source>key</source>
-        <translation>Chiave</translation>
-    </message>
-    <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="58"/>
-        <source>Private Pwd</source>
-        <translation>Password privata</translation>
-    </message>
-    <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="61"/>
-        <source>Proxy Password</source>
-        <translation>Password Proxy</translation>
-    </message>
-    <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="63"/>
-        <source>Group Password</source>
-        <translation>Password di Gruppo</translation>
-    </message>
-    <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="105"/>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="107"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
         <translation>Password per connettersi a &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="174"/>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="179"/>
         <source>Wrong password, please enter again!</source>
         <translation>Password errata, riprova per cortesia!</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="116"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../dnetwork-secret-dialog/networksecretdialog.cpp" line="114"/>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="116"/>
         <source>Connect</source>
         <translation>Connetti</translation>
     </message>
 </context>
 <context>
-    <name>NotificationsPlugin</name>
-    <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="71"/>
-        <source>Notification Center</source>
-        <translation>Centro notifiche</translation>
-    </message>
-    <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="91"/>
-        <source>%1 Notifications</source>
-        <translation>%1 Notifiche</translation>
-    </message>
-    <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="93"/>
-        <source>No messages</source>
-        <translation>Nessun messaggio</translation>
-    </message>
-    <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
-        <source>Turn off DND mode</source>
-        <translation>Disabilita modalità DND</translation>
-    </message>
-    <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="239"/>
-        <source>Turn on DND mode</source>
-        <translation>Attiva modalità DND</translation>
-    </message>
-    <message>
-        <location filename="../dde-notification-plugin/notifications/notificationsplugin.cpp" line="246"/>
-        <source>Notification settings</source>
-        <translation>Impostazioni notifiche</translation>
-    </message>
-</context>
-<context>
     <name>NotifyCenterWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifycenterwidget.cpp" line="89"/>
+        <location filename="../dde-osd/src/notification-center/notifycenterwidget.cpp" line="97"/>
         <source>Notification Center</source>
         <translation>Centro notifiche</translation>
     </message>
@@ -420,7 +167,7 @@
 <context>
     <name>NotifyWidget</name>
     <message>
-        <location filename="../dde-osd/notification-center/notifywidget.cpp" line="40"/>
+        <location filename="../dde-osd/src/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
         <translation>Nessuna notifica di sistema</translation>
     </message>
@@ -428,35 +175,186 @@
 <context>
     <name>OSDProvider</name>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="47"/>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="138"/>
+        <source>Fn toggle</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
+        <source>WLAN on</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="126"/>
+        <source>WLAN off</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
+        <source>Caps Lock on</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
+        <source>Caps Lock off</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
+        <source>Numeric keypad on</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="132"/>
+        <source>Numeric keypad off</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
+        <source>Touchpad on</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
+        <source>Touchpad off</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
+        <source>Touchpad toggle</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
+        <source>Airplane mode on</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
+        <source>Airplane mode off</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
+        <source>Mute on</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="144"/>
+        <source>Mute off</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
+        <source>Balanced power</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
+        <source>Power saver</source>
+        <translation>Risparmio d&apos;energia</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="148"/>
+        <source>High performance</source>
+        <translation>Alte prestazioni</translation>
+    </message>
+    <message>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="150"/>
         <source>Window effect enabled</source>
         <translation>Effetti finestre abilitati</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="48"/>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="151"/>
         <source>Window effect disabled</source>
         <translation>Effetti finestre disabilitati</translation>
     </message>
     <message>
-        <location filename="../dde-osd/osdprovider.cpp" line="49"/>
+        <location filename="../dde-osd/src/osdprovider.cpp" line="152"/>
         <source>Failed to enable window effects</source>
         <translation>Attivazione effetti finestre fallita</translation>
     </message>
 </context>
 <context>
+    <name>PasswordWidget</name>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="57"/>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="146"/>
+        <source>Passwords do not match</source>
+        <translation>Le password non coincidono</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="65"/>
+        <source>The hint is visible to all users. Do not include the password here.</source>
+        <translation>Il suggerimento è visibile a tutti gli utenti. Non scrivere qui la password.</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="86"/>
+        <source>New Password</source>
+        <translation>Nuova password</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="120"/>
+        <source>Repeat Password</source>
+        <translation>Ripeti password</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="128"/>
+        <source>Password Hint</source>
+        <translation>Suggerimento password</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="137"/>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="138"/>
+        <source>Required</source>
+        <translation>Richiesto</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="139"/>
+        <source>Optional</source>
+        <translation>Opzionale</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="221"/>
+        <source>Strong</source>
+        <translation>Forte</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="231"/>
+        <source>Medium</source>
+        <translation>Media</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="240"/>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="253"/>
+        <source>A stronger password is recommended: more than 8 characters, and contains 3 of the four character types: lowercase letters, uppercase letters, numbers, and symbols.</source>
+        <translation>Si consiglia una password più complessa: più di 8 caratteri e contenga 3 dei quattro tipi di caratteri: lettere minuscole, lettere maiuscole, numeri e simboli.</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="244"/>
+        <source>Weak</source>
+        <translation>Debole</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/passwordwidget.cpp" line="255"/>
+        <source>Error occurred when reading the configuration files of password rules!</source>
+        <translation>Si è verificato un errore durante la lettura dei file di configurazione delle regole della password!</translation>
+    </message>
+</context>
+<context>
     <name>PinCodeDialog</name>
     <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="39"/>
+        <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="40"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
         <translation>Il PIN per connettersi al dispositivo Bluetooth è: </translation>
     </message>
     <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="47"/>
+        <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="49"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../dde-bluetooth-dialog/pincodedialog.cpp" line="49"/>
+        <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="51"/>
         <source>Confirm</source>
         <translation>Conferma</translation>
     </message>
@@ -470,82 +368,367 @@
     </message>
 </context>
 <context>
-    <name>SuspendDialog</name>
+    <name>PwqualityManager</name>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
-        <source>External monitor detected, suspend?</source>
-        <translation>Monitor esterno rilevato, sospenderlo?</translation>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
+        <source>Password cannot be empty</source>
+        <translation>La password non può essere assente</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="39"/>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="61"/>
-        <source>%1s</source>
-        <translation>%1s</translation>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
+        <source>Password must have at least %1 characters</source>
+        <translation>La password deve contenere almeno %1 caratteri</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
+        <source>Password must be no more than %1 characters</source>
+        <translation>La password non può superare %1 caratteri</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
+        <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
+        <translation>La password deve contenere lettere Italiane (case-sensitive), numeri o caratteri speciali (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
+        <source>No more than %1 palindrome characters please</source>
+        <translation>Non più di %1 caratteri palindromi per favore</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
+        <source>No more than %1 monotonic characters please</source>
+        <translation>Non più di %1 caratteri monotoni per favore</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
+        <source>No more than %1 repeating characters please</source>
+        <translation>Non più di %1 caratteri ripetuti per favore</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
+        <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
+        <translation>La password deve contenere lettere maiuscole, minuscole, numeri e simboli (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
+        <source>Password must not contain more than 4 palindrome characters</source>
+        <translation>La password non può contenere più di 4 caratteri palindromi</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
+        <source>Do not use common words and combinations as password</source>
+        <translation>Non utilizzare parole comuni e le loro combinazioni come password</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
+        <source>Create a strong password please</source>
+        <translation>Per cortesia, crea una password più sicura</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
+        <source>It does not meet password rules</source>
+        <translation>Non rispetta le regole di password</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="43"/>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="49"/>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="59"/>
+        <source>Password</source>
+        <translation>Password</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="44"/>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="45"/>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="46"/>
+        <source>Key</source>
+        <translation>Chiave</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="47"/>
+        <source>key</source>
+        <translation>Chiave</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="55"/>
+        <source>Private Pwd</source>
+        <translation>Password privata</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="58"/>
+        <source>Proxy Password</source>
+        <translation>Password Proxy</translation>
+    </message>
+    <message>
+        <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="60"/>
+        <source>Group Password</source>
+        <translation>Password di Gruppo</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/utils.h" line="71"/>
+        <source>It cannot be empty</source>
+        <translation>Non può essere vuoto</translation>
+    </message>
+</context>
+<context>
+    <name>ResetPasswordDialog</name>
+    <message>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="110"/>
+        <source>Resetting the password will clear the data stored in the keyring</source>
+        <translation>La reimpostazione della password cancellerà i dati memorizzati nel portachiavi</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="112"/>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="168"/>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="210"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/suspenddialog.cpp" line="50"/>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="121"/>
+        <source>Security Questions</source>
+        <translation>Domande di sicurezza</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="156"/>
+        <source>Reset Password</source>
+        <translation>Reset password</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="157"/>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="195"/>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="198"/>
+        <source>Next</source>
+        <translation>Avanti</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="160"/>
+        <source>Reset Password By Union ID</source>
+        <translation>Reset password mediante Union ID</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="161"/>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="195"/>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="198"/>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="206"/>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="213"/>
+        <source>Reset</source>
+        <translation>Reset</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="167"/>
+        <source>Resetting the password will clear the data stored in your keyring, and you should log in again, please save files in advance</source>
+        <translation>La reimpostazione della password cancellerà i dati memorizzati nel portachiavi e dovresti accedere di nuovo, salva i file in anticipo</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="168"/>
+        <source>Confirm and Reset</source>
+        <translation>Conferma e ripristina</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="264"/>
+        <source>Successfully reset, please log in and unlock with the new password</source>
+        <translation>Reset completato, accedere quindi con la nuova password</translation>
+    </message>
+</context>
+<context>
+    <name>SecurityQuestionsWidget</name>
+    <message>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="127"/>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="128"/>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="129"/>
+        <source>Required</source>
+        <translation>Richiesto</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="131"/>
+        <source>What&apos;s the name of the city where you were born?</source>
+        <translation>Qual è il nome della città in cui sei nato?</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="132"/>
+        <source>What&apos;s the name of the first school you attended?</source>
+        <translation>Qual è il nome della scuola primaria che hai frequentato?</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="133"/>
+        <source>Who do you love the most in this world?</source>
+        <translation>Cosa ami di più a questo mondo?</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="134"/>
+        <source>What&apos;s your favorite animal?</source>
+        <translation>Qual è il tuo animale preferito?</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="135"/>
+        <source>What&apos;s your favorite song?</source>
+        <translation>Qual è la tua canzone preferita?</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="136"/>
+        <source>What&apos;s your nickname?</source>
+        <translation>Qual è il tuo nickname?</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="186"/>
+        <source>Wrong answer</source>
+        <translation>Risposta errata</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="201"/>
+        <source>Keep the answer under 30 characters</source>
+        <translation>La risposta non deve eccedere i 30 caratteri</translation>
+    </message>
+</context>
+<context>
+    <name>SuspendDialog</name>
+    <message>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="39"/>
+        <source>External monitor detected, suspend?</source>
+        <translation>Monitor esterno rilevato, sospenderlo?</translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="39"/>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="65"/>
+        <source>%1s</source>
+        <translation>%1s</translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="54"/>
+        <source>Cancel</source>
+        <translation>Annulla</translation>
+    </message>
+    <message>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="54"/>
         <source>Suspend</source>
         <translation>Sospendi</translation>
     </message>
 </context>
 <context>
-    <name>SystemMonitor</name>
-    <message>
-        <location filename="../dde-shutdown/view/systemmonitor.cpp" line="45"/>
-        <source>Start system monitor</source>
-        <translation>Avvia il System Monitor</translation>
-    </message>
-</context>
-<context>
-    <name>TimeWidget</name>
-    <message>
-        <location filename="../dde-lock/timewidget.cpp" line="69"/>
-        <source>hh:mm</source>
-        <translation>hh:mm</translation>
-    </message>
-    <message>
-        <location filename="../dde-lock/timewidget.cpp" line="70"/>
-        <source>yyyy-MM-dd dddd</source>
-        <translation>yyyy-MM-dd dddd</translation>
-    </message>
-</context>
-<context>
     <name>TouchscreenSetting</name>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="43"/>
+        <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="45"/>
         <source>Select your touch screen</source>
         <translation>Seleziona il tuo touch screen</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="53"/>
+        <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="55"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../dde-touchscreen-dialog/touchscreensetting.cpp" line="54"/>
+        <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="56"/>
         <source>Confirm</source>
         <translation>Conferma</translation>
     </message>
 </context>
 <context>
+    <name>UnionIDWidget</name>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="63"/>
+        <source>Phone/Email</source>
+        <translation>Telefono/Email</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="69"/>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="136"/>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="289"/>
+        <source>Get Code</source>
+        <translation>Ottieni codice</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="89"/>
+        <source>Connecting to the Internet...</source>
+        <translation>Connessione ad internet...</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="101"/>
+        <source>The user account is not linked to Union ID</source>
+        <translation>L&apos;account utente non è collegato a Union ID</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="114"/>
+        <source>Network disconnected, please retry after connected</source>
+        <translation>Rete disconnessa, riprova dopo aver stabilito una connessione</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="134"/>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="135"/>
+        <source>Required</source>
+        <translation>Richiesto</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="170"/>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="185"/>
+        <source>Phone/Email format is incorrect</source>
+        <translation>Formato numero/indirizzo email non corretto</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="239"/>
+        <source>System error</source>
+        <translation>Errore di sistema</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="241"/>
+        <source>Login expired, please sign in to the Union ID again</source>
+        <translation>Login scaduto, ricollegati con Union ID</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="243"/>
+        <source>Network error</source>
+        <translation>Errore rete</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="245"/>
+        <source>You have reached the number limit to get the code today</source>
+        <translation>Hai raggiunto il numero massimo di codici giornalieri</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="246"/>
+        <source>The Union ID is not linked to a user account</source>
+        <translation>L&apos;Union ID non è collegato ad un account utente</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="255"/>
+        <source>It cannot be empty</source>
+        <translation>Non può essere vuoto</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="292"/>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="334"/>
+        <source>Resend (%1s)</source>
+        <translation>Invia nuovamente (%1s)</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="353"/>
+        <source>Failed to get the code</source>
+        <translation>Ottenimento codice fallito</translation>
+    </message>
+    <message>
+        <location filename="../reset-password-dialog/unionidwidget.cpp" line="376"/>
+        <source>Wrong verification code</source>
+        <translation>Codice di verifica errato</translation>
+    </message>
+</context>
+<context>
     <name>UpdateContent</name>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="44"/>
+        <location filename="../dde-welcome/src/updatecontent.cpp" line="45"/>
         <source>Welcome, system updated successfully</source>
         <translation>Perfetto, il Sistema è stato aggiornato</translation>
     </message>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="45"/>
+        <location filename="../dde-welcome/src/updatecontent.cpp" line="46"/>
         <source>Current Edition:</source>
         <translation>Versione corrente:</translation>
     </message>
     <message>
-        <location filename="../dde-welcome/updatecontent.cpp" line="46"/>
+        <location filename="../dde-welcome/src/updatecontent.cpp" line="47"/>
         <source>Enter</source>
         <translation>Accedi</translation>
     </message>
@@ -553,27 +736,27 @@
 <context>
     <name>WMChooser</name>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="57"/>
+        <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
         <translation>Modalità Completa</translation>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="60"/>
+        <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
         <translation>Modalità Base</translation>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="68"/>
+        <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
         <translation>E&apos; stato rilevato l&apos;utilizzo di una macchina virtuale, il che impatta negativamente sulle prestazioni e l&apos;operatività del Sistema, per un&apos;esperienza migliore si raccomanda l&apos;utilizzo della Modalità Base</translation>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="71"/>
+        <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
         <translation>Completa: esperienza utente completa; Base: goditi le massime performance.</translation>
     </message>
     <message>
-        <location filename="../dde-wm-chooser/wmchooser.cpp" line="64"/>
+        <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
         <translation>Promemoria</translation>
     </message>
@@ -581,17 +764,17 @@
 <context>
     <name>WarningDialog</name>
     <message>
-        <location filename="../dde-warning-dialog/warningdialog.cpp" line="37"/>
+        <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="38"/>
         <source>Kindly Reminder</source>
         <translation>Promemoria</translation>
     </message>
     <message>
-        <location filename="../dde-warning-dialog/warningdialog.cpp" line="38"/>
+        <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="39"/>
         <source>This application cannot run without window effect</source>
         <translation>Questa applicazione non può funzionare senza effetti grafici abilitati</translation>
     </message>
     <message>
-        <location filename="../dde-warning-dialog/warningdialog.cpp" line="42"/>
+        <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="43"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -599,7 +782,7 @@
 <context>
     <name>Window</name>
     <message>
-        <location filename="../dde-lowpower/window.cpp" line="39"/>
+        <location filename="../dde-lowpower/src/window.cpp" line="41"/>
         <source>Low battery, please plug in</source>
         <translation>Batteria scarica, metti il PC in carica</translation>
     </message>
