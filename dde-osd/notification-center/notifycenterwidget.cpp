@@ -277,10 +277,19 @@ void NotifyCenterWidget::registerRegion()
     if (interface.isValid()) {
         m_regionConnect = connect(m_regionMonitor, &DRegionMonitor::buttonRelease, this, [ = ](const QPoint & p) {
             QPoint pScale(int(qreal(p.x() / m_scale)), int(qreal(p.y() / m_scale)));
-            if (!geometry().contains(pScale))
-                if (!isHidden()) {
-                    hideAni();
-                }
+            // 多屏开缩放下，qt坐标有问题，需要手动计算
+            QScreen *screen = windowHandle()->screen();
+            if (screen) {
+                const QRect screenRect = screen->geometry();
+                QRect rect = geometry();
+                rect.setX(screenRect.x() / m_scale + geometry().x() - screenRect.x());
+                if (!rect.contains(pScale))
+                    if (!isHidden()) {
+                        hideAni();
+                    }
+            } else {
+                qWarning() << "windowHandle()->screen() is null";
+            }
         });
     }
 
