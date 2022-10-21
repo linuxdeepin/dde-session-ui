@@ -30,13 +30,15 @@ Container::Container(QWidget *parent)
     , m_supportComposite(m_wmHelper->hasComposite())
 {
     setAccessibleName("Container");
-    setWindowFlags(Qt::Tool | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_TranslucentBackground);
 
     if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
+        setWindowFlags(Qt::Tool | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
         setAttribute(Qt::WA_NativeWindow);
         // 慎重修改层级，特别考虑对锁屏的影响
         windowHandle()->setProperty("_d_dwayland_window-type", "onScreenDisplay");
+    } else {
+        setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
     }
 
     m_quitTimer->setSingleShot(true);
