@@ -12,7 +12,7 @@
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="232"/>
         <source>Just Now</source>
-        <translation>現在</translation>
+        <translation>剛剛</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="234"/>
@@ -54,17 +54,17 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation>釋出</translation>
+        <translation>釋放</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>此應用程式將被關閉，請確保你已經儲存資料！</translation>
+        <translation>應用記憶體將被釋放，請確認目前資料是否已儲存！</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="56"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>請儲存您的文件、文字和試算表</translation>
+        <translation>如文件、文字、表單等資料</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="89"/>
@@ -74,37 +74,37 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="110"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>系統記憶體不足，請關閉部份程式以避免當機。</translation>
+        <translation>目前系統記憶體不足，避免出現卡死，請釋放相關應用記憶體！</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="222"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>要執行 %1 需要 %2MB 的記憶體</translation>
+        <translation>如果繼續執行%1應用，需要釋放%2MB記憶體！</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="225"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>要開啟瀏覽器分頁需要 %1MB 的記憶體</translation>
+        <translation>如果繼續打開瀏覽器標籤，需要釋放%1MB記憶體！</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="228"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>繼續操作需要 %1MB 的記憶體</translation>
+        <translation>如果繼續執行指令，需要釋放%1MB記憶體！</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="234"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>目前的記憶體已經足夠，繼續執行 %1？</translation>
+        <translation>您的目前記憶體已滿足使用，是否繼續執行%1應用？</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="237"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>目前的記憶體已經足夠，繼續開啟瀏覽器分頁？</translation>
+        <translation>您的目前記憶體已滿足使用，是否繼續打開瀏覽器標籤？</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="240"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation>目前的記憶體已經足夠，繼續此操作？</translation>
+        <translation>您的目前記憶體已滿足使用，是否繼續執行指令？</translation>
     </message>
 </context>
 <context>
@@ -117,12 +117,12 @@
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="294"/>
         <source>Duplicate</source>
-        <translation>同步顯示畫面</translation>
+        <translation>複製</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="296"/>
         <source>Extend</source>
-        <translation>延伸畫面</translation>
+        <translation>擴展</translation>
     </message>
 </context>
 <context>
@@ -130,7 +130,7 @@
     <message>
         <location filename="../dde-osd/src/kblayoutindicator.cpp" line="161"/>
         <source>Add keyboard layout</source>
-        <translation>新增鍵盤配置</translation>
+        <translation>添加鍵盤布局</translation>
     </message>
 </context>
 <context>
@@ -153,7 +153,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="116"/>
         <source>Connect</source>
-        <translation>連線</translation>
+        <translation>連接</translation>
     </message>
 </context>
 <context>
@@ -169,7 +169,7 @@
     <message>
         <location filename="../dde-osd/src/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
-        <translation>沒有系統通知</translation>
+        <translation>無系統通知</translation>
     </message>
 </context>
 <context>
@@ -262,17 +262,17 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="150"/>
         <source>Window effect enabled</source>
-        <translation>已啟用視窗特效</translation>
+        <translation>視窗特效已開啟</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="151"/>
         <source>Window effect disabled</source>
-        <translation>已停用視窗特效</translation>
+        <translation>視窗特效已關閉</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="152"/>
         <source>Failed to enable window effects</source>
-        <translation>視窗特效啟用失敗</translation>
+        <translation>無法開啟視窗特效</translation>
     </message>
 </context>
 <context>
@@ -281,7 +281,7 @@
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="57"/>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="146"/>
         <source>Passwords do not match</source>
-        <translation>密碼不符</translation>
+        <translation>密碼不一致</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="65"/>
@@ -346,7 +346,7 @@
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="40"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation>確認雙方藍牙配對 PIN 碼為：</translation>
+        <translation>連接藍牙裝置的PIN碼為：</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="49"/>
@@ -364,7 +364,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation>結束</translation>
+        <translation>釋放</translation>
     </message>
 </context>
 <context>
@@ -372,17 +372,17 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation>密碼不能空白</translation>
+        <translation>密碼不能為空</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation>密碼應包含至少%1個字元</translation>
+        <translation>密碼長度不能少於%1個字元</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>密碼必須少於 %1 個字元</translation>
+        <translation>密碼長度不能超過%1個字元</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
@@ -412,13 +412,13 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation>密碼不得含有連續4個以上的回文字符</translation>
+        <translation>密碼不得含有連續4個以上的回文字元</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>密碼不能是常見單詞及組合</translation>
+        <translation>密碼不能是常見單字及組合</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
@@ -479,7 +479,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="110"/>
         <source>Resetting the password will clear the data stored in the keyring</source>
-        <translation>重設密碼將會清除金鑰環內已儲存的數據</translation>
+        <translation>重設密碼將會清除金鑰環內已儲存的資料</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="112"/>
@@ -517,7 +517,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="206"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="213"/>
         <source>Reset</source>
-        <translation>重 設</translation>
+        <translation>重 置</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="167"/>
@@ -590,13 +590,13 @@
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation>偵測到外接式螢幕，確定待機？</translation>
+        <translation>檢測到外部顯示器，是否待機？</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="39"/>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="65"/>
         <source>%1s</source>
-        <translation>%1 秒</translation>
+        <translation>%1秒</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="54"/>
@@ -644,12 +644,12 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="89"/>
         <source>Connecting to the Internet...</source>
-        <translation>網路連接中...</translation>
+        <translation>網路連線中...</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="101"/>
         <source>The user account is not linked to Union ID</source>
-        <translation>當前帳戶未綁定Union ID</translation>
+        <translation>目前帳戶未綁定Union ID</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="114"/>
@@ -720,7 +720,7 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="45"/>
         <source>Welcome, system updated successfully</source>
-        <translation>哈囉，系統已更新成功</translation>
+        <translation>歡迎您，系統已成功升級</translation>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="46"/>
@@ -730,7 +730,7 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="47"/>
         <source>Enter</source>
-        <translation>進入</translation>
+        <translation>開始使用</translation>
     </message>
 </context>
 <context>
@@ -743,22 +743,22 @@
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>一般模式</translation>
+        <translation>普通模式</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>已偵測到您正在使用虛擬機器，其可能會影響系統效能與操作體驗。為了更流暢的體驗，建議使用「一般模式」。</translation>
+        <translation>檢測到您正在使用虛擬機，這將影響系統效能和操作體驗，為了在虛擬機下流暢地使用該系統，建議您選擇普通模式進入桌面</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>效能模式：提供較精緻的體驗。一般模式：體驗較快速的效能</translation>
+        <translation>特效模式：享受精緻美觀的體驗；普通模式：盡享流暢極速的效能</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>友善提醒</translation>
+        <translation>友情提示</translation>
     </message>
 </context>
 <context>
@@ -766,12 +766,12 @@
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="38"/>
         <source>Kindly Reminder</source>
-        <translation>注意</translation>
+        <translation>溫馨提示</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="39"/>
         <source>This application cannot run without window effect</source>
-        <translation>此應用程式不能在無視窗特效的情況下執行</translation>
+        <translation>此應用不支援在無視窗特效下執行</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="43"/>
@@ -784,7 +784,7 @@
     <message>
         <location filename="../dde-lowpower/src/window.cpp" line="41"/>
         <source>Low battery, please plug in</source>
-        <translation>低電量，請接電源</translation>
+        <translation>電量不足，請接入電源</translation>
     </message>
 </context>
 </TS>

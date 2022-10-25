@@ -59,7 +59,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>Ky aplikacion do të përfundohet, ju lutemi, sigurohuni se janë ruajtur të dhënat tuaja!</translation>
+        <translation>Funksionimi i këtij aplikacioni do të përfundohet, ju lutemi, sigurohuni se janë ruajtur të dhënat tuaja!</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="56"/>
@@ -177,72 +177,72 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="138"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"/>
+        <translation>Këmbim Fn-je</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
         <source>WLAN on</source>
-        <translation type="unfinished"/>
+        <translation>WLAN hapur</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="126"/>
         <source>WLAN off</source>
-        <translation type="unfinished"/>
+        <translation>WLAN mbyllur</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
         <source>Caps Lock on</source>
-        <translation type="unfinished"/>
+        <translation>Shkronja të mëdha aktive</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
         <source>Caps Lock off</source>
-        <translation type="unfinished"/>
+        <translation>Shkronja të vogla joaktive</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
         <source>Numeric keypad on</source>
-        <translation type="unfinished"/>
+        <translation>Pjesa numerike aktive</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="132"/>
         <source>Numeric keypad off</source>
-        <translation type="unfinished"/>
+        <translation>Pjesa numerike joaktive</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation type="unfinished"/>
+        <translation>Touchpad-i aktiv</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation type="unfinished"/>
+        <translation>Touchpad-i joaktiv</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
         <source>Touchpad toggle</source>
-        <translation type="unfinished"/>
+        <translation>Aktivizim/çaktivizim Touchpad-i</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation type="unfinished"/>
+        <translation>Mënyra aeroplan aktive</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation type="unfinished"/>
+        <translation>Mënyra aeroplan joaktive</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
         <source>Mute on</source>
-        <translation type="unfinished"/>
+        <translation>Me heshtim</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="144"/>
         <source>Mute off</source>
-        <translation type="unfinished"/>
+        <translation>Pa heshtim</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
@@ -252,7 +252,7 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
         <source>Power saver</source>
-        <translation type="unfinished"/>
+        <translation>Kursyes energjie</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="148"/>
@@ -446,7 +446,7 @@
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="45"/>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="46"/>
         <source>Key</source>
-        <translation>Ky</translation>
+        <translation>Tast</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="47"/>
@@ -471,7 +471,7 @@
     <message>
         <location filename="../reset-password-dialog/utils.h" line="71"/>
         <source>It cannot be empty</source>
-        <translation>S’mund të jetë e zbrazët</translation>
+        <translation>S’mund të jetë i zbrazët</translation>
     </message>
 </context>
 <context>
@@ -696,7 +696,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="255"/>
         <source>It cannot be empty</source>
-        <translation>S’mund të jetë e zbrazët</translation>
+        <translation>S’mund të jetë i zbrazët</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="292"/>
@@ -743,12 +743,12 @@
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>Mënyrë Normale</translation>
+        <translation>Mënyra Normale</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>Është pikasur që po xhironi një makinë virtual, çka do të ketë ndikim në funksionimin e sistemit dhe punën tuaj me veprimin, për një punim të rrjedhshëm, rekomandohet Mënyra Normale</translation>
+        <translation>Është pikasur se po xhironi një makinë virtuale, çka do të ketë ndikim në funksionimin e sistemit dhe veprimeve tuaja, për një punim të rrjedhshëm, rekomandohet Mënyra Normale</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="71"/>

@@ -117,12 +117,12 @@
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="294"/>
         <source>Duplicate</source>
-        <translation>同步</translation>
+        <translation>複製</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="296"/>
         <source>Extend</source>
-        <translation>延伸</translation>
+        <translation>擴展</translation>
     </message>
 </context>
 <context>
@@ -272,7 +272,7 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="152"/>
         <source>Failed to enable window effects</source>
-        <translation>無法啟動視窗效果</translation>
+        <translation>無法開啟窗口特效</translation>
     </message>
 </context>
 <context>
@@ -377,7 +377,7 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation>密碼應包含至少%1個字符</translation>
+        <translation>密碼長度不能少於%1個字符</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
@@ -446,12 +446,12 @@
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="45"/>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="46"/>
         <source>Key</source>
-        <translation>金鑰</translation>
+        <translation>密鑰</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="47"/>
         <source>key</source>
-        <translation>金鑰</translation>
+        <translation>密鑰</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="55"/>
