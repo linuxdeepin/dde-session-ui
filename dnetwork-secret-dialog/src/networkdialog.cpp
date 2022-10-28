@@ -26,71 +26,65 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QLocalSocket>
+#include <QDBusMessage>
+#include <QDBusConnection>
+#include <QDBusPendingReply>
 #include <QDebug>
 
+#include <unistd.h>
+
 static const QString NetworkDialogApp = "dde-network-dialog"; //网络列表执行文件
+static QMap<QString, void (NetworkDialog::*)(QLocalSocket *, const QByteArray &)> s_FunMap = {
+    { "password", &NetworkDialog::onPassword }
+};
 
 NetworkDialog::NetworkDialog(QObject *parent)
     : QObject(parent)
-    , m_process(new QProcess(this))
+    , m_clinet(new QLocalSocket(this))
 {
-    connect(m_process, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &NetworkDialog::finished);
-    connect(m_process, &QProcess::readyReadStandardOutput, this, &NetworkDialog::readProcessOutput);
+    connect(m_clinet, SIGNAL(connected()), this, SLOT(connectedHandler()));
+    connect(m_clinet, SIGNAL(disconnected()), this, SLOT(disConnectedHandler()));
+    connect(m_clinet, SIGNAL(readyRead()), this, SLOT(readyReadHandler()));
 }
 
 NetworkDialog::~NetworkDialog()
 {
-    m_process->close();
+    m_clinet->close();
 }
 
-void NetworkDialog::finished(int exitCode, QProcess::ExitStatus)
+void NetworkDialog::onPassword(QLocalSocket *socket, const QByteArray &data)
 {
-    readProcessOutput();
-    this->deleteLater();
-    qApp->exit(exitCode);
-}
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    if (!doc.isObject())
+        return;
 
-void NetworkDialog::readProcessOutput()
-{
-    QByteArray outData;
-    QByteArray allData = m_process->readAllStandardOutput();
+    QJsonObject obj = doc.object();
+    QString key = obj.value("key").toString();
+    QString passwd = obj.value("password").toString();
+    bool input = obj.value("input").toBool();
 
-    allData = m_lastData + allData;
-    QList<QByteArray> dataArray = allData.split('\n');
-    m_lastData = dataArray.last();
-    for (const QByteArray &data : dataArray) {
-        if (data.startsWith("password:")) {
-            QByteArray cmd = data.mid(9);
-            QJsonDocument doc = QJsonDocument::fromJson(cmd);
-            if (doc.isObject()) {
-                QJsonObject obj = doc.object();
-                QString key = obj.value("key").toString();
-                QString passwd = obj.value("password").toString();
-                bool input = obj.value("input").toBool();
-                if (m_key == key) {
-                    if (input) {
-                        QJsonObject resultJsonObj;
-                        QJsonArray secretsJsonArray;
-                        secretsJsonArray.append(passwd);
-                        resultJsonObj.insert("secrets", secretsJsonArray);
+    if (m_key != key)
+        return;
 
-                        QFile file;
-                        if (!file.open(stdout, QFile::WriteOnly)) {
-                            qDebug() << "open STDOUT failed";
-                            qApp->exit(-4);
-                        }
-                        file.write(QJsonDocument(resultJsonObj).toJson());
-                        file.flush();
-                        file.close();
-                        qApp->exit(0);
-                    } else {
-                        qApp->exit(1);
-                    }
-                    break;
-                }
-            }
-        }
+    if (!input) {
+        qApp->exit(1);
+        return;
     }
+    QJsonObject resultJsonObj;
+    QJsonArray secretsJsonArray;
+    secretsJsonArray.append(passwd);
+    resultJsonObj.insert("secrets", secretsJsonArray);
+
+    QFile file;
+    if (!file.open(stdout, QFile::WriteOnly)) {
+        qDebug() << "open STDOUT failed";
+        qApp->exit(-4);
+    }
+    file.write(QJsonDocument(resultJsonObj).toJson());
+    file.flush();
+    file.close();
+    qApp->exit(0);
 }
 
 /**
@@ -115,15 +109,72 @@ bool NetworkDialog::exec(const QJsonDocument &doc)
     QString connName = obj.value("connId").toString();
     if (!connName.isEmpty() && (1 == obj.value("secrets").toArray().size())) {
         m_key = connName;
-        m_process->close();
-        QStringList argList;
-        argList << "-w" << "-c" << m_key;
-        if(!device.isEmpty()) {
-            argList << "-n" << device;
-        }
-        m_process->start(NetworkDialogApp, argList);
-        m_process->waitForStarted();
-        return m_process->state() == QProcess::Running;
+        QJsonObject json;
+        json.insert("dev", device);
+        json.insert("ssid", m_key);
+        json.insert("wait", true);
+        QJsonDocument doc;
+        doc.setObject(json);
+        m_data = "\nconnect:" + doc.toJson(QJsonDocument::Compact) + "\n";
+        ConnectToServer();
+        return true;
     }
     return false;
+}
+
+void NetworkDialog::connectedHandler()
+{
+    if (!m_clinet->isOpen() || m_data.isEmpty())
+        return;
+
+    m_clinet->write(m_data);
+    m_clinet->flush();
+}
+
+void NetworkDialog::disConnectedHandler()
+{
+    qApp->exit(0);
+}
+
+bool NetworkDialog::ConnectToServer()
+{
+    // 区分登录、锁屏和任务栏
+    // 当sessionManager服务没起来时是在登录界面，锁屏和任务栏通过locked属性来判断
+    QDBusMessage dbusMessage = QDBusMessage::createMethodCall("com.deepin.SessionManager", "/com/deepin/SessionManager", "org.freedesktop.DBus.Properties", "Get");
+    dbusMessage << "com.deepin.SessionManager" << "Locked";
+    QDBusPendingReply<QVariant> prop = QDBusConnection::sessionBus().call(dbusMessage, QDBus::Block, 1000);
+
+    QString serverName = NetworkDialogApp + QString::number(getuid());
+    if (prop.value().toBool()) {
+        serverName += "lock";
+    } else {
+        serverName += "dock";
+    }
+    m_clinet->connectToServer(serverName);
+    m_clinet->waitForConnected();
+    QLocalSocket::LocalSocketState state = m_clinet->state();
+    return state == QLocalSocket::ConnectedState;
+}
+
+void NetworkDialog::readyReadHandler()
+{
+    QLocalSocket *socket = static_cast<QLocalSocket *>(sender());
+    if (!socket)
+        return;
+
+    QByteArray allData = socket->readAll();
+    allData = m_lastData + allData;
+    QList<QByteArray> dataArray = allData.split('\n');
+    m_lastData = dataArray.last();
+    for (const QByteArray &data : dataArray) {
+        int keyIndex = data.indexOf(':');
+        if (keyIndex == -1)
+            continue;
+
+        QString key = data.left(keyIndex);
+        QByteArray value = data.mid(keyIndex + 1);
+        if (s_FunMap.contains(key)) {
+            (this->*s_FunMap.value(key))(socket, value);
+        }
+    }
 }

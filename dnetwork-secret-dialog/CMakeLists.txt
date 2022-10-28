@@ -8,10 +8,14 @@ list(REMOVE_ITEM Dnetwork_Secret_Dialog_SRCS "${CMAKE_SOURCE_DIR}/dnetwork-secre
 set(Dmemory_Warning_Dialog_Includes
     ${DtkWidget_INCLUDE_DIRS}
     Qt5::Widgets
+    Qt5::Network
+    Qt5::DBus
     )
 set(Dnetwork_Secret_Dialog_Libraries
     ${DtkWidget_LIBRARIES}
     Qt5::Widgets
+    Qt5::Network
+    Qt5::DBus
     )
 
 add_subdirectory("src")

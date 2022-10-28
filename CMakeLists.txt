@@ -42,7 +42,7 @@ find_package(PkgConfig REQUIRED)
 find_package(DtkWidget REQUIRED)
 find_package(GTest REQUIRED)
 find_package(GMock REQUIRED)
-find_package(Qt5 COMPONENTS Widgets DBus X11Extras Xml Concurrent Svg Sql Test REQUIRED)
+find_package(Qt5 COMPONENTS Widgets DBus X11Extras Xml Concurrent Svg Sql Network Test REQUIRED)
 
 pkg_check_modules(GSETTINGS REQUIRED gsettings-qt)
 pkg_check_modules(DdeDockInterface REQUIRED dde-dock)
