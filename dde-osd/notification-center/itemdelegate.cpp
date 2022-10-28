@@ -63,7 +63,13 @@ void ItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewI
 {
     Q_UNUSED(index)
 
+    EntityPtr notify = index.data().value<EntityPtr>();
+
     QRect rect = option.rect;
     QSize size = sizeHint(option, index);
-    editor->setGeometry(rect.x(), rect.y(), size.width(), size.height() - BubbleSpacing);
+    // 应用标题到消息通知间距为6
+    if (notify && notify->isTitle())
+        editor->setGeometry(rect.x(), rect.y(), size.width(), size.height() - 6);
+    else
+        editor->setGeometry(rect.x(), rect.y(), size.width(), size.height() - BubbleSpacing);
 }

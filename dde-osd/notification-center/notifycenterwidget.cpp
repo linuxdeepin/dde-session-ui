@@ -97,6 +97,7 @@ void NotifyCenterWidget::initUI()
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(Notify::CenterMargin, Notify::CenterMargin, 0, 0);
     mainLayout->addWidget(m_headWidget);
+    mainLayout->addSpacing(20);
     mainLayout->addWidget(m_notifyWidget);
 
     setLayout(mainLayout);
