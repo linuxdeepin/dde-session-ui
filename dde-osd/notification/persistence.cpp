@@ -344,6 +344,7 @@ QString Persistence::getFrom(int rowCount, const QString &offsetId)
     sqlCmd += TableName_v2;
     sqlCmd += QString(" LIMIT (:rowCount) OFFSET (:offset)");
 
+    m_query.prepare(sqlCmd);
     m_query.bindValue(":rowCount", rowCount);
     m_query.bindValue(":offset", rowNum);
 
