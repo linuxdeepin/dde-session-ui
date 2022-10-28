@@ -24,15 +24,25 @@
 #include <QtDBus/QtDBus>
 #include <QtCore/QList>
 #include <QDBusMetaType>
+#include <QDebug>
 
 struct LauncherItemInfo {
-    QString Path;
-    QString Name;
-    QString ID;
-    QString Icon;
-    qint64 CategoryID;
-    qint64 TimeInstalled;
+    QString path;
+    QString name;
+    QString id;
+    QString icon;
+    qint64 categoryId;
+    qint64 timeInstalled;
+    QStringList keywords;
     bool operator!=(const LauncherItemInfo &versionInfo);
+
+    friend QDebug operator<<(QDebug argument, const LauncherItemInfo &info)
+    {
+        argument << info.path << info.name << info.id;
+        argument << info.icon << info.categoryId << info.timeInstalled << info.keywords;
+
+        return argument;
+    }
 };
 
 Q_DECLARE_METATYPE(LauncherItemInfo)

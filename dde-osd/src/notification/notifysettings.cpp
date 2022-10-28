@@ -59,7 +59,7 @@ NotifySettings::NotifySettings(QObject *parent)
     connect(m_launcherInter, &LauncherInter::ItemChanged, this, [ = ] (QString action, LauncherItemInfo info, qlonglong id) {
         Q_UNUSED(id)
         if (action == "deleted") {
-            appRemoved(info.ID);
+            appRemoved(info.id);
         } else if (action == "created") {
             appAdded(info);
         }
@@ -77,19 +77,19 @@ void NotifySettings::initAllSettings()
     QStringList launcherList;
 
     foreach(const LauncherItemInfo &item, itemInfoList) {
-        launcherList << item.ID;
-        DDesktopEntry desktopInfo(item.Path);
-        if (IgnoreList.contains(item.ID) || desktopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
+        launcherList << item.id;
+        DDesktopEntry desktopInfo(item.path);
+        if (IgnoreList.contains(item.id) || desktopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
             continue;
         }
 
-        if (appList.contains(item.ID)) {
+        if (appList.contains(item.id)) {
             // 修改系统语言后需要更新翻译
-            QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(item.ID).toLocal8Bit(), this);
-            itemSetting.set("app-name", item.Name);
+            QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(item.id).toLocal8Bit(), this);
+            itemSetting.set("app-name", item.name);
             continue;
         }
-        appList.append(item.ID);
+        appList.append(item.id);
         m_systemSetting->set("app-list", appList);
         appAdded(item);
     }
@@ -236,22 +236,22 @@ QStringList NotifySettings::getAppLists()
 void NotifySettings::appAdded(const LauncherItemInfo &info)
 {
     QStringList appList = m_systemSetting->get("app-list").toStringList();
-    if (!appList.contains(info.ID)) {
-        appList.append(info.ID);
+    if (!appList.contains(info.id)) {
+        appList.append(info.id);
         m_systemSetting->set("app-list", appList);
     }
 
-    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(info.ID).toLocal8Bit(), this);
+    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(info.id).toLocal8Bit(), this);
 
-    itemSetting.set("app-name", info.Name);
-    itemSetting.set("app-icon", info.Icon);
+    itemSetting.set("app-name", info.name);
+    itemSetting.set("app-icon", info.icon);
     itemSetting.set("enable-notification", DEFAULT_ALLOW_NOTIFY);
     itemSetting.set("enable-preview", DEFAULT_SHOW_NOTIFY_PREVIEW);
     itemSetting.set("enable-sound", DEFAULT_NOTIFY_SOUND);
     itemSetting.set("show-in-notification-center", DEFAULT_ONLY_IN_NOTIFY);
     itemSetting.set("lockscreen-show-notification", DEFAULT_LOCK_SHOW_NOTIFY);
 
-    Q_EMIT appAddedSignal(info.ID);
+    Q_EMIT appAddedSignal(info.id);
 }
 
 void NotifySettings::appRemoved(const QString &id)

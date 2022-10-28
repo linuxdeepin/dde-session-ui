@@ -22,13 +22,13 @@
 
 bool LauncherItemInfo::operator!=(const LauncherItemInfo &itemInfo)
 {
-    return itemInfo.ID != ID;
+    return itemInfo.path != path;
 }
 
 QDBusArgument &operator<<(QDBusArgument &argument, const LauncherItemInfo &itemInfo)
 {
     argument.beginStructure();
-    argument << itemInfo.Path << itemInfo.Name << itemInfo.ID << itemInfo.Icon << itemInfo.CategoryID << itemInfo.TimeInstalled;
+    argument << itemInfo.path << itemInfo.name << itemInfo.id << itemInfo.icon << itemInfo.categoryId << itemInfo.timeInstalled << itemInfo.keywords;
     argument.endStructure();
     return argument;
 }
@@ -36,7 +36,7 @@ QDBusArgument &operator<<(QDBusArgument &argument, const LauncherItemInfo &itemI
 const QDBusArgument &operator>>(const QDBusArgument &argument, LauncherItemInfo &itemInfo)
 {
     argument.beginStructure();
-    argument >> itemInfo.Path >> itemInfo.Name >> itemInfo.ID >> itemInfo.Icon >> itemInfo.CategoryID >> itemInfo.TimeInstalled;
+    argument >> itemInfo.path >> itemInfo.name >> itemInfo.id >> itemInfo.icon >> itemInfo.categoryId >> itemInfo.timeInstalled >> itemInfo.keywords;
     argument.endStructure();
     return argument;
 }

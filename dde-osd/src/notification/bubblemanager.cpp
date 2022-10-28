@@ -584,11 +584,11 @@ void BubbleManager::SetSystemInfo(uint item, const QDBusVariant var)
 void BubbleManager::appInfoChanged(QString action, LauncherItemInfo info)
 {
     if (action == DeletedAction) {
-        m_notifySettings->appRemoved(info.ID);
-        Q_EMIT appRemoved(info.ID);
+        m_notifySettings->appRemoved(info.id);
+        Q_EMIT appRemoved(info.id);
     } else if (action == CreatedAction) {
         m_notifySettings->appAdded(info);
-        Q_EMIT appAdded(m_notifySettings->getAppSettings_v1(info.ID));
+        Q_EMIT appAdded(m_notifySettings->getAppSettings_v1(info.id));
     }
 }
 

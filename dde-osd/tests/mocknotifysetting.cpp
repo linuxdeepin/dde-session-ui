@@ -147,22 +147,22 @@ QStringList NotifySettingHelper::getAppLists()
 void NotifySettingHelper::appAdded(const LauncherItemInfo &info)
 {
     QStringList appList = getAppLists();
-    if (!appList.contains(info.ID)) {
-        appList.append(info.ID);
+    if (!appList.contains(info.id)) {
+        appList.append(info.id);
         m_systemSetting["app-list"] = appList;
     }
 
     QMap<QString, QVariant> app1Setting;
 
-    app1Setting["app-name"] = info.Name;
-    app1Setting["app-icon"] = info.Icon;
+    app1Setting["app-name"] = info.name;
+    app1Setting["app-icon"] = info.icon;
     app1Setting["enable-notification"] = DEFAULT_ALLOW_NOTIFY;
     app1Setting["enable-preview"] = DEFAULT_SHOW_NOTIFY_PREVIEW;
     app1Setting["enable-sound"] = DEFAULT_NOTIFY_SOUND;
     app1Setting["show-in-notification-center"] = DEFAULT_ONLY_IN_NOTIFY;
     app1Setting["lockscreen-show-notification"] = DEFAULT_LOCK_SHOW_NOTIFY;
 
-    m_appSetting[info.ID] = app1Setting;
+    m_appSetting[info.id] = app1Setting;
 }
 
 void NotifySettingHelper::appRemoved(const QString &id)
