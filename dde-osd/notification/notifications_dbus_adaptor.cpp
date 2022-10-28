@@ -136,11 +136,11 @@ QStringList DDENotifyDBus::GetAppList()
     return out0;
 }
 
-QStringList DDENotifyDBus::GetCapbilities()
+QStringList DDENotifyDBus::GetCapabilities()
 {
     // handle method call com.deepin.dde.Notification.GetCapbilities
     QStringList out0;
-    QMetaObject::invokeMethod(parent(), "GetCapbilities", Q_RETURN_ARG(QStringList, out0));
+    QMetaObject::invokeMethod(parent(), "GetCapabilities", Q_RETURN_ARG(QStringList, out0));
     return out0;
 }
 
