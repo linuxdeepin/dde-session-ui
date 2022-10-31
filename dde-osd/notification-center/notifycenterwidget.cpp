@@ -83,7 +83,7 @@ void NotifyCenterWidget::initUI()
     m_clearButton->setOpacity(IconButton::RELEASE, 255 * 0.0);
     m_clearButton->setRadius(Notify::CenterTitleHeight / 2);
     m_clearButton->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
-    m_clearButton->setFocusPolicy(Qt::StrongFocus);
+    m_clearButton->setFocusPolicy(Qt::ClickFocus);
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
     head_Layout->addWidget(bell_notify, Qt::AlignLeft | Qt::AlignTop);
