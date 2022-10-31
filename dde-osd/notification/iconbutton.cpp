@@ -62,13 +62,13 @@ void IconButton::paintEvent(QPaintEvent *event)
         color = QColor("#FFFFFF");
     }
 
-    switch (m_currentState) {
-    case HOVER: color.setAlpha(m_hoverOpacity); break;
-    case PRESS: color.setAlpha(m_pressOpacity); break;
-    case RELEASE: color.setAlpha(m_releaseOpacity); break;
+    if (m_currentState == PRESS) {
+        color.setAlpha(m_pressOpacity);
+    } else if (m_currentState == HOVER || hasFocus()) {
+        color.setAlpha(m_hoverOpacity);
+    } else {
+        color.setAlpha(m_releaseOpacity);
     }
-
-    color.setAlpha(hasFocus() ? m_hoverOpacity : color.alpha());
 
     painter.setPen(Qt::NoPen);
     painter.setBrush(color);
@@ -146,6 +146,8 @@ void IconButton::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
     m_currentState = RELEASE;
+    // 鼠标离开时需要清除焦点，不然会一直显示 hover状态
+    clearFocus();
     update();
 
     return DWidget::leaveEvent(event);
