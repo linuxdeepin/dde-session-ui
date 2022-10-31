@@ -26,6 +26,7 @@ AppBody::AppBody(QWidget *parent)
     layout->setSpacing(0);
     layout->addStretch();
     layout->addWidget(m_titleLbl, 0, Qt::AlignVCenter);
+    layout->addSpacing(4);
     layout->addWidget(m_bodyLbl, 0, Qt::AlignVCenter);
     layout->addStretch();
 
