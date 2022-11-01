@@ -148,8 +148,8 @@ void BubbleItem::initUI()
     QHBoxLayout *bodyLayout = new QHBoxLayout;
     bodyLayout->setSpacing(0);
     bodyLayout->setContentsMargins(10, 0, 10, 0);
-    bodyLayout->addWidget(m_body);
-    bodyLayout->addWidget(m_actionButton);
+    bodyLayout->addWidget(m_body, 4);
+    bodyLayout->addWidget(m_actionButton, 0);
 
     m_bodyWidget->setLayout(bodyLayout);
     m_bodyWidget->setRadius(0, 8);
