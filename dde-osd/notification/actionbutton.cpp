@@ -43,14 +43,17 @@ bool ActionButton::addButtons(const QStringList &list)
         if (i % 2 == 0) {
             id = list[i];
         } else {
+            // 两个中文内容中间插入空格
+            QString text = addSpaceForAction(list[i]);
+
             if (i == 1) {
                 DStyleHelper dstyle(style());
                 const int round = dstyle.pixelMetric(DStyle::PM_FrameRadius);
                 Button *button = new Button();
                 button->setAccessibleName("Button");
-                button->setText(list[i]);
+                button->setText(text);
                 button->setRadius(round);
-                button->setFixedSize(contentSize(list[i]));
+                button->setFixedSize(contentSize(text));
 
                 m_layout->addWidget(button);
                 //避免数据大量接受引起的按钮隐藏
@@ -62,13 +65,13 @@ bool ActionButton::addButtons(const QStringList &list)
 
                 m_buttons << button;
             } else if (i == 3) {
-                m_menuButton->setText(list[i]);
+                m_menuButton->setText(text);
                 m_menuButton->setId(id);
-                m_menuButton->setFixedSize(contentSize(list[i], true));
+                m_menuButton->setFixedSize(contentSize(text, true));
 
                 m_buttons << m_menuButton;
             } else {
-                QAction *action = new QAction(list[i]);
+                QAction *action = new QAction(text);
 
                 connect(action, &QAction::triggered, this, [ = ] {
                     Q_EMIT buttonClicked(id);
@@ -152,4 +155,21 @@ QSize ActionButton::contentSize(const QString &text, bool is_menu) const
 void ActionButton::initConnections()
 {
     connect(m_menuButton, &Button::toggled, this, &ActionButton::buttonClicked);
+}
+
+QString ActionButton::addSpaceForAction(const QString &text)
+{
+    QString ret = text;
+
+    // 仅对两个中文内容做处理
+    if (ret.length() == 2) {
+        QRegExp regex = QRegExp(QString("^[\u4E00-\u9FA5]{0,}$"));
+        // 判断两个字符均为中文
+        if (regex.exactMatch(QString(ret[0])) &&
+            regex.exactMatch(QString(ret[1]))) {
+            ret = ret.insert(1, " ");
+        }
+    }
+
+    return  ret;
 }

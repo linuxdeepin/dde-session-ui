@@ -45,6 +45,7 @@ public:
 private:
     void initUI();
     void initConnections();
+    QString addSpaceForAction(const QString &text);
 
 Q_SIGNALS:
     void buttonClicked(const QString &id);
