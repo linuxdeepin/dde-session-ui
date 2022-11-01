@@ -70,7 +70,7 @@ void OSDProvider::paint(QPainter *painter, const QStyleOptionViewItem &option, c
         iconPath = QString(pixPath).replace(".svg", "_dark.svg");
         color = QColor(Qt::white);
     }
-    DrawHelper::DrawImage(painter, option, iconPath, true);
+    DrawHelper::DrawImage(painter, option, iconPath, !textData.isEmpty());
 
     if (!textData.isEmpty()) {
         DrawHelper::DrawText(painter, option, textData, color);
