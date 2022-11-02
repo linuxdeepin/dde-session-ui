@@ -39,7 +39,7 @@ endif ()
 # Find the library
 find_package(PkgConfig REQUIRED)
 find_package(DtkWidget REQUIRED)
-find_package(Qt5 COMPONENTS Widgets DBus X11Extras Xml Concurrent Svg Sql Test REQUIRED)
+find_package(Qt5 COMPONENTS Widgets DBus X11Extras Xml Concurrent Svg Sql Network Test REQUIRED)
 
 pkg_check_modules(DFrameworkDBus REQUIRED dframeworkdbus)
 pkg_check_modules(GSETTINGS REQUIRED gsettings-qt)
@@ -922,10 +922,14 @@ add_executable(${Dnetwork_Secret_Dialog_Name}
 set(Dmemory_Warning_Dialog_Includes
     ${DtkWidget_INCLUDE_DIRS}
     Qt5::Widgets
+    Qt5::Network
+    Qt5::DBus
 )
 set(Dnetwork_Secret_Dialog_Libraries
     ${DtkWidget_LIBRARIES}
     Qt5::Widgets
+    Qt5::Network
+    Qt5::DBus
 )
 
 target_include_directories(${Dnetwork_Secret_Dialog_Name} PUBLIC
