@@ -5,7 +5,9 @@
 #ifndef NETWORKDIALOG_H
 #define NETWORKDIALOG_H
 
-#include <QProcess>
+#include <QObject>
+
+class QLocalSocket;
 
 class NetworkDialog : public QObject
 {
@@ -16,15 +18,20 @@ public:
     ~NetworkDialog();
 
     bool exec(const QJsonDocument &doc);
+    void onPassword(QLocalSocket *socket, const QByteArray &data);
 
 private Q_SLOTS:
-    void finished(int exitCode, QProcess::ExitStatus);
-    void readProcessOutput();
+    void connectedHandler();
+    void disConnectedHandler();
+    void readyReadHandler();
+    bool ConnectToServer();
 
 private:
-    QProcess *m_process;
     QString m_key;
     QByteArray m_lastData; // 用于数据拼接
+
+    QByteArray m_data;
+    QLocalSocket *m_clinet;
 };
 
 #endif // NETWORKDIALOG_H
