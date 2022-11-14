@@ -38,9 +38,9 @@
 
 DWIDGET_USE_NAMESPACE
 
-static const QString Service = "com.deepin.dde.WarningDialog";
-static const QString Path = "/com/deepin/dde/WarningDialog";
-static const QString Interface = "com.deepin.dde.WarningDialog";
+static const QString Service = "org.deepin.dde.WarningDialog1";
+static const QString Path = "/org/deepin/dde/WarningDialog1";
+static const QString Interface = "org.deepin.dde.WarningDialog1";
 
 int main(int argc, char *argv[])
 {

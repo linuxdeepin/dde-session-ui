@@ -37,8 +37,8 @@
 #include <QCheckBox>
 #include <QWidget>
 
-static const QString NotifyInterPath = "/com/deepin/dde/Notification";
-static const QString NotifyInterSrever = "com.deepin.dde.Notification";
+static const QString NotifyInterPath = "/org/deepin/dde/Notification1";
+static const QString NotifyInterSrever = "org.deepin.dde.Notification1";
 
 UnitTest::UnitTest()
     : m_notifyInter(new NotifyInter(NotifyInterSrever, NotifyInterPath,
@@ -94,7 +94,7 @@ void UnitTest::test_NotifyInter()
     argList << "WLANOn" << "WLANOff";
 
     foreach(QString arg , argList) {
-        DDBusSender().service("com.deepin.dde.osd").interface("com.deepin.dde.osd").path("/")
+        DDBusSender().service("org.deepin.dde.Osd1").interface("org.deepin.dde.Osd1").path("/")
                      .method(QString("ShowOSD")).arg(arg).call();
         QThread::msleep(500);
     }

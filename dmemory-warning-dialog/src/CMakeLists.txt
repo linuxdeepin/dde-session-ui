@@ -18,4 +18,4 @@ target_link_libraries(${Dmemory_Warning_Dialog_Name} PRIVATE
 install(TARGETS ${Dmemory_Warning_Dialog_Name} DESTINATION bin)
 
 ## service
-install(FILES com.deepin.dde.MemoryWarningDialog.service DESTINATION share/dbus-1/services)
+install(FILES org.deepin.dde.MemoryWarningDialog1.service DESTINATION share/dbus-1/services)

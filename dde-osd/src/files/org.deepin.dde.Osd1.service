@@ -1,4 +1,4 @@
 [D-BUS Service]
-Name=com.deepin.dde.Notification
+Name=org.deepin.dde.Osd1
 Exec=/usr/bin/false
 SystemdService=dde-osd.service

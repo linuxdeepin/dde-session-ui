@@ -140,8 +140,8 @@ bool NetworkDialog::ConnectToServer()
 {
     // 区分登录、锁屏和任务栏
     // 当sessionManager服务没起来时是在登录界面，锁屏和任务栏通过locked属性来判断
-    QDBusMessage dbusMessage = QDBusMessage::createMethodCall("com.deepin.SessionManager", "/com/deepin/SessionManager", "org.freedesktop.DBus.Properties", "Get");
-    dbusMessage << "com.deepin.SessionManager" << "Locked";
+    QDBusMessage dbusMessage = QDBusMessage::createMethodCall("org.deepin.dde.SessionManager1", "/org/deepin/dde/SessionManager1", "org.freedesktop.DBus.Properties", "Get");
+    dbusMessage << "org.deepin.dde.SessionManager1" << "Locked";
     QDBusPendingReply<QVariant> prop = QDBusConnection::sessionBus().call(dbusMessage, QDBus::Block, 1000);
 
     QString serverName = NetworkDialogApp + QString::number(getuid());

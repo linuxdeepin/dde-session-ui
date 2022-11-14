@@ -25,7 +25,7 @@
 
 ResetPasswordWorker::ResetPasswordWorker(const QString& userName, QObject *parent)
     : QObject (parent)
-    , m_accountInter(new Accounts("org.deepin.daemon.Accounts1", "/org/deepin/daemon/Accounts1", QDBusConnection::systemBus(), this))
+    , m_accountInter(new Accounts("org.deepin.dde.Accounts1", "/org/deepin/dde/Accounts1", QDBusConnection::systemBus(), this))
     , m_syncHelperInter(new QDBusInterface("com.deepin.sync.Helper", "/com/deepin/sync/Helper", "com.deepin.sync.Helper", QDBusConnection::systemBus(), this))
 {
     qRegisterMetaType<SecurityQuestionAnswers>("SecurityQuestionAnswers");
@@ -36,8 +36,8 @@ ResetPasswordWorker::ResetPasswordWorker(const QString& userName, QObject *paren
     if (reply.isError()) {
         qWarning() << QString("get user failed:") << reply.error();
     } else {
-        m_userInter = new AccountsUser("org.deepin.daemon.Accounts1", reply.value(), QDBusConnection::systemBus(), this);
-        m_userQInter = new QDBusInterface("org.deepin.daemon.Accounts1", reply.value(),"org.deepin.daemon.Accounts1.User", QDBusConnection::systemBus(), this);
+        m_userInter = new AccountsUser("org.deepin.dde.Accounts1", reply.value(), QDBusConnection::systemBus(), this);
+        m_userQInter = new QDBusInterface("org.deepin.dde.Accounts1", reply.value(),"org.deepin.dde.Accounts1.User", QDBusConnection::systemBus(), this);
     }
     m_userPath = reply.value();
 }
@@ -111,9 +111,9 @@ int ResetPasswordWorker::bindCheck()
         return -1;
     }
 
-    QDBusInterface userInter("org.deepin.daemon.Accounts1",
+    QDBusInterface userInter("org.deepin.dde.Accounts1",
                              m_userPath,
-                             "org.deepin.daemon.Accounts1.User",
+                             "org.deepin.dde.Accounts1.User",
                              QDBusConnection::systemBus());
     if (!userInter.isValid()) {
         return -1;

@@ -34,7 +34,7 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
     DDialog(),
     m_pinCodeLabel(new LargeLabel(this)),
     m_titileLabel(new LargeLabel(this)),
-    m_bluetoothInter(new DBusBluetooth("org.deepin.daemon.Bluetooth1", "/org/deepin/daemon/Bluetooth1", QDBusConnection::sessionBus(), this))
+    m_bluetoothInter(new DBusBluetooth("org.deepin.dde.Bluetooth1", "/org/deepin/dde/Bluetooth1", QDBusConnection::sessionBus(), this))
 {
     setAccessibleName("PinCodeDialog");
     QString titilestr = tr("The PIN for connecting to the Bluetooth device is:");

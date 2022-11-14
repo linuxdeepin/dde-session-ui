@@ -1,4 +1,4 @@
-<interface name="org.deepin.daemon.SoundEffect1">
+<interface name="org.deepin.dde.SoundEffect1">
   <method name="EnableSound">
     <arg name="name" type="s" direction="in"/>
     <arg name="enabled" type="b" direction="in"/>

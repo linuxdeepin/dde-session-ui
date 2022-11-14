@@ -57,9 +57,9 @@ Window::Window(QWidget *parent)
     setupSize();
     setStyleSheet("Window { background: black }");
 
-    QDBusConnection::sessionBus().connect("com.deepin.dde.lockFront",
-                                              "/com/deepin/dde/lockFront",
-                                              "com.deepin.dde.lockFront",
+    QDBusConnection::sessionBus().connect("org.deepin.dde.LockFront1",
+                                              "/org/deepin/dde/LockFront1",
+                                              "org.deepin.dde.LockFront1",
                                               "Visible",
                                               this, SLOT(HideShowToRaise(bool)));
 }
@@ -94,9 +94,9 @@ void Window::setupSize()
     m_text->setAlignment(Qt::AlignHCenter);
     m_text->move(0, m_image->y() + m_image->pixmap()->height());
 
-    QDBusInterface inter2Power("org.deepin.daemon.Power1",
-                               "/org/deepin/daemon/Power1",
-                               "org.deepin.daemon.Power1",
+    QDBusInterface inter2Power("org.deepin.dde.Power1",
+                               "/org/deepin/dde/Power1",
+                               "org.deepin.dde.Power1",
                                QDBusConnection::sessionBus(), this);
     m_bSleepLock =  inter2Power.property("SleepLock").toBool();
 }

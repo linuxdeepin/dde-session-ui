@@ -29,8 +29,8 @@
 #include <QSystemTrayIcon>
 #include <QMenu>
 
-#include "com_deepin_daemon_inputdevice_keyboard.h"
-using KeyboardInterface = com::deepin::daemon::inputdevice::Keyboard;
+#include "org_deepin_dde_inputdevice1_keyboard.h"
+using KeyboardInterface = org::deepin::dde::inputdevice1::Keyboard;
 /*!
  * \~chinese \class DataWrapper
  * \~chinese \brief 获取键盘布局的信息

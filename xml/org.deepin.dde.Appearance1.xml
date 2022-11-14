@@ -1,4 +1,4 @@
-<interface name="org.deepin.daemon.Appearance1">
+<interface name="org.deepin.dde.Appearance1">
     <method name="Delete">
         <arg type="s" direction="in"></arg>
         <arg type="s" direction="in"></arg>

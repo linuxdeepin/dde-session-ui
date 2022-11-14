@@ -29,11 +29,11 @@
 #include <QDBusArgument>
 
 #include <memory>
-#include "com_deepin_sessionmanager.h"
+#include "org_deepin_dde_sessionmanager1.h"
 
 #include "constants.h"
 
-using UserInter = com::deepin::SessionManager;
+using UserInter = org::deepin::dde::SessionManager1;
 
 DWIDGET_USE_NAMESPACE
 

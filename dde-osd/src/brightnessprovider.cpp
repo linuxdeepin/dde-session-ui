@@ -31,8 +31,8 @@ DGUI_USE_NAMESPACE
 
 BrightnessProvider::BrightnessProvider(QObject *parent)
     : AbstractOSDProvider(parent),
-      m_displayInter(new com::deepin::daemon::Display("com.deepin.daemon.Display",
-                                                      "/com/deepin/daemon/Display",
+      m_displayInter(new org::deepin::dde::Display1("org.deepin.dde.Display1",
+                                                      "/org/deepin/dde/Display1",
                                                       QDBusConnection::sessionBus(), this))
 {
     m_suitableParams << "BrightnessUp" << "BrightnessDown" << "BrightnessUpAsh" << "BrightnessDownAsh";

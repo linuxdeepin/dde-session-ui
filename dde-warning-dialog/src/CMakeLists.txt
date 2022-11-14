@@ -17,4 +17,4 @@ target_link_libraries(${Warning_Dialog_Name} PRIVATE
 install(TARGETS ${Warning_Dialog_Name} DESTINATION lib/deepin-daemon)
 
 ## service
-install(FILES com.deepin.dde.WarningDialog.service DESTINATION share/dbus-1/services)
+install(FILES org.deepin.dde.WarningDialog1.service DESTINATION share/dbus-1/services)

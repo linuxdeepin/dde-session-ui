@@ -1,4 +1,4 @@
-<interface name="com.deepin.dde.Notification">
+<interface name="org.deepin.dde.Notification1">
   <method name="CloseNotification">
     <arg direction="in" type="u"/>
   </method>

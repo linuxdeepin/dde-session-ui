@@ -33,12 +33,12 @@
 #include <QScreen>
 
 #include <DPlatformWindowHandle>
-#include "com_deepin_daemon_display.h"
-#include "com_deepin_daemon_display_monitor.h"
+#include "org_deepin_dde_display1.h"
+#include "org_deepin_dde_display1_monitor.h"
 #include "notification/dbusdockinterface.h"
 
-using DisplayInter = com::deepin::daemon::Display;
-using MonitorInter = com::deepin::daemon::display::Monitor;
+using DisplayInter = org::deepin::dde::Display1;
+using MonitorInter = org::deepin::dde::display1::Monitor;
 
 DGUI_USE_NAMESPACE
 
@@ -88,11 +88,11 @@ void Container::moveToCenter()
 {
     QRect displayRect;
     qreal ratio = qApp->primaryScreen()->devicePixelRatio();
-    DisplayInter displayInter("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus());
+    DisplayInter displayInter("org.deepin.dde.Display1", "/org/deepin/dde/Display1", QDBusConnection::sessionBus());
     QList<QDBusObjectPath> screenList = displayInter.monitors();
 
     for (const auto &screen : screenList) {
-        MonitorInter monitor("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
+        MonitorInter monitor("org.deepin.dde.Display1", screen.path(), QDBusConnection::sessionBus());
         QRect monitorRect(monitor.x(), monitor.y(), monitor.width(), monitor.height());
         DBusDockInterface dockInter;
         if (monitor.enabled() && monitorRect.contains(dockInter.geometry())) {

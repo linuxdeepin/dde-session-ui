@@ -28,9 +28,9 @@
 
 #include "abstractosdprovider.h"
 
-#include "com_deepin_daemon_inputdevice_keyboard.h"
+#include "org_deepin_dde_inputdevice1_keyboard.h"
 
-using namespace com::deepin::daemon::inputdevice;
+using namespace org::deepin::dde::inputdevice1;
 
 /*!
  * \~chinese \class DisplayModeProvider

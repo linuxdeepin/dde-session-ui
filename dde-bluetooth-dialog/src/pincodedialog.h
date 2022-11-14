@@ -27,14 +27,14 @@
 #define DCC_BLUETOOTH_PINCODEDIALOG_H
 
 #include <ddialog.h>
-#include "org_deepin_daemon_bluetooth1.h"
+#include "org_deepin_dde_bluetooth1.h"
 
 #include <QJsonDocument>
 #include <QJsonParseError>
 
 DWIDGET_USE_NAMESPACE
 
-using  DBusBluetooth = org::deepin::daemon::Bluetooth1;
+using  DBusBluetooth = org::deepin::dde::Bluetooth1;
 
 class LargeLabel;
 

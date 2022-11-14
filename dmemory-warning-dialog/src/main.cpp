@@ -61,8 +61,8 @@ int main(int argc, char *args[])
     DMemoryWarningDialogAdaptor dbusAdaptor(&dialog);
     Q_UNUSED(dbusAdaptor);
     QDBusConnection connection = QDBusConnection::sessionBus();
-    if (!connection.registerService("com.deepin.dde.MemoryWarningDialog") ||
-        !connection.registerObject("/com/deepin/dde/MemoryWarningDialog", &dialog))
+    if (!connection.registerService("org.deepin.dde.MemoryWarningDialog1") ||
+        !connection.registerObject("/org/deepin/dde/MemoryWarningDialog1", &dialog))
         return -1;
 
 #if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)

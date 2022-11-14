@@ -20,8 +20,8 @@ TEST_F(UT_DMemoryWarningDialog, coverageTest)
     DMemoryWarningDialog dialog;
     DMemoryWarningDialogAdaptor dbusAdaptor(&dialog);
     QDBusConnection connection = QDBusConnection::sessionBus();
-    if (connection.registerService("com.deepin.dde.MemoryWarningDialog") ||
-            connection.registerObject("/com/deepin/dde/MemoryWarningDialog", &dialog)) {
+    if (connection.registerService("org.deepin.dde.MemoryWarningDialog1") ||
+            connection.registerObject("/org/deepin/dde/MemoryWarningDialog1", &dialog)) {
         dialog.show();
         for (auto type = DMemoryWarningDialog::LaunchApp;
              type <= DMemoryWarningDialog::ExecuteCommand;

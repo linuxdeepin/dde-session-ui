@@ -30,12 +30,12 @@
 
 DCORE_USE_NAMESPACE
 
-const QString DisplayServer = "com.deepin.daemon.Display";
-const QString DisplayServerPath = "/com/deepin/daemon/Display";
+const QString DisplayServer = "org.deepin.dde.Display1";
+const QString DisplayServerPath = "/org/deepin/dde/Display1";
 
 TouchscreenSetting::TouchscreenSetting(const QString &touchscreen, QWidget *parent)
     : DDialog(parent)
-    , m_displayInter(new Display(DisplayServer, DisplayServerPath, QDBusConnection::sessionBus()))
+    , m_displayInter(new Display1(DisplayServer, DisplayServerPath, QDBusConnection::sessionBus()))
     , m_touchscreenUUID(touchscreen)
     , m_listCombo(new DComboBox)
     , m_monitorIndicator(new MonitorIndicator)
@@ -55,9 +55,9 @@ TouchscreenSetting::TouchscreenSetting(const QString &touchscreen, QWidget *pare
     addButton(tr("Cancel"));
     addButton(tr("Confirm"), false, ButtonRecommend);
 
-    connect(m_displayInter, &Display::MonitorsChanged, this, &TouchscreenSetting::onMonitorChanged);
+    connect(m_displayInter, &Display1::MonitorsChanged, this, &TouchscreenSetting::onMonitorChanged);
     connect(this, &DDialog::buttonClicked, this, &TouchscreenSetting::onButtonClicked);
-    connect(this, &TouchscreenSetting::requestAssociateTouch, m_displayInter, &Display::AssociateTouchByUUID);
+    connect(this, &TouchscreenSetting::requestAssociateTouch, m_displayInter, &Display1::AssociateTouchByUUID);
     connect(m_listCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(markDisplay(int)));
     onMonitorChanged();
 
@@ -70,7 +70,7 @@ void TouchscreenSetting::onMonitorChanged()
 
     auto monitorPathList = m_displayInter->monitors();
     for (const QDBusObjectPath &m : monitorPathList) {
-        display::Monitor monitor(DisplayServer, m.path(), QDBusConnection::sessionBus());
+        display1::Monitor monitor(DisplayServer, m.path(), QDBusConnection::sessionBus());
         m_listCombo->addItem(monitor.name());
     }
 }
@@ -99,14 +99,14 @@ void TouchscreenSetting::showRecognizeDialog()
         }
         RecognizeDialog *dialog = new RecognizeDialog(m_monitors[0], this);
         dialog->setAccessibleName("RecognizeDialog");
-        connect(m_displayInter, &Display::ScreenHeightChanged, dialog, &RecognizeDialog::onScreenRectChanged);
+        connect(m_displayInter, &Display1::ScreenHeightChanged, dialog, &RecognizeDialog::onScreenRectChanged);
         dialog->setText(text);
         dialog->show();
     } else { // 拓展模式
         for (auto monitor : m_monitors) {
             RecognizeDialog *dialog = new RecognizeDialog(monitor, this);
             dialog->setAccessibleName("RecognizeDialog");
-            connect(m_displayInter, &Display::ScreenHeightChanged, dialog, &RecognizeDialog::onScreenRectChanged);
+            connect(m_displayInter, &Display1::ScreenHeightChanged, dialog, &RecognizeDialog::onScreenRectChanged);
             dialog->setText(monitor->name());
             dialog->show();
         }

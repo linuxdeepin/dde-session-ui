@@ -22,7 +22,7 @@
 #ifndef RECOGNIZEDIALOG_H
 #define RECOGNIZEDIALOG_H
 
-#include "com_deepin_daemon_display_monitor.h"
+#include "org_deepin_dde_display1_monitor.h"
 
 #include <DBlurEffectWidget>
 
@@ -30,7 +30,7 @@
 #include <QPen>
 
 DWIDGET_USE_NAMESPACE
-using namespace com::deepin::daemon::display;
+using namespace org::deepin::dde::display1;
 
 class RecognizeDialog : public DBlurEffectWidget
 {

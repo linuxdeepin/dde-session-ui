@@ -20,4 +20,4 @@ target_link_libraries(${Welcome_Name} PRIVATE
 install(TARGETS ${Welcome_Name} DESTINATION lib/deepin-daemon)
 
 ## service
-install(FILES com.deepin.dde.welcome.service DESTINATION share/dbus-1/services)
+install(FILES org.deepin.dde.Welcome1.service DESTINATION share/dbus-1/services)

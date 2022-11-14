@@ -44,11 +44,11 @@
 
 #include <algorithm>
 
-#include "com_deepin_daemon_display.h"
-#include "com_deepin_daemon_display_monitor.h"
+#include "org_deepin_dde_display1.h"
+#include "org_deepin_dde_display1_monitor.h"
 
-using DisplayInter = com::deepin::daemon::Display;
-using MonitorInter = com::deepin::daemon::display::Monitor;
+using DisplayInter = org::deepin::dde::Display1;
+using MonitorInter = org::deepin::dde::display1::Monitor;
 
 BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySetting *setting, QObject *parent)
     : QObject(parent)
@@ -65,9 +65,9 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
                                               QDBusConnection::sessionBus(), this))
     , m_notifySettings(setting)
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
-    , m_appearance(new Appearance("org.deepin.daemon.Appearance1", "/org/deepin/daemon/Appearance1", QDBusConnection::sessionBus(), this))
-    , m_gestureInter(new GestureInter("com.deepin.daemon.Gesture"
-                                      , "/com/deepin/daemon/Gesture"
+    , m_appearance(new Appearance("org.deepin.dde.Appearance1", "/org/deepin/dde/Appearance1", QDBusConnection::sessionBus(), this))
+    , m_gestureInter(new GestureInter("org.deepin.dde.Gesture1"
+                                      , "/org/deepin/dde/Gesture1"
                                       , QDBusConnection::systemBus()
                                       , this))
     , m_dockInter(new DBusDockInterface(this))
@@ -86,7 +86,7 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
     // 任务栏在左侧时，触屏划入距离需要超过100
     m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
 
-    connect(m_userInter, &__SessionManager::LockedChanged, this, [ this ] {
+    connect(m_userInter, &__SessionManager1::LockedChanged, this, [ this ] {
         // 当锁屏状态发生变化时立即隐藏所有通知并插入到通知中心（根据通知的实际情况决定），桌面和锁屏的通知不交叉显示
         popAllBubblesImmediately();
     });
@@ -176,7 +176,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
 
     // 如果display服务无效，无法获取显示器大小，不能正确计算显示位置，则不显示消息通知
     if (!m_displayInter->isValid()) {
-        qWarning() << "The name com.deepin.daemon.Display is invalid";
+        qWarning() << "The name org.deepin.dde.Display1 is invalid";
         return 0;
     }
 
@@ -459,7 +459,7 @@ QRect BubbleManager::calcDisplayRect()
     QList<QDBusObjectPath> screenList = m_displayInter->monitors();
 
     for (const auto &screen : screenList) {
-        MonitorInter monitor("com.deepin.daemon.Display", screen.path(), QDBusConnection::sessionBus());
+        MonitorInter monitor("org.deepin.dde.Display1", screen.path(), QDBusConnection::sessionBus());
         QRect monitorRect(monitor.x(), monitor.y(), monitor.width(), monitor.height());
         QRect dockRect(m_dockInter->geometry());
         if (monitor.enabled() && monitorRect.contains(dockRect.center())) {

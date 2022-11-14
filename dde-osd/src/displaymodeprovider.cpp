@@ -34,14 +34,14 @@
 
 DWIDGET_USE_NAMESPACE
 
-const QString DisplayDBusServer = "com.deepin.daemon.Display";
-const QString DisplayDBusPath = "/com/deepin/daemon/Display";
+const QString DisplayDBusServer = "org.deepin.dde.Display1";
+const QString DisplayDBusPath = "/org/deepin/dde/Display1";
 const QString AppIdAndName = "org.deepin.dde.control-center";
 const QString MultipleDisplayConfigKey = "display/mode";
 
 DisplayModeProvider::DisplayModeProvider(QObject *parent)
     : AbstractOSDProvider(parent)
-    , m_displayInter(new Display(DisplayDBusServer,DisplayDBusPath,QDBusConnection::sessionBus(), this))
+    , m_displayInter(new Display1(DisplayDBusServer,DisplayDBusPath,QDBusConnection::sessionBus(), this))
 {
     m_suitableParams << "SwitchMonitors";
 
@@ -49,11 +49,11 @@ DisplayModeProvider::DisplayModeProvider(QObject *parent)
 
     updateOutputNames();
 
-    connect(m_displayInter, &__Display::DisplayModeChanged,
+    connect(m_displayInter, &__Display1::DisplayModeChanged,
             this, &DisplayModeProvider::displayModeChanged);
-    connect(m_displayInter, &__Display::PrimaryChanged,
+    connect(m_displayInter, &__Display1::PrimaryChanged,
             this, &DisplayModeProvider::primaryChanged);
-    connect(m_displayInter, &__Display::MonitorsChanged,
+    connect(m_displayInter, &__Display1::MonitorsChanged,
             this, &DisplayModeProvider::updateOutputNames);
 
     displayModeChanged(m_displayInter->displayMode());

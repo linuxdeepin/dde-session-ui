@@ -22,11 +22,11 @@
 #ifndef RESETPASSWORDWORKER_H
 #define RESETPASSWORDWORKER_H
 
-#include "org_deepin_daemon_accounts1_user.h"
-#include "org_deepin_daemon_accounts1.h"
+#include "org_deepin_dde_accounts1_user.h"
+#include "org_deepin_dde_accounts1.h"
 
-using Accounts = org::deepin::daemon::Accounts1;
-using AccountsUser = org::deepin::daemon::accounts1::User;
+using Accounts = org::deepin::dde::Accounts1;
+using AccountsUser = org::deepin::dde::accounts1::User;
 
 typedef QMap<int, QString> SecurityQuestionAnswers;
 

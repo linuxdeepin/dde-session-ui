@@ -22,16 +22,16 @@
 #ifndef TOUCHSCREENSETTING_H
 #define TOUCHSCREENSETTING_H
 
-#include "com_deepin_daemon_display_monitor.h"
-#include "com_deepin_daemon_display.h"
+#include "org_deepin_dde_display1_monitor.h"
+#include "org_deepin_dde_display1.h"
 
 #include <DComboBox>
 #include <DDialog>
 
 DWIDGET_USE_NAMESPACE
 
-using namespace com::deepin::daemon;
-using namespace com::deepin::daemon::display;
+using namespace org::deepin::dde;
+using namespace org::deepin::dde::display1;
 
 class RecognizeDialog;
 class MonitorIndicator;
@@ -53,7 +53,7 @@ Q_SIGNALS:
                                const QString &touchscreenSerial);
 
 private:
-    Display *m_displayInter;
+    Display1 *m_displayInter;
     RecognizeDialog *m_recognize;
     QString m_touchscreenUUID;
     DComboBox *m_listCombo;

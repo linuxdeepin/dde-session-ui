@@ -28,7 +28,7 @@
 
 #include "abstractosdprovider.h"
 
-#include "com_deepin_daemon_display.h"
+#include "org_deepin_dde_display1.h"
 
 #include "common.h"
 /*!
@@ -53,7 +53,7 @@ private:
     QString pixmapName() const;
 
 private:
-    com::deepin::daemon::Display *m_displayInter;
+    org::deepin::dde::Display1 *m_displayInter;
 };
 
 #endif // BRIGHTNESSPROVIDER_H

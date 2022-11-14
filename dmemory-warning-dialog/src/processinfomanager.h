@@ -31,12 +31,12 @@
 #include <QTimer>
 #include <QPointer>
 
-#include "com_deepin_startmanager.h"
+#include "org_deepin_dde_startmanager1.h"
 #include "com_deepin_chromeextension_tabslimit.h"
 
 QString genericAppName(const QString &desktop);
 
-using StartManagerInter = com::deepin::StartManager;
+using StartManagerInter = org::deepin::dde::StartManager1;
 using ChromeTabsInter = com::deepin::chromeextension::TabsLimit;
 
 class ProcessInfo

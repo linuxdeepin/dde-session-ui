@@ -1,4 +1,4 @@
-     <interface name="com.deepin.daemon.Display.Monitor">
+     <interface name="org.deepin.dde.Display1.Monitor">
           <method name="Enable">
                <arg type="b" direction="in"></arg>
           </method>

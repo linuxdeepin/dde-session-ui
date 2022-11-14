@@ -28,8 +28,8 @@
 
 #include "abstractosdprovider.h"
 
-#include "org_deepin_daemon_audio1.h"
-#include "org_deepin_daemon_audio1_sink.h"
+#include "org_deepin_dde_audio1.h"
+#include "org_deepin_dde_audio1_sink.h"
 
 /*!
  * \~chinese \class AudioProvider
@@ -50,8 +50,8 @@ public:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
 private:
-    org::deepin::daemon::Audio1 *m_audioInter;
-    org::deepin::daemon::audio1::Sink *m_sinkInter;
+    org::deepin::dde::Audio1 *m_audioInter;
+    org::deepin::dde::audio1::Sink *m_sinkInter;
 
     QString pixmapName() const;
     void drawScale(QPainter *painter, const QStyleOptionViewItem &option, const QColor &color) const;

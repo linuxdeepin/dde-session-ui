@@ -11,7 +11,7 @@ class UT_RecognizeDialog : public testing::Test
 public:
     void SetUp() override
     {
-        // monitor = new Monitor("com.deepin.daemon.Display", "/com/deepin/daemon/Display/1", QDBusConnection::sessionBus());
+        // monitor = new Monitor("org.deepin.dde.Display1", "/org/deepin/dde/Display1/1", QDBusConnection::sessionBus());
         // widget = new RecognizeDialog(monitor);
     }
 

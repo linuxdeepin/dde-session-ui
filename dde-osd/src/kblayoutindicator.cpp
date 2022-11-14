@@ -114,8 +114,8 @@ QStringList DataWrapper::userLayoutList() const
 
 KBLayoutIndicator::KBLayoutIndicator(QWidget *parent)
     : QSystemTrayIcon(parent),
-      m_keyboardInter(new KeyboardInterface("com.deepin.daemon.InputDevices",
-                                            "/com/deepin/daemon/InputDevice/Keyboard",
+      m_keyboardInter(new KeyboardInterface("org.deepin.dde.InputDevices1",
+                                            "/org/deepin/dde/InputDevice1/Keyboard",
                                             QDBusConnection::sessionBus(),
                                             this)),
       m_data(new DataWrapper(m_keyboardInter, this)),

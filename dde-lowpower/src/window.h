@@ -54,7 +54,7 @@ public slots:
 
 class LowPowerAdaptor : public QDBusAbstractAdaptor {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "com.deepin.dde.LowPower")
+    Q_CLASSINFO("D-Bus Interface", "org.deepin.dde.LowPower1")
 
 public:
     explicit LowPowerAdaptor(Window * parent);

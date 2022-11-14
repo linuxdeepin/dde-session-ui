@@ -45,8 +45,8 @@
 Bubble::Bubble(QWidget *parent, EntityPtr entity, OSD::ShowStyle style)
     : DBlurEffectWidget(parent)
     , m_entity(entity)
-    , m_userInter(new UserInter("com.deepin.SessionManager",
-                                "/com/deepin/SessionManager",
+    , m_userInter(new UserInter("org.deepin.dde.SessionManager1",
+                                "/org/deepin/dde/SessionManager1",
                                 QDBusConnection::sessionBus(), this))
     , m_icon(new AppIcon(this))
     , m_body(new AppBody(this))

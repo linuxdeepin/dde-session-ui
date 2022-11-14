@@ -69,13 +69,11 @@ bool confirm(const QPixmap &icon)
 
 DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     : DAbstractDialog(parent)
-
-    , m_startManagerInter(new StartManagerInter("com.deepin.SessionManager", "/com/deepin/StartManager", QDBusConnection::sessionBus(), this))
+    // TODO
+    , m_startManagerInter(new StartManagerInter("org.deepin.dde.StartManager1", "/org/deepin/dde/StartManager1", QDBusConnection::sessionBus(), this))
     , m_infoModel(new ProcessInfoModel)
-
     , m_icon(new QLabel)
     , m_memNeeded(new QLabel)
-
     , m_cancelButton(new QPushButton)
     , m_continueButton(new QPushButton)
 {

@@ -28,10 +28,11 @@
 
 #include "fullscreenbackground.h"
 #include "wmchooser.h"
-#include <QWidget>
-#include "org_deepin_daemon_imageblur1.h"
+#include "org_deepin_dde_imageblur1.h"
 
-using ImageBlur = org::deepin::daemon::ImageBlur1;
+#include <QWidget>
+
+using ImageBlur = org::deepin::dde::ImageBlur1;
 
 class WMFrame : public FullscreenBackground
 {

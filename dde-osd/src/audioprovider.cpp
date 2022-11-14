@@ -32,8 +32,8 @@ DGUI_USE_NAMESPACE
 
 AudioProvider::AudioProvider(QObject *parent)
     : AbstractOSDProvider(parent),
-      m_audioInter(new org::deepin::daemon::Audio1("org.deepin.daemon.Audio1",
-                                                  "/org/deepin/daemon/Audio1",
+      m_audioInter(new org::deepin::dde::Audio1("org.deepin.dde.Audio1",
+                                                  "/org/deepin/dde/Audio1",
                                                   QDBusConnection::sessionBus(), this)),
       m_sinkInter(nullptr)
 {
@@ -136,7 +136,7 @@ void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)
             m_sinkInter = nullptr;
         }
 
-        m_sinkInter = new org::deepin::daemon::audio1::Sink("org.deepin.daemon.Audio1",
+        m_sinkInter = new org::deepin::dde::audio1::Sink("org.deepin.dde.Audio1",
                                                            pathStr,
                                                            QDBusConnection::sessionBus(), this);
         m_sinkInter->setSync(true);

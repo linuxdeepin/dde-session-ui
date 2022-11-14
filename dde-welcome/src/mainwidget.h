@@ -28,11 +28,11 @@
 
 #include "fullscreenbackground.h"
 
-#include "org_deepin_daemon_imageblur1.h"
+#include "org_deepin_dde_imageblur1.h"
 
 #include <QWidget>
 
-using ImageBlur = org::deepin::daemon::ImageBlur1;
+using ImageBlur = org::deepin::dde::ImageBlur1;
 
 class MainWidget : public FullscreenBackground
 {

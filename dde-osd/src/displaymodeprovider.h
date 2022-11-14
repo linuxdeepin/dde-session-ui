@@ -30,10 +30,10 @@
 
 #include <DConfig>
 
-#include "com_deepin_daemon_display.h"
-#include "org_deepin_daemon_appearance1.h"
+#include "org_deepin_dde_display1.h"
+#include "org_deepin_dde_appearance1.h"
 
-using namespace com::deepin::daemon;
+using namespace org::deepin::dde;
 DCORE_USE_NAMESPACE
 
 /*!
@@ -101,7 +101,7 @@ private:
     QStringList m_outputNames;
     QString m_primaryScreen;
 
-    Display *m_displayInter;
+    Display1 *m_displayInter;
     uint m_state;
 };
 

@@ -29,8 +29,8 @@
 
 KBLayoutProvider::KBLayoutProvider(QObject *parent)
     : AbstractOSDProvider(parent)
-    , m_keyboardInter(new Keyboard("com.deepin.daemon.InputDevices",
-                                 "/com/deepin/daemon/InputDevice/Keyboard",
+    , m_keyboardInter(new Keyboard("org.deepin.dde.InputDevices1",
+                                 "/org/deepin/dde/InputDevice1/Keyboard",
                                  QDBusConnection::sessionBus(), this))
 {
     m_suitableParams << "SwitchLayout";

@@ -42,9 +42,9 @@
 DWIDGET_USE_NAMESPACE
 #endif
 
-#define DBUS_SERV "com.deepin.dde.lowpower"
-#define DBUS_PATH "/com/deepin/dde/lowpower"
-#define DBUS_IFCE "com.deepin.dde.LowPower"
+#define DBUS_SERV "org.deepin.dde.LowPower1"
+#define DBUS_PATH "/org/deepin/dde/LowPower1"
+#define DBUS_IFCE "org.deepin.dde.LowPower1"
 
 int main(int argc, char *argv[])
 {

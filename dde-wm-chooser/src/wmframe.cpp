@@ -30,8 +30,8 @@
 
 WMFrame::WMFrame(QWidget *parent)
     : FullscreenBackground(parent)
-    , m_blurImageInter(new ImageBlur("org.deepin.daemon.Accounts1",
-                                     "/org/deepin/daemon/ImageBlur1",
+    , m_blurImageInter(new ImageBlur("org.deepin.dde.ImageBlur1",
+                                     "/org/deepin/dde/ImageBlur1",
                                      QDBusConnection::systemBus(), this))
 {
     setAccessibleName("WMFrame");

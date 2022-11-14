@@ -32,41 +32,41 @@
 #include <QGuiApplication>
 #include <QTimer>
 
-#include "com_deepin_sessionmanager.h"
-#include "org_deepin_daemon_soundeffect1.h"
-#include "com_deepin_daemon_gesture.h"
-#include "com_deepin_daemon_display.h"
+#include "org_deepin_dde_sessionmanager1.h"
+#include "org_deepin_dde_soundeffect1.h"
+#include "org_deepin_dde_gesture1.h"
+#include "org_deepin_dde_display1.h"
 #include "org_deepin_dde_daemon_launcherd1.h"
 #include "org_deepin_dde_daemon_dock1.h"
-#include "org_deepin_daemon_appearance1.h"
+#include "org_deepin_dde_appearance1.h"
 
 #include "bubble.h"
 #include "constants.h"
 
-using Appearance = org::deepin::daemon::Appearance1;
-using UserInter = com::deepin::SessionManager;
+using Appearance = org::deepin::dde::Appearance1;
+using UserInter = org::deepin::dde::SessionManager1;
 using LauncherInter = org::deepin::dde::daemon::Launcher1;
-using SoundeffectInter = org::deepin::daemon::SoundEffect1;
-using GestureInter = com::deepin::daemon::Gesture;
-using DisplayInter = com::deepin::daemon::Display;
+using SoundeffectInter = org::deepin::dde::SoundEffect1;
+using GestureInter = org::deepin::dde::Gesture1;
+using DisplayInter = org::deepin::dde::Display1;
 using DockInter = org::deepin::dde::daemon::Dock1;
 
 static const QString NotificationsDBusService = "org.freedesktop.Notifications";
 static const QString NotificationsDBusPath = "/org/freedesktop/Notifications";
-static const QString DDENotifyDBusServer = "com.deepin.dde.Notification";
-static const QString DDENotifyDBusPath = "/com/deepin/dde/Notification";
+static const QString DDENotifyDBusServer = "org.deepin.dde.Notification1";
+static const QString DDENotifyDBusPath = "/org/deepin/dde/Notification1";
 static const QString Login1DBusService = "org.freedesktop.login1";
 static const QString Login1DBusPath = "/org/freedesktop/login1";
 static const QString DockDaemonDBusServie = "org.deepin.dde.daemon.Dock1";
 static const QString DockDaemonDBusPath = "/org/deepin/dde/daemon/Dock1";
-static const QString DisplayDaemonDBusServie = "com.deepin.daemon.Display";
-static const QString DisplayDaemonDBusPath = "/com/deepin/daemon/Display";
+static const QString DisplayDaemonDBusServie = "org.deepin.dde.Display1";
+static const QString DisplayDaemonDBusPath = "/org/deepin/dde/Display1";
 static const QString LauncherDaemonDBusServie = "org.deepin.dde.daemon.Launcher1";
 static const QString LauncherDaemonDBusPath = "/org/deepin/dde/daemon/Launcher1";
-static const QString SoundEffectDaemonDBusServie = "org.deepin.daemon.SoundEffect1";
-static const QString SoundEffectDaemonDBusPath = "/org/deepin/daemon/SoundEffect1";
-static const QString SessionDBusServie = "com.deepin.SessionManager";
-static const QString SessionDaemonDBusPath = "/com/deepin/SessionManager";
+static const QString SoundEffectDaemonDBusServie = "org.deepin.dde.SoundEffect1";
+static const QString SoundEffectDaemonDBusPath = "/org/deepin/dde/SoundEffect1";
+static const QString SessionDBusServie = "org.deepin.dde.SessionManager1";
+static const QString SessionDaemonDBusPath = "/org/deepin/dde/SessionManager1";
 
 class DBusControlCenter;
 class Login1ManagerInterface;

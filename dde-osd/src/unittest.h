@@ -22,11 +22,11 @@
 #define UNITTEST_H
 
 #include "notification/constants.h"
+#include "org_deepin_dde_notification1.h"
 
 #include <QtTest>
-#include "com_deepin_dde_notification.h"
 
-using NotifyInter = com::deepin::dde::Notification;
+using NotifyInter = org::deepin::dde::Notification1;
 
 class UnitTest : public QObject
 {
