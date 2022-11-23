@@ -180,6 +180,7 @@ static uid_t name_to_uid(char const *name)
 // ret:
 // 0: change to another session
 // 1: stay current session
+// tips: 出现异常的时候去/run/systemd/users 和 /run/systemd/sessions 中查看文件的内容是否正确
 int
 switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
 {
@@ -193,6 +194,7 @@ switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
     GDBusProxy *seat_proxy = NULL;
     GDBusProxy *login1_proxy = NULL;
     GError *error = NULL;
+    char *user_display = NULL;
 
     if (!g_variant_is_object_path(seat_path)) {
         g_warning("switchtogreeter:invalid object path\n");
@@ -233,6 +235,9 @@ switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
         char objpath[256];
 
         sd_uid_get_sessions(name_to_uid(usd->username), 0, &sessions);
+        sd_uid_get_display(name_to_uid(usd->username), &user_display);
+        printf("user display: %s\n", user_display);
+        printf("user sessions: %s\n", *sessions);
         while (*sessions) {
             sd_session_get_display(*sessions, &display);
             if (getenv("WAYLAND_DISPLAY") != NULL) {
@@ -268,19 +273,27 @@ switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
                 if (NULL == display && strcmp(type, "wayland") != 0){
                     sessions++;
                     g_free(type);
+                    type = NULL;
                     g_variant_unref(type_prop_var);
                     g_object_unref(login1_session_proxy);
                     continue;
                 }
             } else {
+                printf("X session display %s %s\n", *sessions, display);
                 if (NULL == display){
-                    sessions++;
-                    continue;
+                    if (*(sessions + 1) || !user_display) {
+                        sessions++;
+                        continue;
+                    }
+
+                    // 如果是最后一个session,此时已经异常了肯定无法切换用户, 那么使用从user文件中获取的DISPLAY数据
+                    printf("Use `DISPLAY` info from user file\n");
+                    display = user_display;
                 }
             }
 
             sd_session_get_seat(*sessions, &seat);
-            printf("session display %s %s\n", *sessions, display);
+            printf("Seat: %s, session: %s, display: %s\n", seat, *sessions, display);
             if (seat != NULL && (0 == g_ascii_strcasecmp(seat, cur_seat))) {
                 new_user_session = *sessions;
                 printf("switchtogreeter: find sessions path %s %s \n", new_user_session, seat);
@@ -290,7 +303,8 @@ switch_to_greeter(gchar *seat_path, struct user_session_dbus *usd)
         }
 
         if (getenv("WAYLAND_DISPLAY") != NULL) {
-            g_free(type);
+            if (type)
+                g_free(type);
             g_variant_unref(type_prop_var);
             g_object_unref(login1_session_proxy);
         }
@@ -375,7 +389,7 @@ int main(int argc G_GNUC_UNUSED, char **argv G_GNUC_UNUSED)
         new_username = argv[1];
     }
 
-    new_user.username =  new_username;
+    new_user.username = new_username;
     get_seat_path(new_user.username, &new_user);
     if (new_user.seat_path == NULL) {
         g_info("switch to greeter:seat path is NULL\n");
@@ -400,4 +414,3 @@ int main(int argc G_GNUC_UNUSED, char **argv G_GNUC_UNUSED)
 
     return ret;
 }
-
