@@ -66,6 +66,10 @@ void NotifySettings::initAllSettings()
             continue;
         }
 
+        if (item.ID == "") {
+            continue;
+        }
+
         if (appList.contains(item.ID)) {
             // 修改系统语言后需要更新翻译
             QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(item.ID).toLocal8Bit(), this);
