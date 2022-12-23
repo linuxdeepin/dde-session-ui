@@ -40,6 +40,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 # Find the library
 find_package(PkgConfig REQUIRED)
 find_package(DtkWidget REQUIRED)
+find_package(DtkCore REQUIRED)
 find_package(GTest REQUIRED)
 find_package(GMock REQUIRED)
 find_package(Qt5 COMPONENTS Widgets DBus X11Extras Xml Concurrent Svg Sql Network Test REQUIRED)
@@ -57,7 +58,6 @@ include_directories(
     global_util/dbus
     global_util/dbus/types
     widgets
-    qtdbusextended
     )
 
 set(Test_Libraries
@@ -108,8 +108,6 @@ file (GLOB_RECURSE DBUS_INTERFACE_SRCS
     "global_util/dbus/*.cpp"
     "global_util/dbus/types/*.h"
     "global_util/dbus/types/*.cpp"
-    "qtdbusextended/*.h"
-    "qtdbusextended/*.cpp"
     )
 
 add_subdirectory("dde-bluetooth-dialog")
