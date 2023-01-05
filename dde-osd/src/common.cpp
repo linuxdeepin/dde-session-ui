@@ -103,7 +103,7 @@ void DrawHelper::DrawPercentValue(QPainter *painter, const QStyleOptionViewItem 
     const int ValueAreaHeight = 26;
 
     QFont font = DFontSizeManager::instance()->t4();
-    font.setPixelSize(font.pixelSize());
+    font.setPixelSize(20); // 固定大小
 
     QFontMetrics fm(font);
     int valueAreaWidth = fm.width(QString::number(value));
@@ -115,7 +115,7 @@ void DrawHelper::DrawPercentValue(QPainter *painter, const QStyleOptionViewItem 
     painter->setFont(font);
     painter->drawText(valueRect, QString::number(value));
 
-    font = DFontSizeManager::instance()->t10();
+    font.setPixelSize(10); // 固定大小
     painter->setFont(font);
 
     QRect percentRect(valueRect.right() + 1, valueRect.top() + valueRect.height() / 2, percentFlagWidth, percentFlagHeight);
