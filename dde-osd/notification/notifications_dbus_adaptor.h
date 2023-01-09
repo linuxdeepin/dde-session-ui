@@ -66,7 +66,7 @@ class DDENotifyDBus: public QDBusAbstractAdaptor
 "    <method name=\"CloseNotification\">\n"
 "      <arg direction=\"in\" type=\"u\"/>\n"
 "    </method>\n"
-"    <method name=\"GetCapbilities\">\n"
+"    <method name=\"GetCapabilities\">\n"
 "      <arg direction=\"out\" type=\"as\"/>\n"
 "    </method>\n"
 "    <method name=\"GetServerInformation\">\n"
@@ -198,7 +198,7 @@ public Q_SLOTS: // METHODS
     QString GetAllRecords();
     QDBusVariant GetAppInfo(const QString &in0, uint in1);
     QStringList GetAppList();
-    QStringList GetCapbilities();
+    QStringList GetCapabilities();
     QString GetRecordById(const QString &in0);
     QString GetRecordsFromId(int in0, const QString &in1);
     QString GetServerInformation(QString &out1, QString &out2, QString &out3);
