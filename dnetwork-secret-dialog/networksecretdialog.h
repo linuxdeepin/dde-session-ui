@@ -37,12 +37,14 @@ private slots:
 private:
     QJsonObject m_jsonObj;
     const QMap<QString, QString> m_secretKeyStrMap;
+    const QMap<QString, QString> m_propMap;
     QString m_connName;
     QString m_connType;
     QString m_connSettingName;
     QStringList m_secretKeyList;
+    QJsonObject m_propsObj;
 
-    QList<Dtk::Widget::DPasswordEdit *> m_lineEditList;
+    QList<Dtk::Widget::DLineEdit *> m_lineEditList;
 
     bool m_allInputValid;
 };

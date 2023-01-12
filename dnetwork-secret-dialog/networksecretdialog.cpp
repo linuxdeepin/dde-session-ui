@@ -44,6 +44,7 @@ NetworkSecretDialog::NetworkSecretDialog(QJsonDocument jsonDoc, QWidget *parent)
               { "IPSec secret", tr("Password") },
               { "Xauth password", tr("Group Password") },
       })
+    , m_propMap({ { "identity", tr("Username") }, })
 {
     m_allInputValid = false;
 
@@ -67,6 +68,7 @@ void NetworkSecretDialog::parseJsonData(const QJsonDocument &jsonDoc)
     m_connName = m_jsonObj.value("connId").toString();
     m_connType = m_jsonObj.value("connType").toString();
     m_connSettingName = m_jsonObj.value("settingName").toString();
+    m_propsObj = m_jsonObj.value("props").toObject();
     for (auto secret : m_jsonObj.value("secrets").toArray()) {
         m_secretKeyList.append(secret.toString());
     }
@@ -107,11 +109,22 @@ void NetworkSecretDialog::initUI()
 
     for (int row = 0; row < m_secretKeyList.size(); ++row) {
         const QString &secret = m_secretKeyList.at(row);
-        DPasswordEdit *lineEdit = new DPasswordEdit();
+
+        DLineEdit *lineEdit;
+        QString label;
+        if (m_propMap.contains(secret)) {
+            lineEdit = new DLineEdit();
+            label = m_propMap.value(secret);
+        } else {
+            lineEdit = new DPasswordEdit();
+            label = m_secretKeyStrMap.value(secret);
+        }
+        if (m_propsObj.contains(secret))
+            lineEdit->setText(m_propsObj.value(secret).toString());
         lineEdit->setClearButtonEnabled(true);
         lineEdit->setCopyEnabled(false);
         lineEdit->setCutEnabled(false);
-        gridLayout->addWidget(new QLabel(m_secretKeyStrMap.value(secret) + ":"), row, 0);
+        gridLayout->addWidget(new QLabel(label + ":"), row, 0);
         gridLayout->addWidget(lineEdit, row, 1);
         m_lineEditList.append(lineEdit);
 
@@ -168,7 +181,7 @@ void NetworkSecretDialog::checkInputValid()
 
     m_lineEditList.at(0)->hideAlertMessage();
     for (int i = 0; i < m_secretKeyList.size(); ++i) {
-        DPasswordEdit * const lineEdit = m_lineEditList.at(i);
+        DLineEdit * const lineEdit = m_lineEditList.at(i);
         if (!passwordIsValid(lineEdit->text(), m_secretKeyList.at(i))) {
             allValid = false;
             lineEdit->setAlert(true);
