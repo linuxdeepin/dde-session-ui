@@ -90,12 +90,32 @@ bool NetworkDialog::exec(const QJsonDocument &doc)
         device = array.first().toString();
     }
     QString connName = obj.value("connId").toString();
-    if (!connName.isEmpty() && (1 == obj.value("secrets").toArray().size())) {
+    QJsonObject propsObj = obj.value("props").toObject();
+    QString password;
+    static const char* identity = "identity";
+    bool needIdentity = false;
+    int count = 0;
+    for (auto secret : obj.value("secrets").toArray()) {
+        const QString& key = secret.toString();
+        if (key == identity) {
+            needIdentity = true;
+            continue;
+        }
+        count++;
+        if (propsObj.contains(key)) {
+            password = propsObj.value(key).toString();
+        }
+    }
+    if (!connName.isEmpty() && 1 == count) {
         m_key = connName;
         QJsonObject json;
         json.insert("dev", device);
         json.insert("ssid", m_key);
         json.insert("wait", true);
+        if (needIdentity) {
+            json.insert(identity, propsObj.value(identity).toString());
+        }
+        json.insert("password", password);
         QJsonDocument doc;
         doc.setObject(json);
         m_data = "\nconnect:" + doc.toJson(QJsonDocument::Compact) + "\n";
