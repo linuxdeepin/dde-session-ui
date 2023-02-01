@@ -1,10 +1,63 @@
-dde-session-ui (5.6.2) unstable; urgency=low
+dde-session-ui (6.0.5) unstable; urgency=medium
 
-  * bump version to 5.6.2
+  [ TagBuilder ]
+  * chore: 更新翻译文件(Influence: 无。)
+  * fix: 修复com.deepin.dde.Notificatin服务获取GetAppList为空的问题(Bug: 165875)(Influence: 无。)
+  * fix(dnetwork-secret-dialog): 修改网络面板通讯(Task: 196767)(Influence: 登录、锁屏、任务栏网络面板弹窗)
+  * feat: 系统升级提示信息获取逻辑更新(Bug: 171571)(Influence: 系统升级成功界面显示内容)
+  * fix: 修复某些情况无法切换用户的问题。(Bug: 142255)(Influence: 切换用户。)
+  * chore: V23接口改造适配(Task: 207483)(Influence: 无)
 
- -- lichangze <lichangze@uniontech.com>  Mon, 9 Jan 2023 16:20:17 +0000
+ -- zhaoyingzhen <zhaoyingzhen@uniontech.com>  Tue, 13 Dec 2022 19:20:28 +0800
 
-dde-session-ui (3.0.14) unstable; urgency=low
+dde-session-ui (6.0.4.1) unstable; urgency=medium
+
+  [ Deepin Packages Builder ]
+  * feat: 适配osd重新设计的新样式(Task: 175575)(Influence: osd显示及全量功能。)
+  * fix: Can't get show-on-top for dde-osd's appInfo(Bug: 147681)(Influence: 小组件置顶功能失效，dde-osd提供的置顶服务失败)
+  * chore: 同步V23 deepin-daemon 服务名称修改(Influence: dde-session-ui全量功能)
+  * fix: 修复部分OSD窗体尺寸和显示文字内容宽度不匹配的问题。(Bug: 154523)(Influence: 无影响。)
+  * fix: 修复声音和亮度OSD数值文字在深色模式下显示的问题。(Bug: 154537)(Influence: 声音和亮度OSD文字随系统主题颜色变化。)
+  * fix: 修复声音OSD不显示静音的问题。(Bug: 154545)(Influence: 无影响。)
+  * fix: 修复声音OSD上有些数值显示不对的问题。(Bug: 154561)(Influence: 无影响。)
+  * fix: 修复声音OSD在深色模式下的显示问题。(Bug: 154537)(Influence: 无影响。)
+  * chore: 更新翻译配置文件及代码中文案提示(Influence: 无。)
+  * chore: 更新翻译文件(Influence: 无。)
+
+ -- baodi <baodi@uniontech.com>  Wed, 19 Oct 2022 11:44:05 +0800
+
+dde-session-ui (6.0.3) unstable; urgency=medium
+
+  [ TagBuilder ]
+  * chore: 去掉dde-notification-plugin模块（libnotifications.so）。
+
+ --  zhaoyingzhen <zhaoyingzhen@uniontech.com>  Thu, 28 Jul 2022 10:45:51 +0800
+
+dde-session-ui (6.0.2) unstable; urgency=medium
+
+  [ TagBuilder ]
+  * fix: Blocking caller when required no settings(Task: 136345)(Influence: 会阻塞调用者，例如dde-widget调用了应用置顶获取设置的接口，)
+  * fix: 修复通知中心无法打开控制中心设置的问题(Bug: 143857)(Influence: 无)
+  * fix: 修复通知显示超过3条关闭其中一条后打开通知中心面板通知位置显示异常的问题。(Bug: 161137)(Influence: 通知显示位置，呼出通知中心面板后通知显示位置。)
+  * fix: 将osd的dbus service启动二进制改为启动systemd service(Task: 163783)(Influence: osd服务运行状态是否正常)
+  * fix: 修复登陆界面重置密码点击无反应的问题(Task: 161781)(Influence: 登陆--重置密码)
+  * feat: Add ShowOnTop for Notification(Bug: 147681)(Influence: 依赖deepin-desktop-schemas的升级，其它需要置顶功能的客户端。)
+
+ -- caixiangrong <caixiangrong@uniontech.com>  Mon, 25 Jul 2022 11:38:30 +0800
+
+dde-session-ui (6.0.1) unstable; urgency=medium
+
+  * release 6.0.1
+
+ --  fanpengcheng <fanpengcheng@uniontech.com>  Tue, 21 Jun 2022 16:30:56 +0800
+
+dde-session-ui (6.0.0.0) unstable; urgency=medium
+
+  * release 6.0.0.0
+
+ --  <fanpengcheng@uniontech.com>  Tue, 14 Jun 2022 10:05:13 +0800
+
+dde-session-ui (3.0.14-1) unstable; urgency=low
 
   * Autobuild Tag 3.0.14 
 
