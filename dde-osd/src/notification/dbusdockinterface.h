@@ -11,6 +11,8 @@
 #ifndef DBUSDOCK_H
 #define DBUSDOCK_H
 
+#include <DDBusExtendedAbstractInterface>
+
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>
 #include <QtCore/QList>
@@ -20,12 +22,10 @@
 #include <QtCore/QVariant>
 #include <QtDBus/QtDBus>
 
-#include "dockrect.h"
-
 /*
  * Proxy class for interface local.MainWindow
  */
-class DBusDockInterface: public QDBusAbstractInterface
+class DBusDockInterface: public DTK_CORE_NAMESPACE::DDBusExtendedAbstractInterface
 {
     Q_OBJECT
 
