@@ -54,16 +54,6 @@ void Manager::ShowOSD(const QString &osd)
 {
     qDebug() << "show osd" << osd;
 
-    QDBusInterface inter("org.freedesktop.login1",
-                         "/org/freedesktop/login1/session/self",
-                         "org.freedesktop.login1.Session",
-                         QDBusConnection::systemBus());
-    if(!inter.property("Active").toBool())
-    {
-        qWarning() << "self session is not active";
-        return;
-    }
-
     // 3D WM need long time, OSD will disappear too fast
     m_timer->setInterval(osd == "SwitchWM3D" ? 2000 : 1000);
 
@@ -164,8 +154,7 @@ void Manager::ShowOSD(const QString &osd)
 
 void Manager::updateUI()
 {
-    if (!m_currentProvider)
-        return;
+    if (!m_currentProvider) return;
 
     // 键盘和显示列表切换，圆角为18
     if (qobject_cast<DisplayModeProvider *>(m_currentProvider) ||
@@ -182,23 +171,22 @@ void Manager::updateUI()
         m_model->setProvider(m_currentProvider);
         m_delegate->setProvider(m_currentProvider);
         m_listview->setFlow(m_currentProvider->flow());
-    }
-
-    if (!m_container->isVisible()) {
+        m_listview->setCurrentIndex(m_listview->model()->index(m_currentProvider->currentRow(), 0));
         m_container->setContentsMargins(m_currentProvider->contentMargins());
         m_container->moveToCenter();
     }
-
-    m_listview->setCurrentIndex(m_listview->model()->index(m_currentProvider->currentRow(), 0));
+    if (!m_container->isVisible()) { // 相同模块如果osd已经显示，就不更新OSD位置，避免频繁切换在性能较弱的机器上出现闪烁
+        m_model->setProvider(m_currentProvider);
+        m_listview->setCurrentIndex(m_listview->model()->index(m_currentProvider->currentRow(), 0));
+        m_container->setFixedSize(m_currentProvider->contentSize());
+        m_container->moveToCenter();
+    }
 }
 
 void Manager::doneSetting()
 {
-    // wayland下meta键的MetaModifier事件依赖于按键事件，会先收到按键事件，随后才收到Modifier，这里应用自己规避
-    if (!QGuiApplication::platformName().startsWith("wayland", Qt::CaseInsensitive)) {
-        if (qApp->queryKeyboardModifiers().testFlag(Qt::MetaModifier)) {
-            return m_timer->start();
-        }
+    if (qApp->queryKeyboardModifiers().testFlag(Qt::MetaModifier)) {
+        return m_timer->start();
     }
 
     m_container->hide();

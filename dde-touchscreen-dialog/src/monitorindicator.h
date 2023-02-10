@@ -6,6 +6,7 @@
 #define MONITORFULLWIDGET_H
 
 #include <DPlatformWindowHandle>
+#include <DWindowManagerHelper>
 #include <QFrame>
 
 DWIDGET_USE_NAMESPACE
@@ -16,20 +17,9 @@ class MonitorIndicator : public QFrame
 
 public:
     explicit MonitorIndicator(QWidget *parent = 0);
-    ~MonitorIndicator() override;
 
-public Q_SLOTS:
-
-    virtual void setVisible(bool visible);
-
-private:
-    void updateGeometry();
-
-private:
-    QFrame *m_topLine;
-    QFrame *m_bottomLine;
-    QFrame *m_leftLine;
-    QFrame *m_rightLine;
+protected:
+    void resizeEvent(QResizeEvent *e);
 };
 
 #endif // MONITORFULLWIDGET_H

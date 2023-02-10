@@ -221,7 +221,7 @@ void Bubble::initUI()
 
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_DeleteOnClose);
-    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool | Qt::X11BypassWindowManagerHint | Qt::WindowDoesNotAcceptFocus);
+    setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Tool | Qt::X11BypassWindowManagerHint);
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
     setMouseTracking(true);
@@ -230,7 +230,7 @@ void Bubble::initUI()
     resize(OSD::BubbleSize(OSD::BUBBLEWINDOW));
     if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
         setAttribute(Qt::WA_NativeWindow);
-        windowHandle()->setProperty("_d_dwayland_window-type", "override");
+        windowHandle()->setProperty("_d_dwayland_window-type", "tooltip");
     }
 
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWINDOW));

@@ -14,8 +14,7 @@ AudioProvider::AudioProvider(QObject *parent)
       m_audioInter(new org::deepin::dde::Audio1("org.deepin.dde.Audio1",
                                                   "/org/deepin/dde/Audio1",
                                                   QDBusConnection::sessionBus(), this)),
-      m_sinkInter(nullptr),
-      m_isMute(false)
+      m_sinkInter(nullptr)
 {
     m_suitableParams << "AudioUp" << "AudioDown" << "AudioMute" << "AudioUpAsh" << "AudioDownAsh" << "AudioMuteAsh";
 
@@ -119,11 +118,6 @@ void AudioProvider::defaultSinkChanged(const QDBusObjectPath &path)
         m_sinkInter = new org::deepin::dde::audio1::Sink("org.deepin.dde.Audio1",
                                                            pathStr,
                                                            QDBusConnection::sessionBus(), this);
-        connect(m_sinkInter, &com::deepin::daemon::audio::Sink::MuteChanged, this, [this] {
-            if (m_sinkInter->mute() != m_isMute)
-                emit dataChanged();
-        });
-
         m_sinkInter->setSync(true);
     }
 }

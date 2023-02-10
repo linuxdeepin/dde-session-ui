@@ -5,64 +5,38 @@
 #include "monitorindicator.h"
 
 #include <QPainter>
-#include <QApplication>
-#include <QDebug>
+#include <QPainterPath>
+#include <QResizeEvent>
+#include <QX11Info>
 
-#define LINE_WIDTH 10
+#include <X11/extensions/shape.h>
+#include <X11/Xregion.h>
 
 MonitorIndicator::MonitorIndicator(QWidget *parent)
-    : QFrame(nullptr)
-    , m_topLine(new QFrame(nullptr))
-    , m_bottomLine(new QFrame(nullptr))
-    , m_leftLine(new QFrame(nullptr))
-    , m_rightLine(new QFrame(nullptr))
+    : QFrame(parent)
 {
-    Q_UNUSED(parent)
-    QFrame::setVisible(false);
-
-    QPalette pal = QPalette();
-    pal.setColor(QPalette::Window, QColor("#2ca7f8"));
-
-    m_topLine->setWindowFlags(Qt::CoverWindow | Qt::WindowStaysOnTopHint | Qt::SplashScreen | Qt::FramelessWindowHint | Qt::X11BypassWindowManagerHint);
-    m_topLine->setAutoFillBackground(true);
-    m_topLine->setPalette(pal);
-
-    m_bottomLine->setWindowFlags(Qt::CoverWindow | Qt::WindowStaysOnTopHint | Qt::SplashScreen | Qt::FramelessWindowHint | Qt::X11BypassWindowManagerHint);
-    m_bottomLine->setAutoFillBackground(true);
-    m_bottomLine->setPalette(pal);
-
-    m_leftLine->setWindowFlags(Qt::CoverWindow | Qt::WindowStaysOnTopHint | Qt::SplashScreen | Qt::FramelessWindowHint | Qt::X11BypassWindowManagerHint);
-    m_leftLine->setAutoFillBackground(true);
-    m_leftLine->setPalette(pal);
-
-    m_rightLine->setWindowFlags(Qt::CoverWindow | Qt::WindowStaysOnTopHint | Qt::SplashScreen | Qt::FramelessWindowHint | Qt::X11BypassWindowManagerHint);
-    m_rightLine->setAutoFillBackground(true);
-    m_rightLine->setPalette(pal);
+    setAccessibleName("MonitorIndicator");
+    setWindowFlags(Qt::SplashScreen | Qt::X11BypassWindowManagerHint);
+    setStyleSheet("background-color: #2ca7f8;");
 }
 
-MonitorIndicator::~MonitorIndicator()
+void MonitorIndicator::resizeEvent(QResizeEvent *e)
 {
-    delete m_topLine;
-    delete m_bottomLine;
-    delete m_leftLine;
-    delete m_rightLine;
-}
+    QFrame::resizeEvent(e);
 
-void MonitorIndicator::setVisible(bool visible)
-{
-    updateGeometry();
-    m_topLine->setVisible(visible);
-    m_bottomLine->setVisible(visible);
-    m_leftLine->setVisible(visible);
-    m_rightLine->setVisible(visible);
-}
+    XRectangle rectangle;
+    rectangle.x = 0;
+    rectangle.y = 0;
+    rectangle.width = static_cast<ushort>(e->size().width());
+    rectangle.height = static_cast<ushort>(e->size().height());
 
-void MonitorIndicator::updateGeometry()
-{
-    QPoint topLeft = mapToGlobal(QPoint(0,0));
-    int lineWidth = static_cast<int>(LINE_WIDTH / qApp->devicePixelRatio());
-    m_topLine->setGeometry(topLeft.x(), topLeft.y(), width(), lineWidth);
-    m_bottomLine->setGeometry(topLeft.x(), topLeft.y() + height() - lineWidth, width(), lineWidth);
-    m_rightLine->setGeometry(topLeft.x() + width() - lineWidth, topLeft.y(), lineWidth, height());
-    m_leftLine->setGeometry(topLeft.x(), topLeft.y(), lineWidth, height());
+    // need to restore the cut area, if not,cut out will be repeated.
+    XShapeCombineRectangles(QX11Info::display(), winId(), ShapeBounding, 0, 0, &rectangle, 1, ShapeSet, YXBanded);
+
+    rectangle.x = 10;
+    rectangle.y = 10;
+    rectangle.width = static_cast<ushort>(e->size().width()) - 20;
+    rectangle.height = static_cast<ushort>(e->size().height()) - 20;
+
+    XShapeCombineRectangles(QX11Info::display(), winId(), ShapeBounding, 0, 0, &rectangle, 1, ShapeSubtract, YXBanded);
 }

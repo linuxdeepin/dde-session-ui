@@ -19,7 +19,6 @@ DCORE_USE_NAMESPACE
 const int PingCode = 1;
 const int DevicePath = 2;
 const int PingTime = 3;
-const int CancelBtnState = 4;
 
 int main(int argc, char *argv[])
 {
@@ -35,13 +34,9 @@ int main(int argc, char *argv[])
         qDebug() << "number of parameters must be greater than 3";
         return -1;
     }
-    auto cancelable = true;
-    if (arguslist.size() >= 5) {
-        cancelable = arguslist[CancelBtnState] == "true";
-    }
-    qDebug() << "PingCode:" << arguslist[PingCode] << " Device Path:" << arguslist[DevicePath] << "Ping Time:" + arguslist[PingTime]
-             << "isCancelBtnShown:" << cancelable;
-    PinCodeDialog dialog(arguslist[PingCode], arguslist[DevicePath], arguslist[PingTime], cancelable);
+    qDebug() << "PingCode:" << arguslist[PingCode] << " Device Path:" << arguslist[DevicePath] << "Ping Time:" + arguslist[PingTime];
+
+    PinCodeDialog dialog(arguslist[PingCode], arguslist[DevicePath], arguslist[PingTime], true);
 #if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
     AccessibilityCheckerEx checker;
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);

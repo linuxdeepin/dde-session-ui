@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2017 - 2022 UnionTech Software Technology Co., Ltd.
+﻿// SPDX-FileCopyrightText: 2017 - 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -104,7 +104,7 @@ void BubbleItem::initUI()
     m_closeButton->setAccessibleName("CloseButton");
 
     setWindowFlags(Qt::Widget);
-    setFocusPolicy(Qt::NoFocus);
+    setFocusPolicy(Qt::StrongFocus);
     resize(OSD::BubbleSize(OSD::BUBBLEWIDGET));
     m_icon->setFixedSize(OSD::IconSize(OSD::BUBBLEWIDGET));
     m_closeButton->setFlat(true);
@@ -148,8 +148,8 @@ void BubbleItem::initUI()
     QHBoxLayout *bodyLayout = new QHBoxLayout;
     bodyLayout->setSpacing(0);
     bodyLayout->setContentsMargins(10, 0, 10, 0);
-    bodyLayout->addWidget(m_body, 4);
-    bodyLayout->addWidget(m_actionButton, 0);
+    bodyLayout->addWidget(m_body);
+    bodyLayout->addWidget(m_actionButton);
 
     m_bodyWidget->setLayout(bodyLayout);
     m_bodyWidget->setRadius(0, 8);
@@ -280,8 +280,9 @@ void BubbleItem::enterEvent(QEvent *event)
     if (m_view == nullptr)
         return;
     if (!QScroller::hasScroller(m_view)) {
+        setFocus();
         m_view->setCurrentRow(m_entity->currentIndex());
-        setHasFocus(true);
+        Q_EMIT havorStateChanged(true);
     }
 
     return DWidget::enterEvent(event);
@@ -292,12 +293,12 @@ void BubbleItem::leaveEvent(QEvent *event)
     // QScroller::hasScroller用于判断listview是否处于滑动状态，滑动状态不触发paint相关操作，否则滑动动画异常
     bool hasScroller = QScroller::hasScroller(m_view);
     if (!hasScroller) {
-        setHasFocus(false);
+        Q_EMIT havorStateChanged(false);
     } else {
         // 滚动结束,处理hover变化
         connect(QScroller::scroller(m_view), &QScroller::stateChanged, this, [this](const QScroller::State state){
             if (state == QScroller::Inactive) {
-                setHasFocus(false);
+                Q_EMIT havorStateChanged(false);
             }
         });
     }
@@ -307,13 +308,15 @@ void BubbleItem::leaveEvent(QEvent *event)
 
 void BubbleItem::focusInEvent(QFocusEvent *event)
 {
-    setHasFocus(true);
+    m_bgWidget->setHasFocus(true);
+    Q_EMIT havorStateChanged(true);
     return DWidget::focusInEvent(event);
 }
 
 void BubbleItem::focusOutEvent(QFocusEvent *event)
 {
-    setHasFocus(false);
+    m_bgWidget->setHasFocus(false);
+    Q_EMIT havorStateChanged(false);
     return DWidget::focusOutEvent(event);
 }
 
@@ -326,7 +329,6 @@ void BubbleItem::onHavorStateChanged(bool hover)
             QApplication::sendEvent (m_closeButton, &event);
         }
         m_appTimeLabel->setVisible(!hover);
-        update();
     }
 }
 

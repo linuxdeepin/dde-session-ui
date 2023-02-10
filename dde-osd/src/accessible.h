@@ -41,17 +41,17 @@ QAccessibleInterface *accessibleFactory(const QString &classname, QObject *objec
     QAccessibleInterface *interface = nullptr;
 
     USE_ACCESSIBLE(classname, NotifyCenterWidget)
-    ELSE_USE_ACCESSIBLE(classname, NotifyListView)
-    ELSE_USE_ACCESSIBLE(classname, BubbleItem)
-    ELSE_USE_ACCESSIBLE(classname, BubbleTitleWidget)
-    ELSE_USE_ACCESSIBLE(classname, OverLapWidet)
-    ELSE_USE_ACCESSIBLE(classname, ActionButton)
-    ELSE_USE_ACCESSIBLE(classname, IconButton)
-    ELSE_USE_ACCESSIBLE(classname, Bubble)
-    ELSE_USE_ACCESSIBLE(classname, AlphaWidget)
-    ELSE_USE_ACCESSIBLE(classname, HalfRoundedRectWidget)
-    ELSE_USE_ACCESSIBLE(QString(classname).replace("Dtk::Widget::", ""), DIconButton)
-    ELSE_USE_ACCESSIBLE(QString(classname).replace("Dtk::Widget::", ""), DLabel)
+    USE_ACCESSIBLE(classname, NotifyListView)
+    USE_ACCESSIBLE(classname, BubbleItem)
+    USE_ACCESSIBLE(classname, BubbleTitleWidget)
+    USE_ACCESSIBLE(classname, OverLapWidet)
+    USE_ACCESSIBLE(classname, ActionButton)
+    USE_ACCESSIBLE(classname, IconButton)
+    USE_ACCESSIBLE(classname, Bubble)
+    USE_ACCESSIBLE(classname, AlphaWidget)
+    USE_ACCESSIBLE(classname, HalfRoundedRectWidget)
+    USE_ACCESSIBLE(QString(classname).replace("Dtk::Widget::", ""), DIconButton)
+    USE_ACCESSIBLE(QString(classname).replace("Dtk::Widget::", ""), DLabel)
 
     return interface;
 }

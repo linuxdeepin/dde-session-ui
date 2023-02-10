@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2014 - 2022 UnionTech Software Technology Co., Ltd.
+﻿// SPDX-FileCopyrightText: 2014 - 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -53,6 +53,7 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
                                       , "/org/deepin/dde/Gesture1"
                                       , QDBusConnection::systemBus()
                                       , this))
+    , m_dockInter(new DBusDockInterface(this))
     , m_trickTimer(new QTimer(this))
 {
     m_trickTimer->setInterval(300);
@@ -672,7 +673,7 @@ void BubbleManager::initConnections()
             this, SLOT(onPrepareForSleep(bool)));
 
     connect(m_displayInter, &DisplayInter::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
-    connect(m_dockDeamonInter, &DockInter::FrontendWindowRectChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
+    connect(m_dockInter, &DBusDockInterface::geometryChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
     connect(m_dockDeamonInter, &DockInter::serviceValidChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
 
     connect(qApp, &QApplication::primaryScreenChanged, this, [ = ] {
@@ -723,8 +724,11 @@ void BubbleManager::onPrepareForSleep(bool sleep)
 
 void BubbleManager::geometryChanged()
 {
-    m_currentDockRect = m_dockDeamonInter->frontendWindowRect();
     m_currentDisplayRect = calcDisplayRect();
+    // dock未启动时，不要调用其接口，会导致系统刚启动是任务栏被提前启动（比窗管还早），造成显示异常，后续应该改成通知中心显示时才调用任务栏的接口，否则不应调用
+    if (m_dockInter->isValid()) {
+        m_currentDockRect = m_dockInter->geometry();
+    }
 
     m_dockPos = static_cast<OSD::DockPosition>(m_dockDeamonInter->position());
     m_dockMode = m_dockDeamonInter->displayMode();

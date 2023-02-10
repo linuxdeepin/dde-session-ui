@@ -28,15 +28,12 @@ Container::Container(QWidget *parent)
     , m_quitTimer(new QTimer(this))
 {
     setAccessibleName("Container");
+    setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_TranslucentBackground);
 
     if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
-        setWindowFlags(Qt::Tool | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
         setAttribute(Qt::WA_NativeWindow);
-        // 慎重修改层级，特别考虑对锁屏的影响
-        windowHandle()->setProperty("_d_dwayland_window-type", "onScreenDisplay");
-    } else {
-        setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
+        windowHandle()->setProperty("_d_dwayland_window-type", "tooltip");
     }
 
     m_quitTimer->setSingleShot(true);
@@ -91,6 +88,7 @@ void Container::moveToCenter()
             displayRect = screen->geometry();
     }
 
+    setGeometry(displayRect);
     move(QPoint(displayRect.center().x(), displayRect.bottom() - 180) - QPoint(rect().center().x(), rect().bottom()));
 }
 

@@ -49,7 +49,7 @@ NotifyCenterWidget::NotifyCenterWidget(AbstractPersistence *database, QWidget *p
 void NotifyCenterWidget::initUI()
 {
     m_notifyWidget->setAccessibleName("NotifyWidget");
-    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
     setAttribute(Qt::WA_TranslucentBackground);
     setContentsMargins(0, 0, 0, 0);
 
@@ -83,7 +83,7 @@ void NotifyCenterWidget::initUI()
     m_clearButton->setOpacity(IconButton::RELEASE, 255 * 0.0);
     m_clearButton->setRadius(Notify::CenterTitleHeight / 2);
     m_clearButton->setFixedSize(Notify::CenterTitleHeight, Notify::CenterTitleHeight);
-    m_clearButton->setFocusPolicy(Qt::ClickFocus);
+    m_clearButton->setFocusPolicy(Qt::StrongFocus);
 
     QHBoxLayout *head_Layout = new QHBoxLayout;
     head_Layout->addWidget(bell_notify, Qt::AlignLeft | Qt::AlignTop);
@@ -97,7 +97,6 @@ void NotifyCenterWidget::initUI()
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(Notify::CenterMargin, Notify::CenterMargin, 0, 0);
     mainLayout->addWidget(m_headWidget);
-    mainLayout->addSpacing(20);
     mainLayout->addWidget(m_notifyWidget);
 
     setLayout(mainLayout);
@@ -151,33 +150,33 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
     int height = screen.height() - Notify::CenterMargin * 2;
     if (pos == OSD::DockPosition::Top || pos == OSD::DockPosition::Bottom) {
         if(mode == OSD::DockModel::Fashion) {
-            height = screen.height() - Notify::CenterMargin * 2 - dock.height() / m_scale;
+            height = screen.height() - Notify::CenterMargin * 2 - dock.height();
             if (dock.height() != 0) {
                 height -= OSD::DockMargin * 2;
             }
         } else {
-            height = screen.height() - Notify::CenterMargin * 2 - dock.height() / m_scale;
+            height = screen.height() - Notify::CenterMargin * 2 - dock.height();
         }
     }
 
     int x = screen.x() + screen.width() - Notify::CenterWidth - Notify::CenterMargin;
     if (pos == OSD::DockPosition::Right) {
         if(mode == OSD::DockModel::Fashion) {
-            x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() / m_scale + OSD::DockMargin * 2 + Notify::CenterMargin);
+            x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() + OSD::DockMargin * 2 + Notify::CenterMargin);
             if (dock.width() == 0) {
                 x += OSD::DockMargin * 2;
             }
         } else {
-            x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() / m_scale + Notify::CenterMargin);
+            x =  screen.x() + screen.width() - (Notify::CenterWidth + dock.width() + Notify::CenterMargin);
         }
     }
 
     int y = screen.y() + Notify::CenterMargin;
     if (pos == OSD::DockPosition::Top) {
         if(mode == OSD::DockModel::Fashion) {
-            y = screen.y() + Notify::CenterMargin + dock.height() / m_scale + OSD::DockMargin * 2;
+            y = screen.y() + Notify::CenterMargin + dock.height() + OSD::DockMargin * 2;
         } else {
-            y = screen.y() + Notify::CenterMargin + dock.height() / m_scale;
+            y = screen.y() + Notify::CenterMargin + dock.height();
         }
     }
 
@@ -197,7 +196,7 @@ void NotifyCenterWidget::updateGeometry(QRect screen, QRect dock, OSD::DockPosit
 void NotifyCenterWidget::mouseMoveEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
-    return;
+    return; 
 }
 
 void NotifyCenterWidget::hideEvent(QHideEvent *event)
@@ -278,19 +277,10 @@ void NotifyCenterWidget::registerRegion()
     if (interface.isValid()) {
         m_regionConnect = connect(m_regionMonitor, &DRegionMonitor::buttonRelease, this, [ = ](const QPoint & p) {
             QPoint pScale(int(qreal(p.x() / m_scale)), int(qreal(p.y() / m_scale)));
-            // 多屏开缩放下，qt坐标有问题，需要手动计算
-            QScreen *screen = windowHandle()->screen();
-            if (screen) {
-                const QRect screenRect = screen->geometry();
-                QRect rect = geometry();
-                rect.setX(screenRect.x() / m_scale + geometry().x() - screenRect.x());
-                if (!rect.contains(pScale))
-                    if (!isHidden()) {
-                        hideAni();
-                    }
-            } else {
-                qWarning() << "windowHandle()->screen() is null";
-            }
+            if (!geometry().contains(pScale))
+                if (!isHidden()) {
+                    hideAni();
+                }
         });
     }
 

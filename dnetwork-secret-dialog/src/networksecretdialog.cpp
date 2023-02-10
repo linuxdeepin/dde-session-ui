@@ -22,28 +22,30 @@ const QMap<QString, QString> ConnTypeIconKeyMap {
     {"pppoe", "network-wired"},
 };
 
+const QMap<QString, QString> SECRET_KEY_STR_MAP = {
+    {"psk", QObject::tr("Password")},
+    {"wep-key0", QObject::tr("Key")},
+    {"wep-key1", QObject::tr("Key")},
+    {"wep-key2", QObject::tr("Key")},
+    {"wep-key3", QObject::tr("key")},
+    {"leap-password", "unknown"},
+    {"password", QObject::tr("Password")},
+    {"password-raw", "unknown"},
+    {"ca-cert-password", "unknown"},
+    {"client-cert-password", "unknown"},
+    {"phase2-ca-cert-password", "unknown"},
+    {"phase2-client-cert-password", "unknown"},
+    {"private-key-password", QObject::tr("Private Pwd")},
+    {"phase2-private-key-password", "unknown"},
+    {"pin", "unknown"},
+    {"proxy-password", QObject::tr("Proxy Password")},
+    {"IPSec secret", QObject::tr("Password")},
+    {"Xauth password", QObject::tr("Group Password")},
+};
+
 NetworkSecretDialog::NetworkSecretDialog(QJsonDocument jsonDoc, QWidget *parent)
     : DDialog(parent)
-    , m_secretKeyStrMap({
-              { "psk", tr("Password") },
-              { "wep-key0", tr("Key") },
-              { "wep-key1", tr("Key") },
-              { "wep-key2", tr("Key") },
-              { "wep-key3", tr("key") },
-              { "leap-password", "unknown" },
-              { "password", tr("Password") },
-              { "password-raw", "unknown" },
-              { "ca-cert-password", "unknown" },
-              { "client-cert-password", "unknown" },
-              { "phase2-ca-cert-password", "unknown" },
-              { "phase2-client-cert-password", "unknown" },
-              { "private-key-password", tr("Private Pwd") },
-              { "phase2-private-key-password", "unknown" },
-              { "pin", "unknown" },
-              { "proxy-password", tr("Proxy Password") },
-              { "IPSec secret", tr("Password") },
-              { "Xauth password", tr("Group Password") },
-      })
+    , m_secretKeyStrMap(SECRET_KEY_STR_MAP)
 {
     m_allInputValid = false;
 

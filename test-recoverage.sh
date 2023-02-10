@@ -1,8 +1,7 @@
 #!/bin/bash
 # 单元测试覆盖率统计脚本
 
-BUILD_DIR=build-ut
-HTML_DIR=html
+BUILD_DIR=build
 REPORT_DIR=report
 
 # 工程列表

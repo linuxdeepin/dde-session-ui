@@ -123,31 +123,6 @@ void NotifySettings::setAppSetting(const QString &id, const NotifySettings::AppC
 
 QVariant NotifySettings::getAppSetting(const QString &id, const NotifySettings::AppConfigurationItem &item)
 {
-    // 应用名为空的情况，暂未定义
-    if (id.isEmpty()) {
-        QVariant results;
-        switch (item) {
-        case ENABELNOTIFICATION:
-            results = true;
-            break;
-        case ENABELPREVIEW:
-            results = true;
-            break;
-        case ENABELSOUND:
-            results = true;
-            break;
-        case SHOWINNOTIFICATIONCENTER:
-            results = false;
-            break;
-        case LOCKSCREENSHOWNOTIFICATION:
-            results = true;
-            break;
-        default:
-            Q_NULLPTR;
-        }
-        return results;
-    }
-
     QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
 
     QVariant results;
