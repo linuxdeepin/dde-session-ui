@@ -67,6 +67,7 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
 
     // 任务栏在左侧时，触屏划入距离需要超过100
     m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
+    m_dockInter->setSync(false);
 
     connect(m_userInter, &__SessionManager1::LockedChanged, this, [ this ] {
         // 当锁屏状态发生变化时立即隐藏所有通知并插入到通知中心（根据通知的实际情况决定），桌面和锁屏的通知不交叉显示
@@ -440,10 +441,11 @@ QRect BubbleManager::calcDisplayRect()
     QRect displayRect = m_displayInter->primaryRect();
     QList<QDBusObjectPath> screenList = m_displayInter->monitors();
 
+    QRect dockRect(m_dockInter->geometry());
     for (const auto &screen : screenList) {
         MonitorInter monitor("org.deepin.dde.Display1", screen.path(), QDBusConnection::sessionBus());
         QRect monitorRect(monitor.x(), monitor.y(), monitor.width(), monitor.height());
-        if (monitor.enabled() && monitorRect.contains(m_currentDockRect.center())) {
+        if (monitor.enabled() && monitorRect.contains(dockRect.center())) {
             displayRect = QRect(monitorRect.x(), monitorRect.y(),
                                 monitorRect.width() / ratio, monitorRect.height() / ratio);
             break;

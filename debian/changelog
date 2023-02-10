@@ -1,3 +1,10 @@
+dde-session-ui (6.0.6) unstable; urgency=medium
+
+  [ TagBuilder ]
+  * fix: 解决音量及亮度osd在字体放大情况下显示不全的问题。(Bug: 181545)(Influence: 在系统字体放大情况下，音量及亮度osd显示。)
+
+ -- zhaoyingzhen <zhaoyingzhen@uniontech.com>  Fri, 13 Jan 2023 10:23:33 +0800
+
 dde-session-ui (6.0.5) unstable; urgency=medium
 
   [ TagBuilder ]
