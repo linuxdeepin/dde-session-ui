@@ -7,7 +7,7 @@ arch=('x86_64' 'aarch64')
 url="https://github.com/linuxdeepin/dde-session-ui"
 license=('GPL3')
 groups=('deepin')
-depends=('gsettings-qt' 'startdde-git' 'liblightdm-qt5' 'qt5-svg' 'deepin-daemon-git' 'deepin-dock-git' 'deepin-wallpapers-git')
+depends=('gsettings-qt' 'startdde-git' 'liblightdm-qt5' 'qt5-svg' 'deepin-daemon-git' 'deepin-dock-git' 'deepin-wallpapers-git' 'deepin-pw-check')
 makedepends=('git' 'deepin-gettext-tools-git' 'cmake' 'ninja' 'qt5-tools' 'deepin-dock-git' 'gtest' 'gcovr'
              'dtkcommon-git' 'dtkcore-git')
 provides=('deepin-notifications' 'deepin-session-ui')

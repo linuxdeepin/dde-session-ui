@@ -63,6 +63,8 @@ find_package(Qt5Concurrent REQUIRED)
 find_package(DtkWidget REQUIRED)
 find_package(DtkGui REQUIRED)
 
+pkg_check_modules(DeepinPwCheck REQUIRED IMPORTED_TARGET libdeepin_pw_check)
+
 
 add_executable(${BIN_NAME} ${SRCS} ${QRC} ${DBUS_INTERFACE_SRCS})
 target_include_directories(${BIN_NAME} PUBLIC
@@ -77,7 +79,7 @@ target_link_libraries(${BIN_NAME} PRIVATE
     ${Qt5Network_LIBRARIES}
     ${Qt5DBus_LIBRARIES}
     ${Qt5Concurrent_LIBRARIES}
-    ${DEEPIN_PW_CHECK}
+    PkgConfig::DeepinPwCheck
     crypt
     ${LIBS}
 )
