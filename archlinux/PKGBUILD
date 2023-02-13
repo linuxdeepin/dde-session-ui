@@ -13,16 +13,13 @@ makedepends=('git' 'deepin-gettext-tools-git' 'cmake' 'ninja' 'qt5-tools' 'deepi
 provides=('deepin-notifications' 'deepin-session-ui')
 conflicts=('dde-workspace' 'deepin-session-ui' 'deepin-notifications')
 groups=('deepin-git')
-source=("source.tar.gz"
-  fix-cmakelist.patch)
-sha512sums=('SKIP'
-            '50d74d551c71a0039b6064d54939fb8a611941d8e8c653c96a5fc146f3dc168b396d0a4a21c269abb9331fbc7a7cc33909069ea4f8cb20db752705369f1d3710')
+source=("source.tar.gz")
+sha512sums=('SKIP')
 
 prepare() {
     cd $deepin_source_name
 
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' widgets/*.cpp
-  patch -p1 -i ../fix-cmakelist.patch
 }
 
 build() {
