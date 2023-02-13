@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(UT_Dnetwork_Secret_Dialog_Name ut-dnetwork-secret-dialog)
 
 file(GLOB_RECURSE UT_Dnetwork_Secret_Dialog_SRCS

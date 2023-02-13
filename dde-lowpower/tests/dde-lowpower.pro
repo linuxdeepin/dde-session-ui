@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 QT       += widgets core gui dbus gui-private testlib
 
 TARGET = ut_dde-lowpower

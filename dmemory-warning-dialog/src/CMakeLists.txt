@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(Dmemory_Warning_Dialog_Name dmemory-warning-dialog)
 
 add_executable(${Dmemory_Warning_Dialog_Name}

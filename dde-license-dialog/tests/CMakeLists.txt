@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(UT_License_Dialog_Name ut-dde-license-dialog)
 
 file(GLOB_RECURSE UT_License_Dialog_SRCS

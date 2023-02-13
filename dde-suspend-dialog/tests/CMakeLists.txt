@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(UT_Suspend_Dialog_Name ut-dde-suspend-dialog)
 
 file(GLOB_RECURSE UT_Suspend_Dialog_SRCS

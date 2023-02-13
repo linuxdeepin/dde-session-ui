@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(Dnetwork_Secret_Dialog_Name dnetwork-secret-dialog)
 
 add_executable(${Dnetwork_Secret_Dialog_Name}

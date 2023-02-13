@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(UT_Bluetooth_Dialog_Name ut-dde-bluetooth-dialog)
 
 file(GLOB_RECURSE UT_Bluetooth_Dialog_SRCS

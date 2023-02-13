@@ -18,8 +18,11 @@ Files: rpm/* debian/* archlinux/*
 Copyright: None
 License: CC0-1.0
 
-# png svg
-Files: dde-osd/icons/*.svg dde-welcome/resources/success.svg dde-notification-plugin/resources/icons/*.svg dde-suspend-dialog/data/*.svg dde-lowpower/images/*.png
+# icons
+Files: dde-osd/src/icons/*.dci
+  dde-welcome/src/resources/success.svg dde-notification-plugin/resources/icons/*.svg
+  dde-suspend-dialog/src/data/*.svg reset-password-dialog/icons/*.svg
+  dde-lowpower/src/images/*.png
 Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
 
@@ -29,7 +32,7 @@ Copyright: None
 License: CC0-1.0
 
 # qrc
-Files: dde-lowpower/*.qrc dde-osd/*.qrc dde-welcome/*.qrc
+Files: dde-lowpower/*.qrc dde-osd/*.qrc dde-welcome/*.qrc reset-password-dialog/*.qrc
 Copyright: None
 License: CC0-1.0
 
@@ -43,8 +46,13 @@ Files: src/*.qss
 Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
 
-# xml toml json conf yaml ...
-Files: dde-notification-plugin/*.xml .clog.toml dde-notification-plugin/*.json .packit.yaml .gitignore .project .tx/config
+# dbus xml
+Files: xml/*.deepin.*.xml
+Copyright: None
+License: CC0-1.0
+
+# toml json conf yaml ...
+Files: .clog.toml .packit.yaml .gitignore .project .tx/*.conf .tx/config
 Copyright: None
 License: CC0-1.0
 
@@ -53,13 +61,9 @@ Files: CMakeLists.txt tests/dde-lowpower/dde-lowpower.pro
 Copyright: None
 License: CC0-1.0
 
-# qrc
-Files: dde-notification-plugin/resources.qrc
-Copyright: None
-License: CC0-1.0
-
 # qss service
-Files: dde-osd/light.qss dde-osd/files/*.service dde-warning-dialog/*.service dde-welcome/*.service dmemory-warning-dialog/*.service
+Files: dde-osd/src/light.qss
+  dde-osd/*.service dde-warning-dialog/*.service dde-welcome/*.service dmemory-warning-dialog/*.service
 Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
 
@@ -69,6 +73,6 @@ Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
 
 # xml2cpp
-Files: dde-osd/notification/dbus* global_util/dbus/*
+Files: dde-osd/src/notification/dbus* global_util/dbus/*
 Copyright: The Qt Company Ltd.
 License: CC0-1.0

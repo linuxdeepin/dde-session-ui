@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(Touchscreen_Dialog_Name dde-touchscreen-dialog)
 
 add_executable(${Touchscreen_Dialog_Name}

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(Wm_Chooser_Name dde-wm-chooser)
 
 add_executable(${Wm_Chooser_Name}

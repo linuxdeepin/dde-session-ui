@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(Suspend_Dialog_Name dde-suspend-dialog)
 
 add_executable(${Suspend_Dialog_Name}

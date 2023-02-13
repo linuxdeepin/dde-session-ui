@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(Bluetooth_Dialog_Name dde-bluetooth-dialog)
 
 add_executable(${Bluetooth_Dialog_Name}

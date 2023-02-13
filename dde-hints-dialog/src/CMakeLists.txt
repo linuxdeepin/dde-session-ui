@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(Hints_Dialog_Name dde-hints-dialog)
 
 add_executable(${Hints_Dialog_Name}

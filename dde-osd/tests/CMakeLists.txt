@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 set(UT_OSD_Name ut-dde-osd)
 
 file(GLOB_RECURSE UT_OSD_SRCS
