@@ -2,28 +2,22 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-file(GLOB_RECURSE Welcome_SRCS
-    "src/*.h"
-    "src/*.cpp"
-    )
+add_library(dde-welcome-shared OBJECT
+    "src/mainwidget.cpp"
+    "src/mainwidget.h"
+    "src/updatecontent.cpp"
+    "src/updatecontent.h"
+    "src/utils.cpp"
+    "src/utils.h"
+)
 
-list(REMOVE_ITEM Welcome_SRCS "${CMAKE_SOURCE_DIR}/dde-welcome/src/main.cpp")
-
-set(Welcome_Includes
-    ${DtkWidget_INCLUDE_DIRS}
-    ${GSETTINGS_INCLUDE_DIRS}
+target_link_libraries(dde-welcome-shared
+    Dtk::Widget
+    PkgConfig::GSETTINGS
     Qt5::Widgets
     Qt5::DBus
     Qt5::Xml
-    )
-
-set(Welcome_Libraries
-    ${DtkWidget_LIBRARIES}
-    ${GSETTINGS_LIBRARIES}
-    Qt5::Widgets
-    Qt5::DBus
-    Qt5::Xml
-    )
+)
 
 add_subdirectory("src")
 add_subdirectory("tests")

@@ -43,13 +43,12 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 # Find the library
 find_package(PkgConfig REQUIRED)
-find_package(DtkWidget REQUIRED)
-find_package(DtkCore REQUIRED)
 find_package(GTest REQUIRED)
 find_package(GMock REQUIRED)
-find_package(Qt5 COMPONENTS Widgets DBus X11Extras Xml Concurrent Svg Sql Network Test REQUIRED)
+find_package(Dtk REQUIRED COMPONENTS Core Widget)
+find_package(Qt5 REQUIRED COMPONENTS Widgets DBus X11Extras Xml Concurrent Svg Sql Network Test)
 
-pkg_check_modules(GSETTINGS REQUIRED gsettings-qt)
+pkg_check_modules(GSETTINGS REQUIRED IMPORTED_TARGET gsettings-qt)
 pkg_check_modules(DdeDockInterface REQUIRED dde-dock)
 pkg_check_modules(XCB_EWMH REQUIRED xcb-ewmh)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
