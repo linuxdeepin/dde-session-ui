@@ -11,7 +11,6 @@ file(GLOB_RECURSE UT_Bluetooth_Dialog_SRCS
 add_executable(${UT_Bluetooth_Dialog_Name}
     ${Common_SRCS}
     ${Bluetooth_Dialog_SRCS}
-    ${DBUS_INTERFACE_SRCS}
     ${UT_Bluetooth_Dialog_SRCS}
     )
 
@@ -24,6 +23,7 @@ target_include_directories(${UT_Bluetooth_Dialog_Name} PUBLIC
     )
 
 target_link_libraries(${UT_Bluetooth_Dialog_Name} PRIVATE
+    session-ui-dbus-shared
     ${Bluetooth_Dialog_Libraries}
     ${Test_Libraries}
     )

@@ -6,7 +6,6 @@ set(Suspend_Dialog_Name dde-suspend-dialog)
 
 add_executable(${Suspend_Dialog_Name}
     ${Suspend_Dialog_SRCS}
-    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 
@@ -15,6 +14,7 @@ target_include_directories(${Suspend_Dialog_Name} PUBLIC
     )
 
 target_link_libraries(${Suspend_Dialog_Name} PRIVATE
+    session-ui-dbus-shared
     ${Suspend_Dialog_Libraries}
     )
 

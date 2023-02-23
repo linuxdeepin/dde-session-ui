@@ -12,7 +12,6 @@ file(GLOB_RECURSE UT_OSD_SRCS
 add_executable(${UT_OSD_Name}
     ${OSD_SRCS}
     ${UT_OSD_SRCS}
-    ${DBUS_INTERFACE_SRCS}
     )
 
 # 用于测试覆盖率的编译条件
@@ -27,6 +26,7 @@ target_include_directories(${UT_OSD_Name} PUBLIC
     )
 
 target_link_libraries(${UT_OSD_Name} PRIVATE
+    session-ui-dbus-shared
     ${OSD_Libraries}
     Qt5::Test
     ${Test_Libraries}

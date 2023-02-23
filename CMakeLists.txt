@@ -17,8 +17,8 @@ set(CMAKE_CXX_FLAGS "-g -Wall")
 ADD_DEFINITIONS("-fstack-protector-strong -D_FORTITY_SOURCE=1 -z noexecstack -pie -fPIC -z lazy")
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -fsanitize=address -O0")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fsanitize=address -O0")
+    add_compile_options(-fsanitize=address)
+    add_link_options(-fsanitize=address)
 endif()
 
 if (DEFINED ENABLE_MIEEE)
@@ -96,23 +96,9 @@ file(GLOB_RECURSE Common_SRCS
     "common/*.cpp"
     )
 
-file(GLOB_RECURSE Widgets_SRCS
-    "widgets/*.h"
-    "widgets/*.cpp"
-    )
-
-file(GLOB_RECURSE Global_Util_SRCS
-    "global_util/*.h"
-    "global_util/*.cpp"
-    )
-
-file (GLOB_RECURSE DBUS_INTERFACE_SRCS
-    "global_util/dbus/*.h"
-    "global_util/dbus/*.cpp"
-    "global_util/dbus/types/*.h"
-    "global_util/dbus/types/*.cpp"
-    )
-
+add_subdirectory("widgets")
+add_subdirectory("global_util")
+add_subdirectory("global_util/dbus")
 add_subdirectory("dde-bluetooth-dialog")
 add_subdirectory("dde-hints-dialog")
 add_subdirectory("dde-license-dialog")

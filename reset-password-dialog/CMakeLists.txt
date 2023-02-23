@@ -66,7 +66,7 @@ find_package(DtkGui REQUIRED)
 pkg_check_modules(DeepinPwCheck REQUIRED IMPORTED_TARGET libdeepin_pw_check)
 
 
-add_executable(${BIN_NAME} ${SRCS} ${QRC} ${DBUS_INTERFACE_SRCS})
+add_executable(${BIN_NAME} ${SRCS} ${QRC})
 target_include_directories(${BIN_NAME} PUBLIC
     ${DtkWidget_INCLUDE_DIRS}
     ${Qt5Gui_PRIVATE_INCLUDE_DIRS}
@@ -74,6 +74,7 @@ target_include_directories(${BIN_NAME} PUBLIC
 )
 
 target_link_libraries(${BIN_NAME} PRIVATE
+    session-ui-dbus-shared
     ${DtkWidget_LIBRARIES}
     ${Qt5Widgets_LIBRARIES}
     ${Qt5Network_LIBRARIES}

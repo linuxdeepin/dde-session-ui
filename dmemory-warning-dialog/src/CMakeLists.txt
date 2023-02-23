@@ -6,7 +6,6 @@ set(Dmemory_Warning_Dialog_Name dmemory-warning-dialog)
 
 add_executable(${Dmemory_Warning_Dialog_Name}
     ${Dmemory_Warning_Dialog_SRCS}
-    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 
@@ -15,6 +14,7 @@ target_include_directories(${Dmemory_Warning_Dialog_Name} PUBLIC
     )
 
 target_link_libraries(${Dmemory_Warning_Dialog_Name} PRIVATE
+    session-ui-dbus-shared
     ${Dmemory_Warning_Dialog_Libraries}
     )
 

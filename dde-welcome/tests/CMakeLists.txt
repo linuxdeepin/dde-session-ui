@@ -5,9 +5,6 @@
 set(UT_Welcome_Name ut-dde-welcome)
 
 add_executable(${UT_Welcome_Name}
-    ${Widgets_SRCS}
-    ${Global_Util_SRCS}
-
     "main.cpp"
     "ut_mainwidget.cpp"
     "ut_updatecontent.cpp"
@@ -27,6 +24,9 @@ target_include_directories(${UT_Welcome_Name} PUBLIC
 
 target_link_libraries(${UT_Welcome_Name} PRIVATE
     dde-welcome-shared
+    session-ui-widgets-shared
+    session-ui-util-shared
+    session-ui-dbus-shared
     ${Test_Libraries}
     Qt5::Test
 )

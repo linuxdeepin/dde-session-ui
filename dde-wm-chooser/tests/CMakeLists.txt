@@ -11,10 +11,7 @@ file(GLOB_RECURSE UT_Wm_Chooser_SRCS
 
 add_executable(${UT_Wm_Chooser_Name}
     ${Wm_Chooser_SRCS}
-    ${Widgets_SRCS}
-    ${Global_Util_SRCS}
     ${UT_Wm_Chooser_SRCS}
-    ${DBUS_INTERFACE_SRCS}
     )
 
 # 用于测试覆盖率的编译条件
@@ -27,6 +24,9 @@ target_include_directories(${UT_Wm_Chooser_Name} PUBLIC
     )
 
 target_link_libraries(${UT_Wm_Chooser_Name} PRIVATE
+    session-ui-widgets-shared
+    session-ui-util-shared
+    session-ui-dbus-shared
     ${Wm_Chooser_Libraries}
     ${Test_Libraries}
     Qt5::Test

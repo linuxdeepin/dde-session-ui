@@ -6,9 +6,6 @@ set(Wm_Chooser_Name dde-wm-chooser)
 
 add_executable(${Wm_Chooser_Name}
     ${Wm_Chooser_SRCS}
-    ${Widgets_SRCS}
-    ${Global_Util_SRCS}
-    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 
@@ -17,6 +14,9 @@ target_include_directories(${Wm_Chooser_Name} PUBLIC
     )
 
 target_link_libraries(${Wm_Chooser_Name} PRIVATE
+    session-ui-widgets-shared
+    session-ui-util-shared
+    session-ui-dbus-shared
     ${Wm_Chooser_Libraries}
     )
 

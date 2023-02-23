@@ -7,7 +7,6 @@ set(Bluetooth_Dialog_Name dde-bluetooth-dialog)
 add_executable(${Bluetooth_Dialog_Name}
     ${Common_SRCS}
     ${Bluetooth_Dialog_SRCS}
-    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 
@@ -16,6 +15,7 @@ target_include_directories(${Bluetooth_Dialog_Name} PUBLIC
     )
 
 target_link_libraries(${Bluetooth_Dialog_Name} PRIVATE
+    session-ui-dbus-shared
     ${Bluetooth_Dialog_Libraries}
     )
 

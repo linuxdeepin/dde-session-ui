@@ -6,7 +6,6 @@ set(OSD_Name dde-osd)
 
 add_executable(${OSD_Name}
     ${OSD_SRCS}
-    ${DBUS_INTERFACE_SRCS}
     main.cpp
     )
 
@@ -15,6 +14,7 @@ target_include_directories(${OSD_Name} PUBLIC
     )
 
 target_link_libraries(${OSD_Name} PRIVATE
+    session-ui-dbus-shared
     ${OSD_Libraries}
     ${Test_Libraries}
     )

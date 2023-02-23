@@ -5,14 +5,15 @@
 set(Welcome_Name dde-welcome)
 
 add_executable(${Welcome_Name}
-    ${Widgets_SRCS}
-    ${Global_Util_SRCS}
     main.cpp
 )
 
 target_link_libraries(${Welcome_Name}
 PRIVATE
     dde-welcome-shared
+    session-ui-widgets-shared
+    session-ui-util-shared
+    session-ui-dbus-shared
 )
 
 ## bin

@@ -11,7 +11,6 @@ file(GLOB_RECURSE UT_Dmemory_Warning_Dialog_SRCS
 add_executable(${UT_Dmemory_Warning_Dialog_Name}
     ${Dmemory_Warning_Dialog_SRCS}
     ${UT_Dmemory_Warning_Dialog_SRCS}
-    ${DBUS_INTERFACE_SRCS}
     )
 
 # 用于测试覆盖率的编译条件
@@ -24,6 +23,7 @@ target_include_directories(${UT_Dmemory_Warning_Dialog_Name} PUBLIC
     )
 
 target_link_libraries(${UT_Dmemory_Warning_Dialog_Name} PRIVATE
+    session-ui-dbus-shared
     ${Dmemory_Warning_Dialog_Libraries}
     ${Test_Libraries}
     Qt5::Test
