@@ -50,7 +50,7 @@ find_package(Qt5 REQUIRED COMPONENTS Widgets DBus X11Extras Xml Concurrent Svg S
 
 pkg_check_modules(GSETTINGS REQUIRED IMPORTED_TARGET gsettings-qt)
 pkg_check_modules(DdeDockInterface REQUIRED dde-dock)
-pkg_check_modules(XCB_EWMH REQUIRED xcb-ewmh)
+pkg_check_modules(XCB_EWMH REQUIRED IMPORTED_TARGET xcb-ewmh)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
 pkg_check_modules(GIO REQUIRED gio-unix-2.0)
 pkg_check_modules(SYSTEMD REQUIRED libsystemd)
