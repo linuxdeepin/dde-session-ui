@@ -99,6 +99,8 @@ PRIVATE
 )
 
 target_link_libraries(dde-osd-shared
+PUBLIC
+    session-ui-dbus-shared
     Dtk::Widget
     PkgConfig::GSETTINGS
     PkgConfig::XCB_EWMH

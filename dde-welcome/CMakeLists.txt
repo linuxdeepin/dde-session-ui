@@ -12,6 +12,8 @@ add_library(dde-welcome-shared OBJECT
 )
 
 target_link_libraries(dde-welcome-shared
+    session-ui-widgets-shared
+    session-ui-dbus-shared
     Dtk::Widget
     PkgConfig::GSETTINGS
     Qt5::Widgets

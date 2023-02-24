@@ -2,9 +2,11 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-file(GLOB_RECURSE Widgets_SRCS
-    "*.h"
-    "*.cpp"
+set(Widgets_SRCS
+    fullscreenbackground.cpp
+    fullscreenbackground.h
+    propertygroup.cpp
+    propertygroup.h
 )
 
 add_library(session-ui-widgets-shared OBJECT

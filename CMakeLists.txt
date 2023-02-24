@@ -55,14 +55,6 @@ pkg_check_modules(GLIB REQUIRED glib-2.0)
 pkg_check_modules(GIO REQUIRED gio-unix-2.0)
 pkg_check_modules(SYSTEMD REQUIRED libsystemd)
 
-include_directories(
-    common
-    global_util
-    global_util/dbus
-    global_util/dbus/types
-    widgets
-    )
-
 set(Test_Libraries
     -lpthread
     -lgcov
@@ -90,15 +82,13 @@ foreach(XMLFILE ${XMLFILES})
             WORKING_DIRECTORY ${XML2CPP_DIR})
 endforeach()
 
-#----------------------------common sources------------------------------
-file(GLOB_RECURSE Common_SRCS
-    "common/*.h"
-    "common/*.cpp"
-    )
-
+# shared objects
+add_subdirectory("common")
 add_subdirectory("widgets")
 add_subdirectory("global_util")
 add_subdirectory("global_util/dbus")
+
+# child projects
 add_subdirectory("dde-bluetooth-dialog")
 add_subdirectory("dde-hints-dialog")
 add_subdirectory("dde-license-dialog")

@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #define private public
-#include "dockrect.h"
+#include "types/dockrect.h"
 #undef private
 
 #include <QDebug>
