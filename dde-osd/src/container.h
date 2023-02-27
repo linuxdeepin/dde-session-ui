@@ -7,9 +7,18 @@
 
 #include <DBlurEffectWidget>
 #include <DWindowManagerHelper>
+#include <QScopedPointer>
 
 DWIDGET_USE_NAMESPACE
 DGUI_USE_NAMESPACE
+
+namespace Dtk
+{
+namespace Widget
+{
+class DPlatformWindowHandle;
+}
+}
 
 class QHBoxLayout;
 /*!
@@ -21,6 +30,7 @@ class Container : public DBlurEffectWidget
     Q_OBJECT
 public:
     explicit Container(QWidget *parent = nullptr);
+    ~Container() override;
 
     void setContent(QWidget *content);
     void moveToCenter();
@@ -37,6 +47,7 @@ private slots:
 private:
     QHBoxLayout *m_layout;
     QTimer *m_quitTimer;
+    QScopedPointer<Dtk::Widget::DPlatformWindowHandle> m_handle;
 };
 
 #endif // CONTAINER_H
