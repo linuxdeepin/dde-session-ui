@@ -26,10 +26,10 @@ const int DefaultRadius = 30;
 Container::Container(QWidget *parent)
     : DBlurEffectWidget(parent)
     , m_quitTimer(new QTimer(this))
+    , m_handle(new DPlatformWindowHandle(this))
 {
     setAccessibleName("Container");
-    setWindowFlags(Qt::ToolTip | Qt::WindowTransparentForInput | Qt::WindowDoesNotAcceptFocus);
-    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::ToolTip);
 
     if (!qgetenv("WAYLAND_DISPLAY").isEmpty()) {
         setAttribute(Qt::WA_NativeWindow);
@@ -44,18 +44,21 @@ Container::Container(QWidget *parent)
     m_layout->setMargin(0);
     setLayout(m_layout);
 
-    DPlatformWindowHandle handle(this);
-    handle.setBorderColor(QColor(0, 0, 0, 0.04 * 255));
-    handle.setShadowColor(Qt::transparent);
-    handle.setTranslucentBackground(true);
-    handle.setWindowRadius(DefaultRadius);
+    m_handle->setEnableBlurWindow(true);
+    m_handle->setTranslucentBackground(true);
+    m_handle->setShadowOffset(QPoint(0, 0));
+    m_handle->setBorderWidth(0);
 
-    setBlurRectXRadius(DefaultRadius);
-    setBlurRectYRadius(DefaultRadius);
+    updateWindowRadius();
     setBlendMode(DBlurEffectWidget::BehindWindowBlend);
     setMaskColor(DBlurEffectWidget::AutoColor);
 
     connect(m_quitTimer, &QTimer::timeout, this, &Container::onDelayQuit);
+}
+
+Container::~Container()
+{
+
 }
 
 void Container::setContent(QWidget *content)
@@ -110,11 +113,7 @@ void Container::updateWindowRadius(int radius)
 {
     int value = radius == -1 ? DefaultRadius : radius;
 
-    DPlatformWindowHandle handle(this);
-    handle.setWindowRadius(value);
-
-    setBlurRectXRadius(value);
-    setBlurRectYRadius(value);
+    m_handle->setWindowRadius(value);
 }
 
 void Container::onDelayQuit()
