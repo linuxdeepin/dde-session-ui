@@ -30,7 +30,7 @@ DCORE_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
-    if (QString(getenv("XDG_CURRENT_DESKTOP")) != QStringLiteral("Deepin")) {
+    if (!(QString(getenv("XDG_CURRENT_DESKTOP")) == QStringLiteral("Deepin") || QString(getenv("XDG_CURRENT_DESKTOP")) == QStringLiteral("DDE"))) {
         qDebug() << "I only run the Deepin Desktop!";
         return -1;
     }
