@@ -16,7 +16,7 @@ DCORE_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     if (qEnvironmentVariableIsEmpty("XDG_CURRENT_DESKTOP")) {
-        qputenv("XDG_CURRENT_DESKTOP", "Deepin");
+        qputenv("XDG_CURRENT_DESKTOP", "DDE");
     }
 
     DApplication a(argc, argv);
