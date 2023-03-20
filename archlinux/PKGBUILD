@@ -2,6 +2,8 @@
 pkgname=deepin-session-ui-git
 pkgver=5.5.6.r19.g9cf5bae1
 pkgrel=1
+sourcename=deepin-session-ui
+sourcetar="$sourcename"_"$pkgver".tar.xz
 pkgdesc='Deepin desktop-environment - Session UI module'
 arch=('x86_64' 'aarch64')
 url="https://github.com/linuxdeepin/dde-session-ui"
@@ -13,22 +15,22 @@ makedepends=('git' 'deepin-gettext-tools-git' 'cmake' 'ninja' 'qt5-tools' 'deepi
 provides=('deepin-notifications' 'deepin-session-ui')
 conflicts=('dde-workspace' 'deepin-session-ui' 'deepin-notifications')
 groups=('deepin-git')
-source=("source.tar.gz")
+source=($sourcetar)
 sha512sums=('SKIP')
 
 prepare() {
-    cd $deepin_source_name
+    cd $sourcename
 
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' widgets/*.cpp
 }
 
 build() {
-  cd $deepin_source_name
+  cd $sourcename
   cmake -B build -GNinja -DCMAKE_INSTALL_PREFIX=$pkgdir/usr
   cmake --build build
 }
 
 package() {
-  cd $deepin_source_name
+  cd $sourcename
   cmake --install build
 }
