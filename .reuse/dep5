@@ -27,7 +27,7 @@ Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
 
 # ci
-Files: .github/* .gitlab-ci.yml
+Files: .github/* .gitlab-ci.yml .obs/workflows.yml
 Copyright: None
 License: CC0-1.0
 
