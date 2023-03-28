@@ -1,3 +1,13 @@
+dde-session-ui (6.0.7) unstable; urgency=medium
+
+  * Avoid use GLOB for some subprojects (dde-osd, dde-welcome, etc)
+  * Reuse common utils as object libraries
+  * Ensure project source compliant with REUSE spec
+  * Fix dde-osd window round radius conflicting with blur effect
+  * Change the value of XDG_CURRENT_DESKTOP to DDE
+
+ -- Wang Zichong <wangzichong@deepin.org>  Tue, 28 Mar 2023 17:01:00 +0800
+
 dde-session-ui (6.0.6) unstable; urgency=medium
 
   [ TagBuilder ]
