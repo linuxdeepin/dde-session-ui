@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/icons">
-        <file>resources/icons/notification-dark.svg</file>
-        <file>resources/icons/notification.svg</file>
-        <file>resources/icons/dnd-notification-dark.svg</file>
-        <file>resources/icons/dnd-notification.svg</file>
-    </qresource>
-</RCC>

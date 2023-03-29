@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=com.deepin.dde.Notification
-Exec=/usr/bin/dbus-send --print-reply --dest=com.deepin.SessionManager /com/deepin/StartManager com.deepin.StartManager.Launch string:"/usr/share/applications/dde-osd.desktop"

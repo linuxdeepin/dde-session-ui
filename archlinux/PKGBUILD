@@ -2,36 +2,35 @@
 pkgname=deepin-session-ui-git
 pkgver=5.5.6.r19.g9cf5bae1
 pkgrel=1
+sourcename=deepin-session-ui
+sourcetar="$sourcename"_"$pkgver".tar.xz
 pkgdesc='Deepin desktop-environment - Session UI module'
 arch=('x86_64' 'aarch64')
 url="https://github.com/linuxdeepin/dde-session-ui"
 license=('GPL3')
 groups=('deepin')
-depends=('gsettings-qt' 'startdde-git' 'liblightdm-qt5' 'qt5-svg' 'deepin-daemon-git' 'deepin-dock-git' 'deepin-wallpapers-git')
+depends=('gsettings-qt' 'startdde-git' 'liblightdm-qt5' 'qt5-svg' 'deepin-daemon-git' 'deepin-dock-git' 'deepin-wallpapers-git' 'deepin-pw-check')
 makedepends=('git' 'deepin-gettext-tools-git' 'cmake' 'ninja' 'qt5-tools' 'deepin-dock-git' 'gtest' 'gcovr'
              'dtkcommon-git' 'dtkcore-git')
 provides=('deepin-notifications' 'deepin-session-ui')
 conflicts=('dde-workspace' 'deepin-session-ui' 'deepin-notifications')
 groups=('deepin-git')
-source=("source.tar.gz"
-  fix-cmakelist.patch)
-sha512sums=('SKIP'
-            '50d74d551c71a0039b6064d54939fb8a611941d8e8c653c96a5fc146f3dc168b396d0a4a21c269abb9331fbc7a7cc33909069ea4f8cb20db752705369f1d3710')
+source=($sourcetar)
+sha512sums=('SKIP')
 
 prepare() {
-    cd $deepin_source_name
+    cd $sourcename
 
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' widgets/*.cpp
-  patch -p1 -i ../fix-cmakelist.patch
 }
 
 build() {
-  cd $deepin_source_name
+  cd $sourcename
   cmake -B build -GNinja -DCMAKE_INSTALL_PREFIX=$pkgdir/usr
   cmake --build build
 }
 
 package() {
-  cd $deepin_source_name
+  cd $sourcename
   cmake --install build
 }
