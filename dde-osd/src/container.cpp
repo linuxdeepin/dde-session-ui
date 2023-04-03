@@ -119,7 +119,7 @@ void Container::updateWindowRadius(int radius)
 void Container::onDelayQuit()
 {
     const QGSettings gsettings("com.deepin.dde.osd", "/com/deepin/dde/osd/");
-    if (gsettings.keys().contains("autoExit") && gsettings.get("auto-exit").toBool()) {
+    if (gsettings.keys().contains("auto-exit") && gsettings.get("auto-exit").toBool()) {
         if (isVisible())
             return m_quitTimer->start();
         qWarning() << "Killer Timeout, now quiting...";
