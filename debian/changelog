@@ -1,3 +1,10 @@
+dde-session-ui (6.0.8) unstable; urgency=medium
+
+  * do not ignore CMAKE_CXX_FLAGS and CMAKE_EXE_LINKER_FLAGS specified by system
+  * fix linglong application notification cannot be launched correctly
+
+ -- Wang Zichong <wangzichong@deepin.org>  Mon, 03 Apr 2023 16:44:00 +0800
+
 dde-session-ui (6.0.7) unstable; urgency=medium
 
   * Avoid use GLOB for some subprojects (dde-osd, dde-welcome, etc)
