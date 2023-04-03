@@ -86,6 +86,9 @@ void NotifySettings::initAllSettings()
 
 void NotifySettings::setAppSetting(const QString &id, const NotifySettings::AppConfigurationItem &item, const QVariant &var)
 {
+    if (id.isEmpty()) {
+        return;
+    }
     QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
     switch (item) {
     case APPNAME:
@@ -123,7 +126,8 @@ void NotifySettings::setAppSetting(const QString &id, const NotifySettings::AppC
 
 QVariant NotifySettings::getAppSetting(const QString &id, const NotifySettings::AppConfigurationItem &item)
 {
-    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
+    const QString newid = id.isEmpty() ? "empty-app" : id;
+    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(newid).toLocal8Bit(), this);
 
     QVariant results;
     switch (item) {
