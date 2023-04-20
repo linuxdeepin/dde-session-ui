@@ -13,11 +13,8 @@
 #include <QX11Info>
 #include <QSettings>
 #include <QTextCodec>
-#include <QDBusConnection>
-#include <QDBusMessage>
 
 #include <DDesktopEntry>
-#include <DStandardPaths>
 
 #include <xcb/xcb.h>
 #include <xcb/xcb_ewmh.h>
@@ -206,21 +203,6 @@ const QString BubbleTool::getDeepinAppName(const QString &name)
     return desktop.localizedValue("Name", localKey, "Desktop Entry", name);
 }
 
-const QString BubbleTool::getDeepinDesktopPath(const QString &name)
-{
-    QString desktopPath;
-
-    for (const auto dataPath : DStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)) {
-        auto path = QStringList{ dataPath, QString("%1.desktop").arg(name) }.join("/");
-        if (QFile::exists(path)) {
-            desktopPath = path;
-            break;
-        }
-    }
-
-    return desktopPath;
-}
-
 void BubbleTool::actionInvoke(const QString &actionId, EntityPtr entity)
 {
     qDebug() << "actionId:" << actionId;
@@ -229,17 +211,10 @@ void BubbleTool::actionInvoke(const QString &actionId, EntityPtr entity)
     while (i != hints.constEnd()) {
         QStringList args = i.value().toString().split(",");
         if (!args.isEmpty()) {
-            QString appName = args.first(); //命令
-            auto desktopPath = getDeepinDesktopPath(appName);
+            QString cmd = args.first(); //命令
             args.removeFirst();
             if (i.key() == "x-deepin-action-" + actionId) {
-                QDBusConnection conn = QDBusConnection::sessionBus();
-                QDBusMessage msg = QDBusMessage::createMethodCall("org.deepin.dde.StartManager1",
-                                                        "/org/deepin/dde/StartManager1",
-                                                        "org.deepin.dde.StartManager1",
-                                                        "LaunchApp");
-                msg << desktopPath << 0 << args;
-                conn.sessionBus().call(msg, QDBus::NoBlock);
+                QProcess::startDetached(cmd, args); //执行相关命令
             }
         }
         ++i;
