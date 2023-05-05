@@ -1,3 +1,9 @@
+dde-session-ui (6.0.9) unstable; urgency=medium
+
+  * revert incorrect fix for linglong application notification cannot be launched correctly
+
+ -- Wang Zichong <wangzichong@deepin.org>  Fri, 05 May 2023 11:03:00 +0800
+
 dde-session-ui (6.0.8) unstable; urgency=medium
 
   * do not ignore CMAKE_CXX_FLAGS and CMAKE_EXE_LINKER_FLAGS specified by system
