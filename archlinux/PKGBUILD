@@ -2,14 +2,14 @@
 pkgname=deepin-session-ui-git
 pkgver=5.5.6.r19.g9cf5bae1
 pkgrel=1
-sourcename=deepin-session-ui
+sourcename=dde-session-ui
 sourcetar="$sourcename"_"$pkgver".tar.xz
 pkgdesc='Deepin desktop-environment - Session UI module'
 arch=('x86_64' 'aarch64')
 url="https://github.com/linuxdeepin/dde-session-ui"
 license=('GPL3')
 groups=('deepin')
-depends=('gsettings-qt' 'startdde-git' 'liblightdm-qt5' 'qt5-svg' 'deepin-daemon-git' 'deepin-dock-git' 'deepin-wallpapers-git' 'deepin-pw-check')
+depends=('gsettings-qt' 'startdde-git' 'liblightdm-qt5' 'qt5-svg' 'deepin-daemon-git' 'deepin-dock-git' 'deepin-wallpapers-git' 'deepin-pw-check-git')
 makedepends=('git' 'deepin-gettext-tools-git' 'cmake' 'ninja' 'qt5-tools' 'deepin-dock-git' 'gtest' 'gcovr'
              'dtkcommon-git' 'dtkcore-git')
 provides=('deepin-notifications' 'deepin-session-ui')
