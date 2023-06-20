@@ -40,3 +40,5 @@ misc/*/deepin-toggle-desktop.desktop
 # xml2Cpp
 global_util/dbus/*.cpp
 global_util/dbus/*.h
+
+.cache

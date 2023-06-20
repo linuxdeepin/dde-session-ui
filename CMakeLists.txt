@@ -65,6 +65,8 @@ set(Test_Libraries
 set(XML2CPP_DIR ${PROJECT_SOURCE_DIR}/global_util/dbus)
 file(GLOB_RECURSE XMLFILES xml/*.xml)
 
+find_package(DtkTools REQUIRED)
+
 foreach(XMLFILE ${XMLFILES})
     string(FIND ${XMLFILE} "/" INDEX REVERSE)
     string(SUBSTRING ${XMLFILE} ${INDEX} -1 filename)
@@ -78,7 +80,7 @@ foreach(XMLFILE ${XMLFILES})
 
     string(TOLOWER ${filename} filename)
 
-    execute_process(COMMAND qdbusxml2cpp-fix -c ${classname} -p ${XML2CPP_DIR}/${filename} ${XMLFILE}
+    execute_process(COMMAND ${DTK_XML2CPP} -c ${classname} -p ${XML2CPP_DIR}/${filename} ${XMLFILE}
             WORKING_DIRECTORY ${XML2CPP_DIR})
 endforeach()
 

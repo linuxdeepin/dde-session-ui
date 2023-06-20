@@ -14,6 +14,8 @@
 
 DWIDGET_USE_NAMESPACE
 
+DGUI_USE_NAMESPACE
+
 void DrawHelper::DrawImage(QPainter *painter, const QStyleOptionViewItem &option, const QString &iconName, bool isLightTheme)
 {
     const int margin = 14;
