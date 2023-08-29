@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QImageReader>
+#include <QFileInfo>
 
 #include <DApplication>
 #include <DGuiApplicationHelper>
