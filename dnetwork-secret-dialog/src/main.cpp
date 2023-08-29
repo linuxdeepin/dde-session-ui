@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
     app.setApplicationName("dnetwork-secret-dialog");
     app.setAttribute(Qt::AA_UseHighDpiPixmaps);
 
-    DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
 
     QTranslator translator;
