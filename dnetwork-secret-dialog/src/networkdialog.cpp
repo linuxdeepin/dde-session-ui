@@ -33,24 +33,31 @@ NetworkDialog::NetworkDialog(QObject *parent)
 
 NetworkDialog::~NetworkDialog()
 {
+    qDebug() << "Close socket client, and exit.";
     m_clinet->close();
 }
 
 void NetworkDialog::onPassword(QLocalSocket *socket, const QByteArray &data)
 {
+    qInfo() << "Received password and deal with it.";
     QJsonDocument doc = QJsonDocument::fromJson(data);
-    if (!doc.isObject())
+    if (!doc.isObject()) {
+        qWarning() << "Wrong format for password, it is not Object.";
         return;
+    }
 
     QJsonObject obj = doc.object();
     QString key = obj.value("key").toString();
     QString passwd = obj.value("password").toString();
     bool input = obj.value("input").toBool();
 
-    if (m_key != key)
+    if (m_key != key) {
+        qWarning() << "Missmatched ssid, old key is " << m_key << ", and now is" << key;
         return;
+    }
 
     if (!input) {
+        qWarning() << "Only deal with password from input.";
         qApp->exit(1);
         return;
     }
@@ -61,12 +68,15 @@ void NetworkDialog::onPassword(QLocalSocket *socket, const QByteArray &data)
 
     QFile file;
     if (!file.open(stdout, QFile::WriteOnly)) {
-        qDebug() << "open STDOUT failed";
+        qWarning() << "open STDOUT failed";
         qApp->exit(-4);
     }
     file.write(QJsonDocument(resultJsonObj).toJson());
     file.flush();
     file.close();
+    m_clinet->flush();
+    m_clinet->close();
+    qInfo() << "Wirte password to dde-session-daemon and exit it.";
     qApp->exit(0);
 }
 
@@ -82,6 +92,7 @@ bool NetworkDialog::exec(const QJsonDocument &doc)
     QJsonObject obj = doc.object();
     // 只处理无线网密码
     if (obj.value("connType").toString() != "802-11-wireless") {
+        qDebug() << "Only deal with wireless for the connection type, now connType:" << obj.value("connType");
         return false;
     }
     QJsonArray array = obj.value("devices").toArray();
@@ -100,6 +111,7 @@ bool NetworkDialog::exec(const QJsonDocument &doc)
         doc.setObject(json);
         m_data = "\nconnect:" + doc.toJson(QJsonDocument::Compact) + "\n";
         ConnectToServer();
+        qDebug() << "Connect to server :" << m_clinet->serverName() << ", ssid:" << m_key;
         return true;
     }
     return false;
@@ -116,6 +128,7 @@ void NetworkDialog::connectedHandler()
 
 void NetworkDialog::disConnectedHandler()
 {
+    qDebug() << "Received disconnect event from the socket and exit it.";
     qApp->exit(0);
 }
 
