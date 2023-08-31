@@ -46,27 +46,31 @@ int main(int argc, char *argv[])
     if (posArguments.isEmpty()) {
         qDebug() << "read json data from STDIN";
         if (!file.open(stdin, QFile::ReadOnly)) {
-            qDebug() << "read from STDIN failed";
+            qWarning() << "read from STDIN failed";
             return -2;
         }
     } else {
         file.setFileName(posArguments.first());
         if (!file.open(QFile::ReadOnly)) {
-            qDebug() << "file:" << file.fileName()<< "open failed";
+            qWarning() << "file:" << file.fileName()<< "open failed";
             return -1;
         }
     }
 
     jsonDoc = QJsonDocument::fromJson(file.readAll());
     if (jsonDoc.isEmpty()) {
-        qDebug() << "invalid json data.";
+        qWarning() << "invalid json data.";
         return -3;
     }
 
     file.close();
 
     NetworkDialog *networkDialog = new NetworkDialog();
+    QObject::connect(&app, &QCoreApplication::aboutToQuit, [networkDialog]() {
+        networkDialog->deleteLater();
+    });
     if (networkDialog->exec(jsonDoc)) { // 不能处理就由原窗口处理
+        qInfo() << "Enter event loop to receive data in NetworkDialog.";
         return app.exec();
     }
 
