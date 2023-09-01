@@ -1,3 +1,15 @@
+dde-session-ui (6.0.10) unstable; urgency=medium
+
+  * chore: Sync by https://github.com/linuxdeepin/.github/commit/2e5e092ba3f86b16d1aabbabcf0bfd2ae65b19c8(Influence: none)
+  * chore(CI): correct conflicts depends and correct source name
+  * fix: compile failed after dtkwidget upgrade
+  * chore: Sync by https://github.com/linuxdeepin/.github/commit/559e91167d4919644f37bbcf123eb0651c1528ea(Influence: none)
+  * chore: Compling error
+  * fix: Can't update password for dnetwork-secret-dialog(Issue: https://github.com/linuxdeepin/developer-center/issues/5284)
+  * chore: Add log to debug
+
+ -- Deepin Packages Builder <packages@deepin.org>  Fri, 01 Sep 2023 11:08:31 +0800
+
 dde-session-ui (6.0.9) unstable; urgency=medium
 
   * revert incorrect fix for linglong application notification cannot be launched correctly
