@@ -36,6 +36,7 @@ NotifySettings::NotifySettings(QObject *parent)
         qDebug()<<"System configuration fetch failed!";
     }
     m_initTimer->start(1000);
+    m_initTimer->setSingleShot(true);
     m_systemSetting = new QGSettings(schemaKey.toLocal8Bit(), schemaPath.toLocal8Bit(), this);
 
     connect(m_initTimer, &QTimer::timeout, this, &NotifySettings::initAllSettings);
@@ -51,37 +52,45 @@ NotifySettings::NotifySettings(QObject *parent)
 
 void NotifySettings::initAllSettings()
 {
-    LauncherItemInfoList itemInfoList = m_launcherInter->GetAllItemInfos();
-    if (!itemInfoList.isEmpty()) {
-        m_initTimer->stop();
-    }
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(m_launcherInter->GetAllItemInfos());
+    QObject::connect(watcher, &QDBusPendingCallWatcher::finished,
+                     this, [this](QDBusPendingCallWatcher *call) {
+        QDBusPendingReply<LauncherItemInfoList> reply = *call;
+        if (reply.isError()) {
+            qWarning() << "Falied to fetch GetAllItemInfos" << reply.error();
+        } else {
+            LauncherItemInfoList itemInfoList = reply.value();
 
-    QStringList appList = m_systemSetting->get("app-list").toStringList();
-    QStringList launcherList;
+            QStringList appList = m_systemSetting->get("app-list").toStringList();
+            QStringList launcherList;
 
-    foreach(const LauncherItemInfo &item, itemInfoList) {
-        launcherList << item.id;
-        DDesktopEntry desktopInfo(item.path);
-        if (IgnoreList.contains(item.id) || desktopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
-            continue;
+            foreach(const LauncherItemInfo &item, itemInfoList) {
+                launcherList << item.id;
+                DDesktopEntry desktopInfo(item.path);
+                if (IgnoreList.contains(item.id) || desktopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
+                    continue;
+                }
+
+                if (appList.contains(item.id)) {
+                    // 修改系统语言后需要更新翻译
+                    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(item.id).toLocal8Bit(), this);
+                    itemSetting.set("app-name", item.name);
+                    continue;
+                }
+                appList.append(item.id);
+                m_systemSetting->set("app-list", appList);
+                appAdded(item);
+            }
+
+            for (const QString &app : appList) {
+                if (!launcherList.contains(app)) {
+                    appRemoved(app);
+                }
+            }
         }
 
-        if (appList.contains(item.id)) {
-            // 修改系统语言后需要更新翻译
-            QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(item.id).toLocal8Bit(), this);
-            itemSetting.set("app-name", item.name);
-            continue;
-        }
-        appList.append(item.id);
-        m_systemSetting->set("app-list", appList);
-        appAdded(item);
-    }
-
-    for (const QString &app : appList) {
-        if (!launcherList.contains(app)) {
-            appRemoved(app);
-        }
-    }
+        call->deleteLater();
+    });
 }
 
 void NotifySettings::setAppSetting(const QString &id, const NotifySettings::AppConfigurationItem &item, const QVariant &var)
