@@ -130,6 +130,17 @@ class DDENotifyDBus: public QDBusAbstractAdaptor
 "      <arg direction=\"in\" type=\"u\"/>\n"
 "      <arg direction=\"in\" type=\"v\"/>\n"
 "    </method>\n"
+"    <method name=\"ReplaceBubble\">\n"
+"      <arg direction=\"in\" type=\"b\"/>\n"
+"    </method>\n"
+"    <method name=\"HandleBubbleEnd\">\n"
+"      <arg direction=\"in\" type=\"u\"/>\n"
+"      <arg direction=\"in\" type=\"u\"/>\n"
+"      <arg direction=\"in\" type=\"a{sv}\"/>\n"
+"      <annotation value=\"QVariantMap\" name=\"org.qtproject.QtDBus.QtTypeName.In2\"/>\n"
+"      <arg direction=\"in\" type=\"a{sv}\"/>\n"
+"      <annotation value=\"QVariantMap\" name=\"org.qtproject.QtDBus.QtTypeName.In3\"/>\n"
+"    </method>\n"
 "    <method name=\"SetSystemInfo\">\n"
 "      <arg direction=\"in\" type=\"u\"/>\n"
 "      <arg direction=\"in\" type=\"v\"/>\n"
@@ -137,6 +148,19 @@ class DDENotifyDBus: public QDBusAbstractAdaptor
 "    <method name=\"setAppSetting\">\n"
 "      <arg direction=\"in\" type=\"s\"/>\n"
 "    </method>\n"
+"    <signal name=\"ShowBubble\">\n"
+"      <arg type=\"s\"/>\n"
+"      <arg type=\"u\"/>\n"
+"      <arg type=\"s\"/>\n"
+"      <arg type=\"s\"/>\n"
+"      <arg type=\"s\"/>\n"
+"      <arg type=\"as\"/>\n"
+"      <arg type=\"a{sv}\"/>\n"
+"      <annotation value=\"QVariantMap\" name=\"org.qtproject.QtDBus.QtTypeName.In6\"/>\n"
+"      <arg type=\"i\"/>\n"
+"      <arg type=\"a{sv}\"/>\n"
+"      <annotation value=\"QVariantMap\" name=\"org.qtproject.QtDBus.QtTypeName.In8\"/>\n"
+"    </signal>\n"
 "    <signal name=\"NotificationClosed\">\n"
 "      <arg type=\"u\"/>\n"
 "      <arg type=\"u\"/>\n"
@@ -213,6 +237,8 @@ public Q_SLOTS: // METHODS
     QString getAppSetting(const QString &in0);
     uint recordCount();
     void setAppSetting(const QString &in0);
+    void HandleBubbleEnd(uint in0, uint in1, const QVariantMap &in2, const QVariantMap &in3);
+    void ReplaceBubble(bool in0);
 Q_SIGNALS: // SIGNALS
     void ActionInvoked(uint in0, const QString &in1);
     void AppAddedSignal(const QString &in0);
@@ -225,6 +251,7 @@ Q_SIGNALS: // SIGNALS
     void appRemoved(const QString &in0);
     void appSettingChanged(const QString &in0);
     void systemSettingChanged(const QString &in0);
+    void ShowBubble(const QString &in0, uint in1, const QString &in2, const QString &in3, const QString &in4, const QStringList &in5, const QVariantMap &in6, int in7, const QVariantMap &in8);
 };
 
 #endif

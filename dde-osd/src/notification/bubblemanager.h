@@ -75,7 +75,9 @@ public:
         Expired = 1,
         Dismissed = 2,
         Closed = 3,
-        Unknown = 4
+        Unknown = 4,
+        Action = 5,
+        NotProcessedYet,
     };
 
     enum AnimationPath {
@@ -94,6 +96,9 @@ Q_SIGNALS:
     void SystemInfoChanged(uint item, QDBusVariant var);
     void AppAddedSignal(const QString &id);
     void AppRemovedSignal(const QString &id);
+
+    // Using external bubbles
+    void ShowBubble(const QString &, uint replacesId, const QString &, const QString &, const QString &, const QStringList &, const QVariantMap, int, const QVariantMap bubbleParams);
 
     // 旧接口之后废弃
     void appAdded(QString appName);
@@ -159,10 +164,14 @@ public Q_SLOTS:
      */
     void Toggle();
     /*!
-     * \~chinese \name recordCount
-     * \~chinese \brief 返回通知中心中通知的数量
-     * \~chinese \return 通知中心中通知的数量
      */
+    void ReplaceBubble(bool replace);
+    /*!
+     * \brief HandleBubbleEnd
+     * 响应bubble结束
+     */
+    void HandleBubbleEnd(uint type, uint id, const QVariantMap bubbleParams, const QVariantMap selectedHints);
+
     void Show();
     void Hide();
     uint recordCount();
@@ -252,6 +261,7 @@ private:
      */
     void popAllBubblesImmediately();
 
+    bool useBuiltinBubble() const;
 private:
     int m_replaceCount = 0;
     QString m_configFile;
@@ -278,6 +288,7 @@ private:
     GestureInter *m_gestureInter;
     DBusDockInterface *m_dockInter;
     QTimer* m_trickTimer; // 防止300ms内重复按键
+    bool m_useBuiltinBubble = true;
 };
 
 #endif // BUBBLEMANAGER_H

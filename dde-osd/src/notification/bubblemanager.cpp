@@ -24,11 +24,15 @@
 #include <QDBusContext>
 #include <QDateTime>
 #include <QGSettings>
+#include <QLoggingCategory>
 
 #include <algorithm>
 
+#include "bubbletool.h"
 #include "org_deepin_dde_display1.h"
 #include "org_deepin_dde_display1_monitor.h"
+
+Q_LOGGING_CATEGORY(notifiyBubbleLog, "dde.notifycation.bubblemanger")
 
 using DisplayInter = org::deepin::dde::Display1;
 using MonitorInter = org::deepin::dde::display1::Monitor;
@@ -217,19 +221,43 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     }
 
     if (!calcReplaceId(notification)) {
+
+        QVariantMap params;
+        params["id"] = notification->id();
+        params["isShowPreview"] = enablePreview;
+        params["isShowInNotifyCenter"] = showInNotifyCenter;
+
         if (systemNotification) { // 系统通知
-            pushBubble(notification);
+
+            if (useBuiltinBubble()) {
+                pushBubble(notification);
+            } else {
+                qCDebug(notifiyBubbleLog) << "Publish ShowBubble, id:" << notification->id();
+                Q_EMIT ShowBubble(appName, replacesId, appIcon, summary, body, actions, hints, expireTimeout, params);
+            }
         } else if (lockscree && !lockscreeshow) { // 锁屏不显示通知
             if (showInNotifyCenter) { // 开启在通知中心显示才加入通知中心
                 m_persistence->addOne(notification);
             }
         } else { // 锁屏显示通知或者未锁屏状态
             if (!systemNotification && !dndmode && enableNotificaion) { // 普通应用非勿扰模式并且开启通知选项
-                pushBubble(notification);
+
+                if (useBuiltinBubble()) {
+                    pushBubble(notification);
+                } else {
+                    qCDebug(notifiyBubbleLog) << "Publish ShowBubble, id:" << notification->id();
+                    Q_EMIT ShowBubble(appName, replacesId, appIcon, summary, body, actions, hints, expireTimeout, params);
+                }
             } else if (showInNotifyCenter) {
                 m_persistence->addOne(notification);
             }
         }
+    } else {
+        QVariantMap params;
+        params["isShowPreview"] = enablePreview;
+        params["isShowInNotifyCenter"] = showInNotifyCenter;
+        qCDebug(notifiyBubbleLog) << "Publish ShowBubble, replaceId:" << notification->replacesId();
+        Q_EMIT ShowBubble(appName, replacesId, appIcon, summary, body, actions, hints, expireTimeout, params);
     }
 
     // If replaces_id is 0, the return value is a UINT32 that represent the notification.
@@ -277,6 +305,11 @@ void BubbleManager::popAllBubblesImmediately()
     }
 
     m_bubbleList.clear();
+}
+
+bool BubbleManager::useBuiltinBubble() const
+{
+    return m_useBuiltinBubble;
 }
 
 void BubbleManager::refreshBubble()
@@ -496,6 +529,68 @@ void BubbleManager::Toggle()
 
     geometryChanged();
     m_notifyCenter->showWidget();
+}
+
+void BubbleManager::ReplaceBubble(bool replace)
+{
+    if (m_useBuiltinBubble == !replace)
+        return;
+
+    m_useBuiltinBubble = !replace;
+    if (!m_useBuiltinBubble) {
+        popAllBubblesImmediately();
+    }
+}
+
+static EntityPtr bubbleFromVariantMap(const QVariantMap &bubbleParams)
+{
+    const auto id = bubbleParams["id"].toUInt();
+    const auto replaceId = bubbleParams["replaceId"].toUInt();
+    QString appName = bubbleParams["appName"].toString();
+    QString appIcon = bubbleParams["appIcon"].toString();
+    QString summary = bubbleParams["summary"].toString();
+    QString strBody = bubbleParams["body"].toString();
+    QStringList actions = bubbleParams["actions"].toStringList();
+    QVariantMap hints = qdbus_cast<QVariantMap>(bubbleParams["hints"]);
+    QString ctime = bubbleParams["ctime"].toString();
+    int timeout = bubbleParams["timeout"].toInt();
+    return std::make_shared<NotificationEntity>(appName, QString::number(id), appIcon,
+                                                                  summary, strBody, actions, hints,
+                                                                  QString::number(QDateTime::currentMSecsSinceEpoch()),
+                                                                  QString::number(replaceId),
+                                                                  QString::number(timeout));
+}
+
+void BubbleManager::HandleBubbleEnd(uint type, uint id, const QVariantMap bubbleParams, const QVariantMap selectedHints)
+{
+    qCDebug(notifiyBubbleLog) << "HandleBubbleEnd, type:" << type << ", bubbleId:" << id
+                              << bubbleParams << selectedHints;
+    switch (type) {
+    case BubbleManager::Expired:
+    case BubbleManager::Unknown:
+    case BubbleManager::Dismissed: {
+        Q_EMIT NotificationClosed(id, type);
+    } break;
+    case BubbleManager::Action: {
+        const auto hints = qdbus_cast<QVariantMap>(selectedHints);
+        const auto actionId = hints["actionId"].toString();
+        const auto replaceId = bubbleParams["replaceId"].toUInt();
+        if (actionId == "default") {
+            auto entity = bubbleFromVariantMap(bubbleParams);
+            BubbleTool::actionInvoke(actionId, entity);
+        }
+        Q_EMIT ActionInvoked(replaceId == 0 ? id : replaceId, actionId);
+        Q_EMIT NotificationClosed(id, BubbleManager::Closed);
+    } break;
+    case BubbleManager::NotProcessedYet: {
+        const auto extraParams = qdbus_cast<QVariantMap>(bubbleParams["extraParams"]);
+        const auto isShowInNotifyCenter = extraParams["isShowInNotifyCenter"].toBool();
+        if (isShowInNotifyCenter) {
+            auto entity = bubbleFromVariantMap(bubbleParams);
+            m_persistence->addOne(entity);
+        }
+    } break;
+    }
 }
 
 void BubbleManager::Show()
