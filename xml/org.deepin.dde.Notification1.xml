@@ -23,6 +23,17 @@
     <arg direction="in" type="i"/>
     <arg direction="out" type="u"/>
   </method>
+  <method name="ReplaceBubble">
+    <arg direction="in" type="b"/>
+  </method>
+  <method name="HandleBubbleEnd">
+    <arg direction="in" type="u"/>
+    <arg direction="in" type="u"/>
+    <arg direction="in" type="a{sv}"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In2" value="QVariantMap"/>
+    <arg direction="in" type="a{sv}"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In3" value="QVariantMap"/>
+  </method>
   <method name="GetAllRecords"> 
     <arg direction="out" type="s"/>
   </method> 
@@ -80,6 +91,19 @@
   <signal name="ActionInvoked">
     <arg type="u"/>
     <arg type="s"/>
+  </signal>
+  <signal name="ShowBubble">
+    <arg type="s"/>
+    <arg type="u"/>
+    <arg type="s"/>
+    <arg type="s"/>
+    <arg type="s"/>
+    <arg type="as"/>
+    <arg type="a{sv}"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In6" value="QVariantMap"/>
+    <arg type="i"/>
+    <arg type="a{sv}"/>
+    <annotation name="org.qtproject.QtDBus.QtTypeName.In8" value="QVariantMap"/>
   </signal>
   <signal name="RecordAdded"> 
     <arg type="s"/>

@@ -240,3 +240,15 @@ void DDENotifyDBus::setAppSetting(const QString &in0)
     QMetaObject::invokeMethod(parent(), "setAppSetting", Q_ARG(QString, in0));
 }
 
+void DDENotifyDBus::HandleBubbleEnd(uint in0, uint in1, const QVariantMap &in2, const QVariantMap &in3)
+{
+    // handle method call org.deepin.dde.Notification1.HandleBubbleEnd
+    QMetaObject::invokeMethod(parent(), "HandleBubbleEnd", Q_ARG(uint, in0) , Q_ARG(uint, in1) , Q_ARG(QVariantMap, in2), Q_ARG(QVariantMap, in3));
+}
+
+void DDENotifyDBus::ReplaceBubble(bool in0)
+{
+    // handle method call org.deepin.dde.Notification1.ReplaceBubble
+    QMetaObject::invokeMethod(parent(), "ReplaceBubble", Q_ARG(bool, in0));
+}
+
