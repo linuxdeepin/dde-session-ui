@@ -30,7 +30,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends},
  dde-daemon (>=5.13.27),
  startdde (>=5.8.15),
  x11-xserver-utils,
- dbus-x11,
+ dbus-user-session,
  dde-session-shell,
  pandoc
 Provides: lightdm-greeter
