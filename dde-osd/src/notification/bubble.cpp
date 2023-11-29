@@ -134,6 +134,7 @@ void Bubble::mouseReleaseEvent(QMouseEvent *event)
             m_defaultAction.clear();
         }
         Q_EMIT dismissed(this);
+        Q_EMIT processed(m_entity);
     } else if (m_pressed && mapToGlobal(event->pos()).y() < 10) {
         //等待屏幕上方气泡消失再将通知插入到通知中心，否则会导致同一个通知出现在两个位置。
         QTimer::singleShot(AnimationTime + 10, this, [ = ] {
@@ -264,10 +265,12 @@ void Bubble::initConnections()
     connect(m_actionButton, &ActionButton::buttonClicked, this, [ = ](const QString & action_id) {
         BubbleTool::actionInvoke(action_id, m_entity);
         Q_EMIT actionInvoked(this, action_id);
+        Q_EMIT processed(m_entity);
     });
 
     connect(m_closeButton, &DDialogCloseButton::clicked, this, [ = ]() {
         Q_EMIT dismissed(this);
+        Q_EMIT processed(m_entity);
     });
 
     connect(m_quitTimer, &QTimer::timeout, this, &Bubble::onDelayQuit);

@@ -77,6 +77,7 @@ public:
         Closed = 3,
         Unknown = 4,
         Action = 5,
+        Processed = 6,
         NotProcessedYet,
     };
 
