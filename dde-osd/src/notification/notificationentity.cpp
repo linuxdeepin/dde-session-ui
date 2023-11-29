@@ -61,6 +61,16 @@ void NotificationEntity::setId(const QString &id)
     m_id = id.toUInt();
 }
 
+QString NotificationEntity::storageId() const
+{
+    return m_storageId;
+}
+
+void NotificationEntity::setStorageId(const QString &id)
+{
+    m_storageId = id;
+}
+
 QString NotificationEntity::appIcon() const
 {
     return m_appIcon;

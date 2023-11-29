@@ -33,6 +33,9 @@ public:
     uint id() const;
     void setId(const QString &id);
 
+    QString storageId() const;
+    void setStorageId(const QString &id);
+
     QString appIcon() const;
     void setAppIcon(const QString &appIcon);
 
@@ -87,6 +90,7 @@ private:
     bool m_showPreview;
     int m_index;
     bool m_showInNotifyCenter;
+    QString m_storageId;
 };
 
 Q_DECLARE_METATYPE(std::shared_ptr<NotificationEntity>);

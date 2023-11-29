@@ -35,6 +35,7 @@ public:
     virtual QList<EntityPtr> getAllNotify() = 0;
     virtual QString getAll() = 0;
     virtual QString getById(const QString &id) = 0;
+    virtual EntityPtr getNotifyById(const QString &id) { return EntityPtr{}; }
 
     virtual QString getFrom(int rowCount, const QString &offsetId) = 0;
     virtual int getRecordCount() = 0;
@@ -57,6 +58,7 @@ public:
     QList<EntityPtr> getAllNotify() override;            //获取所有通知
     QString getAll() override;                           //将所有通知转为Json格式的字符串返回
     QString getById(const QString &id) override;         //根据ID获取通知信息
+    EntityPtr getNotifyById(const QString &id) override;
 
     // the result starts with offset + 1
     // If rowcount is - 1, it is obtained from offset + 1 to the last.
@@ -73,6 +75,7 @@ private:
     bool IsAttributeValid(const QString &tableName, const QString &attributeName);
     //添加一个属性到数据库表中,成功返回true,失败返回false
     bool AddAttributeToTable(const QString &tableName, const QString &attributeName);
+    EntityPtr fromJsonValue(const QJsonValue &jsonValue);
 
 private:
     QSqlDatabase m_dbConnection;

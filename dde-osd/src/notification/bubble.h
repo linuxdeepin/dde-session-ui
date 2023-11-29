@@ -49,6 +49,7 @@ public:
 Q_SIGNALS:
     void expired(Bubble *);                             // 超时消失时发出,动画执行完成后自动删除
     void dismissed(Bubble *);                           // 点击后发出，动画执行完成后自动删除
+    void processed(EntityPtr ptr);
     void notProcessedYet(EntityPtr ptr);                // 触发'暂不处理'操作时发出，不会主动删除自身
 
     void actionInvoked(Bubble *, QString);              // 不会主动删除自身

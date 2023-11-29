@@ -111,11 +111,10 @@ void Persistence::addOne(EntityPtr entity)
         return;
     } else {
         m_query.next();
-        entity->setId(m_query.value(0).toString());
+        entity->setStorageId(m_query.value(0).toString());
 #ifdef QT_DEBUG
         qDebug() << "get entity's id done:" << entity->id();
 #endif
-        emit RecordAdded(entity);
     }
 }
 
@@ -232,20 +231,7 @@ QList<EntityPtr> Persistence::getAllNotify()
     QJsonArray notify_array = QJsonDocument::fromJson(json.toLocal8Bit().data()).array();
 
     foreach (auto notify, notify_array) {
-        QJsonObject obj = notify.toObject();
-
-        QStringList actions = obj.value("action").toString().split(ACTION_SEGMENT);
-
-        auto notification = std::make_shared<NotificationEntity>(obj.value("name").toString(),
-                                                                 obj.value("id").toString(), obj.value("icon").toString(),
-                                                                 obj.value("summary").toString(),
-                                                                 obj.value("body").toString(),
-                                                                 actions, ConvertStringToMap(obj.value("hint").toString()),
-                                                                 obj.value("time").toString(),
-                                                                 obj.value("replacesid").toString(),
-                                                                 obj.value("timeout").toString(),
-                                                                 this);
-        db_notification.append(notification);
+        db_notification.append(fromJsonValue(notify));
     }
     return db_notification;
 }
@@ -301,6 +287,32 @@ QString Persistence::getById(const QString &id)
     }
 
     return QJsonDocument(array).toJson();
+}
+
+EntityPtr Persistence::getNotifyById(const QString &id)
+{
+    QString json = getById(id);
+    if (json.isEmpty()) {
+        return EntityPtr();
+    }
+    QJsonArray notify_array = QJsonDocument::fromJson(json.toLocal8Bit().data()).array();
+    return fromJsonValue(notify_array.first());
+}
+
+EntityPtr Persistence::fromJsonValue(const QJsonValue &jsonValue)
+{
+    QJsonObject obj = jsonValue.toObject();
+    QStringList actions = obj.value("action").toString().split(ACTION_SEGMENT);
+    auto notification = std::make_shared<NotificationEntity>(obj.value("name").toString(),
+                                                             obj.value("id").toString(), obj.value("icon").toString(),
+                                                             obj.value("summary").toString(),
+                                                             obj.value("body").toString(),
+                                                             actions, ConvertStringToMap(obj.value("hint").toString()),
+                                                             obj.value("time").toString(),
+                                                             obj.value("replacesid").toString(),
+                                                             obj.value("timeout").toString(),
+                                                             this);
+    return notification;
 }
 
 QString Persistence::getFrom(int rowCount, const QString &offsetId)
