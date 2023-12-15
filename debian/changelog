@@ -1,3 +1,12 @@
+dde-session-ui (6.0.11) unstable; urgency=medium
+
+  * fix: repeated warning when fetch GetAllItemInfos
+  * fix: use dbus-user-session instead of dbus-x11 in control
+  * feat: support notification to switch other bubble(Issue: https://github.com/linuxdeepin/developer-center/issues/6095)
+  * chore: Store a notification to database immediately when it pops up
+
+ -- YeShanShan <yeshanshan@deepin.org>  Fri, 15 Dec 2023 09:34:40 +0800
+
 dde-session-ui (6.0.10) unstable; urgency=medium
 
   * chore: Sync by https://github.com/linuxdeepin/.github/commit/2e5e092ba3f86b16d1aabbabcf0bfd2ae65b19c8(Influence: none)
