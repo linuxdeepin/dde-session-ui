@@ -42,42 +42,52 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
     , m_persistence(persistence)
     , m_login1ManagerInterface(new Login1ManagerInterface(Login1DBusService, Login1DBusPath,
                                                           QDBusConnection::systemBus(), this))
-    , m_displayInter(new DisplayInter(DisplayDaemonDBusServie, DisplayDaemonDBusPath,
-                                      QDBusConnection::sessionBus(), this))
-    , m_dockDeamonInter(new DockInter(DockDaemonDBusServie, DockDaemonDBusPath,
-                                      QDBusConnection::sessionBus(), this))
     , m_userInter(new UserInter(SessionDBusServie, SessionDaemonDBusPath,
-                                QDBusConnection::sessionBus(), this))
-    , m_soundeffectInter(new SoundeffectInter(SoundEffectDaemonDBusServie, SoundEffectDaemonDBusPath,
-                                              QDBusConnection::sessionBus(), this))
+                                 QDBusConnection::sessionBus(), this))
     , m_notifySettings(setting)
     , m_notifyCenter(new NotifyCenterWidget(m_persistence))
-    , m_appearance(new Appearance("org.deepin.dde.Appearance1", "/org/deepin/dde/Appearance1", QDBusConnection::sessionBus(), this))
-    , m_gestureInter(new GestureInter("org.deepin.dde.Gesture1"
-                                      , "/org/deepin/dde/Gesture1"
-                                      , QDBusConnection::systemBus()
-                                      , this))
-    , m_dockInter(new DBusDockInterface(this))
     , m_trickTimer(new QTimer(this))
 {
+    if (!useBuiltinBubble()) {
+        qCDebug(notifiyBubbleLog) << "Default does not use built-in bubble.";
+    }
+
+    if (useBuiltinBubble()) {
+        m_displayInter = new DisplayInter(DisplayDaemonDBusServie, DisplayDaemonDBusPath,
+                                           QDBusConnection::sessionBus(), this);
+        m_dockDeamonInter = new DockInter(DockDaemonDBusServie, DockDaemonDBusPath,
+                                           QDBusConnection::sessionBus(), this);
+        m_soundeffectInter = new SoundeffectInter(SoundEffectDaemonDBusServie, SoundEffectDaemonDBusPath,
+                                                   QDBusConnection::sessionBus(), this);
+        m_appearance = new Appearance("org.deepin.dde.Appearance1", "/org/deepin/dde/Appearance1", QDBusConnection::sessionBus(), this);
+        m_dockInter = new DBusDockInterface(this);
+        m_gestureInter = new GestureInter("org.deepin.dde.Gesture1"
+                                          , "/org/deepin/dde/Gesture1"
+                                          , QDBusConnection::systemBus()
+                                          , this);
+    }
     m_trickTimer->setInterval(300);
     m_trickTimer->setSingleShot(true);
 
     initConnections();
     geometryChanged();
 
-    m_notifyCenter->setMaskAlpha(static_cast<quint8>(m_appearance->opacity() * 255));
+    if (useBuiltinBubble()) {
+        m_notifyCenter->setMaskAlpha(static_cast<quint8>(m_appearance->opacity() * 255));
+    }
     m_notifyCenter->hide();
     registerAsService();
 
-    // 任务栏在左侧时，触屏划入距离需要超过100
-    m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
-    m_dockInter->setSync(false);
+    if (useBuiltinBubble()) {
+        // 任务栏在左侧时，触屏划入距离需要超过100
+        m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
+        m_dockInter->setSync(false);
 
-    connect(m_userInter, &__SessionManager1::LockedChanged, this, [ this ] {
-        // 当锁屏状态发生变化时立即隐藏所有通知并插入到通知中心（根据通知的实际情况决定），桌面和锁屏的通知不交叉显示
-        popAllBubblesImmediately();
-    });
+        connect(m_userInter, &__SessionManager1::LockedChanged, this, [ this ] {
+            // 当锁屏状态发生变化时立即隐藏所有通知并插入到通知中心（根据通知的实际情况决定），桌面和锁屏的通知不交叉显示
+            popAllBubblesImmediately();
+        });
+    }
 }
 
 BubbleManager::~BubbleManager()
@@ -164,10 +174,12 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
         }
     }
 
-    // 如果display服务无效，无法获取显示器大小，不能正确计算显示位置，则不显示消息通知
-    if (!m_displayInter->isValid()) {
-        qWarning() << "The name org.deepin.dde.Display1 is invalid";
-        return 0;
+    if (useBuiltinBubble()) {
+        // 如果display服务无效，无法获取显示器大小，不能正确计算显示位置，则不显示消息通知
+        if (!m_displayInter->isValid()) {
+            qWarning() << "The name org.deepin.dde.Display1 is invalid";
+            return 0;
+        }
     }
 
     // 应用通知功能未开启不做处理
@@ -322,6 +334,11 @@ void BubbleManager::popAllBubblesImmediately()
 
 bool BubbleManager::useBuiltinBubble() const
 {
+    static bool isTreeLand = qEnvironmentVariable("DDE_CURRENT_COMPOSITER") == QString("TreeLand");
+    // some dbus service is unavailable in treeland.
+    if (isTreeLand)
+        return false;
+
     return m_useBuiltinBubble;
 }
 
@@ -609,6 +626,7 @@ void BubbleManager::Show()
     }
 
     m_trickTimer->start();
+
     geometryChanged();
 
     m_notifyCenter->onlyShowWidget();
@@ -621,6 +639,7 @@ void BubbleManager::Hide()
     }
 
     m_trickTimer->start();
+
     geometryChanged();
 
     m_notifyCenter->onlyHideWidget();
@@ -776,17 +795,19 @@ void BubbleManager::initConnections()
     connect(m_login1ManagerInterface, SIGNAL(PrepareForSleep(bool)),
             this, SLOT(onPrepareForSleep(bool)));
 
-    connect(m_displayInter, &DisplayInter::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
-    connect(m_dockInter, &DBusDockInterface::geometryChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
-    connect(m_dockDeamonInter, &DockInter::serviceValidChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
+    if (useBuiltinBubble()) {
+        connect(m_displayInter, &DisplayInter::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
+        connect(m_dockInter, &DBusDockInterface::geometryChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
+        connect(m_dockDeamonInter, &DockInter::serviceValidChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
 
-    connect(qApp, &QApplication::primaryScreenChanged, this, [ = ] {
-        updateGeometry();
-    });
+        connect(qApp, &QApplication::primaryScreenChanged, this, [ = ] {
+            updateGeometry();
+        });
 
-    connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, [ = ] {
-        updateGeometry();
-    });
+        connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, [ = ] {
+            updateGeometry();
+        });
+    }
 
     connect(m_notifySettings, &NotifySettings::appSettingChanged, this, [ = ] (const QString &id, const uint &item, QVariant var) {
         Q_EMIT AppInfoChanged(id, item, QDBusVariant(var));
@@ -803,12 +824,14 @@ void BubbleManager::initConnections()
         Q_EMIT appRemoved(id);
     });
 
-    // 响应任务栏方向改变信号，更新额外触屏划入距离
-    connect(m_dockDeamonInter, &DockInter::PositionChanged, this, [ this ] {
-        m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
-    });
+    if (useBuiltinBubble()) {
+        // 响应任务栏方向改变信号，更新额外触屏划入距离
+        connect(m_dockDeamonInter, &DockInter::PositionChanged, this, [ this ] {
+            m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
+        });
 
-    connect(m_appearance, &Appearance::OpacityChanged, this,  &BubbleManager::onOpacityChanged);
+        connect(m_appearance, &Appearance::OpacityChanged, this,  &BubbleManager::onOpacityChanged);
+    }
 
     connect(&SignalBridge::ref(), &SignalBridge::actionInvoked, this, &BubbleManager::ActionInvoked);
 }
@@ -825,6 +848,9 @@ void BubbleManager::onPrepareForSleep(bool sleep)
 
 void BubbleManager::geometryChanged()
 {
+    if (!useBuiltinBubble())
+        return;
+
     m_currentDisplayRect = calcDisplayRect();
     // dock未启动时，不要调用其接口，会导致系统刚启动是任务栏被提前启动（比窗管还早），造成显示异常，后续应该改成通知中心显示时才调用任务栏的接口，否则不应调用
     if (m_dockInter->isValid()) {
