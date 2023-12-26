@@ -91,9 +91,11 @@ BubbleManager::~BubbleManager()
 
 void BubbleManager::CloseNotification(uint id)
 {
-#if defined (QT_DEBUG) && !defined (GTEST)
-    QDBusReply<uint> reply = connection().interface()->servicePid(message().service());
-    qDebug() << "PID:" << reply.value();//关闭通知的进程
+#if defined (QT_DEBUG)
+    if (calledFromDBus()) {
+        QDBusReply<uint> reply = connection().interface()->servicePid(message().service());
+        qDebug() << "PID:" << reply.value();//关闭通知的进程
+    }
 #endif
 
     QString str_id = QString::number(id);
@@ -137,30 +139,30 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QString &body, const QStringList &actions,
                            const QVariantMap hints, int expireTimeout)
 {
-#ifndef GTEST
-    QGSettings oem_setting("com.deepin.dde.notifications", "/com/deepin/dde/notifications/");
-    if (oem_setting.keys().contains("notifycationClosed") && oem_setting.get("notifycationClosed").toBool())
-        return 0;
+    if (calledFromDBus()) {
+        QGSettings oem_setting("com.deepin.dde.notifications", "/com/deepin/dde/notifications/");
+        if (oem_setting.keys().contains("notifycationClosed") && oem_setting.get("notifycationClosed").toBool())
+            return 0;
 
-    QGSettings setting("com.deepin.dde.osd", "/com/deepin/dde/osd/");
-    if (setting.keys().contains("bubbleDebugPrivacy") && setting.get("bubble-debug-privacy").toBool()) {
-        qDebug() << "Notify:" << "appName:" + appName << "replaceID:" + QString::number(replacesId)
-                 << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
-                 << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
+        QGSettings setting("com.deepin.dde.osd", "/com/deepin/dde/osd/");
+        if (setting.keys().contains("bubbleDebugPrivacy") && setting.get("bubble-debug-privacy").toBool()) {
+            qDebug() << "Notify:" << "appName:" + appName << "replaceID:" + QString::number(replacesId)
+                     << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
+                     << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 
-        // 记录通知发送方
-        QString cmd = QString("grep \"Name:\" /proc/%1/status").arg(QString::number(connection().interface()->servicePid(message().service())));
-        QProcess process;
-        QStringList args;
-        args << "-c";
-        args << cmd;
-        process.start("sh", args);
-        process.waitForReadyRead();
-        QString result = QString::fromUtf8(process.readAllStandardOutput());
-        qDebug() << "notify called by :" << result;
-        process.close();
+            // 记录通知发送方
+            QString cmd = QString("grep \"Name:\" /proc/%1/status").arg(QString::number(connection().interface()->servicePid(message().service())));
+            QProcess process;
+            QStringList args;
+            args << "-c";
+            args << cmd;
+            process.start("sh", args);
+            process.waitForReadyRead();
+            QString result = QString::fromUtf8(process.readAllStandardOutput());
+            qDebug() << "notify called by :" << result;
+            process.close();
+        }
     }
-#endif
 
     // 如果display服务无效，无法获取显示器大小，不能正确计算显示位置，则不显示消息通知
     if (!m_displayInter->isValid()) {
