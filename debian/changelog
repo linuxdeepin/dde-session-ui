@@ -1,3 +1,12 @@
+dde-session-ui (6.0.12) unstable; urgency=medium
+
+  * fix: ut crashed when calling DBusContext method
+  * fix: dde-osd can't display bubble in treeland(Issue: https://github.com/linuxdeepin/developer-center/issues/6095)
+  * fix: don't override CMAKE_EXE_LINKER_FLAGS
+    Thanks to Felix Yan
+
+ -- YeShanShan <yeshanshan@deepin.org>  Thu, 28 Dec 2023 16:58:19 +0800
+
 dde-session-ui (6.0.11) unstable; urgency=medium
 
   * fix: repeated warning when fetch GetAllItemInfos
