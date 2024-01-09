@@ -228,10 +228,7 @@ QString DDENotifyDBus::getAppSetting(const QString &in0)
 
 uint DDENotifyDBus::recordCount()
 {
-    // handle method call org.deepin.dde.Notification1.recordCount
-    uint out0;
-    QMetaObject::invokeMethod(parent(), "recordCount", Q_RETURN_ARG(uint, out0));
-    return out0;
+    return qvariant_cast< uint >(parent()->property("recordCount"));
 }
 
 void DDENotifyDBus::setAppSetting(const QString &in0)

@@ -21,7 +21,7 @@ public:
     MOCK_METHOD1(addAll, void(QList<EntityPtr>));
     MOCK_METHOD1(removeOne, void(const QString&));
     MOCK_METHOD1(removeApp, void(const QString&));
-    MOCK_METHOD0(getRecordCount, int());
+    MOCK_METHOD0(recordCount, uint());
     MOCK_METHOD1(getById, QString(const QString&));
     MOCK_METHOD2(getFrom, QString(int, const QString&));
 };

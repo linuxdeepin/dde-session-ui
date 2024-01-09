@@ -38,7 +38,7 @@ public:
         EXPECT_CALL(persistence, removeApp(testing::_)).
                     WillRepeatedly(testing::Invoke(&helper, &PersistenceHelper::removeApp));
 
-        EXPECT_CALL(persistence, getRecordCount()).
+        EXPECT_CALL(persistence, recordCount()).
                     WillRepeatedly(testing::Invoke(&helper, &PersistenceHelper::getRecordCount));
 
         EXPECT_CALL(persistence, getById(testing::_)).

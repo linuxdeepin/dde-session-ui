@@ -643,7 +643,7 @@ void BubbleManager::Hide()
 
 uint BubbleManager::recordCount()
 {
-    return uint(m_persistence->getRecordCount());
+    return m_persistence->recordCount();
 }
 
 QStringList BubbleManager::GetAppList()
@@ -820,6 +820,7 @@ void BubbleManager::initConnections()
     }
 
     connect(&SignalBridge::ref(), &SignalBridge::actionInvoked, this, &BubbleManager::ActionInvoked);
+    connect(m_persistence, &AbstractPersistence::recordCountChanged, this, &BubbleManager::recordCountChanged);
 }
 
 void BubbleManager::onPrepareForSleep(bool sleep)

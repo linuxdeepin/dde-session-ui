@@ -162,10 +162,10 @@ void UnitTest::test_Persistence()
     QCOMPARE(notify.value("id").toString(), QString("%1").arg(entity->id()));
 
     QList<EntityPtr> entityList= database.getAllNotify();
-    QCOMPARE(entityList.size(), database.getRecordCount());
+    QCOMPARE(entityList.size(), database.recordCount());
 
     database.removeAll();
-    QCOMPARE(database.getRecordCount(), 0);
+    QCOMPARE(database.recordCount(), 0);
 }
 
 
