@@ -11,15 +11,15 @@ DGUI_USE_NAMESPACE
 
 AudioProvider::AudioProvider(QObject *parent)
     : AbstractOSDProvider(parent),
-      m_audioInter(new org::deepin::dde::Audio1("org.deepin.dde.Audio1",
-                                                  "/org/deepin/dde/Audio1",
-                                                  QDBusConnection::sessionBus(), this)),
+      m_audioInter(new Audio1("org.deepin.dde.Audio1",
+                              "/org/deepin/dde/Audio1",
+                              QDBusConnection::sessionBus(), this)),
       m_sinkInter(nullptr)
 {
     m_suitableParams << "AudioUp" << "AudioDown" << "AudioMute" << "AudioUpAsh" << "AudioDownAsh" << "AudioMuteAsh";
 
     m_audioInter->setSync(true, false);
-    connect(m_audioInter, &__Audio1::DefaultSinkChanged,
+    connect(m_audioInter, &Audio1::DefaultSinkChanged,
             this, &AudioProvider::defaultSinkChanged);
 
     auto onAudioIsValid = [ = ](bool isvalid) {
@@ -28,7 +28,7 @@ AudioProvider::AudioProvider(QObject *parent)
         }
     };
 
-    connect(m_audioInter, &__Audio1::serviceValidChanged, this, onAudioIsValid);
+    connect(m_audioInter, &Audio1::serviceValidChanged, this, onAudioIsValid);
 
     onAudioIsValid(m_audioInter->isValid());
 }

@@ -4,8 +4,8 @@
 
 #include "bubblemanager.h"
 #include "bubble.h"
-#include "dbus_daemon_interface.h"
 #include "dbuslogin1manager.h"
+#include "notification/bubbletool.h"
 #include "notificationentity.h"
 #include "persistence.h"
 #include "constants.h"
@@ -26,9 +26,6 @@
 #include <QGSettings>
 #include <QLoggingCategory>
 
-#include <algorithm>
-
-#include "bubbletool.h"
 #include "org_deepin_dde_display1.h"
 #include "org_deepin_dde_display1_monitor.h"
 
@@ -82,8 +79,7 @@ BubbleManager::BubbleManager(AbstractPersistence *persistence, AbstractNotifySet
         // 任务栏在左侧时，触屏划入距离需要超过100
         m_slideWidth = (m_dockDeamonInter->position() == OSD::DockPosition::Right) ? 100 : 0;
         m_dockInter->setSync(false);
-
-        connect(m_userInter, &__SessionManager1::LockedChanged, this, [ this ] {
+        connect(m_userInter, &UserInter::LockedChanged, this, [ this ] {
             // 当锁屏状态发生变化时立即隐藏所有通知并插入到通知中心（根据通知的实际情况决定），桌面和锁屏的通知不交叉显示
             popAllBubblesImmediately();
         });
@@ -688,16 +684,6 @@ void BubbleManager::SetSystemInfo(uint item, const QDBusVariant var)
     Q_EMIT systemSettingChanged(m_notifySettings->getSystemSetings_v1());
 }
 
-void BubbleManager::appInfoChanged(QString action, LauncherItemInfo info)
-{
-    if (action == DeletedAction) {
-        m_notifySettings->appRemoved(info.id);
-        Q_EMIT appRemoved(info.id);
-    } else if (action == CreatedAction) {
-        m_notifySettings->appAdded(info);
-        Q_EMIT appAdded(m_notifySettings->getAppSettings_v1(info.id));
-    }
-}
 
 void BubbleManager::onOpacityChanged(double value)
 {

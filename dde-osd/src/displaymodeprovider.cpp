@@ -28,11 +28,11 @@ DisplayModeProvider::DisplayModeProvider(QObject *parent)
 
     updateOutputNames();
 
-    connect(m_displayInter, &__Display1::DisplayModeChanged,
+    connect(m_displayInter, &Display1::DisplayModeChanged,
             this, &DisplayModeProvider::displayModeChanged);
-    connect(m_displayInter, &__Display1::PrimaryChanged,
+    connect(m_displayInter, &Display1::PrimaryChanged,
             this, &DisplayModeProvider::primaryChanged);
-    connect(m_displayInter, &__Display1::MonitorsChanged,
+    connect(m_displayInter, &Display1::MonitorsChanged,
             this, &DisplayModeProvider::updateOutputNames);
 
     displayModeChanged(m_displayInter->displayMode());

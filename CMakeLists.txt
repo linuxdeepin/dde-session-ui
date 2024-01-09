@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.13)
 set(PROJECT_NAME dde-session-ui)
 project(${PROJECT_NAME})
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -60,29 +60,9 @@ set(Test_Libraries
     -lgcov
     -lgtest
     -lgmock
-    )
-
-set(XML2CPP_DIR ${PROJECT_SOURCE_DIR}/global_util/dbus)
-file(GLOB_RECURSE XMLFILES xml/*.xml)
+)
 
 find_package(DtkTools REQUIRED)
-
-foreach(XMLFILE ${XMLFILES})
-    string(FIND ${XMLFILE} "/" INDEX REVERSE)
-    string(SUBSTRING ${XMLFILE} ${INDEX} -1 filename)
-    string(REPLACE "/" "" filename ${filename})
-    string(REPLACE ".xml" "" filename ${filename})
-    string(REPLACE "." "_" filename ${filename})
-
-    string(FIND ${filename} "_" INDEX1 REVERSE)
-    string(SUBSTRING ${filename} ${INDEX1} -1 classname)
-    string(REPLACE "_" "" classname ${classname})
-
-    string(TOLOWER ${filename} filename)
-
-    execute_process(COMMAND ${DTK_XML2CPP} -c ${classname} -p ${XML2CPP_DIR}/${filename} ${XMLFILE}
-            WORKING_DIRECTORY ${XML2CPP_DIR})
-endforeach()
 
 # shared objects
 add_subdirectory("common")
@@ -103,7 +83,10 @@ add_subdirectory("dde-touchscreen-dialog")
 add_subdirectory("dde-warning-dialog")
 add_subdirectory("dde-welcome")
 add_subdirectory("dde-wm-chooser")
-add_subdirectory("dmemory-warning-dialog")
+
+# FIXME: startmanager is removed, so it need to be updated
+# add_subdirectory("dmemory-warning-dialog")
+
 add_subdirectory("dnetwork-secret-dialog")
 #TODO 需要break旧版本的控制中心
 add_subdirectory("reset-password-dialog")

@@ -57,7 +57,9 @@ int main(int argc, char *argv[])
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
+    DLogManager::registerJournalAppender();
     QAccessible::installFactory(accessibleFactory);
+
     QTranslator translator;
     translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
     app->installTranslator(&translator);

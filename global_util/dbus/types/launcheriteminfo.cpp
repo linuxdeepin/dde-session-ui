@@ -24,25 +24,3 @@ bool LauncherItemInfo::operator!=(const LauncherItemInfo &itemInfo)
 {
     return itemInfo.path != path;
 }
-
-QDBusArgument &operator<<(QDBusArgument &argument, const LauncherItemInfo &itemInfo)
-{
-    argument.beginStructure();
-    argument << itemInfo.path << itemInfo.name << itemInfo.id << itemInfo.icon << itemInfo.categoryId << itemInfo.timeInstalled << itemInfo.keywords;
-    argument.endStructure();
-    return argument;
-}
-
-const QDBusArgument &operator>>(const QDBusArgument &argument, LauncherItemInfo &itemInfo)
-{
-    argument.beginStructure();
-    argument >> itemInfo.path >> itemInfo.name >> itemInfo.id >> itemInfo.icon >> itemInfo.categoryId >> itemInfo.timeInstalled >> itemInfo.keywords;
-    argument.endStructure();
-    return argument;
-}
-
-void registerLauncherItemInfoMetaType()
-{
-    qRegisterMetaType<LauncherItemInfo>("ItemInfo");
-    qDBusRegisterMetaType<LauncherItemInfo>();
-}

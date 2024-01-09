@@ -21,9 +21,7 @@
 #pragma once
 
 #include <QtCore/QString>
-#include <QtDBus/QtDBus>
 #include <QtCore/QList>
-#include <QDBusMetaType>
 #include <QDebug>
 
 struct LauncherItemInfo {
@@ -34,19 +32,16 @@ struct LauncherItemInfo {
     qint64 categoryId;
     qint64 timeInstalled;
     QStringList keywords;
+    bool noDisplay;
     bool operator!=(const LauncherItemInfo &versionInfo);
 
     friend QDebug operator<<(QDebug argument, const LauncherItemInfo &info)
     {
         argument << info.path << info.name << info.id;
-        argument << info.icon << info.categoryId << info.timeInstalled << info.keywords;
+        argument << info.icon << info.categoryId << info.timeInstalled << info.keywords << info.noDisplay;
 
         return argument;
     }
 };
 
-Q_DECLARE_METATYPE(LauncherItemInfo)
-
-QDBusArgument &operator<<(QDBusArgument &argument, const LauncherItemInfo &versionInfo);
-const QDBusArgument &operator>>(const QDBusArgument &argument, LauncherItemInfo &versionInfo);
-void registerLauncherItemInfoMetaType();
+using LauncherItemInfoList =  QList<LauncherItemInfo>; 

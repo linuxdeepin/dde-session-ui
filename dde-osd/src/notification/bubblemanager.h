@@ -18,7 +18,6 @@
 #include "org_deepin_dde_soundeffect1.h"
 #include "org_deepin_dde_gesture1.h"
 #include "org_deepin_dde_display1.h"
-#include "org_deepin_dde_daemon_launcherd1.h"
 #include "org_deepin_dde_daemon_dock1.h"
 #include "org_deepin_dde_appearance1.h"
 
@@ -27,7 +26,6 @@
 
 using Appearance = org::deepin::dde::Appearance1;
 using UserInter = org::deepin::dde::SessionManager1;
-using LauncherInter = org::deepin::dde::daemon::Launcher1;
 using SoundeffectInter = org::deepin::dde::SoundEffect1;
 using GestureInter = org::deepin::dde::Gesture1;
 using DisplayInter = org::deepin::dde::Display1;
@@ -221,7 +219,6 @@ private Q_SLOTS:
      * \~chinese \brief 当主屏幕发生改变或几何大小发送改变,更新所有通知气泡的几何位置
      */
     void updateGeometry();
-    void appInfoChanged(QString action, LauncherItemInfo info);
     void onOpacityChanged(double value);
 
 private:

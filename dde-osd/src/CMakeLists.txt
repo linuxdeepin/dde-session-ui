@@ -7,10 +7,6 @@ set(OSD_Name dde-osd)
 add_executable(${OSD_Name}
     main.cpp
 )
-target_include_directories(dde-osd-shared
-PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}
-)
 
 target_link_libraries(${OSD_Name} PRIVATE
     dde-osd-shared

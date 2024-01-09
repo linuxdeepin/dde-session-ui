@@ -4,6 +4,9 @@
 
 #include "notifysettings.h"
 #include "constants.h"
+#include "types/objectmanager_type.h"
+#include "types/launcheriteminfo.h"
+#include <DUtil>
 
 #include <QGSettings>
 #include <QTimer>
@@ -22,15 +25,82 @@ const QString schemaPath = "/com/deepin/dde/notifications/";
 const QString appSchemaKey = "com.deepin.dde.notifications.applications";
 const QString appSchemaPath = "/com/deepin/dde/notifications/applications/%1/";
 
+static QStringList getUILanguages()
+{
+    QLocale syslocal = QLocale::system();
+
+    QStringList uiLanguages = syslocal.uiLanguages();
+    // the nameMap uses underscore instead of minus sign
+    for (auto &lang : uiLanguages) {
+        lang.replace('-', '_');
+    }
+    uiLanguages << "default";
+
+    return uiLanguages;
+}
+
+static LauncherItemInfo fromObjectInterfaceMapToItemInfo(const QDBusObjectPath &path, const ObjectInterfaceMap &valueMap)
+{
+    auto uiLanguages = getUILanguages();
+    LauncherItemInfo info;
+    info.path = path.path();
+    info.noDisplay = false;
+    for (const QVariantMap &mapInter : valueMap) {
+        if (mapInter.count() == 0) {
+            continue;
+        }
+
+        QString icon;
+        if (auto mapicons = mapInter.value("Icons"); !mapicons.isNull()) {
+            auto icons = qdbus_cast<QMap<QString, QString>>(mapicons);
+            if (!icons.value("Desktop Entry").isNull()) {
+                icon = icons["Desktop Entry"];
+            }
+        }
+
+        if (auto noDisplay = mapInter.value("NoDisplay"); !noDisplay.isNull()) {
+            info.noDisplay = noDisplay.toBool();
+        }
+
+        info.icon = icon;
+        auto nameMap = qdbus_cast<QMap<QString, QString>>(mapInter["Name"]);
+        QString id = qdbus_cast<QString>(mapInter["ID"]);
+        info.id = id;
+
+        QString showName = id;
+
+        for (auto &lang : uiLanguages) {
+            auto iter = nameMap.find(lang);
+            if (iter != nameMap.end()) {
+                showName = iter.value();
+                break;
+            }
+        }
+        info.name = showName;
+    }
+    return info;
+
+}
+
+static QList<LauncherItemInfo> fromObjectMaptoLauncherItemInfoList(const ObjectMap &map)
+{
+    QList<LauncherItemInfo> infos;
+    for (auto [dbusPath, valueMap] : map.toStdMap()) {
+        infos << fromObjectInterfaceMapToItemInfo(dbusPath, valueMap);
+    }
+    return infos;
+}
+
 NotifySettings::NotifySettings(QObject *parent)
     : AbstractNotifySetting(parent)
     , m_initTimer(new QTimer(this))
-    , m_launcherInter(new LauncherInter("org.deepin.dde.daemon.Launcher1",
-                                        "/org/deepin/dde/daemon/Launcher1",
-                                        QDBusConnection::sessionBus(), this))
+    , m_applicationObjectInter(
+                new ApplicationObjectManager1("org.desktopspec.ApplicationManager1",
+                                              "/org/desktopspec/ApplicationManager1",
+                                              QDBusConnection::sessionBus(),
+                                              this))
 {
-    registerLauncherItemInfoListMetaType();
-    registerLauncherItemInfoMetaType();
+    registerAmMetaType();
 
     if (!QGSettings::isSchemaInstalled("com.deepin.dde.notification")) {
         qDebug()<<"System configuration fetch failed!";
@@ -40,57 +110,54 @@ NotifySettings::NotifySettings(QObject *parent)
     m_systemSetting = new QGSettings(schemaKey.toLocal8Bit(), schemaPath.toLocal8Bit(), this);
 
     connect(m_initTimer, &QTimer::timeout, this, &NotifySettings::initAllSettings);
-    connect(m_launcherInter, &LauncherInter::ItemChanged, this, [ = ] (QString action, LauncherItemInfo info, qlonglong id) {
-        Q_UNUSED(id)
-        if (action == "deleted") {
-            appRemoved(info.id);
-        } else if (action == "created") {
-            appAdded(info);
-        }
+    connect(m_applicationObjectInter, &ApplicationObjectManager1::InterfacesAdded, this, [this](const QDBusObjectPath &object_path, ObjectInterfaceMap interfaces) {
+        LauncherItemInfo info = fromObjectInterfaceMapToItemInfo(object_path, interfaces);
+        appAdded(info);
+    });
+    connect(m_applicationObjectInter, &ApplicationObjectManager1::InterfacesRemoved, this, [this](const QDBusObjectPath &object_path, const QStringList) {
+        QString id = DUtil::unescapeFromObjectPath(object_path.path());
+        appRemoved(id);
     });
 }
 
 void NotifySettings::initAllSettings()
 {
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(m_launcherInter->GetAllItemInfos());
-    QObject::connect(watcher, &QDBusPendingCallWatcher::finished,
-                     this, [this](QDBusPendingCallWatcher *call) {
-        QDBusPendingReply<LauncherItemInfoList> reply = *call;
-        if (reply.isError()) {
-            qWarning() << "Falied to fetch GetAllItemInfos" << reply.error();
-        } else {
-            LauncherItemInfoList itemInfoList = reply.value();
+    ObjectMap app_map =  m_applicationObjectInter->GetManagedObjects();
+    if (app_map.isEmpty()) {
+        m_initTimer->stop();
+    }
+    LauncherItemInfoList itemInfoList = fromObjectMaptoLauncherItemInfoList(app_map);
 
-            QStringList appList = m_systemSetting->get("app-list").toStringList();
-            QStringList launcherList;
+    QStringList appList = m_systemSetting->get("app-list").toStringList();
+    QStringList launcherList;
 
-            foreach(const LauncherItemInfo &item, itemInfoList) {
-                launcherList << item.id;
-                DDesktopEntry desktopInfo(item.path);
-                if (IgnoreList.contains(item.id) || desktopInfo.rawValue("X-Created-By") == "Deepin WINE Team") {
-                    continue;
-                }
-
-                if (appList.contains(item.id)) {
-                    // 修改系统语言后需要更新翻译
-                    QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(item.id).toLocal8Bit(), this);
-                    itemSetting.set("app-name", item.name);
-                    continue;
-                }
-                appList.append(item.id);
-                m_systemSetting->set("app-list", appList);
-                appAdded(item);
-            }
-
-            for (const QString &app : appList) {
-                if (!launcherList.contains(app)) {
-                    appRemoved(app);
-                }
-            }
+    for(const LauncherItemInfo &item: itemInfoList) {
+        if (IgnoreList.contains(item.id)) {
+            continue;
         }
 
-        call->deleteLater();
-    });
+        if (item.noDisplay) {
+            continue;
+        }
+
+        launcherList << item.id;
+
+        if (appList.contains(item.id)) {
+            // 修改系统语言后需要更新翻译
+            QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(item.id).toLocal8Bit(), this);
+            itemSetting.set("app-name", item.name);
+            continue;
+        }
+        appList.append(item.id);
+        m_systemSetting->set("app-list", appList);
+        appAdded(item);
+    }
+
+    for (const QString &app : appList) {
+        if (!launcherList.contains(app)) {
+            appRemoved(app);
+        }
+    }
 }
 
 void NotifySettings::setAppSetting(const QString &id, const NotifySettings::AppConfigurationItem &item, const QVariant &var)
