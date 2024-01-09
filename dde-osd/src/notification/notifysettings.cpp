@@ -112,10 +112,13 @@ NotifySettings::NotifySettings(QObject *parent)
     connect(m_initTimer, &QTimer::timeout, this, &NotifySettings::initAllSettings);
     connect(m_applicationObjectInter, &ApplicationObjectManager1::InterfacesAdded, this, [this](const QDBusObjectPath &object_path, ObjectInterfaceMap interfaces) {
         LauncherItemInfo info = fromObjectInterfaceMapToItemInfo(object_path, interfaces);
+        qDebug() << "Iterface addded, added id=" << info.id;
         appAdded(info);
     });
     connect(m_applicationObjectInter, &ApplicationObjectManager1::InterfacesRemoved, this, [this](const QDBusObjectPath &object_path, const QStringList) {
-        QString id = DUtil::unescapeFromObjectPath(object_path.path());
+        QString id_origin = object_path.path().split("/").last();
+        QString id = DUtil::unescapeFromObjectPath(id_origin);
+        qDebug() << "Interface removed, removed id=" << id;
         appRemoved(id);
     });
 }
