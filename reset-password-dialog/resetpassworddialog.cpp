@@ -303,7 +303,7 @@ void ResetPasswordDialog::onReadFromServerChanged(int fd)
 
 void ResetPasswordDialog::updatePosition()
 {
-    const QRect deskRt = QApplication::desktop()->screenGeometry(QCursor::pos());
+    const QRect deskRt = QGuiApplication::screenAt(QCursor::pos())->geometry();
     int x = deskRt.left() + (deskRt.width() - width()) / 2;
     int y = deskRt.top() + (deskRt.height() - height()) / 2;
     move(x, y);

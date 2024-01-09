@@ -171,7 +171,7 @@ int Content::calWidgetWidth()
 {
     QPainter p(m_acceptCheck);
     QFontMetrics fm = p.fontMetrics();
-    int width = fm.width(m_enallow) + m_acceptBtn->width() * 2 + 40;
+    int width = fm.horizontalAdvance(m_enallow) + m_acceptBtn->width() * 2 + 40;
     return width;
 }
 

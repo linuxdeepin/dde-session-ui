@@ -23,6 +23,7 @@ public:
 private:
     QLabel * m_image;
     QLabel * m_text;
+    QPixmap m_pix;
     bool m_bSleepLock;
 
     void setupSize();

@@ -138,7 +138,7 @@ QSize ActionButton::contentSize(const QString &text, bool is_menu) const
     const QFontMetrics fm(appNamefont);
 
     if (m_showStyle == OSD::BUBBLEWINDOW) {
-        int text_width = fm.width(text) + 15;
+        int text_width = fm.horizontalAdvance(text) + 15;
         int max_width = qMax(text_width, OSD::ButtonSize(m_showStyle).width());
         if (is_menu) {
             max_width = qMax(MenuWidth + 2 * MenuPadding + text_width, OSD::ButtonSize(m_showStyle).width());

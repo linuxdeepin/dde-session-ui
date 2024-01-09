@@ -30,7 +30,8 @@ Window::Window(QWidget *parent)
     const QString iconPath = qt_findAtNxFile(":/images/lowpower.png", ratio);
     QPixmap pix(iconPath);
     pix.setDevicePixelRatio(ratio);
-    m_image->setPixmap(pix);
+    m_pix = pix;
+    m_image->setPixmap(m_pix);
     m_text->setStyleSheet("QLabel{ color:#ff8000; font-size:15px }");
 
     setupSize();
@@ -66,12 +67,12 @@ void Window::setupSize()
 
     QScreen *screen = qApp->screenAt(QCursor::pos());
     const qreal ratio = screen->devicePixelRatio();
-    m_image->setFixedSize(m_image->pixmap()->size() / ratio);
+    m_image->setFixedSize(m_pix.size() / ratio);
     m_image->move(screen->geometry().center() - m_image->rect().center());
 
     m_text->setFixedSize(screen->geometry().width(), 30);
     m_text->setAlignment(Qt::AlignHCenter);
-    m_text->move(0, m_image->y() + m_image->pixmap()->height());
+    m_text->move(0, m_image->y() + m_pix.height());
 
     QDBusInterface inter2Power("org.deepin.dde.Power1",
                                "/org/deepin/dde/Power1",

@@ -7,9 +7,9 @@
 #include <QEvent>
 #include <QLabel>
 #include <QApplication>
-#include <DHiDPIHelper>
+#include <DIcon>
 
-DWIDGET_USE_NAMESPACE
+DGUI_USE_NAMESPACE
 
 UpdateContent::UpdateContent(const std::pair<QString, QString> &version, QWidget *parent) : QWidget(parent)
 {
@@ -19,7 +19,7 @@ UpdateContent::UpdateContent(const std::pair<QString, QString> &version, QWidget
 
     QLabel *successIcon = new QLabel;
     successIcon->setAccessibleName("SuccessIcon");
-    successIcon->setPixmap(DHiDPIHelper::loadNxPixmap(":/resources/success.svg"));
+    successIcon->setPixmap(DIcon::loadNxPixmap(":/resources/success.svg"));
 
     QLabel *successTip = new QLabel(tr("Welcome, system updated successfully"));
     QLabel *currentVersion = new QLabel(tr("Current Edition:") + " " + version.first + " " + version.second);

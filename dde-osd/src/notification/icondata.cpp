@@ -7,13 +7,13 @@
 
 QDebug operator<<(QDebug arg, const IconData &data)
 {
-    arg << "width = " << data.width << endl;
-    arg << "height = " << data.height << endl;
-    arg << "rowstride = " << data.rowstride << endl;
-    arg << "alpha = " << data.alpha << endl;
-    arg << "per = " << data.bit << endl;
-    arg << "cancel = " << data.cannel << endl;
-    arg << "array = " << data.array << endl;
+    arg << "width = " << data.width << Qt::endl;
+    arg << "height = " << data.height << Qt::endl;
+    arg << "rowstride = " << data.rowstride << Qt::endl;
+    arg << "alpha = " << data.alpha << Qt::endl;
+    arg << "per = " << data.bit << Qt::endl;
+    arg << "cancel = " << data.cannel << Qt::endl;
+    arg << "array = " << data.array << Qt::endl;
     return arg;
 }
 

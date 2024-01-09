@@ -29,7 +29,7 @@ static const QStringList HintsOrder {
     "icon_data"
 };
 
-inline void BubbleTool::copyLineRGB32(QRgb *dst, const char *src, int width)
+void BubbleTool::copyLineRGB32(QRgb *dst, const char *src, int width)
 {
     const char *end = src + width * 3;
     for (; src != end; ++dst, src += 3) {
@@ -37,7 +37,7 @@ inline void BubbleTool::copyLineRGB32(QRgb *dst, const char *src, int width)
     }
 }
 
-inline void BubbleTool::copyLineARGB32(QRgb *dst, const char *src, int width)
+void BubbleTool::copyLineARGB32(QRgb *dst, const char *src, int width)
 {
     const char *end = src + width * 4;
     for (; src != end; ++dst, src += 4) {
