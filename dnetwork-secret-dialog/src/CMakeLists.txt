@@ -18,4 +18,4 @@ target_link_libraries(${Dnetwork_Secret_Dialog_Name} PRIVATE
     )
 
 ## bin
-install(TARGETS ${Dnetwork_Secret_Dialog_Name} DESTINATION lib/deepin-daemon)
+install(TARGETS ${Dnetwork_Secret_Dialog_Name} DESTINATION ${DAEMON_LIB_PATH})

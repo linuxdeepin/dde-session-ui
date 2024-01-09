@@ -17,4 +17,4 @@ target_link_libraries(${Switchtogreeter_Name} PRIVATE
     )
 
 ## bin
-install(TARGETS ${Switchtogreeter_Name} DESTINATION bin)
+install(TARGETS ${Switchtogreeter_Name} DESTINATION ${CMAKE_INSTALL_BINDIR})

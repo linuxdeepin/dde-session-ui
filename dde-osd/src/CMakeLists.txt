@@ -15,7 +15,7 @@ target_link_libraries(${OSD_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${OSD_Name} DESTINATION lib/deepin-daemon)
+install(TARGETS ${OSD_Name} DESTINATION ${DAEMON_LIB_PATH})
 
 ## service
 file(GLOB OSD_SERVICE_FILES "files/*.service")

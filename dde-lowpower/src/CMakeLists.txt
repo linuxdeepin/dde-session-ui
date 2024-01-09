@@ -18,4 +18,4 @@ target_link_libraries(${Lowpower_Name} PRIVATE
 )
 
 ## bin
-install(TARGETS ${Lowpower_Name} DESTINATION lib/deepin-daemon)
+install(TARGETS ${Lowpower_Name} DESTINATION ${DAEMON_LIB_PATH})

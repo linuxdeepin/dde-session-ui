@@ -12,6 +12,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall")
+option(DISABLE_SYS_UPDATE "disable sys update" OFF)
 
 # 增加安全编译参数
 ADD_DEFINITIONS("-fstack-protector-strong -D_FORTITY_SOURCE=1 -z noexecstack -pie -fPIC -z lazy")
@@ -30,6 +31,8 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr)
 endif ()
 
+include(GNUInstallDirs)
+
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
 
@@ -37,6 +40,8 @@ if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     execute_process(COMMAND bash "translate_generation.sh"
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif ()
+
+set(DAEMON_LIB_PATH "lib/deepin-daemon" CACHE STRING "daemon lib path")
 
 # 查找gmock的cmake文件
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
@@ -88,10 +93,11 @@ add_subdirectory("dde-wm-chooser")
 # add_subdirectory("dmemory-warning-dialog")
 
 add_subdirectory("dnetwork-secret-dialog")
-#TODO 需要break旧版本的控制中心
+
+# TODO: 需要break旧版本的控制中心
 add_subdirectory("reset-password-dialog")
 
 #----------------------------install config------------------------------
 ## qm files
 file(GLOB QM_FILES "translations/*.qm")
-install(FILES ${QM_FILES} DESTINATION share/${PROJECT_NAME}/translations)
+install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/translations)

@@ -19,7 +19,7 @@ target_link_libraries(${Suspend_Dialog_Name} PRIVATE
     )
 
 ## bin
-install(TARGETS ${Suspend_Dialog_Name} DESTINATION lib/deepin-daemon)
+install(TARGETS ${Suspend_Dialog_Name} DESTINATION ${DAEMON_LIB_PATH})
 
 ## icons
-install(FILES data/computer.svg DESTINATION share/icons/hicolor/scalable/devices)
+install(FILES data/computer.svg DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/devices)

@@ -17,7 +17,7 @@ PRIVATE
 )
 
 ## bin
-install(TARGETS ${Welcome_Name} DESTINATION lib/deepin-daemon)
+install(TARGETS ${Welcome_Name} DESTINATION ${DAEMON_LIB_PATH})
 
 ## service
-install(FILES org.deepin.dde.Welcome1.service DESTINATION share/dbus-1/services)
+install(FILES org.deepin.dde.Welcome1.service DESTINATION ${CMAKE_INSTALL_DATADIR}/dbus-1/services)

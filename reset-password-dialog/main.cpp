@@ -9,6 +9,8 @@
 #include <DDBusSender>
 #include <QDBusConnection>
 #include <LogManager.h>
+#include <DStandardPaths>
+#include <DGuiApplicationHelper>
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
@@ -38,10 +40,7 @@ int main(int argc, char *argv[])
     QString appName = parser.value(appNameOption);
     int fd = parser.value(fdOption).toInt();
 
-    QTranslator translator;
-    translator.load("/usr/share/dde-control-center/translations/reset-password-dialog_" + QLocale::system().name());
-    a.installTranslator(&translator);
-    a.loadTranslator();
+    DGuiApplicationHelper::loadTranslator("dde-session-shell", DStandardPaths::standardLocations(QStandardPaths::GenericDataLocation), QList<QLocale>() << QLocale::system());
 
     DLogManager::setlogFilePath(QString("/tmp/%1.log").arg(a.applicationName()));
     const QDir &logDir = QFileInfo((Dtk::Core::DLogManager::getlogFilePath())).dir();
