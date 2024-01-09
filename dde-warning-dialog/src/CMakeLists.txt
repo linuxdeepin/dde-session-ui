@@ -18,7 +18,7 @@ target_link_libraries(${Warning_Dialog_Name} PRIVATE
     )
 
 ## bin
-install(TARGETS ${Warning_Dialog_Name} DESTINATION lib/deepin-daemon)
+install(TARGETS ${Warning_Dialog_Name} DESTINATION ${DAEMON_LIB_PATH})
 
 ## service
-install(FILES org.deepin.dde.WarningDialog1.service DESTINATION share/dbus-1/services)
+install(FILES org.deepin.dde.WarningDialog1.service DESTINATION ${CMAKE_INSTALL_DATADIR}/dbus-1/services)

@@ -18,4 +18,4 @@ target_link_libraries(${Hints_Dialog_Name} PRIVATE
     )
 
 ## bin
-install(TARGETS ${Hints_Dialog_Name} DESTINATION bin)
+install(TARGETS ${Hints_Dialog_Name} DESTINATION ${CMAKE_INSTALL_BINDIR})

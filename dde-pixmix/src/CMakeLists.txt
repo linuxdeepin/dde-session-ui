@@ -18,4 +18,4 @@ target_link_libraries(${Pixmix_Name} PRIVATE
     )
 
 ## bin
-install(TARGETS ${Pixmix_Name} DESTINATION bin)
+install(TARGETS ${Pixmix_Name} DESTINATION ${CMAKE_INSTALL_BINDIR})

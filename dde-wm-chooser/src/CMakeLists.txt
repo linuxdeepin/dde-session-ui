@@ -21,4 +21,4 @@ target_link_libraries(${Wm_Chooser_Name} PRIVATE
     )
 
 ## bin
-install(TARGETS ${Wm_Chooser_Name} DESTINATION bin)
+install(TARGETS ${Wm_Chooser_Name} DESTINATION ${CMAKE_INSTALL_BINDIR})

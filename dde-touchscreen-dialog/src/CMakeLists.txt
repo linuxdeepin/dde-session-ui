@@ -19,4 +19,4 @@ target_link_libraries(${Touchscreen_Dialog_Name} PRIVATE
     )
 
 ## bin
-install(TARGETS ${Touchscreen_Dialog_Name} DESTINATION lib/deepin-daemon)
+install(TARGETS ${Touchscreen_Dialog_Name} DESTINATION ${DAEMON_LIB_PATH})

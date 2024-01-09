@@ -20,4 +20,4 @@ target_link_libraries(${Bluetooth_Dialog_Name} PRIVATE
     )
 
 ## bin
-install(TARGETS ${Bluetooth_Dialog_Name} DESTINATION lib/deepin-daemon)
+install(TARGETS ${Bluetooth_Dialog_Name} DESTINATION ${DAEMON_LIB_PATH})
