@@ -32,6 +32,7 @@ static const QString ColumnTimeout = "Timeout";
 
 Persistence::Persistence(QObject *parent)
     : AbstractPersistence(parent)
+    , m_recordCount(0)
 {
     const QString dataDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 
@@ -54,13 +55,27 @@ Persistence::Persistence(QObject *parent)
     m_query.setForwardOnly(true);
 
     attemptCreateTable();
+
+    QSqlTableModel tableModel(nullptr, m_dbConnection);
+    tableModel.setTable(TableName_v2);
+    tableModel.select();
+
+    while (tableModel.canFetchMore())
+        tableModel.fetchMore();
+
+    m_recordCount = static_cast<uint>(tableModel.rowCount());
 }
 
 void Persistence::addOne(EntityPtr entity)
 {
+    setRecordCount(recordCount() + doAddOne(entity));
+}
+
+uint Persistence::doAddOne(EntityPtr entity)
+{
     // "cancel"表示正在发送蓝牙文件,不需要发送到通知中心
     if (entity->body().contains("%") && entity->actions().contains("cancel")) {
-        return;
+        return 0;
     }
     QString sqlCmd =  QString("INSERT INTO %1 (").arg(TableName_v2);
     sqlCmd += ColumnIcon + ",";
@@ -98,7 +113,7 @@ void Persistence::addOne(EntityPtr entity)
 
     if (!m_query.exec()) {
         qWarning() << "insert value to database failed: " << m_query.lastError().text() << entity->id() << entity->ctime();
-        return;
+        return 0;
     } else {
 #ifdef QT_DEBUG
         qDebug() << "insert value done, time is:" << entity->ctime();
@@ -108,7 +123,6 @@ void Persistence::addOne(EntityPtr entity)
     // to get entity's id in database
     if (!m_query.exec(QString("SELECT last_insert_rowid() FROM %1;").arg(TableName_v2))) {
         qWarning() << "get entity's id failed: " << m_query.lastError().text() << entity->id() << entity->ctime();
-        return;
     } else {
         m_query.next();
         entity->setStorageId(m_query.value(0).toString());
@@ -116,13 +130,16 @@ void Persistence::addOne(EntityPtr entity)
         qDebug() << "get entity's id done:" << entity->id();
 #endif
     }
+    return 1;
 }
 
 void Persistence::addAll(QList<EntityPtr> entities)
 {
+    uint count = 0;
     for (EntityPtr entity : entities) {
-        addOne(entity);
+        count += doAddOne(entity);
     }
+    setRecordCount(recordCount() + count);
 }
 
 void Persistence::removeOne(const QString &id)
@@ -137,6 +154,7 @@ void Persistence::removeOne(const QString &id)
 #ifdef QT_DEBUG
         qDebug() << "remove value:" << id;
 #endif
+        setRecordCount(recordCount() - 1);
     }
 }
 
@@ -152,6 +170,7 @@ void Persistence::removeApp(const QString &app_name)
 #ifdef QT_DEBUG
         qDebug() << "remove value:" << app_name;
 #endif
+        setRecordCount(recordCount() - static_cast<uint>(m_query.numRowsAffected()));
     }
 }
 
@@ -166,6 +185,7 @@ void Persistence::removeAll()
 #ifdef QT_DEBUG
         qDebug() << "remove all done";
 #endif
+        setRecordCount(0);
     }
 
     // Remove the unused space
@@ -389,20 +409,17 @@ QString Persistence::getFrom(int rowCount, const QString &offsetId)
     return QJsonDocument(array).toJson();
 }
 
-int Persistence::getRecordCount()
+uint Persistence::recordCount()
 {
-    QSqlTableModel *tableModel = new QSqlTableModel(this, m_dbConnection);
-    tableModel->setTable(TableName_v2);
-    tableModel->select();
+    return m_recordCount;
+}
 
-    while (tableModel->canFetchMore())
-        tableModel->fetchMore();
-
-    int count = tableModel->rowCount();
-
-    delete tableModel;
-
-    return count;
+void Persistence::setRecordCount(uint count)
+{
+    if (m_recordCount == count)
+        return;
+    m_recordCount = count;
+    Q_EMIT recordCountChanged(count);
 }
 
 void Persistence::attemptCreateTable()

@@ -20,6 +20,9 @@ class NotificationEntity;
 class AbstractPersistence : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(uint recordCount READ recordCount NOTIFY recordCountChanged FINAL)
+
 public:
     explicit AbstractPersistence(QObject *parent = nullptr)
         : QObject(parent)
@@ -38,10 +41,11 @@ public:
     virtual EntityPtr getNotifyById(const QString &id) { return EntityPtr{}; }
 
     virtual QString getFrom(int rowCount, const QString &offsetId) = 0;
-    virtual int getRecordCount() = 0;
+    virtual uint recordCount() = 0;
 
 signals:
     void RecordAdded(EntityPtr entity);
+    void recordCountChanged(uint count);
 };
 
 class Persistence : public AbstractPersistence
@@ -50,6 +54,7 @@ public:
     explicit Persistence(QObject *parent = nullptr);
 
     void addOne(EntityPtr entity) override;              //向数据库添加一条通知数据
+    uint doAddOne(EntityPtr entity);
     void addAll(QList<EntityPtr> entities) override;     //向数据库添加多条通知数据
     void removeOne(const QString &id) override;          //根据通知的ID,从数据库删除一条通知.
     void removeApp(const QString &app_name) override;    //根据App名称从数据库删除App组的通知
@@ -64,9 +69,10 @@ public:
     // If rowcount is - 1, it is obtained from offset + 1 to the last.
     QString getFrom(int rowCount, const QString &offsetId) override;
 
-    int getRecordCount() override;                       //获取通知记录有多少条
+    uint recordCount() override;                       //获取通知记录有多少条
 
 private:
+    void setRecordCount(uint count);
     void attemptCreateTable();  //在数据库中尝试创建一个表,记录通知信息
     QString ConvertMapToString(const QVariantMap &map); //将QVariantMap类型转换为QString类型
     QVariantMap ConvertStringToMap(const QString &text); //将QString类型转换为QVariantMap类型
@@ -80,6 +86,7 @@ private:
 private:
     QSqlDatabase m_dbConnection;
     QSqlQuery m_query;
+    uint m_recordCount;
 };
 
 #endif // PERSISTENCE_H

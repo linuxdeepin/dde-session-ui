@@ -63,6 +63,7 @@ class BubbleManager : public QObject, public QDBusContext
     Q_OBJECT
     Q_PROPERTY(QString allSetting READ getAllSetting WRITE setAllSetting)
     Q_PROPERTY(QString systemSetting READ getSystemSetting WRITE setSystemSetting)
+    Q_PROPERTY(uint recordCount READ recordCount NOTIFY recordCountChanged)
 
 public:
     explicit BubbleManager(AbstractPersistence *persistence,
@@ -91,6 +92,7 @@ Q_SIGNALS:
 
     // Extra DBus APIs
     void RecordAdded(const QString &);
+    void recordCountChanged(uint count);
     void AppInfoChanged(const QString &id, uint item, QDBusVariant var);
     void SystemInfoChanged(uint item, QDBusVariant var);
     void AppAddedSignal(const QString &id);

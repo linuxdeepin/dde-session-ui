@@ -199,8 +199,12 @@ class DDENotifyDBus: public QDBusAbstractAdaptor
 "    <signal name=\"systemSettingChanged\">\n"
 "      <arg type=\"s\"/>\n"
 "    </signal>\n"
+"    <signal name=\"recordCountChanged\">\n"
+"      <arg type=\"u\"/>\n"
+"    </signal>\n"
 "    <property access=\"readwrite\" type=\"s\" name=\"allSetting\"/>\n"
 "    <property access=\"readwrite\" type=\"s\" name=\"systemSetting\"/>\n"
+"    <property access=\"read\" type=\"u\" name=\"recordCount\"/>\n"
 "  </interface>\n"
         "")
 public:
@@ -215,6 +219,8 @@ public: // PROPERTIES
     Q_PROPERTY(QString systemSetting READ systemSetting WRITE setSystemSetting)
     QString systemSetting() const;
     void setSystemSetting(const QString &value);
+
+    Q_PROPERTY(uint recordCount READ recordCount NOTIFY recordCountChanged)
 
 public Q_SLOTS: // METHODS
     void ClearRecords();
@@ -251,6 +257,7 @@ Q_SIGNALS: // SIGNALS
     void appRemoved(const QString &in0);
     void appSettingChanged(const QString &in0);
     void systemSettingChanged(const QString &in0);
+    void recordCountChanged(uint count);
     void ShowBubble(const QString &in0, uint in1, const QString &in2, const QString &in3, const QString &in4, const QStringList &in5, const QVariantMap &in6, int in7, const QVariantMap &in8);
 };
 
