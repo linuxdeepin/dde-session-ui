@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
     btnclose->setFocusPolicy(Qt::NoFocus);
 
     QPalette pa = m_title->palette();
-    pa.setColor(QPalette::Button,pa.background().color());
+    pa.setColor(QPalette::Button,pa.window().color());
     btnclose->setPalette(pa);
 
     QHBoxLayout *titlelayout = new QHBoxLayout;

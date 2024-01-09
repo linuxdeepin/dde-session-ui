@@ -42,8 +42,8 @@ private:
      * ~chinese \return 返回一张位图
      */
     static QPixmap converToPixmap(AppIcon *icon, const QDBusArgument &value, uint id);
-    static inline void copyLineRGB32(QRgb *dst, const char *src, int width);
-    static inline void copyLineARGB32(QRgb *dst, const char *src, int width);
+    static void copyLineRGB32(QRgb *dst, const char *src, int width);
+    static void copyLineARGB32(QRgb *dst, const char *src, int width);
     /*!
      * \~chinese \name decodeNotificationSpecImageHint
      * \~chinese \brief 根据Dbus返回的参数来得到一张图片

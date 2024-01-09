@@ -368,7 +368,8 @@ void NotifyListView::wheelEvent(QWheelEvent *event)
     if (m_aniState)
         return;
 
-    int offset = -event->delta();
+    QPoint offset_point = - event->angleDelta();
+    int offset = std::abs(offset_point.x()) > std::abs(offset_point.y()) ? offset_point.x() : offset_point.y();
 
     m_scrollAni->stop();
     m_scrollAni->setStartValue(verticalScrollBar()->value());

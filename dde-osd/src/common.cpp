@@ -87,7 +87,7 @@ void DrawHelper::DrawPercentValue(QPainter *painter, const QStyleOptionViewItem 
     font.setPixelSize(20); // 固定大小
 
     QFontMetrics fm(font);
-    int valueAreaWidth = fm.width(QString::number(value));
+    int valueAreaWidth = fm.horizontalAdvance(QString::number(value));
     QRect valueRect(option.rect.right() - rightMargin - valueAreaWidth - percentFlagWidth, option.rect.top() + topMargin,
                     valueAreaWidth, ValueAreaHeight);
     QPen pen;
