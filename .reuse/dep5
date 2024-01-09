@@ -47,7 +47,7 @@ Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
 
 # dbus xml
-Files: xml/*.deepin.*.xml
+Files: xml/*.xml
 Copyright: None
 License: CC0-1.0
 

@@ -25,11 +25,11 @@ DataWrapper::DataWrapper(KeyboardInterface *kinter, QObject *parent) :
         }
     };
 
-    connect(m_keyboardInter, &__Keyboard::UserLayoutListChanged,
+    connect(m_keyboardInter, &KeyboardInterface::UserLayoutListChanged,
             this, &DataWrapper::setLayoutList);
-    connect(m_keyboardInter, &__Keyboard::CurrentLayoutChanged,
+    connect(m_keyboardInter, &KeyboardInterface::CurrentLayoutChanged,
             this, &DataWrapper::setCurrentLayout);
-    connect(m_keyboardInter, &__Keyboard::serviceValidChanged,
+    connect(m_keyboardInter, &KeyboardInterface::serviceValidChanged,
             this, keyboardIsValid);
 
     keyboardIsValid(m_keyboardInter->isValid());

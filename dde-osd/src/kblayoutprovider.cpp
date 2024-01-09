@@ -34,11 +34,11 @@ KBLayoutProvider::KBLayoutProvider(QObject *parent)
         }
     };
 
-    connect(m_keyboardInter, &__Keyboard::UserLayoutListChanged,
+    connect(m_keyboardInter, &Keyboard::UserLayoutListChanged,
             this, &KBLayoutProvider::userLayoutListChanged);
-    connect(m_keyboardInter, &__Keyboard::CurrentLayoutChanged,
+    connect(m_keyboardInter, &Keyboard::CurrentLayoutChanged,
             this, &KBLayoutProvider::currentLayoutChanged);
-    connect(m_keyboardInter, &__Keyboard::serviceValidChanged,
+    connect(m_keyboardInter, &Keyboard::serviceValidChanged,
             this, keyboardIsValid);
 
     keyboardIsValid(m_keyboardInter->isValid());

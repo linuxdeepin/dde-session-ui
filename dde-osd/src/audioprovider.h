@@ -10,6 +10,8 @@
 #include "org_deepin_dde_audio1.h"
 #include "org_deepin_dde_audio1_sink.h"
 
+using org::deepin::dde::Audio1;
+
 /*!
  * \~chinese \class AudioProvider
  * \~chinese \brief 调整音频时的通知类
@@ -29,7 +31,7 @@ public:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
 private:
-    org::deepin::dde::Audio1 *m_audioInter;
+    Audio1 *m_audioInter;
     org::deepin::dde::audio1::Sink *m_sinkInter;
 
     QString pixmapName() const;
