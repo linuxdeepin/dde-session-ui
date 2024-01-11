@@ -17,6 +17,9 @@
 #include <DDesktopEntry>
 #include <QtConcurrent>
 #include <QStringList>
+#include <QLoggingCategory>
+
+Q_LOGGING_CATEGORY(SessionNotifySettings, "session-ui-notifysettings");
 
 DCORE_USE_NAMESPACE
 
@@ -103,7 +106,7 @@ NotifySettings::NotifySettings(QObject *parent)
     registerAmMetaType();
 
     if (!QGSettings::isSchemaInstalled("com.deepin.dde.notification")) {
-        qDebug()<<"System configuration fetch failed!";
+        qCWarning(SessionNotifySettings)<<"System configuration fetch failed!";
     }
     m_initTimer->start(1000);
     m_initTimer->setSingleShot(true);
@@ -112,13 +115,16 @@ NotifySettings::NotifySettings(QObject *parent)
     connect(m_initTimer, &QTimer::timeout, this, &NotifySettings::initAllSettings);
     connect(m_applicationObjectInter, &ApplicationObjectManager1::InterfacesAdded, this, [this](const QDBusObjectPath &object_path, ObjectInterfaceMap interfaces) {
         LauncherItemInfo info = fromObjectInterfaceMapToItemInfo(object_path, interfaces);
-        qDebug() << "Iterface addded, added id=" << info.id;
+        qCInfo(SessionNotifySettings) << "Iterface addded, added id=" << info.id;
+        if (info.noDisplay) {
+            return;
+        }
         appAdded(info);
     });
     connect(m_applicationObjectInter, &ApplicationObjectManager1::InterfacesRemoved, this, [this](const QDBusObjectPath &object_path, const QStringList) {
         QString id_origin = object_path.path().split("/").last();
         QString id = DUtil::unescapeFromObjectPath(id_origin);
-        qDebug() << "Interface removed, removed id=" << id;
+        qCInfo(SessionNotifySettings) << "Interface removed, removed id=" << id;
         appRemoved(id);
     });
 }
