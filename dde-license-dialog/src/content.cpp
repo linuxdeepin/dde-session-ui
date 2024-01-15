@@ -90,7 +90,7 @@ Content::Content(QWidget *parent)
     m_cancelBtn->setFixedSize(90, 36);
     m_acceptBtn->setFixedSize(90, 36);
 
-    m_source->setTextFormat(Qt::RichText);
+    m_source->setTextFormat(Qt::MarkdownText);
     m_source->setWordWrap(true);
     m_source->setOpenExternalLinks(true);
     // 左右边距20
@@ -179,35 +179,8 @@ void Content::setSource(const QString &source)
 {
     if (source.isEmpty())
         return;
-    // pandoc将md转换成html
-    static QMap<QString, QString> sourceMap;
 
-    if (sourceMap[source].isEmpty()) {
-        QProcess process;
-        QString para;
-        QString tempPath = QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
-        tempPath.append("/license_temp.html");
-
-        if (QFile::exists(tempPath))
-            QFile::remove(tempPath);
-
-        para = QString("pandoc %1 --output %2").arg(source).arg(tempPath);
-        QStringList args;
-        args << "-c";
-        args << para;
-        process.start("sh", args);
-        process.waitForFinished();
-        process.waitForReadyRead();
-        QFile file(tempPath);
-        if (!file.open(QIODevice::Text | QIODevice::ReadOnly)) {
-            qDebug() << file.errorString();
-            return;
-        }
-        sourceMap.insert(source, file.readAll());
-        file.close();
-    }
-
-    m_source->setText(sourceMap[source]);
+    m_source->setText(source);
 
     updateWindowHeight();
 }
