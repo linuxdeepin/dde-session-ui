@@ -1,3 +1,10 @@
+dde-session-ui (6.0.14) unstable; urgency=medium
+
+  * remove the dependence of pandoc
+  * fix: no display desktop is add to notifysettings
+
+ -- chenhongtao <chenhongtao@deepin.org>  Mon, 15 Jan 2024 14:28:38 +0800
+
 dde-session-ui (6.0.13) unstable; urgency=medium
 
   * fix: drop launcherd1 interface, use am's interface
