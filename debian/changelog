@@ -1,3 +1,9 @@
+dde-session-ui (6.0.15) unstable; urgency=medium
+
+  * fix: missing notification for NotifyCenter(Issue: https://github.com/linuxdeepin/developer-center/issues/6930)
+
+ -- YeShanShan <yeshanshan@deepin.org>  Wed, 17 Jan 2024 15:16:57 +0800
+
 dde-session-ui (6.0.14) unstable; urgency=medium
 
   * remove the dependence of pandoc
