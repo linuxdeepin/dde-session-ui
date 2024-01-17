@@ -863,6 +863,8 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
             if (bubble->entity()->replacesId() == notify->replacesId()
                     && bubble->entity()->appName() == notify->appName()) {
                 m_persistence->addOne(m_bubbleList.at(i)->entity());
+                // emit RecordAdded for notProcessedYet entity
+                Q_EMIT RecordAdded(m_bubbleList.at(i)->entity()->storageId());
                 if (i != 0) {
                     bubble->setEntity(m_bubbleList.at(i)->entity());
                 }
@@ -876,6 +878,11 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
                     && m_oldEntities.at(i)->appName() == notify->appName()) {
                 m_oldEntities.removeAt(i);
             }
+        }
+        if (find) {
+            // Add persistence for Replace Entity.
+            if (notify->isShowInNotifyCenter())
+                m_persistence->addOne(notify);
         }
     }
 
