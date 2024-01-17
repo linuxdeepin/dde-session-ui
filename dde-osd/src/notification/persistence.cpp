@@ -127,7 +127,7 @@ uint Persistence::doAddOne(EntityPtr entity)
         m_query.next();
         entity->setStorageId(m_query.value(0).toString());
 #ifdef QT_DEBUG
-        qDebug() << "get entity's id done:" << entity->id();
+        qDebug() << "get entity's id done:" << entity->id() << entity->storageId();
 #endif
     }
     return 1;
