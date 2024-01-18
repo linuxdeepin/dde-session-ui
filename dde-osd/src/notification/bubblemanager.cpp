@@ -330,7 +330,7 @@ void BubbleManager::popAllBubblesImmediately()
 
 bool BubbleManager::useBuiltinBubble() const
 {
-    static bool isTreeLand = qEnvironmentVariable("DDE_CURRENT_COMPOSITER") == QString("TreeLand");
+    static bool isTreeLand = qEnvironmentVariable("DDE_CURRENT_COMPOSITOR") == QString("TreeLand");
     // some dbus service is unavailable in treeland.
     if (isTreeLand)
         return false;
