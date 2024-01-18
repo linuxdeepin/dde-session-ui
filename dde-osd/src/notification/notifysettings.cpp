@@ -115,7 +115,7 @@ NotifySettings::NotifySettings(QObject *parent)
     connect(m_initTimer, &QTimer::timeout, this, &NotifySettings::initAllSettings);
     connect(m_applicationObjectInter, &ApplicationObjectManager1::InterfacesAdded, this, [this](const QDBusObjectPath &object_path, ObjectInterfaceMap interfaces) {
         LauncherItemInfo info = fromObjectInterfaceMapToItemInfo(object_path, interfaces);
-        qCInfo(SessionNotifySettings) << "Iterface addded, added id=" << info.id;
+        qCInfo(SessionNotifySettings) << "Iterface added, added id=" << info.id;
         if (info.noDisplay) {
             return;
         }
