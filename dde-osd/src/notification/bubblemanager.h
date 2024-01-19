@@ -262,6 +262,8 @@ private:
     void popAllBubblesImmediately();
 
     bool useBuiltinBubble() const;
+    void emitRecordAdded(EntityPtr notify);
+    void emitRecordAdded(const QString &id);
 private:
     int m_replaceCount = 0;
     QString m_configFile;
