@@ -1,3 +1,9 @@
+dde-session-ui (6.0.16) unstable; urgency=medium
+
+  * fix: the number of notifications is incorrect(Issue: https://github.com/linuxdeepin/developer-center/issues/6952)
+
+ -- YeShanShan <yeshanshan@deepin.org>  Fri, 19 Jan 2024 16:08:36 +0800
+
 dde-session-ui (6.0.15) unstable; urgency=medium
 
   * fix: missing notification for NotifyCenter(Issue: https://github.com/linuxdeepin/developer-center/issues/6930)
