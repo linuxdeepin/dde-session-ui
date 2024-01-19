@@ -249,6 +249,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
         } else if (lockscree && !lockscreeshow) { // 锁屏不显示通知
             if (showInNotifyCenter) { // 开启在通知中心显示才加入通知中心
                 m_persistence->addOne(notification);
+                emitRecordAdded(notification);
             }
         } else { // 锁屏显示通知或者未锁屏状态
             if (!systemNotification && !dndmode && enableNotificaion) { // 普通应用非勿扰模式并且开启通知选项
@@ -264,6 +265,7 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                 }
             } else if (showInNotifyCenter) {
                 m_persistence->addOne(notification);
+                emitRecordAdded(notification);
             }
         }
     } else {
@@ -297,6 +299,8 @@ void BubbleManager::pushBubble(EntityPtr notify)
     if (m_bubbleList.size() == BubbleEntities + BubbleOverLap) {
         m_oldEntities.push_front(m_bubbleList.last()->entity());
         m_bubbleList.last()->setVisible(false);
+        // emit RecordAdded for oldEntities entity
+        emitRecordAdded(m_bubbleList.last()->entity());
         m_bubbleList.last()->deleteLater();
         m_bubbleList.removeLast();
     }
@@ -317,8 +321,10 @@ void BubbleManager::popAllBubblesImmediately()
 {
     for (QPointer<Bubble> &bubble : m_bubbleList) {
         if (bubble) {
-            if (bubble->entity()->isShowInNotifyCenter())
+            if (bubble->entity()->isShowInNotifyCenter()) {
                 m_persistence->addOne(bubble->entity());
+                emitRecordAdded(bubble->entity());
+            }
 
             bubble->hide();
             bubble->close();
@@ -336,6 +342,19 @@ bool BubbleManager::useBuiltinBubble() const
         return false;
 
     return m_useBuiltinBubble;
+}
+
+void BubbleManager::emitRecordAdded(EntityPtr notify)
+{
+    if (!notify->isShowInNotifyCenter())
+        return;
+    emitRecordAdded(notify->storageId());
+}
+
+void BubbleManager::emitRecordAdded(const QString &id)
+{
+    if (!id.isEmpty())
+        Q_EMIT RecordAdded(id);
 }
 
 void BubbleManager::refreshBubble()
@@ -585,7 +604,7 @@ void BubbleManager::HandleBubbleEnd(uint type, uint id, const QVariantMap bubble
         if (!isShowInNotifyCenter) {
             return;
         }
-        Q_EMIT RecordAdded(storageId);
+        emitRecordAdded(storageId);
     } break;
     case BubbleManager::Action: {
         const auto hints = qdbus_cast<QVariantMap>(selectedHints);
@@ -862,9 +881,13 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
             Bubble *bubble = m_bubbleList.at(i);
             if (bubble->entity()->replacesId() == notify->replacesId()
                     && bubble->entity()->appName() == notify->appName()) {
+                // remove old one
+                if (!bubble->entity()->storageId().isEmpty())
+                    m_persistence->removeOne(m_bubbleList.at(i)->entity()->storageId());
+
                 m_persistence->addOne(m_bubbleList.at(i)->entity());
-                // emit RecordAdded for notProcessedYet entity
-                Q_EMIT RecordAdded(m_bubbleList.at(i)->entity()->storageId());
+                // emit RecordAdded for replaced entity
+                emitRecordAdded(m_bubbleList.at(i)->entity());
                 if (i != 0) {
                     bubble->setEntity(m_bubbleList.at(i)->entity());
                 }
@@ -876,6 +899,8 @@ bool BubbleManager::calcReplaceId(EntityPtr notify)
         for (int i = 0; i < m_oldEntities.size(); ++i) {
             if (m_oldEntities.at(i)->replacesId() == notify->replacesId()
                     && m_oldEntities.at(i)->appName() == notify->appName()) {
+                // emit RecordAdded for notProcessedYet entity
+                emitRecordAdded(m_oldEntities.at(i));
                 m_oldEntities.removeAt(i);
             }
         }
@@ -901,10 +926,7 @@ Bubble *BubbleManager::createBubble(EntityPtr notify, int index)
         m_persistence->removeOne(ptr->storageId());
     });
     connect(bubble, &Bubble::notProcessedYet, this, [ this ](EntityPtr ptr) {
-        if (!ptr->isShowInNotifyCenter()) {
-            return;
-        }
-        Q_EMIT RecordAdded(ptr->storageId());
+        emitRecordAdded(ptr);
     });
 
     if (index != 0) {
