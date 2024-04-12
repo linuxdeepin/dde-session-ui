@@ -314,14 +314,15 @@ void NotifySettings::appAdded(const LauncherItemInfo &info)
     }
 
     QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(info.id).toLocal8Bit(), this);
-
-    itemSetting.set("app-name", info.name);
-    itemSetting.set("app-icon", info.icon);
-    itemSetting.set("enable-notification", DEFAULT_ALLOW_NOTIFY);
-    itemSetting.set("enable-preview", DEFAULT_SHOW_NOTIFY_PREVIEW);
-    itemSetting.set("enable-sound", DEFAULT_NOTIFY_SOUND);
-    itemSetting.set("show-in-notification-center", DEFAULT_ONLY_IN_NOTIFY);
-    itemSetting.set("lockscreen-show-notification", DEFAULT_LOCK_SHOW_NOTIFY);
+    if (itemSetting.get("app-name").toString().isEmpty()) { // 用app-name为空来判断是否已经有配置
+        itemSetting.set("app-name", info.name);
+        itemSetting.set("app-icon", info.icon);
+        itemSetting.set("enable-notification", DEFAULT_ALLOW_NOTIFY);
+        itemSetting.set("enable-preview", DEFAULT_SHOW_NOTIFY_PREVIEW);
+        itemSetting.set("enable-sound", DEFAULT_NOTIFY_SOUND);
+        itemSetting.set("show-in-notification-center", DEFAULT_ONLY_IN_NOTIFY);
+        itemSetting.set("lockscreen-show-notification", DEFAULT_LOCK_SHOW_NOTIFY);
+    }
 
     Q_EMIT appAddedSignal(info.id);
 }
