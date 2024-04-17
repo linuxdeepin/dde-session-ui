@@ -1,3 +1,9 @@
+dde-session-ui (6.0.17) unstable; urgency=medium
+
+  * fix: notification settings reset after restart(Issue: https://github.com/linuxdeepin/developer-center/issues/7261)
+
+ -- Zhang kun <zhangkun2@uniontech.com>  Wed, 17 Apr 2024 10:20:16 +0800
+
 dde-session-ui (6.0.16) unstable; urgency=medium
 
   * fix: the number of notifications is incorrect(Issue: https://github.com/linuxdeepin/developer-center/issues/6952)
