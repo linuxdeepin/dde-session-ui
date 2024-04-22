@@ -802,7 +802,7 @@ void BubbleManager::initConnections()
 
     if (useBuiltinBubble()) {
         connect(m_displayInter, &DisplayInter::PrimaryRectChanged, this, &BubbleManager::geometryChanged, Qt::QueuedConnection);
-        connect(m_dockInter, &DBusDockInterface::geometryChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
+        connect(m_dockDeamonInter, &DockInter::FrontendWindowRectChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
         connect(m_dockDeamonInter, &DockInter::serviceValidChanged, this, &BubbleManager::geometryChanged, Qt::UniqueConnection);
 
         connect(qApp, &QApplication::primaryScreenChanged, this, [ = ] {
