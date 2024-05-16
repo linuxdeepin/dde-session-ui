@@ -5,7 +5,6 @@
 #include "notifysettings.h"
 #include "constants.h"
 #include "types/objectmanager_type.h"
-#include "types/launcheriteminfo.h"
 #include <DUtil>
 
 #include <QGSettings>
@@ -80,6 +79,7 @@ static LauncherItemInfo fromObjectInterfaceMapToItemInfo(const QDBusObjectPath &
             }
         }
         info.name = showName;
+        info.names = nameMap.values();
     }
     return info;
 
@@ -122,10 +122,16 @@ NotifySettings::NotifySettings(QObject *parent)
         appAdded(info);
     });
     connect(m_applicationObjectInter, &ApplicationObjectManager1::InterfacesRemoved, this, [this](const QDBusObjectPath &object_path, const QStringList) {
-        QString id_origin = object_path.path().split("/").last();
+        QString path = object_path.path();
+        QString id_origin = path.split("/").last();
         QString id = DUtil::unescapeFromObjectPath(id_origin);
         qCInfo(SessionNotifySettings) << "Interface removed, removed id=" << id;
         appRemoved(id);
+
+        LauncherItemInfo info;
+        info.path = path;
+        if (m_launcherItemInfoList.contains(info))
+            m_launcherItemInfoList.removeOne(info);
     });
 }
 
@@ -135,12 +141,12 @@ void NotifySettings::initAllSettings()
     if (app_map.isEmpty()) {
         m_initTimer->stop();
     }
-    LauncherItemInfoList itemInfoList = fromObjectMaptoLauncherItemInfoList(app_map);
+    m_launcherItemInfoList = fromObjectMaptoLauncherItemInfoList(app_map);
 
     QStringList appList = m_systemSetting->get("app-list").toStringList();
     QStringList launcherList;
 
-    for(const LauncherItemInfo &item: itemInfoList) {
+    for(const LauncherItemInfo &item : m_launcherItemInfoList) {
         if (IgnoreList.contains(item.id)) {
             continue;
         }
@@ -211,7 +217,22 @@ void NotifySettings::setAppSetting(const QString &id, const NotifySettings::AppC
 
 QVariant NotifySettings::getAppSetting(const QString &id, const NotifySettings::AppConfigurationItem &item)
 {
-    const QString newid = id.isEmpty() ? "empty-app" : id;
+    QString newid = id.isEmpty() ? "empty-app" : id;
+
+    auto it = std::find_if(m_launcherItemInfoList.begin(),
+                           m_launcherItemInfoList.end(),
+                           [newid](const LauncherItemInfo &info) {
+                               return newid == info.id;
+                           });
+    if (it == m_launcherItemInfoList.end()) {
+        for (auto info : m_launcherItemInfoList) {
+            if (info.names.contains(newid) && info.id != newid) {
+                qDebug() << newid << "not found,fallback to" << info.id;
+                newid = info.id;
+            }
+        }
+    }
+
     QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(newid).toLocal8Bit(), this);
 
     QVariant results;
@@ -243,6 +264,7 @@ QVariant NotifySettings::getAppSetting(const QString &id, const NotifySettings::
             break;
         }
     }
+
     return results;
 }
 
@@ -322,6 +344,9 @@ void NotifySettings::appAdded(const LauncherItemInfo &info)
         itemSetting.set("enable-sound", DEFAULT_NOTIFY_SOUND);
         itemSetting.set("show-in-notification-center", DEFAULT_ONLY_IN_NOTIFY);
         itemSetting.set("lockscreen-show-notification", DEFAULT_LOCK_SHOW_NOTIFY);
+    }
+    if (!m_launcherItemInfoList.contains(info)) {
+        m_launcherItemInfoList << info;
     }
 
     Q_EMIT appAddedSignal(info.id);

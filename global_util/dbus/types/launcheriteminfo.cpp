@@ -22,5 +22,10 @@
 
 bool LauncherItemInfo::operator!=(const LauncherItemInfo &itemInfo)
 {
-    return itemInfo.path != path;
+    return !operator==(itemInfo);
+}
+
+bool LauncherItemInfo::operator==(const LauncherItemInfo &itemInfo)
+{
+    return itemInfo.path == path;
 }
