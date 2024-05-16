@@ -15,6 +15,7 @@
 #include "signalbridge.h"
 
 #include <DDesktopServices>
+#include <DSGApplication>
 
 #include <QStringList>
 #include <QVariantMap>
@@ -145,6 +146,17 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                            const QString &body, const QStringList &actions,
                            const QVariantMap hints, int expireTimeout)
 {
+DCORE_USE_NAMESPACE
+
+    QString servicePid, appId;
+    if (calledFromDBus()) {
+        QDBusReply<uint> reply = connection().interface()->servicePid(message().service());
+        servicePid = QString::number(reply.value());
+        appId = DSGApplication::getId(reply.value());
+    }
+    if (appId.isEmpty())
+        appId = appName;
+
     if (calledFromDBus()) {
         QGSettings oem_setting("com.deepin.dde.notifications", "/com/deepin/dde/notifications/");
         if (oem_setting.keys().contains("notifycationClosed") && oem_setting.get("notifycationClosed").toBool())
@@ -156,17 +168,22 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
                      << "appIcon:" + appIcon << "summary:" + summary << "body:" + body
                      << "actions:" << actions << "hints:" << hints << "expireTimeout:" << expireTimeout;
 
-            // 记录通知发送方
-            QString cmd = QString("grep \"Name:\" /proc/%1/status").arg(QString::number(connection().interface()->servicePid(message().service())));
-            QProcess process;
-            QStringList args;
-            args << "-c";
-            args << cmd;
-            process.start("sh", args);
-            process.waitForReadyRead();
-            QString result = QString::fromUtf8(process.readAllStandardOutput());
-            qDebug() << "notify called by :" << result;
-            process.close();
+            qDebug() << "servicePid" << servicePid << "appid" << appId;
+
+            if (!servicePid.isEmpty()) {
+                // 记录通知发送方
+                QString cmd = QString("grep \"Name:\" /proc/%1/status").arg(servicePid);
+                QProcess process;
+                QStringList args;
+                args << "-c";
+                args << cmd;
+                process.start("sh", args);
+                process.waitForReadyRead();
+                qDebug() << "cmd :" << cmd;
+                QString result = QString::fromUtf8(process.readAllStandardOutput());
+                qDebug() << "notify called by :" << result;
+                process.close();
+            }
         }
     }
 
@@ -179,16 +196,19 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     }
 
     // 应用通知功能未开启不做处理
-    bool enableNotificaion = m_notifySettings->getAppSetting(appName, NotifySettings::ENABELNOTIFICATION).toBool();
+    bool enableNotificaion = m_notifySettings->getAppSetting(appId, NotifySettings::ENABELNOTIFICATION).toBool();
 
-    if (!enableNotificaion && !IgnoreList.contains(appName)) {
+    if (!enableNotificaion && !IgnoreList.contains(appId)) {
         return 0;
     }
 
     QString strBody = body;
     strBody.replace(QLatin1String("\\\\"), QLatin1String("\\"), Qt::CaseInsensitive);
+    QString icon = appIcon;
+    if (icon.isEmpty())
+        icon = m_notifySettings->getAppSetting(appId, NotifySettings::APPICON).toString();
 
-    EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), appIcon,
+    EntityPtr notification = std::make_shared<NotificationEntity>(appName, QString(), icon,
                                                                   summary, strBody, actions, hints,
                                                                   QString::number(QDateTime::currentMSecsSinceEpoch()),
                                                                   QString::number(replacesId),
@@ -203,10 +223,10 @@ uint BubbleManager::Notify(const QString &appName, uint replacesId,
     bool lockscree = m_userInter->locked();
 
     if (!systemNotification) {
-        enablePreview = m_notifySettings->getAppSetting(appName, NotifySettings::ENABELPREVIEW).toBool();
-        showInNotifyCenter = m_notifySettings->getAppSetting(appName, NotifySettings::SHOWINNOTIFICATIONCENTER).toBool();
-        playsound = m_notifySettings->getAppSetting(appName, NotifySettings::ENABELSOUND).toBool();
-        lockscreeshow = m_notifySettings->getAppSetting(appName, NotifySettings::LOCKSCREENSHOWNOTIFICATION).toBool();
+        enablePreview = m_notifySettings->getAppSetting(appId, NotifySettings::ENABELPREVIEW).toBool();
+        showInNotifyCenter = m_notifySettings->getAppSetting(appId, NotifySettings::SHOWINNOTIFICATIONCENTER).toBool();
+        playsound = m_notifySettings->getAppSetting(appId, NotifySettings::ENABELSOUND).toBool();
+        lockscreeshow = m_notifySettings->getAppSetting(appId, NotifySettings::LOCKSCREENSHOWNOTIFICATION).toBool();
     }
 
     notification->setShowPreview(enablePreview);

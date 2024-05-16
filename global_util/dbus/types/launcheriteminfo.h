@@ -32,12 +32,14 @@ struct LauncherItemInfo {
     qint64 categoryId;
     qint64 timeInstalled;
     QStringList keywords;
+    QStringList names;
     bool noDisplay;
     bool operator!=(const LauncherItemInfo &versionInfo);
+    bool operator==(const LauncherItemInfo &versionInfo);
 
     friend QDebug operator<<(QDebug argument, const LauncherItemInfo &info)
     {
-        argument << info.path << info.name << info.id;
+        argument << info.path << info.names << info.id;
         argument << info.icon << info.categoryId << info.timeInstalled << info.keywords << info.noDisplay;
 
         return argument;

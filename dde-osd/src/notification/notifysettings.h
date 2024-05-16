@@ -92,6 +92,7 @@ private:
     QTimer *m_initTimer;
     QGSettings *m_systemSetting;
     ApplicationObjectManager1 *m_applicationObjectInter;
+    LauncherItemInfoList m_launcherItemInfoList;
 };
 
 #endif // NOTIFYSETTINGS_H
