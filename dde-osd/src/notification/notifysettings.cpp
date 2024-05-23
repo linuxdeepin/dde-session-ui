@@ -65,21 +65,32 @@ static LauncherItemInfo fromObjectInterfaceMapToItemInfo(const QDBusObjectPath &
         }
 
         info.icon = icon;
+        auto genericNameMap = qdbus_cast<QMap<QString, QString>>(mapInter["GenericName"]);
         auto nameMap = qdbus_cast<QMap<QString, QString>>(mapInter["Name"]);
         QString id = qdbus_cast<QString>(mapInter["ID"]);
         info.id = id;
 
-        QString showName = id;
-
-        for (auto &lang : uiLanguages) {
-            auto iter = nameMap.find(lang);
-            if (iter != nameMap.end()) {
-                showName = iter.value();
-                break;
+        auto findName = [uiLanguages](QMap<QString, QString> &nmap){
+            QString name;
+            for (auto &lang : uiLanguages) {
+                auto iter = nmap.find(lang);
+                if (iter != nmap.end()) {
+                    name = iter.value();
+                    break;
+                }
             }
-        }
+            return name;
+        };
+
+        QString showName = findName(genericNameMap);
+        if (showName.isEmpty())
+            showName = findName(nameMap);
+
+        if (showName.isEmpty())
+            showName = id;
+
         info.name = showName;
-        info.names = nameMap.values();
+        info.names = nameMap.values() + genericNameMap.values();
     }
     return info;
 
@@ -161,6 +172,8 @@ void NotifySettings::initAllSettings()
             // 修改系统语言后需要更新翻译
             QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(item.id).toLocal8Bit(), this);
             itemSetting.set("app-name", item.name);
+            // icon 也可能会更新
+            itemSetting.set("app-icon", item.icon);
             continue;
         }
         appList.append(item.id);
