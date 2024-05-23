@@ -1,3 +1,9 @@
+dde-session-ui (6.0.19) unstable; urgency=medium
+
+  * release 6.0.19
+
+ -- Mike Chen <chenke@deepin.org>  Thu, 23 May 2024 14:11:46 +0800
+
 dde-session-ui (6.0.18) unstable; urgency=medium
 
   * fix: wrong position of notification
