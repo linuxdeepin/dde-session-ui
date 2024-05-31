@@ -151,10 +151,11 @@ void Persistence::removeOne(const QString &id)
         qWarning() << "remove value:" << id << "from database failed: " << m_query.lastError().text();
         return;
     } else {
+        uint count = qMax(uint(0), recordCount() - static_cast<uint>(m_query.numRowsAffected()));
 #ifdef QT_DEBUG
-        qDebug() << "remove value:" << id;
+        qDebug() << "remove value:" << id << "record count:" << count;
 #endif
-        setRecordCount(recordCount() - 1);
+        setRecordCount(count);
     }
 }
 
@@ -167,10 +168,11 @@ void Persistence::removeApp(const QString &app_name)
         qWarning() << "remove value:" << app_name << "from database failed: " << m_query.lastError().text();
         return;
     } else {
+        uint count = qMax(uint(0), recordCount() - static_cast<uint>(m_query.numRowsAffected()));
 #ifdef QT_DEBUG
-        qDebug() << "remove value:" << app_name;
+        qDebug() << "remove value:" << app_name << "record count:" << count;
 #endif
-        setRecordCount(recordCount() - static_cast<uint>(m_query.numRowsAffected()));
+        setRecordCount(count);
     }
 }
 
