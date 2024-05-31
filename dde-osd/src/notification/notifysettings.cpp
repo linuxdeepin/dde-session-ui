@@ -65,6 +65,7 @@ static LauncherItemInfo fromObjectInterfaceMapToItemInfo(const QDBusObjectPath &
         }
 
         info.icon = icon;
+        bool isDeepinVendor = qdbus_cast<QString>(mapInter["X_Deepin_Vendor"]) == QStringLiteral("deepin");
         auto genericNameMap = qdbus_cast<QMap<QString, QString>>(mapInter["GenericName"]);
         auto nameMap = qdbus_cast<QMap<QString, QString>>(mapInter["Name"]);
         QString id = qdbus_cast<QString>(mapInter["ID"]);
@@ -82,7 +83,10 @@ static LauncherItemInfo fromObjectInterfaceMapToItemInfo(const QDBusObjectPath &
             return name;
         };
 
-        QString showName = findName(genericNameMap);
+        QString showName;
+        if (isDeepinVendor)
+            showName = findName(genericNameMap);
+
         if (showName.isEmpty())
             showName = findName(nameMap);
 
