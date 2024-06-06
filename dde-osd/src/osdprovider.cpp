@@ -82,14 +82,12 @@ bool OSDProvider::match(const QString &param)
 void OSDProvider::drawText(QPainter *painter, const QStyleOptionViewItem &option, const QString &text, const QColor &color) const
 {
     const int leftMargin = 68;
-    const int topMargin = 13;
-    const int height = 30;
 
-    QRect txtRect(option.rect.left() + leftMargin, option.rect.top() + topMargin,
-                  option.rect.width() - leftMargin, height);
+    QRect txtRect(option.rect.left() + leftMargin, 0,
+                  option.rect.width() - leftMargin, option.rect.height());
 
     QTextOption opt;
-    opt.setAlignment(Qt::AlignBottom);
+    opt.setAlignment(Qt::AlignVCenter);
 
     QFont font;
     font.setPixelSize(22);
