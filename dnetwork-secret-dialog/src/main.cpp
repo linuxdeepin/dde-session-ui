@@ -13,6 +13,7 @@
 
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QTimer>
 #include <QTranslator>
 
 DCORE_USE_NAMESPACE
@@ -64,6 +65,8 @@ int main(int argc, char *argv[])
     }
 
     file.close();
+    // GetSecrets超时时间120000，参考NM中nm-secret-agent.c中函数nm_secret_agent_get_secrets里的设置
+    QTimer::singleShot(120000, &app, &DApplication::quit);
 
     NetworkDialog *networkDialog = new NetworkDialog();
     QObject::connect(&app, &QCoreApplication::aboutToQuit, [networkDialog]() {
