@@ -18,18 +18,22 @@ public:
     ~NetworkDialog();
 
     bool exec(const QJsonDocument &doc);
+    void onSecretsResult(QLocalSocket *socket, const QByteArray &data);
     void onPassword(QLocalSocket *socket, const QByteArray &data);
 
 private Q_SLOTS:
     void connectedHandler();
     void disConnectedHandler();
-    void readyReadHandler();
     bool ConnectToServer();
+    void exit(int returnCode);
+    void readyReadHandler();
 
 private:
     QString m_key;
     QByteArray m_lastData; // 用于数据拼接
-
+    bool m_needIdentity; // 认证信息是否需要用户名
+    QString m_identityContent;
+    bool m_quitNow;
     QByteArray m_data;
     QLocalSocket *m_clinet;
 };
