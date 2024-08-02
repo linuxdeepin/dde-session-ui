@@ -1,3 +1,9 @@
+dde-session-ui (6.0.21) unstable; urgency=medium
+
+  * bump version to 6.0.21
+
+ -- Deepin Packages Builder <packages@deepin.org>  Fri, 02 Aug 2024 16:13:49 +0800
+
 dde-session-ui (6.0.20) unstable; urgency=medium
 
   * release 6.0.20
