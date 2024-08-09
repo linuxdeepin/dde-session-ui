@@ -22,33 +22,36 @@ const QMap<QString, QString> ConnTypeIconKeyMap {
     {"pppoe", "network-wired"},
 };
 
-const QMap<QString, QString> SECRET_KEY_STR_MAP = {
-    {"psk", QObject::tr("Password")},
-    {"wep-key0", QObject::tr("Key")},
-    {"wep-key1", QObject::tr("Key")},
-    {"wep-key2", QObject::tr("Key")},
-    {"wep-key3", QObject::tr("key")},
-    {"leap-password", "unknown"},
-    {"password", QObject::tr("Password")},
-    {"password-raw", "unknown"},
-    {"ca-cert-password", "unknown"},
-    {"client-cert-password", "unknown"},
-    {"phase2-ca-cert-password", "unknown"},
-    {"phase2-client-cert-password", "unknown"},
-    {"private-key-password", QObject::tr("Private Pwd")},
-    {"phase2-private-key-password", "unknown"},
-    {"pin", "unknown"},
-    {"proxy-password", QObject::tr("Proxy Password")},
-    {"IPSec secret", QObject::tr("Password")},
-    {"Xauth password", QObject::tr("Group Password")},
-};
+QMap<QString, QString> secretKeyMap()
+{
+    static const QMap<QString, QString> SECRET_KEY_STR_MAP = {
+        {"psk", "Password"},
+        {"wep-key0", "Key"},
+        {"wep-key1", "Key"},
+        {"wep-key2", "Key"},
+        {"wep-key3", "key"},
+        {"leap-password", "unknown"},
+        {"password", QObject::tr("Password")},
+        {"password-raw", "unknown"},
+        {"ca-cert-password", "unknown"},
+        {"client-cert-password", "unknown"},
+        {"phase2-ca-cert-password", "unknown"},
+        {"phase2-client-cert-password", "unknown"},
+        {"private-key-password", QObject::tr("Private Pwd")},
+        {"phase2-private-key-password", "unknown"},
+        {"pin", "unknown"},
+        {"proxy-password", QObject::tr("Proxy Password")},
+        {"IPSec secret", QObject::tr("Password")},
+        {"Xauth password", QObject::tr("Group Password")},
+    };
+    return SECRET_KEY_STR_MAP;
+}
 
 NetworkSecretDialog::NetworkSecretDialog(QJsonDocument jsonDoc, QWidget *parent)
     : DDialog(parent)
-    , m_secretKeyStrMap(SECRET_KEY_STR_MAP)
 {
+    m_secretKeyStrMap = secretKeyMap();
     m_allInputValid = false;
-
     parseJsonData(jsonDoc);
     initUI();
 }
