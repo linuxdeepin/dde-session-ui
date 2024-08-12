@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
     a.setApplicationName("dde-pixmix");
 
     DLogManager::registerConsoleAppender();
-    DLogManager::registerFileAppender();
+    DLogManager::registerJournalAppender();
 
     QCommandLineOption option(QStringList() << "o" << "output", "Output suitable background image.");
     option.setValueName("path");
