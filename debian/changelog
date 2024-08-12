@@ -1,3 +1,10 @@
+dde-session-ui (6.0.22) unstable; urgency=medium
+
+  * chore: 解决dde-pixmix在root下执行崩溃的问题
+  * fix: translation issue with networksecretdialog
+
+ -- fuleyi <fuleyi@uniontech.com>  Mon, 12 Aug 2024 17:04:22 +0800
+
 dde-session-ui (6.0.21) unstable; urgency=medium
 
   * bump version to 6.0.21
