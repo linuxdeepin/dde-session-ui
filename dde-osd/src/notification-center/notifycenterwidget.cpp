@@ -299,7 +299,8 @@ void NotifyCenterWidget::unRegisterRegion()
 
 void NotifyCenterWidget::CompositeChanged()
 {
-    m_hasComposite = m_wmHelper->hasComposite();
+    // 屏蔽应用自己的动画，默认使用窗管窗口显示动画
+    m_hasComposite = false;
 }
 
 void NotifyCenterWidget::setX(int x)
