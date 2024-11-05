@@ -180,7 +180,32 @@ void Content::setSource(const QString &source)
     if (source.isEmpty())
         return;
 
-    m_source->setText(source);
+    // pandoc将md转换成html
+    static QMap<QString, QString> sourceMap;
+    if (sourceMap[source].isEmpty()) {
+        QProcess process;
+        QString para;
+        QString tempPath = QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first();
+        tempPath.append("/license_temp.html");
+        if (QFile::exists(tempPath))
+            QFile::remove(tempPath);
+        para = QString("pandoc %1 --output %2").arg(source, tempPath);
+        QStringList args;
+        args << "-c";
+        args << para;
+        process.start("sh", args);
+        process.waitForFinished();
+        process.waitForReadyRead();
+        QFile file(tempPath);
+        if (!file.open(QIODevice::Text | QIODevice::ReadOnly)) {
+            qWarning() << "Set source error: " << file.errorString();
+            return;
+        }
+        sourceMap.insert(source, file.readAll());
+        file.close();
+    }
+
+    m_source->setText(sourceMap[source]);
 
     updateWindowHeight();
 }
