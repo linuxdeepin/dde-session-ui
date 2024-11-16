@@ -3,10 +3,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #define private public
-#include "fullscreenbackground.h"
 #include "mainwidget.h"
-#include "updatecontent.h"
 #undef private
+
 #include "utils.h"
 
 #include <QTest>
@@ -33,9 +32,6 @@ public:
 
 TEST_F(UT_MainWidget, coverageTest)
 {
-    const QString &w = mainWidget->m_blurImageInter->Get(mainWidget->m_wallpaper);
-    Q_EMIT mainWidget->m_blurImageInter->BlurDone(mainWidget->m_wallpaper, w, true);
-
     QTest::keyClick(mainWidget,  Qt::Key_Enter);
     QTest::keyClick(mainWidget,  Qt::Key_Escape);
 }

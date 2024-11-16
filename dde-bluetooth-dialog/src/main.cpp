@@ -26,8 +26,9 @@ int main(int argc, char *argv[])
     app.setOrganizationName("deepin");
     app.setApplicationName("dde-bluetooth-dialog");
     QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    app.installTranslator(&translator);
+    if (translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name())) {
+        app.installTranslator(&translator);
+    }
 
     QStringList arguslist = app.arguments();
     if (arguslist.size() < 4) {

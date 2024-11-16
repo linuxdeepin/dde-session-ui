@@ -9,15 +9,15 @@ file(GLOB_RECURSE Suspend_Dialog_SRCS
 list(REMOVE_ITEM Suspend_Dialog_SRCS "${CMAKE_SOURCE_DIR}/dde-suspend-dialog/src/main.cpp")
 
 set(Suspend_Dialog_Includes
-    ${DtkWidget_INCLUDE_DIRS}
-    Qt5::Widgets
-    Qt5::DBus
-    )
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::DBus
+)
 set(Suspend_Dialog_Libraries
-    ${DtkWidget_LIBRARIES}
-    Qt5::Widgets
-    Qt5::DBus
-    )
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::DBus
+)
 
 add_subdirectory("src")
 add_subdirectory("tests")

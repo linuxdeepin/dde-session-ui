@@ -40,7 +40,7 @@ void UnionIDWidget::initWidget()
     QWidget *resetPasswordWidget = new QWidget;
     QVBoxLayout *resetPasswordVLayout = new QVBoxLayout(resetPasswordWidget);
     resetPasswordVLayout->setSpacing(0);
-    resetPasswordVLayout->setMargin(0);
+    resetPasswordVLayout->setContentsMargins(0, 0, 0, 0);
     resetPasswordVLayout->addSpacing(10);
 
     QLabel *phoneEmaillabel = new QLabel(tr("Phone/Email") + ":");
@@ -65,7 +65,7 @@ void UnionIDWidget::initWidget()
     QWidget *connectingWidget = new QWidget;
     QVBoxLayout *connectingVLayout = new QVBoxLayout(connectingWidget);
     connectingVLayout->setSpacing(0);
-    connectingVLayout->setMargin(0);
+    connectingVLayout->setContentsMargins(0, 0, 0, 0);
     DSpinner *connectingIcon = new DSpinner;
     connectingIcon->setFixedSize(48, 48);
     connectingIcon->start();
@@ -79,7 +79,7 @@ void UnionIDWidget::initWidget()
     QWidget *unBindWidget = new QWidget;
     QVBoxLayout *unBindVLayout = new QVBoxLayout(unBindWidget);
     unBindVLayout->setSpacing(0);
-    unBindVLayout->setMargin(0);
+    unBindVLayout->setContentsMargins(0, 0, 0, 0);
     m_unBindIcon->setPixmap(QIcon::fromTheme(m_iconPath).pixmap({128, 128}));
     QLabel *unBindLabel = new QLabel(tr("The user account is not linked to Union ID"));
     unBindVLayout->addSpacing(64);
@@ -91,7 +91,7 @@ void UnionIDWidget::initWidget()
     QWidget *connectFailedWidget = new QWidget;
     QVBoxLayout *connectFailedVLayout = new QVBoxLayout(connectFailedWidget);
     connectFailedVLayout->setSpacing(0);
-    connectFailedVLayout->setMargin(0);
+    connectFailedVLayout->setContentsMargins(0, 0, 0, 0);
     QLabel *connectFailedIcon = new QLabel;
     connectFailedIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap({128, 128}));
     QLabel *connectFailedLabel = new QLabel(tr("Network disconnected, please retry after connected"));
@@ -108,7 +108,7 @@ void UnionIDWidget::initWidget()
 
     QVBoxLayout *mainContentLayout = new QVBoxLayout(this);
     mainContentLayout->setSpacing(0);
-    mainContentLayout->setMargin(0);
+    mainContentLayout->setContentsMargins(0, 0, 0, 0);
     mainContentLayout->addLayout(m_stackedLayout);
 }
 
@@ -245,9 +245,9 @@ bool UnionIDWidget::isContentEmpty(DLineEdit *edit)
 
 bool UnionIDWidget::checkPhoneEmailFormat(const QString &content)
 {
-    QRegExp phoneRegExp("^1\\d{10}$");
-    QRegExp emailRegExp("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
-    return phoneRegExp.exactMatch(content) || emailRegExp.exactMatch(content);
+    QRegularExpression phoneRegExp("^1\\d{10}$");
+    QRegularExpression emailRegExp("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
+    return phoneRegExp.match(content).hasMatch() || emailRegExp.match(content).hasMatch();
 }
 
 void UnionIDWidget::setIconPath(DGuiApplicationHelper::ColorType themeType)

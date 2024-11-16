@@ -5,9 +5,7 @@
 #include "multiscreenmanager.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDebug>
-#include <QDesktopWidget>
 
 MultiScreenManager::MultiScreenManager(QObject *parent)
     : QObject(parent)

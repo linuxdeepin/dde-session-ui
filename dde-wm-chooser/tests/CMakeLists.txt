@@ -29,5 +29,5 @@ target_link_libraries(${UT_Wm_Chooser_Name} PRIVATE
     session-ui-dbus-shared
     ${Wm_Chooser_Libraries}
     ${Test_Libraries}
-    Qt5::Test
+    Qt${QT_VERSION_MAJOR}::Test
     )

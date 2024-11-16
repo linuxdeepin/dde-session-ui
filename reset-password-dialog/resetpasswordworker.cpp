@@ -66,7 +66,9 @@ void ResetPasswordWorker::asyncBindCheck()
         Q_EMIT requestBindCheckReplied(watcher->result());
         watcher->deleteLater();
     });
-    QFuture<int> future = QtConcurrent::run(this, &ResetPasswordWorker::bindCheck);
+    QFuture<int> future = QtConcurrent::run([this] {
+        return bindCheck();
+    });
     watcher->setFuture(future);
 }
 
@@ -77,7 +79,9 @@ void ResetPasswordWorker::asyncRequestVerficationCode(const QString &phoneEmail)
         Q_EMIT requestVerficationCodeReplied(watcher->result());
         watcher->deleteLater();
     });
-    QFuture<int> future = QtConcurrent::run(this, &ResetPasswordWorker::requestVerficationCode, phoneEmail);
+    QFuture<int> future = QtConcurrent::run([this, phoneEmail] {
+        return  requestVerficationCode(phoneEmail);
+    });
     watcher->setFuture(future);
 }
 

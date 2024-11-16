@@ -13,7 +13,6 @@
 #include <DAccessibilityChecker>
 #endif
 
-#include <QDesktopWidget>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 #include <QDebug>
@@ -51,8 +50,9 @@ int main(int argc, char *argv[])
     a.setApplicationName("deepin-wm-chooser");
 
     QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    a.installTranslator(&translator);
+    if (translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name())) {
+        a.installTranslator(&translator);
+    }
 
     QCommandLineOption config(QStringList() << "c" << "config", "");
     config.setValueName("ConfigPath");

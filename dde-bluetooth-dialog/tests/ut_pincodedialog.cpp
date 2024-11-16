@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#include <QDateTime>
+
 #define private public
 #include "pincodedialog.h"
 #undef private

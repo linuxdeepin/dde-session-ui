@@ -4,17 +4,22 @@
 
 #include "pincodedialog.h"
 #include "largelabel.h"
+#include "org_deepin_dde_bluetooth1.h"
 
 #include <QDateTime>
 #include <QTimer>
-#include <QGSettings>
+
+#include <DConfig>
+
+using  DBusBluetooth = org::deepin::dde::Bluetooth1;
 
 PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath, const QString &starttime, const bool &cancelable) :
     DDialog(),
     m_pinCodeLabel(new LargeLabel(this)),
-    m_titileLabel(new LargeLabel(this)),
-    m_bluetoothInter(new DBusBluetooth("org.deepin.dde.Bluetooth1", "/org/deepin/dde/Bluetooth1", QDBusConnection::sessionBus(), this))
+    m_titileLabel(new LargeLabel(this))
 {
+    auto bluetoothInter = new DBusBluetooth("org.deepin.dde.Bluetooth1", "/org/deepin/dde/Bluetooth1", QDBusConnection::sessionBus(), this);
+
     setAccessibleName("PinCodeDialog");
     QString titilestr = tr("The PIN for connecting to the Bluetooth device is:");
     setIcon(QIcon::fromTheme("notification-bluetooth-connected"));
@@ -41,10 +46,6 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
     m_pinCodeLabel->setText(pinCode);
 
     uint pinsectime = 60;
-    QGSettings setting("com.deepin.dde.osd", "/com/deepin/dde/osd/");
-    if (setting.keys().contains("pindialogTimeSec"))
-        pinsectime = setting.get("pindialog-time-sec").toUInt();
-
     qint64 msec = pinsectime * 1000 - QDateTime::currentMSecsSinceEpoch() + starttime.toLongLong();
     if (msec < 0){
         qDebug() << "timeout";
@@ -54,13 +55,13 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
         close();
     });
 
-    connect(m_bluetoothInter, &DBusBluetooth::AdapterPropertiesChanged, this, &PinCodeDialog::HandleBlutoothPower);
+    connect(bluetoothInter, &DBusBluetooth::AdapterPropertiesChanged, this, &PinCodeDialog::HandleBlutoothPower);
     connect(this, &PinCodeDialog::buttonClicked, this, [ = ](int index, const QString & text) {
         Q_UNUSED(text)
-        m_bluetoothInter->Confirm(QDBusObjectPath(devicepath), index == 1 ? true : false);
+        bluetoothInter->Confirm(QDBusObjectPath(devicepath), index == 1 ? true : false);
     });
     connect(this, &PinCodeDialog::closed, this, [ = ]() {
-        m_bluetoothInter->Confirm(QDBusObjectPath(devicepath), false);
+        bluetoothInter->Confirm(QDBusObjectPath(devicepath), false);
         qApp->quit();
     });
 }

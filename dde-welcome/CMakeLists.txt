@@ -14,11 +14,10 @@ add_library(dde-welcome-shared OBJECT
 target_link_libraries(dde-welcome-shared
     session-ui-widgets-shared
     session-ui-dbus-shared
-    Dtk::Widget
-    PkgConfig::GSETTINGS
-    Qt5::Widgets
-    Qt5::DBus
-    Qt5::Xml
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::DBus
+    Qt${QT_VERSION_MAJOR}::Xml
 )
 
 add_subdirectory("src")

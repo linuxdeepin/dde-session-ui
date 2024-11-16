@@ -10,19 +10,17 @@ file(GLOB_RECURSE Wm_Chooser_SRCS
 list(REMOVE_ITEM Wm_Chooser_SRCS "${CMAKE_SOURCE_DIR}/dde-wm-chooser/src/main.cpp")
 
 set(Wm_Chooser_Includes
-    ${DtkWidget_INCLUDE_DIRS}
-    ${GSETTINGS_INCLUDE_DIRS}
-    Qt5::Widgets
-    Qt5::DBus
-    Qt5::Xml
-    )
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::DBus
+    Qt${QT_VERSION_MAJOR}::Xml
+)
 set(Wm_Chooser_Libraries
-    ${DtkWidget_LIBRARIES}
-    ${GSETTINGS_LIBRARIES}
-    Qt5::Widgets
-    Qt5::DBus
-    Qt5::Xml
-    )
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::DBus
+    Qt${QT_VERSION_MAJOR}::Xml
+)
 
 add_subdirectory("src")
 add_subdirectory("tests")

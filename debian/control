@@ -4,22 +4,20 @@ Priority: optional
 Maintainer: Deepin Sysdev <sysdev@deepin.com>
 Build-Depends: debhelper (>= 8.0.0), pkg-config,
  cmake,
- qtbase5-dev,
+ qt6-base-dev,
+ qt6-svg-dev,
+ qt6-tools-dev,
  libxcb-ewmh-dev,
  libxcb1-dev,
- libqt5x11extras5-dev,
- libgsettings-qt-dev,
- libqt5svg5-dev,
- libglib2.0-dev,
- libdtkwidget-dev,
- qttools5-dev-tools,
+ libx11-dev,
+ libdtk6widget-dev,
+ libdtk6core-bin,
  libsystemd-dev,
- libdtkcore5-bin,
- dde-dock-dev,
  libgtest-dev,
  libgmock-dev,
  libdeepin-pw-check-dev,
- libgio-qt-dev
+ libgio-qt-dev,
+ libxext-dev
 Standards-Version: 3.9.4
 Homepage: http://www.deepin.org/
 

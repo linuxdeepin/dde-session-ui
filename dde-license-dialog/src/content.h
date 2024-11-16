@@ -62,6 +62,7 @@ private:
     QString m_enallow;
 
     QWidget *m_bottom;
+    QTranslator *m_translator = nullptr;
 };
 
 #endif // CONTENT_H

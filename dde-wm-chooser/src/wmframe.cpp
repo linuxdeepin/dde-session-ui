@@ -5,7 +5,8 @@
 #include "wmframe.h"
 
 #include <QScreen>
-#include <QGSettings>
+
+#include <DConfig>
 
 WMFrame::WMFrame(QWidget *parent)
     : FullscreenBackground(parent)
@@ -18,8 +19,12 @@ WMFrame::WMFrame(QWidget *parent)
     m_wmchooser->setAccessibleName("WMChooser");
     setContent(m_wmchooser);
 
-    QGSettings gsettings("com.deepin.dde.appearance", "", this);
-    const QStringList list = gsettings.get("background-uris").toStringList();
+    auto dConfig = Dtk::Core::DConfig::create("org.deepin.dde.appearance", "org.deepin.dde.appearance", QString(), this);
+    if (!dConfig) {
+        qWarning() << "Failed to create DConfig: org.deepin.dde.appearance";
+        return;
+    }
+    const QStringList list = dConfig->value("Background-Uris").toStringList();
     QString wallpaper = list.first();
 
     const QUrl url(wallpaper);

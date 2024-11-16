@@ -20,5 +20,5 @@ PUBLIC
 
 target_link_libraries(session-ui-widgets-shared
 PRIVATE
-    Qt5::Widgets
+    Qt${QT_VERSION_MAJOR}::Widgets
 )

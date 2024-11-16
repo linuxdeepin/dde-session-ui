@@ -6,7 +6,6 @@
 
 #include <QApplication>
 #include <QScreen>
-#include <QDesktopWidget>
 #include <QPainter>
 #include <QDebug>
 #include <QUrl>
@@ -128,7 +127,7 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
     }
 }
 
-void FullscreenBackground::enterEvent(QEvent *event)
+void FullscreenBackground::enterEvent(QEnterEvent *event)
 {
     m_content->show();
     emit contentVisibleChanged(true);

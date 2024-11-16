@@ -15,7 +15,7 @@
 
 #include <QScreen>
 #include <QWindow>
-#include <QDesktopWidget>
+#include <QTranslator>
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
@@ -33,8 +33,9 @@ int main(int argc, char *argv[])
     DLogManager::registerFileAppender();
 
     QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    app.installTranslator(&translator);
+    if (translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name())) {
+        app.installTranslator(&translator);
+    }
 
     PropertyGroup *property_group = new PropertyGroup();
 

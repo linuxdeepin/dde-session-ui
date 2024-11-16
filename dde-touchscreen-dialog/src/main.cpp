@@ -22,13 +22,13 @@ int main(int argc, char *argv[])
 {
     DApplication app(argc, argv);
     app.setQuitOnLastWindowClosed(false);
-    app.setAttribute(Qt::AA_UseHighDpiPixmaps);
     app.setQuitOnLastWindowClosed(true);
 
     QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" +
-                    QLocale::system().name());
-    app.installTranslator(&translator);
+    if (translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" +
+                    QLocale::system().name())) {
+        app.installTranslator(&translator);
+    }
 
     QCommandLineParser parser;
     parser.addHelpOption();

@@ -25,31 +25,26 @@ set(SRCS
 set(QRC resetpassworddialog.qrc)
 # Find the library
 find_package(PkgConfig REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5DBus REQUIRED)
-find_package(Qt5Network REQUIRED)
-find_package(Qt5Concurrent REQUIRED)
-
-find_package(DtkWidget REQUIRED)
-find_package(DtkGui REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets DBus Network Concurrent)
+find_package(Dtk${DTK_VERSION_MAJOR} REQUIRED COMPONENTS Widget Gui)
 
 pkg_check_modules(DeepinPwCheck REQUIRED IMPORTED_TARGET libdeepin_pw_check)
 
 
 add_executable(${BIN_NAME} ${SRCS} ${QRC})
 target_include_directories(${BIN_NAME} PUBLIC
-    ${DtkWidget_INCLUDE_DIRS}
-    ${Qt5Gui_PRIVATE_INCLUDE_DIRS}
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Gui
     ${PROJECT_BINARY_DIR}
 )
 
 target_link_libraries(${BIN_NAME} PRIVATE
     session-ui-dbus-shared
-    ${DtkWidget_LIBRARIES}
-    ${Qt5Widgets_LIBRARIES}
-    ${Qt5Network_LIBRARIES}
-    ${Qt5DBus_LIBRARIES}
-    ${Qt5Concurrent_LIBRARIES}
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::DBus
+    Qt${QT_VERSION_MAJOR}::Network
+    Qt${QT_VERSION_MAJOR}::Concurrent
     PkgConfig::DeepinPwCheck
     crypt
     ${LIBS}

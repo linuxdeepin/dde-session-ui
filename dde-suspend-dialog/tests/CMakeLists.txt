@@ -27,5 +27,5 @@ target_link_libraries(${UT_Suspend_Dialog_Name} PRIVATE
     session-ui-dbus-shared
     ${Suspend_Dialog_Libraries}
     ${Test_Libraries}
-    Qt5::Test
+    Qt${QT_VERSION_MAJOR}::Test
     )
