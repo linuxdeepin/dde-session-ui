@@ -24,14 +24,14 @@ int main(int argc, char *argv[])
     DApplication app(argc, argv);
     app.setOrganizationName("deepin");
     app.setApplicationName("dnetwork-secret-dialog");
-    app.setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     DLogManager::registerFileAppender();
 
     QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    app.installTranslator(&translator);
-    app.loadTranslator();
+    if (translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name())) {
+        app.installTranslator(&translator);
+        app.loadTranslator();
+    }
 
     QCommandLineParser parser;
     parser.addHelpOption();

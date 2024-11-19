@@ -64,7 +64,7 @@ void PasswordWidget::initWidget(int margin)
 
     QVBoxLayout *resetPasswordVLayout = new QVBoxLayout(this);
     resetPasswordVLayout->setSpacing(0);
-    resetPasswordVLayout->setMargin(0);
+    resetPasswordVLayout->setContentsMargins(0, 0, 0, 0);
 
     QLabel *newPasswordLabel = new QLabel(tr("New Password") + ":");
     QHBoxLayout *newPasswordLayout = new QHBoxLayout;

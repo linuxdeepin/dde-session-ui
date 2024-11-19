@@ -41,6 +41,8 @@ public:
     friend const QDBusArgument &operator>>(const QDBusArgument &arg, ScreenRect &rect);
     friend QDBusArgument &operator<<(QDBusArgument &arg, const ScreenRect &rect);
 
+    bool operator !=(const ScreenRect &rect) const { return x != rect.x || y != rect.y || w != rect.w || h != rect.h; }
+
 private:
     qint16 x;
     qint16 y;

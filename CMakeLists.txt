@@ -14,6 +14,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall")
 option(DISABLE_SYS_UPDATE "disable sys update" OFF)
 
+set(QT_VERSION_MAJOR 6)
+set(DTK_VERSION_MAJOR 6)
+
 # 增加安全编译参数
 ADD_DEFINITIONS("-fstack-protector-strong -D_FORTITY_SOURCE=1 -z noexecstack -pie -fPIC -z lazy")
 
@@ -50,11 +53,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 find_package(PkgConfig REQUIRED)
 find_package(GTest REQUIRED)
 find_package(GMock REQUIRED)
-find_package(Dtk REQUIRED COMPONENTS Core Widget)
-find_package(Qt5 REQUIRED COMPONENTS Widgets DBus X11Extras Xml Concurrent Svg Sql Network Test)
+find_package(Dtk${DTK_VERSION_MAJOR} REQUIRED COMPONENTS Core Widget Tools)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets DBus Xml Concurrent Svg Sql Network Test)
 
-pkg_check_modules(GSETTINGS REQUIRED IMPORTED_TARGET gsettings-qt)
-pkg_check_modules(DdeDockInterface REQUIRED dde-dock)
 pkg_check_modules(XCB_EWMH REQUIRED IMPORTED_TARGET xcb-ewmh)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
 pkg_check_modules(GIO REQUIRED gio-unix-2.0)
@@ -67,8 +68,6 @@ set(Test_Libraries
     -lgmock
 )
 
-find_package(DtkTools REQUIRED)
-
 # shared objects
 add_subdirectory("common")
 add_subdirectory("widgets")
@@ -80,7 +79,7 @@ add_subdirectory("dde-bluetooth-dialog")
 add_subdirectory("dde-hints-dialog")
 add_subdirectory("dde-license-dialog")
 add_subdirectory("dde-lowpower")
-add_subdirectory("dde-osd")
+#add_subdirectory("dde-osd")
 add_subdirectory("dde-pixmix")
 add_subdirectory("dde-suspend-dialog")
 add_subdirectory("dde-switchtogreeter")

@@ -7,7 +7,6 @@
 const std::pair<QString, QString> GetSystemVersion()
 {
     QSettings lsbSetting("/etc/os-version", QSettings::IniFormat);
-    lsbSetting.setIniCodec("utf-8");
     lsbSetting.beginGroup("Version");
     QLocale locale;
 

@@ -5,21 +5,21 @@
 file(GLOB_RECURSE Lowpower_SRCS
     "src/*.h"
     "src/*.cpp"
-    )
+)
 
 list(REMOVE_ITEM Lowpower_SRCS "${CMAKE_SOURCE_DIR}/dde-lowpower/src/main.cpp")
 
 set(Lowpower_Includes
-    ${DtkWidget_INCLUDE_DIRS}
-    Qt5::Widgets
-    Qt5::DBus
-    )
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::DBus
+)
 
 set(Lowpower_Libraries
-    ${DtkWidget_LIBRARIES}
-    Qt5::Widgets
-    Qt5::DBus
-    )
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::DBus
+)
 
 add_subdirectory("src")
 add_subdirectory("tests")

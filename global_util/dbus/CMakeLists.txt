@@ -4,8 +4,6 @@
 
 set(DBUS_SOURCE)
 
-set(QT_VERSION_MAJOR 5)
-
 set_source_files_properties(
     ${CMAKE_CURRENT_LIST_DIR}/../../xml/org.desktopspec.ObjectManager1.xml
     PROPERTIES
@@ -15,7 +13,7 @@ set_source_files_properties(
         ApplicationObjectManager1
 )
 
-qt5_add_dbus_interface(
+qt_add_dbus_interface(
     DBUS_SOURCE
     ${CMAKE_CURRENT_LIST_DIR}/../../xml/org.desktopspec.ObjectManager1.xml
     objectmanager_interface
@@ -102,12 +100,6 @@ dtk_add_dbus_interface(
 
 dtk_add_dbus_interface(
     DBUS_SOURCE
-    ../../xml/org.deepin.dde.Notification1.xml
-    org_deepin_dde_notification1
-)
-
-dtk_add_dbus_interface(
-    DBUS_SOURCE
     ../../xml/org.deepin.dde.SessionManager1.xml
     org_deepin_dde_sessionmanager1
 )
@@ -118,43 +110,14 @@ dtk_add_dbus_interface(
     org_deepin_dde_soundeffect1
 )
 
+file(GLOB_RECURSE TYPES_SRCS
+    "types/*.h"
+    "types/*.cpp"
+)
+
 set(SESSION_UI_DBUS_INTERFACE_SRCS
     ${DBUS_SOURCE}
-
-    types/appscgroupinfo.h
-    types/appscgroupinfolist.cpp
-    types/appscgroupinfolist.h
-    types/audioport.cpp
-    types/audioport.h
-    types/audioportlist.cpp
-    types/audioportlist.h
-    types/brightnessmap.cpp
-    types/brightnessmap.h
-    types/dockrect.cpp
-    types/dockrect.h
-    types/keyboardlayoutlist.cpp
-    types/keyboardlayoutlist.h
-    types/launcheriteminfo.cpp
-    types/launcheriteminfo.h
-    types/qrect.h
-    types/qvariantmap.cpp
-    types/qvariantmap.h
-    types/reflectlist.cpp
-    types/reflectlist.h
-    types/resolution.cpp
-    types/resolution.h
-    types/resolutionlist.cpp
-    types/resolutionlist.h
-    types/rotationlist.cpp
-    types/rotationlist.h
-    types/screenrect.cpp
-    types/screenrect.h
-    types/touchscreeninfolist.cpp
-    types/touchscreeninfolist.h
-    types/touchscreeninfolist_v2.cpp
-    types/touchscreeninfolist_v2.h
-    types/touchscreenmap.cpp
-    types/touchscreenmap.h
+    ${TYPES_SRCS}
 )
 
 add_library(session-ui-dbus-shared OBJECT
@@ -169,6 +132,6 @@ PUBLIC
 
 target_link_libraries(session-ui-dbus-shared
 PRIVATE
-    Qt5::DBus
-    Dtk::Core
+    Qt${QT_VERSION_MAJOR}::DBus
+    Dtk${DTK_VERSION_MAJOR}::Core
 )

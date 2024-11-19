@@ -5,18 +5,11 @@
 #ifndef DCC_BLUETOOTH_PINCODEDIALOG_H
 #define DCC_BLUETOOTH_PINCODEDIALOG_H
 
-#include <ddialog.h>
-#include "org_deepin_dde_bluetooth1.h"
-
-#include <QJsonDocument>
-#include <QJsonParseError>
+#include <DDialog>
 
 DWIDGET_USE_NAMESPACE
 
-using  DBusBluetooth = org::deepin::dde::Bluetooth1;
-
 class LargeLabel;
-
 class PinCodeDialog : public DDialog
 {
     Q_OBJECT
@@ -31,7 +24,6 @@ private Q_SLOTS:
 private:
     LargeLabel *m_pinCodeLabel;
     LargeLabel *m_titileLabel;
-    DBusBluetooth *m_bluetoothInter;
 };
 
 #endif // DCC_BLUETOOTH_PINCODEDIALOG_H

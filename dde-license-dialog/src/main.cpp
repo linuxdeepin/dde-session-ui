@@ -13,7 +13,6 @@
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 #include <QFile>
-#include <QDesktopWidget>
 #include <QDebug>
 
 DWIDGET_USE_NAMESPACE
@@ -23,8 +22,9 @@ int main(int argc, char *argv[])
     DApplication a(argc, argv);
 
     QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
-    a.installTranslator(&translator);
+    if (translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name())) {
+        a.installTranslator(&translator);
+    }
 
     QCommandLineOption title(QStringList() << "t" << "title", "Parm:string type  \n Action:Show Chinese title name");
     QCommandLineOption entitle(QStringList() << "u" << "english title", "Parm:string type   \n Action:Show English title name");

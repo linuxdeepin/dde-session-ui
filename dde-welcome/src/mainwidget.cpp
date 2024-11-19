@@ -5,11 +5,13 @@
 #include "mainwidget.h"
 #include "updatecontent.h"
 #include "utils.h"
+#include "org_deepin_dde_imageblur1.h"
 
-#include <QGSettings/QGSettings>
 #include <QVariant>
 #include <QKeyEvent>
 #include <QApplication>
+
+#include <DConfig>
 
 #include "dtkcore_global.h"
 #if (DTK_VERSION >= DTK_VERSION_CHECK(2, 0, 8, 0))
@@ -18,14 +20,16 @@
 #include <QProcess>
 #endif
 
+using ImageBlur = org::deepin::dde::ImageBlur1;
+
 MainWidget::MainWidget(QWidget *parent)
     : FullscreenBackground(parent)
-    , m_blurImageInter(new ImageBlur("org.deepin.dde.ImageBlur1",
-                                     "/org/deepin/dde/ImageBlur1",
-                                     QDBusConnection::systemBus(), this))
 {
+    auto blurImageInter = new ImageBlur("org.deepin.dde.ImageBlur1",
+                                        "/org/deepin/dde/ImageBlur1",
+                                        QDBusConnection::systemBus(), this);
     setAccessibleName("MainWidget");
-    connect(m_blurImageInter, &ImageBlur::BlurDone, this, &MainWidget::onBlurWallpaperFinished);
+    connect(blurImageInter, &ImageBlur::BlurDone, this, &MainWidget::onBlurWallpaperFinished);
     connect(qApp, &QApplication::aboutToQuit, this, [=] {
         DDBusSender()
             .service("org.deepin.dde.Zone1")
@@ -37,8 +41,13 @@ MainWidget::MainWidget(QWidget *parent)
 
     });
 
-    QGSettings gsettings("com.deepin.dde.appearance", "", this);
-    const QStringList list = gsettings.get("background-uris").toStringList();
+    auto dConfig = Dtk::Core::DConfig::create("org.deepin.dde.appearance", "org.deepin.dde.appearance", QString(), this);
+    if (!dConfig) {
+        qWarning() << "Failed to create org.deepin.dde.appearance DConfig";
+        return;
+    }
+
+    const QStringList list = dConfig->value("Background-Uris").toStringList();
     m_wallpaper = list.first();
 
     const QUrl url(m_wallpaper);
@@ -50,7 +59,7 @@ MainWidget::MainWidget(QWidget *parent)
     content->hide();
 
     // blur wallpaper
-    const QString &w = m_blurImageInter->Get(m_wallpaper);
+    const QString &w = blurImageInter->Get(m_wallpaper);
 
     updateBackground(w.isEmpty() ? m_wallpaper : w);
 

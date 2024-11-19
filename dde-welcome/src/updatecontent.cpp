@@ -14,7 +14,7 @@ DGUI_USE_NAMESPACE
 UpdateContent::UpdateContent(const std::pair<QString, QString> &version, QWidget *parent) : QWidget(parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
 
     QLabel *successIcon = new QLabel;

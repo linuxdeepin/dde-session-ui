@@ -35,7 +35,7 @@ HintsDialog::HintsDialog(QWidget *parent)
     m_content->setWordWrap(true);
 
     QHBoxLayout *titlelayout = new QHBoxLayout;
-    titlelayout->setMargin(0);
+    titlelayout->setContentsMargins(0, 0, 0, 0);
     titlelayout->setSpacing(0);
     titlelayout->addWidget(m_title, 1, Qt::AlignLeft | Qt::AlignVCenter);
     titlelayout->addWidget(m_closeButton, 0, Qt::AlignRight | Qt::AlignVCenter);
@@ -48,7 +48,7 @@ HintsDialog::HintsDialog(QWidget *parent)
     HorizontalSeperator * seperator = new HorizontalSeperator(this);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(15);
+    layout->setContentsMargins(15, 15, 15, 15);
     layout->setSpacing(0);
     layout->addWidget(widget);
     layout->addSpacing(10);

@@ -8,7 +8,6 @@
 #include "resetpasswordworker.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QScreen>
 #include <QDebug>
 #include <QCloseEvent>
@@ -64,7 +63,7 @@ void ResetPasswordDialog::mouseMoveEvent(QMouseEvent *event)
 
 void ResetPasswordDialog::mousePressEvent(QMouseEvent *event)
 {
-    if (this->geometry().contains(event->globalPos())) {
+    if (this->geometry().contains(event->globalPosition().toPoint())) {
         DDialog::mousePressEvent(event);
     }
 }
@@ -98,7 +97,7 @@ void ResetPasswordDialog::initWidget(const QString &userName)
     QWidget *mainContentWidget = new QWidget;
     QVBoxLayout *mainContentLayout = new QVBoxLayout(mainContentWidget);
     mainContentLayout->setSpacing(0);
-    mainContentLayout->setMargin(0);
+    mainContentLayout->setContentsMargins(0, 0, 0, 0);
 
     m_buttonBox = new DButtonBox(this);
     m_buttonBox->setButtonList({new DButtonBoxButton(tr("Security Questions")), new DButtonBoxButton("Union ID")}, true);
@@ -128,7 +127,7 @@ void ResetPasswordDialog::initWidget(const QString &userName)
     connect(m_resetPasswordWorker, &ResetPasswordWorker::requestVerifyVerficationCodeReplied, m_UnionIDWidget, &UnionIDWidget::onRequestVerifyVerficationCodeReplied);
 
     m_stackedLayout->setSpacing(0);
-    m_stackedLayout->setMargin(0);
+    m_stackedLayout->setContentsMargins(0, 0, 0, 0);
     m_stackedLayout->addWidget(m_SecurityQuestionsWidget);
     m_stackedLayout->addWidget(m_UnionIDWidget);
     mainContentLayout->addLayout(m_stackedLayout);

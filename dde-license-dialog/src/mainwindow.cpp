@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
     btnclose->setPalette(pa);
 
     QHBoxLayout *titlelayout = new QHBoxLayout;
-    titlelayout->setMargin(0);
+    titlelayout->setContentsMargins(0, 0, 0, 0);
     titlelayout->addWidget(m_title);
     titlelayout->addWidget(btnclose, Qt::AlignRight);
     widget->setLayout(titlelayout);
@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_title->setStyleSheet(QString("qproperty-alignment: 'AlignBottom | AlignCenter'"));
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     //layout->addSpacing(10);

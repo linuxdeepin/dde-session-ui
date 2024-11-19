@@ -26,5 +26,5 @@ target_include_directories(${UT_Lowpower_Name} PUBLIC
 target_link_libraries(${UT_Lowpower_Name} PRIVATE
     ${Lowpower_Libraries}
     ${Test_Libraries}
-    Qt5::Test
+    Qt${QT_VERSION_MAJOR}::Test
     )

@@ -5,19 +5,19 @@
 file(GLOB_RECURSE Hints_Dialog_SRCS
     "src/*.h"
     "src/*.cpp"
-    )
+)
 
 list(REMOVE_ITEM Hints_Dialog_SRCS "${CMAKE_SOURCE_DIR}/dde-hints-dialog/src/main.cpp")
 
 set(Hints_Dialog_Includes
-    ${DtkWidget_INCLUDE_DIRS}
-    Qt5::Widgets
-    )
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+)
 
 set(Hints_Dialog_Libraries
-    ${DtkWidget_LIBRARIES}
-    Qt5::Widgets
-    )
+    Dtk${DTK_VERSION_MAJOR}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+)
 
 add_subdirectory("src")
 #add_subdirectory("tests")

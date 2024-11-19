@@ -7,12 +7,6 @@
 
 #include "fullscreenbackground.h"
 
-#include "org_deepin_dde_imageblur1.h"
-
-#include <QWidget>
-
-using ImageBlur = org::deepin::dde::ImageBlur1;
-
 class MainWidget : public FullscreenBackground
 {
     Q_OBJECT
@@ -26,7 +20,6 @@ private:
     void onBlurWallpaperFinished(const QString &source, const QString &blur, bool status);
 
 private:
-    ImageBlur *m_blurImageInter;
     QString m_wallpaper;
 };
 

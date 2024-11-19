@@ -60,7 +60,7 @@ TEST_F(TstFullscreenBackground, coverageTest)
         QPaintEvent paintEvent(QRect(0, 0, 100, 100));
         fullscreenBackground->paintEvent(&paintEvent);
 
-        event = QEvent(QEvent::Leave);
-        qApp->sendEvent(fullscreenBackground, &event);
+        QEvent event1(QEvent::Leave);
+        qApp->sendEvent(fullscreenBackground, &event1);
     }
 }

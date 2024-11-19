@@ -6,7 +6,6 @@
 #include "pwqualitymanager.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDebug>
 
 #include <DFontSizeManager>
@@ -57,7 +56,7 @@ void SecurityQuestionsWidget::initWidget()
 
     QVBoxLayout *answerQuestionsVLayout = new QVBoxLayout(m_answerQuestionsWidget);
     answerQuestionsVLayout->setSpacing(0);
-    answerQuestionsVLayout->setMargin(0);
+    answerQuestionsVLayout->setContentsMargins(0, 0, 0, 0);
 
     m_questionEdit1->setClearButtonEnabled(false);
     m_questionEdit1->setFocusPolicy(Qt::NoFocus);
@@ -91,12 +90,12 @@ void SecurityQuestionsWidget::initWidget()
 
     QVBoxLayout *mainContentLayout = new QVBoxLayout(this);
     mainContentLayout->setSpacing(0);
-    mainContentLayout->setMargin(0);
+    mainContentLayout->setContentsMargins(0, 0, 0, 0);
     mainContentLayout->addSpacing(20);
     mainContentLayout->addLayout(m_stackedLayout);
 
     m_stackedLayout->setSpacing(0);
-    m_stackedLayout->setMargin(0);
+    m_stackedLayout->setContentsMargins(0, 0, 0, 0);
     m_stackedLayout->addWidget(m_answerQuestionsWidget);
     m_stackedLayout->addWidget(m_passwordWidget);
 

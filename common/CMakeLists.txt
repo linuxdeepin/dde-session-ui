@@ -18,6 +18,6 @@ PUBLIC
 
 target_link_libraries(session-ui-common-shared
 PRIVATE
-    Qt5::Widgets
-    Dtk::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Dtk${DTK_VERSION_MAJOR}::Widget
 )

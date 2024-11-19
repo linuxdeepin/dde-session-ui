@@ -51,7 +51,7 @@ Content::Content(QWidget *parent)
     m_source->setAccessibleName("SourceLabel");
     m_languageBtn->setAccessibleName("LanguageBtn");
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     setLayout(layout);
@@ -99,7 +99,7 @@ Content::Content(QWidget *parent)
     m_scrollArea->setWidget(sourceWidget);
 
     QHBoxLayout *bottomLayout = new QHBoxLayout;
-    bottomLayout->setMargin(0);
+    bottomLayout->setContentsMargins(0, 0, 0, 0);
     bottomLayout->setSpacing(0);
     bottomLayout->addSpacing(10);
     bottomLayout->addWidget(m_acceptCheck, 0, Qt::AlignVCenter);
@@ -261,16 +261,26 @@ void Content::updateLanguageBtn()
 
 void Content::updateContent()
 {
-    QTranslator trans;
+    if (!m_translator) {
+        m_translator = new QTranslator(this);
+    } else {
+        qApp->removeTranslator(m_translator);
+    }
+
     setSource(m_isCn ? m_cn : m_en);
     m_acceptCheck->setText(m_isCn ? m_allow : m_enallow);
     m_acceptCheck->setVisible(m_isCn ? !m_allow.isEmpty() : !m_enallow.isEmpty());
+    QString tsFilePath;
     if (m_hasCn && m_hasEn) {
-        trans.load(QString("/usr/share/dde-session-ui/translations/dde-session-ui_%1").arg(m_isCn ? "zh_CN" : "en_US"));
+        tsFilePath = QString("/usr/share/dde-session-ui/translations/dde-session-ui_%1").arg(m_isCn ? "zh_CN" : "en_US");
     } else {
-        trans.load(QString("/usr/share/dde-session-ui/translations/dde-session-ui_%1").arg(QLocale::system().name()));
+        tsFilePath = QString("/usr/share/dde-session-ui/translations/dde-session-ui_%1").arg(QLocale::system().name());
     }
-    qApp->installTranslator(&trans);
+
+    if (m_translator->load(tsFilePath)) {
+        qApp->installTranslator(m_translator);
+    }
+
     m_cancelBtn->setText(tr("Cancel"));
     m_acceptBtn->setText(tr("Confirm"));
     m_acceptBtn->setEnabled(m_allow.isEmpty() || (!m_allow.isEmpty() && m_acceptCheck->isChecked()));
