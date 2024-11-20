@@ -1,3 +1,12 @@
+dde-session-ui (6.0.23) unstable; urgency=medium
+
+  * fix: window removes its own display animation (#379)(Issue: 9728)
+  * fix: Adapt user experience plan agreement md format document (#380)(Bug: 281497)
+  * fix: add run Depends pandoc analysis .md file (#381)(Bug: 281497)
+  * chore: adapt to qt6 (#382)(Task: 367947)
+
+ -- Deepin Packages Builder <packages@deepin.org>  Wed, 20 Nov 2024 10:53:25 +0800
+
 dde-session-ui (6.0.22) unstable; urgency=medium
 
   * chore: 解决dde-pixmix在root下执行崩溃的问题
