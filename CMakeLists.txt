@@ -59,7 +59,10 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets DBus Xml Concurre
 pkg_check_modules(XCB_EWMH REQUIRED IMPORTED_TARGET xcb-ewmh)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
 pkg_check_modules(GIO REQUIRED gio-unix-2.0)
-pkg_check_modules(SYSTEMD REQUIRED libsystemd)
+pkg_check_modules(LIBSYSTEMD REQUIRED libsystemd)
+
+pkg_search_module(systemd REQUIRED systemd)
+pkg_get_variable(SYSTEMD_USER_UNIT_DIR systemd systemd_user_unit_dir)
 
 set(Test_Libraries
     -lpthread
@@ -87,6 +90,7 @@ add_subdirectory("dde-touchscreen-dialog")
 add_subdirectory("dde-warning-dialog")
 add_subdirectory("dde-welcome")
 add_subdirectory("dde-wm-chooser")
+add_subdirectory("dde-blackwidget")
 
 # FIXME: startmanager is removed, so it need to be updated
 # add_subdirectory("dmemory-warning-dialog")

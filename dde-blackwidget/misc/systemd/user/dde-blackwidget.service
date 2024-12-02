@@ -1,0 +1,8 @@
+[Unit]
+Description=DDE BlackScreen
+
+[Service]
+Type=dbus
+BusName=org.deepin.dde.BlackScreen1
+ExecStart=/usr/lib/deepin-daemon/dde-blackwidget
+Slice=session.slice
