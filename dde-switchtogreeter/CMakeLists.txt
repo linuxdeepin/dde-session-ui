@@ -8,12 +8,12 @@ file(GLOB_RECURSE Switchtogreeter_SRCS
 )
 
 set(Switchtogreeter_Includes
-    ${SYSTEMD_INCLUDE_DIRS}
+    ${LIBSYSTEMD_INCLUDE_DIRS}
     ${GLIB_INCLUDE_DIRS}
     ${GIO_INCLUDE_DIRS}
 )
 set(Switchtogreeter_Libraries
-    ${SYSTEMD_LIBRARIES}
+    ${LIBSYSTEMD_LIBRARIES}
     ${GLIB_LIBRARIES}
     ${GIO_LIBRARIES}
 )

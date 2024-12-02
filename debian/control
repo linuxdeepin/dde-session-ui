@@ -17,7 +17,8 @@ Build-Depends: debhelper (>= 8.0.0), pkg-config,
  libgmock-dev,
  libdeepin-pw-check-dev,
  libgio-qt-dev,
- libxext-dev
+ libxext-dev,
+ systemd-dev
 Standards-Version: 3.9.4
 Homepage: http://www.deepin.org/
 
