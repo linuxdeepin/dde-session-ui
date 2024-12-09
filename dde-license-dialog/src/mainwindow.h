@@ -38,7 +38,7 @@ private:
     QString m_enTitle;
 
     DIconButton *btnclose;
-    const int windowFixedWidth = 500;
+    const int windowFixedWidth = 520;
 };
 
 #endif // MAINWINDOW_H
