@@ -30,8 +30,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends}, ${dist:Depends},
  startdde (>=5.8.15),
  x11-xserver-utils,
  dbus-user-session,
- dde-session-shell,
- pandoc,
+ dde-session-shell
 Provides: lightdm-greeter
 Recommends: onboard
 Conflicts: dde-workspace,
