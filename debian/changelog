@@ -1,3 +1,10 @@
+dde-session-ui (6.0.24) unstable; urgency=medium
+
+  * chore: remove the dependence of pandoc
+  * chore: add dde-blackscreen (Bug: 288227)
+
+ -- Chengqi E <echengqi@deepin.org>  Sat, 14 Dec 2024 14:12:25 +0800
+
 dde-session-ui (6.0.23) unstable; urgency=medium
 
   * fix: window removes its own display animation (#379)(Issue: 9728)
