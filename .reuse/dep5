@@ -61,6 +61,10 @@ Files: CMakeLists.txt tests/dde-lowpower/dde-lowpower.pro
 Copyright: None
 License: CC0-1.0
 
+Files: toolGenerate/**/*
+Copyright: None
+License: CC0-1.0
+
 # qss service
 Files: dde-osd/src/light.qss
   dde-osd/*.service dde-warning-dialog/*.service dde-welcome/*.service dmemory-warning-dialog/*.service
@@ -76,3 +80,4 @@ License: GPL-3.0-or-later
 Files: dde-osd/src/notification/dbus* global_util/dbus/*
 Copyright: The Qt Company Ltd.
 License: CC0-1.0
+
