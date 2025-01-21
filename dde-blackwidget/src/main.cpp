@@ -41,6 +41,8 @@ bool onPreparingForShutdown() {
 }
 
 void handleSIGTERM(int signal) {
+    if (QCoreApplication::closingDown())
+        return;
     qInfo() << "handleSIGTERM: " << signal;
 
     bool bShutdown = onPreparingForShutdown();
