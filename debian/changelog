@@ -1,3 +1,9 @@
+dde-session-ui (6.0.25) unstable; urgency=medium
+
+  * 6.0.25
+
+ -- YeShanShan <yeshanshan@uniontech.com>  Fri, 24 Jan 2025 10:57:05 +0800
+
 dde-session-ui (6.0.24) unstable; urgency=medium
 
   * chore: remove the dependence of pandoc
