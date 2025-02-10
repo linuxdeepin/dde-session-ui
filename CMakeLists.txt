@@ -38,10 +38,6 @@ include(GNUInstallDirs)
 
 if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
-
-    # generate qm
-    execute_process(COMMAND bash "translate_generation.sh"
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif ()
 
 set(DAEMON_LIB_PATH "lib/deepin-daemon" CACHE STRING "daemon lib path")
@@ -54,7 +50,7 @@ find_package(PkgConfig REQUIRED)
 find_package(GTest REQUIRED)
 find_package(GMock REQUIRED)
 find_package(Dtk${DTK_VERSION_MAJOR} REQUIRED COMPONENTS Core Widget Tools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets DBus Xml Concurrent Svg Sql Network Test)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets DBus Xml Concurrent Svg Sql Network Test LinguistTools)
 
 pkg_check_modules(XCB_EWMH REQUIRED IMPORTED_TARGET xcb-ewmh)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
@@ -100,7 +96,9 @@ add_subdirectory("dnetwork-secret-dialog")
 # TODO: 需要break旧版本的控制中心
 add_subdirectory("reset-password-dialog")
 
-#----------------------------install config------------------------------
-## qm files
-file(GLOB QM_FILES "translations/*.qm")
+
+#----------------------------process translations------------------------------
+file(GLOB TS_FILES "translations/*.ts")
+qt_add_translation(QM_FILES ${TS_FILES})
+add_custom_target(dde-session-ui_language ALL DEPENDS ${QM_FILES})
 install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/translations)
