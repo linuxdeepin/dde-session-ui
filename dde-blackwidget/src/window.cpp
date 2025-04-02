@@ -34,7 +34,7 @@ Window::Window(QWidget *parent)
     QCursor cursor(Qt::BlankCursor);
     this->setCursor(cursor);
 
-    DTK_CORE_NAMESPACE::DConfig *dsgConfig = DTK_CORE_NAMESPACE::DConfig::create("org.deepin.startdde", QString("org.deepin.Display"));
+    DTK_CORE_NAMESPACE::DConfig *dsgConfig = DTK_CORE_NAMESPACE::DConfig::create("org.deepin.dde.daemon", QString("org.deepin.Display"));
     if (dsgConfig && dsgConfig->isValid() && dsgConfig->keyList().contains("gravity-rotate-black-enabled")) {
         m_gravityRotateBlackEnabled = dsgConfig->value("gravity-rotate-black-enabled").toBool();
         dsgConfig->deleteLater();
