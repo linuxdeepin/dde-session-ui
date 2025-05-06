@@ -44,26 +44,9 @@ void handleSIGTERM(int signal) {
     if (QCoreApplication::closingDown())
         return;
     qInfo() << "handleSIGTERM: " << signal;
-
-    bool bShutdown = onPreparingForShutdown();
-    qInfo() << "Whether preparing for shutdown: " << bShutdown;
-    if (bShutdown) {
-        QTimer::singleShot(2500, qApp, SLOT(quit()));
-    } else {
-        QTimer time;
-        time.start(1000);
-        QObject::connect(&time, &QTimer::timeout, [&] {
-            bool bShutdown = onPreparingForShutdown();
-            qInfo() << "Whether preparing for shutdown: " << bShutdown;
-            if (bShutdown) {
-                time.stop();
-                QTimer::singleShot(2000, qApp, SLOT(quit()));
-                return;
-            } else {
-                qInfo() << " Get org.freedesktop.login1.Manager PreparingForShutdown again.";
-            }
-        });
-    }
+    // 信号处理会阻塞进程，dbus调用也会被阻塞，因此等待一会自动退出吧
+    // 这个等待时间已经够长了，足够显示关机界面了，如果还有显示问题，应该从其他地方查找问题来优化。
+    QTimer::singleShot(2500, qApp, SLOT(quit()));
 }
 
 int main(int argc, char *argv[])
