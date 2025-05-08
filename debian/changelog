@@ -1,3 +1,9 @@
+dde-session-ui (6.0.28) unstable; urgency=medium
+
+  * fix: dde-blackwidget收到kill信号后直接退出,解决重新时卡logo的问题
+
+ -- fuleyi <fuleyi@uniontech.com>  Thu, 08 May 2025 13:14:03 +0800
+
 dde-session-ui (6.0.27) unstable; urgency=medium
 
   * chore: remove startdde dependency
