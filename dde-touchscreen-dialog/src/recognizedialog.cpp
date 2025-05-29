@@ -57,7 +57,7 @@ void RecognizeDialog::paintEvent(QPaintEvent *event)
     const QFontMetrics fm(font);
 
     QPainterPath path;
-    path.addText(m_rect.width() - fm.horizontalAdvance(m_text) / 2.0, m_rect.height() - VerticalMargin - fm.height() / 4.0, font, m_text);
+    path.addText((m_rect.width() - fm.horizontalAdvance(m_text)) / 2.0, m_rect.height() - VerticalMargin - fm.height() / 4.0, font, m_text);
 
     QPalette palette;
     QColor brushCorlor;
