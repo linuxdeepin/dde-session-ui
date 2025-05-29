@@ -1,3 +1,9 @@
+dde-session-ui (6.0.29) unstable; urgency=medium
+
+  * fix: Display name truncation
+
+ -- lvpeilong <lvpeilong@uniontech.com>  Thu, 29 May 2025 13:37:26 +0800
+
 dde-session-ui (6.0.28) unstable; urgency=medium
 
   * fix: dde-blackwidget收到kill信号后直接退出,解决重新时卡logo的问题
