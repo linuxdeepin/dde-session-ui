@@ -1,0 +1,94 @@
+version = 1
+SPDX-PackageName = "dde-session-ui"
+SPDX-PackageSupplier = "UnionTech Software Technology Co., Ltd. <>"
+SPDX-PackageDownloadLocation = "https://github.com/linuxdeepin/dde-session-ui"
+
+[[annotations]]
+path = ["README.md", "README.zh_CN.md", "CHANGELOG.md", "CONTRIBUTING.md"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "UnionTech Software Technology Co., Ltd."
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = "translations/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "UnionTech Software Technology Co., Ltd."
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = ["rpm/**", "debian/**", "archlinux/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = ["dde-osd/src/icons/**.dci", "dde-welcome/src/resources/success.svg", "dde-notification-plugin/resources/icons/**.svg", "dde-suspend-dialog/src/data/**.svg", "reset-password-dialog/icons/**.svg", "dde-lowpower/src/images/**.png"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "UnionTech Software Technology Co., Ltd."
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = [".github/**", ".gitlab-ci.yml", ".obs/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = ["dde-lowpower/**.qrc", "dde-osd/**.qrc", "dde-welcome/**.qrc", "reset-password-dialog/**.qrc"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = ["lupdate.sh", "tests/test-recoverage.sh", "translate_generation.sh"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "UnionTech Software Technology Co., Ltd."
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "src/**.qss"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "UnionTech Software Technology Co., Ltd."
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "xml/**.xml"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = [".clog.toml", ".packit.yaml", ".gitignore", ".project", ".tx/**.conf", ".tx/config"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = ["CMakeLists.txt", "tests/dde-lowpower/dde-lowpower.pro"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "toolGenerate/**/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = ["dde-osd/src/light.qss", "dde-osd/**.service", "dde-warning-dialog/**.service", "dde-welcome/**.service", "dmemory-warning-dialog/**.service", "dde-blackwidget/**.service"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "UnionTech Software Technology Co., Ltd."
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "dde-osd/files/dde-osd.desktop"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "UnionTech Software Technology Co., Ltd."
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = ["dde-osd/src/notification/dbus**", "global_util/dbus/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "The Qt Company Ltd."
+SPDX-License-Identifier = "CC0-1.0"
