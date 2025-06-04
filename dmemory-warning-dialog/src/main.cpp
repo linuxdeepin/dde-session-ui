@@ -27,7 +27,7 @@ int main(int argc, char *args[])
         return -1;
 
     QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
+    translator.load(QLocale::system(), "dde-session-ui", "_", "/usr/share/dde-session-ui/translations");
     dapp.installTranslator(&translator);
 
 #ifdef QT_DEBUG
