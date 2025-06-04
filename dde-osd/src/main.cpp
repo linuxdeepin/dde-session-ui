@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
     QAccessible::installFactory(accessibleFactory);
 
     QTranslator translator;
-    translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name());
+    translator.load(QLocale::system(), "dde-session-ui", "_", "/usr/share/dde-session-ui/translations");
     app->installTranslator(&translator);
 
     QStringList args = app->arguments();

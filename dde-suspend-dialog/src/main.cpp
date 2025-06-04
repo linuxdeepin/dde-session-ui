@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     app.setApplicationName("dde-suspend-dialog");
 
     QTranslator translator;
-    if (translator.load("/usr/share/dde-session-ui/translations/dde-session-ui_" + QLocale::system().name())) {
+    if (translator.load(QLocale::system(), "dde-session-ui", "_", "/usr/share/dde-session-ui/translations")) {
         app.installTranslator(&translator);
     }
 
