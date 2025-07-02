@@ -17,9 +17,6 @@ option(DISABLE_SYS_UPDATE "disable sys update" OFF)
 set(QT_VERSION_MAJOR 6)
 set(DTK_VERSION_MAJOR 6)
 
-# 增加安全编译参数
-ADD_DEFINITIONS("-fstack-protector-strong -D_FORTITY_SOURCE=1 -z noexecstack -pie -fPIC -z lazy")
-
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_options(-fsanitize=address)
     add_link_options(-fsanitize=address)
