@@ -1,3 +1,9 @@
+dde-session-ui (6.0.31) unstable; urgency=medium
+
+  * refactor: move security flags to debian/rules
+
+ -- WuJiangYu <wujiangyu@uniontech.com>  Thu, 03 Jul 2025 19:55:35 +0800
+
 dde-session-ui (6.0.30) unstable; urgency=medium
 
   * chore: remove regional variants for es language
