@@ -8,6 +8,7 @@
 #endif
 
 #include <DApplication>
+#include <DGuiApplicationHelper>
 
 #include <QTranslator>
 #include <QCommandLineOption>
@@ -16,6 +17,7 @@
 #include <QDebug>
 
 DWIDGET_USE_NAMESPACE
+DGUI_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
@@ -33,6 +35,7 @@ int main(int argc, char *argv[])
     QCommandLineOption encheckbox(QStringList() << "b" << "english allow", "Parm:string type \n Action:Show checkbox and allow content in English");
     QCommandLineOption encontent(QStringList() << "e" << "english content", "Parm:string type \n Action:Show content in English  \n Notice:Set absolute path of document you want to show");
     QCommandLineOption hidebottom(QStringList() << "d" << "hide bottom", "Parm:string type  \n Action:Show bottom if param set \"yes\"  \n Notice:Bottom include allow checkbox,confirm button,cancel bottom");
+    QCommandLineOption theme(QStringList() << "p" << "palette", "Parm:string type \n Action:Set application theme \n Values: light, dark, auto (default: follow system)");
 
     title.setValueName("TitleName");
     entitle.setValueName("EnTitleName");
@@ -41,6 +44,7 @@ int main(int argc, char *argv[])
     encheckbox.setValueName("EnCheck");
     encontent.setValueName("EnContent");
     hidebottom.setValueName("hidebottom");
+    theme.setValueName("PaletteType");
 
     QCommandLineParser parser;
     parser.addHelpOption();
@@ -51,7 +55,17 @@ int main(int argc, char *argv[])
     parser.addOption(encheckbox);
     parser.addOption(encontent);
     parser.addOption(hidebottom);
+    parser.addOption(theme);
     parser.process(a);
+
+    if (parser.isSet(theme)) {
+        QString themeValue = parser.value(theme).toLower();
+        if (themeValue == "light") {
+            DGuiApplicationHelper::instance()->setPaletteType(DGuiApplicationHelper::LightType);
+        } else if (themeValue == "dark") {
+            DGuiApplicationHelper::instance()->setPaletteType(DGuiApplicationHelper::DarkType);
+        }
+    }
 
     MainWindow w;
 
