@@ -115,9 +115,21 @@ bool TouchscreenSetting::monitorsIsIntersect() const
 
 void TouchscreenSetting::markDisplay(int index)
 {
-    m_monitorIndicator->setGeometry(QRect(m_monitors[index]->x(), m_monitors[index]->y(), m_monitors[index]->width(), m_monitors[0]->height()));
+    // 考虑设备像素比，确保示意框大小与实际显示器大小一致
+    const auto ratio = qApp->devicePixelRatio();
+    QRect displayRect(m_monitors[index]->x(), m_monitors[index]->y(), 
+                     m_monitors[index]->width(), m_monitors[index]->height());
+    
+    // 将物理像素转换为逻辑像素
+    displayRect = QRect(displayRect.topLeft(), displayRect.size() / ratio);
+    
+    // 先隐藏窗口，设置几何形状，再显示，避免动画效果
+    m_monitorIndicator->hide();
+    m_monitorIndicator->setGeometry(displayRect);
     m_monitorIndicator->show();
-    QTimer::singleShot(300, this, [ = ] {
+    
+    // 设置自动隐藏
+    QTimer::singleShot(1000, this, [ = ] {
         m_monitorIndicator->hide();
     });
 }

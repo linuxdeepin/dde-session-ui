@@ -19,6 +19,7 @@ public:
     explicit MonitorIndicator(QWidget *parent = 0);
 
 protected:
+    void paintEvent(QPaintEvent *event) override;
     void resizeEvent(QResizeEvent *e);
 };
 
