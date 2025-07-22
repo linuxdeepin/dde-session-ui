@@ -14,33 +14,31 @@ MonitorIndicator::MonitorIndicator(QWidget *parent)
     : QFrame(parent)
 {
     setAccessibleName("MonitorIndicator");
-    setWindowFlags(Qt::SplashScreen | Qt::X11BypassWindowManagerHint);
-    setStyleSheet("background-color: #2ca7f8;");
+    setWindowFlags(Qt::SplashScreen | Qt::X11BypassWindowManagerHint | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    setAttribute(Qt::WA_TranslucentBackground);
+    setAttribute(Qt::WA_NoSystemBackground);
+    setAttribute(Qt::WA_ShowWithoutActivating);
+}
+
+void MonitorIndicator::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event)
+    
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    
+    // 设置蓝色边框
+    QPen pen(QColor("#2ca7f8"));
+    pen.setWidth(10); // 设置边框宽度
+    painter.setPen(pen);
+    
+    // 绘制矩形边框，留出一些边距
+    QRect borderRect = rect().adjusted(5, 5, -5, -5);
+    painter.drawRect(borderRect);
 }
 
 void MonitorIndicator::resizeEvent(QResizeEvent *e)
 {
     QFrame::resizeEvent(e);
-
-    Display* display = XOpenDisplay(nullptr);
-    if (!display) {
-        qWarning() << "XOpenDisplay failed";
-        return;
-    }
-
-    XRectangle rectangle;
-    rectangle.x = 0;
-    rectangle.y = 0;
-    rectangle.width = static_cast<ushort>(e->size().width());
-    rectangle.height = static_cast<ushort>(e->size().height());
-
-    // need to restore the cut area, if not,cut out will be repeated.
-    XShapeCombineRectangles(display, winId(), ShapeBounding, 0, 0, &rectangle, 1, ShapeSet, YXBanded);
-
-    rectangle.x = 10;
-    rectangle.y = 10;
-    rectangle.width = static_cast<ushort>(e->size().width()) - 20;
-    rectangle.height = static_cast<ushort>(e->size().height()) - 20;
-
-    XShapeCombineRectangles(display, winId(), ShapeBounding, 0, 0, &rectangle, 1, ShapeSubtract, YXBanded);
+    update(); // 触发重绘
 }
