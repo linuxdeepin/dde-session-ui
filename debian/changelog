@@ -1,3 +1,10 @@
+dde-session-ui (6.0.32) unstable; urgency=medium
+
+  * fix: Incorrect screen indication display
+  * fix: Add specified topic parameters
+
+ -- YeShanShan <yeshanshan@uniontech.com>  Thu, 31 Jul 2025 19:43:07 +0800
+
 dde-session-ui (6.0.31) unstable; urgency=medium
 
   * refactor: move security flags to debian/rules
