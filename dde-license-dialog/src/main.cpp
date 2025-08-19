@@ -24,6 +24,8 @@ int main(int argc, char *argv[])
     qputenv("DSG_APP_ID", "org.deepin.dde.license-dialog");
     DApplication a(argc, argv);
 
+    a.loadTranslator();
+
     QTranslator translator;
     if (translator.load(QLocale::system(), "dde-session-ui", "_", "/usr/share/dde-session-ui/translations")) {
         a.installTranslator(&translator);
