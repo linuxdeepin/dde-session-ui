@@ -21,6 +21,7 @@ DGUI_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
+    qputenv("DSG_APP_ID", "org.deepin.dde.license-dialog");
     DApplication a(argc, argv);
 
     QTranslator translator;
