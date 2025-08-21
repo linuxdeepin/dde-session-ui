@@ -1,3 +1,10 @@
+dde-session-ui (6.0.33) unstable; urgency=medium
+
+  * fix: Fix qt default translation not loading
+  * fix: set DSG_APP_ID environment variable
+
+ -- YeShanShan <yeshanshan@uniontech.com>  Thu, 21 Aug 2025 19:47:22 +0800
+
 dde-session-ui (6.0.32) unstable; urgency=medium
 
   * fix: Incorrect screen indication display
