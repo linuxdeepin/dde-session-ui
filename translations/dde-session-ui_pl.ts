@@ -74,7 +74,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="110"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>Niewystarczająca ilość pamięci systemowej, zakończ niepotrzebne aplikacje, aby uniknąć zawieszenia systemu.</translation>
+        <translation>Za mało pamięci systemowej, zakończ niepotrzebne aplikacje, aby uniknąć zawieszenia systemu.</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="222"/>
@@ -418,7 +418,7 @@
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>Nie używaj popularnych słów i kombinacji jako hasła</translation>
+        <translation>Nie używaj popularnych słów i ich kombinacji jako hasła</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
