@@ -356,7 +356,7 @@
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="51"/>
         <source>Confirm</source>
-        <translation>جەزملەشتۈرۈش</translation>
+        <translation> جەزملەش</translation>
     </message>
 </context>
 <context>
@@ -397,7 +397,7 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation>مونوتونلۇق بەلگە %1 تىن ئېشىپ كەتمىسۇن</translation>
+        <translation>قايتىلانغان بەلگە %1 تىن ئېشىپ كەتمىسۇن</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
