@@ -372,64 +372,64 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation>لا يمكن ترك كلمة المرور فارغة</translation>
+        <translation>كلمة المرور لا يمكن أن تكون فارغة</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>كلمة المرور يجب أن تحتوي على الأقل على %1 حروف</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>كلمة المرور يجب أن لا تقل عن 1 حرف</translation>
+        <translation>كلمة المرور يجب أن لا تزيد عن %1 حروف</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>يمكن أن يحتوي كلمة المرور على حروف الإنجليزية (حساسية الحالة)، الأرقام أو الرموز الخاصة (~`!@#$%^&amp;*()-_+=|{}[]:\&quot;&apos;&lt;&gt;?,./+())</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation type="unfinished"/>
+        <translation>لا تستخدم أكثر من %1 حرف زماني يقرأ بنفس الطريقة للأمام والخلف</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation type="unfinished"/>
+        <translation>لا تستخدم أكثر من %1 حرف متسلسل يقرأ بنفس الطريقة دون تغيير</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation type="unfinished"/>
+        <translation>لا تستخدم رمز مكرر أكثر من %1 مرة</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>يجب أن تحتوي كلمة المرور على حروف م,:, حروف صغرى، أرقام ورموز (~`!@#$%^&amp;*()-_+=|{}[]:\&quot;&apos;&lt;&gt;?,./+())</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation type="unfinished"/>
+        <translation>لا يجب أن تحتوي كلمة المرور على أكثر من 4 علامات زماني يقرأ بنفس الطريقة للأمام والخلف</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation type="unfinished"/>
+        <translation>لا تستخدم كلمات أو مزيجات شائعة ككلمة مرور</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation type="unfinished"/>
+        <translation>يرجى إنشاء كلمة مرور قوية</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation type="unfinished"/>
+        <translation>لا تستوفِ شروط كلمة المرور</translation>
     </message>
 </context>
 <context>
