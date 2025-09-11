@@ -138,12 +138,12 @@
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="107"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation>Uma senha é necessária para conectar-se à &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
+        <translation>Uma senha é necessária para conectar-se a &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="179"/>
         <source>Wrong password, please enter again!</source>
-        <translation>Senha incorreta; digite novamente!</translation>
+        <translation>Senha incorreta, tente novamente!</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="116"/>
@@ -182,77 +182,77 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
         <source>WLAN on</source>
-        <translation type="unfinished"/>
+        <translation>Wi-Fi ativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="126"/>
         <source>WLAN off</source>
-        <translation type="unfinished"/>
+        <translation>Wi-Fi desativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
         <source>Caps Lock on</source>
-        <translation type="unfinished"/>
+        <translation>Caps Lock ativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
         <source>Caps Lock off</source>
-        <translation type="unfinished"/>
+        <translation>Caps Lock desativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
         <source>Numeric keypad on</source>
-        <translation type="unfinished"/>
+        <translation>Teclado numérico ativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="132"/>
         <source>Numeric keypad off</source>
-        <translation type="unfinished"/>
+        <translation>Teclado numérico desativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation type="unfinished"/>
+        <translation>Touchpad ativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation type="unfinished"/>
+        <translation>Touchpad desativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
         <source>Touchpad toggle</source>
-        <translation type="unfinished"/>
+        <translation>Alternar touchpad</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation type="unfinished"/>
+        <translation>Modo avião ativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation type="unfinished"/>
+        <translation>Modo avião desativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
         <source>Mute on</source>
-        <translation type="unfinished"/>
+        <translation>Mudo ativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="144"/>
         <source>Mute off</source>
-        <translation type="unfinished"/>
+        <translation>Mudo desativado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
         <source>Balanced power</source>
-        <translation type="unfinished"/>
+        <translation>Equilibrado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
         <source>Power saver</source>
-        <translation>Economia de Energia</translation>
+        <translation>Economia de energia</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="148"/>
@@ -262,17 +262,17 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="150"/>
         <source>Window effect enabled</source>
-        <translation>Efeito janela ativado</translation>
+        <translation>Efeitos visuais ativados</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="151"/>
         <source>Window effect disabled</source>
-        <translation>Efeito janela desativado</translation>
+        <translation>Efeitos visuais desativados</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="152"/>
         <source>Failed to enable window effects</source>
-        <translation>Falha ao ativar o efeito janela</translation>
+        <translation>Falha ao ativar os efeitos visuais</translation>
     </message>
 </context>
 <context>
@@ -471,7 +471,7 @@
     <message>
         <location filename="../reset-password-dialog/utils.h" line="71"/>
         <source>It cannot be empty</source>
-        <translation>Não pode estar em branco</translation>
+        <translation>Não pode estar vazio</translation>
     </message>
 </context>
 <context>
@@ -496,7 +496,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="156"/>
         <source>Reset Password</source>
-        <translation>Redefinir a senha</translation>
+        <translation>Redefinir senha</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="157"/>
@@ -508,7 +508,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="160"/>
         <source>Reset Password By Union ID</source>
-        <translation>Redefinir a senha com Union ID</translation>
+        <translation>Redefinir senha via Union ID</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="161"/>
@@ -527,12 +527,12 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="168"/>
         <source>Confirm and Reset</source>
-        <translation>Confirmar e Redefinir</translation>
+        <translation>Confirmar e redefinir</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="264"/>
         <source>Successfully reset, please log in and unlock with the new password</source>
-        <translation>Redefinida com sucesso, por favor faça login e desbloqueie com a nova senha</translation>
+        <translation>Redefinido com êxito, faça login e desbloqueie com a nova senha</translation>
     </message>
 </context>
 <context>
@@ -696,7 +696,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="255"/>
         <source>It cannot be empty</source>
-        <translation>Não pode estar em branco</translation>
+        <translation>Não pode estar vazio</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="292"/>
@@ -720,17 +720,17 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="45"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Atualização Bem-sucedida!</translation>
+        <translation>Bem-vindo de volta, o seu sistema foi atualizado com sucesso</translation>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="46"/>
         <source>Current Edition:</source>
-        <translation>Versão:</translation>
+        <translation>Versão atual:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="47"/>
         <source>Enter</source>
-        <translation>Entrar</translation>
+        <translation>Insira</translation>
     </message>
 </context>
 <context>
@@ -771,7 +771,7 @@
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="39"/>
         <source>This application cannot run without window effect</source>
-        <translation>Este aplicativo não pode ser executado sem o efeito janela</translation>
+        <translation>Este aplicativo não pode ser executado sem os efeitos visuais</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="43"/>

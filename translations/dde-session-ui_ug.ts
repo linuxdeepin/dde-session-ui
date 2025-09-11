@@ -177,87 +177,87 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="138"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"/>
+        <translation>Fn ئالماشتۇرۇش</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
         <source>WLAN on</source>
-        <translation type="unfinished"/>
+        <translation>WLAN ئېچىلدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="126"/>
         <source>WLAN off</source>
-        <translation type="unfinished"/>
+        <translation>WLAN تاقالدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
         <source>Caps Lock on</source>
-        <translation type="unfinished"/>
+        <translation>Caps Lock ئوچۇق</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
         <source>Caps Lock off</source>
-        <translation type="unfinished"/>
+        <translation>Caps Lock تاقاق</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
         <source>Numeric keypad on</source>
-        <translation type="unfinished"/>
+        <translation>رەقەم تاختىسى ئېچىلدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="132"/>
         <source>Numeric keypad off</source>
-        <translation type="unfinished"/>
+        <translation>رەقەم تاختىسى تاقالدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation type="unfinished"/>
+        <translation>سېزىمچان تاختا ئېچىلدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation type="unfinished"/>
+        <translation>سېزىمچان تاختا تاقالدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
         <source>Touchpad toggle</source>
-        <translation type="unfinished"/>
+        <translation>سېزىمچان تاختىنى ئالماشتۇرۇش</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation type="unfinished"/>
+        <translation>ئۇچۇش ھالىتى ئېچىلدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation type="unfinished"/>
+        <translation>ئۇچۇش ھالىتى تاقالدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
         <source>Mute on</source>
-        <translation type="unfinished"/>
+        <translation>جىمجىت ھالەت ئېچىلدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="144"/>
         <source>Mute off</source>
-        <translation type="unfinished"/>
+        <translation>جىمجىت ھالەت تاقالدى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
         <source>Balanced power</source>
-        <translation type="unfinished"/>
+        <translation>تەڭپۇڭ ھالەت</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
         <source>Power saver</source>
-        <translation type="unfinished"/>
+        <translation>ئېنېرگىيە تېجەش ھالىتى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="148"/>
         <source>High performance</source>
-        <translation type="unfinished"/>
+        <translation>يۇقىرى ئىقتىدار ھالىتى</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="150"/>
@@ -479,7 +479,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="110"/>
         <source>Resetting the password will clear the data stored in the keyring</source>
-        <translation type="unfinished"/>
+        <translation>پارولنى قايتا بېكىتسىڭىز مەخپىي ئاچقۇچ ھالقىسىدا ساقلانغان سانلىق مەلۇماتلار تازىلىنىدۇ</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="112"/>
@@ -491,7 +491,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="121"/>
         <source>Security Questions</source>
-        <translation type="unfinished"/>
+        <translation>بىخەتەرلىك سوئاللىرى</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="156"/>
@@ -508,7 +508,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="160"/>
         <source>Reset Password By Union ID</source>
-        <translation type="unfinished"/>
+        <translation>Union ID نىڭ پارولىنى قايتا بېكىتىش</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="161"/>
@@ -547,42 +547,42 @@
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="131"/>
         <source>What&apos;s the name of the city where you were born?</source>
-        <translation type="unfinished"/>
+        <translation>سىز تۇغۇلغان شەھەرنىڭ نامى نېمە؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="132"/>
         <source>What&apos;s the name of the first school you attended?</source>
-        <translation type="unfinished"/>
+        <translation>مەكتىپىڭىزنىڭ نامى نېمە؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="133"/>
         <source>Who do you love the most in this world?</source>
-        <translation type="unfinished"/>
+        <translation>سىز كىمنى ئەڭ ياخشى كۆرىسىز؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="134"/>
         <source>What&apos;s your favorite animal?</source>
-        <translation type="unfinished"/>
+        <translation>سىز ئەڭ ياخشى كۆرىدىغان ھايۋان قايسى؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="135"/>
         <source>What&apos;s your favorite song?</source>
-        <translation type="unfinished"/>
+        <translation>سىز ئەڭ ياخشى كۆرىدىغان مۇزىكا قايسى؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="136"/>
         <source>What&apos;s your nickname?</source>
-        <translation type="unfinished"/>
+        <translation>تەخەللۇسىڭىز نېمە؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="186"/>
         <source>Wrong answer</source>
-        <translation type="unfinished"/>
+        <translation>جاۋاب خاتا</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="201"/>
         <source>Keep the answer under 30 characters</source>
-        <translation type="unfinished"/>
+        <translation>جاۋابىڭىز 30 ھەرپتىن ئاز بولسۇن</translation>
     </message>
 </context>
 <context>
@@ -644,12 +644,12 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="89"/>
         <source>Connecting to the Internet...</source>
-        <translation type="unfinished"/>
+        <translation>تور ئۇلىنىۋاتىدۇ...</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="101"/>
         <source>The user account is not linked to Union ID</source>
-        <translation>ھازىرقى  ھېسابات  نومۇرى Union IDغا ئۇلانمىغان </translation>
+        <translation>ھازىرقى  ھېسابات  نومۇرى Union IDغا باغلانمىغان</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="114"/>
@@ -676,12 +676,12 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="241"/>
         <source>Login expired, please sign in to the Union ID again</source>
-        <translation>تىزىملىتىش ۋاقتى ئۆتۈپ كەتكەن , Union ID قايتىدىن تىزىملىتىڭ </translation>
+        <translation>كىرىش ۋاقتى ئۆتۈپ كەتكەن , Union ID قايتا كىرىڭ</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="243"/>
         <source>Network error</source>
-        <translation>تور خاتالىقى </translation>
+        <translation>تور خاتالىقى</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="245"/>

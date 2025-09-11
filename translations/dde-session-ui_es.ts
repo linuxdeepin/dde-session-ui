@@ -177,77 +177,77 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="138"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"/>
+        <translation>Fn conmutador</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
         <source>WLAN on</source>
-        <translation type="unfinished"/>
+        <translation>WLAN encendido</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="126"/>
         <source>WLAN off</source>
-        <translation type="unfinished"/>
+        <translation>WLAN apagado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
         <source>Caps Lock on</source>
-        <translation type="unfinished"/>
+        <translation>Bloqueo de mayúsculas activado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
         <source>Caps Lock off</source>
-        <translation type="unfinished"/>
+        <translation>Bloqueo de mayúsculas desactivado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
         <source>Numeric keypad on</source>
-        <translation type="unfinished"/>
+        <translation>Teclado numérico encendido</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="132"/>
         <source>Numeric keypad off</source>
-        <translation type="unfinished"/>
+        <translation>Teclado numérico apagado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation type="unfinished"/>
+        <translation>Panel táctil encendido</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation type="unfinished"/>
+        <translation>Panel táctil apagado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
         <source>Touchpad toggle</source>
-        <translation type="unfinished"/>
+        <translation>Alternancia del panel táctil</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation type="unfinished"/>
+        <translation>Modo avión activado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation type="unfinished"/>
+        <translation>Modo avión desactivado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
         <source>Mute on</source>
-        <translation type="unfinished"/>
+        <translation>Silencio activado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="144"/>
         <source>Mute off</source>
-        <translation type="unfinished"/>
+        <translation>Silencio desactivado</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
         <source>Balanced power</source>
-        <translation type="unfinished"/>
+        <translation>Potencia equilibrada</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
@@ -286,7 +286,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="65"/>
         <source>The hint is visible to all users. Do not include the password here.</source>
-        <translation>La pista es visible para todos los usuarios. No incluya aquí la contraseña.</translation>
+        <translation>La pista es visible para todos. No incluya la contraseña.</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="86"/>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="128"/>
         <source>Password Hint</source>
-        <translation>Sugerencia de contraseña</translation>
+        <translation>Pista de contraseña</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="137"/>
@@ -377,12 +377,12 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation>La contraseña debe tener al menos%1 caracteres</translation>
+        <translation>La contraseña debe tener al menos %1 caracteres</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>La contraseña no debe tener más de%1 caracteres</translation>
+        <translation>La contraseña no debe tener más de %1 caracteres</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
@@ -392,7 +392,7 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation>No más de %1 caracteres de palíndromo, por favor</translation>
+        <translation>No más de %1 caracteres palíndromos</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
@@ -418,7 +418,7 @@
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>No use palabras y combinaciones simples como contraseña</translation>
+        <translation>No use palabras o combinaciones comunes como contraseña</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
@@ -429,7 +429,7 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation>No cumple con las reglas de la contraseña</translation>
+        <translation>No cumple con las reglas de contraseñas</translation>
     </message>
 </context>
 <context>
@@ -562,17 +562,17 @@
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="134"/>
         <source>What&apos;s your favorite animal?</source>
-        <translation>¿Cuál es tu animal favorito?</translation>
+        <translation>¿Cuál es su animal favorito?</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="135"/>
         <source>What&apos;s your favorite song?</source>
-        <translation>¿Cuál es tu canción favorita?</translation>
+        <translation>¿Cuál es su canción favorita?</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="136"/>
         <source>What&apos;s your nickname?</source>
-        <translation>¿Cuál es tu apodo?</translation>
+        <translation>¿Cuál es su apodo?</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="186"/>
@@ -676,7 +676,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="241"/>
         <source>Login expired, please sign in to the Union ID again</source>
-        <translation>El inicio de sesión ha caducado, por favor, inicie la sesión con el ID de la Unión de nuevo</translation>
+        <translation>El inicio de sesión ha caducado, inicie la sesión nuevamente en Union ID</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="243"/>

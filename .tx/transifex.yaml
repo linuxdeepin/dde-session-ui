@@ -1,0 +1,8 @@
+filters:
+- filter_type: file
+  source_file: translations/dde-session-ui.ts
+  file_format: QT
+  source_language: en
+  translation_files_expression: translations/dde-session-ui_<lang>.ts
+settings:
+  pr_branch_name: transifex_update_<br_unique_id>

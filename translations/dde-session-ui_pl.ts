@@ -27,7 +27,7 @@
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="239"/>
         <source>Yesterday </source>
-        <translation>Wczoraj</translation>
+        <translation>Wczoraj </translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="225"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Kontynuuj, aby otworzyć zakładkę przeglądarki, wymagane jest %1 pamięci</translation>
+        <translation>Kontynuuj, aby otworzyć kartę w przeglądarce, wymagane jest %1 pamięci</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="228"/>
@@ -112,7 +112,7 @@
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="292"/>
         <source>Only on %1</source>
-        <translation>Tylko w %1</translation>
+        <translation>Tylko na %1</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="294"/>
@@ -122,7 +122,7 @@
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="296"/>
         <source>Extend</source>
-        <translation>Rozwiń</translation>
+        <translation>Rozszerz</translation>
     </message>
 </context>
 <context>
@@ -177,7 +177,7 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="138"/>
         <source>Fn toggle</source>
-        <translation>Przełącznik FN</translation>
+        <translation>Przełącznik Fn</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
@@ -212,12 +212,12 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation>Touchpad włączony</translation>
+        <translation>Panel dotykowy włączony</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation>Touchpad wyłączony</translation>
+        <translation>Panel dotykowy wyłączony</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
@@ -317,7 +317,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="221"/>
         <source>Strong</source>
-        <translation>Mocne</translation>
+        <translation>Silne</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="231"/>
@@ -372,7 +372,7 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation>Pole na hasło nie może być puste</translation>
+        <translation>Hasło nie może być puste</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
@@ -382,7 +382,7 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>Hasło nie może zawierać więcej niż %1 znaków</translation>
+        <translation>Hasło nie może przekraczać %1 znaków</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
@@ -508,7 +508,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="160"/>
         <source>Reset Password By Union ID</source>
-        <translation>Zresetuj hasło poprzez Union ID</translation>
+        <translation>Resetuj hasło poprzez Union ID</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="161"/>
@@ -517,7 +517,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="206"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="213"/>
         <source>Reset</source>
-        <translation>Zresetuj</translation>
+        <translation>Resetuj</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="167"/>
@@ -527,7 +527,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="168"/>
         <source>Confirm and Reset</source>
-        <translation>Potwierdź i Uruchom ponownie</translation>
+        <translation>Potwierdź i resetuj</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="264"/>
@@ -654,7 +654,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="114"/>
         <source>Network disconnected, please retry after connected</source>
-        <translation>Sieć jest rozłączona, spróbuj ponownie po podłączeniu</translation>
+        <translation>Brak połączenia z siecią, spróbuj ponownie po podłączeniu</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="134"/>
@@ -720,7 +720,7 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="45"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Witamy, system został pomyślnie zaktualizowany</translation>
+        <translation>Witamy, system został zaktualizowany pomyślnie</translation>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="46"/>
@@ -784,7 +784,7 @@
     <message>
         <location filename="../dde-lowpower/src/window.cpp" line="41"/>
         <source>Low battery, please plug in</source>
-        <translation>Niski stan poziomu baterii, podłącz komputer do zasilania</translation>
+        <translation>Niski poziom baterii, podłącz zasilanie</translation>
     </message>
 </context>
 </TS>

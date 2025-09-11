@@ -725,7 +725,7 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="46"/>
         <source>Current Edition:</source>
-        <translation>Mevcut Sürüm:</translation>
+        <translation>Mevcut Yayın:</translation>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="47"/>

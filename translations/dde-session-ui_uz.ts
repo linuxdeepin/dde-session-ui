@@ -35,12 +35,12 @@
     <message>
         <location filename="../dde-license-dialog/src/content.cpp" line="272"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Bekor qilish</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/src/content.cpp" line="273"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Tasdiqlash</translation>
     </message>
 </context>
 <context>
@@ -49,7 +49,7 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="88"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Bekor qilish</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
@@ -148,7 +148,7 @@
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="116"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Bekor qilish</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="116"/>
@@ -351,12 +351,12 @@
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="49"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Bekor qilish</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="51"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Tasdiqlash</translation>
     </message>
 </context>
 <context>
@@ -486,7 +486,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="168"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="210"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Bekor qilish</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="121"/>
@@ -601,7 +601,7 @@
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="54"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Bekor qilish</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="54"/>
@@ -619,12 +619,12 @@
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="55"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Bekor qilish</translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="56"/>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Tasdiqlash</translation>
     </message>
 </context>
 <context>
