@@ -227,27 +227,27 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation type="unfinished"/>
+        <translation>Mode avion activé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation type="unfinished"/>
+        <translation>Mode avion désactivé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
         <source>Mute on</source>
-        <translation type="unfinished"/>
+        <translation>Activer le mode silencieux</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="144"/>
         <source>Mute off</source>
-        <translation type="unfinished"/>
+        <translation>Désactiver le mode silencieux</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
         <source>Balanced power</source>
-        <translation type="unfinished"/>
+        <translation>Mode d&apos;énergie équilibré</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
