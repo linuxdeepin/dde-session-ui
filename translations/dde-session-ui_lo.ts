@@ -4,7 +4,7 @@
     <message>
         <location filename="../dde-osd/src/notification/bubble.cpp" line="325"/>
         <source>1 new message</source>
-        <translation type="unfinished"/>
+        <translation>1 ຂໍ້ຄວາມໃໝ່</translation>
     </message>
 </context>
 <context>
@@ -372,64 +372,64 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>ລະຫັດຜ່ານບໍ່ສາມາດວ່າງເປົ່າ</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>ລະຫັດຜ່ານຕ້ອງມີຢ່າງຫນ້ອຍ %1 ຕົວອັກສອນ</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>ລະຫັດຜ່ານຕ້ອງບໍ່ເກີນ %1 ຕົວອັກສອນ</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>ລະຫັດຜ່ານສາມາດມີພຽງແຕ່ຕົວອັກສອນພາສາອັງກິດ (ຕົວພິມໃຫຍ່-ຕົວພິມນ້ອຍແຕກຕ່າງກັນ), ຕົວເລກ ຫຼື ສັນຍາລັກພິເສດ (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation type="unfinished"/>
+        <translation>ບໍ່ເກີນ%% 1 ຕົວອັກສອນ palindrome 1 ກະລຸນາ</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation type="unfinished"/>
+        <translation>ບໍ່ເກີນ %1 ຕົວອັກສອນ monotonic</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation type="unfinished"/>
+        <translation>ກະລຸນາບໍ່ເກີນ %1 ຕົວອັກສອນ</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>ລະຫັດຜ່ານຕ້ອງມີຕົວພິມໃຫຍ່, ຕົວພິມນ້ອຍ, ຕົວເລກ ແລະ ສັນຍາລັກ (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation type="unfinished"/>
+        <translation>ລະຫັດຜ່ານຕ້ອງບໍ່ມີຕົວອັກສອນຫຼາຍກ່ວາ 4 palindrome</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation type="unfinished"/>
+        <translation>ຢ່າໃຊ້ຄໍາສັບທີ່ຄ້າຍຄືກັນແລະການປະສົມປະສານກັນເປັນລະຫັດຜ່ານ</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation type="unfinished"/>
+        <translation>ສ້າງລະຫັດລັບທີ່ເຂັ້ມແຂງກະລຸນາ</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation type="unfinished"/>
+        <translation>ມັນບໍ່ໄດ້ຕາມລະຫັດລະຫັດຜ່ານ</translation>
     </message>
 </context>
 <context>
