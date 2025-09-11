@@ -382,54 +382,54 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>Пароль должен содержать не более %1 символов</translation>
+        <translation>Пароль не должен превышать %1 символов</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>Пароль может содержать только английские буквы (с учетом регистра), цифры или специальные символы(~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+        <translation>Пароль может содержать только английские буквы (включая регистр), цифры или специальные символы (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/ )</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation>Слишком много палиндромов: %1</translation>
+        <translation>Пожалуйста, не более %1 полиндромных символов</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation>Слишком много символов по порядку: %1</translation>
+        <translation>Пожалуйста, не более %1 монотонных символов</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation>Слишком много повторяющихся символов: %1</translation>
+        <translation>Пожалуйста, не более %1 повторяющихся символов</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>Пароль должен содержать прописные буквы, строчные буквы, цифры и символы (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+        <translation>Пароль должен содержать заглавные буквы, строчные буквы, цифры и символы (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation>Пароль не должен содержать более 4 символов палиндрома</translation>
+        <translation>Пароль не должен содержать более 4 палиндромных символов</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>Не используйте общие слова и комбинации в качестве пароля</translation>
+        <translation>Не используйте общие слова и комбинации в пароле</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation>Пожалуйста, создайте надежный пароль</translation>
+        <translation>Создайте сильный пароль, пожалуйста</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation>Не соответствует правилам паролей</translation>
+        <translation>Пароль не соответствует правилам</translation>
     </message>
 </context>
 <context>
