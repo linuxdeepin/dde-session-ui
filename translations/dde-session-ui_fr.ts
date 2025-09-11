@@ -177,52 +177,52 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="138"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"/>
+        <translation>Commutateur Fn</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
         <source>WLAN on</source>
-        <translation type="unfinished"/>
+        <translation>Wifi activé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="126"/>
         <source>WLAN off</source>
-        <translation type="unfinished"/>
+        <translation>Wifi désactivé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
         <source>Caps Lock on</source>
-        <translation type="unfinished"/>
+        <translation>Verrouillage majuscules activé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
         <source>Caps Lock off</source>
-        <translation type="unfinished"/>
+        <translation>Verrouillage majuscules désactivé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
         <source>Numeric keypad on</source>
-        <translation type="unfinished"/>
+        <translation>Pavé numérique activé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="132"/>
         <source>Numeric keypad off</source>
-        <translation type="unfinished"/>
+        <translation>Pavé numérique désactivé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation type="unfinished"/>
+        <translation>Pavé tactile activé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation type="unfinished"/>
+        <translation>Pavé tactile désactivé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
         <source>Touchpad toggle</source>
-        <translation type="unfinished"/>
+        <translation>Basculer le pavé tactile</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
