@@ -286,7 +286,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="65"/>
         <source>The hint is visible to all users. Do not include the password here.</source>
-        <translation type="unfinished"/>
+        <translation>Pomôcka je viditeľná pre všetkých používateľov. Heslo sem neuvádzajte.</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="86"/>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="128"/>
         <source>Password Hint</source>
-        <translation type="unfinished"/>
+        <translation>Pomôcka k heslu</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="137"/>
@@ -372,17 +372,17 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>Heslo nemôže byť prázdne.</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>Heslo musí mať aspoň %1 znakov</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>Heslo nesmie obsahovať viac ako %1 znakov</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
@@ -632,14 +632,14 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="63"/>
         <source>Phone/Email</source>
-        <translation type="unfinished"/>
+        <translation>Telefón/Email</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="69"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="136"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="289"/>
         <source>Get Code</source>
-        <translation type="unfinished"/>
+        <translation>Získať kód</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="89"/>
@@ -712,7 +712,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="376"/>
         <source>Wrong verification code</source>
-        <translation type="unfinished"/>
+        <translation>Nesprávny overovací kód</translation>
     </message>
 </context>
 <context>
