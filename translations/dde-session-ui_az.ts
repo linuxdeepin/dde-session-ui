@@ -372,64 +372,64 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation>لا يمكن إدخال كلمة مرور فارغة</translation>
+        <translation>Şifrə boş ola bilməz</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation>يجب أن يحتوي كلمة المرور على الأقل %1 حرف</translation>
+        <translation>Şifrə ən az %1 simvoldan ibarət olmalıdır</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>يجب أن لا يزيد طول كلمة المرور عن %1 حرف</translation>
+        <translation>Şifrə %1 simvoldan böyük olmamalıdır</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>يمكن أن يحتوي كلمة المرور على حروف إنجليزية ( حساسية الحرف كبيرة)، أرقام أو رموز خاصة (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/ )</translation>
+        <translation>Şifrə yalnız İngilis hərfləri (böyük, kiçik hərfə həsas), saylar və ya xüsusi simvollardan (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/) ibarət olmalıdır</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation>الرجاء عدم استخدام أكثر من %1 حرف متوازي</translation>
+        <translation>%1 palondrom simvoldan artıq olmasın</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation>الرجاء عدم استخدام أكثر من %1 حرف متتابع</translation>
+        <translation>%1 monoton simvoldan çox olmasın</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation>الرجاء عدم استخدام أكثر من %1 حرف متكرر</translation>
+        <translation>%1 təkrarlanan simvoldan artıq olmasın</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>يجب أن تحتوي كلمة المرور على حروف كبيرة، حروف صغيرة، أرقام ورموز (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/ )</translation>
+        <translation>Şifrə böyük, kiçik hərflərdən, saylardan və simvollardan (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/) ibarət olmalıdır</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation>لا يجب أن تحتوي كلمة المرور على أكثر من 4 حروف متوازية</translation>
+        <translation>Şifrə 4 simvoldan çox palindromdan ibarət olmamalıdır</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>لا تستخدم كلمات أو مجموعات شائعة ككلمة المرور</translation>
+        <translation>Şifrə olaraq ümumi sözlərdən və söz birləşmələrindən istifadə etməyin</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation>الرجاء إنشاء كلمة مرور قوية</translation>
+        <translation>Lütfən güclü şifrə yaradın</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation>لا تتوافق مع قواعد كلمة المرور</translation>
+        <translation>Bu, şifrə qaydalarına uyğun deyil</translation>
     </message>
 </context>
 <context>
