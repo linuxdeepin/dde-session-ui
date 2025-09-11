@@ -377,59 +377,64 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation>A jelszónak legalább %1 karakterből kell állnia</translation>
+        <translation>A jelszó legalább %1 karakterből állnia kell</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>A jelszó nem lehet hosszabb %1 karakternél</translation>
+        <translation>A jelszó %1 karakternél hosszabb nem lehet</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>A jelszó csak angol betűket (kis- és nagybetűk érzékeny), számokat vagy speciális szimbólumokat tartalmazhat (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+        <translation>A jelszó csak angol betűket (kis- és nagybetűs), számokat vagy speciális karaktereket tartalmazhat ( ~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/ )</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation>Kérjük ne legyen több, mint %1 palindrom karakter</translation>
+        <translation>Kérjük, ne legyen több %1 palindrom betű</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation>Kérjük ne legyen több, mint %1 monoton karakter</translation>
+        <translation>Kérjük, ne legyen több %1 monoton betű</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation>Kérjük ne legyen több, mint %1 ismételt karakter</translation>
+        <translation>Kérjük, ne legyen több %1 ismétlődő betű</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>A jelszónak tartalmaznia kell nagybetűket, kisbetűket, számokat és szimbólumokat (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+        <translation>A jelszó tartalmaznia kell nagybetűket, kisbetűket, számokat és szimbolusokat (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation>A jelszó legfeljebb 4 palindróm karaktert tartalmazhat</translation>
+        <translation>A jelszó nem tartalmazhat több, mint 4 palindromos karaktert
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>Ne használjon jelszóként gyakori szavakat és kombinációkat</translation>
+        <translation>Ne használj négyzetes szavakat és kombinációkat a jelszóként
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation>Kérjük hozzon létre egy erős jelszót</translation>
+        <translation>Kérlek, hozz létre egy erős jelszót
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation>Nem felel meg a jelszavakra vonatkozó szabályoknak</translation>
+        <translation>Nem felel meg a jelszavaz szabályai
+</translation>
     </message>
 </context>
 <context>
