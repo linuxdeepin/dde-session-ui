@@ -372,64 +372,73 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation>O contrasinal non pode estar vacío</translation>
+        <translation>A contrasinal non pode estar en branco</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>A contrasinal debe ter polo menos %1 caracteres</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>O contrasinal non debe ser superior a% 1 caracteres</translation>
+        <translation>A contrasinal non debe ter máis de %1 caracteres</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>A súa contrasinal só pode contén letras en inglés (sensible á cadradeira), números ou símbolos especiais (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation type="unfinished"/>
+        <translation>Non use %1 caracteres palíndromos
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation type="unfinished"/>
+        <translation>Non use %1 caracteres monotónicos
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation type="unfinished"/>
+        <translation>Non use %1 caracteres repetidos
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>A súa contrasinal debe contén letras mayúsculas, minúsculas, números e símbolos (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation>O contrasinal non debe conter máis de 4 caracteres palíndromos</translation>
+        <translation>A súa contrasinal non debe contén máis de 4 caracteres palíndromos
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation type="unfinished"/>
+        <translation>Non use palabras e combinacións comúns como contrasinal
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation type="unfinished"/>
+        <translation>Crea un contrasinal forte, por favor
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation type="unfinished"/>
+        <translation>Non atopase a as regras de contrasinal
+</translation>
     </message>
 </context>
 <context>
