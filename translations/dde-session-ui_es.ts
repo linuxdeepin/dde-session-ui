@@ -527,12 +527,12 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="168"/>
         <source>Confirm and Reset</source>
-        <translation>Confirmar y restaurar</translation>
+        <translation>Confirmar y restablecer</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="264"/>
         <source>Successfully reset, please log in and unlock with the new password</source>
-        <translation>Reinicio exitoso, por favor inicie sesión y desbloquee con la nueva contraseña</translation>
+        <translation>Restablecido exitosamente, por favor inicie sesión y desbloquee con la nueva contraseña</translation>
     </message>
 </context>
 <context>

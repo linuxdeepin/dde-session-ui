@@ -372,64 +372,64 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>Пароль булак болушу мүмкүн эмес</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>Пароль %1 символдан аз болушу мүмкүн эмес</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>Пароль %1 символдан көп болушу мүмкүн эмес</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>Пароль бірнеше міндетті симболдарындағы, сандардың немесе ретінде кішкентай латынша сөздерге (беттілік арқылы көрсетілген) мүнөздірілген. (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/ )</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation type="unfinished"/>
+        <translation>%1 деген санда бірнеше симболдың саралуы бар символдары кіруі мүмкін</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation type="unfinished"/>
+        <translation>%1 деген санда бірнеше жетістік символдары кіруі мүмкін</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation type="unfinished"/>
+        <translation>%1 деген санда бірнеше қайталап қалатын символдары кіруі мүмкін</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>Пароль кішкентай латынша сөздер, кішкентай латынша сөздер, сандар және символдар (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/ ) қандайсыздарды барысында кірілуі мүмкін</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation type="unfinished"/>
+        <translation>Пароль 4 деген санда бірнеше симболдың саралуы бар символдарын барысында кіруі мүмкін емес</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation type="unfinished"/>
+        <translation>Оңтүстік сөздер және комбинацияларды паролы кіруі мүмкін емес</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation type="unfinished"/>
+        <translation>Күчті пароль түзіңіз</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation type="unfinished"/>
+        <translation>Бұл пароль қате</translation>
     </message>
 </context>
 <context>

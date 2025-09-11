@@ -79,7 +79,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="222"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>Continue executando %1; mas é necessário %2MB de memória</translation>
+        <translation>Continue executando %1; mas %2MB de memória é necessário</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="225"/>
@@ -286,17 +286,17 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="65"/>
         <source>The hint is visible to all users. Do not include the password here.</source>
-        <translation>A dica está visível para todos. Não digite senhas aqui.</translation>
+        <translation>A dica é visível para todos os usuários. Não inclua a senha aqui.</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="86"/>
         <source>New Password</source>
-        <translation>Nova Senha</translation>
+        <translation>Nova senha</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="120"/>
         <source>Repeat Password</source>
-        <translation>Repetir Senha</translation>
+        <translation>Repetir senha</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="128"/>
@@ -372,7 +372,7 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation>A senha não pode estar vazia</translation>
+        <translation>A senha não pode ficar em branco</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
@@ -382,27 +382,27 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>A senha não deve ter mais do que %1 caracteres</translation>
+        <translation>A senha deve ter no máximo %1 caracteres</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>A senha pode conter apenas letras em Inglês (sensível a maiúsculas e minúsculas), números ou símbolos especiais (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+        <translation>A senha só pode conter letras do alfabeto inglês (sensível a maiúsculas e minúsculas), números ou símbolos especiais (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation>Não mais do que %1 caracteres palíndromos, por favor</translation>
+        <translation>Não use mais do que %1 caracteres palíndromos</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation>Não mais que %1 caracteres monotônicos, por favor</translation>
+        <translation>Não use mais do que %1 caracteres monotônicos</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation>Não mais do que %1 caracteres repetidos, por favor</translation>
+        <translation>Não use mais do que %1 caracteres repetidos</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
@@ -418,7 +418,7 @@
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>Não utilize palavras comuns e combinações como senha</translation>
+        <translation>Não use palavras ou combinações comuns como senha</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
@@ -471,7 +471,7 @@
     <message>
         <location filename="../reset-password-dialog/utils.h" line="71"/>
         <source>It cannot be empty</source>
-        <translation>Não pode estar vazio</translation>
+        <translation>Não pode ficar em branco</translation>
     </message>
 </context>
 <context>
@@ -532,7 +532,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="264"/>
         <source>Successfully reset, please log in and unlock with the new password</source>
-        <translation>Redefinido com êxito, faça login e desbloqueie com a nova senha</translation>
+        <translation>Redefinido com êxito; faça login e desbloqueie com a nova senha</translation>
     </message>
 </context>
 <context>
@@ -632,7 +632,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="63"/>
         <source>Phone/Email</source>
-        <translation>Telefone/E-mail</translation>
+        <translation>Telefone / E-mail</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="69"/>
@@ -654,7 +654,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="114"/>
         <source>Network disconnected, please retry after connected</source>
-        <translation>Rede desconectada; tente novamente, após conectar-se</translation>
+        <translation>A rede está desconectada. Tente novamente após reconectar-se</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="134"/>
@@ -666,12 +666,12 @@
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="170"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="185"/>
         <source>Phone/Email format is incorrect</source>
-        <translation>O formato do Telefone/E-mail está incorreto</translation>
+        <translation>O formato de telefone/e-mail está incorreto</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="239"/>
         <source>System error</source>
-        <translation>Erro no sistema</translation>
+        <translation>Erro do sistema</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="241"/>
@@ -686,7 +686,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="245"/>
         <source>You have reached the number limit to get the code today</source>
-        <translation>Você atingiu o número limite de solicitações de código hoje</translation>
+        <translation>Você atingiu o limite de solicitações de código para hoje</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="246"/>
@@ -707,7 +707,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="353"/>
         <source>Failed to get the code</source>
-        <translation>Falha ao obter código</translation>
+        <translation>Falha ao obter o código</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="376"/>

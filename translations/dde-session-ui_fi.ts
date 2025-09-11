@@ -346,7 +346,7 @@
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="40"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation>Bluetooth yhdistämiseen tarvittava PIN-koodi on:</translation>
+        <translation>Bluetooth yhteyden pin-koodi on:</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="49"/>

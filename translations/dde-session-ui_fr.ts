@@ -177,77 +177,77 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="138"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"/>
+        <translation>Commutateur Fn</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
         <source>WLAN on</source>
-        <translation type="unfinished"/>
+        <translation>Wifi activé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="126"/>
         <source>WLAN off</source>
-        <translation type="unfinished"/>
+        <translation>Wifi désactivé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
         <source>Caps Lock on</source>
-        <translation type="unfinished"/>
+        <translation>Verrouillage majuscules activé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
         <source>Caps Lock off</source>
-        <translation type="unfinished"/>
+        <translation>Verrouillage majuscules désactivé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
         <source>Numeric keypad on</source>
-        <translation type="unfinished"/>
+        <translation>Pavé numérique activé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="132"/>
         <source>Numeric keypad off</source>
-        <translation type="unfinished"/>
+        <translation>Pavé numérique désactivé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation type="unfinished"/>
+        <translation>Pavé tactile activé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation type="unfinished"/>
+        <translation>Pavé tactile désactivé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
         <source>Touchpad toggle</source>
-        <translation type="unfinished"/>
+        <translation>Basculer le pavé tactile</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation type="unfinished"/>
+        <translation>Mode avion activé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation type="unfinished"/>
+        <translation>Mode avion désactivé</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
         <source>Mute on</source>
-        <translation type="unfinished"/>
+        <translation>Activer le mode silencieux</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="144"/>
         <source>Mute off</source>
-        <translation type="unfinished"/>
+        <translation>Désactiver le mode silencieux</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
         <source>Balanced power</source>
-        <translation type="unfinished"/>
+        <translation>Mode d&apos;énergie équilibré</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
@@ -377,59 +377,59 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation>Le mot de passe doit comporter au moins %1 caractères</translation>
+        <translation>Le mot de passe doit avoir au moins %1 caractères</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>Le mot de passe ne doit pas comporter plus de %1 caractères</translation>
+        <translation>Le mot de passe ne doit pas dépasser %1 caractères</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>Le mot de passe ne peut contenir que des lettres anglaises (sans accents), des chiffres ou des symboles spéciaux (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+        <translation>Le mot de passe ne peut contenir que des lettres anglaises (sensible à la casse), des chiffres ou des symboles spéciaux (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation>Pas plus de %1 caractères palindromes, s&apos;il vous plaît</translation>
+        <translation>Veuillez ne pas utiliser plus de %1 caractères palindromes</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation>Pas plus de %1 caractères monotones, s&apos;il vous plaît</translation>
+        <translation>Veuillez ne pas utiliser plus de %1 caractères monotones</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation>Pas plus de %1 caractères répétés, s&apos;il vous plaît</translation>
+        <translation>Veuillez ne pas utiliser plus de %1 caractères répétés</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>Le mot de passe doit contenir des lettres majuscules, des lettres minuscules, des chiffres et des symboles (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+        <translation>Le mot de passe doit contenir des lettres majuscules, minuscules, des chiffres et des symboles (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation>Le mot de passe ne doit pas contenir plus de 4 caractères palindrome</translation>
+        <translation>Le mot de passe ne doit pas contenir plus de 4 caractères palindromes</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>N&apos;utiliser pas de mots et de combinaisons courants comme mot de passe</translation>
+        <translation>N&apos;utilisez pas des mots ou des combinaisons courants comme mot de passe</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation>Veuillez créer un mot de passe fort, s&apos;il vous plaît</translation>
+        <translation>Veuillez créer un mot de passe fort</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation>Il ne répond pas aux règles de mot de passe</translation>
+        <translation>Il ne correspond pas aux règles de mot de passe</translation>
     </message>
 </context>
 <context>

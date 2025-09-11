@@ -281,7 +281,7 @@
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="57"/>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="146"/>
         <source>Passwords do not match</source>
-        <translation>Fjalëkalimet nuk përputhen</translation>
+        <translation>Fjalëkalimet s’përputhen</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="65"/>
@@ -351,7 +351,7 @@
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="49"/>
         <source>Cancel</source>
-        <translation>Anuloje</translation>
+        <translation>Anulojeni</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="51"/>

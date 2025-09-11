@@ -372,7 +372,7 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation>Geslo ne more biti prazno</translation>
+        <translation>Geslo ni mogoče pustiti praznega</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
@@ -382,54 +382,54 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>Geslo ne sme imeti več kot %1 znakov</translation>
+        <translation>Geslo ne sme biti več kot %1 znakov</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>Geslo lahko vsebuje le angleške črke (razlikuje velike in male), številke ali posebne simbole (~!@#$%^&amp;*()[]{}\|/?,.&lt;&gt;)</translation>
+        <translation> geslo lahko vsebuje le angleške črke (dolgo/kratko različico), številke ali posebne znake (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/ )</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation type="unfinished"/>
+        <translation>Prosim, ne več od %1 palindromskih znakov</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation type="unfinished"/>
+        <translation>Prosim, ne več od %1 monotonnih znakov</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation type="unfinished"/>
+        <translation>Prosim, ne več od %1 ponavljajočih se znakov</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>Geslo mora vsebovati velike črke, ,ajhne črke, številke in simbole  (~!@#$%^&amp;*-+=`|\(){}[]:;&quot;&apos;&lt;&gt;,.?/)</translation>
+        <translation>geslo mora vsebovati velikih črkar, maleh črkar, števil in znakov (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/ )</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation>Geslo ne sme vsebovati več kot 4 palindromne znake</translation>
+        <translation>geslo ne sme vsebovati več od 4 palindromskih znakov</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>Za geslo ne uporabljajte pogostih besed in fraz</translation>
+        <translation>Ne uporabljajte običajnih besed in kombinacij kot gesla</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation>Prosimo, da ustvarite močno geslo</translation>
+        <translation>Prosim, ustvarite močno geslo</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation>Ne ustreza pravilom za geslo</translation>
+        <translation>Nedostaja za uporabo gesla</translation>
     </message>
 </context>
 <context>

@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ar" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="el_GR" sourcelanguage="en">
 <context>
     <name>Bubble</name>
     <message>
@@ -12,22 +12,22 @@
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="232"/>
         <source>Just Now</source>
-        <translation>فقط الآن</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="234"/>
         <source>%1 minutes ago</source>
-        <translation>منذ 1 دقيقة</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="236"/>
         <source>%1 hours ago</source>
-        <translation>منذ 1 ساعة</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="239"/>
         <source>Yesterday </source>
-        <translation>الأمس</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -35,12 +35,12 @@
     <message>
         <location filename="../dde-license-dialog/src/content.cpp" line="272"/>
         <source>Cancel</source>
-        <translation>إلغاء</translation>
+        <translation>Ακύρωση</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/src/content.cpp" line="273"/>
         <source>Confirm</source>
-        <translation>تأكيد</translation>
+        <translation>Επιβεβαίωση</translation>
     </message>
 </context>
 <context>
@@ -49,62 +49,62 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="49"/>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="88"/>
         <source>Cancel</source>
-        <translation>إلغاء</translation>
+        <translation>Ακύρωση</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="51"/>
         <source>Release</source>
-        <translation>إصدار</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="55"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
-        <translation>سيتم إنهاء هذا التطبيق ، يرجى التأكد من حفظ البيانات الخاصة بك!</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="56"/>
         <source>Please save your document, text and spreadsheet</source>
-        <translation>الرجاء حفظ المستندات والنصوص والجدوال الإلكترونية </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="89"/>
         <source>Continue</source>
-        <translation>استمرار</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="110"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
-        <translation>الذاكرة العشوائية للنظام غير كافية ، رجاءً أغلق بعض التطبيقات لتجنب عدم الإستجابة. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="222"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>إستمرار بالتشغيل %1, % 2MB من الذاكرة العشوائية مطلوبة</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="225"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>الإستمرار في فتح تبويب متصفح ، %1MB من الذاكرة العشوائية مطلوب</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="228"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>لإكمال العميلة ، %1MB من الذاكرة العشوائية مطلوب</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="234"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
-        <translation>الذاكرة العشوائية الحالية كافية ، أستمرار بالتشغيل %1؟</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="237"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
-        <translation>الذاكرة العشوائية الحالية كافية ، الإستمرار بفتح تبويب متصفح ؟</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="240"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
-        <translation>الذاكرة العشوائية الحالية كافية ، الإستمرار بالعملية ؟</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -117,12 +117,12 @@
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="294"/>
         <source>Duplicate</source>
-        <translation>مكرر</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="296"/>
         <source>Extend</source>
-        <translation>تمديد</translation>
+        <translation>Επέκταση</translation>
     </message>
 </context>
 <context>
@@ -130,7 +130,7 @@
     <message>
         <location filename="../dde-osd/src/kblayoutindicator.cpp" line="161"/>
         <source>Add keyboard layout</source>
-        <translation>إضافة تخطيط لوحة مفاتيح</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -138,22 +138,22 @@
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="107"/>
         <source>Password required to connect &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt;</source>
-        <translation>يجب تغيير كلمة المرور للإتصال &lt;font color=&quot;%1&quot;&gt;%2&lt;/font&gt; </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="179"/>
         <source>Wrong password, please enter again!</source>
-        <translation>كلمة المرور خاطئة، يرجى إخالها مرة أخرى</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="116"/>
         <source>Cancel</source>
-        <translation>إلغاء</translation>
+        <translation>Ακύρωση</translation>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="116"/>
         <source>Connect</source>
-        <translation>اتصال</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -161,7 +161,7 @@
     <message>
         <location filename="../dde-osd/src/notification-center/notifycenterwidget.cpp" line="97"/>
         <source>Notification Center</source>
-        <translation>مركز اﻹشعارات</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -169,7 +169,7 @@
     <message>
         <location filename="../dde-osd/src/notification-center/notifywidget.cpp" line="40"/>
         <source>No system notifications</source>
-        <translation>لا إشعارات  للنظام</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -252,27 +252,27 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
         <source>Power saver</source>
-        <translation>توفر الطاقة</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="148"/>
         <source>High performance</source>
-        <translation>أداء عالي</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="150"/>
         <source>Window effect enabled</source>
-        <translation>تم تمكين تأثير النافذة</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="151"/>
         <source>Window effect disabled</source>
-        <translation>تم تعطيل تأثير النافذة</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="152"/>
         <source>Failed to enable window effects</source>
-        <translation>تعذر تفعيل تأثيرات النوافذ</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -281,7 +281,7 @@
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="57"/>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="146"/>
         <source>Passwords do not match</source>
-        <translation>كلمتا المرور غير متطابقتان</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="65"/>
@@ -291,12 +291,12 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="86"/>
         <source>New Password</source>
-        <translation>كلمة المرور الجديدة</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="120"/>
         <source>Repeat Password</source>
-        <translation>إعادة كلمة المرور</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="128"/>
@@ -307,12 +307,12 @@
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="137"/>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="138"/>
         <source>Required</source>
-        <translation>مطلوب</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="139"/>
         <source>Optional</source>
-        <translation>اختياري</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="221"/>
@@ -322,7 +322,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="231"/>
         <source>Medium</source>
-        <translation>متوسط</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="240"/>
@@ -333,7 +333,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="244"/>
         <source>Weak</source>
-        <translation>ضعيف</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="255"/>
@@ -346,17 +346,17 @@
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="40"/>
         <source>The PIN for connecting to the Bluetooth device is:</source>
-        <translation>رمز PIN للتوصيل مع جهاز البلوتوث هو:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="49"/>
         <source>Cancel</source>
-        <translation>إلغاء</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="51"/>
         <source>Confirm</source>
-        <translation>تأكيد</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -364,7 +364,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="111"/>
         <source>End</source>
-        <translation>النهاية</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -372,64 +372,64 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation>كلمة المرور لا يمكن أن تكون فارغة</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation>كلمة المرور يجب أن تحتوي على الأقل على %1 حروف</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>كلمة المرور يجب أن لا تزيد عن %1 حروف</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>يمكن أن يحتوي كلمة المرور على حروف الإنجليزية (حساسية الحالة)، الأرقام أو الرموز الخاصة (~`!@#$%^&amp;*()-_+=|{}[]:\&quot;&apos;&lt;&gt;?,./+())</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation>لا تستخدم أكثر من %1 حرف زماني يقرأ بنفس الطريقة للأمام والخلف</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation>لا تستخدم أكثر من %1 حرف متسلسل يقرأ بنفس الطريقة دون تغيير</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation>لا تستخدم رمز مكرر أكثر من %1 مرة</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>يجب أن تحتوي كلمة المرور على حروف م,:, حروف صغرى، أرقام ورموز (~`!@#$%^&amp;*()-_+=|{}[]:\&quot;&apos;&lt;&gt;?,./+())</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation>لا يجب أن تحتوي كلمة المرور على أكثر من 4 علامات زماني يقرأ بنفس الطريقة للأمام والخلف</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>لا تستخدم كلمات أو مزيجات شائعة ككلمة مرور</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation>يرجى إنشاء كلمة مرور قوية</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation>لا تستوفِ شروط كلمة المرور</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -439,34 +439,34 @@
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="49"/>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="59"/>
         <source>Password</source>
-        <translation>كلمة المرور</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="44"/>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="45"/>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="46"/>
         <source>Key</source>
-        <translation>المفتاح</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="47"/>
         <source>key</source>
-        <translation>المفتاح</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="55"/>
         <source>Private Pwd</source>
-        <translation>خاص Pwd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="58"/>
         <source>Proxy Password</source>
-        <translation>كلمة مرور proxy</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dnetwork-secret-dialog/src/networksecretdialog.cpp" line="60"/>
         <source>Group Password</source>
-        <translation>كلمة المرور الجماعية</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/utils.h" line="71"/>
@@ -486,7 +486,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="168"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="210"/>
         <source>Cancel</source>
-        <translation>إلغاء</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="121"/>
@@ -503,7 +503,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="195"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="198"/>
         <source>Next</source>
-        <translation>التالي</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="160"/>
@@ -517,7 +517,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="206"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="213"/>
         <source>Reset</source>
-        <translation>إعادة تعيين</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="167"/>
@@ -542,7 +542,7 @@
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="128"/>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="129"/>
         <source>Required</source>
-        <translation>مطلوب</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="131"/>
@@ -590,24 +590,23 @@
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation>تم العثور علي شاشة خارجية، هل تريد ايقافها؟
-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="39"/>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="65"/>
         <source>%1s</source>
-        <translation>%1 ثانية</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="54"/>
         <source>Cancel</source>
-        <translation>إلغاء</translation>
+        <translation>Ακύρωση</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="54"/>
         <source>Suspend</source>
-        <translation>إسبات</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -615,17 +614,17 @@
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="45"/>
         <source>Select your touch screen</source>
-        <translation>اختر شاشة اللمس الخاصة بك</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="55"/>
         <source>Cancel</source>
-        <translation>إلغاء</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="56"/>
         <source>Confirm</source>
-        <translation>تأكيد</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -655,13 +654,13 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="114"/>
         <source>Network disconnected, please retry after connected</source>
-        <translation>قُطع الاتصال الشبكي، يُرجى إعادة المحاولة بعد إعادة الاتصال.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="134"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="135"/>
         <source>Required</source>
-        <translation>مطلوب</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="170"/>
@@ -721,17 +720,17 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="45"/>
         <source>Welcome, system updated successfully</source>
-        <translation>أهلاً بك, تم تحديث النظام بنجاح</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="46"/>
         <source>Current Edition:</source>
-        <translation>الإصدار الحالي:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="47"/>
         <source>Enter</source>
-        <translation>أُدخل</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -739,27 +738,27 @@
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>وضع التأثيرات</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>الوضع العادي</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>لقد اكتشف النظام أنك تستخدم جهازاً وهمياً ،والذي سوف يؤثر على أداء النظام والتجربة العملية ، لذا للحصول على تجربة سلسة ، من المستحسن تحديد الوضع العادي</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>الوضع المؤثر: أحصل على تجربة سلسة و حساسة. الوضع العادي: أستمتع بأداءه السريع</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>تذكير ودي</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -767,17 +766,17 @@
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="38"/>
         <source>Kindly Reminder</source>
-        <translation>تذكير بلطف</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="39"/>
         <source>This application cannot run without window effect</source>
-        <translation>لا يمكن تشغيل هذا التطبيق دون تأثير النافذة</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="43"/>
         <source>OK</source>
-        <translation>موافق</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -785,7 +784,7 @@
     <message>
         <location filename="../dde-lowpower/src/window.cpp" line="41"/>
         <source>Low battery, please plug in</source>
-        <translation>البطارية منخفضة ، الرجاء وصل الطاقة .</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

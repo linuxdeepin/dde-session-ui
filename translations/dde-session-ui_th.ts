@@ -372,64 +372,64 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>ไม่สามารถใส่รหัสผ่านว่างได้</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>รหัสผ่านต้องมีอย่างน้อย %1 ตัวอักษร</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>รหัสผ่านจะต้องไม่เกิน %1 ตัวอักษร</translation>
+        <translation>รหัสผ่านต้องไม่เกิน %1 ตัวอักษร</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>รหัสผ่านสามารถประกอบได้เฉพาะตัวอักษรภาษาอังกฤษ (ต้องมีการระบุพิมพ์ใหญ่/พิมพ์เล็ก), ตัวเลข หรือ ตัวอักษรพิเศษ (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation type="unfinished"/>
+        <translation>ไม่ควรใช้ตัวอักษรกลับกลอกมากกว่า %1 ตัว</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation type="unfinished"/>
+        <translation>ไม่ควรใช้ตัวอักษรซ้ำๆ มากกว่า %1 ตัว</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation type="unfinished"/>
+        <translation>ไม่ควรใช้ตัวอักษรซ้ำๆ มากกว่า %1 ตัว</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่, พิมพ์เล็ก, ตัวเลข และ ตัวอักษรพิเศษ (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation type="unfinished"/>
+        <translation>รหัสผ่านไม่ควรมีตัวอักษรกลับกลอกมากกว่า 4 ตัว</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation type="unfinished"/>
+        <translation>ไม่ควรใช้คำหรือคำผสมที่พบบ่อยเป็นรหัสผ่าน</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation type="unfinished"/>
+        <translation>สร้างรหัสผ่านที่แข็งแกร่งสักตัว</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation type="unfinished"/>
+        <translation>ไม่ได้รับการกำหนดข้อกำหนดของรหัสผ่าน</translation>
     </message>
 </context>
 <context>

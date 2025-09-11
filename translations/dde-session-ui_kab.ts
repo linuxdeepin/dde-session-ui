@@ -372,17 +372,17 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation>Awal uffir ur ilaq ara ad yili d ilem</translation>
+        <translation>Le mot de passe ne peut pas être vide</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation>Awal uffir ilaq ad yesɛu ma drus %1 yisekkilen</translation>
+        <translation>Le mot de passe doit avoir au moins %1 caractères</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>Awal uffir ur ilaq ara ad iɛeddi nnig n 1% n yisekkilen</translation>
+        <translation>Le mot de passe ne doit pas dépasser %1 caractères</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>

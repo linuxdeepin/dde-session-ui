@@ -372,64 +372,73 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="76"/>
         <source>Password cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>পাসওয়ার্ড খালি থাকতে পারে না</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>পাসওয়ার্ডের কমপক্ষে %1 অক্ষর থাকতে হবে</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>পাসওয়ার্ডের মোট কর্মকর্তার সংখ্যা %1 থেকে বেশি হতে পারে না</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>পাসওয়ার্ডের মধ্যে শুধু কেস সেন্টিটিভ ইংরেজি বাক্যার্টিয়াল, সংখ্যা বা বিশেষ অক্ষর (~/`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation type="unfinished"/>
+        <translation>%1 পলিনড্রোম অক্ষর বেশি নেই
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation type="unfinished"/>
+        <translation>%1 মনোটনিক অক্ষর বেশি নেই
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation type="unfinished"/>
+        <translation>%1 পুনরাবৃত্ত অক্ষর বেশি নেই
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>পাসওয়ার্ডে উচ্চ ক্যাডের বাক্যার্টিয়াল, নিচ্ছ ক্যাডের বাক্যার্টিয়াল, সংখ্যা এবং সিমবলগুলি (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/) থাকতে হবে
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation type="unfinished"/>
+        <translation>পাসওয়ার্ডে 4 টি পলিনড্রোম অক্ষর বেশি থাকতে পারে না
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation type="unfinished"/>
+        <translation>সাধারণ শব্দ বা কোম্বিনেশন পাসওয়ার্ড হিসাবে ব্যবহার করবেন না
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation type="unfinished"/>
+        <translation>অগ্রাধিকারী পাসওয়ার্ড তৈরি করুন
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation type="unfinished"/>
+        <translation>এটি পাসওয়ার্ড নিয়মগুলি সিদ্ধান্ত করে নেই
+</translation>
     </message>
 </context>
 <context>
