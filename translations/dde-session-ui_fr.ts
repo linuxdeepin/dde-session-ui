@@ -377,59 +377,59 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation>Le mot de passe doit comporter au moins %1 caractères</translation>
+        <translation>Le mot de passe doit avoir au moins %1 caractères</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
         <source>Password must be no more than %1 characters</source>
-        <translation>Le mot de passe ne doit pas comporter plus de %1 caractères</translation>
+        <translation>Le mot de passe ne doit pas dépasser %1 caractères</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>Le mot de passe ne peut contenir que des lettres anglaises (sans accents), des chiffres ou des symboles spéciaux (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+        <translation>Le mot de passe ne peut contenir que des lettres anglaises (sensible à la casse), des chiffres ou des symboles spéciaux (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation>Pas plus de %1 caractères palindromes, s&apos;il vous plaît</translation>
+        <translation>Veuillez ne pas utiliser plus de %1 caractères palindromes</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation>Pas plus de %1 caractères monotones, s&apos;il vous plaît</translation>
+        <translation>Veuillez ne pas utiliser plus de %1 caractères monotones</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation>Pas plus de %1 caractères répétés, s&apos;il vous plaît</translation>
+        <translation>Veuillez ne pas utiliser plus de %1 caractères répétés</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation>Le mot de passe doit contenir des lettres majuscules, des lettres minuscules, des chiffres et des symboles (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
+        <translation>Le mot de passe doit contenir des lettres majuscules, minuscules, des chiffres et des symboles (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation>Le mot de passe ne doit pas contenir plus de 4 caractères palindrome</translation>
+        <translation>Le mot de passe ne doit pas contenir plus de 4 caractères palindromes</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation>N&apos;utiliser pas de mots et de combinaisons courants comme mot de passe</translation>
+        <translation>N&apos;utilisez pas des mots ou des combinaisons courants comme mot de passe</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation>Veuillez créer un mot de passe fort, s&apos;il vous plaît</translation>
+        <translation>Veuillez créer un mot de passe fort</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation>Il ne répond pas aux règles de mot de passe</translation>
+        <translation>Il ne correspond pas aux règles de mot de passe</translation>
     </message>
 </context>
 <context>
