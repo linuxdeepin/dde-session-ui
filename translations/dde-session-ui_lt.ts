@@ -4,7 +4,7 @@
     <message>
         <location filename="../dde-osd/src/notification/bubble.cpp" line="325"/>
         <source>1 new message</source>
-        <translation type="unfinished"/>
+        <translation>1 nauja žinutė</translation>
     </message>
 </context>
 <context>
@@ -377,7 +377,7 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="77"/>
         <source>Password must have at least %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>Slaptažodis turi tapti bent %1 simboliais</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="78"/>
@@ -387,49 +387,58 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="79"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>Slaptažodžius galima naudoti tik anglų kalbos raidės (didžiosios ir mažosios raidės skirtimos), skaičiai ar specialūs simboliai (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation type="unfinished"/>
+        <translation>Neturi būti daugiau nei %1 simbolių, kurie atspindi savęs (palindromas)
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="81"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation type="unfinished"/>
+        <translation>Neturi būti daugiau nei %1 sesinės raidės (monotonios raidės)
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="82"/>
         <source>No more than %1 repeating characters please</source>
-        <translation type="unfinished"/>
+        <translation>Neturi būti daugiau nei %1 atitinkančių raidžių (atsakomų raidžių)
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="87"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>Slaptažodžius turi turėti didžiosios ir mažosios raides, skaičius ir specialūs simboliai (~`!@#$%^&amp;*()-_+=|{}[]:&quot;&apos;&lt;&gt;,.?/)
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="88"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation type="unfinished"/>
+        <translation>Slaptažodžiuos galima naudoti net daugiau nei 4 simbolių, kurie atspindi savęs (palindromas)
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="89"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="92"/>
         <source>Do not use common words and combinations as password</source>
-        <translation type="unfinished"/>
+        <translation>Ne naudokite įprastų žodžių arba kombinacijų kaip slaptažodį
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="90"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="91"/>
         <source>Create a strong password please</source>
-        <translation type="unfinished"/>
+        <translation>Sukurkite gerą slaptažodį
+</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="97"/>
         <source>It does not meet password rules</source>
-        <translation type="unfinished"/>
+        <translation>Slaptažodis neatitinka slaptažodžio taisyklių
+</translation>
     </message>
 </context>
 <context>
@@ -644,7 +653,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="89"/>
         <source>Connecting to the Internet...</source>
-        <translation type="unfinished"/>
+        <translation>Jungiamasi prie interneto...</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="101"/>
@@ -671,7 +680,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="239"/>
         <source>System error</source>
-        <translation type="unfinished"/>
+        <translation>Sistemos klaida</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="241"/>
@@ -681,7 +690,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="243"/>
         <source>Network error</source>
-        <translation type="unfinished"/>
+        <translation>Tinklo klaida</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="245"/>
@@ -702,12 +711,12 @@
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="292"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="334"/>
         <source>Resend (%1s)</source>
-        <translation type="unfinished"/>
+        <translation>Siųsti iš naujo (%1s)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="353"/>
         <source>Failed to get the code</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko gauti kodo</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="376"/>
