@@ -590,7 +590,7 @@
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="39"/>
         <source>External monitor detected, suspend?</source>
-        <translation>Zjištěn externí monitor – uspat?</translation>
+        <translation>Zjištěn externí monitor – přesto uspat?</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="39"/>
@@ -644,7 +644,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="89"/>
         <source>Connecting to the Internet...</source>
-        <translation>Připojuje se k internetu…</translation>
+        <translation>Připojování k Internetu…</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="101"/>
