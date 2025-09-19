@@ -312,7 +312,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="139"/>
         <source>Optional</source>
-        <translation>Необязательный</translation>
+        <translation>Необязательно</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="221"/>
