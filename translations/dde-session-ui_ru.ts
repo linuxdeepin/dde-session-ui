@@ -212,12 +212,12 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation>Тачпад включен</translation>
+        <translation>Тачпад вкл.</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation>Тачпад отключен</translation>
+        <translation>Тачпад выкл.</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
@@ -614,7 +614,7 @@
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="45"/>
         <source>Select your touch screen</source>
-        <translation>Выберите Ваш Сенсорный экран</translation>
+        <translation>Выберите ваш тачскрин</translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="55"/>
