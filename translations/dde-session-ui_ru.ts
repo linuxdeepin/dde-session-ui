@@ -84,12 +84,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="225"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Для продолжения открытия вкладок браузера требуется %1 памяти</translation>
+        <translation>Для продолжения открытия вкладок браузера требуется %1MB памяти</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="228"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>Для продолжения действия требуется %1 памяти</translation>
+        <translation>Для продолжения действия требуется %1MB памяти</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="234"/>
@@ -307,7 +307,7 @@
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="137"/>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="138"/>
         <source>Required</source>
-        <translation>Требуется</translation>
+        <translation>Необходимо</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="139"/>
@@ -542,7 +542,7 @@
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="128"/>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="129"/>
         <source>Required</source>
-        <translation>Требуется</translation>
+        <translation>Необходимо</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="131"/>
@@ -660,7 +660,7 @@
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="134"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="135"/>
         <source>Required</source>
-        <translation>Требуется</translation>
+        <translation>Необходимо</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="170"/>
