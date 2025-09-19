@@ -748,12 +748,12 @@
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>Было обнаружено, что вы используете виртуальную машину, которая будет влиять на производительность системы и ощущения от работы. Для плавной работы рекомендован Нормальный Режим</translation>
+        <translation>Было обнаружено, что вы используете виртуальную машину, которая будет влиять на производительность системы и ощущения от работы. Для плавной работы рекомендован нормальный режим</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Режим Эффектов: Испытайте полноту ощущений. Нормальный Режим: наслаждайтесь быстродействием</translation>
+        <translation>Режим эффектов: испытайте полноту ощущений. Нормальный режим: наслаждайтесь быстродействием</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="64"/>
