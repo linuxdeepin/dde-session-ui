@@ -725,7 +725,7 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="46"/>
         <source>Current Edition:</source>
-        <translation>Текущая Версия</translation>
+        <translation>Текущая версия</translation>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="47"/>
@@ -738,12 +738,12 @@
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>Режим Эффектов</translation>
+        <translation>Режим эффектов</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>Нормальный Режим</translation>
+        <translation>Нормальный режим</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="68"/>
@@ -758,7 +758,7 @@
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>Вежливое Напоминание</translation>
+        <translation>Вежливое напоминание</translation>
     </message>
 </context>
 <context>
@@ -766,7 +766,7 @@
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="38"/>
         <source>Kindly Reminder</source>
-        <translation>Вежливое Напоминание</translation>
+        <translation>Вежливое напоминание</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="39"/>
