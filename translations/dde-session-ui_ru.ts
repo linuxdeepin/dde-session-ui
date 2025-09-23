@@ -17,12 +17,12 @@
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="234"/>
         <source>%1 minutes ago</source>
-        <translation>%1 минут тому назад</translation>
+        <translation>%1 мин. назад</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="236"/>
         <source>%1 hours ago</source>
-        <translation>%1 часов тому назад</translation>
+        <translation>%1 ч. назад</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="239"/>
@@ -227,12 +227,12 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation>Режим в самолете включен</translation>
+        <translation>Режим полета вкл.</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation>Режим в самолете отключен</translation>
+        <translation>Режим полета выкл.</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
@@ -596,7 +596,7 @@
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="39"/>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="65"/>
         <source>%1s</source>
-        <translation>%1s</translation>
+        <translation>%1 с.</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="54"/>
