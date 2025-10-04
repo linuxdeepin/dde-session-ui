@@ -471,7 +471,7 @@
     <message>
         <location filename="../reset-password-dialog/utils.h" line="71"/>
         <source>It cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>空白にすることはできません</translation>
     </message>
 </context>
 <context>
