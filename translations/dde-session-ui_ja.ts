@@ -286,7 +286,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="65"/>
         <source>The hint is visible to all users. Do not include the password here.</source>
-        <translation type="unfinished"/>
+        <translation>ヒントはすべてのユーザーに表示されます。ヒントにパスワードを含めないでください。</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="86"/>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="128"/>
         <source>Password Hint</source>
-        <translation type="unfinished"/>
+        <translation>パスワードのヒント</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="137"/>
@@ -317,12 +317,12 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="221"/>
         <source>Strong</source>
-        <translation type="unfinished"/>
+        <translation>強い</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="231"/>
         <source>Medium</source>
-        <translation>中</translation>
+        <translation>中程度</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="240"/>
