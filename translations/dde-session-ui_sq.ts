@@ -182,22 +182,22 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
         <source>WLAN on</source>
-        <translation>WLAN hapur</translation>
+        <translation>WLAN i hapur</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="126"/>
         <source>WLAN off</source>
-        <translation>WLAN mbyllur</translation>
+        <translation>WLAN i mbyllur</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
         <source>Caps Lock on</source>
-        <translation>Shkronja të mëdha aktive</translation>
+        <translation>Caps Lock aktiv</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
         <source>Caps Lock off</source>
-        <translation>Shkronja të vogla joaktive</translation>
+        <translation>Caps Lock joaktiv</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
