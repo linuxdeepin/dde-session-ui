@@ -112,7 +112,7 @@
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="292"/>
         <source>Only on %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 のみ</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/displaymodeprovider.cpp" line="294"/>
@@ -177,77 +177,77 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="138"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"/>
+        <translation>Fn トグル</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
         <source>WLAN on</source>
-        <translation type="unfinished"/>
+        <translation>無線LAN ON</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="126"/>
         <source>WLAN off</source>
-        <translation type="unfinished"/>
+        <translation>無線LAN OFF</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
         <source>Caps Lock on</source>
-        <translation type="unfinished"/>
+        <translation>Caps Lock ON</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
         <source>Caps Lock off</source>
-        <translation type="unfinished"/>
+        <translation>Caps Lock OFF</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
         <source>Numeric keypad on</source>
-        <translation type="unfinished"/>
+        <translation>テンキー ON</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="132"/>
         <source>Numeric keypad off</source>
-        <translation type="unfinished"/>
+        <translation>テンキー OFF</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation type="unfinished"/>
+        <translation>タッチパッド ON</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation type="unfinished"/>
+        <translation>タッチパッド OFF</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
         <source>Touchpad toggle</source>
-        <translation type="unfinished"/>
+        <translation>タッチパッド トグル</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation type="unfinished"/>
+        <translation>機内モード ON</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation type="unfinished"/>
+        <translation>機内モードOFF</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
         <source>Mute on</source>
-        <translation type="unfinished"/>
+        <translation>ミュート ON</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="144"/>
         <source>Mute off</source>
-        <translation type="unfinished"/>
+        <translation>ミュート OFF</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
         <source>Balanced power</source>
-        <translation type="unfinished"/>
+        <translation>バランス</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
@@ -286,7 +286,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="65"/>
         <source>The hint is visible to all users. Do not include the password here.</source>
-        <translation type="unfinished"/>
+        <translation>ヒントはすべてのユーザーに表示されます。ヒントにパスワードを含めないでください。</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="86"/>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="128"/>
         <source>Password Hint</source>
-        <translation type="unfinished"/>
+        <translation>パスワードのヒント</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="137"/>
@@ -317,12 +317,12 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="221"/>
         <source>Strong</source>
-        <translation type="unfinished"/>
+        <translation>強い</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="231"/>
         <source>Medium</source>
-        <translation>中</translation>
+        <translation>中程度</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="240"/>
@@ -471,7 +471,7 @@
     <message>
         <location filename="../reset-password-dialog/utils.h" line="71"/>
         <source>It cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>空白にすることはできません</translation>
     </message>
 </context>
 <context>
