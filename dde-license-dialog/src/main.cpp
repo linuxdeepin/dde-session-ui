@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
     QCommandLineOption encontent(QStringList() << "e" << "english content", "Parm:string type \n Action:Show content in English  \n Notice:Set absolute path of document you want to show");
     QCommandLineOption hidebottom(QStringList() << "d" << "hide bottom", "Parm:string type  \n Action:Show bottom if param set \"yes\"  \n Notice:Bottom include allow checkbox,confirm button,cancel bottom");
     QCommandLineOption theme(QStringList() << "p" << "palette", "Parm:string type \n Action:Set application theme \n Values: light, dark, auto (default: follow system)");
+    QCommandLineOption titlebaricon(QStringList() << "i" << "icon-name", "Parm:string type \n Action:Show custom titlebar (left icon + close button) with given icon name");
 
     title.setValueName("TitleName");
     entitle.setValueName("EnTitleName");
@@ -48,6 +49,7 @@ int main(int argc, char *argv[])
     encontent.setValueName("EnContent");
     hidebottom.setValueName("hidebottom");
     theme.setValueName("PaletteType");
+    titlebaricon.setValueName("IconName");
 
     QCommandLineParser parser;
     parser.addHelpOption();
@@ -59,6 +61,7 @@ int main(int argc, char *argv[])
     parser.addOption(encontent);
     parser.addOption(hidebottom);
     parser.addOption(theme);
+    parser.addOption(titlebaricon);
     parser.process(a);
 
     if (parser.isSet(theme)) {
@@ -102,6 +105,10 @@ int main(int argc, char *argv[])
 
     if (parser.isSet(hidebottom)) {
         w.setHideBottom(parser.value(hidebottom));
+    }
+
+    if (parser.isSet(titlebaricon)) {
+        w.setTitlebarIcon(parser.value(titlebaricon));
     }
 
     w.updateLocaleSource();

@@ -7,6 +7,7 @@
 #include <DApplication>
 #include <DSuggestButton>
 #include <DFontSizeManager>
+#include <DPalette>
 
 #include <QScrollArea>
 #include <QPushButton>
@@ -30,7 +31,7 @@ Content::Content(QWidget *parent)
     , m_scrollArea(new QScrollArea)
     , m_acceptCheck(new QCheckBox)
     , m_cancelBtn(new QPushButton)
-    , m_acceptBtn(new DSuggestButton)
+    , m_acceptBtn(new QPushButton)
     , m_source(new QLabel)
     , m_languageBtn(new DButtonBox)
     , m_isCn(false)
@@ -80,8 +81,12 @@ Content::Content(QWidget *parent)
     sourceWidget->setLayout(sourceLayout);
     sourceLayout->addWidget(m_source);
 
-    m_cancelBtn->setFixedSize(90, 36);
-    m_acceptBtn->setFixedSize(90, 36);
+    m_cancelBtn->setFixedHeight(36);
+    m_acceptBtn->setFixedHeight(36);
+
+    DPalette pa = m_acceptBtn->palette();
+    pa.setColor(QPalette::ButtonText, pa.highlight().color());
+    m_acceptBtn->setPalette(pa);
 
     m_source->setTextFormat(Qt::MarkdownText);
     m_source->setWordWrap(true);
@@ -91,19 +96,24 @@ Content::Content(QWidget *parent)
 
     m_scrollArea->setWidget(sourceWidget);
 
-    QHBoxLayout *bottomLayout = new QHBoxLayout;
-    bottomLayout->setContentsMargins(0, 0, 0, 0);
-    bottomLayout->setSpacing(0);
-    bottomLayout->addSpacing(10);
-    bottomLayout->addWidget(m_acceptCheck, 0, Qt::AlignVCenter);
-    bottomLayout->addStretch();
-    bottomLayout->addWidget(m_cancelBtn, 0, Qt::AlignVCenter);
-    bottomLayout->addSpacing(10);
-    bottomLayout->addWidget(m_acceptBtn, 0, Qt::AlignVCenter);
-    bottomLayout->addSpacing(10);
+    QVBoxLayout *bottomLayout = new QVBoxLayout;
+    bottomLayout->setContentsMargins(0, 0, 0, 6);
+    bottomLayout->setSpacing(10);
+    bottomLayout->addWidget(m_acceptCheck, 0, Qt::AlignHCenter);
+
+    QHBoxLayout *buttonRow = new QHBoxLayout;
+    buttonRow->setContentsMargins(6, 0, 6, 0);
+    buttonRow->setSpacing(6);
+
+    m_cancelBtn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_acceptBtn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    buttonRow->addWidget(m_cancelBtn, 1);
+    buttonRow->addWidget(m_acceptBtn, 1);
+
+    bottomLayout->addLayout(buttonRow);
 
     m_bottom = new QWidget(this);
-    m_bottom->setFixedHeight(65);
     m_bottom->setLayout(bottomLayout);
     m_bottom->setAccessibleName("ContentBottomWidget");
 
@@ -162,9 +172,9 @@ void Content::setHideBottom(const bool &status)
 
 int Content::calWidgetWidth()
 {
-    QPainter p(m_acceptCheck);
-    QFontMetrics fm = p.fontMetrics();
-    int width = fm.horizontalAdvance(m_enallow) + m_acceptBtn->width() * 2 + 40;
+    const int cancelMin = qMax(m_cancelBtn->minimumSizeHint().width(), m_cancelBtn->minimumWidth());
+    const int acceptMin = qMax(m_acceptBtn->minimumSizeHint().width(), m_acceptBtn->minimumWidth());
+    const int width = 6 + cancelMin + 6 + acceptMin + 6;
     return width;
 }
 

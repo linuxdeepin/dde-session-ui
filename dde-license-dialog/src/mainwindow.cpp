@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QApplication>
+#include <QIcon>
 
 #include <DFontSizeManager>
 DTK_USE_NAMESPACE
@@ -46,7 +47,6 @@ MainWindow::MainWindow(QWidget *parent)
     QHBoxLayout *titlelayout = new QHBoxLayout;
     titlelayout->setContentsMargins(0, 0, 0, 0);
     titlelayout->addWidget(m_title);
-    titlelayout->addWidget(btnclose, Qt::AlignRight);
     widget->setLayout(titlelayout);
     //m_title->setAlignment(Qt::AlignCenter);
     m_title->setStyleSheet(QString("qproperty-alignment: 'AlignBottom | AlignCenter'"));
@@ -63,6 +63,16 @@ MainWindow::MainWindow(QWidget *parent)
     setLayout(layout);
     setFixedWidth(windowFixedWidth);
 
+    m_leftIconBtn = new DIconButton(this);
+    m_leftIconBtn->setAccessibleName("TopLeftIconBtn");
+    m_leftIconBtn->setFlat(true);
+    m_leftIconBtn->setFocusPolicy(Qt::NoFocus);
+    m_leftIconBtn->setFixedSize(30, 30);
+    m_leftIconBtn->setIconSize(QSize(30, 30));
+    m_leftIconBtn->move(10, 10);
+    m_leftIconBtn->setVisible(false);
+    m_leftIconBtn->raise();
+
     connect(m_content, &Content::sourceChanged, this, [ = ](bool isCn) {
         if (isCn) {
             m_title->setText(m_cnTitle);
@@ -77,6 +87,31 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    DAbstractDialog::resizeEvent(event);
+    if (btnclose) {
+        const QSize sz = btnclose->sizeHint();
+        btnclose->move(width() - sz.width(), 0);
+        btnclose->raise();
+    }
+    if (m_leftIconBtn) {
+        m_leftIconBtn->raise();
+    }
+}
+
+void MainWindow::setTitlebarIcon(const QString &iconName)
+{
+    if (!iconName.isEmpty()) {
+        m_leftIconBtn->setIcon(QIcon::fromTheme(iconName));
+        m_leftIconBtn->setVisible(true);
+        btnclose->setVisible(true);
+        connect(btnclose, &DIconButton::clicked, this, [ = ] {
+            qApp->exit(-1);
+        });
+    }
 }
 
 MainWindow::~MainWindow()
