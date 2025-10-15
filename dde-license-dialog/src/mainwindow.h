@@ -29,6 +29,10 @@ public:
     void setEnSource(const QString& source);
     void updateLocaleSource();
     void setHideBottom(const QString& param);
+    void setTitlebarIcon(const QString& iconName);
+
+protected:
+    void resizeEvent(QResizeEvent *event) override;
 
 private:
     QLabel* m_title;
@@ -38,6 +42,7 @@ private:
     QString m_enTitle;
 
     DIconButton *btnclose;
+    DIconButton *m_leftIconBtn;
     const int windowFixedWidth = 520;
 };
 

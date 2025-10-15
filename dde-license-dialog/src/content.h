@@ -49,7 +49,7 @@ private:
     QScrollArea* m_scrollArea;
     QCheckBox* m_acceptCheck;
     QPushButton* m_cancelBtn;
-    DTK_WIDGET_NAMESPACE::DSuggestButton* m_acceptBtn;
+    QPushButton* m_acceptBtn;
     QLabel* m_source;
     DTK_WIDGET_NAMESPACE::DButtonBox* m_languageBtn;
     bool m_isCn;
