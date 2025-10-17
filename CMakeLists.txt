@@ -87,8 +87,8 @@ add_subdirectory("dde-blackwidget")
 
 # FIXME: startmanager is removed, so it need to be updated
 # add_subdirectory("dmemory-warning-dialog")
-
-add_subdirectory("dnetwork-secret-dialog")
+# FIXME: move to dde-network-core
+# add_subdirectory("dnetwork-secret-dialog")
 
 # TODO: 需要break旧版本的控制中心
 add_subdirectory("reset-password-dialog")

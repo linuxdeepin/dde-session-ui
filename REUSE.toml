@@ -58,7 +58,7 @@ SPDX-FileCopyrightText = "None"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
-path = [".clog.toml", ".packit.yaml", ".gitignore", ".project", ".tx/**.conf", ".tx/config"]
+path = [".clog.toml", ".packit.yaml", ".gitignore", ".project", ".tx/**.conf", ".tx/config", ".tx/*.yaml"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "None"
 SPDX-License-Identifier = "CC0-1.0"
