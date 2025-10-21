@@ -17,12 +17,12 @@
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="234"/>
         <source>%1 minutes ago</source>
-        <translation>%1 минут тому назад</translation>
+        <translation>%1 мин. назад</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="236"/>
         <source>%1 hours ago</source>
-        <translation>%1 часов тому назад</translation>
+        <translation>%1 ч. назад</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="239"/>
@@ -84,12 +84,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="225"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Для продолжения открытия вкладок браузера требуется %1 памяти</translation>
+        <translation>Для продолжения открытия вкладок браузера требуется %1MB памяти</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="228"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>Для продолжения действия требуется %1 памяти</translation>
+        <translation>Для продолжения действия требуется %1MB памяти</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="234"/>
@@ -212,12 +212,12 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation>Тачпад включен</translation>
+        <translation>Тачпад вкл.</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation>Тачпад отключен</translation>
+        <translation>Тачпад выкл.</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
@@ -227,12 +227,12 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation>Режим в самолете включен</translation>
+        <translation>Режим полета вкл.</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation>Режим в самолете отключен</translation>
+        <translation>Режим полета выкл.</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
@@ -307,12 +307,12 @@
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="137"/>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="138"/>
         <source>Required</source>
-        <translation>Требуется</translation>
+        <translation>Необходимо</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="139"/>
         <source>Optional</source>
-        <translation>Необязательный</translation>
+        <translation>Необязательно</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="221"/>
@@ -542,7 +542,7 @@
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="128"/>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="129"/>
         <source>Required</source>
-        <translation>Требуется</translation>
+        <translation>Необходимо</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="131"/>
@@ -596,7 +596,7 @@
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="39"/>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="65"/>
         <source>%1s</source>
-        <translation>%1s</translation>
+        <translation>%1 с.</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="54"/>
@@ -614,7 +614,7 @@
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="45"/>
         <source>Select your touch screen</source>
-        <translation>Выберите Ваш Сенсорный экран</translation>
+        <translation>Выберите ваш тачскрин</translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="55"/>
@@ -660,7 +660,7 @@
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="134"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="135"/>
         <source>Required</source>
-        <translation>Требуется</translation>
+        <translation>Необходимо</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="170"/>
@@ -725,7 +725,7 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="46"/>
         <source>Current Edition:</source>
-        <translation>Текущая Версия</translation>
+        <translation>Текущая версия</translation>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="47"/>
@@ -738,27 +738,27 @@
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="57"/>
         <source>Effect Mode</source>
-        <translation>Режим Эффектов</translation>
+        <translation>Режим эффектов</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="60"/>
         <source>Normal Mode</source>
-        <translation>Нормальный Режим</translation>
+        <translation>Нормальный режим</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="68"/>
         <source>It has detected that you are using a virtual machine, which will affect the system performance and operation experience, for a smooth experience, Normal Mode is recommended</source>
-        <translation>Было обнаружено, что вы используете виртуальную машину, которая будет влиять на производительность системы и ощущения от работы. Для плавной работы рекомендован Нормальный Режим</translation>
+        <translation>Было обнаружено, что вы используете виртуальную машину, которая будет влиять на производительность системы и ощущения от работы. Для плавной работы рекомендован нормальный режим</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="71"/>
         <source>Effect Mode: Have a delicate experience. Normal Mode: Enjoy the fast performance</source>
-        <translation>Режим Эффектов: Испытайте полноту ощущений. Нормальный Режим: наслаждайтесь быстродействием</translation>
+        <translation>Режим эффектов: испытайте полноту ощущений. Нормальный режим: наслаждайтесь быстродействием</translation>
     </message>
     <message>
         <location filename="../dde-wm-chooser/src/wmchooser.cpp" line="64"/>
         <source>Friendly Reminder</source>
-        <translation>Вежливое Напоминание</translation>
+        <translation>Вежливое напоминание</translation>
     </message>
 </context>
 <context>
@@ -766,7 +766,7 @@
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="38"/>
         <source>Kindly Reminder</source>
-        <translation>Вежливое Напоминание</translation>
+        <translation>Вежливое напоминание</translation>
     </message>
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="39"/>
