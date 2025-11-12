@@ -649,7 +649,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="101"/>
         <source>The user account is not linked to Union ID</source>
-        <translation type="unfinished"/>
+        <translation>このユーザーアカウントはUnion IDにリンクされていません</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="114"/>
@@ -666,12 +666,12 @@
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="170"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="185"/>
         <source>Phone/Email format is incorrect</source>
-        <translation type="unfinished"/>
+        <translation>電話番号/メールアドレスの形式が正しくありません</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="239"/>
         <source>System error</source>
-        <translation type="unfinished"/>
+        <translation>システムエラーです</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="241"/>
