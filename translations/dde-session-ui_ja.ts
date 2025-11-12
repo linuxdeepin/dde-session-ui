@@ -632,14 +632,14 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="63"/>
         <source>Phone/Email</source>
-        <translation type="unfinished"/>
+        <translation>電話番号/メールアドレス</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="69"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="136"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="289"/>
         <source>Get Code</source>
-        <translation type="unfinished"/>
+        <translation>コードを取得</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="89"/>
@@ -707,7 +707,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="353"/>
         <source>Failed to get the code</source>
-        <translation type="unfinished"/>
+        <translation>コードを取得できませんでした</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="376"/>
