@@ -644,7 +644,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="89"/>
         <source>Connecting to the Internet...</source>
-        <translation type="unfinished"/>
+        <translation>インターネットに接続しています...</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="101"/>
@@ -712,7 +712,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="376"/>
         <source>Wrong verification code</source>
-        <translation type="unfinished"/>
+        <translation>認証コードが違います</translation>
     </message>
 </context>
 <context>
