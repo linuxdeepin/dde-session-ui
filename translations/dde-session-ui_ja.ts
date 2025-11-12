@@ -491,7 +491,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="121"/>
         <source>Security Questions</source>
-        <translation type="unfinished"/>
+        <translation>秘密の質問</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="156"/>
@@ -508,7 +508,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="160"/>
         <source>Reset Password By Union ID</source>
-        <translation type="unfinished"/>
+        <translation>Union IDでパスワードをリセット</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="161"/>
