@@ -676,12 +676,12 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="241"/>
         <source>Login expired, please sign in to the Union ID again</source>
-        <translation type="unfinished"/>
+        <translation>ログインの有効期限が切れました。もう一度Union IDにサインインしてください。</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="243"/>
         <source>Network error</source>
-        <translation type="unfinished"/>
+        <translation>ネットワークエラーです</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="245"/>
