@@ -686,12 +686,12 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="245"/>
         <source>You have reached the number limit to get the code today</source>
-        <translation type="unfinished"/>
+        <translation>本日発行できるコード数の上限に達しました。</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="246"/>
         <source>The Union ID is not linked to a user account</source>
-        <translation type="unfinished"/>
+        <translation>このUnion IDはユーザーアカウントにリンクされていません</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="255"/>
