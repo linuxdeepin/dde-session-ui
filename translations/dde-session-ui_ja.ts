@@ -696,13 +696,13 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="255"/>
         <source>It cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>この欄を空白にすることはできません</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="292"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="334"/>
         <source>Resend (%1s)</source>
-        <translation type="unfinished"/>
+        <translation>再送信 (%1 秒)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="353"/>
@@ -784,7 +784,7 @@
     <message>
         <location filename="../dde-lowpower/src/window.cpp" line="41"/>
         <source>Low battery, please plug in</source>
-        <translation>バッテリが少なくなっています、電源に接続してください</translation>
+        <translation>バッテリ残量が少なくなりました。電源に接続してください</translation>
     </message>
 </context>
 </TS>
