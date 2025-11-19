@@ -491,7 +491,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="121"/>
         <source>Security Questions</source>
-        <translation type="unfinished"/>
+        <translation>秘密の質問</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="156"/>
@@ -508,7 +508,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="160"/>
         <source>Reset Password By Union ID</source>
-        <translation type="unfinished"/>
+        <translation>Union IDでパスワードをリセット</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="161"/>
@@ -632,24 +632,24 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="63"/>
         <source>Phone/Email</source>
-        <translation type="unfinished"/>
+        <translation>電話番号/メールアドレス</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="69"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="136"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="289"/>
         <source>Get Code</source>
-        <translation type="unfinished"/>
+        <translation>コードを取得</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="89"/>
         <source>Connecting to the Internet...</source>
-        <translation type="unfinished"/>
+        <translation>インターネットに接続しています...</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="101"/>
         <source>The user account is not linked to Union ID</source>
-        <translation type="unfinished"/>
+        <translation>このユーザーアカウントはUnion IDにリンクされていません</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="114"/>
@@ -666,53 +666,53 @@
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="170"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="185"/>
         <source>Phone/Email format is incorrect</source>
-        <translation type="unfinished"/>
+        <translation>電話番号/メールアドレスの形式が正しくありません</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="239"/>
         <source>System error</source>
-        <translation type="unfinished"/>
+        <translation>システムエラーです</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="241"/>
         <source>Login expired, please sign in to the Union ID again</source>
-        <translation type="unfinished"/>
+        <translation>ログインの有効期限が切れました。もう一度Union IDにサインインしてください。</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="243"/>
         <source>Network error</source>
-        <translation type="unfinished"/>
+        <translation>ネットワークエラーです</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="245"/>
         <source>You have reached the number limit to get the code today</source>
-        <translation type="unfinished"/>
+        <translation>本日発行できるコード数の上限に達しました。</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="246"/>
         <source>The Union ID is not linked to a user account</source>
-        <translation type="unfinished"/>
+        <translation>このUnion IDはユーザーアカウントにリンクされていません</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="255"/>
         <source>It cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>この欄を空白にすることはできません</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="292"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="334"/>
         <source>Resend (%1s)</source>
-        <translation type="unfinished"/>
+        <translation>再送信 (%1 秒)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="353"/>
         <source>Failed to get the code</source>
-        <translation type="unfinished"/>
+        <translation>コードを取得できませんでした</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="376"/>
         <source>Wrong verification code</source>
-        <translation type="unfinished"/>
+        <translation>認証コードが違います</translation>
     </message>
 </context>
 <context>
@@ -784,7 +784,7 @@
     <message>
         <location filename="../dde-lowpower/src/window.cpp" line="41"/>
         <source>Low battery, please plug in</source>
-        <translation>バッテリが少なくなっています、電源に接続してください</translation>
+        <translation>バッテリ残量が少なくなりました。電源に接続してください</translation>
     </message>
 </context>
 </TS>

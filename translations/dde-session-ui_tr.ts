@@ -177,77 +177,77 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="138"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"/>
+        <translation>Fn geçişi</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
         <source>WLAN on</source>
-        <translation type="unfinished"/>
+        <translation>Kablosuz Aç</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="126"/>
         <source>WLAN off</source>
-        <translation type="unfinished"/>
+        <translation>Kablosuz kapat</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
         <source>Caps Lock on</source>
-        <translation type="unfinished"/>
+        <translation>Büyük Harf aç</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
         <source>Caps Lock off</source>
-        <translation type="unfinished"/>
+        <translation>Büyük Harf kapat</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
         <source>Numeric keypad on</source>
-        <translation type="unfinished"/>
+        <translation>Sayısal Klavyeyi aç</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="132"/>
         <source>Numeric keypad off</source>
-        <translation type="unfinished"/>
+        <translation>Sayısal Klavye kapat</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation type="unfinished"/>
+        <translation>Dokunmatik Yüzey aç</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation type="unfinished"/>
+        <translation>Dokunmatik Yüzey kapat</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
         <source>Touchpad toggle</source>
-        <translation type="unfinished"/>
+        <translation>Dokunmatik yüzeyi açma</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation type="unfinished"/>
+        <translation>Uçak Modu aç</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation type="unfinished"/>
+        <translation>Uçak Modu kapat</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
         <source>Mute on</source>
-        <translation type="unfinished"/>
+        <translation>Sessiz açık</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="144"/>
         <source>Mute off</source>
-        <translation type="unfinished"/>
+        <translation>Sessiz kapalı</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
         <source>Balanced power</source>
-        <translation type="unfinished"/>
+        <translation>Dengeli Güç</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
