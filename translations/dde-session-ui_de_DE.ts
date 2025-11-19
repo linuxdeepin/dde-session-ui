@@ -606,7 +606,7 @@
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="54"/>
         <source>Suspend</source>
-        <translation>Bereitschaft</translation>
+        <translation>Abschalten</translation>
     </message>
 </context>
 <context>
