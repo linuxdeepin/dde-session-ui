@@ -247,7 +247,7 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
         <source>Balanced power</source>
-        <translation type="unfinished"/>
+        <translation>Ausgeglichener Energieplan</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="147"/>
