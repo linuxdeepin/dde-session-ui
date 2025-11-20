@@ -177,7 +177,7 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="138"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"/>
+        <translation>Fn umschalten</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
@@ -227,22 +227,22 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
         <source>Airplane mode on</source>
-        <translation type="unfinished"/>
+        <translation>Flugmodus an</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="141"/>
         <source>Airplane mode off</source>
-        <translation type="unfinished"/>
+        <translation>Flugmodus aus</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="143"/>
         <source>Mute on</source>
-        <translation type="unfinished"/>
+        <translation>Stummschaltung an</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="144"/>
         <source>Mute off</source>
-        <translation type="unfinished"/>
+        <translation>Stummschaltung aus</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="146"/>
