@@ -202,27 +202,27 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="131"/>
         <source>Numeric keypad on</source>
-        <translation type="unfinished"/>
+        <translation>Zahlenfeld an</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="132"/>
         <source>Numeric keypad off</source>
-        <translation type="unfinished"/>
+        <translation>Zahlenfeld aus</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="134"/>
         <source>Touchpad on</source>
-        <translation type="unfinished"/>
+        <translation>Touchpad an</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="135"/>
         <source>Touchpad off</source>
-        <translation type="unfinished"/>
+        <translation>Touchpad aus</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="136"/>
         <source>Touchpad toggle</source>
-        <translation type="unfinished"/>
+        <translation>Touchpad umschalten</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="140"/>
