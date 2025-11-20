@@ -508,7 +508,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="160"/>
         <source>Reset Password By Union ID</source>
-        <translation type="unfinished"/>
+        <translation>Passwort mit Union-ID zurücksetzen</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="161"/>
@@ -691,7 +691,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="246"/>
         <source>The Union ID is not linked to a user account</source>
-        <translation type="unfinished"/>
+        <translation>Die Union-ID ist mit keinem Benutzerkonto verknüpft</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="255"/>
@@ -707,7 +707,7 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="353"/>
         <source>Failed to get the code</source>
-        <translation type="unfinished"/>
+        <translation>Code konnte nicht bezogen werden</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="376"/>
