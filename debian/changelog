@@ -1,3 +1,13 @@
+dde-session-ui (6.0.36) unstable; urgency=medium
+
+  * i18n: remove de_DE resource again due to transifex change
+  * i18n: [dde-session-ui] Updates for project Deepin Desktop
+    Environment (#414)
+  * i18n: remove de_DE translation resources
+  * feat: add reproducible build parameters
+
+ -- zhaoyingzhen <zhaoyingzhen@uniontech.com>  Thu, 27 Nov 2025 17:40:27 +0800
+
 dde-session-ui (6.0.35) unstable; urgency=medium
 
   * i18n: [dde-session-ui] Updates for project Deepin Desktop
