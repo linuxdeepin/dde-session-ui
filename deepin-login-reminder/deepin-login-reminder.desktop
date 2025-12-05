@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Deepin Login Reminder
+Comment=Display login reminder notification
+Exec=/usr/bin/deepin-login-reminder
+Icon=preferences-system
+Terminal=false
+Categories=System;
+X-Deepin-AutoStart=true
+NoDisplay=true
