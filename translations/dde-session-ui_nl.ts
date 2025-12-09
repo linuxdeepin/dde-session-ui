@@ -419,58 +419,58 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="86"/>
         <source>Login Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Aanmeldherinnering</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="94"/>
         <source>Your password will expire in %1 days</source>
-        <translation type="unfinished"/>
+        <translation>Je wachtwoord verloopt over %1 dagen</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="98"/>
         <source>%1 login failures since the last successful login</source>
-        <translation type="unfinished"/>
+        <translation>%1 mislukte aanmeldpogingen sinds de laatste aanmelding</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
         <source>Login time: %1</source>
-        <translation type="unfinished"/>
+        <translation>Aanmeldtijd: %s</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="108"/>
         <source>Last login: %1</source>
-        <translation type="unfinished"/>
+        <translation>Recentste aanmelding: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished"/>
+        <translation>Details</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="170"/>
         <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Password Expiration Warning</source>
-        <translation type="unfinished"/>
+        <translation>Wachtwoordwaarschuwing</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="176"/>
         <source>Your password has expired. Please change it immediately.</source>
-        <translation type="unfinished"/>
+        <translation>Je wachtwoord is verlopen - wijzig het.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired!</source>
-        <translation type="unfinished"/>
+        <translation>Je wachtwoord is verlopen!</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>For security reasons, please change your password immediately.</source>
-        <translation type="unfinished"/>
+        <translation>Om beveiligingsredenen dien je je wachtwoord onmiddelijk te wijzigen.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="181"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
-        <translation type="unfinished"/>
+        <translation>Je wachtwoord vervalt over %d dagen - wijzig het op tijd!</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="183"/>
