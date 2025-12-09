@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="da" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="da" sourcelanguage="en">
 <context>
     <name>Bubble</name>
     <message>
         <location filename="../dde-osd/src/notification/bubble.cpp" line="309"/>
         <source>1 new message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -156,77 +154,77 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="115"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="102"/>
         <source>WLAN on</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="103"/>
         <source>WLAN off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="105"/>
         <source>Caps Lock on</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="106"/>
         <source>Caps Lock off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="108"/>
         <source>Numeric keypad on</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="109"/>
         <source>Numeric keypad off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="111"/>
         <source>Touchpad on</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="112"/>
         <source>Touchpad off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="113"/>
         <source>Touchpad toggle</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="117"/>
         <source>Airplane mode on</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="118"/>
         <source>Airplane mode off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="120"/>
         <source>Mute on</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="121"/>
         <source>Mute off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="123"/>
         <source>Balanced power</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="124"/>
@@ -307,7 +305,7 @@
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="223"/>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="236"/>
         <source>A stronger password is recommended: more than 8 characters, and contains 3 of the four character types: lowercase letters, uppercase letters, numbers, and symbols.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="227"/>
@@ -421,73 +419,73 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="86"/>
         <source>Login Reminder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="94"/>
         <source>Your password will expire in %1 days</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="98"/>
         <source>%1 login failures since the last successful login</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
         <source>Login time: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="108"/>
         <source>Last login: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="170"/>
         <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Password Expiration Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="176"/>
         <source>Your password has expired. Please change it immediately.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>For security reasons, please change your password immediately.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="181"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Your password will expire in %1 days.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Please change your password as soon as possible.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="206"/>
         <source>Change Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Skift adgangskode</translation>
     </message>
 </context>
 <context>
@@ -495,7 +493,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="92"/>
         <source>Resetting the password will clear the data stored in the keyring</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="94"/>
@@ -524,7 +522,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="142"/>
         <source>Reset Password By Union ID</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="143"/>
@@ -538,17 +536,17 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="149"/>
         <source>Resetting the password will clear the data stored in your keyring, and you should log in again, please save files in advance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="150"/>
         <source>Confirm and Reset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="246"/>
         <source>Successfully reset, please log in and unlock with the new password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -593,7 +591,7 @@
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="168"/>
         <source>Wrong answer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="183"/>
@@ -630,7 +628,7 @@
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="28"/>
         <source>Select your touch screen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="38"/>
@@ -648,19 +646,19 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="46"/>
         <source>Phone/Email</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="52"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="119"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="272"/>
         <source>Get Code</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="72"/>
         <source>Connecting to the Internet...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="84"/>
@@ -682,7 +680,7 @@
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="153"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="168"/>
         <source>Phone/Email format is incorrect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="222"/>
@@ -702,12 +700,12 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="228"/>
         <source>You have reached the number limit to get the code today</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="229"/>
         <source>The Union ID is not linked to a user account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="238"/>
@@ -718,17 +716,17 @@
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="275"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="317"/>
         <source>Resend (%1s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="336"/>
         <source>Failed to get the code</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="359"/>
         <source>Wrong verification code</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
