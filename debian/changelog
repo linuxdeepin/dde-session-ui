@@ -1,3 +1,93 @@
+dde-session-ui (6.0.37) unstable; urgency=medium
+
+  * [skip CI] i18n: Translate dde-session-ui.ts in nl
+  * [skip CI] i18n: Translate dde-session-ui.ts in nl
+  * [skip CI] i18n: Translate dde-session-ui.ts in sl
+  * [skip CI] i18n: Translate dde-session-ui.ts in el_GR
+  * [skip CI] i18n: Translate dde-session-ui.ts in af
+  * [skip CI] i18n: Translate dde-session-ui.ts in sk
+  * [skip CI] i18n: Translate dde-session-ui.ts in uz
+  * [skip CI] i18n: Translate dde-session-ui.ts in th
+  * [skip CI] i18n: Translate dde-session-ui.ts in ta
+  * [skip CI] i18n: Translate dde-session-ui.ts in lv
+  * [skip CI] i18n: Translate dde-session-ui.ts in nl
+  * [skip CI] i18n: Translate dde-session-ui.ts in ms
+  * [skip CI] i18n: Translate dde-session-ui.ts in ru
+  * [skip CI] i18n: Translate dde-session-ui.ts in pl
+  * [skip CI] i18n: Translate dde-session-ui.ts in km_KH
+  * [skip CI] i18n: Translate dde-session-ui.ts in zh_TW
+  * [skip CI] i18n: Translate dde-session-ui.ts in eo
+  * [skip CI] i18n: Translate dde-session-ui.ts in bo
+  * [skip CI] i18n: Translate dde-session-ui.ts in hr
+  * [skip CI] i18n: Translate dde-session-ui.ts in ro
+  * [skip CI] i18n: Translate dde-session-ui.ts in ku_IQ
+  * [skip CI] i18n: Translate dde-session-ui.ts in en_US
+  * [skip CI] i18n: Translate dde-session-ui.ts in ja
+  * [skip CI] i18n: Translate dde-session-ui.ts in ug
+  * [skip CI] i18n: Translate dde-session-ui.ts in he
+  * [skip CI] i18n: Translate dde-session-ui.ts in ps
+  * [skip CI] i18n: Translate dde-session-ui.ts in sw
+  * [skip CI] i18n: Translate dde-session-ui.ts in ky@Arab
+  * [skip CI] i18n: Translate dde-session-ui.ts in id
+  * [skip CI] i18n: Translate dde-session-ui.ts in en_AU
+  * [skip CI] i18n: Translate dde-session-ui.ts in tzm
+  * [skip CI] i18n: Translate dde-session-ui.ts in tr
+  * [skip CI] i18n: Translate dde-session-ui.ts in ast
+  * [skip CI] i18n: Translate dde-session-ui.ts in fr
+  * [skip CI] i18n: Translate dde-session-ui.ts in br
+  * [skip CI] i18n: Translate dde-session-ui.ts in az
+  * [skip CI] i18n: Translate dde-session-ui.ts in si
+  * [skip CI] i18n: Translate dde-session-ui.ts in en_GB
+  * [skip CI] i18n: Translate dde-session-ui.ts in sv
+  * [skip CI] i18n: Translate dde-session-ui.ts in bn
+  * [skip CI] i18n: Translate dde-session-ui.ts in vi
+  * [skip CI] i18n: Translate dde-session-ui.ts in mn
+  * [skip CI] i18n: Translate dde-session-ui.ts in ne
+  * [skip CI] i18n: Translate dde-session-ui.ts in el
+  * [skip CI] i18n: Translate dde-session-ui.ts in sr
+  * [skip CI] i18n: Translate dde-session-ui.ts in ka
+  * [skip CI] i18n: Translate dde-session-ui.ts in sq
+  * [skip CI] i18n: Translate dde-session-ui.ts in hy
+  * [skip CI] i18n: Translate dde-session-ui.ts in da
+  * [skip CI] i18n: Translate dde-session-ui.ts in kab
+  * [skip CI] i18n: Translate dde-session-ui.ts in ky
+  * [skip CI] i18n: Translate dde-session-ui.ts in bg
+  * [skip CI] i18n: Translate dde-session-ui.ts in it
+  * [skip CI] i18n: Translate dde-session-ui.ts in lo
+  * [skip CI] i18n: Translate dde-session-ui.ts in ml
+  * [skip CI] i18n: Translate dde-session-ui.ts in kk
+  * [skip CI] i18n: Translate dde-session-ui.ts in pt
+  * [skip CI] i18n: Translate dde-session-ui.ts in gl_ES
+  * [skip CI] i18n: Translate dde-session-ui.ts in ak
+  * [skip CI] i18n: Translate dde-session-ui.ts in ca
+  * [skip CI] i18n: Translate dde-session-ui.ts in pam
+  * [skip CI] i18n: Translate dde-session-ui.ts in lt
+  * [skip CI] i18n: Translate dde-session-ui.ts in zh_HK
+  * [skip CI] i18n: Translate dde-session-ui.ts in gl
+  * [skip CI] i18n: Translate dde-session-ui.ts in zh_CN
+  * [skip CI] i18n: Translate dde-session-ui.ts in de
+  * [skip CI] i18n: Translate dde-session-ui.ts in ku
+  * [skip CI] i18n: Translate dde-session-ui.ts in uk
+  * [skip CI] i18n: Translate dde-session-ui.ts in cs
+  * [skip CI] i18n: Translate dde-session-ui.ts in ar_EG
+  * [skip CI] i18n: Translate dde-session-ui.ts in hi_IN
+  * [skip CI] i18n: Translate dde-session-ui.ts in pa
+  * [skip CI] i18n: Translate dde-session-ui.ts in am_ET
+  * [skip CI] i18n: Translate dde-session-ui.ts in pt_BR
+  * [skip CI] i18n: Translate dde-session-ui.ts in nb
+  * [skip CI] i18n: Translate dde-session-ui.ts in ko
+  * [skip CI] i18n: Translate dde-session-ui.ts in fi
+  * [skip CI] i18n: Translate dde-session-ui.ts in hu
+  * [skip CI] i18n: Translate dde-session-ui.ts in es
+  * [skip CI] i18n: Translate dde-session-ui.ts in et
+  * [skip CI] i18n: Translate dde-session-ui.ts in fa
+  * [skip CI] i18n: Translate dde-session-ui.ts in ar
+  * feat: 移入deepin-login-reminder
+  * i18n: [dde-session-ui] Updates for project Deepin Desktop
+    Environment (#416)
+
+ -- YeShanShan <yeshanshan@uniontech.com>  Thu, 11 Dec 2025 20:31:05 +0800
+
 dde-session-ui (6.0.36) unstable; urgency=medium
 
   * i18n: remove de_DE resource again due to transifex change
