@@ -21,6 +21,7 @@
 #include <QtConcurrent>
 #include <QThread>
 #include <QTranslator>
+#include <QTextDocument>
 
 #include <unistd.h>
 
@@ -278,10 +279,11 @@ void Content::updateContent()
 // 根据文本多少，调整窗口大小
 void Content::updateWindowHeight()
 {
-    QRect rc = m_source->rect();
-    rc.setWidth(rc.width() - 40);
-    QSize sz = m_source->fontMetrics().boundingRect(rc, Qt::TextWordWrap, m_source->text()).size();
-
-    int minHeight = qBound(300, sz.height(), 491);
+    QTextDocument doc;
+    doc.setHtml(m_source->text());
+    doc.setTextWidth(m_scrollArea->width() - 40);
+    
+    int contentHeight = static_cast<int>(doc.size().height());
+    int minHeight = qBound(100, contentHeight, 491);
     m_scrollArea->setMinimumHeight(minHeight);
 }
