@@ -1,3 +1,11 @@
+dde-session-ui (6.0.38) unstable; urgency=medium
+
+  * fix(viewing): replace font metrics with document renderer
+  * i18n: [dde-session-ui] Updates for project Deepin Desktop
+    Environment (#421)
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 05 Feb 2026 20:46:50 +0800
+
 dde-session-ui (6.0.37) unstable; urgency=medium
 
   * [skip CI] i18n: Translate dde-session-ui.ts in nl
