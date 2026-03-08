@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2019 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -115,6 +115,9 @@ bool TouchscreenSetting::monitorsIsIntersect() const
 
 void TouchscreenSetting::markDisplay(int index)
 {
+    if (index < 0 || index >= m_monitors.size())
+        return;
+
     // 考虑设备像素比，确保示意框大小与实际显示器大小一致
     const auto ratio = qApp->devicePixelRatio();
     QRect displayRect(m_monitors[index]->x(), m_monitors[index]->y(), 
