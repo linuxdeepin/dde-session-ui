@@ -734,7 +734,7 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="24"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Bem-vindo, o sistema foi atualizado com sucesso</translation>
+        <translation>Bem-vindo, o sistema foi atualizado com sucesso!</translation>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="25"/>
