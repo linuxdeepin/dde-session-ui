@@ -460,12 +460,12 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired!</source>
-        <translation type="unfinished"/>
+        <translation>¡Su contraseña ha caducado!</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>For security reasons, please change your password immediately.</source>
-        <translation type="unfinished"/>
+        <translation>Por motivos de seguridad, cambie su contraseña inmediatamente.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="181"/>
@@ -475,7 +475,7 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Your password will expire in %1 days.</source>
-        <translation type="unfinished"/>
+        <translation>La contraseña caduracá en %1 días</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="184"/>
