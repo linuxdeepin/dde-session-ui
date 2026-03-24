@@ -424,12 +424,12 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="94"/>
         <source>Your password will expire in %1 days</source>
-        <translation type="unfinished"/>
+        <translation>La contraseña caduracá en %1 días</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="98"/>
         <source>%1 login failures since the last successful login</source>
-        <translation type="unfinished"/>
+        <translation> %1 fallos de inicio de sesión desde el último inicio de sesión con éxito</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
