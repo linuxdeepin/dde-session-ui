@@ -480,7 +480,7 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Please change your password as soon as possible.</source>
-        <translation type="unfinished"/>
+        <translation>Cambie su contraseña lo antes posible</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="206"/>
