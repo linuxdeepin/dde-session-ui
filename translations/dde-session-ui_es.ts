@@ -419,7 +419,7 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="86"/>
         <source>Login Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Recordatorio de inicio de sesión</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="94"/>
@@ -434,17 +434,17 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
         <source>Login time: %1</source>
-        <translation type="unfinished"/>
+        <translation>Hora de inicio de sesión: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="108"/>
         <source>Last login: %1</source>
-        <translation type="unfinished"/>
+        <translation>Último inicio de sesión: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished"/>
+        <translation>Detalles</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="170"/>
