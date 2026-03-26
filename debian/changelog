@@ -1,3 +1,9 @@
+dde-session-ui (6.0.39) unstable; urgency=medium
+
+  * fix(touchscreen-dialog): fix crash when monitor list changes
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 26 Mar 2026 19:40:14 +0800
+
 dde-session-ui (6.0.38) unstable; urgency=medium
 
   * fix(viewing): replace font metrics with document renderer
