@@ -1,18 +1,19 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <dabstractdialog.h>
+#include <DBlurEffectWidget>
 #include <DIconButton>
+#include <DPlatformWindowHandle>
 
 DWIDGET_USE_NAMESPACE
 
 class Content;
 class QLabel;
-class MainWindow : public DAbstractDialog
+class MainWindow : public DBlurEffectWidget
 {
     Q_OBJECT
 
@@ -43,7 +44,8 @@ private:
 
     DIconButton *btnclose;
     DIconButton *m_leftIconBtn;
-    const int windowFixedWidth = 520;
+    DPlatformWindowHandle *m_handle;
+    const int windowFixedWidth = 430;
 };
 
 #endif // MAINWINDOW_H

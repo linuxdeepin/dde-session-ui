@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -8,6 +8,7 @@
 #include <DSuggestButton>
 #include <DFontSizeManager>
 #include <DPalette>
+#include <DGuiApplicationHelper>
 
 #include <QScrollArea>
 #include <QPushButton>
@@ -67,13 +68,15 @@ Content::Content(QWidget *parent)
 
     layout->addWidget(m_languageBtn, 0, Qt::AlignHCenter);
 
-    m_scrollArea->setMinimumSize(468, 300);
+    m_scrollArea->setMinimumSize(390, 300);
     m_scrollArea->setWidgetResizable(true);
     m_scrollArea->setFrameStyle(QFrame::NoFrame);
     m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     m_scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     m_scrollArea->setContentsMargins(0, 0, 0, 0);
+    m_scrollArea->setStyleSheet("QScrollArea { background: transparent; }"
+                                "QScrollArea > QWidget > QWidget { background: transparent; }");
     QScroller::grabGesture(m_scrollArea->viewport(), QScroller::LeftMouseButtonGesture);
 
     QWidget *sourceWidget = new QWidget(this);
@@ -85,9 +88,8 @@ Content::Content(QWidget *parent)
     m_cancelBtn->setFixedHeight(36);
     m_acceptBtn->setFixedHeight(36);
 
-    DPalette pa = m_acceptBtn->palette();
-    pa.setColor(QPalette::ButtonText, pa.highlight().color());
-    m_acceptBtn->setPalette(pa);
+    updateAcceptBtnPalette();
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &Content::updateAcceptBtnPalette);
 
     m_source->setTextFormat(Qt::MarkdownText);
     m_source->setWordWrap(true);
@@ -286,4 +288,24 @@ void Content::updateWindowHeight()
     int contentHeight = static_cast<int>(doc.size().height());
     int minHeight = qBound(100, contentHeight, 491);
     m_scrollArea->setMinimumHeight(minHeight);
+}
+
+void Content::updateAcceptBtnPalette()
+{
+    const QString btnStyle = "QPushButton { background-color: rgba(0, 0, 0, 0.15); border: none; border-radius: 6px; }"
+                             "QPushButton:hover { background-color: rgba(0, 0, 0, 0.2); }"
+                             "QPushButton:pressed { background-color: rgba(0, 0, 0, 0.25); }";
+    m_cancelBtn->setStyleSheet(btnStyle);
+    m_acceptBtn->setStyleSheet(btnStyle);
+
+    DPalette pa = m_acceptBtn->palette();
+    QColor highlightColor = pa.highlight().color();
+    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
+        highlightColor.setAlphaF(0.7);
+    } else {
+        highlightColor.setAlphaF(0.6);
+    }
+    pa.setColor(QPalette::Disabled, QPalette::ButtonText, highlightColor);
+    pa.setColor(QPalette::Normal, QPalette::ButtonText, pa.highlight().color());
+    m_acceptBtn->setPalette(pa);
 }

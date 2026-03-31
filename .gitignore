@@ -42,3 +42,4 @@ global_util/dbus/*.cpp
 global_util/dbus/*.h
 
 .cache
+obj-x86_64-linux-gnu/*

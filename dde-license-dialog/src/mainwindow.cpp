@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -13,10 +13,13 @@
 #include <DFontSizeManager>
 DTK_USE_NAMESPACE
 
+const int DefaultRadius = 8;
+
 MainWindow::MainWindow(QWidget *parent)
-    : DAbstractDialog(false, parent)
+    : DBlurEffectWidget(parent)
     , m_title(new QLabel)
     , m_content(new Content)
+    , m_handle(new DPlatformWindowHandle(this))
 {
     auto envType = qEnvironmentVariable("XDG_SESSION_TYPE");
     bool bWayland = envType.contains("wayland");
@@ -27,11 +30,23 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     setAccessibleName("MainWindow");
+
+    setAttribute(Qt::WA_TranslucentBackground);
+
+    setBlendMode(DBlurEffectWidget::BehindWindowBlend);
+    setMaskColor(DBlurEffectWidget::AutoColor);
+
+    m_handle->setEnableBlurWindow(true);
+    m_handle->setTranslucentBackground(true);
+    m_handle->setShadowOffset(QPoint(0, 0));
+    m_handle->setBorderWidth(0);
+    m_handle->setWindowRadius(DefaultRadius);
+
     m_title->setObjectName("TitleLabel");
     m_title->setAccessibleName("TitleLabel");
     QWidget *widget = new QWidget(this);
     widget->setAccessibleName("MainWidget");
-    widget->setFixedSize(500, 40);
+    widget->setFixedSize(430, 40);
 
     btnclose = new DIconButton(QStyle::SP_TitleBarCloseButton, this);
     btnclose->setAccessibleName("CloseBtn");
@@ -91,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
-    DAbstractDialog::resizeEvent(event);
+    DBlurEffectWidget::resizeEvent(event);
     if (btnclose) {
         const QSize sz = btnclose->sizeHint();
         btnclose->move(width() - sz.width(), 0);

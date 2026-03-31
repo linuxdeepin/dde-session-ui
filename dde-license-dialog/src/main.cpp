@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -9,6 +9,7 @@
 
 #include <DApplication>
 #include <DGuiApplicationHelper>
+#include <DWidgetUtil>
 
 #include <QTranslator>
 #include <QCommandLineOption>
@@ -117,7 +118,7 @@ int main(int argc, char *argv[])
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
     checker.start();
 #endif
-    w.moveToCenter();
+    Dtk::Widget::moveToCenter(&w);
     w.show();
 
 
