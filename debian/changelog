@@ -1,3 +1,10 @@
+dde-session-ui (6.0.40) unstable; urgency=medium
+
+  * fix(license-dialog): optimize window blur effect and theme
+    adaptation
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 09 Apr 2026 20:29:28 +0800
+
 dde-session-ui (6.0.39) unstable; urgency=medium
 
   * fix(touchscreen-dialog): fix crash when monitor list changes
