@@ -450,12 +450,12 @@
         <location filename="../deepin-login-reminder/main.cpp" line="170"/>
         <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Password Expiration Warning</source>
-        <translation type="unfinished"/>
+        <translation>Попередження щодо вичерпання строку дії пароля</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="176"/>
         <source>Your password has expired. Please change it immediately.</source>
-        <translation type="unfinished"/>
+        <translation>Строк дії вашого пароля вичерпано. Будь ласка, негайно змініть його.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
