@@ -470,17 +470,17 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="181"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
-        <translation type="unfinished"/>
+        <translation>Sua senha expirará em %1 dias. Altere-a em breve.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Your password will expire in %1 days.</source>
-        <translation type="unfinished"/>
+        <translation>Sua senha expirará em %1 dias.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Please change your password as soon as possible.</source>
-        <translation type="unfinished"/>
+        <translation>Altere sua senha o quanto antes.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="206"/>
