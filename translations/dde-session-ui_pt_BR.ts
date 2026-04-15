@@ -419,7 +419,7 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="86"/>
         <source>Login Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Lembrete de login</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="94"/>
