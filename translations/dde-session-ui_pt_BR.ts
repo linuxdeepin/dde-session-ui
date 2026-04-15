@@ -455,17 +455,17 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="176"/>
         <source>Your password has expired. Please change it immediately.</source>
-        <translation type="unfinished"/>
+        <translation>Sua senha expirou. Altere-a imediatamente.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired!</source>
-        <translation type="unfinished"/>
+        <translation>Sua senha expirou!</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>For security reasons, please change your password immediately.</source>
-        <translation type="unfinished"/>
+        <translation>Por motivos de segurança, altere sua senha imediatamente.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="181"/>
