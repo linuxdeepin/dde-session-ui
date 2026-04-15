@@ -154,7 +154,7 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="115"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"/>
+        <translation>Alternar Fn</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="102"/>
