@@ -434,12 +434,12 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
         <source>Login time: %1</source>
-        <translation type="unfinished"/>
+        <translation>Horário do login: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="108"/>
         <source>Last login: %1</source>
-        <translation type="unfinished"/>
+        <translation>Último login: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
