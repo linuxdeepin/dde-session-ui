@@ -79,7 +79,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="199"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>Continue executando %1; mas %2MB de memória é necessário</translation>
+        <translation>Para continuar executando %1, são necessários %2 MB de memória</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="202"/>
