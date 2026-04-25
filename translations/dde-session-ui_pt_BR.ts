@@ -84,12 +84,12 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="202"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Continue usando o navegador; mas é necessário %1MB de memória</translation>
+        <translation>Para continuar abrindo a aba do navegador, são necessários %1 MB de memória</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="205"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>Para continuar a operação, é necessário %1MB de memória</translation>
+        <translation>Para continuar a operação, são necessários %1 MB de memória</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="211"/>
