@@ -517,7 +517,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="177"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="180"/>
         <source>Next</source>
-        <translation>Próximo</translation>
+        <translation>Avançar</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="142"/>
