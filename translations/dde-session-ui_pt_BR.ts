@@ -79,17 +79,17 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="199"/>
         <source>Continue to run %1, %2MB memory is required</source>
-        <translation>Continue executando %1; mas %2MB de memória é necessário</translation>
+        <translation>Para continuar executando %1, são necessários %2 MB de memória</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="202"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
-        <translation>Continue usando o navegador; mas é necessário %1MB de memória</translation>
+        <translation>Para continuar abrindo a aba do navegador, são necessários %1 MB de memória</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="205"/>
         <source>To continue the operation, %1MB memory is required</source>
-        <translation>Para continuar a operação, é necessário %1MB de memória</translation>
+        <translation>Para continuar a operação, são necessários %1 MB de memória</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="211"/>
@@ -154,7 +154,7 @@
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="115"/>
         <source>Fn toggle</source>
-        <translation type="unfinished"/>
+        <translation>Alternar Fn</translation>
     </message>
     <message>
         <location filename="../dde-osd/src/osdprovider.cpp" line="102"/>
@@ -419,68 +419,68 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="86"/>
         <source>Login Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Lembrete de login</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="94"/>
         <source>Your password will expire in %1 days</source>
-        <translation type="unfinished"/>
+        <translation>Sua senha expirará em %1 dias</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="98"/>
         <source>%1 login failures since the last successful login</source>
-        <translation type="unfinished"/>
+        <translation>%1 falhas de login desde o último login bem-sucedido</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
         <source>Login time: %1</source>
-        <translation type="unfinished"/>
+        <translation>Horário do login: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="108"/>
         <source>Last login: %1</source>
-        <translation type="unfinished"/>
+        <translation>Último login: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished"/>
+        <translation>Detalhes</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="170"/>
         <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Password Expiration Warning</source>
-        <translation type="unfinished"/>
+        <translation>Aviso de expiração de senha</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="176"/>
         <source>Your password has expired. Please change it immediately.</source>
-        <translation type="unfinished"/>
+        <translation>Sua senha expirou. Altere-a imediatamente.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired!</source>
-        <translation type="unfinished"/>
+        <translation>Sua senha expirou!</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>For security reasons, please change your password immediately.</source>
-        <translation type="unfinished"/>
+        <translation>Por motivos de segurança, altere sua senha imediatamente.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="181"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
-        <translation type="unfinished"/>
+        <translation>Sua senha expirará em %1 dias. Altere-a em breve.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Your password will expire in %1 days.</source>
-        <translation type="unfinished"/>
+        <translation>Sua senha expirará em %1 dias.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Please change your password as soon as possible.</source>
-        <translation type="unfinished"/>
+        <translation>Altere sua senha o quanto antes.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="206"/>
@@ -517,7 +517,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="177"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="180"/>
         <source>Next</source>
-        <translation>Próximo</translation>
+        <translation>Avançar</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="142"/>
@@ -734,7 +734,7 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="24"/>
         <source>Welcome, system updated successfully</source>
-        <translation>Bem-vindo de volta, o seu sistema foi atualizado com sucesso</translation>
+        <translation>Bem-vindo, o sistema foi atualizado com sucesso!</translation>
     </message>
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="25"/>

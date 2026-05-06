@@ -69,7 +69,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="66"/>
         <source>Continue</source>
-        <translation>Continuar</translation>
+        <translation>Continua</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
