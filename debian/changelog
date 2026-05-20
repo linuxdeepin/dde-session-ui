@@ -1,3 +1,10 @@
+dde-session-ui (6.0.43) unstable; urgency=medium
+
+  * Fix: When the control center opens the disclaimer box, extra icon
+    labels are displayed on the taskbar.
+
+ -- zhangkun <zhangkun2@uniontech.com>  Wed, 20 May 2026 14:20:44 +0800
+
 dde-session-ui (6.0.42) unstable; urgency=medium
 
   * i18n: [dde-session-ui] Updates for project Deepin Desktop
