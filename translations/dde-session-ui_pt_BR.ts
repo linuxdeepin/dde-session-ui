@@ -138,7 +138,7 @@
     <message>
         <location filename="../dde-osd/src/notification-center/notifycenterwidget.cpp" line="76"/>
         <source>Notification Center</source>
-        <translation>Central de Notificações</translation>
+        <translation>Notificações</translation>
     </message>
 </context>
 <context>
