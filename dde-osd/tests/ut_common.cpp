@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -17,6 +17,7 @@ class UT_Common : public testing::Test
 
 };
 
+namespace {
 class PaintWidget : public QWidget
 {
 
@@ -36,6 +37,7 @@ public:
         DrawHelper::DrawBackground(&painter, option);
     }
 };
+}  // namespace
 
 TEST_F(UT_Common, coverageTest)
 {
