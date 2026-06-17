@@ -1,3 +1,10 @@
+dde-session-ui (6.0.44) unstable; urgency=medium
+
+  * fix: fix ODR violation of PaintWidget by wrapping it in anonymous
+    namespace
+
+ -- zhangkun <zhangkun2@uniontech.com>  Wed, 17 Jun 2026 16:17:21 +0800
+
 dde-session-ui (6.0.43) unstable; urgency=medium
 
   * Fix: When the control center opens the disclaimer box, extra icon
