@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2016 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2016 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     DApplication app(argc, argv);
     app.setOrganizationName("deepin");
     app.setApplicationName("dde-suspend-dialog");
+    app.setDesktopFileName(QStringLiteral("org.deepin.dde.suspend-dialog"));
 
     QTranslator translator;
     if (translator.load(QLocale::system(), "dde-session-ui", "_", "/usr/share/dde-session-ui/translations")) {

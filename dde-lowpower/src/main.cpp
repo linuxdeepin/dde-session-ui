@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2015 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -28,6 +28,9 @@ DWIDGET_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setOrganizationName("deepin");
+    a.setApplicationName("dde-lowpower");
+    a.setDesktopFileName(QStringLiteral("org.deepin.dde.lowpower"));
 
     QTranslator translator;
     if (translator.load(QLocale::system(), "dde-session-ui", "_", "/usr/share/dde-session-ui/translations")) {

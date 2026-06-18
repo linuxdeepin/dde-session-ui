@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2020 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -20,7 +20,9 @@ const int HINT_CONTENT = 2;
 int main(int argc, char *argv[])
 {
     DApplication a(argc, argv);
+    a.setOrganizationName("deepin");
     a.setApplicationName("dde-hints-dialog");
+    a.setDesktopFileName(QStringLiteral("org.deepin.dde.hints-dialog"));
     a.setApplicationVersion("1.0");
     a.setQuitOnLastWindowClosed(true);
 

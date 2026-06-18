@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
     DApplication app(argc, argv);
     app.setOrganizationName("deepin");
     app.setApplicationName("dde-bluetooth-dialog");
+    app.setDesktopFileName(QStringLiteral("org.deepin.dde.bluetooth-dialog"));
     QTranslator translator;
     if (translator.load(QLocale::system(), "dde-session-ui", "_", "/usr/share/dde-session-ui/translations")) {
         app.installTranslator(&translator);

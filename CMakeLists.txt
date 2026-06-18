@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+# SPDX-FileCopyrightText: 2023 - 2026 UnionTech Software Technology Co., Ltd.
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -100,3 +100,7 @@ file(GLOB TS_FILES "translations/*.ts")
 qt_add_translation(QM_FILES ${TS_FILES})
 add_custom_target(dde-session-ui_language ALL DEPENDS ${QM_FILES})
 install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/translations)
+
+#----------------------------install desktop files and icons--------------------
+file(GLOB DESKTOP_FILES ${CMAKE_SOURCE_DIR}/misc/applications/*.desktop)
+install(FILES ${DESKTOP_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)

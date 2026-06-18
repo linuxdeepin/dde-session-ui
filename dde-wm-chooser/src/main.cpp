@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -47,7 +47,9 @@ void selectNormalModel(QString qPath)
 int main(int argc, char *argv[])
 {
     DApplication a(argc, argv);
+    a.setOrganizationName("deepin");
     a.setApplicationName("deepin-wm-chooser");
+    a.setDesktopFileName(QStringLiteral("org.deepin.dde.wm-chooser"));
 
     QTranslator translator;
     if (translator.load(QLocale::system(), "dde-session-ui", "_", "/usr/share/dde-session-ui/translations")) {

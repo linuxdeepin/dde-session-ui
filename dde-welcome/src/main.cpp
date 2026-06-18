@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
     DApplication app(argc, argv);
     app.setOrganizationName("deepin");
     app.setApplicationName("dde-welcome");
+    app.setDesktopFileName(QStringLiteral("org.deepin.dde.welcome"));
 
     if (!app.setSingleInstance(app.applicationName(), DApplication::UserScope))
         return -1;
