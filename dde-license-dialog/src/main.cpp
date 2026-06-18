@@ -24,6 +24,9 @@ int main(int argc, char *argv[])
 {
     qputenv("DSG_APP_ID", "org.deepin.dde.license-dialog");
     DApplication a(argc, argv);
+    a.setOrganizationName("deepin");
+    a.setApplicationName("dde-license-dialog");
+    a.setDesktopFileName(QStringLiteral("org.deepin.dde.license-dialog"));
 
     a.loadTranslator();
 

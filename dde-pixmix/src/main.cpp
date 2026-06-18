@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -74,6 +74,7 @@ int main(int argc, char *argv[])
 
     a.setOrganizationName("deepin");
     a.setApplicationName("dde-pixmix");
+    a.setDesktopFileName(QStringLiteral("org.deepin.dde.pixmix"));
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerJournalAppender();

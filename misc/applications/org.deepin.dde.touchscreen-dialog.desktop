@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Deepin Touchscreen Dialog
+Comment=Deepin touchscreen association dialog
+Icon=deepin-dde
+Exec=/bin/false
+TryExec=/bin/false
+NoDisplay=true
+Terminal=false
+StartupNotify=false
+Categories=System;

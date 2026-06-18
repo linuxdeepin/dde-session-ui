@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -21,6 +21,9 @@ using namespace org::deepin::dde;
 int main(int argc, char *argv[])
 {
     DApplication app(argc, argv);
+    app.setOrganizationName("deepin");
+    app.setApplicationName("dde-touchscreen-dialog");
+    app.setDesktopFileName(QStringLiteral("org.deepin.dde.touchscreen-dialog"));
     app.setQuitOnLastWindowClosed(false);
     app.setQuitOnLastWindowClosed(true);
 
@@ -49,7 +52,15 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    TouchscreenSetting s(posArguments.first());
+    // 如果该触摸设备已被关联到屏幕，则不再弹出选择窗口
+    const QString &touchUUID = posArguments.first();
+    const auto touchMap = display.touchMap();
+    if (touchMap.contains(touchUUID)) {
+        qDebug() << "touchscreen already associated:" << touchUUID << "->" << touchMap[touchUUID];
+        return 0;
+    }
+
+    TouchscreenSetting s(touchUUID);
 #if (defined QT_DEBUG) && (defined CHECK_ACCESSIBLENAME)
     AccessibilityCheckerEx checker;
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);

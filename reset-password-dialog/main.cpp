@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2016 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2016 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -24,6 +24,8 @@ int main(int argc, char *argv[])
     DApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(true);
     a.setOrganizationName("deepin");
+    a.setApplicationName("reset-password-dialog");
+    a.setDesktopFileName(QStringLiteral("org.deepin.dde.reset-password-dialog"));
 
     QCommandLineParser parser;
     parser.addHelpOption();
