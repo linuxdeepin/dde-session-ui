@@ -439,23 +439,23 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="108"/>
         <source>Last login: %1</source>
-        <translation type="unfinished"/>
+        <translation>最終ログイン: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished"/>
+        <translation>詳細</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="170"/>
         <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Password Expiration Warning</source>
-        <translation type="unfinished"/>
+        <translation>パスワード期限切れ警告</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="176"/>
         <source>Your password has expired. Please change it immediately.</source>
-        <translation type="unfinished"/>
+        <translation>パスワードは期限切れになりました。直ちに変更してください。</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
