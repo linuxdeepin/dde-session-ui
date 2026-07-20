@@ -419,17 +419,17 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="86"/>
         <source>Login Reminder</source>
-        <translation type="unfinished"/>
+        <translation>ログインリマインダー</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="94"/>
         <source>Your password will expire in %1 days</source>
-        <translation type="unfinished"/>
+        <translation>パスワードは%1日後に期限切れになります。</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="98"/>
         <source>%1 login failures since the last successful login</source>
-        <translation type="unfinished"/>
+        <translation>前回のログイン成功後に%1回ログインに失敗しています</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
