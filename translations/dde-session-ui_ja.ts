@@ -460,22 +460,22 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired!</source>
-        <translation type="unfinished"/>
+        <translation>パスワードが期限切れになりました</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>For security reasons, please change your password immediately.</source>
-        <translation type="unfinished"/>
+        <translation>セキュリティ上の理由により、今すぐパスワードを変更する必要があります。</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="181"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
-        <translation type="unfinished"/>
+        <translation>パスワードは%1日で期限切れになります。期限内に変更してください。</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Your password will expire in %1 days.</source>
-        <translation type="unfinished"/>
+        <translation>パスワードは%1日後に期限切れになります。</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="184"/>
