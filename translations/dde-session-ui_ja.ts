@@ -434,7 +434,7 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
         <source>Login time: %1</source>
-        <translation type="unfinished"/>
+        <translation>ログイン時刻: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="108"/>
@@ -480,7 +480,7 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Please change your password as soon as possible.</source>
-        <translation type="unfinished"/>
+        <translation>速やかにパスワードを変更してください。</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="206"/>
