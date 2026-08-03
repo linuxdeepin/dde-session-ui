@@ -1,3 +1,10 @@
+dde-session-ui (6.0.47) unstable; urgency=medium
+
+  * fix(dde-lowpower): fix null pointer crash when screenAt returns null
+    on Wayland
+
+ -- zhangkun <zhangkun2@uniontech.com>  Mon, 03 Aug 2026 13:11:33 +0800
+
 dde-session-ui (6.0.46) unstable; urgency=medium
 
   * fix: show touchscreen dialog on init
