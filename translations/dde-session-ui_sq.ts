@@ -1,255 +1,86 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq" sourcelanguage="en">
-<context>
-    <name>Bubble</name>
-    <message>
-        <location filename="../dde-osd/src/notification/bubble.cpp" line="309"/>
-        <source>1 new message</source>
-        <translation>1 mesazh i ri</translation>
-    </message>
-</context>
-<context>
-    <name>BubbleItem</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="215"/>
-        <source>Just Now</source>
-        <translation>Mu Tani</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="217"/>
-        <source>%1 minutes ago</source>
-        <translation>%1 minuta më parë</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="219"/>
-        <source>%1 hours ago</source>
-        <translation>%1 orë më parë</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="222"/>
-        <source>Yesterday </source>
-        <translation>Dje </translation>
-    </message>
-</context>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="sq" sourcelanguage="en">
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/src/content.cpp" line="271"/>
+        <location filename="../dde-license-dialog/src/content.cpp" line="274"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Anuloje</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/src/content.cpp" line="272"/>
+        <location filename="../dde-license-dialog/src/content.cpp" line="275"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>Ripohojeni</translation>
     </message>
 </context>
 <context>
     <name>DMemoryWarningDialog</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="28"/>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="65"/>
-        <source>Cancel</source>
-        <translation>Anuloje</translation>
-    </message>
-    <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="30"/>
-        <source>Release</source>
-        <translation>Hedhje në qarkullim</translation>
-    </message>
-    <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="34"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="36"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
         <translation>Funksionimi i këtij aplikacioni do të përfundohet, ju lutemi, sigurohuni se janë ruajtur të dhënat tuaja!</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="35"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="37"/>
         <source>Please save your document, text and spreadsheet</source>
         <translation>Ju lutemi, ruani dokument, tekst dhe fletëllogaritje tuajën</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="66"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="28"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="67"/>
+        <source>Cancel</source>
+        <comment>button</comment>
+        <translation>Anuloje</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="29"/>
+        <source>Release</source>
+        <comment>button</comment>
+        <translation>Hedhje në qarkullim</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="68"/>
         <source>Continue</source>
+        <comment>button</comment>
         <translation>Vazhdo</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="89"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
         <translation>Kujtesë sistemi e pamjaftueshme, ju lutemi, përfundoni disa aplikacione, që të shmanget ngecje.</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="199"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="201"/>
         <source>Continue to run %1, %2MB memory is required</source>
         <translation>Vazhdo të xhirosh %1, lypset %2MB kujtesë</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="202"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="204"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
         <translation>Vazhdo të hapësh skedë shfletuesi, lypset %1MB kujtesë</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="205"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="207"/>
         <source>To continue the operation, %1MB memory is required</source>
         <translation>Që të vazhdohet veprimi, lypset %1MB kujtesë</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="211"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="213"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
         <translation>Kujtesa juaj e tanishme është e mjaftueshme, të vazhdohet me xhirimin e %1?</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="214"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="216"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
         <translation>Kujtesa juaj e tanishme është e mjaftueshme, të vazhdohet me hapjen e skedës së shfletuesit?</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="219"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
         <translation>Kujtesa juaj e tanishme është e mjaftueshme, të vazhdohet veprimi?</translation>
-    </message>
-</context>
-<context>
-    <name>DisplayModeProvider</name>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="271"/>
-        <source>Only on %1</source>
-        <translation>Vetëm në %1</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="273"/>
-        <source>Duplicate</source>
-        <translation>Përsëdyte</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="275"/>
-        <source>Extend</source>
-        <translation>Zgjeroje</translation>
-    </message>
-</context>
-<context>
-    <name>KBLayoutIndicator</name>
-    <message>
-        <location filename="../dde-osd/src/kblayoutindicator.cpp" line="140"/>
-        <source>Add keyboard layout</source>
-        <translation>Shtoni skemë tastiere</translation>
-    </message>
-</context>
-<context>
-    <name>NotifyCenterWidget</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/notifycenterwidget.cpp" line="76"/>
-        <source>Notification Center</source>
-        <translation>Qendër Njoftimesh</translation>
-    </message>
-</context>
-<context>
-    <name>NotifyWidget</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/notifywidget.cpp" line="23"/>
-        <source>No system notifications</source>
-        <translation>Pa njoftime sistemi</translation>
-    </message>
-</context>
-<context>
-    <name>OSDProvider</name>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="115"/>
-        <source>Fn toggle</source>
-        <translation>Këmbim Fn-je</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="102"/>
-        <source>WLAN on</source>
-        <translation>WLAN i hapur</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="103"/>
-        <source>WLAN off</source>
-        <translation>WLAN i mbyllur</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="105"/>
-        <source>Caps Lock on</source>
-        <translation>Caps Lock aktiv</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="106"/>
-        <source>Caps Lock off</source>
-        <translation>Caps Lock joaktiv</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="108"/>
-        <source>Numeric keypad on</source>
-        <translation>Pjesa numerike aktive</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="109"/>
-        <source>Numeric keypad off</source>
-        <translation>Pjesa numerike joaktive</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="111"/>
-        <source>Touchpad on</source>
-        <translation>Touchpad-i aktiv</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="112"/>
-        <source>Touchpad off</source>
-        <translation>Touchpad-i joaktiv</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="113"/>
-        <source>Touchpad toggle</source>
-        <translation>Aktivizim/çaktivizim Touchpad-i</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="117"/>
-        <source>Airplane mode on</source>
-        <translation>Mënyra aeroplan aktive</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="118"/>
-        <source>Airplane mode off</source>
-        <translation>Mënyra aeroplan joaktive</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="120"/>
-        <source>Mute on</source>
-        <translation>Me heshtim</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="121"/>
-        <source>Mute off</source>
-        <translation>Pa heshtim</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="123"/>
-        <source>Balanced power</source>
-        <translation>Energji i balancuar</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="124"/>
-        <source>Power saver</source>
-        <translation>Kursyes energjie</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
-        <source>High performance</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="127"/>
-        <source>Window effect enabled</source>
-        <translation>U aktivizuan efekte dritaresh</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
-        <source>Window effect disabled</source>
-        <translation>U çaktivizuan efekte dritaresh</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
-        <source>Failed to enable window effects</source>
-        <translation>S’u arrit të aktivizohen efekte dritaresh</translation>
     </message>
 </context>
 <context>
@@ -328,11 +159,13 @@
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="33"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Anulojeni</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="35"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>Ripohojeni</translation>
     </message>
 </context>
@@ -341,7 +174,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="90"/>
         <source>End</source>
-        <translation>Përfundoje</translation>
+        <translation type="unfinished">Përfundoje</translation>
     </message>
 </context>
 <context>
@@ -444,46 +277,46 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation>Hollësi</translation>
+        <translation type="unfinished">Hollësi</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="170"/>
-        <location filename="../deepin-login-reminder/main.cpp" line="182"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="171"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Password Expiration Warning</source>
         <translation>Sinjalizim Skadimi Fjalëkalimi</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="176"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired. Please change it immediately.</source>
         <translation>Fjalëkalimi juaj ka skaduar. Ju lutemi, ndryshojeni menjëherë.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="177"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>Your password has expired!</source>
         <translation>Fjalëkalimi juaj ka skaduar!</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="178"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="179"/>
         <source>For security reasons, please change your password immediately.</source>
         <translation>Për arsye sigurie, ju lutemi, ndryshoni menjëherë fjalëkalimin tuaj.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="181"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
         <translation>Fjalëkalimi juaj do të skadojë pas %1 ditësh. Ju lutemi, ndryshojeni së shpejti.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="183"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Your password will expire in %1 days.</source>
         <translation>Fjala juaj do të skadojë pas %1 ditësh.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="184"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="185"/>
         <source>Please change your password as soon as possible.</source>
         <translation>Ju lutemi, ndryshoni fjalëkalimin tuaj sa më shpejt që të jetë e mundur.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="206"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="207"/>
         <source>Change Password</source>
         <translation>Ndryshoni Fjalëkalimin</translation>
     </message>
@@ -500,6 +333,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="150"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="192"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Anuloje</translation>
     </message>
     <message>
@@ -531,6 +365,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="188"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="195"/>
         <source>Reset</source>
+        <comment>button</comment>
         <translation>Ricaktojeni</translation>
     </message>
     <message>
@@ -608,18 +443,20 @@
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="18"/>
-        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="44"/>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="45"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="33"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Anuloje</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="33"/>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="34"/>
         <source>Suspend</source>
+        <comment>button</comment>
         <translation>Pezulloje</translation>
     </message>
 </context>
@@ -633,11 +470,13 @@
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="38"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Anuloje</translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="39"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>Ripohojeni</translation>
     </message>
 </context>
@@ -744,7 +583,7 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="26"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -790,6 +629,7 @@
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="22"/>
         <source>OK</source>
+        <comment>button</comment>
         <translation>OK</translation>
     </message>
 </context>

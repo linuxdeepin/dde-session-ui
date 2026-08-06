@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2015 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -25,9 +25,11 @@ static DMemoryWarningDialog *dialog = nullptr;
 
 bool confirm(const QPixmap &icon)
 {
-    const QStringList btns = QStringList() << QApplication::translate("DMemoryWarningDialog", "Cancel")
+    const QString cancelText = QApplication::translate("DMemoryWarningDialog", "Cancel", "button");
+    const QString releaseText = QApplication::translate("DMemoryWarningDialog", "Release", "button");
+    const QStringList btns = QStringList() << cancelText
 //                                           << QApplication::translate("DMemoryWarningDialog", "View")
-                                           << QApplication::translate("DMemoryWarningDialog", "Release");
+                                           << releaseText;
 
     DDialog terminateDialog(dialog);
     terminateDialog.setAccessibleName("TerminateDialog");
@@ -62,8 +64,8 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
 
     m_memNeeded->setWordWrap(true);
     m_memNeeded->setAccessibleName("MemNeededLabel");
-    m_cancelButton->setText(tr("Cancel"));
-    m_continueButton->setText(tr("Continue"));
+    m_cancelButton->setText(tr("Cancel", "button"));
+    m_continueButton->setText(tr("Continue", "button"));
     m_icon->setAccessibleName("DdeIconLabel");
     m_icon->setPixmap(QIcon::fromTheme("dde").pixmap(32, 32));
 

@@ -1,255 +1,86 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de" sourcelanguage="en">
-<context>
-    <name>Bubble</name>
-    <message>
-        <location filename="../dde-osd/src/notification/bubble.cpp" line="309"/>
-        <source>1 new message</source>
-        <translation>1 neue Nachricht</translation>
-    </message>
-</context>
-<context>
-    <name>BubbleItem</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="215"/>
-        <source>Just Now</source>
-        <translation>Gerade eben</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="217"/>
-        <source>%1 minutes ago</source>
-        <translation>vor %1 Minuten</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="219"/>
-        <source>%1 hours ago</source>
-        <translation>vor %1 Stunden</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="222"/>
-        <source>Yesterday </source>
-        <translation>Gestern</translation>
-    </message>
-</context>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="de" sourcelanguage="en">
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/src/content.cpp" line="271"/>
+        <location filename="../dde-license-dialog/src/content.cpp" line="274"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/src/content.cpp" line="272"/>
+        <location filename="../dde-license-dialog/src/content.cpp" line="275"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>Bestätigen</translation>
     </message>
 </context>
 <context>
     <name>DMemoryWarningDialog</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="28"/>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="65"/>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
-    </message>
-    <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="30"/>
-        <source>Release</source>
-        <translation>Auswerfen</translation>
-    </message>
-    <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="34"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="36"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
         <translation>Diese Anwendung wird beendet, bitte stellen Sie sicher, dass Ihre Daten gespeichert wurden!</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="35"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="37"/>
         <source>Please save your document, text and spreadsheet</source>
         <translation>Bitte speichern Sie Ihr Dokument, Text und Tabellenblatt.</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="66"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="28"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="67"/>
+        <source>Cancel</source>
+        <comment>button</comment>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="29"/>
+        <source>Release</source>
+        <comment>button</comment>
+        <translation>Auswerfen</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="68"/>
         <source>Continue</source>
+        <comment>button</comment>
         <translation>Fortsetzen</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="89"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
         <translation>Ungenügend Systemspeicher verfügbar. Bitte schließen Sie unnötige Anwendungen, um ein ruckelndes System zu vermeiden.</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="199"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="201"/>
         <source>Continue to run %1, %2MB memory is required</source>
         <translation>Zum Fortsetzen von %1 werden %2MB Speicher benötigt.</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="202"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="204"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
         <translation>Zum Öffnen eines Browser-Tabs werden %1MB Speicher benötigt.</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="205"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="207"/>
         <source>To continue the operation, %1MB memory is required</source>
         <translation>Zum Fortsetzen des Vorgangs werden %1MB Speicher benötigt.</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="211"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="213"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
         <translation>Ihr momentaner Speicher reicht aus, soll %1 weiter ausgeführt werden?</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="214"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="216"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
         <translation>Ihr momentaner Speicher reicht aus, soll der Browser-Tab geöffnet werden?</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="219"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
         <translation>Ihr momentaner Speicher reicht aus, soll der Vorgang fortgeführt werden?</translation>
-    </message>
-</context>
-<context>
-    <name>DisplayModeProvider</name>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="271"/>
-        <source>Only on %1</source>
-        <translation>Nur auf %1</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="273"/>
-        <source>Duplicate</source>
-        <translation>Duplizieren</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="275"/>
-        <source>Extend</source>
-        <translation>Erweitern</translation>
-    </message>
-</context>
-<context>
-    <name>KBLayoutIndicator</name>
-    <message>
-        <location filename="../dde-osd/src/kblayoutindicator.cpp" line="140"/>
-        <source>Add keyboard layout</source>
-        <translation>Tastaturbelegung hinzufügen</translation>
-    </message>
-</context>
-<context>
-    <name>NotifyCenterWidget</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/notifycenterwidget.cpp" line="76"/>
-        <source>Notification Center</source>
-        <translation>Benachrichtigungszentrum</translation>
-    </message>
-</context>
-<context>
-    <name>NotifyWidget</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/notifywidget.cpp" line="23"/>
-        <source>No system notifications</source>
-        <translation>Keine Systembenachrichtigungen</translation>
-    </message>
-</context>
-<context>
-    <name>OSDProvider</name>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="115"/>
-        <source>Fn toggle</source>
-        <translation>Fn umschalten</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="102"/>
-        <source>WLAN on</source>
-        <translation>WLAN an</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="103"/>
-        <source>WLAN off</source>
-        <translation>WLAN aus</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="105"/>
-        <source>Caps Lock on</source>
-        <translation>Feststelltaste an</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="106"/>
-        <source>Caps Lock off</source>
-        <translation>Feststelltaste aus</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="108"/>
-        <source>Numeric keypad on</source>
-        <translation>Zahlenfeld an</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="109"/>
-        <source>Numeric keypad off</source>
-        <translation>Zahlenfeld aus</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="111"/>
-        <source>Touchpad on</source>
-        <translation>Touchpad an</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="112"/>
-        <source>Touchpad off</source>
-        <translation>Touchpad aus</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="113"/>
-        <source>Touchpad toggle</source>
-        <translation>Touchpad umschalten</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="117"/>
-        <source>Airplane mode on</source>
-        <translation>Flugmodus an</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="118"/>
-        <source>Airplane mode off</source>
-        <translation>Flugmodus aus</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="120"/>
-        <source>Mute on</source>
-        <translation>Stummschaltung an</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="121"/>
-        <source>Mute off</source>
-        <translation>Stummschaltung aus</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="123"/>
-        <source>Balanced power</source>
-        <translation>Ausgeglichener Energieplan</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="124"/>
-        <source>Power saver</source>
-        <translation>Energiesparmodus</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
-        <source>High performance</source>
-        <translation>Hohe Leistung</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="127"/>
-        <source>Window effect enabled</source>
-        <translation>Fenstereffekt aktiviert</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
-        <source>Window effect disabled</source>
-        <translation>Fenstereffekt deaktiviert</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
-        <source>Failed to enable window effects</source>
-        <translation>Fehler beim Aktivieren der Fenstereffekte</translation>
     </message>
 </context>
 <context>
@@ -328,11 +159,13 @@
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="33"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="35"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>Bestätigen</translation>
     </message>
 </context>
@@ -341,7 +174,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="90"/>
         <source>End</source>
-        <translation>Ende</translation>
+        <translation type="unfinished">Ende</translation>
     </message>
 </context>
 <context>
@@ -444,46 +277,46 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation>Details</translation>
+        <translation type="unfinished">Details</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="170"/>
-        <location filename="../deepin-login-reminder/main.cpp" line="182"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="171"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Password Expiration Warning</source>
         <translation>Passwort-Ablauf-Warnung</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="176"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired. Please change it immediately.</source>
         <translation>Ihr Passwort ist abgelaufen, bitte ändern Sie es jetzt gleich.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="177"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>Your password has expired!</source>
         <translation>Ihr Passwort ist abgelaufen!</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="178"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="179"/>
         <source>For security reasons, please change your password immediately.</source>
         <translation>Bitte ändern Sie aus Sicherheitsgründen ihr Passwort jetzt gleich.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="181"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
         <translation>Ihr Passwort läuft in %1 Tagen ab, bitte ändern Sie es bald.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="183"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Your password will expire in %1 days.</source>
         <translation>Ihr Passwort wird in %1 Tagen ablaufen.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="184"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="185"/>
         <source>Please change your password as soon as possible.</source>
         <translation>Bitte ändern Sie ihr Passwort so bald wie möglich.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="206"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="207"/>
         <source>Change Password</source>
         <translation>Passwort ändern</translation>
     </message>
@@ -500,6 +333,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="150"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="192"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Abbrechen</translation>
     </message>
     <message>
@@ -531,6 +365,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="188"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="195"/>
         <source>Reset</source>
+        <comment>button</comment>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
@@ -608,18 +443,20 @@
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="18"/>
-        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="44"/>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="45"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="33"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="33"/>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="34"/>
         <source>Suspend</source>
+        <comment>button</comment>
         <translation>Bereitschaftszustand</translation>
     </message>
 </context>
@@ -633,11 +470,13 @@
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="38"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="39"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>Bestätigen</translation>
     </message>
 </context>
@@ -790,6 +629,7 @@
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="22"/>
         <source>OK</source>
+        <comment>button</comment>
         <translation>OK</translation>
     </message>
 </context>

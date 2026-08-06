@@ -1,255 +1,86 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ja" sourcelanguage="en">
-<context>
-    <name>Bubble</name>
-    <message>
-        <location filename="../dde-osd/src/notification/bubble.cpp" line="309"/>
-        <source>1 new message</source>
-        <translation>1件の新しいメッセージ</translation>
-    </message>
-</context>
-<context>
-    <name>BubbleItem</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="215"/>
-        <source>Just Now</source>
-        <translation>たった今</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="217"/>
-        <source>%1 minutes ago</source>
-        <translation>%1分前</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="219"/>
-        <source>%1 hours ago</source>
-        <translation>%1時間前</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="222"/>
-        <source>Yesterday </source>
-        <translation>昨日</translation>
-    </message>
-</context>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ja" sourcelanguage="en">
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/src/content.cpp" line="271"/>
+        <location filename="../dde-license-dialog/src/content.cpp" line="274"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/src/content.cpp" line="272"/>
+        <location filename="../dde-license-dialog/src/content.cpp" line="275"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>確認</translation>
     </message>
 </context>
 <context>
     <name>DMemoryWarningDialog</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="28"/>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="65"/>
-        <source>Cancel</source>
-        <translation>キャンセル</translation>
-    </message>
-    <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="30"/>
-        <source>Release</source>
-        <translation>リリース</translation>
-    </message>
-    <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="34"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="36"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
         <translation>このアプリケーションは終了します。データが保存されていることを確認してください！</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="35"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="37"/>
         <source>Please save your document, text and spreadsheet</source>
         <translation>ドキュメント、テキスト、スプレッドシートを保存してください</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="66"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="28"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="67"/>
+        <source>Cancel</source>
+        <comment>button</comment>
+        <translation>キャンセル</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="29"/>
+        <source>Release</source>
+        <comment>button</comment>
+        <translation>リリース</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="68"/>
         <source>Continue</source>
+        <comment>button</comment>
         <translation>続行</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="89"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
         <translation>システムメモリーが不足しています。フリーズを避けるにはアプリケーションをいくつか終了させてください。</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="199"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="201"/>
         <source>Continue to run %1, %2MB memory is required</source>
         <translation>%1 を実行するには、%2 MB のメモリーが必要です</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="202"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="204"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
         <translation>ブラウザーのタブを開くには、%1 MB のメモリーが必要です</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="205"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="207"/>
         <source>To continue the operation, %1MB memory is required</source>
         <translation>操作を実行するには、%1 MB のメモリーが必要です</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="211"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="213"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
         <translation>現在メモリーに十分な空きがあります。%1 を実行しますか？</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="214"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="216"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
         <translation>現在メモリーに十分な空きがあります。ブラウザーのタブを開きますか？</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="219"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
         <translation>現在メモリーに十分な空きがあります。操作を実行しますか？</translation>
-    </message>
-</context>
-<context>
-    <name>DisplayModeProvider</name>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="271"/>
-        <source>Only on %1</source>
-        <translation>%1 のみ</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="273"/>
-        <source>Duplicate</source>
-        <translation>複製</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="275"/>
-        <source>Extend</source>
-        <translation>拡張</translation>
-    </message>
-</context>
-<context>
-    <name>KBLayoutIndicator</name>
-    <message>
-        <location filename="../dde-osd/src/kblayoutindicator.cpp" line="140"/>
-        <source>Add keyboard layout</source>
-        <translation>キーボードレイアウトを追加</translation>
-    </message>
-</context>
-<context>
-    <name>NotifyCenterWidget</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/notifycenterwidget.cpp" line="76"/>
-        <source>Notification Center</source>
-        <translation>通知センター</translation>
-    </message>
-</context>
-<context>
-    <name>NotifyWidget</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/notifywidget.cpp" line="23"/>
-        <source>No system notifications</source>
-        <translation>システム通知はありません</translation>
-    </message>
-</context>
-<context>
-    <name>OSDProvider</name>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="115"/>
-        <source>Fn toggle</source>
-        <translation>Fn トグル</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="102"/>
-        <source>WLAN on</source>
-        <translation>無線LAN ON</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="103"/>
-        <source>WLAN off</source>
-        <translation>無線LAN OFF</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="105"/>
-        <source>Caps Lock on</source>
-        <translation>Caps Lock ON</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="106"/>
-        <source>Caps Lock off</source>
-        <translation>Caps Lock OFF</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="108"/>
-        <source>Numeric keypad on</source>
-        <translation>テンキー ON</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="109"/>
-        <source>Numeric keypad off</source>
-        <translation>テンキー OFF</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="111"/>
-        <source>Touchpad on</source>
-        <translation>タッチパッド ON</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="112"/>
-        <source>Touchpad off</source>
-        <translation>タッチパッド OFF</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="113"/>
-        <source>Touchpad toggle</source>
-        <translation>タッチパッド トグル</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="117"/>
-        <source>Airplane mode on</source>
-        <translation>機内モード ON</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="118"/>
-        <source>Airplane mode off</source>
-        <translation>機内モードOFF</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="120"/>
-        <source>Mute on</source>
-        <translation>ミュート ON</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="121"/>
-        <source>Mute off</source>
-        <translation>ミュート OFF</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="123"/>
-        <source>Balanced power</source>
-        <translation>バランス</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="124"/>
-        <source>Power saver</source>
-        <translation>省電力</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
-        <source>High performance</source>
-        <translation>高パフォーマンス</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="127"/>
-        <source>Window effect enabled</source>
-        <translation>ウィンドウ エフェクトを有効にしました</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
-        <source>Window effect disabled</source>
-        <translation>ウィンドウ エフェクトを無効にしました</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
-        <source>Failed to enable window effects</source>
-        <translation>ウィンドウ エフェクトを有効にできませんでした</translation>
     </message>
 </context>
 <context>
@@ -305,7 +136,7 @@
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="223"/>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="236"/>
         <source>A stronger password is recommended: more than 8 characters, and contains 3 of the four character types: lowercase letters, uppercase letters, numbers, and symbols.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="227"/>
@@ -315,7 +146,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="238"/>
         <source>Error occurred when reading the configuration files of password rules!</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -328,11 +159,13 @@
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="33"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>キャンセル</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="35"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>確認</translation>
     </message>
 </context>
@@ -341,7 +174,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="90"/>
         <source>End</source>
-        <translation>終了</translation>
+        <translation type="unfinished">終了</translation>
     </message>
 </context>
 <context>
@@ -444,46 +277,46 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation>詳細</translation>
+        <translation type="unfinished">詳細</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="170"/>
-        <location filename="../deepin-login-reminder/main.cpp" line="182"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="171"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Password Expiration Warning</source>
         <translation>パスワード期限切れ警告</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="176"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired. Please change it immediately.</source>
         <translation>パスワードは期限切れになりました。直ちに変更してください。</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="177"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>Your password has expired!</source>
         <translation>パスワードが期限切れになりました</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="178"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="179"/>
         <source>For security reasons, please change your password immediately.</source>
         <translation>セキュリティ上の理由により、今すぐパスワードを変更する必要があります。</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="181"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
         <translation>パスワードは%1日で期限切れになります。期限内に変更してください。</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="183"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Your password will expire in %1 days.</source>
         <translation>パスワードは%1日後に期限切れになります。</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="184"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="185"/>
         <source>Please change your password as soon as possible.</source>
         <translation>速やかにパスワードを変更してください。</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="206"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="207"/>
         <source>Change Password</source>
         <translation>パスワードを変更</translation>
     </message>
@@ -493,13 +326,14 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="92"/>
         <source>Resetting the password will clear the data stored in the keyring</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="94"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="150"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="192"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>キャンセル</translation>
     </message>
     <message>
@@ -531,22 +365,23 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="188"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="195"/>
         <source>Reset</source>
+        <comment>button</comment>
         <translation>リセット</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="149"/>
         <source>Resetting the password will clear the data stored in your keyring, and you should log in again, please save files in advance</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="150"/>
         <source>Confirm and Reset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="246"/>
         <source>Successfully reset, please log in and unlock with the new password</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -561,42 +396,42 @@
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="113"/>
         <source>What&apos;s the name of the city where you were born?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="114"/>
         <source>What&apos;s the name of the first school you attended?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="115"/>
         <source>Who do you love the most in this world?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="116"/>
         <source>What&apos;s your favorite animal?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="117"/>
         <source>What&apos;s your favorite song?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="118"/>
         <source>What&apos;s your nickname?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="168"/>
         <source>Wrong answer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="183"/>
         <source>Keep the answer under 30 characters</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -608,18 +443,20 @@
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="18"/>
-        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="44"/>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="45"/>
         <source>%1s</source>
         <translation>%1 秒</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="33"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="33"/>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="34"/>
         <source>Suspend</source>
+        <comment>button</comment>
         <translation>サスペンド</translation>
     </message>
 </context>
@@ -633,11 +470,13 @@
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="38"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>キャンセル</translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="39"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>確認</translation>
     </message>
 </context>
@@ -790,6 +629,7 @@
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="22"/>
         <source>OK</source>
+        <comment>button</comment>
         <translation>OK</translation>
     </message>
 </context>

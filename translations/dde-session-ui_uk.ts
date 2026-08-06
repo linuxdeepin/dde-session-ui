@@ -1,255 +1,86 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="uk" sourcelanguage="en">
-<context>
-    <name>Bubble</name>
-    <message>
-        <location filename="../dde-osd/src/notification/bubble.cpp" line="309"/>
-        <source>1 new message</source>
-        <translation>Одне нове повідомлення</translation>
-    </message>
-</context>
-<context>
-    <name>BubbleItem</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="215"/>
-        <source>Just Now</source>
-        <translation>Прямо зараз</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="217"/>
-        <source>%1 minutes ago</source>
-        <translation>%1 хвилин тому</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="219"/>
-        <source>%1 hours ago</source>
-        <translation>%1 годин тому</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/notification-center/bubbleitem.cpp" line="222"/>
-        <source>Yesterday </source>
-        <translation>Вчора</translation>
-    </message>
-</context>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="uk" sourcelanguage="en">
 <context>
     <name>Content</name>
     <message>
-        <location filename="../dde-license-dialog/src/content.cpp" line="271"/>
+        <location filename="../dde-license-dialog/src/content.cpp" line="274"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../dde-license-dialog/src/content.cpp" line="272"/>
+        <location filename="../dde-license-dialog/src/content.cpp" line="275"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>Підтвердити</translation>
     </message>
 </context>
 <context>
     <name>DMemoryWarningDialog</name>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="28"/>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="65"/>
-        <source>Cancel</source>
-        <translation>Скасувати</translation>
-    </message>
-    <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="30"/>
-        <source>Release</source>
-        <translation>Звільнити</translation>
-    </message>
-    <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="34"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="36"/>
         <source>This application will be ended, please make sure your data has been saved!</source>
         <translation>Роботу цієї програми буде завершено. Будь ласка, переконайтеся, що зберегли усі важливі дані!</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="35"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="37"/>
         <source>Please save your document, text and spreadsheet</source>
         <translation>Будь ласка, збережіть ваш документ, текст і електронну таблицю</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="66"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="28"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="67"/>
+        <source>Cancel</source>
+        <comment>button</comment>
+        <translation>Скасувати</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="29"/>
+        <source>Release</source>
+        <comment>button</comment>
+        <translation>Звільнити</translation>
+    </message>
+    <message>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="68"/>
         <source>Continue</source>
+        <comment>button</comment>
         <translation>Продовжити</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="87"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="89"/>
         <source>Insufficient system memory, please end some applications to avoid getting stuck.</source>
         <translation>У системі недостатньо оперативної пам&apos;яті. Будь ласка, заверште роботу програм, щоб уникнути загальної аварії.</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="199"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="201"/>
         <source>Continue to run %1, %2MB memory is required</source>
         <translation>Продовжуємо роботу з %1, потрібно %2 МБ пам&apos;яті</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="202"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="204"/>
         <source>Continue to open browser tab, %1MB memory is required</source>
         <translation>Продовжуємо відкривати вкладку барусзера, потрібно %1 МБ пам&apos;яті</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="205"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="207"/>
         <source>To continue the operation, %1MB memory is required</source>
         <translation>Щоб продовжити виконання цієї дії, потрібно %1 МБ пам&apos;яті</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="211"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="213"/>
         <source>Your current memory is sufficient enough, continue to run %1?</source>
         <translation>Зараз у системі недостатньо оперативної пам&apos;яті. Продовжити спробу роботи з %1?</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="214"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="216"/>
         <source>Your current memory is sufficient enough, continue to open browser tab?</source>
         <translation>Зараз у системі недостатньо оперативної пам&apos;яті. Продовжити спробу відкрити вкладку у браузері?</translation>
     </message>
     <message>
-        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="217"/>
+        <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="219"/>
         <source>Your current memory is sufficient enough, continue the operation?</source>
         <translation>Зараз у системі недостатньо оперативної пам&apos;яті. Продовжити спробу виконати дію?</translation>
-    </message>
-</context>
-<context>
-    <name>DisplayModeProvider</name>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="271"/>
-        <source>Only on %1</source>
-        <translation>Лише на %1</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="273"/>
-        <source>Duplicate</source>
-        <translation>Дублікат</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/displaymodeprovider.cpp" line="275"/>
-        <source>Extend</source>
-        <translation>Розширити</translation>
-    </message>
-</context>
-<context>
-    <name>KBLayoutIndicator</name>
-    <message>
-        <location filename="../dde-osd/src/kblayoutindicator.cpp" line="140"/>
-        <source>Add keyboard layout</source>
-        <translation>Додати розкладку клавіатури</translation>
-    </message>
-</context>
-<context>
-    <name>NotifyCenterWidget</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/notifycenterwidget.cpp" line="76"/>
-        <source>Notification Center</source>
-        <translation>Центр повідомлень</translation>
-    </message>
-</context>
-<context>
-    <name>NotifyWidget</name>
-    <message>
-        <location filename="../dde-osd/src/notification-center/notifywidget.cpp" line="23"/>
-        <source>No system notifications</source>
-        <translation>Системні сповіщення відсутні</translation>
-    </message>
-</context>
-<context>
-    <name>OSDProvider</name>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="115"/>
-        <source>Fn toggle</source>
-        <translation>Перемикач Fn</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="102"/>
-        <source>WLAN on</source>
-        <translation>WLAN увімкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="103"/>
-        <source>WLAN off</source>
-        <translation>WLAN вимкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="105"/>
-        <source>Caps Lock on</source>
-        <translation>Caps Lock увімкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="106"/>
-        <source>Caps Lock off</source>
-        <translation>Caps Lock вимкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="108"/>
-        <source>Numeric keypad on</source>
-        <translation>Цифрову панель увімкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="109"/>
-        <source>Numeric keypad off</source>
-        <translation>Цифрову панель вимкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="111"/>
-        <source>Touchpad on</source>
-        <translation>Сенсорну панель увімкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="112"/>
-        <source>Touchpad off</source>
-        <translation>Сенсорну панель вимкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="113"/>
-        <source>Touchpad toggle</source>
-        <translation>Перемикач сенсорної панелі</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="117"/>
-        <source>Airplane mode on</source>
-        <translation>Режим польоту увімкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="118"/>
-        <source>Airplane mode off</source>
-        <translation>Режим польоту вимкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="120"/>
-        <source>Mute on</source>
-        <translation>Вимикання звуку увімкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="121"/>
-        <source>Mute off</source>
-        <translation>Вимикання звуку вимкнено</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="123"/>
-        <source>Balanced power</source>
-        <translation>Збалансоване живлення</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="124"/>
-        <source>Power saver</source>
-        <translation>Енергозбереження</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="125"/>
-        <source>High performance</source>
-        <translation>Висока продуктивність</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="127"/>
-        <source>Window effect enabled</source>
-        <translation>Ефект вікна увімкнений</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="128"/>
-        <source>Window effect disabled</source>
-        <translation>Ефект вікна вимкнений</translation>
-    </message>
-    <message>
-        <location filename="../dde-osd/src/osdprovider.cpp" line="129"/>
-        <source>Failed to enable window effects</source>
-        <translation>Не вдалося увімкнути ефекти вікна</translation>
     </message>
 </context>
 <context>
@@ -328,11 +159,13 @@
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="33"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Скасувати</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="35"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>Підтвердити</translation>
     </message>
 </context>
@@ -341,7 +174,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="90"/>
         <source>End</source>
-        <translation>Кінець</translation>
+        <translation type="unfinished">Кінець</translation>
     </message>
 </context>
 <context>
@@ -444,46 +277,46 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation>Подробиці</translation>
+        <translation type="unfinished">Подробиці</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="170"/>
-        <location filename="../deepin-login-reminder/main.cpp" line="182"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="171"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Password Expiration Warning</source>
         <translation>Попередження щодо вичерпання строку дії пароля</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="176"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired. Please change it immediately.</source>
         <translation>Строк дії вашого пароля вичерпано. Будь ласка, негайно змініть його.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="177"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>Your password has expired!</source>
         <translation>Строк дії вашого пароля вичерпано!</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="178"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="179"/>
         <source>For security reasons, please change your password immediately.</source>
         <translation>З міркувань безпеки, будь ласка, негайно змініть ваш пароль.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="181"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
         <translation>Строк дії вашого пароля буде вичерпано за %1 днів. Будь ласка, вчасно змініть його</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="183"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Your password will expire in %1 days.</source>
         <translation>Строк дії вашого пароля буде вичерпано за %1 днів</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="184"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="185"/>
         <source>Please change your password as soon as possible.</source>
         <translation>Будь ласка, якомога швидше змініть ваш пароль.</translation>
     </message>
     <message>
-        <location filename="../deepin-login-reminder/main.cpp" line="206"/>
+        <location filename="../deepin-login-reminder/main.cpp" line="207"/>
         <source>Change Password</source>
         <translation>Змінити пароль</translation>
     </message>
@@ -500,6 +333,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="150"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="192"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Скасувати</translation>
     </message>
     <message>
@@ -531,6 +365,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="188"/>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="195"/>
         <source>Reset</source>
+        <comment>button</comment>
         <translation>Скинути</translation>
     </message>
     <message>
@@ -608,18 +443,20 @@
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="18"/>
-        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="44"/>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="45"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="33"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="33"/>
+        <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="34"/>
         <source>Suspend</source>
+        <comment>button</comment>
         <translation>Призупинити</translation>
     </message>
 </context>
@@ -633,11 +470,13 @@
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="38"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Скасувати</translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="39"/>
         <source>Confirm</source>
+        <comment>button</comment>
         <translation>Підтвердити</translation>
     </message>
 </context>
@@ -790,6 +629,7 @@
     <message>
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="22"/>
         <source>OK</source>
+        <comment>button</comment>
         <translation>Гаразд</translation>
     </message>
 </context>

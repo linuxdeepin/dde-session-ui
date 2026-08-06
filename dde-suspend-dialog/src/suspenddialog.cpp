@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2016 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2016 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -30,7 +30,8 @@ SuspendDialog::SuspendDialog(QRect screenGeometry)
     setIcon(icon);
 
     QStringList buttons;
-    buttons << tr("Cancel") << tr("Suspend");
+    buttons << tr("Cancel", "button");
+    buttons << tr("Suspend", "button");
     addButtons(buttons);
     getButton(0)->setFocus();
 

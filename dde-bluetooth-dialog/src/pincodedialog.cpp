@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2016 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2016 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -30,9 +30,9 @@ PinCodeDialog::PinCodeDialog(const QString &pinCode,  const QString &devicepath,
 
     QStringList btns;
     if (cancelable) {
-        btns << tr("Cancel") ;
+        btns << tr("Cancel", "button") ;
     }
-    btns << tr("Confirm");
+    btns << tr("Confirm", "button");
     addButtons(btns);
 
     m_pinCodeLabel->setObjectName("PinCodeText");
