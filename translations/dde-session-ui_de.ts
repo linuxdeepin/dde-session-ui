@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="de" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de" sourcelanguage="en">
 <context>
     <name>Content</name>
     <message>
         <location filename="../dde-license-dialog/src/content.cpp" line="274"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation>Abbrechen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-license-dialog/src/content.cpp" line="275"/>
         <source>Confirm</source>
         <comment>button</comment>
-        <translation>Bestätigen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -33,19 +31,19 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="67"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation>Abbrechen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="29"/>
         <source>Release</source>
         <comment>button</comment>
-        <translation>Auswerfen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="68"/>
         <source>Continue</source>
         <comment>button</comment>
-        <translation>Fortsetzen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="89"/>
@@ -160,13 +158,13 @@
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="33"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation>Abbrechen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="35"/>
         <source>Confirm</source>
         <comment>button</comment>
-        <translation>Bestätigen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -174,7 +172,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="90"/>
         <source>End</source>
-        <translation type="unfinished">Ende</translation>
+        <translation>Ende</translation>
     </message>
 </context>
 <context>
@@ -277,7 +275,7 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished">Details</translation>
+        <translation>Details</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="171"/>
@@ -334,7 +332,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="192"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation>Abbrechen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="103"/>
@@ -366,7 +364,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="195"/>
         <source>Reset</source>
         <comment>button</comment>
-        <translation>Zurücksetzen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="149"/>
@@ -451,13 +449,13 @@
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="33"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation>Abbrechen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="34"/>
         <source>Suspend</source>
         <comment>button</comment>
-        <translation>Bereitschaftszustand</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -471,13 +469,13 @@
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="38"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation>Abbrechen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="39"/>
         <source>Confirm</source>
         <comment>button</comment>
-        <translation>Bestätigen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -630,7 +628,7 @@
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="22"/>
         <source>OK</source>
         <comment>button</comment>
-        <translation>OK</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
