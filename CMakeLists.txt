@@ -96,9 +96,22 @@ add_subdirectory("reset-password-dialog")
 
 
 #----------------------------process translations------------------------------
-file(GLOB TS_FILES "translations/*.ts")
-qt_add_translation(QM_FILES ${TS_FILES})
-add_custom_target(dde-session-ui_language ALL DEPENDS ${QM_FILES})
+file(GLOB TS_FILES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/translations/*.ts")
+
+qt_collect_translation_source_targets(TRANSLATION_SOURCE_TARGETS)
+file(GLOB_RECURSE EXTRA_TRANSLATION_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/dmemory-warning-dialog/src/*.cpp"
+    "${CMAKE_SOURCE_DIR}/dmemory-warning-dialog/src/*.h"
+)
+
+qt_add_translations(
+    TARGETS ${TRANSLATION_SOURCE_TARGETS}
+    SOURCE_TARGETS ${TRANSLATION_SOURCE_TARGETS}
+    SOURCES ${EXTRA_TRANSLATION_SOURCES}
+    TS_FILES ${TS_FILES}
+    LUPDATE_OPTIONS -no-obsolete
+    QM_FILES_OUTPUT_VARIABLE QM_FILES
+)
 install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/translations)
 
 #----------------------------install desktop files and icons--------------------

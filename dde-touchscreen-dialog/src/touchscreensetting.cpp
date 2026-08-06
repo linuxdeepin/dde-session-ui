@@ -35,8 +35,8 @@ TouchscreenSetting::TouchscreenSetting(const QString &touchscreen, QWidget *pare
     }
     addSpacing(10);
     addContent(m_listCombo);
-    addButton(tr("Cancel"));
-    addButton(tr("Confirm"), false, ButtonRecommend);
+    addButton(tr("Cancel", "button"));
+    addButton(tr("Confirm", "button"), false, ButtonRecommend);
 
     connect(m_displayInter, &Display1::MonitorsChanged, this, &TouchscreenSetting::onMonitorChanged);
     connect(this, &DDialog::buttonClicked, this, &TouchscreenSetting::onButtonClicked);

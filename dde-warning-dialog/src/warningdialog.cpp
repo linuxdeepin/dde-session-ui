@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -19,7 +19,7 @@ WarningDialog::WarningDialog(QWidget *parent)
     setTitle(title);
     setMessage(body);
     setIcon(icon);
-    addButton(tr("OK"), true);
+    addButton(tr("OK", "button"), true);
 }
 
 WarningDialog::~WarningDialog()

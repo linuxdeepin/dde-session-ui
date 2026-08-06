@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2021 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -91,7 +91,7 @@ void ResetPasswordDialog::initWidget(const QString &userName)
     this->setAccessibleName("ResetPasswordPage");
     this->setMessage(tr("Resetting the password will clear the data stored in the keyring"));
     this->setIcon(QIcon::fromTheme("dialog-warning"));
-    this->addButton(tr("Cancel"));
+    this->addButton(tr("Cancel", "button"));
     this->setOnButtonClickedClose(false);
 
     QWidget *mainContentWidget = new QWidget;
@@ -140,14 +140,14 @@ void ResetPasswordDialog::initWidget(const QString &userName)
         m_stackedLayout->setCurrentIndex(0);
     } else {
         this->setTitle(tr("Reset Password By Union ID"));
-        this->addButton(tr("Reset"), true, ButtonRecommend);
+        this->addButton(tr("Reset", "button"), true, ButtonRecommend);
         m_buttonBox->hide();
         m_stackedLayout->setCurrentIndex(1);
         m_UnionIDWidget->loadPage();
     }
 
     m_tipDialog.setMessage(tr("Resetting the password will clear the data stored in your keyring, and you should log in again, please save files in advance"));
-    m_tipDialog.addButtons(QStringList() << tr("Cancel") << tr("Confirm and Reset"));
+    m_tipDialog.addButtons(QStringList() << tr("Cancel", "button") << tr("Confirm and Reset"));
     m_tipDialog.setIcon(QIcon::fromTheme("dialog-warning"));
     auto isWayland = qEnvironmentVariable("XDG_SESSION_TYPE").contains("wayland");
     if (isWayland) {
@@ -174,10 +174,10 @@ void ResetPasswordDialog::initData()
         if (m_buttonBox->id(button) == 0) {
             m_stackedLayout->setCurrentIndex(0);
             if (buttonCount() == 1) {
-                this->addButton(m_SecurityQuestionsWidget->isAnswerRight() ? tr("Reset") : tr("Next"));
+                this->addButton(m_SecurityQuestionsWidget->isAnswerRight() ? tr("Reset", "button") : tr("Next"));
                 connect(getButton(1), &QPushButton::clicked, this, &ResetPasswordDialog::onResetPasswordBtnClicked);
             } else {
-                getButton(1)->setText(m_SecurityQuestionsWidget->isAnswerRight() ? tr("Reset") : tr("Next"));
+                getButton(1)->setText(m_SecurityQuestionsWidget->isAnswerRight() ? tr("Reset", "button") : tr("Next"));
             }
         } else {
             m_stackedLayout->setCurrentIndex(1);
@@ -185,14 +185,14 @@ void ResetPasswordDialog::initData()
         }
     });
     connect(m_SecurityQuestionsWidget, &SecurityQuestionsWidget::answersRight, this, [this] {
-        getButton(1)->setText(tr("Reset"));
+        getButton(1)->setText(tr("Reset", "button"));
     });
     connect(m_UnionIDWidget, &UnionIDWidget::pageChanged, this, [this](bool isResetPasswordPage) {
         this->clearButtons();
-        this->addButton(tr("Cancel"));
+        this->addButton(tr("Cancel", "button"));
         connect(getButton(0), &QPushButton::clicked, this, &ResetPasswordDialog::onCancelBtnClicked);
         if (isResetPasswordPage) {
-            this->addButton(tr("Reset"));
+            this->addButton(tr("Reset", "button"));
             connect(getButton(1), &QPushButton::clicked, this, &ResetPasswordDialog::onResetPasswordBtnClicked);
         }
     });

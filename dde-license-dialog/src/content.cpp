@@ -271,8 +271,8 @@ void Content::updateContent()
         qApp->installTranslator(m_translator);
     }
 
-    m_cancelBtn->setText(tr("Cancel"));
-    m_acceptBtn->setText(tr("Confirm"));
+    m_cancelBtn->setText(tr("Cancel", "button"));
+    m_acceptBtn->setText(tr("Confirm", "button"));
     m_acceptBtn->setEnabled(m_allow.isEmpty() || (!m_allow.isEmpty() && m_acceptCheck->isChecked()));
 
     Q_EMIT sourceChanged(m_isCn);
