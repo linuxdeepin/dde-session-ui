@@ -475,7 +475,7 @@
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="39"/>
         <source>Confirm</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Potwierdź</translation>
     </message>
 </context>
 <context>
