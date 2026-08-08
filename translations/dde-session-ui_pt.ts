@@ -301,17 +301,17 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
-        <translation type="unfinished"/>
+        <translation>A sua palavra-passe vai expirar dentro de % dias. Por favor altere-a brevemente.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Your password will expire in %1 days.</source>
-        <translation type="unfinished"/>
+        <translation>A sua palavra-passe vai expirar dentro de %1 dias.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="185"/>
         <source>Please change your password as soon as possible.</source>
-        <translation type="unfinished"/>
+        <translation>Por favor altere a sua palavra-passe tão breve quando possível.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="207"/>
