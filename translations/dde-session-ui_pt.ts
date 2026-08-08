@@ -5,13 +5,13 @@
         <location filename="../dde-license-dialog/src/content.cpp" line="274"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/src/content.cpp" line="275"/>
         <source>Confirm</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Confirmar</translation>
     </message>
 </context>
 <context>
@@ -31,7 +31,7 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="67"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="29"/>
