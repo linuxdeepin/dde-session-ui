@@ -250,17 +250,17 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="86"/>
         <source>Login Reminder</source>
-        <translation type="unfinished"/>
+        <translation>Lembre de Início de Sessão</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="94"/>
         <source>Your password will expire in %1 days</source>
-        <translation type="unfinished"/>
+        <translation>A sua palavra-passe vai expirar dentro de %1 dias</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="98"/>
         <source>%1 login failures since the last successful login</source>
-        <translation type="unfinished"/>
+        <translation>%1 inícios de sessão falhados desde o último bem sucedido</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
