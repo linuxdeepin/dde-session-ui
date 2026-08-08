@@ -265,28 +265,28 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
         <source>Login time: %1</source>
-        <translation type="unfinished"/>
+        <translation>Hora do início de sessão: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="108"/>
         <source>Last login: %1</source>
-        <translation type="unfinished"/>
+        <translation>Último início de sessão: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished"/>
+        <translation>Detalhes</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="171"/>
         <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Password Expiration Warning</source>
-        <translation type="unfinished"/>
+        <translation>Aviso de Palavra-passe a Expirar</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired. Please change it immediately.</source>
-        <translation type="unfinished"/>
+        <translation>A sua palavra-passe expirou. Por favor altere-a imediatamente.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="178"/>
