@@ -292,20 +292,19 @@ void Content::updateWindowHeight()
 
 void Content::updateAcceptBtnPalette()
 {
-    const QString btnStyle = "QPushButton { background-color: rgba(0, 0, 0, 0.15); border: none; border-radius: 6px; }"
+    const QString cancelBtnStyle = "QPushButton { background-color: rgba(0, 0, 0, 0.15); border: none; border-radius: 6px; }"
                              "QPushButton:hover { background-color: rgba(0, 0, 0, 0.2); }"
                              "QPushButton:pressed { background-color: rgba(0, 0, 0, 0.25); }";
-    m_cancelBtn->setStyleSheet(btnStyle);
-    m_acceptBtn->setStyleSheet(btnStyle);
+    m_cancelBtn->setStyleSheet(cancelBtnStyle);
+
+    const QString acceptBtnStyle = "QPushButton { background-color: rgba(0, 0, 0, 0.15); border: none; border-radius: 6px; }"
+                                  "QPushButton:hover { background-color: rgba(0, 0, 0, 0.2); }"
+                                  "QPushButton:pressed { background-color: rgba(0, 0, 0, 0.25); }"
+                                  "QPushButton:disabled { background-color: rgba(0, 0, 0, 0.05); }";
+    m_acceptBtn->setStyleSheet(acceptBtnStyle);
 
     DPalette pa = m_acceptBtn->palette();
-    QColor highlightColor = pa.highlight().color();
-    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
-        highlightColor.setAlphaF(0.7);
-    } else {
-        highlightColor.setAlphaF(0.6);
-    }
-    pa.setColor(QPalette::Disabled, QPalette::ButtonText, highlightColor);
     pa.setColor(QPalette::Normal, QPalette::ButtonText, pa.highlight().color());
+    pa.setColor(QPalette::Disabled, QPalette::ButtonText, pa.color(QPalette::Disabled, QPalette::WindowText));
     m_acceptBtn->setPalette(pa);
 }
