@@ -44,7 +44,6 @@ private:
     void updateLanguageBtn();
     void updateContent();
     void updateWindowHeight();
-    void updateAcceptBtnPalette();
 
 private:
     QScrollArea* m_scrollArea;
