@@ -7,8 +7,9 @@
 #include <DApplication>
 #include <DSuggestButton>
 #include <DFontSizeManager>
-#include <DPalette>
 #include <DGuiApplicationHelper>
+#include <DStyle>
+#include <DPushButton>
 
 #include <QScrollArea>
 #include <QPushButton>
@@ -19,6 +20,8 @@
 #include <QDebug>
 #include <QFontMetrics>
 #include <QScroller>
+#include <QStyleOptionButton>
+#include <QStylePainter>
 #include <QtConcurrent>
 #include <QThread>
 #include <QTranslator>
@@ -28,12 +31,74 @@
 
 DWIDGET_USE_NAMESPACE
 
+namespace {
+
+// TODO Change to DSuggestButton of v25 chameleton style.
+class LicenseDialogButton : public DPushButton
+{
+public:
+    explicit LicenseDialogButton(bool highlighted, QWidget *parent = nullptr)
+        : DPushButton(parent)
+        , m_highlighted(highlighted)
+    {
+        DStyle::setFrameRadius(this, 6);
+        setFlat(true);
+    }
+
+protected:
+    void initStyleOption(QStyleOptionButton *option) const override
+    {
+        DPushButton::initStyleOption(option);
+
+        qreal backgroundOpacity = 0.15;
+        if (option->state.testFlag(QStyle::State_Enabled)) {
+            if (option->state.testFlag(QStyle::State_Sunken)) {
+                backgroundOpacity = 0.25;
+            } else if (option->state.testFlag(QStyle::State_MouseOver)) {
+                backgroundOpacity = 0.2;
+            }
+        }
+
+        QColor backgroundColor(Qt::black);
+        backgroundColor.setAlphaF(backgroundOpacity);
+        option->palette.setColor(QPalette::Button, backgroundColor);
+
+        if (m_highlighted) {
+            QColor textColor = option->palette.highlight().color();
+            option->palette.setColor(QPalette::ButtonText, textColor);
+        }
+
+        option->state.setFlag(QStyle::State_MouseOver, false);
+        option->state.setFlag(QStyle::State_Sunken, false);
+        option->state.setFlag(QStyle::State_On, false);
+    }
+
+    void paintEvent(QPaintEvent *) override
+    {
+        QStyleOptionButton option;
+        initStyleOption(&option);
+
+        QStylePainter painter(this);
+        painter.setRenderHint(QPainter::Antialiasing);
+        painter.setPen(Qt::NoPen);
+        painter.setBrush(option.palette.button());
+        const int radius = DStyle::pixelMetric(style(), DStyle::PM_FrameRadius, &option, this);
+        painter.drawRoundedRect(option.rect, radius, radius);
+        painter.drawControl(QStyle::CE_PushButton, option);
+    }
+
+private:
+    bool m_highlighted = false;
+};
+
+}
+
 Content::Content(QWidget *parent)
     : QWidget(parent)
     , m_scrollArea(new QScrollArea)
     , m_acceptCheck(new QCheckBox)
-    , m_cancelBtn(new QPushButton)
-    , m_acceptBtn(new QPushButton)
+    , m_cancelBtn(new LicenseDialogButton(false))
+    , m_acceptBtn(new LicenseDialogButton(true))
     , m_source(new QLabel)
     , m_languageBtn(new DButtonBox)
     , m_isCn(false)
@@ -87,10 +152,6 @@ Content::Content(QWidget *parent)
 
     m_cancelBtn->setFixedHeight(36);
     m_acceptBtn->setFixedHeight(36);
-
-    updateAcceptBtnPalette();
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &Content::updateAcceptBtnPalette);
-
     m_source->setTextFormat(Qt::MarkdownText);
     m_source->setWordWrap(true);
     m_source->setOpenExternalLinks(true);
@@ -288,24 +349,4 @@ void Content::updateWindowHeight()
     int contentHeight = static_cast<int>(doc.size().height());
     int minHeight = qBound(100, contentHeight, 491);
     m_scrollArea->setMinimumHeight(minHeight);
-}
-
-void Content::updateAcceptBtnPalette()
-{
-    const QString btnStyle = "QPushButton { background-color: rgba(0, 0, 0, 0.15); border: none; border-radius: 6px; }"
-                             "QPushButton:hover { background-color: rgba(0, 0, 0, 0.2); }"
-                             "QPushButton:pressed { background-color: rgba(0, 0, 0, 0.25); }";
-    m_cancelBtn->setStyleSheet(btnStyle);
-    m_acceptBtn->setStyleSheet(btnStyle);
-
-    DPalette pa = m_acceptBtn->palette();
-    QColor highlightColor = pa.highlight().color();
-    if (DGuiApplicationHelper::instance()->themeType() == DGuiApplicationHelper::DarkType) {
-        highlightColor.setAlphaF(0.7);
-    } else {
-        highlightColor.setAlphaF(0.6);
-    }
-    pa.setColor(QPalette::Disabled, QPalette::ButtonText, highlightColor);
-    pa.setColor(QPalette::Normal, QPalette::ButtonText, pa.highlight().color());
-    m_acceptBtn->setPalette(pa);
 }
