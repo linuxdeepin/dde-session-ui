@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="fr" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fr" sourcelanguage="en">
 <context>
     <name>Content</name>
     <message>
@@ -146,7 +144,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="238"/>
         <source>Error occurred when reading the configuration files of password rules!</source>
-        <translation>Une erreur s&apos;est produite lors de la lecture des fichiers de configuration des règles de mot de passe&#xa0;!</translation>
+        <translation>Une erreur s&apos;est produite lors de la lecture des fichiers de configuration des règles de mot de passe !</translation>
     </message>
 </context>
 <context>
@@ -174,7 +172,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="90"/>
         <source>End</source>
-        <translation type="unfinished">Fin</translation>
+        <translation>Fin</translation>
     </message>
 </context>
 <context>
@@ -277,7 +275,7 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished">Détails</translation>
+        <translation>Détails</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="171"/>

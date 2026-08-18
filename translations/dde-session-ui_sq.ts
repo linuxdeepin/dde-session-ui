@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="sq" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq" sourcelanguage="en">
 <context>
     <name>Content</name>
     <message>
@@ -174,7 +172,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="90"/>
         <source>End</source>
-        <translation type="unfinished">Përfundoje</translation>
+        <translation>Përfundoje</translation>
     </message>
 </context>
 <context>
@@ -277,7 +275,7 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished">Hollësi</translation>
+        <translation>Hollësi</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="171"/>
@@ -583,7 +581,7 @@
     <message>
         <location filename="../dde-welcome/src/updatecontent.cpp" line="26"/>
         <source>Enter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

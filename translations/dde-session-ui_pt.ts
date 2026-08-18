@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pt" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt" sourcelanguage="en">
 <context>
     <name>Content</name>
     <message>
@@ -174,7 +172,7 @@
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="90"/>
         <source>End</source>
-        <translation type="unfinished">Fim</translation>
+        <translation>Fim</translation>
     </message>
 </context>
 <context>
@@ -252,68 +250,68 @@
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="86"/>
         <source>Login Reminder</source>
-        <translation type="unfinished"></translation>
+        <translation>Lembre de Início de Sessão</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="94"/>
         <source>Your password will expire in %1 days</source>
-        <translation type="unfinished"></translation>
+        <translation>A sua palavra-passe vai expirar dentro de %1 dias</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="98"/>
         <source>%1 login failures since the last successful login</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 inícios de sessão falhados desde o último bem sucedido</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
         <source>Login time: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Hora do início de sessão: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="108"/>
         <source>Last login: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Último início de sessão: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalhes</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="171"/>
         <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Password Expiration Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Aviso de Palavra-passe a Expirar</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired. Please change it immediately.</source>
-        <translation type="unfinished"></translation>
+        <translation>A sua palavra-passe expirou. Por favor altere-a imediatamente.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>Your password has expired!</source>
-        <translation type="unfinished"></translation>
+        <translation>A sua palavra-passe expirou!</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="179"/>
         <source>For security reasons, please change your password immediately.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por razões de segurança, por favor altere a sua palavra-passe imediatamente.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
-        <translation type="unfinished"></translation>
+        <translation>A sua palavra-passe vai expirar dentro de % dias. Por favor altere-a brevemente.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Your password will expire in %1 days.</source>
-        <translation type="unfinished"></translation>
+        <translation>A sua palavra-passe vai expirar dentro de %1 dias.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="185"/>
         <source>Please change your password as soon as possible.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor altere a sua palavra-passe tão breve quando possível.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="207"/>
@@ -630,7 +628,7 @@
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="22"/>
         <source>OK</source>
         <comment>button</comment>
-        <translation>Aceitar</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
