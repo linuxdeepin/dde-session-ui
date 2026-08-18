@@ -5,13 +5,13 @@
         <location filename="../dde-license-dialog/src/content.cpp" line="274"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../dde-license-dialog/src/content.cpp" line="275"/>
         <source>Confirm</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Megerősítés</translation>
     </message>
 </context>
 <context>
@@ -31,19 +31,19 @@
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="67"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="29"/>
         <source>Release</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Kiadás</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="68"/>
         <source>Continue</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Folytatás</translation>
     </message>
     <message>
         <location filename="../dmemory-warning-dialog/src/dmemorywarningdialog.cpp" line="89"/>
@@ -158,13 +158,13 @@
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="33"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="35"/>
         <source>Confirm</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Megerősítés</translation>
     </message>
 </context>
 <context>
@@ -337,7 +337,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="192"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="103"/>
@@ -369,7 +369,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="195"/>
         <source>Reset</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Visszaállítás</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="149"/>
@@ -454,13 +454,13 @@
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="33"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../dde-suspend-dialog/src/suspenddialog.cpp" line="34"/>
         <source>Suspend</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Alvó állapot</translation>
     </message>
 </context>
 <context>
@@ -474,13 +474,13 @@
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="38"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../dde-touchscreen-dialog/src/touchscreensetting.cpp" line="39"/>
         <source>Confirm</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>Megerősítés</translation>
     </message>
 </context>
 <context>
@@ -633,7 +633,7 @@
         <location filename="../dde-warning-dialog/src/warningdialog.cpp" line="22"/>
         <source>OK</source>
         <comment>button</comment>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
