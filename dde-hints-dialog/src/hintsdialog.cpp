@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2020 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -24,6 +24,8 @@ HintsDialog::HintsDialog(QWidget *parent)
     m_title->setObjectName("TitleLabel");
     m_title->setAccessibleName("TitleLabel");
     m_content->setAccessibleName("MainContent");
+    m_content->setObjectName("MainContent");
+    m_closeButton->setObjectName("CloseButton");
 
     DFontSizeManager::instance()->bind(m_title, DFontSizeManager::SizeType::T5, 70);
 

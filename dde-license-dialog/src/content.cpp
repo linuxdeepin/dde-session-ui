@@ -106,11 +106,17 @@ Content::Content(QWidget *parent)
     , m_hasEn(false)
 {
     m_scrollArea->setAccessibleName("ScrollArea");
+    m_scrollArea->setObjectName("ScrollArea");
     m_acceptCheck->setAccessibleName("AcceptCheck");
+    m_acceptCheck->setObjectName("AcceptCheck");
     m_cancelBtn->setAccessibleName("CancelBtn");
+    m_cancelBtn->setObjectName("CancelBtn");
     m_acceptBtn->setAccessibleName("AcceptBtn");
+    m_acceptBtn->setObjectName("AcceptBtn");
     m_source->setAccessibleName("SourceLabel");
+    m_source->setObjectName("SourceLabel");
     m_languageBtn->setAccessibleName("LanguageBtn");
+    m_languageBtn->setObjectName("LanguageBtn");
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
@@ -180,6 +186,7 @@ Content::Content(QWidget *parent)
     m_bottom = new QWidget(this);
     m_bottom->setLayout(bottomLayout);
     m_bottom->setAccessibleName("ContentBottomWidget");
+    m_bottom->setObjectName("ContentBottomWidget");
 
     layout->addWidget(m_scrollArea);
     layout->addSpacing(20);

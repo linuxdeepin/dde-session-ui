@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -34,9 +34,11 @@ WMChooser::WMChooser(QWidget *parent)
                              "}";
 
     m_gorgeousBtn = new QPushButton(tr("Effect Mode"));
+    m_gorgeousBtn->setObjectName("GorgeousBtn");
     m_gorgeousBtn->setFixedSize(300, 50);
     m_gorgeousBtn->setStyleSheet(btnStyle);
     m_topSpeedBtn = new QPushButton(tr("Normal Mode"));
+    m_topSpeedBtn->setObjectName("TopSpeedBtn");
     m_topSpeedBtn->setFixedSize(m_gorgeousBtn->size());
     m_topSpeedBtn->setStyleSheet(btnStyle);
 

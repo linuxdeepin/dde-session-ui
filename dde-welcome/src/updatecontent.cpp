@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -24,6 +24,7 @@ UpdateContent::UpdateContent(const std::pair<QString, QString> &version, QWidget
     QLabel *successTip = new QLabel(tr("Welcome, system updated successfully"));
     QLabel *currentVersion = new QLabel(tr("Current Edition:") + " " + version.first + " " + version.second);
     m_enterBtn = new QPushButton(tr("Enter"), this);
+    m_enterBtn->setObjectName("EnterBtn");
     m_enterBtn->setMinimumWidth(200);
 
     mainLayout->addStretch();

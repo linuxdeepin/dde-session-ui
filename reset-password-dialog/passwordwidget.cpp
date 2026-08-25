@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -61,6 +61,10 @@ void PasswordWidget::initWidget(int margin)
     setPasswdLevelIconModePath(type);
 
     this->setAccessibleName("PasswordWidget");
+
+    m_newPasswordEdit->setObjectName("NewPasswordEdit");
+    m_repeatPasswordEdit->setObjectName("RepeatPasswordEdit");
+    m_passwordTipsEdit->setObjectName("PasswordTipsEdit");
 
     QVBoxLayout *resetPasswordVLayout = new QVBoxLayout(this);
     resetPasswordVLayout->setSpacing(0);

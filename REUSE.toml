@@ -92,3 +92,9 @@ path = ["dde-osd/src/notification/dbus**", "global_util/dbus/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "The Qt Company Ltd."
 SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "tests/at/spi/**.yaml"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "UnionTech Software Technology Co., Ltd."
+SPDX-License-Identifier = "CC0-1.0"

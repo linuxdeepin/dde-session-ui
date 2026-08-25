@@ -65,7 +65,9 @@ DMemoryWarningDialog::DMemoryWarningDialog(QWidget *parent)
     m_memNeeded->setWordWrap(true);
     m_memNeeded->setAccessibleName("MemNeededLabel");
     m_cancelButton->setText(tr("Cancel", "button"));
+    m_cancelButton->setObjectName("CancelButton");
     m_continueButton->setText(tr("Continue", "button"));
+    m_continueButton->setObjectName("ContinueButton");
     m_icon->setAccessibleName("DdeIconLabel");
     m_icon->setPixmap(QIcon::fromTheme("dde").pixmap(32, 32));
 

@@ -100,6 +100,7 @@ void ResetPasswordDialog::initWidget(const QString &userName)
     mainContentLayout->setContentsMargins(0, 0, 0, 0);
 
     m_buttonBox = new DButtonBox(this);
+    m_buttonBox->setObjectName("ButtonBox");
     m_buttonBox->setButtonList({new DButtonBoxButton(tr("Security Questions")), new DButtonBoxButton("Union ID")}, true);
     m_buttonBox->setId(m_buttonBox->buttonList().at(0), 0);
     m_buttonBox->setId(m_buttonBox->buttonList().at(1), 1);

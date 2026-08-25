@@ -1,0 +1,438 @@
+version: '1.0'
+widgets:
+- variable: m_pinCodeLabel
+  type: LargeLabel *
+  object_name: PinCodeText
+  accessible_id: PinCodeText
+  source_file: dde-bluetooth-dialog/src/pincodedialog.cpp
+  class_name: PinCodeDialog
+  line: 25
+- variable: m_titileLabel
+  type: LargeLabel *
+  object_name: TitileText
+  accessible_id: TitileText
+  source_file: dde-bluetooth-dialog/src/pincodedialog.cpp
+  class_name: PinCodeDialog
+  line: 26
+- variable: m_title
+  type: QLabel *
+  object_name: TitleLabel
+  accessible_id: TitleLabel
+  source_file: dde-hints-dialog/src/hintsdialog.cpp
+  class_name: HintsDialog
+  line: 33
+- variable: m_content
+  type: DTipLabel *
+  object_name: MainContent
+  accessible_id: MainContent
+  source_file: dde-hints-dialog/src/hintsdialog.cpp
+  class_name: HintsDialog
+  line: 34
+- variable: m_closeButton
+  type: DDialogCloseButton *
+  object_name: CloseButton
+  accessible_id: CloseButton
+  source_file: dde-hints-dialog/src/hintsdialog.cpp
+  class_name: HintsDialog
+  line: 35
+- variable: m_scrollArea
+  type: QScrollArea *
+  object_name: ScrollArea
+  accessible_id: ScrollArea
+  source_file: dde-license-dialog/src/content.cpp
+  class_name: Content
+  line: 49
+- variable: m_acceptCheck
+  type: QCheckBox *
+  object_name: AcceptCheck
+  accessible_id: AcceptCheck
+  source_file: dde-license-dialog/src/content.cpp
+  class_name: Content
+  line: 50
+- variable: m_cancelBtn
+  type: QPushButton *
+  object_name: CancelBtn
+  accessible_id: CancelBtn
+  source_file: dde-license-dialog/src/content.cpp
+  class_name: Content
+  line: 51
+- variable: m_acceptBtn
+  type: QPushButton *
+  object_name: AcceptBtn
+  accessible_id: AcceptBtn
+  source_file: dde-license-dialog/src/content.cpp
+  class_name: Content
+  line: 52
+- variable: m_source
+  type: QLabel *
+  object_name: SourceLabel
+  accessible_id: SourceLabel
+  source_file: dde-license-dialog/src/content.cpp
+  class_name: Content
+  line: 53
+- variable: m_languageBtn
+  type: Dtk::Widget::DButtonBox *
+  object_name: LanguageBtn
+  accessible_id: LanguageBtn
+  source_file: dde-license-dialog/src/content.cpp
+  class_name: Content
+  line: 54
+- variable: m_bottom
+  type: QWidget *
+  object_name: ContentBottomWidget
+  accessible_id: ContentBottomWidget
+  source_file: dde-license-dialog/src/content.cpp
+  class_name: Content
+  line: 64
+- variable: m_title
+  type: QLabel *
+  object_name: TitleLabel
+  accessible_id: TitleLabel
+  source_file: dde-license-dialog/src/mainwindow.cpp
+  class_name: MainWindow
+  line: 39
+- variable: m_content
+  type: Content *
+  object_name: ''
+  accessible_id: MainContent
+  source_file: dde-license-dialog/src/mainwindow.cpp
+  class_name: MainWindow
+  line: 40
+- variable: btnclose
+  type: DIconButton *
+  object_name: ''
+  accessible_id: CloseBtn
+  source_file: dde-license-dialog/src/mainwindow.cpp
+  class_name: MainWindow
+  line: 45
+- variable: m_leftIconBtn
+  type: DIconButton *
+  object_name: ''
+  accessible_id: TopLeftIconBtn
+  source_file: dde-license-dialog/src/mainwindow.cpp
+  class_name: MainWindow
+  line: 46
+- variable: m_image
+  type: QLabel *
+  object_name: ''
+  accessible_id: LowPowerImage
+  source_file: dde-lowpower/src/window.cpp
+  class_name: Window
+  line: 24
+- variable: m_text
+  type: QLabel *
+  object_name: ''
+  accessible_id: LowPowerText
+  source_file: dde-lowpower/src/window.cpp
+  class_name: Window
+  line: 25
+- variable: m_menu
+  type: QMenu *
+  object_name: KeyboardLayoutMenu
+  accessible_id: KeyboardLayoutMenu
+  source_file: dde-osd/src/kblayoutindicator.cpp
+  class_name: KBLayoutIndicator
+  line: 63
+- variable: m_addLayoutAction
+  type: QAction *
+  object_name: AddLayoutAction
+  accessible_id: ''
+  source_file: dde-osd/src/kblayoutindicator.cpp
+  class_name: KBLayoutIndicator
+  line: 64
+- variable: m_listview
+  type: ListView *
+  object_name: ''
+  accessible_id: ListView
+  source_file: dde-osd/src/manager.cpp
+  class_name: Manager
+  line: 32
+- variable: m_bgWidget
+  type: AlphaWidget *
+  object_name: ''
+  accessible_id: BgWidget
+  source_file: dde-osd/src/notification-center/bubbleitem.cpp
+  class_name: BubbleItem
+  line: 117
+- variable: m_titleWidget
+  type: AlphaWidget *
+  object_name: notification_title
+  accessible_id: TitleWidget
+  source_file: dde-osd/src/notification-center/bubbleitem.cpp
+  class_name: BubbleItem
+  line: 118
+- variable: m_bodyWidget
+  type: AlphaWidget *
+  object_name: ''
+  accessible_id: BodyWidget
+  source_file: dde-osd/src/notification-center/bubbleitem.cpp
+  class_name: BubbleItem
+  line: 119
+- variable: m_appNameLabel
+  type: DLabel *
+  object_name: ''
+  accessible_id: AppNameLabel
+  source_file: dde-osd/src/notification-center/bubbleitem.cpp
+  class_name: BubbleItem
+  line: 120
+- variable: m_closeButton
+  type: DIconButton *
+  object_name: ''
+  accessible_id: CloseButton
+  source_file: dde-osd/src/notification-center/bubbleitem.cpp
+  class_name: BubbleItem
+  line: 126
+- variable: m_closeButton
+  type: DIconButton *
+  object_name: ''
+  accessible_id: ''
+  source_file: dde-osd/src/notification-center/bubbletitlewidget.cpp
+  class_name: BubbleTitleWidget
+  line: 39
+- variable: m_headWidget
+  type: QWidget *
+  object_name: ''
+  accessible_id: HeadWidget
+  source_file: dde-osd/src/notification-center/notifycenterwidget.cpp
+  class_name: NotifyCenterWidget
+  line: 68
+- variable: m_notifyWidget
+  type: NotifyWidget *
+  object_name: ''
+  accessible_id: NotifyWidget
+  source_file: dde-osd/src/notification-center/notifycenterwidget.cpp
+  class_name: NotifyCenterWidget
+  line: 69
+- variable: title_label
+  type: DLabel *
+  object_name: ''
+  accessible_id: TitleLabel
+  source_file: dde-osd/src/notification-center/notifycenterwidget.cpp
+  class_name: NotifyCenterWidget
+  line: 70
+- variable: m_mainList
+  type: NotifyListView *
+  object_name: ''
+  accessible_id: NotifyListView
+  source_file: dde-osd/src/notification-center/notifywidget.cpp
+  class_name: NotifyWidget
+  line: 42
+- variable: m_faceBubbleItem
+  type: BubbleItem *
+  object_name: ''
+  accessible_id: FaceBubbleItem
+  source_file: dde-osd/src/notification-center/overlapwidet.cpp
+  class_name: OverLapWidet
+  line: 55
+- variable: m_menuButton
+  type: Button *
+  object_name: ''
+  accessible_id: MenuButton
+  source_file: dde-osd/src/notification/actionbutton.cpp
+  class_name: ActionButton
+  line: 56
+- variable: m_icon
+  type: AppIcon *
+  object_name: ''
+  accessible_id: AppIcon
+  source_file: dde-osd/src/notification/bubble.cpp
+  class_name: Bubble
+  line: 88
+- variable: m_body
+  type: AppBody *
+  object_name: ''
+  accessible_id: AppBody
+  source_file: dde-osd/src/notification/bubble.cpp
+  class_name: Bubble
+  line: 89
+- variable: m_actionButton
+  type: ActionButton *
+  object_name: ''
+  accessible_id: ActionButton
+  source_file: dde-osd/src/notification/bubble.cpp
+  class_name: Bubble
+  line: 90
+- variable: m_closeButton
+  type: DDialogCloseButton *
+  object_name: ''
+  accessible_id: CloseButton
+  source_file: dde-osd/src/notification/bubble.cpp
+  class_name: Bubble
+  line: 91
+- variable: m_button
+  type: ButtonContent *
+  object_name: ''
+  accessible_id: ButtonContent
+  source_file: dde-osd/src/notification/button.cpp
+  class_name: Button
+  line: 131
+- variable: m_menuArea
+  type: ButtonMenu *
+  object_name: ''
+  accessible_id: ButtonMenu
+  source_file: dde-osd/src/notification/button.cpp
+  class_name: Button
+  line: 132
+- variable: m_menu
+  type: DMenu *
+  object_name: ''
+  accessible_id: Menu
+  source_file: dde-osd/src/notification/button.cpp
+  class_name: Button
+  line: 133
+- variable: m_listCombo
+  type: DComboBox *
+  object_name: ''
+  accessible_id: ListCombo
+  source_file: dde-touchscreen-dialog/src/touchscreensetting.cpp
+  class_name: TouchscreenSetting
+  line: 42
+- variable: m_enterBtn
+  type: QPushButton *
+  object_name: EnterBtn
+  accessible_id: EnterBtn
+  source_file: dde-welcome/src/updatecontent.cpp
+  class_name: UpdateContent
+  line: 21
+- variable: m_gorgeousBtn
+  type: QPushButton *
+  object_name: GorgeousBtn
+  accessible_id: GorgeousBtn
+  source_file: dde-wm-chooser/src/wmchooser.cpp
+  class_name: WMChooser
+  line: 31
+- variable: m_topSpeedBtn
+  type: QPushButton *
+  object_name: TopSpeedBtn
+  accessible_id: TopSpeedBtn
+  source_file: dde-wm-chooser/src/wmchooser.cpp
+  class_name: WMChooser
+  line: 32
+- variable: m_wmchooser
+  type: WMChooser *
+  object_name: ''
+  accessible_id: WMChooser
+  source_file: dde-wm-chooser/src/wmframe.cpp
+  class_name: WMFrame
+  line: 24
+- variable: m_icon
+  type: QLabel *
+  object_name: ''
+  accessible_id: DdeIconLabel
+  source_file: dmemory-warning-dialog/src/dmemorywarningdialog.cpp
+  class_name: DMemoryWarningDialog
+  line: 57
+- variable: m_memNeeded
+  type: QLabel *
+  object_name: ''
+  accessible_id: MemNeededLabel
+  source_file: dmemory-warning-dialog/src/dmemorywarningdialog.cpp
+  class_name: DMemoryWarningDialog
+  line: 58
+- variable: m_cancelButton
+  type: QPushButton *
+  object_name: CancelButton
+  accessible_id: CancelButton
+  source_file: dmemory-warning-dialog/src/dmemorywarningdialog.cpp
+  class_name: DMemoryWarningDialog
+  line: 59
+- variable: m_continueButton
+  type: QPushButton *
+  object_name: ContinueButton
+  accessible_id: ContinueButton
+  source_file: dmemory-warning-dialog/src/dmemorywarningdialog.cpp
+  class_name: DMemoryWarningDialog
+  line: 60
+- variable: m_newPasswordEdit
+  type: DPasswordEdit *
+  object_name: NewPasswordEdit
+  accessible_id: NewPasswordEdit
+  source_file: reset-password-dialog/passwordwidget.cpp
+  class_name: PasswordWidget
+  line: 46
+- variable: m_repeatPasswordEdit
+  type: DPasswordEdit *
+  object_name: RepeatPasswordEdit
+  accessible_id: RepeatPasswordEdit
+  source_file: reset-password-dialog/passwordwidget.cpp
+  class_name: PasswordWidget
+  line: 47
+- variable: m_passwordTipsEdit
+  type: DLineEdit *
+  object_name: PasswordTipsEdit
+  accessible_id: PasswordTipsEdit
+  source_file: reset-password-dialog/passwordwidget.cpp
+  class_name: PasswordWidget
+  line: 48
+- variable: m_buttonBox
+  type: DButtonBox *
+  object_name: ButtonBox
+  accessible_id: ButtonBox
+  source_file: reset-password-dialog/resetpassworddialog.cpp
+  class_name: ResetPasswordDialog
+  line: 67
+- variable: m_questionEdit1
+  type: DLineEdit *
+  object_name: QuestionEdit1
+  accessible_id: QuestionEdit1
+  source_file: reset-password-dialog/securityquestionswidget.cpp
+  class_name: SecurityQuestionsWidget
+  line: 43
+- variable: m_questionEdit2
+  type: DLineEdit *
+  object_name: QuestionEdit2
+  accessible_id: QuestionEdit2
+  source_file: reset-password-dialog/securityquestionswidget.cpp
+  class_name: SecurityQuestionsWidget
+  line: 44
+- variable: m_questionEdit3
+  type: DLineEdit *
+  object_name: QuestionEdit3
+  accessible_id: QuestionEdit3
+  source_file: reset-password-dialog/securityquestionswidget.cpp
+  class_name: SecurityQuestionsWidget
+  line: 45
+- variable: m_answerEdit1
+  type: DLineEdit *
+  object_name: AnswerEdit1
+  accessible_id: AnswerEdit1
+  source_file: reset-password-dialog/securityquestionswidget.cpp
+  class_name: SecurityQuestionsWidget
+  line: 46
+- variable: m_answerEdit2
+  type: DLineEdit *
+  object_name: AnswerEdit2
+  accessible_id: AnswerEdit2
+  source_file: reset-password-dialog/securityquestionswidget.cpp
+  class_name: SecurityQuestionsWidget
+  line: 47
+- variable: m_answerEdit3
+  type: DLineEdit *
+  object_name: AnswerEdit3
+  accessible_id: AnswerEdit3
+  source_file: reset-password-dialog/securityquestionswidget.cpp
+  class_name: SecurityQuestionsWidget
+  line: 48
+- variable: m_phoneEmailEdit
+  type: DLineEdit *
+  object_name: PhoneEmailEdit
+  accessible_id: PhoneEmailEdit
+  source_file: reset-password-dialog/unionidwidget.cpp
+  class_name: UnionIDWidget
+  line: 80
+- variable: m_verificationCodeEdit
+  type: DLineEdit *
+  object_name: VerificationCodeEdit
+  accessible_id: VerificationCodeEdit
+  source_file: reset-password-dialog/unionidwidget.cpp
+  class_name: UnionIDWidget
+  line: 81
+- variable: m_sendCodeBtn
+  type: DSuggestButton *
+  object_name: SendCodeBtn
+  accessible_id: SendCodeBtn
+  source_file: reset-password-dialog/unionidwidget.cpp
+  class_name: UnionIDWidget
+  line: 82
+qml_elements: []
+transient_elements: []
