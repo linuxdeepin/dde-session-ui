@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2021 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -53,6 +53,13 @@ bool SecurityQuestionsWidget::onResetPasswordBtnClicked()
 void SecurityQuestionsWidget::initWidget()
 {
     this->setAccessibleName("SecurityQuestionsWidget");
+
+    m_questionEdit1->setObjectName("QuestionEdit1");
+    m_questionEdit2->setObjectName("QuestionEdit2");
+    m_questionEdit3->setObjectName("QuestionEdit3");
+    m_answerEdit1->setObjectName("AnswerEdit1");
+    m_answerEdit2->setObjectName("AnswerEdit2");
+    m_answerEdit3->setObjectName("AnswerEdit3");
 
     QVBoxLayout *answerQuestionsVLayout = new QVBoxLayout(m_answerQuestionsWidget);
     answerQuestionsVLayout->setSpacing(0);

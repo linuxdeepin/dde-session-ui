@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2021 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -34,6 +34,10 @@ UnionIDWidget::UnionIDWidget(const QString &userPath, const QString &userName, Q
 void UnionIDWidget::initWidget()
 {
     this->setAccessibleName("ResetPasswordPage");
+
+    m_phoneEmailEdit->setObjectName("PhoneEmailEdit");
+    m_verificationCodeEdit->setObjectName("VerificationCodeEdit");
+    m_sendCodeBtn->setObjectName("SendCodeBtn");
     DGuiApplicationHelper::ColorType type = DGuiApplicationHelper::instance()->themeType();
     setIconPath(type);
 

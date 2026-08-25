@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -101,6 +101,8 @@ KBLayoutIndicator::KBLayoutIndicator(QWidget *parent)
       m_menu(new QMenu),
       m_addLayoutAction(nullptr)
 {
+    m_menu->setObjectName("KeyboardLayoutMenu");
+
     updateIcon();
     updateMenu();
 
@@ -138,6 +140,7 @@ void KBLayoutIndicator::updateMenu()
     m_menu->addSeparator();
 
     m_addLayoutAction = new QAction(tr("Add keyboard layout"), m_menu);
+    m_addLayoutAction->setObjectName("AddLayoutAction");
 
     m_menu->addAction(m_addLayoutAction);
 }
