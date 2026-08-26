@@ -92,7 +92,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="48"/>
         <source>The hint is visible to all users. Do not include the password here.</source>
-        <translation type="unfinished"/>
+        <translation>التلميح مرئي لجميع المستخدمين. لا تقم بتضمين كلمة المرور هنا.</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="69"/>
@@ -107,7 +107,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="111"/>
         <source>Password Hint</source>
-        <translation type="unfinished"/>
+        <translation>تلميح كلمة المرور</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="120"/>
@@ -123,7 +123,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="204"/>
         <source>Strong</source>
-        <translation type="unfinished"/>
+        <translation>قوية</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="214"/>
@@ -134,7 +134,7 @@
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="223"/>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="236"/>
         <source>A stronger password is recommended: more than 8 characters, and contains 3 of the four character types: lowercase letters, uppercase letters, numbers, and symbols.</source>
-        <translation type="unfinished"/>
+        <translation>يُوصى بكلمة مرور أقوى: أكثر من 8 أحرف، وتحتوي على 3 من أنواع الأحرف الأربعة: أحرف صغيرة، أحرف كبيرة، أرقام، ورموز.</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="227"/>
@@ -144,7 +144,7 @@
     <message>
         <location filename="../reset-password-dialog/passwordwidget.cpp" line="238"/>
         <source>Error occurred when reading the configuration files of password rules!</source>
-        <translation type="unfinished"/>
+        <translation>حدث خطأ أثناء قراءة ملفات تكوين قواعد كلمة المرور!</translation>
     </message>
 </context>
 <context>
@@ -245,73 +245,73 @@
     <message>
         <location filename="../reset-password-dialog/utils.h" line="54"/>
         <source>It cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>لا يمكن أن يكون فارغًا</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="86"/>
         <source>Login Reminder</source>
-        <translation type="unfinished"/>
+        <translation>تذكير بتسجيل الدخول</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="94"/>
         <source>Your password will expire in %1 days</source>
-        <translation type="unfinished"/>
+        <translation>ستنتهي صلاحية كلمة المرور خلال %1 أيام</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="98"/>
         <source>%1 login failures since the last successful login</source>
-        <translation type="unfinished"/>
+        <translation>%1 محاولات دخول فاشلة منذ آخر تسجيل دخول ناجح</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="107"/>
         <source>Login time: %1</source>
-        <translation type="unfinished"/>
+        <translation>وقت تسجيل الدخول: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="108"/>
         <source>Last login: %1</source>
-        <translation type="unfinished"/>
+        <translation>آخر تسجيل دخول: %1</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="116"/>
         <source>Details</source>
-        <translation type="unfinished"/>
+        <translation>التفاصيل</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="171"/>
         <location filename="../deepin-login-reminder/main.cpp" line="183"/>
         <source>Password Expiration Warning</source>
-        <translation type="unfinished"/>
+        <translation>تحذير انتهاء صلاحية كلمة المرور</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="177"/>
         <source>Your password has expired. Please change it immediately.</source>
-        <translation type="unfinished"/>
+        <translation>انتهت صلاحية كلمة المرور الخاصة بك. يرجى تغييرها فورًا.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="178"/>
         <source>Your password has expired!</source>
-        <translation type="unfinished"/>
+        <translation>انتهت صلاحية كلمة المرور الخاصة بك!</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="179"/>
         <source>For security reasons, please change your password immediately.</source>
-        <translation type="unfinished"/>
+        <translation>لأسباب أمنية، يرجى تغيير كلمة المرور الخاصة بك فورًا.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="182"/>
         <source>Your password will expire in %1 days. Please change it soon.</source>
-        <translation type="unfinished"/>
+        <translation>ستنتهي صلاحية كلمة المرور خلال %1 أيام. يرجى تغييرها قريبًا.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="184"/>
         <source>Your password will expire in %1 days.</source>
-        <translation type="unfinished"/>
+        <translation>ستنتهي صلاحية كلمة المرور خلال %1 أيام.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="185"/>
         <source>Please change your password as soon as possible.</source>
-        <translation type="unfinished"/>
+        <translation>يرجى تغيير كلمة المرور في أقرب وقت ممكن.</translation>
     </message>
     <message>
         <location filename="../deepin-login-reminder/main.cpp" line="207"/>
@@ -324,7 +324,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="92"/>
         <source>Resetting the password will clear the data stored in the keyring</source>
-        <translation type="unfinished"/>
+        <translation>إعادة تعيين كلمة المرور ستؤدي إلى مسح البيانات المخزنة في حلقة المفاتيح</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="94"/>
@@ -337,12 +337,12 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="103"/>
         <source>Security Questions</source>
-        <translation type="unfinished"/>
+        <translation>أسئلة الأمان</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="138"/>
         <source>Reset Password</source>
-        <translation type="unfinished"/>
+        <translation>إعادة تعيين كلمة المرور</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="139"/>
@@ -354,7 +354,7 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="142"/>
         <source>Reset Password By Union ID</source>
-        <translation type="unfinished"/>
+        <translation>إعادة تعيين كلمة المرور عبر Union ID</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="143"/>
@@ -369,17 +369,17 @@
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="149"/>
         <source>Resetting the password will clear the data stored in your keyring, and you should log in again, please save files in advance</source>
-        <translation type="unfinished"/>
+        <translation>إعادة تعيين كلمة المرور ستؤدي إلى مسح البيانات المخزنة في حلقة المفاتيح، ويجب عليك تسجيل الدخول مرة أخرى، يرجى حفظ الملفات مسبقًا</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="150"/>
         <source>Confirm and Reset</source>
-        <translation type="unfinished"/>
+        <translation>تأكيد وإعادة تعيين</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="246"/>
         <source>Successfully reset, please log in and unlock with the new password</source>
-        <translation type="unfinished"/>
+        <translation>تمت إعادة التعيين بنجاح، يرجى تسجيل الدخول وإلغاء القفل بكلمة المرور الجديدة</translation>
     </message>
 </context>
 <context>
@@ -394,42 +394,42 @@
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="113"/>
         <source>What&apos;s the name of the city where you were born?</source>
-        <translation type="unfinished"/>
+        <translation>ما اسم المدينة التي وُلدت فيها؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="114"/>
         <source>What&apos;s the name of the first school you attended?</source>
-        <translation type="unfinished"/>
+        <translation>ما اسم المدرسة الأولى التي التحقت بها؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="115"/>
         <source>Who do you love the most in this world?</source>
-        <translation type="unfinished"/>
+        <translation>من تحب أكثر في هذا العالم؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="116"/>
         <source>What&apos;s your favorite animal?</source>
-        <translation type="unfinished"/>
+        <translation>ما هو حيوانك المفضل؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="117"/>
         <source>What&apos;s your favorite song?</source>
-        <translation type="unfinished"/>
+        <translation>ما هي أغنيتك المفضلة؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="118"/>
         <source>What&apos;s your nickname?</source>
-        <translation type="unfinished"/>
+        <translation>ما هو لقبك؟</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="168"/>
         <source>Wrong answer</source>
-        <translation type="unfinished"/>
+        <translation>إجابة خاطئة</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/securityquestionswidget.cpp" line="183"/>
         <source>Keep the answer under 30 characters</source>
-        <translation type="unfinished"/>
+        <translation>اجعل الإجابة أقل من 30 حرفًا</translation>
     </message>
 </context>
 <context>
@@ -484,24 +484,24 @@
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="46"/>
         <source>Phone/Email</source>
-        <translation type="unfinished"/>
+        <translation>الهاتف/البريد الإلكتروني</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="52"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="119"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="272"/>
         <source>Get Code</source>
-        <translation type="unfinished"/>
+        <translation>الحصول على الرمز</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="72"/>
         <source>Connecting to the Internet...</source>
-        <translation type="unfinished"/>
+        <translation>جارٍ الاتصال بالإنترنت...</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="84"/>
         <source>The user account is not linked to Union ID</source>
-        <translation type="unfinished"/>
+        <translation>حساب المستخدم غير مرتبط بـ Union ID</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="97"/>
@@ -518,53 +518,53 @@
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="153"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="168"/>
         <source>Phone/Email format is incorrect</source>
-        <translation type="unfinished"/>
+        <translation>تنسيق الهاتف/البريد الإلكتروني غير صحيح</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="222"/>
         <source>System error</source>
-        <translation type="unfinished"/>
+        <translation>خطأ في النظام</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="224"/>
         <source>Login expired, please sign in to the Union ID again</source>
-        <translation type="unfinished"/>
+        <translation>انتهت صلاحية تسجيل الدخول، يرجى تسجيل الدخول إلى Union ID مرة أخرى</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="226"/>
         <source>Network error</source>
-        <translation type="unfinished"/>
+        <translation>خطأ في الشبكة</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="228"/>
         <source>You have reached the number limit to get the code today</source>
-        <translation type="unfinished"/>
+        <translation>لقد وصلت إلى الحد الأقصى للحصول على الرمز اليوم</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="229"/>
         <source>The Union ID is not linked to a user account</source>
-        <translation type="unfinished"/>
+        <translation>Union ID غير مرتبط بحساب مستخدم</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="238"/>
         <source>It cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>لا يمكن أن يكون فارغًا</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="275"/>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="317"/>
         <source>Resend (%1s)</source>
-        <translation type="unfinished"/>
+        <translation>إعادة إرسال (%1s)</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="336"/>
         <source>Failed to get the code</source>
-        <translation type="unfinished"/>
+        <translation>فشل في الحصول على الرمز</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/unionidwidget.cpp" line="359"/>
         <source>Wrong verification code</source>
-        <translation type="unfinished"/>
+        <translation>رمز التحقق الخاطئ</translation>
     </message>
 </context>
 <context>
