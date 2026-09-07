@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+# SPDX-FileCopyrightText: 2023 - 2026 UnionTech Software Technology Co., Ltd.
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -8,7 +8,7 @@ set(Common_SRCS
 )
 
 add_library(session-ui-common-shared OBJECT
-    ${Widgets_SRCS}
+    ${Common_SRCS}
 )
 
 target_include_directories(session-ui-common-shared

@@ -82,6 +82,12 @@ SPDX-FileCopyrightText = "UnionTech Software Technology Co., Ltd."
 SPDX-License-Identifier = "GPL-3.0-or-later"
 
 [[annotations]]
+path = "configs/*.json"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
 path = ["dde-osd/files/dde-osd.desktop", "deepin-login-reminder/deepin-login-reminder.desktop", "deepin-login-reminder/dconf/org.deepin.login-reminder.json", "misc/applications/*.desktop"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "UnionTech Software Technology Co., Ltd."

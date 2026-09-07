@@ -1,0 +1,9 @@
+[Unit]
+Description=Deepin Black Widget No-DBus Mode
+After=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=/usr/lib/deepin-daemon/dde-blackwidget nodbus
+KillSignal=SIGTERM
+TimeoutStopSec=3s

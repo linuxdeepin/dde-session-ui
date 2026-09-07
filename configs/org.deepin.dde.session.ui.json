@@ -1,0 +1,36 @@
+{
+    "magic": "dsg.config.meta",
+    "version": "1.0",
+    "contents": {
+        "blackWidgetShutdownText": {
+            "value": "",
+            "serial": 0,
+            "flags": ["global"],
+            "name": "blackWidgetShutdownText",
+            "name[zh_CN]": "nodbus关机模式时，显示的关机文字",
+            "description": "nodbus关机模式时，显示的关机文字",
+            "permissions": "readonly",
+            "visibility": "private"
+        },
+        "blackWidgetLogoVisible": {
+            "value": true,
+            "serial": 0,
+            "flags": ["global"],
+            "name": "blackWidgetLogoVisible",
+            "name[zh_CN]": "关机黑屏是否显示logo",
+            "description": "关机黑屏是否显示logo",
+            "permissions": "readwrite",
+            "visibility": "private"
+        },
+        "blackWidgetQuitInterval": {
+            "value": 10,
+            "serial": 0,
+            "flags": ["global"],
+            "name": "blackWidgetQuitInterval",
+            "name[zh_CN]": "自动退出的时间，单位秒",
+            "description": "自动退出的时间，单位秒",
+            "permissions": "readwrite",
+            "visibility": "private"
+        }
+    }
+}
