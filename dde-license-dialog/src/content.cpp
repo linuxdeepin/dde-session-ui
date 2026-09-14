@@ -57,6 +57,8 @@ protected:
             } else if (option->state.testFlag(QStyle::State_MouseOver)) {
                 backgroundOpacity = 0.2;
             }
+        } else {
+            backgroundOpacity = 0.05;
         }
 
         QColor backgroundColor(Qt::black);
@@ -64,8 +66,13 @@ protected:
         option->palette.setColor(QPalette::Button, backgroundColor);
 
         if (m_highlighted) {
-            QColor textColor = option->palette.highlight().color();
-            option->palette.setColor(QPalette::ButtonText, textColor);
+            if (option->state.testFlag(QStyle::State_Enabled)) {
+                QColor textColor = option->palette.highlight().color();
+                option->palette.setColor(QPalette::ButtonText, textColor);
+            } else {
+                QColor textColor = option->palette.color(QPalette::Disabled, QPalette::ButtonText);
+                option->palette.setColor(QPalette::ButtonText, textColor);
+            }
         }
 
         option->state.setFlag(QStyle::State_MouseOver, false);
