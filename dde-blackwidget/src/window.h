@@ -10,6 +10,7 @@
 #include <QWidget>
 #include <QDBusAbstractAdaptor>
 #include <QEvent>
+#include <QHash>
 #include <QList>
 #include <QMouseEvent>
 #include <QTimer>
@@ -63,6 +64,7 @@ private:
     bool m_platformWindowInitialized;
     bool m_raisePending;
     bool m_nativeKeyboardGrabbed;
+    QHash<QWidget *, QLabel *> m_screenLogos;
     QList<QWidget *> m_screenWindows;
 };
 

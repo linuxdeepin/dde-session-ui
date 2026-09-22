@@ -9,6 +9,7 @@ file(GLOB_RECURSE Blackwidget_SRCS
 )
 
 pkg_check_modules(X11 REQUIRED x11)
+pkg_check_modules(XRANDR REQUIRED xrandr)
 find_package(Dtk${DTK_VERSION_MAJOR}DConfig REQUIRED)
 
 add_executable(${Blackwidget_Name}
@@ -22,6 +23,7 @@ set(Blackwidget_Libraries
     ${GLIB_LIBRARIES}
     ${GIO_LIBRARIES}
     ${X11_LIBRARIES}
+    ${XRANDR_LIBRARIES}
     Dtk${DTK_VERSION_MAJOR}::Widget
     Dtk${DTK_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Widgets

@@ -18,6 +18,7 @@ Build-Depends: debhelper (>= 8.0.0), pkg-config,
  libdeepin-pw-check-dev,
  libgio-qt-dev,
  libxext-dev,
+ libxrandr-dev,
  systemd-dev
 Standards-Version: 3.9.4
 Homepage: http://www.deepin.org/

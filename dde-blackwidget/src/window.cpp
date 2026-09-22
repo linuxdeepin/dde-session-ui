@@ -21,6 +21,7 @@
 
 #define Window X11Window
 #include <X11/Xlib.h>
+#include <X11/extensions/Xrandr.h>
 #undef Window
 #include <X11/keysym.h>
 
@@ -94,6 +95,101 @@ bool isX11Platform()
     return isX11;
 }
 
+QSize nativeResolution(const QScreen *screen)
+{
+    // 用 XRandR 读输出首选模式（EDID native），用户降分辨率/改缩放下仍能拿到面板
+    // 真实分辨率（与 plymouth 的 get_preferred_mode 同源）；失败时回退 size()*DPR。
+    const QSize fallback = screen ? screen->size() * screen->devicePixelRatio() : QSize();
+    if (!screen || !isX11Platform())
+        return fallback;
+    Display *display = x11Display();
+    if (!display)
+        return fallback;
+
+    int eventBase = 0, errorBase = 0;
+    if (!XRRQueryExtension(display, &eventBase, &errorBase))
+        return fallback;
+
+    XRRScreenResources *resources = XRRGetScreenResources(display, DefaultRootWindow(display));
+    if (!resources)
+        return fallback;
+
+    QSize native = fallback;
+    for (int i = 0; i < resources->noutput; ++i) {
+        XRROutputInfo *info = XRRGetOutputInfo(display, resources, resources->outputs[i]);
+        if (!info || info->connection != RR_Connected || info->nmode <= 0) {
+            if (info)
+                XRRFreeOutputInfo(info);
+            continue;
+        }
+        // modes[0] 按优先级排序，即首选（native）模式
+        const XRRModeInfo *preferred = nullptr;
+        for (int m = 0; m < resources->nmode; ++m) {
+            if (resources->modes[m].id == info->modes[0]) {
+                preferred = &resources->modes[m];
+                break;
+            }
+        }
+        if (preferred && info->name && screen->name() == QLatin1String(info->name)) {
+            native = QSize(preferred->width, preferred->height);
+            XRRFreeOutputInfo(info);
+            break;
+        }
+        XRRFreeOutputInfo(info);
+    }
+    XRRFreeScreenResources(resources);
+    return native;
+}
+
+qreal plymouthLogoScale(const QScreen *screen)
+{
+    // 复刻 plymouth 的 ply_get_device_scale（正常 DRM 路径，按物理 DPI 判定）：
+    //   height < 1200 → 1；物理 DPI(x,y) 均 > 192 → 2；否则 1。
+    // 数据源与 plymouth 同源（均来自 EDID）：native 分辨率 = size()*devicePixelRatio()
+    // 对应 DRM 首选模式的 hdisplay/vdisplay，physicalSize() 对应 connector 的 mmWidth/mmHeight。
+    if (!screen)
+        return 1.0;
+
+    const QSize native = nativeResolution(screen);
+    if (native.height() < 1200)
+        return 1.0;
+
+    const int widthMm = qRound(screen->physicalSize().width());
+    const int heightMm = qRound(screen->physicalSize().height());
+    // 部分显示器把宽高比(16:9/16:10)编码进物理尺寸，是假值，plymouth 同样过滤
+    if ((widthMm == 160 && heightMm == 90) ||
+        (widthMm == 160 && heightMm == 100) ||
+        (widthMm == 16 && heightMm == 9) ||
+        (widthMm == 16 && heightMm == 10))
+        return 1.0;
+
+    if (widthMm > 0 && heightMm > 0) {
+        const qreal dpiX = qreal(native.width()) / (qreal(widthMm) / 25.4);
+        const qreal dpiY = qreal(native.height()) / (qreal(heightMm) / 25.4);
+        if (dpiX > 192.0 && dpiY > 192.0)
+            return 2.0;
+    }
+    return 1.0;
+}
+
+QPixmap makeLogoPixmap(const QScreen *screen)
+{
+    QPixmap logoPixmap(plymouthLogoPath());
+    if (logoPixmap.isNull())
+        return logoPixmap;
+
+    const QSize native = nativeResolution(screen);
+    const qreal deviceScale = plymouthLogoScale(screen);
+    // logo 目标物理尺寸 = 原始像素 × deviceScale；再换算到当前 X 物理分辨率
+    // （用户降分辨率后 X 物理像素比面板 native 少，需等比缩小才能与 plymouth 对齐）。
+    const qreal xPhysical = screen->size().width() * screen->devicePixelRatio();
+    const qreal factor = (native.width() > 0) ? deviceScale * (xPhysical / qreal(native.width())) : deviceScale;
+    if (factor != 1.0)
+        logoPixmap = logoPixmap.scaled(logoPixmap.size() * factor, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    logoPixmap.setDevicePixelRatio(screen ? screen->devicePixelRatio() : 1.0);
+    return logoPixmap;
+}
+
 }
 
 Window::Window(QWidget *parent)
@@ -149,7 +245,7 @@ void Window::setLogoVisible(bool visible)
         m_logo = new QLabel(this);
         m_logo->setAccessibleName("BlackWidgetLogo");
         m_logo->setVisible(false);
-        QPixmap logoPixmap(plymouthLogoPath());
+        const QPixmap logoPixmap = makeLogoPixmap(qApp->primaryScreen());
         if (logoPixmap.isNull()) {
             qWarning() << "blackwidget logo pixmap is null";
         } else {
@@ -169,12 +265,18 @@ void Window::setLogoVisible(bool visible)
 void Window::setupSize()
 {
     updateScreenWindows();
-    if (!m_logoVisible || !m_logo || m_logo->pixmap().isNull()) {
+    if (!m_logoVisible || !m_logo) {
         return;
     }
 
-    const QPixmap pixmap = m_logo->pixmap();
-    m_logo->setFixedSize(pixmap.size());
+    // 每次重新生成缩放后的主屏 logo：分辨率/DPR/首选模式变化后仍与 plymouth 一致
+    const QPixmap pixmap = makeLogoPixmap(qApp->primaryScreen());
+    m_logo->setPixmap(pixmap);
+    if (pixmap.isNull()) {
+        m_logo->setVisible(false);
+        return;
+    }
+    m_logo->setFixedSize(pixmap.size() / devicePixelRatioF());
     m_logo->move(rect().center() - m_logo->rect().center());
     m_logo->raise();
 
@@ -222,7 +324,9 @@ void Window::updateScreenWindows()
     const int coverWindowCount = screens.size() - 1;
     if (coverWindowCount <= 0) {
         while (!m_screenWindows.isEmpty()) {
-            delete m_screenWindows.takeLast();
+            QWidget *screenWindow = m_screenWindows.takeLast();
+            m_screenLogos.remove(screenWindow);
+            delete screenWindow;
         }
         return;
     }
@@ -237,11 +341,18 @@ void Window::updateScreenWindows()
         screenWindow->setCursor(QCursor(Qt::BlankCursor));
         Dtk::Widget::DPlatformWindowHandle handle(screenWindow, screenWindow);
         handle.setWindowRadius(-1);
+
+        QLabel *logo = new QLabel(screenWindow);
+        logo->setAccessibleName("BlackWidgetLogo");
+        logo->setVisible(false);
+        m_screenLogos.insert(screenWindow, logo);
         m_screenWindows.append(screenWindow);
     }
 
     while (m_screenWindows.size() > coverWindowCount) {
-        delete m_screenWindows.takeLast();
+        QWidget *screenWindow = m_screenWindows.takeLast();
+        m_screenLogos.remove(screenWindow);
+        delete screenWindow;
     }
 
     int coverIndex = 0;
@@ -256,6 +367,16 @@ void Window::updateScreenWindows()
         if (!screenWindow->isHidden()) {
             screenWindow->raise();
         }
+
+        QLabel *logo = m_screenLogos.value(screenWindow);
+        if (logo) {
+            const QPixmap pixmap = makeLogoPixmap(screen);
+            logo->setPixmap(pixmap);
+            logo->setFixedSize(pixmap.size() / screen->devicePixelRatio());
+            logo->move(screenWindow->rect().center() - logo->rect().center());
+            logo->setVisible(m_logoVisible && !pixmap.isNull());
+            logo->raise();
+        }
     }
 }
 
@@ -263,6 +384,10 @@ void Window::setScreenWindowsVisible(bool visible)
 {
     for (QWidget *screenWindow : qAsConst(m_screenWindows)) {
         screenWindow->setVisible(visible);
+        QLabel *logo = m_screenLogos.value(screenWindow);
+        if (logo) {
+            logo->setVisible(visible && m_logoVisible);
+        }
         if (visible) {
             screenWindow->raise();
         }
