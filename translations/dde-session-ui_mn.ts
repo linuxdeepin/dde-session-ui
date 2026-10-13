@@ -180,12 +180,12 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="59"/>
         <source>Password cannot be empty</source>
-        <translation type="unfinished"/>
+        <translation>Нууц үг хоосон байж болохгүй</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="60"/>
         <source>Password must have at least %1 characters</source>
-        <translation type="unfinished"/>
+        <translation>Нууц үг хамгийн багадаа %1 тэмдэгттэй байх ёстой</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="61"/>
@@ -195,49 +195,49 @@
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="62"/>
         <source>Password can only contain English letters (case-sensitive), numbers or special symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>Нууц үг зөвхөн Англи үсэг (том/жижиг ялгатай), тоо эсвэл тусгай тэмдэгт (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/) агуулж болно</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="63"/>
         <source>No more than %1 palindrome characters please</source>
-        <translation type="unfinished"/>
+        <translation>Палиндром тэмдэгт %1-ээс хэтрэхгүй байна уу</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="64"/>
         <source>No more than %1 monotonic characters please</source>
-        <translation type="unfinished"/>
+        <translation>Монон тэмдэгт %1-ээс хэтрэхгүй байна уу</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="65"/>
         <source>No more than %1 repeating characters please</source>
-        <translation type="unfinished"/>
+        <translation>Давтагдсан тэмдэгт %1-ээс хэтрэхгүй байна уу</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="70"/>
         <source>Password must contain uppercase letters, lowercase letters, numbers and symbols (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/)</source>
-        <translation type="unfinished"/>
+        <translation>Нууц үг том үсэг, жижиг үсэг, тоо болон тэмдэгт (~`!@#$%^&amp;*()-_+=|\{}[]:&quot;&apos;&lt;&gt;,.?/) агуулсан байх ёстой</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="71"/>
         <source>Password must not contain more than 4 palindrome characters</source>
-        <translation type="unfinished"/>
+        <translation>Нууц үг 4-өөс олон палиндром тэмдэгт агуулж болохгүй</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="72"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="75"/>
         <source>Do not use common words and combinations as password</source>
-        <translation type="unfinished"/>
+        <translation>Нууц үг болгож нийтлэг үг, хослол ашиглахгүй байх</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="73"/>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="74"/>
         <source>Create a strong password please</source>
-        <translation type="unfinished"/>
+        <translation>Хүчтэй нууц үг үүсгэнэ үү</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/pwqualitymanager.cpp" line="80"/>
         <source>It does not meet password rules</source>
-        <translation type="unfinished"/>
+        <translation>Нууц үгийн дүрмийн шаардлагыг хангаагүй байна</translation>
     </message>
 </context>
 <context>
