@@ -50,8 +50,11 @@ protected:
     {
         DPushButton::initStyleOption(option);
 
-        qreal backgroundOpacity = 0.15;
-        if (option->state.testFlag(QStyle::State_Enabled)) {
+        const bool enabled = option->state.testFlag(QStyle::State_Enabled);
+
+        qreal backgroundOpacity = 0.05;
+        if (enabled) {
+            backgroundOpacity = 0.15;
             if (option->state.testFlag(QStyle::State_Sunken)) {
                 backgroundOpacity = 0.25;
             } else if (option->state.testFlag(QStyle::State_MouseOver)) {
@@ -61,11 +64,15 @@ protected:
 
         QColor backgroundColor(Qt::black);
         backgroundColor.setAlphaF(backgroundOpacity);
-        option->palette.setColor(QPalette::Button, backgroundColor);
+        option->palette.setColor(QPalette::All, QPalette::Button, backgroundColor);
 
         if (m_highlighted) {
-            QColor textColor = option->palette.highlight().color();
-            option->palette.setColor(QPalette::ButtonText, textColor);
+            // 未勾选协议时按钮不可用,文字使用不可用态的常规文字色;
+            // 勾选后按钮可用,文字才使用活动色(高亮色),使两种状态可以区分。
+            const QColor textColor = enabled
+                    ? option->palette.color(QPalette::Active, QPalette::Highlight)
+                    : option->palette.color(QPalette::Disabled, QPalette::WindowText);
+            option->palette.setColor(QPalette::All, QPalette::ButtonText, textColor);
         }
 
         option->state.setFlag(QStyle::State_MouseOver, false);
