@@ -203,6 +203,21 @@ const QString BubbleTool::getDeepinAppName(const QString &name)
     return desktop.localizedValue("Name", localKey, "Desktop Entry", name);
 }
 
+const QString BubbleTool::getDesktopPath(const QString &desktopName)
+{
+    QString desktopPath;
+
+    for (const auto dataPath : DStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation)) {
+        auto path = QStringList{ dataPath, desktopName }.join(QDir::separator());
+        if (QFile::exists(path)) {
+            desktopPath = path;
+            break;
+        }
+    }
+
+    return desktopPath;
+}
+
 void BubbleTool::actionInvoke(const QString &actionId, EntityPtr entity)
 {
     qDebug() << "actionId:" << actionId;
@@ -215,6 +230,15 @@ void BubbleTool::actionInvoke(const QString &actionId, EntityPtr entity)
             args.removeFirst();
             if (i.key() == "x-deepin-action-" + actionId) {
                 QProcess::startDetached(cmd, args); //执行相关命令
+            } else if(i.key() == "x-deepin-action-" + "_openbydesktop") {
+                auto desktopPath = getDesktopPath(cmd);
+                QDBusConnection conn = QDBusConnection::sessionBus();
+                QDBusMessage msg = QDBusMessage::createMethodCall("org.deepin.dde.StartManager1",
+                                                        "/org/deepin/dde/StartManager1",
+                                                        "org.deepin.dde.StartManager1",
+                                                        "LaunchApp");
+                msg << desktopPath << 0 << args;
+                conn.sessionBus().call(msg, QDBus::NoBlock);
             }
         }
         ++i;
