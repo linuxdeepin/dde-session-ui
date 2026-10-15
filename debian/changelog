@@ -1,3 +1,10 @@
+dde-session-ui (6.0.51) unstable; urgency=medium
+
+  * i18n: [dde-session-ui] Updates for project Deepin Desktop
+    Environment (#458)
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 15 Oct 2026 21:36:49 +0800
+
 dde-session-ui (6.0.50) unstable; urgency=medium
 
   * chore(i18n): remove redundant ar_EG translations, keep ar (#455)
