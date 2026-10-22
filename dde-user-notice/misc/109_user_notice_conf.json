@@ -1,0 +1,4 @@
+{
+    "ExecPath": "/usr/bin/dde_user_notice_wrapper",
+    "NeedExecScript": "/usr/bin/user_notice_check.sh"
+}

@@ -31,6 +31,26 @@
             "description": "自动退出的时间，单位秒",
             "permissions": "readwrite",
             "visibility": "private"
+        },
+        "showUserNotice": {
+            "value": false,
+            "serial": 0,
+            "flags": ["global"],
+            "name": "ShowUserNotice",
+            "name[zh_CN]": "是否在登录界面显示用户须知，false 不显示，true 显示",
+            "description": "是否在登录界面显示用户须知",
+            "permissions": "readwrite",
+            "visibility": "private"
+        },
+        "userNoticePath": {
+            "value": "",
+            "serial": 0,
+            "flags": ["global"],
+            "name": "UserNoticePath",
+            "name[zh_CN]": "用户须知内容文件的绝对路径，为空时不显示用户须知",
+            "description": "用户须知内容文件的绝对路径",
+            "permissions": "readwrite",
+            "visibility": "private"
         }
     }
 }
