@@ -85,6 +85,7 @@ add_subdirectory("dde-warning-dialog")
 add_subdirectory("dde-welcome")
 add_subdirectory("dde-wm-chooser")
 add_subdirectory("dde-blackwidget")
+add_subdirectory("dde-user-notice")
 
 # FIXME: startmanager is removed, so it need to be updated
 # add_subdirectory("dmemory-warning-dialog")
