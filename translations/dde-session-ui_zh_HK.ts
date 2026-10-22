@@ -168,6 +168,14 @@
     </message>
 </context>
 <context>
+    <name>PreLoginWindow</name>
+    <message>
+        <location filename="../dde-user-notice/src/preLoginWindow.cpp" line="58"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ProcessInfoModel</name>
     <message>
         <location filename="../dmemory-warning-dialog/src/processinfomodel.cpp" line="90"/>
