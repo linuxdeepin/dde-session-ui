@@ -50,8 +50,9 @@ protected:
     {
         DPushButton::initStyleOption(option);
 
-        qreal backgroundOpacity = 0.15;
-        if (option->state.testFlag(QStyle::State_Enabled)) {
+        const bool enabled = option->state.testFlag(QStyle::State_Enabled);
+        qreal backgroundOpacity = enabled ? 0.15 : 0.06;
+        if (enabled) {
             if (option->state.testFlag(QStyle::State_Sunken)) {
                 backgroundOpacity = 0.25;
             } else if (option->state.testFlag(QStyle::State_MouseOver)) {
@@ -63,7 +64,7 @@ protected:
         backgroundColor.setAlphaF(backgroundOpacity);
         option->palette.setColor(QPalette::Button, backgroundColor);
 
-        if (m_highlighted) {
+        if (m_highlighted && enabled) {
             QColor textColor = option->palette.highlight().color();
             option->palette.setColor(QPalette::ButtonText, textColor);
         }

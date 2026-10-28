@@ -16,6 +16,10 @@
 #include <QCommandLineParser>
 #include <QFile>
 #include <QDebug>
+#include <QWindow>
+#include <QTimer>
+
+#include <memory>
 
 DWIDGET_USE_NAMESPACE
 DGUI_USE_NAMESPACE
@@ -45,6 +49,9 @@ int main(int argc, char *argv[])
     QCommandLineOption theme(QStringList() << "p" << "palette", "Parm:string type \n Action:Set application theme \n Values: light, dark, auto (default: follow system)");
     QCommandLineOption titlebaricon(QStringList() << "i" << "icon-name", "Parm:string type \n Action:Show custom titlebar (left icon + close button) with given icon name");
 
+    QCommandLineOption parentWindow(QStringList() << "w" << "parent-window",
+                                    "X11 window ID of the parent window", "WindowId");
+
     title.setValueName("TitleName");
     entitle.setValueName("EnTitleName");
     content.setValueName("Content");
@@ -66,6 +73,7 @@ int main(int argc, char *argv[])
     parser.addOption(hidebottom);
     parser.addOption(theme);
     parser.addOption(titlebaricon);
+    parser.addOption(parentWindow);
     parser.process(a);
 
     if (parser.isSet(theme)) {
@@ -77,7 +85,20 @@ int main(int argc, char *argv[])
         }
     }
 
+    // Keep the foreign window alive for the lifetime of the dialog.
+    std::unique_ptr<QWindow> parent;
+    if (parser.isSet(parentWindow)) {
+        bool ok = false;
+        const auto windowId = parser.value(parentWindow).toULongLong(&ok, 0);
+        if (ok && windowId)
+            parent.reset(QWindow::fromWinId(static_cast<WId>(windowId)));
+    }
+
     MainWindow w;
+    if (parent) {
+        w.winId();
+        w.windowHandle()->setTransientParent(parent.get());
+    }
 
     if (parser.isSet(title)) {
         w.setTitle(parser.value(title));
@@ -121,8 +142,15 @@ int main(int argc, char *argv[])
     checker.setOutputFormat(DAccessibilityChecker::FullFormat);
     checker.start();
 #endif
-    Dtk::Widget::moveToCenter(&w);
+    // Let the window manager center transient dialogs relative to their parent.
+    if (!parent)
+        Dtk::Widget::moveToCenter(&w);
     w.show();
+    QTimer::singleShot(0, &w, [&w] {
+        w.raise();
+        w.activateWindow();
+        w.setFocus(Qt::OtherFocusReason);
+    });
 
 
     return a.exec();
