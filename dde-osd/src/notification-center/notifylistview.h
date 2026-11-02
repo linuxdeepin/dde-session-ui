@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2017 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2017 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -47,7 +47,7 @@ private:
     void handleScrollValueChanged();
     void handleScrollFinished();
 
-signals:
+Q_SIGNALS:
     void removeAniFinished(EntityPtr ptr);
     void expandAniFinished(QString appName);
     void addedAniFinished(EntityPtr entity);

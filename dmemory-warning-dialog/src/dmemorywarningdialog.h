@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2015 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -34,7 +34,7 @@ public:
         ExecuteCommand,
     };
 
-public slots:
+public Q_SLOTS:
     void updateAppInfo(const QString &appInfo);
 
 private:
@@ -42,7 +42,7 @@ private:
     void showEvent(QShowEvent *e);
     void hideEvent(QHideEvent *e);
 
-private slots:
+private Q_SLOTS:
     void onNeedMemChanged(const qulonglong needed);
     void onContinueClicked();
     void onCancelClicked();

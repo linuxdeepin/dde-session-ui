@@ -75,7 +75,7 @@ public:
     ~BlackWidgetAdaptor();
     Window *parent() const;
 
-public slots:
+public Q_SLOTS:
     void Raise();
     void Quit();
     void setActive(bool visible);

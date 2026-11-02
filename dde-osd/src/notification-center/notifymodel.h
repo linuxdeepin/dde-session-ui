@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2017 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2017 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -42,7 +42,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
-public slots:
+public Q_SLOTS:
     void addNotify(EntityPtr entity);                   // 添加一条通知，并更新视图
     void removeNotify(EntityPtr entity);                // 删除一条通知，并更新视图
     void removeAppGroup(QString appName);               // 移除一组通知

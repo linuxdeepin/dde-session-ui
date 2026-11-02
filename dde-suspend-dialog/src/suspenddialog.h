@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2016 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2016 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -35,7 +35,7 @@ public:
     explicit Manager();
     ~Manager() {}
 
-signals:
+Q_SIGNALS:
     void finished(const int code);
 
 private:
