@@ -9,6 +9,7 @@
 
 #include <QDebug>
 #include <QDir>
+#include <QFileInfo>
 #include <QProcess>
 #include <QX11Info>
 #include <QSettings>
@@ -214,7 +215,13 @@ void BubbleTool::actionInvoke(const QString &actionId, EntityPtr entity)
             QString cmd = args.first(); //命令
             args.removeFirst();
             if (i.key() == "x-deepin-action-" + actionId) {
-                QProcess::startDetached(cmd, args); //执行相关命令
+                // 安全检查：确保命令为绝对路径且可执行，防止命令注入
+                QFileInfo cmdInfo(cmd);
+                if (cmdInfo.isAbsolute() && cmdInfo.isFile() && cmdInfo.isExecutable()) {
+                    QProcess::startDetached(cmd, args); //执行相关命令
+                } else {
+                    qWarning() << "Rejected invalid action command:" << cmd;
+                }
             }
         }
         ++i;
