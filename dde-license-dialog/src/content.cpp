@@ -64,8 +64,13 @@ protected:
         option->palette.setColor(QPalette::Button, backgroundColor);
 
         if (m_highlighted) {
-            QColor textColor = option->palette.highlight().color();
-            option->palette.setColor(QPalette::ButtonText, textColor);
+            // QPalette::highlight() is resolved against the current color group, which
+            // follows the window activation state, so an enabled button in an inactive
+            // window picked up the de-saturated Inactive highlight and looked disabled.
+            // Select the group by the button's own enabled state instead.
+            const QPalette::ColorGroup group = option->state.testFlag(QStyle::State_Enabled)
+                    ? QPalette::Active : QPalette::Disabled;
+            option->palette.setColor(QPalette::ButtonText, option->palette.color(group, QPalette::Highlight));
         }
 
         option->state.setFlag(QStyle::State_MouseOver, false);
