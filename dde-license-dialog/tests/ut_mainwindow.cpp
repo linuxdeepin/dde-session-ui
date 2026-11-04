@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -10,6 +10,8 @@
 #include <DSuggestButton>
 
 #include <gtest/gtest.h>
+#include <QApplication>
+#include <QCheckBox>
 
 class UT_MainWindow : public testing::Test
 {
@@ -43,4 +45,30 @@ TEST_F(UT_MainWindow, coverageTest)
         EXPECT_TRUE(window.m_content->m_languageBtn->button(0)->isChecked());
    }
    window.setHideBottom("yes");
+}
+
+TEST_F(UT_MainWindow, windowDoesNotStayAboveOtherApplications)
+{
+    MainWindow window;
+    EXPECT_FALSE(window.windowFlags().testFlag(Qt::WindowStaysOnTopHint));
+    EXPECT_FALSE(window.btnclose->isHidden());
+    EXPECT_TRUE(window.btnclose->isEnabled());
+    EXPECT_FALSE(window.m_leftIconBtn->isHidden());
+}
+
+TEST_F(UT_MainWindow, focusGoesToWindowAndCloseDoesNotAccept)
+{
+    MainWindow window;
+    window.setAllowCheckBoxText("Agree");
+    window.setEnAllowCheckBoxText("Agree");
+    window.m_content->updateContent();
+    window.show();
+    window.activateWindow();
+    window.setFocus(Qt::OtherFocusReason);
+    QApplication::processEvents();
+    EXPECT_EQ(window.focusWidget(), &window);
+    EXPECT_FALSE(window.m_content->m_acceptCheck->hasFocus());
+    EXPECT_FALSE(window.m_content->m_acceptCheck->isChecked());
+    window.btnclose->click();
+    EXPECT_FALSE(window.isVisible());
 }
