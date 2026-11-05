@@ -63,9 +63,10 @@ protected:
         backgroundColor.setAlphaF(backgroundOpacity);
         option->palette.setColor(QPalette::Button, backgroundColor);
 
-        if (m_highlighted) {
+        if (m_highlighted && option->state.testFlag(QStyle::State_Enabled)) {
             QColor textColor = option->palette.highlight().color();
-            option->palette.setColor(QPalette::ButtonText, textColor);
+            option->palette.setColor(QPalette::Active, QPalette::ButtonText, textColor);
+            option->palette.setColor(QPalette::Inactive, QPalette::ButtonText, textColor);
         }
 
         option->state.setFlag(QStyle::State_MouseOver, false);
@@ -84,7 +85,7 @@ protected:
         painter.setBrush(option.palette.button());
         const int radius = DStyle::pixelMetric(style(), DStyle::PM_FrameRadius, &option, this);
         painter.drawRoundedRect(option.rect, radius, radius);
-        painter.drawControl(QStyle::CE_PushButton, option);
+        painter.drawControl(QStyle::CE_PushButtonLabel, option);
     }
 
 private:
