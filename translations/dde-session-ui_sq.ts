@@ -158,7 +158,7 @@
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="33"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation>Anulojeni</translation>
+        <translation>Anuloje</translation>
     </message>
     <message>
         <location filename="../dde-bluetooth-dialog/src/pincodedialog.cpp" line="35"/>
@@ -372,7 +372,7 @@
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="195"/>
         <source>Reset</source>
         <comment>button</comment>
-        <translation>Ricaktojeni</translation>
+        <translation>Riktheje te parazgjedhja</translation>
     </message>
     <message>
         <location filename="../reset-password-dialog/resetpassworddialog.cpp" line="149"/>
