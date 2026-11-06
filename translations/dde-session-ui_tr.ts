@@ -172,7 +172,7 @@
     <message>
         <location filename="../dde-user-notice/src/preLoginWindow.cpp" line="58"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>TAMAM</translation>
     </message>
 </context>
 <context>
