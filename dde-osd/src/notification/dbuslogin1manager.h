@@ -37,7 +37,7 @@ class Login1ManagerInterface: public QDBusAbstractInterface
             return;
         QVariantMap changedProps = qdbus_cast<QVariantMap>(arguments.at(1).value<QDBusArgument>());
         QStringList keys = changedProps.keys();
-        foreach(const QString &prop, keys) {
+        Q_FOREACH(const QString &prop, keys) {
         const QMetaObject* self = metaObject();
             for (int i=self->propertyOffset(); i < self->propertyCount(); ++i) {
                 QMetaProperty p = self->property(i);

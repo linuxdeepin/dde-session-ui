@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -49,7 +49,7 @@ TEST_F(UT_Manager, coverageTest)
         provide->userLayoutListChanged(layouts);
     }
 
-    foreach(QString arg , argList) {
+    Q_FOREACH(QString arg , argList) {
         obj->ShowOSD(arg);
     }
     obj->updateUI();
