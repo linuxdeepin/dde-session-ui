@@ -48,7 +48,7 @@ void DataWrapper::setCurrentLayout(const QString &currentLayout)
         return;
 
     m_currentLayout = currentLayout;
-    emit currentLayoutChanged(m_currentLayout);
+    Q_EMIT currentLayoutChanged(m_currentLayout);
 }
 
 QStringList DataWrapper::layoutList() const
@@ -64,7 +64,7 @@ void DataWrapper::setLayoutList(const QStringList &layoutList)
         return;
 
     m_layoutList = layoutList;
-    emit layoutListChanged(layoutList);
+    Q_EMIT layoutListChanged(layoutList);
 }
 
 void DataWrapper::initLayoutListAll()

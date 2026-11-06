@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2016 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2016 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -98,7 +98,7 @@ uint Persistence::doAddOne(EntityPtr entity)
 
     //action
     QString action;
-    foreach (QString text, entity->actions()) {
+    Q_FOREACH (QString text, entity->actions()) {
         action += text;
         action += ACTION_SEGMENT;
     }
@@ -252,7 +252,7 @@ QList<EntityPtr> Persistence::getAllNotify()
     QString json = getAll();
     QJsonArray notify_array = QJsonDocument::fromJson(json.toLocal8Bit().data()).array();
 
-    foreach (auto notify, notify_array) {
+    Q_FOREACH (auto notify, notify_array) {
         db_notification.append(fromJsonValue(notify));
     }
     return db_notification;
@@ -484,7 +484,7 @@ QVariantMap Persistence::ConvertStringToMap(const QString &text)
     QVariantMap map;
 
     QStringList keyValueList = text.split(HINT_SEGMENT);
-    foreach (QString text, keyValueList) {
+    Q_FOREACH (QString text, keyValueList) {
         QStringList list = text.split(KEYVALUE_SEGMENT);
         if (list.size() != 2)
             continue;

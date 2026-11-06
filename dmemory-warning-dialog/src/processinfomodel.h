@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2015 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -43,7 +43,7 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent) const;
     QModelIndex parent(const QModelIndex &child) const;
 
-public slots:
+public Q_SLOTS:
     void clearPressed();
     void startRefreshData() { m_processInfos->startRefreshData(); }
     void stopRefreshData() { m_processInfos->stopRefreshData(); }

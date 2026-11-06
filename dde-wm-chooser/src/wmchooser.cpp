@@ -122,5 +122,5 @@ void WMChooser::saveConfig()
 
 void WMChooser::leaveEvent(QEvent *)
 {
-    emit screenChanged();
+    Q_EMIT screenChanged();
 }
