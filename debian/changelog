@@ -1,3 +1,12 @@
+dde-session-ui (6.0.51.1000+pajil) unstable; urgency=medium
+
+  * feat: migrate pre-login user notice to Qt6
+  * chore(i18n): add PreLoginWindow source text for user notice
+  * fix(dde-license-dialog): fix confirm button appearing disabled when enabled
+  * fix: translate pre-login OK button into Chinese
+
+ -- zhangkun <zhangkun2@uniontech.com>  Tue, 10 Nov 2026 14:40:00 +0800
+
 dde-session-ui (6.0.51) unstable; urgency=medium
 
   * i18n: [dde-session-ui] Updates for project Deepin Desktop
