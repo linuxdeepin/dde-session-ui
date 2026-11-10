@@ -172,7 +172,7 @@
     <message>
         <location filename="../dde-user-notice/src/preLoginWindow.cpp" line="58"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation>确 定</translation>
     </message>
 </context>
 <context>
