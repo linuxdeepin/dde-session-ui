@@ -55,6 +55,9 @@ PreLoginWindow::PreLoginWindow(QWidget *parent)
 
 void PreLoginWindow::initUi()
 {
+    m_contentLabel->setObjectName("preloginContentLabel");
+    m_commitButton->setObjectName("preloginCommitButton");
+
     m_commitButton->setText(tr("OK"));
     m_commitButton->setFixedSize(214, 36);
     m_commitButton->setEnabled(false);
