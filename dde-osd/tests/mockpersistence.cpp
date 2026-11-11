@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -11,7 +11,7 @@ PersistenceHelper::PersistenceHelper()
             << "deepin-image-viewer" << "dde-calendar"
             << "deepin-diskmanager" << "org.deepin.scanner";
 
-    foreach(auto name, appName) {
+    Q_FOREACH(auto name, appName) {
         for (int i = 0; i < 10; i++) {
             auto notification = std::make_shared<NotificationEntity>(name);
             m_entityList << notification;
@@ -52,7 +52,7 @@ void PersistenceHelper::addAll(QList<EntityPtr> entiryList)
 
 void PersistenceHelper::removeOne(const QString &id)
 {
-    foreach(auto item, m_entityList) {
+    Q_FOREACH(auto item, m_entityList) {
         if (item->id() == id) {
             m_entityList.removeOne(item);
             return;

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2018 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -20,7 +20,7 @@ public:
     UnitTest();
     ~UnitTest();
 
-private slots:
+private Q_SLOTS:
     EntityPtr createEntity();
     void test_NotifyInter();    // 测试通知中心接口
     void test_BubbleTool();     // 测试BubbleTool类

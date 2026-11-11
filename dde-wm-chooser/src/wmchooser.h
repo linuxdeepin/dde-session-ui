@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -18,10 +18,10 @@ public:
     void setConfigPath(const QString &path);
     void createParentDir(const QString &fullfilepath);
 
-signals:
+Q_SIGNALS:
     void screenChanged();
 
-private slots:
+private Q_SLOTS:
     void saveConfig();
 
 protected:

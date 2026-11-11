@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2016 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2016 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -43,7 +43,7 @@ public:
     virtual QString getFrom(int rowCount, const QString &offsetId) = 0;
     virtual uint recordCount() = 0;
 
-signals:
+Q_SIGNALS:
     void RecordAdded(EntityPtr entity);
     void recordCountChanged(uint count);
 };

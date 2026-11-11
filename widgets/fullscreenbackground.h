@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -22,13 +22,13 @@ public:
 
     bool contentVisible() const;
 
-public slots:
+public Q_SLOTS:
     void updateBackground(const QPixmap &background);
     void updateBackground(const QString &file);
     void setScreen(QScreen *screen);
     void setContentVisible(bool contentVisible);
 
-signals:
+Q_SIGNALS:
     void contentVisibleChanged(bool contentVisible);
 
 protected:

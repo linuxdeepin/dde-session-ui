@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -60,7 +60,7 @@ public:
     virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const = 0;
     virtual QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const = 0;
 
-signals:
+Q_SIGNALS:
     void dataChanged();
 
 protected:

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -25,7 +25,7 @@ void NotifySettingHelper::initAllSettings()
     m_systemSetting["show-icon"] = true;
     m_systemSetting["app-list"] = appList;
 
-    foreach(auto appname, appList) {
+    Q_FOREACH(auto appname, appList) {
         QMap<QString, QVariant> appSetting;
         appSetting["enable-notification"] = DEFAULT_ALLOW_NOTIFY;
         appSetting["show-in-notification-center"] = DEFAULT_ONLY_IN_NOTIFY;

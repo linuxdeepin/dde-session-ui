@@ -29,10 +29,10 @@ public:
      * @return 返回计算后的窗口宽度
      */
     int calWidgetWidth();
-signals:
+Q_SIGNALS:
     void sourceChanged(bool isCn);
 
-public slots:
+public Q_SLOTS:
     void setSource(const QString& source);
     void setAllowCheckBoxText(const QString& text);
     void setEnAllowCheckBoxText(const QString& text);
