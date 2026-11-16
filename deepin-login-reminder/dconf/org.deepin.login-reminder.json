@@ -11,7 +11,7 @@
       "description": "Display login reminder notification including login information, password expiration warning and failed login attempts",
       "description[zh_CN]": "显示登录提醒通知，包括登录信息、密码过期警告和登录失败次数",
       "permissions": "readwrite",
-      "visibility": "public"
+      "visibility": "private"
     }
   }
 }
