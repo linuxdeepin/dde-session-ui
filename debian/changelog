@@ -1,3 +1,9 @@
+dde-session-ui (6.0.53) unstable; urgency=medium
+
+  * fix: keep login reminder configuration private
+
+ -- zhaofangxun <zhaofangxun@uniontech.com>  Thu, 19 Nov 2026 21:35:04 +0800
+
 dde-session-ui (6.0.52) unstable; urgency=medium
 
   * feat: migrate pre-login user notice to Qt6
