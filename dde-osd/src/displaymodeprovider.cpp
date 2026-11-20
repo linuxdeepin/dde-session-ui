@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -235,7 +235,7 @@ void DisplayModeProvider::updateOutputNames()
             // 按照名称排序，显示的时候VGA在前，HDMI在后
             std::sort(m_outputNames.begin(), m_outputNames.end(), std::greater<QString>());
             updatePlanItems();
-            emit dataChanged();
+            Q_EMIT dataChanged();
         }
     });
 }
@@ -300,7 +300,7 @@ void DisplayModeProvider::displayModeChanged(const uchar &mode)
     m_displayMode = mode;
 
     updatePlanItems();
-    emit dataChanged();
+    Q_EMIT dataChanged();
 }
 
 void DisplayModeProvider::primaryChanged(const QString &primary)
@@ -310,5 +310,5 @@ void DisplayModeProvider::primaryChanged(const QString &primary)
     m_primaryScreen = primary;
 
     updatePlanItems();
-    emit dataChanged();
+    Q_EMIT dataChanged();
 }

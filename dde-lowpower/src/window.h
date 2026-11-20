@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2015 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -28,7 +28,7 @@ private:
 
     void setupSize();
     void setupUI();
-public slots:
+public Q_SLOTS:
     void HideShowToRaise(bool visible);
 };
 
@@ -40,7 +40,7 @@ public:
     explicit LowPowerAdaptor(Window * parent);
     ~LowPowerAdaptor();
 
-public slots:
+public Q_SLOTS:
     void Raise();
     void Quit();
 };

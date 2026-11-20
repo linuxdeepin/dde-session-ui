@@ -38,7 +38,7 @@ class DBusDockInterface: public DTK_CORE_NAMESPACE::DDBusExtendedAbstractInterfa
         if (interfaceName != staticInterfaceName())
             return;
         QVariantMap changedProps = qdbus_cast<QVariantMap>(arguments.at(1).value<QDBusArgument>());
-        foreach(const QString &prop, changedProps.keys()) {
+        Q_FOREACH(const QString &prop, changedProps.keys()) {
         const QMetaObject* self = metaObject();
             for (int i=self->propertyOffset(); i < self->propertyCount(); ++i) {
                 QMetaProperty p = self->property(i);

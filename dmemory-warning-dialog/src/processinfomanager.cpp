@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2015 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -151,7 +151,7 @@ void ProcessInfoManager::scanProcessInfos()
         return a.total_mem_bytes > b.total_mem_bytes;
     });
 
-    emit processInfoListChanged();
+    Q_EMIT processInfoListChanged();
 }
 
 void ProcessInfoManager::startRefreshData()

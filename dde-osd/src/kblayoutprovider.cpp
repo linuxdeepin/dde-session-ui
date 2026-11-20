@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -145,7 +145,7 @@ void KBLayoutProvider::currentLayoutChanged(const QString &layout)
     if (m_userCurrentLayout == layout) return;
 
     m_userCurrentLayout = layout;
-    emit dataChanged();
+    Q_EMIT dataChanged();
 }
 
 void KBLayoutProvider::userLayoutListChanged(const QStringList &layouts)
@@ -153,5 +153,5 @@ void KBLayoutProvider::userLayoutListChanged(const QStringList &layouts)
     m_userLayouts = layouts;
     QDBusReply<KeyboardLayoutList> reply = m_keyboardInter->LayoutList();
     m_database = reply.value();
-    emit dataChanged();
+    Q_EMIT dataChanged();
 }

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -401,5 +401,5 @@ void NotifyListView::handleScrollFinished()
     blockSignals(false);
 
     QPoint pos = mapFromGlobal(QCursor::pos());
-    emit entered(indexAt(pos));
+    Q_EMIT entered(indexAt(pos));
 }

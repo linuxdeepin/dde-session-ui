@@ -60,7 +60,7 @@ HintsDialog::HintsDialog(QWidget *parent)
     setLayout(layout);
 
     connect(m_closeButton, &DDialogCloseButton::clicked, this, [ = ]{
-        emit this->accept();
+        Q_EMIT this->accept();
     });
 }
 

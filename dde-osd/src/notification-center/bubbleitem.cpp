@@ -1,4 +1,4 @@
-﻿// SPDX-FileCopyrightText: 2017 - 2022 UnionTech Software Technology Co., Ltd.
+﻿// SPDX-FileCopyrightText: 2017 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -366,7 +366,7 @@ QList<QPointer<QWidget>> BubbleItem::bubbleElements()
 {
     QList<QPointer<QWidget>> bubble_elements;
     bubble_elements.append(m_closeButton); m_actionButton->buttonList();
-    foreach (auto btn, m_actionButton->buttonList()) {
+    Q_FOREACH (auto btn, m_actionButton->buttonList()) {
         bubble_elements.append(btn);
     }
     return bubble_elements;

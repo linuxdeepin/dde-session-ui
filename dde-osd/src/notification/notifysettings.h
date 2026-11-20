@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -57,7 +57,7 @@ public:
     virtual void setAllSetting_v1(QString settings) = 0;
     virtual QString getAllSetings_v1() = 0;
 
-signals:
+Q_SIGNALS:
     void appAddedSignal(const QString &id);
     void appRemovedSignal(const QString &id);
     void appSettingChanged(const QString &id, const uint &item, QVariant var);

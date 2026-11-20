@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -87,7 +87,7 @@ void FullscreenBackground::setContentVisible(bool contentVisible)
 
     m_content->setVisible(contentVisible);
 
-    emit contentVisibleChanged(contentVisible);
+    Q_EMIT contentVisibleChanged(contentVisible);
 }
 
 void FullscreenBackground::setContent(QWidget * const w)
@@ -130,7 +130,7 @@ void FullscreenBackground::paintEvent(QPaintEvent *e)
 void FullscreenBackground::enterEvent(QEnterEvent *event)
 {
     m_content->show();
-    emit contentVisibleChanged(true);
+    Q_EMIT contentVisibleChanged(true);
 
     return QWidget::enterEvent(event);
 }

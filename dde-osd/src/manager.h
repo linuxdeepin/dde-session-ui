@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -24,7 +24,7 @@ class Manager : public QObject
 public:
     explicit Manager(QObject *parent = 0);
 
-public slots:
+public Q_SLOTS:
     void ShowOSD(const QString &osd);
 
 private:
@@ -39,7 +39,7 @@ private:
 
     QTimer *m_timer;
 
-private slots:
+private Q_SLOTS:
     void updateUI();    //更新UI界面
     void doneSetting();
 };

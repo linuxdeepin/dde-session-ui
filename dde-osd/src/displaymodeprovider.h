@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -68,7 +68,7 @@ private:
     QString getPlanItemName(QPair<uchar,QString> &plan) const;
     QString getPlanItemIconName(const int index) const;
 
-private slots:
+private Q_SLOTS:
     void displayModeChanged(const uchar &mode);
     void primaryChanged(const QString &primary);
 

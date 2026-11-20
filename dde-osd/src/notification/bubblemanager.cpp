@@ -1,4 +1,4 @@
-﻿// SPDX-FileCopyrightText: 2014 - 2022 UnionTech Software Technology Co., Ltd.
+﻿// SPDX-FileCopyrightText: 2014 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -106,7 +106,7 @@ void BubbleManager::CloseNotification(uint id)
 #endif
 
     QString str_id = QString::number(id);
-    foreach (auto bubble, m_bubbleList) {
+    Q_FOREACH (auto bubble, m_bubbleList) {
         if (bubble->entity()->replacesId() == str_id) {
             //m_persistence->addOne(bubble->entity());
             bubble->close();
@@ -115,7 +115,7 @@ void BubbleManager::CloseNotification(uint id)
         }
     }
 
-    foreach (auto notify, m_oldEntities) {
+    Q_FOREACH (auto notify, m_oldEntities) {
         if (notify->replacesId() == str_id) {
             //m_persistence->addOne(notify);
             m_oldEntities.removeOne(notify);

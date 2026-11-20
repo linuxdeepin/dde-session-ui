@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2016 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2016 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -15,7 +15,7 @@ class SignalBridge : public QObject, public Dtk::Core::DSingleton<SignalBridge>
 private:
     explicit SignalBridge(QObject *parent = nullptr) : QObject(parent) {}
 
-signals:
+Q_SIGNALS:
     /**
      * @brief actionInvoked 提醒action已经执行
      */

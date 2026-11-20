@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2017 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2017 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -24,7 +24,7 @@ NotifyModel::NotifyModel(QObject *parent, AbstractPersistence *database, NotifyL
 ListItem NotifyModel::getAppData(QString appName) const
 {
 
-    foreach (auto item, m_notifications) {
+    Q_FOREACH (auto item, m_notifications) {
         if (item.appName == appName)
             return item;
     }
@@ -35,7 +35,7 @@ int NotifyModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
     int count = 0;
-    foreach (auto item, m_notifications) {
+    Q_FOREACH (auto item, m_notifications) {
         count += item.showList.size();
     }
     count += m_notifications.size();
@@ -252,7 +252,7 @@ void NotifyModel::initData()
         return ptr1->ctime().toLongLong() < ptr2->ctime().toLongLong();
     });
 
-    foreach (auto notify, notifications) {
+    Q_FOREACH (auto notify, notifications) {
         if(!checkTimeOut(notify, OVERLAPTIMEOUT_7_DAY)) {
             addAppData(notify);
         } else {

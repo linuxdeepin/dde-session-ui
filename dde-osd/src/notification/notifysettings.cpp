@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -471,7 +471,7 @@ QString NotifySettings::getAllSetings_v1()
     QStringList appList = m_systemSetting->get("app-list").toStringList();
 
     QJsonObject jsonObj;
-    foreach (const auto &id, appList) {
+    Q_FOREACH (const auto &id, appList) {
         QGSettings itemSetting(appSchemaKey.toLocal8Bit(), appSchemaPath.arg(id).toLocal8Bit(), this);
         QJsonObject itemObj;
         itemObj.insert(AllowNotifyStr, itemSetting.get("enable-notification").toJsonValue());

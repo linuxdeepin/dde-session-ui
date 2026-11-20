@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2015 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -50,7 +50,7 @@ ProcessInfoModel::ProcessInfoModel(QObject *parent)
 
     , m_processInfos(new ProcessInfoManager)
 {
-    connect(m_processInfos, &ProcessInfoManager::processInfoListChanged, this, [=] { emit layoutChanged(); });
+    connect(m_processInfos, &ProcessInfoManager::processInfoListChanged, this, [=] { Q_EMIT layoutChanged(); });
 }
 
 int ProcessInfoModel::rowCount(const QModelIndex &parent) const
@@ -185,7 +185,7 @@ void ProcessInfoModel::clearPressed()
     const QModelIndex idx = m_pressedIndex;
     m_pressedIndex = QModelIndex();
 
-    emit dataChanged(idx, idx);
+    Q_EMIT dataChanged(idx, idx);
 }
 
 bool ProcessInfoModel::setData(const QModelIndex &index, const QVariant &value, int role)

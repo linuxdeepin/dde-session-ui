@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2015 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -40,10 +40,10 @@ class ProcessInfoManager : public QObject
 public:
     explicit ProcessInfoManager(QObject *parent = nullptr);
 
-signals:
+Q_SIGNALS:
     void processInfoListChanged() const;
 
-private slots:
+private Q_SLOTS:
     void scanChromeTabs();
     void scanProcessInfos();
     void startRefreshData();
