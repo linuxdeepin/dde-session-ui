@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+# SPDX-FileCopyrightText: 2023 - 2026 UnionTech Software Technology Co., Ltd.
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -13,12 +13,14 @@ set(Lowpower_Includes
     Dtk${DTK_VERSION_MAJOR}::Widget
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::DBus
+    Dde::Shell
 )
 
 set(Lowpower_Libraries
     Dtk${DTK_VERSION_MAJOR}::Widget
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::DBus
+    Dde::Shell
 )
 
 add_subdirectory("src")

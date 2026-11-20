@@ -48,6 +48,7 @@ find_package(GTest REQUIRED)
 find_package(GMock REQUIRED)
 find_package(Dtk${DTK_VERSION_MAJOR} REQUIRED COMPONENTS Core Widget Tools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets DBus Xml Concurrent Svg Sql Network Test LinguistTools)
+find_package(DDEShell REQUIRED)
 
 pkg_check_modules(XCB_EWMH REQUIRED IMPORTED_TARGET xcb-ewmh)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
