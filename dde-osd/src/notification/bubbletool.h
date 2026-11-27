@@ -27,6 +27,7 @@ public:
     static void actionInvoke(const QString &actionId, EntityPtr entity);//从entity提取出命令信息,执行命令产生相应动作
     static void register_wm_state(WId winid);//保持气泡窗口置顶
     static const QString getDeepinAppName(const QString &name);//获取应用名称
+    static const QString getDeepinDesktopPath(const QString &name);//获取desktop文件路径
 
 private:
     /*!
