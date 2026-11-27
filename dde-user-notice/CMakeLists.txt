@@ -31,6 +31,8 @@ install(TARGETS ${UserNotice_Name} DESTINATION ${CMAKE_INSTALL_BINDIR})
 ## 需要在 greeter 之前启动的配置和脚本
 install(FILES misc/109_user_notice_conf.json
     DESTINATION ${CMAKE_INSTALL_DATADIR}/dde-session-shell/greeters.d/launch.conf.d)
+install(FILES misc/109_user_notice_conf.json
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/dde-session-shell/greeters.d/account-entry.conf.d)
 install(PROGRAMS
     misc/user_notice_check.sh
     misc/dde_user_notice_wrapper
