@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     if (arguslist.size() >= 5) {
         cancelable = arguslist[CancelBtnState] == "true";
     }
-    qDebug() << "PingCode:" << arguslist[PingCode] << " Device Path:" << arguslist[DevicePath] << "Ping Time:" + arguslist[PingTime]
+    qDebug() << "Device Path:" << arguslist[DevicePath] << "Ping Time:" + arguslist[PingTime]
              << "isCancelBtnShown:" << cancelable;
 
     PinCodeDialog dialog(arguslist[PingCode], arguslist[DevicePath], arguslist[PingTime], cancelable);

@@ -172,17 +172,19 @@ DCORE_USE_NAMESPACE
 
             if (!servicePid.isEmpty()) {
                 // 记录通知发送方
-                QString cmd = QString("grep \"Name:\" /proc/%1/status").arg(servicePid);
-                QProcess process;
-                QStringList args;
-                args << "-c";
-                args << cmd;
-                process.start("sh", args);
-                process.waitForReadyRead();
-                qDebug() << "cmd :" << cmd;
-                QString result = QString::fromUtf8(process.readAllStandardOutput());
-                qDebug() << "notify called by :" << result;
-                process.close();
+                QFile statusFile(QString("/proc/%1/status").arg(servicePid));
+                if (statusFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                    QString result;
+                    while (!statusFile.atEnd()) {
+                        QString line = QString::fromUtf8(statusFile.readLine());
+                        if (line.startsWith("Name:")) {
+                            result = line;
+                            break;
+                        }
+                    }
+                    qDebug() << "notify called by :" << result;
+                    statusFile.close();
+                }
             }
         }
     }
